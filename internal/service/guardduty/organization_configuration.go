@@ -22,7 +22,7 @@ import (
 func ResourceOrganizationConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceOrganizationConfigurationUpdate,
-		ReadWithoutTimeout:   resourceOrganizationConfigurationRead,
+		ReadWithoutTimeout:resourceOrganizationConfigurationRead,
 		UpdateWithoutTimeout: resourceOrganizationConfigurationUpdate,
 		DeleteWithoutTimeout: schema.NoopContext,
 
@@ -36,7 +36,7 @@ func ResourceOrganizationConfiguration() *schema.Resource {
 				Optional:
 				Computed:
 				ExactlyOneOf: []string{"auto_enable", "auto_enable_organization_members"},
-				Deprecated:   "Use auto_enable_organization_members instead",
+				Deprecated:"Use auto_enable_organization_members instead",
 			},
 
 			"auto_enable_organization_members": {
@@ -165,7 +165,6 @@ func ResourceOrganizationConfiguration() *schema.Resource {
 		),
 	}
 }
-
 func resourceOrganizationConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -191,7 +190,6 @@ func resourceOrganizationConfigurationUpdate(ctx context.Context, d *schema.Reso
 
 	return append(diags, resourceOrganizationConfigurationRead(ctx, d, meta)...)
 }
-
 func resourceOrganizationConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -231,7 +229,6 @@ func resourceOrganizationConfigurationRead(ctx context.Context, d *schema.Resour
 
 	return diags
 }
-
 func expandOrganizationDataSourceConfigurations(tfMap map[string]interface{}) *guardduty.OrganizationDataSourceConfigurations {
 	if tfMap == nil {
 		return nil
@@ -253,7 +250,6 @@ func expandOrganizationDataSourceConfigurations(tfMap map[string]interface{}) *g
 
 	return apiObject
 }
-
 func expandOrganizationS3LogsConfiguration(tfMap map[string]interface{}) *guardduty.OrganizationS3LogsConfiguration {
 	if tfMap == nil {
 		return nil
@@ -267,7 +263,6 @@ func expandOrganizationS3LogsConfiguration(tfMap map[string]interface{}) *guardd
 
 	return apiObject
 }
-
 func expandOrganizationKubernetesConfiguration(tfMap map[string]interface{}) *guardduty.OrganizationKubernetesConfiguration {
 	if tfMap == nil {
 		return nil
@@ -287,7 +282,6 @@ func expandOrganizationKubernetesConfiguration(tfMap map[string]interface{}) *gu
 		AuditLogs: expandOrganizationKubernetesAuditLogsConfiguration(m),
 	}
 }
-
 func expandOrganizationMalwareProtectionConfiguration(tfMap map[string]interface{}) *guardduty.OrganizationMalwareProtectionConfiguration {
 	if tfMap == nil {
 		return nil
@@ -307,7 +301,6 @@ func expandOrganizationMalwareProtectionConfiguration(tfMap map[string]interface
 		ScanEc2InstanceWithFindings: expandOrganizationScanEC2InstanceWithFindingsConfiguration(m),
 	}
 }
-
 func expandOrganizationScanEC2InstanceWithFindingsConfiguration(tfMap map[string]interface{}) *guardduty.OrganizationScanEc2InstanceWithFindings {
 	if tfMap == nil {
 		return nil
@@ -327,7 +320,6 @@ func expandOrganizationScanEC2InstanceWithFindingsConfiguration(tfMap map[string
 		EbsVolumes: expandOrganizationEBSVolumesConfiguration(m),
 	}
 }
-
 func expandOrganizationEBSVolumesConfiguration(tfMap map[string]interface{}) *guardduty.OrganizationEbsVolumes {
 	if tfMap == nil {
 		return nil
@@ -341,7 +333,6 @@ func expandOrganizationEBSVolumesConfiguration(tfMap map[string]interface{}) *gu
 
 	return apiObject
 }
-
 func expandOrganizationKubernetesAuditLogsConfiguration(tfMap map[string]interface{}) *guardduty.OrganizationKubernetesAuditLogsConfiguration {
 	if tfMap == nil {
 		return nil
@@ -355,7 +346,6 @@ func expandOrganizationKubernetesAuditLogsConfiguration(tfMap map[string]interfa
 
 	return apiObject
 }
-
 func flattenOrganizationDataSourceConfigurationsResult(apiObject *guardduty.OrganizationDataSourceConfigurationsResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -374,7 +364,6 @@ func flattenOrganizationDataSourceConfigurationsResult(apiObject *guardduty.Orga
 	}
 	return tfMap
 }
-
 func flattenOrganizationS3LogsConfigurationResult(apiObject *guardduty.OrganizationS3LogsConfigurationResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -388,7 +377,6 @@ func flattenOrganizationS3LogsConfigurationResult(apiObject *guardduty.Organizat
 
 	return tfMap
 }
-
 func flattenOrganizationKubernetesConfigurationResult(apiObject *guardduty.OrganizationKubernetesConfigurationResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -402,7 +390,6 @@ func flattenOrganizationKubernetesConfigurationResult(apiObject *guardduty.Organ
 
 	return tfMap
 }
-
 func flattenOrganizationKubernetesAuditLogsConfiguration(apiObject *guardduty.OrganizationKubernetesAuditLogsConfigurationResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -416,7 +403,6 @@ func flattenOrganizationKubernetesAuditLogsConfiguration(apiObject *guardduty.Or
 
 	return tfMap
 }
-
 func flattenOrganizationMalwareProtectionConfigurationResult(apiObject *guardduty.OrganizationMalwareProtectionConfigurationResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -430,7 +416,6 @@ func flattenOrganizationMalwareProtectionConfigurationResult(apiObject *guarddut
 
 	return tfMap
 }
-
 func flattenOrganizationMalwareProtectionScanEC2InstanceWithFindingsResult(apiObject *guardduty.OrganizationScanEc2InstanceWithFindingsResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -444,7 +429,6 @@ func flattenOrganizationMalwareProtectionScanEC2InstanceWithFindingsResult(apiOb
 
 	return tfMap
 }
-
 func flattenOrganizationMalwareProtectionEBSVolumesResult(apiObject *guardduty.OrganizationEbsVolumesResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil

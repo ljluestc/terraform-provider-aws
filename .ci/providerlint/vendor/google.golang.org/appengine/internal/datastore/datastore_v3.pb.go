@@ -87,24 +87,20 @@ var Property_Meaning_value = map[string]int32{
 	"ENTITY_PROTO":     19,
 	"INDEX_VALUE":      18,
 }
-
-func (x Property_Meaning) Enum() *Property_Meaning {
+ (x Property_Meaning) Enum() *Property_Meaning {
 	p := new(Property_Meaning)
 	*p = x
 	return p
-}
-func (x Property_Meaning) String() string {
+} (x Property_Meaning) String() string {
 	return proto.EnumName(Property_Meaning_name, int32(x))
-}
-func (x *Property_Meaning) UnmarshalJSON(data []byte) error {
+} (x *Property_Meaning) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(Property_Meaning_value, data, "Property_Meaning")
 	if err != nil {
 		return err
 	}
 	*x = Property_Meaning(value)
 	return nil
-}
-func (Property_Meaning) EnumDescriptor() ([]byte, []int) {
+} (Property_Meaning) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{2, 0}
 }
 
@@ -123,24 +119,20 @@ var Property_FtsTokenizationOption_value = map[string]int32{
 	"HTML": 1,
 	"ATOM": 2,
 }
-
-func (x Property_FtsTokenizationOption) Enum() *Property_FtsTokenizationOption {
+ (x Property_FtsTokenizationOption) Enum() *Property_FtsTokenizationOption {
 	p := new(Property_FtsTokenizationOption)
 	*p = x
 	return p
-}
-func (x Property_FtsTokenizationOption) String() string {
+} (x Property_FtsTokenizationOption) String() string {
 	return proto.EnumName(Property_FtsTokenizationOption_name, int32(x))
-}
-func (x *Property_FtsTokenizationOption) UnmarshalJSON(data []byte) error {
+} (x *Property_FtsTokenizationOption) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(Property_FtsTokenizationOption_value, data, "Property_FtsTokenizationOption")
 	if err != nil {
 		return err
 	}
 	*x = Property_FtsTokenizationOption(value)
 	return nil
-}
-func (Property_FtsTokenizationOption) EnumDescriptor() ([]byte, []int) {
+} (Property_FtsTokenizationOption) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{2, 1}
 }
 
@@ -162,24 +154,20 @@ var EntityProto_Kind_value = map[string]int32{
 	"GD_EVENT":   2,
 	"GD_MESSAGE": 3,
 }
-
-func (x EntityProto_Kind) Enum() *EntityProto_Kind {
+ (x EntityProto_Kind) Enum() *EntityProto_Kind {
 	p := new(EntityProto_Kind)
 	*p = x
 	return p
-}
-func (x EntityProto_Kind) String() string {
+} (x EntityProto_Kind) String() string {
 	return proto.EnumName(EntityProto_Kind_name, int32(x))
-}
-func (x *EntityProto_Kind) UnmarshalJSON(data []byte) error {
+} (x *EntityProto_Kind) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(EntityProto_Kind_value, data, "EntityProto_Kind")
 	if err != nil {
 		return err
 	}
 	*x = EntityProto_Kind(value)
 	return nil
-}
-func (EntityProto_Kind) EnumDescriptor() ([]byte, []int) {
+} (EntityProto_Kind) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{6, 0}
 }
 
@@ -198,24 +186,20 @@ var Index_Property_Direction_value = map[string]int32{
 	"ASCENDING":  1,
 	"DESCENDING": 2,
 }
-
-func (x Index_Property_Direction) Enum() *Index_Property_Direction {
+ (x Index_Property_Direction) Enum() *Index_Property_Direction {
 	p := new(Index_Property_Direction)
 	*p = x
 	return p
-}
-func (x Index_Property_Direction) String() string {
+} (x Index_Property_Direction) String() string {
 	return proto.EnumName(Index_Property_Direction_name, int32(x))
-}
-func (x *Index_Property_Direction) UnmarshalJSON(data []byte) error {
+} (x *Index_Property_Direction) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(Index_Property_Direction_value, data, "Index_Property_Direction")
 	if err != nil {
 		return err
 	}
 	*x = Index_Property_Direction(value)
 	return nil
-}
-func (Index_Property_Direction) EnumDescriptor() ([]byte, []int) {
+} (Index_Property_Direction) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{8, 0, 0}
 }
 
@@ -240,24 +224,20 @@ var CompositeIndex_State_value = map[string]int32{
 	"DELETED":    3,
 	"ERROR":      4,
 }
-
-func (x CompositeIndex_State) Enum() *CompositeIndex_State {
+ (x CompositeIndex_State) Enum() *CompositeIndex_State {
 	p := new(CompositeIndex_State)
 	*p = x
 	return p
-}
-func (x CompositeIndex_State) String() string {
+} (x CompositeIndex_State) String() string {
 	return proto.EnumName(CompositeIndex_State_name, int32(x))
-}
-func (x *CompositeIndex_State) UnmarshalJSON(data []byte) error {
+} (x *CompositeIndex_State) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(CompositeIndex_State_value, data, "CompositeIndex_State")
 	if err != nil {
 		return err
 	}
 	*x = CompositeIndex_State(value)
 	return nil
-}
-func (CompositeIndex_State) EnumDescriptor() ([]byte, []int) {
+} (CompositeIndex_State) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{9, 0}
 }
 
@@ -276,24 +256,20 @@ var Snapshot_Status_value = map[string]int32{
 	"INACTIVE": 0,
 	"ACTIVE":   1,
 }
-
-func (x Snapshot_Status) Enum() *Snapshot_Status {
+ (x Snapshot_Status) Enum() *Snapshot_Status {
 	p := new(Snapshot_Status)
 	*p = x
 	return p
-}
-func (x Snapshot_Status) String() string {
+} (x Snapshot_Status) String() string {
 	return proto.EnumName(Snapshot_Status_name, int32(x))
-}
-func (x *Snapshot_Status) UnmarshalJSON(data []byte) error {
+} (x *Snapshot_Status) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(Snapshot_Status_value, data, "Snapshot_Status")
 	if err != nil {
 		return err
 	}
 	*x = Snapshot_Status(value)
 	return nil
-}
-func (Snapshot_Status) EnumDescriptor() ([]byte, []int) {
+} (Snapshot_Status) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{12, 0}
 }
 
@@ -315,24 +291,20 @@ var Query_Hint_value = map[string]int32{
 	"ANCESTOR_FIRST": 2,
 	"FILTER_FIRST":   3,
 }
-
-func (x Query_Hint) Enum() *Query_Hint {
+ (x Query_Hint) Enum() *Query_Hint {
 	p := new(Query_Hint)
 	*p = x
 	return p
-}
-func (x Query_Hint) String() string {
+} (x Query_Hint) String() string {
 	return proto.EnumName(Query_Hint_name, int32(x))
-}
-func (x *Query_Hint) UnmarshalJSON(data []byte) error {
+} (x *Query_Hint) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(Query_Hint_value, data, "Query_Hint")
 	if err != nil {
 		return err
 	}
 	*x = Query_Hint(value)
 	return nil
-}
-func (Query_Hint) EnumDescriptor() ([]byte, []int) {
+} (Query_Hint) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{15, 0}
 }
 
@@ -366,24 +338,20 @@ var Query_Filter_Operator_value = map[string]int32{
 	"IN":                    6,
 	"EXISTS":                7,
 }
-
-func (x Query_Filter_Operator) Enum() *Query_Filter_Operator {
+ (x Query_Filter_Operator) Enum() *Query_Filter_Operator {
 	p := new(Query_Filter_Operator)
 	*p = x
 	return p
-}
-func (x Query_Filter_Operator) String() string {
+} (x Query_Filter_Operator) String() string {
 	return proto.EnumName(Query_Filter_Operator_name, int32(x))
-}
-func (x *Query_Filter_Operator) UnmarshalJSON(data []byte) error {
+} (x *Query_Filter_Operator) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(Query_Filter_Operator_value, data, "Query_Filter_Operator")
 	if err != nil {
 		return err
 	}
 	*x = Query_Filter_Operator(value)
 	return nil
-}
-func (Query_Filter_Operator) EnumDescriptor() ([]byte, []int) {
+} (Query_Filter_Operator) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{15, 0, 0}
 }
 
@@ -402,24 +370,20 @@ var Query_Order_Direction_value = map[string]int32{
 	"ASCENDING":  1,
 	"DESCENDING": 2,
 }
-
-func (x Query_Order_Direction) Enum() *Query_Order_Direction {
+ (x Query_Order_Direction) Enum() *Query_Order_Direction {
 	p := new(Query_Order_Direction)
 	*p = x
 	return p
-}
-func (x Query_Order_Direction) String() string {
+} (x Query_Order_Direction) String() string {
 	return proto.EnumName(Query_Order_Direction_name, int32(x))
-}
-func (x *Query_Order_Direction) UnmarshalJSON(data []byte) error {
+} (x *Query_Order_Direction) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(Query_Order_Direction_value, data, "Query_Order_Direction")
 	if err != nil {
 		return err
 	}
 	*x = Query_Order_Direction(value)
 	return nil
-}
-func (Query_Order_Direction) EnumDescriptor() ([]byte, []int) {
+} (Query_Order_Direction) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{15, 1, 0}
 }
 
@@ -465,24 +429,20 @@ var Error_ErrorCode_value = map[string]int32{
 	"TRY_ALTERNATE_BACKEND":        10,
 	"SAFE_TIME_TOO_OLD":            11,
 }
-
-func (x Error_ErrorCode) Enum() *Error_ErrorCode {
+ (x Error_ErrorCode) Enum() *Error_ErrorCode {
 	p := new(Error_ErrorCode)
 	*p = x
 	return p
-}
-func (x Error_ErrorCode) String() string {
+} (x Error_ErrorCode) String() string {
 	return proto.EnumName(Error_ErrorCode_name, int32(x))
-}
-func (x *Error_ErrorCode) UnmarshalJSON(data []byte) error {
+} (x *Error_ErrorCode) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(Error_ErrorCode_value, data, "Error_ErrorCode")
 	if err != nil {
 		return err
 	}
 	*x = Error_ErrorCode(value)
 	return nil
-}
-func (Error_ErrorCode) EnumDescriptor() ([]byte, []int) {
+} (Error_ErrorCode) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{19, 0}
 }
 
@@ -501,24 +461,20 @@ var PutRequest_AutoIdPolicy_value = map[string]int32{
 	"CURRENT":    0,
 	"SEQUENTIAL": 1,
 }
-
-func (x PutRequest_AutoIdPolicy) Enum() *PutRequest_AutoIdPolicy {
+ (x PutRequest_AutoIdPolicy) Enum() *PutRequest_AutoIdPolicy {
 	p := new(PutRequest_AutoIdPolicy)
 	*p = x
 	return p
-}
-func (x PutRequest_AutoIdPolicy) String() string {
+} (x PutRequest_AutoIdPolicy) String() string {
 	return proto.EnumName(PutRequest_AutoIdPolicy_name, int32(x))
-}
-func (x *PutRequest_AutoIdPolicy) UnmarshalJSON(data []byte) error {
+} (x *PutRequest_AutoIdPolicy) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(PutRequest_AutoIdPolicy_value, data, "PutRequest_AutoIdPolicy")
 	if err != nil {
 		return err
 	}
 	*x = PutRequest_AutoIdPolicy(value)
 	return nil
-}
-func (PutRequest_AutoIdPolicy) EnumDescriptor() ([]byte, []int) {
+} (PutRequest_AutoIdPolicy) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{23, 0}
 }
 
@@ -540,24 +496,20 @@ var BeginTransactionRequest_TransactionMode_value = map[string]int32{
 	"READ_ONLY":  1,
 	"READ_WRITE": 2,
 }
-
-func (x BeginTransactionRequest_TransactionMode) Enum() *BeginTransactionRequest_TransactionMode {
+ (x BeginTransactionRequest_TransactionMode) Enum() *BeginTransactionRequest_TransactionMode {
 	p := new(BeginTransactionRequest_TransactionMode)
 	*p = x
 	return p
-}
-func (x BeginTransactionRequest_TransactionMode) String() string {
+} (x BeginTransactionRequest_TransactionMode) String() string {
 	return proto.EnumName(BeginTransactionRequest_TransactionMode_name, int32(x))
-}
-func (x *BeginTransactionRequest_TransactionMode) UnmarshalJSON(data []byte) error {
+} (x *BeginTransactionRequest_TransactionMode) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(BeginTransactionRequest_TransactionMode_value, data, "BeginTransactionRequest_TransactionMode")
 	if err != nil {
 		return err
 	}
 	*x = BeginTransactionRequest_TransactionMode(value)
 	return nil
-}
-func (BeginTransactionRequest_TransactionMode) EnumDescriptor() ([]byte, []int) {
+} (BeginTransactionRequest_TransactionMode) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{36, 0}
 }
 
@@ -566,26 +518,17 @@ type Action struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *Action) Reset()         { *m = Action{} }
-func (m *Action) String() string { return proto.CompactTextString(m) }
-func (*Action) ProtoMessage()    {}
-func (*Action) Descriptor() ([]byte, []int) {
+ (m *Action) Reset()         { *m = Action{} } (m *Action) String() string { return proto.CompactTextString(m) } (*Action) ProtoMessage()    {} (*Action) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{0}
-}
-func (m *Action) XXX_Unmarshal(b []byte) error {
+} (m *Action) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Action.Unmarshal(m, b)
-}
-func (m *Action) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Action) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Action.Marshal(b, m, deterministic)
-}
-func (dst *Action) XXX_Merge(src proto.Message) {
+} (dst *Action) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Action.Merge(dst, src)
-}
-func (m *Action) XXX_Size() int {
+} (m *Action) XXX_Size() int {
 	return xxx_messageInfo_Action.Size(m)
-}
-func (m *Action) XXX_DiscardUnknown() {
+} (m *Action) XXX_DiscardUnknown() {
 	xxx_messageInfo_Action.DiscardUnknown(m)
 }
 
@@ -603,74 +546,58 @@ type PropertyValue struct {
 	XXX_unrecognized     []byte                        `json:"-"`
 	XXX_sizecache        int32                         `json:"-"`
 }
-
-func (m *PropertyValue) Reset()         { *m = PropertyValue{} }
-func (m *PropertyValue) String() string { return proto.CompactTextString(m) }
-func (*PropertyValue) ProtoMessage()    {}
-func (*PropertyValue) Descriptor() ([]byte, []int) {
+ (m *PropertyValue) Reset()         { *m = PropertyValue{} } (m *PropertyValue) String() string { return proto.CompactTextString(m) } (*PropertyValue) ProtoMessage()    {} (*PropertyValue) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{1}
-}
-func (m *PropertyValue) XXX_Unmarshal(b []byte) error {
+} (m *PropertyValue) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PropertyValue.Unmarshal(m, b)
-}
-func (m *PropertyValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *PropertyValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_PropertyValue.Marshal(b, m, deterministic)
-}
-func (dst *PropertyValue) XXX_Merge(src proto.Message) {
+} (dst *PropertyValue) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_PropertyValue.Merge(dst, src)
-}
-func (m *PropertyValue) XXX_Size() int {
+} (m *PropertyValue) XXX_Size() int {
 	return xxx_messageInfo_PropertyValue.Size(m)
-}
-func (m *PropertyValue) XXX_DiscardUnknown() {
+} (m *PropertyValue) XXX_DiscardUnknown() {
 	xxx_messageInfo_PropertyValue.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_PropertyValue proto.InternalMessageInfo
-
-func (m *PropertyValue) GetInt64Value() int64 {
+ (m *PropertyValue) GetInt64Value() int64 {
 	if m != nil && m.Int64Value != nil {
 		return *m.Int64Value
 	}
 	return 0
 }
-
-func (m *PropertyValue) GetBooleanValue() bool {
+ (m *PropertyValue) GetBooleanValue() bool {
 	if m != nil && m.BooleanValue != nil {
 		return *m.BooleanValue
 	}
 	return false
 }
-
-func (m *PropertyValue) GetStringValue() string {
+ (m *PropertyValue) GetStringValue() string {
 	if m != nil && m.StringValue != nil {
 		return *m.StringValue
 	}
 	return ""
 }
-
-func (m *PropertyValue) GetDoubleValue() float64 {
+ (m *PropertyValue) GetDoubleValue() float64 {
 	if m != nil && m.DoubleValue != nil {
 		return *m.DoubleValue
 	}
 	return 0
 }
-
-func (m *PropertyValue) GetPointvalue() *PropertyValue_PointValue {
+ (m *PropertyValue) GetPointvalue() *PropertyValue_PointValue {
 	if m != nil {
 		return m.Pointvalue
 	}
 	return nil
 }
-
-func (m *PropertyValue) GetUservalue() *PropertyValue_UserValue {
+ (m *PropertyValue) GetUservalue() *PropertyValue_UserValue {
 	if m != nil {
 		return m.Uservalue
 	}
 	return nil
 }
-
-func (m *PropertyValue) GetReferencevalue() *PropertyValue_ReferenceValue {
+ (m *PropertyValue) GetReferencevalue() *PropertyValue_ReferenceValue {
 	if m != nil {
 		return m.Referencevalue
 	}
@@ -684,39 +611,28 @@ type PropertyValue_PointValue struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *PropertyValue_PointValue) Reset()         { *m = PropertyValue_PointValue{} }
-func (m *PropertyValue_PointValue) String() string { return proto.CompactTextString(m) }
-func (*PropertyValue_PointValue) ProtoMessage()    {}
-func (*PropertyValue_PointValue) Descriptor() ([]byte, []int) {
+ (m *PropertyValue_PointValue) Reset()         { *m = PropertyValue_PointValue{} } (m *PropertyValue_PointValue) String() string { return proto.CompactTextString(m) } (*PropertyValue_PointValue) ProtoMessage()    {} (*PropertyValue_PointValue) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{1, 0}
-}
-func (m *PropertyValue_PointValue) XXX_Unmarshal(b []byte) error {
+} (m *PropertyValue_PointValue) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PropertyValue_PointValue.Unmarshal(m, b)
-}
-func (m *PropertyValue_PointValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *PropertyValue_PointValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_PropertyValue_PointValue.Marshal(b, m, deterministic)
-}
-func (dst *PropertyValue_PointValue) XXX_Merge(src proto.Message) {
+} (dst *PropertyValue_PointValue) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_PropertyValue_PointValue.Merge(dst, src)
-}
-func (m *PropertyValue_PointValue) XXX_Size() int {
+} (m *PropertyValue_PointValue) XXX_Size() int {
 	return xxx_messageInfo_PropertyValue_PointValue.Size(m)
-}
-func (m *PropertyValue_PointValue) XXX_DiscardUnknown() {
+} (m *PropertyValue_PointValue) XXX_DiscardUnknown() {
 	xxx_messageInfo_PropertyValue_PointValue.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_PropertyValue_PointValue proto.InternalMessageInfo
-
-func (m *PropertyValue_PointValue) GetX() float64 {
+ (m *PropertyValue_PointValue) GetX() float64 {
 	if m != nil && m.X != nil {
 		return *m.X
 	}
 	return 0
 }
-
-func (m *PropertyValue_PointValue) GetY() float64 {
+ (m *PropertyValue_PointValue) GetY() float64 {
 	if m != nil && m.Y != nil {
 		return *m.Y
 	}
@@ -733,60 +649,46 @@ type PropertyValue_UserValue struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *PropertyValue_UserValue) Reset()         { *m = PropertyValue_UserValue{} }
-func (m *PropertyValue_UserValue) String() string { return proto.CompactTextString(m) }
-func (*PropertyValue_UserValue) ProtoMessage()    {}
-func (*PropertyValue_UserValue) Descriptor() ([]byte, []int) {
+ (m *PropertyValue_UserValue) Reset()         { *m = PropertyValue_UserValue{} } (m *PropertyValue_UserValue) String() string { return proto.CompactTextString(m) } (*PropertyValue_UserValue) ProtoMessage()    {} (*PropertyValue_UserValue) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{1, 1}
-}
-func (m *PropertyValue_UserValue) XXX_Unmarshal(b []byte) error {
+} (m *PropertyValue_UserValue) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PropertyValue_UserValue.Unmarshal(m, b)
-}
-func (m *PropertyValue_UserValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *PropertyValue_UserValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_PropertyValue_UserValue.Marshal(b, m, deterministic)
-}
-func (dst *PropertyValue_UserValue) XXX_Merge(src proto.Message) {
+} (dst *PropertyValue_UserValue) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_PropertyValue_UserValue.Merge(dst, src)
-}
-func (m *PropertyValue_UserValue) XXX_Size() int {
+} (m *PropertyValue_UserValue) XXX_Size() int {
 	return xxx_messageInfo_PropertyValue_UserValue.Size(m)
-}
-func (m *PropertyValue_UserValue) XXX_DiscardUnknown() {
+} (m *PropertyValue_UserValue) XXX_DiscardUnknown() {
 	xxx_messageInfo_PropertyValue_UserValue.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_PropertyValue_UserValue proto.InternalMessageInfo
-
-func (m *PropertyValue_UserValue) GetEmail() string {
+ (m *PropertyValue_UserValue) GetEmail() string {
 	if m != nil && m.Email != nil {
 		return *m.Email
 	}
 	return ""
 }
-
-func (m *PropertyValue_UserValue) GetAuthDomain() string {
+ (m *PropertyValue_UserValue) GetAuthDomain() string {
 	if m != nil && m.AuthDomain != nil {
 		return *m.AuthDomain
 	}
 	return ""
 }
-
-func (m *PropertyValue_UserValue) GetNickname() string {
+ (m *PropertyValue_UserValue) GetNickname() string {
 	if m != nil && m.Nickname != nil {
 		return *m.Nickname
 	}
 	return ""
 }
-
-func (m *PropertyValue_UserValue) GetFederatedIdentity() string {
+ (m *PropertyValue_UserValue) GetFederatedIdentity() string {
 	if m != nil && m.FederatedIdentity != nil {
 		return *m.FederatedIdentity
 	}
 	return ""
 }
-
-func (m *PropertyValue_UserValue) GetFederatedProvider() string {
+ (m *PropertyValue_UserValue) GetFederatedProvider() string {
 	if m != nil && m.FederatedProvider != nil {
 		return *m.FederatedProvider
 	}
@@ -801,46 +703,34 @@ type PropertyValue_ReferenceValue struct {
 	XXX_unrecognized     []byte                                      `json:"-"`
 	XXX_sizecache        int32                                       `json:"-"`
 }
-
-func (m *PropertyValue_ReferenceValue) Reset()         { *m = PropertyValue_ReferenceValue{} }
-func (m *PropertyValue_ReferenceValue) String() string { return proto.CompactTextString(m) }
-func (*PropertyValue_ReferenceValue) ProtoMessage()    {}
-func (*PropertyValue_ReferenceValue) Descriptor() ([]byte, []int) {
+ (m *PropertyValue_ReferenceValue) Reset()         { *m = PropertyValue_ReferenceValue{} } (m *PropertyValue_ReferenceValue) String() string { return proto.CompactTextString(m) } (*PropertyValue_ReferenceValue) ProtoMessage()    {} (*PropertyValue_ReferenceValue) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{1, 2}
-}
-func (m *PropertyValue_ReferenceValue) XXX_Unmarshal(b []byte) error {
+} (m *PropertyValue_ReferenceValue) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PropertyValue_ReferenceValue.Unmarshal(m, b)
-}
-func (m *PropertyValue_ReferenceValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *PropertyValue_ReferenceValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_PropertyValue_ReferenceValue.Marshal(b, m, deterministic)
-}
-func (dst *PropertyValue_ReferenceValue) XXX_Merge(src proto.Message) {
+} (dst *PropertyValue_ReferenceValue) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_PropertyValue_ReferenceValue.Merge(dst, src)
-}
-func (m *PropertyValue_ReferenceValue) XXX_Size() int {
+} (m *PropertyValue_ReferenceValue) XXX_Size() int {
 	return xxx_messageInfo_PropertyValue_ReferenceValue.Size(m)
-}
-func (m *PropertyValue_ReferenceValue) XXX_DiscardUnknown() {
+} (m *PropertyValue_ReferenceValue) XXX_DiscardUnknown() {
 	xxx_messageInfo_PropertyValue_ReferenceValue.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_PropertyValue_ReferenceValue proto.InternalMessageInfo
-
-func (m *PropertyValue_ReferenceValue) GetApp() string {
+ (m *PropertyValue_ReferenceValue) GetApp() string {
 	if m != nil && m.App != nil {
 		return *m.App
 	}
 	return ""
 }
-
-func (m *PropertyValue_ReferenceValue) GetNameSpace() string {
+ (m *PropertyValue_ReferenceValue) GetNameSpace() string {
 	if m != nil && m.NameSpace != nil {
 		return *m.NameSpace
 	}
 	return ""
 }
-
-func (m *PropertyValue_ReferenceValue) GetPathelement() []*PropertyValue_ReferenceValue_PathElement {
+ (m *PropertyValue_ReferenceValue) GetPathelement() []*PropertyValue_ReferenceValue_PathElement {
 	if m != nil {
 		return m.Pathelement
 	}
@@ -855,48 +745,36 @@ type PropertyValue_ReferenceValue_PathElement struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *PropertyValue_ReferenceValue_PathElement) Reset() {
+ (m *PropertyValue_ReferenceValue_PathElement) Reset() {
 	*m = PropertyValue_ReferenceValue_PathElement{}
-}
-func (m *PropertyValue_ReferenceValue_PathElement) String() string { return proto.CompactTextString(m) }
-func (*PropertyValue_ReferenceValue_PathElement) ProtoMessage()    {}
-func (*PropertyValue_ReferenceValue_PathElement) Descriptor() ([]byte, []int) {
+} (m *PropertyValue_ReferenceValue_PathElement) String() string { return proto.CompactTextString(m) } (*PropertyValue_ReferenceValue_PathElement) ProtoMessage()    {} (*PropertyValue_ReferenceValue_PathElement) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{1, 2, 0}
-}
-func (m *PropertyValue_ReferenceValue_PathElement) XXX_Unmarshal(b []byte) error {
+} (m *PropertyValue_ReferenceValue_PathElement) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PropertyValue_ReferenceValue_PathElement.Unmarshal(m, b)
-}
-func (m *PropertyValue_ReferenceValue_PathElement) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *PropertyValue_ReferenceValue_PathElement) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_PropertyValue_ReferenceValue_PathElement.Marshal(b, m, deterministic)
-}
-func (dst *PropertyValue_ReferenceValue_PathElement) XXX_Merge(src proto.Message) {
+} (dst *PropertyValue_ReferenceValue_PathElement) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_PropertyValue_ReferenceValue_PathElement.Merge(dst, src)
-}
-func (m *PropertyValue_ReferenceValue_PathElement) XXX_Size() int {
+} (m *PropertyValue_ReferenceValue_PathElement) XXX_Size() int {
 	return xxx_messageInfo_PropertyValue_ReferenceValue_PathElement.Size(m)
-}
-func (m *PropertyValue_ReferenceValue_PathElement) XXX_DiscardUnknown() {
+} (m *PropertyValue_ReferenceValue_PathElement) XXX_DiscardUnknown() {
 	xxx_messageInfo_PropertyValue_ReferenceValue_PathElement.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_PropertyValue_ReferenceValue_PathElement proto.InternalMessageInfo
-
-func (m *PropertyValue_ReferenceValue_PathElement) GetType() string {
+ (m *PropertyValue_ReferenceValue_PathElement) GetType() string {
 	if m != nil && m.Type != nil {
 		return *m.Type
 	}
 	return ""
 }
-
-func (m *PropertyValue_ReferenceValue_PathElement) GetId() int64 {
+ (m *PropertyValue_ReferenceValue_PathElement) GetId() int64 {
 	if m != nil && m.Id != nil {
 		return *m.Id
 	}
 	return 0
 }
-
-func (m *PropertyValue_ReferenceValue_PathElement) GetName() string {
+ (m *PropertyValue_ReferenceValue_PathElement) GetName() string {
 	if m != nil && m.Name != nil {
 		return *m.Name
 	}
@@ -916,26 +794,17 @@ type Property struct {
 	XXX_unrecognized      []byte                          `json:"-"`
 	XXX_sizecache         int32                           `json:"-"`
 }
-
-func (m *Property) Reset()         { *m = Property{} }
-func (m *Property) String() string { return proto.CompactTextString(m) }
-func (*Property) ProtoMessage()    {}
-func (*Property) Descriptor() ([]byte, []int) {
+ (m *Property) Reset()         { *m = Property{} } (m *Property) String() string { return proto.CompactTextString(m) } (*Property) ProtoMessage()    {} (*Property) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{2}
-}
-func (m *Property) XXX_Unmarshal(b []byte) error {
+} (m *Property) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Property.Unmarshal(m, b)
-}
-func (m *Property) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Property) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Property.Marshal(b, m, deterministic)
-}
-func (dst *Property) XXX_Merge(src proto.Message) {
+} (dst *Property) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Property.Merge(dst, src)
-}
-func (m *Property) XXX_Size() int {
+} (m *Property) XXX_Size() int {
 	return xxx_messageInfo_Property.Size(m)
-}
-func (m *Property) XXX_DiscardUnknown() {
+} (m *Property) XXX_DiscardUnknown() {
 	xxx_messageInfo_Property.DiscardUnknown(m)
 }
 
@@ -944,57 +813,49 @@ var xxx_messageInfo_Property proto.InternalMessageInfo
 const Default_Property_Meaning Property_Meaning = Property_NO_MEANING
 const Default_Property_Searchable bool = false
 const Default_Property_Locale string = "en"
-
-func (m *Property) GetMeaning() Property_Meaning {
+ (m *Property) GetMeaning() Property_Meaning {
 	if m != nil && m.Meaning != nil {
 		return *m.Meaning
 	}
 	return Default_Property_Meaning
 }
-
-func (m *Property) GetMeaningUri() string {
+ (m *Property) GetMeaningUri() string {
 	if m != nil && m.MeaningUri != nil {
 		return *m.MeaningUri
 	}
 	return ""
 }
-
-func (m *Property) GetName() string {
+ (m *Property) GetName() string {
 	if m != nil && m.Name != nil {
 		return *m.Name
 	}
 	return ""
 }
-
-func (m *Property) GetValue() *PropertyValue {
+ (m *Property) GetValue() *PropertyValue {
 	if m != nil {
 		return m.Value
 	}
 	return nil
 }
-
-func (m *Property) GetMultiple() bool {
+ (m *Property) GetMultiple() bool {
 	if m != nil && m.Multiple != nil {
 		return *m.Multiple
 	}
 	return false
 }
-
-func (m *Property) GetSearchable() bool {
+ (m *Property) GetSearchable() bool {
 	if m != nil && m.Searchable != nil {
 		return *m.Searchable
 	}
 	return Default_Property_Searchable
 }
-
-func (m *Property) GetFtsTokenizationOption() Property_FtsTokenizationOption {
+ (m *Property) GetFtsTokenizationOption() Property_FtsTokenizationOption {
 	if m != nil && m.FtsTokenizationOption != nil {
 		return *m.FtsTokenizationOption
 	}
 	return Property_HTML
 }
-
-func (m *Property) GetLocale() string {
+ (m *Property) GetLocale() string {
 	if m != nil && m.Locale != nil {
 		return *m.Locale
 	}
@@ -1007,32 +868,22 @@ type Path struct {
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
 }
-
-func (m *Path) Reset()         { *m = Path{} }
-func (m *Path) String() string { return proto.CompactTextString(m) }
-func (*Path) ProtoMessage()    {}
-func (*Path) Descriptor() ([]byte, []int) {
+ (m *Path) Reset()         { *m = Path{} } (m *Path) String() string { return proto.CompactTextString(m) } (*Path) ProtoMessage()    {} (*Path) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{3}
-}
-func (m *Path) XXX_Unmarshal(b []byte) error {
+} (m *Path) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Path.Unmarshal(m, b)
-}
-func (m *Path) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Path) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Path.Marshal(b, m, deterministic)
-}
-func (dst *Path) XXX_Merge(src proto.Message) {
+} (dst *Path) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Path.Merge(dst, src)
-}
-func (m *Path) XXX_Size() int {
+} (m *Path) XXX_Size() int {
 	return xxx_messageInfo_Path.Size(m)
-}
-func (m *Path) XXX_DiscardUnknown() {
+} (m *Path) XXX_DiscardUnknown() {
 	xxx_messageInfo_Path.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Path proto.InternalMessageInfo
-
-func (m *Path) GetElement() []*Path_Element {
+ (m *Path) GetElement() []*Path_Element {
 	if m != nil {
 		return m.Element
 	}
@@ -1047,46 +898,34 @@ type Path_Element struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *Path_Element) Reset()         { *m = Path_Element{} }
-func (m *Path_Element) String() string { return proto.CompactTextString(m) }
-func (*Path_Element) ProtoMessage()    {}
-func (*Path_Element) Descriptor() ([]byte, []int) {
+ (m *Path_Element) Reset()         { *m = Path_Element{} } (m *Path_Element) String() string { return proto.CompactTextString(m) } (*Path_Element) ProtoMessage()    {} (*Path_Element) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{3, 0}
-}
-func (m *Path_Element) XXX_Unmarshal(b []byte) error {
+} (m *Path_Element) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Path_Element.Unmarshal(m, b)
-}
-func (m *Path_Element) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Path_Element) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Path_Element.Marshal(b, m, deterministic)
-}
-func (dst *Path_Element) XXX_Merge(src proto.Message) {
+} (dst *Path_Element) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Path_Element.Merge(dst, src)
-}
-func (m *Path_Element) XXX_Size() int {
+} (m *Path_Element) XXX_Size() int {
 	return xxx_messageInfo_Path_Element.Size(m)
-}
-func (m *Path_Element) XXX_DiscardUnknown() {
+} (m *Path_Element) XXX_DiscardUnknown() {
 	xxx_messageInfo_Path_Element.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Path_Element proto.InternalMessageInfo
-
-func (m *Path_Element) GetType() string {
+ (m *Path_Element) GetType() string {
 	if m != nil && m.Type != nil {
 		return *m.Type
 	}
 	return ""
 }
-
-func (m *Path_Element) GetId() int64 {
+ (m *Path_Element) GetId() int64 {
 	if m != nil && m.Id != nil {
 		return *m.Id
 	}
 	return 0
 }
-
-func (m *Path_Element) GetName() string {
+ (m *Path_Element) GetName() string {
 	if m != nil && m.Name != nil {
 		return *m.Name
 	}
@@ -1101,46 +940,34 @@ type Reference struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *Reference) Reset()         { *m = Reference{} }
-func (m *Reference) String() string { return proto.CompactTextString(m) }
-func (*Reference) ProtoMessage()    {}
-func (*Reference) Descriptor() ([]byte, []int) {
+ (m *Reference) Reset()         { *m = Reference{} } (m *Reference) String() string { return proto.CompactTextString(m) } (*Reference) ProtoMessage()    {} (*Reference) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{4}
-}
-func (m *Reference) XXX_Unmarshal(b []byte) error {
+} (m *Reference) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Reference.Unmarshal(m, b)
-}
-func (m *Reference) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Reference) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Reference.Marshal(b, m, deterministic)
-}
-func (dst *Reference) XXX_Merge(src proto.Message) {
+} (dst *Reference) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Reference.Merge(dst, src)
-}
-func (m *Reference) XXX_Size() int {
+} (m *Reference) XXX_Size() int {
 	return xxx_messageInfo_Reference.Size(m)
-}
-func (m *Reference) XXX_DiscardUnknown() {
+} (m *Reference) XXX_DiscardUnknown() {
 	xxx_messageInfo_Reference.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Reference proto.InternalMessageInfo
-
-func (m *Reference) GetApp() string {
+ (m *Reference) GetApp() string {
 	if m != nil && m.App != nil {
 		return *m.App
 	}
 	return ""
 }
-
-func (m *Reference) GetNameSpace() string {
+ (m *Reference) GetNameSpace() string {
 	if m != nil && m.NameSpace != nil {
 		return *m.NameSpace
 	}
 	return ""
 }
-
-func (m *Reference) GetPath() *Path {
+ (m *Reference) GetPath() *Path {
 	if m != nil {
 		return m.Path
 	}
@@ -1157,60 +984,46 @@ type User struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *User) Reset()         { *m = User{} }
-func (m *User) String() string { return proto.CompactTextString(m) }
-func (*User) ProtoMessage()    {}
-func (*User) Descriptor() ([]byte, []int) {
+ (m *User) Reset()         { *m = User{} } (m *User) String() string { return proto.CompactTextString(m) } (*User) ProtoMessage()    {} (*User) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{5}
-}
-func (m *User) XXX_Unmarshal(b []byte) error {
+} (m *User) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_User.Unmarshal(m, b)
-}
-func (m *User) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *User) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_User.Marshal(b, m, deterministic)
-}
-func (dst *User) XXX_Merge(src proto.Message) {
+} (dst *User) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_User.Merge(dst, src)
-}
-func (m *User) XXX_Size() int {
+} (m *User) XXX_Size() int {
 	return xxx_messageInfo_User.Size(m)
-}
-func (m *User) XXX_DiscardUnknown() {
+} (m *User) XXX_DiscardUnknown() {
 	xxx_messageInfo_User.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_User proto.InternalMessageInfo
-
-func (m *User) GetEmail() string {
+ (m *User) GetEmail() string {
 	if m != nil && m.Email != nil {
 		return *m.Email
 	}
 	return ""
 }
-
-func (m *User) GetAuthDomain() string {
+ (m *User) GetAuthDomain() string {
 	if m != nil && m.AuthDomain != nil {
 		return *m.AuthDomain
 	}
 	return ""
 }
-
-func (m *User) GetNickname() string {
+ (m *User) GetNickname() string {
 	if m != nil && m.Nickname != nil {
 		return *m.Nickname
 	}
 	return ""
 }
-
-func (m *User) GetFederatedIdentity() string {
+ (m *User) GetFederatedIdentity() string {
 	if m != nil && m.FederatedIdentity != nil {
 		return *m.FederatedIdentity
 	}
 	return ""
 }
-
-func (m *User) GetFederatedProvider() string {
+ (m *User) GetFederatedProvider() string {
 	if m != nil && m.FederatedProvider != nil {
 		return *m.FederatedProvider
 	}
@@ -1230,81 +1043,64 @@ type EntityProto struct {
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`
 }
-
-func (m *EntityProto) Reset()         { *m = EntityProto{} }
-func (m *EntityProto) String() string { return proto.CompactTextString(m) }
-func (*EntityProto) ProtoMessage()    {}
-func (*EntityProto) Descriptor() ([]byte, []int) {
+ (m *EntityProto) Reset()         { *m = EntityProto{} } (m *EntityProto) String() string { return proto.CompactTextString(m) } (*EntityProto) ProtoMessage()    {} (*EntityProto) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{6}
-}
-func (m *EntityProto) XXX_Unmarshal(b []byte) error {
+} (m *EntityProto) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_EntityProto.Unmarshal(m, b)
-}
-func (m *EntityProto) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *EntityProto) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_EntityProto.Marshal(b, m, deterministic)
-}
-func (dst *EntityProto) XXX_Merge(src proto.Message) {
+} (dst *EntityProto) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_EntityProto.Merge(dst, src)
-}
-func (m *EntityProto) XXX_Size() int {
+} (m *EntityProto) XXX_Size() int {
 	return xxx_messageInfo_EntityProto.Size(m)
-}
-func (m *EntityProto) XXX_DiscardUnknown() {
+} (m *EntityProto) XXX_DiscardUnknown() {
 	xxx_messageInfo_EntityProto.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_EntityProto proto.InternalMessageInfo
-
-func (m *EntityProto) GetKey() *Reference {
+ (m *EntityProto) GetKey() *Reference {
 	if m != nil {
 		return m.Key
 	}
 	return nil
 }
-
-func (m *EntityProto) GetEntityGroup() *Path {
+ (m *EntityProto) GetEntityGroup() *Path {
 	if m != nil {
 		return m.EntityGroup
 	}
 	return nil
 }
-
-func (m *EntityProto) GetOwner() *User {
+ (m *EntityProto) GetOwner() *User {
 	if m != nil {
 		return m.Owner
 	}
 	return nil
 }
-
-func (m *EntityProto) GetKind() EntityProto_Kind {
+ (m *EntityProto) GetKind() EntityProto_Kind {
 	if m != nil && m.Kind != nil {
 		return *m.Kind
 	}
 	return EntityProto_GD_CONTACT
 }
-
-func (m *EntityProto) GetKindUri() string {
+ (m *EntityProto) GetKindUri() string {
 	if m != nil && m.KindUri != nil {
 		return *m.KindUri
 	}
 	return ""
 }
-
-func (m *EntityProto) GetProperty() []*Property {
+ (m *EntityProto) GetProperty() []*Property {
 	if m != nil {
 		return m.Property
 	}
 	return nil
 }
-
-func (m *EntityProto) GetRawProperty() []*Property {
+ (m *EntityProto) GetRawProperty() []*Property {
 	if m != nil {
 		return m.RawProperty
 	}
 	return nil
 }
-
-func (m *EntityProto) GetRank() int32 {
+ (m *EntityProto) GetRank() int32 {
 	if m != nil && m.Rank != nil {
 		return *m.Rank
 	}
@@ -1318,39 +1114,28 @@ type CompositeProperty struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *CompositeProperty) Reset()         { *m = CompositeProperty{} }
-func (m *CompositeProperty) String() string { return proto.CompactTextString(m) }
-func (*CompositeProperty) ProtoMessage()    {}
-func (*CompositeProperty) Descriptor() ([]byte, []int) {
+ (m *CompositeProperty) Reset()         { *m = CompositeProperty{} } (m *CompositeProperty) String() string { return proto.CompactTextString(m) } (*CompositeProperty) ProtoMessage()    {} (*CompositeProperty) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{7}
-}
-func (m *CompositeProperty) XXX_Unmarshal(b []byte) error {
+} (m *CompositeProperty) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CompositeProperty.Unmarshal(m, b)
-}
-func (m *CompositeProperty) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CompositeProperty) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CompositeProperty.Marshal(b, m, deterministic)
-}
-func (dst *CompositeProperty) XXX_Merge(src proto.Message) {
+} (dst *CompositeProperty) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CompositeProperty.Merge(dst, src)
-}
-func (m *CompositeProperty) XXX_Size() int {
+} (m *CompositeProperty) XXX_Size() int {
 	return xxx_messageInfo_CompositeProperty.Size(m)
-}
-func (m *CompositeProperty) XXX_DiscardUnknown() {
+} (m *CompositeProperty) XXX_DiscardUnknown() {
 	xxx_messageInfo_CompositeProperty.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CompositeProperty proto.InternalMessageInfo
-
-func (m *CompositeProperty) GetIndexId() int64 {
+ (m *CompositeProperty) GetIndexId() int64 {
 	if m != nil && m.IndexId != nil {
 		return *m.IndexId
 	}
 	return 0
 }
-
-func (m *CompositeProperty) GetValue() []string {
+ (m *CompositeProperty) GetValue() []string {
 	if m != nil {
 		return m.Value
 	}
@@ -1365,46 +1150,34 @@ type Index struct {
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`
 }
-
-func (m *Index) Reset()         { *m = Index{} }
-func (m *Index) String() string { return proto.CompactTextString(m) }
-func (*Index) ProtoMessage()    {}
-func (*Index) Descriptor() ([]byte, []int) {
+ (m *Index) Reset()         { *m = Index{} } (m *Index) String() string { return proto.CompactTextString(m) } (*Index) ProtoMessage()    {} (*Index) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{8}
-}
-func (m *Index) XXX_Unmarshal(b []byte) error {
+} (m *Index) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Index.Unmarshal(m, b)
-}
-func (m *Index) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Index) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Index.Marshal(b, m, deterministic)
-}
-func (dst *Index) XXX_Merge(src proto.Message) {
+} (dst *Index) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Index.Merge(dst, src)
-}
-func (m *Index) XXX_Size() int {
+} (m *Index) XXX_Size() int {
 	return xxx_messageInfo_Index.Size(m)
-}
-func (m *Index) XXX_DiscardUnknown() {
+} (m *Index) XXX_DiscardUnknown() {
 	xxx_messageInfo_Index.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Index proto.InternalMessageInfo
-
-func (m *Index) GetEntityType() string {
+ (m *Index) GetEntityType() string {
 	if m != nil && m.EntityType != nil {
 		return *m.EntityType
 	}
 	return ""
 }
-
-func (m *Index) GetAncestor() bool {
+ (m *Index) GetAncestor() bool {
 	if m != nil && m.Ancestor != nil {
 		return *m.Ancestor
 	}
 	return false
 }
-
-func (m *Index) GetProperty() []*Index_Property {
+ (m *Index) GetProperty() []*Index_Property {
 	if m != nil {
 		return m.Property
 	}
@@ -1418,41 +1191,30 @@ type Index_Property struct {
 	XXX_unrecognized     []byte                    `json:"-"`
 	XXX_sizecache        int32                     `json:"-"`
 }
-
-func (m *Index_Property) Reset()         { *m = Index_Property{} }
-func (m *Index_Property) String() string { return proto.CompactTextString(m) }
-func (*Index_Property) ProtoMessage()    {}
-func (*Index_Property) Descriptor() ([]byte, []int) {
+ (m *Index_Property) Reset()         { *m = Index_Property{} } (m *Index_Property) String() string { return proto.CompactTextString(m) } (*Index_Property) ProtoMessage()    {} (*Index_Property) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{8, 0}
-}
-func (m *Index_Property) XXX_Unmarshal(b []byte) error {
+} (m *Index_Property) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Index_Property.Unmarshal(m, b)
-}
-func (m *Index_Property) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Index_Property) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Index_Property.Marshal(b, m, deterministic)
-}
-func (dst *Index_Property) XXX_Merge(src proto.Message) {
+} (dst *Index_Property) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Index_Property.Merge(dst, src)
-}
-func (m *Index_Property) XXX_Size() int {
+} (m *Index_Property) XXX_Size() int {
 	return xxx_messageInfo_Index_Property.Size(m)
-}
-func (m *Index_Property) XXX_DiscardUnknown() {
+} (m *Index_Property) XXX_DiscardUnknown() {
 	xxx_messageInfo_Index_Property.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Index_Property proto.InternalMessageInfo
 
 const Default_Index_Property_Direction Index_Property_Direction = Index_Property_ASCENDING
-
-func (m *Index_Property) GetName() string {
+ (m *Index_Property) GetName() string {
 	if m != nil && m.Name != nil {
 		return *m.Name
 	}
 	return ""
 }
-
-func (m *Index_Property) GetDirection() Index_Property_Direction {
+ (m *Index_Property) GetDirection() Index_Property_Direction {
 	if m != nil && m.Direction != nil {
 		return *m.Direction
 	}
@@ -1469,62 +1231,48 @@ type CompositeIndex struct {
 	XXX_unrecognized     []byte                `json:"-"`
 	XXX_sizecache        int32                 `json:"-"`
 }
-
-func (m *CompositeIndex) Reset()         { *m = CompositeIndex{} }
-func (m *CompositeIndex) String() string { return proto.CompactTextString(m) }
-func (*CompositeIndex) ProtoMessage()    {}
-func (*CompositeIndex) Descriptor() ([]byte, []int) {
+ (m *CompositeIndex) Reset()         { *m = CompositeIndex{} } (m *CompositeIndex) String() string { return proto.CompactTextString(m) } (*CompositeIndex) ProtoMessage()    {} (*CompositeIndex) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{9}
-}
-func (m *CompositeIndex) XXX_Unmarshal(b []byte) error {
+} (m *CompositeIndex) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CompositeIndex.Unmarshal(m, b)
-}
-func (m *CompositeIndex) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CompositeIndex) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CompositeIndex.Marshal(b, m, deterministic)
-}
-func (dst *CompositeIndex) XXX_Merge(src proto.Message) {
+} (dst *CompositeIndex) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CompositeIndex.Merge(dst, src)
-}
-func (m *CompositeIndex) XXX_Size() int {
+} (m *CompositeIndex) XXX_Size() int {
 	return xxx_messageInfo_CompositeIndex.Size(m)
-}
-func (m *CompositeIndex) XXX_DiscardUnknown() {
+} (m *CompositeIndex) XXX_DiscardUnknown() {
 	xxx_messageInfo_CompositeIndex.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CompositeIndex proto.InternalMessageInfo
 
 const Default_CompositeIndex_OnlyUseIfRequired bool = false
-
-func (m *CompositeIndex) GetAppId() string {
+ (m *CompositeIndex) GetAppId() string {
 	if m != nil && m.AppId != nil {
 		return *m.AppId
 	}
 	return ""
 }
-
-func (m *CompositeIndex) GetId() int64 {
+ (m *CompositeIndex) GetId() int64 {
 	if m != nil && m.Id != nil {
 		return *m.Id
 	}
 	return 0
 }
-
-func (m *CompositeIndex) GetDefinition() *Index {
+ (m *CompositeIndex) GetDefinition() *Index {
 	if m != nil {
 		return m.Definition
 	}
 	return nil
 }
-
-func (m *CompositeIndex) GetState() CompositeIndex_State {
+ (m *CompositeIndex) GetState() CompositeIndex_State {
 	if m != nil && m.State != nil {
 		return *m.State
 	}
 	return CompositeIndex_WRITE_ONLY
 }
-
-func (m *CompositeIndex) GetOnlyUseIfRequired() bool {
+ (m *CompositeIndex) GetOnlyUseIfRequired() bool {
 	if m != nil && m.OnlyUseIfRequired != nil {
 		return *m.OnlyUseIfRequired
 	}
@@ -1539,48 +1287,36 @@ type IndexPostfix struct {
 	XXX_unrecognized     []byte                     `json:"-"`
 	XXX_sizecache        int32                      `json:"-"`
 }
-
-func (m *IndexPostfix) Reset()         { *m = IndexPostfix{} }
-func (m *IndexPostfix) String() string { return proto.CompactTextString(m) }
-func (*IndexPostfix) ProtoMessage()    {}
-func (*IndexPostfix) Descriptor() ([]byte, []int) {
+ (m *IndexPostfix) Reset()         { *m = IndexPostfix{} } (m *IndexPostfix) String() string { return proto.CompactTextString(m) } (*IndexPostfix) ProtoMessage()    {} (*IndexPostfix) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{10}
-}
-func (m *IndexPostfix) XXX_Unmarshal(b []byte) error {
+} (m *IndexPostfix) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_IndexPostfix.Unmarshal(m, b)
-}
-func (m *IndexPostfix) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *IndexPostfix) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_IndexPostfix.Marshal(b, m, deterministic)
-}
-func (dst *IndexPostfix) XXX_Merge(src proto.Message) {
+} (dst *IndexPostfix) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_IndexPostfix.Merge(dst, src)
-}
-func (m *IndexPostfix) XXX_Size() int {
+} (m *IndexPostfix) XXX_Size() int {
 	return xxx_messageInfo_IndexPostfix.Size(m)
-}
-func (m *IndexPostfix) XXX_DiscardUnknown() {
+} (m *IndexPostfix) XXX_DiscardUnknown() {
 	xxx_messageInfo_IndexPostfix.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_IndexPostfix proto.InternalMessageInfo
 
 const Default_IndexPostfix_Before bool = true
-
-func (m *IndexPostfix) GetIndexValue() []*IndexPostfix_IndexValue {
+ (m *IndexPostfix) GetIndexValue() []*IndexPostfix_IndexValue {
 	if m != nil {
 		return m.IndexValue
 	}
 	return nil
 }
-
-func (m *IndexPostfix) GetKey() *Reference {
+ (m *IndexPostfix) GetKey() *Reference {
 	if m != nil {
 		return m.Key
 	}
 	return nil
 }
-
-func (m *IndexPostfix) GetBefore() bool {
+ (m *IndexPostfix) GetBefore() bool {
 	if m != nil && m.Before != nil {
 		return *m.Before
 	}
@@ -1594,39 +1330,28 @@ type IndexPostfix_IndexValue struct {
 	XXX_unrecognized     []byte         `json:"-"`
 	XXX_sizecache        int32          `json:"-"`
 }
-
-func (m *IndexPostfix_IndexValue) Reset()         { *m = IndexPostfix_IndexValue{} }
-func (m *IndexPostfix_IndexValue) String() string { return proto.CompactTextString(m) }
-func (*IndexPostfix_IndexValue) ProtoMessage()    {}
-func (*IndexPostfix_IndexValue) Descriptor() ([]byte, []int) {
+ (m *IndexPostfix_IndexValue) Reset()         { *m = IndexPostfix_IndexValue{} } (m *IndexPostfix_IndexValue) String() string { return proto.CompactTextString(m) } (*IndexPostfix_IndexValue) ProtoMessage()    {} (*IndexPostfix_IndexValue) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{10, 0}
-}
-func (m *IndexPostfix_IndexValue) XXX_Unmarshal(b []byte) error {
+} (m *IndexPostfix_IndexValue) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_IndexPostfix_IndexValue.Unmarshal(m, b)
-}
-func (m *IndexPostfix_IndexValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *IndexPostfix_IndexValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_IndexPostfix_IndexValue.Marshal(b, m, deterministic)
-}
-func (dst *IndexPostfix_IndexValue) XXX_Merge(src proto.Message) {
+} (dst *IndexPostfix_IndexValue) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_IndexPostfix_IndexValue.Merge(dst, src)
-}
-func (m *IndexPostfix_IndexValue) XXX_Size() int {
+} (m *IndexPostfix_IndexValue) XXX_Size() int {
 	return xxx_messageInfo_IndexPostfix_IndexValue.Size(m)
-}
-func (m *IndexPostfix_IndexValue) XXX_DiscardUnknown() {
+} (m *IndexPostfix_IndexValue) XXX_DiscardUnknown() {
 	xxx_messageInfo_IndexPostfix_IndexValue.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_IndexPostfix_IndexValue proto.InternalMessageInfo
-
-func (m *IndexPostfix_IndexValue) GetPropertyName() string {
+ (m *IndexPostfix_IndexValue) GetPropertyName() string {
 	if m != nil && m.PropertyName != nil {
 		return *m.PropertyName
 	}
 	return ""
 }
-
-func (m *IndexPostfix_IndexValue) GetValue() *PropertyValue {
+ (m *IndexPostfix_IndexValue) GetValue() *PropertyValue {
 	if m != nil {
 		return m.Value
 	}
@@ -1640,41 +1365,30 @@ type IndexPosition struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *IndexPosition) Reset()         { *m = IndexPosition{} }
-func (m *IndexPosition) String() string { return proto.CompactTextString(m) }
-func (*IndexPosition) ProtoMessage()    {}
-func (*IndexPosition) Descriptor() ([]byte, []int) {
+ (m *IndexPosition) Reset()         { *m = IndexPosition{} } (m *IndexPosition) String() string { return proto.CompactTextString(m) } (*IndexPosition) ProtoMessage()    {} (*IndexPosition) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{11}
-}
-func (m *IndexPosition) XXX_Unmarshal(b []byte) error {
+} (m *IndexPosition) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_IndexPosition.Unmarshal(m, b)
-}
-func (m *IndexPosition) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *IndexPosition) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_IndexPosition.Marshal(b, m, deterministic)
-}
-func (dst *IndexPosition) XXX_Merge(src proto.Message) {
+} (dst *IndexPosition) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_IndexPosition.Merge(dst, src)
-}
-func (m *IndexPosition) XXX_Size() int {
+} (m *IndexPosition) XXX_Size() int {
 	return xxx_messageInfo_IndexPosition.Size(m)
-}
-func (m *IndexPosition) XXX_DiscardUnknown() {
+} (m *IndexPosition) XXX_DiscardUnknown() {
 	xxx_messageInfo_IndexPosition.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_IndexPosition proto.InternalMessageInfo
 
 const Default_IndexPosition_Before bool = true
-
-func (m *IndexPosition) GetKey() string {
+ (m *IndexPosition) GetKey() string {
 	if m != nil && m.Key != nil {
 		return *m.Key
 	}
 	return ""
 }
-
-func (m *IndexPosition) GetBefore() bool {
+ (m *IndexPosition) GetBefore() bool {
 	if m != nil && m.Before != nil {
 		return *m.Before
 	}
@@ -1687,32 +1401,22 @@ type Snapshot struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *Snapshot) Reset()         { *m = Snapshot{} }
-func (m *Snapshot) String() string { return proto.CompactTextString(m) }
-func (*Snapshot) ProtoMessage()    {}
-func (*Snapshot) Descriptor() ([]byte, []int) {
+ (m *Snapshot) Reset()         { *m = Snapshot{} } (m *Snapshot) String() string { return proto.CompactTextString(m) } (*Snapshot) ProtoMessage()    {} (*Snapshot) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{12}
-}
-func (m *Snapshot) XXX_Unmarshal(b []byte) error {
+} (m *Snapshot) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Snapshot.Unmarshal(m, b)
-}
-func (m *Snapshot) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Snapshot) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Snapshot.Marshal(b, m, deterministic)
-}
-func (dst *Snapshot) XXX_Merge(src proto.Message) {
+} (dst *Snapshot) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Snapshot.Merge(dst, src)
-}
-func (m *Snapshot) XXX_Size() int {
+} (m *Snapshot) XXX_Size() int {
 	return xxx_messageInfo_Snapshot.Size(m)
-}
-func (m *Snapshot) XXX_DiscardUnknown() {
+} (m *Snapshot) XXX_DiscardUnknown() {
 	xxx_messageInfo_Snapshot.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Snapshot proto.InternalMessageInfo
-
-func (m *Snapshot) GetTs() int64 {
+ (m *Snapshot) GetTs() int64 {
 	if m != nil && m.Ts != nil {
 		return *m.Ts
 	}
@@ -1725,32 +1429,22 @@ type InternalHeader struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *InternalHeader) Reset()         { *m = InternalHeader{} }
-func (m *InternalHeader) String() string { return proto.CompactTextString(m) }
-func (*InternalHeader) ProtoMessage()    {}
-func (*InternalHeader) Descriptor() ([]byte, []int) {
+ (m *InternalHeader) Reset()         { *m = InternalHeader{} } (m *InternalHeader) String() string { return proto.CompactTextString(m) } (*InternalHeader) ProtoMessage()    {} (*InternalHeader) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{13}
-}
-func (m *InternalHeader) XXX_Unmarshal(b []byte) error {
+} (m *InternalHeader) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_InternalHeader.Unmarshal(m, b)
-}
-func (m *InternalHeader) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *InternalHeader) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_InternalHeader.Marshal(b, m, deterministic)
-}
-func (dst *InternalHeader) XXX_Merge(src proto.Message) {
+} (dst *InternalHeader) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_InternalHeader.Merge(dst, src)
-}
-func (m *InternalHeader) XXX_Size() int {
+} (m *InternalHeader) XXX_Size() int {
 	return xxx_messageInfo_InternalHeader.Size(m)
-}
-func (m *InternalHeader) XXX_DiscardUnknown() {
+} (m *InternalHeader) XXX_DiscardUnknown() {
 	xxx_messageInfo_InternalHeader.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_InternalHeader proto.InternalMessageInfo
-
-func (m *InternalHeader) GetQos() string {
+ (m *InternalHeader) GetQos() string {
 	if m != nil && m.Qos != nil {
 		return *m.Qos
 	}
@@ -1766,55 +1460,42 @@ type Transaction struct {
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
 }
-
-func (m *Transaction) Reset()         { *m = Transaction{} }
-func (m *Transaction) String() string { return proto.CompactTextString(m) }
-func (*Transaction) ProtoMessage()    {}
-func (*Transaction) Descriptor() ([]byte, []int) {
+ (m *Transaction) Reset()         { *m = Transaction{} } (m *Transaction) String() string { return proto.CompactTextString(m) } (*Transaction) ProtoMessage()    {} (*Transaction) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{14}
-}
-func (m *Transaction) XXX_Unmarshal(b []byte) error {
+} (m *Transaction) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Transaction.Unmarshal(m, b)
-}
-func (m *Transaction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Transaction) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Transaction.Marshal(b, m, deterministic)
-}
-func (dst *Transaction) XXX_Merge(src proto.Message) {
+} (dst *Transaction) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Transaction.Merge(dst, src)
-}
-func (m *Transaction) XXX_Size() int {
+} (m *Transaction) XXX_Size() int {
 	return xxx_messageInfo_Transaction.Size(m)
-}
-func (m *Transaction) XXX_DiscardUnknown() {
+} (m *Transaction) XXX_DiscardUnknown() {
 	xxx_messageInfo_Transaction.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Transaction proto.InternalMessageInfo
 
 const Default_Transaction_MarkChanges bool = false
-
-func (m *Transaction) GetHeader() *InternalHeader {
+ (m *Transaction) GetHeader() *InternalHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
-
-func (m *Transaction) GetHandle() uint64 {
+ (m *Transaction) GetHandle() uint64 {
 	if m != nil && m.Handle != nil {
 		return *m.Handle
 	}
 	return 0
 }
-
-func (m *Transaction) GetApp() string {
+ (m *Transaction) GetApp() string {
 	if m != nil && m.App != nil {
 		return *m.App
 	}
 	return ""
 }
-
-func (m *Transaction) GetMarkChanges() bool {
+ (m *Transaction) GetMarkChanges() bool {
 	if m != nil && m.MarkChanges != nil {
 		return *m.MarkChanges
 	}
@@ -1853,26 +1534,17 @@ type Query struct {
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`
 }
-
-func (m *Query) Reset()         { *m = Query{} }
-func (m *Query) String() string { return proto.CompactTextString(m) }
-func (*Query) ProtoMessage()    {}
-func (*Query) Descriptor() ([]byte, []int) {
+ (m *Query) Reset()         { *m = Query{} } (m *Query) String() string { return proto.CompactTextString(m) } (*Query) ProtoMessage()    {} (*Query) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{15}
-}
-func (m *Query) XXX_Unmarshal(b []byte) error {
+} (m *Query) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Query.Unmarshal(m, b)
-}
-func (m *Query) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Query) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Query.Marshal(b, m, deterministic)
-}
-func (dst *Query) XXX_Merge(src proto.Message) {
+} (dst *Query) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Query.Merge(dst, src)
-}
-func (m *Query) XXX_Size() int {
+} (m *Query) XXX_Size() int {
 	return xxx_messageInfo_Query.Size(m)
-}
-func (m *Query) XXX_DiscardUnknown() {
+} (m *Query) XXX_DiscardUnknown() {
 	xxx_messageInfo_Query.DiscardUnknown(m)
 }
 
@@ -1883,190 +1555,163 @@ const Default_Query_RequirePerfectPlan bool = false
 const Default_Query_KeysOnly bool = false
 const Default_Query_Compile bool = false
 const Default_Query_PersistOffset bool = false
-
-func (m *Query) GetHeader() *InternalHeader {
+ (m *Query) GetHeader() *InternalHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
-
-func (m *Query) GetApp() string {
+ (m *Query) GetApp() string {
 	if m != nil && m.App != nil {
 		return *m.App
 	}
 	return ""
 }
-
-func (m *Query) GetNameSpace() string {
+ (m *Query) GetNameSpace() string {
 	if m != nil && m.NameSpace != nil {
 		return *m.NameSpace
 	}
 	return ""
 }
-
-func (m *Query) GetKind() string {
+ (m *Query) GetKind() string {
 	if m != nil && m.Kind != nil {
 		return *m.Kind
 	}
 	return ""
 }
-
-func (m *Query) GetAncestor() *Reference {
+ (m *Query) GetAncestor() *Reference {
 	if m != nil {
 		return m.Ancestor
 	}
 	return nil
 }
-
-func (m *Query) GetFilter() []*Query_Filter {
+ (m *Query) GetFilter() []*Query_Filter {
 	if m != nil {
 		return m.Filter
 	}
 	return nil
 }
-
-func (m *Query) GetSearchQuery() string {
+ (m *Query) GetSearchQuery() string {
 	if m != nil && m.SearchQuery != nil {
 		return *m.SearchQuery
 	}
 	return ""
 }
-
-func (m *Query) GetOrder() []*Query_Order {
+ (m *Query) GetOrder() []*Query_Order {
 	if m != nil {
 		return m.Order
 	}
 	return nil
 }
-
-func (m *Query) GetHint() Query_Hint {
+ (m *Query) GetHint() Query_Hint {
 	if m != nil && m.Hint != nil {
 		return *m.Hint
 	}
 	return Query_ORDER_FIRST
 }
-
-func (m *Query) GetCount() int32 {
+ (m *Query) GetCount() int32 {
 	if m != nil && m.Count != nil {
 		return *m.Count
 	}
 	return 0
 }
-
-func (m *Query) GetOffset() int32 {
+ (m *Query) GetOffset() int32 {
 	if m != nil && m.Offset != nil {
 		return *m.Offset
 	}
 	return Default_Query_Offset
 }
-
-func (m *Query) GetLimit() int32 {
+ (m *Query) GetLimit() int32 {
 	if m != nil && m.Limit != nil {
 		return *m.Limit
 	}
 	return 0
 }
-
-func (m *Query) GetCompiledCursor() *CompiledCursor {
+ (m *Query) GetCompiledCursor() *CompiledCursor {
 	if m != nil {
 		return m.CompiledCursor
 	}
 	return nil
 }
-
-func (m *Query) GetEndCompiledCursor() *CompiledCursor {
+ (m *Query) GetEndCompiledCursor() *CompiledCursor {
 	if m != nil {
 		return m.EndCompiledCursor
 	}
 	return nil
 }
-
-func (m *Query) GetCompositeIndex() []*CompositeIndex {
+ (m *Query) GetCompositeIndex() []*CompositeIndex {
 	if m != nil {
 		return m.CompositeIndex
 	}
 	return nil
 }
-
-func (m *Query) GetRequirePerfectPlan() bool {
+ (m *Query) GetRequirePerfectPlan() bool {
 	if m != nil && m.RequirePerfectPlan != nil {
 		return *m.RequirePerfectPlan
 	}
 	return Default_Query_RequirePerfectPlan
 }
-
-func (m *Query) GetKeysOnly() bool {
+ (m *Query) GetKeysOnly() bool {
 	if m != nil && m.KeysOnly != nil {
 		return *m.KeysOnly
 	}
 	return Default_Query_KeysOnly
 }
-
-func (m *Query) GetTransaction() *Transaction {
+ (m *Query) GetTransaction() *Transaction {
 	if m != nil {
 		return m.Transaction
 	}
 	return nil
 }
-
-func (m *Query) GetCompile() bool {
+ (m *Query) GetCompile() bool {
 	if m != nil && m.Compile != nil {
 		return *m.Compile
 	}
 	return Default_Query_Compile
 }
-
-func (m *Query) GetFailoverMs() int64 {
+ (m *Query) GetFailoverMs() int64 {
 	if m != nil && m.FailoverMs != nil {
 		return *m.FailoverMs
 	}
 	return 0
 }
-
-func (m *Query) GetStrong() bool {
+ (m *Query) GetStrong() bool {
 	if m != nil && m.Strong != nil {
 		return *m.Strong
 	}
 	return false
 }
-
-func (m *Query) GetPropertyName() []string {
+ (m *Query) GetPropertyName() []string {
 	if m != nil {
 		return m.PropertyName
 	}
 	return nil
 }
-
-func (m *Query) GetGroupByPropertyName() []string {
+ (m *Query) GetGroupByPropertyName() []string {
 	if m != nil {
 		return m.GroupByPropertyName
 	}
 	return nil
 }
-
-func (m *Query) GetDistinct() bool {
+ (m *Query) GetDistinct() bool {
 	if m != nil && m.Distinct != nil {
 		return *m.Distinct
 	}
 	return false
 }
-
-func (m *Query) GetMinSafeTimeSeconds() int64 {
+ (m *Query) GetMinSafeTimeSeconds() int64 {
 	if m != nil && m.MinSafeTimeSeconds != nil {
 		return *m.MinSafeTimeSeconds
 	}
 	return 0
 }
-
-func (m *Query) GetSafeReplicaName() []string {
+ (m *Query) GetSafeReplicaName() []string {
 	if m != nil {
 		return m.SafeReplicaName
 	}
 	return nil
 }
-
-func (m *Query) GetPersistOffset() bool {
+ (m *Query) GetPersistOffset() bool {
 	if m != nil && m.PersistOffset != nil {
 		return *m.PersistOffset
 	}
@@ -2080,39 +1725,28 @@ type Query_Filter struct {
 	XXX_unrecognized     []byte                 `json:"-"`
 	XXX_sizecache        int32                  `json:"-"`
 }
-
-func (m *Query_Filter) Reset()         { *m = Query_Filter{} }
-func (m *Query_Filter) String() string { return proto.CompactTextString(m) }
-func (*Query_Filter) ProtoMessage()    {}
-func (*Query_Filter) Descriptor() ([]byte, []int) {
+ (m *Query_Filter) Reset()         { *m = Query_Filter{} } (m *Query_Filter) String() string { return proto.CompactTextString(m) } (*Query_Filter) ProtoMessage()    {} (*Query_Filter) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{15, 0}
-}
-func (m *Query_Filter) XXX_Unmarshal(b []byte) error {
+} (m *Query_Filter) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Query_Filter.Unmarshal(m, b)
-}
-func (m *Query_Filter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Query_Filter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Query_Filter.Marshal(b, m, deterministic)
-}
-func (dst *Query_Filter) XXX_Merge(src proto.Message) {
+} (dst *Query_Filter) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Query_Filter.Merge(dst, src)
-}
-func (m *Query_Filter) XXX_Size() int {
+} (m *Query_Filter) XXX_Size() int {
 	return xxx_messageInfo_Query_Filter.Size(m)
-}
-func (m *Query_Filter) XXX_DiscardUnknown() {
+} (m *Query_Filter) XXX_DiscardUnknown() {
 	xxx_messageInfo_Query_Filter.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Query_Filter proto.InternalMessageInfo
-
-func (m *Query_Filter) GetOp() Query_Filter_Operator {
+ (m *Query_Filter) GetOp() Query_Filter_Operator {
 	if m != nil && m.Op != nil {
 		return *m.Op
 	}
 	return Query_Filter_LESS_THAN
 }
-
-func (m *Query_Filter) GetProperty() []*Property {
+ (m *Query_Filter) GetProperty() []*Property {
 	if m != nil {
 		return m.Property
 	}
@@ -2126,41 +1760,30 @@ type Query_Order struct {
 	XXX_unrecognized     []byte                 `json:"-"`
 	XXX_sizecache        int32                  `json:"-"`
 }
-
-func (m *Query_Order) Reset()         { *m = Query_Order{} }
-func (m *Query_Order) String() string { return proto.CompactTextString(m) }
-func (*Query_Order) ProtoMessage()    {}
-func (*Query_Order) Descriptor() ([]byte, []int) {
+ (m *Query_Order) Reset()         { *m = Query_Order{} } (m *Query_Order) String() string { return proto.CompactTextString(m) } (*Query_Order) ProtoMessage()    {} (*Query_Order) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{15, 1}
-}
-func (m *Query_Order) XXX_Unmarshal(b []byte) error {
+} (m *Query_Order) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Query_Order.Unmarshal(m, b)
-}
-func (m *Query_Order) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Query_Order) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Query_Order.Marshal(b, m, deterministic)
-}
-func (dst *Query_Order) XXX_Merge(src proto.Message) {
+} (dst *Query_Order) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Query_Order.Merge(dst, src)
-}
-func (m *Query_Order) XXX_Size() int {
+} (m *Query_Order) XXX_Size() int {
 	return xxx_messageInfo_Query_Order.Size(m)
-}
-func (m *Query_Order) XXX_DiscardUnknown() {
+} (m *Query_Order) XXX_DiscardUnknown() {
 	xxx_messageInfo_Query_Order.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Query_Order proto.InternalMessageInfo
 
 const Default_Query_Order_Direction Query_Order_Direction = Query_Order_ASCENDING
-
-func (m *Query_Order) GetProperty() string {
+ (m *Query_Order) GetProperty() string {
 	if m != nil && m.Property != nil {
 		return *m.Property
 	}
 	return ""
 }
-
-func (m *Query_Order) GetDirection() Query_Order_Direction {
+ (m *Query_Order) GetDirection() Query_Order_Direction {
 	if m != nil && m.Direction != nil {
 		return *m.Direction
 	}
@@ -2181,90 +1804,72 @@ type CompiledQuery struct {
 	XXX_unrecognized     []byte                         `json:"-"`
 	XXX_sizecache        int32                          `json:"-"`
 }
-
-func (m *CompiledQuery) Reset()         { *m = CompiledQuery{} }
-func (m *CompiledQuery) String() string { return proto.CompactTextString(m) }
-func (*CompiledQuery) ProtoMessage()    {}
-func (*CompiledQuery) Descriptor() ([]byte, []int) {
+ (m *CompiledQuery) Reset()         { *m = CompiledQuery{} } (m *CompiledQuery) String() string { return proto.CompactTextString(m) } (*CompiledQuery) ProtoMessage()    {} (*CompiledQuery) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{16}
-}
-func (m *CompiledQuery) XXX_Unmarshal(b []byte) error {
+} (m *CompiledQuery) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CompiledQuery.Unmarshal(m, b)
-}
-func (m *CompiledQuery) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CompiledQuery) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CompiledQuery.Marshal(b, m, deterministic)
-}
-func (dst *CompiledQuery) XXX_Merge(src proto.Message) {
+} (dst *CompiledQuery) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CompiledQuery.Merge(dst, src)
-}
-func (m *CompiledQuery) XXX_Size() int {
+} (m *CompiledQuery) XXX_Size() int {
 	return xxx_messageInfo_CompiledQuery.Size(m)
-}
-func (m *CompiledQuery) XXX_DiscardUnknown() {
+} (m *CompiledQuery) XXX_DiscardUnknown() {
 	xxx_messageInfo_CompiledQuery.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CompiledQuery proto.InternalMessageInfo
 
 const Default_CompiledQuery_Offset int32 = 0
-
-func (m *CompiledQuery) GetPrimaryscan() *CompiledQuery_PrimaryScan {
+ (m *CompiledQuery) GetPrimaryscan() *CompiledQuery_PrimaryScan {
 	if m != nil {
 		return m.Primaryscan
 	}
 	return nil
 }
-
-func (m *CompiledQuery) GetMergejoinscan() []*CompiledQuery_MergeJoinScan {
+ (m *CompiledQuery) GetMergejoinscan() []*CompiledQuery_MergeJoinScan {
 	if m != nil {
 		return m.Mergejoinscan
 	}
 	return nil
 }
-
-func (m *CompiledQuery) GetIndexDef() *Index {
+ (m *CompiledQuery) GetIndexDef() *Index {
 	if m != nil {
 		return m.IndexDef
 	}
 	return nil
 }
-
-func (m *CompiledQuery) GetOffset() int32 {
+ (m *CompiledQuery) GetOffset() int32 {
 	if m != nil && m.Offset != nil {
 		return *m.Offset
 	}
 	return Default_CompiledQuery_Offset
 }
-
-func (m *CompiledQuery) GetLimit() int32 {
+ (m *CompiledQuery) GetLimit() int32 {
 	if m != nil && m.Limit != nil {
 		return *m.Limit
 	}
 	return 0
 }
-
-func (m *CompiledQuery) GetKeysOnly() bool {
+ (m *CompiledQuery) GetKeysOnly() bool {
 	if m != nil && m.KeysOnly != nil {
 		return *m.KeysOnly
 	}
 	return false
 }
-
-func (m *CompiledQuery) GetPropertyName() []string {
+ (m *CompiledQuery) GetPropertyName() []string {
 	if m != nil {
 		return m.PropertyName
 	}
 	return nil
 }
-
-func (m *CompiledQuery) GetDistinctInfixSize() int32 {
+ (m *CompiledQuery) GetDistinctInfixSize() int32 {
 	if m != nil && m.DistinctInfixSize != nil {
 		return *m.DistinctInfixSize
 	}
 	return 0
 }
-
-func (m *CompiledQuery) GetEntityfilter() *CompiledQuery_EntityFilter {
+ (m *CompiledQuery) GetEntityfilter() *CompiledQuery_EntityFilter {
 	if m != nil {
 		return m.Entityfilter
 	}
@@ -2284,81 +1889,64 @@ type CompiledQuery_PrimaryScan struct {
 	XXX_unrecognized           []byte   `json:"-"`
 	XXX_sizecache              int32    `json:"-"`
 }
-
-func (m *CompiledQuery_PrimaryScan) Reset()         { *m = CompiledQuery_PrimaryScan{} }
-func (m *CompiledQuery_PrimaryScan) String() string { return proto.CompactTextString(m) }
-func (*CompiledQuery_PrimaryScan) ProtoMessage()    {}
-func (*CompiledQuery_PrimaryScan) Descriptor() ([]byte, []int) {
+ (m *CompiledQuery_PrimaryScan) Reset()         { *m = CompiledQuery_PrimaryScan{} } (m *CompiledQuery_PrimaryScan) String() string { return proto.CompactTextString(m) } (*CompiledQuery_PrimaryScan) ProtoMessage()    {} (*CompiledQuery_PrimaryScan) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{16, 0}
-}
-func (m *CompiledQuery_PrimaryScan) XXX_Unmarshal(b []byte) error {
+} (m *CompiledQuery_PrimaryScan) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CompiledQuery_PrimaryScan.Unmarshal(m, b)
-}
-func (m *CompiledQuery_PrimaryScan) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CompiledQuery_PrimaryScan) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CompiledQuery_PrimaryScan.Marshal(b, m, deterministic)
-}
-func (dst *CompiledQuery_PrimaryScan) XXX_Merge(src proto.Message) {
+} (dst *CompiledQuery_PrimaryScan) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CompiledQuery_PrimaryScan.Merge(dst, src)
-}
-func (m *CompiledQuery_PrimaryScan) XXX_Size() int {
+} (m *CompiledQuery_PrimaryScan) XXX_Size() int {
 	return xxx_messageInfo_CompiledQuery_PrimaryScan.Size(m)
-}
-func (m *CompiledQuery_PrimaryScan) XXX_DiscardUnknown() {
+} (m *CompiledQuery_PrimaryScan) XXX_DiscardUnknown() {
 	xxx_messageInfo_CompiledQuery_PrimaryScan.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CompiledQuery_PrimaryScan proto.InternalMessageInfo
-
-func (m *CompiledQuery_PrimaryScan) GetIndexName() string {
+ (m *CompiledQuery_PrimaryScan) GetIndexName() string {
 	if m != nil && m.IndexName != nil {
 		return *m.IndexName
 	}
 	return ""
 }
-
-func (m *CompiledQuery_PrimaryScan) GetStartKey() string {
+ (m *CompiledQuery_PrimaryScan) GetStartKey() string {
 	if m != nil && m.StartKey != nil {
 		return *m.StartKey
 	}
 	return ""
 }
-
-func (m *CompiledQuery_PrimaryScan) GetStartInclusive() bool {
+ (m *CompiledQuery_PrimaryScan) GetStartInclusive() bool {
 	if m != nil && m.StartInclusive != nil {
 		return *m.StartInclusive
 	}
 	return false
 }
-
-func (m *CompiledQuery_PrimaryScan) GetEndKey() string {
+ (m *CompiledQuery_PrimaryScan) GetEndKey() string {
 	if m != nil && m.EndKey != nil {
 		return *m.EndKey
 	}
 	return ""
 }
-
-func (m *CompiledQuery_PrimaryScan) GetEndInclusive() bool {
+ (m *CompiledQuery_PrimaryScan) GetEndInclusive() bool {
 	if m != nil && m.EndInclusive != nil {
 		return *m.EndInclusive
 	}
 	return false
 }
-
-func (m *CompiledQuery_PrimaryScan) GetStartPostfixValue() []string {
+ (m *CompiledQuery_PrimaryScan) GetStartPostfixValue() []string {
 	if m != nil {
 		return m.StartPostfixValue
 	}
 	return nil
 }
-
-func (m *CompiledQuery_PrimaryScan) GetEndPostfixValue() []string {
+ (m *CompiledQuery_PrimaryScan) GetEndPostfixValue() []string {
 	if m != nil {
 		return m.EndPostfixValue
 	}
 	return nil
 }
-
-func (m *CompiledQuery_PrimaryScan) GetEndUnappliedLogTimestampUs() int64 {
+ (m *CompiledQuery_PrimaryScan) GetEndUnappliedLogTimestampUs() int64 {
 	if m != nil && m.EndUnappliedLogTimestampUs != nil {
 		return *m.EndUnappliedLogTimestampUs
 	}
@@ -2373,48 +1961,36 @@ type CompiledQuery_MergeJoinScan struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *CompiledQuery_MergeJoinScan) Reset()         { *m = CompiledQuery_MergeJoinScan{} }
-func (m *CompiledQuery_MergeJoinScan) String() string { return proto.CompactTextString(m) }
-func (*CompiledQuery_MergeJoinScan) ProtoMessage()    {}
-func (*CompiledQuery_MergeJoinScan) Descriptor() ([]byte, []int) {
+ (m *CompiledQuery_MergeJoinScan) Reset()         { *m = CompiledQuery_MergeJoinScan{} } (m *CompiledQuery_MergeJoinScan) String() string { return proto.CompactTextString(m) } (*CompiledQuery_MergeJoinScan) ProtoMessage()    {} (*CompiledQuery_MergeJoinScan) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{16, 1}
-}
-func (m *CompiledQuery_MergeJoinScan) XXX_Unmarshal(b []byte) error {
+} (m *CompiledQuery_MergeJoinScan) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CompiledQuery_MergeJoinScan.Unmarshal(m, b)
-}
-func (m *CompiledQuery_MergeJoinScan) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CompiledQuery_MergeJoinScan) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CompiledQuery_MergeJoinScan.Marshal(b, m, deterministic)
-}
-func (dst *CompiledQuery_MergeJoinScan) XXX_Merge(src proto.Message) {
+} (dst *CompiledQuery_MergeJoinScan) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CompiledQuery_MergeJoinScan.Merge(dst, src)
-}
-func (m *CompiledQuery_MergeJoinScan) XXX_Size() int {
+} (m *CompiledQuery_MergeJoinScan) XXX_Size() int {
 	return xxx_messageInfo_CompiledQuery_MergeJoinScan.Size(m)
-}
-func (m *CompiledQuery_MergeJoinScan) XXX_DiscardUnknown() {
+} (m *CompiledQuery_MergeJoinScan) XXX_DiscardUnknown() {
 	xxx_messageInfo_CompiledQuery_MergeJoinScan.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CompiledQuery_MergeJoinScan proto.InternalMessageInfo
 
 const Default_CompiledQuery_MergeJoinScan_ValuePrefix bool = false
-
-func (m *CompiledQuery_MergeJoinScan) GetIndexName() string {
+ (m *CompiledQuery_MergeJoinScan) GetIndexName() string {
 	if m != nil && m.IndexName != nil {
 		return *m.IndexName
 	}
 	return ""
 }
-
-func (m *CompiledQuery_MergeJoinScan) GetPrefixValue() []string {
+ (m *CompiledQuery_MergeJoinScan) GetPrefixValue() []string {
 	if m != nil {
 		return m.PrefixValue
 	}
 	return nil
 }
-
-func (m *CompiledQuery_MergeJoinScan) GetValuePrefix() bool {
+ (m *CompiledQuery_MergeJoinScan) GetValuePrefix() bool {
 	if m != nil && m.ValuePrefix != nil {
 		return *m.ValuePrefix
 	}
@@ -2429,48 +2005,36 @@ type CompiledQuery_EntityFilter struct {
 	XXX_unrecognized     []byte     `json:"-"`
 	XXX_sizecache        int32      `json:"-"`
 }
-
-func (m *CompiledQuery_EntityFilter) Reset()         { *m = CompiledQuery_EntityFilter{} }
-func (m *CompiledQuery_EntityFilter) String() string { return proto.CompactTextString(m) }
-func (*CompiledQuery_EntityFilter) ProtoMessage()    {}
-func (*CompiledQuery_EntityFilter) Descriptor() ([]byte, []int) {
+ (m *CompiledQuery_EntityFilter) Reset()         { *m = CompiledQuery_EntityFilter{} } (m *CompiledQuery_EntityFilter) String() string { return proto.CompactTextString(m) } (*CompiledQuery_EntityFilter) ProtoMessage()    {} (*CompiledQuery_EntityFilter) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{16, 2}
-}
-func (m *CompiledQuery_EntityFilter) XXX_Unmarshal(b []byte) error {
+} (m *CompiledQuery_EntityFilter) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CompiledQuery_EntityFilter.Unmarshal(m, b)
-}
-func (m *CompiledQuery_EntityFilter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CompiledQuery_EntityFilter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CompiledQuery_EntityFilter.Marshal(b, m, deterministic)
-}
-func (dst *CompiledQuery_EntityFilter) XXX_Merge(src proto.Message) {
+} (dst *CompiledQuery_EntityFilter) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CompiledQuery_EntityFilter.Merge(dst, src)
-}
-func (m *CompiledQuery_EntityFilter) XXX_Size() int {
+} (m *CompiledQuery_EntityFilter) XXX_Size() int {
 	return xxx_messageInfo_CompiledQuery_EntityFilter.Size(m)
-}
-func (m *CompiledQuery_EntityFilter) XXX_DiscardUnknown() {
+} (m *CompiledQuery_EntityFilter) XXX_DiscardUnknown() {
 	xxx_messageInfo_CompiledQuery_EntityFilter.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CompiledQuery_EntityFilter proto.InternalMessageInfo
 
 const Default_CompiledQuery_EntityFilter_Distinct bool = false
-
-func (m *CompiledQuery_EntityFilter) GetDistinct() bool {
+ (m *CompiledQuery_EntityFilter) GetDistinct() bool {
 	if m != nil && m.Distinct != nil {
 		return *m.Distinct
 	}
 	return Default_CompiledQuery_EntityFilter_Distinct
 }
-
-func (m *CompiledQuery_EntityFilter) GetKind() string {
+ (m *CompiledQuery_EntityFilter) GetKind() string {
 	if m != nil && m.Kind != nil {
 		return *m.Kind
 	}
 	return ""
 }
-
-func (m *CompiledQuery_EntityFilter) GetAncestor() *Reference {
+ (m *CompiledQuery_EntityFilter) GetAncestor() *Reference {
 	if m != nil {
 		return m.Ancestor
 	}
@@ -2483,32 +2047,22 @@ type CompiledCursor struct {
 	XXX_unrecognized     []byte                   `json:"-"`
 	XXX_sizecache        int32                    `json:"-"`
 }
-
-func (m *CompiledCursor) Reset()         { *m = CompiledCursor{} }
-func (m *CompiledCursor) String() string { return proto.CompactTextString(m) }
-func (*CompiledCursor) ProtoMessage()    {}
-func (*CompiledCursor) Descriptor() ([]byte, []int) {
+ (m *CompiledCursor) Reset()         { *m = CompiledCursor{} } (m *CompiledCursor) String() string { return proto.CompactTextString(m) } (*CompiledCursor) ProtoMessage()    {} (*CompiledCursor) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{17}
-}
-func (m *CompiledCursor) XXX_Unmarshal(b []byte) error {
+} (m *CompiledCursor) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CompiledCursor.Unmarshal(m, b)
-}
-func (m *CompiledCursor) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CompiledCursor) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CompiledCursor.Marshal(b, m, deterministic)
-}
-func (dst *CompiledCursor) XXX_Merge(src proto.Message) {
+} (dst *CompiledCursor) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CompiledCursor.Merge(dst, src)
-}
-func (m *CompiledCursor) XXX_Size() int {
+} (m *CompiledCursor) XXX_Size() int {
 	return xxx_messageInfo_CompiledCursor.Size(m)
-}
-func (m *CompiledCursor) XXX_DiscardUnknown() {
+} (m *CompiledCursor) XXX_DiscardUnknown() {
 	xxx_messageInfo_CompiledCursor.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CompiledCursor proto.InternalMessageInfo
-
-func (m *CompiledCursor) GetPosition() *CompiledCursor_Position {
+ (m *CompiledCursor) GetPosition() *CompiledCursor_Position {
 	if m != nil {
 		return m.Position
 	}
@@ -2524,55 +2078,42 @@ type CompiledCursor_Position struct {
 	XXX_unrecognized     []byte                                `json:"-"`
 	XXX_sizecache        int32                                 `json:"-"`
 }
-
-func (m *CompiledCursor_Position) Reset()         { *m = CompiledCursor_Position{} }
-func (m *CompiledCursor_Position) String() string { return proto.CompactTextString(m) }
-func (*CompiledCursor_Position) ProtoMessage()    {}
-func (*CompiledCursor_Position) Descriptor() ([]byte, []int) {
+ (m *CompiledCursor_Position) Reset()         { *m = CompiledCursor_Position{} } (m *CompiledCursor_Position) String() string { return proto.CompactTextString(m) } (*CompiledCursor_Position) ProtoMessage()    {} (*CompiledCursor_Position) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{17, 0}
-}
-func (m *CompiledCursor_Position) XXX_Unmarshal(b []byte) error {
+} (m *CompiledCursor_Position) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CompiledCursor_Position.Unmarshal(m, b)
-}
-func (m *CompiledCursor_Position) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CompiledCursor_Position) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CompiledCursor_Position.Marshal(b, m, deterministic)
-}
-func (dst *CompiledCursor_Position) XXX_Merge(src proto.Message) {
+} (dst *CompiledCursor_Position) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CompiledCursor_Position.Merge(dst, src)
-}
-func (m *CompiledCursor_Position) XXX_Size() int {
+} (m *CompiledCursor_Position) XXX_Size() int {
 	return xxx_messageInfo_CompiledCursor_Position.Size(m)
-}
-func (m *CompiledCursor_Position) XXX_DiscardUnknown() {
+} (m *CompiledCursor_Position) XXX_DiscardUnknown() {
 	xxx_messageInfo_CompiledCursor_Position.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CompiledCursor_Position proto.InternalMessageInfo
 
 const Default_CompiledCursor_Position_StartInclusive bool = true
-
-func (m *CompiledCursor_Position) GetStartKey() string {
+ (m *CompiledCursor_Position) GetStartKey() string {
 	if m != nil && m.StartKey != nil {
 		return *m.StartKey
 	}
 	return ""
 }
-
-func (m *CompiledCursor_Position) GetIndexvalue() []*CompiledCursor_Position_IndexValue {
+ (m *CompiledCursor_Position) GetIndexvalue() []*CompiledCursor_Position_IndexValue {
 	if m != nil {
 		return m.Indexvalue
 	}
 	return nil
 }
-
-func (m *CompiledCursor_Position) GetKey() *Reference {
+ (m *CompiledCursor_Position) GetKey() *Reference {
 	if m != nil {
 		return m.Key
 	}
 	return nil
 }
-
-func (m *CompiledCursor_Position) GetStartInclusive() bool {
+ (m *CompiledCursor_Position) GetStartInclusive() bool {
 	if m != nil && m.StartInclusive != nil {
 		return *m.StartInclusive
 	}
@@ -2586,39 +2127,28 @@ type CompiledCursor_Position_IndexValue struct {
 	XXX_unrecognized     []byte         `json:"-"`
 	XXX_sizecache        int32          `json:"-"`
 }
-
-func (m *CompiledCursor_Position_IndexValue) Reset()         { *m = CompiledCursor_Position_IndexValue{} }
-func (m *CompiledCursor_Position_IndexValue) String() string { return proto.CompactTextString(m) }
-func (*CompiledCursor_Position_IndexValue) ProtoMessage()    {}
-func (*CompiledCursor_Position_IndexValue) Descriptor() ([]byte, []int) {
+ (m *CompiledCursor_Position_IndexValue) Reset()         { *m = CompiledCursor_Position_IndexValue{} } (m *CompiledCursor_Position_IndexValue) String() string { return proto.CompactTextString(m) } (*CompiledCursor_Position_IndexValue) ProtoMessage()    {} (*CompiledCursor_Position_IndexValue) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{17, 0, 0}
-}
-func (m *CompiledCursor_Position_IndexValue) XXX_Unmarshal(b []byte) error {
+} (m *CompiledCursor_Position_IndexValue) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CompiledCursor_Position_IndexValue.Unmarshal(m, b)
-}
-func (m *CompiledCursor_Position_IndexValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CompiledCursor_Position_IndexValue) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CompiledCursor_Position_IndexValue.Marshal(b, m, deterministic)
-}
-func (dst *CompiledCursor_Position_IndexValue) XXX_Merge(src proto.Message) {
+} (dst *CompiledCursor_Position_IndexValue) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CompiledCursor_Position_IndexValue.Merge(dst, src)
-}
-func (m *CompiledCursor_Position_IndexValue) XXX_Size() int {
+} (m *CompiledCursor_Position_IndexValue) XXX_Size() int {
 	return xxx_messageInfo_CompiledCursor_Position_IndexValue.Size(m)
-}
-func (m *CompiledCursor_Position_IndexValue) XXX_DiscardUnknown() {
+} (m *CompiledCursor_Position_IndexValue) XXX_DiscardUnknown() {
 	xxx_messageInfo_CompiledCursor_Position_IndexValue.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CompiledCursor_Position_IndexValue proto.InternalMessageInfo
-
-func (m *CompiledCursor_Position_IndexValue) GetProperty() string {
+ (m *CompiledCursor_Position_IndexValue) GetProperty() string {
 	if m != nil && m.Property != nil {
 		return *m.Property
 	}
 	return ""
 }
-
-func (m *CompiledCursor_Position_IndexValue) GetValue() *PropertyValue {
+ (m *CompiledCursor_Position_IndexValue) GetValue() *PropertyValue {
 	if m != nil {
 		return m.Value
 	}
@@ -2632,39 +2162,28 @@ type Cursor struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *Cursor) Reset()         { *m = Cursor{} }
-func (m *Cursor) String() string { return proto.CompactTextString(m) }
-func (*Cursor) ProtoMessage()    {}
-func (*Cursor) Descriptor() ([]byte, []int) {
+ (m *Cursor) Reset()         { *m = Cursor{} } (m *Cursor) String() string { return proto.CompactTextString(m) } (*Cursor) ProtoMessage()    {} (*Cursor) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{18}
-}
-func (m *Cursor) XXX_Unmarshal(b []byte) error {
+} (m *Cursor) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Cursor.Unmarshal(m, b)
-}
-func (m *Cursor) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Cursor) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Cursor.Marshal(b, m, deterministic)
-}
-func (dst *Cursor) XXX_Merge(src proto.Message) {
+} (dst *Cursor) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Cursor.Merge(dst, src)
-}
-func (m *Cursor) XXX_Size() int {
+} (m *Cursor) XXX_Size() int {
 	return xxx_messageInfo_Cursor.Size(m)
-}
-func (m *Cursor) XXX_DiscardUnknown() {
+} (m *Cursor) XXX_DiscardUnknown() {
 	xxx_messageInfo_Cursor.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Cursor proto.InternalMessageInfo
-
-func (m *Cursor) GetCursor() uint64 {
+ (m *Cursor) GetCursor() uint64 {
 	if m != nil && m.Cursor != nil {
 		return *m.Cursor
 	}
 	return 0
 }
-
-func (m *Cursor) GetApp() string {
+ (m *Cursor) GetApp() string {
 	if m != nil && m.App != nil {
 		return *m.App
 	}
@@ -2676,26 +2195,17 @@ type Error struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *Error) Reset()         { *m = Error{} }
-func (m *Error) String() string { return proto.CompactTextString(m) }
-func (*Error) ProtoMessage()    {}
-func (*Error) Descriptor() ([]byte, []int) {
+ (m *Error) Reset()         { *m = Error{} } (m *Error) String() string { return proto.CompactTextString(m) } (*Error) ProtoMessage()    {} (*Error) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{19}
-}
-func (m *Error) XXX_Unmarshal(b []byte) error {
+} (m *Error) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Error.Unmarshal(m, b)
-}
-func (m *Error) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Error) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Error.Marshal(b, m, deterministic)
-}
-func (dst *Error) XXX_Merge(src proto.Message) {
+} (dst *Error) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Error.Merge(dst, src)
-}
-func (m *Error) XXX_Size() int {
+} (m *Error) XXX_Size() int {
 	return xxx_messageInfo_Error.Size(m)
-}
-func (m *Error) XXX_DiscardUnknown() {
+} (m *Error) XXX_DiscardUnknown() {
 	xxx_messageInfo_Error.DiscardUnknown(m)
 }
 
@@ -2713,74 +2223,58 @@ type Cost struct {
 	XXX_unrecognized        []byte           `json:"-"`
 	XXX_sizecache           int32            `json:"-"`
 }
-
-func (m *Cost) Reset()         { *m = Cost{} }
-func (m *Cost) String() string { return proto.CompactTextString(m) }
-func (*Cost) ProtoMessage()    {}
-func (*Cost) Descriptor() ([]byte, []int) {
+ (m *Cost) Reset()         { *m = Cost{} } (m *Cost) String() string { return proto.CompactTextString(m) } (*Cost) ProtoMessage()    {} (*Cost) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{20}
-}
-func (m *Cost) XXX_Unmarshal(b []byte) error {
+} (m *Cost) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Cost.Unmarshal(m, b)
-}
-func (m *Cost) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Cost) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Cost.Marshal(b, m, deterministic)
-}
-func (dst *Cost) XXX_Merge(src proto.Message) {
+} (dst *Cost) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Cost.Merge(dst, src)
-}
-func (m *Cost) XXX_Size() int {
+} (m *Cost) XXX_Size() int {
 	return xxx_messageInfo_Cost.Size(m)
-}
-func (m *Cost) XXX_DiscardUnknown() {
+} (m *Cost) XXX_DiscardUnknown() {
 	xxx_messageInfo_Cost.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Cost proto.InternalMessageInfo
-
-func (m *Cost) GetIndexWrites() int32 {
+ (m *Cost) GetIndexWrites() int32 {
 	if m != nil && m.IndexWrites != nil {
 		return *m.IndexWrites
 	}
 	return 0
 }
-
-func (m *Cost) GetIndexWriteBytes() int32 {
+ (m *Cost) GetIndexWriteBytes() int32 {
 	if m != nil && m.IndexWriteBytes != nil {
 		return *m.IndexWriteBytes
 	}
 	return 0
 }
-
-func (m *Cost) GetEntityWrites() int32 {
+ (m *Cost) GetEntityWrites() int32 {
 	if m != nil && m.EntityWrites != nil {
 		return *m.EntityWrites
 	}
 	return 0
 }
-
-func (m *Cost) GetEntityWriteBytes() int32 {
+ (m *Cost) GetEntityWriteBytes() int32 {
 	if m != nil && m.EntityWriteBytes != nil {
 		return *m.EntityWriteBytes
 	}
 	return 0
 }
-
-func (m *Cost) GetCommitcost() *Cost_CommitCost {
+ (m *Cost) GetCommitcost() *Cost_CommitCost {
 	if m != nil {
 		return m.Commitcost
 	}
 	return nil
 }
-
-func (m *Cost) GetApproximateStorageDelta() int32 {
+ (m *Cost) GetApproximateStorageDelta() int32 {
 	if m != nil && m.ApproximateStorageDelta != nil {
 		return *m.ApproximateStorageDelta
 	}
 	return 0
 }
-
-func (m *Cost) GetIdSequenceUpdates() int32 {
+ (m *Cost) GetIdSequenceUpdates() int32 {
 	if m != nil && m.IdSequenceUpdates != nil {
 		return *m.IdSequenceUpdates
 	}
@@ -2794,39 +2288,28 @@ type Cost_CommitCost struct {
 	XXX_unrecognized       []byte   `json:"-"`
 	XXX_sizecache          int32    `json:"-"`
 }
-
-func (m *Cost_CommitCost) Reset()         { *m = Cost_CommitCost{} }
-func (m *Cost_CommitCost) String() string { return proto.CompactTextString(m) }
-func (*Cost_CommitCost) ProtoMessage()    {}
-func (*Cost_CommitCost) Descriptor() ([]byte, []int) {
+ (m *Cost_CommitCost) Reset()         { *m = Cost_CommitCost{} } (m *Cost_CommitCost) String() string { return proto.CompactTextString(m) } (*Cost_CommitCost) ProtoMessage()    {} (*Cost_CommitCost) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{20, 0}
-}
-func (m *Cost_CommitCost) XXX_Unmarshal(b []byte) error {
+} (m *Cost_CommitCost) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Cost_CommitCost.Unmarshal(m, b)
-}
-func (m *Cost_CommitCost) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Cost_CommitCost) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Cost_CommitCost.Marshal(b, m, deterministic)
-}
-func (dst *Cost_CommitCost) XXX_Merge(src proto.Message) {
+} (dst *Cost_CommitCost) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Cost_CommitCost.Merge(dst, src)
-}
-func (m *Cost_CommitCost) XXX_Size() int {
+} (m *Cost_CommitCost) XXX_Size() int {
 	return xxx_messageInfo_Cost_CommitCost.Size(m)
-}
-func (m *Cost_CommitCost) XXX_DiscardUnknown() {
+} (m *Cost_CommitCost) XXX_DiscardUnknown() {
 	xxx_messageInfo_Cost_CommitCost.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Cost_CommitCost proto.InternalMessageInfo
-
-func (m *Cost_CommitCost) GetRequestedEntityPuts() int32 {
+ (m *Cost_CommitCost) GetRequestedEntityPuts() int32 {
 	if m != nil && m.RequestedEntityPuts != nil {
 		return *m.RequestedEntityPuts
 	}
 	return 0
 }
-
-func (m *Cost_CommitCost) GetRequestedEntityDeletes() int32 {
+ (m *Cost_CommitCost) GetRequestedEntityDeletes() int32 {
 	if m != nil && m.RequestedEntityDeletes != nil {
 		return *m.RequestedEntityDeletes
 	}
@@ -2844,69 +2327,54 @@ type GetRequest struct {
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
 }
-
-func (m *GetRequest) Reset()         { *m = GetRequest{} }
-func (m *GetRequest) String() string { return proto.CompactTextString(m) }
-func (*GetRequest) ProtoMessage()    {}
-func (*GetRequest) Descriptor() ([]byte, []int) {
+ (m *GetRequest) Reset()         { *m = GetRequest{} } (m *GetRequest) String() string { return proto.CompactTextString(m) } (*GetRequest) ProtoMessage()    {} (*GetRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{21}
-}
-func (m *GetRequest) XXX_Unmarshal(b []byte) error {
+} (m *GetRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetRequest.Unmarshal(m, b)
-}
-func (m *GetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *GetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_GetRequest.Marshal(b, m, deterministic)
-}
-func (dst *GetRequest) XXX_Merge(src proto.Message) {
+} (dst *GetRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetRequest.Merge(dst, src)
-}
-func (m *GetRequest) XXX_Size() int {
+} (m *GetRequest) XXX_Size() int {
 	return xxx_messageInfo_GetRequest.Size(m)
-}
-func (m *GetRequest) XXX_DiscardUnknown() {
+} (m *GetRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetRequest.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_GetRequest proto.InternalMessageInfo
 
 const Default_GetRequest_AllowDeferred bool = false
-
-func (m *GetRequest) GetHeader() *InternalHeader {
+ (m *GetRequest) GetHeader() *InternalHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
-
-func (m *GetRequest) GetKey() []*Reference {
+ (m *GetRequest) GetKey() []*Reference {
 	if m != nil {
 		return m.Key
 	}
 	return nil
 }
-
-func (m *GetRequest) GetTransaction() *Transaction {
+ (m *GetRequest) GetTransaction() *Transaction {
 	if m != nil {
 		return m.Transaction
 	}
 	return nil
 }
-
-func (m *GetRequest) GetFailoverMs() int64 {
+ (m *GetRequest) GetFailoverMs() int64 {
 	if m != nil && m.FailoverMs != nil {
 		return *m.FailoverMs
 	}
 	return 0
 }
-
-func (m *GetRequest) GetStrong() bool {
+ (m *GetRequest) GetStrong() bool {
 	if m != nil && m.Strong != nil {
 		return *m.Strong
 	}
 	return false
 }
-
-func (m *GetRequest) GetAllowDeferred() bool {
+ (m *GetRequest) GetAllowDeferred() bool {
 	if m != nil && m.AllowDeferred != nil {
 		return *m.AllowDeferred
 	}
@@ -2921,48 +2389,36 @@ type GetResponse struct {
 	XXX_unrecognized     []byte                `json:"-"`
 	XXX_sizecache        int32                 `json:"-"`
 }
-
-func (m *GetResponse) Reset()         { *m = GetResponse{} }
-func (m *GetResponse) String() string { return proto.CompactTextString(m) }
-func (*GetResponse) ProtoMessage()    {}
-func (*GetResponse) Descriptor() ([]byte, []int) {
+ (m *GetResponse) Reset()         { *m = GetResponse{} } (m *GetResponse) String() string { return proto.CompactTextString(m) } (*GetResponse) ProtoMessage()    {} (*GetResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{22}
-}
-func (m *GetResponse) XXX_Unmarshal(b []byte) error {
+} (m *GetResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetResponse.Unmarshal(m, b)
-}
-func (m *GetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *GetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_GetResponse.Marshal(b, m, deterministic)
-}
-func (dst *GetResponse) XXX_Merge(src proto.Message) {
+} (dst *GetResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetResponse.Merge(dst, src)
-}
-func (m *GetResponse) XXX_Size() int {
+} (m *GetResponse) XXX_Size() int {
 	return xxx_messageInfo_GetResponse.Size(m)
-}
-func (m *GetResponse) XXX_DiscardUnknown() {
+} (m *GetResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetResponse.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_GetResponse proto.InternalMessageInfo
 
 const Default_GetResponse_InOrder bool = true
-
-func (m *GetResponse) GetEntity() []*GetResponse_Entity {
+ (m *GetResponse) GetEntity() []*GetResponse_Entity {
 	if m != nil {
 		return m.Entity
 	}
 	return nil
 }
-
-func (m *GetResponse) GetDeferred() []*Reference {
+ (m *GetResponse) GetDeferred() []*Reference {
 	if m != nil {
 		return m.Deferred
 	}
 	return nil
 }
-
-func (m *GetResponse) GetInOrder() bool {
+ (m *GetResponse) GetInOrder() bool {
 	if m != nil && m.InOrder != nil {
 		return *m.InOrder
 	}
@@ -2977,46 +2433,34 @@ type GetResponse_Entity struct {
 	XXX_unrecognized     []byte       `json:"-"`
 	XXX_sizecache        int32        `json:"-"`
 }
-
-func (m *GetResponse_Entity) Reset()         { *m = GetResponse_Entity{} }
-func (m *GetResponse_Entity) String() string { return proto.CompactTextString(m) }
-func (*GetResponse_Entity) ProtoMessage()    {}
-func (*GetResponse_Entity) Descriptor() ([]byte, []int) {
+ (m *GetResponse_Entity) Reset()         { *m = GetResponse_Entity{} } (m *GetResponse_Entity) String() string { return proto.CompactTextString(m) } (*GetResponse_Entity) ProtoMessage()    {} (*GetResponse_Entity) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{22, 0}
-}
-func (m *GetResponse_Entity) XXX_Unmarshal(b []byte) error {
+} (m *GetResponse_Entity) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetResponse_Entity.Unmarshal(m, b)
-}
-func (m *GetResponse_Entity) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *GetResponse_Entity) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_GetResponse_Entity.Marshal(b, m, deterministic)
-}
-func (dst *GetResponse_Entity) XXX_Merge(src proto.Message) {
+} (dst *GetResponse_Entity) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetResponse_Entity.Merge(dst, src)
-}
-func (m *GetResponse_Entity) XXX_Size() int {
+} (m *GetResponse_Entity) XXX_Size() int {
 	return xxx_messageInfo_GetResponse_Entity.Size(m)
-}
-func (m *GetResponse_Entity) XXX_DiscardUnknown() {
+} (m *GetResponse_Entity) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetResponse_Entity.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_GetResponse_Entity proto.InternalMessageInfo
-
-func (m *GetResponse_Entity) GetEntity() *EntityProto {
+ (m *GetResponse_Entity) GetEntity() *EntityProto {
 	if m != nil {
 		return m.Entity
 	}
 	return nil
 }
-
-func (m *GetResponse_Entity) GetKey() *Reference {
+ (m *GetResponse_Entity) GetKey() *Reference {
 	if m != nil {
 		return m.Key
 	}
 	return nil
 }
-
-func (m *GetResponse_Entity) GetVersion() int64 {
+ (m *GetResponse_Entity) GetVersion() int64 {
 	if m != nil && m.Version != nil {
 		return *m.Version
 	}
@@ -3037,26 +2481,17 @@ type PutRequest struct {
 	XXX_unrecognized     []byte                   `json:"-"`
 	XXX_sizecache        int32                    `json:"-"`
 }
-
-func (m *PutRequest) Reset()         { *m = PutRequest{} }
-func (m *PutRequest) String() string { return proto.CompactTextString(m) }
-func (*PutRequest) ProtoMessage()    {}
-func (*PutRequest) Descriptor() ([]byte, []int) {
+ (m *PutRequest) Reset()         { *m = PutRequest{} } (m *PutRequest) String() string { return proto.CompactTextString(m) } (*PutRequest) ProtoMessage()    {} (*PutRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{23}
-}
-func (m *PutRequest) XXX_Unmarshal(b []byte) error {
+} (m *PutRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PutRequest.Unmarshal(m, b)
-}
-func (m *PutRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *PutRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_PutRequest.Marshal(b, m, deterministic)
-}
-func (dst *PutRequest) XXX_Merge(src proto.Message) {
+} (dst *PutRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_PutRequest.Merge(dst, src)
-}
-func (m *PutRequest) XXX_Size() int {
+} (m *PutRequest) XXX_Size() int {
 	return xxx_messageInfo_PutRequest.Size(m)
-}
-func (m *PutRequest) XXX_DiscardUnknown() {
+} (m *PutRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_PutRequest.DiscardUnknown(m)
 }
 
@@ -3066,64 +2501,55 @@ const Default_PutRequest_Trusted bool = false
 const Default_PutRequest_Force bool = false
 const Default_PutRequest_MarkChanges bool = false
 const Default_PutRequest_AutoIdPolicy PutRequest_AutoIdPolicy = PutRequest_CURRENT
-
-func (m *PutRequest) GetHeader() *InternalHeader {
+ (m *PutRequest) GetHeader() *InternalHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
-
-func (m *PutRequest) GetEntity() []*EntityProto {
+ (m *PutRequest) GetEntity() []*EntityProto {
 	if m != nil {
 		return m.Entity
 	}
 	return nil
 }
-
-func (m *PutRequest) GetTransaction() *Transaction {
+ (m *PutRequest) GetTransaction() *Transaction {
 	if m != nil {
 		return m.Transaction
 	}
 	return nil
 }
-
-func (m *PutRequest) GetCompositeIndex() []*CompositeIndex {
+ (m *PutRequest) GetCompositeIndex() []*CompositeIndex {
 	if m != nil {
 		return m.CompositeIndex
 	}
 	return nil
 }
-
-func (m *PutRequest) GetTrusted() bool {
+ (m *PutRequest) GetTrusted() bool {
 	if m != nil && m.Trusted != nil {
 		return *m.Trusted
 	}
 	return Default_PutRequest_Trusted
 }
-
-func (m *PutRequest) GetForce() bool {
+ (m *PutRequest) GetForce() bool {
 	if m != nil && m.Force != nil {
 		return *m.Force
 	}
 	return Default_PutRequest_Force
 }
-
-func (m *PutRequest) GetMarkChanges() bool {
+ (m *PutRequest) GetMarkChanges() bool {
 	if m != nil && m.MarkChanges != nil {
 		return *m.MarkChanges
 	}
 	return Default_PutRequest_MarkChanges
 }
-
-func (m *PutRequest) GetSnapshot() []*Snapshot {
+ (m *PutRequest) GetSnapshot() []*Snapshot {
 	if m != nil {
 		return m.Snapshot
 	}
 	return nil
 }
-
-func (m *PutRequest) GetAutoIdPolicy() PutRequest_AutoIdPolicy {
+ (m *PutRequest) GetAutoIdPolicy() PutRequest_AutoIdPolicy {
 	if m != nil && m.AutoIdPolicy != nil {
 		return *m.AutoIdPolicy
 	}
@@ -3138,46 +2564,34 @@ type PutResponse struct {
 	XXX_unrecognized     []byte       `json:"-"`
 	XXX_sizecache        int32        `json:"-"`
 }
-
-func (m *PutResponse) Reset()         { *m = PutResponse{} }
-func (m *PutResponse) String() string { return proto.CompactTextString(m) }
-func (*PutResponse) ProtoMessage()    {}
-func (*PutResponse) Descriptor() ([]byte, []int) {
+ (m *PutResponse) Reset()         { *m = PutResponse{} } (m *PutResponse) String() string { return proto.CompactTextString(m) } (*PutResponse) ProtoMessage()    {} (*PutResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{24}
-}
-func (m *PutResponse) XXX_Unmarshal(b []byte) error {
+} (m *PutResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PutResponse.Unmarshal(m, b)
-}
-func (m *PutResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *PutResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_PutResponse.Marshal(b, m, deterministic)
-}
-func (dst *PutResponse) XXX_Merge(src proto.Message) {
+} (dst *PutResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_PutResponse.Merge(dst, src)
-}
-func (m *PutResponse) XXX_Size() int {
+} (m *PutResponse) XXX_Size() int {
 	return xxx_messageInfo_PutResponse.Size(m)
-}
-func (m *PutResponse) XXX_DiscardUnknown() {
+} (m *PutResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_PutResponse.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_PutResponse proto.InternalMessageInfo
-
-func (m *PutResponse) GetKey() []*Reference {
+ (m *PutResponse) GetKey() []*Reference {
 	if m != nil {
 		return m.Key
 	}
 	return nil
 }
-
-func (m *PutResponse) GetCost() *Cost {
+ (m *PutResponse) GetCost() *Cost {
 	if m != nil {
 		return m.Cost
 	}
 	return nil
 }
-
-func (m *PutResponse) GetVersion() []int64 {
+ (m *PutResponse) GetVersion() []int64 {
 	if m != nil {
 		return m.Version
 	}
@@ -3194,62 +2608,48 @@ type TouchRequest struct {
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`
 }
-
-func (m *TouchRequest) Reset()         { *m = TouchRequest{} }
-func (m *TouchRequest) String() string { return proto.CompactTextString(m) }
-func (*TouchRequest) ProtoMessage()    {}
-func (*TouchRequest) Descriptor() ([]byte, []int) {
+ (m *TouchRequest) Reset()         { *m = TouchRequest{} } (m *TouchRequest) String() string { return proto.CompactTextString(m) } (*TouchRequest) ProtoMessage()    {} (*TouchRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{25}
-}
-func (m *TouchRequest) XXX_Unmarshal(b []byte) error {
+} (m *TouchRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_TouchRequest.Unmarshal(m, b)
-}
-func (m *TouchRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *TouchRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_TouchRequest.Marshal(b, m, deterministic)
-}
-func (dst *TouchRequest) XXX_Merge(src proto.Message) {
+} (dst *TouchRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_TouchRequest.Merge(dst, src)
-}
-func (m *TouchRequest) XXX_Size() int {
+} (m *TouchRequest) XXX_Size() int {
 	return xxx_messageInfo_TouchRequest.Size(m)
-}
-func (m *TouchRequest) XXX_DiscardUnknown() {
+} (m *TouchRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_TouchRequest.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_TouchRequest proto.InternalMessageInfo
 
 const Default_TouchRequest_Force bool = false
-
-func (m *TouchRequest) GetHeader() *InternalHeader {
+ (m *TouchRequest) GetHeader() *InternalHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
-
-func (m *TouchRequest) GetKey() []*Reference {
+ (m *TouchRequest) GetKey() []*Reference {
 	if m != nil {
 		return m.Key
 	}
 	return nil
 }
-
-func (m *TouchRequest) GetCompositeIndex() []*CompositeIndex {
+ (m *TouchRequest) GetCompositeIndex() []*CompositeIndex {
 	if m != nil {
 		return m.CompositeIndex
 	}
 	return nil
 }
-
-func (m *TouchRequest) GetForce() bool {
+ (m *TouchRequest) GetForce() bool {
 	if m != nil && m.Force != nil {
 		return *m.Force
 	}
 	return Default_TouchRequest_Force
 }
-
-func (m *TouchRequest) GetSnapshot() []*Snapshot {
+ (m *TouchRequest) GetSnapshot() []*Snapshot {
 	if m != nil {
 		return m.Snapshot
 	}
@@ -3262,32 +2662,22 @@ type TouchResponse struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *TouchResponse) Reset()         { *m = TouchResponse{} }
-func (m *TouchResponse) String() string { return proto.CompactTextString(m) }
-func (*TouchResponse) ProtoMessage()    {}
-func (*TouchResponse) Descriptor() ([]byte, []int) {
+ (m *TouchResponse) Reset()         { *m = TouchResponse{} } (m *TouchResponse) String() string { return proto.CompactTextString(m) } (*TouchResponse) ProtoMessage()    {} (*TouchResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{26}
-}
-func (m *TouchResponse) XXX_Unmarshal(b []byte) error {
+} (m *TouchResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_TouchResponse.Unmarshal(m, b)
-}
-func (m *TouchResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *TouchResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_TouchResponse.Marshal(b, m, deterministic)
-}
-func (dst *TouchResponse) XXX_Merge(src proto.Message) {
+} (dst *TouchResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_TouchResponse.Merge(dst, src)
-}
-func (m *TouchResponse) XXX_Size() int {
+} (m *TouchResponse) XXX_Size() int {
 	return xxx_messageInfo_TouchResponse.Size(m)
-}
-func (m *TouchResponse) XXX_DiscardUnknown() {
+} (m *TouchResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_TouchResponse.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_TouchResponse proto.InternalMessageInfo
-
-func (m *TouchResponse) GetCost() *Cost {
+ (m *TouchResponse) GetCost() *Cost {
 	if m != nil {
 		return m.Cost
 	}
@@ -3306,26 +2696,17 @@ type DeleteRequest struct {
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
 }
-
-func (m *DeleteRequest) Reset()         { *m = DeleteRequest{} }
-func (m *DeleteRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteRequest) ProtoMessage()    {}
-func (*DeleteRequest) Descriptor() ([]byte, []int) {
+ (m *DeleteRequest) Reset()         { *m = DeleteRequest{} } (m *DeleteRequest) String() string { return proto.CompactTextString(m) } (*DeleteRequest) ProtoMessage()    {} (*DeleteRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{27}
-}
-func (m *DeleteRequest) XXX_Unmarshal(b []byte) error {
+} (m *DeleteRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteRequest.Unmarshal(m, b)
-}
-func (m *DeleteRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *DeleteRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_DeleteRequest.Marshal(b, m, deterministic)
-}
-func (dst *DeleteRequest) XXX_Merge(src proto.Message) {
+} (dst *DeleteRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_DeleteRequest.Merge(dst, src)
-}
-func (m *DeleteRequest) XXX_Size() int {
+} (m *DeleteRequest) XXX_Size() int {
 	return xxx_messageInfo_DeleteRequest.Size(m)
-}
-func (m *DeleteRequest) XXX_DiscardUnknown() {
+} (m *DeleteRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_DeleteRequest.DiscardUnknown(m)
 }
 
@@ -3334,50 +2715,43 @@ var xxx_messageInfo_DeleteRequest proto.InternalMessageInfo
 const Default_DeleteRequest_Trusted bool = false
 const Default_DeleteRequest_Force bool = false
 const Default_DeleteRequest_MarkChanges bool = false
-
-func (m *DeleteRequest) GetHeader() *InternalHeader {
+ (m *DeleteRequest) GetHeader() *InternalHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
-
-func (m *DeleteRequest) GetKey() []*Reference {
+ (m *DeleteRequest) GetKey() []*Reference {
 	if m != nil {
 		return m.Key
 	}
 	return nil
 }
-
-func (m *DeleteRequest) GetTransaction() *Transaction {
+ (m *DeleteRequest) GetTransaction() *Transaction {
 	if m != nil {
 		return m.Transaction
 	}
 	return nil
 }
-
-func (m *DeleteRequest) GetTrusted() bool {
+ (m *DeleteRequest) GetTrusted() bool {
 	if m != nil && m.Trusted != nil {
 		return *m.Trusted
 	}
 	return Default_DeleteRequest_Trusted
 }
-
-func (m *DeleteRequest) GetForce() bool {
+ (m *DeleteRequest) GetForce() bool {
 	if m != nil && m.Force != nil {
 		return *m.Force
 	}
 	return Default_DeleteRequest_Force
 }
-
-func (m *DeleteRequest) GetMarkChanges() bool {
+ (m *DeleteRequest) GetMarkChanges() bool {
 	if m != nil && m.MarkChanges != nil {
 		return *m.MarkChanges
 	}
 	return Default_DeleteRequest_MarkChanges
 }
-
-func (m *DeleteRequest) GetSnapshot() []*Snapshot {
+ (m *DeleteRequest) GetSnapshot() []*Snapshot {
 	if m != nil {
 		return m.Snapshot
 	}
@@ -3391,39 +2765,28 @@ type DeleteResponse struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *DeleteResponse) Reset()         { *m = DeleteResponse{} }
-func (m *DeleteResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteResponse) ProtoMessage()    {}
-func (*DeleteResponse) Descriptor() ([]byte, []int) {
+ (m *DeleteResponse) Reset()         { *m = DeleteResponse{} } (m *DeleteResponse) String() string { return proto.CompactTextString(m) } (*DeleteResponse) ProtoMessage()    {} (*DeleteResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{28}
-}
-func (m *DeleteResponse) XXX_Unmarshal(b []byte) error {
+} (m *DeleteResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteResponse.Unmarshal(m, b)
-}
-func (m *DeleteResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *DeleteResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_DeleteResponse.Marshal(b, m, deterministic)
-}
-func (dst *DeleteResponse) XXX_Merge(src proto.Message) {
+} (dst *DeleteResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_DeleteResponse.Merge(dst, src)
-}
-func (m *DeleteResponse) XXX_Size() int {
+} (m *DeleteResponse) XXX_Size() int {
 	return xxx_messageInfo_DeleteResponse.Size(m)
-}
-func (m *DeleteResponse) XXX_DiscardUnknown() {
+} (m *DeleteResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_DeleteResponse.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_DeleteResponse proto.InternalMessageInfo
-
-func (m *DeleteResponse) GetCost() *Cost {
+ (m *DeleteResponse) GetCost() *Cost {
 	if m != nil {
 		return m.Cost
 	}
 	return nil
 }
-
-func (m *DeleteResponse) GetVersion() []int64 {
+ (m *DeleteResponse) GetVersion() []int64 {
 	if m != nil {
 		return m.Version
 	}
@@ -3440,26 +2803,17 @@ type NextRequest struct {
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
 }
-
-func (m *NextRequest) Reset()         { *m = NextRequest{} }
-func (m *NextRequest) String() string { return proto.CompactTextString(m) }
-func (*NextRequest) ProtoMessage()    {}
-func (*NextRequest) Descriptor() ([]byte, []int) {
+ (m *NextRequest) Reset()         { *m = NextRequest{} } (m *NextRequest) String() string { return proto.CompactTextString(m) } (*NextRequest) ProtoMessage()    {} (*NextRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{29}
-}
-func (m *NextRequest) XXX_Unmarshal(b []byte) error {
+} (m *NextRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_NextRequest.Unmarshal(m, b)
-}
-func (m *NextRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *NextRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_NextRequest.Marshal(b, m, deterministic)
-}
-func (dst *NextRequest) XXX_Merge(src proto.Message) {
+} (dst *NextRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_NextRequest.Merge(dst, src)
-}
-func (m *NextRequest) XXX_Size() int {
+} (m *NextRequest) XXX_Size() int {
 	return xxx_messageInfo_NextRequest.Size(m)
-}
-func (m *NextRequest) XXX_DiscardUnknown() {
+} (m *NextRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_NextRequest.DiscardUnknown(m)
 }
 
@@ -3467,36 +2821,31 @@ var xxx_messageInfo_NextRequest proto.InternalMessageInfo
 
 const Default_NextRequest_Offset int32 = 0
 const Default_NextRequest_Compile bool = false
-
-func (m *NextRequest) GetHeader() *InternalHeader {
+ (m *NextRequest) GetHeader() *InternalHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
-
-func (m *NextRequest) GetCursor() *Cursor {
+ (m *NextRequest) GetCursor() *Cursor {
 	if m != nil {
 		return m.Cursor
 	}
 	return nil
 }
-
-func (m *NextRequest) GetCount() int32 {
+ (m *NextRequest) GetCount() int32 {
 	if m != nil && m.Count != nil {
 		return *m.Count
 	}
 	return 0
 }
-
-func (m *NextRequest) GetOffset() int32 {
+ (m *NextRequest) GetOffset() int32 {
 	if m != nil && m.Offset != nil {
 		return *m.Offset
 	}
 	return Default_NextRequest_Offset
 }
-
-func (m *NextRequest) GetCompile() bool {
+ (m *NextRequest) GetCompile() bool {
 	if m != nil && m.Compile != nil {
 		return *m.Compile
 	}
@@ -3519,102 +2868,82 @@ type QueryResult struct {
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`
 }
-
-func (m *QueryResult) Reset()         { *m = QueryResult{} }
-func (m *QueryResult) String() string { return proto.CompactTextString(m) }
-func (*QueryResult) ProtoMessage()    {}
-func (*QueryResult) Descriptor() ([]byte, []int) {
+ (m *QueryResult) Reset()         { *m = QueryResult{} } (m *QueryResult) String() string { return proto.CompactTextString(m) } (*QueryResult) ProtoMessage()    {} (*QueryResult) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{30}
-}
-func (m *QueryResult) XXX_Unmarshal(b []byte) error {
+} (m *QueryResult) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_QueryResult.Unmarshal(m, b)
-}
-func (m *QueryResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *QueryResult) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_QueryResult.Marshal(b, m, deterministic)
-}
-func (dst *QueryResult) XXX_Merge(src proto.Message) {
+} (dst *QueryResult) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_QueryResult.Merge(dst, src)
-}
-func (m *QueryResult) XXX_Size() int {
+} (m *QueryResult) XXX_Size() int {
 	return xxx_messageInfo_QueryResult.Size(m)
-}
-func (m *QueryResult) XXX_DiscardUnknown() {
+} (m *QueryResult) XXX_DiscardUnknown() {
 	xxx_messageInfo_QueryResult.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_QueryResult proto.InternalMessageInfo
-
-func (m *QueryResult) GetCursor() *Cursor {
+ (m *QueryResult) GetCursor() *Cursor {
 	if m != nil {
 		return m.Cursor
 	}
 	return nil
 }
-
-func (m *QueryResult) GetResult() []*EntityProto {
+ (m *QueryResult) GetResult() []*EntityProto {
 	if m != nil {
 		return m.Result
 	}
 	return nil
 }
-
-func (m *QueryResult) GetSkippedResults() int32 {
+ (m *QueryResult) GetSkippedResults() int32 {
 	if m != nil && m.SkippedResults != nil {
 		return *m.SkippedResults
 	}
 	return 0
 }
-
-func (m *QueryResult) GetMoreResults() bool {
+ (m *QueryResult) GetMoreResults() bool {
 	if m != nil && m.MoreResults != nil {
 		return *m.MoreResults
 	}
 	return false
 }
-
-func (m *QueryResult) GetKeysOnly() bool {
+ (m *QueryResult) GetKeysOnly() bool {
 	if m != nil && m.KeysOnly != nil {
 		return *m.KeysOnly
 	}
 	return false
 }
-
-func (m *QueryResult) GetIndexOnly() bool {
+ (m *QueryResult) GetIndexOnly() bool {
 	if m != nil && m.IndexOnly != nil {
 		return *m.IndexOnly
 	}
 	return false
 }
-
-func (m *QueryResult) GetSmallOps() bool {
+ (m *QueryResult) GetSmallOps() bool {
 	if m != nil && m.SmallOps != nil {
 		return *m.SmallOps
 	}
 	return false
 }
-
-func (m *QueryResult) GetCompiledQuery() *CompiledQuery {
+ (m *QueryResult) GetCompiledQuery() *CompiledQuery {
 	if m != nil {
 		return m.CompiledQuery
 	}
 	return nil
 }
-
-func (m *QueryResult) GetCompiledCursor() *CompiledCursor {
+ (m *QueryResult) GetCompiledCursor() *CompiledCursor {
 	if m != nil {
 		return m.CompiledCursor
 	}
 	return nil
 }
-
-func (m *QueryResult) GetIndex() []*CompositeIndex {
+ (m *QueryResult) GetIndex() []*CompositeIndex {
 	if m != nil {
 		return m.Index
 	}
 	return nil
 }
-
-func (m *QueryResult) GetVersion() []int64 {
+ (m *QueryResult) GetVersion() []int64 {
 	if m != nil {
 		return m.Version
 	}
@@ -3631,60 +2960,46 @@ type AllocateIdsRequest struct {
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
 }
-
-func (m *AllocateIdsRequest) Reset()         { *m = AllocateIdsRequest{} }
-func (m *AllocateIdsRequest) String() string { return proto.CompactTextString(m) }
-func (*AllocateIdsRequest) ProtoMessage()    {}
-func (*AllocateIdsRequest) Descriptor() ([]byte, []int) {
+ (m *AllocateIdsRequest) Reset()         { *m = AllocateIdsRequest{} } (m *AllocateIdsRequest) String() string { return proto.CompactTextString(m) } (*AllocateIdsRequest) ProtoMessage()    {} (*AllocateIdsRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{31}
-}
-func (m *AllocateIdsRequest) XXX_Unmarshal(b []byte) error {
+} (m *AllocateIdsRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AllocateIdsRequest.Unmarshal(m, b)
-}
-func (m *AllocateIdsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *AllocateIdsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_AllocateIdsRequest.Marshal(b, m, deterministic)
-}
-func (dst *AllocateIdsRequest) XXX_Merge(src proto.Message) {
+} (dst *AllocateIdsRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_AllocateIdsRequest.Merge(dst, src)
-}
-func (m *AllocateIdsRequest) XXX_Size() int {
+} (m *AllocateIdsRequest) XXX_Size() int {
 	return xxx_messageInfo_AllocateIdsRequest.Size(m)
-}
-func (m *AllocateIdsRequest) XXX_DiscardUnknown() {
+} (m *AllocateIdsRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_AllocateIdsRequest.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_AllocateIdsRequest proto.InternalMessageInfo
-
-func (m *AllocateIdsRequest) GetHeader() *InternalHeader {
+ (m *AllocateIdsRequest) GetHeader() *InternalHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
-
-func (m *AllocateIdsRequest) GetModelKey() *Reference {
+ (m *AllocateIdsRequest) GetModelKey() *Reference {
 	if m != nil {
 		return m.ModelKey
 	}
 	return nil
 }
-
-func (m *AllocateIdsRequest) GetSize() int64 {
+ (m *AllocateIdsRequest) GetSize() int64 {
 	if m != nil && m.Size != nil {
 		return *m.Size
 	}
 	return 0
 }
-
-func (m *AllocateIdsRequest) GetMax() int64 {
+ (m *AllocateIdsRequest) GetMax() int64 {
 	if m != nil && m.Max != nil {
 		return *m.Max
 	}
 	return 0
 }
-
-func (m *AllocateIdsRequest) GetReserve() []*Reference {
+ (m *AllocateIdsRequest) GetReserve() []*Reference {
 	if m != nil {
 		return m.Reserve
 	}
@@ -3699,46 +3014,34 @@ type AllocateIdsResponse struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *AllocateIdsResponse) Reset()         { *m = AllocateIdsResponse{} }
-func (m *AllocateIdsResponse) String() string { return proto.CompactTextString(m) }
-func (*AllocateIdsResponse) ProtoMessage()    {}
-func (*AllocateIdsResponse) Descriptor() ([]byte, []int) {
+ (m *AllocateIdsResponse) Reset()         { *m = AllocateIdsResponse{} } (m *AllocateIdsResponse) String() string { return proto.CompactTextString(m) } (*AllocateIdsResponse) ProtoMessage()    {} (*AllocateIdsResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{32}
-}
-func (m *AllocateIdsResponse) XXX_Unmarshal(b []byte) error {
+} (m *AllocateIdsResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AllocateIdsResponse.Unmarshal(m, b)
-}
-func (m *AllocateIdsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *AllocateIdsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_AllocateIdsResponse.Marshal(b, m, deterministic)
-}
-func (dst *AllocateIdsResponse) XXX_Merge(src proto.Message) {
+} (dst *AllocateIdsResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_AllocateIdsResponse.Merge(dst, src)
-}
-func (m *AllocateIdsResponse) XXX_Size() int {
+} (m *AllocateIdsResponse) XXX_Size() int {
 	return xxx_messageInfo_AllocateIdsResponse.Size(m)
-}
-func (m *AllocateIdsResponse) XXX_DiscardUnknown() {
+} (m *AllocateIdsResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_AllocateIdsResponse.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_AllocateIdsResponse proto.InternalMessageInfo
-
-func (m *AllocateIdsResponse) GetStart() int64 {
+ (m *AllocateIdsResponse) GetStart() int64 {
 	if m != nil && m.Start != nil {
 		return *m.Start
 	}
 	return 0
 }
-
-func (m *AllocateIdsResponse) GetEnd() int64 {
+ (m *AllocateIdsResponse) GetEnd() int64 {
 	if m != nil && m.End != nil {
 		return *m.End
 	}
 	return 0
 }
-
-func (m *AllocateIdsResponse) GetCost() *Cost {
+ (m *AllocateIdsResponse) GetCost() *Cost {
 	if m != nil {
 		return m.Cost
 	}
@@ -3751,32 +3054,22 @@ type CompositeIndices struct {
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`
 }
-
-func (m *CompositeIndices) Reset()         { *m = CompositeIndices{} }
-func (m *CompositeIndices) String() string { return proto.CompactTextString(m) }
-func (*CompositeIndices) ProtoMessage()    {}
-func (*CompositeIndices) Descriptor() ([]byte, []int) {
+ (m *CompositeIndices) Reset()         { *m = CompositeIndices{} } (m *CompositeIndices) String() string { return proto.CompactTextString(m) } (*CompositeIndices) ProtoMessage()    {} (*CompositeIndices) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{33}
-}
-func (m *CompositeIndices) XXX_Unmarshal(b []byte) error {
+} (m *CompositeIndices) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CompositeIndices.Unmarshal(m, b)
-}
-func (m *CompositeIndices) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CompositeIndices) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CompositeIndices.Marshal(b, m, deterministic)
-}
-func (dst *CompositeIndices) XXX_Merge(src proto.Message) {
+} (dst *CompositeIndices) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CompositeIndices.Merge(dst, src)
-}
-func (m *CompositeIndices) XXX_Size() int {
+} (m *CompositeIndices) XXX_Size() int {
 	return xxx_messageInfo_CompositeIndices.Size(m)
-}
-func (m *CompositeIndices) XXX_DiscardUnknown() {
+} (m *CompositeIndices) XXX_DiscardUnknown() {
 	xxx_messageInfo_CompositeIndices.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CompositeIndices proto.InternalMessageInfo
-
-func (m *CompositeIndices) GetIndex() []*CompositeIndex {
+ (m *CompositeIndices) GetIndex() []*CompositeIndex {
 	if m != nil {
 		return m.Index
 	}
@@ -3791,46 +3084,34 @@ type AddActionsRequest struct {
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
 }
-
-func (m *AddActionsRequest) Reset()         { *m = AddActionsRequest{} }
-func (m *AddActionsRequest) String() string { return proto.CompactTextString(m) }
-func (*AddActionsRequest) ProtoMessage()    {}
-func (*AddActionsRequest) Descriptor() ([]byte, []int) {
+ (m *AddActionsRequest) Reset()         { *m = AddActionsRequest{} } (m *AddActionsRequest) String() string { return proto.CompactTextString(m) } (*AddActionsRequest) ProtoMessage()    {} (*AddActionsRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{34}
-}
-func (m *AddActionsRequest) XXX_Unmarshal(b []byte) error {
+} (m *AddActionsRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AddActionsRequest.Unmarshal(m, b)
-}
-func (m *AddActionsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *AddActionsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_AddActionsRequest.Marshal(b, m, deterministic)
-}
-func (dst *AddActionsRequest) XXX_Merge(src proto.Message) {
+} (dst *AddActionsRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_AddActionsRequest.Merge(dst, src)
-}
-func (m *AddActionsRequest) XXX_Size() int {
+} (m *AddActionsRequest) XXX_Size() int {
 	return xxx_messageInfo_AddActionsRequest.Size(m)
-}
-func (m *AddActionsRequest) XXX_DiscardUnknown() {
+} (m *AddActionsRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_AddActionsRequest.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_AddActionsRequest proto.InternalMessageInfo
-
-func (m *AddActionsRequest) GetHeader() *InternalHeader {
+ (m *AddActionsRequest) GetHeader() *InternalHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
-
-func (m *AddActionsRequest) GetTransaction() *Transaction {
+ (m *AddActionsRequest) GetTransaction() *Transaction {
 	if m != nil {
 		return m.Transaction
 	}
 	return nil
 }
-
-func (m *AddActionsRequest) GetAction() []*Action {
+ (m *AddActionsRequest) GetAction() []*Action {
 	if m != nil {
 		return m.Action
 	}
@@ -3842,26 +3123,17 @@ type AddActionsResponse struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *AddActionsResponse) Reset()         { *m = AddActionsResponse{} }
-func (m *AddActionsResponse) String() string { return proto.CompactTextString(m) }
-func (*AddActionsResponse) ProtoMessage()    {}
-func (*AddActionsResponse) Descriptor() ([]byte, []int) {
+ (m *AddActionsResponse) Reset()         { *m = AddActionsResponse{} } (m *AddActionsResponse) String() string { return proto.CompactTextString(m) } (*AddActionsResponse) ProtoMessage()    {} (*AddActionsResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{35}
-}
-func (m *AddActionsResponse) XXX_Unmarshal(b []byte) error {
+} (m *AddActionsResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AddActionsResponse.Unmarshal(m, b)
-}
-func (m *AddActionsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *AddActionsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_AddActionsResponse.Marshal(b, m, deterministic)
-}
-func (dst *AddActionsResponse) XXX_Merge(src proto.Message) {
+} (dst *AddActionsResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_AddActionsResponse.Merge(dst, src)
-}
-func (m *AddActionsResponse) XXX_Size() int {
+} (m *AddActionsResponse) XXX_Size() int {
 	return xxx_messageInfo_AddActionsResponse.Size(m)
-}
-func (m *AddActionsResponse) XXX_DiscardUnknown() {
+} (m *AddActionsResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_AddActionsResponse.DiscardUnknown(m)
 }
 
@@ -3878,26 +3150,17 @@ type BeginTransactionRequest struct {
 	XXX_unrecognized     []byte                                   `json:"-"`
 	XXX_sizecache        int32                                    `json:"-"`
 }
-
-func (m *BeginTransactionRequest) Reset()         { *m = BeginTransactionRequest{} }
-func (m *BeginTransactionRequest) String() string { return proto.CompactTextString(m) }
-func (*BeginTransactionRequest) ProtoMessage()    {}
-func (*BeginTransactionRequest) Descriptor() ([]byte, []int) {
+ (m *BeginTransactionRequest) Reset()         { *m = BeginTransactionRequest{} } (m *BeginTransactionRequest) String() string { return proto.CompactTextString(m) } (*BeginTransactionRequest) ProtoMessage()    {} (*BeginTransactionRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{36}
-}
-func (m *BeginTransactionRequest) XXX_Unmarshal(b []byte) error {
+} (m *BeginTransactionRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_BeginTransactionRequest.Unmarshal(m, b)
-}
-func (m *BeginTransactionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *BeginTransactionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_BeginTransactionRequest.Marshal(b, m, deterministic)
-}
-func (dst *BeginTransactionRequest) XXX_Merge(src proto.Message) {
+} (dst *BeginTransactionRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_BeginTransactionRequest.Merge(dst, src)
-}
-func (m *BeginTransactionRequest) XXX_Size() int {
+} (m *BeginTransactionRequest) XXX_Size() int {
 	return xxx_messageInfo_BeginTransactionRequest.Size(m)
-}
-func (m *BeginTransactionRequest) XXX_DiscardUnknown() {
+} (m *BeginTransactionRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_BeginTransactionRequest.DiscardUnknown(m)
 }
 
@@ -3905,43 +3168,37 @@ var xxx_messageInfo_BeginTransactionRequest proto.InternalMessageInfo
 
 const Default_BeginTransactionRequest_AllowMultipleEg bool = false
 const Default_BeginTransactionRequest_Mode BeginTransactionRequest_TransactionMode = BeginTransactionRequest_UNKNOWN
-
-func (m *BeginTransactionRequest) GetHeader() *InternalHeader {
+ (m *BeginTransactionRequest) GetHeader() *InternalHeader {
 	if m != nil {
 		return m.Header
 	}
 	return nil
 }
-
-func (m *BeginTransactionRequest) GetApp() string {
+ (m *BeginTransactionRequest) GetApp() string {
 	if m != nil && m.App != nil {
 		return *m.App
 	}
 	return ""
 }
-
-func (m *BeginTransactionRequest) GetAllowMultipleEg() bool {
+ (m *BeginTransactionRequest) GetAllowMultipleEg() bool {
 	if m != nil && m.AllowMultipleEg != nil {
 		return *m.AllowMultipleEg
 	}
 	return Default_BeginTransactionRequest_AllowMultipleEg
 }
-
-func (m *BeginTransactionRequest) GetDatabaseId() string {
+ (m *BeginTransactionRequest) GetDatabaseId() string {
 	if m != nil && m.DatabaseId != nil {
 		return *m.DatabaseId
 	}
 	return ""
 }
-
-func (m *BeginTransactionRequest) GetMode() BeginTransactionRequest_TransactionMode {
+ (m *BeginTransactionRequest) GetMode() BeginTransactionRequest_TransactionMode {
 	if m != nil && m.Mode != nil {
 		return *m.Mode
 	}
 	return Default_BeginTransactionRequest_Mode
 }
-
-func (m *BeginTransactionRequest) GetPreviousTransaction() *Transaction {
+ (m *BeginTransactionRequest) GetPreviousTransaction() *Transaction {
 	if m != nil {
 		return m.PreviousTransaction
 	}
@@ -3955,39 +3212,28 @@ type CommitResponse struct {
 	XXX_unrecognized     []byte                    `json:"-"`
 	XXX_sizecache        int32                     `json:"-"`
 }
-
-func (m *CommitResponse) Reset()         { *m = CommitResponse{} }
-func (m *CommitResponse) String() string { return proto.CompactTextString(m) }
-func (*CommitResponse) ProtoMessage()    {}
-func (*CommitResponse) Descriptor() ([]byte, []int) {
+ (m *CommitResponse) Reset()         { *m = CommitResponse{} } (m *CommitResponse) String() string { return proto.CompactTextString(m) } (*CommitResponse) ProtoMessage()    {} (*CommitResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{37}
-}
-func (m *CommitResponse) XXX_Unmarshal(b []byte) error {
+} (m *CommitResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CommitResponse.Unmarshal(m, b)
-}
-func (m *CommitResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CommitResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CommitResponse.Marshal(b, m, deterministic)
-}
-func (dst *CommitResponse) XXX_Merge(src proto.Message) {
+} (dst *CommitResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CommitResponse.Merge(dst, src)
-}
-func (m *CommitResponse) XXX_Size() int {
+} (m *CommitResponse) XXX_Size() int {
 	return xxx_messageInfo_CommitResponse.Size(m)
-}
-func (m *CommitResponse) XXX_DiscardUnknown() {
+} (m *CommitResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_CommitResponse.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CommitResponse proto.InternalMessageInfo
-
-func (m *CommitResponse) GetCost() *Cost {
+ (m *CommitResponse) GetCost() *Cost {
 	if m != nil {
 		return m.Cost
 	}
 	return nil
 }
-
-func (m *CommitResponse) GetVersion() []*CommitResponse_Version {
+ (m *CommitResponse) GetVersion() []*CommitResponse_Version {
 	if m != nil {
 		return m.Version
 	}
@@ -4001,46 +3247,34 @@ type CommitResponse_Version struct {
 	XXX_unrecognized     []byte     `json:"-"`
 	XXX_sizecache        int32      `json:"-"`
 }
-
-func (m *CommitResponse_Version) Reset()         { *m = CommitResponse_Version{} }
-func (m *CommitResponse_Version) String() string { return proto.CompactTextString(m) }
-func (*CommitResponse_Version) ProtoMessage()    {}
-func (*CommitResponse_Version) Descriptor() ([]byte, []int) {
+ (m *CommitResponse_Version) Reset()         { *m = CommitResponse_Version{} } (m *CommitResponse_Version) String() string { return proto.CompactTextString(m) } (*CommitResponse_Version) ProtoMessage()    {} (*CommitResponse_Version) Descriptor() ([]byte, []int) {
 	return fileDescriptor_datastore_v3_83b17b80c34f6179, []int{37, 0}
-}
-func (m *CommitResponse_Version) XXX_Unmarshal(b []byte) error {
+} (m *CommitResponse_Version) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CommitResponse_Version.Unmarshal(m, b)
-}
-func (m *CommitResponse_Version) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *CommitResponse_Version) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CommitResponse_Version.Marshal(b, m, deterministic)
-}
-func (dst *CommitResponse_Version) XXX_Merge(src proto.Message) {
+} (dst *CommitResponse_Version) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_CommitResponse_Version.Merge(dst, src)
-}
-func (m *CommitResponse_Version) XXX_Size() int {
+} (m *CommitResponse_Version) XXX_Size() int {
 	return xxx_messageInfo_CommitResponse_Version.Size(m)
-}
-func (m *CommitResponse_Version) XXX_DiscardUnknown() {
+} (m *CommitResponse_Version) XXX_DiscardUnknown() {
 	xxx_messageInfo_CommitResponse_Version.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_CommitResponse_Version proto.InternalMessageInfo
-
-func (m *CommitResponse_Version) GetRootEntityKey() *Reference {
+ (m *CommitResponse_Version) GetRootEntityKey() *Reference {
 	if m != nil {
 		return m.RootEntityKey
 	}
 	return nil
 }
-
-func (m *CommitResponse_Version) GetVersion() int64 {
+ (m *CommitResponse_Version) GetVersion() int64 {
 	if m != nil && m.Version != nil {
 		return *m.Version
 	}
 	return 0
 }
-
-func init() {
+ init() {
 	proto.RegisterType((*Action)(nil), "appengine.Action")
 	proto.RegisterType((*PropertyValue)(nil), "appengine.PropertyValue")
 	proto.RegisterType((*PropertyValue_PointValue)(nil), "appengine.PropertyValue.PointValue")
@@ -4097,8 +3331,7 @@ func init() {
 	proto.RegisterType((*CommitResponse)(nil), "appengine.CommitResponse")
 	proto.RegisterType((*CommitResponse_Version)(nil), "appengine.CommitResponse.Version")
 }
-
-func init() {
+ init() {
 	proto.RegisterFile("google.golang.org/appengine/internal/datastore/datastore_v3.proto", fileDescriptor_datastore_v3_83b17b80c34f6179)
 }
 

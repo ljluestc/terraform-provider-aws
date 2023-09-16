@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package events_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package events_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/eventbridge"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,25 +11,17 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfevents "github.com/hashicorp/terraform-provider-aws/internal/service/events"
-)
-
-const uuidRegex = "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"
-
+)const uuidRegex = "[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"
 func TestAccEventsAPIDestination_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2, v3 eventbridge.DescribeApiDestinationOutput
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	invocationEndpoint := "https://example.com/"
-	httpMethod := "GET"
-
-	nameModified := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	httpMethod := "GET"	nameModified := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	invocationEndpointModified := "https://example.com/modified"
-	httpMethodModified := "POST"
-
-	resourceName := "aws_cloudwatch_event_api_destination.basic"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	httpMethodModified := "POST"	resourceName := "aws_cloudwatch_event_api_destination.basic"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAPIDestinationDestroy(ctx),
@@ -55,8 +41,8 @@ func TestAccEventsAPIDestination_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -90,7 +76,6 @@ func TestAccEventsAPIDestination_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccEventsAPIDestination_optional(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2, v3 eventbridge.DescribeApiDestinationOutput
@@ -98,18 +83,13 @@ func TestAccEventsAPIDestination_optional(t *testing.T) {
 	invocationEndpoint := "https://example.com/"
 	httpMethod := "GET"
 	description := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	invocationRateLimitPerSecond := 10
-
-	nameModified := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	invocationRateLimitPerSecond := 10	nameModified := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	invocationEndpointModified := "https://example.com/modified"
 	httpMethodModified := "POST"
 	descriptionModified := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	invocationRateLimitPerSecondModified := 12
-
-	resourceName := "aws_cloudwatch_event_api_destination.optional"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	invocationRateLimitPerSecondModified := 12	resourceName := "aws_cloudwatch_event_api_destination.optional"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAPIDestinationDestroy(ctx),
@@ -132,8 +112,8 @@ func TestAccEventsAPIDestination_optional(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -175,18 +155,14 @@ func TestAccEventsAPIDestination_optional(t *testing.T) {
 		},
 	})
 }
-
 func TestAccEventsAPIDestination_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.DescribeApiDestinationOutput
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	invocationEndpoint := "https://example.com/"
-	httpMethod := "GET"
-
-	resourceName := "aws_cloudwatch_event_api_destination.basic"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	httpMethod := "GET"	resourceName := "aws_cloudwatch_event_api_destination.basic"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAPIDestinationDestroy(ctx),
@@ -206,39 +182,27 @@ func TestAccEventsAPIDestination_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckAPIDestinationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_cloudwatch_event_api_destination" {
 				continue
-			}
-
-			params := eventbridge.DescribeApiDestinationInput{
+			}			params := eventbridge.DescribeApiDestinationInput{
 				Name: aws.String(rs.Primary.ID),
-			}
-
-			resp, err := conn.DescribeApiDestinationWithContext(ctx, &params)
-
-			if err == nil {
+			}			resp, err := conn.DescribeApiDestinationWithContext(ctx, &params)			if err == nil {
 				return fmt.Errorf("EventBridge API Destination (%s) still exists: %s", rs.Primary.ID, resp)
 			}
-		}
-
-		return nil
+		}		return nil
 	}
 }
-
 func testAccCheckAPIDestinationExists(ctx context.Context, n string, v *eventbridge.DescribeApiDestinationOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)
 		params := eventbridge.DescribeApiDestinationInput{
 			Name: aws.String(rs.Primary.ID),
 		}
@@ -248,74 +212,62 @@ func testAccCheckAPIDestinationExists(ctx context.Context, n string, v *eventbri
 		}
 		if resp == nil {
 			return fmt.Errorf("EventBridge API Destination (%s) not found", n)
-		}
-
-		*v = *resp
-
-		return nil
+		}		*v = *resp		return nil
 	}
 }
-
 func testAccCheckAPIDestinationRecreated(i, j *eventbridge.DescribeApiDestinationOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		if aws.StringValue(i.ApiDestinationArn) == aws.StringValue(j.ApiDestinationArn) {
 			return fmt.Errorf("EventBridge API Destination not recreated")
 		}
 		return nil
 	}
 }
-
 func testAccCheckAPIDestinationNotRecreated(i, j *eventbridge.DescribeApiDestinationOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		if aws.StringValue(i.ApiDestinationArn) != aws.StringValue(j.ApiDestinationArn) {
 			return fmt.Errorf("EventBridge API Destination was recreated")
 		}
 		return nil
 	}
 }
-
 func testAccAPIDestinationConfig_basic(name, invocationEndpoint, httpMethod string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_api_destination" "basic" {
-  name   = %[1]q
+  name= %[1]q
   invocation_endpoint = %[2]q
-  http_method         = %[3]q
-  connection_arn      = aws_cloudwatch_event_connection.test.arn
-}
-
-resource "aws_cloudwatch_event_connection" "test" {
+  http_method= %[3]q
+  connection_arn= aws_cloudwatch_event_connection.test.arn
+}resource "aws_cloudwatch_event_connection" "test" {
   name  = %[1]q
   authorization_type = "API_KEY"
   auth_parameters {
-    api_key {
-      key   = "testKey"
-      value = "testValue"
-    }
+ api_key {
+key= "testKey"
+value = "testValue"
+ }
   }
 }
 `, name, invocationEndpoint, httpMethod)
 }
-
 func testAccAPIDestinationConfig_optional(name, invocationEndpoint, httpMethod, description string, invocationRateLimitPerSecond int64) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_api_destination" "optional" {
-  name   = %[1]q
+  name= %[1]q
   invocation_endpoint = %[2]q
-  http_method         = %[3]q
-  connection_arn      = aws_cloudwatch_event_connection.test.arn
-
-  description         = %[4]q
+  http_method= %[3]q
+  connection_arn= aws_cloudwatch_event_connection.test.arn  description= %[4]q
   invocation_rate_limit_per_second = %[5]d
-}
-
-resource "aws_cloudwatch_event_connection" "test" {
+}resource "aws_cloudwatch_event_connection" "test" {
   name  = %[1]q
   authorization_type = "API_KEY"
   auth_parameters {
-    api_key {
-      key   = "testKey"
-      value = "testValue"
-    }
+ api_key {
+key= "testKey"
+value = "testValue"
+ }
   }
 }
 `, name, invocationEndpoint, httpMethod, description, invocationRateLimitPerSecond)

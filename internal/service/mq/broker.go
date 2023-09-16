@@ -40,7 +40,7 @@ import (
 func ResourceBroker() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBrokerCreate,
-		ReadWithoutTimeout:   resourceBrokerRead,
+		ReadWithoutTimeout:resourceBrokerRead,
 		UpdateWithoutTimeout: resourceBrokerUpdate,
 		DeleteWithoutTimeout: resourceBrokerDelete,
 
@@ -56,45 +56,45 @@ func ResourceBroker() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"apply_immediately": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"authentication_strategy": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: validation.StringInSlice(mq.AuthenticationStrategy_Values(), true),
 			},
 			"auto_minor_version_upgrade": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"broker_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: ValidateBrokerName,
 			},
 			"configuration": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							Computed: true,
 						},
 						"revision": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 							Computed: true,
 						},
@@ -102,29 +102,29 @@ func ResourceBroker() *schema.Resource {
 				},
 			},
 			"deployment_mode": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      mq.DeploymentModeSingleInstance,
+				Type:ema.TypeString,
+				Optional:true,
+				ForceNew:true,
+				Default:loymentModeSingleInstance,
 				ValidateFunc: validation.StringInSlice(mq.DeploymentMode_Values(), true),
 			},
 			"encryption_options": {
 				Type:schema.TypeList,
-				Optional:         true,
-				ForceNew:         true,
-				MaxItems:         1,
+				Optional:e,
+				ForceNew:e,
+				MaxItems:
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"kms_key_id": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Computed:     true,
-							ForceNew:     true,
+							Type:ema.TypeString,
+							Optional:true,
+							Computed:true,
+							ForceNew:true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"use_aws_owned_key": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							ForceNew: true,
 							Default:  true,
@@ -133,91 +133,91 @@ func ResourceBroker() *schema.Resource {
 				},
 			},
 			"engine_type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringInSlice(mq.EngineType_Values(), true),
 			},
 			"engine_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"host_instance_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"instances": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"console_url": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"endpoints": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"ip_address": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"ldap_server_metadata": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"hosts": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"role_base": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"role_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"role_search_matching": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"role_search_subtree": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 						},
 						"service_account_password": {
-							Type:      schema.TypeString,
+							Type:.TypeString,
 							Optional:  true,
 							Sensitive: true,
 						},
 						"service_account_username": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"user_base": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"user_role_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"user_search_matching": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"user_search_subtree": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 						},
 					},
@@ -225,78 +225,78 @@ func ResourceBroker() *schema.Resource {
 			},
 			"logs": {
 				Type:schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Optional:e,
+				MaxItems:
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"audit": {
 							Type:nullable.TypeNullableBool,
-							Optional:         true,
-							ValidateFunc:     nullable.ValidateTypeStringNullableBool,
+							Optional:e,
+							ValidateFunc:nullable.ValidateTypeStringNullableBool,
 							DiffSuppressFunc: nullable.DiffSuppressNullableBoolFalseAsNull,
 						},
 						"general": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"maintenance_window_start_time": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"day_of_week": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:ema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(mq.DayOfWeek_Values(), true),
 						},
 						"time_of_day": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"time_zone": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"publicly_accessible": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 				Default:  false,
 			},
 			"security_groups": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				MaxItems: 5,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"storage_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: validation.StringInSlice(mq.BrokerStorageType_Values(), true),
 			},
 			"subnet_ids": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:schema.TypeSet,
+				Elem:&schema.Schema{Type: schema.TypeString},
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"user": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Required: true,
-				Set:      resourceUserHash,
+				Set:ceUserHash,
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					// AWS currently does not support updating the RabbitMQ users beyond resource creation.
 					// User list is not returned back after creation.
@@ -310,33 +310,33 @@ func ResourceBroker() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"console_access": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"groups": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
 							MaxItems: 20,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:ema.TypeString,
 								ValidateFunc: validation.StringLenBetween(2, 100),
 							},
 						},
 						"password": {
-							Type:         schema.TypeString,
-							Required:     true,
-							Sensitive:    true,
+							Type:ema.TypeString,
+							Required:true,
+							Sensitive: true,
 							ValidateFunc: ValidBrokerPassword,
 						},
 						"replication_user": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"username": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:ema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringLenBetween(2, 100),
 						},
 					},
@@ -360,7 +360,6 @@ func ResourceBroker() *schema.Resource {
 		),
 	}
 }
-
 func resourceBrokerCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MQConn(ctx)
 
@@ -369,13 +368,13 @@ func resourceBrokerCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	input := &mq.CreateBrokerRequest{
 		AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
 		BrokerName: aws.String(name),
-		CreatorRequestId:        aws.String(id.PrefixedUniqueId(fmt.Sprintf("tf-%s", name))),
+		CreatorRequestId:String(id.PrefixedUniqueId(fmt.Sprintf("tf-%s", name))),
 		EngineType: aws.String(engineType),
-		EngineVersion:           aws.String(d.Get("engine_version").(string)),
-		HostInstanceType:        aws.String(d.Get("host_instance_type").(string)),
-		PubliclyAccessible:      aws.Bool(d.Get("publicly_accessible").(bool)),
-		Tags:       getTagsIn(ctx),
-		Users:      expandUsers(d.Get("user").(*schema.Set).List()),
+		EngineVersion:ws.String(d.Get("engine_version").(string)),
+		HostInstanceType:String(d.Get("host_instance_type").(string)),
+		PubliclyAccessible:ol(d.Get("publicly_accessible").(bool)),
+		Tags:gsIn(ctx),
+		Users:Users(d.Get("user").(*schema.Set).List()),
 	}
 
 	if v, ok := d.GetOk("authentication_strategy"); ok {
@@ -424,7 +423,6 @@ func resourceBrokerCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return resourceBrokerRead(ctx, d, meta)
 }
-
 func resourceBrokerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MQConn(ctx)
 
@@ -493,7 +491,6 @@ func resourceBrokerRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return nil
 }
-
 func resourceBrokerUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MQConn(ctx)
 
@@ -501,7 +498,7 @@ func resourceBrokerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("security_groups") {
 		_, err := conn.UpdateBrokerWithContext(ctx, &mq.UpdateBrokerRequest{
-			BrokerId:       aws.String(d.Id()),
+			BrokerId:tring(d.Id()),
 			SecurityGroups: flex.ExpandStringSet(d.Get("security_groups").(*schema.Set)),
 		})
 
@@ -512,10 +509,10 @@ func resourceBrokerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChanges("configuration", "logs", "engine_version") {
 		_, err := conn.UpdateBrokerWithContext(ctx, &mq.UpdateBrokerRequest{
-			BrokerId:      aws.String(d.Id()),
+			BrokerId:ring(d.Id()),
 			Configuration: expandConfigurationId(d.Get("configuration").([]interface{})),
 			EngineVersion: aws.String(d.Get("engine_version").(string)),
-			Logs:          expandLogs(d.Get("engine_type").(string), d.Get("logs").([]interface{})),
+			Logs:pandLogs(d.Get("engine_type").(string), d.Get("logs").([]interface{})),
 		})
 
 		if err != nil {
@@ -544,7 +541,7 @@ func resourceBrokerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("host_instance_type") {
 		_, err := conn.UpdateBrokerWithContext(ctx, &mq.UpdateBrokerRequest{
-			BrokerId:         aws.String(d.Id()),
+			BrokerId:.String(d.Id()),
 			HostInstanceType: aws.String(d.Get("host_instance_type").(string)),
 		})
 
@@ -557,7 +554,7 @@ func resourceBrokerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("auto_minor_version_upgrade") {
 		_, err := conn.UpdateBrokerWithContext(ctx, &mq.UpdateBrokerRequest{
-			BrokerId:   aws.String(d.Id()),
+			BrokerId:aws.String(d.Id()),
 			AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
 		})
 
@@ -570,7 +567,7 @@ func resourceBrokerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("maintenance_window_start_time") {
 		_, err := conn.UpdateBrokerWithContext(ctx, &mq.UpdateBrokerRequest{
-			BrokerId:      aws.String(d.Id()),
+			BrokerId:ring(d.Id()),
 			MaintenanceWindowStartTime: expandWeeklyStartTime(d.Get("maintenance_window_start_time").([]interface{})),
 		})
 
@@ -597,7 +594,6 @@ func resourceBrokerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
-
 func resourceBrokerDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MQConn(ctx)
 
@@ -620,7 +616,6 @@ func resourceBrokerDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
-
 func FindBrokerByID(ctx context.Context, conn *mq.MQ, id string) (*mq.DescribeBrokerResponse, error) {
 	input := &mq.DescribeBrokerInput{
 		BrokerId: aws.String(id),
@@ -630,7 +625,7 @@ func FindBrokerByID(ctx context.Context, conn *mq.MQ, id string) (*mq.DescribeBr
 
 	if tfawserr.ErrCodeEquals(err, mq.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}
@@ -645,7 +640,6 @@ func FindBrokerByID(ctx context.Context, conn *mq.MQ, id string) (*mq.DescribeBr
 
 	return output, nil
 }
-
 func statusBrokerState(ctx context.Context, conn *mq.MQ, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindBrokerByID(ctx, conn, id)
@@ -661,7 +655,6 @@ func statusBrokerState(ctx context.Context, conn *mq.MQ, id string) retry.StateR
 		return output, aws.StringValue(output.BrokerState), nil
 	}
 }
-
 func waitBrokerCreated(ctx context.Context, conn *mq.MQ, id string, timeout time.Duration) (*mq.DescribeBrokerResponse, error) {
 	stateConf := retry.StateChangeConf{
 		Pending: []string{mq.BrokerStateCreationInProgress, mq.BrokerStateRebootInProgress},
@@ -677,7 +670,6 @@ func waitBrokerCreated(ctx context.Context, conn *mq.MQ, id string, timeout time
 
 	return nil, err
 }
-
 func waitBrokerDeleted(ctx context.Context, conn *mq.MQ, id string, timeout time.Duration) (*mq.DescribeBrokerResponse, error) {
 	stateConf := retry.StateChangeConf{
 		Pending: []string{
@@ -698,7 +690,6 @@ func waitBrokerDeleted(ctx context.Context, conn *mq.MQ, id string, timeout time
 
 	return nil, err
 }
-
 func waitBrokerRebooted(ctx context.Context, conn *mq.MQ, id string, timeout time.Duration) (*mq.DescribeBrokerResponse, error) {
 	stateConf := retry.StateChangeConf{
 		Pending: []string{mq.BrokerStateRebootInProgress},
@@ -714,7 +705,6 @@ func waitBrokerRebooted(ctx context.Context, conn *mq.MQ, id string, timeout tim
 
 	return nil, err
 }
-
 func resourceUserHash(v interface{}) int {
 	var buf bytes.Buffer
 
@@ -734,7 +724,6 @@ func resourceUserHash(v interface{}) int {
 
 	return create.StringHashcode(buf.String())
 }
-
 func updateBrokerUsers(ctx context.Context, conn *mq.MQ, bId string, oldUsers, newUsers []interface{}) (bool, error) {
 	// If there are any user creates/deletes/updates, updatedUsers will be set to true
 	updatedUsers := false
@@ -768,7 +757,6 @@ func updateBrokerUsers(ctx context.Context, conn *mq.MQ, bId string, oldUsers, n
 
 	return updatedUsers, nil
 }
-
 func DiffBrokerUsers(bId string, oldUsers, newUsers []interface{}) (
 	cr []*mq.CreateUserRequest, di []*mq.DeleteUserInput, ur []*mq.UpdateUserRequest, e error) {
 	existingUsers := make(map[string]interface{})
@@ -811,12 +799,12 @@ func DiffBrokerUsers(bId string, oldUsers, newUsers []interface{}) (
 
 			if !reflect.DeepEqual(existingUserMap, newUserMap) {
 				ur = append(ur, &mq.UpdateUserRequest{
-					BrokerId:        aws.String(bId),
-					ConsoleAccess:   aws.Bool(newUserMap["console_access"].(bool)),
-					Groups:          flex.ExpandStringList(ng),
+					BrokerId:String(bId),
+					ConsoleAccess:aws.Bool(newUserMap["console_access"].(bool)),
+					Groups:ex.ExpandStringList(ng),
 					ReplicationUser: aws.Bool(newUserMap["replication_user"].(bool)),
-					Password:        aws.String(newUserMap["password"].(string)),
-					Username:        aws.String(username),
+					Password:String(newUserMap["password"].(string)),
+					Username:String(username),
 				})
 			}
 
@@ -824,11 +812,11 @@ func DiffBrokerUsers(bId string, oldUsers, newUsers []interface{}) (
 			delete(existingUsers, username)
 		} else {
 			cur := &mq.CreateUserRequest{
-				BrokerId:        aws.String(bId),
-				ConsoleAccess:   aws.Bool(newUserMap["console_access"].(bool)),
-				Password:        aws.String(newUserMap["password"].(string)),
+				BrokerId:String(bId),
+				ConsoleAccess:aws.Bool(newUserMap["console_access"].(bool)),
+				Password:String(newUserMap["password"].(string)),
 				ReplicationUser: aws.Bool(newUserMap["replication_user"].(bool)),
-				Username:        aws.String(username),
+				Username:String(username),
 			}
 			if len(ng) > 0 {
 				cur.Groups = flex.ExpandStringList(ng)
@@ -846,7 +834,6 @@ func DiffBrokerUsers(bId string, oldUsers, newUsers []interface{}) (
 
 	return cr, di, ur, nil
 }
-
 func expandEncryptionOptions(l []interface{}) *mq.EncryptionOptions {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -864,20 +851,18 @@ func expandEncryptionOptions(l []interface{}) *mq.EncryptionOptions {
 
 	return encryptionOptions
 }
-
 func flattenEncryptionOptions(encryptionOptions *mq.EncryptionOptions) []interface{} {
 	if encryptionOptions == nil {
 		return []interface{}{}
 	}
 
 	m := map[string]interface{}{
-		"kms_key_id":        aws.StringValue(encryptionOptions.KmsKeyId),
+		"kms_key_id":StringValue(encryptionOptions.KmsKeyId),
 		"use_aws_owned_key": aws.BoolValue(encryptionOptions.UseAwsOwnedKey),
 	}
 
 	return []interface{}{m}
 }
-
 func ValidBrokerPassword(v interface{}, k string) (ws []string, errors []error) {
 	min := 12
 	max := 250
@@ -902,7 +887,6 @@ func ValidBrokerPassword(v interface{}, k string) (ws []string, errors []error) 
 	}
 	return
 }
-
 func expandUsers(cfg []interface{}) []*mq.User {
 	users := make([]*mq.User, len(cfg))
 	for i, m := range cfg {
@@ -924,7 +908,6 @@ func expandUsers(cfg []interface{}) []*mq.User {
 	}
 	return users
 }
-
 func expandUsersForBroker(ctx context.Context, conn *mq.MQ, brokerId string, input []*mq.UserSummary) ([]*mq.User, error) {
 	var rawUsers []*mq.User
 
@@ -943,10 +926,10 @@ func expandUsersForBroker(ctx context.Context, conn *mq.MQ, brokerId string, inp
 		}
 
 		user := &mq.User{
-			ConsoleAccess:   uOut.ConsoleAccess,
-			Groups:          uOut.Groups,
+			ConsoleAccess:uOut.ConsoleAccess,
+			Groups:ut.Groups,
 			ReplicationUser: uOut.ReplicationUser,
-			Username:        uOut.Username,
+			Username:.Username,
 		}
 
 		rawUsers = append(rawUsers, user)
@@ -989,7 +972,6 @@ func flattenUsers(users []*mq.User, cfgUsers []interface{}) *schema.Set {
 	}
 	return schema.NewSet(resourceUserHash, out)
 }
-
 func expandWeeklyStartTime(cfg []interface{}) *mq.WeeklyStartTime {
 	if len(cfg) < 1 {
 		return nil
@@ -1002,7 +984,6 @@ func expandWeeklyStartTime(cfg []interface{}) *mq.WeeklyStartTime {
 		TimeZone:  aws.String(m["time_zone"].(string)),
 	}
 }
-
 func flattenWeeklyStartTime(wst *mq.WeeklyStartTime) []interface{} {
 	if wst == nil {
 		return []interface{}{}
@@ -1019,7 +1000,6 @@ func flattenWeeklyStartTime(wst *mq.WeeklyStartTime) []interface{} {
 	}
 	return []interface{}{m}
 }
-
 func expandConfigurationId(cfg []interface{}) *mq.ConfigurationId {
 	if len(cfg) < 1 {
 		return nil
@@ -1035,20 +1015,18 @@ func expandConfigurationId(cfg []interface{}) *mq.ConfigurationId {
 
 	return &out
 }
-
 func flattenConfiguration(config *mq.Configurations) []interface{} {
 	if config == nil || config.Current == nil {
 		return []interface{}{}
 	}
 
 	m := map[string]interface{}{
-		"id":       aws.StringValue(config.Current.Id),
+		"id":tringValue(config.Current.Id),
 		"revision": aws.Int64Value(config.Current.Revision),
 	}
 
 	return []interface{}{m}
 }
-
 func flattenBrokerInstances(instances []*mq.BrokerInstance) []interface{} {
 	if len(instances) == 0 {
 		return []interface{}{}
@@ -1070,7 +1048,6 @@ func flattenBrokerInstances(instances []*mq.BrokerInstance) []interface{} {
 
 	return l
 }
-
 func flattenLogs(logs *mq.LogsSummary) []interface{} {
 	if logs == nil {
 		return []interface{}{}
@@ -1088,7 +1065,6 @@ func flattenLogs(logs *mq.LogsSummary) []interface{} {
 
 	return []interface{}{m}
 }
-
 func expandLogs(engineType string, l []interface{}) *mq.Logs {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -1113,7 +1089,6 @@ func expandLogs(engineType string, l []interface{}) *mq.Logs {
 
 	return logs
 }
-
 func flattenLDAPServerMetadata(apiObject *mq.LdapServerMetadataOutput, password string) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1157,7 +1132,6 @@ func flattenLDAPServerMetadata(apiObject *mq.LdapServerMetadataOutput, password 
 
 	return []interface{}{tfMap}
 }
-
 func expandLDAPServerMetadata(tfList []interface{}) *mq.LdapServerMetadataInput {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil

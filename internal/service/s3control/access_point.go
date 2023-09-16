@@ -37,7 +37,7 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"account_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ForceNew:     true,
@@ -52,13 +52,13 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"bucket": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validation.NoZeroValues,
 	},
 	"bucket_account_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ForceNew:     true,
@@ -78,7 +78,7 @@ Type:     schema.TypeBool,
 Computed: true,
 	},
 	"name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validation.NoZeroValues,
@@ -89,9 +89,9 @@ Computed: true,
 	},
 	"policy": {
 Type:   schema.TypeString,
-Optional:              true,
-Computed:              true,
-ValidateFunc:          validation.StringIsJSON,
+Optional:     true,
+Computed:     true,
+ValidateFunc: validation.StringIsJSON,
 DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 StateFunc: func(v interface{}) string {
@@ -100,11 +100,11 @@ StateFunc: func(v interface{}) string {
 },
 	},
 	"public_access_block_configuration": {
-Type:             schema.TypeList,
-Optional:         true,
-ForceNew:         true,
-MinItems:         0,
-MaxItems:         1,
+Type:    schema.TypeList,
+Optional:true,
+ForceNew:true,
+MinItems:0,
+MaxItems:1,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{

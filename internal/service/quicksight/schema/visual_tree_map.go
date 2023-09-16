@@ -30,7 +30,7 @@ func treeMapVisualSchema() *schema.Schema {
 						Schema: map[string]*schema.Schema{
 							"color_label_options": chartAxisLabelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
 							"color_scale":colorScaleSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColorScale.html
-							"data_labels":dataLabelOptionsSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataLabelOptions.html
+							"data_labels":dataLabelOptionsSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataLabelOptions.html
 							"field_wells": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TreeMapFieldWells.html
 								Type:     schema.TypeList,
 								Optional: true,

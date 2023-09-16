@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package addrs
-
-import (
+// SPDX-License-Identifier: MPL-2.0package addrsimport (
 	"fmt"
-)
-
-// instanceKey represents the key of an instance within an object that
+)// instanceKey represents the key of an instance within an object that
 // contains multiple instances due to using "count" or "for_each" arguments
 // in configuration.
 //
@@ -18,35 +12,21 @@ import (
 type instanceKey interface {
 	instanceKeySigil()
 	String() string
-}
-
-// NoKey represents the absense of an instanceKey, for the single instance
+}// NoKey represents the absense of an instanceKey, for the single instance
 // of a configuration object that does not use "count" or "for_each" at all.
-var NoKey instanceKey
-
-// intKey is the InstanceKey representation representing integer indices, as
+var NoKey instanceKey// intKey is the InstanceKey representation representing integer indices, as
 // used when the "count" argument is specified or if for_each is used with
 // a sequence type.
 type intKey int
-
-
  (k intKey) instanceKeySigil() {
 }
-
-
  (k intKey) String() string {
 	return fmt.Sprintf("[%d]", int(k))
-}
-
-// stringKey is the InstanceKey representation representing string indices, as
+}// stringKey is the InstanceKey representation representing string indices, as
 // used when the "for_each" argument is specified with a map or object type.
  stringKey string
-
-
 stringKey) instanceKeySigil() {
 }
-
-
  (k stringKey) String() string {
 	// FIXME: This isn't _quite_ right because Go's quoted string syntax is
 	// slightly different than HCL's, but we'll accept it for now.

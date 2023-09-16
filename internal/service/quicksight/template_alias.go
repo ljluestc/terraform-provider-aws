@@ -92,9 +92,9 @@ func (r *resourceTemplateAlias) Create(ctx context.Context, req resource.CreateR
 		createTemplateAliasID(plan.AWSAccountID.ValueString(), plan.TemplateID.ValueString(), plan.AliasName.ValueString()))
 
 	in := &quicksight.CreateTemplateAliasInput{
-		AliasName:             aws.String(plan.AliasName.ValueString()),
-		AwsAccountId:          aws.String(plan.AWSAccountID.ValueString()),
-		TemplateId:            aws.String(plan.TemplateID.ValueString()),
+		AliasName: aws.String(plan.AliasName.ValueString()),
+		AwsAccountId:    aws.String(plan.AWSAccountID.ValueString()),
+		TemplateId:aws.String(plan.TemplateID.ValueString()),
 		TemplateVersionNumber: aws.Int64(plan.TemplateVersionNumber.ValueInt64()),
 	}
 
@@ -174,9 +174,9 @@ func (r *resourceTemplateAlias) Update(ctx context.Context, req resource.UpdateR
 
 	if !plan.TemplateVersionNumber.Equal(state.TemplateVersionNumber) {
 		in := &quicksight.UpdateTemplateAliasInput{
-			AliasName:             aws.String(plan.AliasName.ValueString()),
-			AwsAccountId:          aws.String(plan.AWSAccountID.ValueString()),
-			TemplateId:            aws.String(plan.TemplateID.ValueString()),
+			AliasName: aws.String(plan.AliasName.ValueString()),
+			AwsAccountId:    aws.String(plan.AWSAccountID.ValueString()),
+			TemplateId:aws.String(plan.TemplateID.ValueString()),
 			TemplateVersionNumber: aws.Int64(plan.TemplateVersionNumber.ValueInt64()),
 		}
 
@@ -278,10 +278,10 @@ func createTemplateAliasID(awsAccountID, templateID, aliasName string) string {
 }
 
 type resourceTemplateAliasData struct {
-	AliasName             types.String `tfsdk:"alias_name"`
-	ARN                   types.String `tfsdk:"arn"`
-	AWSAccountID          types.String `tfsdk:"aws_account_id"`
-	ID                    types.String `tfsdk:"id"`
-	TemplateID            types.String `tfsdk:"template_id"`
+	AliasName types.String `tfsdk:"alias_name"`
+	ARN types.String `tfsdk:"arn"`
+	AWSAccountID    types.String `tfsdk:"aws_account_id"`
+	ID  types.String `tfsdk:"id"`
+	TemplateIDtypes.String `tfsdk:"template_id"`
 	TemplateVersionNumber types.Int64  `tfsdk:"template_version_number"`
 }

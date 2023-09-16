@@ -12,14 +12,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func findGlobalClusterByARN(ctx context.Context, conn *docdb.DocDB, dbClusterARN string) (*docdb.GlobalCluster, error) {
 	var globalCluster *docdb.GlobalCluster
 
 	input := &docdb.DescribeGlobalClustersInput{
 		Filters: []*docdb.Filter{
 			{
-				Name:   aws.String("db-cluster-id"),
+				Name:aws.String("db-cluster-id"),
 				Values: []*string{aws.String(dbClusterARN)},
 			},
 		},
@@ -48,7 +47,6 @@ func findGlobalClusterByARN(ctx context.Context, conn *docdb.DocDB, dbClusterARN
 
 	return globalCluster, err
 }
-
 func findGlobalClusterIDByARN(ctx context.Context, conn *docdb.DocDB, arn string) string {
 	result, err := conn.DescribeDBClustersWithContext(ctx, &docdb.DescribeDBClustersInput{})
 	if err != nil {
@@ -61,7 +59,6 @@ func findGlobalClusterIDByARN(ctx context.Context, conn *docdb.DocDB, arn string
 	}
 	return ""
 }
-
 func FindDBClusterById(ctx context.Context, conn *docdb.DocDB, dBClusterID string) (*docdb.DBCluster, error) {
 	var dBCluster *docdb.DBCluster
 
@@ -90,7 +87,6 @@ func FindDBClusterById(ctx context.Context, conn *docdb.DocDB, dBClusterID strin
 
 	return dBCluster, err
 }
-
 func FindDBClusterSnapshotById(ctx context.Context, conn *docdb.DocDB, dBClusterSnapshotID string) (*docdb.DBClusterSnapshot, error) {
 	var dBClusterSnapshot *docdb.DBClusterSnapshot
 
@@ -119,7 +115,6 @@ func FindDBClusterSnapshotById(ctx context.Context, conn *docdb.DocDB, dBCluster
 
 	return dBClusterSnapshot, err
 }
-
 func FindDBInstanceById(ctx context.Context, conn *docdb.DocDB, dBInstanceID string) (*docdb.DBInstance, error) {
 	var dBInstance *docdb.DBInstance
 
@@ -148,7 +143,6 @@ func FindDBInstanceById(ctx context.Context, conn *docdb.DocDB, dBInstanceID str
 
 	return dBInstance, err
 }
-
 func FindGlobalClusterById(ctx context.Context, conn *docdb.DocDB, globalClusterID string) (*docdb.GlobalCluster, error) {
 	var globalCluster *docdb.GlobalCluster
 
@@ -177,7 +171,6 @@ func FindGlobalClusterById(ctx context.Context, conn *docdb.DocDB, globalCluster
 
 	return globalCluster, err
 }
-
 func FindDBSubnetGroupByName(ctx context.Context, conn *docdb.DocDB, dBSubnetGroupName string) (*docdb.DBSubnetGroup, error) {
 	var dBSubnetGroup *docdb.DBSubnetGroup
 
@@ -206,7 +199,6 @@ func FindDBSubnetGroupByName(ctx context.Context, conn *docdb.DocDB, dBSubnetGro
 
 	return dBSubnetGroup, err
 }
-
 func FindEventSubscriptionByID(ctx context.Context, conn *docdb.DocDB, id string) (*docdb.EventSubscription, error) {
 	var eventSubscription *docdb.EventSubscription
 
@@ -235,7 +227,7 @@ func FindEventSubscriptionByID(ctx context.Context, conn *docdb.DocDB, id string
 
 	if tfawserr.ErrCodeEquals(err, docdb.ErrCodeSubscriptionNotFoundFault) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}

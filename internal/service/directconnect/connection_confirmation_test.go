@@ -19,7 +19,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfdirectconnect "github.com/hashicorp/terraform-provider-aws/internal/service/directconnect"
 )
-
 func TestAccDirectConnectConnectionConfirmation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	env, err := testAccCheckHostedConnectionEnv()
@@ -50,7 +49,6 @@ func TestAccDirectConnectConnectionConfirmation_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckConnectionConfirmationExists(ctx context.Context, name string, providerFunc func() *schema.Provider) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -78,7 +76,6 @@ func testAccCheckConnectionConfirmationExists(ctx context.Context, name string, 
 		return nil
 	}
 }
-
 func testAccConnectionConfirmationConfig_basic(name, connectionId, ownerAccountId string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateAccountProvider(),
@@ -87,9 +84,9 @@ resource "aws_dx_hosted_connection" "connection" {
   provider = "awsalternate"
 
   name= "%s"
-  connection_id    = "%s"
+  connection_id = "%s"
   owner_account_id = "%s"
-  bandwidth        = "100Mbps"
+  bandwidth00Mbps"
   vlan= 4092
 }
 
@@ -98,7 +95,6 @@ resource "aws_dx_connection_confirmation" "test" {
 }
 `, name, connectionId, ownerAccountId))
 }
-
 func testAccConnectionConfirmationProvider(providers *[]*schema.Provider, index int) func() *schema.Provider {
 	return func() *schema.Provider {
 		return (*providers)[index]

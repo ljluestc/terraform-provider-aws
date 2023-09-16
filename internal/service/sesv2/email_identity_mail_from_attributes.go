@@ -36,9 +36,9 @@ StateContext: schema.ImportStatePassthroughContext,
 
 Schema: map[string]*schema.Schema{
 "behavior_on_mx_failure": {
-Type:             schema.TypeString,
-Optional:         true,
-Default:          string(types.BehaviorOnMxFailureUseDefaultValue),
+Type:    schema.TypeString,
+Optional:true,
+Default: string(types.BehaviorOnMxFailureUseDefaultValue),
 ValidateDiagFunc: enum.Validate[types.BehaviorOnMxFailure](),
 },
 "email_identity": {

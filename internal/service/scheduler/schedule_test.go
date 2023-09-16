@@ -95,55 +95,55 @@ func TestResourceScheduleParseID(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-		ID           string
+		ID  string
 		GroupName    string
 		ScheduleName string
 		Fails        bool
 	}{
 		{
-			ID:           "default/test",
+			ID:  "default/test",
 			GroupName:    "default",
 			ScheduleName: "test",
 			Fails:        false,
 		},
 		{
-			ID:           "default/test/test",
+			ID:  "default/test/test",
 			GroupName:    "",
 			ScheduleName: "",
 			Fails:        true,
 		},
 		{
-			ID:           "default/",
+			ID:  "default/",
 			GroupName:    "",
 			ScheduleName: "",
 			Fails:        true,
 		},
 		{
-			ID:           "/test",
+			ID:  "/test",
 			GroupName:    "",
 			ScheduleName: "",
 			Fails:        true,
 		},
 		{
-			ID:           "/",
+			ID:  "/",
 			GroupName:    "",
 			ScheduleName: "",
 			Fails:        true,
 		},
 		{
-			ID:           "//",
+			ID:  "//",
 			GroupName:    "",
 			ScheduleName: "",
 			Fails:        true,
 		},
 		{
-			ID:           "default",
+			ID:  "default",
 			GroupName:    "",
 			ScheduleName: "",
 			Fails:        true,
 		},
 		{
-			ID:           "",
+			ID:  "",
 			GroupName:    "",
 			ScheduleName: "",
 			Fails:        true,
@@ -1009,12 +1009,12 @@ func TestAccSchedulerSchedule_targetECSParameters(t *testing.T) {
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target.0.ecs_parameters.0.capacity_provider_strategy.*", map[string]string{
 						"base":
 						"capacity_provider": "test1",
-						"weight":            "50",
+						"weight":   "50",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target.0.ecs_parameters.0.capacity_provider_strategy.*", map[string]string{
 						"base":
 						"capacity_provider": "test2",
-						"weight":            "50",
+						"weight":   "50",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "target.0.ecs_parameters.0.enable_ecs_managed_tags", "true"),
 					resource.TestCheckResourceAttr(resourceName, "target.0.ecs_parameters.0.enable_execute_command", "false"),
@@ -1056,7 +1056,7 @@ func TestAccSchedulerSchedule_targetECSParameters(t *testing.T) {
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target.0.ecs_parameters.0.capacity_provider_strategy.*", map[string]string{
 						"base":
 						"capacity_provider": "test3",
-						"weight":            "100",
+						"weight":   "100",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "target.0.ecs_parameters.0.enable_ecs_managed_tags", "false"),
 					resource.TestCheckResourceAttr(resourceName, "target.0.ecs_parameters.0.enable_execute_command", "true"),
@@ -1665,7 +1665,7 @@ resource "aws_iam_role" "test" {
       }
       Condition = {
         StringEquals = {
-          "aws:SourceAccount" : data.aws_caller_identity.main.account_id
+ "aws:SourceAccount" : data.aws_caller_identity.main.account_id
         }
       }
     }
@@ -2133,13 +2133,13 @@ resource "aws_scheduler_schedule" "test" {
       capacity_provider_strategy {
         base
         capacity_provider = "test1"
-        weight            = 50
+        weight   = 50
       }
 
       capacity_provider_strategy {
         base
         capacity_provider = "test2"
-        weight            = 50
+        weight   = 50
       }
 
       enable_ecs_managed_tags = true
@@ -2153,7 +2153,7 @@ resource "aws_scheduler_schedule" "test" {
       network_configuration {
         assign_public_ip = true
         security_groups  = ["sg-111111111"]
-        subnets          = ["subnet-11111111"]
+        subnets = ["subnet-11111111"]
       }
 
       placement_constraints {
@@ -2236,7 +2236,7 @@ resource "aws_scheduler_schedule" "test" {
       capacity_provider_strategy {
         base
         capacity_provider = "test3"
-        weight            = 100
+        weight   = 100
       }
 
       enable_ecs_managed_tags = false
@@ -2250,7 +2250,7 @@ resource "aws_scheduler_schedule" "test" {
       network_configuration {
         assign_public_ip = false
         security_groups  = ["sg-111111112", "sg-111111113"]
-        subnets          = ["subnet-11111112", "subnet-11111113"]
+        subnets = ["subnet-11111112", "subnet-11111113"]
       }
 
       placement_constraints {
@@ -2326,7 +2326,7 @@ resource "aws_scheduler_schedule" "test" {
     role_arn = aws_iam_role.test.arn
 
     ecs_parameters {
-      launch_type         = "EC2"
+      launch_type= "EC2"
       task_definition_arn = aws_ecs_task_definition.test.arn
     }
   }

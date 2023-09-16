@@ -58,44 +58,44 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"create_date": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"encrypted_secret": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"encrypted_ses_smtp_password_v4": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"key_fingerprint": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"pgp_key": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				ForceNew: true,
 				Optional: true,
 			},
 			"secret": {
-				Type:      schema.TypeString,
+				Type:  schema.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},
 			"ses_smtp_password_v4": {
-				Type:      schema.TypeString,
+				Type:  schema.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},
 			"status": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      iam.StatusTypeActive,
+				Type:schema.TypeString,
+				Optional: true,
+				Default:  iam.StatusTypeActive,
 				ValidateFunc: validation.StringInSlice(iam.StatusType_Values(), false),
 			},
 			"user": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -155,8 +155,8 @@ import (
 	if v, ok := d.GetOk("status"); ok && v.(string) == iam.StatusTypeInactive {
 		input := &iam.UpdateAccessKeyInput{
 			AccessKeyId: aws.String(d.Id()),
-			Status:      aws.String(iam.StatusTypeInactive),
-			UserName:    aws.String(d.Get("user").(string)),
+			Status:  aws.String(iam.StatusTypeInactive),
+			UserName:aws.String(d.Get("user").(string)),
 		}
 
 		_, err := conn.UpdateAccessKeyWithContext(ctx, input)
@@ -171,8 +171,8 @@ import (
 	resourceAccessKeyReadResult(d, &iam.AccessKeyMetadata{
 		AccessKeyId: createResp.AccessKey.AccessKeyId,
 		CreateDate:  createResp.AccessKey.CreateDate,
-		Status:      createResp.AccessKey.Status,
-		UserName:    createResp.AccessKey.UserName,
+		Status:  createResp.AccessKey.Status,
+		UserName:createResp.AccessKey.UserName,
 	})
 
 	return diags
@@ -228,7 +228,7 @@ funcd.HasChange("status") {
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	funccessKeyId: aws.String(d.Id()),
-		UserName:    aws.String(d.Get("user").(string)),
+		UserName:aws.String(d.Get("user").(string)),
 	}
 
 	if _, err := conn.DeleteAccessKeyWithContext(ctx, request); err != nil {
@@ -238,8 +238,8 @@ funcd.HasChange("status") {
 }func resourceAccessKeyStatusUpdate(ctx context.Context, conn *iam.IAM, d *schema.ResourceData) error {
 	request := &iam.UpdateAccessKeyInput{
 		AccessKeyId: aws.String(d.Id()),
-		Status:      aws.String(d.Get("status").(string)),
-		UserName:    aws.String(d.Get("user").(string)),
+		Status:  aws.String(d.Get("status").(string)),
+		UserName:aws.String(d.Get("user").(string)),
 	func
 	_, err := conn.UpdateAccessKeyWithContext(ctx, request)
 	return err

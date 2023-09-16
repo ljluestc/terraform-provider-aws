@@ -45,31 +45,31 @@ func ResourceResource() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"desired_state": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 			"properties": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"role_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"schema": {
-				Type:      schema.TypeString,
+				Type:  schema.TypeString,
 				Optional:  true,
 				Computed:  true,
 				Sensitive: true,
 			},
 			"type_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z]{2,64}::[0-9A-Za-z]{2,64}::[0-9A-Za-z]{2,64}`), "must be three alphanumeric sections separated by double colons (::)"),
 			},
 			"type_version_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 		},
@@ -91,7 +91,7 @@ func resourceResourceCreate(ctx context.Context, d *schema.ResourceData, meta in
 	input := &cloudcontrol.CreateResourceInput{
 		ClientToken:  aws.String(id.UniqueId()),
 		DesiredState: aws.String(d.Get("desired_state").(string)),
-		TypeName:     aws.String(typeName),
+		TypeName: aws.String(typeName),
 	}
 
 	if v, ok := d.GetOk("role_arn"); ok {
@@ -166,9 +166,9 @@ func resourceResourceUpdate(ctx context.Context, d *schema.ResourceData, meta in
 		typeName := d.Get("type_name").(string)
 		input := &cloudcontrol.UpdateResourceInput{
 			ClientToken:   aws.String(id.UniqueId()),
-			Identifier:    aws.String(d.Id()),
+			Identifier:aws.String(d.Id()),
 			PatchDocument: aws.String(patchDocument),
-			TypeName:      aws.String(typeName),
+			TypeName:  aws.String(typeName),
 		}
 
 		if v, ok := d.GetOk("role_arn"); ok {
@@ -200,7 +200,7 @@ func resourceResourceDelete(ctx context.Context, d *schema.ResourceData, meta in
 	input := &cloudcontrol.DeleteResourceInput{
 		ClientToken: aws.String(id.UniqueId()),
 		Identifier:  aws.String(d.Id()),
-		TypeName:    aws.String(typeName),
+		TypeName:aws.String(typeName),
 	}
 
 	if v, ok := d.GetOk("role_arn"); ok {

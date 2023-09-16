@@ -116,7 +116,7 @@ func(
 const testAccRulesDataSourceConfig_basic = `
 # The default Internet Resolver rule.
 data "aws_route53_resolver_rules" "test" {
-  owner_id     = "Route 53 Resolver"
+  owner_id= "Route 53 Resolver"
   rule_type    = "RECURSIVE"
   share_status = "NOT_SHARED"
 }
@@ -128,7 +128,7 @@ func testAccRulesDataSourceConfig_resolverEndpointID(rName1, rName2, domainName1
 resource "aws_route53_resolver_rule" "forward" {
   domain_name = %[3]q
   rule_type   = "FORWARD"
-  name        = %[1]q
+  name   = %[1]q
 
   resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id
 
@@ -140,7 +140,7 @@ resource "aws_route53_resolver_rule" "forward" {
 resource "aws_route53_resolver_rule" "recursive" {
   domain_name = %[4]q
   rule_type   = "RECURSIVE"
-  name        = %[2]q
+  name   = %[2]q
 }
 
 data "aws_route53_resolver_rules" "by_resolver_endpoint_id" {
@@ -156,7 +156,7 @@ data "aws_route53_resolver_rules" "by_resolver_endpoint_id_rule_type_share_statu
 }
 
 data "aws_route53_resolver_rules" "by_invalid_owner_id" {
-  owner_id     = "000000000000"
+  owner_id= "000000000000"
   share_status = "SHARED_WITH_ME"
 }
 `, rName1, rName2, domainName1, domainName2))
@@ -166,9 +166,9 @@ data "aws_route53_resolver_rules" "by_invalid_owner_id" {
 func testAccRulesDataSourceConfig_nameRegex(rCount int, rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_resolver_rule" "test" {
-  count       = %[1]d
+  count  = %[1]d
   domain_name = "%[2]s.example.org"
-  name        = "%[2]s-${count.index}-rule"
+  name   = "%[2]s-${count.index}-rule"
   rule_type   = "SYSTEM"
 }
 

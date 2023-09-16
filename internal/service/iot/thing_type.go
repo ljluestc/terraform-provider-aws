@@ -40,48 +40,48 @@ func ResourceThingType() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"deprecated": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validThingTypeName,
 			},
 			"properties": {
 				Type:schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"description": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Optional: true,
+							ForceNew: true,
 							ValidateFunc: validThingTypeDescription,
 						},
 						"searchable_attributes": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
 							MaxItems: 3,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validThingTypeSearchableAttribute,
 							},
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -95,7 +95,7 @@ func resourceThingTypeCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	name := d.Get("name").(string)
 	input := &iot.CreateThingTypeInput{
-		Tags:          getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 		ThingTypeName: aws.String(name),
 	}
 

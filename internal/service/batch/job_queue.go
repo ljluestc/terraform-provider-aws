@@ -54,11 +54,9 @@ type resourceJobQueue struct {
 	framework.ResourceWithConfigure
 	framework.WithTimeouts
 }
-
 func (r *resourceJobQueue) Metadata(_ context.Context, request resource.MetadataRequest, response *resource.MetadataResponse) {
 	response.TypeName = "aws_batch_job_queue"
 }
-
 func (r *resourceJobQueue) Schema(ctx context.Context, request resource.SchemaRequest, response *resource.SchemaResponse) {
 	s := schema.Schema{
 		Version: 1,
@@ -66,7 +64,7 @@ func (r *resourceJobQueue) Schema(ctx context.Context, request resource.SchemaRe
 			"arn": framework.ARNAttributeComputedOnly(),
 			"compute_environments": schema.ListAttribute{
 				ElementType: types.StringType,
-				Required:    true,
+				Required: true,
 			},
 			"id": framework.IDAttribute(),
 			"name": schema.StringAttribute{
@@ -84,7 +82,7 @@ func (r *resourceJobQueue) Schema(ctx context.Context, request resource.SchemaRe
 			},
 			"scheduling_policy_arn": schema.StringAttribute{
 				CustomType: fwtypes.ARNType,
-				Optional:   true,
+				Optional:true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -95,7 +93,7 @@ func (r *resourceJobQueue) Schema(ctx context.Context, request resource.SchemaRe
 					stringvalidator.OneOfCaseInsensitive(batch.JQState_Values()...),
 				},
 			},
-			names.AttrTags:    tftags.TagsAttribute(),
+			names.AttrTags: tftags.TagsAttribute(),
 			names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
 		},
 	}
@@ -110,7 +108,6 @@ func (r *resourceJobQueue) Schema(ctx context.Context, request resource.SchemaRe
 
 	response.Schema = s
 }
-
 func (r *resourceJobQueue) Create(ctx context.Context, request resource.CreateRequest, response *resource.CreateResponse) {
 	conn := r.Meta().BatchConn(ctx)
 	var data resourceJobQueueData
@@ -125,10 +122,10 @@ func (r *resourceJobQueue) Create(ctx context.Context, request resource.CreateRe
 
 	input := batch.CreateJobQueueInput{
 		ComputeEnvironmentOrder: expandComputeEnvironmentOrder(ceo),
-		JobQueueName:            flex.StringFromFramework(ctx, data.Name),
-		Priority:   flex.Int64FromFramework(ctx, data.Priority),
-		State:      flex.StringFromFramework(ctx, data.State),
-		Tags:       getTagsIn(ctx),
+		JobQueueName:  flex.StringFromFramework(ctx, data.Name),
+		Priority:flex.Int64FromFramework(ctx, data.Priority),
+		State: flex.StringFromFramework(ctx, data.State),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if !data.SchedulingPolicyARN.IsNull() {
@@ -162,7 +159,6 @@ func (r *resourceJobQueue) Create(ctx context.Context, request resource.CreateRe
 	response.Diagnostics.Append(state.refreshFromOutput(ctx, out)...)
 	response.Diagnostics.Append(response.State.Set(ctx, &state)...)
 }
-
 func (r *resourceJobQueue) Read(ctx context.Context, request resource.ReadRequest, response *resource.ReadResponse) {
 	conn := r.Meta().BatchConn(ctx)
 	var data resourceJobQueueData
@@ -192,7 +188,6 @@ func (r *resourceJobQueue) Read(ctx context.Context, request resource.ReadReques
 	response.Diagnostics.Append(data.refreshFromOutput(ctx, out)...)
 	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
 }
-
 func (r *resourceJobQueue) Update(ctx context.Context, request resource.UpdateRequest, response *resource.UpdateResponse) {
 	conn := r.Meta().BatchConn(ctx)
 	var plan, state resourceJobQueueData
@@ -274,7 +269,6 @@ func (r *resourceJobQueue) Update(ctx context.Context, request resource.UpdateRe
 
 	response.Diagnostics.Append(response.State.Set(ctx, &plan)...)
 }
-
 func (r *resourceJobQueue) Delete(ctx context.Context, request resource.DeleteRequest, response *resource.DeleteResponse) {
 	conn := r.Meta().BatchConn(ctx)
 	var data resourceJobQueueData
@@ -318,39 +312,35 @@ func (r *resourceJobQueue) Delete(ctx context.Context, request resource.DeleteRe
 		return
 	}
 }
-
 func (r *resourceJobQueue) ImportState(ctx context.Context, request resource.ImportStateRequest, response *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), request, response)
 }
-
 func (r *resourceJobQueue) ModifyPlan(ctx context.Context, request resource.ModifyPlanRequest, response *resource.ModifyPlanResponse) {
 	r.SetTagsAll(ctx, request, response)
 }
-
 func (r *resourceJobQueue) UpgradeState(ctx context.Context) map[int64]resource.StateUpgrader {
 	schemaV0 := jobQueueSchema0(ctx)
 
 	return map[int64]resource.StateUpgrader{
 		0: {
-			PriorSchema:   &schemaV0,
+			PriorSchema:&schemaV0,
 			StateUpgrader: upgradeJobQueueResourceStateV0toV1,
 		},
 	}
 }
 
 type resourceJobQueueData struct {
-	ARN    types.String   `tfsdk:"arn"`
-	ComputeEnvironments types.List     `tfsdk:"compute_environments"`
-	ID     types.String   `tfsdk:"id"`
-	Name   types.String   `tfsdk:"name"`
-	Priority            types.Int64    `tfsdk:"priority"`
-	SchedulingPolicyARN fwtypes.ARN    `tfsdk:"scheduling_policy_arn"`
-	State  types.String   `tfsdk:"state"`
-	Tags   types.Map      `tfsdk:"tags"`
-	TagsAlltypes.Map      `tfsdk:"tags_all"`
-	Timeouts            timeouts.Value `tfsdk:"timeouts"`
+	ARN types.String`tfsdk:"arn"`
+	ComputeEnvironments types.List`tfsdk:"compute_environments"`
+	IDtypes.String`tfsdk:"id"`
+	Nametypes.String`tfsdk:"name"`
+	Priority  types.Int64 `tfsdk:"priority"`
+	SchedulingPolicyARN fwtypes.ARN `tfsdk:"scheduling_policy_arn"`
+	State  types.String`tfsdk:"state"`
+	Tagstypes.Map `tfsdk:"tags"`
+	TagsAlltypes.Map `tfsdk:"tags_all"`
+	Timeouts  timeouts.Value `tfsdk:"timeouts"`
 }
-
 func (r *resourceJobQueueData) refreshFromOutput(ctx context.Context, out *batch.JobQueueDetail) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -374,7 +364,6 @@ func expandComputeEnvironmentOrder(order []string) (envs []*batch.ComputeEnviron
 	}
 	return
 }
-
 func flattenComputeEnvironmentOrder(apiObject []*batch.ComputeEnvironmentOrder) []string {
 	sort.Slice(apiObject, func(i, j int) bool {
 		return aws.ToInt64(apiObject[i].Order) < aws.ToInt64(apiObject[j].Order)
@@ -387,7 +376,6 @@ func flattenComputeEnvironmentOrder(apiObject []*batch.ComputeEnvironmentOrder) 
 
 	return computeEnvironments
 }
-
 func findJobQueueByName(ctx context.Context, conn *batch.Batch, sn string) (*batch.JobQueueDetail, error) {
 	describeOpts := &batch.DescribeJobQueuesInput{
 		JobQueues: []*string{aws.String(sn)},
@@ -408,36 +396,34 @@ func findJobQueueByName(ctx context.Context, conn *batch.Batch, sn string) (*bat
 	}
 	return nil, nil
 }
-
 func disableJobQueue(ctx context.Context, conn *batch.Batch, id string, timeout time.Duration) error {
 	_, err := conn.UpdateJobQueueWithContext(ctx, &batch.UpdateJobQueueInput{
 		JobQueue: aws.String(id),
-		State:    aws.String(batch.JQStateDisabled),
+		State: aws.String(batch.JQStateDisabled),
 	})
 	if err != nil {
 		return err
 	}
 
 	stateChangeConf := &retry.StateChangeConf{
-		Pending:    []string{batch.JQStatusUpdating},
-		Target:     []string{batch.JQStatusValid},
-		Refresh:    jobQueueRefreshStatusFunc(ctx, conn, id),
-		Timeout:    timeout,
-		Delay:      10 * time.Second,
+		Pending: []string{batch.JQStatusUpdating},
+		Target:[]string{batch.JQStatusValid},
+		Refresh: jobQueueRefreshStatusFunc(ctx, conn, id),
+		Timeout: timeout,
+		Delay: 10 * time.Second,
 		MinTimeout: 3 * time.Second,
 	}
 	_, err = stateChangeConf.WaitForStateContext(ctx)
 	return err
 }
-
 func waitJobQueueCreated(ctx context.Context, conn *batch.Batch, id string, timeout time.Duration) (*batch.JobQueueDetail, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{batch.JQStatusCreating, batch.JQStatusUpdating},
-		Target:     []string{batch.JQStatusValid},
-		Refresh:    jobQueueRefreshStatusFunc(ctx, conn, id),
-		Timeout:    timeout,
+		Pending: []string{batch.JQStatusCreating, batch.JQStatusUpdating},
+		Target:[]string{batch.JQStatusValid},
+		Refresh: jobQueueRefreshStatusFunc(ctx, conn, id),
+		Timeout: timeout,
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+		Delay: 30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -448,15 +434,14 @@ func waitJobQueueCreated(ctx context.Context, conn *batch.Batch, id string, time
 
 	return nil, err
 }
-
 func waitJobQueueUpdated(ctx context.Context, conn *batch.Batch, id string, timeout time.Duration) (*batch.JobQueueDetail, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{batch.JQStatusUpdating},
-		Target:     []string{batch.JQStatusValid},
-		Refresh:    jobQueueRefreshStatusFunc(ctx, conn, id),
-		Timeout:    timeout,
+		Pending: []string{batch.JQStatusUpdating},
+		Target:[]string{batch.JQStatusValid},
+		Refresh: jobQueueRefreshStatusFunc(ctx, conn, id),
+		Timeout: timeout,
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+		Delay: 30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -467,15 +452,14 @@ func waitJobQueueUpdated(ctx context.Context, conn *batch.Batch, id string, time
 
 	return nil, err
 }
-
 func waitJobQueueDeleted(ctx context.Context, conn *batch.Batch, id string, timeout time.Duration) (*batch.JobQueueDetail, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{batch.JQStateDisabled, batch.JQStatusDeleting},
-		Target:     []string{batch.JQStatusDeleted},
-		Refresh:    jobQueueRefreshStatusFunc(ctx, conn, id),
-		Timeout:    timeout,
+		Pending: []string{batch.JQStateDisabled, batch.JQStatusDeleting},
+		Target:[]string{batch.JQStatusDeleted},
+		Refresh: jobQueueRefreshStatusFunc(ctx, conn, id),
+		Timeout: timeout,
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+		Delay: 30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -486,7 +470,6 @@ func waitJobQueueDeleted(ctx context.Context, conn *batch.Batch, id string, time
 
 	return nil, err
 }
-
 func jobQueueRefreshStatusFunc(ctx context.Context, conn *batch.Batch, sn string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		ce, err := findJobQueueByName(ctx, conn, sn)

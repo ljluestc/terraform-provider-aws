@@ -33,6 +33,7 @@ const canaryMutex = `aws_synthetics_canary`
 
 // @SDKResource("aws_synthetics_canary", name="Canary")
 // @Tags(identifierAttribute="arn")
+
 func ResourceCanary() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceCanaryCreate,
@@ -79,7 +80,8 @@ func ResourceCanary() *schema.Resource {
 			"artifact_s3_location": {
 				Type:     schema.TypeString,
 				Required: true,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppressFunc: 
+func(k, old, new string, d *schema.ResourceData) bool {
 					return strings.TrimPrefix(new, "s3://") == old
 				},
 			},
@@ -184,7 +186,8 @@ func ResourceCanary() *schema.Resource {
 						"expression": {
 							Type:     schema.TypeString,
 							Required: true,
-							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+							DiffSuppressFunc: 
+func(k, old, new string, d *schema.ResourceData) bool {
 								return new == "rate(0 minute)" && old == "rate(0 hour)"
 							},
 						},
@@ -270,6 +273,7 @@ func ResourceCanary() *schema.Resource {
 	}
 }
 
+
 func resourceCanaryCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SyntheticsConn(ctx)
@@ -330,14 +334,17 @@ func resourceCanaryCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	iamwaiterStopTime := time.Now().Add(propagationTimeout)
 
 	_, err = tfresource.RetryWhen(ctx, propagationTimeout+canaryCreatedTimeout,
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return retryCreateCanary(ctx, conn, d, input)
 		},
-		func(err error) (bool, error) {
+		
+func(err error) (bool, error) {
 			// Only retry IAM eventual consistency errors up to that timeout.
 			if err != nil && time.Now().Before(iamwaiterStopTime) {
 				// This error synthesized from the Status object and not an AWS SDK Go error type.
-				return strings.Contains(err.Error(), "The role defined for the function cannot be assumed by Lambda"), err
+				return strings.Contains(err.Error(), "The role defined for the 
+function cannot be assumed by Lambda"), err
 			}
 
 			return false, err
@@ -356,6 +363,7 @@ func resourceCanaryCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceCanaryRead(ctx, d, meta)...)
 }
+
 
 func resourceCanaryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -421,6 +429,7 @@ func resourceCanaryRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
+
 
 func resourceCanaryUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -528,6 +537,7 @@ func resourceCanaryUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	return append(diags, resourceCanaryRead(ctx, d, meta)...)
 }
 
+
 func resourceCanaryDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SyntheticsConn(ctx)
@@ -561,6 +571,7 @@ func resourceCanaryDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	return diags
 }
 
+
 func expandCanaryCode(d *schema.ResourceData) (*synthetics.CanaryCodeInput, error) {
 	codeConfig := &synthetics.CanaryCodeInput{
 		Handler: aws.String(d.Get("handler").(string)),
@@ -586,6 +597,7 @@ func expandCanaryCode(d *schema.ResourceData) (*synthetics.CanaryCodeInput, erro
 	return codeConfig, nil
 }
 
+
 func expandCanaryArtifactConfig(l []interface{}) *synthetics.ArtifactConfigInput_ {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -602,6 +614,7 @@ func expandCanaryArtifactConfig(l []interface{}) *synthetics.ArtifactConfigInput
 	return config
 }
 
+
 func flattenCanaryArtifactConfig(config *synthetics.ArtifactConfigOutput_) []interface{} {
 	if config == nil {
 		return []interface{}{}
@@ -615,6 +628,7 @@ func flattenCanaryArtifactConfig(config *synthetics.ArtifactConfigOutput_) []int
 
 	return []interface{}{m}
 }
+
 
 func expandCanaryS3EncryptionConfig(l []interface{}) *synthetics.S3EncryptionConfig {
 	if len(l) == 0 || l[0] == nil {
@@ -636,6 +650,7 @@ func expandCanaryS3EncryptionConfig(l []interface{}) *synthetics.S3EncryptionCon
 	return config
 }
 
+
 func flattenCanaryS3EncryptionConfig(config *synthetics.S3EncryptionConfig) []interface{} {
 	if config == nil {
 		return []interface{}{}
@@ -653,6 +668,7 @@ func flattenCanaryS3EncryptionConfig(config *synthetics.S3EncryptionConfig) []in
 
 	return []interface{}{m}
 }
+
 
 func expandCanarySchedule(l []interface{}) *synthetics.CanaryScheduleInput {
 	if len(l) == 0 || l[0] == nil {
@@ -672,6 +688,7 @@ func expandCanarySchedule(l []interface{}) *synthetics.CanaryScheduleInput {
 	return codeConfig
 }
 
+
 func flattenCanarySchedule(canarySchedule *synthetics.CanaryScheduleOutput) []interface{} {
 	if canarySchedule == nil {
 		return []interface{}{}
@@ -684,6 +701,7 @@ func flattenCanarySchedule(canarySchedule *synthetics.CanaryScheduleOutput) []in
 
 	return []interface{}{m}
 }
+
 
 func expandCanaryRunConfig(l []interface{}) *synthetics.CanaryRunConfigInput {
 	if len(l) == 0 || l[0] == nil {
@@ -711,6 +729,7 @@ func expandCanaryRunConfig(l []interface{}) *synthetics.CanaryRunConfigInput {
 	return codeConfig
 }
 
+
 func flattenCanaryRunConfig(canaryCodeOut *synthetics.CanaryRunConfigOutput, envVars map[string]*string) []interface{} {
 	if canaryCodeOut == nil {
 		return []interface{}{}
@@ -729,6 +748,7 @@ func flattenCanaryRunConfig(canaryCodeOut *synthetics.CanaryRunConfigOutput, env
 	return []interface{}{m}
 }
 
+
 func flattenCanaryVPCConfig(canaryVpcOutput *synthetics.VpcConfigOutput) []interface{} {
 	if canaryVpcOutput == nil {
 		return []interface{}{}
@@ -742,6 +762,7 @@ func flattenCanaryVPCConfig(canaryVpcOutput *synthetics.VpcConfigOutput) []inter
 
 	return []interface{}{m}
 }
+
 
 func expandCanaryVPCConfig(l []interface{}) *synthetics.VpcConfigInput {
 	if len(l) == 0 || l[0] == nil {
@@ -757,6 +778,7 @@ func expandCanaryVPCConfig(l []interface{}) *synthetics.VpcConfigInput {
 
 	return codeConfig
 }
+
 
 func flattenCanaryTimeline(timeline *synthetics.CanaryTimeline) []interface{} {
 	if timeline == nil {
@@ -782,6 +804,7 @@ func flattenCanaryTimeline(timeline *synthetics.CanaryTimeline) []interface{} {
 	return []interface{}{m}
 }
 
+
 func startCanary(ctx context.Context, name string, conn *synthetics.Synthetics) error {
 	log.Printf("[DEBUG] Starting Synthetics Canary: (%s)", name)
 	_, err := conn.StartCanaryWithContext(ctx, &synthetics.StartCanaryInput{
@@ -800,6 +823,7 @@ func startCanary(ctx context.Context, name string, conn *synthetics.Synthetics) 
 
 	return nil
 }
+
 
 func stopCanary(ctx context.Context, name string, conn *synthetics.Synthetics) error {
 	log.Printf("[DEBUG] Stopping Synthetics Canary: (%s)", name)
@@ -825,6 +849,7 @@ func stopCanary(ctx context.Context, name string, conn *synthetics.Synthetics) e
 }
 
 // loadFileContent returns contents of a file in a given path
+
 func loadFileContent(v string) ([]byte, error) {
 	filename, err := homedir.Expand(v)
 	if err != nil {

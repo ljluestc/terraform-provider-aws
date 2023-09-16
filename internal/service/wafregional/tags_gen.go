@@ -133,7 +133,7 @@ func updateTags(ctx context.Context, conn wafregionaliface.WAFRegionalAPI, ident
 	if len(updatedTags) > 0 {
 		input := &waf.TagResourceInput{
 			ResourceARN: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:  Tags(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)

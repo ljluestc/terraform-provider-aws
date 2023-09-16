@@ -33,35 +33,35 @@ func ResourceUsageLimit() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"amount": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Required: true,
 			},
 			"breach_action": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      redshiftserverless.UsageLimitBreachActionLog,
+				Type:schema.TypeString,
+				Optional:true,
+				Default: redshiftserverless.UsageLimitBreachActionLog,
 				ValidateFunc: validation.StringInSlice(redshiftserverless.UsageLimitBreachAction_Values(), false),
 			},
 			"period": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      redshiftserverless.UsageLimitPeriodMonthly,
+				Type:schema.TypeString,
+				Optional:true,
+				ForceNew:true,
+				Default: redshiftserverless.UsageLimitPeriodMonthly,
 				ValidateFunc: validation.StringInSlice(redshiftserverless.UsageLimitPeriod_Values(), false),
 			},
 			"resource_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"usage_type": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(redshiftserverless.UsageLimitUsageType_Values(), false),
 			},
 		},
@@ -73,7 +73,7 @@ func resourceUsageLimitCreate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).RedshiftServerlessConn(ctx)
 
 	input := redshiftserverless.CreateUsageLimitInput{
-		Amount:      aws.Int64(int64(d.Get("amount").(int))),
+		Amount: aws.Int64(int64(d.Get("amount").(int))),
 		ResourceArn: aws.String(d.Get("resource_arn").(string)),
 		UsageType:   aws.String(d.Get("usage_type").(string)),
 	}

@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccBatchComputeEnvironmentDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("tf_acc_test_")
@@ -20,7 +19,7 @@ func TestAccBatchComputeEnvironmentDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_batch_compute_environment.by_name"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -39,7 +38,6 @@ func TestAccBatchComputeEnvironmentDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccComputeEnvironmentDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -51,20 +49,20 @@ resource "aws_iam_role" "ecs_instance_role" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.${data.aws_partition.current.dns_suffix}"
-      }
-    }
+ {
+ "Action": "sts:AssumeRole",
+ "Effect": "Allow",
+ "Principal": {
+"Service": "ec2.${data.aws_partition.current.dns_suffix}"
+ }
+ }
   ]
 }
 EOF
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_instance_role" {
-  role       = aws_iam_role.ecs_instance_role.name
+  role  = aws_iam_role.ecs_instance_role.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
 }
 
@@ -80,20 +78,20 @@ resource "aws_iam_role" "aws_batch_service_role" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "batch.${data.aws_partition.current.dns_suffix}"
-      }
-    }
+ {
+ "Action": "sts:AssumeRole",
+ "Effect": "Allow",
+ "Principal": {
+"Service": "batch.${data.aws_partition.current.dns_suffix}"
+ }
+ }
   ]
 }
 EOF
 }
 
 resource "aws_iam_role_policy_attachment" "aws_batch_service_role" {
-  role       = aws_iam_role.aws_batch_service_role.name
+  role  = aws_iam_role.aws_batch_service_role.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSBatchServiceRole"
 }
 
@@ -106,7 +104,7 @@ resource "aws_vpc" "sample" {
 }
 
 resource "aws_subnet" "sample" {
-  vpc_id     = aws_vpc.sample.id
+  vpc_id= aws_vpc.sample.id
   cidr_block = "10.1.1.0/24"
 }
 
@@ -114,58 +112,58 @@ resource "aws_batch_compute_environment" "test" {
   compute_environment_name = "%[1]s"
 
   compute_resources {
-    instance_role = aws_iam_instance_profile.ecs_instance_role.arn
+ instance_role = aws_iam_instance_profile.ecs_instance_role.arn
 
-    instance_type = [
-      "c4.large",
-    ]
+ instance_type = [
+ "c4.large",
+ ]
 
-    max_vcpus = 16
-    min_vcpus = 0
+ max_vcpus = 16
+ min_vcpus = 0
 
-    security_group_ids = [
-      aws_security_group.sample.id,
-    ]
+ security_group_ids = [
+ aws_security_group.sample.id,
+ ]
 
-    subnets = [
-      aws_subnet.sample.id,
-    ]
+ subnets = [
+ aws_subnet.sample.id,
+ ]
 
-    type = "EC2"
+ type = "EC2"
   }
 
   service_role = aws_iam_role.aws_batch_service_role.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.aws_batch_service_role]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.aws_batch_service_role]
 }
 
 resource "aws_batch_compute_environment" "wrong" {
   compute_environment_name = "%[1]s_wrong"
 
   compute_resources {
-    instance_role = aws_iam_instance_profile.ecs_instance_role.arn
+ instance_role = aws_iam_instance_profile.ecs_instance_role.arn
 
-    instance_type = [
-      "c4.large",
-    ]
+ instance_type = [
+ "c4.large",
+ ]
 
-    max_vcpus = 16
-    min_vcpus = 0
+ max_vcpus = 16
+ min_vcpus = 0
 
-    security_group_ids = [
-      aws_security_group.sample.id,
-    ]
+ security_group_ids = [
+ aws_security_group.sample.id,
+ ]
 
-    subnets = [
-      aws_subnet.sample.id,
-    ]
+ subnets = [
+ aws_subnet.sample.id,
+ ]
 
-    type = "EC2"
+ type = "EC2"
   }
 
   service_role = aws_iam_role.aws_batch_service_role.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.aws_batch_service_role]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.aws_batch_service_role]
 }
 
 data "aws_batch_compute_environment" "by_name" {

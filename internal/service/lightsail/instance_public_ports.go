@@ -49,7 +49,7 @@ func ResourceInstancePublicPorts() *schema.Resource {
 							Computed: true,
 							// Default:  []string{"0.0.0.0/0"},
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: verify.ValidCIDRNetworkAddress,
 							},
 						},
@@ -62,7 +62,7 @@ func ResourceInstancePublicPorts() *schema.Resource {
 							},
 						},
 						"from_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IntBetween(0, 65535),
@@ -73,18 +73,18 @@ func ResourceInstancePublicPorts() *schema.Resource {
 							Computed: true,
 							// Default:  []string{"::/0"},
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: verify.ValidCIDRNetworkAddress,
 							},
 						},
 						"protocol": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice(flattenNetworkProtocolValues(types.NetworkProtocol("").Values()), false),
 						},
 						"to_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IntBetween(0, 65535),
@@ -95,7 +95,6 @@ func ResourceInstancePublicPorts() *schema.Resource {
 		},
 	}
 }
-
 func resourceInstancePublicPortsCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -125,7 +124,6 @@ func resourceInstancePublicPortsCreate(ctx context.Context, d *schema.ResourceDa
 
 	return append(diags, resourceInstancePublicPortsRead(ctx, d, meta)...)
 }
-
 func resourceInstancePublicPortsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -158,7 +156,6 @@ func resourceInstancePublicPortsRead(ctx context.Context, d *schema.ResourceData
 
 	return diags
 }
-
 func resourceInstancePublicPortsDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -187,7 +184,6 @@ func resourceInstancePublicPortsDelete(ctx context.Context, d *schema.ResourceDa
 
 	return diags
 }
-
 func expandPortInfo(tfMap map[string]interface{}) types.PortInfo {
 	// if tfMap == nil {
 	// 	return nil
@@ -213,7 +209,6 @@ func expandPortInfo(tfMap map[string]interface{}) types.PortInfo {
 
 	return apiObject
 }
-
 func expandPortInfos(tfList []interface{}) []types.PortInfo {
 	if len(tfList) == 0 {
 		return nil
@@ -235,7 +230,6 @@ func expandPortInfos(tfList []interface{}) []types.PortInfo {
 
 	return apiObjects
 }
-
 func flattenInstancePortState(apiObject types.InstancePortState) map[string]interface{} {
 	// if apiObject == (types.InstancePortState{}) {
 	// 	return nil
@@ -261,7 +255,6 @@ func flattenInstancePortState(apiObject types.InstancePortState) map[string]inte
 
 	return tfMap
 }
-
 func flattenInstancePortStates(apiObjects []types.InstancePortState) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -279,7 +272,6 @@ func flattenInstancePortStates(apiObjects []types.InstancePortState) []interface
 
 	return tfList
 }
-
 func flattenNetworkProtocolValues(t []types.NetworkProtocol) []string {
 	var out []string
 

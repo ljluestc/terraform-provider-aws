@@ -28,7 +28,7 @@ func TestAccMemoryDBACL_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckACLDestroy(ctx),
+CheckDestroy:testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccACLConfig_basic(rName, []string{user1}, []string{user1}),
@@ -44,8 +44,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
@@ -61,7 +61,7 @@ func TestAccMemoryDBACL_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckACLDestroy(ctx),
+CheckDestroy:testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccACLConfig_basic(rName, nil, nil),
@@ -83,7 +83,7 @@ func TestAccMemoryDBACL_nameGenerated(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckACLDestroy(ctx),
+CheckDestroy:testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccACLConfig_noName(),
@@ -105,7 +105,7 @@ func TestAccMemoryDBACL_namePrefix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckACLDestroy(ctx),
+CheckDestroy:testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccACLConfig_namePrefix("tftest-"),
@@ -128,7 +128,7 @@ func TestAccMemoryDBACL_update_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckACLDestroy(ctx),
+CheckDestroy:testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccACLConfig_tags0(rName),
@@ -139,8 +139,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -156,8 +156,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -171,8 +171,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -184,8 +184,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
@@ -204,7 +204,7 @@ func TestAccMemoryDBACL_update_userNames(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckACLDestroy(ctx),
+CheckDestroy:testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 // Empty ACL.
@@ -215,8 +215,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -230,8 +230,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -245,8 +245,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -259,8 +259,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -273,8 +273,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -287,8 +287,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
@@ -357,11 +357,11 @@ locals {
 resource "aws_memorydb_user" "test" {
   count= length(local.user_names)
   access_string = "on ~* &* +@all"
-  user_name     = local.user_names[count.index]
+  user_name = local.user_names[count.index]
 
   authentication_mode {
-    type      = "password"
-    passwords = ["aaaaaaaaaaaaaaaa"]
+type  = "password"
+passwords = ["aaaaaaaaaaaaaaaa"]
   }
 }
 `, userNames)
@@ -382,11 +382,11 @@ fmt.Sprintf(`
 resource "aws_memorydb_acl" "test" {
   depends_on = [aws_memorydb_user.test]
 
-  name       = %[1]q
+  name   = %[1]q
   user_names = [%[2]s]
 
   tags = {
-    Test = "test"
+Test = "test"
   }
 }
 `, rName, userNamesInACL),
@@ -421,7 +421,7 @@ resource "aws_memorydb_acl" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -433,8 +433,8 @@ resource "aws_memorydb_acl" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

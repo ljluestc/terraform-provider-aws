@@ -305,7 +305,7 @@ Elem: &schema.Resource{
 "calculation":   numericalAggregation
 functionSchema(true), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericalAggregation
 function.html
-"column":        columnSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+"column":  columnSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 "measure_aggregation_
 function": aggregation
 functionSchema(true), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation
@@ -413,7 +413,7 @@ func: validation.IntBetween(1, 10),
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"background_color":      stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}(?:[0-9A-F]{2})?$`), "")),
+	"background_color":stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}(?:[0-9A-F]{2})?$`), "")),
 	"background_visibility": stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 	"border_color": stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}(?:[0-9A-F]{2})?$`), "")),
 	"border_style": stringSchema(false, validation.StringInSlice(quicksight.PanelBorderStyle_Values(), false)),
@@ -434,7 +434,7 @@ MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
-"font_configuration":        fontConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FontConfiguration.html
+"font_configuration":  fontConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FontConfiguration.html
 "horizontal_text_alignment": stringSchema(false, validation.StringInSlice(quicksight.HorizontalTextAlignment_Values(), false)),
 "visibility": stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 	},

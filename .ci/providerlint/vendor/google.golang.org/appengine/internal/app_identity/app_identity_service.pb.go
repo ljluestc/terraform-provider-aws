@@ -51,24 +51,20 @@ var AppIdentityServiceError_ErrorCode_value = map[string]int32{
 	"NOT_ALLOWED":       1005,
 	"NOT_IMPLEMENTED":   1006,
 }
-
-func (x AppIdentityServiceError_ErrorCode) Enum() *AppIdentityServiceError_ErrorCode {
+ (x AppIdentityServiceError_ErrorCode) Enum() *AppIdentityServiceError_ErrorCode {
 	p := new(AppIdentityServiceError_ErrorCode)
 	*p = x
 	return p
-}
-func (x AppIdentityServiceError_ErrorCode) String() string {
+} (x AppIdentityServiceError_ErrorCode) String() string {
 	return proto.EnumName(AppIdentityServiceError_ErrorCode_name, int32(x))
-}
-func (x *AppIdentityServiceError_ErrorCode) UnmarshalJSON(data []byte) error {
+} (x *AppIdentityServiceError_ErrorCode) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(AppIdentityServiceError_ErrorCode_value, data, "AppIdentityServiceError_ErrorCode")
 	if err != nil {
 		return err
 	}
 	*x = AppIdentityServiceError_ErrorCode(value)
 	return nil
-}
-func (AppIdentityServiceError_ErrorCode) EnumDescriptor() ([]byte, []int) {
+} (AppIdentityServiceError_ErrorCode) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{0, 0}
 }
 
@@ -77,26 +73,17 @@ type AppIdentityServiceError struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *AppIdentityServiceError) Reset()         { *m = AppIdentityServiceError{} }
-func (m *AppIdentityServiceError) String() string { return proto.CompactTextString(m) }
-func (*AppIdentityServiceError) ProtoMessage()    {}
-func (*AppIdentityServiceError) Descriptor() ([]byte, []int) {
+ (m *AppIdentityServiceError) Reset()         { *m = AppIdentityServiceError{} } (m *AppIdentityServiceError) String() string { return proto.CompactTextString(m) } (*AppIdentityServiceError) ProtoMessage()    {} (*AppIdentityServiceError) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{0}
-}
-func (m *AppIdentityServiceError) XXX_Unmarshal(b []byte) error {
+} (m *AppIdentityServiceError) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AppIdentityServiceError.Unmarshal(m, b)
-}
-func (m *AppIdentityServiceError) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *AppIdentityServiceError) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_AppIdentityServiceError.Marshal(b, m, deterministic)
-}
-func (dst *AppIdentityServiceError) XXX_Merge(src proto.Message) {
+} (dst *AppIdentityServiceError) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_AppIdentityServiceError.Merge(dst, src)
-}
-func (m *AppIdentityServiceError) XXX_Size() int {
+} (m *AppIdentityServiceError) XXX_Size() int {
 	return xxx_messageInfo_AppIdentityServiceError.Size(m)
-}
-func (m *AppIdentityServiceError) XXX_DiscardUnknown() {
+} (m *AppIdentityServiceError) XXX_DiscardUnknown() {
 	xxx_messageInfo_AppIdentityServiceError.DiscardUnknown(m)
 }
 
@@ -108,32 +95,22 @@ type SignForAppRequest struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *SignForAppRequest) Reset()         { *m = SignForAppRequest{} }
-func (m *SignForAppRequest) String() string { return proto.CompactTextString(m) }
-func (*SignForAppRequest) ProtoMessage()    {}
-func (*SignForAppRequest) Descriptor() ([]byte, []int) {
+ (m *SignForAppRequest) Reset()         { *m = SignForAppRequest{} } (m *SignForAppRequest) String() string { return proto.CompactTextString(m) } (*SignForAppRequest) ProtoMessage()    {} (*SignForAppRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{1}
-}
-func (m *SignForAppRequest) XXX_Unmarshal(b []byte) error {
+} (m *SignForAppRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SignForAppRequest.Unmarshal(m, b)
-}
-func (m *SignForAppRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *SignForAppRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_SignForAppRequest.Marshal(b, m, deterministic)
-}
-func (dst *SignForAppRequest) XXX_Merge(src proto.Message) {
+} (dst *SignForAppRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_SignForAppRequest.Merge(dst, src)
-}
-func (m *SignForAppRequest) XXX_Size() int {
+} (m *SignForAppRequest) XXX_Size() int {
 	return xxx_messageInfo_SignForAppRequest.Size(m)
-}
-func (m *SignForAppRequest) XXX_DiscardUnknown() {
+} (m *SignForAppRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_SignForAppRequest.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_SignForAppRequest proto.InternalMessageInfo
-
-func (m *SignForAppRequest) GetBytesToSign() []byte {
+ (m *SignForAppRequest) GetBytesToSign() []byte {
 	if m != nil {
 		return m.BytesToSign
 	}
@@ -147,39 +124,28 @@ type SignForAppResponse struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *SignForAppResponse) Reset()         { *m = SignForAppResponse{} }
-func (m *SignForAppResponse) String() string { return proto.CompactTextString(m) }
-func (*SignForAppResponse) ProtoMessage()    {}
-func (*SignForAppResponse) Descriptor() ([]byte, []int) {
+ (m *SignForAppResponse) Reset()         { *m = SignForAppResponse{} } (m *SignForAppResponse) String() string { return proto.CompactTextString(m) } (*SignForAppResponse) ProtoMessage()    {} (*SignForAppResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{2}
-}
-func (m *SignForAppResponse) XXX_Unmarshal(b []byte) error {
+} (m *SignForAppResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SignForAppResponse.Unmarshal(m, b)
-}
-func (m *SignForAppResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *SignForAppResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_SignForAppResponse.Marshal(b, m, deterministic)
-}
-func (dst *SignForAppResponse) XXX_Merge(src proto.Message) {
+} (dst *SignForAppResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_SignForAppResponse.Merge(dst, src)
-}
-func (m *SignForAppResponse) XXX_Size() int {
+} (m *SignForAppResponse) XXX_Size() int {
 	return xxx_messageInfo_SignForAppResponse.Size(m)
-}
-func (m *SignForAppResponse) XXX_DiscardUnknown() {
+} (m *SignForAppResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_SignForAppResponse.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_SignForAppResponse proto.InternalMessageInfo
-
-func (m *SignForAppResponse) GetKeyName() string {
+ (m *SignForAppResponse) GetKeyName() string {
 	if m != nil && m.KeyName != nil {
 		return *m.KeyName
 	}
 	return ""
 }
-
-func (m *SignForAppResponse) GetSignatureBytes() []byte {
+ (m *SignForAppResponse) GetSignatureBytes() []byte {
 	if m != nil {
 		return m.SignatureBytes
 	}
@@ -191,26 +157,17 @@ type GetPublicCertificateForAppRequest struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *GetPublicCertificateForAppRequest) Reset()         { *m = GetPublicCertificateForAppRequest{} }
-func (m *GetPublicCertificateForAppRequest) String() string { return proto.CompactTextString(m) }
-func (*GetPublicCertificateForAppRequest) ProtoMessage()    {}
-func (*GetPublicCertificateForAppRequest) Descriptor() ([]byte, []int) {
+ (m *GetPublicCertificateForAppRequest) Reset()         { *m = GetPublicCertificateForAppRequest{} } (m *GetPublicCertificateForAppRequest) String() string { return proto.CompactTextString(m) } (*GetPublicCertificateForAppRequest) ProtoMessage()    {} (*GetPublicCertificateForAppRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{3}
-}
-func (m *GetPublicCertificateForAppRequest) XXX_Unmarshal(b []byte) error {
+} (m *GetPublicCertificateForAppRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetPublicCertificateForAppRequest.Unmarshal(m, b)
-}
-func (m *GetPublicCertificateForAppRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *GetPublicCertificateForAppRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_GetPublicCertificateForAppRequest.Marshal(b, m, deterministic)
-}
-func (dst *GetPublicCertificateForAppRequest) XXX_Merge(src proto.Message) {
+} (dst *GetPublicCertificateForAppRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetPublicCertificateForAppRequest.Merge(dst, src)
-}
-func (m *GetPublicCertificateForAppRequest) XXX_Size() int {
+} (m *GetPublicCertificateForAppRequest) XXX_Size() int {
 	return xxx_messageInfo_GetPublicCertificateForAppRequest.Size(m)
-}
-func (m *GetPublicCertificateForAppRequest) XXX_DiscardUnknown() {
+} (m *GetPublicCertificateForAppRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetPublicCertificateForAppRequest.DiscardUnknown(m)
 }
 
@@ -223,39 +180,28 @@ type PublicCertificate struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *PublicCertificate) Reset()         { *m = PublicCertificate{} }
-func (m *PublicCertificate) String() string { return proto.CompactTextString(m) }
-func (*PublicCertificate) ProtoMessage()    {}
-func (*PublicCertificate) Descriptor() ([]byte, []int) {
+ (m *PublicCertificate) Reset()         { *m = PublicCertificate{} } (m *PublicCertificate) String() string { return proto.CompactTextString(m) } (*PublicCertificate) ProtoMessage()    {} (*PublicCertificate) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{4}
-}
-func (m *PublicCertificate) XXX_Unmarshal(b []byte) error {
+} (m *PublicCertificate) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PublicCertificate.Unmarshal(m, b)
-}
-func (m *PublicCertificate) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *PublicCertificate) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_PublicCertificate.Marshal(b, m, deterministic)
-}
-func (dst *PublicCertificate) XXX_Merge(src proto.Message) {
+} (dst *PublicCertificate) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_PublicCertificate.Merge(dst, src)
-}
-func (m *PublicCertificate) XXX_Size() int {
+} (m *PublicCertificate) XXX_Size() int {
 	return xxx_messageInfo_PublicCertificate.Size(m)
-}
-func (m *PublicCertificate) XXX_DiscardUnknown() {
+} (m *PublicCertificate) XXX_DiscardUnknown() {
 	xxx_messageInfo_PublicCertificate.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_PublicCertificate proto.InternalMessageInfo
-
-func (m *PublicCertificate) GetKeyName() string {
+ (m *PublicCertificate) GetKeyName() string {
 	if m != nil && m.KeyName != nil {
 		return *m.KeyName
 	}
 	return ""
 }
-
-func (m *PublicCertificate) GetX509CertificatePem() string {
+ (m *PublicCertificate) GetX509CertificatePem() string {
 	if m != nil && m.X509CertificatePem != nil {
 		return *m.X509CertificatePem
 	}
@@ -269,39 +215,28 @@ type GetPublicCertificateForAppResponse struct {
 	XXX_unrecognized           []byte               `json:"-"`
 	XXX_sizecache              int32                `json:"-"`
 }
-
-func (m *GetPublicCertificateForAppResponse) Reset()         { *m = GetPublicCertificateForAppResponse{} }
-func (m *GetPublicCertificateForAppResponse) String() string { return proto.CompactTextString(m) }
-func (*GetPublicCertificateForAppResponse) ProtoMessage()    {}
-func (*GetPublicCertificateForAppResponse) Descriptor() ([]byte, []int) {
+ (m *GetPublicCertificateForAppResponse) Reset()         { *m = GetPublicCertificateForAppResponse{} } (m *GetPublicCertificateForAppResponse) String() string { return proto.CompactTextString(m) } (*GetPublicCertificateForAppResponse) ProtoMessage()    {} (*GetPublicCertificateForAppResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{5}
-}
-func (m *GetPublicCertificateForAppResponse) XXX_Unmarshal(b []byte) error {
+} (m *GetPublicCertificateForAppResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetPublicCertificateForAppResponse.Unmarshal(m, b)
-}
-func (m *GetPublicCertificateForAppResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *GetPublicCertificateForAppResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_GetPublicCertificateForAppResponse.Marshal(b, m, deterministic)
-}
-func (dst *GetPublicCertificateForAppResponse) XXX_Merge(src proto.Message) {
+} (dst *GetPublicCertificateForAppResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetPublicCertificateForAppResponse.Merge(dst, src)
-}
-func (m *GetPublicCertificateForAppResponse) XXX_Size() int {
+} (m *GetPublicCertificateForAppResponse) XXX_Size() int {
 	return xxx_messageInfo_GetPublicCertificateForAppResponse.Size(m)
-}
-func (m *GetPublicCertificateForAppResponse) XXX_DiscardUnknown() {
+} (m *GetPublicCertificateForAppResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetPublicCertificateForAppResponse.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_GetPublicCertificateForAppResponse proto.InternalMessageInfo
-
-func (m *GetPublicCertificateForAppResponse) GetPublicCertificateList() []*PublicCertificate {
+ (m *GetPublicCertificateForAppResponse) GetPublicCertificateList() []*PublicCertificate {
 	if m != nil {
 		return m.PublicCertificateList
 	}
 	return nil
 }
-
-func (m *GetPublicCertificateForAppResponse) GetMaxClientCacheTimeInSecond() int64 {
+ (m *GetPublicCertificateForAppResponse) GetMaxClientCacheTimeInSecond() int64 {
 	if m != nil && m.MaxClientCacheTimeInSecond != nil {
 		return *m.MaxClientCacheTimeInSecond
 	}
@@ -313,26 +248,17 @@ type GetServiceAccountNameRequest struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *GetServiceAccountNameRequest) Reset()         { *m = GetServiceAccountNameRequest{} }
-func (m *GetServiceAccountNameRequest) String() string { return proto.CompactTextString(m) }
-func (*GetServiceAccountNameRequest) ProtoMessage()    {}
-func (*GetServiceAccountNameRequest) Descriptor() ([]byte, []int) {
+ (m *GetServiceAccountNameRequest) Reset()         { *m = GetServiceAccountNameRequest{} } (m *GetServiceAccountNameRequest) String() string { return proto.CompactTextString(m) } (*GetServiceAccountNameRequest) ProtoMessage()    {} (*GetServiceAccountNameRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{6}
-}
-func (m *GetServiceAccountNameRequest) XXX_Unmarshal(b []byte) error {
+} (m *GetServiceAccountNameRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetServiceAccountNameRequest.Unmarshal(m, b)
-}
-func (m *GetServiceAccountNameRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *GetServiceAccountNameRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_GetServiceAccountNameRequest.Marshal(b, m, deterministic)
-}
-func (dst *GetServiceAccountNameRequest) XXX_Merge(src proto.Message) {
+} (dst *GetServiceAccountNameRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetServiceAccountNameRequest.Merge(dst, src)
-}
-func (m *GetServiceAccountNameRequest) XXX_Size() int {
+} (m *GetServiceAccountNameRequest) XXX_Size() int {
 	return xxx_messageInfo_GetServiceAccountNameRequest.Size(m)
-}
-func (m *GetServiceAccountNameRequest) XXX_DiscardUnknown() {
+} (m *GetServiceAccountNameRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetServiceAccountNameRequest.DiscardUnknown(m)
 }
 
@@ -344,32 +270,22 @@ type GetServiceAccountNameResponse struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *GetServiceAccountNameResponse) Reset()         { *m = GetServiceAccountNameResponse{} }
-func (m *GetServiceAccountNameResponse) String() string { return proto.CompactTextString(m) }
-func (*GetServiceAccountNameResponse) ProtoMessage()    {}
-func (*GetServiceAccountNameResponse) Descriptor() ([]byte, []int) {
+ (m *GetServiceAccountNameResponse) Reset()         { *m = GetServiceAccountNameResponse{} } (m *GetServiceAccountNameResponse) String() string { return proto.CompactTextString(m) } (*GetServiceAccountNameResponse) ProtoMessage()    {} (*GetServiceAccountNameResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{7}
-}
-func (m *GetServiceAccountNameResponse) XXX_Unmarshal(b []byte) error {
+} (m *GetServiceAccountNameResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetServiceAccountNameResponse.Unmarshal(m, b)
-}
-func (m *GetServiceAccountNameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *GetServiceAccountNameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_GetServiceAccountNameResponse.Marshal(b, m, deterministic)
-}
-func (dst *GetServiceAccountNameResponse) XXX_Merge(src proto.Message) {
+} (dst *GetServiceAccountNameResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetServiceAccountNameResponse.Merge(dst, src)
-}
-func (m *GetServiceAccountNameResponse) XXX_Size() int {
+} (m *GetServiceAccountNameResponse) XXX_Size() int {
 	return xxx_messageInfo_GetServiceAccountNameResponse.Size(m)
-}
-func (m *GetServiceAccountNameResponse) XXX_DiscardUnknown() {
+} (m *GetServiceAccountNameResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetServiceAccountNameResponse.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_GetServiceAccountNameResponse proto.InternalMessageInfo
-
-func (m *GetServiceAccountNameResponse) GetServiceAccountName() string {
+ (m *GetServiceAccountNameResponse) GetServiceAccountName() string {
 	if m != nil && m.ServiceAccountName != nil {
 		return *m.ServiceAccountName
 	}
@@ -384,46 +300,34 @@ type GetAccessTokenRequest struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *GetAccessTokenRequest) Reset()         { *m = GetAccessTokenRequest{} }
-func (m *GetAccessTokenRequest) String() string { return proto.CompactTextString(m) }
-func (*GetAccessTokenRequest) ProtoMessage()    {}
-func (*GetAccessTokenRequest) Descriptor() ([]byte, []int) {
+ (m *GetAccessTokenRequest) Reset()         { *m = GetAccessTokenRequest{} } (m *GetAccessTokenRequest) String() string { return proto.CompactTextString(m) } (*GetAccessTokenRequest) ProtoMessage()    {} (*GetAccessTokenRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{8}
-}
-func (m *GetAccessTokenRequest) XXX_Unmarshal(b []byte) error {
+} (m *GetAccessTokenRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetAccessTokenRequest.Unmarshal(m, b)
-}
-func (m *GetAccessTokenRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *GetAccessTokenRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_GetAccessTokenRequest.Marshal(b, m, deterministic)
-}
-func (dst *GetAccessTokenRequest) XXX_Merge(src proto.Message) {
+} (dst *GetAccessTokenRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetAccessTokenRequest.Merge(dst, src)
-}
-func (m *GetAccessTokenRequest) XXX_Size() int {
+} (m *GetAccessTokenRequest) XXX_Size() int {
 	return xxx_messageInfo_GetAccessTokenRequest.Size(m)
-}
-func (m *GetAccessTokenRequest) XXX_DiscardUnknown() {
+} (m *GetAccessTokenRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetAccessTokenRequest.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_GetAccessTokenRequest proto.InternalMessageInfo
-
-func (m *GetAccessTokenRequest) GetScope() []string {
+ (m *GetAccessTokenRequest) GetScope() []string {
 	if m != nil {
 		return m.Scope
 	}
 	return nil
 }
-
-func (m *GetAccessTokenRequest) GetServiceAccountId() int64 {
+ (m *GetAccessTokenRequest) GetServiceAccountId() int64 {
 	if m != nil && m.ServiceAccountId != nil {
 		return *m.ServiceAccountId
 	}
 	return 0
 }
-
-func (m *GetAccessTokenRequest) GetServiceAccountName() string {
+ (m *GetAccessTokenRequest) GetServiceAccountName() string {
 	if m != nil && m.ServiceAccountName != nil {
 		return *m.ServiceAccountName
 	}
@@ -437,39 +341,28 @@ type GetAccessTokenResponse struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *GetAccessTokenResponse) Reset()         { *m = GetAccessTokenResponse{} }
-func (m *GetAccessTokenResponse) String() string { return proto.CompactTextString(m) }
-func (*GetAccessTokenResponse) ProtoMessage()    {}
-func (*GetAccessTokenResponse) Descriptor() ([]byte, []int) {
+ (m *GetAccessTokenResponse) Reset()         { *m = GetAccessTokenResponse{} } (m *GetAccessTokenResponse) String() string { return proto.CompactTextString(m) } (*GetAccessTokenResponse) ProtoMessage()    {} (*GetAccessTokenResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{9}
-}
-func (m *GetAccessTokenResponse) XXX_Unmarshal(b []byte) error {
+} (m *GetAccessTokenResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetAccessTokenResponse.Unmarshal(m, b)
-}
-func (m *GetAccessTokenResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *GetAccessTokenResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_GetAccessTokenResponse.Marshal(b, m, deterministic)
-}
-func (dst *GetAccessTokenResponse) XXX_Merge(src proto.Message) {
+} (dst *GetAccessTokenResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetAccessTokenResponse.Merge(dst, src)
-}
-func (m *GetAccessTokenResponse) XXX_Size() int {
+} (m *GetAccessTokenResponse) XXX_Size() int {
 	return xxx_messageInfo_GetAccessTokenResponse.Size(m)
-}
-func (m *GetAccessTokenResponse) XXX_DiscardUnknown() {
+} (m *GetAccessTokenResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetAccessTokenResponse.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_GetAccessTokenResponse proto.InternalMessageInfo
-
-func (m *GetAccessTokenResponse) GetAccessToken() string {
+ (m *GetAccessTokenResponse) GetAccessToken() string {
 	if m != nil && m.AccessToken != nil {
 		return *m.AccessToken
 	}
 	return ""
 }
-
-func (m *GetAccessTokenResponse) GetExpirationTime() int64 {
+ (m *GetAccessTokenResponse) GetExpirationTime() int64 {
 	if m != nil && m.ExpirationTime != nil {
 		return *m.ExpirationTime
 	}
@@ -481,26 +374,17 @@ type GetDefaultGcsBucketNameRequest struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *GetDefaultGcsBucketNameRequest) Reset()         { *m = GetDefaultGcsBucketNameRequest{} }
-func (m *GetDefaultGcsBucketNameRequest) String() string { return proto.CompactTextString(m) }
-func (*GetDefaultGcsBucketNameRequest) ProtoMessage()    {}
-func (*GetDefaultGcsBucketNameRequest) Descriptor() ([]byte, []int) {
+ (m *GetDefaultGcsBucketNameRequest) Reset()         { *m = GetDefaultGcsBucketNameRequest{} } (m *GetDefaultGcsBucketNameRequest) String() string { return proto.CompactTextString(m) } (*GetDefaultGcsBucketNameRequest) ProtoMessage()    {} (*GetDefaultGcsBucketNameRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{10}
-}
-func (m *GetDefaultGcsBucketNameRequest) XXX_Unmarshal(b []byte) error {
+} (m *GetDefaultGcsBucketNameRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetDefaultGcsBucketNameRequest.Unmarshal(m, b)
-}
-func (m *GetDefaultGcsBucketNameRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *GetDefaultGcsBucketNameRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_GetDefaultGcsBucketNameRequest.Marshal(b, m, deterministic)
-}
-func (dst *GetDefaultGcsBucketNameRequest) XXX_Merge(src proto.Message) {
+} (dst *GetDefaultGcsBucketNameRequest) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetDefaultGcsBucketNameRequest.Merge(dst, src)
-}
-func (m *GetDefaultGcsBucketNameRequest) XXX_Size() int {
+} (m *GetDefaultGcsBucketNameRequest) XXX_Size() int {
 	return xxx_messageInfo_GetDefaultGcsBucketNameRequest.Size(m)
-}
-func (m *GetDefaultGcsBucketNameRequest) XXX_DiscardUnknown() {
+} (m *GetDefaultGcsBucketNameRequest) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetDefaultGcsBucketNameRequest.DiscardUnknown(m)
 }
 
@@ -512,39 +396,28 @@ type GetDefaultGcsBucketNameResponse struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *GetDefaultGcsBucketNameResponse) Reset()         { *m = GetDefaultGcsBucketNameResponse{} }
-func (m *GetDefaultGcsBucketNameResponse) String() string { return proto.CompactTextString(m) }
-func (*GetDefaultGcsBucketNameResponse) ProtoMessage()    {}
-func (*GetDefaultGcsBucketNameResponse) Descriptor() ([]byte, []int) {
+ (m *GetDefaultGcsBucketNameResponse) Reset()         { *m = GetDefaultGcsBucketNameResponse{} } (m *GetDefaultGcsBucketNameResponse) String() string { return proto.CompactTextString(m) } (*GetDefaultGcsBucketNameResponse) ProtoMessage()    {} (*GetDefaultGcsBucketNameResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_app_identity_service_08a6e3f74b04cfa4, []int{11}
-}
-func (m *GetDefaultGcsBucketNameResponse) XXX_Unmarshal(b []byte) error {
+} (m *GetDefaultGcsBucketNameResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_GetDefaultGcsBucketNameResponse.Unmarshal(m, b)
-}
-func (m *GetDefaultGcsBucketNameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *GetDefaultGcsBucketNameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_GetDefaultGcsBucketNameResponse.Marshal(b, m, deterministic)
-}
-func (dst *GetDefaultGcsBucketNameResponse) XXX_Merge(src proto.Message) {
+} (dst *GetDefaultGcsBucketNameResponse) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_GetDefaultGcsBucketNameResponse.Merge(dst, src)
-}
-func (m *GetDefaultGcsBucketNameResponse) XXX_Size() int {
+} (m *GetDefaultGcsBucketNameResponse) XXX_Size() int {
 	return xxx_messageInfo_GetDefaultGcsBucketNameResponse.Size(m)
-}
-func (m *GetDefaultGcsBucketNameResponse) XXX_DiscardUnknown() {
+} (m *GetDefaultGcsBucketNameResponse) XXX_DiscardUnknown() {
 	xxx_messageInfo_GetDefaultGcsBucketNameResponse.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_GetDefaultGcsBucketNameResponse proto.InternalMessageInfo
-
-func (m *GetDefaultGcsBucketNameResponse) GetDefaultGcsBucketName() string {
+ (m *GetDefaultGcsBucketNameResponse) GetDefaultGcsBucketName() string {
 	if m != nil && m.DefaultGcsBucketName != nil {
 		return *m.DefaultGcsBucketName
 	}
 	return ""
 }
-
-func init() {
+ init() {
 	proto.RegisterType((*AppIdentityServiceError)(nil), "appengine.AppIdentityServiceError")
 	proto.RegisterType((*SignForAppRequest)(nil), "appengine.SignForAppRequest")
 	proto.RegisterType((*SignForAppResponse)(nil), "appengine.SignForAppResponse")
@@ -558,8 +431,7 @@ func init() {
 	proto.RegisterType((*GetDefaultGcsBucketNameRequest)(nil), "appengine.GetDefaultGcsBucketNameRequest")
 	proto.RegisterType((*GetDefaultGcsBucketNameResponse)(nil), "appengine.GetDefaultGcsBucketNameResponse")
 }
-
-func init() {
+ init() {
 	proto.RegisterFile("google.golang.org/appengine/internal/app_identity/app_identity_service.proto", fileDescriptor_app_identity_service_08a6e3f74b04cfa4)
 }
 

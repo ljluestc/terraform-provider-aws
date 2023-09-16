@@ -29,7 +29,7 @@ import (
 func ResourceTarget() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTargetCreate,
-		ReadWithoutTimeout:   resourceTargetRead,
+		ReadWithoutTimeout:resourceTargetRead,
 		UpdateWithoutTimeout: resourceTargetUpdate,
 		DeleteWithoutTimeout: resourceTargetDelete,
 
@@ -39,54 +39,53 @@ func ResourceTarget() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			names.AttrARN: {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"max_capacity": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Required: true,
 			},
 			"min_capacity": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Required: true,
 			},
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"role_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"scalable_dimension": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"service_namespace": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceTargetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppAutoScalingConn(ctx)
 
 	resourceID := d.Get("resource_id").(string)
 	input := &applicationautoscaling.RegisterScalableTargetInput{
-		MaxCapacity:       aws.Int64(int64(d.Get("max_capacity").(int))),
-		MinCapacity:       aws.Int64(int64(d.Get("min_capacity").(int))),
-		ResourceId:        aws.String(resourceID),
+		MaxCapacity:nt64(int64(d.Get("max_capacity").(int))),
+		MinCapacity:nt64(int64(d.Get("min_capacity").(int))),
+		ResourceId:String(resourceID),
 		ScalableDimension: aws.String(d.Get("scalable_dimension").(string)),
 		ServiceNamespace:  aws.String(d.Get("service_namespace").(string)),
 		Tags: getTagsIn(ctx),
@@ -106,7 +105,6 @@ func resourceTargetCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceTargetRead(ctx, d, meta)...)
 }
-
 func resourceTargetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppAutoScalingConn(ctx)
@@ -140,16 +138,15 @@ func resourceTargetRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
-
 func resourceTargetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppAutoScalingConn(ctx)
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &applicationautoscaling.RegisterScalableTargetInput{
-			MaxCapacity:       aws.Int64(int64(d.Get("max_capacity").(int))),
-			MinCapacity:       aws.Int64(int64(d.Get("min_capacity").(int))),
-			ResourceId:        aws.String(d.Id()),
+			MaxCapacity:nt64(int64(d.Get("max_capacity").(int))),
+			MinCapacity:nt64(int64(d.Get("min_capacity").(int))),
+			ResourceId:String(d.Id()),
 			ScalableDimension: aws.String(d.Get("scalable_dimension").(string)),
 			ServiceNamespace:  aws.String(d.Get("service_namespace").(string)),
 		}
@@ -167,13 +164,12 @@ func resourceTargetUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceTargetRead(ctx, d, meta)...)
 }
-
 func resourceTargetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppAutoScalingConn(ctx)
 
 	input := &applicationautoscaling.DeregisterScalableTargetInput{
-		ResourceId:        aws.String(d.Id()),
+		ResourceId:String(d.Id()),
 		ScalableDimension: aws.String(d.Get("scalable_dimension").(string)),
 		ServiceNamespace:  aws.String(d.Get("service_namespace").(string)),
 	}
@@ -199,10 +195,9 @@ func resourceTargetDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func FindTargetByThreePartKey(ctx context.Context, conn *applicationautoscaling.ApplicationAutoScaling, resourceID, namespace, dimension string) (*applicationautoscaling.ScalableTarget, error) {
 	input := &applicationautoscaling.DescribeScalableTargetsInput{
-		ResourceIds:       aws.StringSlice([]string{resourceID}),
+		ResourceIds:tringSlice([]string{resourceID}),
 		ScalableDimension: aws.String(dimension),
 		ServiceNamespace:  aws.String(namespace),
 	}
@@ -244,7 +239,6 @@ func FindTargetByThreePartKey(ctx context.Context, conn *applicationautoscaling.
 
 	return target, nil
 }
-
 func resourceTargetImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	idParts := strings.Split(d.Id(), "/")
 
@@ -267,7 +261,6 @@ func resourceTargetImport(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return []*schema.ResourceData{d}, nil
 }
-
 func registerScalableTarget(ctx context.Context, conn *applicationautoscaling.ApplicationAutoScaling, input *applicationautoscaling.RegisterScalableTargetInput) error {
 	_, err := tfresource.RetryWhen(ctx, propagationTimeout,
 		func() (interface{}, error) {

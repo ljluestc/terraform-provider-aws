@@ -54,13 +54,13 @@ func ResourceConfigurationAggregator() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
 			"account_aggregation_source": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
 				MaxItems:      1,
 				ConflictsWith: []string{"organization_aggregation_source"},
@@ -71,7 +71,7 @@ func ResourceConfigurationAggregator() *schema.Resource {
 							Required: true,
 							MinItems: 1,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: verify.ValidAccountID,
 							},
 						},
@@ -92,7 +92,7 @@ func ResourceConfigurationAggregator() *schema.Resource {
 				},
 			},
 			"organization_aggregation_source": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
 				MaxItems:      1,
 				ConflictsWith: []string{"account_aggregation_source"},
@@ -112,7 +112,7 @@ func ResourceConfigurationAggregator() *schema.Resource {
 							},
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: verify.ValidARN,
 						},
@@ -131,7 +131,7 @@ func resourceConfigurationAggregatorPut(ctx context.Context, d *schema.ResourceD
 
 	input := &configservice.PutConfigurationAggregatorInput{
 		ConfigurationAggregatorName: aws.String(d.Get("name").(string)),
-		Tags:                        getTagsIn(ctx),
+		Tags:      getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("account_aggregation_source"); ok && len(v.([]interface{})) > 0 {

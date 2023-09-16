@@ -111,7 +111,7 @@ func updateTags(ctx context.Context, conn *keyspaces.Client, identifier string, 
 	if len(removedTags) > 0 {
 		input := &keyspaces.UntagResourceInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(removedTags),
+			Tags:Tags(removedTags),
 		}
 
 		_, err := conn.UntagResource(ctx, input)
@@ -126,7 +126,7 @@ func updateTags(ctx context.Context, conn *keyspaces.Client, identifier string, 
 	if len(updatedTags) > 0 {
 		input := &keyspaces.TagResourceInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:Tags(updatedTags),
 		}
 
 		_, err := conn.TagResource(ctx, input)

@@ -14,7 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func testAccLoadBalancerHTTPSRedirectionPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
@@ -37,7 +36,6 @@ func testAccLoadBalancerHTTPSRedirectionPolicy_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancerHTTPSRedirectionPolicyConfig_basic(rName string, enabled string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {

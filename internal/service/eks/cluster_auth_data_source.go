@@ -20,13 +20,13 @@ func DataSourceClusterAuth() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 
 			"token": {
-				Type:      schema.TypeString,
+				Type: schema.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},

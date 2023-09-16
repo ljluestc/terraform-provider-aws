@@ -19,45 +19,45 @@ func DataSourceNamespace() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"admin_username": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"db_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"default_iam_role_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"iam_roles": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
 			},
 			"kms_key_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"log_exports": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
 			},
 			"namespace_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"namespace_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 		},

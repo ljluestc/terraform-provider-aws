@@ -21,14 +21,13 @@ func DataSourceLocations() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"location_codes": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
 }
-
 func dataSourceLocationsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)

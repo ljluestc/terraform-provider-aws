@@ -173,8 +173,8 @@ func expandRuleSourceDetails(configured *schema.Set) []*configservice.SourceDeta
 func expandRuleSourceCustomPolicyDetails(configured []interface{}) *configservice.CustomPolicyDetails {
 	cfg := configured[0].(map[string]interface{})
 	source := configservice.CustomPolicyDetails{
-		PolicyRuntime:          aws.String(cfg["policy_runtime"].(string)),
-		PolicyText:             aws.String(cfg["policy_text"].(string)),
+		PolicyRuntime: aws.String(cfg["policy_runtime"].(string)),
+		PolicyText:    aws.String(cfg["policy_text"].(string)),
 		EnableDebugLogDelivery: aws.Bool(cfg["enable_debug_log_delivery"].(bool)),
 	}
 

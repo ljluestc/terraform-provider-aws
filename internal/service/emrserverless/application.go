@@ -46,24 +46,24 @@ func resourceApplication() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"architecture": {
-				Type:    schema.TypeString,
+				Type:schema.TypeString,
 				Optional:true,
 				Default: types.ArchitectureX8664,
 				ValidateDiagFunc: enum.Validate[types.Architecture](),
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"auto_start_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"enabled": {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Optional: true,
 							Default:  true,
 						},
@@ -71,70 +71,70 @@ func resourceApplication() *schema.Resource {
 				},
 			},
 			"auto_stop_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"enabled": {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Optional: true,
 							Default:  true,
 						},
 						"idle_timeout_minutes": {
 							Type:schema.TypeInt,
-							Optional:     true,
-							Default:      15,
+							Optional: true,
+							Default:  15,
 							ValidateFunc: validation.IntBetween(1, 10080),
 						},
 					},
 				},
 			},
 			"image_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"image_uri": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"initial_capacity": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"initial_capacity_config": {
-							Type:    schema.TypeList,
+							Type:schema.TypeList,
 							Optional:true,
 							DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 							MaxItems:1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"worker_configuration": {
-										Type:    schema.TypeList,
+										Type:schema.TypeList,
 										Optional:true,
 										DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 										MaxItems:1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"cpu": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 												},
 												"disk": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Optional: true,
 													Computed: true,
 												},
 												"memory": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 												},
 											},
@@ -142,21 +142,21 @@ func resourceApplication() *schema.Resource {
 									},
 									"worker_count": {
 										Type:schema.TypeInt,
-										Required:     true,
+										Required: true,
 										ValidateFunc: validation.IntBetween(1, 1000000),
 									},
 								},
 							},
 						},
 						"initial_capacity_type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"maximum_capacity": {
-				Type:    schema.TypeList,
+				Type:schema.TypeList,
 				Optional:true,
 				Computed:true,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
@@ -164,16 +164,16 @@ func resourceApplication() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cpu": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"disk": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 							Computed: true,
 						},
 						"memory": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 					},
@@ -181,40 +181,40 @@ func resourceApplication() *schema.Resource {
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 			"network_configuration": {
-				Type:    schema.TypeList,
+				Type:schema.TypeList,
 				Optional:true,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				MaxItems:1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"security_group_ids": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							ForceNew: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 						"subnet_ids": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							ForceNew: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 					},
 				},
 			},
 			"release_label": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				StateFunc: func(val interface{}) string {
@@ -455,17 +455,17 @@ func statusApplication(ctx context.Context, conn *emrserverless.Client, id strin
 
 func waitApplicationCreated(ctx context.Context, conn *emrserverless.Client, id string) (*types.Application, error) {
 	const (
-		timeout    = 75 * time.Minute
+		timeout= 75 * time.Minute
 		minTimeout = 10 * time.Second
-		delay      = 30 * time.Second
+		delay  = 30 * time.Second
 	)
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.ApplicationStateCreating),
-		Target:     enum.Slice(types.ApplicationStateCreated),
-		Refresh:    statusApplication(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:enum.Slice(types.ApplicationStateCreating),
+		Target: enum.Slice(types.ApplicationStateCreated),
+		Refresh:statusApplication(ctx, conn, id),
+		Timeout:timeout,
 		MinTimeout: minTimeout,
-		Delay:      delay,
+		Delay:  delay,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -483,17 +483,17 @@ func waitApplicationCreated(ctx context.Context, conn *emrserverless.Client, id 
 
 func waitApplicationTerminated(ctx context.Context, conn *emrserverless.Client, id string) (*types.Application, error) {
 	const (
-		timeout    = 20 * time.Minute
+		timeout= 20 * time.Minute
 		minTimeout = 10 * time.Second
-		delay      = 30 * time.Second
+		delay  = 30 * time.Second
 	)
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Values[types.ApplicationState](),
-		Target:     []string{},
-		Refresh:    statusApplication(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:enum.Values[types.ApplicationState](),
+		Target: []string{},
+		Refresh:statusApplication(ctx, conn, id),
+		Timeout:timeout,
 		MinTimeout: minTimeout,
-		Delay:      delay,
+		Delay:  delay,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)

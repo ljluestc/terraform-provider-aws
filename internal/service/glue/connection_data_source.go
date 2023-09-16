@@ -28,7 +28,7 @@ func DataSourceConnection() *schema.Resource {
 				Computed: true,
 			},
 			"id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.NoZeroValues,
 			},

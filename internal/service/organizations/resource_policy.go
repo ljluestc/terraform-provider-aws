@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_organizations_resource_policy", name="Resource Policy")
 // @Tags(identifierAttribute="id")
+
 func ResourceResourcePolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceResourcePolicyCreate,
@@ -48,7 +49,8 @@ func ResourceResourcePolicy() *schema.Resource {
 				ValidateFunc: validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				StateFunc: func(v interface{}) string {
+				StateFunc: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -60,6 +62,7 @@ func ResourceResourcePolicy() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceResourcePolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -75,7 +78,8 @@ func resourceResourcePolicyCreate(ctx context.Context, d *schema.ResourceData, m
 		Tags:    getTagsIn(ctx),
 	}
 
-	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 4*time.Minute, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 4*time.Minute, 
+func() (interface{}, error) {
 		return conn.PutResourcePolicyWithContext(ctx, input)
 	}, organizations.ErrCodeFinalizingOrganizationException)
 
@@ -87,6 +91,7 @@ func resourceResourcePolicyCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceResourcePolicyRead(ctx, d, meta)...)
 }
+
 
 func resourceResourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -114,6 +119,7 @@ func resourceResourcePolicyRead(ctx context.Context, d *schema.ResourceData, met
 	return diags
 }
 
+
 func resourceResourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -138,6 +144,7 @@ func resourceResourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, m
 	return append(diags, resourceResourcePolicyRead(ctx, d, meta)...)
 }
 
+
 func resourceResourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -155,6 +162,7 @@ func resourceResourcePolicyDelete(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
+
 
 func findResourcePolicy(ctx context.Context, conn *organizations.Organizations) (*organizations.ResourcePolicy, error) {
 	input := &organizations.DescribeResourcePolicyInput{}

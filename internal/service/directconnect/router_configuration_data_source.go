@@ -24,36 +24,36 @@ func DataSourceRouterConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"customer_router_config": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"router": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"platform": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"router_type_identifier": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"software": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"vendor": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"xslt_template_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"xslt_template_name_for_mac_sec": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
@@ -65,11 +65,11 @@ func DataSourceRouterConfiguration() *schema.Resource {
 				Required: true,
 			},
 			"virtual_interface_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"virtual_interface_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -79,7 +79,6 @@ func DataSourceRouterConfiguration() *schema.Resource {
 const (
 	DSNameRouterConfiguration = "Router Configuration Data Source"
 )
-
 func dataSourceRouterConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
@@ -104,11 +103,10 @@ func dataSourceRouterConfigurationRead(ctx context.Context, d *schema.ResourceDa
 
 	return nil
 }
-
 func findRouterConfigurationByTypeAndVif(ctx context.Context, conn *directconnect.DirectConnect, routerTypeIdentifier string, virtualInterfaceId string) (*directconnect.DescribeRouterConfigurationOutput, error) {
 	input := &directconnect.DescribeRouterConfigurationInput{
 		RouterTypeIdentifier: aws.String(routerTypeIdentifier),
-		VirtualInterfaceId:   aws.String(virtualInterfaceId),
+		VirtualInterfaceId:aws.String(virtualInterfaceId),
 	}
 
 	output, err := conn.DescribeRouterConfigurationWithContext(ctx, input)
@@ -123,7 +121,6 @@ func findRouterConfigurationByTypeAndVif(ctx context.Context, conn *directconnec
 
 	return output, nil
 }
-
 func flattenRouter(apiObject *directconnect.RouterType) []interface{} {
 	tfMap := map[string]interface{}{}
 

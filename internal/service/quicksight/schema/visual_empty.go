@@ -19,8 +19,8 @@ func emptyVisualSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"data_set_identifier": stringSchema(true, validation.StringLenBetween(1, 2048)),
-				"visual_id":           idSchema(),
-				"actions":             visualCustomActionsSchema(customActionsMaxItems), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualCustomAction.html
+				"visual_id":     idSchema(),
+				"actions": visualCustomActionsSchema(customActionsMaxItems), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualCustomAction.html
 			},
 		},
 	}
@@ -58,7 +58,7 @@ func flattenEmptyVisual(apiObject *quicksight.EmptyVisual) []interface{} {
 
 	tfMap := map[string]interface{}{
 		"data_set_identifier": aws.StringValue(apiObject.DataSetIdentifier),
-		"visual_id":           aws.StringValue(apiObject.VisualId),
+		"visual_id":     aws.StringValue(apiObject.VisualId),
 	}
 	if apiObject.Actions != nil {
 		tfMap["actions"] = flattenVisualCustomAction(apiObject.Actions)

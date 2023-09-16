@@ -1,17 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package events_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package events_testimport (
 	"context"
 	"fmt"
 	"os"
 	"strconv"
 	"strings"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/eventbridge"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -22,16 +16,14 @@ import (
 	tfevents "github.com/hashicorp/terraform-provider-aws/internal/service/events"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccEventsTarget_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_cloudwatch_event_target.test"
-	snsTopicResourceName := "aws_sns_topic.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	snsTopicResourceName := "aws_sns_topic.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -61,33 +53,31 @@ func TestAccEventsTarget_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetNoBusNameImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 			{
-				Config:   testAccTargetConfig_defaultBusName(rName),
+				Config:testAccTargetConfig_defaultBusName(rName),
 				PlanOnly: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -103,15 +93,13 @@ func TestAccEventsTarget_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccEventsTarget_eventBusName(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -126,32 +114,26 @@ func TestAccEventsTarget_eventBusName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_eventBusARN(t *testing.T) {
-	ctx := acctest.Context(t)
-
-	// "ValidationException: Adding an EventBus as a target within an account is not allowed."
+	ctx := acctest.Context(t)	// "ValidationException: Adding an EventBus as a target within an account is not allowed."
 	if got, want := acctest.Partition(), endpoints.AwsUsGovPartitionID; got == want {
 		t.Skipf("EventBridge Target EventBus ARNs are not supported in %s partition", got)
-	}
-
-	var v eventbridge.Target
+	}	var v eventbridge.Target
 	ruleName := sdkacctest.RandomWithPrefix("tf-acc-test-rule")
 	targetID := sdkacctest.RandomWithPrefix("tf-acc-test-target")
 	originEventBusName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	destinationEventBusName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -167,25 +149,23 @@ func TestAccEventsTarget_eventBusARN(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_generatedTargetID(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	ruleName := sdkacctest.RandomWithPrefix("tf-acc-cw-event-rule-missing-target-id")
 	snsTopicName := sdkacctest.RandomWithPrefix("tf-acc")
 	resourceName := "aws_cloudwatch_event_target.test"
-	snsTopicResourceName := "aws_sns_topic.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	snsTopicResourceName := "aws_sns_topic.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -200,25 +180,23 @@ func TestAccEventsTarget_generatedTargetID(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_RetryPolicy_deadLetter(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_cloudwatch_event_target.test"
 	kinesisStreamResourceName := "aws_kinesis_stream.test"
-	queueResourceName := "aws_sqs_queue.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	queueResourceName := "aws_sqs_queue.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -238,15 +216,14 @@ func TestAccEventsTarget_RetryPolicy_deadLetter(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_full(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
@@ -254,10 +231,9 @@ func TestAccEventsTarget_full(t *testing.T) {
 	ssmDocumentName := sdkacctest.RandomWithPrefix("tf_ssm_Document")
 	targetID := sdkacctest.RandomWithPrefix("tf-acc-cw-target-full")
 	resourceName := "aws_cloudwatch_event_target.test"
-	kinesisStreamResourceName := "aws_kinesis_stream.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	kinesisStreamResourceName := "aws_kinesis_stream.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -274,23 +250,21 @@ func TestAccEventsTarget_full(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_ssmDocument(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix("tf_ssm_Document")
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -306,23 +280,21 @@ func TestAccEventsTarget_ssmDocument(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_http(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix("tf_http_target")
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -341,24 +313,21 @@ func TestAccEventsTarget_http(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-
-// https://github.com/hashicorp/terraform-provider-aws/issues/23805
+}// https://github.com/hashicorp/terraform-provider-aws/issues/23805
 func TestAccEventsTarget_http_params(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix("tf_http_target")
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -378,8 +347,8 @@ func TestAccEventsTarget_http_params(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -401,17 +370,15 @@ func TestAccEventsTarget_http_params(t *testing.T) {
 		},
 	})
 }
-
 func TestAccEventsTarget_ecs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_cloudwatch_event_target.test"
 	iamRoleResourceName := "aws_iam_role.test"
-	ecsTaskDefinitionResourceName := "aws_ecs_task_definition.task"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	ecsTaskDefinitionResourceName := "aws_ecs_task_definition.task"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -431,23 +398,21 @@ func TestAccEventsTarget_ecs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_redshift(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -463,16 +428,14 @@ func TestAccEventsTarget_redshift(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-
-// TestAccEventsTarget_ecsWithoutLaunchType verifies Event Target resources
+}// TestAccEventsTarget_ecsWithoutLaunchType verifies Event Target resources
 // can be created without a specified LaunchType
 // Reference: https://github.com/hashicorp/terraform-provider-aws/issues/16078
 func TestAccEventsTarget_ecsWithoutLaunchType(t *testing.T) {
@@ -481,10 +444,9 @@ func TestAccEventsTarget_ecsWithoutLaunchType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_cloudwatch_event_target.test"
 	iamRoleResourceName := "aws_iam_role.test"
-	ecsTaskDefinitionResourceName := "aws_ecs_task_definition.task"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	ecsTaskDefinitionResourceName := "aws_ecs_task_definition.task"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -503,8 +465,8 @@ func TestAccEventsTarget_ecsWithoutLaunchType(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -516,8 +478,8 @@ func TestAccEventsTarget_ecsWithoutLaunchType(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -531,21 +493,17 @@ func TestAccEventsTarget_ecsWithoutLaunchType(t *testing.T) {
 		},
 	})
 }
-
 func TestAccEventsTarget_ecsWithBlankLaunchType(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	var v eventbridge.Target
+	}	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_cloudwatch_event_target.test"
 	iamRoleResourceName := "aws_iam_role.test"
-	ecsTaskDefinitionResourceName := "aws_ecs_task_definition.task"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	ecsTaskDefinitionResourceName := "aws_ecs_task_definition.task"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -564,8 +522,8 @@ func TestAccEventsTarget_ecsWithBlankLaunchType(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -577,8 +535,8 @@ func TestAccEventsTarget_ecsWithBlankLaunchType(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -592,15 +550,13 @@ func TestAccEventsTarget_ecsWithBlankLaunchType(t *testing.T) {
 		},
 	})
 }
-
 func TestAccEventsTarget_ecsWithBlankTaskCount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -614,23 +570,21 @@ func TestAccEventsTarget_ecsWithBlankTaskCount(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_ecsFull(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -652,23 +606,21 @@ func TestAccEventsTarget_ecsFull(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_ecsCapacityProvider(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -686,23 +638,21 @@ func TestAccEventsTarget_ecsCapacityProvider(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_ecsPlacementStrategy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -721,24 +671,22 @@ func TestAccEventsTarget_ecsPlacementStrategy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_batch(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix("tf_batch_target")
 	resourceName := "aws_cloudwatch_event_target.test"
-	batchJobDefinitionResourceName := "aws_batch_job_definition.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	batchJobDefinitionResourceName := "aws_batch_job_definition.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -753,23 +701,21 @@ func TestAccEventsTarget_batch(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_kinesis(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix("tf_kinesis_target")
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -783,22 +729,20 @@ func TestAccEventsTarget_kinesis(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName), ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_sqs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -812,23 +756,21 @@ func TestAccEventsTarget_sqs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_sageMakerPipeline(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -847,32 +789,25 @@ func TestAccEventsTarget_sageMakerPipeline(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_Input_transformer(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_cloudwatch_event_target.test"
 	var v eventbridge.Target
-	rName := sdkacctest.RandomWithPrefix("tf_input_transformer")
-
-	tooManyInputPaths := make([]string, 101)
+	rName := sdkacctest.RandomWithPrefix("tf_input_transformer")	tooManyInputPaths := make([]string, 101)
 	for i := range tooManyInputPaths {
 		tooManyInputPaths[i] = fmt.Sprintf("InvalidField_%d", i)
-	}
-
-	validInputPaths := make([]string, 100)
+	}	validInputPaths := make([]string, 100)
 	for i := range validInputPaths {
 		validInputPaths[i] = fmt.Sprintf("ValidField_%d", i)
-	}
-
-	var expectedInputTemplate strings.Builder
+	}	var expectedInputTemplate strings.Builder
 	fmt.Fprintf(&expectedInputTemplate, `{
   "detail-type": "Scheduled Event",
   "source": "aws.events",
@@ -882,16 +817,15 @@ func TestAccEventsTarget_Input_transformer(t *testing.T) {
 	}
 	fmt.Fprintf(&expectedInputTemplate, `  "detail": {}
 }
-`)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+`)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccTargetConfig_inputTransformer(rName, tooManyInputPaths),
+				Config:testAccTargetConfig_inputTransformer(rName, tooManyInputPaths),
 				ExpectError: regexache.MustCompile(`.*expected number of items in.* to be less than or equal to.*`),
 			},
 			{
@@ -905,23 +839,21 @@ func TestAccEventsTarget_Input_transformer(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_inputTransformerJSONString(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -939,22 +871,18 @@ func TestAccEventsTarget_inputTransformerJSONString(t *testing.T) {
 		},
 	})
 }
-
 func TestAccEventsTarget_partnerEventBus(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "EVENT_BRIDGE_PARTNER_EVENT_BUS_NAME"
 	busName := os.Getenv(key)
 	if busName == "" {
 		t.Skipf("Environment variable %s is not set", key)
-	}
-
-	var v eventbridge.Target
+	}	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_cloudwatch_event_target.test"
-	snsTopicResourceName := "aws_sns_topic.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	snsTopicResourceName := "aws_sns_topic.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -970,23 +898,21 @@ func TestAccEventsTarget_partnerEventBus(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccEventsTarget_ecsNoPropagateTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.Target
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_target.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_target.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -1002,139 +928,98 @@ func TestAccEventsTarget_ecsNoPropagateTags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckTargetExists(ctx context.Context, n string, v *eventbridge.Target) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)
-
-		output, err := tfevents.FindTargetByThreePartKey(ctx, conn, rs.Primary.Attributes["event_bus_name"], rs.Primary.Attributes["rule"], rs.Primary.Attributes["target_id"])
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)		output, err := tfevents.FindTargetByThreePartKey(ctx, conn, rs.Primary.Attributes["event_bus_name"], rs.Primary.Attributes["rule"], rs.Primary.Attributes["target_id"])		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
 }
-
 func testAccCheckTargetDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_cloudwatch_event_target" {
 				continue
-			}
-
-			_, err := tfevents.FindTargetByThreePartKey(ctx, conn, rs.Primary.Attributes["event_bus_name"], rs.Primary.Attributes["rule"], rs.Primary.Attributes["target_id"])
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfevents.FindTargetByThreePartKey(ctx, conn, rs.Primary.Attributes["event_bus_name"], rs.Primary.Attributes["rule"], rs.Primary.Attributes["target_id"])			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("EventBridge Target %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("EventBridge Target %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
-
 func testAccTargetImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
-	return func(s *terraform.State) (string, error) {
+	return 
+func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", resourceName)
-		}
-
-		return fmt.Sprintf("%s/%s/%s", rs.Primary.Attributes["event_bus_name"], rs.Primary.Attributes["rule"], rs.Primary.Attributes["target_id"]), nil
+		}		return fmt.Sprintf("%s/%s/%s", rs.Primary.Attributes["event_bus_name"], rs.Primary.Attributes["rule"], rs.Primary.Attributes["target_id"]), nil
 	}
 }
-
 func testAccTargetNoBusNameImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
-	return func(s *terraform.State) (string, error) {
+	return 
+func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", resourceName)
-		}
-
-		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["rule"], rs.Primary.Attributes["target_id"]), nil
+		}		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["rule"], rs.Primary.Attributes["target_id"]), nil
 	}
 }
-
 func testAccTargetConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name   = %[1]q
+  name= %[1]q
   schedule_expression = "rate(1 hour)"
-}
-
-resource "aws_cloudwatch_event_target" "test" {
-  rule      = aws_cloudwatch_event_rule.test.name
+}resource "aws_cloudwatch_event_target" "test" {
+  rule= aws_cloudwatch_event_rule.test.name
   target_id = %[1]q
-  arn       = aws_sns_topic.test.arn
-}
-
-resource "aws_sns_topic" "test" {
+  arn = aws_sns_topic.test.arn
+}resource "aws_sns_topic" "test" {
   name = %[1]q
 }
 `, rName)
 }
-
 func testAccTargetConfig_defaultBusName(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name   = %[1]q
-  event_bus_name      = "default"
+  name= %[1]q
+  event_bus_name= "default"
   schedule_expression = "rate(1 hour)"
-}
-
-resource "aws_cloudwatch_event_target" "test" {
-  rule           = aws_cloudwatch_event_rule.test.name
+}resource "aws_cloudwatch_event_target" "test" {
+  rule= aws_cloudwatch_event_rule.test.name
   event_bus_name = aws_cloudwatch_event_rule.test.event_bus_name
-  target_id      = %[1]q
-  arn            = aws_sns_topic.test.arn
-}
-
-resource "aws_sns_topic" "test" {
+  target_id= %[1]q
+  arn= aws_sns_topic.test.arn
+}resource "aws_sns_topic" "test" {
   name = %[1]q
 }
 `, rName)
 }
-
 func testAccTargetConfig_busName(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_target" "test" {
-  rule           = aws_cloudwatch_event_rule.test.name
+  rule= aws_cloudwatch_event_rule.test.name
   event_bus_name = aws_cloudwatch_event_rule.test.event_bus_name
-  target_id      = %[1]q
-  arn            = aws_sns_topic.test.arn
-}
-
-resource "aws_sns_topic" "test" {
+  target_id= %[1]q
+  arn= aws_sns_topic.test.arn
+}resource "aws_sns_topic" "test" {
   name = %[1]q
-}
-
-resource "aws_cloudwatch_event_rule" "test" {
-  name           = %[1]q
+}resource "aws_cloudwatch_event_rule" "test" {
+  name= %[1]q
   event_bus_name = aws_cloudwatch_event_bus.test.name
   event_pattern  = <<PATTERN
 {
@@ -1143,995 +1028,706 @@ resource "aws_cloudwatch_event_rule" "test" {
 	]
 }
 PATTERN
-}
-
-resource "aws_cloudwatch_event_bus" "test" {
+}resource "aws_cloudwatch_event_bus" "test" {
   name = %[1]q
 }
 `, rName)
 }
-
 func testAccTargetConfig_busARN(ruleName, originEventBusName, targetID, destinationEventBusName, roleName, policyName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_cloudwatch_event_bus" "test_origin_bus" {
+data "aws_partition" "current" {}resource "aws_cloudwatch_event_bus" "test_origin_bus" {
   name = %[1]q
-}
-
-resource "aws_cloudwatch_event_bus" "test_destination_bus" {
+}resource "aws_cloudwatch_event_bus" "test_destination_bus" {
   name = %[4]q
-}
-
-resource "aws_cloudwatch_event_target" "test" {
-  rule           = aws_cloudwatch_event_rule.test.name
+}resource "aws_cloudwatch_event_target" "test" {
+  rule= aws_cloudwatch_event_rule.test.name
   event_bus_name = aws_cloudwatch_event_bus.test_origin_bus.arn
-  target_id      = %[3]q
-  arn            = aws_cloudwatch_event_bus.test_destination_bus.arn
-  role_arn       = aws_iam_role.test.arn
-}
-
-resource "aws_cloudwatch_event_rule" "test" {
-  name           = %[2]q
+  target_id= %[3]q
+  arn= aws_cloudwatch_event_bus.test_destination_bus.arn
+  role_arn = aws_iam_role.test.arn
+}resource "aws_cloudwatch_event_rule" "test" {
+  name= %[2]q
   event_bus_name = aws_cloudwatch_event_bus.test_origin_bus.name
   event_pattern  = <<PATTERN
 {
   "source": ["aws.ec2"]
 }
 PATTERN
-}
-
-resource "aws_iam_role" "test" {
-  name = %[5]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[5]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Action": "sts:AssumeRole",
-    "Principal": {
-      "Service": "events.${data.aws_partition.current.dns_suffix}"
-    },
-    "Effect": "Allow"
+ "Action": "sts:AssumeRole",
+ "Principal": {
+"Service": "events.${data.aws_partition.current.dns_suffix}"
+ },
+ "Effect": "Allow"
   }]
 }
 EOF
 }
 `, originEventBusName, ruleName, targetID, destinationEventBusName, roleName, policyName)
 }
-
 func testAccTargetConfig_missingID(ruleName, snsTopicName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name   = "%s"
+  name= "%s"
   schedule_expression = "rate(1 hour)"
-}
-
-resource "aws_cloudwatch_event_target" "test" {
+}resource "aws_cloudwatch_event_target" "test" {
   rule = aws_cloudwatch_event_rule.test.name
   arn  = aws_sns_topic.test.arn
-}
-
-resource "aws_sns_topic" "test" {
+}resource "aws_sns_topic" "test" {
   name = "%s"
 }
 `, ruleName, snsTopicName)
 }
-
 func testAccTargetConfig_retryPolicyDlc(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name   = %[1]q
+  name= %[1]q
   schedule_expression = "rate(1 hour)"
-  role_arn            = aws_iam_role.test.arn
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<POLICY
+  role_arn= aws_iam_role.test.arn
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Action": "sts:AssumeRole",
-    "Principal": {
-      "Service": "events.${data.aws_partition.current.dns_suffix}"
-    },
-    "Effect": "Allow"
+ "Action": "sts:AssumeRole",
+ "Principal": {
+"Service": "events.${data.aws_partition.current.dns_suffix}"
+ },
+ "Effect": "Allow"
   }]
 }
 POLICY
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   name = %[1]q
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "kinesis:PutRecord",
-        "kinesis:PutRecords"
-      ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
-    }
+ {
+"Action": [
+  "kinesis:PutRecord",
+  "kinesis:PutRecords"
+],
+"Resource": [
+  "*"
+],
+"Effect": "Allow"
+ }
   ]
 }
 EOF
-}
-
-resource "aws_sqs_queue" "test" {
-  name = %[1]q
-
-  sqs_managed_sse_enabled = true
-}
-
-resource "aws_cloudwatch_event_target" "test" {
-  rule      = aws_cloudwatch_event_rule.test.name
-  target_id = %[1]q
-
-  input = <<INPUT
+}resource "aws_sqs_queue" "test" {
+  name = %[1]q  sqs_managed_sse_enabled = true
+}resource "aws_cloudwatch_event_target" "test" {
+  rule= aws_cloudwatch_event_rule.test.name
+  target_id = %[1]q  input = <<INPUT
 { "source": ["aws.cloudtrail"] }
-INPUT
-
-  arn = aws_kinesis_stream.test.arn
-
-  retry_policy {
-    maximum_event_age_in_seconds = 60
-    maximum_retry_attempts       = 5
+INPUT  arn = aws_kinesis_stream.test.arn  retry_policy {
+ maximum_event_age_in_seconds = 60
+ maximum_retry_attempts = 5
+  }  dead_letter_config {
+ arn = aws_sqs_queue.test.arn
   }
-
-  dead_letter_config {
-    arn = aws_sqs_queue.test.arn
-  }
-}
-
-resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+}resource "aws_kinesis_stream" "test" {
+  name  = %[1]q
   shard_count = 1
-}
-
-data "aws_partition" "current" {}
+}data "aws_partition" "current" {}
 `, rName)
 }
-
 func testAccTargetConfig_full(ruleName, targetName, rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name   = %[1]q
+  name= %[1]q
   schedule_expression = "rate(1 hour)"
-  role_arn            = aws_iam_role.test.arn
-}
-
-resource "aws_iam_role" "test" {
-  name = %[2]q
-
-  assume_role_policy = <<POLICY
+  role_arn= aws_iam_role.test.arn
+}resource "aws_iam_role" "test" {
+  name = %[2]q  assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "events.${data.aws_partition.current.dns_suffix}"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+ {
+"Action": "sts:AssumeRole",
+"Principal": {
+  "Service": "events.${data.aws_partition.current.dns_suffix}"
+},
+"Effect": "Allow",
+"Sid": ""
+ }
   ]
 }
 POLICY
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   name = "%[2]s_policy"
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "kinesis:PutRecord",
-        "kinesis:PutRecords"
-      ],
-      "Resource": [
-        "*"
-      ],
-      "Effect": "Allow"
-    }
+ {
+"Action": [
+  "kinesis:PutRecord",
+  "kinesis:PutRecords"
+],
+"Resource": [
+  "*"
+],
+"Effect": "Allow"
+ }
   ]
 }
 EOF
-}
-
-resource "aws_cloudwatch_event_target" "test" {
-  rule      = aws_cloudwatch_event_rule.test.name
-  target_id = %[3]q
-
-  input = <<INPUT
+}resource "aws_cloudwatch_event_target" "test" {
+  rule= aws_cloudwatch_event_rule.test.name
+  target_id = %[3]q  input = <<INPUT
 { "source": ["aws.cloudtrail"] }
-INPUT
-
-  arn = aws_kinesis_stream.test.arn
-}
-
-resource "aws_kinesis_stream" "test" {
-  name        = "%[2]s_kinesis_test"
+INPUT  arn = aws_kinesis_stream.test.arn
+}resource "aws_kinesis_stream" "test" {
+  name  = "%[2]s_kinesis_test"
   shard_count = 1
-}
-
-data "aws_partition" "current" {}
+}data "aws_partition" "current" {}
 `, ruleName, rName, targetName)
 }
-
 func testAccTargetConfig_ssmDocument(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
-  document_type = "Command"
-
-  content = <<DOC
-    {
-      "schemaVersion": "1.2",
-      "description": "Check ip configuration of a Linux instance.",
-      "parameters": {
-
-      },
-      "runtimeConfig": {
-        "aws:runShellScript": {
-          "properties": [
-            {
+  name = %[1]q
+  document_type = "Command"  content = <<DOC
+ {
+"schemaVersion": "1.2",
+"description": "Check ip configuration of a Linux instance.",
+"parameters": {},
+"runtimeConfig": {
+  "aws:runShellScript": {
+ "properties": [
+{
  "id": "0.aws:runShellScript",
  "runCommand": ["ifconfig"]
-            }
-          ]
-        }
-      }
-    }
-DOC
 }
-
-resource "aws_cloudwatch_event_rule" "test" {
-  name        = %[1]q
-  description = "another_test"
-
-  event_pattern = <<PATTERN
+ ]
+  }
+}
+ }
+DOC
+}resource "aws_cloudwatch_event_rule" "test" {
+  name  = %[1]q
+  description = "another_test"  event_pattern = <<PATTERN
 {
   "source": [
-    "aws.autoscaling"
+ "aws.autoscaling"
   ]
 }
 PATTERN
-}
-
-resource "aws_cloudwatch_event_target" "test" {
-  arn      = aws_ssm_document.test.arn
-  rule     = aws_cloudwatch_event_rule.test.id
-  role_arn = aws_iam_role.test.arn
-
-  run_command_targets {
-    key    = "tag:Name"
-    values = ["acceptance_test"]
+}resource "aws_cloudwatch_event_target" "test" {
+  arn= aws_ssm_document.test.arn
+  rule= aws_cloudwatch_event_rule.test.id
+  role_arn = aws_iam_role.test.arn  run_command_targets {
+ key = "tag:Name"
+ values = ["acceptance_test"]
   }
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "events.${data.aws_partition.current.dns_suffix}"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+ {
+"Action": "sts:AssumeRole",
+"Principal": {
+  "Service": "events.${data.aws_partition.current.dns_suffix}"
+},
+"Effect": "Allow",
+"Sid": ""
+ }
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   name = %[1]q
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+  role = aws_iam_role.test.id  policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": "ssm:*",
-            "Effect": "Allow",
-            "Resource": [
-   "*"
-            ]
-        }
-    ]
+ "Version": "2012-10-17",
+ "Statement": [
+  {
+"Action": "ssm:*",
+"Effect": "Allow",
+"Resource": [
+"*"
+]
+  }
+ ]
 }
 EOF
-}
-
-data "aws_partition" "current" {}
+}data "aws_partition" "current" {}
 `, rName)
 }
-
 func testAccTargetHTTPConfigBase(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name        = %[1]q
-  description = "schedule_http_test"
-
-  schedule_expression = "rate(5 minutes)"
-}
-
-resource "aws_api_gateway_rest_api" "test" {
+  name  = %[1]q
+  description = "schedule_http_test"  schedule_expression = "rate(5 minutes)"
+}resource "aws_api_gateway_rest_api" "test" {
   name = %[1]q
   body = jsonencode({
-    openapi = "3.0.1"
-    info = {
-      title   = "example"
-      version = "1.0"
-    }
-    paths = {
-      "/" = {
-        get = {
-          x-amazon-apigateway-integration = {
-            httpMethod           = "GET"
-            payloadFormatVersion = "1.0"
-            type    = "HTTP_PROXY"
-            uri     = "https://ip-ranges.amazonaws.com"
-          }
-        }
-      }
-    }
+ openapi = "3.0.1"
+ info = {
+title= "example"
+version = "1.0"
+ }
+ paths = {
+"/" = {
+  get = {
+ x-amazon-apigateway-integration = {
+httpMethod= "GET"
+payloadFormatVersion = "1.0"
+type = "HTTP_PROXY"
+uri= "https://ip-ranges.amazonaws.com"
+ }
+  }
+}
+ }
   })
-}
-
-resource "aws_api_gateway_deployment" "test" {
-  rest_api_id = aws_api_gateway_rest_api.test.id
-
-  triggers = {
-    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.test.body))
+}resource "aws_api_gateway_deployment" "test" {
+  rest_api_id = aws_api_gateway_rest_api.test.id  triggers = {
+ redeployment = sha1(jsonencode(aws_api_gateway_rest_api.test.body))
+  }  lifecycle {
+ create_before_destroy = true
   }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "aws_api_gateway_stage" "test" {
+}resource "aws_api_gateway_stage" "test" {
   deployment_id = aws_api_gateway_deployment.test.id
-  rest_api_id   = aws_api_gateway_rest_api.test.id
-  stage_name    = "test"
-}
-
-data "aws_partition" "current" {}
+  rest_api_id= aws_api_gateway_rest_api.test.id
+  stage_name = "test"
+}data "aws_partition" "current" {}
 `, rName)
 }
-
 func testAccTargetConfig_http(rName string) string {
 	return testAccTargetHTTPConfigBase(rName) + `
 resource "aws_cloudwatch_event_target" "test" {
   arn  = "${aws_api_gateway_stage.test.execution_arn}/GET"
-  rule = aws_cloudwatch_event_rule.test.id
-
-  http_target {
-    path_parameter_values = []
-    query_string_parameters = {
-      Env  = "test"
-      Path = "$.detail.path"
-    }
-    header_parameters = {
-      X-Test = "test"
-    }
+  rule = aws_cloudwatch_event_rule.test.id  http_target {
+ path_parameter_values = []
+ query_string_parameters = {
+Env  = "test"
+Path = "$.detail.path"
+ }
+ header_parameters = {
+X-Test = "test"
+ }
   }
 }
 `
 }
-
 func testAccTargetConfig_httpParameter(rName string) string {
 	return testAccTargetHTTPConfigBase(rName) + `
 resource "aws_cloudwatch_event_target" "test" {
   arn  = "${aws_api_gateway_stage.test.execution_arn}/*/*/GET"
-  rule = aws_cloudwatch_event_rule.test.id
-
-  http_target {
-    path_parameter_values = ["test"]
-    query_string_parameters = {
-      Env  = "test"
-      Path = "$.detail.path"
-    }
-    header_parameters = {
-      X-Test = "test"
-    }
+  rule = aws_cloudwatch_event_rule.test.id  http_target {
+ path_parameter_values = ["test"]
+ query_string_parameters = {
+Env  = "test"
+Path = "$.detail.path"
+ }
+ header_parameters = {
+X-Test = "test"
+ }
   }
 }
 `
 }
-
 func testAccTargetConfig_httpParameterUpdated(rName string) string {
 	return testAccTargetHTTPConfigBase(rName) + `
 resource "aws_cloudwatch_event_target" "test" {
   arn  = "${aws_api_gateway_stage.test.execution_arn}/*/*/*/GET"
-  rule = aws_cloudwatch_event_rule.test.id
-
-  http_target {
-    path_parameter_values = ["test", "test2"]
-    query_string_parameters = {
-      Env  = "test"
-      Path = "$.detail.path"
-    }
-    header_parameters = {
-      X-Test = "test"
-    }
+  rule = aws_cloudwatch_event_rule.test.id  http_target {
+ path_parameter_values = ["test", "test2"]
+ query_string_parameters = {
+Env  = "test"
+Path = "$.detail.path"
+ }
+ header_parameters = {
+X-Test = "test"
+ }
   }
 }
 `
 }
-
 func testAccTargetConfig_ecsBase(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Action": "sts:AssumeRole",
-    "Principal": {
-      "Service": "events.${data.aws_partition.current.dns_suffix}"
-    },
-    "Effect": "Allow"
+ "Action": "sts:AssumeRole",
+ "Principal": {
+"Service": "events.${data.aws_partition.current.dns_suffix}"
+ },
+ "Effect": "Allow"
   }]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   name = %[1]q
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+  role = aws_iam_role.test.id  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Effect": "Allow",
-    "Action": ["ecs:RunTask"],
-    "Resource": ["*"]
+ "Effect": "Allow",
+ "Action": ["ecs:RunTask"],
+ "Resource": ["*"]
   }]
 }
 EOF
-}
-
-resource "aws_ecs_cluster" "test" {
+}resource "aws_ecs_cluster" "test" {
   name = %[1]q
-}
-
-resource "aws_ecs_task_definition" "task" {
-  family      = %[1]q
-  cpu         = 256
-  memory      = 512
+}resource "aws_ecs_task_definition" "task" {
+  family= %[1]q
+  cpu= 256
+  memory= 512
   requires_compatibilities = ["FARGATE"]
-  network_mode= "awsvpc"
-
-  container_definitions = <<EOF
+  network_mode= "awsvpc"  container_definitions = <<EOF
 [
   {
-    "name": "first",
-    "image": "service-first",
-    "cpu": 10,
-    "memory": 512,
-    "essential": true
+ "name": "first",
+ "image": "service-first",
+ "cpu": 10,
+ "memory": 512,
+ "essential": true
   }
 ]
 EOF
-}
-
-data "aws_partition" "current" {}
-
-resource "aws_cloudwatch_event_rule" "test" {
-  name        = %[1]q
-  description = "schedule_ecs_test"
-
-  schedule_expression = "rate(5 minutes)"
+}data "aws_partition" "current" {}resource "aws_cloudwatch_event_rule" "test" {
+  name  = %[1]q
+  description = "schedule_ecs_test"  schedule_expression = "rate(5 minutes)"
 }
 `, rName))
 }
-
 func testAccTargetConfig_ecs(rName string) string {
 	return acctest.ConfigCompose(testAccTargetConfig_ecsBase(rName), `
 resource "aws_cloudwatch_event_target" "test" {
-  arn      = aws_ecs_cluster.test.id
-  rule     = aws_cloudwatch_event_rule.test.id
-  role_arn = aws_iam_role.test.arn
-
-  ecs_target {
-    task_count          = 1
-    task_definition_arn = aws_ecs_task_definition.task.arn
-    launch_type         = "FARGATE"
-
-    network_configuration {
-      subnets = aws_subnet.test[*].id
-    }
+  arn= aws_ecs_cluster.test.id
+  rule= aws_cloudwatch_event_rule.test.id
+  role_arn = aws_iam_role.test.arn  ecs_target {
+ task_count = 1
+ task_definition_arn = aws_ecs_task_definition.task.arn
+ launch_type= "FARGATE" network_configuration {
+subnets = aws_subnet.test[*].id
+ }
   }
 }
 `)
 }
-
 func testAccTargetConfig_redshift(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+data "aws_partition" "current" {}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Action": "sts:AssumeRole",
-    "Principal": {
-      "Service": "events.${data.aws_partition.current.dns_suffix}"
-    },
-    "Effect": "Allow"
+ "Action": "sts:AssumeRole",
+ "Principal": {
+"Service": "events.${data.aws_partition.current.dns_suffix}"
+ },
+ "Effect": "Allow"
   }]
 }
 EOF
-}
-
-resource "aws_redshift_subnet_group" "test" {
-  name       = %[1]q
-  subnet_ids = aws_subnet.test[*].id
-}
-
-resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
-    Name = %[1]q
-  }
-}
-
-resource "aws_cloudwatch_event_rule" "test" {
+}resource "aws_redshift_subnet_group" "test" {
   name = %[1]q
-
-  schedule_expression = "rate(5 minutes)"
-}
-
-resource "aws_cloudwatch_event_target" "test" {
-  arn      = aws_redshift_cluster.test.arn
-  rule     = aws_cloudwatch_event_rule.test.id
-  role_arn = aws_iam_role.test.arn
-
-  redshift_target {
-    database       = "redshiftdb"
-    sql            = "SELECT * FROM table"
-    statement_name = "NewStatement"
-    db_user        = "someUser"
+  subnet_ids = aws_subnet.test[*].id
+}resource "aws_internet_gateway" "test" {
+  vpc_id = aws_vpc.test.id  tags = {
+ Name = %[1]q
   }
-
-  target_id = %[1]q
-}
-
-resource "aws_redshift_cluster" "test" {
-  cluster_identifier     = %[1]q
-  cluster_subnet_group_name           = aws_redshift_subnet_group.test.name
-  database_name          = "test"
-  master_username        = "tfacctest"
-  master_password        = "Mustbe8characters"
+}resource "aws_cloudwatch_event_rule" "test" {
+  name = %[1]q  schedule_expression = "rate(5 minutes)"
+}resource "aws_cloudwatch_event_target" "test" {
+  arn= aws_redshift_cluster.test.arn
+  rule= aws_cloudwatch_event_rule.test.id
+  role_arn = aws_iam_role.test.arn  redshift_target {
+ database = "redshiftdb"
+ sql= "SELECT * FROM table"
+ statement_name = "NewStatement"
+ db_user  = "someUser"
+  }  target_id = %[1]q
+}resource "aws_redshift_cluster" "test" {
+  cluster_identifier= %[1]q
+  cluster_subnet_group_name= aws_redshift_subnet_group.test.name
+  database_name = "test"
+  master_username  = "tfacctest"
+  master_password  = "Mustbe8characters"
   node_type = "dc2.large"
   automated_snapshot_retention_period = 0
   allow_version_upgrade  = false
-  skip_final_snapshot    = true
-
-  depends_on = [aws_internet_gateway.test]
+  skip_final_snapshot = true  depends_on = [aws_internet_gateway.test]
 }
 `, rName))
 }
-
 func testAccTargetConfig_ecsNoLaunchType(rName string) string {
 	return acctest.ConfigCompose(testAccTargetConfig_ecsBase(rName), `
 resource "aws_cloudwatch_event_target" "test" {
-  arn      = aws_ecs_cluster.test.id
-  rule     = aws_cloudwatch_event_rule.test.id
-  role_arn = aws_iam_role.test.arn
-
-  ecs_target {
-    task_count          = 1
-    task_definition_arn = aws_ecs_task_definition.task.arn
-
-    network_configuration {
-      subnets = aws_subnet.test[*].id
-    }
+  arn= aws_ecs_cluster.test.id
+  rule= aws_cloudwatch_event_rule.test.id
+  role_arn = aws_iam_role.test.arn  ecs_target {
+ task_count = 1
+ task_definition_arn = aws_ecs_task_definition.task.arn network_configuration {
+subnets = aws_subnet.test[*].id
+ }
   }
 }
 `)
 }
-
 func testAccTargetConfig_ecsBlankLaunchType(rName string) string {
 	return acctest.ConfigCompose(testAccTargetConfig_ecsBase(rName), `
 resource "aws_cloudwatch_event_target" "test" {
-  arn      = aws_ecs_cluster.test.id
-  rule     = aws_cloudwatch_event_rule.test.id
-  role_arn = aws_iam_role.test.arn
-
-  ecs_target {
-    task_count          = 1
-    task_definition_arn = aws_ecs_task_definition.task.arn
-    launch_type         = null
-
-    network_configuration {
-      subnets = aws_subnet.test[*].id
-    }
+  arn= aws_ecs_cluster.test.id
+  rule= aws_cloudwatch_event_rule.test.id
+  role_arn = aws_iam_role.test.arn  ecs_target {
+ task_count = 1
+ task_definition_arn = aws_ecs_task_definition.task.arn
+ launch_type= null network_configuration {
+subnets = aws_subnet.test[*].id
+ }
   }
 }
 `)
 }
-
 func testAccTargetConfig_ecsBlankTaskCount(rName string) string {
 	return acctest.ConfigCompose(testAccTargetConfig_ecsBase(rName), `
 resource "aws_cloudwatch_event_target" "test" {
-  arn      = aws_ecs_cluster.test.id
-  rule     = aws_cloudwatch_event_rule.test.id
-  role_arn = aws_iam_role.test.arn
-
-  ecs_target {
-    task_definition_arn = aws_ecs_task_definition.task.arn
-    launch_type         = "FARGATE"
-
-    network_configuration {
-      subnets = aws_subnet.test[*].id
-    }
+  arn= aws_ecs_cluster.test.id
+  rule= aws_cloudwatch_event_rule.test.id
+  role_arn = aws_iam_role.test.arn  ecs_target {
+ task_definition_arn = aws_ecs_task_definition.task.arn
+ launch_type= "FARGATE" network_configuration {
+subnets = aws_subnet.test[*].id
+ }
   }
 }
 `)
 }
-
 func testAccTargetConfig_ecsBlankTaskCountFull(rName string) string {
 	return acctest.ConfigCompose(testAccTargetConfig_ecsBase(rName), `
 resource "aws_cloudwatch_event_target" "test" {
-  arn      = aws_ecs_cluster.test.id
-  rule     = aws_cloudwatch_event_rule.test.id
-  role_arn = aws_iam_role.test.arn
-
-  ecs_target {
-    task_definition_arn     = aws_ecs_task_definition.task.arn
-    launch_type= "FARGATE"
-    enable_execute_command  = true
-    enable_ecs_managed_tags = true
-    propagate_tags          = "TASK_DEFINITION"
-
-    placement_constraint {
-      type = "distinctInstance"
-    }
-
-    tags = {
-      test = "test1"
-    }
-
-    network_configuration {
-      subnets = aws_subnet.test[*].id
-    }
+  arn= aws_ecs_cluster.test.id
+  rule= aws_cloudwatch_event_rule.test.id
+  role_arn = aws_iam_role.test.arn  ecs_target {
+ task_definition_arn= aws_ecs_task_definition.task.arn
+ launch_type= "FARGATE"
+ enable_execute_command  = true
+ enable_ecs_managed_tags = true
+ propagate_tags = "TASK_DEFINITION" placement_constraint {
+type = "distinctInstance"
+ } tags = {
+test = "test1"
+ } network_configuration {
+subnets = aws_subnet.test[*].id
+ }
   }
 }
 `)
 }
-
 func testAccTargetConfig_ecsCapacityProvider(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccTargetConfig_ecsBase(rName),
 		fmt.Sprintf(`
 resource "aws_cloudwatch_event_target" "test" {
-  arn       = aws_ecs_cluster.test.id
-  rule      = aws_cloudwatch_event_rule.test.id
+  arn = aws_ecs_cluster.test.id
+  rule= aws_cloudwatch_event_rule.test.id
   role_arn  = aws_iam_role.test.arn
-  target_id = %[1]q
-
-  ecs_target {
-    task_definition_arn = aws_ecs_task_definition.task.arn
-
-    capacity_provider_strategy {
-      capacity_provider = "test"
-      base = 1
-      weight            = 100
-    }
+  target_id = %[1]q  ecs_target {
+ task_definition_arn = aws_ecs_task_definition.task.arn capacity_provider_strategy {
+capacity_provider = "test"
+base = 1
+weight= 100
+ }
   }
-}
-
-resource "aws_launch_template" "test" {
-  name          = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = "t2.micro"
-}
-
-resource "aws_autoscaling_group" "test" {
-  name   = %[1]q
-  desired_capacity    = 0
-  max_size            = 0
-  min_size            = 0
-  vpc_zone_identifier = [aws_subnet.test[0].id]
-
-  launch_template {
-    id      = aws_launch_template.test.id
-    version = "$Latest"
-  }
-
-  tag {
-    key    = "AmazonECSManaged"
-    value  = ""
-    propagate_at_launch = true
-  }
-}
-
-resource "aws_ecs_capacity_provider" "test" {
+}resource "aws_launch_template" "test" {
   name = %[1]q
-
-  auto_scaling_group_provider {
-    auto_scaling_group_arn         = aws_autoscaling_group.test.arn
-    managed_termination_protection = "DISABLED"
-
-    managed_scaling {
-      maximum_scaling_step_size = 1
-      minimum_scaling_step_size = 1
-      status       = "ENABLED"
-      target_capacity           = 1
-    }
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_type = "t2.micro"
+}resource "aws_autoscaling_group" "test" {
+  name= %[1]q
+  desired_capacity = 0
+  max_size= 0
+  min_size= 0
+  vpc_zone_identifier = [aws_subnet.test[0].id]  launch_template {
+ id= aws_launch_template.test.id
+ version = "$Latest"
+  }  tag {
+ key = "AmazonECSManaged"
+ value  = ""
+ propagate_at_launch = true
+  }
+}resource "aws_ecs_capacity_provider" "test" {
+  name = %[1]q  auto_scaling_group_provider {
+ auto_scaling_group_arn= aws_autoscaling_group.test.arn
+ managed_termination_protection = "DISABLED" managed_scaling {
+maximum_scaling_step_size = 1
+minimum_scaling_step_size = 1
+status = "ENABLED"
+target_capacity= 1
+ }
   }
 }
 `, rName))
 }
-
 func testAccTargetConfig_ecsPlacementStrategy(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 		testAccTargetConfig_ecsBase(rName),
 		fmt.Sprintf(`
 resource "aws_cloudwatch_event_target" "test" {
-  arn       = aws_ecs_cluster.test.id
-  rule      = aws_cloudwatch_event_rule.test.id
+  arn = aws_ecs_cluster.test.id
+  rule= aws_cloudwatch_event_rule.test.id
   role_arn  = aws_iam_role.test.arn
-  target_id = %[1]q
-
-  ecs_target {
-    task_definition_arn = aws_ecs_task_definition.task.arn
-    launch_type         = "EC2"
-
-    ordered_placement_strategy {
-      type  = "spread"
-      field = "attribute:ecs.availability-zone"
-    }
-
-    ordered_placement_strategy {
-      type  = "spread"
-      field = "instanceId"
-    }
-
-  }
-}
-
-resource "aws_launch_template" "test" {
-  name          = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = "t2.micro"
-}
-
-resource "aws_autoscaling_group" "test" {
-  name   = %[1]q
-  desired_capacity    = 0
-  max_size            = 0
-  min_size            = 0
-  vpc_zone_identifier = [aws_subnet.test[0].id]
-
-  launch_template {
-    id      = aws_launch_template.test.id
-    version = "$Latest"
-  }
-
-  tag {
-    key    = "AmazonECSManaged"
-    value  = ""
-    propagate_at_launch = true
-  }
-}
-
-resource "aws_ecs_capacity_provider" "test" {
+  target_id = %[1]q  ecs_target {
+ task_definition_arn = aws_ecs_task_definition.task.arn
+ launch_type= "EC2" ordered_placement_strategy {
+type  = "spread"
+field = "attribute:ecs.availability-zone"
+ } ordered_placement_strategy {
+type  = "spread"
+field = "instanceId"
+ }  }
+}resource "aws_launch_template" "test" {
   name = %[1]q
-
-  auto_scaling_group_provider {
-    auto_scaling_group_arn         = aws_autoscaling_group.test.arn
-    managed_termination_protection = "DISABLED"
-
-    managed_scaling {
-      maximum_scaling_step_size = 1
-      minimum_scaling_step_size = 1
-      status       = "ENABLED"
-      target_capacity           = 1
-    }
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_type = "t2.micro"
+}resource "aws_autoscaling_group" "test" {
+  name= %[1]q
+  desired_capacity = 0
+  max_size= 0
+  min_size= 0
+  vpc_zone_identifier = [aws_subnet.test[0].id]  launch_template {
+ id= aws_launch_template.test.id
+ version = "$Latest"
+  }  tag {
+ key = "AmazonECSManaged"
+ value  = ""
+ propagate_at_launch = true
+  }
+}resource "aws_ecs_capacity_provider" "test" {
+  name = %[1]q  auto_scaling_group_provider {
+ auto_scaling_group_arn= aws_autoscaling_group.test.arn
+ managed_termination_protection = "DISABLED" managed_scaling {
+maximum_scaling_step_size = 1
+minimum_scaling_step_size = 1
+status = "ENABLED"
+target_capacity= 1
+ }
+  }
+}resource "aws_ecs_cluster_capacity_providers" "test" {
+  cluster_name = aws_ecs_cluster.test.name
+  capacity_providers = ["%[1]s"]  default_capacity_provider_strategy {
+ capacity_provider = %[1]q
+ base = 1
+ weight= 100
   }
 }
-
-resource "aws_ecs_cluster_capacity_providers" "test" {
-  cluster_name       = aws_ecs_cluster.test.name
-  capacity_providers = ["%[1]s"]
-
-  default_capacity_provider_strategy {
-    capacity_provider = %[1]q
-    base = 1
-    weight            = 100
-  }
-}
-
-
 `, rName))
 }
-
 func testAccTargetConfig_batch(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name   = "%[1]s"
-  description         = "schedule_batch_test"
+  name= "%[1]s"
+  description= "schedule_batch_test"
   schedule_expression = "rate(5 minutes)"
-}
-
-resource "aws_cloudwatch_event_target" "test" {
-  arn      = aws_batch_job_queue.test.arn
-  rule     = aws_cloudwatch_event_rule.test.id
-  role_arn = aws_iam_role.event_iam_role.arn
-
-  batch_target {
-    job_definition = aws_batch_job_definition.test.arn
-    job_name       = "%[1]s"
-  }
-
-  depends_on = [
-    "aws_batch_job_queue.test",
-    "aws_batch_job_definition.test",
-    "aws_iam_role.event_iam_role",
+}resource "aws_cloudwatch_event_target" "test" {
+  arn= aws_batch_job_queue.test.arn
+  rule= aws_cloudwatch_event_rule.test.id
+  role_arn = aws_iam_role.event_iam_role.arn  batch_target {
+ job_definition = aws_batch_job_definition.test.arn
+ job_name = "%[1]s"
+  }  depends_on = [
+ "aws_batch_job_queue.test",
+ "aws_batch_job_definition.test",
+ "aws_iam_role.event_iam_role",
   ]
-}
-
-data "aws_partition" "current" {}
-
-resource "aws_iam_role" "event_iam_role" {
-  name = "event_%[1]s"
-
-  assume_role_policy = <<EOF
+}data "aws_partition" "current" {}resource "aws_iam_role" "event_iam_role" {
+  name = "event_%[1]s"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "events.${data.aws_partition.current.dns_suffix}"
-      }
-    }
+ {
+"Action": "sts:AssumeRole",
+"Effect": "Allow",
+"Principal": {
+  "Service": "events.${data.aws_partition.current.dns_suffix}"
+}
+ }
   ]
 }
 EOF
-}
-
-resource "aws_iam_role" "ecs_iam_role" {
-  name = "ecs_%[1]s"
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "ecs_iam_role" {
+  name = "ecs_%[1]s"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.${data.aws_partition.current.dns_suffix}"
-      }
-    }
+ {
+"Action": "sts:AssumeRole",
+"Effect": "Allow",
+"Principal": {
+  "Service": "ec2.${data.aws_partition.current.dns_suffix}"
+}
+ }
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "ecs_policy_attachment" {
-  role       = aws_iam_role.ecs_iam_role.name
+}resource "aws_iam_role_policy_attachment" "ecs_policy_attachment" {
+  role = aws_iam_role.ecs_iam_role.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
-}
-
-resource "aws_iam_instance_profile" "iam_instance_profile" {
+}resource "aws_iam_instance_profile" "iam_instance_profile" {
   name = "ecs_%[1]s"
   role = aws_iam_role.ecs_iam_role.name
-}
-
-resource "aws_iam_role" "batch_iam_role" {
-  name = "batch_%[1]s"
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "batch_iam_role" {
+  name = "batch_%[1]s"  assume_role_policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-    {
-        "Action": "sts:AssumeRole",
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "batch.${data.aws_partition.current.dns_suffix}"
-        }
-    }
-    ]
+ "Version": "2012-10-17",
+ "Statement": [
+ {
+  "Action": "sts:AssumeRole",
+  "Effect": "Allow",
+  "Principal": {
+ "Service": "batch.${data.aws_partition.current.dns_suffix}"
+  }
+ }
+ ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy_attachment" "batch_policy_attachment" {
-  role       = aws_iam_role.batch_iam_role.name
+}resource "aws_iam_role_policy_attachment" "batch_policy_attachment" {
+  role = aws_iam_role.batch_iam_role.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSBatchServiceRole"
-}
-
-resource "aws_security_group" "security_group" {
+}resource "aws_security_group" "security_group" {
   name = "%[1]s"
-}
-
-resource "aws_vpc" "vpc" {
+}resource "aws_vpc" "vpc" {
   cidr_block = "10.1.0.0/16"
-}
-
-resource "aws_subnet" "subnet" {
-  vpc_id     = aws_vpc.vpc.id
+}resource "aws_subnet" "subnet" {
+  vpc_id= aws_vpc.vpc.id
   cidr_block = "10.1.1.0/24"
-}
-
-resource "aws_batch_compute_environment" "test" {
-  compute_environment_name = "%[1]s"
-
-  compute_resources {
-    instance_role = aws_iam_instance_profile.iam_instance_profile.arn
-
-    instance_type = [
-      "c4.large",
-    ]
-
-    max_vcpus = 16
-    min_vcpus = 0
-
-    security_group_ids = [
-      aws_security_group.security_group.id,
-    ]
-
-    subnets = [
-      aws_subnet.subnet.id,
-    ]
-
-    type = "EC2"
-  }
-
-  service_role = aws_iam_role.batch_iam_role.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_policy_attachment]
-}
-
-resource "aws_batch_job_queue" "test" {
-  name    = "%[1]s"
-  state   = "ENABLED"
+}resource "aws_batch_compute_environment" "test" {
+  compute_environment_name = "%[1]s"  compute_resources {
+ instance_role = aws_iam_instance_profile.iam_instance_profile.arn instance_type = [
+"c4.large",
+ ] max_vcpus = 16
+ min_vcpus = 0 security_group_ids = [
+aws_security_group.security_group.id,
+ ] subnets = [
+aws_subnet.subnet.id,
+ ] type = "EC2"
+  }  service_role = aws_iam_role.batch_iam_role.arn
+  type= "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_policy_attachment]
+}resource "aws_batch_job_queue" "test" {
+  name = "%[1]s"
+  state= "ENABLED"
   priority= 1
   compute_environments = [aws_batch_compute_environment.test.arn]
-}
-
-resource "aws_batch_job_definition" "test" {
+}resource "aws_batch_job_definition" "test" {
   name = "%[1]s"
-  type = "container"
-
-  container_properties = <<CONTAINER_PROPERTIES
+  type = "container"  container_properties = <<CONTAINER_PROPERTIES
 {
   "command": ["ls", "-la"],
   "image": "busybox",
@@ -2146,203 +1742,144 @@ CONTAINER_PROPERTIES
 }
 `, rName)
 }
-
 func testAccTargetConfig_kinesis(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name   = "%[1]s"
-  description         = "schedule_batch_test"
+  name= "%[1]s"
+  description= "schedule_batch_test"
   schedule_expression = "rate(5 minutes)"
-}
-
-resource "aws_cloudwatch_event_target" "test" {
-  arn      = aws_kinesis_stream.test.arn
-  rule     = aws_cloudwatch_event_rule.test.id
-  role_arn = aws_iam_role.test.arn
-
-  kinesis_target {
-    partition_key_path = "$.detail"
+}resource "aws_cloudwatch_event_target" "test" {
+  arn= aws_kinesis_stream.test.arn
+  rule= aws_cloudwatch_event_rule.test.id
+  role_arn = aws_iam_role.test.arn  kinesis_target {
+ partition_key_path = "$.detail"
   }
-}
-
-resource "aws_iam_role" "test" {
-  name = "event_%[1]s"
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = "event_%[1]s"  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "events.${data.aws_partition.current.dns_suffix}"
-      }
-    }
+ {
+"Action": "sts:AssumeRole",
+"Effect": "Allow",
+"Principal": {
+  "Service": "events.${data.aws_partition.current.dns_suffix}"
+}
+ }
   ]
 }
 EOF
-}
-
-resource "aws_kinesis_stream" "test" {
-  name        = "%[1]s"
+}resource "aws_kinesis_stream" "test" {
+  name  = "%[1]s"
   shard_count = 1
-}
-
-data "aws_partition" "current" {}
+}data "aws_partition" "current" {}
 `, rName)
 }
-
 func testAccTargetConfig_sqs(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name   = %[1]q
-  description         = "schedule_batch_test"
+  name= %[1]q
+  description= "schedule_batch_test"
   schedule_expression = "rate(5 minutes)"
-}
-
-resource "aws_cloudwatch_event_target" "test" {
+}resource "aws_cloudwatch_event_target" "test" {
   arn  = aws_sqs_queue.test.arn
-  rule = aws_cloudwatch_event_rule.test.id
-
-  sqs_target {
-    message_group_id = "event_group"
-  }
-
-  target_id = %[1]q
-}
-
-resource "aws_sqs_queue" "test" {
-  name       = "%[1]s.fifo"
-  fifo_queue = true
-
-  sqs_managed_sse_enabled = true
+  rule = aws_cloudwatch_event_rule.test.id  sqs_target {
+ message_group_id = "event_group"
+  }  target_id = %[1]q
+}resource "aws_sqs_queue" "test" {
+  name = "%[1]s.fifo"
+  fifo_queue = true  sqs_managed_sse_enabled = true
 }
 `, rName)
 }
-
 func testAccTargetConfig_sageMakerPipeline(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-resource "aws_cloudwatch_event_rule" "test" {
-  name   = %[1]q
-  description         = "schedule_batch_test"
+data "aws_partition" "current" {}resource "aws_cloudwatch_event_rule" "test" {
+  name= %[1]q
+  description= "schedule_batch_test"
   schedule_expression = "rate(5 minutes)"
-}
-
-resource "aws_cloudwatch_event_target" "test" {
-  arn      = aws_sagemaker_pipeline.test.arn
-  rule     = aws_cloudwatch_event_rule.test.id
-  role_arn = aws_iam_role.test.arn
-
-  sagemaker_pipeline_target {
-    pipeline_parameter_list {
-      name  = "key"
-      value = "value"
-    }
-  }
-
-  target_id = %[1]q
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_cloudwatch_event_target" "test" {
+  arn= aws_sagemaker_pipeline.test.arn
+  rule= aws_cloudwatch_event_rule.test.id
+  role_arn = aws_iam_role.test.arn  sagemaker_pipeline_target {
+ pipeline_parameter_list {
+name  = "key"
+value = "value"
+ }
+  }  target_id = %[1]q
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "events.${data.aws_partition.current.dns_suffix}"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+ {
+"Action": "sts:AssumeRole",
+"Principal": {
+  "Service": "events.${data.aws_partition.current.dns_suffix}"
+},
+"Effect": "Allow",
+"Sid": ""
+ }
   ]
 }
 EOF
-}
-
-resource "aws_iam_role_policy" "test" {
+}resource "aws_iam_role_policy" "test" {
   name = %[1]q
-  role = aws_iam_role.test.id
-
-  policy = <<EOF
+  role = aws_iam_role.test.id  policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": "sagemaker:*",
-            "Effect": "Allow",
-            "Resource": [
-   "*"
-            ]
-        }
-    ]
+ "Version": "2012-10-17",
+ "Statement": [
+  {
+"Action": "sagemaker:*",
+"Effect": "Allow",
+"Resource": [
+"*"
+]
+  }
+ ]
 }
 EOF
-}
-
-resource "aws_iam_role" "sagemaker" {
+}resource "aws_iam_role" "sagemaker" {
   name  = "%[1]s-2"
   path  = "/"
   assume_role_policy = data.aws_iam_policy_document.test.json
-}
-
-data "aws_iam_policy_document" "test" {
+}data "aws_iam_policy_document" "test" {
   statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["sagemaker.amazonaws.com"]
-    }
+ actions = ["sts:AssumeRole"] principals {
+type  = "Service"
+identifiers = ["sagemaker.amazonaws.com"]
+ }
   }
-}
-
-resource "aws_sagemaker_pipeline" "test" {
-  pipeline_name         = %[1]q
+}resource "aws_sagemaker_pipeline" "test" {
+  pipeline_name= %[1]q
   pipeline_display_name = %[1]q
-  role_arn = aws_iam_role.sagemaker.arn
-
-  pipeline_definition = jsonencode({
-    Version = "2020-12-01"
-    Steps = [{
-      Name = "Test"
-      Type = "Fail"
-      Arguments = {
-        ErrorMessage = "test"
-      }
-    }]
+  role_arn = aws_iam_role.sagemaker.arn  pipeline_definition = jsonencode({
+ Version = "2020-12-01"
+ Steps = [{
+Name = "Test"
+Type = "Fail"
+Arguments = {
+  ErrorMessage = "test"
+}
+ }]
   })
 }
 `, rName)
 }
-
 func testAccTargetConfig_inputTransformer(rName string, inputPathKeys []string) string {
-	var inputPaths, inputTemplates strings.Builder
-
-	for _, inputPath := range inputPathKeys {
-		fmt.Fprintf(&inputPaths, "      %[1]s = \"$.%[1]s\"\n", inputPath)
+	var inputPaths, inputTemplates strings.Builder	for _, inputPath := range inputPathKeys {
+		fmt.Fprintf(&inputPaths, "%[1]s = \"$.%[1]s\"\n", inputPath)
 		fmt.Fprintf(&inputTemplates, "  \"%[1]s\": <%[1]s>,\n", inputPath)
-	}
-
-	return acctest.ConfigCompose(
+	}	return acctest.ConfigCompose(
 		testAccTargetLambdaBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cloudwatch_event_target" "test" {
-  arn  = aws_lambda_function.test.arn
-  rule = aws_cloudwatch_event_rule.schedule.id
-
-  input_transformer {
-    input_paths = {
-      %[2]s
-    }
-
-    input_template = <<EOF
+  arn  = aws_lambda_
+function.test.arn
+  rule = aws_cloudwatch_event_rule.schedule.id  input_transformer {
+ input_paths = {
+%[2]s
+ } input_template = <<EOF
 {
   "detail-type": "Scheduled Event",
   "source": "aws.events",
@@ -2351,118 +1888,91 @@ resource "aws_cloudwatch_event_target" "test" {
 }
 EOF
   }
-}
-
-resource "aws_cloudwatch_event_rule" "schedule" {
-  name        = "%[1]s"
-  description = "test_input_transformer"
-
-  schedule_expression = "rate(5 minutes)"
+}resource "aws_cloudwatch_event_rule" "schedule" {
+  name  = "%[1]s"
+  description = "test_input_transformer"  schedule_expression = "rate(5 minutes)"
 }
 `, rName, inputPaths.String(), strings.TrimSpace(inputTemplates.String())))
 }
-
 func testAccTargetConfig_inputTransformerJSONString(name string) string {
 	return acctest.ConfigCompose(
 		testAccTargetLambdaBaseConfig(name),
 		fmt.Sprintf(`
 resource "aws_cloudwatch_event_target" "test" {
-  arn  = aws_lambda_function.test.arn
-  rule = aws_cloudwatch_event_rule.test.id
-
-  input_transformer {
-    input_paths = {
-      instance = "$.detail.instance",
-      status   = "$.detail.status",
-    }
-    input_template = "\"<instance> is in state <status>\""
+  arn  = aws_lambda_
+function.test.arn
+  rule = aws_cloudwatch_event_rule.test.id  input_transformer {
+ input_paths = {
+instance = "$.detail.instance",
+status= "$.detail.status",
+ }
+ input_template = "\"<instance> is in state <status>\""
   }
-}
-
-resource "aws_cloudwatch_event_rule" "test" {
-  name        = %[1]q
-  description = "test_input_transformer"
-
-  schedule_expression = "rate(5 minutes)"
+}resource "aws_cloudwatch_event_rule" "test" {
+  name  = %[1]q
+  description = "test_input_transformer"  schedule_expression = "rate(5 minutes)"
 }
 `, name))
 }
-
 func testAccTargetLambdaBaseConfig(name string) string {
 	return fmt.Sprintf(`
-resource "aws_lambda_function" "test" {
-  function_name    = %[1]q
-  filename         = "test-fixtures/lambdatest.zip"
+resource "aws_lambda_
+function" "test" {
+  
+function_name = %[1]q
+  filename= "test-fixtures/lambdatest.zip"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest.zip")
   role= aws_iam_role.test.arn
-  handler          = "exports.example"
-  runtime          = "nodejs16.x"
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+  handler = "exports.example"
+  runtime = "nodejs16.x"
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.${data.aws_partition.current.dns_suffix}"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+ {
+"Action": "sts:AssumeRole",
+"Principal": {
+  "Service": "lambda.${data.aws_partition.current.dns_suffix}"
+},
+"Effect": "Allow",
+"Sid": ""
+ }
   ]
 }
 EOF
-}
-
-data "aws_partition" "current" {}
+}data "aws_partition" "current" {}
 `, name)
 }
-
 func testAccTargetConfig_partnerBus(rName, eventBusName string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_rule" "test" {
-  name           = %[1]q
-  event_bus_name = %[2]q
-
-  event_pattern = <<PATTERN
+  name= %[1]q
+  event_bus_name = %[2]q  event_pattern = <<PATTERN
 {
   "source": ["aws.ec2"]
 }
 PATTERN
-}
-
-resource "aws_cloudwatch_event_target" "test" {
-  rule           = aws_cloudwatch_event_rule.test.name
+}resource "aws_cloudwatch_event_target" "test" {
+  rule= aws_cloudwatch_event_rule.test.name
   event_bus_name = aws_cloudwatch_event_rule.test.event_bus_name
-  target_id      = %[1]q
-  arn            = aws_sns_topic.test.arn
-}
-
-resource "aws_sns_topic" "test" {
+  target_id= %[1]q
+  arn= aws_sns_topic.test.arn
+}resource "aws_sns_topic" "test" {
   name = %[1]q
 }
 `, rName, eventBusName)
 }
-
 func testAccTargetConfig_ecsNoPropagateTags(rName string) string {
 	return acctest.ConfigCompose(testAccTargetConfig_ecsBase(rName), `
 resource "aws_cloudwatch_event_target" "test" {
-  arn      = aws_ecs_cluster.test.id
-  rule     = aws_cloudwatch_event_rule.test.id
-  role_arn = aws_iam_role.test.arn
-
-  ecs_target {
-    task_definition_arn = aws_ecs_task_definition.task.arn
-    launch_type         = "FARGATE"
-
-    network_configuration {
-      subnets = aws_subnet.test[*].id
-    }
+  arn= aws_ecs_cluster.test.id
+  rule= aws_cloudwatch_event_rule.test.id
+  role_arn = aws_iam_role.test.arn  ecs_target {
+ task_definition_arn = aws_ecs_task_definition.task.arn
+ launch_type= "FARGATE" network_configuration {
+subnets = aws_subnet.test[*].id
+ }
   }
 }
 `)

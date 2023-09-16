@@ -28,9 +28,9 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "filter_control_id": idSchema(),
 "source_filter_id":  idSchema(),
-"title":             stringSchema(true, validation.StringLenBetween(1, 2048)),
+"title": stringSchema(true, validation.StringLenBetween(1, 2048)),
 "display_options":   dateTimePickerControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DateTimePickerControlDisplayOptions.html
-"type":              stringSchema(false, validation.StringInSlice(quicksight.SheetControlDateTimePickerType_Values(), false)),
+"type":  stringSchema(false, validation.StringInSlice(quicksight.SheetControlDateTimePickerType_Values(), false)),
 },
 },
 },
@@ -41,13 +41,13 @@ MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-"filter_control_id":               idSchema(),
-"source_filter_id":                idSchema(),
-"title":                           stringSchema(true, validation.StringLenBetween(1, 2048)),
+"filter_control_id":   idSchema(),
+"source_filter_id":    idSchema(),
+"title":   stringSchema(true, validation.StringLenBetween(1, 2048)),
 "cascading_control_configuration": cascadingControlConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CascadingControlConfiguration.html
-"display_options":                 dropDownControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DropDownControlDisplayOptions.html
-"selectable_values":               filterSelectableValuesSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterSelectableValues.html
-"type":                            stringSchema(false, validation.StringInSlice(quicksight.SheetControlListType_Values(), false)),
+"display_options":     dropDownControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DropDownControlDisplayOptions.html
+"selectable_values":   filterSelectableValuesSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterSelectableValues.html
+"type":    stringSchema(false, validation.StringInSlice(quicksight.SheetControlListType_Values(), false)),
 },
 },
 },
@@ -58,13 +58,13 @@ MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-"filter_control_id":               idSchema(),
-"source_filter_id":                idSchema(),
-"title":                           stringSchema(true, validation.StringLenBetween(1, 2048)),
+"filter_control_id":   idSchema(),
+"source_filter_id":    idSchema(),
+"title":   stringSchema(true, validation.StringLenBetween(1, 2048)),
 "cascading_control_configuration": cascadingControlConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CascadingControlConfiguration.html
-"display_options":                 listControlDisplayOptionsSchema(),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListControlDisplayOptions.html
-"selectable_values":               filterSelectableValuesSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterSelectableValues.html
-"type":                            stringSchema(false, validation.StringInSlice(quicksight.SheetControlListType_Values(), false)),
+"display_options":     listControlDisplayOptionsSchema(),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListControlDisplayOptions.html
+"selectable_values":   filterSelectableValuesSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterSelectableValues.html
+"type":    stringSchema(false, validation.StringInSlice(quicksight.SheetControlListType_Values(), false)),
 },
 },
 },
@@ -77,7 +77,7 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "filter_control_id": idSchema(),
 "source_filter_id":  idSchema(),
-"title":             stringSchema(true, validation.StringLenBetween(1, 2048)),
+"title": stringSchema(true, validation.StringLenBetween(1, 2048)),
 "display_options": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_RelativeDateTimeControlDisplayOptions.html
 Type:     schema.TypeList,
 Optional: true,
@@ -102,7 +102,7 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "filter_control_id": idSchema(),
 "source_filter_id":  idSchema(),
-"title":             stringSchema(true, validation.StringLenBetween(1, 2048)),
+"title": stringSchema(true, validation.StringLenBetween(1, 2048)),
 "maximum_value": {
 Type:     schema.TypeFloat,
 Required: true,
@@ -116,7 +116,7 @@ Type:     schema.TypeFloat,
 Required: true,
 },
 "display_options": sliderControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SliderControlDisplayOptions.html
-"type":            stringSchema(false, validation.StringInSlice(quicksight.SheetControlSliderType_Values(), false)),
+"type":stringSchema(false, validation.StringInSlice(quicksight.SheetControlSliderType_Values(), false)),
 },
 },
 },
@@ -129,8 +129,8 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "filter_control_id": idSchema(),
 "source_filter_id":  idSchema(),
-"title":             stringSchema(true, validation.StringLenBetween(1, 2048)),
-"delimiter":         stringSchema(false, validation.StringLenBetween(1, 2048)),
+"title": stringSchema(true, validation.StringLenBetween(1, 2048)),
+"delimiter":   stringSchema(false, validation.StringLenBetween(1, 2048)),
 "display_options":   textAreaControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TextAreaControlDisplayOptions.html
 },
 },
@@ -144,7 +144,7 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "filter_control_id": idSchema(),
 "source_filter_id":  idSchema(),
-"title":             stringSchema(true, validation.StringLenBetween(1, 2048)),
+"title": stringSchema(true, validation.StringLenBetween(1, 2048)),
 "display_options":   textFieldControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TextFieldControlDisplayOptions.html
 },
 },
@@ -163,7 +163,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "placeholder_options": placeholderOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TextControlPlaceholderOptions.html
-"title_options":       labelOptionsSchema(),       // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LabelOptions.html
+"title_options": labelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LabelOptions.html
 },
 },
 }
@@ -178,7 +178,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "placeholder_options": placeholderOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TextControlPlaceholderOptions.html
-"title_options":       labelOptionsSchema(),       // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LabelOptions.html
+"title_options": labelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LabelOptions.html
 },
 },
 }
@@ -233,7 +233,7 @@ Schema: map[string]*schema.Schema{
 },
 },
 "select_all_options": selectAllOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListControlSelectAllOptions.html
-"title_options":      labelOptionsSchema(),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LabelOptions.html
+"title_options":labelOptionsSchema(),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LabelOptions.html
 },
 },
 }
@@ -290,7 +290,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "select_all_options": selectAllOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListControlSelectAllOptions.html
-"title_options":      labelOptionsSchema(),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LabelOptions.html
+"title_options":labelOptionsSchema(),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LabelOptions.html
 },
 },
 }
@@ -1136,7 +1136,7 @@ return nil
 tfMap := map[string]interface{}{
 "filter_control_id": aws.StringValue(apiObject.FilterControlId),
 "source_filter_id":  aws.StringValue(apiObject.SourceFilterId),
-"title":             aws.StringValue(apiObject.Title),
+"title": aws.StringValue(apiObject.Title),
 }
 if apiObject.DisplayOptions != nil {
 tfMap["display_options"] = flattenDateTimePickerControlDisplayOptions(apiObject.DisplayOptions)
@@ -1242,7 +1242,7 @@ return nil
 tfMap := map[string]interface{}{
 "filter_control_id": aws.StringValue(apiObject.FilterControlId),
 "source_filter_id":  aws.StringValue(apiObject.SourceFilterId),
-"title":             aws.StringValue(apiObject.Title),
+"title": aws.StringValue(apiObject.Title),
 }
 if apiObject.CascadingControlConfiguration != nil {
 tfMap["cascading_control_configuration"] = flattenCascadingControlConfiguration(apiObject.CascadingControlConfiguration)
@@ -1347,7 +1347,7 @@ return nil
 tfMap := map[string]interface{}{
 "filter_control_id": aws.StringValue(apiObject.FilterControlId),
 "source_filter_id":  aws.StringValue(apiObject.SourceFilterId),
-"title":             aws.StringValue(apiObject.Title),
+"title": aws.StringValue(apiObject.Title),
 }
 if apiObject.CascadingControlConfiguration != nil {
 tfMap["cacading_control_configuration"] = flattenCascadingControlConfiguration(apiObject.CascadingControlConfiguration)
@@ -1405,7 +1405,7 @@ return nil
 tfMap := map[string]interface{}{
 "filter_control_id": aws.StringValue(apiObject.FilterControlId),
 "source_filter_id":  aws.StringValue(apiObject.SourceFilterId),
-"title":             aws.StringValue(apiObject.Title),
+"title": aws.StringValue(apiObject.Title),
 }
 if apiObject.DisplayOptions != nil {
 tfMap["display_options"] = flattenRelativeDateTimeControlDisplayOptions(apiObject.DisplayOptions)
@@ -1438,10 +1438,10 @@ return nil
 tfMap := map[string]interface{}{
 "filter_control_id": aws.StringValue(apiObject.FilterControlId),
 "source_filter_id":  aws.StringValue(apiObject.SourceFilterId),
-"title":             aws.StringValue(apiObject.Title),
+"title": aws.StringValue(apiObject.Title),
 "maximum_value":     aws.Float64Value(apiObject.MaximumValue),
 "minimum_value":     aws.Float64Value(apiObject.MinimumValue),
-"step_size":         aws.Float64Value(apiObject.StepSize),
+"step_size":   aws.Float64Value(apiObject.StepSize),
 }
 if apiObject.DisplayOptions != nil {
 tfMap["display_options"] = flattenSliderControlDisplayOptions(apiObject.DisplayOptions)
@@ -1474,7 +1474,7 @@ return nil
 tfMap := map[string]interface{}{
 "filter_control_id": aws.StringValue(apiObject.FilterControlId),
 "source_filter_id":  aws.StringValue(apiObject.SourceFilterId),
-"title":             aws.StringValue(apiObject.Title),
+"title": aws.StringValue(apiObject.Title),
 }
 if apiObject.Delimiter != nil {
 tfMap["delimiter"] = aws.StringValue(apiObject.Delimiter)
@@ -1523,7 +1523,7 @@ return nil
 tfMap := map[string]interface{}{
 "filter_control_id": aws.StringValue(apiObject.FilterControlId),
 "source_filter_id":  aws.StringValue(apiObject.SourceFilterId),
-"title":             aws.StringValue(apiObject.Title),
+"title": aws.StringValue(apiObject.Title),
 }
 if apiObject.DisplayOptions != nil {
 tfMap["display_options"] = flattenTextFieldControlDisplayOptions(apiObject.DisplayOptions)

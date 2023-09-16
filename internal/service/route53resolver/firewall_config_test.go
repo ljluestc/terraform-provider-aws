@@ -43,8 +43,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -143,7 +143,7 @@ return nil
 func testAccFirewallConfigConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), `
 resource "aws_route53_resolver_firewall_config" "test" {
-  resource_id        = aws_vpc.test.id
+  resource_id   = aws_vpc.test.id
   firewall_fail_open = "ENABLED"
 }
 `)

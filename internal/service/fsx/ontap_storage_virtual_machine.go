@@ -46,7 +46,7 @@ func ResourceOntapStorageVirtualMachine() *schema.Resource {
 		SchemaVersion: 1,
 		StateUpgraders: []schema.StateUpgrader{
 			{
-				Type:    ResourceOntapStorageVirtualMachineV0().CoreConfigSchema().ImpliedType(),
+				Type:ResourceOntapStorageVirtualMachineV0().CoreConfigSchema().ImpliedType(),
 				Upgrade: ResourceOntapStorageVirtualMachineStateUpgradeV0,
 				Version: 0,
 			},
@@ -54,17 +54,17 @@ func ResourceOntapStorageVirtualMachine() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"active_directory_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"netbios_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 								return strings.EqualFold(old, new)
@@ -72,48 +72,48 @@ func ResourceOntapStorageVirtualMachine() *schema.Resource {
 							ValidateFunc: validation.StringLenBetween(1, 15),
 						},
 						"self_managed_active_directory_configuration": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"dns_ips": {
-										Type:     schema.TypeSet,
+										Type: schema.TypeSet,
 										Required: true,
 										MinItems: 1,
 										MaxItems: 3,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.IsIPAddress,
 										},
 									},
 									"domain_name": {
-										Type:         schema.TypeString,
-										Required:     true,
-										ForceNew:     true,
+										Type:schema.TypeString,
+										Required: true,
+										ForceNew: true,
 										ValidateFunc: validation.StringLenBetween(1, 255),
 									},
 									"file_system_administrators_group": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										ForceNew:     true,
+										Type:schema.TypeString,
+										Optional: true,
+										ForceNew: true,
 										ValidateFunc: validation.StringLenBetween(1, 256),
 									},
 									"organizational_unit_distinguished_name": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										ForceNew:     true,
+										Type:schema.TypeString,
+										Optional: true,
+										ForceNew: true,
 										ValidateFunc: validation.StringLenBetween(1, 2000),
 									},
 									"password": {
-										Type:         schema.TypeString,
-										Sensitive:    true,
-										Required:     true,
+										Type:schema.TypeString,
+										Sensitive:true,
+										Required: true,
 										ValidateFunc: validation.StringLenBetween(1, 256),
 									},
 									"username": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: validation.StringLenBetween(1, 256),
 									},
 								},
@@ -123,74 +123,74 @@ func ResourceOntapStorageVirtualMachine() *schema.Resource {
 				},
 			},
 			"endpoints": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"iscsi": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"dns_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"ip_addresses": {
-										Type:     schema.TypeSet,
+										Type: schema.TypeSet,
 										Computed: true,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem: &schema.Schema{Type: schema.TypeString},
 									},
 								},
 							},
 						},
 						"management": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"dns_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"ip_addresses": {
-										Type:     schema.TypeSet,
+										Type: schema.TypeSet,
 										Computed: true,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem: &schema.Schema{Type: schema.TypeString},
 									},
 								},
 							},
 						},
 						"nfs": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"dns_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"ip_addresses": {
-										Type:     schema.TypeSet,
+										Type: schema.TypeSet,
 										Computed: true,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem: &schema.Schema{Type: schema.TypeString},
 									},
 								},
 							},
 						},
 						"smb": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"dns_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"ip_addresses": {
-										Type:     schema.TypeSet,
+										Type: schema.TypeSet,
 										Computed: true,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem: &schema.Schema{Type: schema.TypeString},
 									},
 								},
 							},
@@ -199,36 +199,36 @@ func ResourceOntapStorageVirtualMachine() *schema.Resource {
 				},
 			},
 			"file_system_id": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringLenBetween(11, 21),
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 47),
 			},
 			"root_volume_security_style": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringInSlice(fsx.StorageVirtualMachineRootVolumeSecurityStyle_Values(), false),
 			},
 			"subtype": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"svm_admin_password": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Sensitive:    true,
+				Type:schema.TypeString,
+				Optional: true,
+				Sensitive:true,
 				ValidateFunc: validation.StringLenBetween(8, 50),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"uuid": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -243,8 +243,8 @@ func resourceOntapStorageVirtualMachineCreate(ctx context.Context, d *schema.Res
 
 	input := &fsx.CreateStorageVirtualMachineInput{
 		FileSystemId: aws.String(d.Get("file_system_id").(string)),
-		Name:         aws.String(d.Get("name").(string)),
-		Tags:         getTagsIn(ctx),
+		Name:aws.String(d.Get("name").(string)),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("active_directory_configuration"); ok {
@@ -316,7 +316,7 @@ func resourceOntapStorageVirtualMachineUpdate(ctx context.Context, d *schema.Res
 
 	if d.HasChangesExcept("tags_all", "tags") {
 		input := &fsx.UpdateStorageVirtualMachineInput{
-			ClientRequestToken:      aws.String(id.UniqueId()),
+			ClientRequestToken:  aws.String(id.UniqueId()),
 			StorageVirtualMachineId: aws.String(d.Id()),
 		}
 

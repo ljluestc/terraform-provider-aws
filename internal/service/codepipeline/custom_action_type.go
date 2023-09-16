@@ -43,7 +43,7 @@ func ResourceCustomActionType() *schema.Resource {
 				Computed: true,
 			},
 			"category": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(codepipeline.ActionCategory_Values(), false),
@@ -80,7 +80,7 @@ func ResourceCustomActionType() *schema.Resource {
 							Required: true,
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(codepipeline.ActionConfigurationPropertyType_Values(), false),
 						},
@@ -96,12 +96,12 @@ func ResourceCustomActionType() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"maximum_count": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IntBetween(0, 5),
 						},
 						"minimum_count": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IntBetween(0, 5),
 						},
@@ -117,12 +117,12 @@ func ResourceCustomActionType() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"maximum_count": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IntBetween(0, 5),
 						},
 						"minimum_count": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IntBetween(0, 5),
 						},
@@ -134,7 +134,7 @@ func ResourceCustomActionType() *schema.Resource {
 				Computed: true,
 			},
 			"provider_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 35),
@@ -169,7 +169,7 @@ func ResourceCustomActionType() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"version": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 9),

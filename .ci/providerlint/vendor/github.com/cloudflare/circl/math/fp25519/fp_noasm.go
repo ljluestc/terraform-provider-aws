@@ -1,11 +1,1 @@
-!amd64 || purego// +build !amd64 puregopackage fp25519
-v(x, y *Elt, n uint)  { cmovGeneric(x, y, n) }
-ap(x, y *Elt, n uint) { cswapGeneric(x, y, n) }
-(z, x, y *Elt)        { addGeneric(z, x, y) }
-(z, x, y *Elt)        { subGeneric(z, x, y) }
-sub(x, y *Elt)        { addsubGeneric(x, y) }
-(z, x, y *Elt)        { mulGeneric(z, x, y) }
-(z, x *Elt)           { sqrGeneric(z, x) }
-p(z *Elt)             { modpGeneric(z) }
-
-package p
+!amd64 || purego// +build !amd64 puregopackage fp25519v(x, y *Elt, n uint)  { cmovGeneric(x, y, n) }ap(x, y *Elt, n uint) { cswapGeneric(x, y, n) }(z, x, y *Elt)        { addGeneric(z, x, y) }(z, x, y *Elt)        { subGeneric(z, x, y) }sub(x, y *Elt)        { addsubGeneric(x, y) }(z, x, y *Elt)        { mulGeneric(z, x, y) }(z, x *Elt)           { sqrGeneric(z, x) }p(z *Elt)             { modpGeneric(z) }package p

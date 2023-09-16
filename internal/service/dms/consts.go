@@ -14,46 +14,45 @@ const (
 
 	replicationTaskStatusCreating  = "creating"
 	replicationTaskStatusDeleting  = "deleting"
-	replicationTaskStatusFailed    = "failed"
+	replicationTaskStatusFailed = "failed"
 	replicationTaskStatusModifying = "modifying"
-	replicationTaskStatusReady     = "ready"
-	replicationTaskStatusStopped   = "stopped"
+	replicationTaskStatusReady= "ready"
+	replicationTaskStatusStopped= "stopped"
 	replicationTaskStatusStopping  = "stopping"
-	replicationTaskStatusRunning   = "running"
+	replicationTaskStatusRunning= "running"
 	replicationTaskStatusStarting  = "starting"
 )
 
 const (
-	engineNameAurora        = "aurora"
-	engineNameAuroraPostgresql           = "aurora-postgresql"
+	engineNameAurora  = "aurora"
+	engineNameAuroraPostgresql= "aurora-postgresql"
 	engineNameAuroraPostgresqlServerless = "aurora-postgresql-serverless"
-	engineNameAuroraServerless           = "aurora-serverless"
-	engineNameAzuredb       = "azuredb"
-	engineNameAzureSQLManagedInstance    = "azure-sql-managed-instance"
-	engineNameBabelfish     = "babelfish"
-	engineNameDB2           = "db2"
-	engineNameDB2zOS        = "db2-zos"
-	engineNameTransfer      = "dms-transfer"
-	engineNameDocDB         = "docdb"
-	engineNameDynamoDB      = "dynamodb"
+	engineNameAuroraServerless= "aurora-serverless"
+	engineNameAzuredb = "azuredb"
+	engineNameAzureSQLManagedInstance = "azure-sql-managed-instance"
+	engineNameBabelfish= "babelfish"
+	engineNameDB2= "db2"
+	engineNameDB2zOS  = "db2-zos"
+	engineNameTransfer= "dms-transfer"
+	engineNameDocDB= "docdb"
+	engineNameDynamoDB= "dynamodb"
 	engineNameElasticsearch = "elasticsearch"
-	engineNameKafka         = "kafka"
-	engineNameKinesis       = "kinesis"
-	engineNameMariadb       = "mariadb"
-	engineNameMongodb       = "mongodb"
-	engineNameMySQL         = "mysql"
-	engineNameNeptune       = "neptune"
-	engineNameOpenSearch    = "opensearch"
-	engineNameOracle        = "oracle"
-	engineNamePostgres      = "postgres"
-	engineNameRedis         = "redis"
-	engineNameRedshift      = "redshift"
-	engineNameRedshiftServerless         = "redshift-serverless"
-	engineNameS3            = "s3"
-	engineNameSQLServer     = "sqlserver"
-	engineNameSybase        = "sybase"
+	engineNameKafka= "kafka"
+	engineNameKinesis = "kinesis"
+	engineNameMariadb = "mariadb"
+	engineNameMongodb = "mongodb"
+	engineNameMySQL= "mysql"
+	engineNameNeptune = "neptune"
+	engineNameOpenSearch = "opensearch"
+	engineNameOracle  = "oracle"
+	engineNamePostgres= "postgres"
+	engineNameRedis= "redis"
+	engineNameRedshift= "redshift"
+	engineNameRedshiftServerless= "redshift-serverless"
+	engineNameS3= "s3"
+	engineNameSQLServer= "sqlserver"
+	engineNameSybase  = "sybase"
 )
-
 func engineName_Values() []string {
 	return []string{
 		engineNameAurora,
@@ -93,11 +92,10 @@ const (
 
 // https://github.com/aws/aws-sdk-go/issues/2522.
 const (
-	mongoDBAuthMechanismValueDefault   = "default"
+	mongoDBAuthMechanismValueDefault= "default"
 	mongoDBAuthMechanismValueMongodbCr = "mongodb-cr"
 	mongoDBAuthMechanismValueScramSha1 = "scram-sha-1"
 )
-
 func mongoDBAuthMechanismValue_Values() []string {
 	return []string{
 		mongoDBAuthMechanismValueDefault,
@@ -114,7 +112,6 @@ const (
 	s3SettingsCompressionTypeGzip = "GZIP"
 	s3SettingsCompressionTypeNone = "NONE"
 )
-
 func s3SettingsCompressionType_Values() []string {
 	return []string{
 		s3SettingsCompressionTypeGzip,
@@ -126,7 +123,6 @@ const (
 	encryptionModeSseKMS = "SSE_KMS"
 	encryptionModeSseS3  = "SSE_S3"
 )
-
 func encryptionMode_Values() []string {
 	return []string{
 		encryptionModeSseKMS,
@@ -138,7 +134,6 @@ const (
 	networkTypeDual = "DUAL"
 	networkTypeIPv4 = "IPV4"
 )
-
 func networkType_Values() []string {
 	return []string{
 		networkTypeDual,

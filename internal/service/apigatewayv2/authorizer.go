@@ -34,67 +34,67 @@ func ResourceAuthorizer() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"authorizer_credentials_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"authorizer_payload_format_version": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice([]string{"1.0", "2.0"}, false),
 			},
 			"authorizer_result_ttl_in_seconds": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeInt,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: validation.IntBetween(0, 3600),
 			},
 			"authorizer_type": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(apigatewayv2.AuthorizerType_Values(), false),
 			},
 			"authorizer_uri": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringLenBetween(1, 2048),
 			},
 			"enable_simple_responses": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 			"identity_sources": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"jwt_configuration": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MinItems: 0,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"audience": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"issuer": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 		},
@@ -117,10 +117,10 @@ func resourceAuthorizerCreate(ctx context.Context, d *schema.ResourceData, meta 
 	protocolType := aws.StringValue(apiOutput.ProtocolType)
 
 	req := &apigatewayv2.CreateAuthorizerInput{
-		ApiId:          aws.String(apiId),
+		ApiId:aws.String(apiId),
 		AuthorizerType: aws.String(authorizerType),
 		IdentitySource: flex.ExpandStringSet(d.Get("identity_sources").(*schema.Set)),
-		Name:           aws.String(d.Get("name").(string)),
+		Name: aws.String(d.Get("name").(string)),
 	}
 	if v, ok := d.GetOk("authorizer_credentials_arn"); ok {
 		req.AuthorizerCredentialsArn = aws.String(v.(string))
@@ -162,7 +162,7 @@ func resourceAuthorizerRead(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	resp, err := conn.GetAuthorizerWithContext(ctx, &apigatewayv2.GetAuthorizerInput{
-		ApiId:        aws.String(d.Get("api_id").(string)),
+		ApiId:   aws.String(d.Get("api_id").(string)),
 		AuthorizerId: aws.String(d.Id()),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) && !d.IsNewResource() {
@@ -196,7 +196,7 @@ func resourceAuthorizerUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.UpdateAuthorizerInput{
-		ApiId:        aws.String(d.Get("api_id").(string)),
+		ApiId:   aws.String(d.Get("api_id").(string)),
 		AuthorizerId: aws.String(d.Id()),
 	}
 	if d.HasChange("authorizer_credentials_arn") {
@@ -242,7 +242,7 @@ func resourceAuthorizerDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	log.Printf("[DEBUG] Deleting API Gateway v2 authorizer (%s)", d.Id())
 	_, err := conn.DeleteAuthorizerWithContext(ctx, &apigatewayv2.DeleteAuthorizerInput{
-		ApiId:        aws.String(d.Get("api_id").(string)),
+		ApiId:   aws.String(d.Get("api_id").(string)),
 		AuthorizerId: aws.String(d.Id()),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {

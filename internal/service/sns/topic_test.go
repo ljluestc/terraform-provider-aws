@@ -41,7 +41,7 @@ func TestAccSNSTopic_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_nameGenerated,
@@ -95,7 +95,7 @@ func TestAccSNSTopic_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_nameGenerated,
@@ -119,7 +119,7 @@ func TestAccSNSTopic_name(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_name(rName),
@@ -148,7 +148,7 @@ func TestAccSNSTopic_namePrefix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_namePrefix(rName),
@@ -178,7 +178,7 @@ func TestAccSNSTopic_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_tags1(rName, "key1", "value1"),
@@ -225,7 +225,7 @@ func TestAccSNSTopic_policy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_policy(rName),
@@ -253,7 +253,7 @@ func TestAccSNSTopic_withIAMRole(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_iamRole(rName),
@@ -279,7 +279,7 @@ func TestAccSNSTopic_withFakeIAMRole(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccTopicConfig_fakeIAMRole(rName),
@@ -300,7 +300,7 @@ func TestAccSNSTopic_withDeliveryPolicy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_deliveryPolicy(rName),
@@ -329,7 +329,7 @@ func TestAccSNSTopic_deliveryStatus(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_deliveryStatus(rName),
@@ -371,7 +371,7 @@ func TestAccSNSTopic_NameGenerated_fifoTopic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_nameGeneratedFIFO,
@@ -401,7 +401,7 @@ func TestAccSNSTopic_Name_fifoTopic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_nameFIFO(rName),
@@ -430,7 +430,7 @@ func TestAccSNSTopic_NamePrefix_fifoTopic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_namePrefixFIFO(rName),
@@ -460,7 +460,7 @@ func TestAccSNSTopic_fifoWithContentBasedDeduplication(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_fifoContentBasedDeduplication(rName, true),
@@ -495,7 +495,7 @@ func TestAccSNSTopic_fifoExpectContentBasedDeduplicationError(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccTopicConfig_expectContentBasedDeduplicationError(rName),
@@ -515,7 +515,7 @@ func TestAccSNSTopic_encryption(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicDestroy(ctx),
+CheckDestroy:    testAccCheckTopicDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicConfig_encryption(rName),
@@ -860,15 +860,15 @@ resource "aws_sns_topic" "test" {
   application_success_feedback_role_arn    = aws_iam_role.example.arn
   application_success_feedback_sample_rate = 100
   application_failure_feedback_role_arn    = aws_iam_role.example.arn
-  lambda_success_feedback_role_arn         = aws_iam_role.example.arn
+  lambda_success_feedback_role_arn= aws_iam_role.example.arn
   lambda_success_feedback_sample_rate      = 90
-  lambda_failure_feedback_role_arn         = aws_iam_role.example.arn
-  http_success_feedback_role_arn           = aws_iam_role.example.arn
+  lambda_failure_feedback_role_arn= aws_iam_role.example.arn
+  http_success_feedback_role_arn  = aws_iam_role.example.arn
   http_success_feedback_sample_rate        = 80
-  http_failure_feedback_role_arn           = aws_iam_role.example.arn
-  sqs_success_feedback_role_arn            = aws_iam_role.example.arn
-  sqs_success_feedback_sample_rate         = 70
-  sqs_failure_feedback_role_arn            = aws_iam_role.example.arn
+  http_failure_feedback_role_arn  = aws_iam_role.example.arn
+  sqs_success_feedback_role_arn   = aws_iam_role.example.arn
+  sqs_success_feedback_sample_rate= 70
+  sqs_failure_feedback_role_arn   = aws_iam_role.example.arn
   firehose_success_feedback_sample_rate    = 60
   firehose_failure_feedback_role_arn       = aws_iam_role.example.arn
   firehose_success_feedback_role_arn       = aws_iam_role.example.arn
@@ -929,7 +929,7 @@ EOF
 func testAccTopicConfig_encryption(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
-  name              = %[1]q
+  name     = %[1]q
   kms_master_key_id = "alias/aws/sns"
   signature_version = 2
 }
@@ -939,7 +939,7 @@ resource "aws_sns_topic" "test" {
 func testAccTopicConfig_fifoContentBasedDeduplication(rName string, cbd bool) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
-  name         = "%[1]s.fifo"
+  name= "%[1]s.fifo"
   fifo_topic   = true
   content_based_deduplication = %[2]t
 }
@@ -949,7 +949,7 @@ resource "aws_sns_topic" "test" {
 func testAccTopicConfig_expectContentBasedDeduplicationError(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
-  name         = %[1]q
+  name= %[1]q
   content_based_deduplication = true
 }
 `, rName)

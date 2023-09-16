@@ -33,7 +33,7 @@ func DataSourceDocument() *schema.Resource {
 				Computed: true,
 			},
 			"document_format": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      ssm.DocumentFormatJson,
 				ValidateFunc: validation.StringInSlice(ssm.DocumentFormat_Values(), false),
@@ -61,7 +61,7 @@ func dataDocumentRead(ctx context.Context, d *schema.ResourceData, meta interfac
 	name := d.Get("name").(string)
 	input := &ssm.GetDocumentInput{
 		DocumentFormat: aws.String(d.Get("document_format").(string)),
-		Name:           aws.String(name),
+		Name:  aws.String(name),
 	}
 
 	if v, ok := d.GetOk("document_version"); ok {

@@ -16,8 +16,8 @@ import (
 	dataSourceName := "data.aws_s3_objects.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -37,8 +37,8 @@ import (
 	dataSourceName := "data.aws_s3_objects.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -57,8 +57,8 @@ import (
 	funcaSourceName := "data.aws_s3_objects.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -77,8 +77,8 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -98,8 +98,8 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_s3_objects.test"
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -130,8 +130,8 @@ funcource.ParallelTest(t, resource.TestCase{
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -160,7 +160,7 @@ funcource.ParallelTest(t, resource.TestCase{
 	dataSourceName := "data.aws_s3_objects.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-	funcrorCheck:                acctest.ErrorCheck(t, names.S3EndpointID),
+	funcrorCheck:       acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -180,7 +180,7 @@ funcource.ParallelTest(t, resource.TestCase{
 	dataSourceName := "data.aws_s3_objects.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 	funcotoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{

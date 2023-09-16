@@ -134,11 +134,11 @@ resource "aws_kms_key" "test" {
         "Sid" : "Allow Macie to use the key",
         "Effect" : "Allow",
         "Principal" : {
-          "Service" : "macie.${data.aws_partition.current.dns_suffix}"
+ "Service" : "macie.${data.aws_partition.current.dns_suffix}"
         },
         "Action" : [
-          "kms:GenerateDataKey",
-          "kms:Encrypt"
+ "kms:GenerateDataKey",
+ "kms:Encrypt"
         ],
         "Resource" : "*"
       },
@@ -146,7 +146,7 @@ resource "aws_kms_key" "test" {
         "Sid" : "Enable IAM User Permissions",
         "Effect" : "Allow",
         "Principal" : {
-          "AWS" : "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ "AWS" : "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
         },
         "Action" : "kms:*",
         "Resource" : "*"
@@ -166,45 +166,45 @@ resource "aws_s3_bucket_policy" "test" {
       "Version" : "2012-10-17",
       "Statement" : [
         {
-          "Sid" : "Deny non-HTTPS access",
-          "Effect" : "Deny",
-          "Principal" : "*",
-          "Action" : "s3:*",
-          "Resource" : "${aws_s3_bucket.test.arn}/*",
-          "Condition" : {
-            "Bool" : {
+ "Sid" : "Deny non-HTTPS access",
+ "Effect" : "Deny",
+ "Principal" : "*",
+ "Action" : "s3:*",
+ "Resource" : "${aws_s3_bucket.test.arn}/*",
+ "Condition" : {
+   "Bool" : {
  "aws:SecureTransport" : "false"
-            }
-          }
+   }
+ }
         },
         {
-          "Sid" : "Allow Macie to upload objects to the bucket",
-          "Effect" : "Allow",
-          "Principal" : {
-            "Service" : "macie.${data.aws_partition.current.dns_suffix}"
-          },
-          "Action" : "s3:PutObject",
-          "Resource" : "${aws_s3_bucket.test.arn}/*"
+ "Sid" : "Allow Macie to upload objects to the bucket",
+ "Effect" : "Allow",
+ "Principal" : {
+   "Service" : "macie.${data.aws_partition.current.dns_suffix}"
+ },
+ "Action" : "s3:PutObject",
+ "Resource" : "${aws_s3_bucket.test.arn}/*"
         },
         {
-          "Sid" : "Allow Macie to use the getBucketLocation operation",
-          "Effect" : "Allow",
-          "Principal" : {
-            "Service" : "macie.${data.aws_partition.current.dns_suffix}"
-          },
-          "Action" : "s3:GetBucketLocation",
-          "Resource" : aws_s3_bucket.test.arn,
-          "Condition" : {
-            "StringEquals" : {
+ "Sid" : "Allow Macie to use the getBucketLocation operation",
+ "Effect" : "Allow",
+ "Principal" : {
+   "Service" : "macie.${data.aws_partition.current.dns_suffix}"
+ },
+ "Action" : "s3:GetBucketLocation",
+ "Resource" : aws_s3_bucket.test.arn,
+ "Condition" : {
+   "StringEquals" : {
  "aws:SourceAccount" : data.aws_caller_identity.current.account_id
-            },
-            "ArnLike" : {
+   },
+   "ArnLike" : {
  "aws:SourceArn" : [
    "arn:${data.aws_partition.current.partition}:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
    "arn:${data.aws_partition.current.partition}:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:classification-job/*"
  ]
-            }
-          }
+   }
+ }
         }
       ]
     }

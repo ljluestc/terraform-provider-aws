@@ -17,7 +17,7 @@ func waitScheduleGroupActive(ctx context.Context, conn *scheduler.Client, name s
 		Target:ng{scheduleGroupStatusActive},
 		Refresh:cheduleGroup(ctx, conn, name),
 		Timeout:,
-		NotFoundChecks:            20,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 

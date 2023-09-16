@@ -37,71 +37,71 @@ func ResourceResolver() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"caching_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"caching_keys": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
 								Type: schema.TypeString,
 							},
 						},
 						"ttl": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type:schema.TypeInt,
+							Optional:true,
 							ValidateFunc: validation.IntBetween(1, 3600),
 						},
 					},
 				},
 			},
 			"code": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				RequiredWith: []string{"runtime"},
 				ValidateFunc: validation.StringLenBetween(1, 32768),
 			},
 			"data_source": {
-				Type:          schema.TypeString,
-				Optional:      true,
+				Type:schema.TypeString,
+				Optional: true,
 				ConflictsWith: []string{"pipeline_config"},
 			},
 			"field": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"kind": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      appsync.ResolverKindUnit,
+				Type:schema.TypeString,
+				Optional:true,
+				Default: appsync.ResolverKindUnit,
 				ValidateFunc: validation.StringInSlice(appsync.ResolverKind_Values(), true),
 			},
 			"max_batch_size": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional:true,
 				ValidateFunc: validation.IntBetween(0, 2000),
 			},
 			"pipeline_config": {
-				Type:          schema.TypeList,
-				Optional:      true,
-				MaxItems:      1,
+				Type:schema.TypeList,
+				Optional: true,
+				MaxItems: 1,
 				ConflictsWith: []string{"data_source"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"functions": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							Elem: &schema.Schema{
 								Type: schema.TypeString,
@@ -111,57 +111,57 @@ func ResourceResolver() *schema.Resource {
 				},
 			},
 			"request_template": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"response_template": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"runtime": {
-				Type:         schema.TypeList,
-				Optional:     true,
-				MaxItems:     1,
+				Type:schema.TypeList,
+				Optional:true,
+				MaxItems:1,
 				RequiredWith: []string{"code"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(appsync.RuntimeName_Values(), false),
 						},
 						"runtime_version": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"sync_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"conflict_detection": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional:true,
 							ValidateFunc: validation.StringInSlice(appsync.ConflictDetectionType_Values(), false),
 						},
 						"conflict_handler": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional:true,
 							ValidateFunc: validation.StringInSlice(appsync.ConflictHandlerType_Values(), false),
 						},
 						"lambda_conflict_handler_config": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"lambda_conflict_handler_arn": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -171,23 +171,22 @@ func ResourceResolver() *schema.Resource {
 				},
 			},
 			"type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 		},
 	}
 }
-
 func resourceResolverCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
 
 	input := &appsync.CreateResolverInput{
-		ApiId:     aws.String(d.Get("api_id").(string)),
+		ApiId:aws.String(d.Get("api_id").(string)),
 		TypeName:  aws.String(d.Get("type").(string)),
 		FieldName: aws.String(d.Get("field").(string)),
-		Kind:      aws.String(d.Get("kind").(string)),
+		Kind: aws.String(d.Get("kind").(string)),
 	}
 
 	if v, ok := d.GetOk("code"); ok {
@@ -242,7 +241,6 @@ func resourceResolverCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceResolverRead(ctx, d, meta)...)
 }
-
 func resourceResolverRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -254,7 +252,7 @@ func resourceResolverRead(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 
 	input := &appsync.GetResolverInput{
-		ApiId:     aws.String(apiID),
+		ApiId:aws.String(apiID),
 		TypeName:  aws.String(typeName),
 		FieldName: aws.String(fieldName),
 	}
@@ -301,16 +299,15 @@ func resourceResolverRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func resourceResolverUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
 
 	input := &appsync.UpdateResolverInput{
-		ApiId:     aws.String(d.Get("api_id").(string)),
+		ApiId:aws.String(d.Get("api_id").(string)),
 		FieldName: aws.String(d.Get("field").(string)),
 		TypeName:  aws.String(d.Get("type").(string)),
-		Kind:      aws.String(d.Get("kind").(string)),
+		Kind: aws.String(d.Get("kind").(string)),
 	}
 
 	if v, ok := d.GetOk("code"); ok {
@@ -366,7 +363,6 @@ func resourceResolverUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceResolverRead(ctx, d, meta)...)
 }
-
 func resourceResolverDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -378,7 +374,7 @@ func resourceResolverDelete(ctx context.Context, d *schema.ResourceData, meta in
 	}
 
 	input := &appsync.DeleteResolverInput{
-		ApiId:     aws.String(apiID),
+		ApiId:aws.String(apiID),
 		TypeName:  aws.String(typeName),
 		FieldName: aws.String(fieldName),
 	}
@@ -397,7 +393,6 @@ func resourceResolverDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func DecodeResolverID(id string) (string, string, string, error) {
 	idParts := strings.SplitN(id, "-", 3)
 	if len(idParts) != 3 {
@@ -405,7 +400,6 @@ func DecodeResolverID(id string) (string, string, string, error) {
 	}
 	return idParts[0], idParts[1], idParts[2], nil
 }
-
 func expandResolverCachingConfig(l []interface{}) *appsync.CachingConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
@@ -423,7 +417,6 @@ func expandResolverCachingConfig(l []interface{}) *appsync.CachingConfig {
 
 	return cachingConfig
 }
-
 func expandPipelineConfig(l []interface{}) *appsync.PipelineConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
@@ -439,7 +432,6 @@ func expandPipelineConfig(l []interface{}) *appsync.PipelineConfig {
 
 	return config
 }
-
 func flattenPipelineConfig(c *appsync.PipelineConfig) []interface{} {
 	if c == nil {
 		return nil
@@ -455,7 +447,6 @@ func flattenPipelineConfig(c *appsync.PipelineConfig) []interface{} {
 
 	return []interface{}{m}
 }
-
 func flattenCachingConfig(c *appsync.CachingConfig) []interface{} {
 	if c == nil {
 		return nil
@@ -467,7 +458,7 @@ func flattenCachingConfig(c *appsync.CachingConfig) []interface{} {
 
 	m := map[string]interface{}{
 		"caching_keys": flex.FlattenStringSet(c.CachingKeys),
-		"ttl":          int(aws.Int64Value(c.Ttl)),
+		"ttl":int(aws.Int64Value(c.Ttl)),
 	}
 
 	return []interface{}{m}

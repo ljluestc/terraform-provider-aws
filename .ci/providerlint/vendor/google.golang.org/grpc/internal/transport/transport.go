@@ -52,8 +52,7 @@ const logLevel = 2
 type bufferPool struct {
 	pool sync.Pool
 }
-
-func newBufferPool() *bufferPool {
+ newBufferPool() *bufferPool {
 	return &bufferPool{
 		pool: sync.Pool{
 			New: func() interface{} {
@@ -62,12 +61,10 @@ func newBufferPool() *bufferPool {
 		},
 	}
 }
-
-func (p *bufferPool) get() *bytes.Buffer {
+ (p *bufferPool) get() *bytes.Buffer {
 	return p.pool.Get().(*bytes.Buffer)
 }
-
-func (p *bufferPool) put(b *bytes.Buffer) {
+ (p *bufferPool) put(b *bytes.Buffer) {
 	p.pool.Put(b)
 }
 
@@ -93,15 +90,13 @@ type recvBuffer struct {
 	backlog []recvMsg
 	err     error
 }
-
-func newRecvBuffer() *recvBuffer {
+ newRecvBuffer() *recvBuffer {
 	b := &recvBuffer{
 		c: make(chan recvMsg, 1),
 	}
 	return b
 }
-
-func (b *recvBuffer) put(r recvMsg) {
+ (b *recvBuffer) put(r recvMsg) {
 	b.mu.Lock()
 	if b.err != nil {
 		b.mu.Unlock()
@@ -121,8 +116,7 @@ func (b *recvBuffer) put(r recvMsg) {
 	b.backlog = append(b.backlog, r)
 	b.mu.Unlock()
 }
-
-func (b *recvBuffer) load() {
+ (b *recvBuffer) load() {
 	b.mu.Lock()
 	if len(b.backlog) > 0 {
 		select {
@@ -138,8 +132,7 @@ func (b *recvBuffer) load() {
 // get returns the channel that receives a recvMsg in the buffer.
 //
 // Upon receipt of a recvMsg, the caller should call load to send another
-// recvMsg onto the channel if there is any.
-func (b *recvBuffer) get() <-chan recvMsg {
+// recvMsg onto the channel if there is any. (b *recvBuffer) get() <-chan recvMsg {
 	return b.c
 }
 
@@ -157,8 +150,7 @@ type recvBufferReader struct {
 
 // Read reads the next len(p) bytes from last. If last is drained, it tries to
 // read additional data from recv. It blocks if there no additional data available
-// in recv. If Read returns any non-nil error, it will continue to return that error.
-func (r *recvBufferReader) Read(p []byte) (n int, err error) {
+// in recv. If Read returns any non-nil error, it will continue to return that error. (r *recvBufferReader) Read(p []byte) (n int, err error) {
 	if r.err != nil {
 		return 0, r.err
 	}
@@ -178,8 +170,7 @@ func (r *recvBufferReader) Read(p []byte) (n int, err error) {
 	}
 	return n, r.err
 }
-
-func (r *recvBufferReader) read(p []byte) (n int, err error) {
+ (r *recvBufferReader) read(p []byte) (n int, err error) {
 	select {
 	case <-r.ctxDone:
 		return 0, ContextErr(r.ctx.Err())
@@ -187,8 +178,7 @@ func (r *recvBufferReader) read(p []byte) (n int, err error) {
 		return r.readAdditional(m, p)
 	}
 }
-
-func (r *recvBufferReader) readClient(p []byte) (n int, err error) {
+ (r *recvBufferReader) readClient(p []byte) (n int, err error) {
 	// If the context is canceled, then closes the stream with nil metadata.
 	// closeStream writes its error parameter to r.recv as a recvMsg.
 	// r.readAdditional acts on that message and returns the necessary error.
@@ -214,8 +204,7 @@ func (r *recvBufferReader) readClient(p []byte) (n int, err error) {
 		return r.readAdditional(m, p)
 	}
 }
-
-func (r *recvBufferReader) readAdditional(m recvMsg, p []byte) (n int, err error) {
+ (r *recvBufferReader) readAdditional(m recvMsg, p []byte) (n int, err error) {
 	r.recv.load()
 	if m.err != nil {
 		return 0, m.err
@@ -299,30 +288,24 @@ type Stream struct {
 	contentSubtype string
 }
 
-// isHeaderSent is only valid on the server-side.
-func (s *Stream) isHeaderSent() bool {
+// isHeaderSent is only valid on the server-side. (s *Stream) isHeaderSent() bool {
 	return atomic.LoadUint32(&s.headerSent) == 1
 }
 
 // updateHeaderSent updates headerSent and returns true
-// if it was alreay set. It is valid only on server-side.
-func (s *Stream) updateHeaderSent() bool {
+// if it was alreay set. It is valid only on server-side. (s *Stream) updateHeaderSent() bool {
 	return atomic.SwapUint32(&s.headerSent, 1) == 1
 }
-
-func (s *Stream) swapState(st streamState) streamState {
+ (s *Stream) swapState(st streamState) streamState {
 	return streamState(atomic.SwapUint32((*uint32)(&s.state), uint32(st)))
 }
-
-func (s *Stream) compareAndSwapState(oldState, newState streamState) bool {
+ (s *Stream) compareAndSwapState(oldState, newState streamState) bool {
 	return atomic.CompareAndSwapUint32((*uint32)(&s.state), uint32(oldState), uint32(newState))
 }
-
-func (s *Stream) getState() streamState {
+ (s *Stream) getState() streamState {
 	return streamState(atomic.LoadUint32((*uint32)(&s.state)))
 }
-
-func (s *Stream) waitOnHeader() {
+ (s *Stream) waitOnHeader() {
 	if s.headerChan == nil {
 		// On the server headerChan is always nil since a stream originates
 		// only after having received headers.
@@ -341,14 +324,12 @@ func (s *Stream) waitOnHeader() {
 }
 
 // RecvCompress returns the compression algorithm applied to the inbound
-// message. It is empty string if there is no compression applied.
-func (s *Stream) RecvCompress() string {
+// message. It is empty string if there is no compression applied. (s *Stream) RecvCompress() string {
 	s.waitOnHeader()
 	return s.recvCompress
 }
 
-// SetSendCompress sets the compression algorithm to the stream.
-func (s *Stream) SetSendCompress(name string) error {
+// SetSendCompress sets the compression algorithm to the stream. (s *Stream) SetSendCompress(name string) error {
 	if s.isHeaderSent() || s.getState() == streamDone {
 		return errors.New("transport: set send compressor called after headers sent or stream done")
 	}
@@ -357,20 +338,17 @@ func (s *Stream) SetSendCompress(name string) error {
 	return nil
 }
 
-// SendCompress returns the send compressor name.
-func (s *Stream) SendCompress() string {
+// SendCompress returns the send compressor name. (s *Stream) SendCompress() string {
 	return s.sendCompress
 }
 
 // ClientAdvertisedCompressors returns the compressor names advertised by the
-// client via grpc-accept-encoding header.
-func (s *Stream) ClientAdvertisedCompressors() string {
+// client via grpc-accept-encoding header. (s *Stream) ClientAdvertisedCompressors() string {
 	return s.clientAdvertisedCompressors
 }
 
 // Done returns a channel which is closed when it receives the final status
-// from the server.
-func (s *Stream) Done() <-chan struct{} {
+// from the server. (s *Stream) Done() <-chan struct{} {
 	return s.done
 }
 
@@ -381,8 +359,7 @@ func (s *Stream) Done() <-chan struct{} {
 // metadata or iii) the stream is canceled/expired.
 //
 // On server side, it returns the out header after t.WriteHeader is called.  It
-// does not block and must not be called until after WriteHeader.
-func (s *Stream) Header() (metadata.MD, error) {
+// does not block and must not be called until after WriteHeader. (s *Stream) Header() (metadata.MD, error) {
 	if s.headerChan == nil {
 		// On server side, return the header in stream. It will be the out
 		// header after t.WriteHeader is called.
@@ -403,8 +380,7 @@ func (s *Stream) Header() (metadata.MD, error) {
 
 // TrailersOnly blocks until a header or trailers-only frame is received and
 // then returns true if the stream was trailers-only.  If the stream ends
-// before headers are received, returns true, nil.  Client-side only.
-func (s *Stream) TrailersOnly() bool {
+// before headers are received, returns true, nil.  Client-side only. (s *Stream) TrailersOnly() bool {
 	s.waitOnHeader()
 	return s.noHeaders
 }
@@ -413,8 +389,7 @@ func (s *Stream) TrailersOnly() bool {
 // after the entire stream is done, it could return an empty MD. Client
 // side only.
 // It can be safely read only after stream has ended that is either read
-// or write have returned io.EOF.
-func (s *Stream) Trailer() metadata.MD {
+// or write have returned io.EOF. (s *Stream) Trailer() metadata.MD {
 	c := s.trailer.Copy()
 	return c
 }
@@ -423,32 +398,27 @@ func (s *Stream) Trailer() metadata.MD {
 // content-subtype of "proto" will result in a content-type of
 // "application/grpc+proto". This will always be lowercase.  See
 // https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md#requests for
-// more details.
-func (s *Stream) ContentSubtype() string {
+// more details. (s *Stream) ContentSubtype() string {
 	return s.contentSubtype
 }
 
-// Context returns the context of the stream.
-func (s *Stream) Context() context.Context {
+// Context returns the context of the stream. (s *Stream) Context() context.Context {
 	return s.ctx
 }
 
-// Method returns the method for the stream.
-func (s *Stream) Method() string {
+// Method returns the method for the stream. (s *Stream) Method() string {
 	return s.method
 }
 
 // Status returns the status received from the server.
 // Status can be read safely only after the stream has ended,
-// that is, after Done() is closed.
-func (s *Stream) Status() *status.Status {
+// that is, after Done() is closed. (s *Stream) Status() *status.Status {
 	return s.status
 }
 
 // SetHeader sets the header metadata. This can be called multiple times.
 // Server side only.
-// This should not be called in parallel to other data writes.
-func (s *Stream) SetHeader(md metadata.MD) error {
+// This should not be called in parallel to other data writes. (s *Stream) SetHeader(md metadata.MD) error {
 	if md.Len() == 0 {
 		return nil
 	}
@@ -463,15 +433,13 @@ func (s *Stream) SetHeader(md metadata.MD) error {
 
 // SendHeader sends the given header metadata. The given metadata is
 // combined with any metadata set by previous calls to SetHeader and
-// then written to the transport stream.
-func (s *Stream) SendHeader(md metadata.MD) error {
+// then written to the transport stream. (s *Stream) SendHeader(md metadata.MD) error {
 	return s.st.WriteHeader(s, md)
 }
 
 // SetTrailer sets the trailer metadata which will be sent with the RPC status
 // by the server. This can be called multiple times. Server side only.
-// This should not be called parallel to other data writes.
-func (s *Stream) SetTrailer(md metadata.MD) error {
+// This should not be called parallel to other data writes. (s *Stream) SetTrailer(md metadata.MD) error {
 	if md.Len() == 0 {
 		return nil
 	}
@@ -483,13 +451,11 @@ func (s *Stream) SetTrailer(md metadata.MD) error {
 	s.hdrMu.Unlock()
 	return nil
 }
-
-func (s *Stream) write(m recvMsg) {
+ (s *Stream) write(m recvMsg) {
 	s.buf.put(m)
 }
 
-// Read reads all p bytes from the wire for this stream.
-func (s *Stream) Read(p []byte) (n int, err error) {
+// Read reads all p bytes from the wire for this stream. (s *Stream) Read(p []byte) (n int, err error) {
 	// Don't request a read if there was an error earlier
 	if er := s.trReader.(*transportReader).er; er != nil {
 		return 0, er
@@ -509,8 +475,7 @@ type transportReader struct {
 	windowHandler func(int)
 	er            error
 }
-
-func (t *transportReader) Read(p []byte) (n int, err error) {
+ (t *transportReader) Read(p []byte) (n int, err error) {
 	n, err = t.reader.Read(p)
 	if err != nil {
 		t.er = err
@@ -520,20 +485,17 @@ func (t *transportReader) Read(p []byte) (n int, err error) {
 	return
 }
 
-// BytesReceived indicates whether any bytes have been received on this stream.
-func (s *Stream) BytesReceived() bool {
+// BytesReceived indicates whether any bytes have been received on this stream. (s *Stream) BytesReceived() bool {
 	return atomic.LoadUint32(&s.bytesReceived) == 1
 }
 
 // Unprocessed indicates whether the server did not process this stream --
-// i.e. it sent a refused stream or GOAWAY including this stream ID.
-func (s *Stream) Unprocessed() bool {
+// i.e. it sent a refused stream or GOAWAY including this stream ID. (s *Stream) Unprocessed() bool {
 	return atomic.LoadUint32(&s.unprocessed) == 1
 }
 
 // GoString is implemented by Stream so context.String() won't
-// race when printing %#v.
-func (s *Stream) GoString() string {
+// race when printing %#v. (s *Stream) GoString() string {
 	return fmt.Sprintf("<stream: %p, %v>", s, s.method)
 }
 
@@ -601,8 +563,7 @@ type ConnectOptions struct {
 }
 
 // NewClientTransport establishes the transport with the required ConnectOptions
-// and returns it to the caller.
-func NewClientTransport(connectCtx, ctx context.Context, addr resolver.Address, opts ConnectOptions, onClose func(GoAwayReason)) (ClientTransport, error) {
+// and returns it to the caller. NewClientTransport(connectCtx, ctx context.Context, addr resolver.Address, opts ConnectOptions, onClose func(GoAwayReason)) (ClientTransport, error) {
 	return newHTTP2Client(connectCtx, ctx, addr, opts, onClose)
 }
 
@@ -735,8 +696,7 @@ type ServerTransport interface {
 	IncrMsgRecv()
 }
 
-// connectionErrorf creates an ConnectionError with the specified error description.
-func connectionErrorf(temp bool, e error, format string, a ...interface{}) ConnectionError {
+// connectionErrorf creates an ConnectionError with the specified error description. connectionErrorf(temp bool, e error, format string, a ...interface{}) ConnectionError {
 	return ConnectionError{
 		Desc: fmt.Sprintf(format, a...),
 		temp: temp,
@@ -751,18 +711,15 @@ type ConnectionError struct {
 	temp bool
 	err  error
 }
-
-func (e ConnectionError) Error() string {
+ (e ConnectionError) Error() string {
 	return fmt.Sprintf("connection error: desc = %q", e.Desc)
 }
 
-// Temporary indicates if this connection error is temporary or fatal.
-func (e ConnectionError) Temporary() bool {
+// Temporary indicates if this connection error is temporary or fatal. (e ConnectionError) Temporary() bool {
 	return e.temp
 }
 
-// Origin returns the original error of this connection error.
-func (e ConnectionError) Origin() error {
+// Origin returns the original error of this connection error. (e ConnectionError) Origin() error {
 	// Never return nil error here.
 	// If the original error is nil, return itself.
 	if e.err == nil {
@@ -772,8 +729,7 @@ func (e ConnectionError) Origin() error {
 }
 
 // Unwrap returns the original error of this connection error or nil when the
-// origin is nil.
-func (e ConnectionError) Unwrap() error {
+// origin is nil. (e ConnectionError) Unwrap() error {
 	return e.err
 }
 
@@ -830,8 +786,7 @@ type channelzData struct {
 	lastMsgRecvTime       int64
 }
 
-// ContextErr converts the error from context package into a status error.
-func ContextErr(err error) error {
+// ContextErr converts the error from context package into a status error. ContextErr(err error) error {
 	switch err {
 	case context.DeadlineExceeded:
 		return status.Error(codes.DeadlineExceeded, err.Error())

@@ -39,7 +39,8 @@ import (
 
 // @FrameworkResource(name="View")
 // @Tags(identifierAttribute="id")
-func newResourceView(context.Context) (resource.ResourceWithConfigure, error) {
+
+ newResourceView(context.Context) (resource.ResourceWithConfigure, error) {
 	return &resourceView{}, nil
 }
 
@@ -47,11 +48,13 @@ type resourceView struct {
 	framework.ResourceWithConfigure
 }
 
-func (r *resourceView) Metadata(_ context.Context, request resource.MetadataRequest, response *resource.MetadataResponse) {
+
+ (r *resourceView) Metadata(_ context.Context, request resource.MetadataRequest, response *resource.MetadataResponse) {
 	response.TypeName = "aws_resourceexplorer2_view"
 }
 
-func (r *resourceView) Schema(ctx context.Context, request resource.SchemaRequest, response *resource.SchemaResponse) {
+
+ (r *resourceView) Schema(ctx context.Context, request resource.SchemaRequest, response *resource.SchemaResponse) {
 	response.Schema = schema.Schema{
 Attributes: map[string]schema.Attribute{
 	"arn": schema.StringAttribute{
@@ -76,7 +79,7 @@ Validators: []validator.String{
 	stringvalidator.RegexMatches(regexache.MustCompile(`^[0-9A-Za-z-]+$`), `can include letters, digits, and the dash (-) character`),
 },
 	},
-	names.AttrTags:    tftags.TagsAttribute(),
+	names.AttrTags:tftags.TagsAttribute(),
 	names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
 },
 Blocks: map[string]schema.Block{
@@ -111,7 +114,8 @@ enum.FrameworkValidate[propertyName](),
 	}
 }
 
-func (r *resourceView) Create(ctx context.Context, request resource.CreateRequest, response *resource.CreateResponse) {
+
+ (r *resourceView) Create(ctx context.Context, request resource.CreateRequest, response *resource.CreateResponse) {
 	var data resourceViewData
 
 	response.Diagnostics.Append(request.Plan.Get(ctx, &data)...)
@@ -123,11 +127,11 @@ return
 	conn := r.Meta().ResourceExplorer2Client(ctx)
 
 	input := &resourceexplorer2.CreateViewInput{
-ClientToken:        aws.String(id.UniqueId()),
-Filters:            flex.ExpandFrameworkListNestedBlockPtr(ctx, data.Filters, r.expandSearchFilter),
+ClientToken:aws.String(id.UniqueId()),
+Filters:   flex.ExpandFrameworkListNestedBlockPtr(ctx, data.Filters, r.expandSearchFilter),
 IncludedProperties: flex.ExpandFrameworkListNestedBlock(ctx, data.IncludedProperties, r.expandIncludedProperty),
 Tags:getTagsIn(ctx),
-ViewName:           aws.String(data.ViewName.ValueString()),
+ViewName:  aws.String(data.ViewName.ValueString()),
 	}
 
 	output, err := conn.CreateView(ctx, input)
@@ -161,7 +165,8 @@ if err != nil {
 	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
 }
 
-func (r *resourceView) Read(ctx context.Context, request resource.ReadRequest, response *resource.ReadResponse) {
+
+ (r *resourceView) Read(ctx context.Context, request resource.ReadRequest, response *resource.ReadResponse) {
 	var data resourceViewData
 
 	response.Diagnostics.Append(request.State.Get(ctx, &data)...)
@@ -226,7 +231,8 @@ return
 	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
 }
 
-func (r *resourceView) Update(ctx context.Context, request resource.UpdateRequest, response *resource.UpdateResponse) {
+
+ (r *resourceView) Update(ctx context.Context, request resource.UpdateRequest, response *resource.UpdateResponse) {
 	var old, new resourceViewData
 
 	response.Diagnostics.Append(request.State.Get(ctx, &old)...)
@@ -245,9 +251,9 @@ return
 
 	if !new.Filters.Equal(old.Filters) || !new.IncludedProperties.Equal(old.IncludedProperties) {
 input := &resourceexplorer2.UpdateViewInput{
-	Filters:            flex.ExpandFrameworkListNestedBlockPtr(ctx, new.Filters, r.expandSearchFilter),
+	Filters:   flex.ExpandFrameworkListNestedBlockPtr(ctx, new.Filters, r.expandSearchFilter),
 	IncludedProperties: flex.ExpandFrameworkListNestedBlock(ctx, new.IncludedProperties, r.expandIncludedProperty),
-	ViewArn:            flex.StringFromFramework(ctx, new.ID),
+	ViewArn:   flex.StringFromFramework(ctx, new.ID),
 }
 
 _, err := conn.UpdateView(ctx, input)
@@ -288,7 +294,8 @@ return
 	response.Diagnostics.Append(response.State.Set(ctx, &new)...)
 }
 
-func (r *resourceView) Delete(ctx context.Context, request resource.DeleteRequest, response *resource.DeleteResponse) {
+
+ (r *resourceView) Delete(ctx context.Context, request resource.DeleteRequest, response *resource.DeleteResponse) {
 	var data resourceViewData
 
 	response.Diagnostics.Append(request.State.Get(ctx, &data)...)
@@ -313,21 +320,25 @@ return
 	}
 }
 
-func (r *resourceView) ImportState(ctx context.Context, request resource.ImportStateRequest, response *resource.ImportStateResponse) {
+
+ (r *resourceView) ImportState(ctx context.Context, request resource.ImportStateRequest, response *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), request, response)
 }
 
-func (r *resourceView) ModifyPlan(ctx context.Context, request resource.ModifyPlanRequest, response *resource.ModifyPlanResponse) {
+
+ (r *resourceView) ModifyPlan(ctx context.Context, request resource.ModifyPlanRequest, response *resource.ModifyPlanResponse) {
 	r.SetTagsAll(ctx, request, response)
 }
 
-func (r *resourceView) expandSearchFilter(ctx context.Context, data viewSearchFilterData) *awstypes.SearchFilter {
+
+ (r *resourceView) expandSearchFilter(ctx context.Context, data viewSearchFilterData) *awstypes.SearchFilter {
 	return &awstypes.SearchFilter{
 FilterString: flex.StringFromFramework(ctx, data.FilterString),
 	}
 }
 
-func (r *resourceView) flattenSearchFilter(ctx context.Context, apiObject *awstypes.SearchFilter) types.List {
+
+ (r *resourceView) flattenSearchFilter(ctx context.Context, apiObject *awstypes.SearchFilter) types.List {
 	attributeTypes := flex.AttributeTypesMust[viewSearchFilterData](ctx)
 	elementType := types.ObjectType{AttrTypes: attributeTypes}
 
@@ -350,13 +361,15 @@ types.ObjectValueMust(attributeTypes, map[string]attr.Value{
 	})
 }
 
-func (r *resourceView) expandIncludedProperty(ctx context.Context, data viewIncludedPropertyData) awstypes.IncludedProperty {
+
+ (r *resourceView) expandIncludedProperty(ctx context.Context, data viewIncludedPropertyData) awstypes.IncludedProperty {
 	return awstypes.IncludedProperty{
 Name: flex.StringFromFramework(ctx, data.Name),
 	}
 }
 
-func (r *resourceView) flattenIncludedProperty(ctx context.Context, apiObject awstypes.IncludedProperty) viewIncludedPropertyData {
+
+ (r *resourceView) flattenIncludedProperty(ctx context.Context, apiObject awstypes.IncludedProperty) viewIncludedPropertyData {
 	return viewIncludedPropertyData{
 Name: flex.StringToFramework(ctx, apiObject.Name),
 	}
@@ -364,14 +377,14 @@ Name: flex.StringToFramework(ctx, apiObject.Name),
 
 // See https://docs.aws.amazon.com/resource-explorer/latest/apireference/API_View.html.
 type resourceViewData struct {
-	ViewArn            types.String `tfsdk:"arn"`
-	DefaultView        types.Bool   `tfsdk:"default_view"`
-	Filters            types.List   `tfsdk:"filters"`
+	ViewArn   types.String `tfsdk:"arn"`
+	DefaultViewtypes.Bool   `tfsdk:"default_view"`
+	Filters   types.List   `tfsdk:"filters"`
 	ID  types.String `tfsdk:"id"`
 	IncludedProperties types.List   `tfsdk:"included_property"`
-	ViewName           types.String `tfsdk:"name"`
-	Tagstypes.Map    `tfsdk:"tags"`
-	TagsAll            types.Map    `tfsdk:"tags_all"`
+	ViewName  types.String `tfsdk:"name"`
+	Tagstypes.Map`tfsdk:"tags"`
+	TagsAll   types.Map`tfsdk:"tags_all"`
 }
 
 type viewSearchFilterData struct {
@@ -382,7 +395,8 @@ type viewIncludedPropertyData struct {
 	Name types.String `tfsdk:"name"`
 }
 
-func findDefaultViewARN(ctx context.Context, conn *resourceexplorer2.Client) (string, error) {
+
+ findDefaultViewARN(ctx context.Context, conn *resourceexplorer2.Client) (string, error) {
 	input := &resourceexplorer2.GetDefaultViewInput{}
 
 	output, err := conn.GetDefaultView(ctx, input)
@@ -398,7 +412,8 @@ return "", nil
 	return aws.ToString(output.ViewArn), nil
 }
 
-func findViewByARN(ctx context.Context, conn *resourceexplorer2.Client, arn string) (*resourceexplorer2.GetViewOutput, error) {
+
+ findViewByARN(ctx context.Context, conn *resourceexplorer2.Client, arn string) (*resourceexplorer2.GetViewOutput, error) {
 	input := &resourceexplorer2.GetViewInput{
 ViewArn: aws.String(arn),
 	}
@@ -430,7 +445,8 @@ const (
 	propertyNameTags propertyName = "tags"
 )
 
-func (propertyName) Values() []propertyName {
+
+ (propertyName) Values() []propertyName {
 	return []propertyName{
 propertyNameTags,
 	}

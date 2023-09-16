@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package backup_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package backup_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/backup"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,21 +11,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfbackup "github.com/hashicorp/terraform-provider-aws/internal/service/backup"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-
-func TestAccBackupVaultPolicy_basic(t *testing.T) {
+)func TestAccBackupVaultPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault backup.GetBackupVaultAccessPolicyOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_backup_vault_policy.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_backup_vault_policy.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultPolicyDestroy(ctx),
+CheckDestroy: testAccCheckVaultPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVaultPolicyConfig_basic(rName),
@@ -41,8 +30,8 @@ func(
 	resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile("^{\"Id\":\"default\".+"))),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -56,21 +45,16 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccBackupVaultPolicy_disappears(t *testing.T) {
+}func TestAccBackupVaultPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault backup.GetBackupVaultAccessPolicyOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_backup_vault_policy.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_backup_vault_policy.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultPolicyDestroy(ctx),
+CheckDestroy: testAccCheckVaultPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVaultPolicyConfig_basic(rName),
@@ -83,22 +67,17 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func TestAccBackupVaultPolicy_Disappears_vault(t *testing.T) {
+}func TestAccBackupVaultPolicy_Disappears_vault(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault backup.GetBackupVaultAccessPolicyOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_backup_vault_policy.test"
-	vaultResourceName := "aws_backup_vault.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	vaultResourceName := "aws_backup_vault.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultPolicyDestroy(ctx),
+CheckDestroy: testAccCheckVaultPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVaultPolicyConfig_basic(rName),
@@ -111,21 +90,16 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func TestAccBackupVaultPolicy_ignoreEquivalent(t *testing.T) {
+}func TestAccBackupVaultPolicy_ignoreEquivalent(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault backup.GetBackupVaultAccessPolicyOutput
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_backup_vault_policy.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_backup_vault_policy.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVaultPolicyDestroy(ctx),
+CheckDestroy: testAccCheckVaultPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVaultPolicyConfig_basic(rName),
@@ -135,174 +109,123 @@ func(
 	resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile("\"Version\":\"2012-10-17\""))),
 	},
 	{
-Config:   testAccVaultPolicyConfig_newOrder(rName),
+Config:testAccVaultPolicyConfig_newOrder(rName),
 PlanOnly: true,
 	},
 },
 	})
-}
-
-
-func testAccCheckVaultPolicyDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckVaultPolicyDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_backup_vault_policy" {
 continue
-	}
-
-	_, err := tfbackup.FindVaultAccessPolicyByName(ctx, conn, rs.Primary.ID)
-
-	if tfresource.NotFound(err) {
+	}	_, err := tfbackup.FindVaultAccessPolicyByName(ctx, conn, rs.Primary.ID)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
+	}	return fmt.Errorf("Backup Vault Policy %s still exists", rs.Primary.ID)
+}return nil
 	}
-
-	return fmt.Errorf("Backup Vault Policy %s still exists", rs.Primary.ID)
-}
-
-return nil
-	}
-}
-
-
-func testAccCheckVaultPolicyExists(ctx context.Context, name string, vault *backup.GetBackupVaultAccessPolicyOutput) resource.TestCheck
+}func testAccCheckVaultPolicyExists(ctx context.Context, name string, vault *backup.GetBackupVaultAccessPolicyOutput) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return fmt.Errorf("Not found: %s", name)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No Backup Vault Policy ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
-
-output, err := tfbackup.FindVaultAccessPolicyByName(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)output, err := tfbackup.FindVaultAccessPolicyByName(ctx, conn, rs.Primary.ID)if err != nil {
 	return err
-}
-
-*vault = *output
-
-return nil
+}*vault = *outputreturn nil
 	}
-}
-
-
-func testAccVaultPolicyConfig_basic(rName string) string {
+}func testAccVaultPolicyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_backup_vault" "test" {
   name = %[1]q
+}resource "aws_backup_vault_policy" "test" {
+  backup_vault_name = aws_backup_vault.test.name  policy = jsonencode({
+ Version = "2012-10-17"
+ Id= "default"
+ Statement = [{
+Sid = "default"
+Effect = "Allow"
+Principal = {
+  AWS = "*"
 }
-
-resource "aws_backup_vault_policy" "test" {
-  backup_vault_name = aws_backup_vault.test.name
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Id      = "default"
-    Statement = [{
-      Sid    = "default"
-      Effect = "Allow"
-      Principal = {
-        AWS = "*"
-      }
-      Action = [
-        "backup:DescribeBackupVault",
-        "backup:DeleteBackupVault",
-        "backup:PutBackupVaultAccessPolicy",
-        "backup:DeleteBackupVaultAccessPolicy",
-        "backup:GetBackupVaultAccessPolicy",
-        "backup:StartBackupJob",
-        "backup:GetBackupVaultNotifications",
-        "backup:PutBackupVaultNotifications",
-      ]
-      Resource = aws_backup_vault.test.arn
-    }]
+Action = [
+  "backup:DescribeBackupVault",
+  "backup:DeleteBackupVault",
+  "backup:PutBackupVaultAccessPolicy",
+  "backup:DeleteBackupVaultAccessPolicy",
+  "backup:GetBackupVaultAccessPolicy",
+  "backup:StartBackupJob",
+  "backup:GetBackupVaultNotifications",
+  "backup:PutBackupVaultNotifications",
+]
+Resource = aws_backup_vault.test.arn
+ }]
   })
 }
 `, rName)
-}
-
-
-func testAccVaultPolicyConfig_updated(rName string) string {
+}func testAccVaultPolicyConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_backup_vault" "test" {
   name = %[1]q
+}resource "aws_backup_vault_policy" "test" {
+  backup_vault_name = aws_backup_vault.test.name  policy = jsonencode({
+ Version = "2012-10-17"
+ Id= "default"
+ Statement = [{
+Sid = "default"
+Effect = "Allow"
+Principal = {
+  AWS = "*"
 }
-
-resource "aws_backup_vault_policy" "test" {
-  backup_vault_name = aws_backup_vault.test.name
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Id      = "default"
-    Statement = [{
-      Sid    = "default"
-      Effect = "Allow"
-      Principal = {
-        AWS = "*"
-      }
-      Action = [
-        "backup:DescribeBackupVault",
-        "backup:DeleteBackupVault",
-        "backup:PutBackupVaultAccessPolicy",
-        "backup:DeleteBackupVaultAccessPolicy",
-        "backup:GetBackupVaultAccessPolicy",
-        "backup:StartBackupJob",
-        "backup:GetBackupVaultNotifications",
-        "backup:PutBackupVaultNotifications",
-        "backup:ListRecoveryPointsByBackupVault",
-      ]
-      Resource = aws_backup_vault.test.arn
-    }]
+Action = [
+  "backup:DescribeBackupVault",
+  "backup:DeleteBackupVault",
+  "backup:PutBackupVaultAccessPolicy",
+  "backup:DeleteBackupVaultAccessPolicy",
+  "backup:GetBackupVaultAccessPolicy",
+  "backup:StartBackupJob",
+  "backup:GetBackupVaultNotifications",
+  "backup:PutBackupVaultNotifications",
+  "backup:ListRecoveryPointsByBackupVault",
+]
+Resource = aws_backup_vault.test.arn
+ }]
   })
 }
 `, rName)
-}
-
-
-func testAccVaultPolicyConfig_newOrder(rName string) string {
+}func testAccVaultPolicyConfig_newOrder(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_backup_vault" "test" {
   name = %[1]q
+}resource "aws_backup_vault_policy" "test" {
+  backup_vault_name = aws_backup_vault.test.name  policy = jsonencode({
+ Version = "2012-10-17"
+ Id= "default"
+ Statement = [{
+Sid = "default"
+Effect = "Allow"
+Principal = {
+  AWS = "*"
 }
-
-resource "aws_backup_vault_policy" "test" {
-  backup_vault_name = aws_backup_vault.test.name
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Id      = "default"
-    Statement = [{
-      Sid    = "default"
-      Effect = "Allow"
-      Principal = {
-        AWS = "*"
-      }
-      Action = [
-        "backup:DeleteBackupVault",
-        "backup:PutBackupVaultNotifications",
-        "backup:GetBackupVaultNotifications",
-        "backup:GetBackupVaultAccessPolicy",
-        "backup:DeleteBackupVaultAccessPolicy",
-        "backup:DescribeBackupVault",
-        "backup:StartBackupJob",
-        "backup:PutBackupVaultAccessPolicy",
-      ]
-      Resource = aws_backup_vault.test.arn
-    }]
+Action = [
+  "backup:DeleteBackupVault",
+  "backup:PutBackupVaultNotifications",
+  "backup:GetBackupVaultNotifications",
+  "backup:GetBackupVaultAccessPolicy",
+  "backup:DeleteBackupVaultAccessPolicy",
+  "backup:DescribeBackupVault",
+  "backup:StartBackupJob",
+  "backup:PutBackupVaultAccessPolicy",
+]
+Resource = aws_backup_vault.test.arn
+ }]
   })
 }
 `, rName)

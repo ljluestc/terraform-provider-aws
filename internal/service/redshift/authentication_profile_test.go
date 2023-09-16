@@ -25,7 +25,7 @@ func TestAccRedshiftAuthenticationProfile_basic(t *testing.T) {
 	rNameUpdated := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAuthenticationProfileDestroy(ctx),
@@ -38,8 +38,8 @@ func TestAccRedshiftAuthenticationProfile_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -59,7 +59,7 @@ func TestAccRedshiftAuthenticationProfile_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAuthenticationProfileDestroy(ctx),
@@ -126,11 +126,11 @@ func testAccAuthenticationProfileConfig_basic(rName, id string) string {
 resource "aws_redshift_authentication_profile" "test" {
   authentication_profile_name = %[1]q
   authentication_profile_content = jsonencode(
-    {
-      AllowDBUserOverride = "1"
-      Client_ID           = "ExampleClientID"
-      App_ID = %[2]q
-    }
+{
+  AllowDBUserOverride = "1"
+  Client_ID  = "ExampleClientID"
+  App_ID = %[2]q
+}
   )
 }
 `, rName, id)

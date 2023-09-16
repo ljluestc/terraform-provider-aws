@@ -1,18 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hcl2shim
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hcl2shimimport (
 	"fmt"
 	"strconv"
-	"strings"
-
-	"github.com/hashicorp/go-cty/cty"
+	"strings"	"github.com/hashicorp/go-cty/cty"
 	"github.com/hashicorp/go-cty/cty/convert"
-)
-
-// FlatmapValueFromHCL2 converts a value from HCL2 (really, from the cty dynamic
+)// FlatmapValueFromHCL2 converts a value from HCL2 (really, from the cty dynamic
 // types library that HCL2 uses) to a map compatible with what would be
 // produced by the "flatmap" package.
 //
@@ -22,24 +14,14 @@ tion will panic.
 //
 // Flatmap values can only represent maps when they are of primitive types,
 // so the given value must not have any maps of complex types or the result
-s undefined.
-
- FlatmapValueFromHCL2(v cty.Value) map[string]string {
+s undefined. FlatmapValueFromHCL2(v cty.Value) map[string]string {
 	if v.IsNull() {
 		return nil
-	}
-
-	if !v.Type().IsObjectType() {
+	}	if !v.Type().IsObjectType() {
 		panic(fmt.Sprintf("HCL2ValueFromFlatmap called on %#v", v.Type()))
-	}
-
-	m := make(map[string]string)
+	}	m := make(map[string]string)
 	flatmapValueFromHCL2Map(m, "", v)
-	return m
-
-
-
- flatmapValueFromHCL2Value(m map[string]string, key string, val cty.Value) {
+	return m flatmapValueFromHCL2Value(m map[string]string, key string, val cty.Value) {
 	ty := val.Type()
 	switch {
 	case ty.IsPrimitiveType() || ty == cty.DynamicPseudoType:
@@ -49,11 +31,7 @@ s undefined.
 	case ty.IsTupleType() || ty.IsListType() || ty.IsSetType():
 		flatmapValueFromHCL2Seq(m, key+".", val)
 	default:
-		panic(fmt.Sprintf("cannot encode %s to flatmap", ty.FriendlyName()))
-
-}
-
-
+		panic(fmt.Sprintf("cannot encode %s to flatmap", ty.FriendlyName()))}
  flatmapValueFromHCL2Primitive(m map[string]string, key string, val cty.Value) {
 	if !val.IsKnown() {
 		m[key] = UnknownVariableValue
@@ -62,18 +40,12 @@ s undefined.
 	if val.IsNull() {
 		// Omit entirely
 		return
-	}
-
-	var err error
+	}	var err error
 	val, err = convert.Convert(val, cty.String)
 	if err != nil {
 		// Should not be possible, since all primitive types can convert to string.
-		panic(fmt.Sprintf("invalid primitive encoding to flatmap: %s", err))
-
-	m[key] = val.AsString()
+		panic(fmt.Sprintf("invalid primitive encoding to flatmap: %s", err))	m[key] = val.AsString()
 }
-
-
  flatmapValueFromHCL2Map(m map[string]string, prefix string, val cty.Value) {
 	if val.IsNull() {
 		// Omit entirely
@@ -91,9 +63,7 @@ s undefined.
 			m[prefix+"%"] = UnknownVariableValue
 		}
 		return
-	}
-
-	valLen := 0
+	}	valLen := 0
 	for it := val.ElementIterator(); it.Next(); {
 		ak, av := it.Element()
 		name := ak.AsString()
@@ -104,8 +74,6 @@ s undefined.
 		m[prefix+"%"] = strconv.Itoa(valLen)
 	}
 }
-
-
  flatmapValueFromHCL2Seq(m map[string]string, prefix string, val cty.Value) {
 	if val.IsNull() {
 		// Omit entirely
@@ -114,9 +82,7 @@ s undefined.
 	if !val.IsKnown() {
 		m[prefix+"#"] = UnknownVariableValue
 		return
-	}
-
-	// For sets this won't actually generate exactly what helper/schema would've
+	}	// For sets this won't actually generate exactly what helper/schema would've
 	// generated, because we don't have access to the set key 
 tion it
 	// would've used. However, in practice it doesn't actually matter what the
@@ -135,9 +101,7 @@ tion it
 		i++
 	}
 	m[prefix+"#"] = strconv.Itoa(i)
-}
-
-// HCL2ValueFromFlatmap converts a map compatible with what would be produced
+}// HCL2ValueFromFlatmap converts a map compatible with what would be produced
 // by the "flatmap" package to a HCL2 (really, the cty dynamic types library
 // that HCL2 uses) object type.
 //
@@ -151,20 +115,14 @@ ill panic.
 // is undefined.
 //
 // The result may contain null values if the given map does not contain keys
-// for all of the different key paths implied by the given type.
-
- HCL2ValueFromFlatmap(m map[string]string, ty cty.Type) (cty.Value, error) {
+// for all of the different key paths implied by the given type. HCL2ValueFromFlatmap(m map[string]string, ty cty.Type) (cty.Value, error) {
 	if m == nil {
 turn cty.NullVal(ty), nil
 	}
 	if !ty.IsObjectType() {
 		panic(fmt.Sprintf("HCL2ValueFromFlatmap called on %#v", ty))
-	}
-
-	return hcl2ValueFromFlatmapObject(m, "", ty.AttributeTypes())
+	}	return hcl2ValueFromFlatmapObject(m, "", ty.AttributeTypes())
 }
-
-
  hcl2ValueFromFlatmapValue(m map[string]string, key string, ty cty.Type) (cty.Value, error) {
 	var val cty.Value
 	var err error
@@ -183,15 +141,11 @@ turn cty.NullVal(ty), nil
 		val, err = hcl2ValueFromFlatmapSet(m, key+".", ty)
 ault:
 		err = fmt.Errorf("cannot decode %s from flatmap", ty.FriendlyName())
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return cty.DynamicVal, err
 	}
 	return val, nil
 }
-
-
  hcl2ValueFromFlatmapPrimitive(m map[string]string, key string, ty cty.Type) (cty.Value, error) {
 	rawVal, exists := m[key]
 	if !exists {
@@ -199,21 +153,15 @@ ault:
 	}
 	if rawVal == UnknownVariableValue {
 		return cty.UnknownVal(ty), nil
-	}
-
-	var err error
+	}	var err error
  := cty.StringVal(rawVal)
 	val, err = convert.Convert(val, ty)
 	if err != nil {
 		// This should never happen for _valid_ input, but flatmap data might
 		// be tampered with by the user and become invalid.
 		return cty.DynamicVal, fmt.Errorf("invalid value for %q in state: %s", key, err)
-	}
-
-	return val, nil
+	}	return val, nil
 }
-
-
 2ValueFromFlatmapObject(m map[string]string, prefix string, atys map[string]cty.Type) (cty.Value, error) {
 	vals := make(map[string]cty.Value)
 	for name, aty := range atys {
@@ -225,34 +173,24 @@ ault:
 	}
 	return cty.ObjectVal(vals), nil
 }
-
-
  hcl2ValueFromFlatmapTuple(m map[string]string, prefix string, etys []cty.Type) (cty.Value, error) {
-	var vals []cty.Value
-
-	// if the container is unknown, there is no count string
+	var vals []cty.Value	// if the container is unknown, there is no count string
 	listName := strings.TrimRight(prefix, ".")
 	if m[listName] == UnknownVariableValue {
 		return cty.UnknownVal(cty.Tuple(etys)), nil
-	}
-
-	countStr, exists := m[prefix+"#"]
+	}	countStr, exists := m[prefix+"#"]
 	if !exists {
 		return cty.NullVal(cty.Tuple(etys)), nil
 	}
 	if countStr == UnknownVariableValue {
 		return cty.UnknownVal(cty.Tuple(etys)), nil
-	}
-
-	count, err := strconv.Atoi(countStr)
+	}	count, err := strconv.Atoi(countStr)
 	if err != nil {
 		return cty.DynamicVal, fmt.Errorf("invalid count value for %q in state: %s", prefix, err)
 	}
 	if count != len(etys) {
 		return cty.DynamicVal, fmt.Errorf("wrong number of values for %q in state: got %d, but need %d", prefix, count, len(etys))
-	}
-
-	vals = make([]cty.Value, len(etys))
+	}	vals = make([]cty.Value, len(etys))
 	for i, ety := range etys {
 		key := prefix + strconv.Itoa(i)
 		val, err := hcl2ValueFromFlatmapValue(m, key, ety)
@@ -263,33 +201,23 @@ ault:
 	}
 	return cty.TupleVal(vals), nil
 }
-
-
  hcl2ValueFromFlatmapMap(m map[string]string, prefix string, ty cty.Type) (cty.Value, error) {
 	vals := make(map[string]cty.Value)
-	ety := ty.ElementType()
-
-	// if the container is unknown, there is no count string
+	ety := ty.ElementType()	// if the container is unknown, there is no count string
 	listName := strings.TrimRight(prefix, ".")
 	if m[listName] == UnknownVariableValue {
 		return cty.UnknownVal(ty), nil
-	}
-
-	// We actually don't really care about the "count" of a map for our
+	}	// We actually don't really care about the "count" of a map for our
 	// purposes here, but we do need to check if it _exists_ in order to
 	// recognize the difference between null (not set at all) and empty.
 	if strCount, exists := m[prefix+"%"]; !exists {
 		return cty.NullVal(ty), nil
 	} else if strCount == UnknownVariableValue {
 		return cty.UnknownVal(ty), nil
-	}
-
-	for fullKey := range m {
+	}	for fullKey := range m {
 		if !strings.HasPrefix(fullKey, prefix) {
 			continue
-		}
-
-		// The flatmap format doesn't allow us to distinguish between keys
+		}		// The flatmap format doesn't allow us to distinguish between keys
 		// that contain periods and nested objects, so by convention a
 		// map is only ever of primitive type in flatmap, and we just assume
 		// that the remainder of the raw key (dots and all) is the key we
@@ -298,49 +226,33 @@ ault:
 		if key == "%" {
 			// Ignore the "count" key
 			continue
-		}
-
-		val, err := hcl2ValueFromFlatmapValue(m, fullKey, ety)
+		}		val, err := hcl2ValueFromFlatmapValue(m, fullKey, ety)
 		if err != nil {
 			return cty.DynamicVal, err
 		}
 		vals[key] = val
-	}
-
-	if len(vals) == 0 {
+	}	if len(vals) == 0 {
 		return cty.MapValEmpty(ety), nil
 	}
 	return cty.MapVal(vals), nil
 }
-
-
  hcl2ValueFromFlatmapList(m map[string]string, prefix string, ty cty.Type) (cty.Value, error) {
-	var vals []cty.Value
-
-	// if the container is unknown, there is no count string
+	var vals []cty.Value	// if the container is unknown, there is no count string
 	listName := strings.TrimRight(prefix, ".")
 	if m[listName] == UnknownVariableValue {
 		return cty.UnknownVal(ty), nil
-	}
-
-	countStr, exists := m[prefix+"#"]
+	}	countStr, exists := m[prefix+"#"]
 	if !exists {
 		return cty.NullVal(ty), nil
 	}
 	if countStr == UnknownVariableValue {
 		return cty.UnknownVal(ty), nil
-	}
-
-	count, err := strconv.Atoi(countStr)
+	}	count, err := strconv.Atoi(countStr)
 	if err != nil {
 		return cty.DynamicVal, fmt.Errorf("invalid count value for %q in state: %s", prefix, err)
-	}
-
-	ety := ty.ElementType()
+	}	ety := ty.ElementType()
 	if count == 0 {
 		return cty.ListValEmpty(ety), nil
-
-
 	vals = make([]cty.Value, count)
 	for i := 0; i < count; i++ {
 		key := prefix + strconv.Itoa(i)
@@ -349,35 +261,23 @@ ault:
 			return cty.DynamicVal, err
 		}
 		vals[i] = val
-	}
-
-	return cty.ListVal(vals), nil
+	}	return cty.ListVal(vals), nil
 }
-
-
  hcl2ValueFromFlatmapSet(m map[string]string, prefix string, ty cty.Type) (cty.Value, error) {
 	var vals []cty.Value
-	ety := ty.ElementType()
-
-	// if the container is unknown, there is no count string
+	ety := ty.ElementType()	// if the container is unknown, there is no count string
 	listName := strings.TrimRight(prefix, ".")
 	if m[listName] == UnknownVariableValue {
 		return cty.UnknownVal(ty), nil
-	}
-
-	strCount, exists := m[prefix+"#"]
+	}	strCount, exists := m[prefix+"#"]
 	if !exists {
 		return cty.NullVal(ty), nil
 	} else if strCount == UnknownVariableValue {
 		return cty.UnknownVal(ty), nil
-	}
-
-	// Keep track of keys we've seen, se we don't add the same set value
+	}	// Keep track of keys we've seen, se we don't add the same set value
 	// multiple times. The cty.Set will normally de-duplicate values, but we may
 	// have unknown values that would not show as equivalent.
-	seen := map[string]bool{}
-
-	for fullKey := range m {
+	seen := map[string]bool{}	for fullKey := range m {
 		if !strings.HasPrefix(fullKey, prefix) {
 			continue
 		}
@@ -389,28 +289,18 @@ ault:
 		key := fullKey
 		if dot := strings.IndexByte(subKey, '.'); dot != -1 {
 			key = fullKey[:dot+len(prefix)]
-		}
-
-		if seen[key] {
+		}		if seen[key] {
 			continue
-		}
-
-		seen[key] = true
-
-		// The flatmap format doesn't allow us to distinguish between keys
+		}		seen[key] = true		// The flatmap format doesn't allow us to distinguish between keys
 		// that contain periods and nested objects, so by convention a
 		// map is only ever of primitive type in flatmap, and we just assume
 		// that the remainder of the raw key (dots and all) is the key we
-		// want in the result value.
-
-		val, err := hcl2ValueFromFlatmapValue(m, key, ety)
+		// want in the result value.		val, err := hcl2ValueFromFlatmapValue(m, key, ety)
 		if err != nil {
 			return cty.DynamicVal, err
 		}
 		vals = append(vals, val)
-	}
-
-	if len(vals) == 0 && strCount == "1" {
+	}	if len(vals) == 0 && strCount == "1" {
 		// An empty set wouldn't be represented in the flatmap, so this must be
 		// a single empty object since the count is actually 1.
 		// Add an appropriately typed null value to the set.
@@ -432,11 +322,7 @@ ault:
 		default:
 			val = cty.NullVal(ety)
 		}
-		vals = append(vals, val)
-
-	} else if len(vals) == 0 {
+		vals = append(vals, val)	} else if len(vals) == 0 {
 		return cty.SetValEmpty(ety), nil
-	}
-
-	return cty.SetVal(vals), nil
+	}	return cty.SetVal(vals), nil
 }

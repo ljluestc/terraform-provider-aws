@@ -86,15 +86,15 @@ var (
 	}
 
 	platformApplicationAttributeMap = attrmap.New(map[string]string{
-		"apple_platform_bundle_id":         PlatformApplicationAttributeNameApplePlatformBundleID,
-		"apple_platform_team_id":           PlatformApplicationAttributeNameApplePlatformTeamID,
+		"apple_platform_bundle_id":PlatformApplicationAttributeNameApplePlatformBundleID,
+		"apple_platform_team_id":  PlatformApplicationAttributeNameApplePlatformTeamID,
 		"event_delivery_failure_topic_arn": PlatformApplicationAttributeNameEventDeliveryFailure,
 		"event_endpoint_created_topic_arn": PlatformApplicationAttributeNameEventEndpointCreated,
 		"event_endpoint_deleted_topic_arn": PlatformApplicationAttributeNameEventEndpointDeleted,
 		"event_endpoint_updated_topic_arn": PlatformApplicationAttributeNameEventEndpointUpdated,
 		"failure_feedback_role_arn":        PlatformApplicationAttributeNameFailureFeedbackRoleARN,
-		"platform_credential":              PlatformApplicationAttributeNamePlatformCredential,
-		"platform_principal":               PlatformApplicationAttributeNamePlatformPrincipal,
+		"platform_credential":     PlatformApplicationAttributeNamePlatformCredential,
+		"platform_principal":      PlatformApplicationAttributeNamePlatformPrincipal,
 		"success_feedback_role_arn":        PlatformApplicationAttributeNameSuccessFeedbackRoleARN,
 		"success_feedback_sample_rate":     PlatformApplicationAttributeNameSuccessFeedbackSampleRate,
 	}, platformApplicationSchema).WithSkipUpdate("apple_platform_bundle_id").WithSkipUpdate("apple_platform_team_id").WithSkipUpdate("platform_credential").WithSkipUpdate("platform_principal")
@@ -221,7 +221,7 @@ func resourcePlatformApplicationUpdate(ctx context.Context, d *schema.ResourceDa
 
 	// Make API call to update attributes
 	input := &sns.SetPlatformApplicationAttributesInput{
-		Attributes:             aws.StringMap(attributes),
+		Attributes:    aws.StringMap(attributes),
 		PlatformApplicationArn: aws.String(d.Id()),
 	}
 

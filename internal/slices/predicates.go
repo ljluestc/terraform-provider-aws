@@ -7,20 +7,20 @@ package slices
 
 
 dicateEquals[T comparable](v T) Predicate[T] {
-	return
-	
+return
+
 ) bool {
-		return x == v
-	}
+return x == v
+}
 }
 
 // PredicateTrue returns a Predicate that always evaluates to true.
 
 
 dicateTrue[T any]() Predicate[T] {
-	return
-	
+return
+
 bool {
-		return true
-	}
+return true
+}
 }

@@ -168,15 +168,15 @@ func FindControlByName(ctx context.Context, conn *auditmanager.Client, name, con
 
 type dataSourceControlData struct {
 	ActionPlanInstructions types.String `tfsdk:"action_plan_instructions"`
-	ActionPlanTitle        types.String `tfsdk:"action_plan_title"`
-	ARN       types.String `tfsdk:"arn"`
-	ControlMappingSources  types.Set    `tfsdk:"control_mapping_sources"`
-	Description            types.String `tfsdk:"description"`
-	ID        types.String `tfsdk:"id"`
-	Name      types.String `tfsdk:"name"`
-	Tags      types.Map    `tfsdk:"tags"`
-	TestingInformation     types.String `tfsdk:"testing_information"`
-	Type      types.String `tfsdk:"type"`
+	ActionPlanTitle   types.String `tfsdk:"action_plan_title"`
+	ARN  types.String `tfsdk:"arn"`
+	ControlMappingSources  types.Set`tfsdk:"control_mapping_sources"`
+	Description  types.String `tfsdk:"description"`
+	ID   types.String `tfsdk:"id"`
+	Name types.String `tfsdk:"name"`
+	Tags types.Map`tfsdk:"tags"`
+	TestingInformationtypes.String `tfsdk:"testing_information"`
+	Type types.String `tfsdk:"type"`
 }
 
 // refreshFromOutput writes state data from an AWS response object

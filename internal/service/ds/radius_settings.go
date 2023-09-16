@@ -38,7 +38,7 @@ func ResourceRadiusSettings() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"authentication_protocol": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(directoryservice.RadiusAuthenticationProtocol_Values(), false),
 			},
@@ -48,17 +48,17 @@ func ResourceRadiusSettings() *schema.Resource {
 				ForceNew: true,
 			},
 			"display_label": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 			"radius_port": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				ValidateFunc: validation.IsPortNumber,
 			},
 			"radius_retries": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				ValidateFunc: validation.IntBetween(0, 10),
 			},
@@ -66,17 +66,17 @@ func ResourceRadiusSettings() *schema.Resource {
 				Type:     schema.TypeSet,
 				Required: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(1, 256),
 				},
 			},
 			"radius_timeout": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				ValidateFunc: validation.IntBetween(1, 50),
 			},
 			"shared_secret": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Sensitive:    true,
 				ValidateFunc: validation.StringLenBetween(8, 512),
@@ -97,12 +97,12 @@ func resourceRadiusSettingsCreate(ctx context.Context, d *schema.ResourceData, m
 		DirectoryId: aws.String(directoryID),
 		RadiusSettings: &directoryservice.RadiusSettings{
 			AuthenticationProtocol: aws.String(d.Get("authentication_protocol").(string)),
-			DisplayLabel:           aws.String(d.Get("display_label").(string)),
-			RadiusPort:             aws.Int64(int64(d.Get("radius_port").(int))),
-			RadiusRetries:          aws.Int64(int64(d.Get("radius_retries").(int))),
-			RadiusServers:          flex.ExpandStringSet(d.Get("radius_servers").(*schema.Set)),
-			RadiusTimeout:          aws.Int64(int64(d.Get("radius_timeout").(int))),
-			SharedSecret:           aws.String(d.Get("shared_secret").(string)),
+			DisplayLabel:  aws.String(d.Get("display_label").(string)),
+			RadiusPort:    aws.Int64(int64(d.Get("radius_port").(int))),
+			RadiusRetries: aws.Int64(int64(d.Get("radius_retries").(int))),
+			RadiusServers: flex.ExpandStringSet(d.Get("radius_servers").(*schema.Set)),
+			RadiusTimeout: aws.Int64(int64(d.Get("radius_timeout").(int))),
+			SharedSecret:  aws.String(d.Get("shared_secret").(string)),
 			UseSameUsername:        aws.Bool(d.Get("use_same_username").(bool)),
 		},
 	}
@@ -158,12 +158,12 @@ func resourceRadiusSettingsUpdate(ctx context.Context, d *schema.ResourceData, m
 		DirectoryId: aws.String(d.Id()),
 		RadiusSettings: &directoryservice.RadiusSettings{
 			AuthenticationProtocol: aws.String(d.Get("authentication_protocol").(string)),
-			DisplayLabel:           aws.String(d.Get("display_label").(string)),
-			RadiusPort:             aws.Int64(int64(d.Get("radius_port").(int))),
-			RadiusRetries:          aws.Int64(int64(d.Get("radius_retries").(int))),
-			RadiusServers:          flex.ExpandStringSet(d.Get("radius_servers").(*schema.Set)),
-			RadiusTimeout:          aws.Int64(int64(d.Get("radius_timeout").(int))),
-			SharedSecret:           aws.String(d.Get("shared_secret").(string)),
+			DisplayLabel:  aws.String(d.Get("display_label").(string)),
+			RadiusPort:    aws.Int64(int64(d.Get("radius_port").(int))),
+			RadiusRetries: aws.Int64(int64(d.Get("radius_retries").(int))),
+			RadiusServers: flex.ExpandStringSet(d.Get("radius_servers").(*schema.Set)),
+			RadiusTimeout: aws.Int64(int64(d.Get("radius_timeout").(int))),
+			SharedSecret:  aws.String(d.Get("shared_secret").(string)),
 			UseSameUsername:        aws.Bool(d.Get("use_same_username").(bool)),
 		},
 	}

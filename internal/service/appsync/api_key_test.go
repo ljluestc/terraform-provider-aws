@@ -20,7 +20,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfappsync "github.com/hashicorp/terraform-provider-aws/internal/service/appsync"
 )
-
 func testAccAPIKey_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var apiKey appsync.ApiKey
@@ -29,7 +28,7 @@ func testAccAPIKey_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
@@ -44,14 +43,13 @@ func testAccAPIKey_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccAPIKey_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var apiKey appsync.ApiKey
@@ -59,7 +57,7 @@ func testAccAPIKey_description(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
@@ -79,14 +77,13 @@ func testAccAPIKey_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccAPIKey_expires(t *testing.T) {
 	ctx := acctest.Context(t)
 	var apiKey appsync.ApiKey
@@ -96,7 +93,7 @@ func testAccAPIKey_expires(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAPIKeyDestroy(ctx),
@@ -116,14 +113,13 @@ func testAccAPIKey_expires(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckAPIKeyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
@@ -154,7 +150,6 @@ func testAccCheckAPIKeyDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckAPIKeyExists(ctx context.Context, resourceName string, apiKey *appsync.ApiKey) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -182,7 +177,6 @@ func testAccCheckAPIKeyExists(ctx context.Context, resourceName string, apiKey *
 		return nil
 	}
 }
-
 func testAccCheckAPIKeyExpiresDate(apiKey *appsync.ApiKey, expectedTime time.Time) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		apiKeyExpiresTime := time.Unix(aws.Int64Value(apiKey.Expires), 0)
@@ -193,7 +187,6 @@ func testAccCheckAPIKeyExpiresDate(apiKey *appsync.ApiKey, expectedTime time.Tim
 		return nil
 	}
 }
-
 func testAccAPIKeyConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
@@ -202,12 +195,11 @@ resource "aws_appsync_graphql_api" "test" {
 }
 
 resource "aws_appsync_api_key" "test" {
-  api_id      = aws_appsync_graphql_api.test.id
+  api_id = aws_appsync_graphql_api.test.id
   description = %q
 }
 `, rName, description)
 }
-
 func testAccAPIKeyConfig_expires(rName, expires string) string {
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
@@ -221,7 +213,6 @@ resource "aws_appsync_api_key" "test" {
 }
 `, rName, expires)
 }
-
 func testAccAPIKeyConfig_required(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {

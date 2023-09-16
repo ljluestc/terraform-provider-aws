@@ -6,9 +6,9 @@ package s3control
 // Exports for use in tests only.
 var (
 	ResourceAccessPoint    = resourceAccessPoint
-	ResourceAccessPointPolicy             = resourceAccessPointPolicy
+	ResourceAccessPointPolicy    = resourceAccessPointPolicy
 	ResourceAccountPublicAccessBlock      = resourceAccountPublicAccessBlock
-	ResourceBucket         = resourceBucket
+	ResourceBucket= resourceBucket
 	ResourceBucketLifecycleConfiguration  = resourceBucketLifecycleConfiguration
 	ResourceBucketPolicy   = resourceBucketPolicy
 	ResourceMultiRegionAccessPoint        = resourceMultiRegionAccessPoint

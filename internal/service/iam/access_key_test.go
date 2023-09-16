@@ -45,9 +45,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"encrypted_secret", "key_fingerprint", "pgp_key", "secret", "ses_smtp_password_v4", "encrypted_ses_smtp_password_v4"},
 	},
 },
@@ -77,9 +77,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"encrypted_secret", "key_fingerprint", "pgp_key", "secret", "ses_smtp_password_v4", "encrypted_ses_smtp_password_v4"},
 	},
 },
@@ -103,9 +103,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"encrypted_secret", "key_fingerprint", "pgp_key", "secret", "ses_smtp_password_v4", "encrypted_ses_smtp_password_v4"},
 	},
 	{
@@ -242,7 +242,7 @@ resource "aws_iam_access_key" "test" {
 
 	cases := []struct {
 Region   string
-Input    string
+Inputstring
 Expected string
 	}{
 {endpoints.EuCentral1RegionID, "some+secret+key", "BMXhUYlu5Z3gSXVQORxlVa7XPaz91aGWdfHxvkOZdWZ2"},

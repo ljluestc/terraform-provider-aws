@@ -21,15 +21,13 @@ var transactionSetters = make(map[reflect.Type]reflect.Value)
 
 // RegisterTransactionSetter registers a function that sets transaction information
 // in a protocol buffer message. f should be a function with two arguments,
-// the first being a protocol buffer type, and the second being *datastore.Transaction.
-func RegisterTransactionSetter(f interface{}) {
+// the first being a protocol buffer type, and the second being *datastore.Transaction. RegisterTransactionSetter(f interface{}) {
 	v := reflect.ValueOf(f)
 	transactionSetters[v.Type().In(0)] = v
 }
 
 // applyTransaction applies the transaction t to message pb
-// by using the relevant setter passed to RegisterTransactionSetter.
-func applyTransaction(pb proto.Message, t *pb.Transaction) {
+// by using the relevant setter passed to RegisterTransactionSetter. applyTransaction(pb proto.Message, t *pb.Transaction) {
 	v := reflect.ValueOf(pb)
 	if f, ok := transactionSetters[v.Type()]; ok {
 		f.Call([]reflect.Value{v, reflect.ValueOf(t)})
@@ -37,13 +35,11 @@ func applyTransaction(pb proto.Message, t *pb.Transaction) {
 }
 
 var transactionKey = "used for *Transaction"
-
-func transactionFromContext(ctx netcontext.Context) *transaction {
+ transactionFromContext(ctx netcontext.Context) *transaction {
 	t, _ := ctx.Value(&transactionKey).(*transaction)
 	return t
 }
-
-func withTransaction(ctx netcontext.Context, t *transaction) netcontext.Context {
+ withTransaction(ctx netcontext.Context, t *transaction) netcontext.Context {
 	return netcontext.WithValue(ctx, &transactionKey, t)
 }
 
@@ -53,8 +49,7 @@ type transaction struct {
 }
 
 var ErrConcurrentTransaction = errors.New("internal: concurrent transaction")
-
-func RunTransactionOnce(c netcontext.Context, f func(netcontext.Context) error, xg bool, readOnly bool, previousTransaction *pb.Transaction) (*pb.Transaction, error) {
+ RunTransactionOnce(c netcontext.Context, f func(netcontext.Context) error, xg bool, readOnly bool, previousTransaction *pb.Transaction) (*pb.Transaction, error) {
 	if transactionFromContext(c) != nil {
 		return nil, errors.New("nested transactions are not supported")
 	}

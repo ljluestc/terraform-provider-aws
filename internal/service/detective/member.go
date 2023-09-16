@@ -25,7 +25,7 @@ import (
 func ResourceMember() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceMemberCreate,
-		ReadWithoutTimeout:   resourceMemberRead,
+		ReadWithoutTimeout:resourceMemberRead,
 		DeleteWithoutTimeout: resourceMemberDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -33,59 +33,58 @@ func ResourceMember() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"account_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"administrator_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"disable_email_notification": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 			},
 			"disabled_reason": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"email_address": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"graph_arn": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"invited_time": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"message": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"updated_time": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"volume_usage_in_bytes": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceMemberCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DetectiveConn(ctx)
 
@@ -93,7 +92,7 @@ func resourceMemberCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	graphArn := d.Get("graph_arn").(string)
 
 	accountInput := &detective.Account{
-		AccountId:    aws.String(accountId),
+		AccountId: aws.String(accountId),
 		EmailAddress: aws.String(d.Get("email_address").(string)),
 	}
 
@@ -141,7 +140,6 @@ func resourceMemberCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return resourceMemberRead(ctx, d, meta)
 }
-
 func resourceMemberRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DetectiveConn(ctx)
 
@@ -190,7 +188,7 @@ func resourceMemberDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	input := &detective.DeleteMembersInput{
 		AccountIds: []*string{aws.String(accountId)},
-		GraphArn:   aws.String(graphArn),
+		GraphArn:aws.String(graphArn),
 	}
 
 	_, err = conn.DeleteMembersWithContext(ctx, input)
@@ -202,11 +200,9 @@ func resourceMemberDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 	return nil
 }
-
 func EncodeMemberID(graphArn, accountId string) string {
 	return fmt.Sprintf("%s/%s", graphArn, accountId)
 }
-
 func DecodeMemberID(id string) (string, string, error) {
 	idParts := strings.Split(id, "/")
 	if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {

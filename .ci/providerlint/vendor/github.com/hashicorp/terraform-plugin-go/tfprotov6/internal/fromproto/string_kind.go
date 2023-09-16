@@ -1,14 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package fromproto
-
-import (
-	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
-	"github.com/hashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6"
-)
-
-
-ingKind(in tfplugin6.StringKind) tfprotov6.StringKind {
-	return tfprotov6.StringKind(in)
-}
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package fromprotoimport (	"github.com/hashicorp/terraform-plugin-go/tfprotov6"	"github.com/hashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6")ingKind(in tfplugin6.StringKind) tfprotov6.StringKind {	return tfprotov6.StringKind(in)}

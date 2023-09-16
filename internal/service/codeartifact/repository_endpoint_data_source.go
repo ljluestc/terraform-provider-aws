@@ -25,32 +25,31 @@ func DataSourceRepositoryEndpoint() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"domain": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"repository": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"format": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:ema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(codeartifact.PackageFormat_Values(), false),
 			},
 			"domain_owner": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"repository_endpoint": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func dataSourceRepositoryEndpointRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -59,9 +58,9 @@ func dataSourceRepositoryEndpointRead(ctx context.Context, d *schema.ResourceDat
 	repo := d.Get("repository").(string)
 	format := d.Get("format").(string)
 	params := &codeartifact.GetRepositoryEndpointInput{
-		Domain:     aws.String(domain),
+		Domain:aws.String(domain),
 		Repository: aws.String(repo),
-		Format:     aws.String(format),
+		Format:aws.String(format),
 	}
 
 	if v, ok := d.GetOk("domain_owner"); ok {

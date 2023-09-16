@@ -25,7 +25,7 @@ func TestAccIoTTopicRuleDestination_basic(t *testing.T) {
 	resourceName := "aws_iot_topic_rule_destination.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestinationDestroy(ctx),
@@ -44,8 +44,8 @@ func TestAccIoTTopicRuleDestination_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			// Delete everything but the IAM Role assumed by the IoT service.
@@ -62,7 +62,7 @@ func TestAccIoTTopicRuleDestination_disappears(t *testing.T) {
 	resourceName := "aws_iot_topic_rule_destination.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestinationDestroy(ctx),
@@ -85,7 +85,7 @@ func TestAccIoTTopicRuleDestination_enabled(t *testing.T) {
 	resourceName := "aws_iot_topic_rule_destination.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestinationDestroy(ctx),
@@ -98,8 +98,8 @@ func TestAccIoTTopicRuleDestination_enabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -179,7 +179,7 @@ resource "aws_security_group" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -189,10 +189,10 @@ func testAccTopicRuleDestinationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTopicRuleDestinationBaseConfig(rName), `
 resource "aws_iot_topic_rule_destination" "test" {
   vpc_configuration {
-    role_arn        = aws_iam_role.test.arn
-    security_groups = [aws_security_group.test.id]
-    subnet_ids      = aws_subnet.test[*].id
-    vpc_id          = aws_vpc.test.id
+role_arn= aws_iam_role.test.arn
+security_groups = [aws_security_group.test.id]
+subnet_ids  = aws_subnet.test[*].id
+vpc_id = aws_vpc.test.id
   }
 }
 `)
@@ -204,10 +204,10 @@ resource "aws_iot_topic_rule_destination" "test" {
   enabled = %[1]t
 
   vpc_configuration {
-    role_arn        = aws_iam_role.test.arn
-    security_groups = [aws_security_group.test.id]
-    subnet_ids      = aws_subnet.test[*].id
-    vpc_id          = aws_vpc.test.id
+role_arn= aws_iam_role.test.arn
+security_groups = [aws_security_group.test.id]
+subnet_ids  = aws_subnet.test[*].id
+vpc_id = aws_vpc.test.id
   }
 }
 `, enabled))

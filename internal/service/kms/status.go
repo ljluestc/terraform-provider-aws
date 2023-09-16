@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func StatusKeyState(ctx context.Context, conn *kms.KMS, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindKeyByID(ctx, conn, id)

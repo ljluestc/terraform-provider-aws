@@ -31,10 +31,10 @@ func TestAccSecretsManagerSecretsDataSource_filter(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecretDestroy(ctx),
+		CheckDestroy:    testAccCheckSecretDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecretsDataSourceConfig_filter2(rName),

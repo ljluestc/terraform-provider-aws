@@ -46,34 +46,34 @@ func ResourceFileCache() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"copy_tags_to_data_repository_associations": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"data_repository_association": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 8,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"association_id": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"data_repository_path": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(3, 4357),
 							),
 						},
 						"data_repository_subdirectories": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							MaxItems: 500,
 							Elem: &schema.Schema{
@@ -84,35 +84,35 @@ func ResourceFileCache() *schema.Resource {
 							},
 						},
 						"file_cache_id": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"file_cache_path": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 4096),
 							),
 						},
 						"file_system_id": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"file_system_path": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"imported_file_chunk_size": {
-							Type:     schema.TypeInt,
+							Type: schema.TypeInt,
 							Computed: true,
 						},
 						"nfs": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"dns_ips": {
-										Type:     schema.TypeSet,
+										Type: schema.TypeSet,
 										Optional: true,
 										MaxItems: 10,
 										Elem: &schema.Schema{
@@ -124,7 +124,7 @@ func ResourceFileCache() *schema.Resource {
 										},
 									},
 									"version": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 										ValidateFunc: validation.All(
 											validation.StringInSlice(fsx.NfsVersion_Values(), false),
@@ -134,7 +134,7 @@ func ResourceFileCache() *schema.Resource {
 							},
 						},
 						"resource_arn": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"tags": tftags.TagsSchemaComputed(),
@@ -142,22 +142,22 @@ func ResourceFileCache() *schema.Resource {
 				},
 			},
 			"data_repository_association_ids": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
 			},
 			"dns_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"file_cache_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"file_cache_type": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -165,7 +165,7 @@ func ResourceFileCache() *schema.Resource {
 				),
 			},
 			"file_cache_type_version": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -174,19 +174,19 @@ func ResourceFileCache() *schema.Resource {
 				),
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"lustre_configuration": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"deployment_type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 							ForceNew: true,
 							ValidateFunc: validation.All(
@@ -194,30 +194,30 @@ func ResourceFileCache() *schema.Resource {
 							),
 						},
 						"log_configuration": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"destination": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"level": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"metadata_configuration": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Required: true,
 							ForceNew: true,
 							MaxItems: 8,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"storage_capacity": {
-										Type:     schema.TypeInt,
+										Type: schema.TypeInt,
 										Required: true,
 										ForceNew: true,
 										ValidateFunc: validation.All(
@@ -228,11 +228,11 @@ func ResourceFileCache() *schema.Resource {
 							},
 						},
 						"mount_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"per_unit_storage_throughput": {
-							Type:     schema.TypeInt,
+							Type: schema.TypeInt,
 							Required: true,
 							ForceNew: true,
 							ValidateFunc: validation.All(
@@ -240,7 +240,7 @@ func ResourceFileCache() *schema.Resource {
 							),
 						},
 						"weekly_maintenance_start_time": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(7, 7),
@@ -251,25 +251,25 @@ func ResourceFileCache() *schema.Resource {
 				},
 			},
 			"network_interface_ids": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"security_group_ids": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 50,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"storage_capacity": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -277,16 +277,16 @@ func ResourceFileCache() *schema.Resource {
 				),
 			},
 			"subnet_ids": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 50,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -303,11 +303,11 @@ func resourceFileCacheCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	input := &fsx.CreateFileCacheInput{
 		ClientRequestToken:   aws.String(id.UniqueId()),
-		FileCacheType:        aws.String(d.Get("file_cache_type").(string)),
+		FileCacheType:aws.String(d.Get("file_cache_type").(string)),
 		FileCacheTypeVersion: aws.String(d.Get("file_cache_type_version").(string)),
-		StorageCapacity:      aws.Int64(int64(d.Get("storage_capacity").(int))),
-		SubnetIds:            flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
-		Tags:    getTagsIn(ctx),
+		StorageCapacity:  aws.Int64(int64(d.Get("storage_capacity").(int))),
+		SubnetIds:   flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
+		Tags:getTagsIn(ctx),
 	}
 	if v, ok := d.GetOk("copy_tags_to_data_repository_associations"); ok {
 		input.CopyTagsToDataRepositoryAssociations = aws.Bool(v.(bool))
@@ -397,7 +397,7 @@ func resourceFileCacheUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	if d.HasChangesExcept("tags_all") {
 		input := &fsx.UpdateFileCacheInput{
 			ClientRequestToken:  aws.String(id.UniqueId()),
-			FileCacheId:         aws.String(d.Id()),
+			FileCacheId:aws.String(d.Id()),
 			LustreConfiguration: &fsx.UpdateFileCacheLustreConfiguration{},
 		}
 
@@ -424,7 +424,7 @@ func resourceFileCacheDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 	_, err := conn.DeleteFileCacheWithContext(ctx, &fsx.DeleteFileCacheInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
-		FileCacheId:        aws.String(d.Id()),
+		FileCacheId:aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, fsx.ErrCodeFileCacheNotFound) {
@@ -451,14 +451,14 @@ func flattenDataRepositoryAssociations(ctx context.Context, dataRepositoryAssoci
 		tags := KeyValueTags(ctx, dataRepositoryAssociation.Tags).IgnoreAWS().IgnoreConfig(ignoreTagsConfig)
 
 		values := map[string]interface{}{
-			"association_id":    dataRepositoryAssociation.AssociationId,
-			"data_repository_path":           dataRepositoryAssociation.DataRepositoryPath,
+			"association_id":dataRepositoryAssociation.AssociationId,
+			"data_repository_path":  dataRepositoryAssociation.DataRepositoryPath,
 			"data_repository_subdirectories": aws.StringValueSlice(dataRepositoryAssociation.DataRepositorySubdirectories),
-			"file_cache_id":     dataRepositoryAssociation.FileCacheId,
+			"file_cache_id": dataRepositoryAssociation.FileCacheId,
 			"file_cache_path":   dataRepositoryAssociation.FileCachePath,
-			"imported_file_chunk_size":       dataRepositoryAssociation.ImportedFileChunkSize,
+			"imported_file_chunk_size":   dataRepositoryAssociation.ImportedFileChunkSize,
 			"nfs":  flattenNFSDataRepositoryConfiguration(dataRepositoryAssociation.NFS),
-			"resource_arn":      dataRepositoryAssociation.ResourceARN,
+			"resource_arn":  dataRepositoryAssociation.ResourceARN,
 			"tags": tags.RemoveDefaultConfig(defaultTagsConfig).Map(),
 		}
 		flattenedDataRepositoryAssociations = append(flattenedDataRepositoryAssociations, values)

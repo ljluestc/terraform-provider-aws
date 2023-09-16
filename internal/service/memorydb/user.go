@@ -38,21 +38,21 @@ func ResourceUser() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_string": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"authentication_mode": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"passwords": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Required: true,
 							MinItems: 1,
 							MaxItems: 2,
@@ -60,31 +60,31 @@ func ResourceUser() *schema.Resource {
 								Type:schema.TypeString,
 								ValidateFunc: validation.StringLenBetween(16, 128),
 							},
-							Set:       schema.HashString,
+							Set:   schema.HashString,
 							Sensitive: true,
 						},
 						"password_count": {
-							Type:     schema.TypeInt,
+							Type: schema.TypeInt,
 							Computed: true,
 						},
 						"type": {
 							Type:schema.TypeString,
-							Required:     true,
+							Required: true,
 							ValidateFunc: validation.StringInSlice(memorydb.InputAuthenticationType_Values(), false),
 						},
 					},
 				},
 			},
 			"minimum_engine_version": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"user_name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validateResourceName(userNameMaxLength),
 			},
 		},
@@ -99,9 +99,9 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interf
 		AccessString: aws.String(d.Get("access_string").(string)),
 		AuthenticationMode: &memorydb.AuthenticationMode{
 			Passwords: flex.ExpandStringSet(d.Get("authentication_mode.0.passwords").(*schema.Set)),
-			Type:      aws.String(d.Get("authentication_mode.0.type").(string)),
+			Type:  aws.String(d.Get("authentication_mode.0.type").(string)),
 		},
-		Tags:     getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 		UserName: aws.String(userName),
 	}
 
@@ -136,7 +136,7 @@ func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interfac
 
 	if v := user.Authentication; v != nil {
 		authenticationMode := map[string]interface{}{
-			"passwords":      d.Get("authentication_mode.0.passwords"),
+			"passwords":  d.Get("authentication_mode.0.passwords"),
 			"password_count": aws.Int64Value(v.PasswordCount),
 			"type":  aws.StringValue(v.Type),
 		}
@@ -167,7 +167,7 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 		if d.HasChange("authentication_mode") {
 			input.AuthenticationMode = &memorydb.AuthenticationMode{
 				Passwords: flex.ExpandStringSet(d.Get("authentication_mode.0.passwords").(*schema.Set)),
-				Type:      aws.String(d.Get("authentication_mode.0.type").(string)),
+				Type:  aws.String(d.Get("authentication_mode.0.type").(string)),
 			}
 		}
 

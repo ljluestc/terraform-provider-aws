@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/rds"
+	"testing"	"github.com/aws/aws-sdk-go/service/rds"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
@@ -18,17 +12,16 @@ import (
 	tfrds "github.com/hashicorp/terraform-provider-aws/internal/service/rds"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func := acctest.Context(t)
 	var dbClusterRole rds.DBClusterRole
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dbClusterResourceName := "aws_rds_cluster.test"
 	iamRoleResourceName := "aws_iam_role.test"
-	resourceName := "aws_rds_cluster_role_association.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	resourceName := "aws_rds_cluster_role_association.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterRoleAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
@@ -41,24 +34,23 @@ func := acctest.Context(t)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccRDSClusterRoleAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_rds_cluster_role_association.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_rds_cluster_role_association.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:funceps: []resource.TestStep{
+		CheckDestroy:
+funceps: []resource.TestStep{
 			{
 				Config: testAccClusterRoleAssociationConfig_basic(rName),
 				Check: resource.ComposeTestCheckFunc(
@@ -70,20 +62,19 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 		},
 	})
 }
-
 func TestAccRDSClusterRoleAssociation_Disappears_cluster(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dbClusterRole rds.DBClusterRole
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-funcsterResourceName := "aws_rds_cluster.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+funcsterResourceName := "aws_rds_cluster.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterRoleAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
-			{funcConfig: testAccClusterRoleAssociationConfig_basic(rName),
+			{
+funcConfig: testAccClusterRoleAssociationConfig_basic(rName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckClusterRoleAssociationExists(ctx, resourceName, &dbClusterRole),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrds.ResourceCluster(), clusterResourceName),
@@ -93,7 +84,6 @@ funcsterResourceName := "aws_rds_cluster.test"
 		},
 	})
 }
-
 func TestAccRDSClusterRoleAssociation_Disappears_role(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dbClusterRole rds.DBClusterRole
@@ -101,14 +91,16 @@ func TestAccRDSClusterRoleAssociation_Disappears_role(t *testing.T) {
 	resourceName := "aws_rds_cluster_role_association.test"
 	roleResourceName := "aws_iam_role.test"
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterRoleAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterRoleAssociationConfig_basic(rName),
-				Check: resofunc	testAccCheckClusterRoleAssociationExists(ctx, resourceName, &dbClusterRole),
+				Check: reso
+func	testAccCheckClusterRoleAssociationExists(ctx, resourceName, &dbClusterRole),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, iam.ResourceRole(), roleResourceName),
 				),
 				ExpectNonEmptyPlan: true,
@@ -116,97 +108,65 @@ funcource.ParallelTest(t, resource.TestCase{
 		},
 	})
 }
-
 func testAccCheckClusterRoleAssociationExists(ctx context.Context, resourceName string, v *rds.DBClusterRole) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-
-		if !ok {
+	return 
+func(s *terraform.State) error {
+		rs, ok := s.RootModule().Resources[resourceName]		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
 		}
-
 func err != nil {
-			returfunc
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-		role, err := tfrds.FindDBClusterRoleByDBClusterIDAndRoleARN(ctx, conn, dbClusterID, roleARN)
+			retur
+func		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)		role, err := tfrds.FindDBClusterRoleByDBClusterIDAndRoleARN(ctx, conn, dbClusterID, roleARN)
 		if err != nil {
 			return err
-		}
-
-		*v = *role
-
-		return nil
+		}		*v = *role		return nil
 	}
 }
-
 func testAccCheckClusterRoleAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_db_cluster_role_association" {
 				continue
-			}
-
-			dbClusterID, roleARN, err := tfrds.ClusterRoleAssociationParseResourceID(rs.Primary.ID)
+			}			dbClusterID, roleARN, err := tfrds.ClusterRoleAssociationParseResourceID(rs.Primary.ID)
 funcreturn err
-			}func
-			_, err = tfrds.FindDBClusterRoleByDBClusterIDAndRoleARN(ctx, conn, dbClusterID, roleARN)
-
-			if tfresource.NotFound(err) {
+			}
+func
+			_, err = tfrds.FindDBClusterRoleByDBClusterIDAndRoleARN(ctx, conn, dbClusterID, roleARN)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("RDS DB Cluster IAM Role Association %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("RDS DB Cluster IAM Role Association %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
-
 func testAccClusterRoleAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
 		fmt.Sprintf(`
 resource "aws_rds_cluster_role_association" "test" {
-  db_cluster_identifier = aws_rds_cluster.test.id
-  feature_name          = "s3Import"
-  role_arn = aws_iam_role.test.arn
+db_cluster_identifier = aws_rds_cluster.test.id
+feature_name = "s3Import"
+role_arn = aws_iam_role.test.arn
+}resource "aws_rds_cluster" "test" {
+cluster_identifier= %[1]q
+funcailability_zones= [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
+database_name = "mydb"
+master_username= "foo"
+master_password= "foobarfoobarfoobar"
+skip_final_snapshot = true
+}resource "aws_iam_role" "test" {
+assume_role_policy = data.aws_iam_policy_document.rds_assume_role_policy.json
+name= %[1]q# ensure IAM role is created just before association to exercise IAM eventual consistency
+depends_on = [aws_rds_cluster.test]
+}data "aws_iam_policy_document" "rds_assume_role_policy" {
+statement {
+ actions = ["sts:AssumeRole"]
+ effect= "Allow" principals {
+identifiers = ["rds.amazonaws.com"]
+type= "Service"
+ }
 }
-
-resource "aws_rds_cluster" "test" {
-  cluster_identifier  = %[1]q
-funcailability_zones  = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
-  database_name       = "mydb"
-  master_username     = "foo"
-  master_password     = "foobarfoobarfoobar"
-  skip_final_snapshot = true
-}
-
-resource "aws_iam_role" "test" {
-  assume_role_policy = data.aws_iam_policy_document.rds_assume_role_policy.json
-  name  = %[1]q
-
-  # ensure IAM role is created just before association to exercise IAM eventual consistency
-  depends_on = [aws_rds_cluster.test]
-}
-
-data "aws_iam_policy_document" "rds_assume_role_policy" {
-  statement {
-    actions = ["sts:AssumeRole"]
-    effect  = "Allow"
-
-    principals {
-      identifiers = ["rds.amazonaws.com"]
-      type        = "Service"
-    }
-  }
 }
 `, rName))
 }

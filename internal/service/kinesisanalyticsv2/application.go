@@ -30,7 +30,8 @@ import (
 
 // @SDKResource("aws_kinesisanalyticsv2_application", name="Application")
 // @Tags(identifierAttribute="arn")
-func ResourceApplication() *schema.Resource {
+
+ ResourceApplication() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceApplicationCreate,
 		ReadWithoutTimeout:   resourceApplicationRead,
@@ -39,7 +40,8 @@ func ResourceApplication() *schema.Resource {
 
 		CustomizeDiff: customdiff.Sequence(
 			verify.SetTagsDiff,
-			customdiff.ForceNewIfChange("application_configuration.0.sql_application_configuration.0.input", func(_ context.Context, old, new, meta interface{}) bool {
+			customdiff.ForceNewIfChange("application_configuration.0.sql_application_configuration.0.input", 
+(_ context.Context, old, new, meta interface{}) bool {
 				// An existing input configuration cannot be deleted.
 				return len(old.([]interface{})) == 1 && len(new.([]interface{})) == 0
 			}),
@@ -76,7 +78,7 @@ func ResourceApplication() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"text_content": {
-													Type:          schema.TypeString,
+													Type: schema.TypeString,
 													Optional:      true,
 													ValidateFunc:  validation.StringLenBetween(0, 102400),
 													ConflictsWith: []string{"application_configuration.0.application_code_configuration.0.code_content.0.s3_content_location"},
@@ -89,13 +91,13 @@ func ResourceApplication() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"bucket_arn": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: verify.ValidARN,
 															},
 
 															"file_key": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: validation.StringLenBetween(1, 1024),
 															},
@@ -113,7 +115,7 @@ func ResourceApplication() *schema.Resource {
 									},
 
 									"code_content_type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.CodeContentType_Values(), false),
 									},
@@ -192,20 +194,20 @@ func ResourceApplication() *schema.Resource {
 												},
 
 												"checkpoint_interval": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													Computed:     true,
 													ValidateFunc: validation.IntAtLeast(1),
 												},
 
 												"configuration_type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.ConfigurationType_Values(), false),
 												},
 
 												"min_pause_between_checkpoints": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													Computed:     true,
 													ValidateFunc: validation.IntAtLeast(0),
@@ -222,20 +224,20 @@ func ResourceApplication() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"configuration_type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.ConfigurationType_Values(), false),
 												},
 
 												"log_level": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													Computed:     true,
 													ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.LogLevel_Values(), false),
 												},
 
 												"metrics_level": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													Computed:     true,
 													ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.MetricsLevel_Values(), false),
@@ -258,20 +260,20 @@ func ResourceApplication() *schema.Resource {
 												},
 
 												"configuration_type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.ConfigurationType_Values(), false),
 												},
 
 												"parallelism": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													Computed:     true,
 													ValidateFunc: validation.IntAtLeast(1),
 												},
 
 												"parallelism_per_kpu": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													Computed:     true,
 													ValidateFunc: validation.IntAtLeast(1),
@@ -299,7 +301,7 @@ func ResourceApplication() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"application_restore_type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													Computed:     true,
 													ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.ApplicationRestoreType_Values(), false),
@@ -364,7 +366,7 @@ func ResourceApplication() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"count": {
-																Type:         schema.TypeInt,
+																Type:schema.TypeInt,
 																Optional:     true,
 																Computed:     true,
 																ValidateFunc: validation.IntBetween(1, 64),
@@ -386,7 +388,7 @@ func ResourceApplication() *schema.Resource {
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"resource_arn": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Required:     true,
 																			ValidateFunc: verify.ValidARN,
 																		},
@@ -415,7 +417,7 @@ func ResourceApplication() *schema.Resource {
 																		},
 
 																		"name": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Required:     true,
 																			ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[^-\s<>&]+$`), "must not include hyphen, whitespace, angle bracket, or ampersand characters"),
 																		},
@@ -490,7 +492,7 @@ func ResourceApplication() *schema.Resource {
 																		},
 
 																		"record_format_type": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Required:     true,
 																			ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.RecordFormatType_Values(), false),
 																		},
@@ -508,7 +510,7 @@ func ResourceApplication() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"input_starting_position": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Optional:     true,
 																Computed:     true,
 																ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.InputStartingPosition_Values(), false),
@@ -524,7 +526,7 @@ func ResourceApplication() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"resource_arn": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: verify.ValidARN,
 															},
@@ -543,7 +545,7 @@ func ResourceApplication() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"resource_arn": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: verify.ValidARN,
 															},
@@ -580,7 +582,7 @@ func ResourceApplication() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"record_format_type": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.RecordFormatType_Values(), false),
 															},
@@ -595,7 +597,7 @@ func ResourceApplication() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"resource_arn": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: verify.ValidARN,
 															},
@@ -610,7 +612,7 @@ func ResourceApplication() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"resource_arn": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: verify.ValidARN,
 															},
@@ -625,7 +627,7 @@ func ResourceApplication() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"resource_arn": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: verify.ValidARN,
 															},
@@ -679,7 +681,7 @@ func ResourceApplication() *schema.Resource {
 																		},
 
 																		"name": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Required:     true,
 																			ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[^-\s<>&]+$`), "must not include hyphen, whitespace, angle bracket, or ampersand characters"),
 																		},
@@ -754,7 +756,7 @@ func ResourceApplication() *schema.Resource {
 																		},
 
 																		"record_format_type": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Required:     true,
 																			ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.RecordFormatType_Values(), false),
 																		},
@@ -772,7 +774,7 @@ func ResourceApplication() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"bucket_arn": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: verify.ValidARN,
 															},
@@ -786,7 +788,7 @@ func ResourceApplication() *schema.Resource {
 												},
 
 												"table_name": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(1, 32),
 												},
@@ -860,7 +862,7 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"log_stream_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: verify.ValidARN,
 						},
@@ -874,7 +876,7 @@ func ResourceApplication() *schema.Resource {
 			},
 
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
@@ -901,14 +903,14 @@ func ResourceApplication() *schema.Resource {
 			},
 
 			"runtime_environment": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(kinesisanalyticsv2.RuntimeEnvironment_Values(), false),
 			},
 
 			"service_execution_role": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -934,7 +936,8 @@ func ResourceApplication() *schema.Resource {
 	}
 }
 
-func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+ resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
 
@@ -942,14 +945,15 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 	input := &kinesisanalyticsv2.CreateApplicationInput{
 		ApplicationConfiguration: expandApplicationConfiguration(d.Get("application_configuration").([]interface{})),
 		ApplicationDescription:   aws.String(d.Get("description").(string)),
-		ApplicationName:          aws.String(applicationName),
+		ApplicationName: aws.String(applicationName),
 		CloudWatchLoggingOptions: expandCloudWatchLoggingOptions(d.Get("cloudwatch_logging_options").([]interface{})),
 		RuntimeEnvironment:       aws.String(d.Get("runtime_environment").(string)),
 		ServiceExecutionRole:     aws.String(d.Get("service_execution_role").(string)),
-		Tags:                     getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
-	outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+	outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 		return conn.CreateApplicationWithContext(ctx, input)
 	})
 
@@ -972,7 +976,8 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 	return append(diags, resourceApplicationRead(ctx, d, meta)...)
 }
 
-func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+ resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
 
@@ -1010,7 +1015,8 @@ func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta i
 	return diags
 }
 
-func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+ resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
 	applicationName := d.Get("name").(string)
@@ -1059,14 +1065,15 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 					if len(o.([]interface{})) == 0 {
 						// Add new input.
 						input := &kinesisanalyticsv2.AddApplicationInputInput{
-							ApplicationName:             aws.String(applicationName),
+							ApplicationName:    aws.String(applicationName),
 							CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-							Input:                       expandInput(n.([]interface{})),
+							Input:     expandInput(n.([]interface{})),
 						}
 
 						log.Printf("[DEBUG] Adding Kinesis Analytics v2 Application (%s) input: %s", d.Id(), input)
 
-						outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+						outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 							return conn.AddApplicationInputWithContext(ctx, input)
 						})
 
@@ -1083,7 +1090,8 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 						currentApplicationVersionId = aws.Int64Value(output.ApplicationVersionId)
 					} else if len(n.([]interface{})) == 0 {
 						// The existing input cannot be deleted.
-						// This should be handled by the CustomizeDiff function above.
+						// This should be handled by the CustomizeDiff 
+tion above.
 						return sdkdiag.AppendErrorf(diags, "deleting Kinesis Analytics v2 Application (%s) input", d.Id())
 					} else {
 						// Update existing input.
@@ -1097,15 +1105,16 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 							if len(o.([]interface{})) == 0 {
 								// Add new input processing configuration.
 								input := &kinesisanalyticsv2.AddApplicationInputProcessingConfigurationInput{
-									ApplicationName:              aws.String(applicationName),
+									ApplicationName:     aws.String(applicationName),
 									CurrentApplicationVersionId:  aws.Int64(currentApplicationVersionId),
-									InputId:                      inputUpdate.InputId,
+									InputId:    inputUpdate.InputId,
 									InputProcessingConfiguration: expandInputProcessingConfiguration(n.([]interface{})),
 								}
 
 								log.Printf("[DEBUG] Adding Kinesis Analytics v2 Application (%s) input processing configuration: %s", d.Id(), input)
 
-								outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+								outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 									return conn.AddApplicationInputProcessingConfigurationWithContext(ctx, input)
 								})
 
@@ -1123,14 +1132,15 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 							} else if len(n.([]interface{})) == 0 {
 								// Delete existing input processing configuration.
 								input := &kinesisanalyticsv2.DeleteApplicationInputProcessingConfigurationInput{
-									ApplicationName:             aws.String(applicationName),
+									ApplicationName:    aws.String(applicationName),
 									CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-									InputId:                     inputUpdate.InputId,
+									InputId:   inputUpdate.InputId,
 								}
 
 								log.Printf("[DEBUG] Deleting Kinesis Analytics v2 Application (%s) input processing configuration: %s", d.Id(), input)
 
-								outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+								outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 									return conn.DeleteApplicationInputProcessingConfigurationWithContext(ctx, input)
 								})
 
@@ -1185,14 +1195,15 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 					// Delete existing outputs.
 					for _, outputId := range deletions {
 						input := &kinesisanalyticsv2.DeleteApplicationOutputInput{
-							ApplicationName:             aws.String(applicationName),
+							ApplicationName:    aws.String(applicationName),
 							CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-							OutputId:                    aws.String(outputId),
+							OutputId:  aws.String(outputId),
 						}
 
 						log.Printf("[DEBUG] Deleting Kinesis Analytics v2 Application (%s) output: %s", d.Id(), input)
 
-						outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+						outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 							return conn.DeleteApplicationOutputWithContext(ctx, input)
 						})
 
@@ -1212,14 +1223,15 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 					// Add new outputs.
 					for _, vOutput := range additions {
 						input := &kinesisanalyticsv2.AddApplicationOutputInput{
-							ApplicationName:             aws.String(applicationName),
+							ApplicationName:    aws.String(applicationName),
 							CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-							Output:                      expandOutput(vOutput),
+							Output:    expandOutput(vOutput),
 						}
 
 						log.Printf("[DEBUG] Adding Kinesis Analytics v2 Application (%s) output: %s", d.Id(), input)
 
-						outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+						outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 							return conn.AddApplicationOutputWithContext(ctx, input)
 						})
 
@@ -1243,14 +1255,15 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 					if len(o.([]interface{})) == 0 {
 						// Add new reference data source.
 						input := &kinesisanalyticsv2.AddApplicationReferenceDataSourceInput{
-							ApplicationName:             aws.String(applicationName),
+							ApplicationName:    aws.String(applicationName),
 							CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-							ReferenceDataSource:         expandReferenceDataSource(n.([]interface{})),
+							ReferenceDataSource:expandReferenceDataSource(n.([]interface{})),
 						}
 
 						log.Printf("[DEBUG] Adding Kinesis Analytics v2 Application (%s) reference data source: %s", d.Id(), input)
 
-						outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+						outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 							return conn.AddApplicationReferenceDataSourceWithContext(ctx, input)
 						})
 
@@ -1270,14 +1283,15 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 						mOldReferenceDataSource := o.([]interface{})[0].(map[string]interface{})
 
 						input := &kinesisanalyticsv2.DeleteApplicationReferenceDataSourceInput{
-							ApplicationName:             aws.String(applicationName),
+							ApplicationName:    aws.String(applicationName),
 							CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-							ReferenceId:                 aws.String(mOldReferenceDataSource["reference_id"].(string)),
+							ReferenceId:        aws.String(mOldReferenceDataSource["reference_id"].(string)),
 						}
 
 						log.Printf("[DEBUG] Deleting Kinesis Analytics v2 Application (%s) reference data source: %s", d.Id(), input)
 
-						outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+						outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 							return conn.DeleteApplicationReferenceDataSourceWithContext(ctx, input)
 						})
 
@@ -1311,14 +1325,15 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 				if len(o.([]interface{})) == 0 {
 					// Add new VPC configuration.
 					input := &kinesisanalyticsv2.AddApplicationVpcConfigurationInput{
-						ApplicationName:             aws.String(applicationName),
+						ApplicationName:    aws.String(applicationName),
 						CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-						VpcConfiguration:            expandVPCConfiguration(n.([]interface{})),
+						VpcConfiguration:   expandVPCConfiguration(n.([]interface{})),
 					}
 
 					log.Printf("[DEBUG] Adding Kinesis Analytics v2 Application (%s) VPC configuration: %s", d.Id(), input)
 
-					outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+					outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 						return conn.AddApplicationVpcConfigurationWithContext(ctx, input)
 					})
 
@@ -1338,14 +1353,15 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 					mOldVpcConfiguration := o.([]interface{})[0].(map[string]interface{})
 
 					input := &kinesisanalyticsv2.DeleteApplicationVpcConfigurationInput{
-						ApplicationName:             aws.String(applicationName),
+						ApplicationName:    aws.String(applicationName),
 						CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-						VpcConfigurationId:          aws.String(mOldVpcConfiguration["vpc_configuration_id"].(string)),
+						VpcConfigurationId: aws.String(mOldVpcConfiguration["vpc_configuration_id"].(string)),
 					}
 
 					log.Printf("[DEBUG] Deleting Kinesis Analytics v2 Application (%s) VPC configuration: %s", d.Id(), input)
 
-					outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+					outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 						return conn.DeleteApplicationVpcConfigurationWithContext(ctx, input)
 					})
 
@@ -1404,7 +1420,8 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 				log.Printf("[DEBUG] Adding Kinesis Analytics v2 Application (%s) CloudWatch logging option: %s", d.Id(), input)
 
-				outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+				outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 					return conn.AddApplicationCloudWatchLoggingOptionWithContext(ctx, input)
 				})
 
@@ -1424,14 +1441,15 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 				mOldCloudWatchLoggingOption := o.([]interface{})[0].(map[string]interface{})
 
 				input := &kinesisanalyticsv2.DeleteApplicationCloudWatchLoggingOptionInput{
-					ApplicationName:             aws.String(applicationName),
+					ApplicationName:    aws.String(applicationName),
 					CloudWatchLoggingOptionId:   aws.String(mOldCloudWatchLoggingOption["cloudwatch_logging_option_id"].(string)),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
 				}
 
 				log.Printf("[DEBUG] Deleting Kinesis Analytics v2 Application (%s) CloudWatch logging option: %s", d.Id(), input)
 
-				outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+				outputRaw, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 					return conn.DeleteApplicationCloudWatchLoggingOptionWithContext(ctx, input)
 				})
 
@@ -1473,7 +1491,8 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 			log.Printf("[DEBUG] Updating Kinesis Analytics v2 Application (%s): %s", d.Id(), input)
 
-			_, err := waitIAMPropagation(ctx, func() (interface{}, error) {
+			_, err := waitIAMPropagation(ctx, 
+() (interface{}, error) {
 				return conn.UpdateApplicationWithContext(ctx, input)
 			})
 
@@ -1502,7 +1521,8 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 	return append(diags, resourceApplicationRead(ctx, d, meta)...)
 }
 
-func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+ resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
 
@@ -1536,7 +1556,8 @@ func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta
 	return diags
 }
 
-func resourceApplicationImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+
+ resourceApplicationImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	arn, err := arn.Parse(d.Id())
 	if err != nil {
 		return []*schema.ResourceData{}, fmt.Errorf("parsing ARN %q: %w", d.Id(), err)
@@ -1553,7 +1574,8 @@ func resourceApplicationImport(ctx context.Context, d *schema.ResourceData, meta
 	return []*schema.ResourceData{d}, nil
 }
 
-func startApplication(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, input *kinesisanalyticsv2.StartApplicationInput, timeout time.Duration) error {
+
+ startApplication(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, input *kinesisanalyticsv2.StartApplicationInput, timeout time.Duration) error {
 	applicationName := aws.StringValue(input.ApplicationName)
 
 	application, err := FindApplicationDetailByName(ctx, conn, applicationName)
@@ -1592,7 +1614,8 @@ func startApplication(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnaly
 	return nil
 }
 
-func stopApplication(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, input *kinesisanalyticsv2.StopApplicationInput, timeout time.Duration) error {
+
+ stopApplication(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, input *kinesisanalyticsv2.StopApplicationInput, timeout time.Duration) error {
 	applicationName := aws.StringValue(input.ApplicationName)
 
 	application, err := FindApplicationDetailByName(ctx, conn, applicationName)
@@ -1621,7 +1644,8 @@ func stopApplication(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyt
 	return nil
 }
 
-func expandApplicationConfiguration(vApplicationConfiguration []interface{}) *kinesisanalyticsv2.ApplicationConfiguration {
+
+ expandApplicationConfiguration(vApplicationConfiguration []interface{}) *kinesisanalyticsv2.ApplicationConfiguration {
 	if len(vApplicationConfiguration) == 0 || vApplicationConfiguration[0] == nil {
 		return nil
 	}
@@ -1800,7 +1824,8 @@ func expandApplicationConfiguration(vApplicationConfiguration []interface{}) *ki
 	return applicationConfiguration
 }
 
-func expandApplicationCodeConfigurationUpdate(vApplicationCodeConfiguration []interface{}) *kinesisanalyticsv2.ApplicationCodeConfigurationUpdate {
+
+ expandApplicationCodeConfigurationUpdate(vApplicationCodeConfiguration []interface{}) *kinesisanalyticsv2.ApplicationCodeConfigurationUpdate {
 	if len(vApplicationCodeConfiguration) == 0 || vApplicationCodeConfiguration[0] == nil {
 		return nil
 	}
@@ -1846,7 +1871,8 @@ func expandApplicationCodeConfigurationUpdate(vApplicationCodeConfiguration []in
 	return applicationCodeConfigurationUpdate
 }
 
-func expandApplicationFlinkApplicationConfigurationUpdate(vFlinkApplicationConfiguration []interface{}) *kinesisanalyticsv2.FlinkApplicationConfigurationUpdate {
+
+ expandApplicationFlinkApplicationConfigurationUpdate(vFlinkApplicationConfiguration []interface{}) *kinesisanalyticsv2.FlinkApplicationConfigurationUpdate {
 	if len(vFlinkApplicationConfiguration) == 0 || vFlinkApplicationConfiguration[0] == nil {
 		return nil
 	}
@@ -1927,7 +1953,8 @@ func expandApplicationFlinkApplicationConfigurationUpdate(vFlinkApplicationConfi
 	return flinkApplicationConfigurationUpdate
 }
 
-func expandApplicationSnapshotConfigurationUpdate(vApplicationSnapshotConfiguration []interface{}) *kinesisanalyticsv2.ApplicationSnapshotConfigurationUpdate {
+
+ expandApplicationSnapshotConfigurationUpdate(vApplicationSnapshotConfiguration []interface{}) *kinesisanalyticsv2.ApplicationSnapshotConfigurationUpdate {
 	if len(vApplicationSnapshotConfiguration) == 0 || vApplicationSnapshotConfiguration[0] == nil {
 		return nil
 	}
@@ -1943,7 +1970,8 @@ func expandApplicationSnapshotConfigurationUpdate(vApplicationSnapshotConfigurat
 	return applicationSnapshotConfigurationUpdate
 }
 
-func expandCloudWatchLoggingOptions(vCloudWatchLoggingOptions []interface{}) []*kinesisanalyticsv2.CloudWatchLoggingOption {
+
+ expandCloudWatchLoggingOptions(vCloudWatchLoggingOptions []interface{}) []*kinesisanalyticsv2.CloudWatchLoggingOption {
 	if len(vCloudWatchLoggingOptions) == 0 || vCloudWatchLoggingOptions[0] == nil {
 		return nil
 	}
@@ -1959,7 +1987,8 @@ func expandCloudWatchLoggingOptions(vCloudWatchLoggingOptions []interface{}) []*
 	return []*kinesisanalyticsv2.CloudWatchLoggingOption{cloudWatchLoggingOption}
 }
 
-func expandEnvironmentPropertyUpdates(vEnvironmentProperties []interface{}) *kinesisanalyticsv2.EnvironmentPropertyUpdates {
+
+ expandEnvironmentPropertyUpdates(vEnvironmentProperties []interface{}) *kinesisanalyticsv2.EnvironmentPropertyUpdates {
 	if len(vEnvironmentProperties) == 0 || vEnvironmentProperties[0] == nil {
 		// Return empty updates to remove all existing property groups.
 		return &kinesisanalyticsv2.EnvironmentPropertyUpdates{PropertyGroups: []*kinesisanalyticsv2.PropertyGroup{}}
@@ -1976,7 +2005,8 @@ func expandEnvironmentPropertyUpdates(vEnvironmentProperties []interface{}) *kin
 	return environmentPropertyUpdates
 }
 
-func expandInput(vInput []interface{}) *kinesisanalyticsv2.Input {
+
+ expandInput(vInput []interface{}) *kinesisanalyticsv2.Input {
 	if len(vInput) == 0 || vInput[0] == nil {
 		return nil
 	}
@@ -2036,7 +2066,8 @@ func expandInput(vInput []interface{}) *kinesisanalyticsv2.Input {
 	return input
 }
 
-func expandInputProcessingConfiguration(vInputProcessingConfiguration []interface{}) *kinesisanalyticsv2.InputProcessingConfiguration {
+
+ expandInputProcessingConfiguration(vInputProcessingConfiguration []interface{}) *kinesisanalyticsv2.InputProcessingConfiguration {
 	if len(vInputProcessingConfiguration) == 0 || vInputProcessingConfiguration[0] == nil {
 		return nil
 	}
@@ -2060,7 +2091,8 @@ func expandInputProcessingConfiguration(vInputProcessingConfiguration []interfac
 	return inputProcessingConfiguration
 }
 
-func expandInputUpdate(vInput []interface{}) *kinesisanalyticsv2.InputUpdate {
+
+ expandInputUpdate(vInput []interface{}) *kinesisanalyticsv2.InputUpdate {
 	if len(vInput) == 0 || vInput[0] == nil {
 		return nil
 	}
@@ -2156,7 +2188,8 @@ func expandInputUpdate(vInput []interface{}) *kinesisanalyticsv2.InputUpdate {
 	return inputUpdate
 }
 
-func expandOutput(vOutput interface{}) *kinesisanalyticsv2.Output {
+
+ expandOutput(vOutput interface{}) *kinesisanalyticsv2.Output {
 	if vOutput == nil {
 		return nil
 	}
@@ -2220,7 +2253,8 @@ func expandOutput(vOutput interface{}) *kinesisanalyticsv2.Output {
 	return output
 }
 
-func expandOutputs(vOutputs []interface{}) []*kinesisanalyticsv2.Output {
+
+ expandOutputs(vOutputs []interface{}) []*kinesisanalyticsv2.Output {
 	if len(vOutputs) == 0 {
 		return nil
 	}
@@ -2238,7 +2272,8 @@ func expandOutputs(vOutputs []interface{}) []*kinesisanalyticsv2.Output {
 	return outputs
 }
 
-func expandPropertyGroups(vPropertyGroups []interface{}) []*kinesisanalyticsv2.PropertyGroup {
+
+ expandPropertyGroups(vPropertyGroups []interface{}) []*kinesisanalyticsv2.PropertyGroup {
 	propertyGroups := []*kinesisanalyticsv2.PropertyGroup{}
 
 	for _, vPropertyGroup := range vPropertyGroups {
@@ -2263,7 +2298,8 @@ func expandPropertyGroups(vPropertyGroups []interface{}) []*kinesisanalyticsv2.P
 	return propertyGroups
 }
 
-func expandRecordColumns(vRecordColumns []interface{}) []*kinesisanalyticsv2.RecordColumn {
+
+ expandRecordColumns(vRecordColumns []interface{}) []*kinesisanalyticsv2.RecordColumn {
 	recordColumns := []*kinesisanalyticsv2.RecordColumn{}
 
 	for _, vRecordColumn := range vRecordColumns {
@@ -2287,7 +2323,8 @@ func expandRecordColumns(vRecordColumns []interface{}) []*kinesisanalyticsv2.Rec
 	return recordColumns
 }
 
-func expandRecordFormat(vRecordFormat []interface{}) *kinesisanalyticsv2.RecordFormat {
+
+ expandRecordFormat(vRecordFormat []interface{}) *kinesisanalyticsv2.RecordFormat {
 	if len(vRecordFormat) == 0 || vRecordFormat[0] == nil {
 		return nil
 	}
@@ -2338,7 +2375,8 @@ func expandRecordFormat(vRecordFormat []interface{}) *kinesisanalyticsv2.RecordF
 	return recordFormat
 }
 
-func expandReferenceDataSource(vReferenceDataSource []interface{}) *kinesisanalyticsv2.ReferenceDataSource {
+
+ expandReferenceDataSource(vReferenceDataSource []interface{}) *kinesisanalyticsv2.ReferenceDataSource {
 	if len(vReferenceDataSource) == 0 || vReferenceDataSource[0] == nil {
 		return nil
 	}
@@ -2373,7 +2411,8 @@ func expandReferenceDataSource(vReferenceDataSource []interface{}) *kinesisanaly
 	return referenceDataSource
 }
 
-func expandReferenceDataSourceUpdate(vReferenceDataSource []interface{}) *kinesisanalyticsv2.ReferenceDataSourceUpdate {
+
+ expandReferenceDataSourceUpdate(vReferenceDataSource []interface{}) *kinesisanalyticsv2.ReferenceDataSourceUpdate {
 	if len(vReferenceDataSource) == 0 || vReferenceDataSource[0] == nil {
 		return nil
 	}
@@ -2412,7 +2451,8 @@ func expandReferenceDataSourceUpdate(vReferenceDataSource []interface{}) *kinesi
 	return referenceDataSourceUpdate
 }
 
-func expandSourceSchema(vSourceSchema []interface{}) *kinesisanalyticsv2.SourceSchema {
+
+ expandSourceSchema(vSourceSchema []interface{}) *kinesisanalyticsv2.SourceSchema {
 	if len(vSourceSchema) == 0 || vSourceSchema[0] == nil {
 		return nil
 	}
@@ -2436,7 +2476,8 @@ func expandSourceSchema(vSourceSchema []interface{}) *kinesisanalyticsv2.SourceS
 	return sourceSchema
 }
 
-func expandVPCConfiguration(vVpcConfiguration []interface{}) *kinesisanalyticsv2.VpcConfiguration {
+
+ expandVPCConfiguration(vVpcConfiguration []interface{}) *kinesisanalyticsv2.VpcConfiguration {
 	if len(vVpcConfiguration) == 0 || vVpcConfiguration[0] == nil {
 		return nil
 	}
@@ -2456,7 +2497,8 @@ func expandVPCConfiguration(vVpcConfiguration []interface{}) *kinesisanalyticsv2
 	return vpcConfiguration
 }
 
-func expandVPCConfigurationUpdate(vVpcConfiguration []interface{}) *kinesisanalyticsv2.VpcConfigurationUpdate {
+
+ expandVPCConfigurationUpdate(vVpcConfiguration []interface{}) *kinesisanalyticsv2.VpcConfigurationUpdate {
 	if len(vVpcConfiguration) == 0 || vVpcConfiguration[0] == nil {
 		return nil
 	}
@@ -2480,7 +2522,8 @@ func expandVPCConfigurationUpdate(vVpcConfiguration []interface{}) *kinesisanaly
 	return vpcConfigurationUpdate
 }
 
-func expandRunConfigurationUpdate(vRunConfigurationUpdate []interface{}) *kinesisanalyticsv2.RunConfigurationUpdate {
+
+ expandRunConfigurationUpdate(vRunConfigurationUpdate []interface{}) *kinesisanalyticsv2.RunConfigurationUpdate {
 	if len(vRunConfigurationUpdate) == 0 || vRunConfigurationUpdate[0] == nil {
 		return nil
 	}
@@ -2520,7 +2563,8 @@ func expandRunConfigurationUpdate(vRunConfigurationUpdate []interface{}) *kinesi
 	return runConfigurationUpdate
 }
 
-func flattenApplicationConfigurationDescription(applicationConfigurationDescription *kinesisanalyticsv2.ApplicationConfigurationDescription) []interface{} {
+
+ flattenApplicationConfigurationDescription(applicationConfigurationDescription *kinesisanalyticsv2.ApplicationConfigurationDescription) []interface{} {
 	if applicationConfigurationDescription == nil {
 		return []interface{}{}
 	}
@@ -2587,9 +2631,9 @@ func flattenApplicationConfigurationDescription(applicationConfigurationDescript
 
 		if checkpointConfigurationDescription := flinkApplicationConfigurationDescription.CheckpointConfigurationDescription; checkpointConfigurationDescription != nil {
 			mCheckpointConfiguration := map[string]interface{}{
-				"checkpointing_enabled":         aws.BoolValue(checkpointConfigurationDescription.CheckpointingEnabled),
-				"checkpoint_interval":           int(aws.Int64Value(checkpointConfigurationDescription.CheckpointInterval)),
-				"configuration_type":            aws.StringValue(checkpointConfigurationDescription.ConfigurationType),
+				"checkpointing_enabled":aws.BoolValue(checkpointConfigurationDescription.CheckpointingEnabled),
+				"checkpoint_interval":  int(aws.Int64Value(checkpointConfigurationDescription.CheckpointInterval)),
+				"configuration_type":   aws.StringValue(checkpointConfigurationDescription.ConfigurationType),
 				"min_pause_between_checkpoints": int(aws.Int64Value(checkpointConfigurationDescription.MinPauseBetweenCheckpoints)),
 			}
 
@@ -2599,7 +2643,7 @@ func flattenApplicationConfigurationDescription(applicationConfigurationDescript
 		if monitoringConfigurationDescription := flinkApplicationConfigurationDescription.MonitoringConfigurationDescription; monitoringConfigurationDescription != nil {
 			mMonitoringConfiguration := map[string]interface{}{
 				"configuration_type": aws.StringValue(monitoringConfigurationDescription.ConfigurationType),
-				"log_level":          aws.StringValue(monitoringConfigurationDescription.LogLevel),
+				"log_level": aws.StringValue(monitoringConfigurationDescription.LogLevel),
 				"metrics_level":      aws.StringValue(monitoringConfigurationDescription.MetricsLevel),
 			}
 
@@ -2610,7 +2654,7 @@ func flattenApplicationConfigurationDescription(applicationConfigurationDescript
 			mParallelismConfiguration := map[string]interface{}{
 				"auto_scaling_enabled": aws.BoolValue(parallelismConfigurationDescription.AutoScalingEnabled),
 				"configuration_type":   aws.StringValue(parallelismConfigurationDescription.ConfigurationType),
-				"parallelism":          int(aws.Int64Value(parallelismConfigurationDescription.Parallelism)),
+				"parallelism": int(aws.Int64Value(parallelismConfigurationDescription.Parallelism)),
 				"parallelism_per_kpu":  int(aws.Int64Value(parallelismConfigurationDescription.ParallelismPerKPU)),
 			}
 
@@ -2626,7 +2670,7 @@ func flattenApplicationConfigurationDescription(applicationConfigurationDescript
 		if applicationRestoreConfigurationDescription := runConfigurationDescription.ApplicationRestoreConfigurationDescription; applicationRestoreConfigurationDescription != nil {
 			mApplicationRestoreConfiguration := map[string]interface{}{
 				"application_restore_type": aws.StringValue(applicationRestoreConfigurationDescription.ApplicationRestoreType),
-				"snapshot_name":            aws.StringValue(applicationRestoreConfigurationDescription.SnapshotName),
+				"snapshot_name":   aws.StringValue(applicationRestoreConfigurationDescription.SnapshotName),
 			}
 
 			mRunConfiguration["application_restore_configuration"] = []interface{}{mApplicationRestoreConfiguration}
@@ -2651,8 +2695,8 @@ func flattenApplicationConfigurationDescription(applicationConfigurationDescript
 
 			mInput := map[string]interface{}{
 				"in_app_stream_names": flex.FlattenStringList(inputDescription.InAppStreamNames),
-				"input_id":            aws.StringValue(inputDescription.InputId),
-				"name_prefix":         aws.StringValue(inputDescription.NamePrefix),
+				"input_id":   aws.StringValue(inputDescription.InputId),
+				"name_prefix":aws.StringValue(inputDescription.NamePrefix),
 			}
 
 			if inputParallelism := inputDescription.InputParallelism; inputParallelism != nil {
@@ -2789,9 +2833,9 @@ func flattenApplicationConfigurationDescription(applicationConfigurationDescript
 
 		mVpcConfiguration := map[string]interface{}{
 			"security_group_ids":   flex.FlattenStringSet(vpcConfigurationDescription.SecurityGroupIds),
-			"subnet_ids":           flex.FlattenStringSet(vpcConfigurationDescription.SubnetIds),
+			"subnet_ids":  flex.FlattenStringSet(vpcConfigurationDescription.SubnetIds),
 			"vpc_configuration_id": aws.StringValue(vpcConfigurationDescription.VpcConfigurationId),
-			"vpc_id":               aws.StringValue(vpcConfigurationDescription.VpcId),
+			"vpc_id":      aws.StringValue(vpcConfigurationDescription.VpcId),
 		}
 
 		mApplicationConfiguration["vpc_configuration"] = []interface{}{mVpcConfiguration}
@@ -2800,7 +2844,8 @@ func flattenApplicationConfigurationDescription(applicationConfigurationDescript
 	return []interface{}{mApplicationConfiguration}
 }
 
-func flattenCloudWatchLoggingOptionDescriptions(cloudWatchLoggingOptionDescriptions []*kinesisanalyticsv2.CloudWatchLoggingOptionDescription) []interface{} {
+
+ flattenCloudWatchLoggingOptionDescriptions(cloudWatchLoggingOptionDescriptions []*kinesisanalyticsv2.CloudWatchLoggingOptionDescription) []interface{} {
 	if len(cloudWatchLoggingOptionDescriptions) == 0 || cloudWatchLoggingOptionDescriptions[0] == nil {
 		return []interface{}{}
 	}
@@ -2809,13 +2854,14 @@ func flattenCloudWatchLoggingOptionDescriptions(cloudWatchLoggingOptionDescripti
 
 	mCloudWatchLoggingOption := map[string]interface{}{
 		"cloudwatch_logging_option_id": aws.StringValue(cloudWatchLoggingOptionDescription.CloudWatchLoggingOptionId),
-		"log_stream_arn":               aws.StringValue(cloudWatchLoggingOptionDescription.LogStreamARN),
+		"log_stream_arn":      aws.StringValue(cloudWatchLoggingOptionDescription.LogStreamARN),
 	}
 
 	return []interface{}{mCloudWatchLoggingOption}
 }
 
-func flattenSourceSchema(sourceSchema *kinesisanalyticsv2.SourceSchema) []interface{} {
+
+ flattenSourceSchema(sourceSchema *kinesisanalyticsv2.SourceSchema) []interface{} {
 	if sourceSchema == nil {
 		return []interface{}{}
 	}
@@ -2876,7 +2922,8 @@ func flattenSourceSchema(sourceSchema *kinesisanalyticsv2.SourceSchema) []interf
 	return []interface{}{mSourceSchema}
 }
 
-func expandStartApplicationInput(d *schema.ResourceData) *kinesisanalyticsv2.StartApplicationInput {
+
+ expandStartApplicationInput(d *schema.ResourceData) *kinesisanalyticsv2.StartApplicationInput {
 	apiObject := &kinesisanalyticsv2.StartApplicationInput{
 		ApplicationName:  aws.String(d.Get("name").(string)),
 		RunConfiguration: &kinesisanalyticsv2.RunConfiguration{},
@@ -2937,7 +2984,8 @@ func expandStartApplicationInput(d *schema.ResourceData) *kinesisanalyticsv2.Sta
 	return apiObject
 }
 
-func expandStopApplicationInput(d *schema.ResourceData) *kinesisanalyticsv2.StopApplicationInput {
+
+ expandStopApplicationInput(d *schema.ResourceData) *kinesisanalyticsv2.StopApplicationInput {
 	apiObject := &kinesisanalyticsv2.StopApplicationInput{
 		ApplicationName: aws.String(d.Get("name").(string)),
 	}

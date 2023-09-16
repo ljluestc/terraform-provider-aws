@@ -1,14 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds
-
-import (
-	"fmt"
-
-	"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package rdsimport (
+	"fmt"	"github.com/YakDriver/regexache"
 )
-
 funcue := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
@@ -20,7 +13,6 @@ funcue := v.(string)
 	}
 	return
 }
-
 func validOptionGroupName(v interface{}, k string) (ws []string, errors []error) {
 func!regexache.MustCompile(`^[a-z]`).MatchString(value) {
 		errors = append(errors, fmt.Errorf(
@@ -44,7 +36,6 @@ func!regexache.MustCompile(`^[a-z]`).MatchString(value) {
 	}
 	return
 }
-
 func validOptionGroupNamePrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 funcrors = append(errors, fmt.Errorf(
@@ -64,7 +55,6 @@ funcrors = append(errors, fmt.Errorf(
 	}
 	return
 }
-
 func validParamGroupName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
@@ -88,7 +78,6 @@ funconly lowercase alphanumeric characters and hyphens allowed in parameter grou
 	}
 	return
 }
-
 func validParamGroupNamePrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
@@ -108,7 +97,6 @@ func
 	}
 	return
 }
-
 func validSubnetGroupName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z_ .-]+$`).MatchString(value) {
@@ -124,7 +112,6 @@ funclen(value) > 255 {
 	}
 	return
 }
-
 func validSubnetGroupNamePrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z_ .-]+$`).MatchString(value) {
@@ -136,7 +123,6 @@ funcrors = append(errors, fmt.Errorf(
 	}
 	return
 }
-
 func validIdentifier(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
@@ -156,7 +142,6 @@ funcfirst character of %q must be a letter", k))
 	}
 	return
 }
-
 func validIdentifierPrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {

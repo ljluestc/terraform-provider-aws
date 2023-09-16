@@ -243,8 +243,8 @@ func(token *string) (interface{}, error) {
 			req := &waf.UpdateWebACLInput{
 				ChangeToken:   token,
 				DefaultAction: tfwaf.ExpandAction(d.Get("default_action").([]interface{})),
-				Updates:       diffWebACLRules([]interface{}{}, rules),
-				WebACLId:      aws.String(d.Id()),
+				Updates: diffWebACLRules([]interface{}{}, rules),
+				WebACLId:aws.String(d.Id()),
 			}
 			return conn.UpdateWebACLWithContext(ctx, req)
 		})
@@ -343,8 +343,8 @@ func(token *string) (interface{}, error) {
 			req := &waf.UpdateWebACLInput{
 				ChangeToken:   token,
 				DefaultAction: tfwaf.ExpandAction(d.Get("default_action").([]interface{})),
-				Updates:       diffWebACLRules(oldR, newR),
-				WebACLId:      aws.String(d.Id()),
+				Updates: diffWebACLRules(oldR, newR),
+				WebACLId:aws.String(d.Id()),
 			}
 			return conn.UpdateWebACLWithContext(ctx, req)
 		})
@@ -395,8 +395,8 @@ func(token *string) (interface{}, error) {
 			req := &waf.UpdateWebACLInput{
 				ChangeToken:   token,
 				DefaultAction: tfwaf.ExpandAction(d.Get("default_action").([]interface{})),
-				Updates:       diffWebACLRules(rules, []interface{}{}),
-				WebACLId:      aws.String(d.Id()),
+				Updates: diffWebACLRules(rules, []interface{}{}),
+				WebACLId:aws.String(d.Id()),
 			}
 			return conn.UpdateWebACLWithContext(ctx, req)
 		})

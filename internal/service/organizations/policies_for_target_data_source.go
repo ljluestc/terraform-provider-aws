@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_organizations_policies_for_target")
+
 func DataSourcePoliciesForTarget() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourcePoliciesForTargetRead,
@@ -36,6 +37,7 @@ func DataSourcePoliciesForTarget() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourcePoliciesForTargetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -63,6 +65,7 @@ func dataSourcePoliciesForTargetRead(ctx context.Context, d *schema.ResourceData
 	return diags
 }
 
+
 func findPoliciesForTarget(ctx context.Context, conn *organizations.Organizations, targetID string, filter string) ([]*organizations.PolicySummary, error) {
 	input := &organizations.ListPoliciesForTargetInput{
 		Filter:   aws.String(filter),
@@ -70,7 +73,8 @@ func findPoliciesForTarget(ctx context.Context, conn *organizations.Organization
 	}
 	var output []*organizations.PolicySummary
 
-	err := conn.ListPoliciesForTargetPagesWithContext(ctx, input, func(page *organizations.ListPoliciesForTargetOutput, lastPage bool) bool {
+	err := conn.ListPoliciesForTargetPagesWithContext(ctx, input, 
+func(page *organizations.ListPoliciesForTargetOutput, lastPage bool) bool {
 		output = append(output, page.Policies...)
 
 		return !lastPage

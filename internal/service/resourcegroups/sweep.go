@@ -19,7 +19,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_resourcegroups_group", &resource.Sweeper{
 		Name: "aws_resourcegroups_group",
-		F:    sweepGroups,
+		F:sweepGroups,
 	})
 }
 

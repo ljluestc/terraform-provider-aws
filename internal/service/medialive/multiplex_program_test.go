@@ -26,24 +26,24 @@ func TestParseMultiplexProgramIDUnitTest(t *testing.T) {
 
 	testCases := []struct {
 		TestName    string
-		Input       string
+		Inputg
 		ProgramName string
 		MultiplexID string
-		Error       bool
+		Error
 	}{
 		{
 			TestName:    "valid id",
-			Input:       "program_name/multiplex_id",
+			Input:ram_name/multiplex_id",
 			ProgramName: "program_name",
 			MultiplexID: "multiplex_id",
-			Error:       false,
+			Error:,
 		},
 		{
 			TestName:    "invalid id",
-			Input:       "multiplex_id",
+			Input:iplex_id",
 			ProgramName: "",
 			MultiplexID: "",
-			Error:       true,
+			Error:
 		},
 	}
 
@@ -88,7 +88,7 @@ func testAccMultiplexProgram_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:t.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckMultiplexProgramDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -105,7 +105,7 @@ func testAccMultiplexProgram_basic(t *testing.T) {
 			{
 				ResourceName:   resourceName,
 				ImportState:    true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"multiplex_id"},
 			},
 		},
@@ -127,7 +127,7 @@ func testAccMultiplexProgram_update(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:t.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckMultiplexProgramDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -172,7 +172,7 @@ func testAccMultiplexProgram_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:t.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckMultiplexProgramDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -255,8 +255,8 @@ resource "aws_medialive_multiplex" "test" {
 
   multiplex_settings {
     transport_stream_bitrate = 1000000
-    transport_stream_id      = 1
-    transport_stream_reserved_bitrate       = 1
+    transport_stream_id
+    transport_stream_reserved_bitrate
     maximum_video_buffer_delay_milliseconds = 1000
   }
 
@@ -280,7 +280,7 @@ resource "aws_medialive_multiplex_program" "test" {
     preferred_channel_pipeline = "CURRENTLY_ACTIVE"
 
     video_settings {
-      constant_bitrate = 100000
+nt_bitrate = 100000
     }
   }
 }
@@ -300,9 +300,9 @@ resource "aws_medialive_multiplex_program" "test" {
     preferred_channel_pipeline = "CURRENTLY_ACTIVE"
 
     video_settings {
-      statmux_settings {
-        minimum_bitrate = %[2]d
-      }
+x_settings {
+mum_bitrate = %[2]d
+
     }
   }
 }

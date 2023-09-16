@@ -41,28 +41,28 @@ func ResourceVoiceConnectorOrigination() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"host": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.IsIPAddress,
 						},
 						"port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      5060,
 							ValidateFunc: validation.IsPortNumber,
 						},
 						"priority": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IntBetween(1, 99),
 						},
 						"protocol": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(chime.OriginationRouteProtocol_Values(), false),
 						},
 						"weight": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IntBetween(1, 99),
 						},

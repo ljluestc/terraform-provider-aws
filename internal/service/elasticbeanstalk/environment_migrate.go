@@ -9,7 +9,6 @@ import (
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 )
-
 func EnvironmentMigrateState(
 	v int, is *terraform.InstanceState, meta interface{}) (*terraform.InstanceState, error) {
 	switch v {
@@ -20,7 +19,6 @@ func EnvironmentMigrateState(
 		return is, fmt.Errorf("Unexpected schema version: %d", v)
 	}
 }
-
 func migrateEnvironmentStateV0toV1(is *terraform.InstanceState) (*terraform.InstanceState, error) {
 	if is.Empty() || is.Attributes == nil {
 		log.Println("[DEBUG] Empty Elastic Beanstalk Environment State; nothing to migrate.")

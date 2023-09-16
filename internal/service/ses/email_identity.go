@@ -22,7 +22,7 @@ import (
 func ResourceEmailIdentity() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEmailIdentityCreate,
-		ReadWithoutTimeout:   resourceEmailIdentityRead,
+		ReadWithoutTimeout:resourceEmailIdentityRead,
 		DeleteWithoutTimeout: resourceEmailIdentityDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -30,21 +30,21 @@ func ResourceEmailIdentity() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"email": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				StateFunc: func(v interface{}) string {
+				StateFunc: 
+func(v interface{}) string {
 					return strings.TrimSuffix(v.(string), ".")
 				},
 			},
 		},
 	}
 }
-
 func resourceEmailIdentityCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -65,7 +65,6 @@ func resourceEmailIdentityCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return append(diags, resourceEmailIdentityRead(ctx, d, meta)...)
 }
-
 func resourceEmailIdentityRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -94,14 +93,13 @@ func resourceEmailIdentityRead(ctx context.Context, d *schema.ResourceData, meta
 	arn := arn.ARN{
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
+		Region: meta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("identity/%s", d.Id()),
-		Service:   "ses",
+		Service:"ses",
 	}.String()
 	d.Set("arn", arn)
 	return diags
 }
-
 func resourceEmailIdentityDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)

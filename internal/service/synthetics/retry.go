@@ -18,6 +18,7 @@ const (
 	canaryCreateFail = "CREATE_FAILED"
 )
 
+
 func retryCreateCanary(ctx context.Context, conn *synthetics.Synthetics, d *schema.ResourceData, input *synthetics.CreateCanaryInput) (*synthetics.Canary, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{synthetics.CanaryStateCreating, synthetics.CanaryStateUpdating},
@@ -49,6 +50,7 @@ func retryCreateCanary(ctx context.Context, conn *synthetics.Synthetics, d *sche
 
 	return nil, err
 }
+
 
 func deleteCanary(ctx context.Context, conn *synthetics.Synthetics, name string) error {
 	_, err := conn.DeleteCanaryWithContext(ctx, &synthetics.DeleteCanaryInput{

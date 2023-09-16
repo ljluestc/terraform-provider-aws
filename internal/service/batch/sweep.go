@@ -21,7 +21,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/framework"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/sdk"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_batch_compute_environment", &resource.Sweeper{
 		Name: "aws_batch_compute_environment",
@@ -33,7 +32,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_batch_job_definition", &resource.Sweeper{
 		Name: "aws_batch_job_definition",
-		F:    sweepJobDefinitions,
+		F: sweepJobDefinitions,
 		Dependencies: []string{
 			"aws_batch_job_queue",
 		},
@@ -41,18 +40,17 @@ func init() {
 
 	resource.AddTestSweepers("aws_batch_job_queue", &resource.Sweeper{
 		Name: "aws_batch_job_queue",
-		F:    sweepJobQueues,
+		F: sweepJobQueues,
 	})
 
 	resource.AddTestSweepers("aws_batch_scheduling_policy", &resource.Sweeper{
 		Name: "aws_batch_scheduling_policy",
-		F:    sweepSchedulingPolicies,
+		F: sweepSchedulingPolicies,
 		Dependencies: []string{
 			"aws_batch_job_queue",
 		},
 	})
 }
-
 func sweepComputeEnvironments(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -100,12 +98,12 @@ func sweepComputeEnvironments(region string) error {
 					AccountID: "aws",
 					Partition: sweep.Partition(region),
 					Resource:  "policy/service-role/AWSBatchServiceRole",
-					Service:   iam.ServiceName,
+					Service:iam.ServiceName,
 				}.String()
 
 				iamCreateRoleInput := &iam.CreateRoleInput{
 					AssumeRolePolicyDocument: aws.String(fmt.Sprintf("{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\": \"%s\"},\"Action\":\"sts:AssumeRole\"}]}", servicePrincipal)),
-					RoleName:    aws.String(serviceRoleName),
+					RoleName: aws.String(serviceRoleName),
 				}
 
 				_, err = iamconn.CreateRoleWithContext(ctx, iamCreateRoleInput)
@@ -166,7 +164,6 @@ func sweepComputeEnvironments(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepJobDefinitions(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -212,7 +209,6 @@ func sweepJobDefinitions(region string) error {
 
 	return nil
 }
-
 func sweepJobQueues(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -256,7 +252,6 @@ func sweepJobQueues(region string) error {
 
 	return nil
 }
-
 func sweepSchedulingPolicies(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

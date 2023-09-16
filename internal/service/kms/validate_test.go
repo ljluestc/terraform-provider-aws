@@ -7,7 +7,6 @@ import (
 	"strings"
 	"testing"
 )
-
 func TestValidGrantName(t *testing.T) {
 	t.Parallel()
 
@@ -39,7 +38,6 @@ func TestValidGrantName(t *testing.T) {
 		}
 	}
 }
-
 func TestValidNameForDataSource(t *testing.T) {
 	t.Parallel()
 
@@ -80,7 +78,6 @@ func TestValidNameForDataSource(t *testing.T) {
 		}
 	}
 }
-
 func TestValidNameForResource(t *testing.T) {
 	t.Parallel()
 
@@ -121,7 +118,6 @@ func TestValidNameForResource(t *testing.T) {
 		}
 	}
 }
-
 func TestValidateKeyOrAlias(t *testing.T) {
 	t.Parallel()
 
@@ -194,7 +190,6 @@ func TestValidateKeyOrAlias(t *testing.T) {
 		})
 	}
 }
-
 func TestValidateKeyARN(t *testing.T) {
 	t.Parallel()
 

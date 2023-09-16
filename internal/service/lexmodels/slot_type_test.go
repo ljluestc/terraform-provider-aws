@@ -56,7 +56,7 @@ acctest.CheckResourceAttrRFC3339(rName, "last_updated_date"),
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"create_version"},
@@ -89,7 +89,7 @@ resource.TestCheckResourceAttr(rName, "version", tflexmodels.SlotTypeVersionLate
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"create_version"},
@@ -103,7 +103,7 @@ resource.TestCheckResourceAttr(rName, "version", "1"),
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"create_version"},
@@ -135,7 +135,7 @@ resource.TestCheckResourceAttr(rName, "description", ""),
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"create_version"},
@@ -148,7 +148,7 @@ resource.TestCheckResourceAttr(rName, "description", "Types of flowers to pick u
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"create_version"},
@@ -180,7 +180,7 @@ resource.TestCheckResourceAttr(rName, "enumeration_value.#", "1"),
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"create_version"},
@@ -198,7 +198,7 @@ resource.TestCheckTypeSetElemAttr(rName, "enumeration_value.*.synonyms.*", "Podo
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"create_version"},
@@ -231,7 +231,7 @@ resource.TestCheckResourceAttr(rName, "name", testSlotTypeID1),
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"create_version"},
@@ -244,7 +244,7 @@ resource.TestCheckResourceAttr(rName, "name", testSlotTypeID2),
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"create_version"},
@@ -276,7 +276,7 @@ resource.TestCheckResourceAttr(rName, "value_selection_strategy", lexmodelbuildi
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"create_version"},
@@ -289,7 +289,7 @@ resource.TestCheckResourceAttr(rName, "value_selection_strategy", lexmodelbuildi
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
 ImportStateVerify:       true,
 	ImportStateVerifyIgnore: []string{"create_version"},
@@ -476,7 +476,7 @@ func testAccSlotTypeConfig_withVersion(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lex_slot_type" "test" {
   create_version = true
-  name           = "%s"
+  name  = "%s"
   enumeration_value {
     synonyms = [
       "Lirium",
@@ -547,7 +547,7 @@ func testAccSlotTypeUpdateConfig_enumerationValuesWithVersion(rName string) stri
 	return fmt.Sprintf(`
 resource "aws_lex_slot_type" "test" {
   create_version = true
-  name           = "%s"
+  name  = "%s"
   enumeration_value {
     synonyms = [
       "Lirium",

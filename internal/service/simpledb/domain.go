@@ -169,7 +169,6 @@ type resourceDomainData struct {
 	ID   types.String `tfsdk:"id"`
 	Name types.String `tfsdk:"name"`
 }
-
 func FindDomainByName(ctx context.Context, conn *simpledb.SimpleDB, name string) (*simpledb.DomainMetadataOutput, error) {
 	input := &simpledb.DomainMetadataInput{
 		DomainName: aws.String(name),

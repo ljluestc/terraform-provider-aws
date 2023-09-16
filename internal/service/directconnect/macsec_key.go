@@ -25,7 +25,7 @@ func ResourceMacSecKeyAssociation() *schema.Resource {
 	return &schema.Resource{
 		// MacSecKey resource only supports create (Associate), read (Describe) and delete (Disassociate)
 		CreateWithoutTimeout: resourceMacSecKeyCreate,
-		ReadWithoutTimeout:   resourceMacSecKeyRead,
+		ReadWithoutTimeout:resourceMacSecKeyRead,
 		DeleteWithoutTimeout: resourceMacSecKeyDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -33,45 +33,44 @@ func ResourceMacSecKeyAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"cak": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				// CAK requires CKN
 				RequiredWith: []string{"ckn"},
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9A-Fa-f]{64}$`), "Must be 64-character hex code string"),
-				ForceNew:     true,
+				ForceNew:true,
 			},
 			"ckn": {
-				Type:         schema.TypeString,
-				Computed:     true,
-				Optional:     true,
+				Type:ema.TypeString,
+				Computed:true,
+				Optional:true,
 				AtLeastOneOf: []string{"ckn", "secret_arn"},
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9A-Fa-f]{64}$`), "Must be 64-character hex code string"),
-				ForceNew:     true,
+				ForceNew:true,
 			},
 			"connection_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"secret_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				Computed:true,
 				AtLeastOneOf: []string{"ckn", "secret_arn"},
-				ForceNew:     true,
+				ForceNew:true,
 			},
 			"start_on": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceMacSecKeyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -105,7 +104,6 @@ func resourceMacSecKeyCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return append(diags, resourceMacSecKeyRead(ctx, d, meta)...)
 }
-
 func resourceMacSecKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -136,14 +134,13 @@ func resourceMacSecKeyRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
-
 func resourceMacSecKeyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
 	input := &directconnect.DisassociateMacSecKeyInput{
 		ConnectionId: aws.String(d.Get("connection_id").(string)),
-		SecretARN:    aws.String(d.Get("secret_arn").(string)),
+		SecretARN: aws.String(d.Get("secret_arn").(string)),
 	}
 
 	log.Printf("[DEBUG] Disassociating MACSec secret key on Direct Connect Connection: %s", *input.ConnectionId)

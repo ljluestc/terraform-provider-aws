@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hcl
-
-// ExprMap tests if the given expression is a static map construct and,
+// SPDX-License-Identifier: MPL-2.0package hcl// ExprMap tests if the given expression is a static map construct and,
 // if so, extracts the expressions that represent the map elements.
 // If the given expression is not a static map, error diagnostics are
 // returned.
@@ -15,20 +11,14 @@ tion by
 // be extracted.  Alternatively, an implementation support
 // UnwrapExpression to delegate handling of this 
  to a wrapped
-// Expression object.
-
- ExprMap(expr Expression) ([]KeyValuePair, Diagnostics) {
+// Expression object. ExprMap(expr Expression) ([]KeyValuePair, Diagnostics) {
 	type exprMap interface {
 		ExprMap() []KeyValuePair
-	}
-
-	physExpr := UnwrapExpressionUntil(expr, 
+	}	physExpr := UnwrapExpressionUntil(expr, 
 (expr Expression) bool {
 		_, supported := expr.(exprMap)
 		return supported
-	})
-
-	if exM, supported := physExpr.(exprMap); supported {
+	})	if exM, supported := physExpr.(exprMap); supported {
 		if pairs := exM.ExprMap(); pairs != nil {
 			return pairs, nil
 		}
@@ -41,9 +31,7 @@ tion by
 			Subject:  expr.StartRange().Ptr(),
 		},
 	}
-}
-
-// KeyValuePair represents a pair of expressions that serve as a single item
+}// KeyValuePair represents a pair of expressions that serve as a single item
 // within a map or object definition construct.
 type KeyValuePair struct {
 	Key   Expression

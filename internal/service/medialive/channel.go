@@ -736,9 +736,9 @@ func resourceChannelCreate(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).MediaLiveClient(ctx)
 
 	in := &medialive.CreateChannelInput{
-		Name:      aws.String(d.Get("name").(string)),
+		Name:ring(d.Get("name").(string)),
 		RequestId: aws.String(id.UniqueId()),
-		Tags:      getTagsIn(ctx),
+		Tags:sIn(ctx),
 	}
 
 	if v, ok := d.GetOk("cdi_input_specification"); ok && len(v.([]interface{})) > 0 {
@@ -1733,7 +1733,7 @@ func flattenChannelInputAttachments(tfList []types.InputAttachment) []interface{
 
 	for _, item := range tfList {
 		m := map[string]interface{}{
-			"input_id":        aws.ToString(item.InputId),
+			"input_id":ToString(item.InputId),
 			"input_attachment_name":    aws.ToString(item.InputAttachmentName),
 			"input_settings":  flattenInputAttachmentsInputSettings(item.InputSettings),
 			"automatic_input_failover_settings": flattenInputAttachmentAutomaticInputFailoverSettings(item.AutomaticInputFailoverSettings),
@@ -1758,9 +1758,9 @@ func flattenInputAttachmentsInputSettings(in *types.InputSettings) []interface{}
 		"filter_strength":  int(in.FilterStrength),
 		"input_filter":     string(in.InputFilter),
 		"network_input_settings":    flattenInputAttachmentsInputSettingsNetworkInputSettings(in.NetworkInputSettings),
-		"scte35_pid":       int(in.Scte35Pid),
+		"scte35_pid":n.Scte35Pid),
 		"smpte2038_data_preference": string(in.Smpte2038DataPreference),
-		"source_end_behavior":       string(in.SourceEndBehavior),
+		"source_end_behavior":g(in.SourceEndBehavior),
 	}
 
 	return []interface{}{m}
@@ -1792,7 +1792,7 @@ func flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettings(in *type
 
 	m := map[string]interface{}{
 		"audio_hls_rendition_selection": flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioHlsRenditionSelection(in.AudioHlsRenditionSelection),
-		"audio_language_selection":      flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioLanguageSelection(in.AudioLanguageSelection),
+		"audio_language_selection":nInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioLanguageSelection(in.AudioLanguageSelection),
 		"audio_pid_selection":  flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioPidSelection(in.AudioPidSelection),
 		"audio_track_selection":flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioTrackSelection(in.AudioTrackSelection),
 	}
@@ -1908,7 +1908,7 @@ func flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettings(in *ty
 
 	m := map[string]interface{}{
 		"ancillary_source_settings": flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsAncillarySourceSettings(in.AncillarySourceSettings),
-		"arib_source_settings":      []interface{}{}, // attribute has no exported fields
+		"arib_source_settings":rface{}{}, // attribute has no exported fields
 		"dvb_sub_source_settings":   flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsDvbSubSourceSettings(in.DvbSubSourceSettings),
 		"embedded_source_settings":  flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsEmbeddedSourceSettings(in.EmbeddedSourceSettings),
 		"scte20_source_settings":    flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsScte20SourceSettings(in.Scte20SourceSettings),
@@ -1950,7 +1950,7 @@ func flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsEmbedde
 	}
 
 	m := map[string]interface{}{
-		"convert_608_to_708":        string(in.Convert608To708),
+		"convert_608_to_708":ng(in.Convert608To708),
 		"scte20_detection": string(in.Scte20Detection),
 		"source_608_channel_number": int(in.Source608ChannelNumber),
 	}
@@ -1964,7 +1964,7 @@ func flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsScte20S
 	}
 
 	m := map[string]interface{}{
-		"convert_608_to_708":        string(in.Convert608To708),
+		"convert_608_to_708":ng(in.Convert608To708),
 		"source_608_channel_number": int(in.Source608ChannelNumber),
 	}
 
@@ -1991,7 +1991,7 @@ func flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsTeletex
 
 	m := map[string]interface{}{
 		"output_rectangle": flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsTeletextSourceSettingsOutputRectangle(in.OutputRectangle),
-		"page_number":      aws.ToString(in.PageNumber),
+		"page_number":String(in.PageNumber),
 	}
 
 	return []interface{}{m}
@@ -2003,10 +2003,10 @@ func flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsTeletex
 	}
 
 	m := map[string]interface{}{
-		"height":      float32(in.Height),
+		"height":2(in.Height),
 		"left_offset": float32(in.LeftOffset),
 		"top_offset":  float32(in.TopOffset),
-		"width":       float32(in.Width),
+		"width":32(in.Width),
 	}
 
 	return []interface{}{m}
@@ -2031,7 +2031,7 @@ func flattenNetworkInputSettingsHLSInputSettings(in *types.HlsInputSettings) []i
 	}
 
 	m := map[string]interface{}{
-		"bandwidth":       int(in.Bandwidth),
+		"bandwidth":n.Bandwidth),
 		"buffer_segments": int(in.BufferSegments),
 		"retries":int(in.Retries),
 		"retry_interval":  int(in.RetryInterval),
@@ -2050,7 +2050,7 @@ func flattenInputAttachmentAutomaticInputFailoverSettings(in *types.AutomaticInp
 		"secondary_input_id":    aws.ToString(in.SecondaryInputId),
 		"error_clear_time_msec": int(in.ErrorClearTimeMsec),
 		"failover_conditions":   flattenInputAttachmentAutomaticInputFailoverSettingsFailoverConditions(in.FailoverConditions),
-		"input_preference":      string(in.InputPreference),
+		"input_preference":(in.InputPreference),
 	}
 
 	return []interface{}{m}
@@ -2266,7 +2266,7 @@ func flattenChannelDestinations(apiObject []types.OutputDestination) []interface
 			"id":   aws.ToString(v.Id),
 			"media_package_settings": flattenChannelDestinationsMediaPackageSettings(v.MediaPackageSettings),
 			"multiplex_settings":     flattenChannelDestinationsMultiplexSettings(v.MultiplexSettings),
-			"settings":      flattenChannelDestinationsSettings(v.Settings),
+			"settings":nChannelDestinationsSettings(v.Settings),
 		}
 
 		tfList = append(tfList, m)
@@ -2316,7 +2316,7 @@ func flattenChannelDestinationsSettings(apiObject []types.OutputDestinationSetti
 			"password_param": aws.ToString(v.PasswordParam),
 			"stream_name":    aws.ToString(v.StreamName),
 			"url":   aws.ToString(v.Url),
-			"username":       aws.ToString(v.Username),
+			"username":oString(v.Username),
 		}
 
 		tfList = append(tfList, m)
@@ -2404,7 +2404,7 @@ func flattenChannelMaintenance(apiObject *types.MaintenanceStatus) []interface{}
 	}
 
 	m := map[string]interface{}{
-		"maintenance_day":        string(apiObject.MaintenanceDay),
+		"maintenance_day":ng(apiObject.MaintenanceDay),
 		"maintenance_start_time": aws.ToString(apiObject.MaintenanceStartTime),
 	}
 

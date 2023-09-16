@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfdiags
-
-// diagnosticBase can be embedded in other diagnostic structs to get
+// SPDX-License-Identifier: MPL-2.0package tfdiags// diagnosticBase can be embedded in other diagnostic structs to get
 // default implementations of Severity and Description. This type also
 // has default implementations of Source that return no source
 // location or expression-related information, so embedders should generally
@@ -13,22 +9,14 @@ type diagnosticBase struct {
 	summary  string
 	detail   string
 }
-
-
  (d diagnosticBase) Severity() Severity {
 	return d.severity
 }
-
-
  (d diagnosticBase) Description() Description {
 	return Description{
 		Summary: d.summary,
 		Detail:  d.detail,
-	}
-
-
-
- Diag(sev Severity, summary, detail string) Diagnostic {
+	} Diag(sev Severity, summary, detail string) Diagnostic {
 	return &diagnosticBase{
 		severity: sev,
 		summary:  summary,

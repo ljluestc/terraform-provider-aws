@@ -18,9 +18,9 @@ func ResourceNodejsAppLayer() *schema.Resource {
 
 		Attributes: map[string]*opsworksLayerTypeAttribute{
 			"nodejs_version": {
-				AttrName: opsworks.LayerAttributesKeysNodejsVersion,
-				Type:chema.TypeString,
-				Default:  "0.10.38",
+AttrName: opsworks.LayerAttributesKeysNodejsVersion,
+Type:chema.TypeString,
+Default:  "0.10.38",
 			},
 		},
 	}

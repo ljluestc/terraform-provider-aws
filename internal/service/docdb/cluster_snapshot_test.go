@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccDocDBClusterSnapshot_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dbClusterSnapshot docdb.DBClusterSnapshot
@@ -26,7 +25,7 @@ func TestAccDocDBClusterSnapshot_basic(t *testing.T) {
 	resourceName := "aws_docdb_cluster_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterSnapshotDestroy(ctx),
@@ -49,14 +48,13 @@ func TestAccDocDBClusterSnapshot_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckClusterSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DocDBConn(ctx)
@@ -86,7 +84,6 @@ func testAccCheckClusterSnapshotDestroy(ctx context.Context) resource.TestCheckF
 		return nil
 	}
 }
-
 func testAccCheckClusterSnapshotExists(ctx context.Context, resourceName string, dbClusterSnapshot *docdb.DBClusterSnapshot) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -118,15 +115,14 @@ func testAccCheckClusterSnapshotExists(ctx context.Context, resourceName string,
 		return nil
 	}
 }
-
 func testAccClusterSnapshotConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+ name= "opt-in-status"
+ values = ["opt-in-not-required"]
   }
 }
 
@@ -134,7 +130,7 @@ resource "aws_vpc" "test" {
   cidr_block = "192.168.0.0/16"
 
   tags = {
-    Name = %q
+ Name = %q
   }
 }
 
@@ -142,29 +138,29 @@ resource "aws_subnet" "test" {
   count = 2
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = "192.168.${count.index}.0/24"
-  vpc_id            = aws_vpc.test.id
+  cidr_block92.168.${count.index}.0/24"
+  vpc_idst.id
 
   tags = {
-    Name = %q
+ Name = %q
   }
 }
 
 resource "aws_docdb_subnet_group" "test" {
-  name       = %q
+  name
   subnet_ids = aws_subnet.test[*].id
 }
 
 resource "aws_docdb_cluster" "test" {
-  cluster_identifier   = %q
+  cluster_identifier= %q
   db_subnet_group_name = aws_docdb_subnet_group.test.name
-  master_password      = "barbarbarbar"
-  master_username      = "foo"
+  master_passwordbarbarbar"
+  master_username"
   skip_final_snapshot  = true
 }
 
 resource "aws_docdb_cluster_snapshot" "test" {
-  db_cluster_identifier          = aws_docdb_cluster.test.id
+  db_cluster_identifieraws_docdb_cluster.test.id
   db_cluster_snapshot_identifier = %q
 }
 `, rName, rName, rName, rName, rName)

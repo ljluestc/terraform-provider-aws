@@ -1,182 +1,112 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfexec
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfexecimport (
 	"context"
 	"fmt"
 	"os/exec"
-)
-
-type initConfig struct {
+)type initConfig struct {
 	backend       bool
 	backendConfig []string
-	dir           string
+	dir  string
 	forceCopy     bool
 	fromModule    string
-	get           bool
+	get  bool
 	getPlugins    bool
-	lock          bool
+	lock bool
 	lockTimeout   string
 	pluginDir     []string
 	reattachInfo  ReattachInfo
 	reconfigure   bool
 	upgrade       bool
 	verifyPlugins bool
-}
-
-var defaultInitOptions = initConfig{
+}var defaultInitOptions = initConfig{
 	backend:       true,
 	forceCopy:     false,
-	get:           true,
+	get:  true,
 	getPlugins:    true,
-	lock:          true,
+	lock: true,
 	lockTimeout:   "0s",
 	reconfigure:   false,
 	upgrade:       false,
 	verifyPlugins: true,
-}
-
-// InitOption represents options used in the Init method.
+}// InitOption represents options used in the Init method.
 type InitOption interface {
 	configureInit(*initConfig)
 }
-
-
  (opt *BackendOption) configureInit(conf *initConfig) {
 	conf.backend = opt.backend
 }
-
-
  (opt *BackendConfigOption) configureInit(conf *initConfig) {
-	conf.backendConfig = append(conf.backendConfig, opt.path)
-
-
-
- (opt *DirOption) configureInit(conf *initConfig) {
+	conf.backendConfig = append(conf.backendConfig, opt.path) (opt *DirOption) configureInit(conf *initConfig) {
 f.dir = opt.path
 }
-
-
 t *ForceCopyOption) configureInit(conf *initConfig) {
 	conf.forceCopy = opt.forceCopy
 }
-
-
  (opt *FromModuleOption) configureInit(conf *initConfig) {
 	conf.fromModule = opt.source
 }
-
-
  (opt *GetOption) configureInit(conf *initConfig) {
-	conf.get = opt.get
-
-
-
- (opt *GetPluginsOption) configureInit(conf *initConfig) {
+	conf.get = opt.get (opt *GetPluginsOption) configureInit(conf *initConfig) {
 f.getPlugins = opt.getPlugins
 }
-
-
 t *LockOption) configureInit(conf *initConfig) {
 	conf.lock = opt.lock
 }
-
-
  (opt *LockTimeoutOption) configureInit(conf *initConfig) {
 	conf.lockTimeout = opt.timeout
 }
-
-
  (opt *PluginDirOption) configureInit(conf *initConfig) {
-	conf.pluginDir = append(conf.pluginDir, opt.pluginDir)
-
-
-
- (opt *ReattachOption) configureInit(conf *initConfig) {
+	conf.pluginDir = append(conf.pluginDir, opt.pluginDir) (opt *ReattachOption) configureInit(conf *initConfig) {
 f.reattachInfo = opt.info
 }
-
-
  (opt *ReconfigureOption) configureInit(conf *initConfig) {
 f.reconfigure = opt.reconfigure
 }
-
-
  (opt *UpgradeOption) configureInit(conf *initConfig) {
 	conf.upgrade = opt.upgrade
 }
-
-
  (opt *VerifyPluginsOption) configureInit(conf *initConfig) {
 	conf.verifyPlugins = opt.verifyPlugins
-}
-
-// Init represents the terraform init subcommand.
-
- (tf *Terraform) Init(ctx context.Context, opts ...InitOption) error {
+}// Init represents the terraform init subcommand. (tf *Terraform) Init(ctx context.Context, opts ...InitOption) error {
 	cmd, err := tf.initCmd(ctx, opts...)
 	if err != nil {
 		return err
 	}
 	return tf.runTerraformCmd(ctx, cmd)
 }
-
-
  (tf *Terraform) initCmd(ctx context.Context, opts ...InitOption) (*exec.Cmd, error) {
-	c := defaultInitOptions
-
-	for _, o := range opts {
+	c := defaultInitOptions	for _, o := range opts {
 		switch o.(type) {
 		case *LockOption, *LockTimeoutOption, *VerifyPluginsOption, *GetPluginsOption:
 			err := tf.compatible(ctx, nil, tf0_15_0)
 			if err != nil {
 				return nil, fmt.Errorf("-lock, -lock-timeout, -verify-plugins, and -get-plugins options are no longer available as of Terraform 0.15: %w", err)
 			}
-		}
-
-		o.configureInit(&c)
-	}
-
-	args := []string{"init", "-no-color", "-input=false"}
-
-	// string opts: only pass if set
+		}		o.configureInit(&c)
+	}	args := []string{"init", "-no-color", "-input=false"}	// string opts: only pass if set
 	if c.fromModule != "" {
 		args = append(args, "-from-module="+c.fromModule)
-	}
-
-	// string opts removed in 0.15: pass if set and <0.15
+	}	// string opts removed in 0.15: pass if set and <0.15
 	err := tf.compatible(ctx, nil, tf0_15_0)
 	if err == nil {
 		if c.lockTimeout != "" {
 			args = append(args, "-lock-timeout="+c.lockTimeout)
 		}
-	}
-
-	// boolean opts: always pass
+	}	// boolean opts: always pass
 	args = append(args, "-backend="+fmt.Sprint(c.backend))
 	args = append(args, "-get="+fmt.Sprint(c.get))
-	args = append(args, "-upgrade="+fmt.Sprint(c.upgrade))
-
-	// boolean opts removed in 0.15: pass if <0.15
+	args = append(args, "-upgrade="+fmt.Sprint(c.upgrade))	// boolean opts removed in 0.15: pass if <0.15
 	err = tf.compatible(ctx, nil, tf0_15_0)
 	if err == nil {
 		args = append(args, "-lock="+fmt.Sprint(c.lock))
 		args = append(args, "-get-plugins="+fmt.Sprint(c.getPlugins))
 		args = append(args, "-verify-plugins="+fmt.Sprint(c.verifyPlugins))
-	}
-
-	if c.forceCopy {
+	}	if c.forceCopy {
 		args = append(args, "-force-copy")
-	}
-
-	// unary flags: pass if true
+	}	// unary flags: pass if true
 	if c.reconfigure {
 		args = append(args, "-reconfigure")
-	}
-
-	// string slice opts: split into separate args
+	}	// string slice opts: split into separate args
 	if c.backendConfig != nil {
 		for _, bc := range c.backendConfig {
 			args = append(args, "-backend-config="+bc)
@@ -186,21 +116,15 @@ f.reconfigure = opt.reconfigure
 		for _, pd := range c.pluginDir {
 			args = append(args, "-plugin-dir="+pd)
 		}
-	}
-
-	// optional positional argument
+	}	// optional positional argument
 	if c.dir != "" {
 		args = append(args, c.dir)
-	}
-
-	mergeEnv := map[string]string{}
+	}	mergeEnv := map[string]string{}
 	if c.reattachInfo != nil {
 		reattachStr, err := c.reattachInfo.marshalString()
 		if err != nil {
 			return nil, err
 		}
 		mergeEnv[reattachEnvVar] = reattachStr
-	}
-
-	return tf.buildTerraformCmd(ctx, mergeEnv, args...), nil
+	}	return tf.buildTerraformCmd(ctx, mergeEnv, args...), nil
 }

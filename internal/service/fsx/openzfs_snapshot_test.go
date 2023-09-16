@@ -27,7 +27,7 @@ func TestAccFSxOpenzfsSnapshot_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
@@ -44,8 +44,8 @@ func TestAccFSxOpenzfsSnapshot_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -59,7 +59,7 @@ func TestAccFSxOpenzfsSnapshot_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
@@ -83,7 +83,7 @@ func TestAccFSxOpenzfsSnapshot_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
@@ -97,8 +97,8 @@ func TestAccFSxOpenzfsSnapshot_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -130,7 +130,7 @@ func TestAccFSxOpenzfsSnapshot_name(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
@@ -143,8 +143,8 @@ func TestAccFSxOpenzfsSnapshot_name(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -166,7 +166,7 @@ func TestAccFSxOpenzfsSnapshot_childVolume(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
@@ -181,8 +181,8 @@ func TestAccFSxOpenzfsSnapshot_childVolume(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -197,7 +197,7 @@ func TestAccFSxOpenzfsSnapshot_volumeId(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOpenzfsSnapshotDestroy(ctx),
@@ -210,8 +210,8 @@ func TestAccFSxOpenzfsSnapshot_volumeId(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -301,20 +301,20 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.1.0/24"
+  vpc_id   = aws_vpc.test.id
+  cidr_block= "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 }
 
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = [aws_subnet.test1.id]
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = [aws_subnet.test1.id]
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 64
 
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -323,7 +323,7 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSSnapshotConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_snapshot" "test" {
-  name      = %[1]q
+  name  = %[1]q
   volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 }
 `, rName))
@@ -332,11 +332,11 @@ resource "aws_fsx_openzfs_snapshot" "test" {
 func testAccOpenZFSSnapshotConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_snapshot" "test" {
-  name      = %[1]q
+  name  = %[1]q
   volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -345,13 +345,13 @@ resource "aws_fsx_openzfs_snapshot" "test" {
 func testAccOpenZFSSnapshotConfig_tags2(rName string, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccOpenzfsSnapshotBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_snapshot" "test" {
-  name      = %[1]q
+  name  = %[1]q
   volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -365,7 +365,7 @@ resource "aws_fsx_openzfs_volume" "test" {
 }
 
 resource "aws_fsx_openzfs_snapshot" "test" {
-  name      = %[1]q
+  name  = %[1]q
   volume_id = aws_fsx_openzfs_volume.test.id
 }
 `, rName))
@@ -379,7 +379,7 @@ resource "aws_fsx_openzfs_volume" "test1" {
 }
 
 resource "aws_fsx_openzfs_snapshot" "test" {
-  name      = %[1]q
+  name  = %[1]q
   volume_id = aws_fsx_openzfs_volume.test1.id
 }
 `, rName))
@@ -393,7 +393,7 @@ resource "aws_fsx_openzfs_volume" "test2" {
 }
 
 resource "aws_fsx_openzfs_snapshot" "test" {
-  name      = %[1]q
+  name  = %[1]q
   volume_id = aws_fsx_openzfs_volume.test2.id
 }
 `, rName))

@@ -36,12 +36,12 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"index_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 ForceNew: true,
 Optional: true,
 	},
 	"table_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 ForceNew: true,
 Required: true,
 	},

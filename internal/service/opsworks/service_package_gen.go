@@ -40,33 +40,33 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceCustomLayer,
 			TypeName: "aws_opsworks_custom_layer",
-			Name:     "Custom Layer",
+			Name:"Custom Layer",
 			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
+IdentifierAttribute: "arn",
 			},
 		},
 		{
 			Factory:  ResourceECSClusterLayer,
 			TypeName: "aws_opsworks_ecs_cluster_layer",
-			Name:     "ECS Cluster Layer",
+			Name:"ECS Cluster Layer",
 			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
+IdentifierAttribute: "arn",
 			},
 		},
 		{
 			Factory:  ResourceGangliaLayer,
 			TypeName: "aws_opsworks_ganglia_layer",
-			Name:     "Ganglia Layer",
+			Name:"Ganglia Layer",
 			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
+IdentifierAttribute: "arn",
 			},
 		},
 		{
 			Factory:  ResourceHAProxyLayer,
 			TypeName: "aws_opsworks_haproxy_layer",
-			Name:     "HAProxy Layer",
+			Name:"HAProxy Layer",
 			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
+IdentifierAttribute: "arn",
 			},
 		},
 		{
@@ -76,33 +76,33 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceJavaAppLayer,
 			TypeName: "aws_opsworks_java_app_layer",
-			Name:     "Java App Layer",
+			Name:"Java App Layer",
 			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
+IdentifierAttribute: "arn",
 			},
 		},
 		{
 			Factory:  ResourceMemcachedLayer,
 			TypeName: "aws_opsworks_memcached_layer",
-			Name:     "Memcached Layer",
+			Name:"Memcached Layer",
 			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
+IdentifierAttribute: "arn",
 			},
 		},
 		{
 			Factory:  ResourceMySQLLayer,
 			TypeName: "aws_opsworks_mysql_layer",
-			Name:     "MySQL Layer",
+			Name:"MySQL Layer",
 			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
+IdentifierAttribute: "arn",
 			},
 		},
 		{
 			Factory:  ResourceNodejsAppLayer,
 			TypeName: "aws_opsworks_nodejs_app_layer",
-			Name:     "NodeJS App Layer",
+			Name:"NodeJS App Layer",
 			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
+IdentifierAttribute: "arn",
 			},
 		},
 		{
@@ -112,17 +112,17 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourcePHPAppLayer,
 			TypeName: "aws_opsworks_php_app_layer",
-			Name:     "PHP App Layer",
+			Name:"PHP App Layer",
 			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
+IdentifierAttribute: "arn",
 			},
 		},
 		{
 			Factory:  ResourceRailsAppLayer,
 			TypeName: "aws_opsworks_rails_app_layer",
-			Name:     "Rails App Layer",
+			Name:"Rails App Layer",
 			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
+IdentifierAttribute: "arn",
 			},
 		},
 		{
@@ -132,15 +132,15 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceStack,
 			TypeName: "aws_opsworks_stack",
-			Name:     "Stack",
-			Tags:     &types.ServicePackageResourceTags{},
+			Name:"Stack",
+			Tags:&types.ServicePackageResourceTags{},
 		},
 		{
 			Factory:  ResourceStaticWebLayer,
 			TypeName: "aws_opsworks_static_web_layer",
-			Name:     "Static Web Layer",
+			Name:"Static Web Layer",
 			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
+IdentifierAttribute: "arn",
 			},
 		},
 		{

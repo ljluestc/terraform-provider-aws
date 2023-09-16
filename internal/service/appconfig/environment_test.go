@@ -27,7 +27,7 @@ func TestAccAppConfigEnvironment_basic(t *testing.T) {
 	appResourceName := "aws_appconfig_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEnvironmentDestroy(ctx),
@@ -46,8 +46,8 @@ func TestAccAppConfigEnvironment_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -60,7 +60,7 @@ func TestAccAppConfigEnvironment_disappears(t *testing.T) {
 	resourceName := "aws_appconfig_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEnvironmentDestroy(ctx),
@@ -84,7 +84,7 @@ func TestAccAppConfigEnvironment_updateName(t *testing.T) {
 	resourceName := "aws_appconfig_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEnvironmentDestroy(ctx),
@@ -103,8 +103,8 @@ func TestAccAppConfigEnvironment_updateName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -118,7 +118,7 @@ func TestAccAppConfigEnvironment_updateDescription(t *testing.T) {
 	resourceName := "aws_appconfig_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEnvironmentDestroy(ctx),
@@ -131,8 +131,8 @@ func TestAccAppConfigEnvironment_updateDescription(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -143,8 +143,8 @@ func TestAccAppConfigEnvironment_updateDescription(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -165,7 +165,7 @@ func TestAccAppConfigEnvironment_monitors(t *testing.T) {
 	resourceName := "aws_appconfig_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEnvironmentDestroy(ctx),
@@ -182,8 +182,8 @@ func TestAccAppConfigEnvironment_monitors(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -200,8 +200,8 @@ func TestAccAppConfigEnvironment_monitors(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -223,7 +223,7 @@ func TestAccAppConfigEnvironment_multipleEnvironments(t *testing.T) {
 	resourceName2 := "aws_appconfig_environment.test2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEnvironmentDestroy(ctx),
@@ -236,13 +236,13 @@ func TestAccAppConfigEnvironment_multipleEnvironments(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName1,
-				ImportState:       true,
+				ResourceName:  resourceName1,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
-				ResourceName:      resourceName2,
-				ImportState:       true,
+				ResourceName:  resourceName2,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -252,8 +252,8 @@ func TestAccAppConfigEnvironment_multipleEnvironments(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName1,
-				ImportState:       true,
+				ResourceName:  resourceName1,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -266,7 +266,7 @@ func TestAccAppConfigEnvironment_tags(t *testing.T) {
 	resourceName := "aws_appconfig_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEnvironmentDestroy(ctx),
@@ -280,8 +280,8 @@ func TestAccAppConfigEnvironment_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -312,14 +312,14 @@ func TestAccAppConfigEnvironment_frameworkMigration_basic(t *testing.T) {
 	description := "Description"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:     func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:   acctest.ErrorCheck(t, appconfig.EndpointsID),
 		CheckDestroy: testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:   "hashicorp/aws",
 						VersionConstraint: "5.3.0",
 					},
 				},
@@ -330,8 +330,8 @@ func TestAccAppConfigEnvironment_frameworkMigration_basic(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:      testAccEnvironmentConfig_description(rName, description),
-				PlanOnly:    true,
+				Config:  testAccEnvironmentConfig_description(rName, description),
+				PlanOnly:true,
 			},
 		},
 	})
@@ -343,14 +343,14 @@ func TestAccAppConfigEnvironment_frameworkMigration_monitors(t *testing.T) {
 	resourceName := "aws_appconfig_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:     func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:   acctest.ErrorCheck(t, appconfig.EndpointsID),
 		CheckDestroy: testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:   "hashicorp/aws",
 						VersionConstraint: "5.3.0",
 					},
 				},
@@ -361,8 +361,8 @@ func TestAccAppConfigEnvironment_frameworkMigration_monitors(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:      testAccEnvironmentConfig_monitors(rName, 2),
-				PlanOnly:    true,
+				Config:  testAccEnvironmentConfig_monitors(rName, 2),
+				PlanOnly:true,
 			},
 		},
 	})
@@ -444,7 +444,7 @@ func testAccEnvironmentConfig_basic(rName string) string {
 		testAccApplicationConfig_name(rName),
 		fmt.Sprintf(`
 resource "aws_appconfig_environment" "test" {
-  name           = %q
+  name  = %q
   application_id = aws_appconfig_application.test.id
 }
 `, rName))
@@ -455,8 +455,8 @@ func testAccEnvironmentConfig_description(rName, description string) string {
 		testAccApplicationConfig_name(rName),
 		fmt.Sprintf(`
 resource "aws_appconfig_environment" "test" {
-  name           = %q
-  description    = %q
+  name  = %q
+  description= %q
   application_id = aws_appconfig_application.test.id
 }
 `, rName, description))
@@ -475,13 +475,13 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "appconfig.${data.aws_partition.current.dns_suffix}"
-      },
-      "Action": "sts:AssumeRole"
-    }
+{
+  "Effect": "Allow",
+  "Principal": {
+"Service": "appconfig.${data.aws_partition.current.dns_suffix}"
+  },
+  "Action": "sts:AssumeRole"
+}
   ]
 }
 EOF
@@ -492,16 +492,16 @@ resource "aws_iam_role_policy" "test" {
 
   policy = <<POLICY
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
+"Version": "2012-10-17",
+"Statement": [
+{
+   "Effect": "Allow",
+   "Action": [
  "cloudwatch:DescribeAlarms"
-            ],
-            "Resource": "*"
-        }
-    ]
+   ],
+   "Resource": "*"
+}
+]
 }
 POLICY
 }
@@ -510,31 +510,31 @@ resource "aws_cloudwatch_metric_alarm" "test" {
   count = %[2]d
 
   alarm_name = "%[1]s-${count.index}"
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = "2"
+  comparison_operator   = "GreaterThanOrEqualToThreshold"
+  evaluation_periods= "2"
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"
-  period     = "120"
+  period = "120"
   statistic  = "Average"
   threshold  = "80"
-  alarm_description         = "This metric monitors ec2 cpu utilization"
+  alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []
 
   dimensions = {
-    InstanceId = "i-abc123"
+InstanceId = "i-abc123"
   }
 }
 
 resource "aws_appconfig_environment" "test" {
-  name           = %[1]q
+  name  = %[1]q
   application_id = aws_appconfig_application.test.id
 
   dynamic "monitor" {
-    for_each = aws_cloudwatch_metric_alarm.test[*].arn
-    content {
-      alarm_arn      = monitor.value
-      alarm_role_arn = aws_iam_role.test.arn
-    }
+for_each = aws_cloudwatch_metric_alarm.test[*].arn
+content {
+  alarm_arn  = monitor.value
+  alarm_role_arn = aws_iam_role.test.arn
+}
   }
 }
 `, rName, count))
@@ -545,12 +545,12 @@ func testAccEnvironmentConfig_multiple(rName string) string {
 		testAccApplicationConfig_name(rName),
 		fmt.Sprintf(`
 resource "aws_appconfig_environment" "test" {
-  name           = %[1]q
+  name  = %[1]q
   application_id = aws_appconfig_application.test.id
 }
 
 resource "aws_appconfig_environment" "test2" {
-  name           = "%[1]s-2"
+  name  = "%[1]s-2"
   application_id = aws_appconfig_application.test.id
 }
 `, rName))
@@ -561,11 +561,11 @@ func testAccEnvironmentConfig_tags1(rName, tagKey1, tagValue1 string) string {
 		testAccApplicationConfig_name(rName),
 		fmt.Sprintf(`
 resource "aws_appconfig_environment" "test" {
-  name           = %[1]q
+  name  = %[1]q
   application_id = aws_appconfig_application.test.id
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -576,12 +576,12 @@ func testAccEnvironmentConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue
 		testAccApplicationConfig_name(rName),
 		fmt.Sprintf(`
 resource "aws_appconfig_environment" "test" {
-  name           = %[1]q
+  name  = %[1]q
   application_id = aws_appconfig_application.test.id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

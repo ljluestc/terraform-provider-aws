@@ -53,7 +53,7 @@ func ResourceCapacityProvider() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"auto_scaling_group_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: verify.ValidARN,
@@ -66,30 +66,30 @@ func ResourceCapacityProvider() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"instance_warmup_period": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Computed:     true,
 										ValidateFunc: validation.IntBetween(0, 10000),
 									},
 									"maximum_scaling_step_size": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Computed:     true,
 										ValidateFunc: validation.IntBetween(1, 10000),
 									},
 									"minimum_scaling_step_size": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Computed:     true,
 										ValidateFunc: validation.IntBetween(1, 10000),
 									},
 									"status": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Computed:     true,
 										ValidateFunc: validation.StringInSlice(ecs.ManagedScalingStatus_Values(), false)},
 									"target_capacity": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Computed:     true,
 										ValidateFunc: validation.IntBetween(1, 100),
@@ -98,7 +98,7 @@ func ResourceCapacityProvider() *schema.Resource {
 							},
 						},
 						"managed_termination_protection": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.StringInSlice(ecs.ManagedTerminationProtection_Values(), false),
@@ -349,7 +349,7 @@ func flattenAutoScalingGroupProvider(provider *ecs.AutoScalingGroupProvider) []m
 	}
 
 	p := map[string]interface{}{
-		"auto_scaling_group_arn":         aws.StringValue(provider.AutoScalingGroupArn),
+		"auto_scaling_group_arn":aws.StringValue(provider.AutoScalingGroupArn),
 		"managed_termination_protection": aws.StringValue(provider.ManagedTerminationProtection),
 		"managed_scaling":   []map[string]interface{}{},
 	}
@@ -360,7 +360,7 @@ func flattenAutoScalingGroupProvider(provider *ecs.AutoScalingGroupProvider) []m
 			"maximum_scaling_step_size": aws.Int64Value(provider.ManagedScaling.MaximumScalingStepSize),
 			"minimum_scaling_step_size": aws.Int64Value(provider.ManagedScaling.MinimumScalingStepSize),
 			"status":       aws.StringValue(provider.ManagedScaling.Status),
-			"target_capacity":           aws.Int64Value(provider.ManagedScaling.TargetCapacity),
+			"target_capacity":  aws.Int64Value(provider.ManagedScaling.TargetCapacity),
 		}
 
 		p["managed_scaling"] = []map[string]interface{}{m}

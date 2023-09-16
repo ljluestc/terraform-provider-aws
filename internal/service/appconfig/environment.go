@@ -86,7 +86,7 @@ func (r *resourceEnvironment) Schema(ctx context.Context, request resource.Schem
 				},
 			},
 			"id": schema.StringAttribute{
-				Computed:           true,
+				Computed:  true,
 				DeprecationMessage: "This attribute is unused and will be removed in a future version of the provider",
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
@@ -104,7 +104,7 @@ func (r *resourceEnvironment) Schema(ctx context.Context, request resource.Schem
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
-			names.AttrTags:    tftags.TagsAttribute(),
+			names.AttrTags:tftags.TagsAttribute(),
 			names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
 		},
 		Blocks: map[string]schema.Block{
@@ -155,10 +155,10 @@ func (r *resourceEnvironment) Create(ctx context.Context, request resource.Creat
 	}
 
 	input := &appconfig.CreateEnvironmentInput{
-		Name:          aws.String(plan.Name.ValueString()),
+		Name: aws.String(plan.Name.ValueString()),
 		ApplicationId: aws.String(appId),
-		Tags:          aws.ToStringMap(getTagsIn(ctx)),
-		Monitors:      expandMonitors(monitors),
+		Tags: aws.ToStringMap(getTagsIn(ctx)),
+		Monitors:  expandMonitors(monitors),
 	}
 
 	if !(plan.Description.IsNull() || plan.Description.IsUnknown()) {
@@ -316,15 +316,15 @@ func (r *resourceEnvironment) ModifyPlan(ctx context.Context, request resource.M
 
 type resourceEnvironmentData struct {
 	ApplicationID types.String `tfsdk:"application_id"`
-	ARN           types.String `tfsdk:"arn"`
+	ARN  types.String `tfsdk:"arn"`
 	Description   types.String `tfsdk:"description"`
 	EnvironmentID types.String `tfsdk:"environment_id"`
-	ID            types.String `tfsdk:"id"`
-	Monitors      types.Set    `tfsdk:"monitor"`
-	Name          types.String `tfsdk:"name"`
-	State         types.String `tfsdk:"state"`
-	Tags          types.Map    `tfsdk:"tags"`
-	TagsAll       types.Map    `tfsdk:"tags_all"`
+	ID   types.String `tfsdk:"id"`
+	Monitors  types.Set`tfsdk:"monitor"`
+	Name types.String `tfsdk:"name"`
+	Statetypes.String `tfsdk:"state"`
+	Tags types.Map`tfsdk:"tags"`
+	TagsAll   types.Map`tfsdk:"tags_all"`
 }
 
 func (d *resourceEnvironmentData) refreshFromCreateOutput(ctx context.Context, meta *conns.AWSClient, out *appconfig.CreateEnvironmentOutput) diag.Diagnostics {
@@ -418,7 +418,7 @@ func environmentARN(meta *conns.AWSClient, appID, envID string) arn.ARN {
 	return arn.ARN{
 		AccountID: meta.AccountID,
 		Partition: meta.Partition,
-		Region:    meta.Region,
+		Region:meta.Region,
 		Resource:  fmt.Sprintf("application/%s/environment/%s", appID, envID),
 		Service:   "appconfig",
 	}
@@ -452,7 +452,7 @@ func flattenMonitors(ctx context.Context, apiObjects []awstypes.Monitor, diags *
 }
 
 type monitorData struct {
-	AlarmARN     fwtypes.ARN `tfsdk:"alarm_arn"`
+	AlarmARN fwtypes.ARN `tfsdk:"alarm_arn"`
 	AlarmRoleARN fwtypes.ARN `tfsdk:"alarm_role_arn"`
 }
 
@@ -470,7 +470,7 @@ func (m monitorData) expand() awstypes.Monitor {
 
 func flattenMonitorData(ctx context.Context, apiObject awstypes.Monitor, diags *diag.Diagnostics) monitorData {
 	return monitorData{
-		AlarmARN:     flex.StringToFrameworkARN(ctx, apiObject.AlarmArn, diags),
+		AlarmARN: flex.StringToFrameworkARN(ctx, apiObject.AlarmArn, diags),
 		AlarmRoleARN: flex.StringToFrameworkARN(ctx, apiObject.AlarmRoleArn, diags),
 	}
 }

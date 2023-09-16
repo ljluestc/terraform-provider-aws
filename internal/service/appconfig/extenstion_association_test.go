@@ -26,7 +26,7 @@ func TestAccAppConfigExtensionAssociation_basic(t *testing.T) {
 	resourceName := "aws_appconfig_extension_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckExtensionAssociationDestroy(ctx),
@@ -40,8 +40,8 @@ func TestAccAppConfigExtensionAssociation_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -62,7 +62,7 @@ func TestAccAppConfigExtensionAssociation_Parameters(t *testing.T) {
 	pValue2 := "ParameterValue2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckExtensionAssociationDestroy(ctx),
@@ -76,8 +76,8 @@ func TestAccAppConfigExtensionAssociation_Parameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -114,7 +114,7 @@ func TestAccAppConfigExtensionAssociation_disappears(t *testing.T) {
 	resourceName := "aws_appconfig_extension_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckExtensionAssociationDestroy(ctx),
@@ -209,15 +209,15 @@ func testAccExtensionAssociationConfig_name(rName string) string {
 		testAccExtensionAssociationConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_appconfig_extension" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = "test description"
   action_point {
-    point = "ON_DEPLOYMENT_COMPLETE"
-    action {
-      name     = "test"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_COMPLETE"
+action {
+  name = "test"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
 }
 resource "aws_appconfig_extension_association" "test" {
@@ -234,24 +234,24 @@ func testAccExtensionAssociationConfig_parameters1(rName string, pName string, p
 resource "aws_appconfig_extension" "test" {
   name = %[1]q
   action_point {
-    point = "ON_DEPLOYMENT_COMPLETE"
-    action {
-      name     = "test"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_COMPLETE"
+action {
+  name = "test"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
   parameter {
-    name        = %[2]q
-    description = %[3]q
-    required    = %[4]s
+name= %[2]q
+description = %[3]q
+required= %[4]s
   }
 }
 resource "aws_appconfig_extension_association" "test" {
   extension_arn = aws_appconfig_extension.test.arn
   resource_arn  = aws_appconfig_application.test.arn
   parameters = {
-    %[2]s = %[5]q
+%[2]s = %[5]q
   }
 }
 `, rName, pName, pDescription, pRequired, pValue))
@@ -264,30 +264,30 @@ func testAccExtensionAssociationConfig_parameters2(rName string) string {
 resource "aws_appconfig_extension" "test" {
   name = %[1]q
   action_point {
-    point = "ON_DEPLOYMENT_COMPLETE"
-    action {
-      name     = "test"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_COMPLETE"
+action {
+  name = "test"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
   parameter {
-    name        = "parameter1"
-    description = "description1"
-    required    = true
+name= "parameter1"
+description = "description1"
+required= true
   }
   parameter {
-    name        = "parameter2"
-    description = "description2"
-    required    = false
+name= "parameter2"
+description = "description2"
+required= false
   }
 }
 resource "aws_appconfig_extension_association" "test" {
   extension_arn = aws_appconfig_extension.test.arn
   resource_arn  = aws_appconfig_application.test.arn
   parameters = {
-    parameter1 = "ParameterValue1"
-    parameter2 = "ParameterValue2"
+parameter1 = "ParameterValue1"
+parameter2 = "ParameterValue2"
   }
 }
 `, rName))
@@ -300,17 +300,17 @@ func testAccExtensionAssociationConfig_parametersNotRequired(rName string, pName
 resource "aws_appconfig_extension" "test" {
   name = %[1]q
   action_point {
-    point = "ON_DEPLOYMENT_COMPLETE"
-    action {
-      name     = "test"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_COMPLETE"
+action {
+  name = "test"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
   parameter {
-    name        = %[2]q
-    description = %[3]q
-    required    = %[4]s
+name= %[2]q
+description = %[3]q
+required= %[4]s
   }
 }
 resource "aws_appconfig_extension_association" "test" {

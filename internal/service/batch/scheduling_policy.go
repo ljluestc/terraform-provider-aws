@@ -27,7 +27,7 @@ import (
 func ResourceSchedulingPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSchedulingPolicyCreate,
-		ReadWithoutTimeout:   resourceSchedulingPolicyRead,
+		ReadWithoutTimeout:resourceSchedulingPolicyRead,
 		UpdateWithoutTimeout: resourceSchedulingPolicyUpdate,
 		DeleteWithoutTimeout: resourceSchedulingPolicyDelete,
 
@@ -37,23 +37,23 @@ func ResourceSchedulingPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"fair_share_policy": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"compute_reservation": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type: schema.TypeInt,
+							Optional:true,
 							ValidateFunc: validation.IntBetween(0, 99),
 						},
 						"share_decay_seconds": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type: schema.TypeInt,
+							Optional:true,
 							ValidateFunc: validation.IntBetween(0, 604800),
 						},
 						"share_distribution": {
@@ -64,13 +64,13 @@ func ResourceSchedulingPolicy() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"share_identifier": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type: schema.TypeString,
+										Required:true,
 										ValidateFunc: validShareIdentifier,
 									},
 									"weight_factor": {
-										Type:         schema.TypeFloat,
-										Optional:     true,
+										Type: schema.TypeFloat,
+										Optional:true,
 										ValidateFunc: validation.FloatBetween(0.0001, 999.9999),
 									},
 								},
@@ -89,25 +89,24 @@ func ResourceSchedulingPolicy() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type: schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validName,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
 }
-
 func resourceSchedulingPolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).BatchConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &batch.CreateSchedulingPolicyInput{
 		FairsharePolicy: expandFairsharePolicy(d.Get("fair_share_policy").([]interface{})),
-		Name:            aws.String(name),
-		Tags:            getTagsIn(ctx),
+		Name:  aws.String(name),
+		Tags:  getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateSchedulingPolicyWithContext(ctx, input)
@@ -120,7 +119,6 @@ func resourceSchedulingPolicyCreate(ctx context.Context, d *schema.ResourceData,
 
 	return resourceSchedulingPolicyRead(ctx, d, meta)
 }
-
 func resourceSchedulingPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BatchConn(ctx)
@@ -147,7 +145,6 @@ func resourceSchedulingPolicyRead(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
-
 func resourceSchedulingPolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).BatchConn(ctx)
 
@@ -166,7 +163,6 @@ func resourceSchedulingPolicyUpdate(ctx context.Context, d *schema.ResourceData,
 
 	return resourceSchedulingPolicyRead(ctx, d, meta)
 }
-
 func resourceSchedulingPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).BatchConn(ctx)
 
@@ -181,7 +177,6 @@ func resourceSchedulingPolicyDelete(ctx context.Context, d *schema.ResourceData,
 
 	return nil
 }
-
 func FindSchedulingPolicyByARN(ctx context.Context, conn *batch.Batch, arn string) (*batch.SchedulingPolicyDetail, error) {
 	input := &batch.DescribeSchedulingPoliciesInput{
 		Arns: aws.StringSlice([]string{arn}),
@@ -195,7 +190,6 @@ func FindSchedulingPolicyByARN(ctx context.Context, conn *batch.Batch, arn strin
 
 	return output, nil
 }
-
 func findSchedulingPolicy(ctx context.Context, conn *batch.Batch, input *batch.DescribeSchedulingPoliciesInput) (*batch.SchedulingPolicyDetail, error) {
 	output, err := conn.DescribeSchedulingPoliciesWithContext(ctx, input)
 
@@ -213,7 +207,6 @@ func findSchedulingPolicy(ctx context.Context, conn *batch.Batch, input *batch.D
 
 	return output.SchedulingPolicies[0], nil
 }
-
 func expandFairsharePolicy(fairsharePolicy []interface{}) *batch.FairsharePolicy {
 	if len(fairsharePolicy) == 0 || fairsharePolicy[0] == nil {
 		return nil
@@ -238,7 +231,7 @@ func expandFairsharePolicy(fairsharePolicy []interface{}) *batch.FairsharePolicy
 
 		schedulingPolicyConfig := &batch.ShareAttributes{
 			ShareIdentifier: aws.String(data["share_identifier"].(string)),
-			WeightFactor:    aws.Float64(data["weight_factor"].(float64)),
+			WeightFactor: aws.Float64(data["weight_factor"].(float64)),
 		}
 		fairsharePolicyShareDistributions = append(fairsharePolicyShareDistributions, schedulingPolicyConfig)
 	}
@@ -247,7 +240,6 @@ func expandFairsharePolicy(fairsharePolicy []interface{}) *batch.FairsharePolicy
 
 	return result
 }
-
 func flattenFairsharePolicy(fairsharePolicy *batch.FairsharePolicy) []interface{} {
 	if fairsharePolicy == nil {
 		return []interface{}{}
@@ -264,7 +256,7 @@ func flattenFairsharePolicy(fairsharePolicy *batch.FairsharePolicy) []interface{
 	for _, shareDistribution := range shareDistributions {
 		sdValues := map[string]interface{}{
 			"share_identifier": aws.StringValue(shareDistribution.ShareIdentifier),
-			"weight_factor":    aws.Float64Value(shareDistribution.WeightFactor),
+			"weight_factor": aws.Float64Value(shareDistribution.WeightFactor),
 		}
 		fairsharePolicyShareDistributions = append(fairsharePolicyShareDistributions, sdValues)
 	}

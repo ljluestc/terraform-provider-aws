@@ -131,9 +131,9 @@ func (d *dataSourceRegion) Read(ctx context.Context, request datasource.ReadRequ
 
 type dataSourceRegionData struct {
 	Description types.String `tfsdk:"description"`
-	Endpoint    types.String `tfsdk:"endpoint"`
-	ID          types.String `tfsdk:"id"`
-	Name        types.String `tfsdk:"name"`
+	Endpointtypes.String `tfsdk:"endpoint"`
+	ID types.String `tfsdk:"id"`
+	Nametypes.String `tfsdk:"name"`
 }
 
 func FindRegionByEndpoint(endpoint string) (*endpoints.Region, error) {

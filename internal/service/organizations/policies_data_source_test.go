@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccOrganizationsPoliciesDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -21,7 +22,8 @@ func TestAccOrganizationsPoliciesDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_organizations_policies.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckOrganizationManagementAccount(ctx, t)
 },
@@ -37,6 +39,7 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
+
 
 func testAccPoliciesDataSourceConfig_ServiceControlPolicy(rName, policyType, policyContent string) string {
 	return fmt.Sprintf(`

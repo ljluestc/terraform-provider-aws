@@ -9,7 +9,7 @@ import (
 
 const (
 	TableNameAllTables        = "ALL_TABLES"
-	TableTypeTable            = "Table"
+	TableTypeTable   = "Table"
 	TableTypeTableWithColumns = "TableWithColumns"
 	IAMAllowedPrincipals      = "IAM_ALLOWED_PRINCIPALS"
 )

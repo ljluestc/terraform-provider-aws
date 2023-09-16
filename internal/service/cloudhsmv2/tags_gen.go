@@ -19,7 +19,6 @@ import (
 // listTags lists cloudhsmv2 service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
-
 func listTags(ctx context.Context, conn cloudhsmv2iface.CloudHSMV2API, identifier string) (tftags.KeyValueTags, error) {
 	input := &cloudhsmv2.ListTagsInput{
 		ResourceId: aws.String(identifier),
@@ -36,7 +35,6 @@ func listTags(ctx context.Context, conn cloudhsmv2iface.CloudHSMV2API, identifie
 
 // ListTags lists cloudhsmv2 service tags and set them in Context.
 // It is called from outside this package.
-
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).CloudHSMV2Conn(ctx), identifier)
 
@@ -54,7 +52,6 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // []*SERVICE.Tag handling
 
 // Tags returns cloudhsmv2 service tags.
-
 func Tags(tags tftags.KeyValueTags) []*cloudhsmv2.Tag {
 	result := make([]*cloudhsmv2.Tag, 0, len(tags))
 
@@ -71,7 +68,6 @@ func Tags(tags tftags.KeyValueTags) []*cloudhsmv2.Tag {
 }
 
 // KeyValueTags creates tftags.KeyValueTags from cloudhsmv2 service tags.
-
 func KeyValueTags(ctx context.Context, tags []*cloudhsmv2.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
@@ -84,7 +80,6 @@ func KeyValueTags(ctx context.Context, tags []*cloudhsmv2.Tag) tftags.KeyValueTa
 
 // getTagsIn returns cloudhsmv2 service tags from Context.
 // nil is returned if there are no input tags.
-
 func getTagsIn(ctx context.Context) []*cloudhsmv2.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
@@ -96,7 +91,6 @@ func getTagsIn(ctx context.Context) []*cloudhsmv2.Tag {
 }
 
 // setTagsOut sets cloudhsmv2 service tags in Context.
-
 func setTagsOut(ctx context.Context, tags []*cloudhsmv2.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
@@ -106,7 +100,6 @@ func setTagsOut(ctx context.Context, tags []*cloudhsmv2.Tag) {
 // updateTags updates cloudhsmv2 service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
-
 func updateTags(ctx context.Context, conn cloudhsmv2iface.CloudHSMV2API, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
@@ -133,7 +126,7 @@ func updateTags(ctx context.Context, conn cloudhsmv2iface.CloudHSMV2API, identif
 	if len(updatedTags) > 0 {
 		input := &cloudhsmv2.TagResourceInput{
 			ResourceId: aws.String(identifier),
-			TagList:    Tags(updatedTags),
+			TagList:Tags(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)
@@ -148,7 +141,6 @@ func updateTags(ctx context.Context, conn cloudhsmv2iface.CloudHSMV2API, identif
 
 // UpdateTags updates cloudhsmv2 service tags.
 // It is called from outside this package.
-
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).CloudHSMV2Conn(ctx), identifier, oldTags, newTags)
 }

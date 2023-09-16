@@ -38,13 +38,13 @@ func ResourcePartition() *schema.Resource {
 				Computed: true,
 			},
 			"database_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"table_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
@@ -54,7 +54,7 @@ func ResourcePartition() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(1, 1024),
 				},
 			},
@@ -283,9 +283,9 @@ func resourcePartitionUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	}
 
 	input := &glue.UpdatePartitionInput{
-		CatalogId:          aws.String(catalogID),
+		CatalogId: aws.String(catalogID),
 		DatabaseName:       aws.String(dbName),
-		TableName:          aws.String(tableName),
+		TableName: aws.String(tableName),
 		PartitionInput:     expandPartitionInput(d),
 		PartitionValueList: aws.StringSlice(values),
 	}

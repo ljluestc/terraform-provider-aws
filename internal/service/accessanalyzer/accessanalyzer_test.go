@@ -19,13 +19,13 @@ func TestAccAccessAnalyzer_serial(t *testing.T) {
 	testCases := map[string]map[string]func(t *testing.T){
 		"Analyzer": {
 			"basic":er_basic,
-			"disappears":        testAccAnalyzer_disappears,
+			"disappears":testAccAnalyzer_disappears,
 			"tags":zer_tags,
 			"Type_Organization": testAccAnalyzer_Type_Organization,
 		},
 		"ArchiveRule": {
-			"basic":          testAccAnalyzerArchiveRule_basic,
-			"disappears":     testAccAnalyzerArchiveRule_disappears,
+			"basic":testAccAnalyzerArchiveRule_basic,
+			"disappears": testAccAnalyzerArchiveRule_disappears,
 			"update_filters": testAccAnalyzerArchiveRule_updateFilters,
 		},
 	}

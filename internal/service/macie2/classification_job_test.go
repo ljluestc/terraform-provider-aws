@@ -523,50 +523,50 @@ resource "aws_macie2_classification_job" "test" {
     scoping {
       excludes {
         and {
-          simple_scope_term {
-            comparator = "EQ"
-            key        = "OBJECT_EXTENSION"
-            values     = ["test"]
-          }
+ simple_scope_term {
+   comparator = "EQ"
+   key        = "OBJECT_EXTENSION"
+   values     = ["test"]
+ }
         }
         and {
-          tag_scope_term {
-            comparator = "EQ"
-            key        = "TAG"
-            tag_values {
+ tag_scope_term {
+   comparator = "EQ"
+   key        = "TAG"
+   tag_values {
  key   = "test"
  value = "test"
-            }
-            tag_values {
+   }
+   tag_values {
  key   = "test2"
  value = "test2"
-            }
-            target = "S3_OBJECT"
-          }
+   }
+   target = "S3_OBJECT"
+ }
         }
       }
       includes {
         and {
-          simple_scope_term {
-            comparator = "EQ"
-            key        = "OBJECT_EXTENSION"
-            values     = ["test"]
-          }
+ simple_scope_term {
+   comparator = "EQ"
+   key        = "OBJECT_EXTENSION"
+   values     = ["test"]
+ }
         }
         and {
-          tag_scope_term {
-            comparator = "EQ"
-            key        = "TAG"
-            tag_values {
+ tag_scope_term {
+   comparator = "EQ"
+   key        = "TAG"
+   tag_values {
  key   = "test"
  value = "test"
-            }
-            tag_values {
+   }
+   tag_values {
  key   = "test2"
  value = "test2"
-            }
-            target = "S3_OBJECT"
-          }
+   }
+   target = "S3_OBJECT"
+ }
         }
       }
     }
@@ -575,9 +575,9 @@ resource "aws_macie2_classification_job" "test" {
     daily_schedule = true
   }
   sampling_percentage = 100
-  initial_run         = true
-  job_status          = %[2]q
-  description         = %[3]q
+  initial_run= true
+  job_status = %[2]q
+  description= %[3]q
 
   depends_on = [aws_macie2_account.test]
 }
@@ -604,20 +604,20 @@ resource "aws_macie2_classification_job" "test" {
     scoping {
       excludes {
         and {
-          simple_scope_term {
-            comparator = "EQ"
-            key        = "OBJECT_EXTENSION"
-            values     = ["test"]
-          }
+ simple_scope_term {
+   comparator = "EQ"
+   key        = "OBJECT_EXTENSION"
+   values     = ["test"]
+ }
         }
       }
       includes {
         and {
-          simple_scope_term {
-            comparator = "EQ"
-            key        = "OBJECT_EXTENSION"
-            values     = ["test"]
-          }
+ simple_scope_term {
+   comparator = "EQ"
+   key        = "OBJECT_EXTENSION"
+   values     = ["test"]
+ }
         }
       }
     }
@@ -626,8 +626,8 @@ resource "aws_macie2_classification_job" "test" {
     daily_schedule = true
   }
   sampling_percentage = 100
-  initial_run         = true
-  job_status          = %[2]q
+  initial_run= true
+  job_status = %[2]q
 
   depends_on = [aws_macie2_account.test]
 }
@@ -654,20 +654,20 @@ resource "aws_macie2_classification_job" "test" {
     scoping {
       excludes {
         and {
-          simple_scope_term {
-            comparator = "EQ"
-            key        = "OBJECT_EXTENSION"
-            values     = ["test"]
-          }
+ simple_scope_term {
+   comparator = "EQ"
+   key        = "OBJECT_EXTENSION"
+   values     = ["test"]
+ }
         }
       }
       includes {
         and {
-          simple_scope_term {
-            comparator = "EQ"
-            key        = "OBJECT_EXTENSION"
-            values     = ["test"]
-          }
+ simple_scope_term {
+   comparator = "EQ"
+   key        = "OBJECT_EXTENSION"
+   values     = ["test"]
+ }
         }
       }
     }
@@ -676,9 +676,9 @@ resource "aws_macie2_classification_job" "test" {
     daily_schedule = true
   }
   sampling_percentage = 100
-  description         = "test"
-  initial_run         = true
-  job_status          = %[2]q
+  description= "test"
+  initial_run= true
+  job_status = %[2]q
   tags = {
     Key = "value"
   }
@@ -700,54 +700,54 @@ resource "aws_macie2_classification_job" "test" {
     bucket_criteria {
       excludes {
         and {
-          simple_criterion {
-            comparator = "NE"
-            key        = "S3_BUCKET_SHARED_ACCESS"
-            values = [
+ simple_criterion {
+   comparator = "NE"
+   key        = "S3_BUCKET_SHARED_ACCESS"
+   values = [
  "EXTERNAL",
  "INTERNAL",
  "NOT_SHARED",
  "UNKNOWN"
-            ]
-          }
+   ]
+ }
         }
         and {
-          tag_criterion {
-            comparator = "NE"
-            tag_values {
+ tag_criterion {
+   comparator = "NE"
+   tag_values {
  key   = "test"
  value = "test"
-            }
-            tag_values {
+   }
+   tag_values {
  key   = "test2"
  value = "test2"
-            }
-          }
+   }
+ }
         }
       }
 
       includes {
         and {
-          simple_criterion {
-            comparator = "EQ"
-            key        = "ACCOUNT_ID"
-            values = [
+ simple_criterion {
+   comparator = "EQ"
+   key        = "ACCOUNT_ID"
+   values = [
  data.aws_caller_identity.current.account_id,
-            ]
-          }
+   ]
+ }
         }
         and {
-          tag_criterion {
-            comparator = "EQ"
-            tag_values {
+ tag_criterion {
+   comparator = "EQ"
+   tag_values {
  key   = "test"
  value = "test"
-            }
-            tag_values {
+   }
+   tag_values {
  key   = "test2"
  value = "test2"
-            }
-          }
+   }
+ }
         }
       }
     }
@@ -756,9 +756,9 @@ resource "aws_macie2_classification_job" "test" {
     daily_schedule = true
   }
   sampling_percentage = 100
-  initial_run         = true
-  job_status          = %[1]q
-  description         = %[2]q
+  initial_run= true
+  job_status = %[1]q
+  description= %[2]q
 
   depends_on = [aws_macie2_account.test]
 }

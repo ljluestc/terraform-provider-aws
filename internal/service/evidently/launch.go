@@ -47,48 +47,48 @@ func ResourceLaunch() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"created_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 160),
 			},
 			"execution": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"ended_time": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"started_time": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"groups": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Required: true,
 				MinItems: 1,
 				MaxItems: 5,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"description": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional: true,
 							ValidateFunc: validation.StringLenBetween(0, 160),
 						},
 						"feature": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 127),
@@ -96,7 +96,7 @@ func ResourceLaunch() *schema.Resource {
 							),
 						},
 						"name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 127),
@@ -104,7 +104,7 @@ func ResourceLaunch() *schema.Resource {
 							),
 						},
 						"variation": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 127),
@@ -115,29 +115,29 @@ func ResourceLaunch() *schema.Resource {
 				},
 			},
 			"last_updated_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"metric_monitors": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MinItems: 0,
 				MaxItems: 3,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"metric_definition": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"entity_id_key": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: validation.StringLenBetween(1, 256),
 									},
 									"event_pattern": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 										ValidateFunc: validation.All(
 											validation.StringLenBetween(0, 1024),
@@ -150,18 +150,18 @@ func ResourceLaunch() *schema.Resource {
 										},
 									},
 									"name": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: validation.StringLenBetween(1, 255),
 									},
 									"unit_label": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional: true,
 										ValidateFunc: validation.StringLenBetween(1, 256),
 									},
 									"value_key": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: validation.StringLenBetween(1, 256),
 									},
 								},
@@ -171,7 +171,7 @@ func ResourceLaunch() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -180,7 +180,7 @@ func ResourceLaunch() *schema.Resource {
 				),
 			},
 			"project": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -194,8 +194,8 @@ func ResourceLaunch() *schema.Resource {
 				},
 			},
 			"randomization_salt": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 127),
 				// Default: set to the launch name if not specified
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
@@ -203,43 +203,43 @@ func ResourceLaunch() *schema.Resource {
 				},
 			},
 			"scheduled_splits_config": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"steps": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Required: true,
 							MinItems: 1,
 							MaxItems: 6,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"group_weights": {
-										Type:     schema.TypeMap,
+										Type: schema.TypeMap,
 										Required: true,
 										ValidateDiagFunc: validation.AllDiag(
 											validation.MapKeyLenBetween(1, 127),
 											validation.MapKeyMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]*$`), "alphanumeric and can contain hyphens, underscores, and periods"),
 										),
 										Elem: &schema.Schema{
-											Type:         schema.TypeInt,
+											Type:schema.TypeInt,
 											ValidateFunc: validation.IntBetween(0, 100000),
 										},
 									},
 									"segment_overrides": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MinItems: 0,
 										MaxItems: 6,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"evaluation_order": {
-													Type:     schema.TypeInt,
+													Type: schema.TypeInt,
 													Required: true,
 												},
 												"segment": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(0, 2048),
@@ -252,14 +252,14 @@ func ResourceLaunch() *schema.Resource {
 													},
 												},
 												"weights": {
-													Type:     schema.TypeMap,
+													Type: schema.TypeMap,
 													Required: true,
 													ValidateDiagFunc: validation.AllDiag(
 														validation.MapKeyLenBetween(1, 127),
 														validation.MapKeyMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]*$`), "alphanumeric and can contain hyphens, underscores, and periods"),
 													),
 													Elem: &schema.Schema{
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														ValidateFunc: validation.IntBetween(0, 100000),
 													},
 												},
@@ -267,8 +267,8 @@ func ResourceLaunch() *schema.Resource {
 										},
 									},
 									"start_time": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidUTCTimestamp,
 									},
 								},
@@ -278,17 +278,17 @@ func ResourceLaunch() *schema.Resource {
 				},
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"status_reason": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -302,10 +302,10 @@ func resourceLaunchCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	name := d.Get("name").(string)
 	project := d.Get("project").(string)
 	input := &cloudwatchevidently.CreateLaunchInput{
-		Name:    aws.String(name),
+		Name:aws.String(name),
 		Project: aws.String(project),
 		Groups:  expandGroups(d.Get("groups").([]interface{})),
-		Tags:    getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -402,12 +402,12 @@ func resourceLaunchUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 		project := d.Get("project").(string)
 
 		input := &cloudwatchevidently.UpdateLaunchInput{
-			Description:           aws.String(d.Get("description").(string)),
+			Description:  aws.String(d.Get("description").(string)),
 			Groups:   expandGroups(d.Get("groups").([]interface{})),
 			Launch:   aws.String(name),
 			Project:  aws.String(project),
-			MetricMonitors:        expandMetricMonitors(d.Get("metric_monitors").([]interface{})),
-			RandomizationSalt:     aws.String(d.Get("randomization_salt").(string)),
+			MetricMonitors:expandMetricMonitors(d.Get("metric_monitors").([]interface{})),
+			RandomizationSalt: aws.String(d.Get("randomization_salt").(string)),
 			ScheduledSplitsConfig: expandScheduledSplitsConfig(d.Get("scheduled_splits_config").([]interface{})),
 		}
 
@@ -475,7 +475,7 @@ func expandGroups(tfMaps []interface{}) []*cloudwatchevidently.LaunchGroupConfig
 func expandGroup(tfMap map[string]interface{}) *cloudwatchevidently.LaunchGroupConfig {
 	apiObject := &cloudwatchevidently.LaunchGroupConfig{
 		Feature:   aws.String(tfMap["feature"].(string)),
-		Name:      aws.String(tfMap["name"].(string)),
+		Name:  aws.String(tfMap["name"].(string)),
 		Variation: aws.String(tfMap["variation"].(string)),
 	}
 
@@ -513,8 +513,8 @@ func expandMetricDefinition(tfList []interface{}) *cloudwatchevidently.MetricDef
 
 	apiObject := &cloudwatchevidently.MetricDefinitionConfig{
 		EntityIdKey: aws.String(tfMap["entity_id_key"].(string)),
-		Name:        aws.String(tfMap["name"].(string)),
-		ValueKey:    aws.String(tfMap["value_key"].(string)),
+		Name:aws.String(tfMap["name"].(string)),
+		ValueKey:aws.String(tfMap["value_key"].(string)),
 	}
 
 	if v, ok := tfMap["event_pattern"]; ok && v != "" {
@@ -557,9 +557,9 @@ func expandStep(tfMap map[string]interface{}) *cloudwatchevidently.ScheduledSpli
 	startTime := aws.Time(t)
 
 	apiObject := &cloudwatchevidently.ScheduledSplitConfig{
-		GroupWeights:     flex.ExpandInt64Map(tfMap["group_weights"].(map[string]interface{})),
+		GroupWeights: flex.ExpandInt64Map(tfMap["group_weights"].(map[string]interface{})),
 		SegmentOverrides: expandSegmentOverrides(tfMap["segment_overrides"].([]interface{})),
-		StartTime:        startTime,
+		StartTime:startTime,
 	}
 
 	return apiObject
@@ -578,8 +578,8 @@ func expandSegmentOverrides(tfMaps []interface{}) []*cloudwatchevidently.Segment
 func expandSegmentOverride(tfMap map[string]interface{}) *cloudwatchevidently.SegmentOverride {
 	apiObject := &cloudwatchevidently.SegmentOverride{
 		EvaluationOrder: aws.Int64(int64(tfMap["evaluation_order"].(int))),
-		Segment:         aws.String(tfMap["segment"].(string)),
-		Weights:         flex.ExpandInt64Map(tfMap["weights"].(map[string]interface{})),
+		Segment:aws.String(tfMap["segment"].(string)),
+		Weights:flex.ExpandInt64Map(tfMap["weights"].(map[string]interface{})),
 	}
 
 	return apiObject
@@ -679,8 +679,8 @@ func flattenMetricMonitorDefinition(apiObject *cloudwatchevidently.MetricDefinit
 
 	tfMap := map[string]interface{}{
 		"entity_id_key": aws.StringValue(apiObject.EntityIdKey),
-		"name":          aws.StringValue(apiObject.Name),
-		"value_key":     aws.StringValue(apiObject.ValueKey),
+		"name": aws.StringValue(apiObject.Name),
+		"value_key": aws.StringValue(apiObject.ValueKey),
 	}
 
 	if v := apiObject.EventPattern; v != nil {
@@ -731,7 +731,7 @@ func flattenStep(apiObject *cloudwatchevidently.ScheduledSplit) map[string]inter
 
 	tfMap := map[string]interface{}{
 		"group_weights": aws.Int64ValueMap(apiObject.GroupWeights),
-		"start_time":    aws.TimeValue(apiObject.StartTime).Format(time.RFC3339),
+		"start_time":aws.TimeValue(apiObject.StartTime).Format(time.RFC3339),
 	}
 
 	if v := apiObject.SegmentOverrides; v != nil {
@@ -766,8 +766,8 @@ func flattenSegmentOverride(apiObject *cloudwatchevidently.SegmentOverride) map[
 
 	tfMap := map[string]interface{}{
 		"evaluation_order": aws.Int64Value(apiObject.EvaluationOrder),
-		"segment":          aws.StringValue(apiObject.Segment),
-		"weights":          aws.Int64ValueMap(apiObject.Weights),
+		"segment": aws.StringValue(apiObject.Segment),
+		"weights": aws.Int64ValueMap(apiObject.Weights),
 	}
 
 	return tfMap

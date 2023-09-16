@@ -23,8 +23,8 @@ func TestAccNetworkManagerTransitGatewayConnectPeerAssociation_serial(t *testing
 	t.Parallel()
 
 	testCases := map[string]func(t *testing.T){
-		"basic":                  testAccTransitGatewayConnectPeerAssociation_basic,
-		"disappears":             testAccTransitGatewayConnectPeerAssociation_disappears,
+		"basic":testAccTransitGatewayConnectPeerAssociation_basic,
+		"disappears":    testAccTransitGatewayConnectPeerAssociation_disappears,
 		"disappears_ConnectPeer": testAccTransitGatewayConnectPeerAssociation_Disappears_connectPeer,
 	}
 
@@ -37,10 +37,10 @@ func testAccTransitGatewayConnectPeerAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayConnectPeerAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckTransitGatewayConnectPeerAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayConnectPeerAssociationConfig_basic(rName),
@@ -63,10 +63,10 @@ func testAccTransitGatewayConnectPeerAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayConnectPeerAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckTransitGatewayConnectPeerAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayConnectPeerAssociationConfig_basic(rName),
@@ -87,10 +87,10 @@ func testAccTransitGatewayConnectPeerAssociation_Disappears_connectPeer(t *testi
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayConnectPeerAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckTransitGatewayConnectPeerAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayConnectPeerAssociationConfig_basic(rName),
@@ -174,7 +174,7 @@ resource "aws_vpc" "test" {
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -190,9 +190,9 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids         = [aws_subnet.test.id]
+  subnet_ids= [aws_subnet.test.id]
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id             = aws_vpc.test.id
+  vpc_id    = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -209,8 +209,8 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 }
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
-  inside_cidr_blocks            = ["169.254.200.0/29"]
-  peer_address                  = "1.1.1.1"
+  inside_cidr_blocks   = ["169.254.200.0/29"]
+  peer_address= "1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 
   tags = {
@@ -234,7 +234,7 @@ resource "aws_networkmanager_site" "test" {
 
 resource "aws_networkmanager_device" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  site_id           = aws_networkmanager_site.test.id
+  site_id  = aws_networkmanager_site.test.id
 
   tags = {
     Name = %[1]q
@@ -250,7 +250,7 @@ resource "aws_networkmanager_transit_gateway_registration" "test" {
 
 resource "aws_networkmanager_transit_gateway_connect_peer_association" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  device_id         = aws_networkmanager_device.test.id
+  device_id= aws_networkmanager_device.test.id
 
   transit_gateway_connect_peer_arn = aws_ec2_transit_gateway_connect_peer.test.arn
 

@@ -24,7 +24,7 @@ import (
 	expectedPolicyText := `{"Statement":[{"Action":["ec2:Describe*"],"Effect":"Allow","Resource":"*"}],"Version":"2012-10-17"}`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPolicyDestroy(ctx),
@@ -43,8 +43,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -55,7 +55,7 @@ import (
 	resourceName := "aws_iam_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPolicyDestroy(ctx),
@@ -68,8 +68,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -80,7 +80,7 @@ import (
 	resourceName := "aws_iam_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPolicyDestroy(ctx),
@@ -94,8 +94,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -123,7 +123,7 @@ import (
 	funcourceName := "aws_iam_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPolicyDestroy(ctx),
@@ -143,7 +143,7 @@ import (
 	var out iam.Policy
 	resourceName := "aws_iam_policy.test"
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPolicyDestroy(ctx),
@@ -156,9 +156,9 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
@@ -169,7 +169,7 @@ funcource.ParallelTest(t, resource.TestCase{
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_iam_policy.test"
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPolicyDestroy(ctx),
@@ -182,8 +182,8 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -196,13 +196,13 @@ funcource.ParallelTest(t, resource.TestCase{
 	policy1 := `{"Statement":[{"Action":["ec2:Describe*"],"Effect":"Allow","Resource":"*"}],"Version":"2012-10-17"}`
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccPolicyConfig_basic(rName, "not-json"),
+				Config:  testAccPolicyConfig_basic(rName, "not-json"),
 				ExpectError: regexache.MustCompile("invalid JSON"),
 			},
 			{
@@ -220,8 +220,8 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -235,7 +235,7 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_iam_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPolicyDestroy(ctx),
@@ -248,8 +248,8 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -363,18 +363,18 @@ func, err := tfiam.FindPolicyByARN(ctx, conn, rs.Primary.ID)
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
   description = %q
-  name        = %q
+  name= %q
 
   policy = <<EOF
 {
   "Version": "2012-10-17",
  func{
-      "Action": [
-        "ec2:Describe*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
+  "Action": [
+"ec2:Describe*"
+  ],
+  "Effect": "Allow",
+  "Resource": "*"
+}
   ]
 }
 EOF
@@ -389,12 +389,12 @@ resource "aws_iam_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
- func    "ec2:Describe*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
+{
+ func"ec2:Describe*"
+  ],
+  "Effect": "Allow",
+  "Resource": "*"
+}
   ]
 }
 EOF
@@ -409,12 +409,12 @@ resource "aws_iam_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
+{
+  "Action": [
  func  ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
+  "Effect": "Allow",
+  "Resource": "*"
+}
   ]
 }
 EOF
@@ -430,12 +430,12 @@ resource "aws_iam_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
+{
+  "Action": [
  func  ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
+  "Effect": "Allow",
+  "Resource": "*"
+}
   ]
 }
 EOF
@@ -456,18 +456,18 @@ resource "aws_iam_policy" "test" {
   policy = <<EOF
 {funcersion": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "ec2:Describe*"
-      ],
-      "Effect": "Allow",
+{
+  "Action": [
+"ec2:Describe*"
+  ],
+  "Effect": "Allow",
  func}
   ]
 }
 EOF
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -480,19 +480,19 @@ resource "aws_iam_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "ec2:Describe*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
+{
+  "Action": [
+"ec2:Describe*"
+  ],
+  "Effect": "Allow",
+  "Resource": "*"
  func
 }
 EOF
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -502,62 +502,62 @@ resource "aws_iam_policy" "test" {
   name = %[1]q
 
   policy = jsonencode({
-    Id      = %[1]q
-    Version = "2012-10-17"
-    Statement = [{
-      Sid    = "60c9d11f"
-      Effect = "Allow"
-      Action = [
-        "kms:Describe*",
-        "kms:Get*",
-        "kms:List*",
-        "kms:CreateKey",
- func    "kms:ScheduleKeyDeletion",
-        "kms:TagResource",
-        "kms:UntagResource",
-        "s3:ListMultipartUploadParts",
-        "s3:ListBucketVersions",
-        "s3:ListBucketMultipartUploads",
-        "s3:ListBucket",
-        "s3:GetReplicationConfiguration",
-        "s3:GetObjectVersionTorrent",
-        "s3:GetObjectVersionTagging",
-        "s3:GetObjectVersionForReplication",
-        "s3:GetObjectVersionAcl",
-        "s3:GetObjectVersion",
-        "s3:GetObjectTorrent",
-        "s3:GetObjectTagging",
-        "s3:GetObjectRetention",
-        "s3:GetObjectLegalHold",
-        "s3:GetObjectAcl",
-        "s3:GetObject",
-        "s3:GetMetricsConfiguration",
-        "s3:GetLifecycleConfiguration",
-        "s3:GetJobTagging",
-        "s3:GetInventoryConfiguration",
-        "s3:GetEncryptionConfiguration",
-        "s3:GetBucketWebsite",
-        "s3:GetBucketVersioning",
-        "s3:GetBucketTagging",
-        "s3:GetBucketRequestPayment",
-        "s3:GetBucketPublicAccessBlock",
-        "s3:GetBucketPolicyStatus",
-        "s3:GetBucketPolicy",
-        "s3:GetBucketOwnershipControls",
-        "s3:GetBucketObjectLockConfiguration",
-        "s3:GetBucketNotification",
-        "s3:GetBucketLogging",
-        "s3:GetBucketLocation",
-        "s3:GetBucketCORS",
-        "s3:GetBucketAcl",
-        "s3:GetAnalyticsConfiguration",
-        "s3:GetAccessPointPolicyStatus",
-        "s3:GetAccessPointPolicy",
-        "s3:GetAccelerateConfiguration",
-        "s3:DescribeJob",
-      ]
-      Resource = "*"
-    }]
+Id  = %[1]q
+Version = "2012-10-17"
+Statement = [{
+  Sid= "60c9d11f"
+  Effect = "Allow"
+  Action = [
+"kms:Describe*",
+"kms:Get*",
+"kms:List*",
+"kms:CreateKey",
+ func"kms:ScheduleKeyDeletion",
+"kms:TagResource",
+"kms:UntagResource",
+"s3:ListMultipartUploadParts",
+"s3:ListBucketVersions",
+"s3:ListBucketMultipartUploads",
+"s3:ListBucket",
+"s3:GetReplicationConfiguration",
+"s3:GetObjectVersionTorrent",
+"s3:GetObjectVersionTagging",
+"s3:GetObjectVersionForReplication",
+"s3:GetObjectVersionAcl",
+"s3:GetObjectVersion",
+"s3:GetObjectTorrent",
+"s3:GetObjectTagging",
+"s3:GetObjectRetention",
+"s3:GetObjectLegalHold",
+"s3:GetObjectAcl",
+"s3:GetObject",
+"s3:GetMetricsConfiguration",
+"s3:GetLifecycleConfiguration",
+"s3:GetJobTagging",
+"s3:GetInventoryConfiguration",
+"s3:GetEncryptionConfiguration",
+"s3:GetBucketWebsite",
+"s3:GetBucketVersioning",
+"s3:GetBucketTagging",
+"s3:GetBucketRequestPayment",
+"s3:GetBucketPublicAccessBlock",
+"s3:GetBucketPolicyStatus",
+"s3:GetBucketPolicy",
+"s3:GetBucketOwnershipControls",
+"s3:GetBucketObjectLockConfiguration",
+"s3:GetBucketNotification",
+"s3:GetBucketLogging",
+"s3:GetBucketLocation",
+"s3:GetBucketCORS",
+"s3:GetBucketAcl",
+"s3:GetAnalyticsConfiguration",
+"s3:GetAccessPointPolicyStatus",
+"s3:GetAccessPointPolicy",
+"s3:GetAccelerateConfiguration",
+"s3:DescribeJob",
+  ]
+  Resource = "*"
+}]
   })
 
   %[2]s

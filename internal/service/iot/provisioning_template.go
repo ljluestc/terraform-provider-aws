@@ -47,25 +47,25 @@ func ResourceProvisioningTemplate() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"default_version_id": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 500),
 			},
 			"enabled": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -74,34 +74,34 @@ func ResourceProvisioningTemplate() *schema.Resource {
 				),
 			},
 			"pre_provisioning_hook": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"payload_version": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      provisioningHookPayloadVersion2020_04_01,
+							Type:schema.TypeString,
+							Optional: true,
+							Default:  provisioningHookPayloadVersion2020_04_01,
 							ValidateFunc: validation.StringInSlice(provisioningHookPayloadVersion_Values(), false),
 						},
 						"target_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"provisioning_role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: verify.ValidARN,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"template_body": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ValidateFunc: validation.All(
 					validation.StringIsJSON,
@@ -119,8 +119,8 @@ func resourceProvisioningTemplateCreate(ctx context.Context, d *schema.ResourceD
 
 	name := d.Get("name").(string)
 	input := &iot.CreateProvisioningTemplateInput{
-		Enabled:      aws.Bool(d.Get("enabled").(bool)),
-		Tags:         getTagsIn(ctx),
+		Enabled:  aws.Bool(d.Get("enabled").(bool)),
+		Tags:getTagsIn(ctx),
 		TemplateName: aws.String(name),
 	}
 
@@ -208,10 +208,10 @@ func resourceProvisioningTemplateUpdate(ctx context.Context, d *schema.ResourceD
 
 	if d.HasChanges("description", "enabled", "provisioning_role_arn") {
 		input := &iot.UpdateProvisioningTemplateInput{
-			Description:         aws.String(d.Get("description").(string)),
+			Description:aws.String(d.Get("description").(string)),
 			Enabled:aws.Bool(d.Get("enabled").(bool)),
 			ProvisioningRoleArn: aws.String(d.Get("provisioning_role_arn").(string)),
-			TemplateName:        aws.String(d.Id()),
+			TemplateName:aws.String(d.Id()),
 		}
 
 		log.Printf("[DEBUG] Updating IoT Provisioning Template: %s", input)

@@ -117,20 +117,20 @@ type servicePackage struct{}funcurn []*types.ServicePackageFrameworkDataSource{}
 		{
 			Factory:  ResourceInstanceProfile,
 			TypeName: "aws_iam_instance_profile",
-			Name:     "Instance Profile",
-			Tags:     &types.ServicePackageResourceTags{},
+			Name:"Instance Profile",
+			Tags:&types.ServicePackageResourceTags{},
 		},
 		{
 			Factory:  ResourceOpenIDConnectProvider,
 			TypeName: "aws_iam_openid_connect_provider",
-			Name:     "OIDC Provider",
-			Tags:     &types.ServicePackageResourceTags{},
+			Name:"OIDC Provider",
+			Tags:&types.ServicePackageResourceTags{},
 		},
 		{
 			Factory:  ResourcePolicy,
 			TypeName: "aws_iam_policy",
-			Name:     "Policy",
-			Tags:     &types.ServicePackageResourceTags{},
+			Name:"Policy",
+			Tags:&types.ServicePackageResourceTags{},
 		},
 		{
 			Factory:  ResourcePolicyAttachment,
@@ -139,8 +139,8 @@ type servicePackage struct{}funcurn []*types.ServicePackageFrameworkDataSource{}
 		{
 			Factory:  ResourceRole,
 			TypeName: "aws_iam_role",
-			Name:     "Role",
-			Tags:     &types.ServicePackageResourceTags{},
+			Name:"Role",
+			Tags:&types.ServicePackageResourceTags{},
 		},
 		{
 			Factory:  ResourceRolePolicy,
@@ -153,25 +153,25 @@ type servicePackage struct{}funcurn []*types.ServicePackageFrameworkDataSource{}
 		{
 			Factory:  ResourceSAMLProvider,
 			TypeName: "aws_iam_saml_provider",
-			Name:     "SAML Provider",
-			Tags:     &types.ServicePackageResourceTags{},
+			Name:"SAML Provider",
+			Tags:&types.ServicePackageResourceTags{},
 		},
 		{
 			Factory:  ResourceSecurityTokenServicePreferences,
 			TypeName: "aws_iam_security_token_service_preferences",
-			Name:     "Security Token Service Preferences",
+			Name:"Security Token Service Preferences",
 		},
 		{
 			Factory:  ResourceServerCertificate,
 			TypeName: "aws_iam_server_certificate",
-			Name:     "Server Certificate",
-			Tags:     &types.ServicePackageResourceTags{},
+			Name:"Server Certificate",
+			Tags:&types.ServicePackageResourceTags{},
 		},
 		{
 			Factory:  ResourceServiceLinkedRole,
 			TypeName: "aws_iam_service_linked_role",
-			Name:     "Service Linked Role",
-			Tags:     &types.ServicePackageResourceTags{},
+			Name:"Service Linked Role",
+			Tags:&types.ServicePackageResourceTags{},
 		},
 		{
 			Factory:  ResourceServiceSpecificCredential,
@@ -184,8 +184,8 @@ type servicePackage struct{}funcurn []*types.ServicePackageFrameworkDataSource{}
 		{
 			Factory:  ResourceUser,
 			TypeName: "aws_iam_user",
-			Name:     "User",
-			Tags:     &types.ServicePackageResourceTags{},
+			Name:"User",
+			Tags:&types.ServicePackageResourceTags{},
 		},
 		{
 			Factory:  ResourceUserGroupMembership,
@@ -210,8 +210,8 @@ type servicePackage struct{}funcurn []*types.ServicePackageFrameworkDataSource{}
 		{
 			Factory:  ResourceVirtualMFADevice,
 			TypeName: "aws_iam_virtual_mfa_device",
-			Name:     "Virtual MFA Device",
-			Tags:     &types.ServicePackageResourceTags{},
+			Name:"Virtual MFA Device",
+			Tags:&types.ServicePackageResourceTags{},
 		},
 	}
 }func (p *servicePackage) ServicePackageName() string {

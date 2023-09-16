@@ -1,233 +1,176 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kendra_test
-
-import (
-	"testing"
-
-	tfkendra "github.com/hashicorp/terraform-provider-aws/internal/service/kendra"
-)
-
-
-func TestExperienceParseResourceID(t *testing.T) {
-	t.Parallel()
-
-	testCases := []struct {
-		TestName        string
-		Input  string
-		ExpectedId      string
+// SPDX-License-Identifier: MPL-2.0package kendra_testimport (
+	"testing"	tfkendra "github.com/hashicorp/terraform-provider-aws/internal/service/kendra"
+)func TestExperienceParseResourceID(t *testing.T) {
+	t.Parallel()	testCases := []struct {
+		TestNamestring
+		Inputstring
+		ExpectedIdstring
 		ExpectedIndexId string
-		Error  bool
+		Errorbool
 	}{
 		{
-			TestName:        "empty",
-			Input:  "",
-			ExpectedId:      "",
+			TestName:"empty",
+			Input:"",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Invalid ID",
-			Input:  "abcdefg12345678/",
-			ExpectedId:      "",
+			TestName:"Invalid ID",
+			Input:"abcdefg12345678/",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Invalid ID separator",
-			Input:  "abcdefg12345678:qwerty09876",
-			ExpectedId:      "",
+			TestName:"Invalid ID separator",
+			Input:"abcdefg12345678:qwerty09876",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Invalid ID with more than 1 separator",
-			Input:  "abcdefg12345678/qwerty09876/zxcvbnm123456",
-			ExpectedId:      "",
+			TestName:"Invalid ID with more than 1 separator",
+			Input:"abcdefg12345678/qwerty09876/zxcvbnm123456",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Valid ID",
-			Input:  "abcdefg12345678/qwerty09876",
-			ExpectedId:      "abcdefg12345678",
+			TestName:"Valid ID",
+			Input:"abcdefg12345678/qwerty09876",
+			ExpectedId:"abcdefg12345678",
 			ExpectedIndexId: "qwerty09876",
-			Error:  false,
+			Error:false,
 		},
-	}
-
-	for _, testCase := range testCases {
+	}	for _, testCase := range testCases {
 		testCase := testCase
 		t.Run(testCase.TestName, 
 func(t *testing.T) {
-			t.Parallel()
-
-			gotId, gotIndexId, err := tfkendra.ExperienceParseResourceID(testCase.Input)
-
-			if err != nil && !testCase.Error {
+			t.Parallel()			gotId, gotIndexId, err := tfkendra.ExperienceParseResourceID(testCase.Input)			if err != nil && !testCase.Error {
 				t.Errorf("got error (%s), expected no error", err)
-			}
-
-			if err == nil && testCase.Error {
+			}			if err == nil && testCase.Error {
 				t.Errorf("got (Id: %s, IndexId: %s) and no error, expected error", gotId, gotIndexId)
-			}
-
-			if gotId != testCase.ExpectedId {
+			}			if gotId != testCase.ExpectedId {
 				t.Errorf("got %s, expected %s", gotId, testCase.ExpectedIndexId)
-			}
-
-			if gotIndexId != testCase.ExpectedIndexId {
+			}			if gotIndexId != testCase.ExpectedIndexId {
 				t.Errorf("got %s, expected %s", gotIndexId, testCase.ExpectedIndexId)
 			}
 		})
 	}
-}
-
-
-func TestQuerySuggestionsBlockListParseID(t *testing.T) {
-	t.Parallel()
-
-	testCases := []struct {
-		TestName        string
-		Input  string
-		ExpectedId      string
+}func TestQuerySuggestionsBlockListParseID(t *testing.T) {
+	t.Parallel()	testCases := []struct {
+		TestNamestring
+		Inputstring
+		ExpectedIdstring
 		ExpectedIndexId string
-		Error  bool
+		Errorbool
 	}{
 		{
-			TestName:        "empty",
-			Input:  "",
-			ExpectedId:      "",
+			TestName:"empty",
+			Input:"",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Invalid ID",
-			Input:  "abcdefg12345678/",
-			ExpectedId:      "",
+			TestName:"Invalid ID",
+			Input:"abcdefg12345678/",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Invalid ID separator",
-			Input:  "abcdefg12345678:qwerty09876",
-			ExpectedId:      "",
+			TestName:"Invalid ID separator",
+			Input:"abcdefg12345678:qwerty09876",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Invalid ID with more than 1 separator",
-			Input:  "abcdefg12345678/qwerty09876/zxcvbnm123456",
-			ExpectedId:      "",
+			TestName:"Invalid ID with more than 1 separator",
+			Input:"abcdefg12345678/qwerty09876/zxcvbnm123456",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Valid ID",
-			Input:  "abcdefg12345678/qwerty09876",
-			ExpectedId:      "abcdefg12345678",
+			TestName:"Valid ID",
+			Input:"abcdefg12345678/qwerty09876",
+			ExpectedId:"abcdefg12345678",
 			ExpectedIndexId: "qwerty09876",
-			Error:  false,
+			Error:false,
 		},
-	}
-
-	for _, testCase := range testCases {
+	}	for _, testCase := range testCases {
 		testCase := testCase
 		t.Run(testCase.TestName, 
 func(t *testing.T) {
-			t.Parallel()
-
-			gotId, gotIndexId, err := tfkendra.QuerySuggestionsBlockListParseResourceID(testCase.Input)
-
-			if err != nil && !testCase.Error {
+			t.Parallel()			gotId, gotIndexId, err := tfkendra.QuerySuggestionsBlockListParseResourceID(testCase.Input)			if err != nil && !testCase.Error {
 				t.Errorf("got error (%s), expected no error", err)
-			}
-
-			if err == nil && testCase.Error {
+			}			if err == nil && testCase.Error {
 				t.Errorf("got (Id: %s, IndexId: %s) and no error, expected error", gotId, gotIndexId)
-			}
-
-			if gotId != testCase.ExpectedId {
+			}			if gotId != testCase.ExpectedId {
 				t.Errorf("got %s, expected %s", gotId, testCase.ExpectedIndexId)
-			}
-
-			if gotIndexId != testCase.ExpectedIndexId {
+			}			if gotIndexId != testCase.ExpectedIndexId {
 				t.Errorf("got %s, expected %s", gotIndexId, testCase.ExpectedIndexId)
 			}
 		})
 	}
-}
-
-
-func TestThesaurusParseResourceID(t *testing.T) {
-	t.Parallel()
-
-	testCases := []struct {
-		TestName        string
-		Input  string
-		ExpectedId      string
+}func TestThesaurusParseResourceID(t *testing.T) {
+	t.Parallel()	testCases := []struct {
+		TestNamestring
+		Inputstring
+		ExpectedIdstring
 		ExpectedIndexId string
-		Error  bool
+		Errorbool
 	}{
 		{
-			TestName:        "empty",
-			Input:  "",
-			ExpectedId:      "",
+			TestName:"empty",
+			Input:"",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Invalid ID",
-			Input:  "abcdefg12345678/",
-			ExpectedId:      "",
+			TestName:"Invalid ID",
+			Input:"abcdefg12345678/",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Invalid ID separator",
-			Input:  "abcdefg12345678:qwerty09876",
-			ExpectedId:      "",
+			TestName:"Invalid ID separator",
+			Input:"abcdefg12345678:qwerty09876",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Invalid ID with more than 1 separator",
-			Input:  "abcdefg12345678/qwerty09876/zxcvbnm123456",
-			ExpectedId:      "",
+			TestName:"Invalid ID with more than 1 separator",
+			Input:"abcdefg12345678/qwerty09876/zxcvbnm123456",
+			ExpectedId:"",
 			ExpectedIndexId: "",
-			Error:  true,
+			Error:true,
 		},
 		{
-			TestName:        "Valid ID",
-			Input:  "abcdefg12345678/qwerty09876",
-			ExpectedId:      "abcdefg12345678",
+			TestName:"Valid ID",
+			Input:"abcdefg12345678/qwerty09876",
+			ExpectedId:"abcdefg12345678",
 			ExpectedIndexId: "qwerty09876",
-			Error:  false,
+			Error:false,
 		},
-	}
-
-	for _, testCase := range testCases {
+	}	for _, testCase := range testCases {
 		testCase := testCase
 		t.Run(testCase.TestName, 
 func(t *testing.T) {
-			t.Parallel()
-
-			gotId, gotIndexId, err := tfkendra.ThesaurusParseResourceID(testCase.Input)
-
-			if err != nil && !testCase.Error {
+			t.Parallel()			gotId, gotIndexId, err := tfkendra.ThesaurusParseResourceID(testCase.Input)			if err != nil && !testCase.Error {
 				t.Errorf("got error (%s), expected no error", err)
-			}
-
-			if err == nil && testCase.Error {
+			}			if err == nil && testCase.Error {
 				t.Errorf("got (Id: %s, IndexId: %s) and no error, expected error", gotId, gotIndexId)
-			}
-
-			if gotId != testCase.ExpectedId {
+			}			if gotId != testCase.ExpectedId {
 				t.Errorf("got %s, expected %s", gotId, testCase.ExpectedIndexId)
-			}
-
-			if gotIndexId != testCase.ExpectedIndexId {
+			}			if gotIndexId != testCase.ExpectedIndexId {
 				t.Errorf("got %s, expected %s", gotIndexId, testCase.ExpectedIndexId)
 			}
 		})

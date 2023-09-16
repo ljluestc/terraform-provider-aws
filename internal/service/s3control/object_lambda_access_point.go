@@ -37,7 +37,7 @@ func resourceObjectLambdaAccessPoint() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -57,7 +57,7 @@ func resourceObjectLambdaAccessPoint() *schema.Resource {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringInSlice(s3control.ObjectLambdaAllowedFeature_Values(), false),
 							},
 						},
@@ -66,7 +66,7 @@ func resourceObjectLambdaAccessPoint() *schema.Resource {
 							Optional: true,
 						},
 						"supporting_access_point": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: verify.ValidARN,
@@ -80,7 +80,7 @@ func resourceObjectLambdaAccessPoint() *schema.Resource {
 										Type:     schema.TypeSet,
 										Required: true,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringInSlice(s3control.ObjectLambdaTransformationConfigurationAction_Values(), false),
 										},
 									},
@@ -97,7 +97,7 @@ func resourceObjectLambdaAccessPoint() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"function_arn": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: verify.ValidARN,
 															},

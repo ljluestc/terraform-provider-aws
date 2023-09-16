@@ -46,7 +46,7 @@ func ResourceEventSubscription() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -54,7 +54,7 @@ func ResourceEventSubscription() *schema.Resource {
 				ValidateFunc:  validEventSubscriptionName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -62,7 +62,7 @@ func ResourceEventSubscription() *schema.Resource {
 				ValidateFunc:  validEventSubscriptionNamePrefix,
 			},
 			"sns_topic_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -114,7 +114,7 @@ func resourceEventSubscriptionCreate(ctx context.Context, d *schema.ResourceData
 	input := &neptune.CreateEventSubscriptionInput{
 		SubscriptionName: aws.String(d.Get("name").(string)),
 		SnsTopicArn:      aws.String(d.Get("sns_topic_arn").(string)),
-		Enabled:          aws.Bool(d.Get("enabled").(bool)),
+		Enabled: aws.Bool(d.Get("enabled").(bool)),
 		Tags:getTagsIn(ctx),
 	}
 

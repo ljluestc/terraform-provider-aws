@@ -22,7 +22,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccLightsailBucketAccessKey_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -49,7 +48,7 @@ func TestAccLightsailBucketAccessKey_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"secret_access_key", "bucket_name"},
@@ -57,7 +56,6 @@ func TestAccLightsailBucketAccessKey_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailBucketAccessKey_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -84,7 +82,6 @@ func TestAccLightsailBucketAccessKey_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckBucketAccessKeyExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -111,7 +108,6 @@ func testAccCheckBucketAccessKeyExists(ctx context.Context, resourceName string)
 		return nil
 	}
 }
-
 func testAccCheckBucketAccessKeyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
@@ -137,7 +133,6 @@ func testAccCheckBucketAccessKeyDestroy(ctx context.Context) resource.TestCheckF
 		return nil
 	}
 }
-
 func testAccBucketAccessKeyConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_bucket" "test" {
@@ -146,7 +141,6 @@ resource "aws_lightsail_bucket" "test" {
 }
 `, rName)
 }
-
 func testAccBucketAccessKeyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccBucketAccessKeyConfig_base(rName), `
 resource "aws_lightsail_bucket_access_key" "test" {

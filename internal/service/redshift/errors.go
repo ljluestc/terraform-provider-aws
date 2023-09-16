@@ -4,5 +4,5 @@
 package redshift
 
 const (
-	errCodeInvalidParameterValue = "InvalidParameterValue"
+errCodeInvalidParameterValue = "InvalidParameterValue"
 )

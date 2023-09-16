@@ -27,13 +27,13 @@ func TestAccEKSIdentityProviderConfig_basic(t *testing.T) {
 	resourceName := "aws_eks_identity_provider_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckIdentityProviderConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccIdentityProviderConfigConfig_issuerURL(rName, "http://example.com"),
+				Config: testAccIdentityProviderConfigConfig_issuerURL(rName, "http://example.com"),
 				ExpectError: regexache.MustCompile(`expected .* to have a url with schema of: "https", got http://example.com`),
 			},
 			{
@@ -55,8 +55,8 @@ func TestAccEKSIdentityProviderConfig_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -70,7 +70,7 @@ func TestAccEKSIdentityProviderConfig_disappears(t *testing.T) {
 	resourceName := "aws_eks_identity_provider_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckIdentityProviderConfigDestroy(ctx),
@@ -94,7 +94,7 @@ func TestAccEKSIdentityProviderConfig_allOIDCOptions(t *testing.T) {
 	resourceName := "aws_eks_identity_provider_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckIdentityProviderConfigDestroy(ctx),
@@ -117,8 +117,8 @@ func TestAccEKSIdentityProviderConfig_allOIDCOptions(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -132,7 +132,7 @@ func TestAccEKSIdentityProviderConfig_tags(t *testing.T) {
 	resourceName := "aws_eks_identity_provider_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckIdentityProviderConfigDestroy(ctx),
@@ -146,8 +146,8 @@ func TestAccEKSIdentityProviderConfig_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -242,30 +242,30 @@ resource "aws_iam_role" "test" {
   name = %[1]q
 
   assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "eks.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+ Action = "sts:AssumeRole"
+ Effect = "Allow"
+ Principal = {
+   Service = "eks.${data.aws_partition.current.dns_suffix}"
+ }
+}]
+Version = "2012-10-17"
   })
 }
 
 resource "aws_iam_role_policy_attachment" "cluster-AmazonEKSClusterPolicy" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.test.name
+  role  = aws_iam_role.test.name
 }
 
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block = "10.0.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
 
   tags = {
-    Name= %[1]q
-    "kubernetes.io/cluster/%[1]s" = "shared"
+Name= %[1]q
+"kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
 
@@ -273,21 +273,21 @@ resource "aws_subnet" "test" {
   count = 2
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = "10.0.${count.index}.0/24"
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = "10.0.${count.index}.0/24"
+  vpc_id  = aws_vpc.test.id
 
   tags = {
-    Name= %[1]q
-    "kubernetes.io/cluster/%[1]s" = "shared"
+Name= %[1]q
+"kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
 
 resource "aws_eks_cluster" "test" {
-  name     = %[1]q
+  name= %[1]q
   role_arn = aws_iam_role.test.arn
 
   vpc_config {
-    subnet_ids = aws_subnet.test[*].id
+subnet_ids = aws_subnet.test[*].id
   }
 
   depends_on = [aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy]
@@ -301,9 +301,9 @@ resource "aws_eks_identity_provider_config" "test" {
   cluster_name = aws_eks_cluster.test.name
 
   oidc {
-    client_id        = "example.net"
-    identity_provider_config_name = %[1]q
-    issuer_url       = "https://example.com"
+client_id   = "example.net"
+identity_provider_config_name = %[1]q
+issuer_url  = "https://example.com"
   }
 }
 `, rName))
@@ -315,9 +315,9 @@ resource "aws_eks_identity_provider_config" "test" {
   cluster_name = aws_eks_cluster.test.name
 
   oidc {
-    client_id        = "example.net"
-    identity_provider_config_name = %[1]q
-    issuer_url       = %[2]q
+client_id   = "example.net"
+identity_provider_config_name = %[1]q
+issuer_url  = %[2]q
   }
 }
 `, rName, issuerUrl))
@@ -329,18 +329,18 @@ resource "aws_eks_identity_provider_config" "test" {
   cluster_name = aws_eks_cluster.test.name
 
   oidc {
-    client_id        = "example.net"
-    groups_claim     = "groups"
-    groups_prefix    = "oidc:"
-    identity_provider_config_name = %[1]q
-    issuer_url       = "https://example.com"
-    username_claim   = "email"
-    username_prefix  = "-"
+client_id   = "example.net"
+groups_claim= "groups"
+groups_prefix= "oidc:"
+identity_provider_config_name = %[1]q
+issuer_url  = "https://example.com"
+username_claim   = "email"
+username_prefix  = "-"
 
-    required_claims = {
-      keyOne = "valueOne"
-      keyTwo = "valueTwo"
-    }
+required_claims = {
+ keyOne = "valueOne"
+ keyTwo = "valueTwo"
+}
   }
 }
 `, rName))
@@ -352,13 +352,13 @@ resource "aws_eks_identity_provider_config" "test" {
   cluster_name = aws_eks_cluster.test.name
 
   oidc {
-    client_id        = "example.net"
-    identity_provider_config_name = %[1]q
-    issuer_url       = "https://example.com"
+client_id   = "example.net"
+identity_provider_config_name = %[1]q
+issuer_url  = "https://example.com"
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -370,14 +370,14 @@ resource "aws_eks_identity_provider_config" "test" {
   cluster_name = aws_eks_cluster.test.name
 
   oidc {
-    client_id        = "example.net"
-    identity_provider_config_name = %[1]q
-    issuer_url       = "https://example.com"
+client_id   = "example.net"
+identity_provider_config_name = %[1]q
+issuer_url  = "https://example.com"
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

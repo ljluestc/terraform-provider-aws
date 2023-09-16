@@ -49,74 +49,74 @@ Delete: schema.DefaultTimeout(5 * time.Minute),
 
 Schema: map[string]*schema.Schema{
 "abort_statement": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Required: true,
 MinItems: 1,
 MaxItems: 1,
-Elem:     statementResource,
+Elem: statementResource,
 },
 "arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "checksum": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "child_directed": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Required: true,
 },
 "clarification_prompt": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Optional: true,
 MinItems: 1,
 MaxItems: 1,
-Elem:     promptResource,
+Elem: promptResource,
 },
 "create_version": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 },
 "created_date": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "description": {
-Type:         schema.TypeString,
-Optional:     true,
+Type:schema.TypeString,
+Optional: true,
 ValidateFunc: validation.StringLenBetween(0, 200),
 },
 "detect_sentiment": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 },
 "enable_model_improvements": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 },
 "failure_reason": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "idle_session_ttl_in_seconds": {
-Type:         schema.TypeInt,
-Optional:     true,
-Default:      300,
+Type:schema.TypeInt,
+Optional: true,
+Default:  300,
 ValidateFunc: validation.IntBetween(60, 86400),
 },
 "intent": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Required: true,
 MinItems: 1,
 MaxItems: 250,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "intent_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ValidateFunc: validation.All(
 validation.StringLenBetween(1, 100),
@@ -124,7 +124,7 @@ validation.StringMatch(regexache.MustCompile(`^([A-Za-z]_?)+$`), ""),
 ),
 },
 "intent_version": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ValidateFunc: validation.All(
 validation.StringLenBetween(1, 64),
@@ -135,44 +135,44 @@ validation.StringMatch(regexache.MustCompile(`\$LATEST|[0-9]+`), ""),
 },
 },
 "last_updated_date": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "locale": {
-Type:         schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      lexmodelbuildingservice.LocaleEnUs,
+Type:schema.TypeString,
+Optional: true,
+ForceNew: true,
+Default:  lexmodelbuildingservice.LocaleEnUs,
 ValidateFunc: validation.StringInSlice(lexmodelbuildingservice.Locale_Values(), false),
 },
 "name": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 ValidateFunc: validBotName,
 },
 "nlu_intent_confidence_threshold": {
-Type:         schema.TypeFloat,
-Optional:     true,
-Default:      0,
+Type:schema.TypeFloat,
+Optional: true,
+Default:  0,
 ValidateFunc: validation.FloatBetween(0, 1),
 },
 "process_behavior": {
-Type:         schema.TypeString,
-Optional:     true,
-Default:      lexmodelbuildingservice.ProcessBehaviorSave,
+Type:schema.TypeString,
+Optional: true,
+Default:  lexmodelbuildingservice.ProcessBehaviorSave,
 ValidateFunc: validation.StringInSlice(lexmodelbuildingservice.ProcessBehavior_Values(), false),
 },
 "status": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "version": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "voice_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 Computed: true,
 },
@@ -228,14 +228,14 @@ conn := meta.(*conns.AWSClient).LexModelsConn(ctx)
 
 name := d.Get("name").(string)
 input := &lexmodelbuildingservice.PutBotInput{
-AbortStatement:          expandStatement(d.Get("abort_statement")),
-ChildDirected:           aws.Bool(d.Get("child_directed").(bool)),
-CreateVersion:           aws.Bool(d.Get("create_version").(bool)),
+AbortStatement: expandStatement(d.Get("abort_statement")),
+ChildDirected:  aws.Bool(d.Get("child_directed").(bool)),
+CreateVersion:  aws.Bool(d.Get("create_version").(bool)),
 Description:aws.String(d.Get("description").(string)),
 EnableModelImprovements: aws.Bool(d.Get("enable_model_improvements").(bool)),
 IdleSessionTTLInSeconds: aws.Int64(int64(d.Get("idle_session_ttl_in_seconds").(int))),
 Intents:  expandIntents(d.Get("intent").(*schema.Set).List()),
-Name:     aws.String(name),
+Name: aws.String(name),
 }
 
 if v, ok := d.GetOk("clarification_prompt"); ok {
@@ -297,7 +297,7 @@ return sdkdiag.AppendErrorf(diags, "reading Lex Bot (%s): %s", d.Id(), err)
 
 arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Region:    meta.(*conns.AWSClient).Region,
+Region:meta.(*conns.AWSClient).Region,
 Service:   "lex",
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("bot:%s", d.Id()),
@@ -352,16 +352,16 @@ var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).LexModelsConn(ctx)
 
 input := &lexmodelbuildingservice.PutBotInput{
-Checksum:      aws.String(d.Get("checksum").(string)),
+Checksum:  aws.String(d.Get("checksum").(string)),
 ChildDirected: aws.Bool(d.Get("child_directed").(bool)),
 CreateVersion: aws.Bool(d.Get("create_version").(bool)),
 Description:   aws.String(d.Get("description").(string)),
 DetectSentiment: aws.Bool(d.Get("detect_sentiment").(bool)),
-EnableModelImprovements:      aws.Bool(d.Get("enable_model_improvements").(bool)),
-IdleSessionTTLInSeconds:      aws.Int64(int64(d.Get("idle_session_ttl_in_seconds").(int))),
-Intents:       expandIntents(d.Get("intent").(*schema.Set).List()),
-Locale:        aws.String(d.Get("locale").(string)),
-Name:          aws.String(d.Id()),
+EnableModelImprovements:  aws.Bool(d.Get("enable_model_improvements").(bool)),
+IdleSessionTTLInSeconds:  aws.Int64(int64(d.Get("idle_session_ttl_in_seconds").(int))),
+Intents:   expandIntents(d.Get("intent").(*schema.Set).List()),
+Locale:aws.String(d.Get("locale").(string)),
+Name: aws.String(d.Id()),
 NluIntentConfidenceThreshold: aws.Float64(d.Get("nlu_intent_confidence_threshold").(float64)),
 ProcessBehavior: aws.String(d.Get("process_behavior").(string)),
 }
@@ -424,7 +424,7 @@ return diags
 func flattenIntents(intents []*lexmodelbuildingservice.Intent) (flattenedIntents []map[string]interface{}) {
 for _, intent := range intents {
 flattenedIntents = append(flattenedIntents, map[string]interface{}{
-"intent_name":    aws.StringValue(intent.IntentName),
+"intent_name":aws.StringValue(intent.IntentName),
 "intent_version": aws.StringValue(intent.IntentVersion),
 })
 }
@@ -445,7 +445,7 @@ continue
 }
 
 intents = append(intents, &lexmodelbuildingservice.Intent{
-IntentName:    aws.String(value["intent_name"].(string)),
+IntentName:aws.String(value["intent_name"].(string)),
 IntentVersion: aws.String(value["intent_version"].(string)),
 })
 }

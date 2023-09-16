@@ -9,34 +9,34 @@ import (
 )
 
 type CoreNetworkPolicyDoc struct {
-	Version                  string                                     `json:"version,omitempty"`
+	Versionstring `json:"version,omitempty"`
 	CoreNetworkConfiguration *CoreNetworkPolicyCoreNetworkConfiguration `json:"core-network-configuration"`
-	Segments                 []*CoreNetworkPolicySegment                `json:"segments"`
-	AttachmentPolicies       []*CoreNetworkAttachmentPolicy             `json:"attachment-policies,omitempty"`
-	SegmentActions           []*CoreNetworkPolicySegmentAction          `json:"segment-actions,omitempty"`
+	Segments        []*CoreNetworkPolicySegment       `json:"segments"`
+	AttachmentPolicies       []*CoreNetworkAttachmentPolicy    `json:"attachment-policies,omitempty"`
+	SegmentActions  []*CoreNetworkPolicySegmentAction `json:"segment-actions,omitempty"`
 }
 
 type CoreNetworkPolicySegmentAction struct {
-	Action                string      `json:"action"`
-	Destinations          interface{} `json:"destinations,omitempty"`
+	Action       string      `json:"action"`
+	Destinations interface{} `json:"destinations,omitempty"`
 	DestinationCidrBlocks interface{} `json:"destination-cidr-blocks,omitempty"`
-	Mode                  string      `json:"mode,omitempty"`
-	Segment               string      `json:"segment,omitempty"`
-	ShareWith             interface{} `json:"share-with,omitempty"`
+	Modestring      `json:"mode,omitempty"`
+	Segment      string      `json:"segment,omitempty"`
+	ShareWith    interface{} `json:"share-with,omitempty"`
 	ShareWithExcept       interface{} `json:",omitempty"`
 }
 
 type CoreNetworkAttachmentPolicy struct {
-	RuleNumber     int                                     `json:"rule-number,omitempty"`
-	Action         *CoreNetworkAttachmentPolicyAction      `json:"action"`
+	RuleNumber     int `json:"rule-number,omitempty"`
+	Action*CoreNetworkAttachmentPolicyAction      `json:"action"`
 	Conditions     []*CoreNetworkAttachmentPolicyCondition `json:"conditions"`
-	Description    string                                  `json:"description,omitempty"`
-	ConditionLogic string                                  `json:"condition-logic,omitempty"`
+	Description    string       `json:"description,omitempty"`
+	ConditionLogic string       `json:"condition-logic,omitempty"`
 }
 
 type CoreNetworkAttachmentPolicyAction struct {
 	AssociationMethod string `json:"association-method,omitempty"`
-	Segment           string `json:"segment,omitempty"`
+	Segment  string `json:"segment,omitempty"`
 	TagValueOfKey     string `json:"tag-value-of-key,omitempty"`
 	RequireAcceptance bool   `json:"require-acceptance,omitempty"`
 }
@@ -49,25 +49,25 @@ type CoreNetworkAttachmentPolicyCondition struct {
 }
 
 type CoreNetworkPolicySegment struct {
-	Name                        string      `json:"name"`
-	Description                 string      `json:"description,omitempty"`
-	AllowFilter                 interface{} `json:"allow-filter,omitempty"`
-	DenyFilter                  interface{} `json:"deny-filter,omitempty"`
-	EdgeLocations               interface{} `json:"edge-locations,omitempty"`
-	IsolateAttachments          bool        `json:"isolate-attachments"`
+	Name      string      `json:"name"`
+	Description        string      `json:"description,omitempty"`
+	AllowFilter        interface{} `json:"allow-filter,omitempty"`
+	DenyFilterinterface{} `json:"deny-filter,omitempty"`
+	EdgeLocations      interface{} `json:"edge-locations,omitempty"`
+	IsolateAttachments bool        `json:"isolate-attachments"`
 	RequireAttachmentAcceptance bool        `json:"require-attachment-acceptance"`
 }
 
 type CoreNetworkPolicyCoreNetworkConfiguration struct {
-	AsnRanges        interface{}                `json:"asn-ranges"`
-	VpnEcmpSupport   bool                       `json:"vpn-ecmp-support"`
+	AsnRanges        interface{}       `json:"asn-ranges"`
+	VpnEcmpSupport   bool     `json:"vpn-ecmp-support"`
 	EdgeLocations    []*CoreNetworkEdgeLocation `json:"edge-locations,omitempty"`
-	InsideCidrBlocks interface{}                `json:"inside-cidr-blocks,omitempty"`
+	InsideCidrBlocks interface{}       `json:"inside-cidr-blocks,omitempty"`
 }
 
 type CoreNetworkEdgeLocation struct {
-	Location         string      `json:"location"`
-	Asn              int64       `json:"asn,omitempty"`
+	Locationstring      `json:"location"`
+	Asn     int64       `json:"asn,omitempty"`
 	InsideCidrBlocks interface{} `json:"inside-cidr-blocks,omitempty"`
 }
 
@@ -91,12 +91,12 @@ func (c CoreNetworkPolicySegmentAction) MarshalJSON() ([]byte, error) {
 	}
 
 	return json.Marshal(&Alias{
-		Action:                c.Action,
-		Mode:                  c.Mode,
-		Destinations:          c.Destinations,
+		Action:       c.Action,
+		Mode:c.Mode,
+		Destinations: c.Destinations,
 		DestinationCidrBlocks: c.DestinationCidrBlocks,
-		Segment:               c.Segment,
-		ShareWith:             share,
+		Segment:      c.Segment,
+		ShareWith:    share,
 	})
 }
 

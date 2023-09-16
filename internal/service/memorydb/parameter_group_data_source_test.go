@@ -57,17 +57,17 @@ resource "aws_memorydb_parameter_group" "test" {
   family = "memorydb_redis6"
 
   parameter {
-    name  = "active-defrag-cycle-max"
-    value = "70"
+name  = "active-defrag-cycle-max"
+value = "70"
   }
 
   parameter {
-    name  = "active-defrag-cycle-min"
-    value = "10"
+name  = "active-defrag-cycle-min"
+value = "10"
   }
 
   tags = {
-    Test = "test"
+Test = "test"
   }
 }
 

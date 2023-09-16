@@ -24,47 +24,46 @@ const (
 	helloWorldImage = "amazon/amazon-lightsail:hello-world"
 	redisImage      = "redis:latest"
 )
-
 func TestContainerServiceDeploymentVersionParseResourceID(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-		TestName            string
+		TestName   string
 		Input
 		ExpectedServiceName string
 		ExpectedVersion     int
 		Error
 	}{
 		{
-			TestName:            "empty",
+			TestName:   "empty",
 			Input:
 			ExpectedServiceName: "",
 			ExpectedVersion:     0,
 			Error:
 		},
 		{
-			TestName:            "Invalid ID",
+			TestName:   "Invalid ID",
 			Input:45678/",
 			ExpectedServiceName: "",
 			ExpectedVersion:     0,
 			Error:
 		},
 		{
-			TestName:            "Invalid ID separator",
+			TestName:   "Invalid ID separator",
 			Input:45678:1",
 			ExpectedServiceName: "",
 			ExpectedVersion:     0,
 			Error:
 		},
 		{
-			TestName:            "Invalid ID with more than 1 separator",
+			TestName:   "Invalid ID with more than 1 separator",
 			Input:45678/qwerty09876/1",
 			ExpectedServiceName: "",
 			ExpectedVersion:     0,
 			Error:
 		},
 		{
-			TestName:            "Valid ID",
+			TestName:   "Valid ID",
 			Input:45678/1",
 			ExpectedServiceName: "abcdefg12345678",
 			ExpectedVersion:     1,
@@ -97,7 +96,6 @@ func TestContainerServiceDeploymentVersionParseResourceID(t *testing.T) {
 		})
 	}
 }
-
 func TestAccLightsailContainerServiceDeploymentVersion_container_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -138,7 +136,6 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_basic(t *testin
 		},
 	})
 }
-
 func TestAccLightsailContainerServiceDeploymentVersion_container_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -177,7 +174,6 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_multiple(t *tes
 		},
 	})
 }
-
 func TestAccLightsailContainerServiceDeploymentVersion_container_environment(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -256,7 +252,6 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_environment(t *
 		},
 	})
 }
-
 func TestAccLightsailContainerServiceDeploymentVersion_container_ports(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -330,7 +325,6 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_ports(t *testin
 		},
 	})
 }
-
 func TestAccLightsailContainerServiceDeploymentVersion_container_publicEndpoint(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -443,7 +437,6 @@ func TestAccLightsailContainerServiceDeploymentVersion_container_publicEndpoint(
 		},
 	})
 }
-
 func TestAccLightsailContainerServiceDeploymentVersion_Container_enableService(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -481,7 +474,6 @@ func TestAccLightsailContainerServiceDeploymentVersion_Container_enableService(t
 		},
 	})
 }
-
 func testAccCheckContainerServiceDeploymentVersionExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -505,7 +497,6 @@ func testAccCheckContainerServiceDeploymentVersionExists(ctx context.Context, re
 		return err
 	}
 }
-
 func testAccContainerServiceDeploymentVersionBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_container_service" "test" {
@@ -515,7 +506,6 @@ resource "aws_lightsail_container_service" "test" {
 }
 `, rName)
 }
-
 func testAccContainerServiceDeploymentVersionConfig_Container_basic(rName, containerName, image string) string {
 	return acctest.ConfigCompose(
 		testAccContainerServiceDeploymentVersionBaseConfig(rName),
@@ -523,14 +513,13 @@ func testAccContainerServiceDeploymentVersionConfig_Container_basic(rName, conta
 resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[1]q
-    image          = %[2]q
+    image = %[2]q
   }
 
   service_name = aws_lightsail_container_service.test.name
 }
 `, containerName, image))
 }
-
 func testAccContainerServiceDeploymentVersionConfig_Container_multiple(rName, containerName1, image1, containerName2, image2 string) string {
 	return acctest.ConfigCompose(
 		testAccContainerServiceDeploymentVersionBaseConfig(rName),
@@ -538,19 +527,18 @@ func testAccContainerServiceDeploymentVersionConfig_Container_multiple(rName, co
 resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[1]q
-    image          = %[2]q
+    image = %[2]q
   }
 
   container {
     container_name = %[3]q
-    image          = %[4]q
+    image = %[4]q
   }
 
   service_name = aws_lightsail_container_service.test.name
 }
 `, containerName1, image1, containerName2, image2))
 }
-
 func testAccContainerServiceDeploymentVersionConfig_Container_environment1(rName, containerName, envKey, envValue string) string {
 	return acctest.ConfigCompose(
 		testAccContainerServiceDeploymentVersionBaseConfig(rName),
@@ -558,7 +546,7 @@ func testAccContainerServiceDeploymentVersionConfig_Container_environment1(rName
 resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[1]q
-    image          = "amazon/amazon-lightsail:hello-world"
+    image = "amazon/amazon-lightsail:hello-world"
     environment = {
       %[2]q = %[3]q
     }
@@ -568,7 +556,6 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
 }
 `, containerName, envKey, envValue))
 }
-
 func testAccContainerServiceDeploymentVersionConfig_Container_environment2(rName, containerName, envKey1, envValue1, envKey2, envValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccContainerServiceDeploymentVersionBaseConfig(rName),
@@ -576,7 +563,7 @@ func testAccContainerServiceDeploymentVersionConfig_Container_environment2(rName
 resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[1]q
-    image          = "amazon/amazon-lightsail:hello-world"
+    image = "amazon/amazon-lightsail:hello-world"
     environment = {
       %[2]q = %[3]q
       %[4]q = %[5]q
@@ -587,7 +574,6 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
 }
 `, containerName, envKey1, envValue1, envKey2, envValue2))
 }
-
 func testAccContainerServiceDeploymentVersionConfig_Container_ports1(rName, containerName, portKey, portValue string) string {
 	return acctest.ConfigCompose(
 		testAccContainerServiceDeploymentVersionBaseConfig(rName),
@@ -595,7 +581,7 @@ func testAccContainerServiceDeploymentVersionConfig_Container_ports1(rName, cont
 resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[1]q
-    image          = "amazon/amazon-lightsail:hello-world"
+    image = "amazon/amazon-lightsail:hello-world"
     ports = {
       %[2]q = %[3]q
     }
@@ -605,7 +591,6 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
 }
 `, containerName, portKey, portValue))
 }
-
 func testAccContainerServiceDeploymentVersionConfig_Container_ports2(rName, containerName, portKey1, portValue1, portKey2, portValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccContainerServiceDeploymentVersionBaseConfig(rName),
@@ -613,7 +598,7 @@ func testAccContainerServiceDeploymentVersionConfig_Container_ports2(rName, cont
 resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[1]q
-    image          = "amazon/amazon-lightsail:hello-world"
+    image = "amazon/amazon-lightsail:hello-world"
     ports = {
       %[2]q = %[3]q
       %[4]q = %[5]q
@@ -624,7 +609,6 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
 }
 `, containerName, portKey1, portValue1, portKey2, portValue2))
 }
-
 func testAccContainerServiceDeploymentVersionConfig_Container_publicEndpoint(rName, containerName string) string {
 	return acctest.ConfigCompose(
 		testAccContainerServiceDeploymentVersionBaseConfig(rName),
@@ -632,7 +616,7 @@ func testAccContainerServiceDeploymentVersionConfig_Container_publicEndpoint(rNa
 resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[1]q
-    image          = "amazon/amazon-lightsail:hello-world"
+    image = "amazon/amazon-lightsail:hello-world"
     ports = {
       80 = "HTTP"
     }
@@ -648,7 +632,6 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
 }
 `, containerName))
 }
-
 func testAccContainerServiceDeploymentVersionConfig_Container_publicEndpointCompleteHealthCheck(rName, containerName string) string {
 	return acctest.ConfigCompose(
 		testAccContainerServiceDeploymentVersionBaseConfig(rName),
@@ -656,7 +639,7 @@ func testAccContainerServiceDeploymentVersionConfig_Container_publicEndpointComp
 resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[1]q
-    image          = "amazon/amazon-lightsail:hello-world"
+    image = "amazon/amazon-lightsail:hello-world"
     ports = {
       80 = "HTTP"
     }
@@ -679,7 +662,6 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
 }
 `, containerName))
 }
-
 func testAccContainerServiceDeploymentVersionConfig_Container_publicEndpointMinimalHealthCheck(rName, containerName string) string {
 	return acctest.ConfigCompose(
 		testAccContainerServiceDeploymentVersionBaseConfig(rName),
@@ -687,7 +669,7 @@ func testAccContainerServiceDeploymentVersionConfig_Container_publicEndpointMini
 resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[1]q
-    image          = "amazon/amazon-lightsail:hello-world"
+    image = "amazon/amazon-lightsail:hello-world"
     ports = {
       80 = "HTTP"
     }
@@ -704,7 +686,6 @@ resource "aws_lightsail_container_service_deployment_version" "test" {
 }
 `, containerName))
 }
-
 func testAccContainerServiceDeploymentVersionConfig_Container_withDisabledService(rName, containerName string, isDisabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_container_service" "test" {
@@ -717,7 +698,7 @@ resource "aws_lightsail_container_service" "test" {
 resource "aws_lightsail_container_service_deployment_version" "test" {
   container {
     container_name = %[3]q
-    image          = "amazon/amazon-lightsail:hello-world"
+    image = "amazon/amazon-lightsail:hello-world"
   }
 
   service_name = aws_lightsail_container_service.test.name

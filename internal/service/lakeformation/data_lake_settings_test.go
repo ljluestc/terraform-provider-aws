@@ -222,7 +222,7 @@ resource "aws_lakeformation_data_lake_settings" "test" {
   }
 
   admins   = [data.aws_iam_session_context.current.issuer_arn]
-  trusted_resource_owners            = [data.aws_caller_identity.current.account_id]
+  trusted_resource_owners   = [data.aws_caller_identity.current.account_id]
   allow_external_data_filtering      = true
   external_data_filtering_allow_list = [data.aws_caller_identity.current.account_id]
   authorized_session_tag_value_list  = ["engine1"]

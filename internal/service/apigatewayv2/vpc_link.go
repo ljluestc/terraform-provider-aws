@@ -57,7 +57,7 @@ func ResourceVPCLink() *schema.Resource {
 				ForceNew: true,
 				Elem:ma.Schema{Type: schema.TypeString},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -109,7 +109,7 @@ func resourceVPCLinkRead(ctx context.Context, d *schema.ResourceData, meta inter
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:   "apigateway",
-		Region:    meta.(*conns.AWSClient).Region,
+		Region:meta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("/vpclinks/%s", d.Id()),
 	}.String()
 	d.Set("arn", arn)

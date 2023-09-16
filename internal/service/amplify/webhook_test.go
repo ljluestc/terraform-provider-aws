@@ -26,7 +26,7 @@ func testAccWebhook_basic(t *testing.T) {
 	resourceName := "aws_amplify_webhook.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckWebhookDestroy(ctx),
@@ -42,8 +42,8 @@ func testAccWebhook_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -57,7 +57,7 @@ func testAccWebhook_disappears(t *testing.T) {
 	resourceName := "aws_amplify_webhook.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckWebhookDestroy(ctx),
@@ -81,7 +81,7 @@ func testAccWebhook_update(t *testing.T) {
 	resourceName := "aws_amplify_webhook.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckWebhookDestroy(ctx),
@@ -95,8 +95,8 @@ func testAccWebhook_update(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -169,12 +169,12 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_branch" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 }
 
 resource "aws_amplify_webhook" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = aws_amplify_branch.test.branch_name
 }
 `, rName)
@@ -187,17 +187,17 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_branch" "test1" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = "%[1]s-1"
 }
 
 resource "aws_amplify_branch" "test2" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = "%[1]s-2"
 }
 
 resource "aws_amplify_webhook" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = aws_amplify_branch.test1.branch_name
   description = "testdescription1"
 }
@@ -211,17 +211,17 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_branch" "test1" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = "%[1]s-1"
 }
 
 resource "aws_amplify_branch" "test2" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = "%[1]s-2"
 }
 
 resource "aws_amplify_webhook" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = aws_amplify_branch.test2.branch_name
   description = "testdescription2"
 }

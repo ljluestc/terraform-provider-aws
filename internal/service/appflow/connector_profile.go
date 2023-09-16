@@ -4,1089 +4,1295 @@
 package appflow
 
 import (
-	"context"
-	"log"
+"context"
+"log"
 
-	"github.com/YakDriver/regexache"
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/service/appflow"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
-	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-	"github.com/hashicorp/terraform-provider-aws/internal/flex"
-	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-	"github.com/hashicorp/terraform-provider-aws/internal/verify"
+"github.com/YakDriver/regexache"
+"github.com/aws/aws-sdk-go/aws"
+"github.com/aws/aws-sdk-go/service/appflow"
+"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+"github.com/hashicorp/terraform-provider-aws/internal/conns"
+"github.com/hashicorp/terraform-provider-aws/internal/flex"
+"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
+"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
 // @SDKResource("aws_appflow_connector_profile")
 func ResourceConnectorProfile() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourceConnectorProfileCreate,
-		ReadWithoutTimeout:   resourceConnectorProfileRead,
-		UpdateWithoutTimeout: resourceConnectorProfileUpdate,
-		DeleteWithoutTimeout: resourceConnectorProfileDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"name": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-				ValidateFunc: validation.All(
-					validation.StringLenBetween(1, 256),
-					validation.StringMatch(regexache.MustCompile(`[\w/!@#+=.-]+`), "must match [\\w/!@#+=.-]+"),
-				),
-			},
-			"connection_mode": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ValidateFunc: validation.StringInSlice(appflow.ConnectionMode_Values(), false),
-			},
-			"connector_label": {
-				Type:     schema.TypeString,
-				Optional: true,
-				ForceNew: true,
-				ValidateFunc: validation.All(
-					validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z][\w!@#.-]+`), "must contain only alphanumeric, exclamation point (!), at sign (@), number sign (#), period (.), and hyphen (-) characters"),
-					validation.StringLenBetween(1, 256),
-				),
-			},
-			"connector_profile_config": {
-				Type:     schema.TypeList,
-				Required: true,
-				MaxItems: 1,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"connector_profile_credentials": {
-							Type:     schema.TypeList,
-							Required: true,
-							MaxItems: 1,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"amplitude": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"api_key": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"secret_key": {
-													Type:      schema.TypeString,
-													Required:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"custom_connector": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"api_key": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"api_key": {
-																Type:     schema.TypeString,
-																Required: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 256),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"api_secret_key": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 256),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-														},
-													},
-												},
-												"authentication_type": {
-													Type:         schema.TypeString,
-													Required:     true,
-													ValidateFunc: validation.StringInSlice(appflow.AuthenticationType_Values(), false),
-												},
-												"basic": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"password": {
-																Type:         schema.TypeString,
-																Required:     true,
-																Sensitive:    true,
-																ValidateFunc: validation.StringLenBetween(0, 512),
-															},
-															"username": {
-																Type:         schema.TypeString,
-																Required:     true,
-																ValidateFunc: validation.StringLenBetween(0, 512),
-															},
-														},
-													},
-												},
-												"custom": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"credentials_map": {
-																Type:      schema.TypeMap,
-																Optional:  true,
-																Sensitive: true,
-																ValidateDiagFunc: validation.AllDiag(
-																	validation.MapKeyLenBetween(1, 128),
-																	validation.MapKeyMatch(regexache.MustCompile(`[\w]+`), "must contain only alphanumeric and underscore (_) characters"),
-																),
-																Elem: &schema.Schema{
-																	Type: schema.TypeString,
-																	ValidateFunc: validation.All(
-																		validation.StringLenBetween(0, 2048),
-																		validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																	),
-																},
-															},
-															"custom_authentication_type": {
-																Type:         schema.TypeString,
-																Required:     true,
-																ValidateFunc: validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-															},
-														},
-													},
-												},
-												"oauth2": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"access_token": {
-																Type:      schema.TypeString,
-																Optional:  true,
-																Sensitive: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 4096),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"client_id": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"client_secret": {
-																Type:      schema.TypeString,
-																Optional:  true,
-																Sensitive: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"oauth_request": {
-																Type:     schema.TypeList,
-																Optional: true,
-																MaxItems: 1,
-																Elem: &schema.Resource{
-																	Schema: map[string]*schema.Schema{
-																		"auth_code": {
-																			Type:     schema.TypeString,
-																			Optional: true,
-																			ValidateFunc: validation.All(
-																				validation.StringLenBetween(1, 4096),
-																				validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																			),
-																		},
-																		"redirect_uri": {
-																			Type:     schema.TypeString,
-																			Optional: true,
-																			ValidateFunc: validation.All(
-																				validation.StringLenBetween(1, 512),
-																				validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																			),
-																		},
-																	},
-																},
-															},
-															"refresh_token": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 4096),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-														},
-													},
-												},
-											},
-										},
-									},
-									"datadog": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"api_key": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"application_key": {
-													Type:     schema.TypeString,
-													Required: true,
+return &schema.Resource{
+CreateWithoutTimeout: resourceConnectorProfileCreate,
+ReadWithoutTimeout:   resourceConnectorProfileRead,
+UpdateWithoutTimeout: resourceConnectorProfileUpdate,
+DeleteWithoutTimeout: resourceConnectorProfileDelete,
+Importer: &schema.ResourceImporter{
+StateContext: schema.ImportStatePassthroughContext,
+},
+Schema: map[string]*schema.Schema{
+"arn": {
+Type: schema.TypeString,
+Computed: true,
+},
+"name": {
+Type: schema.TypeString,
+Required: true,
+ForceNew: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`[\w/!@#+=.-]+`), "must match [\\w/!@#+=.-]+"),
+),
+},
+"connection_mode": {
+Type:schema.TypeString,
+Required: true,
+ValidateFunc: validation.StringInSlice(appflow.ConnectionMode_Values(), false),
+},
+"connector_label": {
+Type: schema.TypeString,
+Optional: true,
+ForceNew: true,
+ValidateFunc: validation.All(
+validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z][\w!@#.-]+`), "must contain only alphanumeric, exclamation point (!), at sign (@), number sign (#), period (.), and hyphen (-) characters"),
+validation.StringLenBetween(1, 256),
+),
+},
+"connector_profile_config": {
+Type: schema.TypeList,
+Required: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"connector_profile_credentials": {
+Type: schema.TypeList,
+Required: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"amplitude": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"api_key": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"secret_key": {
+Type:  schema.TypeString,
+Required:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"custom_connector": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"api_key": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"api_key": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"api_secret_key": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"authentication_type": {
+Type:schema.TypeString,
+Required: true,
+ValidateFunc: validation.StringInSlice(appflow.AuthenticationType_Values(), false),
+},
+"basic": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"password": {
+Type:schema.TypeString,
+Required: true,
+Sensitive:true,
+ValidateFunc: validation.StringLenBetween(0, 512),
+},
+"username": {
+Type:schema.TypeString,
+Required: true,
+ValidateFunc: validation.StringLenBetween(0, 512),
+},
+},
+},
+},
+"custom": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"credentials_map": {
+Type:  schema.TypeMap,
+Optional:  true,
+Sensitive: true,
+ValidateDiagFunc: validation.AllDiag(
+validation.MapKeyLenBetween(1, 128),
+validation.MapKeyMatch(regexache.MustCompile(`[\w]+`), "must contain only alphanumeric and underscore (_) characters"),
+),
+Elem: &schema.Schema{
+Type: schema.TypeString,
+ValidateFunc: validation.All(
+validation.StringLenBetween(0, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+"custom_authentication_type": {
+Type:schema.TypeString,
+Required: true,
+ValidateFunc: validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+},
+},
+},
+},
+"oauth2": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"access_token": {
+Type:  schema.TypeString,
+Optional:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 4096),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_id": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_secret": {
+Type:  schema.TypeString,
+Optional:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"oauth_request": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"auth_code": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 4096),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"redirect_uri": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"refresh_token": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 4096),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+},
+},
+},
+"datadog": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"api_key": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"application_key": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"dynatrace": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"api_token": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"google_analytics": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"access_token": {
+Type:  schema.TypeString,
+Optional:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_id": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_secret": {
+Type:  schema.TypeString,
+Required:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"oauth_request": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"auth_code": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"redirect_uri": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"refresh_token": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 1024),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"honeycode": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"access_token": {
+Type:  schema.TypeString,
+Optional:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"oauth_request": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"auth_code": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"redirect_uri": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"refresh_token": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 1024),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"infor_nexus": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"access_key_id": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"datakey": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"secret_access_key": {
+Type:  schema.TypeString,
+Required:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"user_id": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"marketo": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"access_token": {
+Type:  schema.TypeString,
+Optional:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_id": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_secret": {
+Type:  schema.TypeString,
+Required:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"oauth_request": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"auth_code": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"redirect_uri": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+},
+},
+},
+"redshift": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"password": {
+Type:schema.TypeString,
+Required: true,
+Sensitive:true,
+ValidateFunc: validation.StringLenBetween(0, 512),
+},
+"username": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"salesforce": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"access_token": {
+Type:  schema.TypeString,
+Optional:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_credentials_arn": {
+Type:schema.TypeString,
+Optional: true,
+ValidateFunc: verify.ValidARN,
+},
+"oauth_request": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"auth_code": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"redirect_uri": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"refresh_token": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 1024),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"sapo_data": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"basic_auth_credentials": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"password": {
+Type:schema.TypeString,
+Required: true,
+Sensitive:true,
+ValidateFunc: validation.StringLenBetween(0, 512),
+},
+"username": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"oauth_credentials": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"access_token": {
+Type:  schema.TypeString,
+Optional:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_id": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_secret": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"oauth_request": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"auth_code": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"redirect_uri": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"refresh_token": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 1024),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+},
+},
+},
+"service_now": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"password": {
+Type:schema.TypeString,
+Required: true,
+Sensitive:true,
+ValidateFunc: validation.StringLenBetween(0, 512),
+},
+"username": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"singular": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"api_key": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"slack": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"access_token": {
+Type:  schema.TypeString,
+Optional:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_id": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_secret": {
+Type:  schema.TypeString,
+Required:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"oauth_request": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"auth_code": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"redirect_uri": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+},
+},
+},
+"snowflake": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"password": {
+Type:schema.TypeString,
+Required: true,
+Sensitive:true,
+ValidateFunc: validation.StringLenBetween(0, 512),
+},
+"username": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"trendmicro": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"api_secret_key": {
+Type:  schema.TypeString,
+Required:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"veeva": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"password": {
+Type:schema.TypeString,
+Required: true,
+Sensitive:true,
+ValidateFunc: validation.StringLenBetween(0, 512),
+},
+"username": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"zendesk": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"access_token": {
+Type:  schema.TypeString,
+Optional:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_id": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_secret": {
+Type:  schema.TypeString,
+Required:  true,
+Sensitive: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"oauth_request": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"auth_code": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"redirect_uri": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+},
+},
+},
+},
+},
+},
+"connector_profile_properties": {
+Type: schema.TypeList,
+Required: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"amplitude": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{},
+},
+},
+"custom_connector": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"oauth2_properties": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"oauth2_grant_type": {
+Type:schema.TypeString,
+Required: true,
+ValidateFunc: validation.StringInSlice(appflow.OAuth2GrantType_Values(), false),
+},
+"token_url": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`^(https?)://[0-9A-Za-z-+&@#/%?=~_|!:,.;]*[0-9A-Za-z-+&@#/%=~_|]`), "must provide a valid HTTPS url"),
+),
+},
+"token_url_custom_properties": {
+Type: schema.TypeMap,
+Optional: true,
+ValidateDiagFunc: validation.AllDiag(
+validation.MapKeyLenBetween(1, 128),
+validation.MapKeyMatch(regexache.MustCompile(`[\w]+`), "must contain only alphanumeric and underscore (_) characters"),
+),
+Elem: &schema.Schema{
+Type: schema.TypeString,
+ValidateFunc: validation.All(
+validation.StringLenBetween(0, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+},
+"profile_properties": {
+Type: schema.TypeMap,
+Optional: true,
+ValidateDiagFunc: validation.AllDiag(
+validation.MapKeyLenBetween(1, 128),
+validation.MapKeyMatch(regexache.MustCompile(`[\w]+`), "must contain only alphanumeric and underscore (_) characters"),
+),
+Elem: &schema.Schema{
+Type: schema.TypeString,
+ValidateFunc: validation.All(
+validation.StringLenBetween(0, 2048),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+},
+"datadog": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"instance_url": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"dynatrace": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"instance_url": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"google_analytics": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{},
+},
+},
+"honeycode": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{},
+},
+},
+"infor_nexus": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"instance_url": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"marketo": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"instance_url": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"redshift": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"bucket_name": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(3, 63),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"bucket_prefix": {
+Type:schema.TypeString,
+Optional: true,
+ValidateFunc: validation.StringLenBetween(0, 512),
+},
+"cluster_identifier": {
+Type: schema.TypeString,
+Optional: true,
+},
+"data_api_role_arn": {
+Type:schema.TypeString,
+Optional: true,
+ValidateFunc: verify.ValidARN,
+},
+"database_name": {
+Type: schema.TypeString,
+Optional: true,
+},
+"database_url": {
+Type:schema.TypeString,
+Optional: true,
+ValidateFunc: validation.StringLenBetween(0, 512),
+},
+"role_arn": {
+Type:schema.TypeString,
+Required: true,
+ValidateFunc: verify.ValidARN,
+},
+},
+},
+},
+"salesforce": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"instance_url": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"is_sandbox_environment": {
+Type: schema.TypeBool,
+Optional: true,
+},
+},
+},
+},
+"sapo_data": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"application_host_url": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`^(https?)://[0-9A-Za-z-+&@#/%?=~_|!:,.;]*[0-9A-Za-z-+&@#/%=~_|]`), "must provide a valid HTTPS url"),
+),
+},
+"application_service_path": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+"client_number": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(3, 3),
+validation.StringMatch(regexache.MustCompile(`^\d{3}$`), "must consist of exactly three digits"),
+),
+},
+"logon_language": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(0, 2),
+validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_]*$`), "must contain only alphanumeric characters and the underscore (_) character"),
+),
+},
+"oauth_properties": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"auth_code_url": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`^(https?)://[0-9A-Za-z-+&@#/%?=~_|!:,.;]*[0-9A-Za-z-+&@#/%=~_|]`), "must provide a valid HTTPS url"),
+),
+},
+"oauth_scopes": {
+Type: schema.TypeList,
+Required: true,
+Elem: &schema.Schema{
+Type: schema.TypeString,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 128),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+"token_url": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`^(https?)://[0-9A-Za-z-+&@#/%?=~_|!:,.;]*[0-9A-Za-z-+&@#/%=~_|]`), "must provide a valid HTTPS url"),
+),
+},
+},
+},
+},
+"port_number": {
+Type:schema.TypeInt,
+Required: true,
+ValidateFunc: validation.IntBetween(1, 65535),
+},
+"private_link_service_name": {
+Type: schema.TypeString,
+Optional: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 512),
+validation.StringMatch(regexache.MustCompile(`^$|com.amazonaws.vpce.[\w/!:@#.\-]+`), "must be a valid AWS VPC endpoint address"),
+),
+},
+},
+},
+},
+"service_now": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"instance_url": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"singular": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{},
+},
+},
+"slack": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"instance_url": {
+Type: schema.TypeString,
+Required: true,
+ValidateFunc: validation.All(
+validation.StringLenBetween(1, 256),
+validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
+),
+},
+},
+},
+},
+"snowflake": {
+Type: schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"account_name": {
+Type: schema.TypeString,
+		Optional: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(1, 512),
 														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
 													),
 												},
-											},
-										},
-									},
-									"dynatrace": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"api_token": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"google_analytics": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"access_token": {
-													Type:      schema.TypeString,
-													Optional:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 2048),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"client_id": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"client_secret": {
-													Type:      schema.TypeString,
-													Required:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"oauth_request": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"auth_code": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 2048),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"redirect_uri": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-														},
-													},
-												},
-												"refresh_token": {
-													Type:     schema.TypeString,
-													Optional: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 1024),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"honeycode": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"access_token": {
-													Type:      schema.TypeString,
-													Optional:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 2048),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"oauth_request": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"auth_code": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 2048),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"redirect_uri": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-														},
-													},
-												},
-												"refresh_token": {
-													Type:     schema.TypeString,
-													Optional: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 1024),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"infor_nexus": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"access_key_id": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"datakey": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"secret_access_key": {
-													Type:      schema.TypeString,
-													Required:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"user_id": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"marketo": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"access_token": {
-													Type:      schema.TypeString,
-													Optional:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 2048),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"client_id": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"client_secret": {
-													Type:      schema.TypeString,
-													Required:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"oauth_request": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"auth_code": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"redirect_uri": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-														},
-													},
-												},
-											},
-										},
-									},
-									"redshift": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"password": {
-													Type:         schema.TypeString,
-													Required:     true,
-													Sensitive:    true,
-													ValidateFunc: validation.StringLenBetween(0, 512),
-												},
-												"username": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"salesforce": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"access_token": {
-													Type:      schema.TypeString,
-													Optional:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 2048),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"client_credentials_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
-													ValidateFunc: verify.ValidARN,
-												},
-												"oauth_request": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"auth_code": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 2048),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"redirect_uri": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-														},
-													},
-												},
-												"refresh_token": {
-													Type:     schema.TypeString,
-													Optional: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 1024),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"sapo_data": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"basic_auth_credentials": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"password": {
-																Type:         schema.TypeString,
-																Required:     true,
-																Sensitive:    true,
-																ValidateFunc: validation.StringLenBetween(0, 512),
-															},
-															"username": {
-																Type:     schema.TypeString,
-																Required: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-														},
-													},
-												},
-												"oauth_credentials": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"access_token": {
-																Type:      schema.TypeString,
-																Optional:  true,
-																Sensitive: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 2048),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"client_id": {
-																Type:     schema.TypeString,
-																Required: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"client_secret": {
-																Type:     schema.TypeString,
-																Required: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"oauth_request": {
-																Type:     schema.TypeList,
-																Optional: true,
-																MaxItems: 1,
-																Elem: &schema.Resource{
-																	Schema: map[string]*schema.Schema{
-																		"auth_code": {
-																			Type:     schema.TypeString,
-																			Optional: true,
-																			ValidateFunc: validation.All(
-																				validation.StringLenBetween(1, 2048),
-																				validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																			),
-																		},
-																		"redirect_uri": {
-																			Type:     schema.TypeString,
-																			Optional: true,
-																			ValidateFunc: validation.All(
-																				validation.StringLenBetween(1, 512),
-																				validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																			),
-																		},
-																	},
-																},
-															},
-															"refresh_token": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 1024),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-														},
-													},
-												},
-											},
-										},
-									},
-									"service_now": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"password": {
-													Type:         schema.TypeString,
-													Required:     true,
-													Sensitive:    true,
-													ValidateFunc: validation.StringLenBetween(0, 512),
-												},
-												"username": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"singular": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"api_key": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"slack": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"access_token": {
-													Type:      schema.TypeString,
-													Optional:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 2048),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"client_id": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"client_secret": {
-													Type:      schema.TypeString,
-													Required:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"oauth_request": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"auth_code": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 2048),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"redirect_uri": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-														},
-													},
-												},
-											},
-										},
-									},
-									"snowflake": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"password": {
-													Type:         schema.TypeString,
-													Required:     true,
-													Sensitive:    true,
-													ValidateFunc: validation.StringLenBetween(0, 512),
-												},
-												"username": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"trendmicro": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"api_secret_key": {
-													Type:      schema.TypeString,
-													Required:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"veeva": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"password": {
-													Type:         schema.TypeString,
-													Required:     true,
-													Sensitive:    true,
-													ValidateFunc: validation.StringLenBetween(0, 512),
-												},
-												"username": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"zendesk": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"access_token": {
-													Type:      schema.TypeString,
-													Optional:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 2048),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"client_id": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"client_secret": {
-													Type:      schema.TypeString,
-													Required:  true,
-													Sensitive: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"oauth_request": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"auth_code": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 2048),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-															"redirect_uri": {
-																Type:     schema.TypeString,
-																Optional: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 512),
-																	validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																),
-															},
-														},
-													},
-												},
-											},
-										},
-									},
-								},
-							},
-						},
-						"connector_profile_properties": {
-							Type:     schema.TypeList,
-							Required: true,
-							MaxItems: 1,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"amplitude": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{},
-										},
-									},
-									"custom_connector": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"oauth2_properties": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"oauth2_grant_type": {
-																Type:         schema.TypeString,
-																Required:     true,
-																ValidateFunc: validation.StringInSlice(appflow.OAuth2GrantType_Values(), false),
-															},
-															"token_url": {
-																Type:     schema.TypeString,
-																Required: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 256),
-																	validation.StringMatch(regexache.MustCompile(`^(https?)://[0-9A-Za-z-+&@#/%?=~_|!:,.;]*[0-9A-Za-z-+&@#/%=~_|]`), "must provide a valid HTTPS url"),
-																),
-															},
-															"token_url_custom_properties": {
-																Type:     schema.TypeMap,
-																Optional: true,
-																ValidateDiagFunc: validation.AllDiag(
-																	validation.MapKeyLenBetween(1, 128),
-																	validation.MapKeyMatch(regexache.MustCompile(`[\w]+`), "must contain only alphanumeric and underscore (_) characters"),
-																),
-																Elem: &schema.Schema{
-																	Type: schema.TypeString,
-																	ValidateFunc: validation.All(
-																		validation.StringLenBetween(0, 2048),
-																		validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																	),
-																},
-															},
-														},
-													},
-												},
-												"profile_properties": {
-													Type:     schema.TypeMap,
-													Optional: true,
-													ValidateDiagFunc: validation.AllDiag(
-														validation.MapKeyLenBetween(1, 128),
-														validation.MapKeyMatch(regexache.MustCompile(`[\w]+`), "must contain only alphanumeric and underscore (_) characters"),
-													),
-													Elem: &schema.Schema{
-														Type: schema.TypeString,
-														ValidateFunc: validation.All(
-															validation.StringLenBetween(0, 2048),
-															validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-														),
-													},
-												},
-											},
-										},
-									},
-									"datadog": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"instance_url": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"dynatrace": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"instance_url": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"google_analytics": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{},
-										},
-									},
-									"honeycode": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{},
-										},
-									},
-									"infor_nexus": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"instance_url": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"marketo": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"instance_url": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"redshift": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
 												"bucket_name": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(3, 63),
@@ -1094,218 +1300,12 @@ func ResourceConnectorProfile() *schema.Resource {
 													),
 												},
 												"bucket_prefix": {
-													Type:         schema.TypeString,
-													Optional:     true,
-													ValidateFunc: validation.StringLenBetween(0, 512),
-												},
-												"cluster_identifier": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Optional: true,
-												},
-												"data_api_role_arn": {
-													Type:         schema.TypeString,
-													Optional:     true,
-													ValidateFunc: verify.ValidARN,
-												},
-												"database_name": {
-													Type:     schema.TypeString,
-													Optional: true,
-												},
-												"database_url": {
-													Type:         schema.TypeString,
-													Optional:     true,
-													ValidateFunc: validation.StringLenBetween(0, 512),
-												},
-												"role_arn": {
-													Type:         schema.TypeString,
-													Required:     true,
-													ValidateFunc: verify.ValidARN,
-												},
-											},
-										},
-									},
-									"salesforce": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"instance_url": {
-													Type:     schema.TypeString,
-													Optional: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"is_sandbox_environment": {
-													Type:     schema.TypeBool,
-													Optional: true,
-												},
-											},
-										},
-									},
-									"sapo_data": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"application_host_url": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`^(https?)://[0-9A-Za-z-+&@#/%?=~_|!:,.;]*[0-9A-Za-z-+&@#/%=~_|]`), "must provide a valid HTTPS url"),
-													),
-												},
-												"application_service_path": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"client_number": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(3, 3),
-														validation.StringMatch(regexache.MustCompile(`^\d{3}$`), "must consist of exactly three digits"),
-													),
-												},
-												"logon_language": {
-													Type:     schema.TypeString,
-													Optional: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(0, 2),
-														validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_]*$`), "must contain only alphanumeric characters and the underscore (_) character"),
-													),
-												},
-												"oauth_properties": {
-													Type:     schema.TypeList,
-													Optional: true,
-													MaxItems: 1,
-													Elem: &schema.Resource{
-														Schema: map[string]*schema.Schema{
-															"auth_code_url": {
-																Type:     schema.TypeString,
-																Required: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 256),
-																	validation.StringMatch(regexache.MustCompile(`^(https?)://[0-9A-Za-z-+&@#/%?=~_|!:,.;]*[0-9A-Za-z-+&@#/%=~_|]`), "must provide a valid HTTPS url"),
-																),
-															},
-															"oauth_scopes": {
-																Type:     schema.TypeList,
-																Required: true,
-																Elem: &schema.Schema{
-																	Type: schema.TypeString,
-																	ValidateFunc: validation.All(
-																		validation.StringLenBetween(1, 128),
-																		validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-																	),
-																},
-															},
-															"token_url": {
-																Type:     schema.TypeString,
-																Required: true,
-																ValidateFunc: validation.All(
-																	validation.StringLenBetween(1, 256),
-																	validation.StringMatch(regexache.MustCompile(`^(https?)://[0-9A-Za-z-+&@#/%?=~_|!:,.;]*[0-9A-Za-z-+&@#/%=~_|]`), "must provide a valid HTTPS url"),
-																),
-															},
-														},
-													},
-												},
-												"port_number": {
-													Type:         schema.TypeInt,
-													Required:     true,
-													ValidateFunc: validation.IntBetween(1, 65535),
-												},
-												"private_link_service_name": {
-													Type:     schema.TypeString,
-													Optional: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`^$|com.amazonaws.vpce.[\w/!:@#.\-]+`), "must be a valid AWS VPC endpoint address"),
-													),
-												},
-											},
-										},
-									},
-									"service_now": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"instance_url": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"singular": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{},
-										},
-									},
-									"slack": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"instance_url": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 256),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-											},
-										},
-									},
-									"snowflake": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MaxItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"account_name": {
-													Type:     schema.TypeString,
-													Optional: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(1, 512),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"bucket_name": {
-													Type:     schema.TypeString,
-													Required: true,
-													ValidateFunc: validation.All(
-														validation.StringLenBetween(3, 63),
-														validation.StringMatch(regexache.MustCompile(`\S+`), "must not contain any whitespace characters"),
-													),
-												},
-												"bucket_prefix": {
-													Type:         schema.TypeString,
-													Optional:     true,
 													ValidateFunc: validation.StringLenBetween(0, 512),
 												},
 												"private_link_service_name": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Optional: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(1, 512),
@@ -1313,7 +1313,7 @@ func ResourceConnectorProfile() *schema.Resource {
 													),
 												},
 												"region": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Optional: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(1, 64),
@@ -1321,7 +1321,7 @@ func ResourceConnectorProfile() *schema.Resource {
 													),
 												},
 												"stage": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 													DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 														return old == new || old == "@"+new
@@ -1332,7 +1332,7 @@ func ResourceConnectorProfile() *schema.Resource {
 													),
 												},
 												"warehouse": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(0, 512),
@@ -1343,7 +1343,7 @@ func ResourceConnectorProfile() *schema.Resource {
 										},
 									},
 									"trendmicro": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
@@ -1351,13 +1351,13 @@ func ResourceConnectorProfile() *schema.Resource {
 										},
 									},
 									"veeva": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_url": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(1, 256),
@@ -1368,13 +1368,13 @@ func ResourceConnectorProfile() *schema.Resource {
 										},
 									},
 									"zendesk": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"instance_url": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(1, 256),
@@ -1391,20 +1391,20 @@ func ResourceConnectorProfile() *schema.Resource {
 				},
 			},
 			"connector_type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringInSlice(appflow.ConnectorType_Values(), false),
 			},
 			"kms_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"credentials_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -1416,10 +1416,10 @@ func resourceConnectorProfileCreate(ctx context.Context, d *schema.ResourceData,
 	name := d.Get("name").(string)
 
 	createConnectorProfileInput := appflow.CreateConnectorProfileInput{
-		ConnectionMode:         aws.String(d.Get("connection_mode").(string)),
+		ConnectionMode:aws.String(d.Get("connection_mode").(string)),
 		ConnectorProfileConfig: expandConnectorProfileConfig(d.Get("connector_profile_config").([]interface{})[0].(map[string]interface{})),
 		ConnectorProfileName:   aws.String(name),
-		ConnectorType:          aws.String(d.Get("connector_type").(string)),
+		ConnectorType: aws.String(d.Get("connector_type").(string)),
 	}
 
 	if v, ok := d.Get("connector_label").(string); ok && len(v) > 0 {
@@ -1484,7 +1484,7 @@ func resourceConnectorProfileUpdate(ctx context.Context, d *schema.ResourceData,
 	name := d.Get("name").(string)
 
 	updateConnectorProfileInput := appflow.UpdateConnectorProfileInput{
-		ConnectionMode:         aws.String(d.Get("connection_mode").(string)),
+		ConnectionMode:aws.String(d.Get("connection_mode").(string)),
 		ConnectorProfileConfig: expandConnectorProfileConfig(d.Get("connector_profile_config").([]interface{})[0].(map[string]interface{})),
 		ConnectorProfileName:   aws.String(name),
 	}
@@ -1588,7 +1588,7 @@ func expandConnectorProfileCredentials(m map[string]interface{}) *appflow.Connec
 
 func expandAmplitudeConnectorProfileCredentials(m map[string]interface{}) *appflow.AmplitudeConnectorProfileCredentials {
 	credentials := appflow.AmplitudeConnectorProfileCredentials{
-		ApiKey:    aws.String(m["api_key"].(string)),
+		ApiKey:aws.String(m["api_key"].(string)),
 		SecretKey: aws.String(m["secret_key"].(string)),
 	}
 
@@ -1621,7 +1621,7 @@ func expandCustomConnectorProfileCredentials(m map[string]interface{}) *appflow.
 
 func expandDatadogConnectorProfileCredentials(m map[string]interface{}) *appflow.DatadogConnectorProfileCredentials {
 	credentials := appflow.DatadogConnectorProfileCredentials{
-		ApiKey:         aws.String(m["api_key"].(string)),
+		ApiKey:aws.String(m["api_key"].(string)),
 		ApplicationKey: aws.String(m["application_key"].(string)),
 	}
 
@@ -1638,7 +1638,7 @@ func expandDynatraceConnectorProfileCredentials(m map[string]interface{}) *appfl
 
 func expandGoogleAnalyticsConnectorProfileCredentials(m map[string]interface{}) *appflow.GoogleAnalyticsConnectorProfileCredentials {
 	credentials := appflow.GoogleAnalyticsConnectorProfileCredentials{
-		ClientId:     aws.String(m["client_id"].(string)),
+		ClientId: aws.String(m["client_id"].(string)),
 		ClientSecret: aws.String(m["client_secret"].(string)),
 	}
 
@@ -1677,10 +1677,10 @@ func expandHoneycodeConnectorProfileCredentials(m map[string]interface{}) *appfl
 
 func expandInforNexusConnectorProfileCredentials(m map[string]interface{}) *appflow.InforNexusConnectorProfileCredentials {
 	credentials := appflow.InforNexusConnectorProfileCredentials{
-		AccessKeyId:     aws.String(m["access_key_id"].(string)),
-		Datakey:         aws.String(m["datakey"].(string)),
+		AccessKeyId: aws.String(m["access_key_id"].(string)),
+		Datakey:aws.String(m["datakey"].(string)),
 		SecretAccessKey: aws.String(m["secret_access_key"].(string)),
-		UserId:          aws.String(m["user_id"].(string)),
+		UserId: aws.String(m["user_id"].(string)),
 	}
 
 	return &credentials
@@ -1688,7 +1688,7 @@ func expandInforNexusConnectorProfileCredentials(m map[string]interface{}) *appf
 
 func expandMarketoConnectorProfileCredentials(m map[string]interface{}) *appflow.MarketoConnectorProfileCredentials {
 	credentials := appflow.MarketoConnectorProfileCredentials{
-		ClientId:     aws.String(m["client_id"].(string)),
+		ClientId: aws.String(m["client_id"].(string)),
 		ClientSecret: aws.String(m["client_secret"].(string)),
 	}
 
@@ -1768,7 +1768,7 @@ func expandSingularConnectorProfileCredentials(m map[string]interface{}) *appflo
 func expandSlackConnectorProfileCredentials(m map[string]interface{}) *appflow.SlackConnectorProfileCredentials {
 	credentials := appflow.SlackConnectorProfileCredentials{
 		AccessToken:  aws.String(m["access_token"].(string)),
-		ClientId:     aws.String(m["client_id"].(string)),
+		ClientId: aws.String(m["client_id"].(string)),
 		ClientSecret: aws.String(m["client_secret"].(string)),
 	}
 
@@ -1808,7 +1808,7 @@ func expandVeevaConnectorProfileCredentials(m map[string]interface{}) *appflow.V
 func expandZendeskConnectorProfileCredentials(m map[string]interface{}) *appflow.ZendeskConnectorProfileCredentials {
 	credentials := appflow.ZendeskConnectorProfileCredentials{
 		AccessToken:  aws.String(m["access_token"].(string)),
-		ClientId:     aws.String(m["client_id"].(string)),
+		ClientId: aws.String(m["client_id"].(string)),
 		ClientSecret: aws.String(m["client_secret"].(string)),
 	}
 
@@ -1877,7 +1877,7 @@ func expandCustomAuthCredentials(m map[string]interface{}) *appflow.CustomAuthCr
 
 func expandOAuthCredentials(m map[string]interface{}) *appflow.OAuthCredentials {
 	credentials := appflow.OAuthCredentials{
-		ClientId:     aws.String(m["client_id"].(string)),
+		ClientId: aws.String(m["client_id"].(string)),
 		ClientSecret: aws.String(m["client_secret"].(string)),
 	}
 
@@ -2034,11 +2034,11 @@ func expandMarketoConnectorProfileProperties(m map[string]interface{}) *appflow.
 
 func expandRedshiftConnectorProfileProperties(m map[string]interface{}) *appflow.RedshiftConnectorProfileProperties {
 	properties := appflow.RedshiftConnectorProfileProperties{
-		BucketName:        aws.String(m["bucket_name"].(string)),
+		BucketName:aws.String(m["bucket_name"].(string)),
 		ClusterIdentifier: aws.String(m["cluster_identifier"].(string)),
-		RoleArn:           aws.String(m["role_arn"].(string)),
-		DataApiRoleArn:    aws.String(m["data_api_role_arn"].(string)),
-		DatabaseName:      aws.String(m["database_name"].(string)),
+		RoleArn:  aws.String(m["role_arn"].(string)),
+		DataApiRoleArn:aws.String(m["data_api_role_arn"].(string)),
+		DatabaseName:  aws.String(m["database_name"].(string)),
 	}
 
 	if v, ok := m["bucket_prefix"].(string); ok && v != "" {
@@ -2090,9 +2090,9 @@ func expandCustomConnectorProfileProperties(m map[string]interface{}) *appflow.C
 
 func expandSAPODataConnectorProfileProperties(m map[string]interface{}) *appflow.SAPODataConnectorProfileProperties {
 	properties := appflow.SAPODataConnectorProfileProperties{
-		ApplicationHostUrl:     aws.String(m["application_host_url"].(string)),
+		ApplicationHostUrl: aws.String(m["application_host_url"].(string)),
 		ApplicationServicePath: aws.String(m["application_service_path"].(string)),
-		ClientNumber:           aws.String(m["client_number"].(string)),
+		ClientNumber:  aws.String(m["client_number"].(string)),
 		PortNumber:aws.Int64(int64(m["port_number"].(int))),
 	}
 
@@ -2122,7 +2122,7 @@ func expandSlackConnectorProfileProperties(m map[string]interface{}) *appflow.Sl
 func expandSnowflakeConnectorProfileProperties(m map[string]interface{}) *appflow.SnowflakeConnectorProfileProperties {
 	properties := appflow.SnowflakeConnectorProfileProperties{
 		BucketName: aws.String(m["bucket_name"].(string)),
-		Stage:      aws.String(m["stage"].(string)),
+		Stage:  aws.String(m["stage"].(string)),
 		Warehouse:  aws.String(m["warehouse"].(string)),
 	}
 
@@ -2165,7 +2165,7 @@ func expandOAuthProperties(m map[string]interface{}) *appflow.OAuthProperties {
 	properties := appflow.OAuthProperties{
 		AuthCodeUrl: aws.String(m["auth_code_url"].(string)),
 		OAuthScopes: flex.ExpandStringList(m["oauth_scopes"].([]interface{})),
-		TokenUrl:    aws.String(m["token_url"].(string)),
+		TokenUrl:aws.String(m["token_url"].(string)),
 	}
 
 	return &properties
@@ -2174,7 +2174,7 @@ func expandOAuthProperties(m map[string]interface{}) *appflow.OAuthProperties {
 func expandOAuth2Properties(m map[string]interface{}) *appflow.OAuth2Properties {
 	properties := appflow.OAuth2Properties{
 		OAuth2GrantType: aws.String(m["oauth2_grant_type"].(string)),
-		TokenUrl:        aws.String(m["token_url"].(string)),
+		TokenUrl:aws.String(m["token_url"].(string)),
 	}
 
 	if v, ok := m["token_url_custom_properties"].(map[string]interface{}); ok && len(v) > 0 {

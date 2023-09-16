@@ -1,23 +1,13 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hclsyntax
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hclsyntaximport (
 	"github.com/hashicorp/hcl/v2"
 	"github.com/zclconf/go-cty/cty"
-)
-
-// ParseTraversalAbs parses an absolute traversal that is assumed to consume
+)// ParseTraversalAbs parses an absolute traversal that is assumed to consume
 // all of the remaining tokens in the peeker. The usual parser recovery
 // behavior is not supported here because traversals are not expected to
-// be parsed as part of a larger program.
-
- (p *parser) ParseTraversalAbs() (hcl.Traversal, hcl.Diagnostics) {
+// be parsed as part of a larger program. (p *parser) ParseTraversalAbs() (hcl.Traversal, hcl.Diagnostics) {
 	var ret hcl.Traversal
-	var diags hcl.Diagnostics
-
-	// Absolute traversal must always begin with a variable name
+	var diags hcl.Diagnostics	// Absolute traversal must always begin with a variable name
 	varTok := p.Read()
 	if varTok.Type != TokenIdent {
 		diags = append(diags, &hcl.Diagnostic{
@@ -27,22 +17,14 @@ import (
 			Subject:  &varTok.Range,
 		})
 		return ret, diags
-	}
-
-	varName := string(varTok.Bytes)
+	}	varName := string(varTok.Bytes)
 	ret = append(ret, hcl.TraverseRoot{
 		Name:     varName,
 		SrcRange: varTok.Range,
-	})
-
-	for {
-		next := p.Peek()
-
-		if next.Type == TokenEOF {
+	})	for {
+		next := p.Peek()		if next.Type == TokenEOF {
 			return ret, diags
-		}
-
-		switch next.Type {
+		}		switch next.Type {
 		case TokenDot:
 			// Attribute access
 			dot := p.Read() // eat dot
@@ -66,9 +48,7 @@ import (
 					})
 				}
 				return ret, diags
-			}
-
-			attrName := string(nameTok.Bytes)
+			}			attrName := string(nameTok.Bytes)
 			ret = append(ret, hcl.TraverseAttr{
 				Name:     attrName,
 				SrcRange: hcl.RangeBetween(dot.Range, nameTok.Range),
@@ -76,15 +56,11 @@ import (
 		case TokenOBrack:
 			// Index
 			open := p.Read() // eat open bracket
-			next := p.Peek()
-
-			switch next.Type {
+			next := p.Peek()			switch next.Type {
 			case TokenNumberLit:
 				tok := p.Read() // eat number
 				numVal, numDiags := p.numberLitValue(tok)
-				diags = append(diags, numDiags...)
-
-				close := p.Read()
+				diags = append(diags, numDiags...)				close := p.Read()
 				if close.Type != TokenCBrack {
 					diags = append(diags, &hcl.Diagnostic{
 						Severity: hcl.DiagError,
@@ -93,22 +69,14 @@ import (
 						Subject:  &close.Range,
 						Context:  hcl.RangeBetween(open.Range, close.Range).Ptr(),
 					})
-				}
-
-				ret = append(ret, hcl.TraverseIndex{
+				}				ret = append(ret, hcl.TraverseIndex{
 					Key:      numVal,
 					SrcRange: hcl.RangeBetween(open.Range, close.Range),
-				})
-
-				if diags.HasErrors() {
+				})				if diags.HasErrors() {
 					return ret, diags
-				}
-
-			case TokenOQuote:
+				}			case TokenOQuote:
 				str, _, strDiags := p.parseQuotedStringLiteral()
-				diags = append(diags, strDiags...)
-
-				close := p.Read()
+				diags = append(diags, strDiags...)				close := p.Read()
 				if close.Type != TokenCBrack {
 					diags = append(diags, &hcl.Diagnostic{
 						Severity: hcl.DiagError,
@@ -117,18 +85,12 @@ import (
 						Subject:  &close.Range,
 						Context:  hcl.RangeBetween(open.Range, close.Range).Ptr(),
 					})
-				}
-
-				ret = append(ret, hcl.TraverseIndex{
+				}				ret = append(ret, hcl.TraverseIndex{
 					Key:      cty.StringVal(str),
 					SrcRange: hcl.RangeBetween(open.Range, close.Range),
-				})
-
-				if diags.HasErrors() {
+				})				if diags.HasErrors() {
 					return ret, diags
-				}
-
-			default:
+				}			default:
 				if next.Type == TokenStar {
 					diags = append(diags, &hcl.Diagnostic{
 						Severity: hcl.DiagError,
@@ -147,9 +109,7 @@ import (
 					})
 				}
 				return ret, diags
-			}
-
-		default:
+			}		default:
 			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
 				Summary:  "Invalid character",

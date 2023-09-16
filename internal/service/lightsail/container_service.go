@@ -72,7 +72,7 @@ func ResourceContainerService() *schema.Resource {
 				),
 			},
 			"power": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(flattenContainerServicePowerValues(types.ContainerServicePowerName("").Values()), false),
 			},
@@ -150,7 +150,7 @@ func ResourceContainerService() *schema.Resource {
 				Computed: true,
 			},
 			"scale": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				ValidateFunc: validation.IntBetween(1, 20),
 			},
@@ -167,7 +167,6 @@ func ResourceContainerService() *schema.Resource {
 		},
 	}
 }
-
 func resourceContainerServiceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -217,7 +216,6 @@ func resourceContainerServiceCreate(ctx context.Context, d *schema.ResourceData,
 
 	return resourceContainerServiceRead(ctx, d, meta)
 }
-
 func resourceContainerServiceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -258,7 +256,6 @@ func resourceContainerServiceRead(ctx context.Context, d *schema.ResourceData, m
 
 	return nil
 }
-
 func resourceContainerServiceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -291,7 +288,6 @@ func resourceContainerServiceUpdate(ctx context.Context, d *schema.ResourceData,
 
 	return resourceContainerServiceRead(ctx, d, meta)
 }
-
 func resourceContainerServiceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -315,7 +311,6 @@ func resourceContainerServiceDelete(ctx context.Context, d *schema.ResourceData,
 
 	return nil
 }
-
 func expandContainerServicePublicDomainNames(rawPublicDomainNames []interface{}) map[string][]string {
 	if len(rawPublicDomainNames) == 0 {
 		return nil
@@ -344,7 +339,6 @@ func expandContainerServicePublicDomainNames(rawPublicDomainNames []interface{})
 
 	return resultMap
 }
-
 func expandPrivateRegistryAccess(tfMap map[string]interface{}) *types.PrivateRegistryAccessRequest {
 	if tfMap == nil {
 		return nil
@@ -358,7 +352,6 @@ func expandPrivateRegistryAccess(tfMap map[string]interface{}) *types.PrivateReg
 
 	return apiObject
 }
-
 func expandECRImagePullerRole(tfMap map[string]interface{}) *types.ContainerServiceECRImagePullerRoleRequest {
 	if tfMap == nil {
 		return nil
@@ -372,7 +365,6 @@ func expandECRImagePullerRole(tfMap map[string]interface{}) *types.ContainerServ
 
 	return apiObject
 }
-
 func flattenPrivateRegistryAccess(apiObject *types.PrivateRegistryAccess) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -386,7 +378,6 @@ func flattenPrivateRegistryAccess(apiObject *types.PrivateRegistryAccess) map[st
 
 	return tfMap
 }
-
 func flattenECRImagePullerRole(apiObject *types.ContainerServiceECRImagePullerRole) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -404,7 +395,6 @@ func flattenECRImagePullerRole(apiObject *types.ContainerServiceECRImagePullerRo
 
 	return tfMap
 }
-
 func flattenContainerServicePublicDomainNames(domainNames map[string][]string) []interface{} {
 	if domainNames == nil {
 		return []interface{}{}
@@ -427,7 +417,6 @@ func flattenContainerServicePublicDomainNames(domainNames map[string][]string) [
 		},
 	}
 }
-
 func containerServicePublicDomainNamesChanged(d *schema.ResourceData) (map[string][]string, bool) {
 	o, n := d.GetChange("public_domain_names")
 	oldPublicDomainNames := expandContainerServicePublicDomainNames(o.([]interface{}))
@@ -451,7 +440,6 @@ func containerServicePublicDomainNamesChanged(d *schema.ResourceData) (map[strin
 
 	return newPublicDomainNames, changed
 }
-
 func flattenContainerServicePowerValues(t []types.ContainerServicePowerName) []string {
 	var out []string
 
@@ -461,7 +449,6 @@ func flattenContainerServicePowerValues(t []types.ContainerServicePowerName) []s
 
 	return out
 }
-
 func FindContainerServiceByName(ctx context.Context, conn *lightsail.Client, serviceName string) (*types.ContainerService, error) {
 	input := &lightsail.GetContainerServicesInput{
 		ServiceName: aws.String(serviceName),

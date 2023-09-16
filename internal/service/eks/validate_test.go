@@ -13,43 +13,43 @@ func TestValidClusterName(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
-		Value    string
+		Valuestring
 		ErrCount int
 	}{
 		{
-			Value:    "my-valid-eks-cluster_1_dev",
+			Value:"my-valid-eks-cluster_1_dev",
 			ErrCount: 0,
 		},
 		{
-			Value:    `_invalid`,
+			Value:`_invalid`,
 			ErrCount: 1,
 		},
 		{
-			Value:    `-invalid`,
+			Value:`-invalid`,
 			ErrCount: 1,
 		},
 		{
-			Value:    `invalid@`,
+			Value:`invalid@`,
 			ErrCount: 1,
 		},
 		{
-			Value:    `invalid*`,
+			Value:`invalid*`,
 			ErrCount: 1,
 		},
 		{
-			Value:    `invalid:`,
+			Value:`invalid:`,
 			ErrCount: 1,
 		},
 		{
-			Value:    `invalid$`,
+			Value:`invalid$`,
 			ErrCount: 1,
 		},
 		{
-			Value:    ``,
+			Value:``,
 			ErrCount: 2,
 		},
 		{
-			Value:    sdkacctest.RandStringFromCharSet(101, sdkacctest.CharSetAlpha),
+			Value:sdkacctest.RandStringFromCharSet(101, sdkacctest.CharSetAlpha),
 			ErrCount: 1,
 		},
 	}

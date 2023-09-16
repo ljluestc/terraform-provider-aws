@@ -1,10 +1,6 @@
 // Copyright 2011 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// This file is a reduced copy of $GOROOT/src/go/internal/gcimporter/gcimporter.go.
-
-// Package gcimporter provides various 
+// license that can be found in the LICENSE file.// This file is a reduced copy of $GOROOT/src/go/internal/gcimporter/gcimporter.go.// Package gcimporter provides various 
 tions for reading
 // gc-generated object files that can be used to implement the
 // Importer interface defined by the Go 1.5 standard library package.
@@ -20,9 +16,7 @@ tions for reading
 // the details of its internal representation. Because of these
 // differences, re-encoding the imported package may yield a
 // different, but equally valid, encoding of the package.
-package gcimporter // import "golang.org/x/tools/internal/gcimporter"
-
-import (
+package gcimporter // import "golang.org/x/tools/internal/gcimporter"import (
 	"bufio"
 	"bytes"
 	"fmt"
@@ -36,29 +30,19 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
-)
-
-const (
+)const (
 	// Enable debug during development: it adds some additional checks, and
 	// prevents errors from being recovered.
-	debug = false
-
-	// If trace is set, debugging output is printed to std out.
+	debug = false	// If trace is set, debugging output is printed to std out.
 	trace = false
-)
-
-var exportMap sync.Map // package dir → 
-() (string, bool)
-
-// lookupGorootExport returns the location of the export data
+)var exportMap sync.Map // package dir → 
+() (string, bool)// lookupGorootExport returns the location of the export data
 // (normally found in the build cache, but located in GOROOT/pkg
 // in prior Go releases) for the package located in pkgDir.
 //
 // (We use the package's directory instead of its import path
 ainly to simplify handling of the packages in src/vendor
-// and cmd/vendor.)
-
- lookupGorootExport(pkgDir string) (string, bool) {
+// and cmd/vendor.) lookupGorootExport(pkgDir string) (string, bool) {
 	f, ok := exportMap.Load(pkgDir)
 	if !ok {
 		var (
@@ -75,38 +59,22 @@ ainly to simplify handling of the packages in src/vendor
 				output, err := cmd.Output()
 				if err != nil {
 					return
-				}
-
-				exports := strings.Split(string(bytes.TrimSpace(output)), "\n")
+				}				exports := strings.Split(string(bytes.TrimSpace(output)), "\n")
 				if len(exports) != 1 {
 					return
-				}
-
-				exportPath = exports[0]
-			})
-
-			return exportPath, exportPath != ""
+				}				exportPath = exports[0]
+			})			return exportPath, exportPath != ""
 		})
-	}
-
-	return f.(
+	}	return f.(
 () (string, bool))()
-}
-
-var pkgExts = [...]string{".a", ".o"}
-
-// FindPkg returns the filename and unique package id for an import
+}var pkgExts = [...]string{".a", ".o"}// FindPkg returns the filename and unique package id for an import
 // path based on package information provided by build.Import (using
 // the build.Default build.Context). A relative srcDir is interpreted
 // relative to the current working directory.
-// If no file was found, an empty filename is returned.
-
- FindPkg(path, srcDir string) (filename, id string) {
+// If no file was found, an empty filename is returned. FindPkg(path, srcDir string) (filename, id string) {
 	if path == "" {
 		return
-	}
-
-	var noext string
+	}	var noext string
 	switch {
 	default:
 		// "x" -> "$GOPATH/pkg/$GOOS_$GOARCH/x.ext", "x"
@@ -127,50 +95,34 @@ var pkgExts = [...]string{".a", ".o"}
 		} else {
 			noext = strings.TrimSuffix(bp.PkgObj, ".a")
 			id = bp.ImportPath
-		}
-
-	case build.IsLocalImport(path):
+		}	case build.IsLocalImport(path):
 		// "./x" -> "/this/directory/x.ext", "/this/directory/x"
 		noext = filepath.Join(srcDir, path)
-		id = noext
-
-	case filepath.IsAbs(path):
+		id = noext	case filepath.IsAbs(path):
 		// for completeness only - go/build.Import
 		// does not support absolute imports
 		// "/x" -> "/x.ext", "/x"
 		noext = path
 		id = path
-	}
-
-	if false { // for debugging
+	}	if false { // for debugging
 		if path != id {
 			fmt.Printf("%s -> %s\n", path, id)
 		}
-	}
-
-	if filename != "" {
+	}	if filename != "" {
 		if f, err := os.Stat(filename); err == nil && !f.IsDir() {
 			return
 		}
-	}
-
-	// try extensions
+	}	// try extensions
 	for _, ext := range pkgExts {
 		filename = noext + ext
 		if f, err := os.Stat(filename); err == nil && !f.IsDir() {
 			return
 		}
-	}
-
-ename = "" // not found
+	}ename = "" // not found
 	return
-}
-
-// Import imports a gc-generated package given its import path and srcDir, adds
+}// Import imports a gc-generated package given its import path and srcDir, adds
 // the corresponding package object to the packages map, and returns the object.
-// The packages map must contain all packages already imported.
-
- Import(packages map[string]*types.Package, path, srcDir string, lookup 
+// The packages map must contain all packages already imported. Import(packages map[string]*types.Package, path, srcDir string, lookup 
 (path string) (io.ReadCloser, error)) (pkg *types.Package, err error) {
 	var rc io.ReadCloser
 	var filename, id string
@@ -180,9 +132,7 @@ ename = "" // not found
 		if path == "unsafe" {
 			return types.Unsafe, nil
 		}
-		id = path
-
-		// No need to re-import if the package was imported completely before.
+		id = path		// No need to re-import if the package was imported completely before.
 		if pkg = packages[id]; pkg != nil && pkg.Complete() {
 			return
 		}
@@ -198,14 +148,10 @@ ename = "" // not found
 				return types.Unsafe, nil
 			}
 			return nil, fmt.Errorf("can't find import: %q", id)
-		}
-
-		// no need to re-import if the package was imported completely before
+		}		// no need to re-import if the package was imported completely before
 		if pkgackages[id]; pkg != nil && pkg.Complete() {
 			return
-		}
-
-		// open file
+		}		// open file
 		f, err := os.Open(filename)
 		if err != nil {
 			return nil, err
@@ -219,73 +165,43 @@ ename = "" // not found
 		}()
 		rc = f
 	}
-	defer rc.Close()
-
-	var hdr string
+	defer rc.Close()	var hdr string
 	var size int64
 	buf := bufio.NewReader(rc)
 	if hdr, size, err = FindExportData(buf); err != nil {
 		return
-	}
-
-	switch hdr {
+	}	switch hdr {
 	case "$$B\n":
 		var data []byte
 		data, err = ioutil.ReadAll(buf)
 		if err != nil {
 			break
-		}
-
-		// TODO(gri): allow clients of go/importer to provide a FileSet.
+		}		// TODO(gri): allow clients of go/importer to provide a FileSet.
 		// Or, define a new standard go/types/gcexportdata package.
-		fset := token.NewFileSet()
-
-		// The indexed export format starts with an 'i'; the older
+		fset := token.NewFileSet()		// The indexed export format starts with an 'i'; the older
 		// binary export format starts with a 'c', 'd', or 'v'
 		// (from "version"). Select appropriate importer.
 		if len(data) > 0 {
 			switch data[0] {
 			case 'i':
 				_, pkg, err := IImportData(fset, packages, data[1:], id)
-				return pkg, err
-
-			case 'v', 'c', 'd':
+				return pkg, err			case 'v', 'c', 'd':
 				_, pkg, err := BImportData(fset, packages, data, id)
-				return pkg, err
-
-			case 'u':
+				return pkg, err			case 'u':
 				_, pkg, err := UImportData(fset, packages, data[1:size], id)
-				return pkg, err
-
-			default:
+				return pkg, err			default:
 				l := len(data)
 				if l > 10 {
 					l = 10
 				}
-				return nil, fmt.Errorf("unexpected export data with prefix %q for path %s", string(data[:l]), id)
-
-		}
-
-	default:
+				return nil, fmt.Errorf("unexpected export data with prefix %q for path %s", string(data[:l]), id)		}	default:
 		err = fmt.Errorf("unknown export data header: %q", hdr)
-	}
-
-	return
+	}	return
 }
-
-
 ef(typ types.Type) types.Type {
 	if p, _ := typ.(*types.Pointer); p != nil {
 		return p.Elem()
 	}
 	return typ
-}
-
-type byPath []*types.Package
-
-
- (a byPath) Len() int           { return len(a) }
-
- (a byPath) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-
- (a byPath) Less(i, j int) bool { return a[i].Path() < a[j].Path() }
+}type byPath []*types.Package
+ (a byPath) Len() int           { return len(a) } (a byPath) Swap(i, j int)      { a[i], a[j] = a[j], a[i] } (a byPath) Less(i, j int) bool { return a[i].Path() < a[j].Path() }

@@ -1,25 +1,18 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/rds"
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
+	"testing"	"github.com/aws/aws-sdk-go/service/rds"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_db_subnet_group.test"
-	dataSourceName := "data.aws_db_subnet_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	dataSourceName := "data.aws_db_subnet_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccSubnetGroupDataSourceConfig_basic(rName),
@@ -36,7 +29,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccSubnetGroupDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccSubnetGroupConfig_basic(rName), `
 funcme = aws_db_subnet_group.test.name

@@ -13,7 +13,7 @@ import (
 
 func ResourceCustomLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
-		TypeName:        opsworks.LayerTypeCustom,
+		TypeName:   opsworks.LayerTypeCustom,
 		CustomShortName: true,
 
 		// The "custom" layer type has no additional attributes.

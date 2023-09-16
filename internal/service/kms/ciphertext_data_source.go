@@ -47,7 +47,6 @@ func DataSourceCiphertext() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceCiphertextRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)

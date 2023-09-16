@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccGlobalAcceleratorAcceleratorDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -21,7 +20,8 @@ func TestAccGlobalAcceleratorAcceleratorDataSource_basic(t *testing.T) {
 	dataSource2Name := "data.aws_globalaccelerator_accelerator.test_by_name"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+PreCheck:  
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -66,20 +66,19 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccAcceleratorDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
   name = %[1]q
 
   attributes {
-    flow_logs_enabled   = false
-    flow_logs_s3_bucket = ""
-    flow_logs_s3_prefix = "flow-logs/globalaccelerator/"
+ flow_logs_enabled= false
+ flow_logs_s3_bucket = ""
+ flow_logs_s3_prefix = "flow-logs/globalaccelerator/"
   }
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 

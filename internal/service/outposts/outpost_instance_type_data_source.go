@@ -22,21 +22,21 @@ func DataSourceOutpostInstanceType() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"instance_type": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"preferred_instance_types"},
 			},
 			"preferred_instance_types": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
 				ConflictsWith: []string{"instance_type"},
-				Elem:          &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}

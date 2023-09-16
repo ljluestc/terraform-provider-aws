@@ -1,37 +1,19 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package configschema
-
-import (
+// SPDX-License-Identifier: MPL-2.0package configschemaimport (
 	"github.com/hashicorp/go-cty/cty"
-)
-
-// ImpliedType returns the cty.Type that would result from decoding a
+)// ImpliedType returns the cty.Type that would result from decoding a
 // configuration block using the receiving block schema.
 //
 // ImpliedType always returns a result, even if the given schema is
-// inconsistent.
-
- (b *Block) ImpliedType() cty.Type {
+// inconsistent. (b *Block) ImpliedType() cty.Type {
 	if b == nil {
 		return cty.EmptyObject
-	}
-
-	atys := make(map[string]cty.Type)
-
-	for name, attrS := range b.Attributes {
+	}	atys := make(map[string]cty.Type)	for name, attrS := range b.Attributes {
 		atys[name] = attrS.Type
-	}
-
-	for name, blockS := range b.BlockTypes {
+	}	for name, blockS := range b.BlockTypes {
 		if _, exists := atys[name]; exists {
 			panic("invalid schema, blocks and attributes cannot have the same name")
-		}
-
-		childType := blockS.Block.ImpliedType()
-
-		switch blockS.Nesting {
+		}		childType := blockS.Block.ImpliedType()		switch blockS.Nesting {
 		case NestingSingle, NestingGroup:
 			atys[name] = childType
 		case NestingList:
@@ -66,7 +48,5 @@ import (
 		default:
 			panic("invalid nesting type")
 		}
-	}
-
-	return cty.Object(atys)
+	}	return cty.Object(atys)
 }

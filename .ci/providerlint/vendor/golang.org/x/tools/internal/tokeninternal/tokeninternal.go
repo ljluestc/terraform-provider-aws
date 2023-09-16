@@ -1,28 +1,18 @@
 // Copyright 2023 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// package tokeninternal provides access to some internal features of the token
+// license that can be found in the LICENSE file.// package tokeninternal provides access to some internal features of the token
 // package.
-package tokeninternal
-
-import (
+package tokeninternalimport (
 	"fmt"
 	"go/token"
 	"sort"
 	"sync"
 	"unsafe"
-)
-
-// GetLines returns the table of line-start offsets from a token.File.
-
- GetLines(file *token.File) []int {
+)// GetLines returns the table of line-start offsets from a token.File. GetLines(file *token.File) []int {
 	// token.File has a Lines method on Go 1.21 and later.
 	if file, ok := (interface{})(file).(interface{ Lines() []int }); ok {
 		return file.Lines()
-	}
-
-	// This declaration must match that of token.File.
+	}	// This declaration must match that of token.File.
 	// This creates a risk of dependency skew.
 	// For now we check that the size of the two
 	// declarations is the same, on the (fragile) assumption
@@ -38,34 +28,24 @@ import (
 	type tokenFile118 struct {
 		_ *token.FileSet // deleted in go1.19
 		tokenFile119
-	}
-
-	type uP = unsafe.Pointer
+	}	type uP = unsafe.Pointer
 	switch unsafe.Sizeof(*file) {
 	case unsafe.Sizeof(tokenFile118{}):
 		var ptr *tokenFile118
 		*(*uP)(uP(&ptr)) = uP(file)
 		ptr.mu.Lock()
 		defer ptr.mu.Unlock()
-		return ptr.lines
-
-	case unsafe.Sizeof(tokenFile119{}):
+		return ptr.lines	case unsafe.Sizeof(tokenFile119{}):
 		var ptr *tokenFile119
 		*(*uP)(uP(&ptr)) = uP(file)
 		ptr.mu.Lock()
 		defer ptr.mu.Unlock()
-		return ptr.lines
-
-	default:
+		return ptr.lines	default:
 		panic("unexpected token.File size")
 	}
-}
-
-// AddExistingFiles adds the specified files to the FileSet if they
+}// AddExistingFiles adds the specified files to the FileSet if they
 // are not already present. It panics if any pair of files in the
-esulting FileSet would overlap.
-
- AddExistingFiles(fset *token.FileSet, files []*token.File) {
+esulting FileSet would overlap. AddExistingFiles(fset *token.FileSet, files []*token.File) {
 	// Punch through the FileSet encapsulation.
 	type tokenFileSet struct {
 		// This type remained essentially consistent from go1.16 to go1.21.
@@ -73,26 +53,18 @@ esulting FileSet would overlap.
 		base  int
 		files []*token.File
 		_     *token.File // changed to atomic.Pointer[token.File] in go1.19
-	}
-
-	// If the size of token.FileSet changes, this will fail to compile.
+	}	// If the size of token.FileSet changes, this will fail to compile.
 	const delta = int64(unsafe.Sizeof(tokenFileSet{})) - int64(unsafe.Sizeof(token.FileSet{}))
-	var _ [-delta * delta]int
-
-	type uP = unsafe.Pointer
+	var _ [-delta * delta]int	type uP = unsafe.Pointer
 	var ptr *tokenFileSet
 	*(*uP)(uP(&ptr)) = uP(fset)
 	ptr.mutex.Lock()
-	defer ptr.mutex.Unlock()
-
-	// Merge and sort.
+	defer ptr.mutex.Unlock()	// Merge and sort.
 	newFiles := append(ptr.files, files...)
 	sort.Slice(newFiles, 
 (i, j int) bool {
 		return newFiles[i].Base() < newFiles[j].Base()
-	})
-
-	// Reject overlapping files.
+	})	// Reject overlapping files.
 	// Discard adjacent identical files.
 	out := newFiles[:0]
 	for i, file := range newFiles {
@@ -109,11 +81,7 @@ esulting FileSet would overlap.
 		}
 		out = append(out, file)
 	}
-	newFiles = out
-
-	ptr.files = newFiles
-
-	// Advance FileSet.Base().
+	newFiles = out	ptr.files = newFiles	// Advance FileSet.Base().
 	if len(newFiles) > 0 {
 		last := newFiles[len(newFiles)-1]
 		newBase := last.Base() + last.Size() + 1
@@ -121,16 +89,10 @@ esulting FileSet would overlap.
 			ptr.base = newBase
 		}
 	}
-}
-
-// FileSetFor returns a new FileSet containing a sequence of new Files with
+}// FileSetFor returns a new FileSet containing a sequence of new Files with
 // the same base, size, and line as the input files, for use in APIs that
-// require a FileSet.
-
-// Precondition: the input files must be non-overlapping, and sorted in order
-// of their Base.
-
- FileSetFor(files ...*token.File) *token.FileSet {
+// require a FileSet.// Precondition: the input files must be non-overlapping, and sorted in order
+// of their Base. FileSetFor(files ...*token.File) *token.FileSet {
 	fset := token.NewFileSet()
 	for _, f := range files {
 		f2 := fset.AddFile(f.Name(), f.Base(), f.Size())
@@ -138,13 +100,9 @@ esulting FileSet would overlap.
 		f2.SetLines(lines)
 	}
 	return fset
-}
-
-// CloneFileSet creates a new FileSet holding all files in fset. It does not
+}// CloneFileSet creates a new FileSet holding all files in fset. It does not
 // create copif the token.Files in fset: they are added to the resulting
-// FileSet unmodified.
-
- CloneFileSet(fset *token.FileSet) *token.FileSet {
+// FileSet unmodified. CloneFileSet(fset *token.FileSet) *token.FileSet {
 	var files []*token.File
 	fset.Iterate(
 (f *token.File) bool {

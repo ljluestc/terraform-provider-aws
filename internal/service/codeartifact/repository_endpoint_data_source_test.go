@@ -12,14 +12,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func testAccRepositoryEndpointDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_codeartifact_repository_endpoint.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -54,14 +53,13 @@ func testAccRepositoryEndpointDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccRepositoryEndpointDataSource_owner(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_codeartifact_repository_endpoint.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -75,7 +73,6 @@ func testAccRepositoryEndpointDataSource_owner(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckRepositoryEndpointBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -84,38 +81,36 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_codeartifact_domain" "test" {
-  domain         = %[1]q
+  domain[1]q
   encryption_key = aws_kms_key.test.arn
 }
 
 resource "aws_codeartifact_repository" "test" {
   repository = %[1]q
-  domain     = aws_codeartifact_domain.test.domain
+  domain= aws_codeartifact_domain.test.domain
 }
 `, rName)
 }
-
 func testAccRepositoryEndpointDataSourceConfig_basic(rName, format string) string {
 	return acctest.ConfigCompose(
 		testAccCheckRepositoryEndpointBaseConfig(rName),
 		fmt.Sprintf(`
 data "aws_codeartifact_repository_endpoint" "test" {
-  domain     = aws_codeartifact_domain.test.domain
+  domain= aws_codeartifact_domain.test.domain
   repository = aws_codeartifact_repository.test.repository
-  format     = %[1]q
+  format= %[1]q
 }
 `, format))
 }
-
 func testAccRepositoryEndpointDataSourceConfig_owner(rName string) string {
 	return acctest.ConfigCompose(
 		testAccCheckRepositoryEndpointBaseConfig(rName),
 		`
 data "aws_codeartifact_repository_endpoint" "test" {
-  domain       = aws_codeartifact_domain.test.domain
-  repository   = aws_codeartifact_repository.test.repository
+  domain_codeartifact_domain.test.domain
+  repository= aws_codeartifact_repository.test.repository
   domain_owner = aws_codeartifact_domain.test.owner
-  format       = "npm"
+  formatm"
 }
 `)
 }

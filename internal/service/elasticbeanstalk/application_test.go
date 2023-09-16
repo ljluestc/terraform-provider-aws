@@ -17,7 +17,6 @@ import (
 	tfelasticbeanstalk "github.com/hashicorp/terraform-provider-aws/internal/service/elasticbeanstalk"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccElasticBeanstalkApplication_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.ApplicationDescription
@@ -49,7 +48,6 @@ func TestAccElasticBeanstalkApplication_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkApplication_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.ApplicationDescription
@@ -73,7 +71,6 @@ func TestAccElasticBeanstalkApplication_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkApplication_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.ApplicationDescription
@@ -119,7 +116,6 @@ func TestAccElasticBeanstalkApplication_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkApplication_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.ApplicationDescription
@@ -162,7 +158,6 @@ func TestAccElasticBeanstalkApplication_description(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkApplication_appVersionLifecycle(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.ApplicationDescription
@@ -223,7 +218,6 @@ func TestAccElasticBeanstalkApplication_appVersionLifecycle(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckApplicationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -249,7 +243,6 @@ func testAccCheckApplicationDestroy(ctx context.Context) resource.TestCheckFunc 
 		return nil
 	}
 }
-
 func testAccCheckApplicationExists(ctx context.Context, n string, v *elasticbeanstalk.ApplicationDescription) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -274,7 +267,6 @@ func testAccCheckApplicationExists(ctx context.Context, n string, v *elasticbean
 		return nil
 	}
 }
-
 func testAccApplicationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
@@ -282,7 +274,6 @@ resource "aws_elastic_beanstalk_application" "test" {
 }
 `, rName)
 }
-
 func testAccApplicationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
@@ -294,7 +285,6 @@ resource "aws_elastic_beanstalk_application" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccApplicationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
@@ -307,7 +297,6 @@ resource "aws_elastic_beanstalk_application" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccApplicationConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
@@ -316,7 +305,6 @@ resource "aws_elastic_beanstalk_application" "test" {
 }
 `, rName, description)
 }
-
 func testAccApplicationConfig_baseServiceRole(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
@@ -335,7 +323,7 @@ resource "aws_iam_role" "test" {
       "Action": "sts:AssumeRole",
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "elasticbeanstalk"
+ "sts:ExternalId": "elasticbeanstalk"
         }
       }
     }
@@ -362,28 +350,26 @@ EOF
 }
 `, rName)
 }
-
 func testAccApplicationConfig_maxAge(rName string) string {
 	return acctest.ConfigCompose(testAccApplicationConfig_baseServiceRole(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
   name = %[1]q
 
   appversion_lifecycle {
-    service_role          = aws_iam_role.test.arn
+    service_role = aws_iam_role.test.arn
     max_age_in_days       = 90
     delete_source_from_s3 = true
   }
 }
 `, rName))
 }
-
 func testAccApplicationConfig_maxCount(rName string) string {
 	return acctest.ConfigCompose(testAccApplicationConfig_baseServiceRole(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
   name = %[1]q
 
   appversion_lifecycle {
-    service_role          = aws_iam_role.test.arn
+    service_role = aws_iam_role.test.arn
     max_count
     delete_source_from_s3 = false
   }

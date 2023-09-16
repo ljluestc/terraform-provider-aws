@@ -38,9 +38,9 @@ func testAccEnabler_basic(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnablerDestroy(ctx),
+		CheckDestroy:    testAccCheckEnablerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnablerConfig_basic(resourceTypes),
@@ -70,9 +70,9 @@ func testAccEnabler_accountID(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnablerDestroy(ctx),
+		CheckDestroy:    testAccCheckEnablerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnablerConfig_basic(resourceTypes),
@@ -103,9 +103,9 @@ func testAccEnabler_disappears(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnablerDestroy(ctx),
+		CheckDestroy:    testAccCheckEnablerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnablerConfig_basic(resourceTypes),
@@ -134,9 +134,9 @@ func testAccEnabler_updateResourceTypes(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnablerDestroy(ctx),
+		CheckDestroy:    testAccCheckEnablerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnablerConfig_basic(originalResourceTypes),
@@ -190,9 +190,9 @@ func testAccEnabler_updateResourceTypes_disjoint(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnablerDestroy(ctx),
+		CheckDestroy:    testAccCheckEnablerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnablerConfig_basic(originalResourceTypes),
@@ -233,9 +233,9 @@ func testAccEnabler_lambda(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnablerDestroy(ctx),
+		CheckDestroy:    testAccCheckEnablerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnablerConfig_basic(resourceTypes),
@@ -268,9 +268,9 @@ func testAccEnabler_memberAccount_basic(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamedAlternate(ctx, t, providers),
-		CheckDestroy:             testAccCheckEnablerDestroy(ctx),
+		CheckDestroy:    testAccCheckEnablerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnablerConfig_MemberAccount(resourceTypes),
@@ -303,9 +303,9 @@ func testAccEnabler_memberAccount_disappearsMemberAssociation(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamedAlternate(ctx, t, providers),
-		CheckDestroy:             testAccCheckEnablerDestroy(ctx),
+		CheckDestroy:    testAccCheckEnablerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnablerConfig_MemberAccount(resourceTypes),
@@ -336,9 +336,9 @@ func testAccEnabler_memberAccount_multiple(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 			acctest.PreCheckThirdAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamed(ctx, t, providers, acctest.ProviderName, acctest.ProviderNameAlternate, acctest.ProviderNameThird),
-		CheckDestroy:             testAccCheckEnablerDestroy(ctx),
+		CheckDestroy:    testAccCheckEnablerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnablerConfig_MemberAccount_Multiple(t, resourceTypes),
@@ -376,9 +376,9 @@ func testAccEnabler_memberAccount_updateMemberAccounts(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 			acctest.PreCheckThirdAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamed(ctx, t, providers, acctest.ProviderName, acctest.ProviderNameAlternate, acctest.ProviderNameThird),
-		CheckDestroy:             testAccCheckEnablerDestroy(ctx),
+		CheckDestroy:    testAccCheckEnablerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnablerConfig_MemberAccount_UpdateMemberAccountsAlternate(t, resourceTypes),
@@ -444,9 +444,9 @@ func testAccEnabler_memberAccount_updateMemberAccountsAndScanTypes(t *testing.T)
 			acctest.PreCheckAlternateAccount(t)
 			acctest.PreCheckThirdAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamed(ctx, t, providers, acctest.ProviderName, acctest.ProviderNameAlternate, acctest.ProviderNameThird),
-		CheckDestroy:             testAccCheckEnablerDestroy(ctx),
+		CheckDestroy:    testAccCheckEnablerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnablerConfig_MemberAccount_UpdateMemberAccountsAlternate(t, originalResourceTypes),

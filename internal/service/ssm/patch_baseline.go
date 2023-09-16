@@ -54,7 +54,7 @@ ValidateFunc: validation.All(
 	},
 
 	"description": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringLenBetween(0, 1024),
 	},
@@ -66,7 +66,7 @@ MaxItems: 4,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "key": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.StringInSlice(ssm.PatchFilterKey_Values(), false),
 },
@@ -76,7 +76,7 @@ Elem: &schema.Resource{
 	MaxItems: 20,
 	MinItems: 1,
 	Elem: &schema.Schema{
-Type:         schema.TypeString,
+Type:schema.TypeString,
 ValidateFunc: validation.StringLenBetween(1, 64),
 	},
 },
@@ -90,19 +90,19 @@ Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "approve_after_days": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntBetween(0, 100),
 },
 
 "approve_until_date": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	ValidateFunc: validation.StringMatch(regexache.MustCompile(`([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))`), "must be formatted YYYY-MM-DD"),
 },
 
 "compliance_level": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Default:      ssm.PatchComplianceLevelUnspecified,
 	ValidateFunc: validation.StringInSlice(ssm.PatchComplianceLevel_Values(), false),
@@ -121,7 +121,7 @@ Elem: &schema.Resource{
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"key": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringInSlice(ssm.PatchFilterKey_Values(), false),
 	},
@@ -131,7 +131,7 @@ Required: true,
 MaxItems: 20,
 MinItems: 1,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringLenBetween(1, 64),
 },
 	},
@@ -147,7 +147,7 @@ Type:     schema.TypeSet,
 Optional: true,
 MaxItems: 50,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringLenBetween(1, 100),
 },
 	},
@@ -157,13 +157,13 @@ Type:     schema.TypeSet,
 Optional: true,
 MaxItems: 50,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringLenBetween(1, 100),
 },
 	},
 
 	"operating_system": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ForceNew:     true,
 Default:      ssm.OperatingSystemWindows,
@@ -171,13 +171,13 @@ ValidateFunc: validation.StringInSlice(ssm.OperatingSystem_Values(), false),
 	},
 
 	"approved_patches_compliance_level": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      ssm.PatchComplianceLevelUnspecified,
 ValidateFunc: validation.StringInSlice(ssm.PatchComplianceLevel_Values(), false),
 	},
 	"rejected_patches_action": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ValidateFunc: validation.StringInSlice(ssm.PatchAction_Values(), false),
@@ -203,7 +203,7 @@ validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]{3,50}$`), "must co
 },
 
 "configuration": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.StringLenBetween(1, 1024),
 },
@@ -213,7 +213,7 @@ validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]{3,50}$`), "must co
 	Required: true,
 	MaxItems: 20,
 	Elem: &schema.Schema{
-Type:         schema.TypeString,
+Type:schema.TypeString,
 ValidateFunc: validation.StringLenBetween(1, 128),
 	},
 },
@@ -240,9 +240,9 @@ func resourcePatchBaselineCreate(ctx context.Context, d *schema.ResourceData, me
 	name := d.Get("name").(string)
 	input := &ssm.CreatePatchBaselineInput{
 ApprovedPatchesComplianceLevel: aws.String(d.Get("approved_patches_compliance_level").(string)),
-Name:            aws.String(name),
+Name:   aws.String(name),
 OperatingSystem: aws.String(d.Get("operating_system").(string)),
-Tags:            getTagsIn(ctx),
+Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -543,7 +543,7 @@ func expandPatchSource(d *schema.ResourceData) []*ssm.PatchSource {
 config := sConfig.(map[string]interface{})
 
 source := &ssm.PatchSource{
-	Name:          aws.String(config["name"].(string)),
+	Name: aws.String(config["name"].(string)),
 	Configuration: aws.String(config["configuration"].(string)),
 	Products:      flex.ExpandStringList(config["products"].([]interface{})),
 }

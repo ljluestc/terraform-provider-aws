@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package plugin
-
-import (
+// SPDX-License-Identifier: MPL-2.0package pluginimport (
 	"io"
 	"log"
 )
-
-
 yStream(name string, dst io.Writer, src io.Reader) {
 	if src == nil {
 		panic(name + ": src is nil")

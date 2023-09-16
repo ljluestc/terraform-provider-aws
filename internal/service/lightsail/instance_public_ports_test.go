@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
 )
-
 func TestAccLightsailInstancePublicPorts_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -49,7 +48,6 @@ func TestAccLightsailInstancePublicPorts_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailInstancePublicPorts_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -85,7 +83,6 @@ func TestAccLightsailInstancePublicPorts_multiple(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailInstancePublicPorts_cidrs(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -119,7 +116,6 @@ func TestAccLightsailInstancePublicPorts_cidrs(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailInstancePublicPorts_cidrListAliases(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -141,8 +137,8 @@ func TestAccLightsailInstancePublicPorts_cidrListAliases(t *testing.T) {
 					testAccCheckInstancePublicPortsExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "port_info.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "port_info.*", map[string]string{
-						"protocol":            "tcp",
-						"from_port":           "22",
+						"protocol":   "tcp",
+						"from_port":  "22",
 						"to_port":
 						"cidr_list_aliases.#": "1",
 					}),
@@ -152,7 +148,6 @@ func TestAccLightsailInstancePublicPorts_cidrListAliases(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailInstancePublicPorts_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_instance_public_ports.test"
@@ -179,7 +174,6 @@ func TestAccLightsailInstancePublicPorts_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailInstancePublicPorts_disappears_Instance(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -207,7 +201,6 @@ func TestAccLightsailInstancePublicPorts_disappears_Instance(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckInstancePublicPortsExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -230,7 +223,6 @@ func testAccCheckInstancePublicPortsExists(ctx context.Context, resourceName str
 		return nil
 	}
 }
-
 func testAccCheckInstancePublicPortsDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
@@ -262,7 +254,6 @@ func testAccCheckInstancePublicPortsDestroy(ctx context.Context) resource.TestCh
 		return nil
 	}
 }
-
 func testAccInstancePublicPortsConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
@@ -278,7 +269,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
 }
 
 resource "aws_lightsail_instance_public_ports" "test" {
@@ -292,7 +283,6 @@ resource "aws_lightsail_instance_public_ports" "test" {
 }
 `, rName)
 }
-
 func testAccInstancePublicPortsConfig_multiple(rName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
@@ -308,7 +298,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
 }
 
 resource "aws_lightsail_instance_public_ports" "test" {
@@ -328,7 +318,6 @@ resource "aws_lightsail_instance_public_ports" "test" {
 }
 `, rName)
 }
-
 func testAccInstancePublicPortsConfig_cidrs(rName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
@@ -344,7 +333,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
 }
 
 resource "aws_lightsail_instance_public_ports" "test" {
@@ -359,7 +348,6 @@ resource "aws_lightsail_instance_public_ports" "test" {
 }
 `, rName)
 }
-
 func testAccInstancePublicPortsConfig_cidrListAliases(rName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
@@ -375,16 +363,16 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
 }
 
 resource "aws_lightsail_instance_public_ports" "test" {
   instance_name = aws_lightsail_instance.test.name
 
   port_info {
-    protocol          = "tcp"
-    from_port         = 22
-    to_port           = 22
+    protocol = "tcp"
+    from_port= 22
+    to_port  = 22
     cidr_list_aliases = ["lightsail-connect"]
   }
 }

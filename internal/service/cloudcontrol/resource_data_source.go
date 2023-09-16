@@ -21,24 +21,24 @@ func DataSourceResource() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"identifier": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 			"properties": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"role_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"type_name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z]{2,64}::[0-9A-Za-z]{2,64}::[0-9A-Za-z]{2,64}`), "must be three alphanumeric sections separated by double colons (::)"),
 			},
 			"type_version_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 		},

@@ -26,7 +26,7 @@ func TestAccIoTThingGroup_basic(t *testing.T) {
 	resourceName := "aws_iot_thing_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckThingGroupDestroy(ctx),
@@ -48,8 +48,8 @@ func TestAccIoTThingGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -63,7 +63,7 @@ func TestAccIoTThingGroup_disappears(t *testing.T) {
 	resourceName := "aws_iot_thing_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckThingGroupDestroy(ctx),
@@ -87,7 +87,7 @@ func TestAccIoTThingGroup_tags(t *testing.T) {
 	resourceName := "aws_iot_thing_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckThingGroupDestroy(ctx),
@@ -101,8 +101,8 @@ func TestAccIoTThingGroup_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -135,7 +135,7 @@ func TestAccIoTThingGroup_parentGroup(t *testing.T) {
 	grandparentResourceName := "aws_iot_thing_group.grandparent"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckThingGroupDestroy(ctx),
@@ -155,8 +155,8 @@ func TestAccIoTThingGroup_parentGroup(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -170,7 +170,7 @@ func TestAccIoTThingGroup_properties(t *testing.T) {
 	resourceName := "aws_iot_thing_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckThingGroupDestroy(ctx),
@@ -188,8 +188,8 @@ func TestAccIoTThingGroup_properties(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -274,7 +274,7 @@ resource "aws_iot_thing_group" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -286,8 +286,8 @@ resource "aws_iot_thing_group" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -319,13 +319,13 @@ resource "aws_iot_thing_group" "test" {
   name = %[1]q
 
   properties {
-    attribute_payload {
-      attributes = {
-        Key1 = "Value1"
-      }
-    }
+attribute_payload {
+  attributes = {
+Key1 = "Value1"
+  }
+}
 
-    description = "test description 1"
+description = "test description 1"
   }
 }
 `, rName)
@@ -337,14 +337,14 @@ resource "aws_iot_thing_group" "test" {
   name = %[1]q
 
   properties {
-    attribute_payload {
-      attributes = {
-        Key2 = "Value2"
-        Key3 = "Value3"
-      }
-    }
+attribute_payload {
+  attributes = {
+Key2 = "Value2"
+Key3 = "Value3"
+  }
+}
 
-    description = "test description 2"
+description = "test description 2"
   }
 }
 `, rName)

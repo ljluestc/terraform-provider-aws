@@ -40,12 +40,12 @@ func ResourceDataIntegration() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1000),
 			},
 			"kms_key": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
@@ -66,7 +66,7 @@ func ResourceDataIntegration() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"first_execution_from": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
@@ -81,7 +81,7 @@ func ResourceDataIntegration() *schema.Resource {
 							),
 						},
 						"schedule_expression": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
@@ -112,11 +112,11 @@ func resourceDataIntegrationCreate(ctx context.Context, d *schema.ResourceData, 
 	name := d.Get("name").(string)
 	input := &appintegrationsservice.CreateDataIntegrationInput{
 		ClientToken:    aws.String(id.UniqueId()),
-		KmsKey:         aws.String(d.Get("kms_key").(string)),
-		Name:           aws.String(name),
+		KmsKey:aws.String(d.Get("kms_key").(string)),
+		Name:  aws.String(name),
 		ScheduleConfig: expandScheduleConfig(d.Get("schedule_config").([]interface{})),
 		SourceURI:      aws.String(d.Get("source_uri").(string)),
-		Tags:           getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -209,7 +209,7 @@ func expandScheduleConfig(scheduleConfig []interface{}) *appintegrationsservice.
 
 	result := &appintegrationsservice.ScheduleConfiguration{
 		FirstExecutionFrom: aws.String(tfMap["first_execution_from"].(string)),
-		Object:             aws.String(tfMap["object"].(string)),
+		Object:    aws.String(tfMap["object"].(string)),
 		ScheduleExpression: aws.String(tfMap["schedule_expression"].(string)),
 	}
 
@@ -223,7 +223,7 @@ func flattenScheduleConfig(scheduleConfig *appintegrationsservice.ScheduleConfig
 
 	values := map[string]interface{}{
 		"first_execution_from": aws.StringValue(scheduleConfig.FirstExecutionFrom),
-		"object":               aws.StringValue(scheduleConfig.Object),
+		"object":      aws.StringValue(scheduleConfig.Object),
 		"schedule_expression":  aws.StringValue(scheduleConfig.ScheduleExpression),
 	}
 

@@ -21,7 +21,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_route53recoverycontrolconfig_cluster", &resource.Sweeper{
 		Name: "aws_route53recoverycontrolconfig_cluster",
-		F:    sweepClusters,
+		F:sweepClusters,
 		Dependencies: []string{
 			"aws_route53recoverycontrolconfig_control_panel",
 		},
@@ -29,7 +29,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_route53recoverycontrolconfig_control_panel", &resource.Sweeper{
 		Name: "aws_route53recoverycontrolconfig_control_panel",
-		F:    sweepControlPanels,
+		F:sweepControlPanels,
 		Dependencies: []string{
 			"aws_route53recoverycontrolconfig_routing_control",
 			"aws_route53recoverycontrolconfig_safety_rule",
@@ -38,12 +38,12 @@ func init() {
 
 	resource.AddTestSweepers("aws_route53recoverycontrolconfig_routing_control", &resource.Sweeper{
 		Name: "aws_route53recoverycontrolconfig_routing_control",
-		F:    sweepRoutingControls,
+		F:sweepRoutingControls,
 	})
 
 	resource.AddTestSweepers("aws_route53recoverycontrolconfig_safety_rule", &resource.Sweeper{
 		Name: "aws_route53recoverycontrolconfig_safety_rule",
-		F:    sweepSafetyRules,
+		F:sweepSafetyRules,
 	})
 }
 

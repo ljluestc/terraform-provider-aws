@@ -31,7 +31,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckInstanceDestroy(ctx),
+CheckDestroy:testAccCheckInstanceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceConfig_create(rName),
@@ -46,15 +46,15 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "install_updates_on_boot", "true"),
 	resource.TestCheckResourceAttr(resourceName, "architecture", "x86_64"),
 	resource.TestCheckResourceAttr(resourceName, "tenancy", "default"),
-	resource.TestCheckResourceAttr(resourceName, "os", "Amazon Linux 2016.09"),        // inherited from opsworks_stack_test
+	resource.TestCheckResourceAttr(resourceName, "os", "Amazon Linux 2016.09"),   // inherited from opsworks_stack_test
 	resource.TestCheckResourceAttr(resourceName, "root_device_type", "ebs"),  // inherited from opsworks_stack_test
 	resource.TestCheckResourceAttrPair(resourceName, "availability_zone", dataSourceName, "names.0"), // inherited from opsworks_stack_test
 ),
 	},
 	{
 ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ImportState:true,
+ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"state"}, //state is something we pass to the API and get back as status :(
 	},
 	{
@@ -86,7 +86,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckInstanceDestroy(ctx),
+CheckDestroy:testAccCheckInstanceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceConfig_create(rName),
@@ -98,8 +98,8 @@ func(
 	},
 	{
 ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ImportState:true,
+ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"state"},
 	},
 	{
@@ -240,10 +240,10 @@ resource "aws_security_group" "tf-ops-acc-web" {
   name = "%[1]s-web"
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+from_port   = 80
+to_port= 80
+protocol= "tcp"
+cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -251,10 +251,10 @@ resource "aws_security_group" "tf-ops-acc-php" {
   name = "%[1]s-php"
 
   ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+from_port   = 8080
+to_port= 8080
+protocol= "tcp"
+cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -262,7 +262,7 @@ resource "aws_opsworks_static_web_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
 
   custom_security_group_ids = [
-    aws_security_group.tf-ops-acc-web.id,
+aws_security_group.tf-ops-acc-web.id,
   ]
 }
 
@@ -270,7 +270,7 @@ resource "aws_opsworks_php_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
 
   custom_security_group_ids = [
-    aws_security_group.tf-ops-acc-php.id,
+aws_security_group.tf-ops-acc-php.id,
   ]
 }
 
@@ -278,12 +278,12 @@ resource "aws_opsworks_instance" "test" {
   stack_id = aws_opsworks_stack.test.id
 
   layer_ids = [
-    aws_opsworks_static_web_layer.test.id,
+aws_opsworks_static_web_layer.test.id,
   ]
 
   instance_type = "t2.micro"
   state= "stopped"
-  hostname      = "tf-acc2"
+  hostname = "tf-acc2"
 }
 `, rName))
 }
@@ -297,10 +297,10 @@ resource "aws_security_group" "tf-ops-acc-web" {
   name = "%[1]s-web"
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+from_port   = 80
+to_port= 80
+protocol= "tcp"
+cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -308,10 +308,10 @@ resource "aws_security_group" "tf-ops-acc-php" {
   name = "%[1]s-php"
 
   ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+from_port   = 8080
+to_port= 8080
+protocol= "tcp"
+cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -319,7 +319,7 @@ resource "aws_opsworks_static_web_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
 
   custom_security_group_ids = [
-    aws_security_group.tf-ops-acc-web.id,
+aws_security_group.tf-ops-acc-web.id,
   ]
 }
 
@@ -327,7 +327,7 @@ resource "aws_opsworks_php_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
 
   custom_security_group_ids = [
-    aws_security_group.tf-ops-acc-php.id,
+aws_security_group.tf-ops-acc-php.id,
   ]
 }
 
@@ -335,12 +335,12 @@ resource "aws_opsworks_instance" "test" {
   stack_id = aws_opsworks_stack.test.id
 
   layer_ids = [
-    aws_opsworks_static_web_layer.test.id,
+aws_opsworks_static_web_layer.test.id,
   ]
 
   instance_type = "t2.micro"
   state= "stopped"
-  hostname      = "tf-acc1"
+  hostname = "tf-acc1"
 }
 `, rName))
 }
@@ -354,10 +354,10 @@ resource "aws_security_group" "tf-ops-acc-web" {
   name = "%[1]s-web"
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+from_port   = 80
+to_port= 80
+protocol= "tcp"
+cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -365,10 +365,10 @@ resource "aws_security_group" "tf-ops-acc-php" {
   name = "%[1]s-php"
 
   ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+from_port   = 8080
+to_port= 8080
+protocol= "tcp"
+cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -376,7 +376,7 @@ resource "aws_opsworks_static_web_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
 
   custom_security_group_ids = [
-    aws_security_group.tf-ops-acc-web.id,
+aws_security_group.tf-ops-acc-web.id,
   ]
 }
 
@@ -384,7 +384,7 @@ resource "aws_opsworks_php_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
 
   custom_security_group_ids = [
-    aws_security_group.tf-ops-acc-php.id,
+aws_security_group.tf-ops-acc-php.id,
   ]
 }
 
@@ -392,17 +392,17 @@ resource "aws_opsworks_instance" "test" {
   stack_id = aws_opsworks_stack.test.id
 
   layer_ids = [
-    aws_opsworks_static_web_layer.test.id,
-    aws_opsworks_php_app_layer.test.id,
+aws_opsworks_static_web_layer.test.id,
+aws_opsworks_php_app_layer.test.id,
   ]
 
   instance_type = "t2.small"
   state= "stopped"
-  hostname      = "tf-acc1"
+  hostname = "tf-acc1"
   os   = "Amazon Linux 2015.09"
 
   timeouts {
-    update = "15s"
+update = "15s"
   }
 }
 `, rName))

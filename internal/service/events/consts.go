@@ -1,20 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package events
-
-import (
+// SPDX-License-Identifier: MPL-2.0package eventsimport (
 	"time"
-)
-
-const (
+)const (
 	DefaultEventBusName = "default"
-)
-
-const (
+)const (
 	targetInputTransformerMaxInputPaths = 100
-)
-
-const (
+)const (
 	propagationTimeout = 2 * time.Minute
 )

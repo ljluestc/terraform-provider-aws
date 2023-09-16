@@ -26,18 +26,18 @@ import (
 func ResourceDomainIdentityVerification() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDomainIdentityVerificationCreate,
-		ReadWithoutTimeout:   resourceDomainIdentityVerificationRead,
+		ReadWithoutTimeout:resourceDomainIdentityVerificationRead,
 		DeleteWithoutTimeout: resourceDomainIdentityVerificationDelete,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"domain": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringDoesNotMatch(regexache.MustCompile(`\.$`), "cannot end with a period"),
 			},
 		},
@@ -46,7 +46,6 @@ func ResourceDomainIdentityVerification() *schema.Resource {
 		},
 	}
 }
-
 func getIdentityVerificationAttributes(ctx context.Context, conn *ses.SES, domainName string) (*ses.IdentityVerificationAttributes, error) {
 	input := &ses.GetIdentityVerificationAttributesInput{
 		Identities: []*string{
@@ -61,12 +60,12 @@ func getIdentityVerificationAttributes(ctx context.Context, conn *ses.SES, domai
 
 	return response.VerificationAttributes[domainName], nil
 }
-
 func resourceDomainIdentityVerificationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
 	domainName := d.Get("domain").(string)
-	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutCreate), func() *retry.RetryError {
+	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutCreate), 
+func() *retry.RetryError {
 		att, err := getIdentityVerificationAttributes(ctx, conn, domainName)
 		if err != nil {
 			return retry.NonRetryableError(fmt.Errorf("getting identity verification attributes: %s", err))
@@ -98,7 +97,6 @@ func resourceDomainIdentityVerificationCreate(ctx context.Context, d *schema.Res
 	d.SetId(domainName)
 	return append(diags, resourceDomainIdentityVerificationRead(ctx, d, meta)...)
 }
-
 func resourceDomainIdentityVerificationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -125,8 +123,8 @@ func resourceDomainIdentityVerificationRead(ctx context.Context, d *schema.Resou
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "ses",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"ses",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("identity/%s", d.Id()),
 	}.String()
@@ -134,7 +132,6 @@ func resourceDomainIdentityVerificationRead(ctx context.Context, d *schema.Resou
 
 	return diags
 }
-
 func resourceDomainIdentityVerificationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var
 	// No need to do anything, domain identity will be deleted when aws_ses_domain_identity is deleted

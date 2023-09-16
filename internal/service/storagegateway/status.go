@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	gatewayStatusConnected          = "GatewayConnected"
+	gatewayStatusConnected = "GatewayConnected"
 	storediSCSIVolumeStatusNotFound = "NotFound"
 )
 

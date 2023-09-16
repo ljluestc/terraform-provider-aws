@@ -91,12 +91,12 @@ func ResourceIPSet() *schema.Resource {
 					Computed: true,
 				},
 				"description": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringLenBetween(1, 256),
 				},
 				"ip_address_version": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ForceNew:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.IPAddressVersion_Values(), false),
@@ -106,13 +106,13 @@ func ResourceIPSet() *schema.Resource {
 					Computed: true,
 				},
 				"name": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ForceNew:     true,
 					ValidateFunc: validation.StringLenBetween(1, 128),
 				},
 				"scope": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ForceNew:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.Scope_Values(), false),
@@ -125,7 +125,6 @@ func ResourceIPSet() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceIPSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -134,7 +133,7 @@ func resourceIPSetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 		Addresses:        aws.StringSlice([]string{}),
 		IPAddressVersion: aws.String(d.Get("ip_address_version").(string)),
 		Name:aws.String(name),
-		Scope:            aws.String(d.Get("scope").(string)),
+		Scope:   aws.String(d.Get("scope").(string)),
 		Tags:getTagsIn(ctx),
 	}
 
@@ -156,7 +155,6 @@ func resourceIPSetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return resourceIPSetRead(ctx, d, meta)
 }
-
 func resourceIPSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -183,7 +181,6 @@ func resourceIPSetRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return nil
 }
-
 func resourceIPSetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -214,7 +211,6 @@ func resourceIPSetUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return resourceIPSetRead(ctx, d, meta)
 }
-
 func resourceIPSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -240,7 +236,6 @@ func resourceIPSetDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return nil
 }
-
 func FindIPSetByThreePartKey(ctx context.Context, conn *wafv2.WAFV2, id, name, scope string) (*wafv2.GetIPSetOutput, error) {
 	input := &wafv2.GetIPSetInput{
 		Id:    aws.String(id),

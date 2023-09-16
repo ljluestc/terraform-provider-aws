@@ -29,7 +29,7 @@ func TestAccNetworkFirewallFirewall_basic(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallDestroy(ctx),
@@ -61,8 +61,8 @@ func TestAccNetworkFirewallFirewall_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -78,7 +78,7 @@ func TestAccNetworkFirewallFirewall_dualstackSubnet(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallDestroy(ctx),
@@ -110,8 +110,8 @@ func TestAccNetworkFirewallFirewall_dualstackSubnet(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -124,7 +124,7 @@ func TestAccNetworkFirewallFirewall_description(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallDestroy(ctx),
@@ -151,8 +151,8 @@ func TestAccNetworkFirewallFirewall_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -165,7 +165,7 @@ func TestAccNetworkFirewallFirewall_deleteProtection(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallDestroy(ctx),
@@ -193,8 +193,8 @@ func TestAccNetworkFirewallFirewall_deleteProtection(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -207,7 +207,7 @@ func TestAccNetworkFirewallFirewall_encryptionConfiguration(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallDestroy(ctx),
@@ -221,8 +221,8 @@ func TestAccNetworkFirewallFirewall_encryptionConfiguration(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -260,7 +260,7 @@ func TestAccNetworkFirewallFirewall_SubnetMappings_updateSubnet(t *testing.T) {
 	updateSubnetResourceName := "aws_subnet.example"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallDestroy(ctx),
@@ -290,8 +290,8 @@ func TestAccNetworkFirewallFirewall_SubnetMappings_updateSubnet(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -306,7 +306,7 @@ func TestAccNetworkFirewallFirewall_SubnetMappings_updateMultipleSubnets(t *test
 	updateSubnetResourceName := "aws_subnet.example"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallDestroy(ctx),
@@ -350,8 +350,8 @@ func TestAccNetworkFirewallFirewall_SubnetMappings_updateMultipleSubnets(t *test
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -363,7 +363,7 @@ func TestAccNetworkFirewallFirewall_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_networkfirewall_firewall.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallDestroy(ctx),
@@ -377,8 +377,8 @@ func TestAccNetworkFirewallFirewall_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -408,7 +408,7 @@ func TestAccNetworkFirewallFirewall_disappears(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallDestroy(ctx),
@@ -492,8 +492,8 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 }
 `, rName))
@@ -507,7 +507,7 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }
 }
 `, rName))
@@ -522,7 +522,7 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }
 }
 `, deleteProtection, rName))
@@ -536,11 +536,11 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -554,12 +554,12 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -569,12 +569,12 @@ func testAccFirewallConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(testAccFirewallConfig_base(rName), fmt.Sprintf(`
 resource "aws_networkfirewall_firewall" "test" {
   name   = %[1]q
-  description         = %[2]q
+  description= %[2]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }
 }
 `, rName, description))
@@ -584,11 +584,11 @@ func testAccFirewallConfig_updateSubnet(rName string) string {
 	return acctest.ConfigCompose(testAccFirewallConfig_base(rName), fmt.Sprintf(`
 resource "aws_subnet" "example" {
   availability_zone = data.aws_availability_zones.available.names[1]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 1)
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, 1)
+  vpc_id  = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -598,7 +598,7 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.example.id
+subnet_id = aws_subnet.example.id
   }
 }
 `, rName))
@@ -608,15 +608,15 @@ func testAccFirewallConfig_updateMultipleSubnets(rName string) string {
 	return acctest.ConfigCompose(testAccFirewallConfig_base(rName), fmt.Sprintf(`
 resource "aws_subnet" "example" {
   availability_zone = data.aws_availability_zones.available.names[1]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 1)
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, 1)
+  vpc_id  = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 
   lifecycle {
-    create_before_destroy = true
+create_before_destroy = true
   }
 }
 
@@ -626,11 +626,11 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }
 
   subnet_mapping {
-    subnet_id = aws_subnet.example.id
+subnet_id = aws_subnet.example.id
   }
 }
 `, rName))
@@ -644,15 +644,15 @@ resource "aws_networkfirewall_firewall" "test" {
   name   = %[1]q
   firewall_policy_arn = aws_networkfirewall_firewall_policy.test.arn
   vpc_id = aws_vpc.test.id
-  description         = %[2]q
+  description= %[2]q
 
   encryption_configuration {
-    key_id = aws_kms_key.test.arn
-    type   = "CUSTOMER_KMS"
+key_id = aws_kms_key.test.arn
+type   = "CUSTOMER_KMS"
   }
 
   subnet_mapping {
-    subnet_id = aws_subnet.test[0].id
+subnet_id = aws_subnet.test[0].id
   }
 }
 `, rName, description))
@@ -664,8 +664,8 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 }
 
@@ -675,8 +675,8 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id       = aws_subnet.test[0].id
-    ip_address_type = "DUALSTACK"
+subnet_id  = aws_subnet.test[0].id
+ip_address_type = "DUALSTACK"
   }
 }
 `, rName))

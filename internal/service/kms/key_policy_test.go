@@ -14,7 +14,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfkms "github.com/hashicorp/terraform-provider-aws/internal/service/kms"
 )
-
 func TestAccKMSKeyPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -51,7 +50,6 @@ func TestAccKMSKeyPolicy_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -74,7 +72,6 @@ func TestAccKMSKeyPolicy_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyPolicy_bypass(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -108,7 +105,6 @@ func TestAccKMSKeyPolicy_bypass(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyPolicy_bypassUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after kms.KeyMetadata
@@ -139,7 +135,6 @@ func TestAccKMSKeyPolicy_bypassUpdate(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyPolicy_keyIsEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after kms.KeyMetadata
@@ -167,7 +162,6 @@ func TestAccKMSKeyPolicy_keyIsEnabled(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyPolicy_iamRole(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -195,7 +189,6 @@ func TestAccKMSKeyPolicy_iamRole(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyPolicy_iamRoleUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -296,7 +289,6 @@ func TestAccKMSKeyPolicy_iamServiceLinkedRole(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyPolicy_booleanCondition(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -318,7 +310,6 @@ func TestAccKMSKeyPolicy_booleanCondition(t *testing.T) {
 		},
 	})
 }
-
 func testAccKeyPolicyConfig_policy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -343,7 +334,6 @@ resource "aws_kms_key_policy" "test" {
 }
 `, rName)
 }
-
 func testAccKeyPolicyConfig_policyBypass(rName string, bypassFlag bool) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
@@ -384,7 +374,6 @@ resource "aws_kms_key_policy" "test" {
 }
 `, rName, bypassFlag)
 }
-
 func testAccKeyPolicyConfig_policyIAMRole(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -448,7 +437,6 @@ resource "aws_kms_key_policy" "test" {
 }
 `, rName)
 }
-
 func testAccKeyPolicyConfig_policyIAMMultiRole(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -576,7 +564,6 @@ resource "aws_kms_key_policy" "test" {
 }
 `, rName)
 }
-
 func testAccKeyPolicyConfig_policyIAMServiceLinkedRole(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -630,7 +617,6 @@ resource "aws_kms_key_policy" "test" {
 }
 `, rName)
 }
-
 func testAccKeyPolicyConfig_policyBooleanCondition(rName string) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
@@ -684,7 +670,6 @@ resource "aws_kms_key_policy" "test" {
 }
 `, rName)
 }
-
 func testAccKeyPolicyConfig_removedPolicy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -693,7 +678,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyPolicyConfig_keyIsEnabled(rName string, isEnabled bool) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}

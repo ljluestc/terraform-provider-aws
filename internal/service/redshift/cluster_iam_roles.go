@@ -39,22 +39,22 @@ func ResourceClusterIAMRoles() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"cluster_identifier": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"default_iam_role_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"iam_role_arns": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
@@ -141,9 +141,9 @@ func resourceClusterIAMRolesUpdate(ctx context.Context, d *schema.ResourceData, 
 	del := os.Difference(ns)
 
 	input := &redshift.ModifyClusterIamRolesInput{
-		AddIamRoles:       flex.ExpandStringSet(add),
+		AddIamRoles:   flex.ExpandStringSet(add),
 		ClusterIdentifier: aws.String(d.Id()),
-		RemoveIamRoles:    flex.ExpandStringSet(del),
+		RemoveIamRoles:flex.ExpandStringSet(del),
 		DefaultIamRoleArn: aws.String(d.Get("default_iam_role_arn").(string)),
 	}
 
@@ -167,7 +167,7 @@ func resourceClusterIAMRolesDelete(ctx context.Context, d *schema.ResourceData, 
 
 	input := &redshift.ModifyClusterIamRolesInput{
 		ClusterIdentifier: aws.String(d.Id()),
-		RemoveIamRoles:    flex.ExpandStringSet(d.Get("iam_role_arns").(*schema.Set)),
+		RemoveIamRoles:flex.ExpandStringSet(d.Get("iam_role_arns").(*schema.Set)),
 		DefaultIamRoleArn: aws.String(d.Get("default_iam_role_arn").(string)),
 	}
 

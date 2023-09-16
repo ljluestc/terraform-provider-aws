@@ -17,12 +17,11 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_elastic_beanstalk_application", &resource.Sweeper{
-		Name:         "aws_elastic_beanstalk_application",
+		Name:"aws_elastic_beanstalk_application",
 		Dependencies: []string{"aws_elastic_beanstalk_environment"},
-		F:            sweepApplications,
+		F:   sweepApplications,
 	})
 
 	resource.AddTestSweepers("aws_elastic_beanstalk_environment", &resource.Sweeper{
@@ -30,7 +29,6 @@ func init() {
 		F:    sweepEnvironments,
 	})
 }
-
 func sweepApplications(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -71,7 +69,6 @@ func sweepApplications(region string) error {
 
 	return errors
 }
-
 func sweepEnvironments(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

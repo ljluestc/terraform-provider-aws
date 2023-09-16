@@ -26,7 +26,7 @@ func ResourceDomainPermissionsPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDomainPermissionsPolicyPut,
 		UpdateWithoutTimeout: resourceDomainPermissionsPolicyPut,
-		ReadWithoutTimeout:   resourceDomainPermissionsPolicyRead,
+		ReadWithoutTimeout:resourceDomainPermissionsPolicyRead,
 		DeleteWithoutTimeout: resourceDomainPermissionsPolicyDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -34,21 +34,21 @@ func ResourceDomainPermissionsPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"domain": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"domain_owner": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"policy_document": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				ValidateFunc:lidation.StringIsJSON,
+				DiffSuppressFunc:.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
@@ -56,18 +56,17 @@ func ResourceDomainPermissionsPolicy() *schema.Resource {
 				},
 			},
 			"policy_revision": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"resource_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceDomainPermissionsPolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -80,7 +79,7 @@ func resourceDomainPermissionsPolicyPut(ctx context.Context, d *schema.ResourceD
 	}
 
 	params := &codeartifact.PutDomainPermissionsPolicyInput{
-		Domain:         aws.String(d.Get("domain").(string)),
+		Domain:.String(d.Get("domain").(string)),
 		PolicyDocument: aws.String(policy),
 	}
 
@@ -101,7 +100,6 @@ func resourceDomainPermissionsPolicyPut(ctx context.Context, d *schema.ResourceD
 
 	return append(diags, resourceDomainPermissionsPolicyRead(ctx, d, meta)...)
 }
-
 func resourceDomainPermissionsPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -113,7 +111,7 @@ func resourceDomainPermissionsPolicyRead(ctx context.Context, d *schema.Resource
 	}
 
 	dm, err := conn.GetDomainPermissionsPolicyWithContext(ctx, &codeartifact.GetDomainPermissionsPolicyInput{
-		Domain:      aws.String(domainName),
+		Domain:ring(domainName),
 		DomainOwner: aws.String(domainOwner),
 	})
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, codeartifact.ErrCodeResourceNotFoundException) {
@@ -147,7 +145,6 @@ func resourceDomainPermissionsPolicyRead(ctx context.Context, d *schema.Resource
 
 	return diags
 }
-
 func resourceDomainPermissionsPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -159,7 +156,7 @@ func resourceDomainPermissionsPolicyDelete(ctx context.Context, d *schema.Resour
 	}
 
 	input := &codeartifact.DeleteDomainPermissionsPolicyInput{
-		Domain:      aws.String(domainName),
+		Domain:ring(domainName),
 		DomainOwner: aws.String(domainOwner),
 	}
 

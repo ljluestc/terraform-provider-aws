@@ -21,11 +21,11 @@ func DataSourceEndpoint() *schema.Resource {
 		ReadWithoutTimeout: dataSourceEndpointRead,
 		Schema: map[string]*schema.Schema{
 			"endpoint_address": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"endpoint_type": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				ValidateFunc: validation.StringInSlice([]string{
 					"iot:CredentialProvider",

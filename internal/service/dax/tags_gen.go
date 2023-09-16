@@ -57,7 +57,7 @@ func Tags(tags tftags.KeyValueTags) []*dax.Tag {
 
 	for k, v := range tags.Map() {
 		tag := &dax.Tag{
-			Key:   aws.String(k),
+			Key:aws.String(k),
 			Value: aws.String(v),
 		}
 
@@ -111,7 +111,7 @@ func updateTags(ctx context.Context, conn daxiface.DAXAPI, identifier string, ol
 	if len(removedTags) > 0 {
 		input := &dax.UntagResourceInput{
 			ResourceName: aws.String(identifier),
-			TagKeys:      aws.StringSlice(removedTags.Keys()),
+			TagKeys:ringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagResourceWithContext(ctx, input)

@@ -26,7 +26,7 @@ func TestAccMediaStoreContainer_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediastore.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckContainerDestroy(ctx),
+CheckDestroy:testAccCheckContainerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContainerConfig_basic(sdkacctest.RandString(5)),
@@ -35,8 +35,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -52,7 +52,7 @@ func TestAccMediaStoreContainer_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediastore.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckContainerDestroy(ctx),
+CheckDestroy:testAccCheckContainerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContainerConfig_tags(rName, "foo", "bar", "fizz", "buzz"),
@@ -75,8 +75,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -168,10 +168,10 @@ resource "aws_media_store_container" "test" {
   name = "tf_mediastore_%[1]s"
 
   tags = {
-    Name = "tf_mediastore_%[1]s"
+Name = "tf_mediastore_%[1]s"
 
-    %[2]s = %[3]q
-    %[4]s = %[5]q
+%[2]s = %[3]q
+%[4]s = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

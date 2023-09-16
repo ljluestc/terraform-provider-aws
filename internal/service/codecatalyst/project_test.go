@@ -35,9 +35,9 @@ func TestAccCodeCatalystProject_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.CodeCatalyst)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeCatalyst),
+		ErrorCheck:      acctest.ErrorCheck(t, names.CodeCatalyst),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProjectDestroy(ctx),
+		CheckDestroy:    testAccCheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProjectConfig_basic(rName),
@@ -63,9 +63,9 @@ func TestAccCodeCatalystProject_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.CodeCatalyst)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeCatalyst),
+		ErrorCheck:      acctest.ErrorCheck(t, names.CodeCatalyst),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProjectDestroy(ctx),
+		CheckDestroy:    testAccCheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProjectConfig_basic(rName),

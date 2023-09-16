@@ -44,8 +44,7 @@ var (
 	// handshakes that can be performed.
 	ALTSMaxConcurrentHandshakes = uint64FromEnv("GRPC_ALTS_MAX_CONCURRENT_HANDSHAKES", 100, 1, 100)
 )
-
-func boolFromEnv(envVar string, def bool) bool {
+ boolFromEnv(envVar string, def bool) bool {
 	if def {
 		// The default is true; return true unless the variable is "false".
 		return !strings.EqualFold(os.Getenv(envVar), "false")
@@ -53,8 +52,7 @@ func boolFromEnv(envVar string, def bool) bool {
 	// The default is false; return false unless the variable is "true".
 	return strings.EqualFold(os.Getenv(envVar), "true")
 }
-
-func uint64FromEnv(envVar string, def, min, max uint64) uint64 {
+ uint64FromEnv(envVar string, def, min, max uint64) uint64 {
 	v, err := strconv.ParseUint(os.Getenv(envVar), 10, 64)
 	if err != nil {
 		return def

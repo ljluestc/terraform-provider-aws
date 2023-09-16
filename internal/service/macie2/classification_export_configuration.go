@@ -29,7 +29,7 @@ func ResourceClassificationExportConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"s3_destination": {
-				Type:         schema.TypeList,
+				Type:schema.TypeList,
 				Optional:     true,
 				MaxItems:     1,
 				AtLeastOneOf: []string{"s3_destination"},
@@ -44,7 +44,7 @@ func ResourceClassificationExportConfiguration() *schema.Resource {
 							Optional: true,
 						},
 						"kms_key_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: verify.ValidARN,
 						},

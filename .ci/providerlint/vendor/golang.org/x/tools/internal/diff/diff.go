@@ -1,41 +1,27 @@
 // Copyright 2019 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Package diff computes differences between text files or strings.
-package diff
-
-import (
+// license that can be found in the LICENSE file.// Package diff computes differences between text files or strings.
+package diffimport (
 	"fmt"
 	"sort"
 	"strings"
-)
-
-// An Edit describes the replacement of a portion of a text file.
+)// An Edit describes the replacement of a portion of a text file.
 type Edit struct {
 	Start, End int    // byte offsets of the region to replace
 	New        string // the replacement
 }
-
-
  (e Edit) String() string {
 	return fmt.Sprintf("{Start:%d,End:%d,New:%s}", e.Start, e.End, e.New)
-}
-
-// Apply applies a sequence of edits to the src buffer and returns the
+}// Apply applies a sequence of edits to the src buffer and returns the
 // result. Edits are applied in order of start offset; edits with the
 // same start offset are applied in they order they were provided.
 //
 // Apply returns an error if any edit is out of bounds,
-r if any pair of edits is overlapping.
-
- Apply(src string, edits []Edit) (string, error) {
+r if any pair of edits is overlapping. Apply(src string, edits []Edit) (string, error) {
 	edits, size, err := validate(src, edits)
 	if err != nil {
 		return "", err
-	}
-
-	// Apply edits.
+	}	// Apply edits.
 	out := make([]byte, 0, size)
 	lastEnd := 0
 	for _, edit := range edits {
@@ -45,34 +31,20 @@ r if any pair of edits is overlapping.
 		out = append(out, edit.New...)
 		lastEnd = edit.End
 	}
-	out = append(out, src[lastEnd:]...)
-
-	if len(out) != size {
+	out = append(out, src[lastEnd:]...)	if len(out) != size {
 		panic("wrong size")
-	}
-
-	return string(out), nil
-}
-
-pplyBytes is like Apply, but it accepts a byte slice.
-// The result is always a new array.
-
- ApplyBytes(src []byte, edits []Edit) ([]byte, error) {
+	}	return string(out), nil
+}pplyBytes is like Apply, but it accepts a byte slice.
+// The result is always a new array. ApplyBytes(src []byte, edits []Edit) ([]byte, error) {
 	res, err := Apply(string(src), edits)
 	return []byte(res), err
-}
-
-alidate checks that edits are consistent with src,
+}alidate checks that edits are consistent with src,
 // and returns the size of the patched output.
-// It may return a different slice.
-
- validate(src string, edits []Edit) ([]Edit, int, error) {
+// It may return a different slice. validate(src string, edits []Edit) ([]Edit, int, error) {
 	if !sort.IsSorted(editsSort(edits)) {
 		edits = append([]Edit(nil), edits...)
 		SortEdits(edits)
-	}
-
-	// Check validity of edits and compute final size.
+	}	// Check validity of edits and compute final size.
 	size := len(src)
 	lastEnd := 0
 	for _, edit := range edits {
@@ -84,46 +56,26 @@ alidate checks that edits are consistent with src,
 		}
 		size += len(edit.New) + edit.Start - edit.End
 		lastEnd = edit.End
-	}
-
-	return edits, size, nil
-}
-
-// SortEdits orders a slice of Edits by (start, end) offset.
+	}	return edits, size, nil
+}// SortEdits orders a slice of Edits by (start, end) offset.
 his ordering puts insertions (end = start) before deletions
 // (end > start) at the same point, but uses a stable sort to preserve
 // the order of multiple insertions at the same point.
-// (Apply detects multiple deletions at the same point as an error.)
-
- SortEdits(edits []Edit) {
+// (Apply detects multiple deletions at the same point as an error.) SortEdits(edits []Edit) {
 t.Stable(editsSort(edits))
-
-
 type editsSort []Edit
-
-
- (a editsSort) Len() int { return len(a) }
-
- (a editsSort) Less(i, j int) bool {
+ (a editsSort) Len() int { return len(a) } (a editsSort) Less(i, j int) bool {
 	if cmp := a[i].Start - a[j].Start; cmp != 0 {
 		return cmp < 0
 	}
 urn a[i].End < a[j].End
-}
-
- (a editsSort) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
-
-// lineEdits expands and merges a sequence of edits so that each
+} (a editsSort) Swap(i, j int) { a[i], a[j] = a[j], a[i] }// lineEdits expands and merges a sequence of edits so that each
 // resulting edit replaces one or more complete lines.
-// See ApplyEdits for preconditions.
-
- lineEdits(src string, edits []Edit) ([]Edit, error) {
+// See ApplyEdits for preconditions. lineEdits(src string, edits []Edit) ([]Edit, error) {
 	edits, _, err := validate(src, edits)
 	if err != nil {
 		return nil, err
-	}
-
-	// Do all edits begin and end at the start of a line?
+	}	// Do all edits begin and end at the start of a line?
 	// TODO(adonovan): opt: is this fast path necessary?
 	// (Also, it complicates the result ownership.)
 	for _, edit := range edits {
@@ -133,9 +85,7 @@ urn a[i].End < a[j].End
 			goto expand
 		}
 	}
-	return edits, nil // aligned
-
-expand:
+	return edits, nil // alignedexpand:
 	expanded := make([]Edit, 0, len(edits)) // a guess
 	prev := edits[0]
 	// TODO(adonovan): opt: start from the first misaligned edit.
@@ -153,27 +103,19 @@ expand:
 		}
 	}
 	return append(expanded, expandEdit(prev, src)), nil // flush final edit
-}
-
-// expandEdit returns edit expanded to complete whole lines.
-
- expandEdit(edit Edit, src string) Edit {
+}// expandEdit returns edit expanded to complete whole lines. expandEdit(edit Edit, src string) Edit {
 	// Expand start left to start of line.
 	// (delta is the zero-based column number of of start.)
 	start := edit.Start
 	if delta := start - 1 - strings.LastIndex(src[:start], "\n"); delta > 0 {
 		edit.Start -= delta
 		edit.New = src[start-delta:start] + edit.New
-	}
-
-	// Expand end right to end of line.
+	}	// Expand end right to end of line.
 	end := edit.End
 	if nl := strings.IndexByte(src[end:], '\n'); nl < 0 {
 		edit.End = len(src) // extend to EOF
 	} else {
 		edit.End = end + nl + 1 // extend beyond \n
 	}
-	edit.New += src[end:edit.End]
-
-	return edit
+	edit.New += src[end:edit.End]	return edit
 }

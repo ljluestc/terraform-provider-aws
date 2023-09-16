@@ -76,7 +76,7 @@ func TestAccNeptuneClusterParameterGroup_namePrefix(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
@@ -164,13 +164,13 @@ func TestAccNeptuneClusterParameterGroup_NamePrefix_parameter(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "parameter.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
 						"apply_method": "pending-reboot",
-						"name":         "neptune_enable_audit_log",
+						"name":"neptune_enable_audit_log",
 						"value":        "1",
 					}),
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
@@ -182,7 +182,7 @@ func TestAccNeptuneClusterParameterGroup_NamePrefix_parameter(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "parameter.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
 						"apply_method": "pending-reboot",
-						"name":         "neptune_enable_audit_log",
+						"name":"neptune_enable_audit_log",
 						"value":        "0",
 					}),
 				),
@@ -213,7 +213,7 @@ func TestAccNeptuneClusterParameterGroup_parameter(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "parameter.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
 						"apply_method": "pending-reboot",
-						"name":         "neptune_enable_audit_log",
+						"name":"neptune_enable_audit_log",
 						"value":        "1",
 					}),
 				),
@@ -231,7 +231,7 @@ func TestAccNeptuneClusterParameterGroup_parameter(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "parameter.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
 						"apply_method": "pending-reboot",
-						"name":         "neptune_enable_audit_log",
+						"name":"neptune_enable_audit_log",
 						"value":        "0",
 					}),
 				),

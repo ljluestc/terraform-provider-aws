@@ -54,8 +54,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -119,8 +119,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -150,8 +150,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -184,8 +184,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -219,8 +219,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -256,8 +256,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -275,8 +275,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -315,8 +315,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -341,8 +341,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -389,8 +389,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -427,8 +427,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -475,8 +475,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -508,8 +508,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -570,8 +570,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -660,10 +660,10 @@ resource "aws_quicksight_data_source" "test" {
 
   parameters {
     s3 {
-      manifest_file_location {
-        bucket = aws_s3_bucket.test.bucket
-        key    = aws_s3_object.test.key
-      }
+manifest_file_location {
+  bucket = aws_s3_bucket.test.bucket
+  key    = aws_s3_object.test.key
+}
     }
   }
 
@@ -679,20 +679,20 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
 }
@@ -706,42 +706,42 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
   logical_table_map {
     logical_table_map_id = %[1]q
     alias = "Group1"
     source {
-      physical_table_id = %[1]q
+physical_table_id = %[1]q
     }
     data_transforms {
-      tag_column_operation {
-        column_name = "Column1"
-        tags {
+tag_column_operation {
+  column_name = "Column1"
+  tags {
  column_geographic_role = "STATE"
-        }
-      }
+  }
+}
     }
   }
   column_groups {
     geo_spatial_column_group {
-      columns      = ["Column1"]
-      country_code = "US"
-      name= "test"
+columns= ["Column1"]
+country_code = "US"
+name= "test"
     }
   }
 }
@@ -756,20 +756,20 @@ testAccDataSource_UserConfig(rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
   column_level_permission_rules {
@@ -787,20 +787,20 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
   data_set_usage_configuration {
@@ -818,26 +818,26 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
   field_folders {
     field_folders_id = %[1]q
     columns = ["Column1"]
-    description      = "test"
+    description= "test"
   }
 }
 `, rId, rName))
@@ -850,25 +850,25 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {}
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {}
     }
   }
   logical_table_map {
     logical_table_map_id = %[1]q
     alias = "Group1"
     source {
-      physical_table_id = %[1]q
+physical_table_id = %[1]q
     }
   }
 }
@@ -882,34 +882,34 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {}
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {}
     }
   }
   logical_table_map {
     logical_table_map_id = %[1]q
     alias = "Group1"
     source {
-      physical_table_id = %[1]q
+physical_table_id = %[1]q
     }
     data_transforms {
-      create_columns_operation {
-        columns {
+create_columns_operation {
+  columns {
  column_id   = "Column2"
  column_name = "Column2"
  expression  = "Column1"
-        }
-      }
+  }
+}
     }
   }
 }
@@ -924,29 +924,29 @@ testAccDataSource_UserConfig(rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
   permissions {
     actions = [
-      "quicksight:DescribeDataSet",
-      "quicksight:DescribeDataSetPermissions",
-      "quicksight:PassDataSet",
-      "quicksight:DescribeIngestion",
-      "quicksight:ListIngestions",
+"quicksight:DescribeDataSet",
+"quicksight:DescribeDataSetPermissions",
+"quicksight:PassDataSet",
+"quicksight:DescribeIngestion",
+"quicksight:ListIngestions",
     ]
     principal = aws_quicksight_user.test.arn
   }
@@ -962,34 +962,34 @@ testAccDataSource_UserConfig(rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
   permissions {
     actions = [
-      "quicksight:DescribeDataSet",
-      "quicksight:DescribeDataSetPermissions",
-      "quicksight:PassDataSet",
-      "quicksight:DescribeIngestion",
-      "quicksight:ListIngestions",
-      "quicksight:UpdateDataSet",
-      "quicksight:DeleteDataSet",
-      "quicksight:CreateIngestion",
-      "quicksight:CancelIngestion",
-      "quicksight:UpdateDataSetPermissions",
+"quicksight:DescribeDataSet",
+"quicksight:DescribeDataSetPermissions",
+"quicksight:PassDataSet",
+"quicksight:DescribeIngestion",
+"quicksight:ListIngestions",
+"quicksight:UpdateDataSet",
+"quicksight:DeleteDataSet",
+"quicksight:CreateIngestion",
+"quicksight:CancelIngestion",
+"quicksight:UpdateDataSetPermissions",
     ]
     principal = aws_quicksight_user.test.arn
   }
@@ -1005,34 +1005,34 @@ testAccDataSource_UserConfigMultiple(rName, count),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
 
   dynamic "permissions" {
     for_each = aws_quicksight_user.test
     content {
-      actions = [
-        "quicksight:DescribeDataSet",
-        "quicksight:DescribeDataSetPermissions",
-        "quicksight:PassDataSet",
-        "quicksight:DescribeIngestion",
-        "quicksight:ListIngestions",
-      ]
-      principal = aws_quicksight_user.test[permissions.key].arn
+actions = [
+  "quicksight:DescribeDataSet",
+  "quicksight:DescribeDataSetPermissions",
+  "quicksight:PassDataSet",
+  "quicksight:DescribeIngestion",
+  "quicksight:ListIngestions",
+]
+principal = aws_quicksight_user.test[permissions.key].arn
     }
   }
 }
@@ -1046,29 +1046,29 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
   row_level_permission_tag_configuration {
     status = "ENABLED"
     tag_rules {
-      column_name= "Column1"
-      tag_key    = "uniquetagkey"
-      match_all_value  = "*"
-      tag_multi_value_delimiter = ","
+column_name= "Column1"
+tag_key    = "uniquetagkey"
+match_all_value  = "*"
+tag_multi_value_delimiter = ","
     }
   }
 }
@@ -1091,25 +1091,25 @@ resource "aws_glue_catalog_table" "test" {
   table_type    = "EXTERNAL_TABLE"
 
   parameters = {
-    EXTERNAL       = "TRUE"
+    EXTERNAL = "TRUE"
     classification = "json"
   }
 
   storage_descriptor {
-    location      = "s3://${aws_s3_bucket.test.id}/data/"
+    location= "s3://${aws_s3_bucket.test.id}/data/"
     input_format  = "org.apache.hadoop.mapred.TextInputFormat"
     output_format = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
 
     ser_de_info {
-      name   = "jsonserde"
-      serialization_library = "org.openx.data.jsonserde.JsonSerDe"
-      parameters = {
-        "serialization.format" = "1"
-      }
+name   = "jsonserde"
+serialization_library = "org.openx.data.jsonserde.JsonSerDe"
+parameters = {
+  "serialization.format" = "1"
+}
     }
     columns {
-      name = "column1"
-      type = "date"
+name = "column1"
+type = "date"
     }
   }
 }
@@ -1120,7 +1120,7 @@ resource "aws_quicksight_data_source" "test" {
   type  = "ATHENA"
   parameters {
     athena {
-      work_group = "primary"
+work_group = "primary"
     }
   }
   ssl_properties {
@@ -1130,31 +1130,31 @@ resource "aws_quicksight_data_source" "test" {
 
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     relational_table {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      catalog= "AwsDataCatalog"
-      schema = aws_glue_catalog_database.test.name
-      name   = aws_glue_catalog_table.test.name
-      input_columns {
-        name = "column1"
-        type = "DATETIME"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+catalog= "AwsDataCatalog"
+schema = aws_glue_catalog_database.test.name
+name   = aws_glue_catalog_table.test.name
+input_columns {
+  name = "column1"
+  type = "DATETIME"
+}
     }
   }
   refresh_properties {
     refresh_configuration {
-      incremental_refresh {
-        lookback_window {
+incremental_refresh {
+  lookback_window {
  column_name = "column1"
- size        = 1
+ size  = 1
  size_unit   = "DAY"
-        }
-      }
+  }
+}
     }
   }
 }
@@ -1168,20 +1168,20 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
   tags = {
@@ -1198,20 +1198,20 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
   tags = {
@@ -1229,54 +1229,54 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "left" {
   data_set_id = "%[1]s-left"
-  name        = "%[2]s-left"
+  name  = "%[2]s-left"
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = "%[1]s-left"
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
 }
 
 resource "aws_quicksight_data_set" "right" {
   data_set_id = "%[1]s-right"
-  name        = "%[2]s-right"
+  name  = "%[2]s-right"
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = "%[1]s-right"
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column2"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column2"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
 }
 
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   logical_table_map {
     logical_table_map_id = "right"
     alias = "r"
     source {
-      data_set_arn = aws_quicksight_data_set.right.arn
+data_set_arn = aws_quicksight_data_set.right.arn
     }
   }
 
@@ -1284,7 +1284,7 @@ resource "aws_quicksight_data_set" "test" {
     logical_table_map_id = "left"
     alias = "l"
     source {
-      data_set_arn = aws_quicksight_data_set.left.arn
+data_set_arn = aws_quicksight_data_set.left.arn
     }
   }
 
@@ -1292,12 +1292,12 @@ resource "aws_quicksight_data_set" "test" {
     logical_table_map_id = "joined"
     alias = "j"
     source {
-      join_instruction {
-        left_operand  = "left"
-        right_operand = "right"
-        type = "INNER"
-        on_clause     = "Column1 = Column2"
-      }
+join_instruction {
+  left_operand  = "left"
+  right_operand = "right"
+  type = "INNER"
+  on_clause     = "Column1 = Column2"
+}
     }
   }
 }

@@ -111,7 +111,7 @@ func resourceRouteCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	req := &apigatewayv2.CreateRouteInput{
 		ApiId:"api_id").(string)),
-		ApiKeyRequired:    aws.Bool(d.Get("api_key_required").(bool)),
+		ApiKeyRequired:aws.Bool(d.Get("api_key_required").(bool)),
 		AuthorizationType: aws.String(d.Get("authorization_type").(string)),
 		RouteKey:ute_key").(string)),
 	}

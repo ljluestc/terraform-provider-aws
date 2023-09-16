@@ -19,7 +19,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_cloud9_environment_ec2", &resource.Sweeper{
 		Name: "aws_cloud9_environment_ec2",
-		F:    sweepEnvironmentEC2s,
+		F:sweepEnvironmentEC2s,
 	})
 }
 

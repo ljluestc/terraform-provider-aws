@@ -31,7 +31,7 @@ import (
 func ResourceKxDatabase() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceKxDatabaseCreate,
-		ReadWithoutTimeout:   resourceKxDatabaseRead,
+		ReadWithoutTimeout:resourceKxDatabaseRead,
 		UpdateWithoutTimeout: resourceKxDatabaseUpdate,
 		DeleteWithoutTimeout: resourceKxDatabaseDelete,
 
@@ -47,35 +47,35 @@ func ResourceKxDatabase() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"created_timestamp": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				ValidateFunc: validation.StringLenBetween(1, 1000),
 			},
 			"environment_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 32),
 			},
 			"last_modified_timestamp": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(3, 63),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -88,7 +88,6 @@ const (
 
 	kxDatabaseIDPartCount = 2
 )
-
 func resourceKxDatabaseCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -96,7 +95,7 @@ func resourceKxDatabaseCreate(ctx context.Context, d *schema.ResourceData, meta 
 	in := &finspace.CreateKxDatabaseInput{
 		DatabaseName:  aws.String(d.Get("name").(string)),
 		EnvironmentId: aws.String(d.Get("environment_id").(string)),
-		ClientToken:   aws.String(id.UniqueId()),
+		ClientToken:aws.String(id.UniqueId()),
 		Tags: getTagsIn(ctx),
 	}
 
@@ -126,7 +125,6 @@ func resourceKxDatabaseCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceKxDatabaseRead(ctx, d, meta)...)
 }
-
 func resourceKxDatabaseRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -151,7 +149,6 @@ func resourceKxDatabaseRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func resourceKxDatabaseUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -160,7 +157,7 @@ func resourceKxDatabaseUpdate(ctx context.Context, d *schema.ResourceData, meta 
 		in := &finspace.UpdateKxDatabaseInput{
 			EnvironmentId: aws.String(d.Get("environment_id").(string)),
 			DatabaseName:  aws.String(d.Get("name").(string)),
-			Description:   aws.String(d.Get("description").(string)),
+			Description:aws.String(d.Get("description").(string)),
 		}
 
 		_, err := conn.UpdateKxDatabase(ctx, in)
@@ -171,7 +168,6 @@ func resourceKxDatabaseUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceKxDatabaseRead(ctx, d, meta)...)
 }
-
 func resourceKxDatabaseDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -194,7 +190,6 @@ func resourceKxDatabaseDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
-
 func findKxDatabaseByID(ctx context.Context, conn *finspace.Client, id string) (*finspace.GetKxDatabaseOutput, error) {
 	parts, err := flex.ExpandResourceId(id, kxDatabaseIDPartCount, false)
 	if err != nil {
@@ -211,7 +206,7 @@ func findKxDatabaseByID(ctx context.Context, conn *finspace.Client, id string) (
 		var nfe *types.ResourceNotFoundException
 		if errors.As(err, &nfe) {
 			return nil, &retry.NotFoundError{
-				LastError:   err,
+				LastError:err,
 				LastRequest: in,
 			}
 		}

@@ -28,7 +28,7 @@ ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
-Config:      testAccIPSetDataSourceConfig_nonExistent,
+Config:testAccIPSetDataSourceConfig_nonExistent,
 ExpectError: regexache.MustCompile(`WAF Regional IP Set not found`),
 	},
 	{

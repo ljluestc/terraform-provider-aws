@@ -807,7 +807,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -835,7 +835,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -857,7 +857,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -879,7 +879,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -901,7 +901,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -927,7 +927,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -959,7 +959,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -982,7 +982,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1004,7 +1004,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1026,7 +1026,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1046,7 +1046,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1066,7 +1066,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1098,7 +1098,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1119,7 +1119,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo '%[2]s'"]
+ commands = ["echo '%[2]s'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -1137,7 +1137,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1158,9 +1158,9 @@ phases:
       - name: example
         action: ExecuteBash
         inputs:
-          commands:
-            - echo {{ Parameter1 }}
-            - echo {{ Parameter2 }}
+ commands:
+   - echo {{ Parameter1 }}
+   - echo {{ Parameter2 }}
 parameters:
   - Parameter1:
       type: string
@@ -1189,7 +1189,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     }
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1206,7 +1206,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
   }
 
   description  = %[2]q
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1222,7 +1222,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1238,7 +1238,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 
@@ -1258,7 +1258,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 
@@ -1281,7 +1281,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
 
   name
   parent_image      = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
-  version           = "1.0.0"
+  version  = "1.0.0"
   working_directory = %[2]q
 }
 `, rName, workingDirectory))
@@ -1320,7 +1320,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -1340,7 +1340,7 @@ resource "aws_imagebuilder_component" "test2" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'Hej världen!'"]
+ commands = ["echo 'Hej världen!'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -1376,7 +1376,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1396,7 +1396,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test2.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -1412,7 +1412,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 
@@ -1434,7 +1434,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
 
   name
   parent_image     = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
-  version          = "1.0.0"
+  version = "1.0.0"
   user_data_base64 = base64encode("hello world")
 }
 `, rName))
@@ -1453,7 +1453,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecutePowerShell"
         inputs = {
-          commands = ["Write-Host 'hello world'"]
+ commands = ["Write-Host 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -1477,7 +1477,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/windows-server-2022-english-full-base-x86/x.x.x"
   version      = "1.0.0"
 }

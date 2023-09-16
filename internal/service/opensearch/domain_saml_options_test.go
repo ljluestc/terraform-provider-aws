@@ -17,7 +17,6 @@ import (
 	tfopensearch "github.com/hashicorp/terraform-provider-aws/internal/service/opensearch"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccOpenSearchDomainSAMLOptions_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
@@ -54,7 +53,6 @@ func TestAccOpenSearchDomainSAMLOptions_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomainSAMLOptions_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("acc-test")
@@ -80,7 +78,6 @@ func TestAccOpenSearchDomainSAMLOptions_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomainSAMLOptions_disappears_Domain(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("acc-test")
@@ -107,7 +104,6 @@ func TestAccOpenSearchDomainSAMLOptions_disappears_Domain(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomainSAMLOptions_Update(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("acc-test")
@@ -142,7 +138,6 @@ func TestAccOpenSearchDomainSAMLOptions_Update(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomainSAMLOptions_Disabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("acc-test")
@@ -177,7 +172,6 @@ func TestAccOpenSearchDomainSAMLOptions_Disabled(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckESDomainSAMLOptionsDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -202,7 +196,6 @@ func testAccCheckESDomainSAMLOptionsDestroy(ctx context.Context) resource.TestCh
 		return nil
 	}
 }
-
 func testAccCheckESDomainSAMLOptions(ctx context.Context, esResource string, samlOptionsResource string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[esResource]
@@ -225,7 +218,6 @@ func testAccCheckESDomainSAMLOptions(ctx context.Context, esResource string, sam
 		return err
 	}
 }
-
 func testAccDomainSAMLOptionsConfig_basic(userName, domainName, idpEntityId string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
@@ -242,7 +234,7 @@ resource "aws_opensearch_domain" "test" {
 
   # Advanced security option must be enabled to configure SAML.
   advanced_security_options {
-    enabled         = true
+    enabled= true
     internal_user_database_enabled = false
     master_user_options {
       master_user_arn = aws_iam_user.test.arn
@@ -282,7 +274,6 @@ resource "aws_opensearch_domain_saml_options" "test" {
 }
 `, userName, domainName, idpEntityId)
 }
-
 func testAccDomainSAMLOptionsConfig_update(userName, domainName, idpEntityId string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
@@ -299,7 +290,7 @@ resource "aws_opensearch_domain" "test" {
 
   # Advanced security option must be enabled to configure SAML.
   advanced_security_options {
-    enabled         = true
+    enabled= true
     internal_user_database_enabled = false
     master_user_options {
       master_user_arn = aws_iam_user.test.arn
@@ -340,7 +331,6 @@ resource "aws_opensearch_domain_saml_options" "test" {
 }
 `, userName, domainName, idpEntityId)
 }
-
 func testAccDomainSAMLOptionsConfig_disabled(userName string, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
@@ -357,7 +347,7 @@ resource "aws_opensearch_domain" "test" {
 
   # Advanced security option must be enabled to configure SAML.
   advanced_security_options {
-    enabled         = true
+    enabled= true
     internal_user_database_enabled = false
     master_user_options {
       master_user_arn = aws_iam_user.test.arn

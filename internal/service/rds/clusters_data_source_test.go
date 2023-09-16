@@ -1,27 +1,20 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/rds"
+	"testing"	"github.com/aws/aws-sdk-go/service/rds"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func := acctest.Context(t)
 	var dbCluster rds.DBCluster
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_rds_clusters.test"
-	resourceName := "aws_rds_cluster.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	resourceName := "aws_rds_cluster.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
@@ -37,29 +30,24 @@ func := acctest.Context(t)
 		},
 	})
 }
-
 func testAccClustersDataSourceConfig_filter(rName string) string {
 	return fmt.Sprintf(`
-funcuster_identifier  = %[1]q
-  database_name       = "test"
-  master_username     = "tfacctest"
-  master_password     = "avoid-plaintext-passwords"
-  skip_final_snapshot = true
+funcuster_identifier= %[1]q
+database_name = "test"
+master_username= "tfacctest"
+master_password= "avoid-plaintext-passwords"
+skip_final_snapshot = true
+}resource "aws_rds_cluster" "wrong" {
+cluster_identifier= "wrong-%[1]s"
+database_name = "test"
+master_username= "tfacctest"
+master_password= "avoid-plaintext-passwords"
+skip_final_snapshot = true
+}data "aws_rds_clusters" "test" {
+filter {
+ name= "db-cluster-id"
+ values = [aws_rds_cluster.test.cluster_identifier]
 }
-
-resource "aws_rds_cluster" "wrong" {
-  cluster_identifier  = "wrong-%[1]s"
-  database_name       = "test"
-  master_username     = "tfacctest"
-  master_password     = "avoid-plaintext-passwords"
-  skip_final_snapshot = true
-}
-
-data "aws_rds_clusters" "test" {
-  filter {
-    name   = "db-cluster-id"
-    values = [aws_rds_cluster.test.cluster_identifier]
-  }
 }
 `, rName)
 }

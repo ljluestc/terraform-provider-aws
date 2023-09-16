@@ -71,8 +71,7 @@ type ccResolverWrapperOpts struct {
 }
 
 // newCCResolverWrapper uses the resolver.Builder to build a Resolver and
-// returns a ccResolverWrapper object which wraps the newly built resolver.
-func newCCResolverWrapper(cc resolverStateUpdater, opts ccResolverWrapperOpts) (*ccResolverWrapper, error) {
+// returns a ccResolverWrapper object which wraps the newly built resolver. newCCResolverWrapper(cc resolverStateUpdater, opts ccResolverWrapperOpts) (*ccResolverWrapper, error) {
 	ctx, cancel := context.WithCancel(context.Background())
 	ccr := &ccResolverWrapper{
 		cc:                  cc,
@@ -102,8 +101,7 @@ func newCCResolverWrapper(cc resolverStateUpdater, opts ccResolverWrapperOpts) (
 
 	return ccr, nil
 }
-
-func (ccr *ccResolverWrapper) resolveNow(o resolver.ResolveNowOptions) {
+ (ccr *ccResolverWrapper) resolveNow(o resolver.ResolveNowOptions) {
 	ccr.mu.Lock()
 	defer ccr.mu.Unlock()
 
@@ -115,8 +113,7 @@ func (ccr *ccResolverWrapper) resolveNow(o resolver.ResolveNowOptions) {
 	}
 	ccr.resolver.ResolveNow(o)
 }
-
-func (ccr *ccResolverWrapper) close() {
+ (ccr *ccResolverWrapper) close() {
 	ccr.mu.Lock()
 	if ccr.closed {
 		ccr.mu.Unlock()
@@ -141,16 +138,14 @@ func (ccr *ccResolverWrapper) close() {
 }
 
 // serializerScheduleLocked is a convenience method to schedule a function to be
-// run on the serializer while holding ccr.mu.
-func (ccr *ccResolverWrapper) serializerScheduleLocked(f func(context.Context)) {
+// run on the serializer while holding ccr.mu. (ccr *ccResolverWrapper) serializerScheduleLocked(f func(context.Context)) {
 	ccr.mu.Lock()
 	ccr.serializer.Schedule(f)
 	ccr.mu.Unlock()
 }
 
 // UpdateState is called by resolver implementations to report new state to gRPC
-// which includes addresses and service config.
-func (ccr *ccResolverWrapper) UpdateState(s resolver.State) error {
+// which includes addresses and service config. (ccr *ccResolverWrapper) UpdateState(s resolver.State) error {
 	errCh := make(chan error, 1)
 	ok := ccr.serializer.Schedule(func(context.Context) {
 		ccr.addChannelzTraceEvent(s)
@@ -171,8 +166,7 @@ func (ccr *ccResolverWrapper) UpdateState(s resolver.State) error {
 }
 
 // ReportError is called by resolver implementations to report errors
-// encountered during name resolution to gRPC.
-func (ccr *ccResolverWrapper) ReportError(err error) {
+// encountered during name resolution to gRPC. (ccr *ccResolverWrapper) ReportError(err error) {
 	ccr.serializerScheduleLocked(func(_ context.Context) {
 		channelz.Warningf(logger, ccr.channelzID, "ccResolverWrapper: reporting error to cc: %v", err)
 		ccr.cc.updateResolverState(resolver.State{}, err)
@@ -180,8 +174,7 @@ func (ccr *ccResolverWrapper) ReportError(err error) {
 }
 
 // NewAddress is called by the resolver implementation to send addresses to
-// gRPC.
-func (ccr *ccResolverWrapper) NewAddress(addrs []resolver.Address) {
+// gRPC. (ccr *ccResolverWrapper) NewAddress(addrs []resolver.Address) {
 	ccr.serializerScheduleLocked(func(_ context.Context) {
 		ccr.addChannelzTraceEvent(resolver.State{Addresses: addrs, ServiceConfig: ccr.curState.ServiceConfig})
 		ccr.curState.Addresses = addrs
@@ -190,8 +183,7 @@ func (ccr *ccResolverWrapper) NewAddress(addrs []resolver.Address) {
 }
 
 // NewServiceConfig is called by the resolver implementation to send service
-// configs to gRPC.
-func (ccr *ccResolverWrapper) NewServiceConfig(sc string) {
+// configs to gRPC. (ccr *ccResolverWrapper) NewServiceConfig(sc string) {
 	ccr.serializerScheduleLocked(func(_ context.Context) {
 		channelz.Infof(logger, ccr.channelzID, "ccResolverWrapper: got new service config: %s", sc)
 		if ccr.ignoreServiceConfig {
@@ -210,14 +202,12 @@ func (ccr *ccResolverWrapper) NewServiceConfig(sc string) {
 }
 
 // ParseServiceConfig is called by resolver implementations to parse a JSON
-// representation of the service config.
-func (ccr *ccResolverWrapper) ParseServiceConfig(scJSON string) *serviceconfig.ParseResult {
+// representation of the service config. (ccr *ccResolverWrapper) ParseServiceConfig(scJSON string) *serviceconfig.ParseResult {
 	return parseServiceConfig(scJSON)
 }
 
 // addChannelzTraceEvent adds a channelz trace event containing the new
-// state received from resolver implementations.
-func (ccr *ccResolverWrapper) addChannelzTraceEvent(s resolver.State) {
+// state received from resolver implementations. (ccr *ccResolverWrapper) addChannelzTraceEvent(s resolver.State) {
 	var updates []string
 	var oldSC, newSC *ServiceConfig
 	var oldOK, newOK bool

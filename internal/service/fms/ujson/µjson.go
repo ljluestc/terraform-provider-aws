@@ -21,30 +21,30 @@
 // and call callback function for each key/value pair processed.
 //
 //	{
-//	    "id": 12345,
-//	    "name": "foo",
-//	    "numbers": ["one", "two"],
-//	    "tags": {"color": "red", "priority": "high"},
-//	    "active": true
+//"id": 12345,
+//"name": "foo",
+//"numbers": ["one", "two"],
+//"tags": {"color": "red", "priority": "high"},
+//"active": true
 //	}
 //
 // Calling "Walk()" with the above input will produce:
 //
 //	| level | key        | value   |
 //	|-------|------------|---------|
-//	|   0   |            | {       |
+//	|   0   |   | {       |
 //	|   1   | "id"       | 12345   |
 //	|   1   | "name"     | "foo"   |
 //	|   1   | "numbers"  | [       |
-//	|   2   |            | "one"   |
-//	|   2   |            | "two"   |
-//	|   1   |            | ]       |
+//	|   2   |   | "one"   |
+//	|   2   |   | "two"   |
+//	|   1   |   | ]       |
 //	|   1   | "tags"     | {       |
 //	|   2   | "color"    | "red"   |
 //	|   2   | "priority" | "high"  |
-//	|   1   |            | }       |
+//	|   1   |   | }       |
 //	|   1   | "active"   | true    |
-//	|   0   |            | }       |
+//	|   0   |   | }       |
 //
 // "level" indicates the indentation of the key/value pair as if the json is
 // formatted properly. Keys and values are provided as raw literal. Strings are

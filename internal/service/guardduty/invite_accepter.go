@@ -25,7 +25,7 @@ import (
 func ResourceInviteAccepter() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceInviteAccepterCreate,
-		ReadWithoutTimeout:   resourceInviteAccepterRead,
+		ReadWithoutTimeout:resourceInviteAccepterRead,
 		DeleteWithoutTimeout: resourceInviteAccepterDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -50,7 +50,6 @@ func ResourceInviteAccepter() *schema.Resource {
 		},
 	}
 }
-
 func resourceInviteAccepterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -101,7 +100,7 @@ func resourceInviteAccepterCreate(ctx context.Context, d *schema.ResourceData, m
 	}
 
 	acceptInvitationInput := &guardduty.AcceptInvitationInput{
-		DetectorId:   aws.String(detectorID),
+		DetectorId:aws.String(detectorID),
 		InvitationId: aws.String(invitationID),
 		MasterId:(masterAccountID),
 	}
@@ -117,7 +116,6 @@ func resourceInviteAccepterCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceInviteAccepterRead(ctx, d, meta)...)
 }
-
 func resourceInviteAccepterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -148,7 +146,6 @@ func resourceInviteAccepterRead(ctx context.Context, d *schema.ResourceData, met
 
 	return diags
 }
-
 func resourceInviteAccepterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)

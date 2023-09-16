@@ -48,15 +48,15 @@ func ResourceFeature() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"created_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"default_variation": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ValidateFunc: validation.All(
@@ -65,12 +65,12 @@ func ResourceFeature() *schema.Resource {
 				),
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 160),
 			},
 			"entity_overrides": {
-				Type:     schema.TypeMap,
+				Type: schema.TypeMap,
 				Optional: true,
 				ValidateDiagFunc: validation.AllDiag(
 					validation.MapKeyLenBetween(1, 512),
@@ -80,33 +80,33 @@ func ResourceFeature() *schema.Resource {
 				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"evaluation_rules": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"evaluation_strategy": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
 				ValidateFunc: validation.StringInSlice(cloudwatchevidently.FeatureEvaluationStrategy_Values(), false),
 			},
 			"last_updated_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -115,7 +115,7 @@ func ResourceFeature() *schema.Resource {
 				),
 			},
 			"project": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -129,24 +129,24 @@ func ResourceFeature() *schema.Resource {
 				},
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"value_type": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"variations": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Required: true,
 				MinItems: 1,
 				MaxItems: 5,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 127),
@@ -154,26 +154,26 @@ func ResourceFeature() *schema.Resource {
 							),
 						},
 						"value": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"bool_value": {
-										Type:         nullable.TypeNullableBool,
-										Optional:     true,
+										Type:nullable.TypeNullableBool,
+										Optional: true,
 										ValidateFunc: nullable.ValidateTypeStringNullableBool,
 										// unable to index parent list
 										// ConflictsWith: []string{"double_value", "long_value", "string_value"},
 									},
 									"double_value": {
-										Type:     nullable.TypeNullableFloat,
+										Type: nullable.TypeNullableFloat,
 										Optional: true,
 										// unable to index parent list
 										// ConflictsWith: []string{"bool_value", "long_value", "string_value"},
 									},
 									"long_value": {
-										Type:     nullable.TypeNullableInt,
+										Type: nullable.TypeNullableInt,
 										Optional: true,
 										// values in ValidateFunc results in overflows
 										// ValidateFunc: nullable.ValidateTypeStringNullableIntBetween(-9007199254740991, 9007199254740991),
@@ -181,8 +181,8 @@ func ResourceFeature() *schema.Resource {
 										// ConflictsWith: []string{"bool_value", "double_value", "string_value"},
 									},
 									"string_value": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional: true,
 										ValidateFunc: validation.StringLenBetween(0, 512),
 										// unable to index parent list
 										// ConflictsWith: []string{"bool_value", "double_value", "long_value"},
@@ -204,9 +204,9 @@ func resourceFeatureCreate(ctx context.Context, d *schema.ResourceData, meta int
 	name := d.Get("name").(string)
 	project := d.Get("project").(string)
 	input := &cloudwatchevidently.CreateFeatureInput{
-		Name:       aws.String(name),
-		Project:    aws.String(project),
-		Tags:       getTagsIn(ctx),
+		Name:   aws.String(name),
+		Project:aws.String(project),
+		Tags:   getTagsIn(ctx),
 		Variations: expandVariations(d.Get("variations").(*schema.Set).List()),
 	}
 
@@ -298,11 +298,11 @@ func resourceFeatureUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 		input := &cloudwatchevidently.UpdateFeatureInput{
 			DefaultVariation:   aws.String(d.Get("default_variation").(string)),
-			Description:        aws.String(d.Get("description").(string)),
-			EntityOverrides:    flex.ExpandStringMap(d.Get("entity_overrides").(map[string]interface{})),
+			Description:aws.String(d.Get("description").(string)),
+			EntityOverrides:flex.ExpandStringMap(d.Get("entity_overrides").(map[string]interface{})),
 			EvaluationStrategy: aws.String(d.Get("evaluation_strategy").(string)),
-			Feature:            aws.String(name),
-			Project:            aws.String(project),
+			Feature:   aws.String(name),
+			Project:   aws.String(project),
 		}
 
 		if d.HasChange("variations") {

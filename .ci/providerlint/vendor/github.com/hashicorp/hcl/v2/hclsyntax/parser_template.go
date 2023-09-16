@@ -1,28 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hclsyntax
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hclsyntaximport (
 	"fmt"
 	"strings"
-	"unicode"
-
-	"github.com/apparentlymart/go-textseg/v15/textseg"
+	"unicode"	"github.com/apparentlymart/go-textseg/v15/textseg"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/zclconf/go-cty/cty"
 )
-
-
  (p *parser) ParseTemplate() (Expression, hcl.Diagnostics) {
 	return p.parseTemplate(TokenEOF, false)
 }
-
-
  (p *parser) parseTemplate(end TokenType, flushHeredoc bool) (Expression, hcl.Diagnostics) {
-	exprs, passthru, rng, diags := p.parseTemplateInner(end, flushHeredoc)
-
-	if passthru {
+	exprs, passthru, rng, diags := p.parseTemplateInner(end, flushHeredoc)	if passthru {
 		if len(exprs) != 1 {
 			panic("passthru set with len(exprs) != 1")
 		}
@@ -30,16 +18,10 @@ import (
 			Wrapped:  exprs[0],
 			SrcRange: rng,
 		}, diags
-	}
-
-	return &TemplateExpr{
+	}	return &TemplateExpr{
 		Parts:    exprs,
 		SrcRange: rng,
-	}, diags
-
-
-
- (p *parser) parseTemplateInner(end TokenType, flushHeredoc bool) ([]Expression, bool, hcl.Range, hcl.Diagnostics) {
+	}, diags (p *parser) parseTemplateInner(end TokenType, flushHeredoc bool) ([]Expression, bool, hcl.Range, hcl.Diagnostics) {
 	parts, diags := p.parseTemplateParts(end)
 	if flushHeredoc {
 		flushHeredocTemplateParts(parts) // Trim off leading spaces on lines per the flush heredoc spec
@@ -50,67 +32,39 @@ import (
 		SrcRange: parts.SrcRange,
 	}
 	exprs, exprsDiags := tp.parseRoot()
-	diags = append(diags, exprsDiags...)
-
-	passthru := false
+	diags = append(diags, exprsDiags...)	passthru := false
 	if len(parts.Tokens) == 2 { // one real token and one synthetic "end" token
 		if _, isInterp := parts.Tokens[0].(*templateInterpToken); isInterp {
 			passthru = true
 		}
-	}
-
-	return exprs, passthru, parts.SrcRange, diags
-}
-
-type templateParser struct {
+	}	return exprs, passthru, parts.SrcRange, diags
+}type templateParser struct {
 	Tokens   []templateToken
-	SrcRange hcl.Range
-
- int
+	SrcRange hcl.Range int
 }
-
-
  (p *templateParser) parseRoot() ([]Expression, hcl.Diagnostics) {
 	var exprs []Expression
-	var diags hcl.Diagnostics
-
-	for {
+	var diags hcl.Diagnostics	for {
 		next := p.Peek()
 		if _, isEnd := next.(*templateEndToken); isEnd {
 			break
-		}
-
-		expr, exprDiags := p.parseExpr()
+		}		expr, exprDiags := p.parseExpr()
 		diags = append(diags, exprDiags...)
 		exprs = append(exprs, expr)
-	}
-
-	return exprs, diags
+	}	return exprs, diags
 }
-
-
  (p *templateParser) parseExpr() (Expression, hcl.Diagnostics) {
 	next := p.Peek()
-	switch tok := next.(type) {
-
-	case *templateLiteralToken:
+	switch tok := next.(type) {	case *templateLiteralToken:
 		p.Read() // eat literal
 		return &LiteralValueExpr{
 			Val:      cty.StringVal(tok.Val),
 			SrcRange: tok.SrcRange,
-		}, nil
-
-	case *templateInterpToken:
+		}, nil	case *templateInterpToken:
 		p.Read() // eat interp
-		return tok.Expr, nil
-
-	case *templateIfToken:
-		return p.parseIf()
-
-	case *templateForToken:
-		return p.parseFor()
-
-	case *templateEndToken:
+		return tok.Expr, nil	case *templateIfToken:
+		return p.parseIf()	case *templateForToken:
+		return p.parseFor()	case *templateEndToken:
 		p.Read() // eat erroneous token
 		return errPlaceholderExpr(tok.SrcRange), hcl.Diagnostics{
 			{
@@ -122,9 +76,7 @@ type templateParser struct {
 				Detail:   "The control directives within this template are unbalanced.",
 				Subject:  &tok.SrcRange,
 			},
-		}
-
-	case *templateEndCtrlToken:
+		}	case *templateEndCtrlToken:
 		p.Read() // eat erroneous token
 		return errPlaceholderExpr(tok.SrcRange), hcl.Diagnostics{
 			{
@@ -133,28 +85,20 @@ type templateParser struct {
 				Detail:   "The control directives within this template are unbalanced.",
 				Subject:  &tok.SrcRange,
 			},
-		}
-
-	default:
+		}	default:
  should never happen, because above should be exhaustive
 		panic(fmt.Sprintf("unhandled template token type %T", next))
 	}
 }
-
-
  (p *templateParser) parseIf() (Expression, hcl.Diagnostics) {
 	open := p.Read()
 	openIf, isIf := open.(*templateIfToken)
 	if !isIf {
 		// should never happen if caller is behaving
 		panic("parseIf called with peeker not pointing at if token")
-	}
-
-	var ifExprs, elseExprs []Expression
+	}	var ifExprs, elseExprs []Expression
 	var diags hcl.Diagnostics
-	var endifRange hcl.Range
-
-	currentExprs := &ifExprs
+	var endifRange hcl.Range	currentExprs := &ifExprs
 Token:
 	for {
 		next := p.Peek()
@@ -171,17 +115,11 @@ Token:
 			return errPlaceholderExpr(end.SrcRange), diags
 		}
 		if end, isCtrlEnd := next.(*templateEndCtrlToken); isCtrlEnd {
-			p.Read() // eat end directive
-
-			switch end.Type {
-
-			case templateElse:
+			p.Read() // eat end directive			switch end.Type {			case templateElse:
 				if currentExprs == &ifExprs {
 					currentExprs = &elseExprs
 					continue Token
-				}
-
-				diags = append(diags, &hcl.Diagnostic{
+				}				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
 					Summary:  "Unexpected else directive",
 					Detail: fmt.Sprintf(
@@ -189,13 +127,9 @@ Token:
 						openIf.SrcRange,
 					),
 					Subject: &end.SrcRange,
-				})
-
-			case templateEndIf:
+				})			case templateEndIf:
 				endifRange = end.SrcRange
-				break Token
-
-			default:
+				break Token			default:
 				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
 					Summary:  fmt.Sprintf("Unexpected %s directive", end.Name()),
@@ -205,17 +139,11 @@ Token:
 					),
 					Subject: &end.SrcRange,
 				})
-			}
-
-			return errPlaceholderExpr(end.SrcRange), diags
-		}
-
-		expr, exprDiags := p.parseExpr()
+			}			return errPlaceholderExpr(end.SrcRange), diags
+		}		expr, exprDiags := p.parseExpr()
 		diags = append(diags, exprDiags...)
 		*currentExprs = append(*currentExprs, expr)
-	}
-
-	if len(ifExprs) == 0 {
+	}	if len(ifExprs) == 0 {
 		ifExprs = append(ifExprs, &LiteralValueExpr{
 			Val: cty.StringVal(""),
 			SrcRange: hcl.Range{
@@ -234,40 +162,28 @@ Token:
 				End:      endifRange.Start,
 			},
 		})
-	}
-
-	trueExpr := &TemplateExpr{
+	}	trueExpr := &TemplateExpr{
 		Parts:    ifExprs,
 		SrcRange: hcl.RangeBetween(ifExprs[0].Range(), ifExprs[len(ifExprs)-1].Range()),
 	}
 	falseExpr := &TemplateExpr{
 		Parts:    elseExprs,
 		SrcRange: hcl.RangeBetween(elseExprs[0].Range(), elseExprs[len(elseExprs)-1].Range()),
-	}
-
-	return &ConditionalExpr{
+	}	return &ConditionalExpr{
 		Condition:   openIf.CondExpr,
 		TrueResult:  trueExpr,
-lseResult: falseExpr,
-
-		SrcRange: hcl.RangeBetween(openIf.SrcRange, endifRange),
+lseResult: falseExpr,		SrcRange: hcl.RangeBetween(openIf.SrcRange, endifRange),
 	}, diags
 }
-
-
  (p *templateParser) parseFor() (Expression, hcl.Diagnostics) {
 	open := p.Read()
 	openFor, isFor := open.(*templateForToken)
 	if !isFor {
 		// should never happen if caller is behaving
 		panic("parseFor called with peeker not pointing at for token")
-	}
-
-	var contentExprs []Expression
+	}	var contentExprs []Expression
 	var diags hcl.Diagnostics
-	var endforRange hcl.Range
-
-Token:
+	var endforRange hcl.RangeToken:
 	for {
 		next := p.Peek()
 		if end, isEnd := next.(*templateEndToken); isEnd {
@@ -283,23 +199,15 @@ Token:
 			return errPlaceholderExpr(end.SrcRange), diags
 		}
 		if end, isCtrlEnd := next.(*templateEndCtrlToken); isCtrlEnd {
-			p.Read() // eat end directive
-
-			switch end.Type {
-
-			case templateElse:
+			p.Read() // eat end directive			switch end.Type {			case templateElse:
 				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
 					Summary:  "Unexpected else directive",
 					Detail:   "An else clause is not expected for a for directive.",
 					Subject:  &end.SrcRange,
-				})
-
-			case templateEndFor:
+				})			case templateEndFor:
 				endforRange = end.SrcRange
-				break Token
-
-			default:
+				break Token			default:
 				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
 					Summary:  fmt.Sprintf("Unexpected %s directive", end.Name()),
@@ -309,17 +217,11 @@ Token:
 					),
 					Subject: &end.SrcRange,
 				})
-			}
-
-			return errPlaceholderExpr(end.SrcRange), diags
-		}
-
-		expr, exprDiags := p.parseExpr()
+			}			return errPlaceholderExpr(end.SrcRange), diags
+		}		expr, exprDiags := p.parseExpr()
 		diags = append(diags, exprDiags...)
 		contentExprs = append(contentExprs, expr)
-	}
-
-	if len(contentExprs) == 0 {
+	}	if len(contentExprs) == 0 {
 		contentExprs = append(contentExprs, &LiteralValueExpr{
 			Val: cty.StringVal(""),
 			SrcRange: hcl.Range{
@@ -328,90 +230,56 @@ Token:
 				End:      openFor.SrcRange.End,
 			},
 		})
-	}
-
-	contentExpr := &TemplateExpr{
+	}	contentExpr := &TemplateExpr{
 		Parts:    contentExprs,
 		SrcRange: hcl.RangeBetween(contentExprs[0].Range(), contentExprs[len(contentExprs)-1].Range()),
-	}
-
-	forExpr := &ForExpr{
+	}	forExpr := &ForExpr{
 		KeyVar: openFor.KeyVar,
-		ValVar: openFor.ValVar,
-
-		CollExpr: openFor.CollExpr,
-		ValExpr:  contentExpr,
-
-		SrcRange:   hcl.RangeBetween(openFor.SrcRange, endforRange),
+		ValVar: openFor.ValVar,		CollExpr: openFor.CollExpr,
+		ValExpr:  contentExpr,		SrcRange:   hcl.RangeBetween(openFor.SrcRange, endforRange),
 		OpenRange:  openFor.SrcRange,
 		CloseRange: endforRange,
-
-
 	return &TemplateJoinExpr{
 		Tuple: forExpr,
 diags
 }
-
-
  (p *templateParser) Peek() templateToken {
 	return p.Tokens[p.pos]
 }
-
-
  (p *templateParser) Read() templateToken {
 	ret := p.Peek()
 	if _, end := ret.(*templateEndToken); !end {
-		p.pos++
-
-	return ret
-}
-
-// parseTemplateParts produces a flat sequence of "template tokens", which are
+		p.pos++	return ret
+}// parseTemplateParts produces a flat sequence of "template tokens", which are
 // either literal values (with any "trimming" already applied), interpolation
 // sequences, or control flow markers.
 //
-// A further pass is required on the result to turn it into an AST.
-
- (p *parser) parseTemplateParts(end TokenType) (*templateParts, hcl.Diagnostics) {
+// A further pass is required on the result to turn it into an AST. (p *parser) parseTemplateParts(end TokenType) (*templateParts, hcl.Diagnostics) {
 	var parts []templateToken
-	var diags hcl.Diagnostics
-
-	startRange := p.NextRange()
+	var diags hcl.Diagnostics	startRange := p.NextRange()
 	ltrimNext := false
 	nextCanTrimPrev := false
-	var endRange hcl.Range
-
-Token:
+	var endRange hcl.RangeToken:
 	for {
 		next := p.Read()
 		if next.Type == end {
 			// all done!
 			endRange = next.Range
 			break
-		}
-
-		ltrim := ltrimNext
+		}		ltrim := ltrimNext
 		ltrimNext = false
 		canTrimPrev := nextCanTrimPrev
-		nextCanTrimPrev = false
-
-		switch next.Type {
+		nextCanTrimPrev = false		switch next.Type {
 		case TokenStringLit, TokenQuotedLit:
 			str, strDiags := ParseStringLiteralToken(next)
-			diags = append(diags, strDiags...)
-
-			if ltrim {
+			diags = append(diags, strDiags...)			if ltrim {
 				str = strings.TrimLeft
 (str, unicode.IsSpace)
-			}
-
-			parts = append(parts, &templateLiteralToken{
+			}			parts = append(parts, &templateLiteralToken{
 				Val:      str,
 				SrcRange: next.Range,
 			})
-			nextCanTrimPrev = true
-
-		case TokenTemplateInterp:
+			nextCanTrimPrev = true		case TokenTemplateInterp:
 			// if the opener is ${~ then we want to eat any trailing whitespace
 			// in the preceding literal token, assuming it is indeed a literal
 			// token.
@@ -421,9 +289,7 @@ Token:
 					lexpr.Val = strings.TrimRight
 (lexpr.Val, unicode.IsSpace)
 				}
-			}
-
-			p.PushIncludeNewlines(false)
+			}			p.PushIncludeNewlines(false)
 			expr, exprDiags := p.ParseExpression()
 			diags = append(diags, exprDiags...)
 			close := p.Peek()
@@ -470,9 +336,7 @@ Token:
 				}
 				p.recover(TokenTemplateSeqEnd)
 			} else {
-				p.Read() // eat closing brace
-
-				// If the closer is ~} then we want to eat any leading
+				p.Read() // eat closing brace				// If the closer is ~} then we want to eat any leading
 				// whitespace on the next token, if it turns out to be a
 				// literal token.
 				if len(close.Bytes) == 2 && close.Bytes[0] == '~' {
@@ -483,9 +347,7 @@ Token:
 			parts = append(parts, &templaterpToken{
 				Expr:     expr,
 				SrcRange: hcl.RangeBetween(next.Range, close.Range),
-			})
-
-		case TokenTemplateControl:
+			})		case TokenTemplateControl:
 			// if the opener is %{~ then we want to eat any trailing whitespace
 			// in the preceding literal token, assuming it is indeed a literal
 			// token.
@@ -496,9 +358,7 @@ Token:
 (lexpr.Val, unicode.IsSpace)
 				}
 			}
-			p.PushIncludeNewlines(false)
-
-			kw := p.Peek()
+			p.PushIncludeNewlines(false)			kw := p.Peek()
 			if kw.Type != TokenIdent {
 				if !p.recovery {
 					diags = append(diags, &hcl.Diagnostic{
@@ -513,31 +373,21 @@ Token:
 				p.PopIncludeNewlines()
 				continue Token
 			}
-			p.Read() // eat keyword token
-
-			switch {
-
-			case ifKeyword.TokenMatches(kw):
+			p.Read() // eat keyword token			switch {			case ifKeyword.TokenMatches(kw):
 				condExpr, exprDiags := p.ParseExpression()
 				diags = append(diags, exprDiags...)
 				parts = append(parts, &templateIfToken{
 					CondExpr: condExpr,
 					SrcRange: hcl.RangeBetween(next.Range, p.NextRange()),
-				})
-
-			case elseKeyword.TokenMatches(kw):
+				})			case elseKeyword.TokenMatches(kw):
 				parts = append(parts, &templateEndCtrlToken{
 					Type:     templateElse,
 					SrcRange: hcl.RangeBetween(next.Range, p.NextRange()),
-				})
-
-			case endifKeyword.TokenMatches(kw):
+				})			case endifKeyword.TokenMatches(kw):
 				parts = append(parts, &templateEndCtrlToken{
 					Type:     templateEndIf,
 					SrcRange: hcl.RangeBetween(next.Range, p.NextRange()),
-				})
-
-			case forKeyword.TokenMatches(kw):
+				})			case forKeyword.TokenMatches(kw):
 				var keyName, valName string
 				if p.Peek().Type != TokenIdent {
 					if !p.recovery {
@@ -551,16 +401,10 @@ Token:
 					p.recover(TokenTemplateSeqEnd)
 					p.PopIncludeNewlines()
 					continue Token
-				}
-
-				valName = string(p.Read().Bytes)
-
-				if p.Peek().Type == TokenComma {
+				}				valName = string(p.Read().Bytes)				if p.Peek().Type == TokenComma {
 					// What we just read was actually the key, then.
 					keyName = valName
-					p.Read() // eat comma
-
-					if p.Peek().Type != TokenIdent {
+					p.Read() // eat comma					if p.Peek().Type != TokenIdent {
 						if !p.recovery {
 							diags = append(diags, &hcl.Diagnostic{
 								Severity: hcl.DiagError,
@@ -572,12 +416,8 @@ Token:
 						p.recover(TokenTemplateSeqEnd)
 						p.PopIncludeNewlines()
 						continue Token
-					}
-
-					valName = string(p.Read().Bytes)
-				}
-
-				if !inKeyword.TokenMatches(p.Peek()) {
+					}					valName = string(p.Read().Bytes)
+				}				if !inKeyword.TokenMatches(p.Peek()) {
 					if !p.recovery {
 						diags = append(diags, &hcl.Diagnostic{
 							Severity: hcl.DiagError,
@@ -590,34 +430,24 @@ Token:
 					p.PopIncludeNewlines()
 					continue Token
 				}
-				p.Read() // eat 'in' keyword
-
-				collExpr, collDiags := p.ParseExpression()
+				p.Read() // eat 'in' keyword				collExpr, collDiags := p.ParseExpression()
 				diags = append(diags, collDiags...)
 				parts = append(parts, &templateForToken{
 					KeyVar:   keyName,
 					ValVar:   valName,
-					CollExpr: collExpr,
-
-					SrcRange: hcl.RangeBetween(next.Range, p.NextRange()),
-				})
-
-			case endforKeyword.TokenMatches(kw):
+					CollExpr: collExpr,					SrcRange: hcl.RangeBetween(next.Range, p.NextRange()),
+				})			case endforKeyword.TokenMatches(kw):
 				parts = append(parts, &templateEndCtrlToken{
 					Type:     templateEndFor,
 					SrcRange: hcl.RangeBetween(next.Range, p.NextRange()),
-				})
-
-			default:
+				})			default:
 				if !p.recovery {
 					suggestions := []string{"if", "for", "else", "endif", "endfor"}
 					given := string(kw.Bytes)
 					suggestion := nameSuggestion(given, suggestions)
 					if suggestion != "" {
 						suggestion = fmt.Sprintf(" Did you mean %q?", suggestion)
-					}
-
-					diags = append(diags, &hcl.Diagnostic{
+					}					diags = append(diags, &hcl.Diagnostic{
 						Severity: hcl.DiagError,
 						Summary:  "Invalid template control keyword",
 						Detail:   fmt.Sprintf("%q is not a valid template control keyword.%s", given, suggestion),
@@ -627,11 +457,7 @@ Token:
 				}
 				p.recover(TokenTemplateSeqEnd)
 				p.PopIncludeNewlines()
-				continue Token
-
-			}
-
-			close := p.Peek()
+				continue Token			}			close := p.Peek()
 			if close.Type != TokenTemplateSeqEnd {
 				if !p.recovery {
 					diags = append(diags, &hcl.Diagnostic{
@@ -644,18 +470,14 @@ Token:
 				}
 				p.recover(TokenTemplateSeqEnd)
 			} else {
-				p.Read() // eat closing brace
-
-				// If the closer is ~} then we want to eat any leading
+				p.Read() // eat closing brace				// If the closer is ~} then we want to eat any leading
 				// whitespace on the next token, if it turns out to be a
 				// literal token.
 				if len(close.Bytes) == 2 && close.Bytes[0] == '~' {
 					ltrimNext = true
 				}
 			}
-			p.PopIncludeNewlines()
-
-		default:
+			p.PopIncludeNewlines()		default:
 			if !p.recovery {
 				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
@@ -669,9 +491,7 @@ Token:
 			endRange = final.Range
 			break Token
 		}
-	}
-
-	if len(parts) == 0 {
+	}	if len(parts) == 0 {
 		// If a sequence has no content, we'll treat it as if it had an
 		// empty string in it because that's what the user probably means
 		// if they write "" in configuration.
@@ -685,40 +505,26 @@ Token:
 				End:      startRange.End,
 			},
 		})
-	}
-
-	// Always end with an end token, so the parser can produce diagnostics
+	}	// Always end with an end token, so the parser can produce diagnostics
 	// about unclosed items with proper position information.
 	parts = append(parts, &templateEndToken{
 		SrcRange: endRange,
-	})
-
-	ret := &templateParts{
+	})	ret := &templateParts{
 		Tokens:   parts,
 		SrcRange: hcl.RangeBetween(startRange, endRange),
-
-
 	return ret, diags
-}
-
-// flushHeredocTemplateParts modifies in-place the line-leading literal strings
+}// flushHeredocTemplateParts modifies in-place the line-leading literal strings
 // to apply the flush heredoc processing rule: find the line with the smallest
 // number of whitespace characters as prefix and then trim that number of
 // characters from all of the lines.
 //
 // This rule is applied to static tokens rather than to the rendered result,
 // so interpolating a string with leading whitespace cannot affect the chosen
-// prefix length.
-
- flushHeredocTemplateParts(parts *templateParts) {
+// prefix length. flushHeredocTemplateParts(parts *templateParts) {
 	if len(parts.Tokens) == 0 {
 		// Nothing to do
 		return
-	}
-
-	const maxInt = int((^uint(0)) >> 1)
-
-	minSpaces := maxInt
+	}	const maxInt = int((^uint(0)) >> 1)	minSpaces := maxInt
 	newline := true
 	var adjust []*templateLiteralToken
 	for _, ttok := range parts.Tokens {
@@ -751,9 +557,7 @@ Token:
 				newline = true // The following token, if any, begins a new line
 			}
 		}
-	}
-
-	for _, lit := range adjust {
+	}	for _, lit := range adjust {
 		// Since we want to count space _characters_ rather than space _bytes_,
 		// we can't just do a straightforward slice operation here and instead
 		// need to hunt for the split point with a scanner.
@@ -768,18 +572,12 @@ aceByteCount := 0
 		lit.SrcRange.Start.Column += minSpaces
 		lit.SrcRange.Start.Byte += spaceByteCount
 	}
-}
-
-// meldConsecutiveStringLiterals simplifies the AST output by combining a
+}// meldConsecutiveStringLiterals simplifies the AST output by combining a
 // sequence of string literal tokens into a single string literal. This must be
-// performed after any whitespace trimming operations.
-
- meldConsecutiveStringLiterals(parts *templateParts) {
+// performed after any whitespace trimming operations. meldConsecutiveStringLiterals(parts *templateParts) {
 	if len(parts.Tokens) == 0 {
 		return
-	}
-
-	// Loop over all tokens starting at the second element, as we want to join
+	}	// Loop over all tokens starting at the second element, as we want to join
 	// pairs of consecutive string literals.
 	i := 1
 	for i < len(parts.Tokens) {
@@ -787,75 +585,49 @@ aceByteCount := 0
 			if literal, ok := parts.Tokens[i].(*templateLiteralToken); ok {
 				// The current and previous tokens are both literals: combine
 				prevLiteral.Val = prevLiteral.Val + literal.Val
-				prevLiteral.SrcRange.End = literal.SrcRange.End
-
-				// Remove the current token from the slice
-				parts.Tokens = append(parts.Tokens[:i], parts.Tokens[i+1:]...)
-
-				// Continue without moving forward in the slice
+				prevLiteral.SrcRange.End = literal.SrcRange.End				// Remove the current token from the slice
+				parts.Tokens = append(parts.Tokens[:i], parts.Tokens[i+1:]...)				// Continue without moving forward in the slice
 				continue
 			}
-		}
-
-		// Try the next pair of tokens
+		}		// Try the next pair of tokens
 		i++
 	}
-}
-
-type templateParts struct {
+}type templateParts struct {
 	Tokens   []templateToken
 	SrcRange hcl.Range
-}
-
-// templateToken is a higher-level token that represents a single atom within
+}// templateToken is a higher-level token that represents a single atom within
 // the template language. Our template parsing first raises the raw token
 // stream to a sequence of templateToken, and then transforms the result into
 // an expression tree.
 type templateToken interface {
 	templateToken() templateToken
-}
-
-type templateLiteralToken struct {
+}type templateLiteralToken struct {
 	Val      string
 	SrcRange hcl.Range
 	isTemplateToken
-}
-
-type templateInterpToken struct {
+}type templateInterpToken struct {
 	Expr     Expression
 	SrcRange hcl.Range
 	isTemplateToken
-}
-
-type templateIfToken struct {
+}type templateIfToken struct {
 	CondExpr Expression
 	SrcRange hcl.Range
 	isTemplateToken
-}
-
-type templateForToken struct {
+}type templateForToken struct {
 	KeyVar   string // empty if ignoring key
 	ValVar   string
 	CollExpr Expression
 	SrcRange hcl.Range
 	isTemplateToken
-
-
-type templateEndCtrlType int
-
-const (
+type templateEndCtrlType intconst (
 	templateEndIf templateEndCtrlType = iota
 	templateElse
 	templateEndFor
-)
-
-type templateEndCtrlToken struct {
+)type templateEndCtrlToken struct {
 	Type     templateEndCtrlType
 	SrcRange hcl.Range
 	isTemplateToken
 }
-
-
  (t *templateEndCtrlToken) Name() string {
 	switch t.Type {
 	case templateEndIf:
@@ -868,16 +640,10 @@ e templateElse:
 		// should never happen
 		panic("invalid templateEndCtrlType")
 	}
-}
-
-type templateEndToken struct {
+}type templateEndToken struct {
 	SrcRange hcl.Range
 	isTemplateToken
-}
-
-type isTemplateToken [0]int
-
-
+}type isTemplateToken [0]int
  (t isTemplateToken) templateToken() templateToken {
 	return t
 }

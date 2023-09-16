@@ -20,97 +20,96 @@ func DataSourceService() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"dns_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"dns_records": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"ttl": {
-										Type:     schema.TypeInt,
+										Type:schema.TypeInt,
 										Computed: true,
 									},
 									"type": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"namespace_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"routing_policy": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"health_check_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"failure_threshold": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Computed: true,
 						},
 						"resource_path": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"health_check_custom_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"failure_threshold": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"namespace_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"tags": tftags.TagsSchema(),
 			"tags_all": {
-				Type:       schema.TypeMap,
-				Optional:   true,
-				Computed:   true,
-				Elem:       &schema.Schema{Type: schema.TypeString},
+				Type:a.TypeMap,
+				Optional:true,
+				Computed:true,
+				Elem:ma.Schema{Type: schema.TypeString},
 				Deprecated: `this attribute has been deprecated`,
 			},
 		},
 	}
 }
-
 func dataSourceServiceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig

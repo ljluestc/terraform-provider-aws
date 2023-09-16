@@ -21,12 +21,12 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_eks_addon", &resource.Sweeper{
 		Name: "aws_eks_addon",
-		F:    sweepAddons,
+		F:sweepAddons,
 	})
 
 	resource.AddTestSweepers("aws_eks_cluster", &resource.Sweeper{
 		Name: "aws_eks_cluster",
-		F:    sweepClusters,
+		F:sweepClusters,
 		Dependencies: []string{
 			"aws_eks_addon",
 			"aws_eks_fargate_profile",
@@ -37,17 +37,17 @@ func init() {
 
 	resource.AddTestSweepers("aws_eks_fargate_profile", &resource.Sweeper{
 		Name: "aws_eks_fargate_profile",
-		F:    sweepFargateProfiles,
+		F:sweepFargateProfiles,
 	})
 
 	resource.AddTestSweepers("aws_eks_identity_provider_config", &resource.Sweeper{
 		Name: "aws_eks_identity_provider_config",
-		F:    sweepIdentityProvidersConfig,
+		F:sweepIdentityProvidersConfig,
 	})
 
 	resource.AddTestSweepers("aws_eks_node_group", &resource.Sweeper{
 		Name: "aws_eks_node_group",
-		F:    sweepNodeGroups,
+		F:sweepNodeGroups,
 	})
 }
 

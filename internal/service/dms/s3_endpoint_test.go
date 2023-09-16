@@ -12,14 +12,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDMSS3Endpoint_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dms_s3_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEndpointDestroy(ctx),
@@ -70,21 +70,21 @@ func TestAccDMSS3Endpoint_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccDMSS3Endpoint_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dms_s3_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEndpointDestroy(ctx),
@@ -181,14 +181,14 @@ func TestAccDMSS3Endpoint_update(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDMSS3Endpoint_simple(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dms_s3_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEndpointDestroy(ctx),
@@ -239,20 +239,20 @@ func TestAccDMSS3Endpoint_simple(t *testing.T) {
 				),
 			},
 			{
-				Config:   testAccS3EndpointConfig_simple(rName),
+				Config:testAccS3EndpointConfig_simple(rName),
 				PlanOnly: true,
 			},
 		},
 	})
 }
-
 func TestAccDMSS3Endpoint_sourceSimple(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dms_s3_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEndpointDestroy(ctx),
@@ -295,26 +295,26 @@ func TestAccDMSS3Endpoint_sourceSimple(t *testing.T) {
 				),
 			},
 			{
-				Config:   testAccS3EndpointConfig_sourceSimple(rName),
+				Config:testAccS3EndpointConfig_sourceSimple(rName),
 				PlanOnly: true,
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"compression_type", "date_partition_enabled", "parquet_timestamp_in_millisecond", "preserve_transactions", "use_csv_no_sup_value"},
 			},
 		},
 	})
 }
-
 func TestAccDMSS3Endpoint_source(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dms_s3_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEndpointDestroy(ctx),
@@ -395,14 +395,14 @@ func TestAccDMSS3Endpoint_source(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDMSS3Endpoint_detachTargetOnLobLookupFailureParquet(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dms_s3_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEndpointDestroy(ctx),
@@ -441,7 +441,6 @@ func TestAccDMSS3Endpoint_detachTargetOnLobLookupFailureParquet(t *testing.T) {
 		},
 	})
 }
-
 func testAccS3EndpointConfig_base(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -451,14 +450,14 @@ resource "aws_iam_role" "test" {
   name = %[1]q
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "dms.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
+ Version = "2012-10-17"
+ Statement = [{
+Action = "sts:AssumeRole"
+Effect = "Allow"
+Principal = {
+  Service = "dms.${data.aws_partition.current.dns_suffix}"
+}
+ }]
   })
 }
 
@@ -467,29 +466,28 @@ resource "aws_iam_role_policy" "test" {
   role = aws_iam_role.test.name
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Action = [
-        "s3:CreateBucket",
-        "s3:ListBucket",
-        "s3:DeleteBucket",
-        "s3:GetBucketLocation",
-        "s3:GetObject",
-        "s3:PutObject",
-        "s3:DeleteObject",
-        "s3:GetObjectVersion",
-        "s3:GetBucketPolicy",
-        "s3:PutBucketPolicy",
-        "s3:DeleteBucketPolicy"
-      ]
-      Resource = "*"
-    }]
+ Version = "2012-10-17"
+ Statement = [{
+Effect = "Allow"
+Action = [
+  "s3:CreateBucket",
+  "s3:ListBucket",
+  "s3:DeleteBucket",
+  "s3:GetBucketLocation",
+  "s3:GetObject",
+  "s3:PutObject",
+  "s3:DeleteObject",
+  "s3:GetObjectVersion",
+  "s3:GetBucketPolicy",
+  "s3:PutBucketPolicy",
+  "s3:DeleteBucketPolicy"
+]
+Resource = "*"
+ }]
   })
 }
 `, rName)
 }
-
 func testAccS3EndpointConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccS3EndpointConfig_base(rName),
@@ -498,76 +496,75 @@ resource "aws_kms_key" "test" {
   description = %[1]q
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Id      = %[1]q
-    Statement = [{
-      Sid    = %[1]q
-      Effect = "Allow"
-      Principal = {
-        AWS = "*"
-      }
-      Action   = "kms:*"
-      Resource = "*"
-    }]
+ Version = "2012-10-17"
+ Id= %[1]q
+ Statement = [{
+Sid = %[1]q
+Effect = "Allow"
+Principal = {
+  AWS = "*"
+}
+Action= "kms:*"
+Resource = "*"
+ }]
   })
 }
 
 resource "aws_dms_s3_endpoint" "test" {
-  endpoint_id   = %[1]q
+  endpoint_id= %[1]q
   endpoint_type = "target"
-  ssl_mode      = "none"
+  ssl_mode= "none"
 
   tags = {
-    Name   = %[1]q
-    Update = "to-update"
-    Remove = "to-remove"
+ Name= %[1]q
+ Update = "to-update"
+ Remove = "to-remove"
   }
 
-  add_column_name   = true
+  add_column_name= true
   add_trailing_padding_character = false
-  bucket_folder     = "folder"
-  bucket_name       = "bucket_name"
-  canned_acl_for_objects         = "private"
-  cdc_inserts_and_updates        = true
+  bucket_folder= "folder"
+  bucket_name = "bucket_name"
+  canned_acl_for_objects= "private"
+  cdc_inserts_and_updates  = true
   cdc_inserts_only  = false
-  cdc_max_batch_interval         = 100
+  cdc_max_batch_interval= 100
   cdc_min_file_size = 16
-  cdc_path          = "cdc/path"
+  cdc_path = "cdc/path"
   compression_type  = "GZIP"
-  csv_delimiter     = ";"
+  csv_delimiter= ";"
   csv_no_sup_value  = "x"
-  csv_null_value    = "?"
+  csv_null_value = "?"
   csv_row_delimiter = "\\r\\n"
-  data_format       = "parquet"
-  data_page_size    = 1100000
-  date_partition_delimiter       = "UNDERSCORE"
-  date_partition_enabled         = true
-  date_partition_sequence        = "yyyymmddhh"
-  date_partition_timezone        = "Asia/Seoul"
-  dict_page_size_limit           = 1000000
+  data_format = "parquet"
+  data_page_size = 1100000
+  date_partition_delimiter = "UNDERSCORE"
+  date_partition_enabled= true
+  date_partition_sequence  = "yyyymmddhh"
+  date_partition_timezone  = "Asia/Seoul"
+  dict_page_size_limit= 1000000
   enable_statistics = false
-  encoding_type     = "plain"
-  encryption_mode   = "SSE_S3"
-  expected_bucket_owner          = data.aws_caller_identity.current.account_id
+  encoding_type= "plain"
+  encryption_mode= "SSE_S3"
+  expected_bucket_owner = data.aws_caller_identity.current.account_id
   ignore_header_rows= 1
-  include_op_for_full_load       = true
-  max_file_size     = 1000000
-  parquet_timestamp_in_millisecond            = true
-  parquet_version   = "parquet-2-0"
-  preserve_transactions          = false
-  rfc_4180          = false
+  include_op_for_full_load = true
+  max_file_size= 1000000
+  parquet_timestamp_in_millisecond= true
+  parquet_version= "parquet-2-0"
+  preserve_transactions = false
+  rfc_4180 = false
   row_group_length  = 11000
-  server_side_encryption_kms_key_id           = aws_kms_key.test.arn
-  service_access_role_arn        = aws_iam_role.test.arn
-  timestamp_column_name          = "tx_commit_time"
-  use_csv_no_sup_value           = false
+  server_side_encryption_kms_key_id= aws_kms_key.test.arn
+  service_access_role_arn  = aws_iam_role.test.arn
+  timestamp_column_name = "tx_commit_time"
+  use_csv_no_sup_value= false
   use_task_start_time_for_full_load_timestamp = true
 
   depends_on = [aws_iam_role_policy.test]
 }
 `, rName))
 }
-
 func testAccS3EndpointConfig_update(rName string) string {
 	return acctest.ConfigCompose(
 		testAccS3EndpointConfig_base(rName),
@@ -576,83 +573,82 @@ resource "aws_kms_key" "test2" {
   description = %[1]q
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Id      = %[1]q
-    Statement = [{
-      Sid    = %[1]q
-      Effect = "Allow"
-      Principal = {
-        AWS = "*"
-      }
-      Action   = "kms:*"
-      Resource = "*"
-    }]
+ Version = "2012-10-17"
+ Id= %[1]q
+ Statement = [{
+Sid = %[1]q
+Effect = "Allow"
+Principal = {
+  AWS = "*"
+}
+Action= "kms:*"
+Resource = "*"
+ }]
   })
 }
 
 resource "aws_dms_s3_endpoint" "test" {
-  endpoint_id   = %[1]q
+  endpoint_id= %[1]q
   endpoint_type = "target"
-  ssl_mode      = "none"
+  ssl_mode= "none"
 
   tags = {
-    Name   = %[1]q
-    Update = "to-update"
-    Remove = "to-remove"
+ Name= %[1]q
+ Update = "to-update"
+ Remove = "to-remove"
   }
 
-  add_column_name   = false
+  add_column_name= false
   add_trailing_padding_character = true
-  bucket_folder     = "folder2"
-  bucket_name       = "updated_name"
-  canned_acl_for_objects         = "private"
-  cdc_inserts_and_updates        = false
+  bucket_folder= "folder2"
+  bucket_name = "updated_name"
+  canned_acl_for_objects= "private"
+  cdc_inserts_and_updates  = false
   cdc_inserts_only  = true
-  cdc_max_batch_interval         = 105
+  cdc_max_batch_interval= 105
   cdc_min_file_size = 17
-  cdc_path          = "cdc/path"
+  cdc_path = "cdc/path"
   compression_type  = "NONE"
-  csv_delimiter     = ","
+  csv_delimiter= ","
   csv_no_sup_value  = "U"
-  csv_null_value    = "-"
+  csv_null_value = "-"
   csv_row_delimiter = "\\n"
-  data_format       = "parquet"
-  data_page_size    = 1100000
-  date_partition_delimiter       = "SLASH"
-  date_partition_enabled         = true
-  date_partition_sequence        = "yyyymmddhh"
-  date_partition_timezone        = "Europe/Paris"
-  dict_page_size_limit           = 1000000
+  data_format = "parquet"
+  data_page_size = 1100000
+  date_partition_delimiter = "SLASH"
+  date_partition_enabled= true
+  date_partition_sequence  = "yyyymmddhh"
+  date_partition_timezone  = "Europe/Paris"
+  dict_page_size_limit= 1000000
   enable_statistics = true
-  encoding_type     = "plain"
-  encryption_mode   = "SSE_S3"
-  expected_bucket_owner          = data.aws_caller_identity.current.account_id
+  encoding_type= "plain"
+  encryption_mode= "SSE_S3"
+  expected_bucket_owner = data.aws_caller_identity.current.account_id
   ignore_header_rows= 1
-  include_op_for_full_load       = false
-  max_file_size     = 900000
-  parquet_timestamp_in_millisecond            = true
-  parquet_version   = "parquet-2-0"
-  preserve_transactions          = false
-  rfc_4180          = true
+  include_op_for_full_load = false
+  max_file_size= 900000
+  parquet_timestamp_in_millisecond= true
+  parquet_version= "parquet-2-0"
+  preserve_transactions = false
+  rfc_4180 = true
   row_group_length  = 13000
-  server_side_encryption_kms_key_id           = aws_kms_key.test2.arn
-  service_access_role_arn        = aws_iam_role.test.arn
-  timestamp_column_name          = "tx_commit_time2"
-  use_csv_no_sup_value           = true
+  server_side_encryption_kms_key_id= aws_kms_key.test2.arn
+  service_access_role_arn  = aws_iam_role.test.arn
+  timestamp_column_name = "tx_commit_time2"
+  use_csv_no_sup_value= true
   use_task_start_time_for_full_load_timestamp = false
 
   depends_on = [aws_iam_role_policy.test]
 }
 `, rName))
 }
-
 func testAccS3EndpointConfig_simple(rName string) string {
 	return acctest.ConfigCompose(
 		testAccS3EndpointConfig_base(rName),
 		fmt.Sprintf(`
 resource "aws_dms_s3_endpoint" "test" {
   endpoint_id= %[1]q
-  endpoint_type           = "target"
+  endpoint_type= "target"
   bucket_name= "beckut_name"
   service_access_role_arn = aws_iam_role.test.arn
 
@@ -660,7 +656,6 @@ resource "aws_dms_s3_endpoint" "test" {
 }
 `, rName))
 }
-
 func testAccS3EndpointConfig_sourceSimple(rName string) string {
 	return acctest.ConfigCompose(
 		testAccS3EndpointConfig_base(rName),
@@ -668,161 +663,158 @@ func testAccS3EndpointConfig_sourceSimple(rName string) string {
 resource "aws_dms_s3_endpoint" "test" {
   bucket_name= "beckut_name"
   endpoint_id= %[1]q
-  endpoint_type           = "source"
+  endpoint_type= "source"
   service_access_role_arn = aws_iam_role.test.arn
 
   external_table_definition = jsonencode({
-    TableCount = 1
-    Tables = [{
-      TableName  = "employee"
-      TablePath  = "hr/employee/"
-      TableOwner = "hr"
-      TableColumns = [{
-        ColumnName     = "ID"
-        ColumnType     = "INT8"
-        ColumnNullable = "false"
-        ColumnIsPk     = "true"
-        }, {
-        ColumnName   = "LastName"
-        ColumnType   = "STRING"
-        ColumnLength = "20"
-      }]
-      TableColumnsTotal = "2"
-    }]
+ TableCount = 1
+ Tables = [{
+TableName  = "employee"
+TablePath  = "hr/employee/"
+TableOwner = "hr"
+TableColumns = [{
+  ColumnName= "ID"
+  ColumnType= "INT8"
+  ColumnNullable = "false"
+  ColumnIsPk= "true"
+  }, {
+  ColumnName= "LastName"
+  ColumnType= "STRING"
+  ColumnLength = "20"
+}]
+TableColumnsTotal = "2"
+ }]
   })
 
   depends_on = [aws_iam_role_policy.test]
 }
 `, rName))
 }
-
 func testAccS3EndpointConfig_source(rName string) string {
 	return acctest.ConfigCompose(
 		testAccS3EndpointConfig_base(rName),
 		fmt.Sprintf(`
 resource "aws_dms_s3_endpoint" "test" {
-  bucket_folder           = "folder"
+  bucket_folder= "folder"
   bucket_name= "bucket_name"
-  cdc_path   = "cdc/path"
-  csv_delimiter           = ";"
-  csv_row_delimiter       = "\\r\\n"
+  cdc_path= "cdc/path"
+  csv_delimiter= ";"
+  csv_row_delimiter = "\\r\\n"
   endpoint_id= %[1]q
-  endpoint_type           = "source"
-  ignore_header_rows      = 1
-  rfc_4180   = false
+  endpoint_type= "source"
+  ignore_header_rows= 1
+  rfc_4180= false
   service_access_role_arn = aws_iam_role.test.arn
 
   external_table_definition = jsonencode({
-    TableCount = 1
-    Tables = [{
-      TableName  = "employee"
-      TablePath  = "hr/employee/"
-      TableOwner = "hr"
-      TableColumns = [{
-        ColumnName     = "ID"
-        ColumnType     = "INT8"
-        ColumnNullable = "false"
-        ColumnIsPk     = "true"
-        }, {
-        ColumnName   = "LastName"
-        ColumnType   = "STRING"
-        ColumnLength = "20"
-      }]
-      TableColumnsTotal = "2"
-    }]
+ TableCount = 1
+ Tables = [{
+TableName  = "employee"
+TablePath  = "hr/employee/"
+TableOwner = "hr"
+TableColumns = [{
+  ColumnName= "ID"
+  ColumnType= "INT8"
+  ColumnNullable = "false"
+  ColumnIsPk= "true"
+  }, {
+  ColumnName= "LastName"
+  ColumnType= "STRING"
+  ColumnLength = "20"
+}]
+TableColumnsTotal = "2"
+ }]
   })
 
-  add_column_name   = true
-  canned_acl_for_objects         = "private"
-  cdc_inserts_and_updates        = true
+  add_column_name= true
+  canned_acl_for_objects= "private"
+  cdc_inserts_and_updates  = true
   cdc_inserts_only  = false
-  cdc_max_batch_interval         = 100
+  cdc_max_batch_interval= 100
   cdc_min_file_size = 16
-  csv_null_value    = "?"
-  data_page_size    = 1100000
-  date_partition_enabled         = true
-  dict_page_size_limit           = 1000000
+  csv_null_value = "?"
+  data_page_size = 1100000
+  date_partition_enabled= true
+  dict_page_size_limit= 1000000
   enable_statistics = false
-  encoding_type     = "plain"
-  expected_bucket_owner          = data.aws_caller_identity.current.account_id
-  include_op_for_full_load       = true
-  max_file_size     = 1000000
+  encoding_type= "plain"
+  expected_bucket_owner = data.aws_caller_identity.current.account_id
+  include_op_for_full_load = true
+  max_file_size= 1000000
   row_group_length  = 11000
-  timestamp_column_name          = "tx_commit_time"
+  timestamp_column_name = "tx_commit_time"
   use_task_start_time_for_full_load_timestamp = true
 
   depends_on = [aws_iam_role_policy.test]
 }
 `, rName))
 }
-
 func testAccS3EndpointConfig_sourceUpdated(rName string) string {
 	return acctest.ConfigCompose(
 		testAccS3EndpointConfig_base(rName),
 		fmt.Sprintf(`
 resource "aws_dms_s3_endpoint" "test" {
-  bucket_folder           = "folder2"
+  bucket_folder= "folder2"
   bucket_name= "beckut_name"
-  cdc_path   = "cdc/path2"
-  csv_delimiter           = ","
-  csv_row_delimiter       = "\\n"
+  cdc_path= "cdc/path2"
+  csv_delimiter= ","
+  csv_row_delimiter = "\\n"
   endpoint_id= %[1]q
-  endpoint_type           = "source"
-  ignore_header_rows      = 1
-  rfc_4180   = true
+  endpoint_type= "source"
+  ignore_header_rows= 1
+  rfc_4180= true
   service_access_role_arn = aws_iam_role.test.arn
 
   external_table_definition = jsonencode({
-    TableCount = 1
-    Tables = [{
-      TableName  = "employee"
-      TablePath  = "hr/employee/"
-      TableOwner = "hr"
-      TableColumns = [{
-        ColumnName     = "ID"
-        ColumnType     = "INT8"
-        ColumnNullable = "false"
-        ColumnIsPk     = "true"
-      }]
-      TableColumnsTotal = "1"
-    }]
+ TableCount = 1
+ Tables = [{
+TableName  = "employee"
+TablePath  = "hr/employee/"
+TableOwner = "hr"
+TableColumns = [{
+  ColumnName= "ID"
+  ColumnType= "INT8"
+  ColumnNullable = "false"
+  ColumnIsPk= "true"
+}]
+TableColumnsTotal = "1"
+ }]
   })
 
-  add_column_name   = false
-  canned_acl_for_objects         = "authenticated-read"
-  cdc_inserts_and_updates        = false
+  add_column_name= false
+  canned_acl_for_objects= "authenticated-read"
+  cdc_inserts_and_updates  = false
   cdc_inserts_only  = true
-  cdc_max_batch_interval         = 101
+  cdc_max_batch_interval= 101
   cdc_min_file_size = 17
-  csv_null_value    = "0"
-  data_page_size    = 1000000
-  date_partition_enabled         = false
-  dict_page_size_limit           = 830000
+  csv_null_value = "0"
+  data_page_size = 1000000
+  date_partition_enabled= false
+  dict_page_size_limit= 830000
   enable_statistics = true
-  encoding_type     = "plain-dictionary"
-  expected_bucket_owner          = data.aws_caller_identity.current.account_id
-  include_op_for_full_load       = false
-  max_file_size     = 100
+  encoding_type= "plain-dictionary"
+  expected_bucket_owner = data.aws_caller_identity.current.account_id
+  include_op_for_full_load = false
+  max_file_size= 100
   row_group_length  = 10000
-  timestamp_column_name          = "tx_commit_time2"
+  timestamp_column_name = "tx_commit_time2"
   use_task_start_time_for_full_load_timestamp = false
 
   depends_on = [aws_iam_role_policy.test]
 }
 `, rName))
 }
-
 func testAccS3EndpointConfig_detachTargetOnLobLookupFailureParquet(rName string, cdcp string, dt bool) string {
 	return acctest.ConfigCompose(
 		testAccS3EndpointConfig_base(rName),
 		fmt.Sprintf(`
 resource "aws_dms_s3_endpoint" "test" {
-  endpoint_id       = %[1]q
-  endpoint_type     = "target"
-  bucket_name       = "beckut_name"
-  cdc_path          = %[2]q
+  endpoint_id = %[1]q
+  endpoint_type= "target"
+  bucket_name = "beckut_name"
+  cdc_path = %[2]q
   detach_target_on_lob_lookup_failure_parquet = %[3]t
-  service_access_role_arn        = aws_iam_role.test.arn
+  service_access_role_arn  = aws_iam_role.test.arn
 
   depends_on = [aws_iam_role_policy.test]
 }

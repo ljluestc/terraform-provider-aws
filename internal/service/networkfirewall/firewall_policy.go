@@ -40,33 +40,33 @@ func ResourceFirewallPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"encryption_configuration": encryptionConfigurationSchema(),
 			"firewall_policy": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"policy_variables": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"rule_variables": {
-										Type:     schema.TypeSet,
+										Type:schema.TypeSet,
 										Optional: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"key": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Required: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(1, 32),
@@ -75,15 +75,15 @@ func ResourceFirewallPolicy() *schema.Resource {
 													),
 												},
 												"ip_set": {
-													Type:     schema.TypeList,
+													Type:schema.TypeList,
 													Required: true,
 													MaxItems: 1,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"definition": {
-																Type:     schema.TypeSet,
+																Type:schema.TypeSet,
 																Required: true,
-																Elem:     &schema.Schema{Type: schema.TypeString},
+																Elem:&schema.Schema{Type: schema.TypeString},
 															},
 														},
 													},
@@ -95,56 +95,56 @@ func ResourceFirewallPolicy() *schema.Resource {
 							},
 						},
 						"stateful_default_actions": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"stateful_engine_options": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"rule_order": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional:true,
 										ValidateFunc: validation.StringInSlice(networkfirewall.RuleOrder_Values(), false),
 									},
 									"stream_exception_policy": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional:true,
 										ValidateFunc: validation.StringInSlice(networkfirewall.StreamExceptionPolicy_Values(), false),
 									},
 								},
 							},
 						},
 						"stateful_rule_group_reference": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"override": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										MaxItems: 1,
 										Optional: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"action": {
-													Type:         schema.TypeString,
-													Optional:     true,
+													Type:schema.TypeString,
+													Optional:true,
 													ValidateFunc: validation.StringInSlice(networkfirewall.OverrideAction_Values(), false),
 												},
 											},
 										},
 									},
 									"priority": {
-										Type:         schema.TypeInt,
-										Optional:     true,
+										Type:schema.TypeInt,
+										Optional:true,
 										ValidateFunc: validation.IntAtLeast(1),
 									},
 									"resource_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -152,28 +152,28 @@ func ResourceFirewallPolicy() *schema.Resource {
 						},
 						"stateless_custom_action": customActionSchema(),
 						"stateless_default_actions": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"stateless_fragment_default_actions": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"stateless_rule_group_reference": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"priority": {
-										Type:         schema.TypeInt,
-										Required:     true,
+										Type:schema.TypeInt,
+										Required:true,
 										ValidateFunc: validation.IntAtLeast(1),
 									},
 									"resource_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -183,14 +183,14 @@ func ResourceFirewallPolicy() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"update_token": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -211,7 +211,7 @@ func resourceFirewallPolicyCreate(ctx context.Context, d *schema.ResourceData, m
 
 	name := d.Get("name").(string)
 	input := &networkfirewall.CreateFirewallPolicyInput{
-		FirewallPolicy:     expandFirewallPolicy(d.Get("firewall_policy").([]interface{})),
+		FirewallPolicy:expandFirewallPolicy(d.Get("firewall_policy").([]interface{})),
 		FirewallPolicyName: aws.String(d.Get("name").(string)),
 		Tags:  getTagsIn(ctx),
 	}
@@ -270,8 +270,8 @@ func resourceFirewallPolicyUpdate(ctx context.Context, d *schema.ResourceData, m
 	if d.HasChanges("description", "encryption_configuration", "firewall_policy") {
 		input := &networkfirewall.UpdateFirewallPolicyInput{
 			EncryptionConfiguration: expandEncryptionConfiguration(d.Get("encryption_configuration").([]interface{})),
-			FirewallPolicy:          expandFirewallPolicy(d.Get("firewall_policy").([]interface{})),
-			FirewallPolicyArn:       aws.String(d.Id()),
+			FirewallPolicy:expandFirewallPolicy(d.Get("firewall_policy").([]interface{})),
+			FirewallPolicyArn:  aws.String(d.Id()),
 			UpdateToken:aws.String(d.Get("update_token").(string)),
 		}
 
@@ -480,7 +480,7 @@ func expandFirewallPolicy(l []interface{}) *networkfirewall.FirewallPolicy {
 	}
 	lRaw := l[0].(map[string]interface{})
 	policy := &networkfirewall.FirewallPolicy{
-		StatelessDefaultActions:         flex.ExpandStringSet(lRaw["stateless_default_actions"].(*schema.Set)),
+		StatelessDefaultActions:flex.ExpandStringSet(lRaw["stateless_default_actions"].(*schema.Set)),
 		StatelessFragmentDefaultActions: flex.ExpandStringSet(lRaw["stateless_fragment_default_actions"].(*schema.Set)),
 	}
 
@@ -607,7 +607,7 @@ func flattenPolicyStatelessRuleGroupReference(l []*networkfirewall.StatelessRule
 	references := make([]interface{}, 0, len(l))
 	for _, ref := range l {
 		reference := map[string]interface{}{
-			"priority":     int(aws.Int64Value(ref.Priority)),
+			"priority":int(aws.Int64Value(ref.Priority)),
 			"resource_arn": aws.StringValue(ref.ResourceArn),
 		}
 		references = append(references, reference)

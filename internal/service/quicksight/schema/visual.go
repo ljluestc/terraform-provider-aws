@@ -27,8 +27,8 @@ MaxItems: 50,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
-"bar_chart_visual":      barCharVisualSchema(),
-"box_plot_visual":       boxPlotVisualSchema(),
+"bar_chart_visual":barCharVisualSchema(),
+"box_plot_visual": boxPlotVisualSchema(),
 "combo_chart_visual":    comboChartVisualSchema(),
 "custom_content_visual": customContentVisualSchema(),
 "empty_visual": emptyVisualSchema(),
@@ -36,19 +36,19 @@ Elem: &schema.Resource{
 "funnel_chart_visual":   funnelChartVisualSchema(),
 "gauge_chart_visual":    gaugeChartVisualSchema(),
 "geospatial_map_visual": geospatialMapVisualSchema(),
-"heat_map_visual":       heatMapVisualSchema(),
-"histogram_visual":      histogramVisualSchema(),
-"insight_visual":        insightVisualSchema(),
+"heat_map_visual": heatMapVisualSchema(),
+"histogram_visual":histogramVisualSchema(),
+"insight_visual":  insightVisualSchema(),
 "kpi_visual":   kpiVisualSchema(),
 "line_chart_visual":     lineChartVisualSchema(),
-"pie_chart_visual":      pieChartVisualSchema(),
+"pie_chart_visual":pieChartVisualSchema(),
 "pivot_table_visual":    pivotTableVisualSchema(),
 "radar_chart_visual":    radarChartVisualSchema(),
 "sankey_diagram_visual": sankeyDiagramVisualSchema(),
 "scatter_plot_visual":   scatterPlotVisualSchema(),
 "table_visual": tableVisualSchema(),
-"tree_map_visual":       treeMapVisualSchema(),
-"waterfall_visual":      waterfallVisualSchema(),
+"tree_map_visual": treeMapVisualSchema(),
+"waterfall_visual":waterfallVisualSchema(),
 "word_cloud_visual":     wordCloudVisualSchema(),
 	},
 },
@@ -69,7 +69,7 @@ Elem: &schema.Resource{
 	Optional: true,
 },
 "position":   stringSchema(false, validation.StringInSlice(quicksight.LegendPosition_Values(), false)),
-"title":      labelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LabelOptions.html
+"title":labelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LabelOptions.html
 "visibility": stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 "width": {
 	Type:     schema.TypeString,
@@ -111,7 +111,7 @@ Elem: &schema.Resource{
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"column":      columnSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+	"column":columnSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 	"aggregation": aggregation
 functionSchema(false), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation
 function.html
@@ -213,7 +213,7 @@ Elem: &schema.Resource{
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"hierarchy_id":       stringSchema(true, validation.StringLenBetween(1, 512)),
+	"hierarchy_id": stringSchema(true, validation.StringLenBetween(1, 512)),
 	"drill_down_filters": drillDownFilterSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DrillDownFilter.html
 },
 	},
@@ -237,7 +237,7 @@ Elem: &schema.Resource{
 	},
 },
 	},
-	"hierarchy_id":       stringSchema(true, validation.StringLenBetween(1, 512)),
+	"hierarchy_id": stringSchema(true, validation.StringLenBetween(1, 512)),
 	"drill_down_filters": drillDownFilterSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DrillDownFilter.html
 },
 	},
@@ -261,7 +261,7 @@ Elem: &schema.Resource{
 	},
 },
 	},
-	"hierarchy_id":       stringSchema(true, validation.StringLenBetween(1, 512)),
+	"hierarchy_id": stringSchema(true, validation.StringLenBetween(1, 512)),
 	"drill_down_filters": drillDownFilterSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DrillDownFilter.html
 },
 	},

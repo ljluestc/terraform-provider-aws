@@ -24,7 +24,7 @@ func TestAccIoTThingType_basic(t *testing.T) {
 	resourceName := "aws_iot_thing_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckThingTypeDestroy(ctx),
@@ -40,8 +40,8 @@ func TestAccIoTThingType_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -54,7 +54,7 @@ func TestAccIoTThingType_disappears(t *testing.T) {
 	resourceName := "aws_iot_thing_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckThingTypeDestroy(ctx),
@@ -77,7 +77,7 @@ func TestAccIoTThingType_full(t *testing.T) {
 	resourceName := "aws_iot_thing_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckThingTypeDestroy(ctx),
@@ -95,8 +95,8 @@ func TestAccIoTThingType_full(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -116,7 +116,7 @@ func TestAccIoTThingType_tags(t *testing.T) {
 	resourceName := "aws_iot_thing_type.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckThingTypeDestroy(ctx),
@@ -130,8 +130,8 @@ func TestAccIoTThingType_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -207,12 +207,12 @@ resource "aws_iot_thing_type" "test" {
 func testAccThingTypeConfig_full(rName string, deprecated bool) string {
 	return fmt.Sprintf(`
 resource "aws_iot_thing_type" "test" {
-  name       = %[1]q
+  name   = %[1]q
   deprecated = %[2]t
 
   properties {
-    description           = "MyDescription"
-    searchable_attributes = ["foo", "bar", "baz"]
+description  = "MyDescription"
+searchable_attributes = ["foo", "bar", "baz"]
   }
 }
 `, rName, deprecated)
@@ -221,11 +221,11 @@ resource "aws_iot_thing_type" "test" {
 func testAccThingTypeConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_thing_type" "test" {
-  name       = %[1]q
+  name   = %[1]q
   deprecated = false
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -234,12 +234,12 @@ resource "aws_iot_thing_type" "test" {
 func testAccThingTypeConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_thing_type" "test" {
-  name       = %[1]q
+  name   = %[1]q
   deprecated = false
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

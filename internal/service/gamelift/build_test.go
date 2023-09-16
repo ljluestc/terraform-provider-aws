@@ -69,9 +69,9 @@ func TestAccGameLiftBuild_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"storage_location"},
 			},
 			{
@@ -134,9 +134,9 @@ func TestAccGameLiftBuild_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"storage_location"},
 			},
 			{
@@ -281,9 +281,9 @@ resource "aws_gamelift_build" "test" {
   operating_system = "WINDOWS_2012"
 
   storage_location {
-    bucket   = "%s"
-    key      = "%s"
-    role_arn = "%s"
+bucket   = "%s"
+key  = "%s"
+role_arn = "%s"
   }
 }
 `, buildName, bucketName, key, roleArn)
@@ -296,13 +296,13 @@ resource "aws_gamelift_build" "test" {
   operating_system = "WINDOWS_2012"
 
   storage_location {
-    bucket   = %[2]q
-    key      = %[3]q
-    role_arn = %[4]q
+bucket   = %[2]q
+key  = %[3]q
+role_arn = %[4]q
   }
 
   tags = {
-    %[5]q = %[6]q
+%[5]q = %[6]q
   }
 }
 `, buildName, bucketName, key, roleArn, tagKey1, tagValue1)
@@ -315,14 +315,14 @@ resource "aws_gamelift_build" "test" {
   operating_system = "WINDOWS_2012"
 
   storage_location {
-    bucket   = %[2]q
-    key      = %[3]q
-    role_arn = %[4]q
+bucket   = %[2]q
+key  = %[3]q
+role_arn = %[4]q
   }
 
   tags = {
-    %[5]q = %[6]q
-    %[7]q = %[8]q
+%[5]q = %[6]q
+%[7]q = %[8]q
   }
 }
 `, buildName, bucketName, key, roleArn, tagKey1, tagValue1, tagKey2, tagValue2)

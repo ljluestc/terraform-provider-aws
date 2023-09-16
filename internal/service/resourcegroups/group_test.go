@@ -30,20 +30,20 @@ func TestAccResourceGroupsGroup_basic(t *testing.T) {
 
 	query2 := `{
   "ResourceTypeFilters": [
-    "AWS::EC2::Instance"
+"AWS::EC2::Instance"
   ],
   "TagFilters": [
-    {
-      "Key": "Hello",
-      "Values": [
-        "World"
-      ]
-    }
+{
+  "Key": "Hello",
+  "Values": [
+"World"
+  ]
+}
   ]
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceGroupDestroy(ctx),
@@ -59,8 +59,8 @@ func TestAccResourceGroupsGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -82,7 +82,7 @@ func TestAccResourceGroupsGroup_tags(t *testing.T) {
 	desc1 := "Hello World"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceGroupDestroy(ctx),
@@ -96,8 +96,8 @@ func TestAccResourceGroupsGroup_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -133,7 +133,7 @@ func TestAccResourceGroupsGroup_Configuration(t *testing.T) {
 	configType2 := "AWS::ResourceGroups::Generic"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceGroupDestroy(ctx),
@@ -154,8 +154,8 @@ func TestAccResourceGroupsGroup_Configuration(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			// Check that changing the auto-allocate value is represented
@@ -182,7 +182,7 @@ func TestAccResourceGroupsGroup_Configuration(t *testing.T) {
 			},
 			// Check that trying to change the configuration group to a resource-query group fails
 			{
-				Config:      testAccGroupConfig_basic(rName, desc1, testAccResourceGroupQueryConfig),
+				Config:  testAccGroupConfig_basic(rName, desc1, testAccResourceGroupQueryConfig),
 				ExpectError: regexache.MustCompile(`conversion between resource-query and configuration group types is not possible`),
 			},
 		},
@@ -199,7 +199,7 @@ func TestAccResourceGroupsGroup_configurationParametersOptional(t *testing.T) {
 	configType2 := "AWS::EC2::CapacityReservationPool"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceGroupDestroy(ctx),
@@ -218,8 +218,8 @@ func TestAccResourceGroupsGroup_configurationParametersOptional(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -235,7 +235,7 @@ func TestAccResourceGroupsGroup_resourceQueryAndConfiguration(t *testing.T) {
 	configType := "AWS::NetworkFirewall::RuleGroup"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceGroupDestroy(ctx),
@@ -252,8 +252,8 @@ func TestAccResourceGroupsGroup_resourceQueryAndConfiguration(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -313,26 +313,26 @@ func testAccCheckResourceGroupDestroy(ctx context.Context) resource.TestCheckFun
 
 const testAccResourceGroupQueryConfig = `{
   "ResourceTypeFilters": [
-    "AWS::EC2::Instance"
+"AWS::EC2::Instance"
   ],
   "TagFilters": [
-    {
-      "Key": "Stage",
-      "Values": [
-        "Test"
-      ]
-    }
+{
+  "Key": "Stage",
+  "Values": [
+"Test"
+  ]
+}
   ]
 }`
 
 func testAccGroupConfig_basic(rName, desc, query string) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = %[2]q
 
   resource_query {
-    query = <<JSON
+query = <<JSON
 %[3]s
 JSON
 
@@ -344,18 +344,18 @@ JSON
 func testAccGroupConfig_tags1(rName, desc, query, tag1Key, tag1Value string) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = %[2]q
 
   resource_query {
-    query = <<JSON
+query = <<JSON
 %[3]s
 JSON
 
   }
 
   tags = {
-    %[4]q = %[5]q
+%[4]q = %[5]q
   }
 }
 `, rName, desc, query, tag1Key, tag1Value)
@@ -364,19 +364,19 @@ JSON
 func testAccGroupConfig_tags2(rName, desc, query, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = %[2]q
 
   resource_query {
-    query = <<JSON
+query = <<JSON
 %[3]s
 JSON
 
   }
 
   tags = {
-    %[4]q = %[5]q
-    %[6]q = %[7]q
+%[4]q = %[5]q
+%[6]q = %[7]q
   }
 }
 `, rName, desc, query, tag1Key, tag1Value, tag2Key, tag2Value)
@@ -385,57 +385,57 @@ JSON
 func testAccGroupConfig_configuration(rName, desc, cType1, cType2 string, autoAllocateHost bool) string {
 	return fmt.Sprintf(`
 resource "aws_resourcegroups_group" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = %[2]q
 
   configuration {
-    type = %[3]q
+type = %[3]q
 
-    parameters {
-      name = "allowed-host-families"
-      values = [
-        "mac1",
-      ]
-    }
+parameters {
+  name = "allowed-host-families"
+  values = [
+"mac1",
+  ]
+}
 
-    parameters {
-      name = "any-host-based-license-configuration"
-      values = [
-        "true",
-      ]
-    }
+parameters {
+  name = "any-host-based-license-configuration"
+  values = [
+"true",
+  ]
+}
 
-    parameters {
-      name = "auto-allocate-host"
-      values = [
-        "%[4]t",
-      ]
-    }
+parameters {
+  name = "auto-allocate-host"
+  values = [
+"%[4]t",
+  ]
+}
 
-    parameters {
-      name = "auto-release-host"
-      values = [
-        "true",
-      ]
-    }
+parameters {
+  name = "auto-release-host"
+  values = [
+"true",
+  ]
+}
   }
 
   configuration {
-    type = %[5]q
+type = %[5]q
 
-    parameters {
-      name = "allowed-resource-types"
-      values = [
-        "AWS::EC2::Host",
-      ]
-    }
+parameters {
+  name = "allowed-resource-types"
+  values = [
+"AWS::EC2::Host",
+  ]
+}
 
-    parameters {
-      name = "deletion-protection"
-      values = [
-        "UNLESS_EMPTY"
-      ]
-    }
+parameters {
+  name = "deletion-protection"
+  values = [
+"UNLESS_EMPTY"
+  ]
+}
   }
 }
 `, rName, desc, cType1, autoAllocateHost, cType2)
@@ -447,17 +447,17 @@ resource "aws_resourcegroups_group" "test" {
   name = %[1]q
 
   configuration {
-    type = %[2]q
-    parameters {
-      name = "allowed-resource-types"
-      values = [
-        "AWS::EC2::CapacityReservation",
-      ]
-    }
+type = %[2]q
+parameters {
+  name = "allowed-resource-types"
+  values = [
+"AWS::EC2::CapacityReservation",
+  ]
+}
   }
 
   configuration {
-    type = %[3]q
+type = %[3]q
   }
 }
 `, rName, configType1, configType2)
@@ -469,14 +469,14 @@ resource "aws_resourcegroups_group" "test" {
   name = %[1]q
 
   resource_query {
-    query = <<JSON
+query = <<JSON
 %[2]s
 JSON
 
   }
 
   configuration {
-    type = %[3]q
+type = %[3]q
   }
 }
 `, rName, query, configType)

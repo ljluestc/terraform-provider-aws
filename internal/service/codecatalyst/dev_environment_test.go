@@ -35,9 +35,9 @@ func TestAccCodeCatalystDevEnvironment_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.CodeCatalyst)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeCatalyst),
+		ErrorCheck:      acctest.ErrorCheck(t, names.CodeCatalyst),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDevEnvironmentDestroy(ctx),
+		CheckDestroy:    testAccCheckDevEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDevEnvironmentConfig_basic(rName),
@@ -67,9 +67,9 @@ func TestAccCodeCatalystDevEnvironment_withRepositories(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.CodeCatalyst)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeCatalyst),
+		ErrorCheck:      acctest.ErrorCheck(t, names.CodeCatalyst),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDevEnvironmentDestroy(ctx),
+		CheckDestroy:    testAccCheckDevEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDevEnvironmentConfig_withRepositories(rName),
@@ -102,9 +102,9 @@ func TestAccCodeCatalystDevEnvironment_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.CodeCatalyst)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeCatalyst),
+		ErrorCheck:      acctest.ErrorCheck(t, names.CodeCatalyst),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDevEnvironmentDestroy(ctx),
+		CheckDestroy:    testAccCheckDevEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDevEnvironmentConfig_basic(rName),
@@ -130,7 +130,7 @@ func testAccCheckDevEnvironmentDestroy(ctx context.Context) resource.TestCheckFu
 			projectName := rs.Primary.Attributes["project_name"]
 
 			_, err := conn.GetDevEnvironment(ctx, &codecatalyst.GetDevEnvironmentInput{
-				Id:          aws.String(rs.Primary.ID),
+				Id: aws.String(rs.Primary.ID),
 				SpaceName:   aws.String(spaceName),
 				ProjectName: aws.String(projectName),
 			})
@@ -163,7 +163,7 @@ func testAccCheckDevEnvironmentExists(ctx context.Context, name string, DevEnvir
 
 		conn := acctest.Provider.Meta().(*conns.AWSClient).CodeCatalystClient(ctx)
 		resp, err := conn.GetDevEnvironment(ctx, &codecatalyst.GetDevEnvironmentInput{
-			Id:          aws.String(rs.Primary.ID),
+			Id: aws.String(rs.Primary.ID),
 			SpaceName:   aws.String(spaceName),
 			ProjectName: aws.String(projectName),
 		})
@@ -218,7 +218,7 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 func testAccDevEnvironmentConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codecatalyst_dev_environment" "test" {
-  alias         = %[1]q
+  alias= %[1]q
   space_name    = "terraform"
   project_name  = "terraform"
   instance_type = "dev.standard1.small"
@@ -237,7 +237,7 @@ resource "aws_codecatalyst_dev_environment" "test" {
 func testAccDevEnvironmentConfig_withRepositories(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codecatalyst_dev_environment" "test" {
-  alias         = %[1]q
+  alias= %[1]q
   space_name    = "terraform"
   project_name  = "terraform"
   instance_type = "dev.standard1.small"

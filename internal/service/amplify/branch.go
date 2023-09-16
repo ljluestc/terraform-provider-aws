@@ -39,32 +39,32 @@ func ResourceBranch() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"app_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 
 			"associated_resources": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 
 			"backend_environment_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: verify.ValidARN,
 			},
 
 			"basic_auth_credentials": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Sensitive:    true,
+				Type:schema.TypeString,
+				Optional: true,
+				Sensitive:true,
 				ValidateFunc: validation.StringLenBetween(1, 2000),
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					// These credentials are ignored if basic auth is not enabled.
@@ -77,89 +77,89 @@ func ResourceBranch() *schema.Resource {
 			},
 
 			"branch_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z/_.-]{1,255}$`), "should be not be more than 255 letters, numbers, and the symbols /_.-"),
 			},
 
 			"custom_domains": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(1, 1000),
 			},
 
 			"destination_branch": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 
 			"display_name": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9a-z-]{1,255}$`), "should be not be more than 255 lowercase alphanumeric or hyphen characters"),
 			},
 
 			"enable_auto_build": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 
 			"enable_basic_auth": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 			},
 
 			"enable_notification": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 			},
 
 			"enable_performance_mode": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 			},
 
 			"enable_pull_request_preview": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 			},
 
 			"environment_variables": {
-				Type:     schema.TypeMap,
+				Type: schema.TypeMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 
 			"framework": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 
 			"pull_request_environment_name": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(1, 20),
 			},
 
 			"source_branch": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 
 			"stage": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringInSlice(amplify.Stage_Values(), false),
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					// API returns "NONE" by default.
@@ -172,7 +172,7 @@ func ResourceBranch() *schema.Resource {
 			},
 
 			"ttl": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					// API returns "5" by default.
@@ -184,7 +184,7 @@ func ResourceBranch() *schema.Resource {
 				},
 			},
 
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -199,10 +199,10 @@ func resourceBranchCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	id := BranchCreateResourceID(appID, branchName)
 
 	input := &amplify.CreateBranchInput{
-		AppId:           aws.String(appID),
-		BranchName:      aws.String(branchName),
+		AppId:  aws.String(appID),
+		BranchName:  aws.String(branchName),
 		EnableAutoBuild: aws.Bool(d.Get("enable_auto_build").(bool)),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("backend_environment_arn"); ok {
@@ -330,7 +330,7 @@ func resourceBranchUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 		}
 
 		input := &amplify.UpdateBranchInput{
-			AppId:      aws.String(appID),
+			AppId:  aws.String(appID),
 			BranchName: aws.String(branchName),
 		}
 
@@ -416,7 +416,7 @@ func resourceBranchDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	log.Printf("[DEBUG] Deleting Amplify Branch: %s", d.Id())
 	_, err = conn.DeleteBranchWithContext(ctx, &amplify.DeleteBranchInput{
-		AppId:      aws.String(appID),
+		AppId:  aws.String(appID),
 		BranchName: aws.String(branchName),
 	})
 

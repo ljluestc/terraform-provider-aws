@@ -2,39 +2,39 @@
 package kafka
 
 import (
-	"context"
+"context"
 
-	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-	"github.com/hashicorp/terraform-provider-aws/internal/types"
+tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
+"github.com/hashicorp/terraform-provider-aws/internal/types"
 )
 
 // map[string]string handling
 
 // TagsV2 returns kafka service tags.
 func TagsV2(tags tftags.KeyValueTags) map[string]string {
-	return tags.Map()
+return tags.Map()
 }
 
 // keyValueTagsV2 creates tftags.KeyValueTags from kafka service tags.
 func keyValueTagsV2(ctx context.Context, tags map[string]string) tftags.KeyValueTags {
-	return tftags.New(ctx, tags)
+return tftags.New(ctx, tags)
 }
 
 // getTagsInV2 returns kafka service tags from Context.
 // nil is returned if there are no input tags.
 func getTagsInV2(ctx context.Context) map[string]string {
-	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := TagsV2(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
-		}
-	}
+if inContext, ok := tftags.FromContext(ctx); ok {
+if tags := TagsV2(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
+return tags
+}
+}
 
-	return nil
+return nil
 }
 
 // setTagsOutV2 sets kafka service tags in Context.
 func setTagsOutV2(ctx context.Context, tags map[string]string) {
-	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(keyValueTagsV2(ctx, tags))
-	}
+if inContext, ok := tftags.FromContext(ctx); ok {
+inContext.TagsOut = types.Some(keyValueTagsV2(ctx, tags))
+}
 }

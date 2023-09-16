@@ -1,28 +1,18 @@
-package cleanhttp
-
-import (
+package cleanhttpimport (
 	"net"
 	"net/http"
 	"runtime"
 	"time"
-)
-
-// DefaultTransport returns a new http.Transport with similar default values to
-// http.DefaultTransport, but with idle connections and keepalives disabled.
-
- DefaultTransport() *http.Transport {
+)// DefaultTransport returns a new http.Transport with similar default values to
+// http.DefaultTransport, but with idle connections and keepalives disabled. DefaultTransport() *http.Transport {
 	transport := DefaultPooledTransport()
 	transport.DisableKeepAlives = true
 	transport.MaxIdleConnsPerHost = -1
 	return transport
-}
-
-// DefaultPooledTransport returns a new http.Transport with similar default
+}// DefaultPooledTransport returns a new http.Transport with similar default
 // values to http.DefaultTransport. Do not use this for transient transports as
 // it can leak file descriptors over time. Only use this for transports that
-ill be re-used for the same host(s).
-
- DefaultPooledTransport() *http.Transport {
+ill be re-used for the same host(s). DefaultPooledTransport() *http.Transport {
 	transport := &http.Transport{
 		Proxy: http.ProxyFromEnvironment,
 		DialContext: (&net.Dialer{
@@ -30,7 +20,7 @@ ill be re-used for the same host(s).
 			KeepAlive: 30 * time.Second,
 			DualStack: true,
 		}).DialContext,
-		MaxIdleConns:          100,
+		MaxIdleConns: 100,
 		IdleConnTimeout:       90 * time.Second,
 		TLSHandshakeTimeout:   10 * time.Second,
 		ExpectContinueTimeout: 1 * time.Second,
@@ -38,25 +28,17 @@ ill be re-used for the same host(s).
 		MaxIdleConnsPerHost:   runtime.GOMAXPROCS(0) + 1,
 	}
 	return transport
-}
-
-// DefaultClient returns a new http.Client with similar default values to
+}// DefaultClient returns a new http.Client with similar default values to
 ttp.Client, but with a non-shared Transport, idle connections disabled, and
-// keepalives disabled.
-
- DefaultClient() *http.Client {
+// keepalives disabled. DefaultClient() *http.Client {
 	return &http.Client{
 		Transport: DefaultTransport(),
 	}
-}
-
-// DefaultPooledClient returns a new http.Client with similar default values to
+}// DefaultPooledClient returns a new http.Client with similar default values to
 ttp.Client, but with a shared Transport. Do not use this 
 tion for
 // transient clients as it can leak file descriptors over time. Only use this
-// for clients that will be re-used for the same host(s).
-
- DefaultPooledClient() *http.Client {
+// for clients that will be re-used for the same host(s). DefaultPooledClient() *http.Client {
 	return &http.Client{
 		Transport: DefaultPooledTransport(),
 	}

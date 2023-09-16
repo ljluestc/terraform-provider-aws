@@ -37,8 +37,8 @@ func ResourceResourcePolicy() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"policy": {
 				Type:schema.TypeString,
-				Required:         true,
-				ValidateFunc:     validation.StringIsJSON,
+				Required:true,
+				ValidateFunc:validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
@@ -46,9 +46,9 @@ func ResourceResourcePolicy() *schema.Resource {
 				},
 			},
 			"resource_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 		},
@@ -68,7 +68,7 @@ func resourceResourcePolicyPut(ctx context.Context, d *schema.ResourceData, meta
 
 	input := redshiftserverless.PutResourcePolicyInput{
 		ResourceArn: aws.String(arn),
-		Policy:      aws.String(policy),
+		Policy: aws.String(policy),
 	}
 
 	out, err := conn.PutResourcePolicyWithContext(ctx, &input)
@@ -157,7 +157,7 @@ func resourceResourcePolicyDelete(ctx context.Context, d *schema.ResourceData, m
 }
 
 type resourcePolicyDoc struct {
-	Version   string       `json:",omitempty"`
-	Id        string       `json:",omitempty"`
+	Version   string  `json:",omitempty"`
+	Id   string  `json:",omitempty"`
 	Statement *tfiam.IAMPolicyStatement `json:"Statement,omitempty"`
 }

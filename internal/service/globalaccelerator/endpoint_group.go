@@ -25,7 +25,7 @@ import (
 func ResourceEndpointGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEndpointGroupCreate,
-		ReadWithoutTimeout:   resourceEndpointGroupRead,
+		ReadWithoutTimeout:resourceEndpointGroupRead,
 		UpdateWithoutTimeout: resourceEndpointGroupUpdate,
 		DeleteWithoutTimeout: resourceEndpointGroupDelete,
 
@@ -41,27 +41,27 @@ func ResourceEndpointGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"endpoint_configuration": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"client_ip_preservation_enabled": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Computed: true,
 						},
 						"endpoint_id": {
 							Type:schema.TypeString,
-							Optional:     true,
+							Optional:true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
 						"weight": {
 							Type:schema.TypeInt,
-							Optional:     true,
+							Optional:true,
 							ValidateFunc: validation.IntBetween(0, 255),
 						},
 					},
@@ -69,55 +69,55 @@ func ResourceEndpointGroup() *schema.Resource {
 			},
 			"endpoint_group_region": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Optional:true,
+				Computed:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidRegionName,
 			},
 			"health_check_interval_seconds": {
 				Type:schema.TypeInt,
-				Optional:     true,
-				Default:      30,
+				Optional:true,
+				Default:30,
 				ValidateFunc: validation.IntBetween(10, 30),
 			},
 			"health_check_path": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"health_check_port": {
 				Type:schema.TypeInt,
-				Optional:     true,
-				Computed:     true,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: validation.IsPortNumber,
 			},
 			"health_check_protocol": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      globalaccelerator.HealthCheckProtocolTcp,
+				Optional:true,
+				Default:globalaccelerator.HealthCheckProtocolTcp,
 				ValidateFunc: validation.StringInSlice(globalaccelerator.HealthCheckProtocol_Values(), false),
 			},
 			"listener_arn": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"port_override": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				MaxItems: 10,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"endpoint_port": {
 							Type:schema.TypeInt,
-							Required:     true,
+							Required:true,
 							ValidateFunc: validation.IsPortNumber,
 						},
 						"listener_port": {
 							Type:schema.TypeInt,
-							Required:     true,
+							Required:true,
 							ValidateFunc: validation.IsPortNumber,
 						},
 					},
@@ -125,26 +125,25 @@ func ResourceEndpointGroup() *schema.Resource {
 			},
 			"threshold_count": {
 				Type:schema.TypeInt,
-				Optional:     true,
-				Default:      3,
+				Optional:true,
+				Default:3,
 				ValidateFunc: validation.IntBetween(1, 10),
 			},
 			"traffic_dial_percentage": {
 				Type:schema.TypeFloat,
-				Optional:     true,
-				Default:      100.0,
+				Optional:true,
+				Default:100.0,
 				ValidateFunc: validation.FloatBetween(0.0, 100.0),
 			},
 		},
 	}
 }
-
 func resourceEndpointGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
 	input := &globalaccelerator.CreateEndpointGroupInput{
 		EndpointGroupRegion: aws.String(meta.(*conns.AWSClient).Region),
-		IdempotencyToken:    aws.String(id.UniqueId()),
+		IdempotencyToken: aws.String(id.UniqueId()),
 		ListenerArn:aws.String(d.Get("listener_arn").(string)),
 	}
 
@@ -204,7 +203,6 @@ func resourceEndpointGroupCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return resourceEndpointGroupRead(ctx, d, meta)
 }
-
 func resourceEndpointGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
@@ -244,7 +242,6 @@ func resourceEndpointGroupRead(ctx context.Context, d *schema.ResourceData, meta
 
 	return nil
 }
-
 func resourceEndpointGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
@@ -306,7 +303,6 @@ func resourceEndpointGroupUpdate(ctx context.Context, d *schema.ResourceData, me
 
 	return resourceEndpointGroupRead(ctx, d, meta)
 }
-
 func resourceEndpointGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
@@ -335,7 +331,6 @@ func resourceEndpointGroupDelete(ctx context.Context, d *schema.ResourceData, me
 
 	return nil
 }
-
 func FindEndpointGroupByARN(ctx context.Context, conn *globalaccelerator.GlobalAccelerator, arn string) (*globalaccelerator.EndpointGroup, error) {
 	input := &globalaccelerator.DescribeEndpointGroupInput{
 		EndpointGroupArn: aws.String(arn),
@@ -343,13 +338,12 @@ func FindEndpointGroupByARN(ctx context.Context, conn *globalaccelerator.GlobalA
 
 	return findEndpointGroup(ctx, conn, input)
 }
-
 func findEndpointGroup(ctx context.Context, conn *globalaccelerator.GlobalAccelerator, input *globalaccelerator.DescribeEndpointGroupInput) (*globalaccelerator.EndpointGroup, error) {
 	output, err := conn.DescribeEndpointGroupWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, globalaccelerator.ErrCodeEndpointGroupNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}
@@ -364,7 +358,6 @@ func findEndpointGroup(ctx context.Context, conn *globalaccelerator.GlobalAccele
 
 	return output.EndpointGroup, nil
 }
-
 func expandEndpointConfiguration(tfMap map[string]interface{}) *globalaccelerator.EndpointConfiguration {
 	if tfMap == nil {
 		return nil
@@ -386,7 +379,6 @@ func expandEndpointConfiguration(tfMap map[string]interface{}) *globalaccelerato
 
 	return apiObject
 }
-
 func expandEndpointConfigurations(tfList []interface{}) []*globalaccelerator.EndpointConfiguration {
 	if len(tfList) == 0 {
 		return nil
@@ -412,7 +404,6 @@ func expandEndpointConfigurations(tfList []interface{}) []*globalaccelerator.End
 
 	return apiObjects
 }
-
 func expandPortOverride(tfMap map[string]interface{}) *globalaccelerator.PortOverride {
 	if tfMap == nil {
 		return nil
@@ -430,7 +421,6 @@ func expandPortOverride(tfMap map[string]interface{}) *globalaccelerator.PortOve
 
 	return apiObject
 }
-
 func expandPortOverrides(tfList []interface{}) []*globalaccelerator.PortOverride {
 	if len(tfList) == 0 {
 		return nil
@@ -456,7 +446,6 @@ func expandPortOverrides(tfList []interface{}) []*globalaccelerator.PortOverride
 
 	return apiObjects
 }
-
 func flattenEndpointDescription(apiObject *globalaccelerator.EndpointDescription) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -478,7 +467,6 @@ func flattenEndpointDescription(apiObject *globalaccelerator.EndpointDescription
 
 	return tfMap
 }
-
 func flattenEndpointDescriptions(apiObjects []*globalaccelerator.EndpointDescription) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -496,7 +484,6 @@ func flattenEndpointDescriptions(apiObjects []*globalaccelerator.EndpointDescrip
 
 	return tfList
 }
-
 func flattenPortOverride(apiObject *globalaccelerator.PortOverride) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -514,7 +501,6 @@ func flattenPortOverride(apiObject *globalaccelerator.PortOverride) map[string]i
 
 	return tfMap
 }
-
 func flattenPortOverrides(apiObjects []*globalaccelerator.PortOverride) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil

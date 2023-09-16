@@ -38,29 +38,29 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"automatic_stop_time_minutes": {
-Type:         schema.TypeInt,
-Optional:     true,
-ForceNew:     true,
+Type:schema.TypeInt,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.IntAtMost(20160),
 	},
 	"connection_type": {
-Type:         schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      cloud9.ConnectionTypeConnectSsh,
+Type:schema.TypeString,
+Optional:true,
+ForceNew:true,
+Default: cloud9.ConnectionTypeConnectSsh,
 ValidateFunc: validation.StringInSlice(cloud9.ConnectionType_Values(), false),
 	},
 	"description": {
-Type:         schema.TypeString,
-Optional:     true,
+Type:schema.TypeString,
+Optional:true,
 ValidateFunc: validation.StringLenBetween(1, 200),
 	},
 	"image_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 ValidateFunc: validation.StringInSlice([]string{
@@ -73,31 +73,31 @@ ValidateFunc: validation.StringInSlice([]string{
 }, false),
 	},
 	"instance_type": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
 	"name": {
-Type:         schema.TypeString,
-Required:     true,
+Type:schema.TypeString,
+Required:true,
 ValidateFunc: validation.StringLenBetween(1, 60),
 	},
 	"owner_arn": {
-Type:         schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Optional:true,
+Computed:true,
+ForceNew:true,
 ValidateFunc: verify.ValidARN,
 	},
 	"subnet_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 ForceNew: true,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"type": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 },
@@ -113,8 +113,8 @@ func resourceEnvironmentEC2Create(ctx context.Context, d *schema.ResourceData, m
 	name := d.Get("name").(string)
 	input := &cloud9.CreateEnvironmentEC2Input{
 ClientRequestToken: aws.String(id.UniqueId()),
-ConnectionType:     aws.String(d.Get("connection_type").(string)),
-InstanceType:       aws.String(d.Get("instance_type").(string)),
+ConnectionType:aws.String(d.Get("connection_type").(string)),
+InstanceType:  aws.String(d.Get("instance_type").(string)),
 Name:aws.String(name),
 Tags:getTagsIn(ctx),
 	}
@@ -207,7 +207,7 @@ func resourceEnvironmentEC2Update(ctx context.Context, d *schema.ResourceData, m
 input := cloud9.UpdateEnvironmentInput{
 	Description:   aws.String(d.Get("description").(string)),
 	EnvironmentId: aws.String(d.Id()),
-	Name:          aws.String(d.Get("name").(string)),
+	Name:aws.String(d.Get("name").(string)),
 }
 
 log.Printf("[INFO] Updating Cloud9 EC2 Environment: %s", input)

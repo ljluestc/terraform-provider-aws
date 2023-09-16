@@ -27,7 +27,7 @@ func TestAccCloud9EnvironmentEC2_basic(t *testing.T) {
 	resourceName := "aws_cloud9_environment_ec2.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloud9.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEnvironmentEC2Destroy(ctx),
@@ -45,9 +45,9 @@ func TestAccCloud9EnvironmentEC2_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"instance_type", "subnet_id"},
 			},
 		},
@@ -66,7 +66,7 @@ func TestAccCloud9EnvironmentEC2_allFields(t *testing.T) {
 	resourceName := "aws_cloud9_environment_ec2.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloud9.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEnvironmentEC2Destroy(ctx),
@@ -87,9 +87,9 @@ func TestAccCloud9EnvironmentEC2_allFields(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"automatic_stop_time_minutes", "image_id", "instance_type", "subnet_id"},
 			},
 			{
@@ -112,7 +112,7 @@ func TestAccCloud9EnvironmentEC2_tags(t *testing.T) {
 	resourceName := "aws_cloud9_environment_ec2.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloud9.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEnvironmentEC2Destroy(ctx),
@@ -126,9 +126,9 @@ func TestAccCloud9EnvironmentEC2_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"instance_type", "subnet_id"},
 			},
 			{
@@ -160,7 +160,7 @@ func TestAccCloud9EnvironmentEC2_disappears(t *testing.T) {
 	resourceName := "aws_cloud9_environment_ec2.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, cloud9.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloud9.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEnvironmentEC2Destroy(ctx),
@@ -234,17 +234,17 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = "10.0.0.0/24"
+  vpc_id  = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -252,14 +252,14 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_route" "test" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id= aws_internet_gateway.test.id
-  route_table_id         = aws_vpc.test.main_route_table_id
+  route_table_id= aws_vpc.test.main_route_table_id
 }
 `, rName))
 }
@@ -268,8 +268,8 @@ func testAccEnvironmentEC2Config_basic(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentEC2BaseConfig(rName), fmt.Sprintf(`
 resource "aws_cloud9_environment_ec2" "test" {
   instance_type = "t2.micro"
-  name          = %[1]q
-  subnet_id     = aws_subnet.test.id
+  name= %[1]q
+  subnet_id= aws_subnet.test.id
 }
 `, rName))
 }
@@ -280,11 +280,11 @@ resource "aws_cloud9_environment_ec2" "test" {
   automatic_stop_time_minutes = 60
   description  = %[2]q
   instance_type= "t2.micro"
-  name         = %[1]q
-  owner_arn    = aws_iam_user.test.arn
-  subnet_id    = aws_subnet.test.id
+  name= %[1]q
+  owner_arn= aws_iam_user.test.arn
+  subnet_id= aws_subnet.test.id
   connection_type= "CONNECT_SSH"
-  image_id     = "amazonlinux-2-x86_64"
+  image_id= "amazonlinux-2-x86_64"
 }
 
 resource "aws_iam_user" "test" {
@@ -297,11 +297,11 @@ func testAccEnvironmentEC2Config_tags1(rName, tagKey1, tagValue1 string) string 
 	return acctest.ConfigCompose(testAccEnvironmentEC2BaseConfig(rName), fmt.Sprintf(`
 resource "aws_cloud9_environment_ec2" "test" {
   instance_type = "t2.micro"
-  name          = %[1]q
-  subnet_id     = aws_subnet.test.id
+  name= %[1]q
+  subnet_id= aws_subnet.test.id
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -311,12 +311,12 @@ func testAccEnvironmentEC2Config_tags2(rName, tagKey1, tagValue1, tagKey2, tagVa
 	return acctest.ConfigCompose(testAccEnvironmentEC2BaseConfig(rName), fmt.Sprintf(`
 resource "aws_cloud9_environment_ec2" "test" {
   instance_type = "t2.micro"
-  name          = %[1]q
-  subnet_id     = aws_subnet.test.id
+  name= %[1]q
+  subnet_id= aws_subnet.test.id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

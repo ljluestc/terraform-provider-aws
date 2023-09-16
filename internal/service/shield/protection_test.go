@@ -32,9 +32,9 @@ func TestAccShieldProtection_globalAccelerator(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, shield.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProtectionDestroy(ctx),
+		CheckDestroy:    testAccCheckProtectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProtectionConfig_globalAccelerator(rName),
@@ -64,9 +64,9 @@ func TestAccShieldProtection_elasticIPAddress(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, shield.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProtectionDestroy(ctx),
+		CheckDestroy:    testAccCheckProtectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProtectionConfig_elasticIPAddress(rName),
@@ -96,9 +96,9 @@ func TestAccShieldProtection_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, shield.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProtectionDestroy(ctx),
+		CheckDestroy:    testAccCheckProtectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProtectionConfig_elasticIPAddress(rName),
@@ -123,9 +123,9 @@ func TestAccShieldProtection_alb(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, shield.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProtectionDestroy(ctx),
+		CheckDestroy:    testAccCheckProtectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProtectionConfig_alb(rName),
@@ -155,9 +155,9 @@ func TestAccShieldProtection_elb(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, shield.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProtectionDestroy(ctx),
+		CheckDestroy:    testAccCheckProtectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProtectionConfig_elb(rName),
@@ -188,9 +188,9 @@ func TestAccShieldProtection_cloudFront(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, shield.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProtectionDestroy(ctx),
+		CheckDestroy:    testAccCheckProtectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProtectionConfig_cloudFront(rName, testAccProtectionCloudFrontRetainConfig()),
@@ -221,9 +221,9 @@ func TestAccShieldProtection_CloudFront_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, shield.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProtectionDestroy(ctx),
+		CheckDestroy:    testAccCheckProtectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProtectionConfig_cloudFrontTags1(rName, testAccProtectionCloudFrontRetainConfig(), "Key1", "value1"),
@@ -273,9 +273,9 @@ func TestAccShieldProtection_route53(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, shield.EndpointsID, "route53"),
+		ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID, "route53"),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProtectionDestroy(ctx),
+		CheckDestroy:    testAccCheckProtectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProtectionConfig_route53HostedZone(rName),
@@ -384,7 +384,7 @@ resource "aws_route53_zone" "test" {
 data "aws_partition" "current" {}
 
 resource "aws_shield_protection" "test" {
-  name         = %[1]q
+  name= %[1]q
   resource_arn = "arn:${data.aws_partition.current.partition}:route53:::hostedzone/${aws_route53_zone.test.zone_id}"
 }
 `, rName)
@@ -416,9 +416,9 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  count                   = 2
-  vpc_id                  = aws_vpc.test.id
-  cidr_block              = element(var.subnets, count.index)
+  count = 2
+  vpc_id= aws_vpc.test.id
+  cidr_block     = element(var.subnets, count.index)
   map_public_ip_on_launch = true
   availability_zone       = element(data.aws_availability_zones.available.names, count.index)
 
@@ -437,7 +437,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -450,7 +450,7 @@ resource "aws_elb" "test" {
 }
 
 resource "aws_shield_protection" "test" {
-  name         = %[1]q
+  name= %[1]q
   resource_arn = aws_elb.test.arn
 }
 `, rName)
@@ -473,12 +473,12 @@ variable "subnets" {
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout      = 30
   enable_deletion_protection = false
 
   tags = {
@@ -497,9 +497,9 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  count                   = 2
-  vpc_id                  = aws_vpc.test.id
-  cidr_block              = element(var.subnets, count.index)
+  count = 2
+  vpc_id= aws_vpc.test.id
+  cidr_block     = element(var.subnets, count.index)
   map_public_ip_on_launch = true
   availability_zone       = element(data.aws_availability_zones.available.names, count.index)
 
@@ -535,7 +535,7 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_shield_protection" "test" {
-  name         = %[1]q
+  name= %[1]q
   resource_arn = aws_lb.test.arn
 }
 `, rName)
@@ -546,8 +546,8 @@ func testAccProtectionConfig_cloudFront(rName, retainOnDelete string) string {
 resource "aws_cloudfront_distribution" "test" {
   origin {
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port     = 80
+      https_port    = 443
       origin_protocol_policy = "https-only"
 
       origin_ssl_protocols = [
@@ -562,7 +562,7 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = %[1]q
   }
 
-  enabled             = false
+  enabled    = false
   wait_for_deployment = false
 
   default_cache_behavior {
@@ -580,9 +580,9 @@ resource "aws_cloudfront_distribution" "test" {
     }
 
     viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 0
-    default_ttl            = 0
-    max_ttl                = 0
+    min_ttl       = 0
+    default_ttl   = 0
+    max_ttl       = 0
   }
 
   restrictions {
@@ -604,7 +604,7 @@ resource "aws_cloudfront_distribution" "test" {
 }
 
 resource "aws_shield_protection" "test" {
-  name         = %[1]q
+  name= %[1]q
   resource_arn = aws_cloudfront_distribution.test.arn
 
 }
@@ -616,8 +616,8 @@ func testAccProtectionConfig_cloudFrontTags1(rName, retainOnDelete, tagKey strin
 resource "aws_cloudfront_distribution" "test" {
   origin {
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port     = 80
+      https_port    = 443
       origin_protocol_policy = "https-only"
 
       origin_ssl_protocols = [
@@ -632,7 +632,7 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = %[1]q
   }
 
-  enabled             = false
+  enabled    = false
   wait_for_deployment = false
 
   default_cache_behavior {
@@ -650,9 +650,9 @@ resource "aws_cloudfront_distribution" "test" {
     }
 
     viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 0
-    default_ttl            = 0
-    max_ttl                = 0
+    min_ttl       = 0
+    default_ttl   = 0
+    max_ttl       = 0
   }
 
   restrictions {
@@ -674,7 +674,7 @@ resource "aws_cloudfront_distribution" "test" {
 }
 
 resource "aws_shield_protection" "test" {
-  name         = %[1]q
+  name= %[1]q
   resource_arn = aws_cloudfront_distribution.test.arn
 
   tags = {
@@ -689,8 +689,8 @@ func testAccProtectionConfig_cloudFrontTags2(rName, retainOnDelete, tagKey1 stri
 resource "aws_cloudfront_distribution" "test" {
   origin {
     custom_origin_config {
-      http_port              = 80
-      https_port             = 443
+      http_port     = 80
+      https_port    = 443
       origin_protocol_policy = "https-only"
 
       origin_ssl_protocols = [
@@ -705,7 +705,7 @@ resource "aws_cloudfront_distribution" "test" {
     origin_id   = %[1]q
   }
 
-  enabled             = false
+  enabled    = false
   wait_for_deployment = false
 
   default_cache_behavior {
@@ -723,9 +723,9 @@ resource "aws_cloudfront_distribution" "test" {
     }
 
     viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 0
-    default_ttl            = 0
-    max_ttl                = 0
+    min_ttl       = 0
+    default_ttl   = 0
+    max_ttl       = 0
   }
 
   restrictions {
@@ -747,7 +747,7 @@ resource "aws_cloudfront_distribution" "test" {
 }
 
 resource "aws_shield_protection" "test" {
-  name         = %[1]q
+  name= %[1]q
   resource_arn = aws_cloudfront_distribution.test.arn
 
   tags = {
@@ -785,7 +785,7 @@ resource "aws_eip" "test" {
 }
 
 resource "aws_shield_protection" "test" {
-  name         = %[1]q
+  name= %[1]q
   resource_arn = "arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:eip-allocation/${aws_eip.test.id}"
 }
 `, rName)
@@ -794,14 +794,14 @@ resource "aws_shield_protection" "test" {
 func testAccProtectionConfig_globalAccelerator(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_shield_protection" "test" {
-  name         = %[1]q
+  name= %[1]q
   resource_arn = aws_globalaccelerator_accelerator.test.id
 }
 
 resource "aws_globalaccelerator_accelerator" "test" {
-  name            = %[1]q
+  name   = %[1]q
   ip_address_type = "IPV4"
-  enabled         = true
+  enabled= true
 }
 `, rName)
 }

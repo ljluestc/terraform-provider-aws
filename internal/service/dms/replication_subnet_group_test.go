@@ -17,14 +17,14 @@ import (
 	tfdms "github.com/hashicorp/terraform-provider-aws/internal/service/dms"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccDMSReplicationSubnetGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dms_replication_subnet_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckReplicationSubnetGroupDestroy(ctx),
@@ -42,8 +42,8 @@ func TestAccDMSReplicationSubnetGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -56,14 +56,14 @@ func TestAccDMSReplicationSubnetGroup_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDMSReplicationSubnetGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dms_replication_subnet_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckReplicationSubnetGroupDestroy(ctx),
@@ -79,14 +79,14 @@ func TestAccDMSReplicationSubnetGroup_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDMSReplicationSubnetGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dms_replication_subnet_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckReplicationSubnetGroupDestroy(ctx),
@@ -100,8 +100,8 @@ func TestAccDMSReplicationSubnetGroup_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -124,9 +124,9 @@ func TestAccDMSReplicationSubnetGroup_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckReplicationSubnetGroupExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -139,9 +139,9 @@ func testAccCheckReplicationSubnetGroupExists(ctx context.Context, n string) res
 		return err
 	}
 }
-
 func testAccCheckReplicationSubnetGroupDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DMSConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -165,41 +165,38 @@ func testAccCheckReplicationSubnetGroupDestroy(ctx context.Context) resource.Tes
 		return nil
 	}
 }
-
 func testAccReplicationSubnetGroupConfig_basic(rName, description string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 3), fmt.Sprintf(`
 resource "aws_dms_replication_subnet_group" "test" {
-  replication_subnet_group_id          = %[1]q
+  replication_subnet_group_id = %[1]q
   replication_subnet_group_description = %[2]q
   subnet_ids = aws_subnet.test[*].id
 }
 `, rName, description))
 }
-
 func testAccReplicationSubnetGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 3), fmt.Sprintf(`
 resource "aws_dms_replication_subnet_group" "test" {
-  replication_subnet_group_id          = %[1]q
+  replication_subnet_group_id = %[1]q
   replication_subnet_group_description = "testing"
   subnet_ids = aws_subnet.test[*].id
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccReplicationSubnetGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 3), fmt.Sprintf(`
 resource "aws_dms_replication_subnet_group" "test" {
-  replication_subnet_group_id          = %[1]q
+  replication_subnet_group_id = %[1]q
   replication_subnet_group_description = "testing"
   subnet_ids = aws_subnet.test[*].id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

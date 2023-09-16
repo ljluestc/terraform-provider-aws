@@ -41,7 +41,7 @@ func ResourceConfigurationRecorder() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      "default",
@@ -84,7 +84,7 @@ func ResourceConfigurationRecorder() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"use_only": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringInSlice(configservice.RecordingStrategyType_Values(), false),
 									},
@@ -100,7 +100,7 @@ func ResourceConfigurationRecorder() *schema.Resource {
 				},
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},

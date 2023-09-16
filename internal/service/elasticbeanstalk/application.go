@@ -56,7 +56,7 @@ func ResourceApplication() *schema.Resource {
 							Optional: true,
 						},
 						"service_role": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: verify.ValidARN,
 						},
@@ -72,7 +72,7 @@ func ResourceApplication() *schema.Resource {
 				Optional: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
@@ -82,7 +82,6 @@ func ResourceApplication() *schema.Resource {
 		},
 	}
 }
-
 func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -91,7 +90,7 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 	input := &elasticbeanstalk.CreateApplicationInput{
 		ApplicationName: aws.String(name),
 		Description:     aws.String(d.Get("description").(string)),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	_, err := conn.CreateApplicationWithContext(ctx, input)
@@ -112,7 +111,7 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	if v, ok := d.GetOk("appversion_lifecycle"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 		input := &elasticbeanstalk.UpdateApplicationResourceLifecycleInput{
-			ApplicationName:         aws.String(d.Id()),
+			ApplicationName:aws.String(d.Id()),
 			ResourceLifecycleConfig: expandApplicationResourceLifecycleConfig(v.([]interface{})[0].(map[string]interface{})),
 		}
 
@@ -125,7 +124,6 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceApplicationRead(ctx, d, meta)...)
 }
-
 func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -151,7 +149,6 @@ func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
-
 func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -179,7 +176,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 		}
 
 		input := &elasticbeanstalk.UpdateApplicationResourceLifecycleInput{
-			ApplicationName:         aws.String(d.Id()),
+			ApplicationName:aws.String(d.Id()),
 			ResourceLifecycleConfig: resourceLifecycleConfig,
 		}
 
@@ -192,7 +189,6 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceApplicationRead(ctx, d, meta)...)
 }
-
 func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -216,7 +212,6 @@ func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	return diags
 }
-
 func FindApplicationByName(ctx context.Context, conn *elasticbeanstalk.ElasticBeanstalk, name string) (*elasticbeanstalk.ApplicationDescription, error) {
 	input := &elasticbeanstalk.DescribeApplicationsInput{
 		ApplicationNames: aws.StringSlice([]string{name}),
@@ -238,7 +233,6 @@ func FindApplicationByName(ctx context.Context, conn *elasticbeanstalk.ElasticBe
 
 	return output.Applications[0], nil
 }
-
 func expandApplicationResourceLifecycleConfig(tfMap map[string]interface{}) *elasticbeanstalk.ApplicationResourceLifecycleConfig {
 	if tfMap == nil {
 		return nil
@@ -262,7 +256,7 @@ func expandApplicationResourceLifecycleConfig(tfMap map[string]interface{}) *ela
 	if v, ok := tfMap["max_age_in_days"].(int); ok && v != 0 {
 		apiObject.VersionLifecycleConfig.MaxAgeRule = &elasticbeanstalk.MaxAgeRule{
 			DeleteSourceFromS3: aws.Bool(tfMap["delete_source_from_s3"].(bool)),
-			Enabled:            aws.Bool(true),
+			Enabled:   aws.Bool(true),
 			MaxAgeInDays:       aws.Int64(int64(v)),
 		}
 	}
@@ -270,14 +264,13 @@ func expandApplicationResourceLifecycleConfig(tfMap map[string]interface{}) *ela
 	if v, ok := tfMap["max_count"].(int); ok && v != 0 {
 		apiObject.VersionLifecycleConfig.MaxCountRule = &elasticbeanstalk.MaxCountRule{
 			DeleteSourceFromS3: aws.Bool(tfMap["delete_source_from_s3"].(bool)),
-			Enabled:            aws.Bool(true),
-			MaxCount:           aws.Int64(int64(v)),
+			Enabled:   aws.Bool(true),
+			MaxCount:  aws.Int64(int64(v)),
 		}
 	}
 
 	return apiObject
 }
-
 func flattenApplicationResourceLifecycleConfig(apiObject *elasticbeanstalk.ApplicationResourceLifecycleConfig) []interface{} {
 	if apiObject == nil {
 		return nil

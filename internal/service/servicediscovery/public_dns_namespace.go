@@ -21,11 +21,10 @@ import (
 
 // @SDKResource("aws_service_discovery_public_dns_namespace", name="Public DNS Namespace")
 // @Tags(identifierAttribute="arn")
-
 func ResourcePublicDNSNamespace() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePublicDNSNamespaceCreate,
-		ReadWithoutTimeout:   resourcePublicDNSNamespaceRead,
+		ReadWithoutTimeout:resourcePublicDNSNamespaceRead,
 		UpdateWithoutTimeout: resourcePublicDNSNamespaceUpdate,
 		DeleteWithoutTimeout: resourcePublicDNSNamespaceDelete,
 
@@ -35,41 +34,39 @@ func ResourcePublicDNSNamespace() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"hosted_zone": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				Validate
 func: validNamespaceName,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
-
 func resourcePublicDNSNamespaceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &servicediscovery.CreatePublicDnsNamespaceInput{
 		CreatorRequestId: aws.String(id.UniqueId()),
-		Name:    aws.String(name),
-		Tags:    getTagsIn(ctx),
+		Name: aws.String(name),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -98,8 +95,6 @@ func resourcePublicDNSNamespaceCreate(ctx context.Context, d *schema.ResourceDat
 
 	return resourcePublicDNSNamespaceRead(ctx, d, meta)
 }
-
-
 func resourcePublicDNSNamespaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -127,8 +122,6 @@ func resourcePublicDNSNamespaceRead(ctx context.Context, d *schema.ResourceData,
 
 	return nil
 }
-
-
 func resourcePublicDNSNamespaceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -156,8 +149,6 @@ func resourcePublicDNSNamespaceUpdate(ctx context.Context, d *schema.ResourceDat
 
 	return resourcePublicDNSNamespaceRead(ctx, d, meta)
 }
-
-
 func resourcePublicDNSNamespaceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 

@@ -39,9 +39,9 @@ func TestAccConfigServiceOrganizationCustomPolicyRule_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, configservice.EndpointsID)
 			acctest.PreCheckOrganizationsAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationCustomPolicyRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationCustomPolicyRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationCustomPolicyRuleConfig_basic(rName),
@@ -86,9 +86,9 @@ func TestAccConfigServiceOrganizationCustomPolicyRule_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, configservice.EndpointsID)
 			acctest.PreCheckOrganizationsAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationCustomPolicyRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationCustomPolicyRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationCustomPolicyRuleConfig_basic(rName),
@@ -118,9 +118,9 @@ func TestAccConfigServiceOrganizationCustomPolicyRule_PolicyText(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, configservice.EndpointsID)
 			acctest.PreCheckOrganizationsAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationCustomPolicyRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationCustomPolicyRuleDestroy(ctx),
 
 		Steps: []resource.TestStep{
 			{
@@ -233,7 +233,7 @@ resource "aws_iam_role_policy_attachment" "config" {
 
 resource "aws_organizations_organization" "test" {
   aws_service_access_principals = ["config-multiaccountsetup.amazonaws.com"]
-  feature_set                   = "ALL"
+  feature_set = "ALL"
 }
 `, rName)
 }

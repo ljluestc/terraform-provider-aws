@@ -27,12 +27,12 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_dynamodb_table", &resource.Sweeper{
 		Name: "aws_dynamodb_table",
-		F:    sweepTables,
+		F:sweepTables,
 	})
 
 	resource.AddTestSweepers("aws_dynamodb_backup", &resource.Sweeper{
 		Name: "aws_dynamodb_backup",
-		F:    sweepBackups,
+		F:sweepBackups,
 	})
 }
 

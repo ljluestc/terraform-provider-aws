@@ -27,7 +27,7 @@ func TestAccFSxBackup_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBackupDestroy(ctx),
@@ -42,8 +42,8 @@ func TestAccFSxBackup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -59,7 +59,7 @@ func TestAccFSxBackup_ontapBasic(t *testing.T) {
 	vName := strings.Replace(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix), "-", "_", -1)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBackupDestroy(ctx),
@@ -74,8 +74,8 @@ func TestAccFSxBackup_ontapBasic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -89,7 +89,7 @@ func TestAccFSxBackup_openzfsBasic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBackupDestroy(ctx),
@@ -104,8 +104,8 @@ func TestAccFSxBackup_openzfsBasic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -119,7 +119,7 @@ func TestAccFSxBackup_windowsBasic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBackupDestroy(ctx),
@@ -134,8 +134,8 @@ func TestAccFSxBackup_windowsBasic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -149,7 +149,7 @@ func TestAccFSxBackup_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBackupDestroy(ctx),
@@ -173,7 +173,7 @@ func TestAccFSxBackup_Disappears_filesystem(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBackupDestroy(ctx),
@@ -197,7 +197,7 @@ func TestAccFSxBackup_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBackupDestroy(ctx),
@@ -211,8 +211,8 @@ func TestAccFSxBackup_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -242,7 +242,7 @@ func TestAccFSxBackup_implicitTags(t *testing.T) {
 	resourceName := "aws_fsx_backup.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBackupDestroy(ctx),
@@ -256,8 +256,8 @@ func TestAccFSxBackup_implicitTags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -319,14 +319,14 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.1.0/24"
+  vpc_id   = aws_vpc.test.id
+  cidr_block= "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 }
 
 resource "aws_subnet" "test2" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.2.0/24"
+  vpc_id   = aws_vpc.test.id
+  cidr_block= "10.0.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 }
 `)
@@ -335,13 +335,13 @@ resource "aws_subnet" "test2" {
 func testAccBackupLustreBaseConfig(rName string) string {
 	return acctest.ConfigCompose(testAccBackupBaseConfig(), fmt.Sprintf(`
 resource "aws_fsx_lustre_file_system" "test" {
-  storage_capacity            = 1200
+  storage_capacity   = 1200
   subnet_ids   = [aws_subnet.test1.id]
   deployment_type= "PERSISTENT_1"
   per_unit_storage_throughput = 50
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -350,26 +350,26 @@ resource "aws_fsx_lustre_file_system" "test" {
 func testAccBackupONTAPBaseConfig(rName string, vName string) string {
 	return acctest.ConfigCompose(testAccBackupBaseConfig(), fmt.Sprintf(`
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 512
   preferred_subnet_id = aws_subnet.test1.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_fsx_ontap_storage_virtual_machine" "test" {
   file_system_id = aws_fsx_ontap_file_system.test.id
-  name           = %[1]q
+  name  = %[1]q
 }
 
 resource "aws_fsx_ontap_volume" "test" {
-  name        = %[2]q
+  name= %[2]q
   junction_path = "/%[1]s"
-  size_in_megabytes          = 1024
+  size_in_megabytes = 1024
   storage_efficiency_enabled = true
   storage_virtual_machine_id = aws_fsx_ontap_storage_virtual_machine.test.id
 }
@@ -379,14 +379,14 @@ resource "aws_fsx_ontap_volume" "test" {
 func testAccBackupOpenzfsBaseConfig(rName string) string {
 	return acctest.ConfigCompose(testAccBackupBaseConfig(), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = [aws_subnet.test1.id]
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = [aws_subnet.test1.id]
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 64
 
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -396,13 +396,13 @@ func testAccBackupWindowsBaseConfig(rName string) string {
 	return acctest.ConfigCompose(testAccBackupBaseConfig(), fmt.Sprintf(`
 resource "aws_directory_service_directory" "test" {
   edition  = "Standard"
-  name     = "corp.notexample.com"
+  name = "corp.notexample.com"
   password = "SuperSecretPassw0rd"
-  type     = "MicrosoftAD"
+  type = "MicrosoftAD"
 
   vpc_settings {
-    subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
-    vpc_id     = aws_vpc.test.id
+subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+vpc_id = aws_vpc.test.id
   }
 }
 
@@ -411,11 +411,11 @@ resource "aws_fsx_windows_file_system" "test" {
   automatic_backup_retention_days = 0
   skip_final_backup= true
   storage_capacity = 32
-  subnet_ids       = [aws_subnet.test1.id]
+  subnet_ids   = [aws_subnet.test1.id]
   throughput_capacity= 8
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -427,7 +427,7 @@ resource "aws_fsx_backup" "test" {
   file_system_id = aws_fsx_lustre_file_system.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -439,7 +439,7 @@ resource "aws_fsx_backup" "test" {
   volume_id = aws_fsx_ontap_volume.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -451,7 +451,7 @@ resource "aws_fsx_backup" "test" {
   file_system_id = aws_fsx_openzfs_file_system.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -463,7 +463,7 @@ resource "aws_fsx_backup" "test" {
   file_system_id = aws_fsx_windows_file_system.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -475,7 +475,7 @@ resource "aws_fsx_backup" "test" {
   file_system_id = aws_fsx_lustre_file_system.test.id
 
   tags = {
-    %[1]q = %[2]q
+%[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
@@ -487,8 +487,8 @@ resource "aws_fsx_backup" "test" {
   file_system_id = aws_fsx_lustre_file_system.test.id
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+%[1]q = %[2]q
+%[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -501,20 +501,20 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.1.0/24"
+  vpc_id   = aws_vpc.test.id
+  cidr_block= "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 }
 
 resource "aws_fsx_lustre_file_system" "test" {
-  storage_capacity            = 1200
+  storage_capacity   = 1200
   subnet_ids   = [aws_subnet.test1.id]
   deployment_type= "PERSISTENT_1"
   per_unit_storage_throughput = 50
-  copy_tags_to_backups        = true
+  copy_tags_to_backups= true
 
   tags = {
-    %[1]q = %[2]q
+%[1]q = %[2]q
   }
 }
 

@@ -27,10 +27,10 @@ func TestAccMemoryDBParameterGroup_basic(t *testing.T) {
 	resourceName := "aws_memorydb_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_basic(rName),
@@ -55,8 +55,8 @@ func TestAccMemoryDBParameterGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -69,10 +69,10 @@ func TestAccMemoryDBParameterGroup_disappears(t *testing.T) {
 	resourceName := "aws_memorydb_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_basic(rName),
@@ -92,10 +92,10 @@ func TestAccMemoryDBParameterGroup_update_parameters(t *testing.T) {
 	resourceName := "aws_memorydb_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_none(rName),
@@ -105,8 +105,8 @@ func TestAccMemoryDBParameterGroup_update_parameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -121,8 +121,8 @@ func TestAccMemoryDBParameterGroup_update_parameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 				// Setting timeout to its default value will cause
 				// the import to diverge on the initial read.
@@ -140,8 +140,8 @@ func TestAccMemoryDBParameterGroup_update_parameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -160,8 +160,8 @@ func TestAccMemoryDBParameterGroup_update_parameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -176,8 +176,8 @@ func TestAccMemoryDBParameterGroup_update_parameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -188,8 +188,8 @@ func TestAccMemoryDBParameterGroup_update_parameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -202,10 +202,10 @@ func TestAccMemoryDBParameterGroup_update_tags(t *testing.T) {
 	resourceName := "aws_memorydb_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_tags0(rName),
@@ -216,8 +216,8 @@ func TestAccMemoryDBParameterGroup_update_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -233,8 +233,8 @@ func TestAccMemoryDBParameterGroup_update_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -248,8 +248,8 @@ func TestAccMemoryDBParameterGroup_update_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -261,8 +261,8 @@ func TestAccMemoryDBParameterGroup_update_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -321,17 +321,17 @@ resource "aws_memorydb_parameter_group" "test" {
   family = "memorydb_redis6"
 
   parameter {
-    name  = "active-defrag-cycle-max"
-    value = "70"
+name  = "active-defrag-cycle-max"
+value = "70"
   }
 
   parameter {
-    name  = "active-defrag-cycle-min"
-    value = "10"
+name  = "active-defrag-cycle-min"
+value = "10"
   }
 
   tags = {
-    Test = "test"
+Test = "test"
   }
 }
 `, rName)
@@ -353,8 +353,8 @@ resource "aws_memorydb_parameter_group" "test" {
   family = "memorydb_redis6"
 
   parameter {
-    name  = %[2]q
-    value = %[3]q
+name  = %[2]q
+value = %[3]q
   }
 }
 `, rName, paramName1, paramValue1)
@@ -367,13 +367,13 @@ resource "aws_memorydb_parameter_group" "test" {
   family = "memorydb_redis6"
 
   parameter {
-    name  = %[2]q
-    value = %[3]q
+name  = %[2]q
+value = %[3]q
   }
 
   parameter {
-    name  = %[4]q
-    value = %[5]q
+name  = %[4]q
+value = %[5]q
   }
 }
 `, rName, paramName1, paramValue1, paramName2, paramValue2)
@@ -395,7 +395,7 @@ resource "aws_memorydb_parameter_group" "test" {
   family = "memorydb_redis6"
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -408,8 +408,8 @@ resource "aws_memorydb_parameter_group" "test" {
   family = "memorydb_redis6"
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -420,17 +420,17 @@ func TestParameterChanges(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
-		Name       string
-		Old        *schema.Set
-		New        *schema.Set
-		ExpectedRemove      []*memorydb.ParameterNameValue
+		Name   string
+		Old*schema.Set
+		New*schema.Set
+		ExpectedRemove  []*memorydb.ParameterNameValue
 		ExpectedAddOrUpdate []*memorydb.ParameterNameValue
 	}{
 		{
-			Name:       "Empty",
-			Old:        new(schema.Set),
-			New:        new(schema.Set),
-			ExpectedRemove:      []*memorydb.ParameterNameValue{},
+			Name:   "Empty",
+			Old:new(schema.Set),
+			New:new(schema.Set),
+			ExpectedRemove:  []*memorydb.ParameterNameValue{},
 			ExpectedAddOrUpdate: []*memorydb.ParameterNameValue{},
 		},
 		{
@@ -464,7 +464,7 @@ func TestParameterChanges(t *testing.T) {
 					"value": "0",
 				},
 			}),
-			ExpectedRemove:      []*memorydb.ParameterNameValue{},
+			ExpectedRemove:  []*memorydb.ParameterNameValue{},
 			ExpectedAddOrUpdate: []*memorydb.ParameterNameValue{},
 		},
 		{

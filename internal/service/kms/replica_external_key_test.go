@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccKMSReplicaExternalKey_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -62,7 +61,6 @@ ImportStateVerifyIgnore: []string{
 },
 	})
 }
-
 func TestAccKMSReplicaExternalKey_descriptionAndEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -118,7 +116,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccKMSReplicaExternalKey_policy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -165,7 +162,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccKMSReplicaExternalKey_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -236,7 +232,6 @@ ImportStateVerifyIgnore: []string{
 },
 	})
 }
-
 func testAccReplicaExternalKeyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 # ACCEPTANCE TESTING ONLY -- NEVER EXPOSE YOUR KEY MATERIAL
@@ -255,7 +250,6 @@ resource "aws_kms_replica_external_key" "test" {
 }
 `, rName))
 }
-
 func testAccReplicaExternalKeyConfig_descriptionAndEnabled(rName, description string, enabled bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 # ACCEPTANCE TESTING ONLY -- NEVER EXPOSE YOUR KEY MATERIAL
@@ -282,7 +276,6 @@ resource "aws_kms_replica_external_key" "test" {
 }
 `, rName, description, enabled))
 }
-
 func testAccReplicaExternalKeyConfig_policy(rName, policy string, bypassLockoutCheck bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 # ACCEPTANCE TESTING ONLY -- NEVER EXPOSE YOUR KEY MATERIAL
@@ -313,7 +306,6 @@ resource "aws_kms_replica_external_key" "test" {
 }
 `, rName, policy, bypassLockoutCheck))
 }
-
 func testAccReplicaExternalKeyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 # ACCEPTANCE TESTING ONLY -- NEVER EXPOSE YOUR KEY MATERIAL
@@ -348,7 +340,6 @@ resource "aws_kms_replica_external_key" "test" {
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccReplicaExternalKeyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 # ACCEPTANCE TESTING ONLY -- NEVER EXPOSE YOUR KEY MATERIAL
@@ -384,7 +375,6 @@ resource "aws_kms_replica_external_key" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
 func testAccReplicaExternalKeyConfig_tags0(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 # ACCEPTANCE TESTING ONLY -- NEVER EXPOSE YOUR KEY MATERIAL

@@ -23,8 +23,8 @@ func TestContainerDefinitionsAreEquivalent_basic(t *testing.T) {
       "essential": true,
       "portMappings": [
         {
-          "containerPort": 80,
-          "hostPort": 80
+ "containerPort": 80,
+ "hostPort": 80
         }
       ],
       "memory": 500,
@@ -33,8 +33,8 @@ func TestContainerDefinitionsAreEquivalent_basic(t *testing.T) {
     {
       "environment": [
         {
-          "name": "MYSQL_ROOT_PASSWORD",
-          "value": "password"
+ "name": "MYSQL_ROOT_PASSWORD",
+ "value": "password"
         }
       ],
       "name": "mysql",
@@ -53,14 +53,14 @@ func TestContainerDefinitionsAreEquivalent_basic(t *testing.T) {
         "cpu": 10,
         "memory": 500,
         "links": [
-            "mysql"
+   "mysql"
         ],
         "portMappings": [
-            {
+   {
    "containerPort": 80,
    "hostPort": 80,
    "protocol": "tcp"
-            }
+   }
         ],
         "essential": true,
         "environment": [],
@@ -75,10 +75,10 @@ func TestContainerDefinitionsAreEquivalent_basic(t *testing.T) {
         "portMappings": [],
         "essential": true,
         "environment": [
-            {
+   {
    "name": "MYSQL_ROOT_PASSWORD",
    "value": "password"
-            }
+   }
         ],
         "mountPoints": [],
         "volumesFrom": []
@@ -105,7 +105,7 @@ func TestContainerDefinitionsAreEquivalent_portMappings(t *testing.T) {
       "essential": true,
       "portMappings": [
         {
-          "containerPort": 80
+ "containerPort": 80
         }
       ],
       "memory": 500,
@@ -121,11 +121,11 @@ func TestContainerDefinitionsAreEquivalent_portMappings(t *testing.T) {
         "cpu": 10,
         "memory": 500,
         "portMappings": [
-            {
+   {
    "containerPort": 80,
    "hostPort": 0,
    "protocol": "tcp"
-            }
+   }
         ],
         "essential": true,
         "environment": [],
@@ -153,8 +153,8 @@ func TestContainerDefinitionsAreEquivalent_portMappingsIgnoreHostPort(t *testing
       "image": "wordpress",
       "portMappings": [
         {
-          "containerPort": 80,
-          "hostPort": 80
+ "containerPort": 80,
+ "hostPort": 80
         }
       ]
     }
@@ -167,7 +167,7 @@ func TestContainerDefinitionsAreEquivalent_portMappingsIgnoreHostPort(t *testing
       "image": "wordpress",
       "portMappings": [
         {
-          "containerPort": 80
+ "containerPort": 80
         }
       ]
     }
@@ -232,36 +232,36 @@ func TestContainerDefinitionsAreEquivalent_arrays(t *testing.T) {
       ],
       "ulimits": [
         {
-          "name": "core",
-          "softLimit": 10, "hardLimit": 20
+ "name": "core",
+ "softLimit": 10, "hardLimit": 20
         },
         {
-          "name": "cpu",
-          "softLimit": 10, "hardLimit": 20
+ "name": "cpu",
+ "softLimit": 10, "hardLimit": 20
         },
         {
-          "name": "fsize",
-          "softLimit": 10, "hardLimit": 20
+ "name": "fsize",
+ "softLimit": 10, "hardLimit": 20
         }
       ],
       "linuxParameters": {
         "capabilities": {
-          "add": ["AUDIT_CONTROL", "AUDIT_WRITE", "BLOCK_SUSPEND"],
-          "drop": ["CHOWN", "IPC_LOCK", "KILL"]
+ "add": ["AUDIT_CONTROL", "AUDIT_WRITE", "BLOCK_SUSPEND"],
+ "drop": ["CHOWN", "IPC_LOCK", "KILL"]
         }
       },
       "devices": [
         {
-          "hostPath": "/path1",
-          "permissions": ["read", "write", "mknod"]
+ "hostPath": "/path1",
+ "permissions": ["read", "write", "mknod"]
         },
         {
-          "hostPath": "/path2",
-          "permissions": ["read", "write"]
+ "hostPath": "/path2",
+ "permissions": ["read", "write"]
         },
         {
-          "hostPath": "/path3",
-          "permissions": ["read", "mknod"]
+ "hostPath": "/path3",
+ "permissions": ["read", "mknod"]
         }
       ],
       "dockerSecurityOptions": ["label:one", "label:two", "label:three"],
@@ -332,14 +332,14 @@ func TestContainerDefinitionsAreEquivalent_arrays(t *testing.T) {
     "linuxParameters": {
       "capabilities": {
         "add": [
-          "AUDIT_CONTROL",
-          "AUDIT_WRITE",
-          "BLOCK_SUSPEND"
+ "AUDIT_CONTROL",
+ "AUDIT_WRITE",
+ "BLOCK_SUSPEND"
         ],
         "drop": [
-          "CHOWN",
-          "IPC_LOCK",
-          "KILL"
+ "CHOWN",
+ "IPC_LOCK",
+ "KILL"
         ]
       }
     },
@@ -504,8 +504,8 @@ func TestContainerDefinitionsAreEquivalent_missingEnvironmentName(t *testing.T) 
       "essential": true,
       "portMappings": [
         {
-          "containerPort": 80,
-          "hostPort": 80
+ "containerPort": 80,
+ "hostPort": 80
         }
       ],
       "memory": 500,
@@ -514,10 +514,10 @@ func TestContainerDefinitionsAreEquivalent_missingEnvironmentName(t *testing.T) 
     {
       "environment": [
         {
-          "value": "password"
+ "value": "password"
         },
         {
-          "value": "password2"
+ "value": "password2"
         }
       ],
       "name": "mysql",
@@ -536,14 +536,14 @@ func TestContainerDefinitionsAreEquivalent_missingEnvironmentName(t *testing.T) 
         "cpu": 10,
         "memory": 500,
         "links": [
-            "mysql"
+   "mysql"
         ],
         "portMappings": [
-            {
+   {
    "containerPort": 80,
    "hostPort": 80,
    "protocol": "tcp"
-            }
+   }
         ],
         "essential": true,
         "environment": [],
@@ -558,12 +558,12 @@ func TestContainerDefinitionsAreEquivalent_missingEnvironmentName(t *testing.T) 
         "portMappings": [],
         "essential": true,
         "environment": [
-          {
-            "value": "password"
-          },
-          {
-            "value": "password2"
-          }
+ {
+   "value": "password"
+ },
+ {
+   "value": "password2"
+ }
         ],
         "mountPoints": [],
         "volumesFrom": []

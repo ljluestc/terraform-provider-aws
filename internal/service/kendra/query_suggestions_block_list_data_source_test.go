@@ -1,39 +1,26 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kendra_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package kendra_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/backup"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func TestAccKendraQuerySuggestionsBlockListDataSource_basic(t *testing.T) {
+)func TestAccKendraQuerySuggestionsBlockListDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
-	datasourceName := "data.aws_kendra_query_suggestions_block_list.test"
+	}	datasourceName := "data.aws_kendra_query_suggestions_block_list.test"
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
-Config:      testAccQuerySuggestionsBlockListDataSourceConfig_nonExistent,
+Config:testAccQuerySuggestionsBlockListDataSourceConfig_nonExistent,
 ExpectError: regexache.MustCompile(`reading Kendra QuerySuggestionsBlockList`),
 	},
 	{
@@ -59,39 +46,28 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-const testAccQuerySuggestionsBlockListDataSourceConfig_nonExistent = `
+}const testAccQuerySuggestionsBlockListDataSourceConfig_nonExistent = `
 data "aws_kendra_query_suggestions_block_list" "test" {
-  index_id= "tf-acc-test-does-not-exist-kendra-id"
-  query_suggestions_block_list_id = "tf-acc-test-does-not-exist-kendra-id"
+index_id= "tf-acc-test-does-not-exist-kendra-id"
+query_suggestions_block_list_id = "tf-acc-test-does-not-exist-kendra-id"
 }
-`
-
-
-func testAccQuerySuggestionsBlockListDataSourceConfig_basic(rName, rName2 string) string {
+`func testAccQuerySuggestionsBlockListDataSourceConfig_basic(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 testAccQuerySuggestionsBlockListBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_kendra_query_suggestions_block_list" "test" {
-  index_id    = aws_kendra_index.test.id
-  name        = %[1]q
-  description = "example description query suggestions block list"
-  role_arn    = aws_iam_role.test.arn
-
-  source_s3_path {
-    bucket = aws_s3_bucket.test.id
-    key    = aws_s3_object.test.key
-  }
-
-  tags = {
-    "Key1" = "Value1"
-  }
+index_id = aws_kendra_index.test.id
+name= %[1]q
+description = "example description query suggestions block list"
+role_arn = aws_iam_role.test.arnsource_s3_path {
+ bucket = aws_s3_bucket.test.id
+ key = aws_s3_object.test.key
+}tags = {
+ "Key1" = "Value1"
 }
-
-data "aws_kendra_query_suggestions_block_list" "test" {
-  index_id= aws_kendra_index.test.id
-  query_suggestions_block_list_id = aws_kendra_query_suggestions_block_list.test.query_suggestions_block_list_id
+}data "aws_kendra_query_suggestions_block_list" "test" {
+index_id= aws_kendra_index.test.id
+query_suggestions_block_list_id = aws_kendra_query_suggestions_block_list.test.query_suggestions_block_list_id
 }
 `, rName2))
 }

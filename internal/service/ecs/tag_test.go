@@ -143,7 +143,7 @@ resource "aws_ecs_cluster" "test" {
 
 resource "aws_ecs_tag" "test" {
   resource_arn = aws_ecs_cluster.test.arn
-  key          = %[2]q
+  key = %[2]q
   value        = %[3]q
 }
 `, rName, key, value)
@@ -183,7 +183,7 @@ resource "aws_batch_compute_environment" "test" {
 
 resource "aws_ecs_tag" "test" {
   resource_arn = aws_batch_compute_environment.test.ecs_cluster_arn
-  key          = "testkey"
+  key = "testkey"
   value        = "testvalue"
 }
 `, rName)

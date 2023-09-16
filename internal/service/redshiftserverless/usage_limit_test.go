@@ -24,7 +24,7 @@ func TestAccRedshiftServerlessUsageLimit_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUsageLimitDestroy(ctx),
@@ -41,8 +41,8 @@ func TestAccRedshiftServerlessUsageLimit_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -63,7 +63,7 @@ func TestAccRedshiftServerlessUsageLimit_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUsageLimitDestroy(ctx),
@@ -138,7 +138,7 @@ resource "aws_redshiftserverless_workgroup" "test" {
 resource "aws_redshiftserverless_usage_limit" "test" {
   resource_arn = aws_redshiftserverless_workgroup.test.arn
   usage_type   = "serverless-compute"
-  amount       = %[2]d
+  amount  = %[2]d
 }
 `, rName, amount)
 }

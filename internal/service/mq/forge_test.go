@@ -8,30 +8,29 @@ import (
 
 	tfmq "github.com/hashicorp/terraform-provider-aws/internal/service/mq"
 )
-
 func TestCanonicalXML(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
-		Name        string
-		Config      string
-		Expected    string
+		Nameng
+		Config
+		Expected string
 		ExpectError bool
 	}{
 		{
-			Name:     "Config sample from MSDN",
-			Config:   testAccForgeConfig_testExampleXMLFromMsdn,
+			Name:"Config sample from MSDN",
+			Config:testAccForgeConfig_testExampleXMLFromMsdn,
 			Expected: testAccForgeConfig_testExampleXMLFromMsdn,
 		},
 		{
-			Name:     "Config sample from MSDN, modified",
-			Config:   testAccForgeConfig_testExampleXMLFromMsdn,
+			Name:"Config sample from MSDN, modified",
+			Config:testAccForgeConfig_testExampleXMLFromMsdn,
 			Expected: testExampleXML_from_msdn_modified,
 		},
 		{
-			Name:        "Config sample from MSDN, flaw",
-			Config:      testAccForgeConfig_testExampleXMLFromMsdn,
-			Expected:    testExampleXML_from_msdn_flawed,
+			Name:fig sample from MSDN, flaw",
+			Config:cForgeConfig_testExampleXMLFromMsdn,
+			Expected: testExampleXML_from_msdn_flawed,
 			ExpectError: true,
 		},
 		{
@@ -53,8 +52,8 @@ func TestCanonicalXML(t *testing.T) {
 	<to>You</to>
 	<from>Me</from>
 	<heading>
-    Reminder
-    </heading>
+ Reminder
+ </heading>
 	<body>You're awesome</body>
 	<rant/>
 	<rant>
@@ -89,112 +88,112 @@ func TestCanonicalXML(t *testing.T) {
 const testAccForgeConfig_testExampleXMLFromMsdn = `
 <?xml version="1.0"?>
 <purchaseOrder xmlns="http://tempuri.org/po.xsd" orderDate="1999-10-20">
-    <shipTo country="US">
-        <name>Alice Smith</name>
-        <street>123 Maple Street</street>
-        <city>Mill Valley</city>
-        <state>CA</state>
-        <zip>90952</zip>
-    </shipTo>
-    <billTo country="US">
-        <name>Robert Smith</name>
-        <street>8 Oak Avenue</street>
-        <city>Old Town</city>
-        <state>PA</state>
-        <zip>95819</zip>
-    </billTo>
-    <comment>Hurry, my lawn is going wild!</comment>
-    <items>
-        <item partNum="872-AA">
-            <productName>Lawnmower</productName>
-            <quantity>1</quantity>
-            <USPrice>148.95</USPrice>
-            <comment>Confirm this is electric</comment>
-        </item>
-        <item partNum="926-AA">
-            <productName>Baby Monitor</productName>
-            <quantity>1</quantity>
-            <USPrice>39.98</USPrice>
-            <shipDate>1999-05-21</shipDate>
-        </item>
+ <shipTo country="US">
+e>Alice Smith</name>
+eet>123 Maple Street</street>
+y>Mill Valley</city>
+te>CA</state>
+>90952</zip>
+ </shipTo>
+ <billTo country="US">
+e>Robert Smith</name>
+eet>8 Oak Avenue</street>
+y>Old Town</city>
+te>PA</state>
+>95819</zip>
+ </billTo>
+ <comment>Hurry, my lawn is going wild!</comment>
+ <items>
+m partNum="872-AA">
+>Lawnmower</productName>
+/quantity>
+.95</USPrice>
+firm this is electric</comment>
+em>
+m partNum="926-AA">
+>Baby Monitor</productName>
+/quantity>
+98</USPrice>
+99-05-21</shipDate>
+em>
 				<item/>
 				<item/>
-    </items>
+ </items>
 </purchaseOrder>
 `
 
 const testExampleXML_from_msdn_modified = `
 <?xml version="1.0"?>
 <purchaseOrder xmlns="http://tempuri.org/po.xsd" orderDate="1999-10-20">
-    <shipTo country="US">
-        <name>Alice Smith</name>
-        <street>123 Maple Street</street>
-        <city>Mill Valley</city>
-        <state>CA</state>
-        <zip>90952</zip>
-    </shipTo>
-    <billTo country="US">
-        <name>Robert Smith</name>
-        <street>8 Oak Avenue</street>
-        <city>Old Town</city>
-        <state>PA</state>
-        <zip>95819</zip>
-    </billTo>
-    <comment>Hurry, my lawn is going wild!</comment>
-    <items>
-        <item partNum="872-AA">
-            <productName>Lawnmower</productName>
-            <quantity>1</quantity>
-            <USPrice>148.95</USPrice>
-            <comment>Confirm this is electric</comment>
-        </item>
-        <item partNum="926-AA">
-            <productName>Baby Monitor</productName>
-            <quantity>1</quantity>
-            <USPrice>39.98</USPrice>
-            <shipDate>1999-05-21</shipDate>
-        </item>
+ <shipTo country="US">
+e>Alice Smith</name>
+eet>123 Maple Street</street>
+y>Mill Valley</city>
+te>CA</state>
+>90952</zip>
+ </shipTo>
+ <billTo country="US">
+e>Robert Smith</name>
+eet>8 Oak Avenue</street>
+y>Old Town</city>
+te>PA</state>
+>95819</zip>
+ </billTo>
+ <comment>Hurry, my lawn is going wild!</comment>
+ <items>
+m partNum="872-AA">
+>Lawnmower</productName>
+/quantity>
+.95</USPrice>
+firm this is electric</comment>
+em>
+m partNum="926-AA">
+>Baby Monitor</productName>
+/quantity>
+98</USPrice>
+99-05-21</shipDate>
+em>
 				  	 <item></item>
 				<item>
 </item>
-    </items>
+ </items>
 </purchaseOrder>
 `
 
 const testExampleXML_from_msdn_flawed = `
 <?xml version="1.0"?>
 <purchaseOrder xmlns="http://tempuri.org/po.xsd" orderDate="1999-10-20">
-    <shipTo country="US">
-        <name>Alice Smith</name>
-        <street>123 Maple Street</street>
-        <city>Mill Valley</city>
-        <state>CA</state>
-        <zip>90952</zip>
-    </shipTo>
-    <billTo country="US">
-        <name>Robert Smith</name>
-        <street>8 Oak Avenue</street>
-        <city>Old Town</city>
-        <state>PA</state>
-        <zip>95819</zip>
-    </billTo>
-    <comment>Hurry, my lawn is going wild!</comment>
-    <items>
-        <item partNum="872-AA">
-            <productName>Lawnmower</productName>
-            <quantity>1</quantity>
-            <USPrice>148.95</USPrice>
-            <comment>Confirm this is electric</comment>
-        </item>
-        <item partNum="926-AA">
-            <productName>Baby Monitor</productName>
-            <quantity>1</quantity>
-            <USPrice>39.98</USPrice>
-            <shipDate>1999-05-21</shipDate>
-        </item>
+ <shipTo country="US">
+e>Alice Smith</name>
+eet>123 Maple Street</street>
+y>Mill Valley</city>
+te>CA</state>
+>90952</zip>
+ </shipTo>
+ <billTo country="US">
+e>Robert Smith</name>
+eet>8 Oak Avenue</street>
+y>Old Town</city>
+te>PA</state>
+>95819</zip>
+ </billTo>
+ <comment>Hurry, my lawn is going wild!</comment>
+ <items>
+m partNum="872-AA">
+>Lawnmower</productName>
+/quantity>
+.95</USPrice>
+firm this is electric</comment>
+em>
+m partNum="926-AA">
+>Baby Monitor</productName>
+/quantity>
+98</USPrice>
+99-05-21</shipDate>
+em>
 				<item>
 				flaw
 				</item>
-    </items>
+ </items>
 </purchaseOrder>
 `

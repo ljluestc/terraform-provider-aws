@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -18,19 +12,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfrds "github.com/hashicorp/terraform-provider-aws/internal/service/rds"
 )
-
 func := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
-	var v rds.DBProxyEndpoint
+	}	var v rds.DBProxyEndpoint
 	resourceName := "aws_db_proxy_endpoint.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccDBProxyEndpointPreCheck(ctx, t) },
-ErrorCheck:  funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccDBProxyEndpointPreCheck(ctx, t) },
+ErrorCheck:
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckProxyEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -52,28 +43,25 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccRDSProxyEndpoint_targetRole(t *testing.T) {
 	ctx := acctest.Context(t)
 funcip("skipping long-running test in short mode")
-	}
-
-	var v rds.DBProxyEndpoint
+	}	var v rds.DBProxyEndpoint
 	resourceName := "aws_db_proxy_endpoint.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccDBProxyEndpointPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccDBProxyEndpointPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:funcs: []resource.TestStep{
+CheckDestroy:
+funcs: []resource.TestStep{
 	{
 Config: testAccProxyEndpointConfig_targetRole(rName),
 Check: resource.ComposeTestCheckFunc(
@@ -82,14 +70,13 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccRDSProxyEndpoint_vpcSecurityGroupIDs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -97,15 +84,15 @@ t.Skip("skipping long-running test in short mode")
 func
 	var dbProxy rds.DBProxyEndpoint
 	resourceName := "aws_db_proxy_endpoint.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccDBProxyEndpointPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccDBProxyEndpointPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckProxyEndpointDestroy(ctx),
 Steps: []resource.TestStep{
-	{funcig: testAccProxyEndpointConfig_vpcSecurityGroupIDs1(rName),
+	{
+funcig: testAccProxyEndpointConfig_vpcSecurityGroupIDs1(rName),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckProxyEndpointExists(ctx, resourceName, &dbProxy),
 	resource.TestCheckResourceAttr(resourceName, "vpc_security_group_ids.#", "1"),
@@ -113,8 +100,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -129,32 +116,30 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccRDSProxyEndpoint_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
 	}
-
 funcourceName := "aws_db_proxy_endpoint.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccDBProxyEndpointPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccDBProxyEndpointPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckProxyEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProxyEndpointConfig_tags1(rName, "key1", "value1"),
-Check: resourfunctAccCheckProxyEndpointExists(ctx, resourceName, &dbProxy),
+Check: resour
+functAccCheckProxyEndpointExists(ctx, resourceName, &dbProxy),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -177,18 +162,16 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccRDSProxyEndpoint_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
-	var v rds.DBProxyEndpoint
+	}	var v rds.DBProxyEndpoint
 	resourceName := "aws_db_proxy_endpoint.test"
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); testAccDBProxyEndpointPreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccDBProxyEndpointPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckProxyEndpointDestroy(ctx),
 Steps: []resource.TestStep{
@@ -196,24 +179,22 @@ Steps: []resource.TestStep{
 Config: testAccProxyEndpointConfig_basic(rName),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckProxyEndpointExists(ctx, resourceName, &v),
-	acctest.Checfunc
+	acctest.Chec
+func
 ExpectNonEmptyPlan: true,
 	},
 },
 	})
 }
-
 func TestAccRDSProxyEndpoint_Disappears_proxy(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
-	var v rds.DBProxyEndpoint
+	}	var v rds.DBProxyEndpoint
 	resourceName := "aws_db_proxy_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resource.ParallelTest(t, resource.TestCase{
-funcrCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+funcrCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckProxyEndpointDestroy(ctx),
 Steps: []resource.TestStep{
@@ -223,256 +204,183 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckProxyEndpointExists(ctx, resourceName, &v),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrds.ResourceProxy(), "aws_db_proxy.test"),
 ),
-ExpectNonEmptfunc
+ExpectNonEmpt
+func
 },
 	})
-}
-
-// testAccDBProxyEndpointPreCheck checks if a call to describe db proxies errors out meaning feature not supported
+}// testAccDBProxyEndpointPreCheck checks if a call to describe db proxies errors out meaning feature not supported
 func testAccDBProxyEndpointPreCheck(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-	_, err := conn.DescribeDBProxyEndpointsWithContext(ctx, &rds.DescribeDBProxyEndpointsInput{})
-
-	if tfawserr.ErrCodeEquals(err, "InvalidAction") {
+	conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)	_, err := conn.DescribeDBProxyEndpointsWithContext(ctx, &rds.DescribeDBProxyEndpointsInput{})	if tfawserr.ErrCodeEquals(err, "InvalidAction") {
 t.Skipf("skipping acceptance test, RDS Proxy not supported: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 func
 func testAccCheckProxyEndpointDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_db_proxy_endpoint" {
 continue
-	}
-
-	dbProxyEndpoint, err := tfrds.FindDBProxyEndpoint(ctx, conn, rs.Primary.ID)
-
-	if tfawserr.ErrCodeEquals(err, rds.ErrCodeDBProxyNotFoundFault) || tfawserr.ErrCodeEquals(err, rds.ErrCodeDBProxyEndpointNotFoundFault) {
+	}	dbProxyEndpoint, err := tfrds.FindDBProxyEndpoint(ctx, conn, rs.Primary.ID)	if tfawserr.ErrCodeEquals(err, rds.ErrCodeDBProxyNotFoundFault) || tfawserr.ErrCodeEquals(err, rds.ErrCodeDBProxyEndpointNotFoundFault) {
 continue
 func
-	if err funcrn err
-	}
-
-	if dbProxyEndpoint != nil {
+	if err 
+funcrn err
+	}	if dbProxyEndpoint != nil {
 return fmt.Errorf("RDS DB Proxy Endpoint (%s) still exists", rs.Primary.ID)
 	}
-}
-
-return nil
+}return nil
 	}
 }
-
 func testAccCheckProxyEndpointExists(ctx context.Context, n string, v *rds.DBProxyEndpoint) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No DB Proxy ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-dbProxyEndpoint, err := tfrds.FindDBProxyEndpoint(ctx, conn, rs.Primary.ID)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)dbProxyEndpoint, err := tfrds.FindDBProxyEndpoint(ctx, conn, rs.Primary.ID)
 if err != nil {
 func
 funcbProxyEndpoint == nil {
 	return fmt.Errorf("RDS DB Proxy Endpoint (%s) still not found", rs.Primary.ID)
-}
-
-*v = *dbProxyEndpoint
-
-return nil
+}*v = *dbProxyEndpointreturn nil
 	}
 }
-
 func testAccProxyEndpointBaseConfig(rName string) string {
 	return fmt.Sprintf(`
-# Secrets Manager setup
-
-resource "aws_secretsmanager_secret" "test" {
-  name       = "%[1]s"
-  recovery_window_in_days = 0
-}
-
-resource "aws_secretsmanager_secret_version" "test" {
-  secret_id     = aws_secretsmanager_secret.test.id
-  secret_string = "{\"username\":\"db_user\",\"password\":\"db_user_password\"}"
-}
-
-# IAM setup
-
-resource "aws_iam_role" "test" {
+# Secrets Manager setupresource "aws_secretsmanager_secret" "test" {
+name = "%[1]s"
+recovery_window_in_days = 0
+}resource "aws_secretsmanager_secret_version" "test" {
+secret_id= aws_secretsmanager_secret.test.id
+secret_string = "{\"username\":\"db_user\",\"password\":\"db_user_password\"}"
+}# IAM setupresource "aws_iam_role" "test" {
 funcsume_role_policy = data.aws_iam_policy_document.assume.json
+}data "aws_iam_policy_document" "assume" {
+statement {
+ actions = ["sts:AssumeRole"]
+ principals {
+type= "Service"
+identifiers = ["rds.amazonaws.com"]
+ }
 }
-
-data "aws_iam_policy_document" "assume" {
-  statement {
-    actions = ["sts:AssumeRole"]
-    principals {
-      type        = "Service"
-      identifiers = ["rds.amazonaws.com"]
-    }
-  }
+}resource "aws_iam_role_policy" "test" {
+role= aws_iam_role.test.id
+policy = data.aws_iam_policy_document.test.json
+}data "aws_iam_policy_document" "test" {
+statement {
+ actions = [
+"secretsmanager:GetRandomPassword",
+"secretsmanager:CreateSecret",
+"secretsmanager:ListSecrets",
+ ]
+ resources = ["*"]
+}statement {
+ actions= ["secretsmanager:*"]
+ resources = [aws_secretsmanager_secret.test.arn]
 }
-
-resource "aws_iam_role_policy" "test" {
-  role   = aws_iam_role.test.id
-  policy = data.aws_iam_policy_document.test.json
+}# VPC setupdata "aws_availability_zones" "available" {
+state = "available"filter {
+ name= "opt-in-status"
+ values = ["opt-in-not-required"]
 }
-
-data "aws_iam_policy_document" "test" {
-  statement {
-    actions = [
-      "secretsmanager:GetRandomPassword",
-      "secretsmanager:CreateSecret",
-      "secretsmanager:ListSecrets",
-    ]
-    resources = ["*"]
-  }
-
-  statement {
-    actions   = ["secretsmanager:*"]
-    resources = [aws_secretsmanager_secret.test.arn]
-  }
+}resource "aws_vpc" "test" {
+cidr_block = "10.0.0.0/16"tags = {
+ Name = "%[1]s"
 }
-
-# VPC setup
-
-data "aws_availability_zones" "available" {
-  state = "available"
-
-  filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
-  }
+}resource "aws_security_group" "test" {
+name= "%[1]s"
+vpc_id = aws_vpc.test.id
+}resource "aws_subnet" "test" {
+count= 2
+cidr_block= cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
+availability_zone = data.aws_availability_zones.available.names[count.index]
+vpc_id= aws_vpc.test.idtags = {
+ Name = "%[1]s-${count.index}"
 }
-
-resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
-    Name = "%[1]s"
-  }
+}resource "aws_db_proxy" "test" {
+depends_on = [
+ aws_secretsmanager_secret_version.test,
+ aws_iam_role_policy.test
+]name= %[1]q
+debug_logging = false
+engine_family = "MYSQL"
+idle_client_timeout = 1800
+require_tls= true
+role_arn= aws_iam_role.test.arn
+vpc_security_group_ids = [aws_security_group.test.id]
+vpc_subnet_ids= aws_subnet.test[*].idauth {
+ auth_scheme = "SECRETS"
+ description = "test"
+ iam_auth = "DISABLED"
+ secret_arn= aws_secretsmanager_secret.test.arn
 }
-
-resource "aws_security_group" "test" {
-  name   = "%[1]s"
-  vpc_id = aws_vpc.test.id
-}
-
-resource "aws_subnet" "test" {
-  count= 2
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
-  availability_zone = data.aws_availability_zones.available.names[count.index]
-  vpc_id            = aws_vpc.test.id
-
-  tags = {
-    Name = "%[1]s-${count.index}"
-  }
-}
-
-resource "aws_db_proxy" "test" {
-  depends_on = [
-    aws_secretsmanager_secret_version.test,
-    aws_iam_role_policy.test
-  ]
-
-  name      = %[1]q
-  debug_logging          = false
-  engine_family          = "MYSQL"
-  idle_client_timeout    = 1800
-  require_tls            = true
-  role_arn  = aws_iam_role.test.arn
-  vpc_security_group_ids = [aws_security_group.test.id]
-  vpc_subnet_ids         = aws_subnet.test[*].id
-
-  auth {
-    auth_scheme = "SECRETS"
-    description = "test"
-    iam_auth    = "DISABLED"
-    secret_arn  = aws_secretsmanager_secret.test.arn
-  }
 }
 `, rName)
 }
-
 func testAccProxyEndpointConfig_basic(rName string) string {
 	return testAccProxyEndpointBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_db_proxy_endpoint" "test" {
-  db_proxy_name          = aws_db_proxy.test.name
-  db_proxy_endpoint_name = %[1]q
-  vpc_subnet_ids         = aws_subnet.test[*].id
+db_proxy_name = aws_db_proxy.test.name
+db_proxy_endpoint_name = %[1]q
+vpc_subnet_ids= aws_subnet.test[*].id
 }
 `, rName)
 }
-
 func testAccProxyEndpointConfig_targetRole(rName string) string {
 	return testAccProxyEndpointBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_db_proxy_endpoint" "test" {
-  db_proxy_name          = aws_db_proxy.test.name
-  db_proxy_endpoint_name = %[1]q
-  vpc_subnet_ids         = aws_subnet.test[*].id
-  target_role            = "READ_ONLY"
+db_proxy_name = aws_db_proxy.test.name
+db_proxy_endpoint_name = %[1]q
+vpc_subnet_ids= aws_subnet.test[*].id
+target_role= "READ_ONLY"
 }
 func
-
 func testAccProxyEndpointConfig_vpcSecurityGroupIDs1(rName string) string {
 	return testAccProxyEndpointBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_db_proxy_endpoint" "test" {
-  db_proxy_name          = aws_db_proxy.test.name
-  db_proxy_endpoint_name = %[1]q
-  vpc_subnet_ids         = aws_subnet.test[*].id
-  vpc_security_group_ids = [aws_security_group.test.id]
+db_proxy_name = aws_db_proxy.test.name
+db_proxy_endpoint_name = %[1]q
+vpc_subnet_ids= aws_subnet.test[*].id
+vpc_security_group_ids = [aws_security_group.test.id]
 }
 func
-
 func testAccProxyEndpointConfig_vpcSecurityGroupIDs2(rName string) string {
 	return testAccProxyEndpointBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_db_proxy_endpoint" "test" {
-  db_proxy_name          = aws_db_proxy.test.name
-  db_proxy_endpoint_name = %[1]q
-  vpc_subnet_ids         = aws_subnet.test[*].id
-  vpc_security_group_ids = [aws_security_group.test.id, aws_security_group.test2.id]
+db_proxy_name = aws_db_proxy.test.name
+db_proxy_endpoint_name = %[1]q
+vpc_subnet_ids= aws_subnet.test[*].id
+vpc_security_group_ids = [aws_security_group.test.id, aws_security_group.test2.id]
 }
-
-funcme   = "%[1]s-2"
-  vpc_id = aws_vpc.test.id
+funcme= "%[1]s-2"
+vpc_id = aws_vpc.test.id
 }
 `, rName)
 }
-
 func testAccProxyEndpointConfig_tags1(rName, key1, value1 string) string {
 	return testAccProxyEndpointBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_db_proxy_endpoint" "test" {
-  db_proxy_name          = aws_db_proxy.test.name
-  db_proxy_endpoint_name = %[1]q
+db_proxy_name = aws_db_proxy.test.name
+db_proxy_endpoint_name = %[1]q
 func
-  tags = {
-    %[2]q = %[3]q
-  }
+tags = {
+ %[2]q = %[3]q
+}
 }
 `, rName, key1, value1)
 }
-
 func testAccProxyEndpointConfig_tags2(rName, key1, value1, key2, value2 string) string {
 	return testAccProxyEndpointBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_db_proxy_endpoint" "test" {
-  db_proxy_name          = aws_db_proxy.test.name
-  db_proxy_endpoint_name = %[1]q
-  vpc_subnet_ids         = aws_subnet.test[*].id
-
-  tags = {
+db_proxy_name = aws_db_proxy.test.name
+db_proxy_endpoint_name = %[1]q
+vpc_subnet_ids= aws_subnet.test[*].idtags = {
 func%[4]q = %[5]q
-  }
+}
 }
 `, rName, key1, value1, key2, value2)
 }

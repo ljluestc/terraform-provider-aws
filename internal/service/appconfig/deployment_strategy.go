@@ -36,48 +36,48 @@ func ResourceDeploymentStrategy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"deployment_duration_in_minutes": {
-				Type:         schema.TypeInt,
-				Required:     true,
+				Type:schema.TypeInt,
+				Required: true,
 				ValidateFunc: validation.IntBetween(0, 1440),
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"final_bake_time_in_minutes": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional: true,
 				ValidateFunc: validation.IntBetween(0, 1440),
 			},
 			"growth_factor": {
-				Type:         schema.TypeFloat,
-				Required:     true,
+				Type:schema.TypeFloat,
+				Required: true,
 				ValidateFunc: validation.FloatBetween(1.0, 100.0),
 			},
 			"growth_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      appconfig.GrowthTypeLinear,
+				Type:schema.TypeString,
+				Optional: true,
+				Default:  appconfig.GrowthTypeLinear,
 				ValidateFunc: validation.StringInSlice(appconfig.GrowthType_Values(), false),
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 			"replicate_to": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringInSlice(appconfig.ReplicateTo_Values(), false),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 		CustomizeDiff: verify.SetTagsDiff,
@@ -92,10 +92,10 @@ func resourceDeploymentStrategyCreate(ctx context.Context, d *schema.ResourceDat
 	input := &appconfig.CreateDeploymentStrategyInput{
 		DeploymentDurationInMinutes: aws.Int64(int64(d.Get("deployment_duration_in_minutes").(int))),
 		GrowthFactor:   aws.Float64(d.Get("growth_factor").(float64)),
-		GrowthType:     aws.String(d.Get("growth_type").(string)),
-		Name:           aws.String(name),
-		ReplicateTo:    aws.String(d.Get("replicate_to").(string)),
-		Tags:           getTagsIn(ctx),
+		GrowthType: aws.String(d.Get("growth_type").(string)),
+		Name:  aws.String(name),
+		ReplicateTo:aws.String(d.Get("replicate_to").(string)),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -152,7 +152,7 @@ func resourceDeploymentStrategyRead(ctx context.Context, d *schema.ResourceData,
 	arn := arn.ARN{
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
+		Region:meta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("deploymentstrategy/%s", d.Id()),
 		Service:   "appconfig",
 	}.String()

@@ -126,7 +126,7 @@ func updateTags(ctx context.Context, conn neptuneiface.NeptuneAPI, identifier st
 	if len(updatedTags) > 0 {
 		input := &neptune.AddTagsToResourceInput{
 			ResourceName: aws.String(identifier),
-			Tags:         Tags(updatedTags),
+			Tags:Tags(updatedTags),
 		}
 
 		_, err := conn.AddTagsToResourceWithContext(ctx, input)

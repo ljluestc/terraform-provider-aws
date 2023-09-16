@@ -21,13 +21,13 @@ func DataSourceConfigurationProfiles() *schema.Resource {
 		ReadWithoutTimeout: dataSourceConfigurationProfilesRead,
 		Schema: map[string]*schema.Schema{
 			"application_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 			"configuration_profile_ids": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}

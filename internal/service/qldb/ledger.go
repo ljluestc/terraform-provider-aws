@@ -46,16 +46,16 @@ func resourceLedger() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"deletion_protection": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"kms_key": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ValidateFunc: validation.Any(
@@ -64,7 +64,7 @@ func resourceLedger() *schema.Resource {
 				),
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
@@ -75,10 +75,10 @@ func resourceLedger() *schema.Resource {
 			},
 			"permissions_mode": {
 				Type:schema.TypeString,
-				Required:         true,
+				Required:true,
 				ValidateDiagFunc: enum.Validate[types.PermissionsMode](),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -93,7 +93,7 @@ func resourceLedgerCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	input := &qldb.CreateLedgerInput{
 		DeletionProtection: aws.Bool(d.Get("deletion_protection").(bool)),
 		Name:  aws.String(name),
-		PermissionsMode:    types.PermissionsMode(d.Get("permissions_mode").(string)),
+		PermissionsMode:types.PermissionsMode(d.Get("permissions_mode").(string)),
 		Tags:  getTagsIn(ctx),
 	}
 
@@ -149,7 +149,7 @@ func resourceLedgerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("permissions_mode") {
 		input := &qldb.UpdateLedgerPermissionsModeInput{
-			Name:            aws.String(d.Id()),
+			Name:   aws.String(d.Id()),
 			PermissionsMode: types.PermissionsMode(d.Get("permissions_mode").(string)),
 		}
 
@@ -227,7 +227,7 @@ func findLedgerByName(ctx context.Context, conn *qldb.Client, name string) (*qld
 
 	if state := output.State; state == types.LedgerStateDeleted {
 		return nil, &retry.NotFoundError{
-			Message:     string(state),
+			Message: string(state),
 			LastRequest: input,
 		}
 	}
@@ -253,10 +253,10 @@ func statusLedgerState(ctx context.Context, conn *qldb.Client, name string) retr
 
 func waitLedgerCreated(ctx context.Context, conn *qldb.Client, name string, timeout time.Duration) (*qldb.DescribeLedgerOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.LedgerStateCreating),
-		Target:     enum.Slice(types.LedgerStateActive),
-		Refresh:    statusLedgerState(ctx, conn, name),
-		Timeout:    timeout,
+		Pending:enum.Slice(types.LedgerStateCreating),
+		Target: enum.Slice(types.LedgerStateActive),
+		Refresh:statusLedgerState(ctx, conn, name),
+		Timeout:timeout,
 		MinTimeout: 3 * time.Second,
 	}
 
@@ -271,10 +271,10 @@ func waitLedgerCreated(ctx context.Context, conn *qldb.Client, name string, time
 
 func waitLedgerDeleted(ctx context.Context, conn *qldb.Client, name string, timeout time.Duration) (*qldb.DescribeLedgerOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.LedgerStateActive, types.LedgerStateDeleting),
-		Target:     []string{},
-		Refresh:    statusLedgerState(ctx, conn, name),
-		Timeout:    timeout,
+		Pending:enum.Slice(types.LedgerStateActive, types.LedgerStateDeleting),
+		Target: []string{},
+		Refresh:statusLedgerState(ctx, conn, name),
+		Timeout:timeout,
 		MinTimeout: 1 * time.Second,
 	}
 

@@ -56,8 +56,8 @@ func ResourceService() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"alarms": {
 				Type:schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -85,7 +85,7 @@ func ResourceService() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"base": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(0, 100000),
 						},
@@ -94,7 +94,7 @@ func ResourceService() *schema.Resource {
 							Required: true,
 						},
 						"weight": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(0, 1000),
 						},
@@ -109,8 +109,8 @@ func ResourceService() *schema.Resource {
 			},
 			"deployment_circuit_breaker": {
 				Type:schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -127,13 +127,13 @@ func ResourceService() *schema.Resource {
 			},
 			"deployment_controller": {
 				Type:schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							ForceNew:     true,
 							Optional:     true,
 							Default:      ecs.DeploymentControllerTypeEcs,
@@ -186,7 +186,7 @@ func ResourceService() *schema.Resource {
 				Optional: true,
 			},
 			"health_check_grace_period_seconds": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(0, math.MaxInt32),
 			},
@@ -197,7 +197,7 @@ func ResourceService() *schema.Resource {
 				Computed: true,
 			},
 			"launch_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Optional:     true,
 				Computed:     true,
@@ -213,7 +213,7 @@ func ResourceService() *schema.Resource {
 							Required: true,
 						},
 						"container_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IntBetween(0, 65536),
 						},
@@ -222,7 +222,7 @@ func ResourceService() *schema.Resource {
 							Optional: true,
 						},
 						"target_group_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: verify.ValidARN,
 						},
@@ -280,7 +280,7 @@ func ResourceService() *schema.Resource {
 							},
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(ecs.PlacementStrategyType_Values(), false),
 						},
@@ -298,7 +298,7 @@ func ResourceService() *schema.Resource {
 							Optional: true,
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(ecs.PlacementConstraintType_Values(), false),
 						},
@@ -322,7 +322,7 @@ func ResourceService() *schema.Resource {
 				ValidateFunc: validation.StringInSlice(ecs.PropagateTags_Values(), false),
 			},
 			"scheduling_strategy": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ecs.SchedulingStrategyReplica,
@@ -345,7 +345,7 @@ func ResourceService() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"log_driver": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringInSlice(ecs.LogDriver_Values(), false),
 									},
@@ -394,7 +394,7 @@ func ResourceService() *schema.Resource {
 													Optional: true,
 												},
 												"port": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Required:     true,
 													ValidateFunc: validation.IntBetween(0, 65535),
 												},
@@ -406,7 +406,7 @@ func ResourceService() *schema.Resource {
 										Optional: true,
 									},
 									"ingress_port_override": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ValidateFunc: validation.IntBetween(0, 65535),
 									},
@@ -431,17 +431,17 @@ func ResourceService() *schema.Resource {
 							Optional: true,
 						},
 						"container_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(0, 65536),
 						},
 						"port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(0, 65536),
 						},
 						"registry_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: verify.ValidARN,
 						},
@@ -783,9 +783,9 @@ func resourceServiceUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &ecs.UpdateServiceInput{
-			Cluster:            aws.String(d.Get("cluster").(string)),
+			Cluster:   aws.String(d.Get("cluster").(string)),
 			ForceNewDeployment: aws.Bool(d.Get("force_new_deployment").(bool)),
-			Service:            aws.String(d.Id()),
+			Service:   aws.String(d.Id()),
 		}
 
 		if d.HasChange("alarms") {

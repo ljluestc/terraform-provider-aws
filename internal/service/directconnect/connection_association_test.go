@@ -17,14 +17,13 @@ import (
 	tfdirectconnect "github.com/hashicorp/terraform-provider-aws/internal/service/directconnect"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccDirectConnectConnectionAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dx_connection_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectionAssociationDestroy(ctx),
@@ -38,14 +37,13 @@ func TestAccDirectConnectConnectionAssociation_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDirectConnectConnectionAssociation_lagOnConnection(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dx_connection_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectionAssociationDestroy(ctx),
@@ -59,7 +57,6 @@ func TestAccDirectConnectConnectionAssociation_lagOnConnection(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDirectConnectConnectionAssociation_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName1 := "aws_dx_connection_association.test1"
@@ -67,7 +64,7 @@ func TestAccDirectConnectConnectionAssociation_multiple(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectionAssociationDestroy(ctx),
@@ -82,7 +79,6 @@ func TestAccDirectConnectConnectionAssociation_multiple(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckConnectionAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -108,7 +104,6 @@ func testAccCheckConnectionAssociationDestroy(ctx context.Context) resource.Test
 		return nil
 	}
 }
-
 func testAccCheckConnectionAssociationExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -125,7 +120,6 @@ func testAccCheckConnectionAssociationExists(ctx context.Context, name string) r
 		return tfdirectconnect.FindConnectionAssociationExists(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["lag_id"])
 	}
 }
-
 func testAccConnectionAssociationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
@@ -135,25 +129,24 @@ locals {
 }
 
 resource "aws_dx_connection" "test" {
-  name      = %[1]q
+  nameq
   bandwidth = "1Gbps"
   location  = local.location_code
 }
 
 resource "aws_dx_lag" "test" {
-  name     = %[1]q
+  name= %[1]q
   connections_bandwidth = "1Gbps"
   location = local.location_code
-  force_destroy         = true
+  force_destroyrue
 }
 
 resource "aws_dx_connection_association" "test" {
   connection_id = aws_dx_connection.test.id
-  lag_id        = aws_dx_lag.test.id
+  lag_ids_dx_lag.test.id
 }
 `, rName)
 }
-
 func testAccConnectionAssociationConfig_lagOn(rName string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
@@ -163,31 +156,30 @@ locals {
 }
 
 resource "aws_dx_connection" "test1" {
-  name      = "%[1]s-1"
+  name]s-1"
   bandwidth = "1Gbps"
   location  = local.location_code
 }
 
 resource "aws_dx_connection" "test2" {
-  name      = "%[1]s-2"
+  name]s-2"
   bandwidth = "1Gbps"
   location  = local.location_code
 }
 
 resource "aws_dx_lag" "test" {
-  name     = %[1]q
-  connection_id         = aws_dx_connection.test1.id
+  name= %[1]q
+  connection_idws_dx_connection.test1.id
   connections_bandwidth = "1Gbps"
   location = local.location_code
 }
 
 resource "aws_dx_connection_association" "test" {
   connection_id = aws_dx_connection.test2.id
-  lag_id        = aws_dx_lag.test.id
+  lag_ids_dx_lag.test.id
 }
 `, rName)
 }
-
 func testAccConnectionAssociationConfig_multiple(rName string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
@@ -197,32 +189,32 @@ locals {
 }
 
 resource "aws_dx_connection" "test1" {
-  name      = "%[1]s-1"
+  name]s-1"
   bandwidth = "1Gbps"
   location  = local.location_code
 }
 
 resource "aws_dx_connection" "test2" {
-  name      = "%[1]s-2"
+  name]s-2"
   bandwidth = "1Gbps"
   location  = local.location_code
 }
 
 resource "aws_dx_lag" "test" {
-  name     = %[1]q
+  name= %[1]q
   connections_bandwidth = "1Gbps"
   location = local.location_code
-  force_destroy         = true
+  force_destroyrue
 }
 
 resource "aws_dx_connection_association" "test1" {
   connection_id = aws_dx_connection.test1.id
-  lag_id        = aws_dx_lag.test.id
+  lag_ids_dx_lag.test.id
 }
 
 resource "aws_dx_connection_association" "test2" {
   connection_id = aws_dx_connection.test2.id
-  lag_id        = aws_dx_lag.test.id
+  lag_ids_dx_lag.test.id
 }
 `, rName)
 }

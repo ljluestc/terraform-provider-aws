@@ -32,34 +32,34 @@ func TestAccAPIGatewayV2Model_basic(t *testing.T) {
   "title": "ExampleModel",
   "type": "object",
   "properties": {
-    "id": {
-      "type": "string"
-    }
+"id": {
+ "type": "string"
+}
   }
 }
 `
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckModelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccModelConfig_basic(rName, schema),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckModelExists(ctx, resourceName, &apiId, &v),
-					resource.TestCheckResourceAttr(resourceName, "content_type", "application/json"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					acctest.CheckResourceAttrEquivalentJSON(resourceName, "schema", schema),
-				),
+Config: testAccModelConfig_basic(rName, schema),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckModelExists(ctx, resourceName, &apiId, &v),
+	resource.TestCheckResourceAttr(resourceName, "content_type", "application/json"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	acctest.CheckResourceAttrEquivalentJSON(resourceName, "schema", schema),
+),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportStateIdFunc: testAccModelImportStateIdFunc(resourceName),
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName: resourceName,
+ImportStateIdFunc: testAccModelImportStateIdFunc(resourceName),
+ImportState:  true,
+ImportStateVerify: true,
 			},
 		},
 	})
@@ -78,26 +78,26 @@ func TestAccAPIGatewayV2Model_disappears(t *testing.T) {
   "title": "ExampleModel",
   "type": "object",
   "properties": {
-    "id": {
-      "type": "string"
-    }
+"id": {
+ "type": "string"
+}
   }
 }
 `
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckModelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccModelConfig_basic(rName, schema),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckModelExists(ctx, resourceName, &apiId, &v),
-					testAccCheckModelDisappears(ctx, &apiId, &v),
-				),
-				ExpectNonEmptyPlan: true,
+Config: testAccModelConfig_basic(rName, schema),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckModelExists(ctx, resourceName, &apiId, &v),
+	testAccCheckModelDisappears(ctx, &apiId, &v),
+),
+ExpectNonEmptyPlan: true,
 			},
 		},
 	})
@@ -116,9 +116,9 @@ func TestAccAPIGatewayV2Model_allAttributes(t *testing.T) {
   "title": "ExampleModel1",
   "type": "object",
   "properties": {
-    "id": {
-      "type": "string"
-    }
+"id": {
+ "type": "string"
+}
   }
 }
 `
@@ -128,57 +128,57 @@ func TestAccAPIGatewayV2Model_allAttributes(t *testing.T) {
   "title": "ExampleModel",
   "type": "object",
   "properties": {
-    "ids": {
-      "type": "array",
-        "items":{
-          "type": "integer"
-        }
-    }
+"ids": {
+ "type": "array",
+   "items":{
+"type": "integer"
+   }
+}
   }
 }
 `
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckModelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccModelConfig_allAttributes(rName, schema1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckModelExists(ctx, resourceName, &apiId, &v),
-					resource.TestCheckResourceAttr(resourceName, "content_type", "text/x-json"),
-					resource.TestCheckResourceAttr(resourceName, "description", "test"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					acctest.CheckResourceAttrEquivalentJSON(resourceName, "schema", schema1),
-				),
+Config: testAccModelConfig_allAttributes(rName, schema1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckModelExists(ctx, resourceName, &apiId, &v),
+	resource.TestCheckResourceAttr(resourceName, "content_type", "text/x-json"),
+	resource.TestCheckResourceAttr(resourceName, "description", "test"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	acctest.CheckResourceAttrEquivalentJSON(resourceName, "schema", schema1),
+),
 			},
 			{
-				Config: testAccModelConfig_basic(rName, schema2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckModelExists(ctx, resourceName, &apiId, &v),
-					resource.TestCheckResourceAttr(resourceName, "content_type", "application/json"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					acctest.CheckResourceAttrEquivalentJSON(resourceName, "schema", schema2),
-				),
+Config: testAccModelConfig_basic(rName, schema2),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckModelExists(ctx, resourceName, &apiId, &v),
+	resource.TestCheckResourceAttr(resourceName, "content_type", "application/json"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	acctest.CheckResourceAttrEquivalentJSON(resourceName, "schema", schema2),
+),
 			},
 			{
-				Config: testAccModelConfig_allAttributes(rName, schema1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckModelExists(ctx, resourceName, &apiId, &v),
-					resource.TestCheckResourceAttr(resourceName, "content_type", "text/x-json"),
-					resource.TestCheckResourceAttr(resourceName, "description", "test"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					acctest.CheckResourceAttrEquivalentJSON(resourceName, "schema", schema1),
-				),
+Config: testAccModelConfig_allAttributes(rName, schema1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckModelExists(ctx, resourceName, &apiId, &v),
+	resource.TestCheckResourceAttr(resourceName, "content_type", "text/x-json"),
+	resource.TestCheckResourceAttr(resourceName, "description", "test"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	acctest.CheckResourceAttrEquivalentJSON(resourceName, "schema", schema1),
+),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportStateIdFunc: testAccModelImportStateIdFunc(resourceName),
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName: resourceName,
+ImportStateIdFunc: testAccModelImportStateIdFunc(resourceName),
+ImportState:  true,
+ImportStateVerify: true,
 			},
 		},
 	})
@@ -190,18 +190,18 @@ func testAccCheckModelDestroy(ctx context.Context) resource.TestCheckFunc {
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_apigatewayv2_model" {
-				continue
+continue
 			}
 
 			_, err := conn.GetModelWithContext(ctx, &apigatewayv2.GetModelInput{
-				ApiId:   aws.String(rs.Primary.Attributes["api_id"]),
-				ModelId: aws.String(rs.Primary.ID),
+ApiId:   aws.String(rs.Primary.Attributes["api_id"]),
+ModelId: aws.String(rs.Primary.ID),
 			})
 			if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {
-				continue
+continue
 			}
 			if err != nil {
-				return err
+return err
 			}
 
 			return fmt.Errorf("API Gateway v2 model %s still exists", rs.Primary.ID)
@@ -267,7 +267,7 @@ func testAccModelImportStateIdFunc(resourceName string) resource.ImportStateIdFu
 func testAccModelConfig_api(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name        = %[1]q
+  name   = %[1]q
   protocol_type = "WEBSOCKET"
   route_selection_expression = "$request.body.action"
 }
@@ -277,10 +277,10 @@ resource "aws_apigatewayv2_api" "test" {
 func testAccModelConfig_basic(rName, schema string) string {
 	return testAccModelConfig_api(rName) + fmt.Sprintf(`
 resource "aws_apigatewayv2_model" "test" {
-  api_id       = aws_apigatewayv2_api.test.id
+  api_id  = aws_apigatewayv2_api.test.id
   content_type = "application/json"
-  name         = %[1]q
-  schema       = %[2]q
+  name= %[1]q
+  schema  = %[2]q
 }
 `, rName, schema)
 }
@@ -288,11 +288,11 @@ resource "aws_apigatewayv2_model" "test" {
 func testAccModelConfig_allAttributes(rName, schema string) string {
 	return testAccModelConfig_api(rName) + fmt.Sprintf(`
 resource "aws_apigatewayv2_model" "test" {
-  api_id       = aws_apigatewayv2_api.test.id
+  api_id  = aws_apigatewayv2_api.test.id
   content_type = "text/x-json"
-  name         = %[1]q
+  name= %[1]q
   description  = "test"
-  schema       = %[2]q
+  schema  = %[2]q
 }
 `, rName, schema)
 }

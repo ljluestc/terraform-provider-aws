@@ -24,8 +24,8 @@ func TestDiffPortSettings(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-		Old           []interface{}
-		New           []interface{}
+		Old  []interface{}
+		New  []interface{}
 		ExpectedAuths []*gamelift.IpPermission
 		ExpectedRevs  []*gamelift.IpPermission
 	}{
@@ -91,7 +91,7 @@ func TestDiffPortSettings(t *testing.T) {
 					"to_port":   8443,
 				},
 			},
-			New:           []interface{}{},
+			New:  []interface{}{},
 			ExpectedAuths: []*gamelift.IpPermission{},
 			ExpectedRevs: []*gamelift.IpPermission{
 				{
@@ -219,9 +219,9 @@ func TestAccGameLiftFleet_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"runtime_configuration"},
 			},
 			{
@@ -299,9 +299,9 @@ func TestAccGameLiftFleet_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"runtime_configuration"},
 			},
 			{
@@ -418,9 +418,9 @@ func TestAccGameLiftFleet_allFields(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"runtime_configuration"},
 			},
 			{
@@ -521,9 +521,9 @@ func TestAccGameLiftFleet_cert(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"runtime_configuration"},
 			},
 		},
@@ -575,9 +575,9 @@ func TestAccGameLiftFleet_script(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"runtime_configuration"},
 			},
 		},
@@ -690,16 +690,16 @@ func testAccCheckFleetDestroy(ctx context.Context) resource.TestCheckFunc {
 func testAccFleetConfig_basic(rName, launchPath, params, bucketName, key, roleArn string) string {
 	return testAccFleetBasicTemplate(rName, bucketName, key, roleArn) + fmt.Sprintf(`
 resource "aws_gamelift_fleet" "test" {
-  build_id          = aws_gamelift_build.test.id
+  build_id = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
   name = %[1]q
 
   runtime_configuration {
-    server_process {
-      concurrent_executions = 1
-      launch_path           = %[2]q
-      parameters            = %[3]q
-    }
+server_process {
+  concurrent_executions = 1
+  launch_path  = %[2]q
+  parameters   = %[3]q
+}
   }
 }
 `, rName, launchPath, params)
@@ -708,20 +708,20 @@ resource "aws_gamelift_fleet" "test" {
 func testAccFleetConfig_basicTags1(rName, launchPath, params, bucketName, key, roleArn, tagKey1, tagValue1 string) string {
 	return testAccFleetBasicTemplate(rName, bucketName, key, roleArn) + fmt.Sprintf(`
 resource "aws_gamelift_fleet" "test" {
-  build_id          = aws_gamelift_build.test.id
+  build_id = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
   name = %[1]q
 
   runtime_configuration {
-    server_process {
-      concurrent_executions = 1
-      launch_path           = %[2]q
-      parameters            = %[3]q
-    }
+server_process {
+  concurrent_executions = 1
+  launch_path  = %[2]q
+  parameters   = %[3]q
+}
   }
 
   tags = {
-    %[4]q = %[5]q
+%[4]q = %[5]q
   }
 }
 `, rName, launchPath, params, tagKey1, tagValue1)
@@ -730,21 +730,21 @@ resource "aws_gamelift_fleet" "test" {
 func testAccFleetConfig_basicTags2(rName, launchPath, params, bucketName, key, roleArn, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return testAccFleetBasicTemplate(rName, bucketName, key, roleArn) + fmt.Sprintf(`
 resource "aws_gamelift_fleet" "test" {
-  build_id          = aws_gamelift_build.test.id
+  build_id = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
   name = %[1]q
 
   runtime_configuration {
-    server_process {
-      concurrent_executions = 1
-      launch_path           = %[2]q
-      parameters            = %[3]q
-    }
+server_process {
+  concurrent_executions = 1
+  launch_path  = %[2]q
+  parameters   = %[3]q
+}
   }
 
   tags = {
-    %[4]q = %[5]q
-    %[6]q = %[7]q
+%[4]q = %[5]q
+%[6]q = %[7]q
   }
 }
 `, rName, launchPath, params, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -754,23 +754,23 @@ func testAccFleetConfig_basicUpdated(rName, launchPath, params, bucketName, key,
 	return testAccFleetBasicTemplate(rName, bucketName, key, roleArn) + fmt.Sprintf(`
 resource "aws_gamelift_fleet" "test" {
   build_id = aws_gamelift_build.test.id
-  ec2_instance_type     = "c4.large"
-  description           = %[1]q
-  name     = %[1]q
-  metric_groups         = ["UpdatedGroup"]
+  ec2_instance_type = "c4.large"
+  description  = %[1]q
+  name = %[1]q
+  metric_groups= ["UpdatedGroup"]
   new_game_session_protection_policy = "FullProtection"
 
   resource_creation_limit_policy {
-    new_game_sessions_per_creator = 2
-    policy_period_in_minutes      = 15
+new_game_sessions_per_creator = 2
+policy_period_in_minutes  = 15
   }
 
   runtime_configuration {
-    server_process {
-      concurrent_executions = 1
-      launch_path           = %[2]q
-      parameters            = "%[3]s"
-    }
+server_process {
+  concurrent_executions = 1
+  launch_path  = %[2]q
+  parameters   = "%[3]s"
+}
   }
 }
 `, rName, launchPath, params)
@@ -780,51 +780,51 @@ func testAccFleetConfig_allFields(rName, desc, launchPath, params, bucketName, k
 	return testAccFleetBasicTemplate(rName, bucketName, key, roleArn) +
 		testAccFleetIAMRole(rName) + fmt.Sprintf(`
 resource "aws_gamelift_fleet" "test" {
-  build_id          = aws_gamelift_build.test.id
+  build_id = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
   name = "%s"
-  description       = "%s"
+  description   = "%s"
   instance_role_arn = aws_iam_role.test.arn
-  fleet_type        = "ON_DEMAND"
+  fleet_type= "ON_DEMAND"
 
   ec2_inbound_permission {
-    from_port = 8080
-    ip_range  = "8.8.8.8/32"
-    protocol  = "TCP"
-    to_port   = 8080
+from_port = 8080
+ip_range  = "8.8.8.8/32"
+protocol  = "TCP"
+to_port   = 8080
   }
 
   ec2_inbound_permission {
-    from_port = 8443
-    ip_range  = "8.8.0.0/16"
-    protocol  = "TCP"
-    to_port   = 8443
+from_port = 8443
+ip_range  = "8.8.0.0/16"
+protocol  = "TCP"
+to_port   = 8443
   }
 
   ec2_inbound_permission {
-    from_port = 60000
-    ip_range  = "8.8.8.8/32"
-    protocol  = "UDP"
-    to_port   = 60000
+from_port = 60000
+ip_range  = "8.8.8.8/32"
+protocol  = "UDP"
+to_port   = 60000
   }
 
-  metric_groups         = ["TerraformAccTest"]
+  metric_groups= ["TerraformAccTest"]
   new_game_session_protection_policy = "FullProtection"
 
   resource_creation_limit_policy {
-    new_game_sessions_per_creator = 4
-    policy_period_in_minutes      = 25
+new_game_sessions_per_creator = 4
+policy_period_in_minutes  = 25
   }
 
   runtime_configuration {
-    game_session_activation_timeout_seconds = 35
-    max_concurrent_game_session_activations = 99
+game_session_activation_timeout_seconds = 35
+max_concurrent_game_session_activations = 99
 
-    server_process {
-      concurrent_executions = 1
-      launch_path           = %q
-      parameters            = "%s"
-    }
+server_process {
+  concurrent_executions = 1
+  launch_path  = %q
+  parameters   = "%s"
+}
   }
 }
 `, rName, desc, launchPath, params)
@@ -834,52 +834,52 @@ func testAccFleetConfig_allFieldsUpdated(rName, desc, launchPath, params, bucket
 	return testAccFleetBasicTemplate(rName, bucketName, key, roleArn) +
 		testAccFleetIAMRole(rName) + fmt.Sprintf(`
 resource "aws_gamelift_fleet" "test" {
-  build_id          = aws_gamelift_build.test.id
+  build_id = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
 
   name = "%s"
-  description       = "%s"
+  description   = "%s"
   instance_role_arn = aws_iam_role.test.arn
-  fleet_type        = "ON_DEMAND"
+  fleet_type= "ON_DEMAND"
 
   ec2_inbound_permission {
-    from_port = 8888
-    ip_range  = "8.8.8.8/32"
-    protocol  = "TCP"
-    to_port   = 8888
+from_port = 8888
+ip_range  = "8.8.8.8/32"
+protocol  = "TCP"
+to_port   = 8888
   }
 
   ec2_inbound_permission {
-    from_port = 8443
-    ip_range  = "8.4.0.0/16"
-    protocol  = "TCP"
-    to_port   = 8443
+from_port = 8443
+ip_range  = "8.4.0.0/16"
+protocol  = "TCP"
+to_port   = 8443
   }
 
   ec2_inbound_permission {
-    from_port = 60000
-    ip_range  = "8.8.8.8/32"
-    protocol  = "UDP"
-    to_port   = 60000
+from_port = 60000
+ip_range  = "8.8.8.8/32"
+protocol  = "UDP"
+to_port   = 60000
   }
 
-  metric_groups         = ["TerraformAccTest"]
+  metric_groups= ["TerraformAccTest"]
   new_game_session_protection_policy = "FullProtection"
 
   resource_creation_limit_policy {
-    new_game_sessions_per_creator = 4
-    policy_period_in_minutes      = 25
+new_game_sessions_per_creator = 4
+policy_period_in_minutes  = 25
   }
 
   runtime_configuration {
-    game_session_activation_timeout_seconds = 35
-    max_concurrent_game_session_activations = 98
+game_session_activation_timeout_seconds = 35
+max_concurrent_game_session_activations = 98
 
-    server_process {
-      concurrent_executions = 1
-      launch_path           = %q
-      parameters            = "%s"
-    }
+server_process {
+  concurrent_executions = 1
+  launch_path  = %q
+  parameters   = "%s"
+}
   }
 }
 `, rName, desc, launchPath, params)
@@ -892,9 +892,9 @@ resource "aws_gamelift_build" "test" {
   operating_system = "WINDOWS_2012"
 
   storage_location {
-    bucket   = %[2]q
-    key      = %[3]q
-    role_arn = %[4]q
+bucket   = %[2]q
+key  = %[3]q
+role_arn = %[4]q
   }
 }
 `, rName, bucketName, key, roleArn)
@@ -909,50 +909,50 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-          "gamelift.amazonaws.com"
-        ]
-      },
-      "Action": [
-        "sts:AssumeRole"
-      ]
-    }
+{
+  "Sid": "",
+  "Effect": "Allow",
+  "Principal": {
+"Service": [
+ "gamelift.amazonaws.com"
+]
+  },
+  "Action": [
+"sts:AssumeRole"
+  ]
+}
   ]
 }
 EOF
 }
 
 resource "aws_iam_policy" "test" {
-  name        = %[1]q
-  path        = "/"
+  name= %[1]q
+  path= "/"
   description = "GameLift Fleet PassRole Policy"
 
   policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iam:PassRole",
-        "sts:AssumeRole"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
+{
+  "Effect": "Allow",
+  "Action": [
+"iam:PassRole",
+"sts:AssumeRole"
+  ],
+  "Resource": [
+"*"
+  ]
+}
   ]
 }
 EOF
 }
 
 resource "aws_iam_policy_attachment" "test" {
-  name       = %[1]q
-  roles      = [aws_iam_role.test.name]
+  name   = %[1]q
+  roles  = [aws_iam_role.test.name]
   policy_arn = aws_iam_policy.test.arn
 }
 `, rName)
@@ -961,20 +961,20 @@ resource "aws_iam_policy_attachment" "test" {
 func testAccFleetConfig_cert(rName, launchPath, params, bucketName, key, roleArn string) string {
 	return testAccFleetBasicTemplate(rName, bucketName, key, roleArn) + fmt.Sprintf(`
 resource "aws_gamelift_fleet" "test" {
-  build_id          = aws_gamelift_build.test.id
+  build_id = aws_gamelift_build.test.id
   ec2_instance_type = "c4.large"
   name = %[1]q
 
   certificate_configuration {
-    certificate_type = "GENERATED"
+certificate_type = "GENERATED"
   }
 
   runtime_configuration {
-    server_process {
-      concurrent_executions = 1
-      launch_path           = %[2]q
-      parameters            = %[3]q
-    }
+server_process {
+  concurrent_executions = 1
+  launch_path  = %[2]q
+  parameters   = %[3]q
+}
   }
 }
 `, rName, launchPath, params)
@@ -983,20 +983,20 @@ resource "aws_gamelift_fleet" "test" {
 func testAccFleetConfig_script(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_script" "test" {
-  name     = %[1]q
+  name = %[1]q
   zip_file = "test-fixtures/script.zip"
 }
 
 resource "aws_gamelift_fleet" "test" {
-  script_id         = aws_gamelift_script.test.id
+  script_id= aws_gamelift_script.test.id
   ec2_instance_type = "t2.micro"
   name = %[1]q
 
   runtime_configuration {
-    server_process {
-      concurrent_executions = 1
-      launch_path           = "/local/game/lol"
-    }
+server_process {
+  concurrent_executions = 1
+  launch_path  = "/local/game/lol"
+}
   }
 }
 `, rName)

@@ -16,7 +16,7 @@ func TestAccSSMContacts_serial(t *testing.T) {
 
 	testCases := map[string]map[string]func(t *testing.T){
 "Contact Resource Tests": {
-	"basic":             testContact_basic,
+	"basic":    testContact_basic,
 	"disappears":        testContact_disappears,
 	"updateAlias":       testContact_updateAlias,
 	"updateDisplayName": testContact_updateDisplayName,
@@ -27,28 +27,28 @@ func TestAccSSMContacts_serial(t *testing.T) {
 	"basic": testContactDataSource_basic,
 },
 "Contact Channel Resource Tests": {
-	"basic":           testContactChannel_basic,
+	"basic":  testContactChannel_basic,
 	"contactId":       testContactChannel_contactID,
 	"deliveryAddress": testContactChannel_deliveryAddress,
 	"disappears":      testContactChannel_disappears,
-	"name":            testContactChannel_name,
-	"type":            testContactChannel_type,
+	"name":   testContactChannel_name,
+	"type":   testContactChannel_type,
 },
 "Contact Channel Data Source Tests": {
 	"basic": testContactChannelDataSource_basic,
 },
 "Plan Resource Tests": {
 	"basic":    testPlan_basic,
-	"disappears":              testPlan_disappears,
+	"disappears":     testPlan_disappears,
 	"updateChannelTargetInfo": testPlan_updateChannelTargetInfo,
-	"updateContactId":         testPlan_updateContactId,
+	"updateContactId":testPlan_updateContactId,
 	"updateContactTargetInfo": testPlan_updateContactTargetInfo,
 	"updateDurationInMinutes": testPlan_updateDurationInMinutes,
-	"updateStages":            testPlan_updateStages,
-	"updateTargets":           testPlan_updateTargets,
+	"updateStages":   testPlan_updateStages,
+	"updateTargets":  testPlan_updateTargets,
 },
 "Plan Data Source Tests": {
-	"basic":             testPlanDataSource_basic,
+	"basic":    testPlanDataSource_basic,
 	"channelTargetInfo": testPlanDataSource_channelTargetInfo,
 },
 	}

@@ -1,19 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package glue
-
-import (
+// SPDX-License-Identifier: MPL-2.0package glueimport (
 	"time"
-)
-
-const (
+)const (
 	devEndpointStatusFailed       = "FAILED"
 	devEndpointStatusProvisioning = "PROVISIONING"
 	devEndpointStatusReady        = "READY"
 	devEndpointStatusTerminating  = "TERMINATING"
-)
-
-const (
+)const (
 	propagationTimeout = 2 * time.Minute
 )

@@ -80,7 +80,6 @@ func waitDatabaseModified(ctx context.Context, conn *lightsail.Client, db *strin
 }
 
 // waitDatabaseBackupRetentionModified waits for a Modified  BackupRetention on Database return available
-
 func waitDatabaseBackupRetentionModified(ctx context.Context, conn *lightsail.Client, db *string, target bool) error {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{strconv.FormatBool(!target)},
@@ -99,7 +98,6 @@ func waitDatabaseBackupRetentionModified(ctx context.Context, conn *lightsail.Cl
 
 	return err
 }
-
 func waitDatabasePubliclyAccessibleModified(ctx context.Context, conn *lightsail.Client, db *string, target bool) error {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{strconv.FormatBool(!target)},
@@ -118,7 +116,6 @@ func waitDatabasePubliclyAccessibleModified(ctx context.Context, conn *lightsail
 
 	return err
 }
-
 func waitContainerServiceCreated(ctx context.Context, conn *lightsail.Client, serviceName string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending:    enum.Slice(types.ContainerServiceStatePending),
@@ -141,7 +138,6 @@ func waitContainerServiceCreated(ctx context.Context, conn *lightsail.Client, se
 
 	return err
 }
-
 func waitContainerServiceDisabled(ctx context.Context, conn *lightsail.Client, serviceName string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending:    enum.Slice(types.ContainerServiceStateUpdating),
@@ -164,7 +160,6 @@ func waitContainerServiceDisabled(ctx context.Context, conn *lightsail.Client, s
 
 	return err
 }
-
 func waitContainerServiceUpdated(ctx context.Context, conn *lightsail.Client, serviceName string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending:    enum.Slice(types.ContainerServiceStateUpdating),
@@ -187,7 +182,6 @@ func waitContainerServiceUpdated(ctx context.Context, conn *lightsail.Client, se
 
 	return err
 }
-
 func waitContainerServiceDeleted(ctx context.Context, conn *lightsail.Client, serviceName string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending:    enum.Slice(types.ContainerServiceStateDeleting),
@@ -210,7 +204,6 @@ func waitContainerServiceDeleted(ctx context.Context, conn *lightsail.Client, se
 
 	return err
 }
-
 func waitContainerServiceDeploymentVersionActive(ctx context.Context, conn *lightsail.Client, serviceName string, version int, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending:    enum.Slice(types.ContainerServiceDeploymentStateActivating),
@@ -233,7 +226,6 @@ func waitContainerServiceDeploymentVersionActive(ctx context.Context, conn *ligh
 
 	return err
 }
-
 func waitInstanceState(ctx context.Context, conn *lightsail.Client, id *string) (*lightsail.GetInstanceStateOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{"pending", "stopping"},

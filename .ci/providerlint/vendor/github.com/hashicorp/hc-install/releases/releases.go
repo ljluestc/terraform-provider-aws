@@ -1,16 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package releases
-
-import (
+// SPDX-License-Identifier: MPL-2.0package releasesimport (
 	"io/ioutil"
 	"log"
 	"time"
-)
-
-var (
+)var (
 	defaultInstallTimeout = 30 * time.Second
 	defaultListTimeout    = 10 * time.Second
-	discardLogger         = log.New(ioutil.Discard, "", 0)
+	discardLogger= log.New(ioutil.Discard, "", 0)
 )

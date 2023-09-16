@@ -17,22 +17,20 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_lambda_function", &resource.Sweeper{
 		Name: "aws_lambda_function",
-		F:    sweepFunctions,
+		F: sweepFunctions,
 	})
 
 	resource.AddTestSweepers("aws_lambda_layer", &resource.Sweeper{
 		Name: "aws_lambda_layer",
-		F:    sweepLayerVersions,
+		F: sweepLayerVersions,
 		Dependencies: []string{
 			"aws_lambda_function",
 		},
 	})
 }
-
 func sweepFunctions(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -77,7 +75,6 @@ func sweepFunctions(region string) error {
 
 	return nil
 }
-
 func sweepLayerVersions(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

@@ -22,7 +22,7 @@ func TestAccRoute53Domains_serial(t *testing.T) {
 
 	testCases := map[string]map[string]func(t *testing.T){
 "RegisteredDomain": {
-	"tags":           testAccRegisteredDomain_tags,
+	"tags":  testAccRegisteredDomain_tags,
 	"autoRenew":      testAccRegisteredDomain_autoRenew,
 	"contacts":       testAccRegisteredDomain_contacts,
 	"contactPrivacy": testAccRegisteredDomain_contactPrivacy,
@@ -395,10 +395,10 @@ resource "aws_route53domains_registered_domain" "test" {
     email= "test1@example.com"
     fax= "+44.123456788"
     first_name        = "Sys"
-    last_name         = "Admin"
+    last_name= "Admin"
     organization_name = "Support"
     phone_number      = "+44.123456789"
-    zip_code          = "ST1 1AB"
+    zip_code = "ST1 1AB"
   }
 
   registrant_contact {
@@ -408,19 +408,19 @@ resource "aws_route53domains_registered_domain" "test" {
     country_code      = "US"
     email= "test2@example.com"
     first_name        = "Terraform" # Changing owner's first or last name is a change of ownership.
-    last_name         = "Team"
+    last_name= "Team"
     organization_name = "HashiCorp"
     phone_number      = "+1.2025551234"
     state= "NY"
-    zip_code          = "10001"
+    zip_code = "10001"
   }
 
   tech_contact {
     address_line_1 = "The Castle"
-    city           = "Prague"
+    city  = "Prague"
     contact_type   = "PERSON"
     country_code   = "CZ"
-    email          = "test3@example.com"
+    email = "test3@example.com"
     first_name     = "Franz"
     last_name      = "Kafka"
     phone_number   = "+420.224372434"
@@ -443,11 +443,11 @@ resource "aws_route53domains_registered_domain" "test" {
     email= "terraform-acctest+aws@hashicorp.com"
     fax= "+1.4155551234"
     first_name        = "Terraform"
-    last_name         = "Team"
+    last_name= "Team"
     organization_name = "HashiCorp"
     phone_number      = "+1.4155551234"
     state= "CA"
-    zip_code          = "94105"
+    zip_code = "94105"
   }
 
   registrant_contact {
@@ -458,11 +458,11 @@ resource "aws_route53domains_registered_domain" "test" {
     email= "terraform-acctest+aws@hashicorp.com"
     fax= "+1.4155551234"
     first_name        = "Terraform"
-    last_name         = "Team"
+    last_name= "Team"
     organization_name = "HashiCorp"
     phone_number      = "+1.4155551234"
     state= "CA"
-    zip_code          = "94105"
+    zip_code = "94105"
   }
 
   tech_contact {
@@ -473,11 +473,11 @@ resource "aws_route53domains_registered_domain" "test" {
     email= "terraform-acctest+aws@hashicorp.com"
     fax= "+1.4155551234"
     first_name        = "Terraform"
-    last_name         = "Team"
+    last_name= "Team"
     organization_name = "HashiCorp"
     phone_number      = "+1.4155551234"
     state= "CA"
-    zip_code          = "94105"
+    zip_code = "94105"
   }
 }
 `, domainName)

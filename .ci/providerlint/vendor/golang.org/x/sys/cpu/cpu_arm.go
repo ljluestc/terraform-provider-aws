@@ -1,12 +1,6 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package cpu
-
-const cacheLineSize = 32
-
-// HWCAP/HWCAP2 bits.
+// license that can be found in the LICENSE file.package cpuconst cacheLineSize = 32// HWCAP/HWCAP2 bits.
 // These are specific to Linux.
 const (
 	hwcap_SWP       = 1 << 0
@@ -30,16 +24,13 @@ const (
 	hwcap_IDIVT     = 1 << 18
 	hwcap_VFPD32    = 1 << 19
 	hwcap_LPAE      = 1 << 20
-	hwcap_EVTSTRM   = 1 << 21
-
-	hwcap2_AES   = 1 << 0
+	hwcap_EVTSTRM   = 1 << 21	hwcap2_AES   = 1 << 0
 	hwcap2_PMULL = 1 << 1
 	hwcap2_SHA1  = 1 << 2
 	hwcap2_SHA2  = 1 << 3
 	hwcap2_CRC32 = 1 << 4
 )
-
-func initOptions() {
+ initOptions() {
 	options = []option{
 		{Name: "pmull", Feature: &ARM.HasPMULL},
 		{Name: "sha1", Feature: &ARM.HasSHA1},
@@ -68,6 +59,4 @@ func initOptions() {
 		{Name: "evtstrm", Feature: &ARM.HasEVTSTRM},
 		{Name: "aes", Feature: &ARM.HasAES},
 		{Name: "crc32", Feature: &ARM.HasCRC32},
-	}
-
-}
+	}}

@@ -41,8 +41,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -174,11 +174,11 @@ func testAccEnvironmentMemberBaseConfig(rName string) string {
 data "aws_availability_zones" "available" {
   # t2.micro instance type is not available in these Availability Zones
   exclude_zone_ids = ["usw2-az4"]
-  state            = "available"
+  state  = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+name   = "opt-in-status"
+values = ["opt-in-not-required"]
   }
 }
 
@@ -186,17 +186,17 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = "10.0.0.0/24"
+  vpc_id  = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -204,20 +204,20 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_route" "test" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id= aws_internet_gateway.test.id
-  route_table_id         = aws_vpc.test.main_route_table_id
+  route_table_id= aws_vpc.test.main_route_table_id
 }
 
 resource "aws_cloud9_environment_ec2" "test" {
   instance_type = "t2.micro"
-  name          = %[1]q
-  subnet_id     = aws_subnet.test.id
+  name= %[1]q
+  subnet_id= aws_subnet.test.id
 }
 `, rName)
 }
@@ -230,8 +230,8 @@ resource "aws_iam_user" "test" {
 
 resource "aws_cloud9_environment_membership" "test" {
   environment_id = aws_cloud9_environment_ec2.test.id
-  permissions    = %[2]q
-  user_arn       = aws_iam_user.test.arn
+  permissions= %[2]q
+  user_arn  = aws_iam_user.test.arn
 }
 `, rName, permissions)
 }

@@ -27,10 +27,10 @@ func testAccOrganizationConformancePack_basic(t *testing.T) {
 	resourceName := "aws_config_organization_conformance_pack.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConformancePackDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConformancePackDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConformancePackConfig_basic(rName),
@@ -45,8 +45,8 @@ func testAccOrganizationConformancePack_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"template_body"},
 			},
@@ -61,10 +61,10 @@ func testAccOrganizationConformancePack_disappears(t *testing.T) {
 	resourceName := "aws_config_organization_conformance_pack.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConformancePackDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConformancePackDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConformancePackConfig_basic(rName),
@@ -85,10 +85,10 @@ func testAccOrganizationConformancePack_excludedAccounts(t *testing.T) {
 	resourceName := "aws_config_organization_conformance_pack.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConformancePackDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConformancePackDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConformancePackConfig_excludedAccounts1(rName),
@@ -98,8 +98,8 @@ func testAccOrganizationConformancePack_excludedAccounts(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"template_body"},
 			},
@@ -111,8 +111,8 @@ func testAccOrganizationConformancePack_excludedAccounts(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"template_body"},
 			},
@@ -135,10 +135,10 @@ func testAccOrganizationConformancePack_updateName(t *testing.T) {
 	resourceName := "aws_config_organization_conformance_pack.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConformancePackDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConformancePackDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConformancePackConfig_basic(rName),
@@ -161,8 +161,8 @@ func testAccOrganizationConformancePack_updateName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"template_body"},
 			},
@@ -179,10 +179,10 @@ func testAccOrganizationConformancePack_inputParameters(t *testing.T) {
 	resourceName := "aws_config_organization_conformance_pack.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConformancePackDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConformancePackDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConformancePackConfig_inputParameter(rName, pKey, pValue),
@@ -196,8 +196,8 @@ func testAccOrganizationConformancePack_inputParameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"template_body"},
 			},
@@ -213,10 +213,10 @@ func testAccOrganizationConformancePack_S3Delivery(t *testing.T) {
 	resourceName := "aws_config_organization_conformance_pack.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConformancePackDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConformancePackDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConformancePackConfig_s3Delivery(rName, bucketName),
@@ -227,8 +227,8 @@ func testAccOrganizationConformancePack_S3Delivery(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"template_body"},
 			},
@@ -243,10 +243,10 @@ func testAccOrganizationConformancePack_S3Template(t *testing.T) {
 	resourceName := "aws_config_organization_conformance_pack.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConformancePackDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConformancePackDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConformancePackConfig_s3Template(rName, rName),
@@ -261,8 +261,8 @@ func testAccOrganizationConformancePack_S3Template(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"template_s3_uri"},
 			},
@@ -277,10 +277,10 @@ func testAccOrganizationConformancePack_updateInputParameters(t *testing.T) {
 	resourceName := "aws_config_organization_conformance_pack.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConformancePackDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConformancePackDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConformancePackConfig_inputParameter(rName, "TestKey", "TestValue"),
@@ -304,8 +304,8 @@ func testAccOrganizationConformancePack_updateInputParameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"template_body"},
 			},
@@ -329,10 +329,10 @@ func testAccOrganizationConformancePack_updateS3Delivery(t *testing.T) {
 	resourceName := "aws_config_organization_conformance_pack.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConformancePackDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConformancePackDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConformancePackConfig_s3Delivery(rName, bucketName),
@@ -351,8 +351,8 @@ func testAccOrganizationConformancePack_updateS3Delivery(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"template_body"},
 			},
@@ -368,10 +368,10 @@ func testAccOrganizationConformancePack_updateS3Template(t *testing.T) {
 	resourceName := "aws_config_organization_conformance_pack.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConformancePackDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConformancePackDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConformancePackConfig_s3Template(rName, rName),
@@ -386,8 +386,8 @@ func testAccOrganizationConformancePack_updateS3Template(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"template_s3_uri"},
 			},
@@ -402,10 +402,10 @@ func testAccOrganizationConformancePack_updateTemplateBody(t *testing.T) {
 	resourceName := "aws_config_organization_conformance_pack.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConformancePackDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConformancePackDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConformancePackConfig_basic(rName),
@@ -420,8 +420,8 @@ func testAccOrganizationConformancePack_updateTemplateBody(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"template_body"},
 			},
@@ -508,7 +508,7 @@ resource "aws_config_configuration_recorder" "test" {
 }
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name      = %[1]q
   assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -533,7 +533,7 @@ resource "aws_iam_role_policy_attachment" "test" {
 
 resource "aws_organizations_organization" "test" {
   aws_service_access_principals = ["config-multiaccountsetup.${data.aws_partition.current.dns_suffix}"]
-  feature_set                   = "ALL"
+  feature_set = "ALL"
 }
 `, rName)
 }
@@ -544,7 +544,7 @@ func testAccOrganizationConformancePackConfig_basic(rName string) string {
 		fmt.Sprintf(`
 resource "aws_config_organization_conformance_pack" "test" {
   depends_on    = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
-  name          = %[1]q
+  name = %[1]q
   template_body = <<EOT
 Resources:
   IAMPasswordPolicy:
@@ -631,11 +631,11 @@ func testAccOrganizationConformancePackConfig_s3Delivery(rName, bName string) st
 		testAccOrganizationConformancePackBase(rName),
 		fmt.Sprintf(`
 resource "aws_config_organization_conformance_pack" "test" {
-  depends_on             = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
-  name                   = %[1]q
+  depends_on    = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
+  name = %[1]q
   delivery_s3_bucket     = aws_s3_bucket.test.id
   delivery_s3_key_prefix = %[1]q
-  template_body          = <<EOT
+  template_body = <<EOT
 Resources:
   IAMPasswordPolicy:
     Properties:
@@ -660,7 +660,7 @@ func testAccOrganizationConformancePackConfig_s3Template(rName, bName string) st
 		fmt.Sprintf(`
 resource "aws_config_organization_conformance_pack" "test" {
   depends_on      = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
-  name            = %q
+  name   = %q
   template_s3_uri = "s3://${aws_s3_bucket.test.id}/${aws_s3_object.test.id}"
 }
 
@@ -692,7 +692,7 @@ func testAccOrganizationConformancePackConfig_update(rName string) string {
 		fmt.Sprintf(`
 resource "aws_config_organization_conformance_pack" "test" {
   depends_on    = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
-  name          = %q
+  name = %q
   template_body = <<EOT
 Resources:
   IAMGroupHasUsersCheck:
@@ -715,7 +715,7 @@ resource "aws_config_organization_conformance_pack" "test" {
   depends_on = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
 
   excluded_accounts = ["111111111111"]
-  name              = %q
+  name     = %q
 
   template_body = <<EOT
 Resources:
@@ -739,7 +739,7 @@ resource "aws_config_organization_conformance_pack" "test" {
   depends_on = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
 
   excluded_accounts = ["111111111111", "222222222222"]
-  name              = %q
+  name     = %q
 
   template_body = <<EOT
 Resources:

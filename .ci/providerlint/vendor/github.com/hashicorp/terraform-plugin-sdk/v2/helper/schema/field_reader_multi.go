@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package schema
-
-import (
+// SPDX-License-Identifier: MPL-2.0package schemaimport (
 	"fmt"
-)
-
-// MultiLevelFieldReader reads from other field readers,
+)// MultiLevelFieldReader reads from other field readers,
 // merging their results along the way in a specific order. You can specify
 // "levels" and name them in order to read only an exact level or up to
 // a specific level.
@@ -18,32 +12,20 @@ type MultiLevelFieldReader struct {
 	Readers map[string]FieldReader
 	Levels  []string
 }
-
-
  (r *MultiLevelFieldReader) ReadField(address []string) (FieldReadResult, error) {
 	return r.ReadFieldMerge(address, r.Levels[len(r.Levels)-1])
 }
-
-
  (r *MultiLevelFieldReader) ReadFieldExact(
 	address []string, level string) (FieldReadResult, error) {
 	reader, ok := r.Readers[level]
 	if !ok {
 		return FieldReadResult{}, fmt.Errorf(
 			"Unknown reader level: %s", level)
-	}
-
-	result, err := reader.ReadField(address)
+	}	result, err := reader.ReadField(address)
 	if err != nil {
 		return FieldReadResult{}, fmt.Errorf(
 			"Error reading level %s: %s", level, err)
-	}
-
-	return result, nil
-
-
-
- (r *MultiLevelFieldReader) ReadFieldMerge(
+	}	return result, nil (r *MultiLevelFieldReader) ReadFieldMerge(
 	address []string, level string) (FieldReadResult, error) {
 	var result FieldReadResult
 	for _, l := range r.Levels {
@@ -52,18 +34,12 @@ type MultiLevelFieldReader struct {
 			if err != nil {
 				return FieldReadResult{}, fmt.Errorf(
 					"Error reading level %s: %s", l, err)
-			}
-
-			// TODO: computed
+			}			// TODO: computed
 			if out.Exists {
 				result = out
 			}
-		}
-
-		if l == level {
+		}		if l == level {
 			break
 		}
-	}
-
-	return result, nil
+	}	return result, nil
 }

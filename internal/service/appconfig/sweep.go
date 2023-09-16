@@ -22,7 +22,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_appconfig_application", &resource.Sweeper{
 		Name: "aws_appconfig_application",
-		F:    sweepApplications,
+		F:sweepApplications,
 		Dependencies: []string{
 			"aws_appconfig_configuration_profile",
 			"aws_appconfig_environment",
@@ -31,7 +31,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_appconfig_configuration_profile", &resource.Sweeper{
 		Name: "aws_appconfig_configuration_profile",
-		F:    sweepConfigurationProfiles,
+		F:sweepConfigurationProfiles,
 		Dependencies: []string{
 			"aws_appconfig_hosted_configuration_version",
 		},
@@ -39,17 +39,17 @@ func init() {
 
 	resource.AddTestSweepers("aws_appconfig_deployment_strategy", &resource.Sweeper{
 		Name: "aws_appconfig_deployment_strategy",
-		F:    sweepDeploymentStrategies,
+		F:sweepDeploymentStrategies,
 	})
 
 	resource.AddTestSweepers("aws_appconfig_environment", &resource.Sweeper{
 		Name: "aws_appconfig_environment",
-		F:    sweepEnvironments,
+		F:sweepEnvironments,
 	})
 
 	resource.AddTestSweepers("aws_appconfig_hosted_configuration_version", &resource.Sweeper{
 		Name: "aws_appconfig_hosted_configuration_version",
-		F:    sweepHostedConfigurationVersions,
+		F:sweepHostedConfigurationVersions,
 	})
 }
 
@@ -358,7 +358,7 @@ func sweepHostedConfigurationVersions(region string) error {
 					profId := aws.StringValue(item.Id)
 
 					versionInput := &appconfig.ListHostedConfigurationVersionsInput{
-						ApplicationId:          aws.String(appId),
+						ApplicationId: aws.String(appId),
 						ConfigurationProfileId: aws.String(profId),
 					}
 

@@ -18,7 +18,6 @@ import (
 	tfwafv2 "github.com/hashicorp/terraform-provider-aws/internal/service/wafv2"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccWAFV2IPSet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.IPSet
@@ -67,7 +66,6 @@ func TestAccWAFV2IPSet_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2IPSet_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var r wafv2.IPSet
@@ -91,7 +89,6 @@ func TestAccWAFV2IPSet_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2IPSet_ipv6(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.IPSet
@@ -128,7 +125,6 @@ func TestAccWAFV2IPSet_ipv6(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2IPSet_minimal(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.IPSet
@@ -162,7 +158,6 @@ func TestAccWAFV2IPSet_minimal(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2IPSet_changeNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after wafv2.IPSet
@@ -203,7 +198,6 @@ func TestAccWAFV2IPSet_changeNameForceNew(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2IPSet_addresses(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.IPSet
@@ -226,7 +220,6 @@ func TestAccWAFV2IPSet_addresses(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2IPSet_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.IPSet
@@ -276,7 +269,6 @@ func TestAccWAFV2IPSet_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2IPSet_large(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.IPSet
@@ -310,7 +302,6 @@ func TestAccWAFV2IPSet_large(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckIPSetDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -336,7 +327,6 @@ func testAccCheckIPSetDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckIPSetExists(ctx context.Context, n string, v *wafv2.IPSet) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -361,7 +351,6 @@ func testAccCheckIPSetExists(ctx context.Context, n string, v *wafv2.IPSet) reso
 		return nil
 	}
 }
-
 func testAccIPSetConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "ip_set" {
@@ -369,7 +358,7 @@ resource "aws_wafv2_ip_set" "ip_set" {
   description        = %[1]q
   scope = "REGIONAL"
   ip_address_version = "IPV4"
-  addresses          = ["1.2.3.4/32", "5.6.7.8/32"]
+  addresses = ["1.2.3.4/32", "5.6.7.8/32"]
 
   tags = {
     Tag1 = "Value1"
@@ -378,7 +367,6 @@ resource "aws_wafv2_ip_set" "ip_set" {
 }
 `, name)
 }
-
 func testAccIPSetConfig_addresses(name string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
@@ -390,7 +378,7 @@ resource "aws_wafv2_ip_set" "ip_set" {
   description        = %[1]q
   scope = "REGIONAL"
   ip_address_version = "IPV4"
-  addresses          = ["1.2.3.4/32", "${aws_eip.test.public_ip}/32"]
+  addresses = ["1.2.3.4/32", "${aws_eip.test.public_ip}/32"]
 
   tags = {
     Tag1 = "Value1"
@@ -399,7 +387,6 @@ resource "aws_wafv2_ip_set" "ip_set" {
 }
 `, name)
 }
-
 func testAccIPSetConfig_update(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "ip_set" {
@@ -407,11 +394,10 @@ resource "aws_wafv2_ip_set" "ip_set" {
   description        = "Updated"
   scope = "REGIONAL"
   ip_address_version = "IPV4"
-  addresses          = ["1.1.1.1/32", "2.2.2.2/32", "3.3.3.3/32"]
+  addresses = ["1.1.1.1/32", "2.2.2.2/32", "3.3.3.3/32"]
 }
 `, name)
 }
-
 func testAccIPSetConfig_v6(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "ip_set" {
@@ -427,7 +413,6 @@ resource "aws_wafv2_ip_set" "ip_set" {
 }
 `, name)
 }
-
 func testAccIPSetConfig_minimal(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "ip_set" {
@@ -437,7 +422,6 @@ resource "aws_wafv2_ip_set" "ip_set" {
 }
 `, name)
 }
-
 func testAccIPSetConfig_oneTag(name, tagKey, tagValue string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "ip_set" {
@@ -445,7 +429,7 @@ resource "aws_wafv2_ip_set" "ip_set" {
   description        = %[1]q
   scope = "REGIONAL"
   ip_address_version = "IPV4"
-  addresses          = ["1.2.3.4/32", "5.6.7.8/32"]
+  addresses = ["1.2.3.4/32", "5.6.7.8/32"]
 
   tags = {
     %[2]q = %[3]q
@@ -453,7 +437,6 @@ resource "aws_wafv2_ip_set" "ip_set" {
 }
 `, name, tagKey, tagValue)
 }
-
 func testAccIPSetConfig_twoTags(name, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "ip_set" {
@@ -461,7 +444,7 @@ resource "aws_wafv2_ip_set" "ip_set" {
   description        = %[1]q
   scope = "REGIONAL"
   ip_address_version = "IPV4"
-  addresses          = ["1.2.3.4/32", "5.6.7.8/32"]
+  addresses = ["1.2.3.4/32", "5.6.7.8/32"]
 
   tags = {
     %[2]q = %[3]q
@@ -470,7 +453,6 @@ resource "aws_wafv2_ip_set" "ip_set" {
 }
 `, name, tag1Key, tag1Value, tag2Key, tag2Value)
 }
-
 func testAccIPSetConfig_large(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "ip_set" {
@@ -493,7 +475,6 @@ resource "aws_wafv2_ip_set" "ip_set" {
 }
 `, name)
 }
-
 func testAccIPSetImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]

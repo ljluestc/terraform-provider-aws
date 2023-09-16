@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccServiceDiscoveryDNSNamespaceDataSource_private(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -25,7 +24,7 @@ func TestAccServiceDiscoveryDNSNamespaceDataSource_private(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+		ErrorCheck:t.ErrorCheck(t, servicediscovery.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -41,7 +40,6 @@ func TestAccServiceDiscoveryDNSNamespaceDataSource_private(t *testing.T) {
 		},
 	})
 }
-
 func TestAccServiceDiscoveryDNSNamespaceDataSource_public(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -54,7 +52,7 @@ func TestAccServiceDiscoveryDNSNamespaceDataSource_public(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+		ErrorCheck:t.ErrorCheck(t, servicediscovery.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -70,14 +68,13 @@ func TestAccServiceDiscoveryDNSNamespaceDataSource_public(t *testing.T) {
 		},
 	})
 }
-
 func testAccDNSNamespaceDataSourceConfig_private(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -92,7 +89,6 @@ data "aws_service_discovery_dns_namespace" "test" {
 }
 `, rName)
 }
-
 func testAccDNSNamespaceDataSourceConfig_public(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_public_dns_namespace" "test" {

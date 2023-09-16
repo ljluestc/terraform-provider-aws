@@ -51,7 +51,6 @@ func ResourceLoadBalancerHTTPSRedirectionPolicy() *schema.Resource {
 		},
 	}
 }
-
 func resourceLoadBalancerHTTPSRedirectionPolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	lbName := d.Get("lb_name").(string)
@@ -77,7 +76,6 @@ func resourceLoadBalancerHTTPSRedirectionPolicyCreate(ctx context.Context, d *sc
 
 	return resourceLoadBalancerHTTPSRedirectionPolicyRead(ctx, d, meta)
 }
-
 func resourceLoadBalancerHTTPSRedirectionPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -98,7 +96,6 @@ func resourceLoadBalancerHTTPSRedirectionPolicyRead(ctx context.Context, d *sche
 
 	return nil
 }
-
 func resourceLoadBalancerHTTPSRedirectionPolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	lbName := d.Get("lb_name").(string)
@@ -124,7 +121,6 @@ func resourceLoadBalancerHTTPSRedirectionPolicyUpdate(ctx context.Context, d *sc
 
 	return resourceLoadBalancerHTTPSRedirectionPolicyRead(ctx, d, meta)
 }
-
 func resourceLoadBalancerHTTPSRedirectionPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	lbName := d.Get("lb_name").(string)
@@ -148,7 +144,6 @@ func resourceLoadBalancerHTTPSRedirectionPolicyDelete(ctx context.Context, d *sc
 
 	return nil
 }
-
 func FindLoadBalancerHTTPSRedirectionPolicyById(ctx context.Context, conn *lightsail.Client, id string) (*bool, error) {
 	in := &lightsail.GetLoadBalancerInput{LoadBalancerName: aws.String(id)}
 	out, err := conn.GetLoadBalancer(ctx, in)

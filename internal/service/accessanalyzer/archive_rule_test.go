@@ -42,8 +42,8 @@ func testAccAnalyzerArchiveRule_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -71,14 +71,14 @@ filter {
 
 filter {
   criteria = "isPublic"
-  eq       = ["false"]
+  eq   = ["false"]
 }
 `
 
 	filtersRemoved := `
 filter {
   criteria = "isPublic"
-  eq       = ["true"]
+  eq   = ["true"]
 }
 `
 	resource.Test(t, resource.TestCase{
@@ -228,11 +228,11 @@ func testAccArchiveRuleConfig_basic(rName string) string {
 		fmt.Sprintf(`
 resource "aws_accessanalyzer_archive_rule" "test" {
   analyzer_name = aws_accessanalyzer_analyzer.test.analyzer_name
-  rule_name     = %[1]q
+  rule_name = %[1]q
 
   filter {
-    criteria = "isPublic"
-    eq       = ["false"]
+criteria = "isPublic"
+eq   = ["false"]
   }
 }
 `, rName))
@@ -244,7 +244,7 @@ func testAccArchiveRuleConfig_updateFilters(rName, filters string) string {
 		fmt.Sprintf(`
 resource "aws_accessanalyzer_archive_rule" "test" {
   analyzer_name = aws_accessanalyzer_analyzer.test.analyzer_name
-  rule_name     = %[1]q
+  rule_name = %[1]q
 
   %[2]s
 }

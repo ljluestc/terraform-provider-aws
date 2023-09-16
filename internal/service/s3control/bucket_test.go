@@ -29,7 +29,7 @@ func TestAccS3ControlBucket_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketDestroy(ctx),
+CheckDestroy:    testAccCheckBucketDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketConfig_basic(rName),
@@ -61,7 +61,7 @@ func TestAccS3ControlBucket_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketDestroy(ctx),
+CheckDestroy:    testAccCheckBucketDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketConfig_basic(rName),
@@ -86,7 +86,7 @@ func TestAccS3ControlBucket_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketDestroy(ctx),
+CheckDestroy:    testAccCheckBucketDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketConfig_tags1(rName, "key1", "value1"),

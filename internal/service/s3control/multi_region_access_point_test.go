@@ -29,10 +29,10 @@ func TestAccS3ControlMultiRegionAccessPoint_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMultiRegionAccessPointDestroy(ctx),
+		CheckDestroy:    testAccCheckMultiRegionAccessPointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMultiRegionAccessPointConfig_basic(bucketName, rName),
@@ -73,10 +73,10 @@ func TestAccS3ControlMultiRegionAccessPoint_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMultiRegionAccessPointDestroy(ctx),
+		CheckDestroy:    testAccCheckMultiRegionAccessPointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMultiRegionAccessPointConfig_basic(bucketName, rName),
@@ -98,10 +98,10 @@ func TestAccS3ControlMultiRegionAccessPoint_PublicAccessBlock(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMultiRegionAccessPointDestroy(ctx),
+		CheckDestroy:    testAccCheckMultiRegionAccessPointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMultiRegionAccessPointConfig_publicBlock(bucketName, rName),
@@ -132,10 +132,10 @@ func TestAccS3ControlMultiRegionAccessPoint_name(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMultiRegionAccessPointDestroy(ctx),
+		CheckDestroy:    testAccCheckMultiRegionAccessPointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMultiRegionAccessPointConfig_basic(bucketName, rName1),
@@ -176,9 +176,9 @@ func TestAccS3ControlMultiRegionAccessPoint_threeRegions(t *testing.T) {
 			acctest.PreCheckMultipleRegion(t, 3)
 			acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:             testAccCheckMultiRegionAccessPointDestroy(ctx),
+		CheckDestroy:    testAccCheckMultiRegionAccessPointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMultiRegionAccessPointConfig_three(bucket1Name, bucket2Name, bucket3Name, rName),

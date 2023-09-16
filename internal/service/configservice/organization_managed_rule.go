@@ -47,7 +47,7 @@ func ResourceOrganizationManagedRule() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
@@ -56,13 +56,13 @@ func ResourceOrganizationManagedRule() *schema.Resource {
 				Optional: true,
 				MaxItems: 1000,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidAccountID,
 				},
 			},
 			"input_parameters": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:    schema.TypeString,
+				Optional:true,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(0, 2048),
@@ -70,18 +70,18 @@ func ResourceOrganizationManagedRule() *schema.Resource {
 				),
 			},
 			"maximum_execution_frequency": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(configservice.MaximumExecutionFrequency_Values(), false),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 			"resource_id_scope": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 768),
 			},
@@ -90,22 +90,22 @@ func ResourceOrganizationManagedRule() *schema.Resource {
 				Optional: true,
 				MaxItems: 100,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(0, 256),
 				},
 			},
 			"rule_identifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 256),
 			},
 			"tag_key_scope": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 128),
 			},
 			"tag_value_scope": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},

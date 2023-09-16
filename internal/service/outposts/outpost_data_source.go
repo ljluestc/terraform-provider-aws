@@ -23,7 +23,7 @@ func DataSourceOutpost() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: verify.ValidARN,

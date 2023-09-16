@@ -31,7 +31,7 @@ func ResourceReceiptRule() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceReceiptRuleCreate,
 		UpdateWithoutTimeout: resourceReceiptRuleUpdate,
-		ReadWithoutTimeout:   resourceReceiptRuleRead,
+		ReadWithoutTimeout:resourceReceiptRuleRead,
 		DeleteWithoutTimeout: resourceReceiptRuleDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -40,12 +40,12 @@ func ResourceReceiptRule() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"add_header_action": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"header_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 50),
@@ -53,93 +53,94 @@ func ResourceReceiptRule() *schema.Resource {
 							),
 						},
 						"header_value": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringLenBetween(0, 2048),
 						},
 						"position": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Required: true,
 						},
 					},
 				},
 			},
 			"after": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"bounce_action": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"message": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"position": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Required: true,
 						},
 						"sender": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"smtp_reply_code": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"status_code": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"topic_arn": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional:true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"enabled": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"lambda_action": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"function_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+						"
+function_arn": {
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"invocation_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      ses.InvocationTypeEvent,
+							Type:schema.TypeString,
+							Optional:true,
+							Default:ses.InvocationTypeEvent,
 							ValidateFunc: validation.StringInSlice(ses.InvocationType_Values(), false),
 						},
 						"position": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Required: true,
 						},
 						"topic_arn": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional:true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -150,119 +151,119 @@ func ResourceReceiptRule() *schema.Resource {
 				),
 			},
 			"recipients": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:schema.TypeSet,
+				Elem:&schema.Schema{Type: schema.TypeString},
 				Optional: true,
 			},
 			"rule_set_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"s3_action": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"bucket_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"kms_key_arn": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional:true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"object_key_prefix": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"position": {
-							Type:         schema.TypeInt,
-							Required:     true,
+							Type:schema.TypeInt,
+							Required:true,
 							ValidateFunc: validation.IntAtLeast(1),
 						},
 						"topic_arn": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional:true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"scan_enabled": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"sns_action": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"encoding": {
-							Type:         schema.TypeString,
-							Default:      ses.SNSActionEncodingUtf8,
-							Optional:     true,
+							Type:schema.TypeString,
+							Default:ses.SNSActionEncodingUtf8,
+							Optional:true,
 							ValidateFunc: validation.StringInSlice(ses.SNSActionEncoding_Values(), false),
 						},
 						"position": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Required: true,
 						},
 						"topic_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"stop_action": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"scope": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(ses.StopScope_Values(), false),
 						},
 						"position": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Required: true,
 						},
 						"topic_arn": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional:true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"tls_policy": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: validation.StringInSlice(ses.TlsPolicy_Values(), false),
 			},
 			"workmail_action": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"organization_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"position": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Required: true,
 						},
 						"topic_arn": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional:true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
@@ -271,14 +272,13 @@ func ResourceReceiptRule() *schema.Resource {
 		},
 	}
 }
-
 func resourceReceiptRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &ses.CreateReceiptRuleInput{
-		Rule:        buildReceiptRule(d),
+		Rule:  buildReceiptRule(d),
 		RuleSetName: aws.String(d.Get("rule_set_name").(string)),
 	}
 
@@ -296,7 +296,6 @@ func resourceReceiptRuleCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceReceiptRuleRead(ctx, d, meta)...)
 }
-
 func resourceReceiptRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -332,17 +331,17 @@ func resourceReceiptRuleRead(ctx context.Context, d *schema.ResourceData, meta i
 			addHeaderAction := map[string]interface{}{
 				"header_name":  aws.StringValue(element.AddHeaderAction.HeaderName),
 				"header_value": aws.StringValue(element.AddHeaderAction.HeaderValue),
-				"position":     i + 1,
+				"position":i + 1,
 			}
 			addHeaderActionList = append(addHeaderActionList, addHeaderAction)
 		}
 
 		if element.BounceAction != nil {
 			bounceAction := map[string]interface{}{
-				"message":         aws.StringValue(element.BounceAction.Message),
-				"sender":          aws.StringValue(element.BounceAction.Sender),
+				"message":aws.StringValue(element.BounceAction.Message),
+				"sender": aws.StringValue(element.BounceAction.Sender),
 				"smtp_reply_code": aws.StringValue(element.BounceAction.SmtpReplyCode),
-				"position":        i + 1,
+				"position":  i + 1,
 			}
 
 			if element.BounceAction.StatusCode != nil {
@@ -358,8 +357,9 @@ func resourceReceiptRuleRead(ctx context.Context, d *schema.ResourceData, meta i
 
 		if element.LambdaAction != nil {
 			lambdaAction := map[string]interface{}{
-				"function_arn": aws.StringValue(element.LambdaAction.FunctionArn),
-				"position":     i + 1,
+				"
+function_arn": aws.StringValue(element.LambdaAction.FunctionArn),
+				"position":i + 1,
 			}
 
 			if element.LambdaAction.InvocationType != nil {
@@ -376,7 +376,7 @@ func resourceReceiptRuleRead(ctx context.Context, d *schema.ResourceData, meta i
 		if element.S3Action != nil {
 			s3Action := map[string]interface{}{
 				"bucket_name": aws.StringValue(element.S3Action.BucketName),
-				"position":    i + 1,
+				"position": i + 1,
 			}
 
 			if element.S3Action.KmsKeyArn != nil {
@@ -406,7 +406,7 @@ func resourceReceiptRuleRead(ctx context.Context, d *schema.ResourceData, meta i
 
 		if element.StopAction != nil {
 			stopAction := map[string]interface{}{
-				"scope":    aws.StringValue(element.StopAction.Scope),
+				"scope": aws.StringValue(element.StopAction.Scope),
 				"position": i + 1,
 			}
 
@@ -420,7 +420,7 @@ func resourceReceiptRuleRead(ctx context.Context, d *schema.ResourceData, meta i
 		if element.WorkmailAction != nil {
 			workmailAction := map[string]interface{}{
 				"organization_arn": aws.StringValue(element.WorkmailAction.OrganizationArn),
-				"position":         i + 1,
+				"position":i + 1,
 			}
 
 			if element.WorkmailAction.TopicArn != nil {
@@ -468,8 +468,8 @@ func resourceReceiptRuleRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "ses",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"ses",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("receipt-rule-set/%s:receipt-rule/%s", ruleSetName, d.Id()),
 	}.String()
@@ -477,13 +477,12 @@ func resourceReceiptRuleRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
-
 func resourceReceiptRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
 
 	input := &ses.UpdateReceiptRuleInput{
-		Rule:        buildReceiptRule(d),
+		Rule:  buildReceiptRule(d),
 		RuleSetName: aws.String(d.Get("rule_set_name").(string)),
 	}
 
@@ -495,8 +494,8 @@ func resourceReceiptRuleUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 	if d.HasChange("after") {
 		input := &ses.SetReceiptRulePositionInput{
-			After:       aws.String(d.Get("after").(string)),
-			RuleName:    aws.String(d.Get("name").(string)),
+			After: aws.String(d.Get("after").(string)),
+			RuleName: aws.String(d.Get("name").(string)),
 			RuleSetName: aws.String(d.Get("rule_set_name").(string)),
 		}
 
@@ -509,14 +508,13 @@ func resourceReceiptRuleUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceReceiptRuleRead(ctx, d, meta)...)
 }
-
 func resourceReceiptRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
 
 	log.Printf("[DEBUG] Deleting SES Receipt Rule: %s", d.Id())
 	_, err := conn.DeleteReceiptRuleWithContext(ctx, &ses.DeleteReceiptRuleInput{
-		RuleName:    aws.String(d.Id()),
+		RuleName: aws.String(d.Id()),
 		RuleSetName: aws.String(d.Get("rule_set_name").(string)),
 	})
 
@@ -526,7 +524,6 @@ func resourceReceiptRuleDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	return diags
 }
-
 func resourceReceiptRuleImport(_ context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	idParts := strings.Split(d.Id(), ":")
 	if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
@@ -542,10 +539,9 @@ func resourceReceiptRuleImport(_ context.Context, d *schema.ResourceData, meta i
 
 	return []*schema.ResourceData{d}, nil
 }
-
 func FindReceiptRuleByTwoPartKey(ctx context.Context, conn *ses.SES, ruleName, ruleSetName string) (*ses.ReceiptRule, error) {
 	input := &ses.DescribeReceiptRuleInput{
-		RuleName:    aws.String(ruleName),
+		RuleName: aws.String(ruleName),
 		RuleSetName: aws.String(ruleSetName),
 	}
 
@@ -553,7 +549,7 @@ func FindReceiptRuleByTwoPartKey(ctx context.Context, conn *ses.SES, ruleName, r
 
 	if tfawserr.ErrCodeEquals(err, ses.ErrCodeRuleDoesNotExistException, ses.ErrCodeRuleSetDoesNotExistException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}
@@ -568,7 +564,6 @@ func FindReceiptRuleByTwoPartKey(ctx context.Context, conn *ses.SES, ruleName, r
 
 	return output.Rule, nil
 }
-
 func buildReceiptRule(d *schema.ResourceData) *ses.ReceiptRule {
 	receiptRule := &ses.ReceiptRule{
 		Name: aws.String(d.Get("name").(string)),
@@ -610,8 +605,8 @@ func buildReceiptRule(d *schema.ResourceData) *ses.ReceiptRule {
 			elem := element.(map[string]interface{})
 
 			bounceAction := &ses.BounceAction{
-				Message:       aws.String(elem["message"].(string)),
-				Sender:        aws.String(elem["sender"].(string)),
+				Message: aws.String(elem["message"].(string)),
+				Sender:  aws.String(elem["sender"].(string)),
 				SmtpReplyCode: aws.String(elem["smtp_reply_code"].(string)),
 			}
 
@@ -634,7 +629,8 @@ func buildReceiptRule(d *schema.ResourceData) *ses.ReceiptRule {
 			elem := element.(map[string]interface{})
 
 			lambdaAction := &ses.LambdaAction{
-				FunctionArn: aws.String(elem["function_arn"].(string)),
+				FunctionArn: aws.String(elem["
+function_arn"].(string)),
 			}
 
 			if elem["invocation_type"] != "" {

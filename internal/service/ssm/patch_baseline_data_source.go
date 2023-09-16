@@ -105,17 +105,17 @@ func DataSourcePatchBaseline() *schema.Resource {
 				Computed: true,
 			},
 			"name_prefix": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 255),
 			},
 			"operating_system": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(ssm.OperatingSystem_Values(), false),
 			},
 			"owner": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},

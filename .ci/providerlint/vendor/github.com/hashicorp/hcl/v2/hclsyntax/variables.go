@@ -1,47 +1,27 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hclsyntax
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hclsyntaximport (
 	"github.com/hashicorp/hcl/v2"
-)
-
-// Variables returns all of the variables referenced within a given experssion.
+)// Variables returns all of the variables referenced within a given experssion.
 //
 // This is the implementation of the "Variables" method on every native
-// expression.
-
- Variables(expr Expression) []hcl.Traversal {
-	var vars []hcl.Traversal
-
-	walker := &ablesWalker{
+// expression. Variables(expr Expression) []hcl.Traversal {
+	var vars []hcl.Traversal	walker := &ablesWalker{
 		Callback: 
 (t hcl.Traversal) {
 			vars = append(vars, t)
 		},
-	}
-
-	Walk(expr, walker)
-
-	return vars
-}
-
-// variablesWalker is a Walker implementation that calls its callback for any
+	}	Walk(expr, walker)	return vars
+}// variablesWalker is a Walker implementation that calls its callback for any
 // root scopeversal found while walking.
 type variablesWalker struct {
 	Callback    
 (hcl.Traversal)
 alScopes []map[string]struct{}
 }
-
-
  (w *variablesWalker) Enter(n Node) hcl.Diagnostics {
 	switch tn := n.(type) {
 	case *ScopeTraversalExpr:
-		t := tn.Traversal
-
-		// Check if the given root name appears in any of the active
+		t := tn.Traversal		// Check if the given root name appears in any of the active
 		// local scopes. We don't want to return local variables here, since
 		// the goal of walking variables is to tell the calling application
 		// which names it needs to populate in the _root_ scope.
@@ -50,16 +30,10 @@ alScopes []map[string]struct{}
 			if _, localized := names[name]; localized {
 				return nil
 			}
-		}
-
-		w.Callback(t)
+		}		w.Callback(t)
 	case ChildScope:
-		w.localScopes = append(w.localScopes, tn.LocalNames)
-
-	return nil
+		w.localScopes = append(w.localScopes, tn.LocalNames)	return nil
 }
-
-
  (w *variablesWalker) Exit(n Node) hcl.Diagnostics {
 	switch n.(type) {
 	case ChildScope:
@@ -68,9 +42,7 @@ alScopes []map[string]struct{}
 		w.localScopes = w.localScopes[:len(w.localScopes)-1]
 	}
 	return nil
-}
-
-// ChildScope is a synthetic AST node that is visited during a walk to
+}// ChildScope is a synthetic AST node that is visited during a walk to
 // indicate that its descendent will be evaluated in a child scope, which
 // may mask certain variables from the parent scope as locals.
 //
@@ -82,16 +54,10 @@ alScopes []map[string]struct{}
 	LocalNames map[string]struct{}
 	Expr       Expression
 }
-
-
 ChildScope) walkChildNodes(w internalWalk
 ) {
 	w(e.Expr)
-}
-
-// Range returns the range of the expression that the ChildScope is
-// encapsulating. It isn't really very useful to call Range on a ChildScope.
-
- (e ChildScope) Range() hcl.Range {
+}// Range returns the range of the expression that the ChildScope is
+// encapsulating. It isn't really very useful to call Range on a ChildScope. (e ChildScope) Range() hcl.Range {
 	return e.Expr.Range()
 }

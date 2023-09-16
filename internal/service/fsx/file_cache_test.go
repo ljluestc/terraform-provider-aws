@@ -28,15 +28,15 @@ func TestAccFSxFileCache_serial(t *testing.T) {
 
 	testCases := map[string]map[string]func(t *testing.T){
 "FSxFileCache": {
-	"basic":      testAccFileCache_basic,
+	"basic":  testAccFileCache_basic,
 	"disappears": testAccFileCache_disappears,
 	"kms_key_id": testAccFileCache_kmsKeyID,
 	"copy_tags_to_data_repository_associations": testAccFileCache_copyTagsToDataRepositoryAssociations,
-	"data_repository_association_multiple":      testAccFileCache_dataRepositoryAssociation_multiple,
-	"data_repository_association_nfs":           testAccFileCache_dataRepositoryAssociation_nfs,
-	"data_repository_association_s3":            testAccFileCache_dataRepositoryAssociation_s3,
-	"security_group_id":          testAccFileCache_securityGroupId,
-	"tags":        testAccFileCache_tags,
+	"data_repository_association_multiple":  testAccFileCache_dataRepositoryAssociation_multiple,
+	"data_repository_association_nfs":  testAccFileCache_dataRepositoryAssociation_nfs,
+	"data_repository_association_s3":   testAccFileCache_dataRepositoryAssociation_s3,
+	"security_group_id": testAccFileCache_securityGroupId,
+	"tags":testAccFileCache_tags,
 },
 	}
 
@@ -79,9 +79,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -144,9 +144,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -176,9 +176,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -212,9 +212,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -247,9 +247,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -281,9 +281,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 	{
@@ -295,9 +295,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -327,9 +327,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations", "security_group_ids"},
 	},
 },
@@ -360,9 +360,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 	{
@@ -376,9 +376,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"copy_tags_to_data_repository_associations"},
 	},
 },
@@ -466,19 +466,19 @@ func testAccFileCacheConfig_basic() string {
 	return testAccFileCacheBaseConfig() +
 `
 resource "aws_fsx_file_cache" "test" {
-  file_cache_type         = "LUSTRE"
+  file_cache_type= "LUSTRE"
   file_cache_type_version = "2.12"
 
   lustre_configuration {
-    deployment_type = "CACHE_1"
-    metadata_configuration {
-      storage_capacity = 2400
-    }
-    per_unit_storage_throughput   = 1000
-    weekly_maintenance_start_time = "2:05:00"
+deployment_type = "CACHE_1"
+metadata_configuration {
+  storage_capacity = 2400
+}
+per_unit_storage_throughput   = 1000
+weekly_maintenance_start_time = "2:05:00"
   }
 
-  subnet_ids       = [aws_subnet.test1.id]
+  subnet_ids   = [aws_subnet.test1.id]
   storage_capacity = 1200
 }
 `
@@ -490,8 +490,8 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+name   = "opt-in-status"
+values = ["opt-in-not-required"]
   }
 }
 
@@ -500,8 +500,8 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.1.0/24"
+  vpc_id   = aws_vpc.test.id
+  cidr_block= "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 }
 `
@@ -511,29 +511,29 @@ func testAccFileCacheConfig_nfs_association() string {
 	return testAccFileCacheBaseConfig() + `
 resource "aws_fsx_file_cache" "test" {
   data_repository_association {
-    data_repository_path           = "nfs://filer.domain.com/"
-    data_repository_subdirectories = ["test5", "test3", "test2", "test4", "test1"]
-    file_cache_path = "/ns1"
+data_repository_path  = "nfs://filer.domain.com/"
+data_repository_subdirectories = ["test5", "test3", "test2", "test4", "test1"]
+file_cache_path = "/ns1"
 
-    nfs {
-      dns_ips = ["192.168.0.1", "192.168.0.2"]
-      version = "NFS3"
-    }
+nfs {
+  dns_ips = ["192.168.0.1", "192.168.0.2"]
+  version = "NFS3"
+}
   }
 
-  file_cache_type         = "LUSTRE"
+  file_cache_type= "LUSTRE"
   file_cache_type_version = "2.12"
 
   lustre_configuration {
-    deployment_type = "CACHE_1"
-    metadata_configuration {
-      storage_capacity = 2400
-    }
-    per_unit_storage_throughput   = 1000
-    weekly_maintenance_start_time = "2:05:00"
+deployment_type = "CACHE_1"
+metadata_configuration {
+  storage_capacity = 2400
+}
+per_unit_storage_throughput   = 1000
+weekly_maintenance_start_time = "2:05:00"
   }
 
-  subnet_ids       = [aws_subnet.test1.id]
+  subnet_ids   = [aws_subnet.test1.id]
   storage_capacity = 1200
 }
 `
@@ -544,23 +544,23 @@ func testAccFileCacheConfig_s3_association(bucketName string) string {
 fmt.Sprintf(`
 resource "aws_fsx_file_cache" "test" {
   data_repository_association {
-    data_repository_path = "s3://${aws_s3_bucket.test.id}"
-    file_cache_path      = "/ns1"
+data_repository_path = "s3://${aws_s3_bucket.test.id}"
+file_cache_path  = "/ns1"
   }
 
-  file_cache_type         = "LUSTRE"
+  file_cache_type= "LUSTRE"
   file_cache_type_version = "2.12"
 
   lustre_configuration {
-    deployment_type = "CACHE_1"
-    metadata_configuration {
-      storage_capacity = 2400
-    }
-    per_unit_storage_throughput   = 1000
-    weekly_maintenance_start_time = "2:05:00"
+deployment_type = "CACHE_1"
+metadata_configuration {
+  storage_capacity = 2400
+}
+per_unit_storage_throughput   = 1000
+weekly_maintenance_start_time = "2:05:00"
   }
 
-  subnet_ids       = [aws_subnet.test1.id]
+  subnet_ids   = [aws_subnet.test1.id]
   storage_capacity = 1200
 }
 resource "aws_s3_bucket" "test" {
@@ -573,40 +573,40 @@ func testAccFileCacheConfig_multiple_associations() string {
 	return testAccFileCacheBaseConfig() + `
 resource "aws_fsx_file_cache" "test" {
   data_repository_association {
-    data_repository_path           = "nfs://filer2.domain.com/"
-    data_repository_subdirectories = ["test5", "test3", "test2", "test4", "test1"]
-    file_cache_path = "/ns2"
+data_repository_path  = "nfs://filer2.domain.com/"
+data_repository_subdirectories = ["test5", "test3", "test2", "test4", "test1"]
+file_cache_path = "/ns2"
 
-    nfs {
-      dns_ips = ["192.168.0.1", "192.168.0.2"]
-      version = "NFS3"
-    }
+nfs {
+  dns_ips = ["192.168.0.1", "192.168.0.2"]
+  version = "NFS3"
+}
   }
 
   data_repository_association {
-    data_repository_path           = "nfs://filer.domain.com/"
-    data_repository_subdirectories = ["test5", "test3", "test2", "test4", "test1"]
-    file_cache_path = "/ns1"
+data_repository_path  = "nfs://filer.domain.com/"
+data_repository_subdirectories = ["test5", "test3", "test2", "test4", "test1"]
+file_cache_path = "/ns1"
 
-    nfs {
-      dns_ips = ["192.168.0.1", "192.168.0.2"]
-      version = "NFS3"
-    }
+nfs {
+  dns_ips = ["192.168.0.1", "192.168.0.2"]
+  version = "NFS3"
+}
   }
 
-  file_cache_type         = "LUSTRE"
+  file_cache_type= "LUSTRE"
   file_cache_type_version = "2.12"
 
   lustre_configuration {
-    deployment_type = "CACHE_1"
-    metadata_configuration {
-      storage_capacity = 2400
-    }
-    per_unit_storage_throughput   = 1000
-    weekly_maintenance_start_time = "2:05:00"
+deployment_type = "CACHE_1"
+metadata_configuration {
+  storage_capacity = 2400
+}
+per_unit_storage_throughput   = 1000
+weekly_maintenance_start_time = "2:05:00"
   }
 
-  subnet_ids       = [aws_subnet.test1.id]
+  subnet_ids   = [aws_subnet.test1.id]
   storage_capacity = 1200
 }
 
@@ -621,34 +621,34 @@ resource "aws_fsx_file_cache" "test" {
   copy_tags_to_data_repository_associations = true
 
   data_repository_association {
-    data_repository_path           = "nfs://filer.domain.com/"
-    data_repository_subdirectories = ["test", "test2"]
-    file_cache_path = "/ns1"
+data_repository_path  = "nfs://filer.domain.com/"
+data_repository_subdirectories = ["test", "test2"]
+file_cache_path = "/ns1"
 
-    nfs {
-      dns_ips = ["192.168.0.1", "192.168.0.2"]
-      version = "NFS3"
-    }
+nfs {
+  dns_ips = ["192.168.0.1", "192.168.0.2"]
+  version = "NFS3"
+}
   }
 
-  file_cache_type         = "LUSTRE"
+  file_cache_type= "LUSTRE"
   file_cache_type_version = "2.12"
 
   lustre_configuration {
-    deployment_type = "CACHE_1"
-    metadata_configuration {
-      storage_capacity = 2400
-    }
-    per_unit_storage_throughput   = 1000
-    weekly_maintenance_start_time = "2:05:00"
+deployment_type = "CACHE_1"
+metadata_configuration {
+  storage_capacity = 2400
+}
+per_unit_storage_throughput   = 1000
+weekly_maintenance_start_time = "2:05:00"
   }
 
-  subnet_ids       = [aws_subnet.test1.id]
+  subnet_ids   = [aws_subnet.test1.id]
   storage_capacity = 1200
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+%[1]q = %[2]q
+%[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -662,20 +662,20 @@ resource "aws_kms_key" "test1" {
 }
 
 resource "aws_fsx_file_cache" "test" {
-  file_cache_type         = "LUSTRE"
+  file_cache_type= "LUSTRE"
   file_cache_type_version = "2.12"
 
   lustre_configuration {
-    deployment_type = "CACHE_1"
-    metadata_configuration {
-      storage_capacity = 2400
-    }
-    per_unit_storage_throughput   = 1000
-    weekly_maintenance_start_time = "2:05:00"
+deployment_type = "CACHE_1"
+metadata_configuration {
+  storage_capacity = 2400
+}
+per_unit_storage_throughput   = 1000
+weekly_maintenance_start_time = "2:05:00"
   }
 
-  kms_key_id       = aws_kms_key.test1.arn
-  subnet_ids       = [aws_subnet.test1.id]
+  kms_key_id   = aws_kms_key.test1.arn
+  subnet_ids   = [aws_subnet.test1.id]
   storage_capacity = 1200
 }
 `
@@ -689,20 +689,20 @@ resource "aws_kms_key" "test2" {
 }
 
 resource "aws_fsx_file_cache" "test" {
-  file_cache_type         = "LUSTRE"
+  file_cache_type= "LUSTRE"
   file_cache_type_version = "2.12"
 
   lustre_configuration {
-    deployment_type = "CACHE_1"
-    metadata_configuration {
-      storage_capacity = 2400
-    }
-    per_unit_storage_throughput   = 1000
-    weekly_maintenance_start_time = "2:05:00"
+deployment_type = "CACHE_1"
+metadata_configuration {
+  storage_capacity = 2400
+}
+per_unit_storage_throughput   = 1000
+weekly_maintenance_start_time = "2:05:00"
   }
 
-  kms_key_id       = aws_kms_key.test2.arn
-  subnet_ids       = [aws_subnet.test1.id]
+  kms_key_id   = aws_kms_key.test2.arn
+  subnet_ids   = [aws_subnet.test1.id]
   storage_capacity = 1200
 }
 `
@@ -712,38 +712,38 @@ func testAccFileCacheConfig_securityGroupID() string {
 	return testAccFileCacheBaseConfig() + `
 resource "aws_security_group" "test1" {
   description = "security group for FSx testing"
-  vpc_id      = aws_vpc.test.id
+  vpc_id  = aws_vpc.test.id
 
   ingress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = -1
-    to_port     = 0
+cidr_blocks = [aws_vpc.test.cidr_block]
+from_port   = 0
+protocol= -1
+to_port = 0
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+cidr_blocks = ["0.0.0.0/0"]
+from_port   = 0
+protocol= "-1"
+to_port = 0
   }
 }
 
 resource "aws_fsx_file_cache" "test" {
-  file_cache_type         = "LUSTRE"
+  file_cache_type= "LUSTRE"
   file_cache_type_version = "2.12"
 
   lustre_configuration {
-    deployment_type = "CACHE_1"
-    metadata_configuration {
-      storage_capacity = 2400
-    }
-    per_unit_storage_throughput   = 1000
-    weekly_maintenance_start_time = "2:05:00"
+deployment_type = "CACHE_1"
+metadata_configuration {
+  storage_capacity = 2400
+}
+per_unit_storage_throughput   = 1000
+weekly_maintenance_start_time = "2:05:00"
   }
 
   security_group_ids = [aws_security_group.test1.id]
-  subnet_ids         = [aws_subnet.test1.id]
+  subnet_ids= [aws_subnet.test1.id]
   storage_capacity   = 1200
 }
 `
@@ -753,23 +753,23 @@ func testAccFileCacheConfig_tags1(tagKey1, tagValue1 string) string {
 	return testAccFileCacheBaseConfig() +
 fmt.Sprintf(`
 resource "aws_fsx_file_cache" "test" {
-  file_cache_type         = "LUSTRE"
+  file_cache_type= "LUSTRE"
   file_cache_type_version = "2.12"
 
   lustre_configuration {
-    deployment_type = "CACHE_1"
-    metadata_configuration {
-      storage_capacity = 2400
-    }
-    per_unit_storage_throughput   = 1000
-    weekly_maintenance_start_time = "2:05:00"
+deployment_type = "CACHE_1"
+metadata_configuration {
+  storage_capacity = 2400
+}
+per_unit_storage_throughput   = 1000
+weekly_maintenance_start_time = "2:05:00"
   }
 
-  subnet_ids       = [aws_subnet.test1.id]
+  subnet_ids   = [aws_subnet.test1.id]
   storage_capacity = 1200
 
   tags = {
-    %[1]q = %[2]q
+%[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1)
@@ -779,24 +779,24 @@ func testAccFileCacheConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string)
 	return testAccFileCacheBaseConfig() +
 fmt.Sprintf(`
 resource "aws_fsx_file_cache" "test" {
-  file_cache_type         = "LUSTRE"
+  file_cache_type= "LUSTRE"
   file_cache_type_version = "2.12"
 
   lustre_configuration {
-    deployment_type = "CACHE_1"
-    metadata_configuration {
-      storage_capacity = 2400
-    }
-    per_unit_storage_throughput   = 1000
-    weekly_maintenance_start_time = "2:05:00"
+deployment_type = "CACHE_1"
+metadata_configuration {
+  storage_capacity = 2400
+}
+per_unit_storage_throughput   = 1000
+weekly_maintenance_start_time = "2:05:00"
   }
 
-  subnet_ids       = [aws_subnet.test1.id]
+  subnet_ids   = [aws_subnet.test1.id]
   storage_capacity = 1200
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+%[1]q = %[2]q
+%[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2)

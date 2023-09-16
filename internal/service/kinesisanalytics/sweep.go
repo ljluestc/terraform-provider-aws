@@ -18,14 +18,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_kinesis_analytics_application", &resource.Sweeper{
 		Name: "aws_kinesis_analytics_application",
-		F:    sweepApplications,
+		F:sweepApplications,
 	})
 }
-
 func sweepApplications(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

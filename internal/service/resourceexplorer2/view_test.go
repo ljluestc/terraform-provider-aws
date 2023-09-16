@@ -20,14 +20,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func testAccView_basic(t *testing.T) {
+
+ testAccView_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v resourceexplorer2.GetViewOutput
 	resourceName := "aws_resourceexplorer2_view.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.ResourceExplorer2EndpointID)
 },
@@ -48,22 +50,24 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
 
-func testAccView_defaultView(t *testing.T) {
+
+ testAccView_defaultView(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v resourceexplorer2.GetViewOutput
 	resourceName := "aws_resourceexplorer2_view.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.ResourceExplorer2EndpointID)
 },
@@ -79,8 +83,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -101,14 +105,16 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	})
 }
 
-func testAccView_disappears(t *testing.T) {
+
+ testAccView_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v resourceexplorer2.GetViewOutput
 	resourceName := "aws_resourceexplorer2_view.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.ResourceExplorer2EndpointID)
 },
@@ -128,14 +134,16 @@ ExpectNonEmptyPlan: true,
 	})
 }
 
-func testAccView_filter(t *testing.T) {
+
+ testAccView_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v resourceexplorer2.GetViewOutput
 	resourceName := "aws_resourceexplorer2_view.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.ResourceExplorer2EndpointID)
 },
@@ -158,8 +166,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -180,14 +188,16 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	})
 }
 
-func testAccView_tags(t *testing.T) {
+
+ testAccView_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v resourceexplorer2.GetViewOutput
 	resourceName := "aws_resourceexplorer2_view.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, names.ResourceExplorer2EndpointID)
 },
@@ -204,8 +214,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -229,8 +239,10 @@ Check: resource.ComposeTestCheckFunc(
 	})
 }
 
-func testAccCheckViewDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ testAccCheckViewDestroy(ctx context.Context) resource.TestCheckFunc {
+	return 
+(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).ResourceExplorer2Client(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -255,8 +267,10 @@ return nil
 	}
 }
 
-func testAccCheckViewExists(ctx context.Context, n string, v *resourceexplorer2.GetViewOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ testAccCheckViewExists(ctx context.Context, n string, v *resourceexplorer2.GetViewOutput) resource.TestCheckFunc {
+	return 
+(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
@@ -279,13 +293,14 @@ return err
 	}
 }
 
-func testAccViewConfig_basic(rName string) string {
+
+ testAccViewConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_resourceexplorer2_index" "test" {
   type = "LOCAL"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -297,18 +312,19 @@ resource "aws_resourceexplorer2_view" "test" {
 `, rName)
 }
 
-func testAccViewConfig_defaultView(rName string, defaultView bool) string {
+
+ testAccViewConfig_defaultView(rName string, defaultView bool) string {
 	return fmt.Sprintf(`
 resource "aws_resourceexplorer2_index" "test" {
   type = "LOCAL"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_resourceexplorer2_view" "test" {
-  name         = %[1]q
+  name= %[1]q
   default_view = %[2]t
 
   depends_on = [aws_resourceexplorer2_index.test]
@@ -316,13 +332,14 @@ resource "aws_resourceexplorer2_view" "test" {
 `, rName, defaultView)
 }
 
-func testAccViewConfig_filter(rName, filter string) string {
+
+ testAccViewConfig_filter(rName, filter string) string {
 	return fmt.Sprintf(`
 resource "aws_resourceexplorer2_index" "test" {
   type = "LOCAL"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -330,11 +347,11 @@ resource "aws_resourceexplorer2_view" "test" {
   name = %[1]q
 
   filters {
-    filter_string = %[2]q
+filter_string = %[2]q
   }
 
   included_property {
-    name = "tags"
+name = "tags"
   }
 
   depends_on = [aws_resourceexplorer2_index.test]
@@ -342,13 +359,14 @@ resource "aws_resourceexplorer2_view" "test" {
 `, rName, filter)
 }
 
-func testAccViewConfig_tags1(rName, tagKey1, tagValue1 string) string {
+
+ testAccViewConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_resourceexplorer2_index" "test" {
   type = "LOCAL"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -356,7 +374,7 @@ resource "aws_resourceexplorer2_view" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 
   depends_on = [aws_resourceexplorer2_index.test]
@@ -364,13 +382,14 @@ resource "aws_resourceexplorer2_view" "test" {
 `, rName, tagKey1, tagValue1)
 }
 
-func testAccViewConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
+
+ testAccViewConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_resourceexplorer2_index" "test" {
   type = "LOCAL"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -378,8 +397,8 @@ resource "aws_resourceexplorer2_view" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 
   depends_on = [aws_resourceexplorer2_index.test]

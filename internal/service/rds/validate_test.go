@@ -1,18 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rdsimport (
 	"strings"
-	"testing"
-
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+	"testing"	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 )
-
-funcarallel()
-
-	validNames := []string{
+funcarallel()	validNames := []string{
 "valid-name",
 "valid02-name",
 "Valid-Name1",
@@ -22,9 +13,7 @@ _, errors := validEventSubscriptionName(v, "name")
 if len(errors) != 0 {
 	t.Fatalf("%q should be a valid RDS Event Subscription Name: %q", v, errors)
 }
-	}
-
-	invalidNames := []string{
+	}	invalidNames := []string{
 "Here is a name with: colon",
 "and here is another * invalid name",
 "also $ invalid",
@@ -43,179 +32,149 @@ if len(errors) == 0 {
 }
 	}
 }
-
 func TestValidOptionGroupName(t *testing.T) {
 func
 	cases := []struct {
-Value    string
+Value string
 ErrCount int
 	}{
 {
-	Value:    "testing123!",
+	Value: "testing123!",
 	ErrCount: 1,
 },
 {
-	Value:    "1testing123",
+	Value: "1testing123",
 	ErrCount: 1,
 },
 {
-	Value:    "testing--123",
+	Value: "testing--123",
 	ErrCount: 1,
 },
 {
-	Value:    "testing123-",
+	Value: "testing123-",
 	ErrCount: 1,
 },
 {
-	Value:    sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
+	Value: sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
 	ErrCount: 1,
 },
-	}
-
-	for _, tc := range cases {
-_, errors := validOptionGroupName(tc.Value, "aws_db_option_group_name")
-
-if len(errors) != tc.ErrCount {
+	}	for _, tc := range cases {
+_, errors := validOptionGroupName(tc.Value, "aws_db_option_group_name")if len(errors) != tc.ErrCount {
 	t.Fatalf("Expected the DB Option Group Name to trigger a validation error")
 }
 	}
 }
-
 func TestValidOptionGroupNamePrefix(t *testing.T) {
 	t.Parallel()
 funces := []struct {
-Value    string
+Value string
 ErrCount int
 	}{
 {
-	Value:    "testing123!",
+	Value: "testing123!",
 	ErrCount: 1,
 },
 {
-	Value:    "1testing123",
+	Value: "1testing123",
 	ErrCount: 1,
 },
 {
-	Value:    "testing--123",
+	Value: "testing--123",
 	ErrCount: 1,
 },
 {
-	Value:    sdkacctest.RandStringFromCharSet(230, sdkacctest.CharSetAlpha),
+	Value: sdkacctest.RandStringFromCharSet(230, sdkacctest.CharSetAlpha),
 	ErrCount: 1,
 },
-	}
-
-	for _, tc := range cases {
-_, errors := validOptionGroupNamePrefix(tc.Value, "aws_db_option_group_name")
-
-if len(errors) != tc.ErrCount {
+	}	for _, tc := range cases {
+_, errors := validOptionGroupNamePrefix(tc.Value, "aws_db_option_group_name")if len(errors) != tc.ErrCount {
 	t.Fatalf("Expected the DB Option Group name prefix to trigger a validation error")
 }
 	}
 }
-
 func TestValidParamGroupName(t *testing.T) {
 	t.Parallel()
-
-funce    string
+funce string
 ErrCount int
 	}{
 {
-	Value:    "tEsting123",
+	Value: "tEsting123",
 	ErrCount: 1,
 },
 {
-	Value:    "testing123!",
+	Value: "testing123!",
 	ErrCount: 1,
 },
 {
-	Value:    "1testing123",
+	Value: "1testing123",
 	ErrCount: 1,
 },
 {
-	Value:    "testing--123",
+	Value: "testing--123",
 	ErrCount: 1,
 },
 {
-	Value:    "testing_123",
+	Value: "testing_123",
 	ErrCount: 1,
 },
 {
-	Value:    "testing123-",
+	Value: "testing123-",
 	ErrCount: 1,
 },
 {
-	Value:    sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
+	Value: sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
 	ErrCount: 1,
 },
-	}
-
-	for _, tc := range cases {
-_, errors := validParamGroupName(tc.Value, "aws_db_parameter_group_name")
-
-if len(errors) != tc.ErrCount {
+	}	for _, tc := range cases {
+_, errors := validParamGroupName(tc.Value, "aws_db_parameter_group_name")if len(errors) != tc.ErrCount {
 	t.Fatalf("Expected the DB Parameter Group Name to trigger a validation error")
 }
 	}
 }
-
 func TestValidSubnetGroupName(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
+	t.Parallel()	cases := []struct {
 funcount int
 	}{
 {
-	Value:    "tEsting",
+	Value: "tEsting",
 	ErrCount: 1,
 },
 {
-	Value:    "testing?",
+	Value: "testing?",
 	ErrCount: 1,
 },
 {
-	Value:    "default",
+	Value: "default",
 	ErrCount: 1,
 },
 {
-	Value:    sdkacctest.RandStringFromCharSet(300, sdkacctest.CharSetAlpha),
+	Value: sdkacctest.RandStringFromCharSet(300, sdkacctest.CharSetAlpha),
 	ErrCount: 1,
 },
-	}
-
-	for _, tc := range cases {
-_, errors := validSubnetGroupName(tc.Value, "aws_db_subnet_group")
-
-if len(errors) != tc.ErrCount {
+	}	for _, tc := range cases {
+_, errors := validSubnetGroupName(tc.Value, "aws_db_subnet_group")if len(errors) != tc.ErrCount {
 	t.Fatalf("Expected the DB Subnet Group name to trigger a validation error")
 }
 	}
 }
-
 func TestValidSubnetGroupNamePrefix(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
-Value    string
+	t.Parallel()	cases := []struct {
+Value string
 func
 {
-	Value:    "tEsting",
+	Value: "tEsting",
 	ErrCount: 1,
 },
 {
-	Value:    "testing?",
+	Value: "testing?",
 	ErrCount: 1,
 },
 {
-	Value:    sdkacctest.RandStringFromCharSet(230, sdkacctest.CharSetAlpha),
+	Value: sdkacctest.RandStringFromCharSet(230, sdkacctest.CharSetAlpha),
 	ErrCount: 1,
 },
-	}
-
-	for _, tc := range cases {
-_, errors := validSubnetGroupNamePrefix(tc.Value, "aws_db_subnet_group")
-
-if len(errors) != tc.ErrCount {
+	}	for _, tc := range cases {
+_, errors := validSubnetGroupNamePrefix(tc.Value, "aws_db_subnet_group")if len(errors) != tc.ErrCount {
 	t.Fatalf("Expected the DB Subnet Group name prefix to trigger a validation error")
 }
 	}

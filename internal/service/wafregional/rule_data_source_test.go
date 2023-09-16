@@ -28,7 +28,7 @@ ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
-Config:      testAccRuleDataSourceConfig_nonExistent,
+Config:testAccRuleDataSourceConfig_nonExistent,
 ExpectError: regexache.MustCompile(`WAF Rule not found`),
 	},
 	{
@@ -47,7 +47,7 @@ func(
 func testAccRuleDataSourceConfig_name(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = "WafruleTest"
 }
 

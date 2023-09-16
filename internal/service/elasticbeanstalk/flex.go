@@ -6,7 +6,6 @@ package elasticbeanstalk
 import (
 	"github.com/aws/aws-sdk-go/service/elasticbeanstalk"
 )
-
 func flattenASG(list []*elasticbeanstalk.AutoScalingGroup) []string {
 	strs := make([]string, 0, len(list))
 	for _, r := range list {
@@ -16,7 +15,6 @@ func flattenASG(list []*elasticbeanstalk.AutoScalingGroup) []string {
 	}
 	return strs
 }
-
 func flattenLoadBalancers(list []*elasticbeanstalk.LoadBalancer) []string {
 	strs := make([]string, 0, len(list))
 	for _, r := range list {
@@ -26,7 +24,6 @@ func flattenLoadBalancers(list []*elasticbeanstalk.LoadBalancer) []string {
 	}
 	return strs
 }
-
 func flattenInstances(list []*elasticbeanstalk.Instance) []string {
 	strs := make([]string, 0, len(list))
 	for _, r := range list {
@@ -36,7 +33,6 @@ func flattenInstances(list []*elasticbeanstalk.Instance) []string {
 	}
 	return strs
 }
-
 func flattenLaunchConfigurations(list []*elasticbeanstalk.LaunchConfiguration) []string {
 	strs := make([]string, 0, len(list))
 	for _, r := range list {
@@ -46,7 +42,6 @@ func flattenLaunchConfigurations(list []*elasticbeanstalk.LaunchConfiguration) [
 	}
 	return strs
 }
-
 func flattenQueues(list []*elasticbeanstalk.Queue) []string {
 	strs := make([]string, 0, len(list))
 	for _, r := range list {
@@ -56,7 +51,6 @@ func flattenQueues(list []*elasticbeanstalk.Queue) []string {
 	}
 	return strs
 }
-
 func flattenTriggers(list []*elasticbeanstalk.Trigger) []string {
 	strs := make([]string, 0, len(list))
 	for _, r := range list {

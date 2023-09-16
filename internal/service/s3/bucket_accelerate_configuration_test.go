@@ -27,9 +27,9 @@ import (
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAccelerateConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketAccelerateConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAccelerateConfigurationConfig_basic(bucketName, s3.BucketAccelerateStatusEnabled),
@@ -55,9 +55,9 @@ import (
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAccelerateConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketAccelerateConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAccelerateConfigurationConfig_basic(bucketName, s3.BucketAccelerateStatusEnabled),
@@ -91,9 +91,9 @@ import (
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, cloudfront.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAccelerateConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketAccelerateConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketAccelerateConfigurationConfig_basic(bucketName, s3.BucketAccelerateStatusEnabled),
@@ -111,10 +111,10 @@ import (
 	funcketResourceName := "aws_s3_bucket.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAccelerateConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketAccelerateConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_acceleration(rName, s3.BucketAccelerateStatusEnabled),
@@ -139,10 +139,10 @@ import (
 	resourceName := "aws_s3_bucket_accelerate_configuration.test"
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketAccelerateConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketAccelerateConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_acceleration(rName, s3.BucketAccelerateStatusEnabled),

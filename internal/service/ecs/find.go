@@ -19,7 +19,7 @@ import (
 func FindCapacityProviderByARN(ctx context.Context, conn *ecs.ECS, arn string) (*ecs.CapacityProvider, error) {
 	input := &ecs.DescribeCapacityProvidersInput{
 		CapacityProviders: aws.StringSlice([]string{arn}),
-		Include:           aws.StringSlice([]string{ecs.CapacityProviderFieldTags}),
+		Include:  aws.StringSlice([]string{ecs.CapacityProviderFieldTags}),
 	}
 
 	output, err := conn.DescribeCapacityProvidersWithContext(ctx, input)

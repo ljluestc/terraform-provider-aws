@@ -98,14 +98,14 @@ resource "aws_apigatewayv2_api" "test" {
   versionv1"
 
   cors_configuration {
-    allow_headers = ["Authorization"]
-    allow_methods = ["GET", "put"]
-    allow_origins = ["https://www.example.com"]
+allow_headers = ["Authorization"]
+allow_methods = ["GET", "put"]
+allow_origins = ["https://www.example.com"]
   }
 
   tags = {
-    Key1 = "Value1h"
-    Key2 = "Value2h"
+Key1 = "Value1h"
+Key2 = "Value2h"
   }
 }
 
@@ -126,8 +126,8 @@ resource "aws_apigatewayv2_api" "test" {
   versionv1"
 
   tags = {
-    Key1 = "Value1ws"
-    Key2 = "Value2ws"
+Key1 = "Value1ws"
+Key2 = "Value2ws"
   }
 }
 

@@ -26,7 +26,7 @@ import (
 func ResourceHostedTransitVirtualInterfaceAccepter() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceHostedTransitVirtualInterfaceAccepterCreate,
-		ReadWithoutTimeout:   resourceHostedTransitVirtualInterfaceAccepterRead,
+		ReadWithoutTimeout:resourceHostedTransitVirtualInterfaceAccepterRead,
 		UpdateWithoutTimeout: resourceHostedTransitVirtualInterfaceAccepterUpdate,
 		DeleteWithoutTimeout: resourceHostedTransitVirtualInterfaceAccepterDelete,
 		Importer: &schema.ResourceImporter{
@@ -35,18 +35,18 @@ func ResourceHostedTransitVirtualInterfaceAccepter() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"dx_gateway_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"virtual_interface_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -60,7 +60,6 @@ func ResourceHostedTransitVirtualInterfaceAccepter() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceHostedTransitVirtualInterfaceAccepterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -68,7 +67,7 @@ func resourceHostedTransitVirtualInterfaceAccepterCreate(ctx context.Context, d 
 	vifId := d.Get("virtual_interface_id").(string)
 	req := &directconnect.ConfirmTransitVirtualInterfaceInput{
 		DirectConnectGatewayId: aws.String(d.Get("dx_gateway_id").(string)),
-		VirtualInterfaceId:     aws.String(vifId),
+		VirtualInterfaceId:aws.String(vifId),
 	}
 
 	log.Printf("[DEBUG] Accepting Direct Connect hosted transit virtual interface: %s", req)
@@ -80,8 +79,8 @@ func resourceHostedTransitVirtualInterfaceAccepterCreate(ctx context.Context, d 
 	d.SetId(vifId)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "directconnect",
+		Region: meta.(*conns.AWSClient).Region,
+		Service:"directconnect",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("dxvif/%s", d.Id()),
 	}.String()
@@ -97,7 +96,6 @@ func resourceHostedTransitVirtualInterfaceAccepterCreate(ctx context.Context, d 
 
 	return append(diags, resourceHostedTransitVirtualInterfaceAccepterUpdate(ctx, d, meta)...)
 }
-
 func resourceHostedTransitVirtualInterfaceAccepterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -123,7 +121,6 @@ func resourceHostedTransitVirtualInterfaceAccepterRead(ctx context.Context, d *s
 
 	return diags
 }
-
 func resourceHostedTransitVirtualInterfaceAccepterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -134,13 +131,11 @@ func resourceHostedTransitVirtualInterfaceAccepterUpdate(ctx context.Context, d 
 
 	return append(diags, resourceHostedTransitVirtualInterfaceAccepterRead(ctx, d, meta)...)
 }
-
 func resourceHostedTransitVirtualInterfaceAccepterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	log.Printf("[WARN] Will not delete Direct Connect virtual interface. Terraform will remove this resource from the state file, however resources may remain.")
 	return diags
 }
-
 func resourceHostedTransitVirtualInterfaceAccepterImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
@@ -158,8 +153,8 @@ func resourceHostedTransitVirtualInterfaceAccepterImport(ctx context.Context, d 
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "directconnect",
+		Region: meta.(*conns.AWSClient).Region,
+		Service:"directconnect",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("dxvif/%s", d.Id()),
 	}.String()
@@ -167,7 +162,6 @@ func resourceHostedTransitVirtualInterfaceAccepterImport(ctx context.Context, d 
 
 	return []*schema.ResourceData{d}, nil
 }
-
 func hostedTransitVirtualInterfaceAccepterWaitUntilAvailable(ctx context.Context, conn *directconnect.DirectConnect, vifId string, timeout time.Duration) error {
 	return virtualInterfaceWaitUntilAvailable(ctx, conn,
 		vifId,

@@ -34,15 +34,15 @@ func ResourceSecretPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"secret_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
-				ValidateFunc:          validation.StringIsJSON,
+				Type:schema.TypeString,
+				Required:     true,
+				ValidateFunc: validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
@@ -157,7 +157,7 @@ func resourceSecretPolicyUpdate(ctx context.Context, d *schema.ResourceData, met
 		}
 		input := &secretsmanager.PutResourcePolicyInput{
 			ResourcePolicy:    aws.String(policy),
-			SecretId:          aws.String(d.Id()),
+			SecretId: aws.String(d.Id()),
 			BlockPublicPolicy: aws.Bool(d.Get("block_public_policy").(bool)),
 		}
 

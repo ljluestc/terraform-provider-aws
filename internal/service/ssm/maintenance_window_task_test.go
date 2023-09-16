@@ -27,10 +27,10 @@ func TestAccSSMMaintenanceWindowTask_basic(t *testing.T) {
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_basic(rName),
@@ -73,10 +73,10 @@ func TestAccSSMMaintenanceWindowTask_noTarget(t *testing.T) {
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_noTarget(rName),
@@ -102,10 +102,10 @@ func TestAccSSMMaintenanceWindowTask_cutoff(t *testing.T) {
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_cutoff(rName, "CANCEL_TASK"),
@@ -138,10 +138,10 @@ func TestAccSSMMaintenanceWindowTask_noRole(t *testing.T) {
 	resourceName := "aws_ssm_maintenance_window_task.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_noRole(rName),
@@ -160,10 +160,10 @@ func TestAccSSMMaintenanceWindowTask_updateForcesNewResource(t *testing.T) {
 	resourceName := "aws_ssm_maintenance_window_task.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_basic(rName),
@@ -197,10 +197,10 @@ func TestAccSSMMaintenanceWindowTask_description(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_description(rName, "description1"),
@@ -234,10 +234,10 @@ func TestAccSSMMaintenanceWindowTask_taskInvocationAutomationParameters(t *testi
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_automation(rName, "$DEFAULT"),
@@ -276,10 +276,10 @@ func TestAccSSMMaintenanceWindowTask_taskInvocationLambdaParameters(t *testing.T
 	sgName := fmt.Sprintf("tf_acc_sg_lambda_func_tags_%s", rString)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_lambda(funcName, policyName, roleName, sgName, rString, rInt),
@@ -306,10 +306,10 @@ func TestAccSSMMaintenanceWindowTask_taskInvocationRunCommandParameters(t *testi
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_runCommand(rName, "test comment", 30),
@@ -349,10 +349,10 @@ func TestAccSSMMaintenanceWindowTask_taskInvocationRunCommandParametersCloudWatc
 
 	name := sdkacctest.RandString(10)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_runCommandCloudWatch(name, true),
@@ -400,10 +400,10 @@ func TestAccSSMMaintenanceWindowTask_taskInvocationStepFunctionParameters(t *tes
 	rString := sdkacctest.RandString(8)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_stepFunction(rString),
@@ -428,10 +428,10 @@ func TestAccSSMMaintenanceWindowTask_emptyNotification(t *testing.T) {
 	resourceName := "aws_ssm_maintenance_window_task.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_emptyNotifcation(rName),
@@ -451,10 +451,10 @@ func TestAccSSMMaintenanceWindowTask_disappears(t *testing.T) {
 
 	name := sdkacctest.RandString(10)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTaskDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTaskDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTaskConfig_basic(name),
@@ -572,7 +572,7 @@ resource "aws_ssm_maintenance_window" "test" {
 }
 
 resource "aws_ssm_maintenance_window_target" "test" {
-  name          = %[1]q
+  name = %[1]q
   resource_type = "INSTANCE"
   window_id     = aws_ssm_maintenance_window.test.id
 
@@ -626,8 +626,8 @@ func testAccMaintenanceWindowTaskConfig_basic(rName string) string {
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "RUN_COMMAND"
-  task_arn         = "AWS-RunShellScript"
-  priority         = 1
+  task_arn= "AWS-RunShellScript"
+  priority= 1
   service_role_arn = aws_iam_role.test.arn
   max_concurrency  = "2"
   max_errors       = "1"
@@ -655,8 +655,8 @@ func testAccMaintenanceWindowTaskConfig_noTarget(rName string) string {
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "AUTOMATION"
-  task_arn         = "AWS-RunShellScript"
-  priority         = 1
+  task_arn= "AWS-RunShellScript"
+  priority= 1
   service_role_arn = aws_iam_role.test.arn
 }
 `)
@@ -668,8 +668,8 @@ func testAccMaintenanceWindowTaskConfig_cutoff(rName, cutoff string) string {
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "AUTOMATION"
-  task_arn         = "AWS-RunShellScript"
-  priority         = 1
+  task_arn= "AWS-RunShellScript"
+  priority= 1
   service_role_arn = aws_iam_role.test.arn
   cutoff_behavior  = %[1]q
 }
@@ -682,10 +682,10 @@ func testAccMaintenanceWindowTaskConfig_basicUpdate(rName, description, taskType
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = %[2]q
-  task_arn         = %[3]q
-  name             = "maintenance-window-task-%[1]s"
+  task_arn= %[3]q
+  name    = "maintenance-window-task-%[1]s"
   description      = %[4]q
-  priority         = %[5]d
+  priority= %[5]d
   service_role_arn = aws_iam_role.ssm_role_update.arn
   max_concurrency  = %[6]d
   max_errors       = %[7]d
@@ -749,9 +749,9 @@ func testAccMaintenanceWindowTaskConfig_basicUpdated(rName string) string {
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "RUN_COMMAND"
-  task_arn         = "AWS-RunShellScript"
-  priority         = 1
-  name             = "TestMaintenanceWindowTask"
+  task_arn= "AWS-RunShellScript"
+  priority= 1
+  name    = "TestMaintenanceWindowTask"
   description      = "This resource is for test purpose only"
   service_role_arn = aws_iam_role.test.arn
   max_concurrency  = "2"
@@ -809,8 +809,8 @@ func testAccMaintenanceWindowTaskConfig_emptyNotifcation(rName string) string {
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "RUN_COMMAND"
-  task_arn         = "AWS-CreateImage"
-  priority         = 1
+  task_arn= "AWS-CreateImage"
+  priority= 1
   service_role_arn = aws_iam_role.test.arn
   max_concurrency  = "2"
   max_errors       = "1"
@@ -842,7 +842,7 @@ resource "aws_ssm_maintenance_window_task" "test" {
   description     = "This resource is for test purpose only"
   max_concurrency = 2
   max_errors      = 1
-  name            = "TestMaintenanceWindowTask"
+  name   = "TestMaintenanceWindowTask"
   priority        = 1
   task_arn        = "AWS-RunShellScript"
   task_type       = "RUN_COMMAND"
@@ -871,8 +871,8 @@ func testAccMaintenanceWindowTaskConfig_automation(rName, version string) string
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "AUTOMATION"
-  task_arn         = "AWS-CreateImage"
-  priority         = 1
+  task_arn= "AWS-CreateImage"
+  priority= 1
   service_role_arn = aws_iam_role.test.arn
   max_concurrency  = "2"
   max_errors       = "1"
@@ -911,8 +911,8 @@ resource "aws_s3_bucket" "test" {
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "AUTOMATION"
-  task_arn         = "AWS-CreateImage"
-  priority         = 1
+  task_arn= "AWS-CreateImage"
+  priority= 1
   service_role_arn = aws_iam_role.test.arn
   max_concurrency  = "2"
   max_errors       = "1"
@@ -948,8 +948,8 @@ func testAccMaintenanceWindowTaskConfig_lambda(funcName, policyName, roleName, s
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "LAMBDA"
-  task_arn         = aws_lambda_function.test.arn
-  priority         = 1
+  task_arn= aws_lambda_function.test.arn
+  priority= 1
   service_role_arn = aws_iam_role.test.arn
   max_concurrency  = "2"
   max_errors       = "1"
@@ -981,8 +981,8 @@ func testAccMaintenanceWindowTaskConfig_runCommand(rName, comment string, timeou
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "RUN_COMMAND"
-  task_arn         = "AWS-RunShellScript"
-  priority         = 1
+  task_arn= "AWS-RunShellScript"
+  priority= 1
   service_role_arn = aws_iam_role.test.arn
   max_concurrency  = "2"
   max_errors       = "1"
@@ -994,7 +994,7 @@ resource "aws_ssm_maintenance_window_task" "test" {
 
   task_invocation_parameters {
     run_command_parameters {
-      comment            = %[2]q
+      comment   = %[2]q
       document_hash      = sha256("COMMAND")
       document_hash_type = "Sha256"
       service_role_arn   = aws_iam_role.test.arn
@@ -1020,8 +1020,8 @@ resource "aws_s3_bucket" "test" {
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "RUN_COMMAND"
-  task_arn         = "AWS-RunShellScript"
-  priority         = 1
+  task_arn= "AWS-RunShellScript"
+  priority= 1
   service_role_arn = aws_iam_role.test.arn
   max_concurrency  = "2"
   max_errors       = "1"
@@ -1033,7 +1033,7 @@ resource "aws_ssm_maintenance_window_task" "test" {
 
   task_invocation_parameters {
     run_command_parameters {
-      comment              = %[2]q
+      comment     = %[2]q
       document_hash        = sha256("COMMAND")
       document_hash_type   = "Sha256"
       service_role_arn     = aws_iam_role.test.arn
@@ -1060,8 +1060,8 @@ resource "aws_cloudwatch_log_group" "test" {
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "RUN_COMMAND"
-  task_arn         = "AWS-RunShellScript"
-  priority         = 1
+  task_arn= "AWS-RunShellScript"
+  priority= 1
   service_role_arn = aws_iam_role.test.arn
   max_concurrency  = "2"
   max_errors       = "1"
@@ -1101,8 +1101,8 @@ resource "aws_sfn_activity" "test" {
 resource "aws_ssm_maintenance_window_task" "test" {
   window_id        = aws_ssm_maintenance_window.test.id
   task_type        = "STEP_FUNCTIONS"
-  task_arn         = aws_sfn_activity.test.id
-  priority         = 1
+  task_arn= aws_sfn_activity.test.id
+  priority= 1
   service_role_arn = aws_iam_role.test.arn
   max_concurrency  = "2"
   max_errors       = "1"
@@ -1131,7 +1131,7 @@ func testAccLambdaBasicConfig(funcName, policyName, roleName, sgName string) str
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = "%s"
-  role          = aws_iam_role.iam_for_lambda.arn
+  role = aws_iam_role.iam_for_lambda.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
 }

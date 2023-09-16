@@ -108,7 +108,7 @@ func updateTags(ctx context.Context, conn *lambda.Client, identifier string, old
 	if len(updatedTags) > 0 {
 		input := &lambda.TagResourceInput{
 			Resource: aws.String(identifier),
-			Tags:     Tags(updatedTags),
+			Tags:Tags(updatedTags),
 		}
 
 		_, err := conn.TagResource(ctx, input)

@@ -26,10 +26,10 @@ func testAccConfigRule_basic(t *testing.T) {
 	resourceName := "aws_config_config_rule.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigRuleConfig_basic(rName),
@@ -53,10 +53,10 @@ func testAccConfigRule_ownerAws(t *testing.T) { // nosemgrep:ci.aws-in-func-name
 	resourceName := "aws_config_config_rule.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigRuleConfig_ownerAws(rName),
@@ -96,10 +96,10 @@ func testAccConfigRule_customlambda(t *testing.T) {
 	path := "test-fixtures/lambdatest.zip"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigRuleConfig_customLambda(rInt, path),
@@ -116,8 +116,8 @@ func testAccConfigRule_customlambda(t *testing.T) {
 					resource.TestCheckResourceAttrPair(resourceName, "source.0.source_identifier", "aws_lambda_function.f", "arn"),
 					resource.TestCheckResourceAttr(resourceName, "source.0.source_detail.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "source.0.source_detail.*", map[string]string{
-						"event_source":                "aws.config",
-						"message_type":                "ConfigurationSnapshotDeliveryCompleted",
+						"event_source":       "aws.config",
+						"message_type":       "ConfigurationSnapshotDeliveryCompleted",
 						"maximum_execution_frequency": "",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "scope.#", "1"),
@@ -141,10 +141,10 @@ func testAccConfigRule_ownerPolicy(t *testing.T) {
 	resourceName := "aws_config_config_rule.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigRuleConfig_ownerPolicy(rName),
@@ -180,10 +180,10 @@ func testAccConfigRule_Scope_TagKey(t *testing.T) {
 	resourceName := "aws_config_config_rule.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigRuleConfig_scopeTagKey(rName, "key1"),
@@ -212,10 +212,10 @@ func testAccConfigRule_Scope_TagKey_Empty(t *testing.T) {
 	resourceName := "aws_config_config_rule.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigRuleConfig_scopeTagKey(rName, ""),
@@ -234,10 +234,10 @@ func testAccConfigRule_Scope_TagValue(t *testing.T) {
 	resourceName := "aws_config_config_rule.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigRuleConfig_scopeTagValue(rName, "value1"),
@@ -266,10 +266,10 @@ func testAccConfigRule_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigRuleConfig_tags(rName, "foo", "bar", "fizz", "buzz"),
@@ -314,10 +314,10 @@ func testAccConfigRule_disappears(t *testing.T) {
 	resourceName := "aws_config_config_rule.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigRuleConfig_basic(rName),
@@ -435,7 +435,7 @@ resource "aws_config_config_rule" "test" {
   name = %q
 
   source {
-    owner             = "AWS"
+    owner    = "AWS"
     source_identifier = "S3_BUCKET_VERSIONING_ENABLED"
   }
 
@@ -451,7 +451,7 @@ resource "aws_config_config_rule" "test" {
   description = "Terraform Acceptance tests"
 
   source {
-    owner             = "AWS"
+    owner    = "AWS"
     source_identifier = "REQUIRED_TAGS"
   }
 
@@ -509,12 +509,12 @@ EOF
 func testAccConfigRuleConfig_customLambda(randInt int, path string) string {
 	return fmt.Sprintf(`
 resource "aws_config_config_rule" "test" {
-  name                        = "tf-acc-test-%[1]d"
-  description                 = "Terraform Acceptance tests"
+  name      = "tf-acc-test-%[1]d"
+  description        = "Terraform Acceptance tests"
   maximum_execution_frequency = "Six_Hours"
 
   source {
-    owner             = "CUSTOM_LAMBDA"
+    owner    = "CUSTOM_LAMBDA"
     source_identifier = aws_lambda_function.f.arn
 
     source_detail {
@@ -537,7 +537,7 @@ resource "aws_config_config_rule" "test" {
 resource "aws_lambda_function" "f" {
   filename      = "%[2]s"
   function_name = "tf_acc_lambda_awsconfig_%[1]d"
-  role          = aws_iam_role.iam_for_lambda.arn
+  role = aws_iam_role.iam_for_lambda.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
 }
@@ -577,7 +577,7 @@ resource "aws_iam_role_policy_attachment" "a" {
 }
 
 resource "aws_config_delivery_channel" "foo" {
-  name           = "tf-acc-test-%[1]d"
+  name  = "tf-acc-test-%[1]d"
   s3_bucket_name = aws_s3_bucket.b.bucket
 
   snapshot_delivery_properties {
@@ -660,7 +660,7 @@ resource "aws_config_config_rule" "test" {
   }
 
   source {
-    owner             = "AWS"
+    owner    = "AWS"
     source_identifier = "S3_BUCKET_VERSIONING_ENABLED"
   }
 
@@ -680,7 +680,7 @@ resource "aws_config_config_rule" "test" {
   }
 
   source {
-    owner             = "AWS"
+    owner    = "AWS"
     source_identifier = "S3_BUCKET_VERSIONING_ENABLED"
   }
 
@@ -695,7 +695,7 @@ resource "aws_config_config_rule" "test" {
   name = %[1]q
 
   source {
-    owner             = "AWS"
+    owner    = "AWS"
     source_identifier = "S3_BUCKET_VERSIONING_ENABLED"
   }
 

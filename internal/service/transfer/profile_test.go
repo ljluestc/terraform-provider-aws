@@ -32,7 +32,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckProfileDestroy(ctx),
+CheckDestroy:testAccCheckProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProfileConfig_basic(rName),
@@ -47,8 +47,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
@@ -71,7 +71,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckProfileDestroy(ctx),
+CheckDestroy:testAccCheckProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProfileConfig_certificateIDs(rName, certificate, key),
@@ -81,8 +81,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
@@ -103,7 +103,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckProfileDestroy(ctx),
+CheckDestroy:testAccCheckProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProfileConfig_basic(rName),
@@ -131,7 +131,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckProfileDestroy(ctx),
+CheckDestroy:testAccCheckProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProfileConfig_tags1(rName, "key1", "value1"),
@@ -142,8 +142,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -221,7 +221,7 @@ return nil
 func testAccProfileConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_transfer_profile" "test" {
-  as2_id       = %[1]q
+  as2_id   = %[1]q
   profile_type = "LOCAL"
 }
 `, rName)
@@ -232,13 +232,13 @@ func testAccProfileConfig_certificateIDs(rName, certificate, privateKey string) 
 resource "aws_transfer_certificate" "test" {
   certificate = %[2]q
   private_key = %[3]q
-  usage       = "SIGNING"
+  usage   = "SIGNING"
 }
 
 resource "aws_transfer_profile" "test" {
   as2_id = %[1]q
   certificate_ids = [aws_transfer_certificate.test.certificate_id]
-  profile_type    = "LOCAL"
+  profile_type= "LOCAL"
 }
 `, rName, certificate, privateKey)
 }
@@ -246,11 +246,11 @@ resource "aws_transfer_profile" "test" {
 func testAccProfileConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_transfer_profile" "test" {
-  as2_id       = %[1]q
+  as2_id   = %[1]q
   profile_type = "LOCAL"
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -259,12 +259,12 @@ resource "aws_transfer_profile" "test" {
 func testAccProfileConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_transfer_profile" "test" {
-  as2_id       = %[1]q
+  as2_id   = %[1]q
   profile_type = "LOCAL"
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

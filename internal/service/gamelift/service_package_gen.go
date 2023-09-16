@@ -32,7 +32,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceAlias,
 			TypeName: "aws_gamelift_alias",
-			Name:     "Alias",
+			Name: "Alias",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -40,7 +40,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceBuild,
 			TypeName: "aws_gamelift_build",
-			Name:     "Build",
+			Name: "Build",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -48,7 +48,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceFleet,
 			TypeName: "aws_gamelift_fleet",
-			Name:     "Fleet",
+			Name: "Fleet",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -56,7 +56,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceGameServerGroup,
 			TypeName: "aws_gamelift_game_server_group",
-			Name:     "Game Server Group",
+			Name: "Game Server Group",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -64,7 +64,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceGameSessionQueue,
 			TypeName: "aws_gamelift_game_session_queue",
-			Name:     "Game Session Queue",
+			Name: "Game Session Queue",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -72,7 +72,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceScript,
 			TypeName: "aws_gamelift_script",
-			Name:     "Script",
+			Name: "Script",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

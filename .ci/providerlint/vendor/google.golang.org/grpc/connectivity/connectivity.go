@@ -29,8 +29,7 @@ var logger = grpclog.Component("core")
 // State indicates the state of connectivity.
 // It can be the state of a ClientConn or SubConn.
 type State int
-
-func (s State) String() string {
+ (s State) String() string {
 	switch s {
 	case Idle:
 		return "IDLE"
@@ -78,8 +77,7 @@ const (
 	// contain the required configuration to serve RPCs.
 	ServingModeNotServing
 )
-
-func (s ServingMode) String() string {
+ (s ServingMode) String() string {
 	switch s {
 	case ServingModeStarting:
 		return "STARTING"

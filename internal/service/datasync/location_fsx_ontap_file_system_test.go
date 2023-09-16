@@ -34,9 +34,9 @@ func TestAccDataSyncLocationFSxONTAPFileSystem_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxONTAPDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxONTAPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxONTAPFileSystemConfig_basic(rName),
@@ -73,9 +73,9 @@ func TestAccDataSyncLocationFSxONTAPFileSystem_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxONTAPDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxONTAPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxONTAPFileSystemConfig_basic(rName),
@@ -101,9 +101,9 @@ func TestAccDataSyncLocationFSxONTAPFileSystem_subdirectory(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxONTAPDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxONTAPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxONTAPFileSystemConfig_subdirectory(rName, "/subdirectory1/"),
@@ -134,9 +134,9 @@ func TestAccDataSyncLocationFSxONTAPFileSystem_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxONTAPDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxONTAPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxONTAPFileSystemConfig_tags1(rName, "key1", "value1"),
@@ -258,7 +258,7 @@ resource "aws_security_group" "test" {
 
 resource "aws_fsx_ontap_file_system" "test" {
   storage_capacity    = 1024
-  subnet_ids          = aws_subnet.test[*].id
+  subnet_ids = aws_subnet.test[*].id
   deployment_type     = "SINGLE_AZ_1"
   throughput_capacity = 512
   preferred_subnet_id = aws_subnet.test[0].id
@@ -270,7 +270,7 @@ resource "aws_fsx_ontap_file_system" "test" {
 
 resource "aws_fsx_ontap_storage_virtual_machine" "test" {
   file_system_id = aws_fsx_ontap_file_system.test.id
-  name           = %[1]q
+  name  = %[1]q
 }
 `, rName))
 }
@@ -278,7 +278,7 @@ resource "aws_fsx_ontap_storage_virtual_machine" "test" {
 func testAccLocationFSxONTAPFileSystemConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccFSxOntapFileSystemConfig_base(rName), `
 resource "aws_datasync_location_fsx_ontap_file_system" "test" {
-  security_group_arns         = [aws_security_group.test.arn]
+  security_group_arns= [aws_security_group.test.arn]
   storage_virtual_machine_arn = aws_fsx_ontap_storage_virtual_machine.test.arn
 
   protocol {
@@ -295,9 +295,9 @@ resource "aws_datasync_location_fsx_ontap_file_system" "test" {
 func testAccLocationFSxONTAPFileSystemConfig_subdirectory(rName, subdirectory string) string {
 	return acctest.ConfigCompose(testAccFSxOntapFileSystemConfig_base(rName), fmt.Sprintf(`
 resource "aws_datasync_location_fsx_ontap_file_system" "test" {
-  security_group_arns         = [aws_security_group.test.arn]
+  security_group_arns= [aws_security_group.test.arn]
   storage_virtual_machine_arn = aws_fsx_ontap_storage_virtual_machine.test.arn
-  subdirectory                = %[1]q
+  subdirectory       = %[1]q
 
   protocol {
     nfs {
@@ -313,7 +313,7 @@ resource "aws_datasync_location_fsx_ontap_file_system" "test" {
 func testAccLocationFSxONTAPFileSystemConfig_tags1(rName, key1, value1 string) string {
 	return acctest.ConfigCompose(testAccFSxOntapFileSystemConfig_base(rName), fmt.Sprintf(`
 resource "aws_datasync_location_fsx_ontap_file_system" "test" {
-  security_group_arns         = [aws_security_group.test.arn]
+  security_group_arns= [aws_security_group.test.arn]
   storage_virtual_machine_arn = aws_fsx_ontap_storage_virtual_machine.test.arn
 
   tags = {
@@ -334,7 +334,7 @@ resource "aws_datasync_location_fsx_ontap_file_system" "test" {
 func testAccLocationFSxONTAPFileSystemConfig_tags2(rName, key1, value1, key2, value2 string) string {
 	return acctest.ConfigCompose(testAccFSxOntapFileSystemConfig_base(rName), fmt.Sprintf(`
 resource "aws_datasync_location_fsx_ontap_file_system" "test" {
-  security_group_arns         = [aws_security_group.test.arn]
+  security_group_arns= [aws_security_group.test.arn]
   storage_virtual_machine_arn = aws_fsx_ontap_storage_virtual_machine.test.arn
 
   tags = {

@@ -1,15 +1,9 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package cpu
-
-import (
+// license that can be found in the LICENSE file.package cpuimport (
 	"strings"
 	"syscall"
-)
-
-// HWCAP/HWCAP2 bits. These are exposed by Linux.
+)// HWCAP/HWCAP2 bits. These are exposed by Linux.
 const (
 	hwcap_FP       = 1 << 0
 	hwcap_ASIMD    = 1 << 1
@@ -35,14 +29,11 @@ const (
 	hwcap_SHA512   = 1 << 21
 	hwcap_SVE      = 1 << 22
 	hwcap_ASIMDFHM = 1 << 23
-)
-
-// linuxKernelCanEmulateCPUID reports whether we're running
+)// linuxKernelCanEmulateCPUID reports whether we're running
 // on Linux 4.11+. Ideally we'd like to ask the question about
 // whether the current kernel contains
 // https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=77c97b4ee21290f5f083173d957843b615abbff2
-// but the version number will have to do.
-func linuxKernelCanEmulateCPUID() bool {
+// but the version number will have to do. linuxKernelCanEmulateCPUID() bool {
 	var un syscall.Utsname
 	syscall.Uname(&un)
 	var sb strings.Builder
@@ -55,8 +46,7 @@ func linuxKernelCanEmulateCPUID() bool {
 	major, minor, _, ok := parseRelease(sb.String())
 	return ok && (major > 4 || major == 4 && minor >= 11)
 }
-
-func doinit() {
+ doinit() {
 	if err := readHWCAP(); err != nil {
 		// We failed to read /proc/self/auxv. This can happen if the binary has
 		// been given extra capabilities(7) with /bin/setcap.
@@ -77,9 +67,7 @@ func doinit() {
 			readLinuxProcCPUInfo()
 		}
 		return
-	}
-
-	// HWCAP feature bits
+	}	// HWCAP feature bits
 	ARM64.HasFP = isSet(hwCap, hwcap_FP)
 	ARM64.HasASIMD = isSet(hwCap, hwcap_ASIMD)
 	ARM64.HasEVTSTRM = isSet(hwCap, hwcap_EVTSTRM)
@@ -105,7 +93,6 @@ func doinit() {
 	ARM64.HasSVE = isSet(hwCap, hwcap_SVE)
 	ARM64.HasASIMDFHM = isSet(hwCap, hwcap_ASIMDFHM)
 }
-
-func isSet(hwc uint, value uint) bool {
+ isSet(hwc uint, value uint) bool {
 	return hwc&value != 0
 }

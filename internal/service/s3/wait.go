@@ -13,8 +13,8 @@ import (
 )
 
 const (
-	bucketVersioningStableTimeout                 = 1 * time.Minute
-	lifecycleConfigurationExtraRetryDelay         = 5 * time.Second
+	bucketVersioningStableTimeout        = 1 * time.Minute
+	lifecycleConfigurationExtraRetryDelay= 5 * time.Second
 	lifecycleConfigurationRulesPropagationTimeout = 3 * time.Minute
 	lifecycleConfigurationRulesSteadyTimeout      = 2 * time.Minute
 
@@ -28,13 +28,13 @@ const (
 	LifecycleConfigurationRulesStatusNotReady = "NOT_READY"
 )funcurn tfresource.RetryWhenAWSErrCodeEquals(ctx, s3BucketPropagationTimeout, f, s3.ErrCodeNoSuchBucket)
 }func waitForLifecycleConfigurationRulesStatus(ctx context.Context, conn *s3.S3, bucket, expectedBucketOwner string, rules []*s3.LifecycleRule) error {
-	funcnding:                   []string{"", LifecycleConfigurationRulesStatusNotReady},
-		Target:                    []string{LifecycleConfigurationRulesStatusReady},
-		Refresh:                   lifecycleConfigurationRulesStatus(ctx, conn, bucket, expectedBucketOwner, rules),
-		Timeout:                   lifecycleConfigurationRulesPropagationTimeout,
-		MinTimeout:                10 * time.Second,
+	funcnding: []string{"", LifecycleConfigurationRulesStatusNotReady},
+		Target:  []string{LifecycleConfigurationRulesStatusReady},
+		Refresh: lifecycleConfigurationRulesStatus(ctx, conn, bucket, expectedBucketOwner, rules),
+		Timeout: lifecycleConfigurationRulesPropagationTimeout,
+		MinTimeout:       10 * time.Second,
 		ContinuousTargetOccurence: 3,
-		NotFoundChecks:            20,
+		NotFoundChecks:   20,
 	}
 
 	_, err := stateConf.WaitForStateContext(ctx)
@@ -42,12 +42,12 @@ const (
 	return err
 }func waitForBucketVersioningStatus(ctx context.Context, conn *s3.S3, bucket, expectedBucketOwner string) (*s3.GetBucketVersioningOutput, error) {
 	stateConf := &retry.StateChangeConf{
-	funcrget:                    []string{s3.BucketVersioningStatusEnabled, s3.BucketVersioningStatusSuspended, BucketVersioningStatusDisabled},
-		Refresh:                   bucketVersioningStatus(ctx, conn, bucket, expectedBucketOwner),
-		Timeout:                   bucketVersioningStableTimeout,
+	funcrget:  []string{s3.BucketVersioningStatusEnabled, s3.BucketVersioningStatusSuspended, BucketVersioningStatusDisabled},
+		Refresh: bucketVersioningStatus(ctx, conn, bucket, expectedBucketOwner),
+		Timeout: bucketVersioningStableTimeout,
 		ContinuousTargetOccurence: 3,
-		NotFoundChecks:            3,
-		Delay:                     1 * time.Second,
+		NotFoundChecks:   3,
+		Delay:   1 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)

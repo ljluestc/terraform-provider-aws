@@ -20,8 +20,7 @@ import (
 var errorCodeMaps = make(map[string]map[int32]string)
 
 // RegisterErrorCodeMap is called from API implementations to register their
-// error code map. This should only be called from init functions.
-func RegisterErrorCodeMap(service string, m map[int32]string) {
+// error code map. This should only be called from init functions. RegisterErrorCodeMap(service string, m map[int32]string) {
 	errorCodeMaps[service] = m
 }
 
@@ -32,8 +31,7 @@ type timeoutCodeKey struct {
 
 // timeoutCodes is the set of service+code pairs that represent timeouts.
 var timeoutCodes = make(map[timeoutCodeKey]bool)
-
-func RegisterTimeoutErrorCode(service string, code int32) {
+ RegisterTimeoutErrorCode(service string, code int32) {
 	timeoutCodes[timeoutCodeKey{service, code}] = true
 }
 
@@ -45,8 +43,7 @@ type APIError struct {
 	Detail  string
 	Code    int32 // API-specific error code
 }
-
-func (e *APIError) Error() string {
+ (e *APIError) Error() string {
 	if e.Code == 0 {
 		if e.Detail == "" {
 			return "APIError <empty>"
@@ -65,8 +62,7 @@ func (e *APIError) Error() string {
 	}
 	return s
 }
-
-func (e *APIError) IsTimeout() bool {
+ (e *APIError) IsTimeout() bool {
 	return timeoutCodes[timeoutCodeKey{e.Service, e.Code}]
 }
 
@@ -78,8 +74,7 @@ type CallError struct {
 	// TODO: Remove this if we get a distinguishable error code.
 	Timeout bool
 }
-
-func (e *CallError) Error() string {
+ (e *CallError) Error() string {
 	var msg string
 	switch remotepb.RpcError_ErrorCode(e.Code) {
 	case remotepb.RpcError_UNKNOWN:
@@ -99,8 +94,7 @@ func (e *CallError) Error() string {
 	}
 	return s
 }
-
-func (e *CallError) IsTimeout() bool {
+ (e *CallError) IsTimeout() bool {
 	return e.Timeout
 }
 

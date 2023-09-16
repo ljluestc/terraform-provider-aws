@@ -18,19 +18,21 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccResourcePolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy organizations.ResourcePolicy
 	resourceName := "aws_organizations_resource_policy.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckAlternateAccount(t)
 	acctest.PreCheckOrganizationManagementAccount(ctx, t)
 },
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy:    testAccCheckResourcePolicyDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -51,19 +53,21 @@ ImportStateVerify: true,
 	})
 }
 
+
 func testAccResourcePolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy organizations.ResourcePolicy
 	resourceName := "aws_organizations_resource_policy.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckAlternateAccount(t)
 	acctest.PreCheckOrganizationManagementAccount(ctx, t)
 },
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy:    testAccCheckResourcePolicyDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -78,19 +82,21 @@ ExpectNonEmptyPlan: true,
 	})
 }
 
+
 func testAccResourcePolicy_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy organizations.ResourcePolicy
 	resourceName := "aws_organizations_resource_policy.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckAlternateAccount(t)
 	acctest.PreCheckOrganizationManagementAccount(ctx, t)
 },
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy:    testAccCheckResourcePolicyDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -127,8 +133,10 @@ Check: resource.ComposeTestCheckFunc(
 	})
 }
 
+
 func testAccCheckResourcePolicyDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -153,8 +161,10 @@ return nil
 	}
 }
 
+
 func testAccCheckResourcePolicyExists(ctx context.Context, n string, v *organizations.ResourcePolicy) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 _, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
@@ -173,6 +183,7 @@ if err != nil {
 return nil
 	}
 }
+
 
 func testAccResourcePolicyConfig_basic() string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), `
@@ -216,6 +227,7 @@ EOF
 }
 `)
 }
+
 
 func testAccResourcePolicyConfig_tags1(tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
@@ -263,6 +275,7 @@ EOF
 }
 `, tagKey1, tagValue1))
 }
+
 
 func testAccResourcePolicyConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`

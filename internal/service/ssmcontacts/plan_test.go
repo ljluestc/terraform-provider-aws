@@ -38,9 +38,9 @@ func testPlan_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlanDestroy(ctx),
+		CheckDestroy:    testAccCheckPlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlanConfig_oneStage(rName),
@@ -88,9 +88,9 @@ func testPlan_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlanDestroy(ctx),
+		CheckDestroy:    testAccCheckPlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlanConfig_oneStage(rName),
@@ -122,9 +122,9 @@ func testPlan_updateContactId(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlanDestroy(ctx),
+		CheckDestroy:    testAccCheckPlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlanConfig_contactID(rName, contactOneResourceName),
@@ -171,9 +171,9 @@ func testPlan_updateStages(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlanDestroy(ctx),
+		CheckDestroy:    testAccCheckPlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlanConfig_oneStage(rName),
@@ -243,9 +243,9 @@ func testPlan_updateDurationInMinutes(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlanDestroy(ctx),
+		CheckDestroy:    testAccCheckPlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlanConfig_durationInMinutes(rName, oldDurationInMinutes),
@@ -302,9 +302,9 @@ func testPlan_updateTargets(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlanDestroy(ctx),
+		CheckDestroy:    testAccCheckPlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlanConfig_oneTarget(rName, testContactOneResourceArn),
@@ -410,9 +410,9 @@ func testPlan_updateContactTargetInfo(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlanDestroy(ctx),
+		CheckDestroy:    testAccCheckPlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlanConfig_contactTargetInfo(rName, false, testContactOneResourceArn),
@@ -486,9 +486,9 @@ func testPlan_updateChannelTargetInfo(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlanDestroy(ctx),
+		CheckDestroy:    testAccCheckPlanDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlanConfig_channelTargetInfo(

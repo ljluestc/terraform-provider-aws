@@ -27,20 +27,20 @@ func DataSourceTable() *schema.Resource {
 		ReadWithoutTimeout: dataSourceTableRead,
 		Schema: map[string]*schema.Schema{
 			names.AttrARN: {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"attribute": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						names.AttrName: {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						names.AttrType: {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 					},
@@ -53,74 +53,74 @@ func DataSourceTable() *schema.Resource {
 				},
 			},
 			"billing_mode": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"deletion_protection_enabled": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Computed: true,
 			},
 			"global_secondary_index": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"hash_key": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						names.AttrName: {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"non_key_attributes": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 						"projection_type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"range_key": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"read_capacity": {
-							Type:     schema.TypeInt,
+							Type: schema.TypeInt,
 							Computed: true,
 						},
 						"write_capacity": {
-							Type:     schema.TypeInt,
+							Type: schema.TypeInt,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"hash_key": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"local_secondary_index": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						names.AttrName: {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"non_key_attributes": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 						"projection_type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"range_key": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 					},
@@ -133,102 +133,102 @@ func DataSourceTable() *schema.Resource {
 				},
 			},
 			names.AttrName: {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 			"point_in_time_recovery": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						names.AttrEnabled: {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"range_key": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"read_capacity": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"replica": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						names.AttrKMSKeyARN: {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"region_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"server_side_encryption": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						names.AttrEnabled: {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Computed: true,
 						},
 						names.AttrKMSKeyARN: {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"stream_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"stream_enabled": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Computed: true,
 			},
 			"stream_label": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"stream_view_type": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"table_class": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			names.AttrTags: tftags.TagsSchemaComputed(),
 			"ttl": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"attribute_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						names.AttrEnabled: {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"write_capacity": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 		},

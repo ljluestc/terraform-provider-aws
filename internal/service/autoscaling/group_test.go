@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package autoscaling_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package autoscaling_testimport (
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/aws/aws-sdk-go/service/elbv2"
@@ -21,22 +15,16 @@ import (
 	tfautoscaling "github.com/hashicorp/terraform-provider-aws/internal/service/autoscaling"
 	tfelbv2 "github.com/hashicorp/terraform-provider-aws/internal/service/elbv2"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-func init() {
+)func init() {
 	acctest.RegisterServiceErrorCheckFunc(autoscaling.EndpointsID, testAccErrorCheckSkip)
-}
-
-func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
+}func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
 	return acctest.ErrorCheckSkipMessagesContaining(t,
 "gp3 is invalid",
 	)
-}
-
-func testAccGroupImportStep(n string) resource.TestStep {
+}func testAccGroupImportStep(n string) resource.TestStep {
 	return resource.TestStep{
-ResourceName:      n,
-ImportState:       true,
+ResourceName:n,
+ImportState: true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"force_delete",
@@ -48,19 +36,16 @@ ImportStateVerifyIgnore: []string{
 	"wait_for_elb_capacity",
 },
 	}
-}
-
-func TestAccAutoScalingGroup_basic(t *testing.T) {
+}func TestAccAutoScalingGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_basic(rName),
@@ -112,19 +97,16 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_disappears(t *testing.T) {
+}func TestAccAutoScalingGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_basic(rName),
@@ -136,19 +118,16 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_defaultInstanceWarmup(t *testing.T) {
+}func TestAccAutoScalingGroup_defaultInstanceWarmup(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_defaultInstanceWarmup(rName, 30),
@@ -167,19 +146,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_nameGenerated(t *testing.T) {
+}func TestAccAutoScalingGroup_nameGenerated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_nameGenerated(rName),
@@ -192,19 +168,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_namePrefix(t *testing.T) {
+}func TestAccAutoScalingGroup_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_namePrefix(rName, "tf-acc-test-prefix-"),
@@ -217,19 +190,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_tags(t *testing.T) {
+}func TestAccAutoScalingGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_tags1(rName, "key1", "value1", true),
@@ -275,19 +245,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_simple(t *testing.T) {
+}func TestAccAutoScalingGroup_simple(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_simple(rName),
@@ -391,19 +358,16 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_terminationPolicies(t *testing.T) {
+}func TestAccAutoScalingGroup_terminationPolicies(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_basic(rName),
@@ -436,19 +400,16 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_vpcUpdates(t *testing.T) {
+}func TestAccAutoScalingGroup_vpcUpdates(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_az(rName),
@@ -471,19 +432,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withLoadBalancer(t *testing.T) {
+}func TestAccAutoScalingGroup_withLoadBalancer(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_loadBalancer(rName),
@@ -503,19 +461,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_WithLoadBalancer_toTargetGroup(t *testing.T) {
+}func TestAccAutoScalingGroup_WithLoadBalancer_toTargetGroup(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_loadBalancer(rName),
@@ -547,19 +502,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withTrafficSourceELB(t *testing.T) {
+}func TestAccAutoScalingGroup_withTrafficSourceELB(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_trafficSourceELB(rName),
@@ -579,19 +531,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withTrafficSourcesELBs(t *testing.T) {
+}func TestAccAutoScalingGroup_withTrafficSourcesELBs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_trafficSourceELBs(rName, 10),
@@ -614,19 +563,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withTrafficSourceELB_toTargetGroup(t *testing.T) {
+}func TestAccAutoScalingGroup_withTrafficSourceELB_toTargetGroup(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_trafficSourceELB(rName),
@@ -652,19 +598,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withTrafficSourceELBV2(t *testing.T) {
+}func TestAccAutoScalingGroup_withTrafficSourceELBV2(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_trafficSourceELBv2(rName, 0),
@@ -690,19 +633,16 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withTrafficSourceVPCLatticeTargetGroup(t *testing.T) {
+}func TestAccAutoScalingGroup_withTrafficSourceVPCLatticeTargetGroup(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_trafficSourceVPCLatticeTargetGroup(rName),
@@ -719,19 +659,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withTrafficSourceVPCLatticeTargetGroups(t *testing.T) {
+}func TestAccAutoScalingGroup_withTrafficSourceVPCLatticeTargetGroups(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_trafficSourceVPCLatticeTargetGroups(rName, 5),
@@ -743,19 +680,16 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withPlacementGroup(t *testing.T) {
+}func TestAccAutoScalingGroup_withPlacementGroup(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_placement(rName),
@@ -767,73 +701,61 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withScalingActivityErrorPlacementGroupNotSupportedOnInstanceType(t *testing.T) {
+}func TestAccAutoScalingGroup_withScalingActivityErrorPlacementGroupNotSupportedOnInstanceType(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config:      testAccGroupConfig_withScalingActivityErrorPlacementGroupNotSupportedOnInstanceType(rName),
+Config:testAccGroupConfig_withScalingActivityErrorPlacementGroupNotSupportedOnInstanceType(rName),
 ExpectError: regexache.MustCompile(`Cluster placement groups are not supported by the .* instance type. Specify a supported instance type or change the placement group strategy`),
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withScalingActivityErrorIncorrectInstanceArchitecture(t *testing.T) {
+}func TestAccAutoScalingGroup_withScalingActivityErrorIncorrectInstanceArchitecture(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config:      testAccGroupConfig_withPotentialScalingActivityError(rName, "t4g.micro", 1, "null"),
+Config:testAccGroupConfig_withPotentialScalingActivityError(rName, "t4g.micro", 1, "null"),
 ExpectError: regexache.MustCompile(`The architecture 'arm64' of the specified instance type does not match the architecture 'x86_64' of the specified AMI`),
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withScalingActivityErrorIncorrectInstanceArchitecture_IgnoreFailedScalingActivities(t *testing.T) {
+}func TestAccAutoScalingGroup_withScalingActivityErrorIncorrectInstanceArchitecture_IgnoreFailedScalingActivities(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config:      testAccGroupConfig_withPotentialScalingActivityError(rName, "t4g.micro", 1, "true"),
+Config:testAccGroupConfig_withPotentialScalingActivityError(rName, "t4g.micro", 1, "true"),
 ExpectError: regexache.MustCompile(`timeout while waiting for state to become 'ok'`),
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withScalingActivityErrorIncorrectInstanceArchitecture_Recovers(t *testing.T) {
+}func TestAccAutoScalingGroup_withScalingActivityErrorIncorrectInstanceArchitecture_Recovers(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_withPotentialScalingActivityError(rName, "t2.micro", 1, "null"),
@@ -842,7 +764,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-Config:      testAccGroupConfig_withPotentialScalingActivityError(rName, "t4g.micro", 2, "null"),
+Config:testAccGroupConfig_withPotentialScalingActivityError(rName, "t4g.micro", 2, "null"),
 ExpectError: regexache.MustCompile(`The architecture 'arm64' of the specified instance type does not match the architecture 'x86_64' of the specified AMI`),
 	},
 	{
@@ -853,19 +775,16 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_enablingMetrics(t *testing.T) {
+}func TestAccAutoScalingGroup_enablingMetrics(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_basic(rName),
@@ -889,19 +808,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_withMetrics(t *testing.T) {
+}func TestAccAutoScalingGroup_withMetrics(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_allMetricsEnabled(rName),
@@ -937,19 +853,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_suspendingProcesses(t *testing.T) {
+}func TestAccAutoScalingGroup_suspendingProcesses(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_simple(rName),
@@ -979,19 +892,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_serviceLinkedRoleARN(t *testing.T) {
+}func TestAccAutoScalingGroup_serviceLinkedRoleARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_serviceLinkedRoleARN(rName),
@@ -1003,19 +913,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_maxInstanceLifetime(t *testing.T) {
+}func TestAccAutoScalingGroup_maxInstanceLifetime(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_maxInstanceLifetime(rName, 864000),
@@ -1034,19 +941,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_initialLifecycleHook(t *testing.T) {
+}func TestAccAutoScalingGroup_initialLifecycleHook(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_initialLifecycleHook(rName),
@@ -1055,8 +959,8 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupHealthyInstanceCount(&group, 2),
 	resource.TestCheckResourceAttr(resourceName, "initial_lifecycle_hook.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "initial_lifecycle_hook.*", map[string]string{
-"default_result":       "CONTINUE",
-"heartbeat_timeout":    "30",
+"default_result": "CONTINUE",
+"heartbeat_timeout": "30",
 "lifecycle_transition": "autoscaling:EC2_INSTANCE_LAUNCHING",
 "name":  "launching",
 	}),
@@ -1065,19 +969,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_launchTemplate(t *testing.T) {
+}func TestAccAutoScalingGroup_launchTemplate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_launchTemplate(rName),
@@ -1092,19 +993,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_LaunchTemplate_update(t *testing.T) {
+}func TestAccAutoScalingGroup_LaunchTemplate_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_launchTemplate(rName),
@@ -1161,19 +1059,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_largeDesiredCapacity(t *testing.T) {
+}func TestAccAutoScalingGroup_largeDesiredCapacity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_largeDesiredCapacity(rName, 101),
@@ -1187,19 +1082,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_InstanceRefresh_basic(t *testing.T) {
+}func TestAccAutoScalingGroup_InstanceRefresh_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_instanceRefreshBasic(rName),
@@ -1315,20 +1207,17 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_InstanceRefresh_start(t *testing.T) {
+}func TestAccAutoScalingGroup_InstanceRefresh_start(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_autoscaling_group.test"
-	launchConfigurationResourceName := "aws_launch_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	launchConfigurationResourceName := "aws_launch_configuration.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_instanceRefreshStart(rName, acctest.ResourcePrefix+"-1-"),
@@ -1359,19 +1248,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_InstanceRefresh_triggers(t *testing.T) {
+}func TestAccAutoScalingGroup_InstanceRefresh_triggers(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_instanceRefreshBasic(rName),
@@ -1399,19 +1285,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_InstanceRefresh_autoRollback(t *testing.T) {
+}func TestAccAutoScalingGroup_InstanceRefresh_autoRollback(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_instanceRefreshAutoRollback(rName, "t2.micro"),
@@ -1451,20 +1334,17 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/256
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/256
 func TestAccAutoScalingGroup_loadBalancers(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_loadBalancers(rName, 11),
@@ -1490,19 +1370,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_targetGroups(t *testing.T) {
+}func TestAccAutoScalingGroup_targetGroups(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_target(rName, 0),
@@ -1528,21 +1405,18 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_ALBTargetGroups_elbCapacity(t *testing.T) {
+}func TestAccAutoScalingGroup_ALBTargetGroups_elbCapacity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	subnetCount := 2
-	var tg elbv2.TargetGroup
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	var tg elbv2.TargetGroup	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_targetELBCapacity(rName, subnetCount),
@@ -1555,19 +1429,16 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_warmPool(t *testing.T) {
+}func TestAccAutoScalingGroup_warmPool(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_warmPoolEmpty(rName),
@@ -1602,19 +1473,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_launchTempPartitionNum(t *testing.T) {
+}func TestAccAutoScalingGroup_launchTempPartitionNum(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_partition(rName),
@@ -1625,19 +1493,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_Destroy_whenProtectedFromScaleIn(t *testing.T) {
+}func TestAccAutoScalingGroup_Destroy_whenProtectedFromScaleIn(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_destroyWhenProtectedFromScaleInBeforeDestroy(rName),
@@ -1653,19 +1518,16 @@ Config: testAccGroupConfig_destroyWhenProtectedFromScaleInAfterDestroy(rName),
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_mixedInstancesPolicy(t *testing.T) {
+}func TestAccAutoScalingGroup_mixedInstancesPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicy(rName),
@@ -1685,19 +1547,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicy_capacityRebalance(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicy_capacityRebalance(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyCapacityRebalance(rName),
@@ -1720,19 +1579,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_onDemandAllocationStrategy(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_onDemandAllocationStrategy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyInstancesDistributionOnDemandAllocationStrategy(rName, "prioritized"),
@@ -1746,19 +1602,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_onDemandBaseCapacity(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_onDemandBaseCapacity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyInstancesDistributionOnDemandBaseCapacity(rName, 1),
@@ -1790,20 +1643,17 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-// Test to verify fix for behavior in GH-ISSUE 7368
+}// Test to verify fix for behavior in GH-ISSUE 7368
 func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_updateToZeroOnDemandBaseCapacity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyInstancesDistributionOnDemandBaseCapacity(rName, 1),
@@ -1827,19 +1677,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_onDemandPercentageAboveBaseCapacity(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_onDemandPercentageAboveBaseCapacity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyInstancesDistributionOnDemandPercentageAboveBaseCapacity(rName, 1),
@@ -1862,19 +1709,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_spotAllocationStrategy(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_spotAllocationStrategy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyInstancesDistributionSpotAllocationStrategy(rName, "lowest-price"),
@@ -1888,19 +1732,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_spotInstancePools(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_spotInstancePools(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyInstancesDistributionSpotInstancePools(rName, 2),
@@ -1923,19 +1764,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_spotMaxPrice(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyInstancesDistribution_spotMaxPrice(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyInstancesDistributionSpotMaxPrice(rName, "0.50"),
@@ -1967,19 +1805,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification_launchTemplateName(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification_launchTemplateName(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateLaunchTemplateSpecificationLaunchTemplateName(rName),
@@ -1994,19 +1829,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification_version(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateLaunchTemplateSpecification_version(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateLaunchTemplateSpecificationVersion(rName, "1"),
@@ -2031,19 +1863,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceType(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceType(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceType(rName, "t3.small"),
@@ -2070,19 +1899,16 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceTypeWithLaunchTemplateSpecification(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceTypeWithLaunchTemplateSpecification(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceTypeLaunchTemplateSpecification(rName),
@@ -2100,19 +1926,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_weightedCapacity(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_weightedCapacity(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideWeightedCapacity(rName),
@@ -2130,19 +1953,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_weightedCapacity_withELB(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_weightedCapacity_withELB(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	resourceName := "aws_autoscaling_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideWeightedCapacityELB(rName),
@@ -2160,35 +1980,30 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_memoryMiBAndVCPUCount(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_memoryMiBAndVCPUCount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_mib.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_mib.0.min", "500"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
@@ -2200,20 +2015,18 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`memory_mib {
-        min = 1000
-        max = 10000
-      }
-      vcpu_count {
-        min = 2
-        max = 12
-      }`),
+  min = 1000
+  max = 10000
+}
+vcpu_count {
+  min = 2
+  max = 12
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_mib.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_mib.0.min", "1000"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_mib.0.max", "10000"),
@@ -2226,38 +2039,33 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_acceleratorCount(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_acceleratorCount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_count {
-        min = 2
-      }
-      memory_mib {
-       min = 500
-      }
-      vcpu_count {
-       min = 1
-      }`),
+  min = 2
+}
+memory_mib {
+ min = 500
+}
+vcpu_count {
+ min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_count.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_count.0.min", "2"),
 ),
@@ -2266,22 +2074,20 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_count {
-        min = 1
-        max = 3
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 1
+  max = 3
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_count.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_count.0.min", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_count.0.max", "3"),
@@ -2291,21 +2097,19 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_count {
-        max = 0
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  max = 0
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_count.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_count.0.max", "0"),
 ),
@@ -2313,36 +2117,31 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_acceleratorManufacturers(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_acceleratorManufacturers(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_manufacturers = ["amazon-web-services"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_manufacturers.#", "1"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "amazon-web-services"),
 ),
@@ -2351,19 +2150,17 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_manufacturers = ["amazon-web-services", "amd", "nvidia", "xilinx"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_manufacturers.#", "4"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "amazon-web-services"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "amd"),
@@ -2374,36 +2171,31 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_acceleratorNames(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_acceleratorNames(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_names = ["a100"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_names.#", "1"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_names.*", "a100"),
 ),
@@ -2412,19 +2204,17 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_names = ["a100", "v100", "k80", "t4", "m60", "radeon-pro-v520", "vu9p"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_names.#", "7"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_names.*", "a100"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_names.*", "v100"),
@@ -2438,38 +2228,33 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_acceleratorTotalMemoryMiB(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_acceleratorTotalMemoryMiB(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_total_memory_mib {
-        min = 32
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 32
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_total_memory_mib.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_total_memory_mib.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.min", "32"),
@@ -2479,21 +2264,19 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_total_memory_mib {
-        max = 12000
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  max = 12000
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_total_memory_mib.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_total_memory_mib.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.max", "12000"),
@@ -2503,22 +2286,20 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_total_memory_mib {
-        min = 32
-        max = 12000
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 32
+  max = 12000
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_total_memory_mib.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.min", "32"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.max", "12000"),
@@ -2527,36 +2308,31 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_acceleratorTypes(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_acceleratorTypes(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_types = ["fpga"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_types.#", "1"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_types.*", "fpga"),
 ),
@@ -2565,19 +2341,17 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`accelerator_types = ["fpga", "gpu", "inference"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_types.#", "3"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_types.*", "fpga"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.accelerator_types.*", "gpu"),
@@ -2587,36 +2361,31 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_allowedInstanceTypes(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_allowedInstanceTypes(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`allowed_instance_types = ["m4.large"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.allowed_instance_types.#", "1"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.allowed_instance_types.*", "m4.large"),
 ),
@@ -2625,19 +2394,17 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`allowed_instance_types = ["m4.large", "m5.*", "m6*"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.allowed_instance_types.#", "3"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.allowed_instance_types.*", "m4.large"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.allowed_instance_types.*", "m5.*"),
@@ -2647,36 +2414,31 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_bareMetal(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_bareMetal(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`bare_metal = "excluded"
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.bare_metal", "excluded"),
 ),
 	},
@@ -2684,19 +2446,17 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`bare_metal = "included"
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.bare_metal", "included"),
 ),
 	},
@@ -2704,57 +2464,50 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`bare_metal = "required"
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.bare_metal", "required"),
 ),
 	},
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_baselineEBSBandwidthMbps(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_baselineEBSBandwidthMbps(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`baseline_ebs_bandwidth_mbps {
-        min = 10
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 10
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.min", "10"),
 ),
@@ -2763,21 +2516,19 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`baseline_ebs_bandwidth_mbps {
-        max = 20000
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  max = 20000
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.max", "20000"),
 ),
@@ -2786,22 +2537,20 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`baseline_ebs_bandwidth_mbps {
-        min = 10
-        max = 20000
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 10
+  max = 20000
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.min", "10"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.max", "20000"),
@@ -2810,36 +2559,31 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_burstablePerformance(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_burstablePerformance(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`burstable_performance = "excluded"
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.burstable_performance", "excluded"),
 ),
 	},
@@ -2847,19 +2591,17 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`burstable_performance = "included"
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.burstable_performance", "included"),
 ),
 	},
@@ -2867,55 +2609,48 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`burstable_performance = "required"
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.burstable_performance", "required"),
 ),
 	},
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_cpuManufacturers(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_cpuManufacturers(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`cpu_manufacturers = ["amazon-web-services"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.cpu_manufacturers.#", "1"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.cpu_manufacturers.*", "amazon-web-services"),
 ),
@@ -2924,19 +2659,17 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`cpu_manufacturers = ["amazon-web-services", "amd", "intel"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.cpu_manufacturers.#", "3"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.cpu_manufacturers.*", "amazon-web-services"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.cpu_manufacturers.*", "amd"),
@@ -2946,36 +2679,31 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_excludedInstanceTypes(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_excludedInstanceTypes(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`excluded_instance_types = ["t2.nano"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.excluded_instance_types.#", "1"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.excluded_instance_types.*", "t2.nano"),
 ),
@@ -2984,19 +2712,17 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`excluded_instance_types = ["t2.nano", "t3*", "t4g.*"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.excluded_instance_types.#", "3"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.excluded_instance_types.*", "t2.nano"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.excluded_instance_types.*", "t3*"),
@@ -3006,36 +2732,31 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_instanceGenerations(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_instanceGenerations(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`instance_generations = ["current"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.instance_generations.#", "1"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.instance_generations.*", "current"),
 ),
@@ -3044,19 +2765,17 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`instance_generations = ["current", "previous"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.instance_generations.#", "2"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.instance_generations.*", "current"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.instance_generations.*", "previous"),
@@ -3065,36 +2784,31 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_localStorage(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_localStorage(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`local_storage = "excluded"
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.local_storage", "excluded"),
 ),
 	},
@@ -3102,19 +2816,17 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`local_storage = "included"
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.local_storage", "included"),
 ),
 	},
@@ -3122,55 +2834,48 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`local_storage = "required"
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.local_storage", "required"),
 ),
 	},
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_localStorageTypes(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_localStorageTypes(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`local_storage_types = ["hdd"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.local_storage_types.#", "1"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.local_storage_types.*", "hdd"),
 ),
@@ -3179,19 +2884,17 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`local_storage_types = ["hdd", "ssd"]
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.local_storage_types.#", "2"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.local_storage_types.*", "hdd"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.local_storage_types.*", "ssd"),
@@ -3200,38 +2903,33 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_memoryGiBPerVCPU(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_memoryGiBPerVCPU(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`memory_gib_per_vcpu {
-        min = 0.5
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 0.5
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_gib_per_vcpu.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.min", "0.5"),
 ),
@@ -3240,21 +2938,19 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`memory_gib_per_vcpu {
-        max = 9.5
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  max = 9.5
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_gib_per_vcpu.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.max", "9.5"),
 ),
@@ -3263,22 +2959,20 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`memory_gib_per_vcpu {
-        min = 0.5
-        max = 9.5
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 0.5
+  max = 9.5
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_gib_per_vcpu.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.min", "0.5"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.max", "9.5"),
@@ -3287,38 +2981,33 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_networkBandwidthGbps(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_networkBandwidthGbps(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`network_bandwidth_gbps {
-        min = 1.5
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 1.5
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_bandwidth_gbps.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.min", "1.5"),
 ),
@@ -3327,21 +3016,19 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`network_bandwidth_gbps {
-        max = 200
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  max = 200
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_bandwidth_gbps.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.max", "200"),
 ),
@@ -3350,22 +3037,20 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`network_bandwidth_gbps {
-        min = 2.5
-        max = 250
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 2.5
+  max = 250
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_bandwidth_gbps.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.min", "2.5"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.max", "250"),
@@ -3374,38 +3059,33 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_networkInterfaceCount(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_networkInterfaceCount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`network_interface_count {
-        min = 1
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 1
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_interface_count.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_interface_count.0.min", "1"),
 ),
@@ -3414,21 +3094,19 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`network_interface_count {
-        max = 10
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  max = 10
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_interface_count.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_interface_count.0.max", "10"),
 ),
@@ -3437,22 +3115,20 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`network_interface_count {
-        min = 1
-        max = 10
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 1
+  max = 10
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_interface_count.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_interface_count.0.min", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.network_interface_count.0.max", "10"),
@@ -3461,72 +3137,62 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_onDemandMaxPricePercentageOverLowestPrice(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_onDemandMaxPricePercentageOverLowestPrice(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`on_demand_max_price_percentage_over_lowest_price = 50
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.on_demand_max_price_percentage_over_lowest_price", "50"),
 ),
 	},
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_requireHibernateSupport(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_requireHibernateSupport(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`require_hibernate_support = false
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.require_hibernate_support", "false"),
 ),
 	},
@@ -3534,93 +3200,81 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`require_hibernate_support = true
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.require_hibernate_support", "true"),
 ),
 	},
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_spotMaxPricePercentageOverLowestPrice(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_spotMaxPricePercentageOverLowestPrice(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`spot_max_price_percentage_over_lowest_price = 75
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.spot_max_price_percentage_over_lowest_price", "75"),
 ),
 	},
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_totalLocalStorageGB(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_totalLocalStorageGB(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`total_local_storage_gb {
-        min = 0.5
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 0.5
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.total_local_storage_gb.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.total_local_storage_gb.0.min", "0.5"),
 ),
@@ -3629,21 +3283,19 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`total_local_storage_gb {
-        max = 20.5
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  max = 20.5
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.total_local_storage_gb.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.total_local_storage_gb.0.max", "20.5"),
 ),
@@ -3652,22 +3304,20 @@ Check: resource.ComposeTestCheckFunc(
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName,
 	`total_local_storage_gb {
-        min = 0.5
-        max = 20.5
-      }
-      memory_mib {
-        min = 500
-      }
-      vcpu_count {
-        min = 1
-      }`),
+  min = 0.5
+  max = 20.5
+}
+memory_mib {
+  min = 500
+}
+vcpu_count {
+  min = 1
+}`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGroupExists(ctx, resourceName, &group),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.#", "1"),
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),
-
-	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.#", "1"),	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.total_local_storage_gb.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.total_local_storage_gb.0.min", "0.5"),
 	resource.TestCheckResourceAttr(resourceName, "mixed_instances_policy.0.launch_template.0.override.0.instance_requirements.0.total_local_storage_gb.0.max", "20.5"),
@@ -3676,19 +3326,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_desiredCapacityTypeUnits(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_desiredCapacityTypeUnits(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirementsDesiredCapacityTypeUnits(rName),
@@ -3706,19 +3353,16 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_desiredCapacityTypeVCPU(t *testing.T) {
+}func TestAccAutoScalingGroup_MixedInstancesPolicyLaunchTemplateOverride_instanceRequirements_desiredCapacityTypeVCPU(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group autoscaling.Group
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_autoscaling_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_autoscaling_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGroupDestroy(ctx),
+CheckDestroy: testAccCheckGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirementsDesiredCapacityTypeVCPU(rName),
@@ -3736,488 +3380,335 @@ Check: resource.ComposeTestCheckFunc(
 	testAccGroupImportStep(resourceName),
 },
 	})
-}
-
-func testAccCheckGroupExists(ctx context.Context, n string, v *autoscaling.Group) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+}func testAccCheckGroupExists(ctx context.Context, n string, v *autoscaling.Group) resource.TestCheckFunc {
+	return 
+func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No Auto Scaling Group ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
-
-output, err := tfautoscaling.FindGroupByName(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)output, err := tfautoscaling.FindGroupByName(ctx, conn, rs.Primary.ID)if err != nil {
 	return err
-}
-
-*v = *output
-
-return nil
+}*v = *outputreturn nil
 	}
-}
-
-func testAccCheckGroupDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+}func testAccCheckGroupDestroy(ctx context.Context) resource.TestCheckFunc {
+	return 
+func(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_autoscaling_group" {
 continue
-	}
-
-	_, err := tfautoscaling.FindGroupByName(ctx, conn, rs.Primary.ID)
-
-	if tfresource.NotFound(err) {
+	}	_, err := tfautoscaling.FindGroupByName(ctx, conn, rs.Primary.ID)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
+	}	return fmt.Errorf("Auto Scaling Group %s still exists", rs.Primary.ID)
+}return nil
 	}
-
-	return fmt.Errorf("Auto Scaling Group %s still exists", rs.Primary.ID)
-}
-
-return nil
-	}
-}
-
-func testAccCheckGroupHealthyInstanceCount(v *autoscaling.Group, expected int) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-count := 0
-
-for _, v := range v.Instances {
+}func testAccCheckGroupHealthyInstanceCount(v *autoscaling.Group, expected int) resource.TestCheckFunc {
+	return 
+func(s *terraform.State) error {
+count := 0for _, v := range v.Instances {
 	if aws.StringValue(v.HealthStatus) == tfautoscaling.InstanceHealthStatusHealthy {
 count++
 	}
-}
-
-if count < expected {
+}if count < expected {
 	return fmt.Errorf("Expected at least %d healthy instances, got %d", expected, count)
-}
-
-return nil
+}return nil
 	}
-}
-
-func testAccCheckInstanceRefreshCount(ctx context.Context, v *autoscaling.Group, expected int) resource.TestCheckFunc {
-	return func(state *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
-
-output, err := tfautoscaling.FindInstanceRefreshes(ctx, conn, &autoscaling.DescribeInstanceRefreshesInput{
+}func testAccCheckInstanceRefreshCount(ctx context.Context, v *autoscaling.Group, expected int) resource.TestCheckFunc {
+	return 
+func(state *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)output, err := tfautoscaling.FindInstanceRefreshes(ctx, conn, &autoscaling.DescribeInstanceRefreshesInput{
 	AutoScalingGroupName: v.AutoScalingGroupName,
-})
-
-if err != nil {
+})if err != nil {
 	return err
-}
-
-if got := len(output); got != expected {
+}if got := len(output); got != expected {
 	return fmt.Errorf("Expected %d Instance Refreshes, got %d", expected, got)
-}
-
-return nil
+}return nil
 	}
-}
-
-func testAccCheckInstanceRefreshStatus(ctx context.Context, v *autoscaling.Group, index int, expected ...string) resource.TestCheckFunc {
-	return func(state *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
-
-output, err := tfautoscaling.FindInstanceRefreshes(ctx, conn, &autoscaling.DescribeInstanceRefreshesInput{
+}func testAccCheckInstanceRefreshStatus(ctx context.Context, v *autoscaling.Group, index int, expected ...string) resource.TestCheckFunc {
+	return 
+func(state *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)output, err := tfautoscaling.FindInstanceRefreshes(ctx, conn, &autoscaling.DescribeInstanceRefreshesInput{
 	AutoScalingGroupName: v.AutoScalingGroupName,
-})
-
-if err != nil {
+})if err != nil {
 	return err
-}
-
-if got := len(output); got < index {
+}if got := len(output); got < index {
 	return fmt.Errorf("Expected at least %d Instance Refreshes, got %d", index+1, got)
-}
-
-status := aws.StringValue(output[index].Status)
-
-for _, v := range expected {
+}status := aws.StringValue(output[index].Status)for _, v := range expected {
 	if status == v {
 return nil
 	}
-}
-
-return fmt.Errorf("Expected Instance Refresh at index %d to be in %q, got %q", index, expected, status)
+}return fmt.Errorf("Expected Instance Refresh at index %d to be in %q, got %q", index, expected, status)
 	}
-}
-
-func testAccCheckLBTargetGroupExists(ctx context.Context, n string, v *elbv2.TargetGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+}func testAccCheckLBTargetGroupExists(ctx context.Context, n string, v *elbv2.TargetGroup) resource.TestCheckFunc {
+	return 
+func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return errors.New("No ELBv2 Target Group ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
-
-output, err := tfelbv2.FindTargetGroupByARN(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)output, err := tfelbv2.FindTargetGroupByARN(ctx, conn, rs.Primary.ID)if err != nil {
 	return err
-}
-
-*v = *output
-
-return nil
+}*v = *outputreturn nil
 	}
-}
-
-// testAccCheckALBTargetGroupHealthy checks an *elbv2.TargetGroup to make
+}// testAccCheckALBTargetGroupHealthy checks an *elbv2.TargetGroup to make
 // sure that all instances in it are healthy.
 func testAccCheckALBTargetGroupHealthy(ctx context.Context, v *elbv2.TargetGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
-
-output, err := conn.DescribeTargetHealthWithContext(ctx, &elbv2.DescribeTargetHealthInput{
+	return 
+func(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)output, err := conn.DescribeTargetHealthWithContext(ctx, &elbv2.DescribeTargetHealthInput{
 	TargetGroupArn: v.TargetGroupArn,
-})
-
-if err != nil {
+})if err != nil {
 	return err
-}
-
-for _, v := range output.TargetHealthDescriptions {
+}for _, v := range output.TargetHealthDescriptions {
 	if v.TargetHealth == nil || aws.StringValue(v.TargetHealth.State) != elbv2.TargetHealthStateEnumHealthy {
 return errors.New("Not all instances in target group are healthy yet, but should be")
 	}
-}
-
-return nil
+}return nil
 	}
-}
-
-func testAccGroupConfig_launchConfigurationBase(rName, instanceType string) string {
+}func testAccGroupConfig_launchConfigurationBase(rName, instanceType string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name_prefix   = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = %[2]q
-
-  lifecycle {
-    create_before_destroy = true
+  name_prefix= %[1]q
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_type = %[2]q  lifecycle {
+ create_before_destroy = true
   }
 }
 `, rName, instanceType))
-}
-
-func testAccGroupConfig_launchTemplateBase(rName, instanceType string) string {
+}func testAccGroupConfig_launchTemplateBase(rName, instanceType string) string {
 	// Include a Launch Configuration so that we can test swapping between Launch Template and Launch Configuration and vice-versa.
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, instanceType), fmt.Sprintf(`
 resource "aws_launch_template" "test" {
   name = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = %[2]q
 }
 `, rName, instanceType))
-}
-
-func testAccGroupConfig_basic(rName string) string {
+}func testAccGroupConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   name  = %[1]q
   launch_configuration = aws_launch_configuration.test.name
 }
 `, rName))
-}
-
-func testAccGroupConfig_defaultInstanceWarmup(rName string, defaultInstanceWarmup int) string {
+}func testAccGroupConfig_defaultInstanceWarmup(rName string, defaultInstanceWarmup int) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones      = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   max_size = 0
   min_size = 0
-  name     = %[1]q
+  name= %[1]q
   default_instance_warmup = %[2]d
-  launch_configuration    = aws_launch_configuration.test.name
+  launch_configuration = aws_launch_configuration.test.name
 }
 `, rName, defaultInstanceWarmup))
-}
-
-func testAccGroupConfig_nameGenerated(rName string) string {
+}func testAccGroupConfig_nameGenerated(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), `
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   launch_configuration = aws_launch_configuration.test.name
 }
 `)
-}
-
-func testAccGroupConfig_namePrefix(rName, namePrefix string) string {
+}func testAccGroupConfig_namePrefix(rName, namePrefix string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   name_prefix = %[1]q
   launch_configuration = aws_launch_configuration.test.name
 }
 `, namePrefix))
-}
-
-func testAccGroupConfig_tags1(rName, tagKey1, tagValue1 string, tagPropagateAtLaunch1 bool) string {
+}func testAccGroupConfig_tags1(rName, tagKey1, tagValue1 string, tagPropagateAtLaunch1 bool) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  tag {
-    key  = %[2]q
-    value= %[3]q
-    propagate_at_launch = %[4]t
+  launch_configuration = aws_launch_configuration.test.name  tag {
+ key  = %[2]q
+ value= %[3]q
+ propagate_at_launch = %[4]t
   }
 }
 `, rName, tagKey1, tagValue1, tagPropagateAtLaunch1))
-}
-
-func testAccGroupConfig_tags2(rName, tagKey1, tagValue1 string, tagPropagateAtLaunch1 bool, tagKey2, tagValue2 string, tagPropagateAtLaunch2 bool) string {
+}func testAccGroupConfig_tags2(rName, tagKey1, tagValue1 string, tagPropagateAtLaunch1 bool, tagKey2, tagValue2 string, tagPropagateAtLaunch2 bool) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  tag {
-    key  = %[2]q
-    value= %[3]q
-    propagate_at_launch = %[4]t
-  }
-
-  tag {
-    key  = %[5]q
-    value= %[6]q
-    propagate_at_launch = %[7]t
+  launch_configuration = aws_launch_configuration.test.name  tag {
+ key  = %[2]q
+ value= %[3]q
+ propagate_at_launch = %[4]t
+  }  tag {
+ key  = %[5]q
+ value= %[6]q
+ propagate_at_launch = %[7]t
   }
 }
 `, rName, tagKey1, tagValue1, tagPropagateAtLaunch1, tagKey2, tagValue2, tagPropagateAtLaunch2))
-}
-
-func testAccGroupConfig_simple(rName string) string {
+}func testAccGroupConfig_simple(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 5
-  min_size    = 2
-  health_check_type    = "ELB"
-  desired_capacity     = 4
+  max_size = 5
+  min_size = 2
+  health_check_type = "ELB"
+  desired_capacity= 4
   force_delete= true
   termination_policies = ["OldestInstance", "ClosestToNextInstanceHour"]
-  launch_configuration = aws_launch_configuration.test.name
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  launch_configuration = aws_launch_configuration.test.name  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_simpleUpdated(rName string) string {
+}func testAccGroupConfig_simpleUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_launch_configuration" "test2" {
   name = "%[1]s-2"
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
-}
-
-resource "aws_autoscaling_group" "test" {
-  availability_zones        = [data.aws_availability_zones.available.names[0]]
-  name       = %[1]q
-  max_size   = 6
-  min_size   = 3
+}resource "aws_autoscaling_group" "test" {
+  availability_zones  = [data.aws_availability_zones.available.names[0]]
+  name = %[1]q
+  max_size= 6
+  min_size= 3
   health_check_grace_period = 400
   health_check_type= "ELB"
   desired_capacity = 4
-  force_delete     = true
-  termination_policies      = ["ClosestToNextInstanceHour"]
-  protect_from_scale_in     = true
-
-  launch_configuration = aws_launch_configuration.test2.name
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  force_delete= true
+  termination_policies= ["ClosestToNextInstanceHour"]
+  protect_from_scale_in= true  launch_configuration = aws_launch_configuration.test2.name  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_terminationPoliciesExplicitDefault(rName string) string {
+}func testAccGroupConfig_terminationPoliciesExplicitDefault(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   name  = %[1]q
   launch_configuration = aws_launch_configuration.test.name
   termination_policies = ["Default"]
 }
 `, rName))
-}
-
-func testAccGroupConfig_terminationPoliciesUpdated(rName string) string {
+}func testAccGroupConfig_terminationPoliciesUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   name  = %[1]q
   launch_configuration = aws_launch_configuration.test.name
   termination_policies = ["OldestInstance"]
 }
 `, rName))
-}
-
-func testAccGroupConfig_az(rName string) string {
+}func testAccGroupConfig_az(rName string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.ConfigVPCWithSubnets(rName, 1),
 fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
   name = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
-}
-
-resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+}resource "aws_autoscaling_group" "test" {
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  depends_on = [aws_subnet.test[0]]
+  launch_configuration = aws_launch_configuration.test.name  depends_on = [aws_subnet.test[0]]
 }
 `, rName))
-}
-
-func testAccGroupConfig_vpcZoneIdentifier(rName string) string {
+}func testAccGroupConfig_vpcZoneIdentifier(rName string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.ConfigVPCWithSubnets(rName, 1),
 fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
   name = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
-}
-
-resource "aws_autoscaling_group" "test" {
+}resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier  = aws_subnet.test[*].id
-  max_size    = 0
-  min_size    = 0
+  max_size = 0
+  min_size = 0
   name  = %[1]q
   launch_configuration = aws_launch_configuration.test.name
 }
 `, rName))
-}
-
-func testAccGroupConfig_elbBase(rName string) string {
+}func testAccGroupConfig_elbBase(rName string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.ConfigVPCWithSubnets(rName, 1),
 fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
-    Name = %[1]q
+  vpc_id = aws_vpc.test.id  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test" {
-  name   = %[1]q
-  vpc_id = aws_vpc.test.id
-
-  ingress {
-    protocol    = "-1"
-    from_port   = 0
-    to_port     = 0
-    cidr_blocks = ["0.0.0.0/0"]
+}resource "aws_security_group" "test" {
+  name= %[1]q
+  vpc_id = aws_vpc.test.id  ingress {
+ protocol = "-1"
+ from_port= 0
+ to_port= 0
+ cidr_blocks = ["0.0.0.0/0"]
+  }  egress {
+ protocol = "-1"
+ from_port= 0
+ to_port= 0
+ cidr_blocks = ["0.0.0.0/0"]
+  }  tags = {
+ Name = %[1]q
   }
-
-  egress {
-    protocol    = "-1"
-    from_port   = 0
-    to_port     = 0
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = %[1]q
-  }
-}
-
-resource "aws_lb_target_group" "test" {
-  name     = %[1]q
-  port     = 80
+}resource "aws_lb_target_group" "test" {
+  name= %[1]q
+  port= 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.test.id
-}
-
-resource "aws_elb" "test" {
-  name   = %[1]q
+  vpc_id= aws_vpc.test.id
+}resource "aws_elb" "test" {
+  name= %[1]q
   subnets= aws_subnet.test[*].id
-  security_groups = [aws_security_group.test.id]
-
-  listener {
-    instance_port     = 80
-    instance_protocol = "http"
-    lb_port  = 80
-    lb_protocol       = "http"
-  }
-
-  health_check {
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    target     = "HTTP:80/"
-    interval   = 5
-    timeout    = 2
-  }
-
-  depends_on = [aws_internet_gateway.test]
-}
-
-resource "aws_launch_configuration" "test" {
-  name   = %[1]q
-  image_id        = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type   = "t2.micro"
-  security_groups = [aws_security_group.test.id]
-
-  # Need the instance to listen on port 80 at boot
+  security_groups = [aws_security_group.test.id]  listener {
+ instance_port= 80
+ instance_protocol = "http"
+ lb_port  = 80
+ lb_protocol = "http"
+  }  health_check {
+ healthy_threshold= 2
+ unhealthy_threshold = 2
+ target= "HTTP:80/"
+ interval= 5
+ timeout = 2
+  }  depends_on = [aws_internet_gateway.test]
+}resource "aws_launch_configuration" "test" {
+  name= %[1]q
+  image_id  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_type= "t2.micro"
+  security_groups = [aws_security_group.test.id]  # Need the instance to listen on port 80 at boot
   user_data = <<EOF
 #!/bin/bash
 echo "Terraform aws_autoscaling_group testing" > index.html
@@ -4225,59 +3716,45 @@ nohup python -m SimpleHTTPServer 80 &
 EOF
 }
 `, rName))
-}
-
-func testAccGroupConfig_loadBalancer(rName string) string {
+}func testAccGroupConfig_loadBalancer(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_elbBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier  = aws_subnet.test[*].id
-  max_size    = 2
-  min_size    = 2
+  max_size = 2
+  min_size = 2
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  health_check_grace_period = 300
+  launch_configuration = aws_launch_configuration.test.name  health_check_grace_period = 300
   health_check_type= "ELB"
-  wait_for_elb_capacity     = 2
-  force_delete     = true
-  load_balancers   = [aws_elb.test.name]
-  target_group_arns= []
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  wait_for_elb_capacity= 2
+  force_delete= true
+  load_balancers= [aws_elb.test.name]
+  target_group_arns= []  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_target2(rName string) string {
+}func testAccGroupConfig_target2(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_elbBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier  = aws_subnet.test[*].id
-  max_size    = 2
-  min_size    = 2
+  max_size = 2
+  min_size = 2
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  health_check_grace_period = 300
+  launch_configuration = aws_launch_configuration.test.name  health_check_grace_period = 300
   health_check_type= "ELB"
-  wait_for_elb_capacity     = 2
-  force_delete     = true
-  load_balancers   = []
-  target_group_arns= [aws_lb_target_group.test.arn]
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  wait_for_elb_capacity= 2
+  force_delete= true
+  load_balancers= []
+  target_group_arns= [aws_lb_target_group.test.arn]  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_vpcLatticeBase(rName string, targetGroupCount int) string {
+}func testAccGroupConfig_vpcLatticeBase(rName string, targetGroupCount int) string {
 	return acctest.ConfigCompose(
 acctest.ConfigVPCWithSubnets(rName, 1),
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
@@ -4285,1022 +3762,728 @@ fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
   count = %[2]d
   name  = %[1]q
-  type  = "INSTANCE"
-
-  config {
-    port  = 80
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+  type  = "INSTANCE"  config {
+ port  = 80
+ protocol = "HTTP"
+ vpc_identifier = aws_vpc.test.id
   }
-}
-
-resource "aws_launch_configuration" "test" {
+}resource "aws_launch_configuration" "test" {
   name = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 }
 `, rName, targetGroupCount))
-}
-
-func testAccGroupConfig_trafficSourceELB(rName string) string {
+}func testAccGroupConfig_trafficSourceELB(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_elbBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier  = aws_subnet.test[*].id
-  max_size    = 2
-  min_size    = 2
+  max_size = 2
+  min_size = 2
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  health_check_grace_period = 300
+  launch_configuration = aws_launch_configuration.test.name  health_check_grace_period = 300
   health_check_type= "ELB"
-  force_delete     = true
-  wait_for_elb_capacity     = 2
-
-  traffic_source {
-    identifier = aws_elb.test.name
-    type       = "elb"
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  force_delete= true
+  wait_for_elb_capacity= 2  traffic_source {
+ identifier = aws_elb.test.name
+ type = "elb"
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_trafficSourceELBs(rName string, elbCount int) string {
+}func testAccGroupConfig_trafficSourceELBs(rName string, elbCount int) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.ConfigVPCWithSubnets(rName, 1),
 fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
-    Name = %[1]q
+  vpc_id = aws_vpc.test.id  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_launch_template" "test" {
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+}resource "aws_launch_template" "test" {
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
   name = %[1]q
-}
-
-resource "aws_elb" "test" {
-  count = %[2]d
-
-  # "name" cannot be longer than 32 characters.
-  name    = format("%%s-%%d", substr(%[1]q, 0, 28), count.index)
-  subnets = aws_subnet.test[*].id
-
-  listener {
-    instance_port     = 80
-    instance_protocol = "http"
-    lb_port  = 80
-    lb_protocol       = "http"
-  }
-
-  depends_on = [aws_internet_gateway.test]
-}
-
-resource "aws_autoscaling_group" "test" {
+}resource "aws_elb" "test" {
+  count = %[2]d  # "name" cannot be longer than 32 characters.
+  name = format("%%s-%%d", substr(%[1]q, 0, 28), count.index)
+  subnets = aws_subnet.test[*].id  listener {
+ instance_port= 80
+ instance_protocol = "http"
+ lb_port  = 80
+ lb_protocol = "http"
+  }  depends_on = [aws_internet_gateway.test]
+}resource "aws_autoscaling_group" "test" {
   name= %[1]q
   force_delete = true
-  max_size     = 0
-  min_size     = 0
-
-  dynamic "traffic_source" {
-    for_each = aws_elb.test[*]
-    content {
-      identifier = traffic_source.value.name
-      type       = "elb"
-    }
-  }
-
-  vpc_zone_identifier = aws_subnet.test[*].id
-
-  launch_template {
-    id = aws_launch_template.test.id
+  max_size= 0
+  min_size= 0  dynamic "traffic_source" {
+ for_each = aws_elb.test[*]
+ content {
+identifier = traffic_source.value.name
+type = "elb"
+ }
+  }  vpc_zone_identifier = aws_subnet.test[*].id  launch_template {
+ id = aws_launch_template.test.id
   }
 }
 `, rName, elbCount))
-}
-
-func testAccGroupConfig_trafficSourceELBtoELBv2(rName string) string {
+}func testAccGroupConfig_trafficSourceELBtoELBv2(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_elbBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier  = aws_subnet.test[*].id
-  max_size    = 2
-  min_size    = 2
+  max_size = 2
+  min_size = 2
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  health_check_grace_period = 300
+  launch_configuration = aws_launch_configuration.test.name  health_check_grace_period = 300
   health_check_type= "ELB"
-  wait_for_elb_capacity     = 2
-  force_delete     = true
-
-  traffic_source {
-    identifier = aws_lb_target_group.test.arn
-    type       = "elbv2"
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  wait_for_elb_capacity= 2
+  force_delete= true  traffic_source {
+ identifier = aws_lb_target_group.test.arn
+ type = "elbv2"
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_trafficSourceELBv2(rName string, targetGroupCount int) string {
+}func testAccGroupConfig_trafficSourceELBv2(rName string, targetGroupCount int) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
   name = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = "t2.micro"
-
-  enable_monitoring = false
-}
-
-resource "aws_lb_target_group" "test" {
-  count = %[2]d
-
-  # "name" cannot be longer than 32 characters.
-  name     = format("%%s-%%d", substr(%[1]q, 0, 28), count.index)
-  port     = 80
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_type = "t2.micro"  enable_monitoring = false
+}resource "aws_lb_target_group" "test" {
+  count = %[2]d  # "name" cannot be longer than 32 characters.
+  name= format("%%s-%%d", substr(%[1]q, 0, 28), count.index)
+  port= 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.test.id
-}
-
-resource "aws_autoscaling_group" "test" {
+  vpc_id= aws_vpc.test.id
+}resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier  = aws_subnet.test[*].id
-  max_size    = 0
-  min_size    = 0
+  max_size = 0
+  min_size = 0
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  dynamic "traffic_source" {
-    for_each = aws_lb_target_group.test[*]
-    content {
-      identifier = traffic_source.value.arn
-      type       = "elbv2"
-    }
+  launch_configuration = aws_launch_configuration.test.name  dynamic "traffic_source" {
+ for_each = aws_lb_target_group.test[*]
+ content {
+identifier = traffic_source.value.arn
+type = "elbv2"
+ }
   }
 }
 `, rName, targetGroupCount))
-}
-
-func testAccGroupConfig_trafficSourceVPCLatticeTargetGroup(rName string) string {
+}func testAccGroupConfig_trafficSourceVPCLatticeTargetGroup(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_vpcLatticeBase(rName, 1), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier  = aws_subnet.test[*].id
-  max_size    = 2
-  min_size    = 2
+  max_size = 2
+  min_size = 2
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  health_check_grace_period = 300
+  launch_configuration = aws_launch_configuration.test.name  health_check_grace_period = 300
   health_check_type= "ELB"
-  wait_for_elb_capacity     = 2
-  force_delete     = true
-
-  traffic_source {
-    identifier = aws_vpclattice_target_group.test[0].arn
-    type       = "vpc-lattice"
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  wait_for_elb_capacity= 2
+  force_delete= true  traffic_source {
+ identifier = aws_vpclattice_target_group.test[0].arn
+ type = "vpc-lattice"
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_trafficSourceVPCLatticeTargetGroups(rName string, targetGroupCount int) string {
+}func testAccGroupConfig_trafficSourceVPCLatticeTargetGroups(rName string, targetGroupCount int) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
-  count = %[2]d
-
-  name = "%[1]s-${count.index}"
-  type = "INSTANCE"
-
-  config {
-    port  = 80
-    protocol       = "HTTP"
-    vpc_identifier = aws_vpc.test.id
+  count = %[2]d  name = "%[1]s-${count.index}"
+  type = "INSTANCE"  config {
+ port  = 80
+ protocol = "HTTP"
+ vpc_identifier = aws_vpc.test.id
   }
-}
-
-resource "aws_launch_configuration" "test" {
+}resource "aws_launch_configuration" "test" {
   name = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
-}
-
-resource "aws_autoscaling_group" "test" {
+}resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier  = aws_subnet.test[*].id
-  max_size    = 2
-  min_size    = 2
+  max_size = 2
+  min_size = 2
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  health_check_grace_period = 300
+  launch_configuration = aws_launch_configuration.test.name  health_check_grace_period = 300
   health_check_type= "ELB"
-  wait_for_elb_capacity     = 2
-  force_delete     = true
-
-  dynamic "traffic_source" {
-    for_each = aws_vpclattice_target_group.test[*]
-    content {
-      identifier = traffic_source.value.arn
-      type       = "vpc-lattice"
-    }
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  wait_for_elb_capacity= 2
+  force_delete= true  dynamic "traffic_source" {
+ for_each = aws_vpclattice_target_group.test[*]
+ content {
+identifier = traffic_source.value.arn
+type = "vpc-lattice"
+ }
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName, targetGroupCount))
-}
-
-func testAccGroupConfig_placement(rName string) string {
+}func testAccGroupConfig_placement(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "c3.large"), fmt.Sprintf(`
 resource "aws_placement_group" "test" {
-  name     = %[1]q
+  name= %[1]q
   strategy = "cluster"
-}
-
-resource "aws_autoscaling_group" "test" {
-  availability_zones        = [data.aws_availability_zones.available.names[0]]
-  name       = %[1]q
-  max_size   = 1
-  min_size   = 1
+}resource "aws_autoscaling_group" "test" {
+  availability_zones  = [data.aws_availability_zones.available.names[0]]
+  name = %[1]q
+  max_size= 1
+  min_size= 1
   health_check_grace_period = 300
   health_check_type= "ELB"
   desired_capacity = 1
-  force_delete     = true
-  termination_policies      = ["OldestInstance", "ClosestToNextInstanceHour"]
+  force_delete= true
+  termination_policies= ["OldestInstance", "ClosestToNextInstanceHour"]
   placement_group  = aws_placement_group.test.name
-  launch_configuration      = aws_launch_configuration.test.name
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  launch_configuration= aws_launch_configuration.test.name  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_enabledMetrics(rName string) string {
+}func testAccGroupConfig_enabledMetrics(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  enabled_metrics = [
-    "GroupTotalInstances",
-    "GroupPendingInstances",
-    "GroupTerminatingInstances",
-    "GroupDesiredCapacity",
-    "GroupMaxSize"
+  launch_configuration = aws_launch_configuration.test.name  enabled_metrics = [
+ "GroupTotalInstances",
+ "GroupPendingInstances",
+ "GroupTerminatingInstances",
+ "GroupDesiredCapacity",
+ "GroupMaxSize"
   ]
 }
 `, rName))
-}
-
-func testAccGroupConfig_allMetricsEnabled(rName string) string {
+}func testAccGroupConfig_allMetricsEnabled(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  enabled_metrics = [
-    "GroupTotalInstances",
-    "GroupPendingInstances",
-    "GroupTerminatingInstances",
-    "GroupDesiredCapacity",
-    "GroupInServiceInstances",
-    "GroupMinSize",
-    "GroupMaxSize",
-    "GroupPendingCapacity",
-    "GroupInServiceCapacity",
-    "GroupStandbyCapacity",
-    "GroupTotalCapacity",
-    "GroupTerminatingCapacity",
-    "GroupStandbyInstances"
+  launch_configuration = aws_launch_configuration.test.name  enabled_metrics = [
+ "GroupTotalInstances",
+ "GroupPendingInstances",
+ "GroupTerminatingInstances",
+ "GroupDesiredCapacity",
+ "GroupInServiceInstances",
+ "GroupMinSize",
+ "GroupMaxSize",
+ "GroupPendingCapacity",
+ "GroupInServiceCapacity",
+ "GroupStandbyCapacity",
+ "GroupTotalCapacity",
+ "GroupTerminatingCapacity",
+ "GroupStandbyInstances"
   ]
   metrics_granularity = "1Minute"
 }
 `, rName))
-}
-
-func testAccGroupConfig_suspendedProcesses(rName string) string {
+}func testAccGroupConfig_suspendedProcesses(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 5
-  min_size    = 2
-  health_check_type    = "ELB"
-  desired_capacity     = 4
+  max_size = 5
+  min_size = 2
+  health_check_type = "ELB"
+  desired_capacity= 4
   force_delete= true
   termination_policies = ["OldestInstance", "ClosestToNextInstanceHour"]
-  launch_configuration = aws_launch_configuration.test.name
-
-  suspended_processes = ["AlarmNotification", "ScheduledActions"]
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  launch_configuration = aws_launch_configuration.test.name  suspended_processes = ["AlarmNotification", "ScheduledActions"]  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_suspendedProcessesUpdated(rName string) string {
+}func testAccGroupConfig_suspendedProcessesUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 5
-  min_size    = 2
-  health_check_type    = "ELB"
-  desired_capacity     = 4
+  max_size = 5
+  min_size = 2
+  health_check_type = "ELB"
+  desired_capacity= 4
   force_delete= true
   termination_policies = ["OldestInstance", "ClosestToNextInstanceHour"]
-  launch_configuration = aws_launch_configuration.test.name
-
-  suspended_processes = ["AZRebalance", "ScheduledActions"]
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  launch_configuration = aws_launch_configuration.test.name  suspended_processes = ["AZRebalance", "ScheduledActions"]  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_withScalingActivityErrorPlacementGroupNotSupportedOnInstanceType(rName string) string {
+}func testAccGroupConfig_withScalingActivityErrorPlacementGroupNotSupportedOnInstanceType(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_placement_group" "test" {
-  name     = %[1]q
+  name= %[1]q
   strategy = "cluster"
-}
-
-resource "aws_autoscaling_group" "test" {
-  availability_zones        = [data.aws_availability_zones.available.names[0]]
-  name       = %[1]q
-  max_size   = 1
-  min_size   = 1
+}resource "aws_autoscaling_group" "test" {
+  availability_zones  = [data.aws_availability_zones.available.names[0]]
+  name = %[1]q
+  max_size= 1
+  min_size= 1
   health_check_grace_period = 300
   health_check_type= "ELB"
   desired_capacity = 1
-  force_delete     = true
-  termination_policies      = ["OldestInstance", "ClosestToNextInstanceHour"]
+  force_delete= true
+  termination_policies= ["OldestInstance", "ClosestToNextInstanceHour"]
   placement_group  = aws_placement_group.test.name
   wait_for_capacity_timeout = "2m"
-  launch_configuration      = aws_launch_configuration.test.name
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  launch_configuration= aws_launch_configuration.test.name  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_withPotentialScalingActivityError(rName, instanceType string, instanceCount int, ignoreFailedScalingActivities string) string {
+}func testAccGroupConfig_withPotentialScalingActivityError(rName, instanceType string, instanceCount int, ignoreFailedScalingActivities string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, instanceType), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones        = [data.aws_availability_zones.available.names[0]]
-  name       = %[1]q
-  max_size   = %[2]d
-  min_size   = 1
+  availability_zones  = [data.aws_availability_zones.available.names[0]]
+  name = %[1]q
+  max_size= %[2]d
+  min_size= 1
   health_check_grace_period = 300
   health_check_type= "ELB"
   desired_capacity = %[2]d
-  force_delete     = true
-  termination_policies      = ["OldestInstance", "ClosestToNextInstanceHour"]
+  force_delete= true
+  termination_policies= ["OldestInstance", "ClosestToNextInstanceHour"]
   wait_for_capacity_timeout = "2m"
-  launch_configuration      = aws_launch_configuration.test.name
-
-  ignore_failed_scaling_activities = %[3]s
-
-  instance_refresh {
-    strategy = "Rolling"
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  launch_configuration= aws_launch_configuration.test.name  ignore_failed_scaling_activities = %[3]s  instance_refresh {
+ strategy = "Rolling"
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName, instanceCount, ignoreFailedScalingActivities))
-}
-
-func testAccGroupConfig_serviceLinkedRoleARN(rName string) string {
+}func testAccGroupConfig_serviceLinkedRoleARN(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 data "aws_iam_role" "test" {
   name = "AWSServiceRoleForAutoScaling"
-}
-
-resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+}resource "aws_autoscaling_group" "test" {
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  service_linked_role_arn = data.aws_iam_role.test.arn
+  launch_configuration = aws_launch_configuration.test.name  service_linked_role_arn = data.aws_iam_role.test.arn
 }
 `, rName))
-}
-
-func testAccGroupConfig_maxInstanceLifetime(rName string, maxInstanceLifetime int) string {
+}func testAccGroupConfig_maxInstanceLifetime(rName string, maxInstanceLifetime int) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 0
-  min_size    = 0
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 0
+  min_size = 0
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  max_instance_lifetime = %[2]d
+  launch_configuration = aws_launch_configuration.test.name  max_instance_lifetime = %[2]d
 }
 `, rName, maxInstanceLifetime))
-}
-
-func testAccGroupConfig_initialLifecycleHook(rName string) string {
+}func testAccGroupConfig_initialLifecycleHook(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 5
-  min_size    = 2
-  health_check_type    = "ELB"
-  desired_capacity     = 4
+  max_size = 5
+  min_size = 2
+  health_check_type = "ELB"
+  desired_capacity= 4
   force_delete= true
   termination_policies = ["OldestInstance", "ClosestToNextInstanceHour"]
-  launch_configuration = aws_launch_configuration.test.name
-
-  initial_lifecycle_hook {
-    name  = "launching"
-    default_result       = "CONTINUE"
-    heartbeat_timeout    = 30 # minimum value
-    lifecycle_transition = "autoscaling:EC2_INSTANCE_LAUNCHING"
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  launch_configuration = aws_launch_configuration.test.name  initial_lifecycle_hook {
+ name  = "launching"
+ default_result = "CONTINUE"
+ heartbeat_timeout = 30 # minimum value
+ lifecycle_transition = "autoscaling:EC2_INSTANCE_LAUNCHING"
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_launchTemplate(rName string) string {
+}func testAccGroupConfig_launchTemplate(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  launch_template {
-    id      = aws_launch_template.test.id
-    version = aws_launch_template.test.default_version
+  name= %[1]q  launch_template {
+ id= aws_launch_template.test.id
+ version = aws_launch_template.test.default_version
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_launchTemplateName(rName string) string {
+}func testAccGroupConfig_launchTemplateName(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  launch_template {
-    name = aws_launch_template.test.name
+  name= %[1]q  launch_template {
+ name = aws_launch_template.test.name
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_launchTemplateLatestVersion(rName string) string {
+}func testAccGroupConfig_launchTemplateLatestVersion(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  launch_template {
-    id      = aws_launch_template.test.id
-    version = "$Latest"
+  name= %[1]q  launch_template {
+ id= aws_launch_template.test.id
+ version = "$Latest"
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_largeDesiredCapacity(rName string, n int) string {
+}func testAccGroupConfig_largeDesiredCapacity(rName string, n int) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = %[2]d
-  min_size    = %[2]d
-  desired_capacity     = %[2]d
-  launch_configuration = aws_launch_configuration.test.name
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  max_size = %[2]d
+  min_size = %[2]d
+  desired_capacity= %[2]d
+  launch_configuration = aws_launch_configuration.test.name  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName, n))
-}
-
-func testAccGroupConfig_instanceRefreshBasic(rName string) string {
+}func testAccGroupConfig_instanceRefreshBasic(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.nano"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 2
-  min_size    = 1
-  desired_capacity     = 1
-  launch_configuration = aws_launch_configuration.test.name
-
-  instance_refresh {
-    strategy = "Rolling"
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  max_size = 2
+  min_size = 1
+  desired_capacity= 1
+  launch_configuration = aws_launch_configuration.test.name  instance_refresh {
+ strategy = "Rolling"
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_instanceRefreshMinHealthyPercentage(rName string) string {
+}func testAccGroupConfig_instanceRefreshMinHealthyPercentage(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.nano"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 2
-  min_size    = 1
-  desired_capacity     = 1
-  launch_configuration = aws_launch_configuration.test.name
-
-  instance_refresh {
-    strategy = "Rolling"
-
-    preferences {
-      min_healthy_percentage = 0
-    }
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  max_size = 2
+  min_size = 1
+  desired_capacity= 1
+  launch_configuration = aws_launch_configuration.test.name  instance_refresh {
+ strategy = "Rolling" preferences {
+min_healthy_percentage = 0
+ }
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_instanceRefreshSkipMatching(rName string) string {
+}func testAccGroupConfig_instanceRefreshSkipMatching(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.nano"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 2
-  min_size    = 1
-  desired_capacity     = 1
-  launch_configuration = aws_launch_configuration.test.name
-
-  instance_refresh {
-    strategy = "Rolling"
-
-    preferences {
-      min_healthy_percentage = 0
-      skip_matching = true
-    }
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  max_size = 2
+  min_size = 1
+  desired_capacity= 1
+  launch_configuration = aws_launch_configuration.test.name  instance_refresh {
+ strategy = "Rolling" preferences {
+min_healthy_percentage = 0
+skip_matching = true
+ }
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_instanceRefreshScaleInProtectedInstances(rName string) string {
+}func testAccGroupConfig_instanceRefreshScaleInProtectedInstances(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.nano"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 2
-  min_size    = 1
-  desired_capacity     = 1
-  launch_configuration = aws_launch_configuration.test.name
-
-  instance_refresh {
-    strategy = "Rolling"
-
-    preferences {
-      min_healthy_percentage       = 0
-      scale_in_protected_instances = "Ignore"
-    }
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  max_size = 2
+  min_size = 1
+  desired_capacity= 1
+  launch_configuration = aws_launch_configuration.test.name  instance_refresh {
+ strategy = "Rolling" preferences {
+min_healthy_percentage = 0
+scale_in_protected_instances = "Ignore"
+ }
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_instanceRefreshStandbyInstances(rName string) string {
+}func testAccGroupConfig_instanceRefreshStandbyInstances(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.nano"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 2
-  min_size    = 1
-  desired_capacity     = 1
-  launch_configuration = aws_launch_configuration.test.name
-
-  instance_refresh {
-    strategy = "Rolling"
-
-    preferences {
-      min_healthy_percentage = 0
-      standby_instances      = "Ignore"
-    }
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  max_size = 2
+  min_size = 1
+  desired_capacity= 1
+  launch_configuration = aws_launch_configuration.test.name  instance_refresh {
+ strategy = "Rolling" preferences {
+min_healthy_percentage = 0
+standby_instances= "Ignore"
+ }
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_instanceRefreshAutoRollback(rName, instanceType string) string {
+}func testAccGroupConfig_instanceRefreshAutoRollback(rName, instanceType string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, instanceType), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
   name= %[1]q
   max_size  = 2
   min_size  = 1
-  desired_capacity   = 1
-
-  launch_template {
-    id      = aws_launch_template.test.id
-    version = aws_launch_template.test.default_version
-  }
-
-  instance_refresh {
-    strategy = "Rolling"
-
-    preferences {
-      auto_rollback = true
-      min_healthy_percentage = 0
-    }
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  desired_capacity= 1  launch_template {
+ id= aws_launch_template.test.id
+ version = aws_launch_template.test.default_version
+  }  instance_refresh {
+ strategy = "Rolling" preferences {
+auto_rollback = true
+min_healthy_percentage = 0
+ }
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_instanceRefreshFull(rName string) string {
+}func testAccGroupConfig_instanceRefreshFull(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.nano"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 2
-  min_size    = 1
-  desired_capacity     = 1
-  launch_configuration = aws_launch_configuration.test.name
-
-  instance_refresh {
-    strategy = "Rolling"
-
-    preferences {
-      instance_warmup        = 10
-      min_healthy_percentage = 50
-      checkpoint_delay       = 25
-      checkpoint_percentages = [1, 20, 25, 50, 100]
-    }
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  max_size = 2
+  min_size = 1
+  desired_capacity= 1
+  launch_configuration = aws_launch_configuration.test.name  instance_refresh {
+ strategy = "Rolling" preferences {
+instance_warmup  = 10
+min_healthy_percentage = 50
+checkpoint_delay = 25
+checkpoint_percentages = [1, 20, 25, 50, 100]
+ }
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_instanceRefreshDisabled(rName string) string {
+}func testAccGroupConfig_instanceRefreshDisabled(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.nano"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 2
-  min_size    = 1
-  desired_capacity     = 1
-  launch_configuration = aws_launch_configuration.test.name
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  max_size = 2
+  min_size = 1
+  desired_capacity= 1
+  launch_configuration = aws_launch_configuration.test.name  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_instanceRefreshStart(rName, launchConfigurationNamePrefix string) string {
+}func testAccGroupConfig_instanceRefreshStart(rName, launchConfigurationNamePrefix string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 2
-  min_size    = 1
-  desired_capacity     = 1
-  launch_configuration = aws_launch_configuration.test.name
-
-  instance_refresh {
-    strategy = "Rolling"
+  max_size = 2
+  min_size = 1
+  desired_capacity= 1
+  launch_configuration = aws_launch_configuration.test.name  instance_refresh {
+ strategy = "Rolling"
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
-  }
-}
-
-resource "aws_launch_configuration" "test" {
-  name_prefix   = %[2]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = "t3.nano"
-
-  lifecycle {
-    create_before_destroy = true
+}resource "aws_launch_configuration" "test" {
+  name_prefix= %[2]q
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_type = "t3.nano"  lifecycle {
+ create_before_destroy = true
   }
 }
 `, rName, launchConfigurationNamePrefix))
-}
-
-func testAccGroupConfig_instanceRefreshTriggers(rName string) string {
+}func testAccGroupConfig_instanceRefreshTriggers(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.nano"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
+  availability_zones= [data.aws_availability_zones.available.names[0]]
   name  = %[1]q
-  max_size    = 2
-  min_size    = 1
-  desired_capacity     = 1
-  launch_configuration = aws_launch_configuration.test.name
-
-  instance_refresh {
-    strategy = "Rolling"
-    triggers = ["tag"]
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
-  }
-
-  tag {
-    key  = "Key"
-    value= "Value"
-    propagate_at_launch = true
+  max_size = 2
+  min_size = 1
+  desired_capacity= 1
+  launch_configuration = aws_launch_configuration.test.name  instance_refresh {
+ strategy = "Rolling"
+ triggers = ["tag"]
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
+  }  tag {
+ key  = "Key"
+ value= "Value"
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_loadBalancers(rName string, elbCount int) string {
+}func testAccGroupConfig_loadBalancers(rName string, elbCount int) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.ConfigVPCWithSubnets(rName, 1),
 fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
-    Name = %[1]q
+  vpc_id = aws_vpc.test.id  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_launch_template" "test" {
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+}resource "aws_launch_template" "test" {
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
   name = %[1]q
-}
-
-resource "aws_elb" "test" {
-  count = %[2]d
-
-  # "name" cannot be longer than 32 characters.
-  name    = format("%%s-%%d", substr(%[1]q, 0, 28), count.index)
-  subnets = aws_subnet.test[*].id
-
-  listener {
-    instance_port     = 80
-    instance_protocol = "http"
-    lb_port  = 80
-    lb_protocol       = "http"
-  }
-
-  depends_on = [aws_internet_gateway.test]
-}
-
-resource "aws_autoscaling_group" "test" {
+}resource "aws_elb" "test" {
+  count = %[2]d  # "name" cannot be longer than 32 characters.
+  name = format("%%s-%%d", substr(%[1]q, 0, 28), count.index)
+  subnets = aws_subnet.test[*].id  listener {
+ instance_port= 80
+ instance_protocol = "http"
+ lb_port  = 80
+ lb_protocol = "http"
+  }  depends_on = [aws_internet_gateway.test]
+}resource "aws_autoscaling_group" "test" {
   name = %[1]q
-  force_delete        = true
-  max_size   = 0
-  min_size   = 0
-  load_balancers      = length(aws_elb.test) > 0 ? aws_elb.test[*].name : []
-  vpc_zone_identifier = aws_subnet.test[*].id
-
-  launch_template {
-    id = aws_launch_template.test.id
+  force_delete  = true
+  max_size= 0
+  min_size= 0
+  load_balancers= length(aws_elb.test) > 0 ? aws_elb.test[*].name : []
+  vpc_zone_identifier = aws_subnet.test[*].id  launch_template {
+ id = aws_launch_template.test.id
   }
 }
 `, rName, elbCount))
-}
-
-func testAccGroupConfig_target(rName string, targetGroupCount int) string {
+}func testAccGroupConfig_target(rName string, targetGroupCount int) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.ConfigVPCWithSubnets(rName, 2),
 fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
   name = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = "t2.micro"
-
-  enable_monitoring = false
-}
-
-resource "aws_lb_target_group" "test" {
-  count = %[2]d
-
-  name     = format("%%s-%%s", substr(%[1]q, 0, 28), count.index)
-  port     = 80
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_type = "t2.micro"  enable_monitoring = false
+}resource "aws_lb_target_group" "test" {
+  count = %[2]d  name= format("%%s-%%s", substr(%[1]q, 0, 28), count.index)
+  port= 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.test.id
-}
-
-resource "aws_autoscaling_group" "test" {
+  vpc_id= aws_vpc.test.id
+}resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier  = aws_subnet.test[*].id
-  max_size    = 0
-  min_size    = 0
+  max_size = 0
+  min_size = 0
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  target_group_arns = length(aws_lb_target_group.test) > 0 ? aws_lb_target_group.test[*].arn : []
+  launch_configuration = aws_launch_configuration.test.name  target_group_arns = length(aws_lb_target_group.test) > 0 ? aws_lb_target_group.test[*].arn : []
 }
 `, rName, targetGroupCount))
-}
-
-func testAccGroupConfig_targetELBCapacity(rName string, subnetCount int) string {
+}func testAccGroupConfig_targetELBCapacity(rName string, subnetCount int) string {
 	return acctest.ConfigCompose(
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 acctest.ConfigVPCWithSubnets(rName, subnetCount),
 fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
-    Name = %[1]q
+  vpc_id = aws_vpc.test.id  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_lb" "test" {
-  name    = %[1]q
-  subnets = aws_subnet.test[*].id
-
-  tags = {
-    Name = %[1]q
+}resource "aws_lb" "test" {
+  name = %[1]q
+  subnets = aws_subnet.test[*].id  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_lb_listener" "test" {
+}resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.arn
-  port     = "80"
-
-  default_action {
-    target_group_arn = aws_lb_target_group.test.arn
-    type    = "forward"
+  port= "80"  default_action {
+ target_group_arn = aws_lb_target_group.test.arn
+ type = "forward"
+  }  tags = {
+ Name = %[1]q
   }
-
-  tags = {
-    Name = %[1]q
-  }
-}
-
-resource "aws_lb_target_group" "test" {
-  name     = %[1]q
-  port     = 80
+}resource "aws_lb_target_group" "test" {
+  name= %[1]q
+  port= 80
   protocol = "HTTP"
-  vpc_id   = aws_vpc.test.id
-
-  health_check {
-    path     = "/"
-    healthy_threshold = "2"
-    timeout  = "2"
-    interval = "5"
-    matcher  = "200"
+  vpc_id= aws_vpc.test.id  health_check {
+ path= "/"
+ healthy_threshold = "2"
+ timeout  = "2"
+ interval = "5"
+ matcher  = "200"
+  }  tags = {
+ Name = %[1]q
   }
-
-  tags = {
-    Name = %[1]q
+}resource "aws_route_table" "test" {
+  vpc_id = aws_vpc.test.id  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_route_table" "test" {
-  vpc_id = aws_vpc.test.id
-
-  tags = {
-    Name = %[1]q
-  }
-}
-
-resource "aws_route_table_association" "test" {
-  count = %[2]d
-
-  subnet_id      = aws_subnet.test[count.index].id
+}resource "aws_route_table_association" "test" {
+  count = %[2]d  subnet_id= aws_subnet.test[count.index].id
   route_table_id = aws_route_table.test.id
-}
-
-resource "aws_route" "test" {
+}resource "aws_route" "test" {
   route_table_id= aws_route_table.test.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id    = aws_internet_gateway.test.id
-}
-
-resource "aws_launch_configuration" "test" {
+  gateway_id = aws_internet_gateway.test.id
+}resource "aws_launch_configuration" "test" {
   name = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = "t2.micro"
-
-  associate_public_ip_address = "true"
-
-  # Need the instance to listen on port 80 at boot
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_type = "t2.micro"  associate_public_ip_address = "true"  # Need the instance to listen on port 80 at boot
   user_data = <<EOF
 #!/bin/bash
 yum -y install httpd
@@ -5308,576 +4491,412 @@ echo "hello world" > /var/www/html/index.html
 chkconfig httpd on
 service httpd start
 EOF
-}
-
-resource "aws_autoscaling_group" "test" {
-  vpc_zone_identifier = aws_subnet.test[*].id
-
-  target_group_arns = [aws_lb_target_group.test.arn]
-
-  name       = %[1]q
-  max_size   = 2
-  min_size   = 2
+}resource "aws_autoscaling_group" "test" {
+  vpc_zone_identifier = aws_subnet.test[*].id  target_group_arns = [aws_lb_target_group.test.arn]  name = %[1]q
+  max_size= 2
+  min_size= 2
   health_check_grace_period = 300
   health_check_type= "ELB"
   desired_capacity = 2
-  wait_for_elb_capacity     = 2
-  force_delete     = true
-  termination_policies      = ["OldestInstance"]
-  launch_configuration      = aws_launch_configuration.test.name
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  wait_for_elb_capacity= 2
+  force_delete= true
+  termination_policies= ["OldestInstance"]
+  launch_configuration= aws_launch_configuration.test.name  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName, subnetCount))
-}
-
-func testAccGroupConfig_warmPoolEmpty(rName string) string {
+}func testAccGroupConfig_warmPoolEmpty(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.nano"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 5
-  min_size    = 1
-  desired_capacity     = 1
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 5
+  min_size = 1
+  desired_capacity= 1
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  warm_pool {}
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  launch_configuration = aws_launch_configuration.test.name  warm_pool {}  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_warmPoolFull(rName string) string {
+}func testAccGroupConfig_warmPoolFull(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.nano"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 5
-  min_size    = 1
-  desired_capacity     = 1
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 5
+  min_size = 1
+  desired_capacity= 1
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  warm_pool {
-    pool_state   = "Stopped"
-    min_size     = 0
-    max_group_prepared_capacity = 2
-    instance_reuse_policy {
-      reuse_on_scale_in = true
-    }
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  launch_configuration = aws_launch_configuration.test.name  warm_pool {
+ pool_state= "Stopped"
+ min_size= 0
+ max_group_prepared_capacity = 2
+ instance_reuse_policy {
+reuse_on_scale_in = true
+ }
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_warmPoolNone(rName string) string {
+}func testAccGroupConfig_warmPoolNone(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.nano"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones   = [data.aws_availability_zones.available.names[0]]
-  max_size    = 5
-  min_size    = 1
-  desired_capacity     = 1
+  availability_zones= [data.aws_availability_zones.available.names[0]]
+  max_size = 5
+  min_size = 1
+  desired_capacity= 1
   name  = %[1]q
-  launch_configuration = aws_launch_configuration.test.name
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  launch_configuration = aws_launch_configuration.test.name  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_partition(rName string) string {
+}func testAccGroupConfig_partition(rName string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 fmt.Sprintf(`
 resource "aws_launch_template" "test" {
   name = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = "m5.large"
-
-  placement {
-    tenancy    = "default"
-    group_name = aws_placement_group.test.id
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_type = "m5.large"  placement {
+ tenancy = "default"
+ group_name = aws_placement_group.test.id
   }
-}
-
-resource "aws_placement_group" "test" {
-  name     = %[1]q
+}resource "aws_placement_group" "test" {
+  name= %[1]q
   strategy = "cluster"
-}
-
-resource "aws_autoscaling_group" "test" {
+}resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  launch_template {
-    id      = aws_launch_template.test.id
-    version = "$Latest"
+  name= %[1]q  launch_template {
+ id= aws_launch_template.test.id
+ version = "$Latest"
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_destroyWhenProtectedFromScaleInBeforeDestroy(rName string) string {
+}func testAccGroupConfig_destroyWhenProtectedFromScaleInBeforeDestroy(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones    = [data.aws_availability_zones.available.names[0]]
-  name   = %[1]q
-  max_size     = 2
-  min_size     = 2
-  desired_capacity      = 2
+  availability_zones = [data.aws_availability_zones.available.names[0]]
+  name= %[1]q
+  max_size= 2
+  min_size= 2
+  desired_capacity= 2
   protect_from_scale_in = true
-  launch_configuration  = aws_launch_configuration.test.name
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  launch_configuration  = aws_launch_configuration.test.name  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_destroyWhenProtectedFromScaleInAfterDestroy(rName string) string {
+}func testAccGroupConfig_destroyWhenProtectedFromScaleInAfterDestroy(rName string) string {
 	return testAccGroupConfig_launchConfigurationBase(rName, "t3.micro")
-}
-
-func testAccGroupConfig_mixedInstancesPolicy(rName string) string {
+}func testAccGroupConfig_mixedInstancesPolicy(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type     = "t2.micro"
-        weighted_capacity = "1"
-      }
-
-      override {
-        instance_type     = "t3.small"
-        weighted_capacity = "2"
-      }
-    }
+  name= %[1]q  mixed_instances_policy {
+ launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type= "t2.micro"
+  weighted_capacity = "1"
+}override {
+  instance_type= "t3.small"
+  weighted_capacity = "2"
+}
+ }
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyCapacityRebalance(rName string) string {
+}func testAccGroupConfig_mixedInstancesPolicyCapacityRebalance(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
   name= %[1]q
-  capacity_rebalance = true
-
-  mixed_instances_policy {
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type     = "t2.micro"
-        weighted_capacity = "1"
-      }
-
-      override {
-        instance_type     = "t3.small"
-        weighted_capacity = "2"
-      }
-    }
+  capacity_rebalance = true  mixed_instances_policy {
+ launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type= "t2.micro"
+  weighted_capacity = "1"
+}override {
+  instance_type= "t3.small"
+  weighted_capacity = "2"
+}
+ }
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionOnDemandAllocationStrategy(rName, onDemandAllocationStrategy string) string {
+}func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionOnDemandAllocationStrategy(rName, onDemandAllocationStrategy string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    instances_distribution {
-      on_demand_allocation_strategy = %[2]q
-    }
-
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type = "t2.micro"
-      }
-
-      override {
-        instance_type = "t3.small"
-      }
-    }
+  name= %[1]q  mixed_instances_policy {
+ instances_distribution {
+on_demand_allocation_strategy = %[2]q
+ } launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type = "t2.micro"
+}override {
+  instance_type = "t3.small"
+}
+ }
   }
 }
 `, rName, onDemandAllocationStrategy))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionOnDemandBaseCapacity(rName string, onDemandBaseCapacity int) string {
+}func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionOnDemandBaseCapacity(rName string, onDemandBaseCapacity int) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 2
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    instances_distribution {
-      on_demand_base_capacity = %[2]d
-    }
-
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type = "t2.micro"
-      }
-
-      override {
-        instance_type = "t3.small"
-      }
-    }
+  name= %[1]q  mixed_instances_policy {
+ instances_distribution {
+on_demand_base_capacity = %[2]d
+ } launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type = "t2.micro"
+}override {
+  instance_type = "t3.small"
+}
+ }
   }
 }
 `, rName, onDemandBaseCapacity))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionOnDemandPercentageAboveBaseCapacity(rName string, onDemandPercentageAboveBaseCapacity int) string {
+}func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionOnDemandPercentageAboveBaseCapacity(rName string, onDemandPercentageAboveBaseCapacity int) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    instances_distribution {
-      on_demand_percentage_above_base_capacity = %[2]d
-    }
-
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type = "t2.micro"
-      }
-
-      override {
-        instance_type = "t3.small"
-      }
-    }
+  name= %[1]q  mixed_instances_policy {
+ instances_distribution {
+on_demand_percentage_above_base_capacity = %[2]d
+ } launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type = "t2.micro"
+}override {
+  instance_type = "t3.small"
+}
+ }
   }
 }
 `, rName, onDemandPercentageAboveBaseCapacity))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionSpotAllocationStrategy(rName, spotAllocationStrategy string) string {
+}func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionSpotAllocationStrategy(rName, spotAllocationStrategy string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    instances_distribution {
-      spot_allocation_strategy = %[2]q
-    }
-
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type = "t2.micro"
-      }
-
-      override {
-        instance_type = "t3.small"
-      }
-    }
+  name= %[1]q  mixed_instances_policy {
+ instances_distribution {
+spot_allocation_strategy = %[2]q
+ } launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type = "t2.micro"
+}override {
+  instance_type = "t3.small"
+}
+ }
   }
 }
 `, rName, spotAllocationStrategy))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionSpotInstancePools(rName string, spotInstancePools int) string {
+}func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionSpotInstancePools(rName string, spotInstancePools int) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    instances_distribution {
-      spot_instance_pools = %[2]d
-    }
-
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type = "t2.micro"
-      }
-
-      override {
-        instance_type = "t3.small"
-      }
-    }
+  name= %[1]q  mixed_instances_policy {
+ instances_distribution {
+spot_instance_pools = %[2]d
+ } launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type = "t2.micro"
+}override {
+  instance_type = "t3.small"
+}
+ }
   }
 }
 `, rName, spotInstancePools))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionSpotMaxPrice(rName, spotMaxPrice string) string {
+}func testAccGroupConfig_mixedInstancesPolicyInstancesDistributionSpotMaxPrice(rName, spotMaxPrice string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    instances_distribution {
-      spot_max_price = %[2]q
-    }
-
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type = "t2.micro"
-      }
-
-      override {
-        instance_type = "t3.small"
-      }
-    }
+  name= %[1]q  mixed_instances_policy {
+ instances_distribution {
+spot_max_price = %[2]q
+ } launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type = "t2.micro"
+}override {
+  instance_type = "t3.small"
+}
+ }
   }
 }
 `, rName, spotMaxPrice))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateLaunchTemplateSpecificationLaunchTemplateName(rName string) string {
+}func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateLaunchTemplateSpecificationLaunchTemplateName(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    launch_template {
-      launch_template_specification {
-        launch_template_name = aws_launch_template.test.name
-      }
-
-      override {
-        instance_type = "t2.micro"
-      }
-
-      override {
-        instance_type = "t3.small"
-      }
-    }
+  name= %[1]q  mixed_instances_policy {
+ launch_template {
+launch_template_specification {
+  launch_template_name = aws_launch_template.test.name
+}override {
+  instance_type = "t2.micro"
+}override {
+  instance_type = "t3.small"
+}
+ }
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateLaunchTemplateSpecificationVersion(rName, version string) string {
+}func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateLaunchTemplateSpecificationVersion(rName, version string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-        version   = %[2]q
-      }
-
-      override {
-        instance_type = "t2.micro"
-      }
-
-      override {
-        instance_type = "t3.small"
-      }
-    }
+  name= %[1]q  mixed_instances_policy {
+ launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+  version= %[2]q
+}override {
+  instance_type = "t2.micro"
+}override {
+  instance_type = "t3.small"
+}
+ }
   }
 }
 `, rName, version))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceType(rName, instanceType string) string {
+}func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceType(rName, instanceType string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type = "t2.micro"
-      }
-
-      override {
-        instance_type = %[2]q
-      }
-    }
+  name= %[1]q  mixed_instances_policy {
+ launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type = "t2.micro"
+}override {
+  instance_type = %[2]q
+}
+ }
   }
 }
 `, rName, instanceType))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceTypeLaunchTemplateSpecification(rName string) string {
+}func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceTypeLaunchTemplateSpecification(rName string) string {
 	return acctest.ConfigCompose(
 testAccGroupConfig_launchTemplateBase(rName, "t3.micro"),
 acctest.ConfigLatestAmazonLinux2HVMEBSARM64AMI(),
 fmt.Sprintf(`
 resource "aws_launch_template" "test-arm" {
-  image_id      = data.aws_ami.amzn2-ami-minimal-hvm-ebs-arm64.id
+  image_id= data.aws_ami.amzn2-ami-minimal-hvm-ebs-arm64.id
   instance_type = "t4g.micro"
   name = "%[1]s-arm"
-}
-
-resource "aws_autoscaling_group" "test" {
+}resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type = "t2.micro"
-      }
-
-      override {
-        instance_type = "t4g.small"
-
-        launch_template_specification {
+  name= %[1]q  mixed_instances_policy {
+ launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type = "t2.micro"
+}override {
+  instance_type = "t4g.small"  launch_template_specification {
  launch_template_id = aws_launch_template.test-arm.id
-        }
-      }
-    }
+  }
+}
+ }
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideWeightedCapacity(rName string) string {
+}func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideWeightedCapacity(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 4
+  desired_capacity= 4
   max_size  = 6
   min_size  = 2
-  name= %[1]q
-
-  mixed_instances_policy {
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type     = "t2.micro"
-        weighted_capacity = "2"
-      }
-
-      override {
-        instance_type     = "t3.small"
-        weighted_capacity = "4"
-      }
-    }
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  name= %[1]q  mixed_instances_policy {
+ launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type= "t2.micro"
+  weighted_capacity = "2"
+}override {
+  instance_type= "t3.small"
+  weighted_capacity = "4"
+}
+ }
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideWeightedCapacityELB(rName string) string {
+}func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideWeightedCapacityELB(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_elbBase(rName), fmt.Sprintf(`
 locals {
   user_data = <<EOF
@@ -5885,154 +4904,114 @@ locals {
 echo "Terraform aws_autoscaling_group Testing" > index.html
 nohup python -m SimpleHTTPServer 80 &
 EOF
-}
-
-resource "aws_launch_template" "test" {
+}resource "aws_launch_template" "test" {
   image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
-  name    = %[1]q
-  user_data     = base64encode(local.user_data)
+  name = %[1]q
+  user_data= base64encode(local.user_data)
   vpc_security_group_ids = [aws_security_group.test.id]
-}
-
-resource "aws_autoscaling_group" "test" {
-  desired_capacity      = 2
+}resource "aws_autoscaling_group" "test" {
+  desired_capacity= 2
   wait_for_elb_capacity = 2
-  max_size     = 2
-  min_size     = 2
-  name   = %[1]q
-  load_balancers        = [aws_elb.test.name]
-  vpc_zone_identifier   = aws_subnet.test[*].id
-
-  mixed_instances_policy {
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_type     = "t3.micro"
-        weighted_capacity = "2"
-      }
-
-      override {
-        instance_type     = "t3.small"
-        weighted_capacity = "2"
-      }
-    }
-  }
-
-  tag {
-    key  = "Name"
-    value= %[1]q
-    propagate_at_launch = true
+  max_size= 2
+  min_size= 2
+  name= %[1]q
+  load_balancers  = [aws_elb.test.name]
+  vpc_zone_identifier= aws_subnet.test[*].id  mixed_instances_policy {
+ launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_type= "t3.micro"
+  weighted_capacity = "2"
+}override {
+  instance_type= "t3.small"
+  weighted_capacity = "2"
+}
+ }
+  }  tag {
+ key  = "Name"
+ value= %[1]q
+ propagate_at_launch = true
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName string, instanceRequirements string) string {
+}func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirements(rName string, instanceRequirements string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  desired_capacity   = 0
+  desired_capacity= 0
   max_size  = 0
   min_size  = 0
-  name= %[1]q
-
-  mixed_instances_policy {
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_requirements {
+  name= %[1]q  mixed_instances_policy {
+ launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_requirements {
  %[2]s
-        }
-      }
-    }
-
-    instances_distribution {
-      on_demand_percentage_above_base_capacity = 50
-      spot_allocation_strategy  = "capacity-optimized"
-    }
+  }
+}
+ } instances_distribution {
+on_demand_percentage_above_base_capacity = 50
+spot_allocation_strategy  = "capacity-optimized"
+ }
   }
 }
 `, rName, instanceRequirements))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirementsDesiredCapacityTypeUnits(rName string) string {
+}func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirementsDesiredCapacityTypeUnits(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones    = [data.aws_availability_zones.available.names[0]]
-  desired_capacity      = 1
+  availability_zones = [data.aws_availability_zones.available.names[0]]
+  desired_capacity= 1
   desired_capacity_type = "units"
-  max_size     = 1
-  min_size     = 1
-  name   = %[1]q
-
-  mixed_instances_policy {
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_requirements {
+  max_size= 1
+  min_size= 1
+  name= %[1]q  mixed_instances_policy {
+ launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_requirements {
  memory_mib {
-   min = 500
+min = 500
+ } vcpu_count {
+min = 1
  }
-
- vcpu_count {
-   min = 1
+  }
+}
+ } instances_distribution {
+on_demand_percentage_above_base_capacity = 50
+spot_allocation_strategy  = "capacity-optimized"
  }
-        }
-      }
-    }
-
-    instances_distribution {
-      on_demand_percentage_above_base_capacity = 50
-      spot_allocation_strategy  = "capacity-optimized"
-    }
   }
 }
 `, rName))
-}
-
-func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirementsDesiredCapacityTypeVCPU(rName string) string {
+}func testAccGroupConfig_mixedInstancesPolicyLaunchTemplateOverrideInstanceRequirementsDesiredCapacityTypeVCPU(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchTemplateBase(rName, "t3.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
-  availability_zones    = [data.aws_availability_zones.available.names[0]]
-  desired_capacity      = 4
+  availability_zones = [data.aws_availability_zones.available.names[0]]
+  desired_capacity= 4
   desired_capacity_type = "vcpu"
-  max_size     = 8
-  min_size     = 4
-  name   = %[1]q
-
-  mixed_instances_policy {
-    launch_template {
-      launch_template_specification {
-        launch_template_id = aws_launch_template.test.id
-      }
-
-      override {
-        instance_requirements {
+  max_size= 8
+  min_size= 4
+  name= %[1]q  mixed_instances_policy {
+ launch_template {
+launch_template_specification {
+  launch_template_id = aws_launch_template.test.id
+}override {
+  instance_requirements {
  memory_mib {
-   min = 1000
+min = 1000
+ } vcpu_count {
+min = 2
  }
-
- vcpu_count {
-   min = 2
+  }
+}
+ } instances_distribution {
+on_demand_percentage_above_base_capacity = 50
+spot_allocation_strategy  = "capacity-optimized"
  }
-        }
-      }
-    }
-
-    instances_distribution {
-      on_demand_percentage_above_base_capacity = 50
-      spot_allocation_strategy  = "capacity-optimized"
-    }
   }
 }
 `, rName))

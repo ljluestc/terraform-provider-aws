@@ -72,7 +72,7 @@ func ResourceDistribution() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"behavior": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Description:  "The cache behavior for the specified path.",
 							ValidateFunc: validation.StringInSlice(flattenBehaviorEnumValues(types.BehaviorEnum("").Values()), false),
@@ -93,13 +93,13 @@ func ResourceDistribution() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"allowed_http_methods": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Description:  "The HTTP methods that are processed and forwarded to the distribution's origin.",
 							ValidateFunc: validation.StringMatch(regexache.MustCompile(`.*\S.*`), "Value must match regex: .*\\S.*"),
 						},
 						"cached_http_methods": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Description:  "The HTTP method responses that are cached by your distribution.",
 							ValidateFunc: validation.StringMatch(regexache.MustCompile(`.*\S.*`), "Value must match regex: .*\\S.*"),
@@ -123,7 +123,7 @@ func ResourceDistribution() *schema.Resource {
 										Elem:        &schema.Schema{Type: schema.TypeString},
 									},
 									"option": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Description:  "Specifies which cookies to forward to the distribution's origin for a cache behavior: all, none, or allow-list to forward only the cookies specified in the cookiesAllowList parameter.",
 										ValidateFunc: validation.StringInSlice(flattenForwardValuesValues(types.ForwardValues("").Values()), false),
@@ -143,12 +143,12 @@ func ResourceDistribution() *schema.Resource {
 										Optional:    true,
 										Description: "The specific headers to forward to your distribution's origin.",
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringInSlice(flattenHeaderEnumValues(types.HeaderEnum("").Values()), false),
 										},
 									},
 									"option": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Description:  "The headers that you want your distribution to forward to your origin and base caching on.",
 										ValidateFunc: validation.StringInSlice(enum.Slice("default", types.ForwardValuesAllowList, types.ForwardValuesAll), false),
@@ -191,7 +191,7 @@ func ResourceDistribution() *schema.Resource {
 				},
 			},
 			"certificate_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Description:  "The name of the SSL/TLS certificate attached to the distribution, if any.",
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`\w[\w\-]*\w`), "Certificate name must match regex: \\w[\\w\\-]*\\w"),
@@ -209,7 +209,7 @@ func ResourceDistribution() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"behavior": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Description:  "The cache behavior of the distribution.",
 							ValidateFunc: validation.StringInSlice(flattenBehaviorEnumValues(types.BehaviorEnum("").Values()), false),
@@ -223,7 +223,7 @@ func ResourceDistribution() *schema.Resource {
 				Description: "The domain name of the distribution.",
 			},
 			"ip_address_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Description:  "The IP address type of the distribution.",
 				ValidateFunc: validation.StringInSlice(flattenIPAddressTypeValues(types.IpAddressType("").Values()), false),
@@ -236,7 +236,7 @@ func ResourceDistribution() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"availability_zone": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Description:  "The Availability Zone.",
 							ValidateFunc: validation.StringInSlice(flattenBehaviorEnumValues(types.BehaviorEnum("").Values()), false),
@@ -256,7 +256,7 @@ func ResourceDistribution() *schema.Resource {
 				Default:     true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Description:  "The name of the distribution.",
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`\w[\w\-]*\w`), "name must match regex: \\w[\\w\\-]*\\w"),
@@ -269,19 +269,19 @@ func ResourceDistribution() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringMatch(regexache.MustCompile(`\w[\w\-]*\w`), "Name must match regex: \\w[\\w\\-]*\\w"),
 							Description:  "The name of the origin resource.",
 						},
 						"protocol_policy": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(flattenOriginProtocolPolicyEnumValues(types.OriginProtocolPolicyEnum("").Values()), false),
 							Description:  "The protocol that your Amazon Lightsail distribution uses when establishing a connection with your origin to pull content.",
 						},
 						"region_name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: verify.ValidRegionName,
 							Description:  "The AWS Region name of the origin resource.",
@@ -325,7 +325,6 @@ func ResourceDistribution() *schema.Resource {
 const (
 	ResNameDistribution = "Distribution"
 )
-
 func resourceDistributionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -391,7 +390,6 @@ func resourceDistributionCreate(ctx context.Context, d *schema.ResourceData, met
 
 	return resourceDistributionRead(ctx, d, meta)
 }
-
 func resourceDistributionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -445,7 +443,6 @@ func resourceDistributionRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	return nil
 }
-
 func resourceDistributionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -538,7 +535,6 @@ func resourceDistributionUpdate(ctx context.Context, d *schema.ResourceData, met
 
 	return resourceDistributionRead(ctx, d, meta)
 }
-
 func resourceDistributionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -564,7 +560,6 @@ func resourceDistributionDelete(ctx context.Context, d *schema.ResourceData, met
 
 	return nil
 }
-
 func FindDistributionByID(ctx context.Context, conn *lightsail.Client, id string) (*types.LightsailDistribution, error) {
 	in := &lightsail.GetDistributionsInput{
 		DistributionName: aws.String(id),
@@ -587,7 +582,6 @@ func FindDistributionByID(ctx context.Context, conn *lightsail.Client, id string
 
 	return &out.Distributions[0], nil
 }
-
 func flattenCookieObject(apiObject *types.CookieObject) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -605,7 +599,6 @@ func flattenCookieObject(apiObject *types.CookieObject) map[string]interface{} {
 
 	return m
 }
-
 func flattenHeaderObject(apiObject *types.HeaderObject) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -623,7 +616,6 @@ func flattenHeaderObject(apiObject *types.HeaderObject) map[string]interface{} {
 
 	return m
 }
-
 func flattenQueryStringObject(apiObject *types.QueryStringObject) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -641,7 +633,6 @@ func flattenQueryStringObject(apiObject *types.QueryStringObject) map[string]int
 
 	return m
 }
-
 func flattenCacheSettings(apiObject *types.CacheSettings) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -683,7 +674,6 @@ func flattenCacheSettings(apiObject *types.CacheSettings) map[string]interface{}
 
 	return m
 }
-
 func flattenCacheBehaviorPerPath(apiObject types.CacheBehaviorPerPath) map[string]interface{} {
 	if apiObject == (types.CacheBehaviorPerPath{}) {
 		return nil
@@ -701,7 +691,6 @@ func flattenCacheBehaviorPerPath(apiObject types.CacheBehaviorPerPath) map[strin
 
 	return m
 }
-
 func flattenCacheBehaviorsPerPath(apiObjects []types.CacheBehaviorPerPath) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -719,7 +708,6 @@ func flattenCacheBehaviorsPerPath(apiObjects []types.CacheBehaviorPerPath) []int
 
 	return l
 }
-
 func flattenCacheBehavior(apiObject *types.CacheBehavior) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -733,7 +721,6 @@ func flattenCacheBehavior(apiObject *types.CacheBehavior) map[string]interface{}
 
 	return m
 }
-
 func flattenOrigin(apiObject *types.Origin) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -759,7 +746,6 @@ func flattenOrigin(apiObject *types.Origin) map[string]interface{} {
 
 	return m
 }
-
 func expandInputOrigin(tfMap map[string]interface{}) *types.InputOrigin {
 	if tfMap == nil {
 		return nil
@@ -781,7 +767,6 @@ func expandInputOrigin(tfMap map[string]interface{}) *types.InputOrigin {
 
 	return a
 }
-
 func expandCacheBehaviorPerPath(tfMap map[string]interface{}) types.CacheBehaviorPerPath {
 	if tfMap == nil {
 		return types.CacheBehaviorPerPath{}
@@ -799,7 +784,6 @@ func expandCacheBehaviorPerPath(tfMap map[string]interface{}) types.CacheBehavio
 
 	return a
 }
-
 func expandCacheBehaviorsPerPath(tfList []interface{}) []types.CacheBehaviorPerPath {
 	if len(tfList) == 0 {
 		return nil
@@ -825,7 +809,6 @@ func expandCacheBehaviorsPerPath(tfList []interface{}) []types.CacheBehaviorPerP
 
 	return s
 }
-
 func expandAllowList(tfList []interface{}) []string {
 	if len(tfList) == 0 {
 		return nil
@@ -845,7 +828,6 @@ func expandAllowList(tfList []interface{}) []string {
 
 	return s
 }
-
 func expandHeaderEnumList(tfList []interface{}) []types.HeaderEnum {
 	if len(tfList) == 0 {
 		return nil
@@ -882,7 +864,6 @@ func expandCookieObject(tfMap map[string]interface{}) *types.CookieObject {
 
 	return a
 }
-
 func expandHeaderObject(tfMap map[string]interface{}) *types.HeaderObject {
 	if tfMap == nil {
 		return nil
@@ -900,7 +881,6 @@ func expandHeaderObject(tfMap map[string]interface{}) *types.HeaderObject {
 
 	return a
 }
-
 func expandQueryStringObject(tfMap map[string]interface{}) *types.QueryStringObject {
 	if tfMap == nil {
 		return nil
@@ -918,7 +898,6 @@ func expandQueryStringObject(tfMap map[string]interface{}) *types.QueryStringObj
 
 	return a
 }
-
 func expandCacheSettings(tfMap map[string]interface{}) *types.CacheSettings {
 	if tfMap == nil {
 		return nil
@@ -960,7 +939,6 @@ func expandCacheSettings(tfMap map[string]interface{}) *types.CacheSettings {
 
 	return a
 }
-
 func expandCacheBehavior(tfMap map[string]interface{}) *types.CacheBehavior {
 	if tfMap == nil {
 		return nil
@@ -974,7 +952,6 @@ func expandCacheBehavior(tfMap map[string]interface{}) *types.CacheBehavior {
 
 	return a
 }
-
 func flattenForwardValuesValues(t []types.ForwardValues) []string {
 	var out []string
 
@@ -984,7 +961,6 @@ func flattenForwardValuesValues(t []types.ForwardValues) []string {
 
 	return out
 }
-
 func flattenHeaderEnumValues(t []types.HeaderEnum) []string {
 	var out []string
 
@@ -994,7 +970,6 @@ func flattenHeaderEnumValues(t []types.HeaderEnum) []string {
 
 	return out
 }
-
 func flattenIPAddressTypeValues(t []types.IpAddressType) []string {
 	var out []string
 
@@ -1004,7 +979,6 @@ func flattenIPAddressTypeValues(t []types.IpAddressType) []string {
 
 	return out
 }
-
 func flattenBehaviorEnumValues(t []types.BehaviorEnum) []string {
 	var out []string
 
@@ -1014,7 +988,6 @@ func flattenBehaviorEnumValues(t []types.BehaviorEnum) []string {
 
 	return out
 }
-
 func flattenOriginProtocolPolicyEnumValues(t []types.OriginProtocolPolicyEnum) []string {
 	var out []string
 

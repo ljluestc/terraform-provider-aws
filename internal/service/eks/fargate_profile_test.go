@@ -29,7 +29,7 @@ func TestAccEKSFargateProfile_basic(t *testing.T) {
 	resourceName := "aws_eks_fargate_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFargateProfileDestroy(ctx),
@@ -49,8 +49,8 @@ func TestAccEKSFargateProfile_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -64,7 +64,7 @@ func TestAccEKSFargateProfile_disappears(t *testing.T) {
 	resourceName := "aws_eks_fargate_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFargateProfileDestroy(ctx),
@@ -89,7 +89,7 @@ func TestAccEKSFargateProfile_Multi_profile(t *testing.T) {
 	resourceName2 := "aws_eks_fargate_profile.test.1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFargateProfileDestroy(ctx),
@@ -112,7 +112,7 @@ func TestAccEKSFargateProfile_Selector_labels(t *testing.T) {
 	resourceName := "aws_eks_fargate_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFargateProfileDestroy(ctx),
@@ -124,8 +124,8 @@ func TestAccEKSFargateProfile_Selector_labels(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -139,7 +139,7 @@ func TestAccEKSFargateProfile_tags(t *testing.T) {
 	resourceName := "aws_eks_fargate_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckFargateProfile(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFargateProfileDestroy(ctx),
@@ -153,8 +153,8 @@ func TestAccEKSFargateProfile_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -280,8 +280,8 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+name   = "opt-in-status"
+values = ["opt-in-not-required"]
   }
 }
 
@@ -291,50 +291,50 @@ resource "aws_iam_role" "cluster" {
   name = "%[1]s-cluster"
 
   assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "eks.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+ Action = "sts:AssumeRole"
+ Effect = "Allow"
+ Principal = {
+   Service = "eks.${data.aws_partition.current.dns_suffix}"
+ }
+}]
+Version = "2012-10-17"
   })
 }
 
 resource "aws_iam_role_policy_attachment" "cluster-AmazonEKSClusterPolicy" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.cluster.name
+  role  = aws_iam_role.cluster.name
 }
 
 resource "aws_iam_role" "pod" {
   name = "%[1]s-pod"
 
   assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "eks-fargate-pods.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+ Action = "sts:AssumeRole"
+ Effect = "Allow"
+ Principal = {
+   Service = "eks-fargate-pods.${data.aws_partition.current.dns_suffix}"
+ }
+}]
+Version = "2012-10-17"
   })
 }
 
 resource "aws_iam_role_policy_attachment" "pod-AmazonEKSFargatePodExecutionRolePolicy" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy"
-  role       = aws_iam_role.pod.name
+  role  = aws_iam_role.pod.name
 }
 
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block = "10.0.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
 
   tags = {
-    Name= %[1]q
-    "kubernetes.io/cluster/%[1]s" = "shared"
+Name= %[1]q
+"kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
 
@@ -342,7 +342,7 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -350,41 +350,41 @@ resource "aws_route_table" "public" {
   vpc_id = aws_vpc.test.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.test.id
+cidr_block = "0.0.0.0/0"
+gateway_id = aws_internet_gateway.test.id
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_main_route_table_association" "test" {
   route_table_id = aws_route_table.public.id
-  vpc_id         = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
 }
 
 resource "aws_subnet" "private" {
   count = 2
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index + 2)
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index + 2)
+  vpc_id  = aws_vpc.test.id
 
   tags = {
-    Name= %[1]q
-    "kubernetes.io/cluster/%[1]s" = "shared"
+Name= %[1]q
+"kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
 
 resource "aws_eip" "private" {
-  count      = 2
+  count = 2
   depends_on = [aws_internet_gateway.test]
 
   domain = "vpc"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -392,10 +392,10 @@ resource "aws_nat_gateway" "private" {
   count = 2
 
   allocation_id = aws_eip.private[count.index].id
-  subnet_id     = aws_subnet.private[count.index].id
+  subnet_id= aws_subnet.private[count.index].id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -405,19 +405,19 @@ resource "aws_route_table" "private" {
   vpc_id = aws_vpc.test.id
 
   route {
-    cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.private[count.index].id
+cidr_block= "0.0.0.0/0"
+nat_gateway_id = aws_nat_gateway.private[count.index].id
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_route_table_association" "private" {
   count = 2
 
-  subnet_id      = aws_subnet.private[count.index].id
+  subnet_id = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private[count.index].id
 }
 
@@ -425,26 +425,26 @@ resource "aws_subnet" "public" {
   count = 2
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
+  vpc_id  = aws_vpc.test.id
 
   tags = {
-    Name= %[1]q
-    "kubernetes.io/cluster/%[1]s" = "shared"
+Name= %[1]q
+"kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
 
 resource "aws_eks_cluster" "test" {
-  name     = %[1]q
+  name= %[1]q
   role_arn = aws_iam_role.cluster.arn
 
   vpc_config {
-    subnet_ids = aws_subnet.public[*].id
+subnet_ids = aws_subnet.public[*].id
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy,
-    aws_main_route_table_association.test,
+aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy,
+aws_main_route_table_association.test,
   ]
 }
 `, rName)
@@ -453,18 +453,18 @@ resource "aws_eks_cluster" "test" {
 func testAccFargateProfileConfig_name(rName string) string {
 	return acctest.ConfigCompose(testAccFargateProfileConfig_base(rName), fmt.Sprintf(`
 resource "aws_eks_fargate_profile" "test" {
-  cluster_name           = aws_eks_cluster.test.name
+  cluster_name = aws_eks_cluster.test.name
   fargate_profile_name   = %[1]q
   pod_execution_role_arn = aws_iam_role.pod.arn
   subnet_ids= aws_subnet.private[*].id
 
   selector {
-    namespace = "test"
+namespace = "test"
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.pod-AmazonEKSFargatePodExecutionRolePolicy,
-    aws_route_table_association.private,
+aws_iam_role_policy_attachment.pod-AmazonEKSFargatePodExecutionRolePolicy,
+aws_route_table_association.private,
   ]
 }
 `, rName))
@@ -475,18 +475,18 @@ func testAccFargateProfileConfig_multiple(rName string) string {
 resource "aws_eks_fargate_profile" "test" {
   count = 2
 
-  cluster_name           = aws_eks_cluster.test.name
+  cluster_name = aws_eks_cluster.test.name
   fargate_profile_name   = "%[1]s-${count.index}"
   pod_execution_role_arn = aws_iam_role.pod.arn
   subnet_ids= aws_subnet.private[*].id
 
   selector {
-    namespace = "test"
+namespace = "test"
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.pod-AmazonEKSFargatePodExecutionRolePolicy,
-    aws_route_table_association.private,
+aws_iam_role_policy_attachment.pod-AmazonEKSFargatePodExecutionRolePolicy,
+aws_route_table_association.private,
   ]
 }
 `, rName))
@@ -495,21 +495,21 @@ resource "aws_eks_fargate_profile" "test" {
 func testAccFargateProfileConfig_selectorLabels1(rName, labelKey1, labelValue1 string) string {
 	return acctest.ConfigCompose(testAccFargateProfileConfig_base(rName), fmt.Sprintf(`
 resource "aws_eks_fargate_profile" "test" {
-  cluster_name           = aws_eks_cluster.test.name
+  cluster_name = aws_eks_cluster.test.name
   fargate_profile_name   = %[1]q
   pod_execution_role_arn = aws_iam_role.pod.arn
   subnet_ids= aws_subnet.private[*].id
 
   selector {
-    labels = {
-      %[2]q = %[3]q
-    }
-    namespace = "test"
+labels = {
+ %[2]q = %[3]q
+}
+namespace = "test"
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.pod-AmazonEKSFargatePodExecutionRolePolicy,
-    aws_route_table_association.private,
+aws_iam_role_policy_attachment.pod-AmazonEKSFargatePodExecutionRolePolicy,
+aws_route_table_association.private,
   ]
 }
 `, rName, labelKey1, labelValue1))
@@ -518,22 +518,22 @@ resource "aws_eks_fargate_profile" "test" {
 func testAccFargateProfileConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccFargateProfileConfig_base(rName), fmt.Sprintf(`
 resource "aws_eks_fargate_profile" "test" {
-  cluster_name           = aws_eks_cluster.test.name
+  cluster_name = aws_eks_cluster.test.name
   fargate_profile_name   = %[1]q
   pod_execution_role_arn = aws_iam_role.pod.arn
   subnet_ids= aws_subnet.private[*].id
 
   selector {
-    namespace = "test"
+namespace = "test"
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.pod-AmazonEKSFargatePodExecutionRolePolicy,
-    aws_route_table_association.private,
+aws_iam_role_policy_attachment.pod-AmazonEKSFargatePodExecutionRolePolicy,
+aws_route_table_association.private,
   ]
 }
 `, rName, tagKey1, tagValue1))
@@ -542,23 +542,23 @@ resource "aws_eks_fargate_profile" "test" {
 func testAccFargateProfileConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccFargateProfileConfig_base(rName), fmt.Sprintf(`
 resource "aws_eks_fargate_profile" "test" {
-  cluster_name           = aws_eks_cluster.test.name
+  cluster_name = aws_eks_cluster.test.name
   fargate_profile_name   = %[1]q
   pod_execution_role_arn = aws_iam_role.pod.arn
   subnet_ids= aws_subnet.private[*].id
 
   selector {
-    namespace = "test"
+namespace = "test"
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.pod-AmazonEKSFargatePodExecutionRolePolicy,
-    aws_route_table_association.private,
+aws_iam_role_policy_attachment.pod-AmazonEKSFargatePodExecutionRolePolicy,
+aws_route_table_association.private,
   ]
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

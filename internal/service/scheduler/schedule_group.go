@@ -59,7 +59,7 @@ func ResourceScheduleGroup() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -70,7 +70,7 @@ func ResourceScheduleGroup() *schema.Resource {
 				)),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,

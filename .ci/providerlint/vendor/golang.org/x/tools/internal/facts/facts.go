@@ -1,41 +1,37 @@
-// Copyright 2018 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Package facts defines a serializable set of analysis.Fact.
+//Copyright2018TheGoAuthors.Allrightsreserved.
+//UseofthissourcecodeisgovernedbyaBSD-style
+//licensethatcanbefoundintheLICENSEfile.//Packagefactsdefinesaserializablesetofanalysis.Fact.
 //
-// It provides a partial implementation of the Fact-related parts of the
-// analysis.Pass interface for use in analysis drivers such as "go vet"
-// and other build systems.
+//ItprovidesapartialimplementationoftheFact-relatedpartsofthe
+//analysis.Passinterfaceforuseinanalysisdriverssuchas"govet"
+//andotherbuildsystems.
 //
-// The serial format is unspecified and may change, so the same version
-// of this package must be used for reading and writing serialized facts.
+//Theserialformatisunspecifiedandmaychange,sothesameversion
+//ofthispackagemustbeusedforreadingandwritingserializedfacts.
 //
-// The handling of facts in the analysis system parallels the handling
-// of type information in the compiler: during compilation of package P,
-// the compiler emits an export data file that describes the type of
-// every object (named thing) defined in package P, plus every object
-// indirectly reachable from one of those objects. Thus the downstream
-// compiler of package Q need only load one export data file per direct
-// import of Q, and it will learn everything about the API of package P
-// and everything it needs to know about the API of P's dependencies.
+//Thehandlingoffactsintheanalysissystemparallelsthehandling
+//oftypeinformationinthecompiler:duringcompilationofpackageP,
+//thecompileremitsanexportdatafilethatdescribesthetypeof
+//everyobject(namedthing)definedinpackageP,pluseveryobject
+//indirectlyreachablefromoneofthoseobjects.Thusthedownstream
+//compilerofpackageQneedonlyloadoneexportdatafileperdirect
+//importofQ,anditwilllearneverythingabouttheAPIofpackageP
+//andeverythingitneedstoknowabouttheAPIofP'sdependencies.
 //
-// Similarly, analysis of package P emits a fact set containing facts
-// about all objects exported from P, plus additional facts about only
-// those objects of P's dependencies that are reachable from the API of
-// package P; the downstream analysis of Q need only load one fact set
-// per direct import of Q.
+//Similarly,analysisofpackagePemitsafactsetcontainingfacts
+//aboutallobjectsexportedfromP,plusadditionalfactsaboutonly
+//thoseobjectsofP'sdependenciesthatarereachablefromtheAPIof
+//packageP;thedownstreamanalysisofQneedonlyloadonefactset
+//perdirectimportofQ.
 //
-// The notion of "exportedness" that matters here is that of the
-// compiler. According to the language spec, a method pkg.T.f is
-// unexported simply because its name starts with lowercase. But the
-// compiler must nonetheless export f so that downstream compilations can
-// accurately ascertain whether pkg.T implements an interface pkg.I
-// defined as interface{f()}. Exported thus means "described in export
-// data".
-package facts
-
-import (
+//Thenotionof"exportedness"thatmattershereisthatofthe
+//compiler.Accordingtothelanguagespec,amethodpkg.T.fis
+//unexportedsimplybecauseitsnamestartswithlowercase.Butthe
+//compilermustnonethelessexportfsothatdownstreamcompilationscan
+//accuratelyascertainwhetherpkg.Timplementsaninterfacepkg.I
+//definedasinterface{f()}.Exportedthusmeans"describedinexport
+//data".
+packagefactsimport(
 	"bytes"
 	"encoding/gob"
 	"fmt"
@@ -44,306 +40,234 @@ import (
 	"log"
 	"reflect"
 	"sort"
-	"sync"
-
-	"golang.org/x/tools/go/analysis"
+	"sync"	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/types/objectpath"
-)
-
-const debug = false
-
-// A Set is a set of analysis.Facts.
+)constdebug=false//ASetisasetofanalysis.Facts.
 //
-// Decode creates a Set of facts by reading from the imports of a given
-// package, and Encode writes out the set. Between these operation,
-// the Import and Export methods will query and update the set.
+//DecodecreatesaSetoffactsbyreadingfromtheimportsofagiven
+//package,andEncodewritesouttheset.Betweentheseoperation,
+//theImportandExportmethodswillqueryandupdatetheset.
 //
-// All of Set's methods except String are safe to call concurrently.
-type Set struct {
-	pkg *types.Package
-	mu  sync.Mutex
-	m   map[key]analysis.Fact
-}
-
-type key struct {
-	pkg *types.Package
-	obj types.Object // (object facts only)
-	t   reflect.Type
-}
-
-// ImportObjectFact implements analysis.Pass.ImportObjectFact.
-
- (s *Set) ImportObjectFact(obj types.Object, ptr analysis.Fact) bool {
-	if obj == nil {
-		panic("nil object")
+//AllofSet'smethodsexceptStringaresafetocallconcurrently.
+typeSetstruct{
+	pkg*types.Package
+	musync.Mutex
+	mmap[key]analysis.Fact
+}typekeystruct{
+	pkg*types.Package
+	objtypes.Object//(objectfactsonly)
+	treflect.Type
+}//ImportObjectFactimplementsanalysis.Pass.ImportObjectFact.(s*Set)ImportObjectFact(objtypes.Object,ptranalysis.Fact)bool{
+	ifobj==nil{
+		panic("nilobject")
 	}
-	key := key{pkg: obj.Pkg(), obj: obj, t: reflect.TypeOf(ptr)}
+	key:=key{pkg:obj.Pkg(),obj:obj,t:reflect.TypeOf(ptr)}
 	s.mu.Lock()
-	defer s.mu.Unlock()
-	if v, ok := s.m[key]; ok {
+	defers.mu.Unlock()
+	ifv,ok:=s.m[key];ok{
 		reflect.ValueOf(ptr).Elem().Set(reflect.ValueOf(v).Elem())
-		return true
+		returntrue
 	}
-	return false
-}
-
-xportObjectFact implements analysis.Pass.ExportObjectFact.
-
- (s *Set) ExportObjectFact(obj types.Object, fact analysis.Fact) {
-	if obj.Pkg() != s.pkg {
-		log.Panicf("in package %s: ExportObjectFact(%s, %T): can't set fact on object belonging another package",
-			s.pkg, obj, fact)
+	returnfalse
+}xportObjectFactimplementsanalysis.Pass.ExportObjectFact.(s*Set)ExportObjectFact(objtypes.Object,factanalysis.Fact){
+	ifobj.Pkg()!=s.pkg{
+		log.Panicf("inpackage%s:ExportObjectFact(%s,%T):can'tsetfactonobjectbelonginganotherpackage",
+			s.pkg,obj,fact)
 	}
-	key := key{pkg: obj.Pkg(), obj: obj, t: reflect.TypeOf(fact)}
+	key:=key{pkg:obj.Pkg(),obj:obj,t:reflect.TypeOf(fact)}
 	s.mu.Lock()
-	s.m[key] = fact // clobber any existing entry
-	s.mu.Unlock()
-
-
-
- (s *Set) AllObjectFacts(filter map[reflect.Type]bool) []analysis.ObjectFact {
-	var facts []analysis.ObjectFact
+	s.m[key]=fact//clobberanyexistingentry
+	s.mu.Unlock()(s*Set)AllObjectFacts(filtermap[reflect.Type]bool)[]analysis.ObjectFact{
+	varfacts[]analysis.ObjectFact
 	s.mu.Lock()
-	for k, v := range s.m {
-		if k.obj != nil && filter[k.t] {
-			facts = append(facts, analysis.ObjectFact{Object: k.obj, Fact: v})
+	fork,v:=ranges.m{
+		ifk.obj!=nil&&filter[k.t]{
+			facts=append(facts,analysis.ObjectFact{Object:k.obj,Fact:v})
 		}
 	}
 	s.mu.Unlock()
-	return facts
-
-
-// ImportPackageFact implements analysis.Pass.ImportPackageFact.
-
- (s *Set) ImportPackageFact(pkg *types.Package, ptr analysis.Fact) bool {
-	if pkg == nil {
-		panic("nil package")
+	returnfacts
+//ImportPackageFactimplementsanalysis.Pass.ImportPackageFact.(s*Set)ImportPackageFact(pkg*types.Package,ptranalysis.Fact)bool{
+	ifpkg==nil{
+		panic("nilpackage")
 	}
-	key := key{pkg: pkg, t: reflect.TypeOf(ptr)}
+	key:=key{pkg:pkg,t:reflect.TypeOf(ptr)}
 	s.mu.Lock()
-	defer s.mu.Unlock()
-	if v, ok := s.m[key]; ok {
+	defers.mu.Unlock()
+	ifv,ok:=s.m[key];ok{
 		reflect.ValueOf(ptr).Elem().Set(reflect.ValueOf(v).Elem())
-		return true
+		returntrue
 	}
-urn false
-}
-
-// ExportPackageFact implements analysis.Pass.ExportPackageFact.
-
- (s *Set) ExportPackageFact(fact analysis.Fact) {
-	key := key{pkg: s.pkg, t: reflect.TypeOf(fact)}
+urnfalse
+}//ExportPackageFactimplementsanalysis.Pass.ExportPackageFact.(s*Set)ExportPackageFact(factanalysis.Fact){
+	key:=key{pkg:s.pkg,t:reflect.TypeOf(fact)}
 u.Lock()
-	s.m[key] = fact // clobber any existing entry
+	s.m[key]=fact//clobberanyexistingentry
 	s.mu.Unlock()
 }
-
-
- (s *Set) AllPackageFacts(filter map[reflect.Type]bool) []analysis.PackageFact {
-	var facts []analysis.PackageFact
+(s*Set)AllPackageFacts(filtermap[reflect.Type]bool)[]analysis.PackageFact{
+	varfacts[]analysis.PackageFact
 	s.mu.Lock()
-	for k, v := range s.m {
-		if k.obj == nil && filter[k.t] {
-			facts = append(facts, analysis.PackageFact{Package: k.pkg, Fact: v})
+	fork,v:=ranges.m{
+		ifk.obj==nil&&filter[k.t]{
+			facts=append(facts,analysis.PackageFact{Package:k.pkg,Fact:v})
 		}
 	}
 	s.mu.Unlock()
-	return facts
-}
-
-// gobFact is the Gob declaration of a serialized fact.
-type gobFact struct {
-	PkgPath string          // path of package
-	Object  objectpath.Path // optional path of object relative to package itself
-	Fact    analysis.Fact   // type and value of user-defined Fact
-}
-
-// A Decoder decodes the facts from the direct imports of the package
-// provided to NewEncoder. A single decoder may be used to decode
-// multiple fact sets (e.g. each for a different set of fact types)
-// for the same package. Each call to Decode returns an independent
-// fact set.
- Decoder struct {
-	pkg      *types.Package
-	packages map[string]*types.Package
-}
-
-// NewDecoder returns a fact decoder for the specified package.
-
- NewDecopkg *types.Package) *Decoder {
-	// Compute the import map for this package.
-	// See the package doc comment.
-	return &Decoder{pkg, importMap(pkg.Imports())}
-}
-
-ecode decodes all the factlevant to the analysis of package pkg.
-// The read 
-tion reads serialized fact data from an external source
-// for one of of pkg's direct imports. The empty file is a valid
-// encoding of an empty fact set.
+	returnfacts
+}//gobFactistheGobdeclarationofaserializedfact.
+typegobFactstruct{
+	PkgPathstring//pathofpackage
+	Objectobjectpath.Path//optionalpathofobjectrelativetopackageitself
+	Factanalysis.Fact//typeandvalueofuser-definedFact
+}//ADecoderdecodesthefactsfromthedirectimportsofthepackage
+//providedtoNewEncoder.Asingledecodermaybeusedtodecode
+//multiplefactsets(e.g.eachforadifferentsetoffacttypes)
+//forthesamepackage.EachcalltoDecodereturnsanindependent
+//factset.
+Decoderstruct{
+	pkg*types.Package
+	packagesmap[string]*types.Package
+}//NewDecoderreturnsafactdecoderforthespecifiedpackage.NewDecopkg*types.Package)*Decoder{
+	//Computetheimportmapforthispackage.
+	//Seethepackagedoccomment.
+	return&Decoder{pkg,importMap(pkg.Imports())}
+}ecodedecodesallthefactlevanttotheanalysisofpackagepkg.
+//Theread
+tionreadsserializedfactdatafromanexternalsource
+//foroneofofpkg'sdirectimports.Theemptyfileisavalid
+//encodingofanemptyfactset.
 //
-// It is the caller's responsibility to call gob.Register on all
-// necessary fact types.
-
- (d *Decoder) Decode(read 
-(*types.Package) ([]byte, error)) (*Set, error) {
-	// Read facts from imported packages.
-	// Facts may describe indirectly imported packages, or their objects.
-	m := make(map[key]analysis.Fact) // one big bucket
-	for _, imp := range d.pkg.Imports() {
-		logf := 
-(format string, args ...interface{}) {
-			if debug {
-				prefix := fmt.Sprintf("in %s, importing %s: ",
-					d.pkg.Path(), imp.Path())
-				log.Print(prefix, fmt.Sprintf(format, args...))
+//Itisthecaller'sresponsibilitytocallgob.Registeronall
+//necessaryfacttypes.(d*Decoder)Decode(read
+(*types.Package)([]byte,error))(*Set,error){
+	//Readfactsfromimportedpackages.
+	//Factsmaydescribeindirectlyimportedpackages,ortheirobjects.
+	m:=make(map[key]analysis.Fact)//onebigbucket
+	for_,imp:=ranged.pkg.Imports(){
+		logf:=
+(formatstring,args...interface{}){
+			ifdebug{
+				prefix:=fmt.Sprintf("in%s,importing%s:",
+					d.pkg.Path(),imp.Path())
+				log.Print(prefix,fmt.Sprintf(format,args...))
 			}
+		}		//Readthegob-encodedfacts.
+		data,err:=read(imp)
+		iferr!=nil{
+			returnnil,fmt.Errorf("in%s,can'timportfactsforpackage%q:%v",
+				d.pkg.Path(),imp.Path(),err)
 		}
-
-		// Read the gob-encoded facts.
-		data, err := read(imp)
-		if err != nil {
-			return nil, fmt.Errorf("in %s, can't import facts for package %q: %v",
-				d.pkg.Path(), imp.Path(), err)
+		iflen(data)==0{
+			continue//nofacts
 		}
-		if len(data) == 0 {
-			continue // no facts
+		vargobFacts[]gobFact
+		iferr:=gob.NewDecoder(bytes.NewReader(data)).Decode(&gobFacts);err!=nil{
+			returnnil,fmt.Errorf("decodingfactsfor%q:%v",imp.Path(),err)
 		}
-		var gobFacts []gobFact
-		if err := gob.NewDecoder(bytes.NewReader(data)).Decode(&gobFacts); err != nil {
-			return nil, fmt.Errorf("decoding facts for %q: %v", imp.Path(), err)
-		}
-		if debug {
-			logf("decoded %d facts: %v", len(gobFacts), gobFacts)
-		}
-
-		// Parse each one into a key and a Fact.
-		for _, f := range gobFacts {
-			factPkg := d.packages[f.PkgPath]
-			if factPkg == nil {
-				// Fact relates to a dependency that was
-				// unused in this translation unit. Skip.
-				logf("no package %q; discarding %v", f.PkgPath, f.Fact)
+		ifdebug{
+			logf("decoded%dfacts:%v",len(gobFacts),gobFacts)
+		}		//ParseeachoneintoakeyandaFact.
+		for_,f:=rangegobFacts{
+			factPkg:=d.packages[f.PkgPath]
+			iffactPkg==nil{
+				//Factrelatestoadependencythatwas
+				//unusedinthistranslationunit.Skip.
+				logf("nopackage%q;discarding%v",f.PkgPath,f.Fact)
 				continue
 			}
-			key := key{pkg: factPkg, t: reflect.TypeOf(f.Fact)}
-			if f.Object != "" {
-				// object fact
-				obj, err := objectpath.Object(factPkg, f.Object)
-				if err != nil {
-					// (most likely due to unexported object)
-					// TODO(adonovan): audit for other possibilities.
-					logf("no object for path: %v; discarding %s", err, f.Fact)
+			key:=key{pkg:factPkg,t:reflect.TypeOf(f.Fact)}
+			iff.Object!=""{
+				//objectfact
+				obj,err:=objectpath.Object(factPkg,f.Object)
+				iferr!=nil{
+					//(mostlikelyduetounexportedobject)
+					//TODO(adonovan):auditforotherpossibilities.
+					logf("noobjectforpath:%v;discarding%s",err,f.Fact)
 					continue
 				}
-				key.obj = obj
-				logf("read %T fact %s for %v", f.Fact, f.Fact, key.obj)
-			} else {
-				// package fact
-				logf("read %T fact %s for %v", f.Fact, f.Fact, factPkg)
+				key.obj=obj
+				logf("read%Tfact%sfor%v",f.Fact,f.Fact,key.obj)
+			}else{
+				//packagefact
+				logf("read%Tfact%sfor%v",f.Fact,f.Fact,factPkg)
 			}
-[key] = f.Fact
+[key]=f.Fact
 		}
-	}
-
-	return &Set{pkg: d.pkg, m: m}, nil
-}
-
-// Encode encodes a set of facts to a memory buffer.
+	}	return&Set{pkg:d.pkg,m:m},nil
+}//Encodeencodesasetoffactstoamemorybuffer.
 //
-// It may fail if one of the Facts could not be gob-encoded, but this is
-// a sign of a bug in an Analyzer.
-
- (s *Set) Encode() []byte {
-
-	// TODO(adonovan): opt: use a more efficient encoding
-	// that avoids repeating PkgPath for each fact.
-
-	// Gather all facts, including those from imported packages.
-	var gobFacts []gobFact
-
-	s.mu.Lock()
-	for k, fact := range s.m {
-		if debug {
-			log.Printf("%v => %s\n", k, fact)
+//ItmayfailifoneoftheFactscouldnotbegob-encoded,butthisis
+//asignofabuginanAnalyzer.(s*Set)Encode()[]byte{	//TODO(adonovan):opt:useamoreefficientencoding
+	//thatavoidsrepeatingPkgPathforeachfact.	//Gatherallfacts,includingthosefromimportedpackages.
+	vargobFacts[]gobFact	s.mu.Lock()
+	fork,fact:=ranges.m{
+		ifdebug{
+			log.Printf("%v=>%s\n",k,fact)
 		}
-		var object objectpath.Path
-		if k.obj != nil {
-			path, err := objectpath.For(k.obj)
-			if err != nil {
-				if debug {
-					log.Printf("discarding fact %s about %s\n", fact, k.obj)
+		varobjectobjectpath.Path
+		ifk.obj!=nil{
+			path,err:=objectpath.For(k.obj)
+			iferr!=nil{
+				ifdebug{
+					log.Printf("discardingfact%sabout%s\n",fact,k.obj)
 				}
-				continue // object not accessible from package API; discard fact
+				continue//objectnotaccessiblefrompackageAPI;discardfact
 			}
-			object = path
+			object=path
 		}
-		gobFacts = append(gobFacts, gobFact{
-			PkgPath: k.pkg.Path(),
-			Object:  object,
-			Fact:    fact,
+		gobFacts=append(gobFacts,gobFact{
+			PkgPath:k.pkg.Path(),
+			Object:object,
+			Fact:fact,
 		})
 	}
-	s.mu.Unlock()
-
-	// Sort facts by (package, object, type) for determinism.
-	sort.Slice(gobFacts, 
-(i, j int) bool {
-		x, y := gobFacts[i], gobFacts[j]
-		if x.PkgPath != y.PkgPath {
-			return x.PkgPath < y.PkgPath
+	s.mu.Unlock()	//Sortfactsby(package,object,type)fordeterminism.
+	sort.Slice(gobFacts,
+(i,jint)bool{
+		x,y:=gobFacts[i],gobFacts[j]
+		ifx.PkgPath!=y.PkgPath{
+			returnx.PkgPath<y.PkgPath
 		}
-		if x.Object != y.Object {
-			return x.Object < y.Object
+		ifx.Object!=y.Object{
+			returnx.Object<y.Object
 		}
-		tx := reflect.TypeOf(x.Fact)
-		ty := reflect.TypeOf(y.Fact)
-		if tx != ty {
-			return tx.String() < ty.String()
+		tx:=reflect.TypeOf(x.Fact)
+		ty:=reflect.TypeOf(y.Fact)
+		iftx!=ty{
+			returntx.String()<ty.String()
 		}
-		return false // equal
-	})
-
-	var buf bytes.Buffer
-	if len(gobFacts) > 0 {
-		if err := gob.NewEncoder(&buf).Encode(gobFacts); err != nil {
-			// Fact encoding should never fail. Identify the culprit.
-			for _, gf := range gobFacts {
-				if err := gob.NewEncoder(ioutil.Discard).Encode(gf); err != nil {
-					fact := gf.Fact
-					pkgpath := reflect.TypeOf(fact).Elem().PkgPath()
-					log.Panicf("internal error: gob encoding of analysis fact %s failed: %v; please report a bug against fact %T in package %q",
-						fact, err, fact, pkgpath)
+		returnfalse//equal
+	})	varbufbytes.Buffer
+	iflen(gobFacts)>0{
+		iferr:=gob.NewEncoder(&buf).Encode(gobFacts);err!=nil{
+			//Factencodingshouldneverfail.Identifytheculprit.
+			for_,gf:=rangegobFacts{
+				iferr:=gob.NewEncoder(ioutil.Discard).Encode(gf);err!=nil{
+					fact:=gf.Fact
+					pkgpath:=reflect.TypeOf(fact).Elem().PkgPath()
+					log.Panicf("internalerror:gobencodingofanalysisfact%sfailed:%v;pleasereportabugagainstfact%Tinpackage%q",
+						fact,err,fact,pkgpath)
 				}
-			}
-
-	}
-
-	if debug {
-		log.Printf("package %q: encode %d facts, %d bytes\n",
-			s.pkg.Path(), len(gobFacts), buf.Len())
-	}
-
-	return buf.Bytes()
-}
-
-// String is provided only for debugging, and must not be called
-// concurrent with any Import/Export method.
-
- (s *Set) String() string {
-	var buf bytes.Buffer
+			}	}	ifdebug{
+		log.Printf("package%q:encode%dfacts,%dbytes\n",
+			s.pkg.Path(),len(gobFacts),buf.Len())
+	}	returnbuf.Bytes()
+}//Stringisprovidedonlyfordebugging,andmustnotbecalled
+//concurrentwithanyImport/Exportmethod.(s*Set)String()string{
+	varbufbytes.Buffer
 	buf.WriteString("{")
-	for k, f := range s.m {
-		if buf.Len() > 1 {
-			buf.WriteString(", ")
+	fork,f:=ranges.m{
+		ifbuf.Len()>1{
+			buf.WriteString(",")
 		}
-		if k.obj != nil {
+		ifk.obj!=nil{
 			buf.WriteString(k.obj.String())
-		} else {
+		}else{
 			buf.WriteString(k.pkg.Path())
 		}
-		fmt.Fprintf(&buf, ": %v", f)
+		fmt.Fprintf(&buf,":%v",f)
 	}
 	buf.WriteString("}")
-	return buf.String()
+	returnbuf.String()
 }

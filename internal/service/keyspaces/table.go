@@ -69,51 +69,51 @@ func resourceTable() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"capacity_specification": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"read_capacity_units": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type:schema.TypeInt,
+							Optional:true,
 							ValidateFunc: validation.IntAtLeast(1),
 						},
 						"throughput_mode": {
 							Type:schema.TypeString,
-							Optional:         true,
-							Computed:         true,
+							Optional:true,
+							Computed:true,
 							ValidateDiagFunc: enum.Validate[types.ThroughputMode](),
 						},
 						"write_capacity_units": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type:schema.TypeInt,
+							Optional:true,
 							ValidateFunc: validation.IntAtLeast(1),
 						},
 					},
 				},
 			},
 			"client_side_timestamps": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"status": {
 							Type:schema.TypeString,
-							Required:         true,
+							Required:true,
 							ValidateDiagFunc: enum.Validate[types.ClientSideTimestampsStatus](),
 						},
 					},
 				},
 			},
 			"comment": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
@@ -121,7 +121,7 @@ func resourceTable() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"message": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
@@ -130,33 +130,33 @@ func resourceTable() *schema.Resource {
 				},
 			},
 			"default_time_to_live": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional:true,
 				ValidateFunc: validation.IntBetween(1, 630720000),
 			},
 			"encryption_specification": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"kms_key_identifier": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional:true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"type": {
 							Type:schema.TypeString,
-							Optional:         true,
-							Computed:         true,
+							Optional:true,
+							Computed:true,
 							ValidateDiagFunc: enum.Validate[types.EncryptionType](),
 						},
 					},
 				},
 			},
 			"keyspace_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew: true,
 				Required: true,
 				ValidateFunc: validation.StringMatch(
@@ -165,7 +165,7 @@ func resourceTable() *schema.Resource {
 				),
 			},
 			"point_in_time_recovery": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
@@ -173,27 +173,27 @@ func resourceTable() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"status": {
 							Type:schema.TypeString,
-							Optional:         true,
-							Computed:         true,
+							Optional:true,
+							Computed:true,
 							ValidateDiagFunc: enum.Validate[types.PointInTimeRecoveryStatus](),
 						},
 					},
 				},
 			},
 			"schema_definition": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"clustering_key": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 										ForceNew: true,
 										ValidateFunc: validation.StringMatch(
@@ -203,20 +203,20 @@ func resourceTable() *schema.Resource {
 									},
 									"order_by": {
 										Type:schema.TypeString,
-										Required:         true,
-										ForceNew:         true,
+										Required:true,
+										ForceNew:true,
 										ValidateDiagFunc: enum.Validate[types.SortOrder](),
 									},
 								},
 							},
 						},
 						"column": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 										ValidateFunc: validation.StringMatch(
 											regexache.MustCompile(`^[0-9a-z_]{1,48}$`),
@@ -224,7 +224,7 @@ func resourceTable() *schema.Resource {
 										),
 									},
 									"type": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 										ValidateFunc: validation.StringMatch(
 											regexache.MustCompile(`^[0-9a-z]+(\<[0-9a-z]+(, *[0-9a-z]+){0,1}\>)?$`),
@@ -235,13 +235,13 @@ func resourceTable() *schema.Resource {
 							},
 						},
 						"partition_key": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Required: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 										ForceNew: true,
 										ValidateFunc: validation.StringMatch(
@@ -253,13 +253,13 @@ func resourceTable() *schema.Resource {
 							},
 						},
 						"static_column": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 										ForceNew: true,
 										ValidateFunc: validation.StringMatch(
@@ -274,7 +274,7 @@ func resourceTable() *schema.Resource {
 				},
 			},
 			"table_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew: true,
 				Required: true,
 				ValidateFunc: validation.StringMatch(
@@ -282,17 +282,17 @@ func resourceTable() *schema.Resource {
 					"The table name can have up to 48 characters. It can only contain alpha-numeric characters and underscores.",
 				),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"ttl": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"status": {
 							Type:schema.TypeString,
-							Required:         true,
+							Required:true,
 							ValidateDiagFunc: enum.Validate[types.TimeToLiveStatus](),
 						},
 					},
@@ -310,8 +310,8 @@ func resourceTableCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	id := tableCreateResourceID(keyspaceName, tableName)
 	input := &keyspaces.CreateTableInput{
 		KeyspaceName: aws.String(keyspaceName),
-		TableName:    aws.String(tableName),
-		Tags:         getTagsIn(ctx),
+		TableName:aws.String(tableName),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("capacity_specification"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -455,7 +455,7 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 			if v, ok := d.GetOk("capacity_specification"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 				input := &keyspaces.UpdateTableInput{
 					CapacitySpecification: expandCapacitySpecification(v.([]interface{})[0].(map[string]interface{})),
-					KeyspaceName:          aws.String(keyspaceName),
+					KeyspaceName:aws.String(keyspaceName),
 					TableName:aws.String(tableName),
 				}
 
@@ -475,8 +475,8 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 			if v, ok := d.GetOk("client_side_timestamps"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 				input := &keyspaces.UpdateTableInput{
 					ClientSideTimestamps: expandClientSideTimestamps(v.([]interface{})[0].(map[string]interface{})),
-					KeyspaceName:         aws.String(keyspaceName),
-					TableName:            aws.String(tableName),
+					KeyspaceName:aws.String(keyspaceName),
+					TableName:  aws.String(tableName),
 				}
 
 				_, err := conn.UpdateTable(ctx, input)
@@ -494,8 +494,8 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		if d.HasChange("default_time_to_live") {
 			input := &keyspaces.UpdateTableInput{
 				DefaultTimeToLive: aws.Int32(int32(d.Get("default_time_to_live").(int))),
-				KeyspaceName:      aws.String(keyspaceName),
-				TableName:         aws.String(tableName),
+				KeyspaceName: aws.String(keyspaceName),
+				TableName:aws.String(tableName),
 			}
 
 			_, err := conn.UpdateTable(ctx, input)
@@ -513,7 +513,7 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 			if v, ok := d.GetOk("encryption_specification"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 				input := &keyspaces.UpdateTableInput{
 					EncryptionSpecification: expandEncryptionSpecification(v.([]interface{})[0].(map[string]interface{})),
-					KeyspaceName:            aws.String(keyspaceName),
+					KeyspaceName:  aws.String(keyspaceName),
 					TableName:  aws.String(tableName),
 				}
 
@@ -532,9 +532,9 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		if d.HasChange("point_in_time_recovery") {
 			if v, ok := d.GetOk("point_in_time_recovery"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 				input := &keyspaces.UpdateTableInput{
-					KeyspaceName:        aws.String(keyspaceName),
+					KeyspaceName:   aws.String(keyspaceName),
 					PointInTimeRecovery: expandPointInTimeRecovery(v.([]interface{})[0].(map[string]interface{})),
-					TableName:           aws.String(tableName),
+					TableName: aws.String(tableName),
 				}
 
 				_, err := conn.UpdateTable(ctx, input)
@@ -553,8 +553,8 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 			if v, ok := d.GetOk("ttl"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 				input := &keyspaces.UpdateTableInput{
 					KeyspaceName: aws.String(keyspaceName),
-					TableName:    aws.String(tableName),
-					Ttl:          expandTimeToLive(v.([]interface{})[0].(map[string]interface{})),
+					TableName:aws.String(tableName),
+					Ttl:expandTimeToLive(v.([]interface{})[0].(map[string]interface{})),
 				}
 
 				_, err := conn.UpdateTable(ctx, input)
@@ -589,7 +589,7 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 					input := &keyspaces.UpdateTableInput{
 						AddColumns:   expandColumnDefinitions(add.List()),
 						KeyspaceName: aws.String(keyspaceName),
-						TableName:    aws.String(tableName),
+						TableName:aws.String(tableName),
 					}
 
 					_, err := conn.UpdateTable(ctx, input)
@@ -621,7 +621,7 @@ func resourceTableDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	log.Printf("[DEBUG] Deleting Keyspaces Table: (%s)", d.Id())
 	_, err = conn.DeleteTable(ctx, &keyspaces.DeleteTableInput{
 		KeyspaceName: aws.String(keyspaceName),
-		TableName:    aws.String(tableName),
+		TableName:aws.String(tableName),
 	})
 
 	if errs.IsA[*types.ResourceNotFoundException](err) {
@@ -661,7 +661,7 @@ func tableParseResourceID(id string) (string, string, error) {
 func findTableByTwoPartKey(ctx context.Context, conn *keyspaces.Client, keyspaceName, tableName string) (*keyspaces.GetTableOutput, error) {
 	input := keyspaces.GetTableInput{
 		KeyspaceName: aws.String(keyspaceName),
-		TableName:    aws.String(tableName),
+		TableName:aws.String(tableName),
 	}
 
 	output, err := conn.GetTable(ctx, &input)
@@ -683,7 +683,7 @@ func findTableByTwoPartKey(ctx context.Context, conn *keyspaces.Client, keyspace
 
 	if status := output.Status; status == types.TableStatusDeleted {
 		return nil, &retry.NotFoundError{
-			Message:     string(status),
+			Message:string(status),
 			LastRequest: input,
 		}
 	}

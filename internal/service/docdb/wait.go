@@ -16,36 +16,35 @@ import (
 
 const (
 	DBClusterSnapshotDeleteTimeout = 5 * time.Minute
-	DBClusterDeleteTimeout         = 5 * time.Minute
-	DBInstanceDeleteTimeout        = 5 * time.Minute
-	DBSubnetGroupDeleteTimeout     = 5 * time.Minute
+	DBClusterDeleteTimeout * time.Minute
+	DBInstanceDeleteTimeout* time.Minute
+	DBSubnetGroupDeleteTimeout= 5 * time.Minute
 	EventSubscriptionDeleteTimeout = 5 * time.Minute
-	GlobalClusterCreateTimeout     = 5 * time.Minute
-	GlobalClusterDeleteTimeout     = 5 * time.Minute
-	GlobalClusterUpdateTimeout     = 5 * time.Minute
+	GlobalClusterCreateTimeout= 5 * time.Minute
+	GlobalClusterDeleteTimeout= 5 * time.Minute
+	GlobalClusterUpdateTimeout= 5 * time.Minute
 )
 
 const (
-	DBClusterStatusAvailable         = "available"
-	DBClusterStatusDeleted           = "deleted"
-	DBClusterStatusDeleting          = "deleting"
-	DBInstanceStatusAvailable        = "available"
-	DBInstanceStatusDeleted          = "deleted"
-	DBInstanceStatusDeleting         = "deleting"
+	DBClusterStatusAvailableavailable"
+	DBClusterStatusDeleted "deleted"
+	DBClusterStatusDeleting"deleting"
+	DBInstanceStatusAvailablevailable"
+	DBInstanceStatusDeleted"deleted"
+	DBInstanceStatusDeletingdeleting"
 	DBClusterSnapshotStatusAvailable = "available"
-	DBClusterSnapshotStatusDeleted   = "deleted"
+	DBClusterSnapshotStatusDeleted= "deleted"
 	DBClusterSnapshotStatusDeleting  = "deleting"
-	DBSubnetGroupStatusAvailable     = "available"
-	DBSubnetGroupStatusDeleted       = "deleted"
-	DBSubnetGroupStatusDeleting      = "deleting"
-	GlobalClusterStatusAvailable     = "available"
-	GlobalClusterStatusCreating      = "creating"
-	GlobalClusterStatusDeleted       = "deleted"
-	GlobalClusterStatusDeleting      = "deleting"
-	GlobalClusterStatusModifying     = "modifying"
-	GlobalClusterStatusUpgrading     = "upgrading"
+	DBSubnetGroupStatusAvailable= "available"
+	DBSubnetGroupStatusDeletedleted"
+	DBSubnetGroupStatusDeletingeting"
+	GlobalClusterStatusAvailable= "available"
+	GlobalClusterStatusCreatingating"
+	GlobalClusterStatusDeletedleted"
+	GlobalClusterStatusDeletingeting"
+	GlobalClusterStatusModifying= "modifying"
+	GlobalClusterStatusUpgrading= "upgrading"
 )
-
 func waitForGlobalClusterCreation(ctx context.Context, conn *docdb.DocDB, globalClusterID string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{GlobalClusterStatusCreating},
@@ -59,14 +58,13 @@ func waitForGlobalClusterCreation(ctx context.Context, conn *docdb.DocDB, global
 
 	return err
 }
-
 func waitForGlobalClusterUpdate(ctx context.Context, conn *docdb.DocDB, globalClusterID string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{GlobalClusterStatusModifying, GlobalClusterStatusUpgrading},
 		Target:  []string{GlobalClusterStatusAvailable},
 		Refresh: statusGlobalClusterRefreshFunc(ctx, conn, globalClusterID),
 		Timeout: timeout,
-		Delay:   30 * time.Second,
+		Delay:30 * time.Second,
 	}
 
 	log.Printf("[DEBUG] Waiting for DocumentDB Global Cluster (%s) availability", globalClusterID)
@@ -74,7 +72,6 @@ func waitForGlobalClusterUpdate(ctx context.Context, conn *docdb.DocDB, globalCl
 
 	return err
 }
-
 func waitForGlobalClusterRemoval(ctx context.Context, conn *docdb.DocDB, dbClusterIdentifier string, timeout time.Duration) error {
 	var globalCluster *docdb.GlobalCluster
 	stillExistsErr := fmt.Errorf("DocumentDB Cluster still exists in DocumentDB Global Cluster")
@@ -109,13 +106,12 @@ func waitForGlobalClusterRemoval(ctx context.Context, conn *docdb.DocDB, dbClust
 
 	return nil
 }
-
 func WaitForDBClusterDeletion(ctx context.Context, conn *docdb.DocDB, dBClusterID string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:        []string{DBClusterStatusAvailable, DBClusterStatusDeleting},
-		Target:         []string{DBClusterStatusDeleted},
-		Refresh:        statusDBClusterRefreshFunc(ctx, conn, dBClusterID),
-		Timeout:        timeout,
+		Pending:ring{DBClusterStatusAvailable, DBClusterStatusDeleting},
+		Target:tring{DBClusterStatusDeleted},
+		Refresh:usDBClusterRefreshFunc(ctx, conn, dBClusterID),
+		Timeout:out,
 		NotFoundChecks: 1,
 	}
 
@@ -128,13 +124,12 @@ func WaitForDBClusterDeletion(ctx context.Context, conn *docdb.DocDB, dBClusterI
 
 	return err
 }
-
 func WaitForDBClusterSnapshotDeletion(ctx context.Context, conn *docdb.DocDB, dBClusterSnapshotID string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:        []string{DBClusterSnapshotStatusAvailable, DBClusterSnapshotStatusDeleting},
-		Target:         []string{DBClusterSnapshotStatusDeleted},
-		Refresh:        statusDBClusterSnapshotRefreshFunc(ctx, conn, dBClusterSnapshotID),
-		Timeout:        timeout,
+		Pending:ring{DBClusterSnapshotStatusAvailable, DBClusterSnapshotStatusDeleting},
+		Target:tring{DBClusterSnapshotStatusDeleted},
+		Refresh:usDBClusterSnapshotRefreshFunc(ctx, conn, dBClusterSnapshotID),
+		Timeout:out,
 		NotFoundChecks: 1,
 	}
 
@@ -147,13 +142,12 @@ func WaitForDBClusterSnapshotDeletion(ctx context.Context, conn *docdb.DocDB, dB
 
 	return err
 }
-
 func WaitForDBInstanceDeletion(ctx context.Context, conn *docdb.DocDB, dBInstanceID string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:        []string{DBInstanceStatusAvailable, DBInstanceStatusDeleting},
-		Target:         []string{DBInstanceStatusDeleted},
-		Refresh:        statusDBInstanceRefreshFunc(ctx, conn, dBInstanceID),
-		Timeout:        timeout,
+		Pending:ring{DBInstanceStatusAvailable, DBInstanceStatusDeleting},
+		Target:tring{DBInstanceStatusDeleted},
+		Refresh:usDBInstanceRefreshFunc(ctx, conn, dBInstanceID),
+		Timeout:out,
 		NotFoundChecks: 1,
 	}
 
@@ -166,13 +160,12 @@ func WaitForDBInstanceDeletion(ctx context.Context, conn *docdb.DocDB, dBInstanc
 
 	return err
 }
-
 func WaitForGlobalClusterDeletion(ctx context.Context, conn *docdb.DocDB, globalClusterID string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:        []string{GlobalClusterStatusAvailable, GlobalClusterStatusDeleting},
-		Target:         []string{GlobalClusterStatusDeleted},
-		Refresh:        statusGlobalClusterRefreshFunc(ctx, conn, globalClusterID),
-		Timeout:        timeout,
+		Pending:ring{GlobalClusterStatusAvailable, GlobalClusterStatusDeleting},
+		Target:tring{GlobalClusterStatusDeleted},
+		Refresh:usGlobalClusterRefreshFunc(ctx, conn, globalClusterID),
+		Timeout:out,
 		NotFoundChecks: 1,
 	}
 
@@ -185,13 +178,12 @@ func WaitForGlobalClusterDeletion(ctx context.Context, conn *docdb.DocDB, global
 
 	return err
 }
-
 func WaitForDBSubnetGroupDeletion(ctx context.Context, conn *docdb.DocDB, dBSubnetGroupName string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:        []string{DBSubnetGroupStatusAvailable, DBSubnetGroupStatusDeleting},
-		Target:         []string{DBSubnetGroupStatusDeleted},
-		Refresh:        statusDBSubnetGroupRefreshFunc(ctx, conn, dBSubnetGroupName),
-		Timeout:        timeout,
+		Pending:ring{DBSubnetGroupStatusAvailable, DBSubnetGroupStatusDeleting},
+		Target:tring{DBSubnetGroupStatusDeleted},
+		Refresh:usDBSubnetGroupRefreshFunc(ctx, conn, dBSubnetGroupName),
+		Timeout:out,
 		NotFoundChecks: 1,
 	}
 
@@ -204,7 +196,6 @@ func WaitForDBSubnetGroupDeletion(ctx context.Context, conn *docdb.DocDB, dBSubn
 
 	return err
 }
-
 func waitEventSubscriptionActive(ctx context.Context, conn *docdb.DocDB, id string, timeout time.Duration) (*docdb.EventSubscription, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{"creating", "modifying"},
@@ -221,7 +212,6 @@ func waitEventSubscriptionActive(ctx context.Context, conn *docdb.DocDB, id stri
 
 	return nil, err
 }
-
 func waitEventSubscriptionDeleted(ctx context.Context, conn *docdb.DocDB, id string, timeout time.Duration) (*docdb.EventSubscription, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{"deleting"},

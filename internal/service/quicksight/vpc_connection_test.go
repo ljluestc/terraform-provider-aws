@@ -34,7 +34,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
+CheckDestroy: testAccCheckVPCConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCConnectionConfig_basic(rId, rName),
@@ -49,8 +49,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -70,7 +70,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
+CheckDestroy: testAccCheckVPCConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCConnectionConfig_basic(rId, rName),
@@ -98,7 +98,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
+CheckDestroy: testAccCheckVPCConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCConnectionConfig_tags1(rId, rName, "key1", "value1"),
@@ -112,8 +112,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -208,32 +208,32 @@ resource "aws_iam_role" "test" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-      {
-        Effect = "Allow"
-        Action = "sts:AssumeRole"
-        Principal = {
-          Service = "quicksight.amazonaws.com"
-        }
-      }
+{
+  Effect = "Allow"
+  Action = "sts:AssumeRole"
+  Principal = {
+    Service = "quicksight.amazonaws.com"
+  }
+}
     ]
   })
   inline_policy {
     name = "QuicksightVPCConnectionRolePolicy"
     policy = jsonencode({
-      Version = "2012-10-17"
-      Statement = [
-        {
-          Effect = "Allow"
-          Action = [
-            "ec2:CreateNetworkInterface",
-            "ec2:ModifyNetworkInterfaceAttribute",
-            "ec2:DeleteNetworkInterface",
-            "ec2:DescribeSubnets",
-            "ec2:DescribeSecurityGroups"
-          ]
-          Resource = ["*"]
-        }
-      ]
+Version = "2012-10-17"
+Statement = [
+  {
+    Effect = "Allow"
+    Action = [
+"ec2:CreateNetworkInterface",
+"ec2:ModifyNetworkInterfaceAttribute",
+"ec2:DeleteNetworkInterface",
+"ec2:DescribeSubnets",
+"ec2:DescribeSecurityGroups"
+    ]
+    Resource = ["*"]
+  }
+]
     })
   }
 }
@@ -247,8 +247,8 @@ testAccBaseVPCConnectionConfig(rName),
 fmt.Sprintf(`
 resource "aws_quicksight_vpc_connection" "test" {
   vpc_connection_id = %[1]q
-  name              = %[2]q
-  role_arn          = aws_iam_role.test.arn
+  name  = %[2]q
+  role_arn    = aws_iam_role.test.arn
   security_group_ids = [
     aws_security_group.test.id,
   ]
@@ -264,8 +264,8 @@ testAccBaseVPCConnectionConfig(rName),
 fmt.Sprintf(`
 resource "aws_quicksight_vpc_connection" "test" {
   vpc_connection_id = %[1]q
-  name              = %[2]q
-  role_arn          = aws_iam_role.test.arn
+  name  = %[2]q
+  role_arn    = aws_iam_role.test.arn
   security_group_ids = [
     aws_security_group.test.id,
   ]
@@ -285,8 +285,8 @@ testAccBaseVPCConnectionConfig(rName),
 fmt.Sprintf(`
 resource "aws_quicksight_vpc_connection" "test" {
   vpc_connection_id = %[1]q
-  name              = %[2]q
-  role_arn          = aws_iam_role.test.arn
+  name  = %[2]q
+  role_arn    = aws_iam_role.test.arn
   security_group_ids = [
     aws_security_group.test.id,
   ]

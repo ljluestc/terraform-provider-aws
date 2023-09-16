@@ -45,9 +45,9 @@ func TestAccAuditManagerAssessmentReport_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
 		},
@@ -106,9 +106,9 @@ func TestAccAuditManagerAssessmentReport_optional(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
 			{
@@ -185,7 +185,7 @@ func testAccAssessmentReportConfigBase(rName string) string {
 data "aws_caller_identity" "current" {}
 
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket   = %[1]q
   force_destroy = true
 }
 
@@ -193,17 +193,17 @@ resource "aws_iam_role" "test" {
   name = %[1]q
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      },
-    ]
+Version = "2012-10-17"
+Statement = [
+ {
+   Action = "sts:AssumeRole"
+   Effect = "Allow"
+   Sid= ""
+   Principal = {
+Service = "ec2.amazonaws.com"
+   }
+ },
+]
   })
 }
 
@@ -211,9 +211,9 @@ resource "aws_auditmanager_control" "test" {
   name = %[1]q
 
   control_mapping_sources {
-    source_name          = %[1]q
-    source_set_up_option = "Procedural_Controls_Mapping"
-    source_type          = "MANUAL"
+source_name= %[1]q
+source_set_up_option = "Procedural_Controls_Mapping"
+source_type= "MANUAL"
   }
 }
 
@@ -221,10 +221,10 @@ resource "aws_auditmanager_framework" "test" {
   name = %[1]q
 
   control_sets {
-    name = %[1]q
-    controls {
-      id = aws_auditmanager_control.test.id
-    }
+name = %[1]q
+controls {
+ id = aws_auditmanager_control.test.id
+}
   }
 }
 
@@ -232,24 +232,24 @@ resource "aws_auditmanager_assessment" "test" {
   name = %[1]q
 
   assessment_reports_destination {
-    destination      = "s3://${aws_s3_bucket.test.id}"
-    destination_type = "S3"
+destination = "s3://${aws_s3_bucket.test.id}"
+destination_type = "S3"
   }
 
   framework_id = aws_auditmanager_framework.test.id
 
   roles {
-    role_arn  = aws_iam_role.test.arn
-    role_type = "PROCESS_OWNER"
+role_arn  = aws_iam_role.test.arn
+role_type = "PROCESS_OWNER"
   }
 
   scope {
-    aws_accounts {
-      id = data.aws_caller_identity.current.account_id
-    }
-    aws_services {
-      service_name = "S3"
-    }
+aws_accounts {
+ id = data.aws_caller_identity.current.account_id
+}
+aws_services {
+ service_name = "S3"
+}
   }
 }
 `, rName)
@@ -260,7 +260,7 @@ func testAccAssessmentReportConfig_basic(rName string) string {
 		testAccAssessmentReportConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_auditmanager_assessment_report" "test" {
-  name          = %[1]q
+  name= %[1]q
   assessment_id = aws_auditmanager_assessment.test.id
 }
 `, rName))
@@ -271,7 +271,7 @@ func testAccAssessmentReportConfig_optional(rName, description string) string {
 		testAccAssessmentReportConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_auditmanager_assessment_report" "test" {
-  name          = %[1]q
+  name= %[1]q
   assessment_id = aws_auditmanager_assessment.test.id
 
   description = %[2]q

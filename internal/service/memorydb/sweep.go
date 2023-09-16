@@ -20,7 +20,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_memorydb_acl", &resource.Sweeper{
 		Name: "aws_memorydb_acl",
-		F:    sweepACLs,
+		F:sweepACLs,
 		Dependencies: []string{
 			"aws_memorydb_cluster",
 		},
@@ -28,12 +28,12 @@ func init() {
 
 	resource.AddTestSweepers("aws_memorydb_cluster", &resource.Sweeper{
 		Name: "aws_memorydb_cluster",
-		F:    sweepClusters,
+		F:sweepClusters,
 	})
 
 	resource.AddTestSweepers("aws_memorydb_parameter_group", &resource.Sweeper{
 		Name: "aws_memorydb_parameter_group",
-		F:    sweepParameterGroups,
+		F:sweepParameterGroups,
 		Dependencies: []string{
 			"aws_memorydb_cluster",
 		},
@@ -41,7 +41,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_memorydb_snapshot", &resource.Sweeper{
 		Name: "aws_memorydb_snapshot",
-		F:    sweepSnapshots,
+		F:sweepSnapshots,
 		Dependencies: []string{
 			"aws_memorydb_cluster",
 		},
@@ -49,7 +49,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_memorydb_subnet_group", &resource.Sweeper{
 		Name: "aws_memorydb_subnet_group",
-		F:    sweepSubnetGroups,
+		F:sweepSubnetGroups,
 		Dependencies: []string{
 			"aws_memorydb_cluster",
 		},
@@ -57,7 +57,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_memorydb_user", &resource.Sweeper{
 		Name: "aws_memorydb_user",
-		F:    sweepUsers,
+		F:sweepUsers,
 		Dependencies: []string{
 			"aws_memorydb_acl",
 		},

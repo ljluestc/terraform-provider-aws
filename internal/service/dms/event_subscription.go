@@ -30,7 +30,7 @@ import (
 func ResourceEventSubscription() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEventSubscriptionCreate,
-		ReadWithoutTimeout:   resourceEventSubscriptionRead,
+		ReadWithoutTimeout:resourceEventSubscriptionRead,
 		UpdateWithoutTimeout: resourceEventSubscriptionUpdate,
 		DeleteWithoutTimeout: resourceEventSubscriptionDelete,
 		Timeouts: &schema.ResourceTimeout{
@@ -45,40 +45,40 @@ func ResourceEventSubscription() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"enabled": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"event_categories": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-				Set:      schema.HashString,
+				Type:schema.TypeSet,
+				Elem:&schema.Schema{Type: schema.TypeString},
+				Set:schema.HashString,
 				Required: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"sns_topic_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"source_ids": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-				Set:      schema.HashString,
+				Type:schema.TypeSet,
+				Elem:&schema.Schema{Type: schema.TypeString},
+				Set:schema.HashString,
 				ForceNew: true,
 				Optional: true,
 			},
 			"source_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				// The API suppors modification but doing so loses all source_ids
 				ForceNew: true,
@@ -87,23 +87,22 @@ func ResourceEventSubscription() *schema.Resource {
 					"replication-task",
 				}, false),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceEventSubscriptionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
 
 	request := &dms.CreateEventSubscriptionInput{
-		Enabled:          aws.Bool(d.Get("enabled").(bool)),
-		SnsTopicArn:      aws.String(d.Get("sns_topic_arn").(string)),
+		Enabled: aws.Bool(d.Get("enabled").(bool)),
+		SnsTopicArn:aws.String(d.Get("sns_topic_arn").(string)),
 		SubscriptionName: aws.String(d.Get("name").(string)),
-		SourceType:       aws.String(d.Get("source_type").(string)),
+		SourceType: aws.String(d.Get("source_type").(string)),
 		Tags:getTagsIn(ctx),
 	}
 
@@ -124,12 +123,12 @@ func resourceEventSubscriptionCreate(ctx context.Context, d *schema.ResourceData
 	d.SetId(d.Get("name").(string))
 
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{"creating", "modifying"},
-		Target:     []string{"active"},
-		Refresh:    resourceEventSubscriptionStateRefreshFunc(ctx, conn, d.Id()),
-		Timeout:    d.Timeout(schema.TimeoutCreate),
+		Pending: []string{"creating", "modifying"},
+		Target:[]string{"active"},
+		Refresh: resourceEventSubscriptionStateRefreshFunc(ctx, conn, d.Id()),
+		Timeout: d.Timeout(schema.TimeoutCreate),
 		MinTimeout: 10 * time.Second,
-		Delay:      10 * time.Second,
+		Delay:10 * time.Second,
 	}
 
 	_, err = stateConf.WaitForStateContext(ctx)
@@ -139,7 +138,6 @@ func resourceEventSubscriptionCreate(ctx context.Context, d *schema.ResourceData
 
 	return append(diags, resourceEventSubscriptionRead(ctx, d, meta)...)
 }
-
 func resourceEventSubscriptionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
@@ -170,8 +168,8 @@ func resourceEventSubscriptionRead(ctx context.Context, d *schema.ResourceData, 
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "dms",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"dms",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("es:%s", d.Id()),
 	}.String()
@@ -186,17 +184,16 @@ func resourceEventSubscriptionRead(ctx context.Context, d *schema.ResourceData, 
 
 	return diags
 }
-
 func resourceEventSubscriptionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
 
 	if d.HasChanges("enabled", "event_categories", "sns_topic_arn", "source_type") {
 		request := &dms.ModifyEventSubscriptionInput{
-			Enabled:          aws.Bool(d.Get("enabled").(bool)),
-			SnsTopicArn:      aws.String(d.Get("sns_topic_arn").(string)),
+			Enabled: aws.Bool(d.Get("enabled").(bool)),
+			SnsTopicArn:aws.String(d.Get("sns_topic_arn").(string)),
 			SubscriptionName: aws.String(d.Get("name").(string)),
-			SourceType:       aws.String(d.Get("source_type").(string)),
+			SourceType: aws.String(d.Get("source_type").(string)),
 		}
 
 		if v, ok := d.GetOk("event_categories"); ok {
@@ -210,12 +207,12 @@ func resourceEventSubscriptionUpdate(ctx context.Context, d *schema.ResourceData
 		}
 
 		stateConf := &retry.StateChangeConf{
-			Pending:    []string{"modifying"},
-			Target:     []string{"active"},
-			Refresh:    resourceEventSubscriptionStateRefreshFunc(ctx, conn, d.Id()),
-			Timeout:    d.Timeout(schema.TimeoutUpdate),
+			Pending: []string{"modifying"},
+			Target:[]string{"active"},
+			Refresh: resourceEventSubscriptionStateRefreshFunc(ctx, conn, d.Id()),
+			Timeout: d.Timeout(schema.TimeoutUpdate),
 			MinTimeout: 10 * time.Second,
-			Delay:      10 * time.Second,
+			Delay:10 * time.Second,
 		}
 
 		_, err = stateConf.WaitForStateContext(ctx)
@@ -226,7 +223,6 @@ func resourceEventSubscriptionUpdate(ctx context.Context, d *schema.ResourceData
 
 	return append(diags, resourceEventSubscriptionRead(ctx, d, meta)...)
 }
-
 func resourceEventSubscriptionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
@@ -246,12 +242,12 @@ func resourceEventSubscriptionDelete(ctx context.Context, d *schema.ResourceData
 	}
 
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{"deleting"},
-		Target:     []string{},
-		Refresh:    resourceEventSubscriptionStateRefreshFunc(ctx, conn, d.Id()),
-		Timeout:    d.Timeout(schema.TimeoutDelete),
+		Pending: []string{"deleting"},
+		Target:[]string{},
+		Refresh: resourceEventSubscriptionStateRefreshFunc(ctx, conn, d.Id()),
+		Timeout: d.Timeout(schema.TimeoutDelete),
 		MinTimeout: 10 * time.Second,
-		Delay:      10 * time.Second,
+		Delay:10 * time.Second,
 	}
 
 	_, err = stateConf.WaitForStateContext(ctx)
@@ -261,9 +257,9 @@ func resourceEventSubscriptionDelete(ctx context.Context, d *schema.ResourceData
 
 	return diags
 }
-
 func resourceEventSubscriptionStateRefreshFunc(ctx context.Context, conn *dms.DatabaseMigrationService, name string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		v, err := conn.DescribeEventSubscriptionsWithContext(ctx, &dms.DescribeEventSubscriptionsInput{
 			SubscriptionName: aws.String(name),
 		})

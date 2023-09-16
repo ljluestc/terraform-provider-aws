@@ -27,10 +27,10 @@ func TestAccMediaStoreContainerPolicy_basic(t *testing.T) {
 	rName = strings.ReplaceAll(rName, "-", "_")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, mediastore.EndpointsID),
+		PreCheck:   func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, mediastore.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckContainerPolicyDestroy(ctx),
+		CheckDestroy:testAccCheckContainerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerPolicyConfig_basic(rName),
@@ -41,8 +41,8 @@ func TestAccMediaStoreContainerPolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -125,21 +125,21 @@ resource "aws_media_store_container_policy" "test" {
   container_name = aws_media_store_container.test.name
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Sid    = "lucky"
-      Action = "mediastore:*"
-      Principal = {
-        AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
-      }
-      Effect   = "Allow"
-      Resource = "arn:${data.aws_partition.current.partition}:mediastore:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:container/${aws_media_store_container.test.name}/*"
-      Condition = {
-        Bool = {
+Version = "2012-10-17"
+Statement = [{
+ Sid= "lucky"
+ Action = "mediastore:*"
+ Principal = {
+   AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ }
+ Effect   = "Allow"
+ Resource = "arn:${data.aws_partition.current.partition}:mediastore:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:container/${aws_media_store_container.test.name}/*"
+ Condition = {
+   Bool = {
  "aws:SecureTransport" = "true"
-        }
-      }
-    }]
+   }
+ }
+}]
   })
 }
 `, rName)

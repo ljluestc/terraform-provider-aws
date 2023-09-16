@@ -27,7 +27,7 @@ func DataSourcePermissions() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"catalog_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidAccountID,
 			},
@@ -44,12 +44,12 @@ func DataSourcePermissions() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: verify.ValidAccountID,
@@ -65,7 +65,7 @@ func DataSourcePermissions() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: verify.ValidAccountID,
@@ -90,7 +90,7 @@ func DataSourcePermissions() *schema.Resource {
 							Computed: true,
 						},
 						"key": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 128),
 						},
@@ -99,7 +99,7 @@ func DataSourcePermissions() *schema.Resource {
 							Required: true,
 							MinItems: 1,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validateLFTagValues(),
 							},
 						},
@@ -114,7 +114,7 @@ func DataSourcePermissions() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: verify.ValidAccountID,
@@ -126,7 +126,7 @@ func DataSourcePermissions() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"key": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(1, 128),
 									},
@@ -135,7 +135,7 @@ func DataSourcePermissions() *schema.Resource {
 										Required: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validateLFTagValues(),
 										},
 									},
@@ -143,7 +143,7 @@ func DataSourcePermissions() *schema.Resource {
 							},
 						},
 						"resource_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(lakeformation.ResourceType_Values(), false),
 						},
@@ -165,7 +165,7 @@ func DataSourcePermissions() *schema.Resource {
 				},
 			},
 			"principal": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validPrincipal,
 			},
@@ -177,7 +177,7 @@ func DataSourcePermissions() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: verify.ValidAccountID,
@@ -207,7 +207,7 @@ func DataSourcePermissions() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: verify.ValidAccountID,
@@ -216,7 +216,7 @@ func DataSourcePermissions() *schema.Resource {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.NoZeroValues,
 							},
 						},
@@ -228,7 +228,7 @@ func DataSourcePermissions() *schema.Resource {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.NoZeroValues,
 							},
 						},

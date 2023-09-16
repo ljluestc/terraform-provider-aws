@@ -82,7 +82,7 @@ func ResourceWebACL() *schema.Resource {
 					},
 				},
 				"description": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringLenBetween(1, 256),
 				},
@@ -120,7 +120,7 @@ func ResourceWebACL() *schema.Resource {
 							},
 							"captcha_config": outerCaptchaConfigSchema(),
 							"name": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringLenBetween(1, 128),
 							},
@@ -140,13 +140,13 @@ func ResourceWebACL() *schema.Resource {
 								Required: true,
 							},
 							"rule_label":        ruleLabelsSchema(),
-							"statement":         webACLRootStatementSchema(webACLRootStatementSchemaLevel),
+							"statement":webACLRootStatementSchema(webACLRootStatementSchemaLevel),
 							"visibility_config": visibilityConfigSchema(),
 						},
 					},
 				},
 				"scope": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ForceNew:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.Scope_Values(), false),
@@ -171,7 +171,6 @@ func ResourceWebACL() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceWebACLCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -213,7 +212,6 @@ func resourceWebACLCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return resourceWebACLRead(ctx, d, meta)
 }
-
 func resourceWebACLRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -259,7 +257,6 @@ func resourceWebACLRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return nil
 }
-
 func resourceWebACLUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -280,7 +277,7 @@ func resourceWebACLUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 			CaptchaConfig:     expandCaptchaConfig(d.Get("captcha_config").([]interface{})),
 			DefaultAction:     expandDefaultAction(d.Get("default_action").([]interface{})),
 			Id:   aws.String(d.Id()),
-			LockToken:         aws.String(d.Get("lock_token").(string)),
+			LockToken:aws.String(d.Get("lock_token").(string)),
 			Name: aws.String(d.Get("name").(string)),
 			Rules:rules,
 			Scope:aws.String(d.Get("scope").(string)),
@@ -314,7 +311,6 @@ func resourceWebACLUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return resourceWebACLRead(ctx, d, meta)
 }
-
 func resourceWebACLDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -340,7 +336,6 @@ func resourceWebACLDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
-
 func FindWebACLByThreePartKey(ctx context.Context, conn *wafv2.WAFV2, id, name, scope string) (*wafv2.GetWebACLOutput, error) {
 	input := &wafv2.GetWebACLInput{
 		Id:    aws.String(id),
@@ -399,7 +394,6 @@ func filterWebACLRules(rules, configRules []*wafv2.Rule) []*wafv2.Rule {
 	}
 	return fr
 }
-
 func findShieldRule(rules []*wafv2.Rule) []*wafv2.Rule {
 	pattern := `^ShieldMitigationRuleGroup_\d{12}_[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}_.*`
 	var sr []*wafv2.Rule

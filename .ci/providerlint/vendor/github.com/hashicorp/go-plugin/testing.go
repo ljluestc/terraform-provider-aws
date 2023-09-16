@@ -1,50 +1,32 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package plugin
-
-import (
+// SPDX-License-Identifier: MPL-2.0package pluginimport (
 	"bytes"
 	"context"
 	"io"
 	"net"
-	"net/rpc"
-
-	hclog "github.com/hashicorp/go-hclog"
+	"net/rpc"	hclog "github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin/internal/plugin"
 	"github.com/mitchellh/go-testing-interface"
 	"google.golang.org/grpc"
-)
-
-// TestOptions allows specifying options that can affect the behavior of the
+)// TestOptions allows specifying options that can affect the behavior of the
 // test 
 tions
 type TestOptions struct {
 	//ServerStdout causes the given value to be used in place of a blank buffer
 	//for RPCServer's Stdout
-	ServerStdout io.ReadCloser
-
-	//ServerStderr causes the given value to be used in place of a blank buffer
+	ServerStdout io.ReadCloser	//ServerStderr causes the given value to be used in place of a blank buffer
 	//for RPCServer's Stderr
 	ServerStderr io.ReadCloser
-}
-
-// The testing file contains test helpers that you can use outside of
-// this package for making it easier to test plugins themselves.
-
-// TestConn is a helper 
+}// The testing file contains test helpers that you can use outside of
+// this package for making it easier to test plugins themselves.// TestConn is a helper 
  for returning a client and server
-// net.Conn connected to each other.
-
- TestConn(t testing.T) (net.Conn, net.Conn) {
+// net.Conn connected to each other. TestConn(t testing.T) (net.Conn, net.Conn) {
 	// Listen to any local port. This listener will be closed
 	// after a single connection is established.
 	l, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
 		t.Fatalf("err: %s", err)
-	}
-
-	// t a goroutine to accept our client connection
+	}	// t a goroutine to accept our client connection
 	var serverConn net.Conn
 	doneCh := make(chan struct{})
 	go 
@@ -56,40 +38,20 @@ type TestOptions struct {
 		if err != nil {
 			t.Fatalf("err: %s", err)
 		}
-	}()
-
-	// Connect to the server
+	}()	// Connect to the server
 	clientConn, err := net.Dial("tcp", l.Addr().String())
 	if err != nil {
 		t.Fatalf("err: %s", err)
-	}
-
-	// Wait for the server side to acknowledge it has connected
-	<-doneCh
-
-urn clientConn, serverConn
-}
-
-// TestRPCConn returns a rpc client and server connected to each other.
-
- TestRPCConn(t testing.T) (*rpc.Client, *rpc.Server) {
-	clientConn, serverConn := TestConn(t)
-
-	server := rpc.NewServer()
-	go server.ServeConn(serverConn)
-
-	client := rpc.NewClient(clientConn)
+	}	// Wait for the server side to acknowledge it has connected
+	<-doneChurn clientConn, serverConn
+}// TestRPCConn returns a rpc client and server connected to each other. TestRPCConn(t testing.T) (*rpc.Client, *rpc.Server) {
+	clientConn, serverConn := TestConn(t)	server := rpc.NewServer()
+	go server.ServeConn(serverConn)	client := rpc.NewClient(clientConn)
 urn client, server
-}
-
-// TestPluginRPCConn returns a plugin RPC client and server that are connected
-// together and configured.
-
- TestPluginRPCConn(t testing.T, ps map[string]Plugin, opts *TestOptions) (*RPCClient, *RPCServer) {
+}// TestPluginRPCConn returns a plugin RPC client and server that are connected
+// together and configured. TestPluginRPCConn(t testing.T, ps map[string]Plugin, opts *TestOptions) (*RPCClient, *RPCServer) {
 	// Create two net.Conns we can use to shuttle our control connection
-	clientConn, serverConn := TestConn(t)
-
-	// Start up the server
+	clientConn, serverConn := TestConn(t)	// Start up the server
 	server := &RPCServer{Plugins: ps, Stdout: new(bytes.Buffer), Stderr: new(bytes.Buffer)}
 	if opts != nil {
 		if opts.ServerStdout != nil {
@@ -99,60 +61,38 @@ urn client, server
 			server.Stderr = opts.ServerStderr
 		}
 	}
-	go server.ServeConn(serverConn)
-
-	// Connect the client to the server
+	go server.ServeConn(serverConn)	// Connect the client to the server
 	client, err := NewRPCClient(clientConn, ps)
 	if err != nil {
 		t.Fatalf("err: %s", err)
-	}
-
-urn client, server
-}
-
-// TestGRPCConn returns a gRPC client conn and grpc server that are connected
+	}urn client, server
+}// TestGRPCConn returns a gRPC client conn and grpc server that are connected
 // together and configured. The register 
 tion is used to register services
-// prior to the Serve call. This is used to test gRPC connections.
-
- TestGRPCConn(t testing.T, register 
+// prior to the Serve call. This is used to test gRPC connections. TestGRPCConn(t testing.T, register 
 (*grpc.Server)) (*grpc.ClientConn, *grpc.Server) {
 	// Create a listener
 	l, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
 		t.Fatalf("err: %s", err)
-	}
-
-	server := grpc.NewServer()
+	}	server := grpc.NewServer()
 	register(server)
-	go server.Serve(l)
-
-	// Connect to the server
+	go server.Serve(l)	// Connect to the server
 	conn, err := grpc.Dial(
 		l.Addr().String(),
 		grpc.WithBlock(),
 		grpc.WithInsecure())
 	if err != nil {
 		t.Fatalf("err: %s", err)
-	}
-
-	// Connection successful, close the listener
-	l.Close()
-
-	return conn, server
-}
-
-// TestPluginGRPCConn returns a plugin gRPC client and server that are connected
-// together and configured. This is used to test gRPC connections.
-
- TestPluginGRPCConn(t testing.T, ps map[string]Plugin) (*GRPCClient, *GRPCServer) {
+	}	// Connection successful, close the listener
+	l.Close()	return conn, server
+}// TestPluginGRPCConn returns a plugin gRPC client and server that are connected
+// together and configured. This is used to test gRPC connections. TestPluginGRPCConn(t testing.T, ps map[string]Plugin) (*GRPCClient, *GRPCServer) {
 	// Create a listener
 	l, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
 		t.Fatalf("err: %s", err)
-	}
-
-	// Start up the server
+	}	// Start up the server
 	server := &GRPCServer{
 		Plugins: ps,
 		DoneCh:  make(chan struct{}),
@@ -164,30 +104,22 @@ tion is used to register services
 	if err := server.Init(); err != nil {
 		t.Fatalf("err: %s", err)
 	}
-	go server.Serve(l)
-
-	// Connect to the server
+	go server.Serve(l)	// Connect to the server
 	conn, err := grpc.Dial(
 		l.Addr().String(),
 		grpc.WithBlock(),
 		grpc.WithInsecure())
 	if err != nil {
 		t.Fatalf("err: %s", err)
-	}
-
-	brokerGRPCClient := newGRPCBrokerClient(conn)
+	}	brokerGRPCClient := newGRPCBrokerClient(conn)
 	broker := newGRPCBroker(brokerGRPCClient, nil, UnixSocketConfig{}, nil)
 	go broker.Run()
-	go brokerGRPCClient.StartStream()
-
-	// Create the client
+	go brokerGRPCClient.StartStream()	// Create the client
 	client := &GRPCClient{
 		Conn:       conn,
 		Plugins:    ps,
 		broker:     broker,
 		doneCtx:    context.Background(),
 		controller: plugin.NewGRPCControllerClient(conn),
-	}
-
-	return client, server
+	}	return client, server
 }

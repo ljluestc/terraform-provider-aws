@@ -45,8 +45,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -105,8 +105,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -164,8 +164,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -256,7 +256,7 @@ resource "aws_iam_policy" "test" {
 resource "aws_quicksight_iam_policy_assignment" "test" {
   assignment_name   = %[1]q
   assignment_status = %[2]q
-  policy_arn        = aws_iam_policy.test.arn
+  policy_arn  = aws_iam_policy.test.arn
   identities {
     user = [aws_quicksight_user.test.user_name]
   }

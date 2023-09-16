@@ -24,33 +24,33 @@ func DataSourceSchedulingPolicy() *schema.Resource {
 		ReadWithoutTimeout: dataSourceSchedulingPolicyRead,
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"fair_share_policy": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"compute_reservation": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Computed: true,
 						},
 						"share_decay_seconds": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Computed: true,
 						},
 						"share_distribution": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"share_identifier": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 									"weight_factor": {
-										Type:     schema.TypeFloat,
+										Type:schema.TypeFloat,
 										Computed: true,
 									},
 								},
@@ -69,14 +69,13 @@ func DataSourceSchedulingPolicy() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 		},
 	}
 }
-
 func dataSourceSchedulingPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BatchConn(ctx)

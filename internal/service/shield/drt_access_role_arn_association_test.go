@@ -39,7 +39,7 @@ func TestAccShieldDRTAccessRoleARNAssociation_basic(t *testing.T) {
 			testAccPreCheckRoleARN(ctx, t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDRTAccessRoleARNAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckDRTAccessRoleARNAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDRTAccessRoleARNAssociationConfig_basic(rName),
@@ -67,7 +67,7 @@ func TestAccShieldDRTAccessRoleARNAssociation_disappears(t *testing.T) {
 			testAccPreCheckRoleARN(ctx, t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDRTAccessRoleARNAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckDRTAccessRoleARNAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDRTAccessRoleARNAssociationConfig_basic(rName),
@@ -153,7 +153,7 @@ resource "aws_iam_role" "test" {
         "Sid" : "",
         "Effect" : "Allow",
         "Principal" : {
-          "Service" : "drt.shield.amazonaws.com"
+ "Service" : "drt.shield.amazonaws.com"
         },
         "Action" : "sts:AssumeRole"
       },
@@ -163,8 +163,8 @@ resource "aws_iam_role" "test" {
 
 resource "aws_shield_protection_group" "test" {
   protection_group_id = %[1]q
-  aggregation         = "MAX"
-  pattern             = "ALL"
+  aggregation= "MAX"
+  pattern    = "ALL"
 }
 
 resource "aws_iam_role_policy_attachment" "test" {

@@ -34,7 +34,7 @@ func resourceObjectLambdaAccessPointPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -50,8 +50,8 @@ func resourceObjectLambdaAccessPointPolicy() *schema.Resource {
 				ForceNew: true,
 			},
 			"policy": {
-				Type:             schema.TypeString,
-				Required:         true,
+				Type:    schema.TypeString,
+				Required:true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				StateFunc: func(v interface{}) string {

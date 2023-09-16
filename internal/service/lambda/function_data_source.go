@@ -26,186 +26,186 @@ func DataSourceFunction() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"architectures": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"code_signing_config_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"dead_letter_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"target_arn": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"environment": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"variables": {
-							Type:     schema.TypeMap,
+							Type:schema.TypeMap,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 					},
 				},
 			},
 			"ephemeral_storage": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"size": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"file_system_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"local_mount_path": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"function_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"handler": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"image_uri": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"invoke_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"kms_key_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"last_modified": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"layers": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"memory_size": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"qualified_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"qualified_invoke_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"qualifier": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"reserved_concurrent_executions": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"role": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"runtime": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"signing_job_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"signing_profile_version_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"source_code_hash": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"source_code_size": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"timeout": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"tracing_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"mode": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"vpc_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"security_group_ids": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"subnet_ids": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"vpc_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
@@ -214,7 +214,6 @@ func DataSourceFunction() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceFunctionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaClient(ctx)

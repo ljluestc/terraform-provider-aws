@@ -30,7 +30,7 @@ import (
 func ResourceKxUser() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceKxUserCreate,
-		ReadWithoutTimeout:   resourceKxUserRead,
+		ReadWithoutTimeout:resourceKxUserRead,
 		UpdateWithoutTimeout: resourceKxUserUpdate,
 		DeleteWithoutTimeout: resourceKxUserDelete,
 
@@ -46,27 +46,27 @@ func ResourceKxUser() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"environment_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 32),
 			},
 			"iam_role": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 		CustomizeDiff: verify.SetTagsDiff,
@@ -78,15 +78,14 @@ const (
 
 	kxUserIDPartCount = 2
 )
-
 func resourceKxUserCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	client := meta.(*conns.AWSClient).FinSpaceClient(ctx)
 
 	in := &finspace.CreateKxUserInput{
-		UserName:      aws.String(d.Get("name").(string)),
+		UserName: aws.String(d.Get("name").(string)),
 		EnvironmentId: aws.String(d.Get("environment_id").(string)),
-		IamRole:       aws.String(d.Get("iam_role").(string)),
+		IamRole:  aws.String(d.Get("iam_role").(string)),
 		Tags: getTagsIn(ctx),
 	}
 
@@ -111,7 +110,6 @@ func resourceKxUserCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceKxUserRead(ctx, d, meta)...)
 }
-
 func resourceKxUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -134,7 +132,6 @@ func resourceKxUserRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
-
 func resourceKxUserUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -142,8 +139,8 @@ func resourceKxUserUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	if d.HasChange("iam_role") {
 		in := &finspace.UpdateKxUserInput{
 			EnvironmentId: aws.String(d.Get("environment_id").(string)),
-			UserName:      aws.String(d.Get("name").(string)),
-			IamRole:       aws.String(d.Get("iam_role").(string)),
+			UserName: aws.String(d.Get("name").(string)),
+			IamRole:  aws.String(d.Get("iam_role").(string)),
 		}
 
 		_, err := conn.UpdateKxUser(ctx, in)
@@ -154,7 +151,6 @@ func resourceKxUserUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceKxUserRead(ctx, d, meta)...)
 }
-
 func resourceKxUserDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -163,7 +159,7 @@ func resourceKxUserDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	_, err := conn.DeleteKxUser(ctx, &finspace.DeleteKxUserInput{
 		EnvironmentId: aws.String(d.Get("environment_id").(string)),
-		UserName:      aws.String(d.Get("name").(string)),
+		UserName: aws.String(d.Get("name").(string)),
 	})
 
 	if err != nil {
@@ -177,7 +173,6 @@ func resourceKxUserDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func findKxUserByID(ctx context.Context, conn *finspace.Client, id string) (*finspace.GetKxUserOutput, error) {
 	parts, err := flex.ExpandResourceId(id, kxUserIDPartCount, false)
 	if err != nil {
@@ -185,7 +180,7 @@ func findKxUserByID(ctx context.Context, conn *finspace.Client, id string) (*fin
 	}
 	in := &finspace.GetKxUserInput{
 		EnvironmentId: aws.String(parts[0]),
-		UserName:      aws.String(parts[1]),
+		UserName: aws.String(parts[1]),
 	}
 
 	out, err := conn.GetKxUser(ctx, in)
@@ -193,7 +188,7 @@ func findKxUserByID(ctx context.Context, conn *finspace.Client, id string) (*fin
 		var nfe *types.ResourceNotFoundException
 		if errors.As(err, &nfe) {
 			return nil, &retry.NotFoundError{
-				LastError:   err,
+				LastError:err,
 				LastRequest: in,
 			}
 		}

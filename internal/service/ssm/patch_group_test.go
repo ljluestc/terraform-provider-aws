@@ -26,7 +26,7 @@ func TestAccSSMPatchGroup_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPatchGroupDestroy(ctx),
+CheckDestroy:    testAccCheckPatchGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPatchGroupConfig_basic(rName),
@@ -47,7 +47,7 @@ func TestAccSSMPatchGroup_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil,
+CheckDestroy:    nil,
 Steps: []resource.TestStep{
 	{
 Config: testAccPatchGroupConfig_basic(rName),
@@ -72,7 +72,7 @@ func TestAccSSMPatchGroup_multipleBaselines(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPatchGroupDestroy(ctx),
+CheckDestroy:    testAccCheckPatchGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPatchGroupConfig_multipleBaselines(rName),
@@ -150,7 +150,7 @@ return nil
 func testAccPatchGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "foo" {
-  name             = %[1]q
+  name    = %[1]q
   approved_patches = ["KB123456"]
 }
 
@@ -165,19 +165,19 @@ func testAccPatchGroupConfig_multipleBaselines(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test1" {
   approved_patches = ["KB123456"]
-  name             = %[1]q
+  name    = %[1]q
   operating_system = "CENTOS"
 }
 
 resource "aws_ssm_patch_baseline" "test2" {
   approved_patches = ["KB123456"]
-  name             = %[1]q
+  name    = %[1]q
   operating_system = "AMAZON_LINUX_2"
 }
 
 resource "aws_ssm_patch_baseline" "test3" {
   approved_patches = ["KB123456"]
-  name             = %[1]q
+  name    = %[1]q
   operating_system = "AMAZON_LINUX"
 }
 

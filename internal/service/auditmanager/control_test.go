@@ -49,8 +49,8 @@ func TestAccAuditManagerControl_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -109,8 +109,8 @@ func TestAccAuditManagerControl_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -167,8 +167,8 @@ func TestAccAuditManagerControl_optional(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -229,8 +229,8 @@ func TestAccAuditManagerControl_optionalSources(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -310,9 +310,9 @@ resource "aws_auditmanager_control" "test" {
   name = %[1]q
 
   control_mapping_sources {
-    source_name          = %[1]q
-    source_set_up_option = "Procedural_Controls_Mapping"
-    source_type          = "MANUAL"
+source_name= %[1]q
+source_set_up_option = "Procedural_Controls_Mapping"
+source_type= "MANUAL"
   }
 }
 `, rName)
@@ -324,13 +324,13 @@ resource "aws_auditmanager_control" "test" {
   name = %[1]q
 
   control_mapping_sources {
-    source_name          = %[1]q
-    source_set_up_option = "Procedural_Controls_Mapping"
-    source_type          = "MANUAL"
+source_name= %[1]q
+source_set_up_option = "Procedural_Controls_Mapping"
+source_type= "MANUAL"
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -342,14 +342,14 @@ resource "aws_auditmanager_control" "test" {
   name = %[1]q
 
   control_mapping_sources {
-    source_name          = %[1]q
-    source_set_up_option = "Procedural_Controls_Mapping"
-    source_type          = "MANUAL"
+source_name= %[1]q
+source_set_up_option = "Procedural_Controls_Mapping"
+source_type= "MANUAL"
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -361,14 +361,14 @@ resource "aws_auditmanager_control" "test" {
   name = %[1]q
 
   action_plan_instructions = %[2]q
-  action_plan_title        = %[3]q
+  action_plan_title   = %[3]q
   description = %[4]q
-  testing_information      = %[5]q
+  testing_information = %[5]q
 
   control_mapping_sources {
-    source_name          = %[1]q
-    source_set_up_option = "Procedural_Controls_Mapping"
-    source_type          = "MANUAL"
+source_name= %[1]q
+source_set_up_option = "Procedural_Controls_Mapping"
+source_type= "MANUAL"
   }
 }
 `, rName, actionPlanInstructions, actionPlanTitle, description, testingInformation)
@@ -380,17 +380,17 @@ resource "aws_auditmanager_control" "test" {
   name = %[1]q
 
   control_mapping_sources {
-    source_name          = %[1]q
-    source_description   = %[2]q
-    source_frequency     = %[3]q
-    source_set_up_option = %[4]q
-    source_type          = %[5]q
-    troubleshooting_text = %[6]q
+source_name= %[1]q
+source_description   = %[2]q
+source_frequency= %[3]q
+source_set_up_option = %[4]q
+source_type= %[5]q
+troubleshooting_text = %[6]q
 
-    source_keyword {
-      keyword_input_type = %[7]q
-      keyword_value      = %[8]q
-    }
+source_keyword {
+ keyword_input_type = %[7]q
+ keyword_value = %[8]q
+}
   }
 }
 `, rName, sourceDescription, sourceFrequency, sourceSetUpOption, sourceType, troubleshootingText, keywordInputType, keywordValue)

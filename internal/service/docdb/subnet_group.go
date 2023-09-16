@@ -30,7 +30,7 @@ import (
 func ResourceSubnetGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSubnetGroupCreate,
-		ReadWithoutTimeout:   resourceSubnetGroupRead,
+		ReadWithoutTimeout:resourceSubnetGroupRead,
 		UpdateWithoutTimeout: resourceSubnetGroupUpdate,
 		DeleteWithoutTimeout: resourceSubnetGroupDelete,
 		Importer: &schema.ResourceImporter{
@@ -39,49 +39,48 @@ func ResourceSubnetGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"name_prefix"},
 				ValidateFunc:  validSubnetGroupName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"name"},
 				ValidateFunc:  validSubnetGroupNamePrefix,
 			},
 
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  "Managed by Terraform",
 			},
 
 			"subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Required: true,
 				MinItems: 1,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-				Set:      schema.HashString,
+				Elem:&schema.Schema{Type: schema.TypeString},
+				Set:.HashString,
 			},
 
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceSubnetGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -98,10 +97,10 @@ func resourceSubnetGroupCreate(ctx context.Context, d *schema.ResourceData, meta
 	}
 
 	input := docdb.CreateDBSubnetGroupInput{
-		DBSubnetGroupName:        aws.String(groupName),
+		DBSubnetGroupName:String(groupName),
 		DBSubnetGroupDescription: aws.String(d.Get("description").(string)),
-		SubnetIds:   subnetIds,
-		Tags:        getTagsIn(ctx),
+		SubnetIds:subnetIds,
+		Tags:agsIn(ctx),
 	}
 
 	_, err := conn.CreateDBSubnetGroupWithContext(ctx, &input)
@@ -113,7 +112,6 @@ func resourceSubnetGroupCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceSubnetGroupRead(ctx, d, meta)...)
 }
-
 func resourceSubnetGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -156,7 +154,6 @@ func resourceSubnetGroupRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
-
 func resourceSubnetGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -169,9 +166,9 @@ func resourceSubnetGroupUpdate(ctx context.Context, d *schema.ResourceData, meta
 		sIds := flex.ExpandStringSet(n.(*schema.Set))
 
 		_, err := conn.ModifyDBSubnetGroupWithContext(ctx, &docdb.ModifyDBSubnetGroupInput{
-			DBSubnetGroupName:        aws.String(d.Id()),
+			DBSubnetGroupName:String(d.Id()),
 			DBSubnetGroupDescription: aws.String(d.Get("description").(string)),
-			SubnetIds:   sIds,
+			SubnetIds:sIds,
 		})
 
 		if err != nil {
@@ -181,7 +178,6 @@ func resourceSubnetGroupUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceSubnetGroupRead(ctx, d, meta)...)
 }
-
 func resourceSubnetGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -205,7 +201,6 @@ func resourceSubnetGroupDelete(ctx context.Context, d *schema.ResourceData, meta
 	}
 	return diags
 }
-
 func WaitForSubnetGroupDeletion(ctx context.Context, conn *docdb.DocDB, name string) error {
 	params := &docdb.DescribeDBSubnetGroupsInput{
 		DBSubnetGroupName: aws.String(name),

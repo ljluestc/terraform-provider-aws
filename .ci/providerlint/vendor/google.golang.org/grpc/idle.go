@@ -47,10 +47,7 @@ type idlenessManager interface {
 }
 
 type noopIdlenessManager struct{}
-
-func (noopIdlenessManager) onCallBegin() error { return nil }
-func (noopIdlenessManager) onCallEnd()         {}
-func (noopIdlenessManager) close()             {}
+ (noopIdlenessManager) onCallBegin() error { return nil } (noopIdlenessManager) onCallEnd()         {} (noopIdlenessManager) close()             {}
 
 // idlenessManagerImpl implements the idlenessManager interface. It uses atomic
 // operations to synchronize access to shared state and a mutex to guarantee
@@ -84,8 +81,7 @@ type idlenessManagerImpl struct {
 }
 
 // newIdlenessManager creates a new idleness manager implementation for the
-// given idle timeout.
-func newIdlenessManager(enforcer idlenessEnforcer, idleTimeout time.Duration) idlenessManager {
+// given idle timeout. newIdlenessManager(enforcer idlenessEnforcer, idleTimeout time.Duration) idlenessManager {
 	if idleTimeout == 0 {
 		return noopIdlenessManager{}
 	}
@@ -99,8 +95,7 @@ func newIdlenessManager(enforcer idlenessEnforcer, idleTimeout time.Duration) id
 }
 
 // resetIdleTimer resets the idle timer to the given duration. This method
-// should only be called from the timer callback.
-func (i *idlenessManagerImpl) resetIdleTimer(d time.Duration) {
+// should only be called from the timer callback. (i *idlenessManagerImpl) resetIdleTimer(d time.Duration) {
 	i.idleMu.Lock()
 	defer i.idleMu.Unlock()
 
@@ -117,8 +112,7 @@ func (i *idlenessManagerImpl) resetIdleTimer(d time.Duration) {
 
 // handleIdleTimeout is the timer callback that is invoked upon expiry of the
 // configured idle timeout. The channel is considered inactive if there are no
-// ongoing calls and no RPC activity since the last time the timer fired.
-func (i *idlenessManagerImpl) handleIdleTimeout() {
+// ongoing calls and no RPC activity since the last time the timer fired. (i *idlenessManagerImpl) handleIdleTimeout() {
 	if i.isClosed() {
 		return
 	}
@@ -170,8 +164,7 @@ func (i *idlenessManagerImpl) handleIdleTimeout() {
 //
 // Return value indicates whether or not the channel moved to idle mode.
 //
-// Holds idleMu which ensures mutual exclusion with exitIdleMode.
-func (i *idlenessManagerImpl) tryEnterIdleMode() bool {
+// Holds idleMu which ensures mutual exclusion with exitIdleMode. (i *idlenessManagerImpl) tryEnterIdleMode() bool {
 	i.idleMu.Lock()
 	defer i.idleMu.Unlock()
 
@@ -199,8 +192,7 @@ func (i *idlenessManagerImpl) tryEnterIdleMode() bool {
 	return true
 }
 
-// onCallBegin is invoked at the start of every RPC.
-func (i *idlenessManagerImpl) onCallBegin() error {
+// onCallBegin is invoked at the start of every RPC. (i *idlenessManagerImpl) onCallBegin() error {
 	if i.isClosed() {
 		return nil
 	}
@@ -226,8 +218,7 @@ func (i *idlenessManagerImpl) onCallBegin() error {
 
 // exitIdleMode instructs the channel to exit idle mode.
 //
-// Holds idleMu which ensures mutual exclusion with tryEnterIdleMode.
-func (i *idlenessManagerImpl) exitIdleMode() error {
+// Holds idleMu which ensures mutual exclusion with tryEnterIdleMode. (i *idlenessManagerImpl) exitIdleMode() error {
 	i.idleMu.Lock()
 	defer i.idleMu.Unlock()
 
@@ -257,8 +248,7 @@ func (i *idlenessManagerImpl) exitIdleMode() error {
 	return nil
 }
 
-// onCallEnd is invoked at the end of every RPC.
-func (i *idlenessManagerImpl) onCallEnd() {
+// onCallEnd is invoked at the end of every RPC. (i *idlenessManagerImpl) onCallEnd() {
 	if i.isClosed() {
 		return
 	}
@@ -272,12 +262,10 @@ func (i *idlenessManagerImpl) onCallEnd() {
 	// can get done with the process of moving to idle mode.
 	atomic.AddInt32(&i.activeCallsCount, -1)
 }
-
-func (i *idlenessManagerImpl) isClosed() bool {
+ (i *idlenessManagerImpl) isClosed() bool {
 	return atomic.LoadInt32(&i.closed) == 1
 }
-
-func (i *idlenessManagerImpl) close() {
+ (i *idlenessManagerImpl) close() {
 	atomic.StoreInt32(&i.closed, 1)
 
 	i.idleMu.Lock()

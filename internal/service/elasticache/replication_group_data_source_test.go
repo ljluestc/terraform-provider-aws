@@ -1,36 +1,22 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elasticache_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elasticache_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/elasticache"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
-
-
 func TestAccElastiCacheReplicationGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	}	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_elasticache_replication_group.test"
-	dataSourceName := "data.aws_elasticache_replication_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    
-
+	dataSourceName := "data.aws_elasticache_replication_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -54,24 +40,16 @@ func() { acctest.PreCheck(ctx, t) },
 		},
 	})
 }
-
-
-
 func TestAccElastiCacheReplicationGroupDataSource_clusterMode(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	}	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_elasticache_replication_group.test"
-	dataSourceName := "data.aws_elasticache_replication_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    
-
+	dataSourceName := "data.aws_elasticache_replication_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -92,24 +70,16 @@ func() { acctest.PreCheck(ctx, t) },
 		},
 	})
 }
-
-
-
 func TestAccElastiCacheReplicationGroupDataSource_multiAZ(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	}	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_elasticache_replication_group.test"
-	dataSourceName := "data.aws_elasticache_replication_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    
-
+	dataSourceName := "data.aws_elasticache_replication_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -122,42 +92,30 @@ func() { acctest.PreCheck(ctx, t) },
 		},
 	})
 }
-
-
-
 func TestAccElastiCacheReplicationGroupDataSource_nonExistent(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    
-
+		PreCheck: 
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccReplicationGroupDataSourceConfig_nonExistent,
+				Config:testAccReplicationGroupDataSourceConfig_nonExistent,
 				ExpectError: regexache.MustCompile(`couldn't find resource`),
 			},
 		},
 	})
 }
-
-
-
 func TestAccElastiCacheReplicationGroupDataSource_Engine_Redis_LogDeliveryConfigurations(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
-	dataSourceName := "data.aws_elasticache_replication_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    
-
+	}	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
+	dataSourceName := "data.aws_elasticache_replication_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -176,70 +134,51 @@ func() { acctest.PreCheck(ctx, t) },
 		},
 	})
 }
-
-
-
 func testAccReplicationGroupDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigAvailableAZsNoOptIn() + fmt.Sprintf(`
 resource "aws_elasticache_replication_group" "test" {
-  replication_group_id        = %[1]q
-  description    = "test description"
-  node_type      = "cache.t3.small"
-  num_cache_clusters          = 2
-  port           = 6379
-  preferred_cache_cluster_azs = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
-  automatic_failover_enabled  = true
-  snapshot_window= "01:00-02:00"
-}
-
-data "aws_elasticache_replication_group" "test" {
-  replication_group_id = aws_elasticache_replication_group.test.replication_group_id
+replication_group_id= %[1]q
+description = "test description"
+node_type= "cache.t3.small"
+num_cache_clusters = 2
+port= 6379
+preferred_cache_cluster_azs = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
+automatic_failover_enabled= true
+snapshot_window= "01:00-02:00"
+}data "aws_elasticache_replication_group" "test" {
+replication_group_id = aws_elasticache_replication_group.test.replication_group_id
 }
 `, rName)
 }
-
-
-
 func testAccReplicationGroupDataSourceConfig_clusterMode(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elasticache_replication_group" "test" {
-  replication_group_id       = %[1]q
-  description   = "test description"
-  node_type     = "cache.t3.small"
-  port          = 6379
-  automatic_failover_enabled = true
-
-  replicas_per_node_group = 1
-  num_node_groups         = 2
-}
-
-data "aws_elasticache_replication_group" "test" {
-  replication_group_id = aws_elasticache_replication_group.test.replication_group_id
+replication_group_id = %[1]q
+description= "test description"
+node_type= "cache.t3.small"
+port = 6379
+automatic_failover_enabled = truereplicas_per_node_group = 1
+num_node_groups= 2
+}data "aws_elasticache_replication_group" "test" {
+replication_group_id = aws_elasticache_replication_group.test.replication_group_id
 }
 `, rName)
 }
-
-
-
 func testAccReplicationGroupDataSourceConfig_multiAZ(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elasticache_replication_group" "test" {
-  replication_group_id       = %[1]q
-  description   = "test description"
-  node_type     = "cache.t3.small"
-  num_cache_clusters         = 2
-  automatic_failover_enabled = true
-  multi_az_enabled           = true
-}
-
-data "aws_elasticache_replication_group" "test" {
-  replication_group_id = aws_elasticache_replication_group.test.replication_group_id
+replication_group_id = %[1]q
+description= "test description"
+node_type= "cache.t3.small"
+num_cache_clusters= 2
+automatic_failover_enabled = true
+multi_az_enabled= true
+}data "aws_elasticache_replication_group" "test" {
+replication_group_id = aws_elasticache_replication_group.test.replication_group_id
 }
 `, rName)
-}
-
-const testAccReplicationGroupDataSourceConfig_nonExistent = `
+}const testAccReplicationGroupDataSourceConfig_nonExistent = `
 data "aws_elasticache_replication_group" "test" {
-  replication_group_id = "tf-acc-test-nonexistent"
+replication_group_id = "tf-acc-test-nonexistent"
 }
 `

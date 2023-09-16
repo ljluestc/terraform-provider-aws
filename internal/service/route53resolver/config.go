@@ -34,16 +34,16 @@ func ResourceConfig() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"autodefined_reverse_flag": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				Validate
 func: validation.StringInSlice(autodefinedReverseFlag_Values(), false),
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},

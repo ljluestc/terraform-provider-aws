@@ -68,12 +68,10 @@ type HealthClient interface {
 type healthClient struct {
 	cc grpc.ClientConnInterface
 }
-
-func NewHealthClient(cc grpc.ClientConnInterface) HealthClient {
+ NewHealthClient(cc grpc.ClientConnInterface) HealthClient {
 	return &healthClient{cc}
 }
-
-func (c *healthClient) Check(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
+ (c *healthClient) Check(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
 	out := new(HealthCheckResponse)
 	err := c.cc.Invoke(ctx, Health_Check_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -81,8 +79,7 @@ func (c *healthClient) Check(ctx context.Context, in *HealthCheckRequest, opts .
 	}
 	return out, nil
 }
-
-func (c *healthClient) Watch(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (Health_WatchClient, error) {
+ (c *healthClient) Watch(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (Health_WatchClient, error) {
 	stream, err := c.cc.NewStream(ctx, &Health_ServiceDesc.Streams[0], Health_Watch_FullMethodName, opts...)
 	if err != nil {
 		return nil, err
@@ -105,8 +102,7 @@ type Health_WatchClient interface {
 type healthWatchClient struct {
 	grpc.ClientStream
 }
-
-func (x *healthWatchClient) Recv() (*HealthCheckResponse, error) {
+ (x *healthWatchClient) Recv() (*HealthCheckResponse, error) {
 	m := new(HealthCheckResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -142,11 +138,9 @@ type HealthServer interface {
 // UnimplementedHealthServer should be embedded to have forward compatible implementations.
 type UnimplementedHealthServer struct {
 }
-
-func (UnimplementedHealthServer) Check(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
+ (UnimplementedHealthServer) Check(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Check not implemented")
-}
-func (UnimplementedHealthServer) Watch(*HealthCheckRequest, Health_WatchServer) error {
+} (UnimplementedHealthServer) Watch(*HealthCheckRequest, Health_WatchServer) error {
 	return status.Errorf(codes.Unimplemented, "method Watch not implemented")
 }
 
@@ -156,12 +150,10 @@ func (UnimplementedHealthServer) Watch(*HealthCheckRequest, Health_WatchServer) 
 type UnsafeHealthServer interface {
 	mustEmbedUnimplementedHealthServer()
 }
-
-func RegisterHealthServer(s grpc.ServiceRegistrar, srv HealthServer) {
+ RegisterHealthServer(s grpc.ServiceRegistrar, srv HealthServer) {
 	s.RegisterService(&Health_ServiceDesc, srv)
 }
-
-func _Health_Check_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+ _Health_Check_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HealthCheckRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -178,8 +170,7 @@ func _Health_Check_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	return interceptor(ctx, in, info, handler)
 }
-
-func _Health_Watch_Handler(srv interface{}, stream grpc.ServerStream) error {
+ _Health_Watch_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(HealthCheckRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
@@ -195,8 +186,7 @@ type Health_WatchServer interface {
 type healthWatchServer struct {
 	grpc.ServerStream
 }
-
-func (x *healthWatchServer) Send(m *HealthCheckResponse) error {
+ (x *healthWatchServer) Send(m *HealthCheckResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 

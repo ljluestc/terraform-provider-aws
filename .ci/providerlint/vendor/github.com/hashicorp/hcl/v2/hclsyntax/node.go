@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hclsyntax
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hclsyntaximport (
 	"github.com/hashicorp/hcl/v2"
-)
-
-// Node is the abstract type that every AST node implements.
+)// Node is the abstract type that every AST node implements.
 //
 // This is a closed interface, so it cannot be implemented from outside of
 // this package.
@@ -20,11 +14,7 @@ tion
 	// The return value might jus the same node, for non-transforming
 	// walks.
 	walkChildNodes(w internalWalk
-)
-
-	Range() hcl.Rang
-}
-
-type internalWalk
+)	Range() hcl.Rang
+}type internalWalk
  
 (Node)

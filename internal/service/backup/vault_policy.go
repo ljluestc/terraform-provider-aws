@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package backup
-
-import (
+// SPDX-License-Identifier: MPL-2.0package backupimport (
 	"context"
-	"log"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"log"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/backup"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -18,37 +12,32 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-// @SDKResource("aws_backup_vault_policy")
-
+)// @SDKResource("aws_backup_vault_policy")
 func ResourceVaultPolicy() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceVaultPolicyPut,
 UpdateWithoutTimeout: resourceVaultPolicyPut,
-ReadWithoutTimeout:   resourceVaultPolicyRead,
+ReadWithoutTimeout:resourceVaultPolicyRead,
 DeleteWithoutTimeout: resourceVaultPolicyDelete,
 Importer: &schema.ResourceImporter{
 	StateContext: schema.ImportStatePassthroughContext,
-},
-
-Schema: map[string]*schema.Schema{
+},Schema: map[string]*schema.Schema{
 	"backup_vault_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"backup_vault_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
 	"policy": {
-Type:   schema.TypeString,
-Required:     true,
+Type:schema.TypeString,
+Required:true,
 Validate
 func: validation.StringIsJSON,
 DiffSuppress
-func:      verify.SuppressEquivalentPolicyDiffs,
+func:verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 State
 func: 
@@ -59,90 +48,39 @@ func(v interface{}) string {
 	},
 },
 	}
-}
-
-
-func resourceVaultPolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func resourceVaultPolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).BackupConn(ctx)
-
-	policy, err := structure.NormalizeJsonString(d.Get("policy").(string))
-
-	if err != nil {
+	conn := meta.(*conns.AWSClient).BackupConn(ctx)	policy, err := structure.NormalizeJsonString(d.Get("policy").(string))	if err != nil {
 return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", policy, err)
-	}
-
-	name := d.Get("backup_vault_name").(string)
+	}	name := d.Get("backup_vault_name").(string)
 	input := &backup.PutBackupVaultAccessPolicyInput{
 BackupVaultName: aws.String(name),
 Policy: aws.String(policy),
-	}
-
-	_, err = conn.PutBackupVaultAccessPolicyWithContext(ctx, input)
-
-	if err != nil {
+	}	_, err = conn.PutBackupVaultAccessPolicyWithContext(ctx, input)	if err != nil {
 return sdkdiag.AppendErrorf(diags, "creating Backup Vault Policy (%s): %s", name, err)
-	}
-
-	d.SetId(name)
-
-	return append(diags, resourceVaultPolicyRead(ctx, d, meta)...)
-}
-
-
-func resourceVaultPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	d.SetId(name)	return append(diags, resourceVaultPolicyRead(ctx, d, meta)...)
+}func resourceVaultPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).BackupConn(ctx)
-
-	output, err := FindVaultAccessPolicyByName(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	conn := meta.(*conns.AWSClient).BackupConn(ctx)	output, err := FindVaultAccessPolicyByName(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 log.Printf("[WARN] Backup Vault Policy (%s) not found, removing from state", d.Id())
 d.SetId("")
 return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 return sdkdiag.AppendErrorf(diags, "reading Backup Vault Policy (%s): %s", d.Id(), err)
-	}
-
-	d.Set("backup_vault_arn", output.BackupVaultArn)
-	d.Set("backup_vault_name", output.BackupVaultName)
-
-	policyToSet, err := verify.SecondJSONUnlessEquivalent(d.Get("policy").(string), aws.StringValue(output.Policy))
-
-	if err != nil {
+	}	d.Set("backup_vault_arn", output.BackupVaultArn)
+	d.Set("backup_vault_name", output.BackupVaultName)	policyToSet, err := verify.SecondJSONUnlessEquivalent(d.Get("policy").(string), aws.StringValue(output.Policy))	if err != nil {
 return sdkdiag.AppendErrorf(diags, "while setting policy (%s), encountered: %s", policyToSet, err)
-	}
-
-	policyToSet, err = structure.NormalizeJsonString(policyToSet)
-
-	if err != nil {
+	}	policyToSet, err = structure.NormalizeJsonString(policyToSet)	if err != nil {
 return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", policyToSet, err)
-	}
-
-	d.Set("policy", policyToSet)
-
-	return diags
-}
-
-
-func resourceVaultPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+	}	d.Set("policy", policyToSet)	return diags
+}func resourceVaultPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).BackupConn(ctx)
-
-	log.Printf("[DEBUG] Deleting Backup Vault Policy (%s)", d.Id())
+	conn := meta.(*conns.AWSClient).BackupConn(ctx)	log.Printf("[DEBUG] Deleting Backup Vault Policy (%s)", d.Id())
 	_, err := conn.DeleteBackupVaultAccessPolicyWithContext(ctx, &backup.DeleteBackupVaultAccessPolicyInput{
 BackupVaultName: aws.String(d.Id()),
-	})
-
-	if tfawserr.ErrCodeEquals(err, backup.ErrCodeResourceNotFoundException) || tfawserr.ErrCodeEquals(err, errCodeAccessDeniedException) {
+	})	if tfawserr.ErrCodeEquals(err, backup.ErrCodeResourceNotFoundException) || tfawserr.ErrCodeEquals(err, errCodeAccessDeniedException) {
 return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 return sdkdiag.AppendErrorf(diags, "deleting Backup Vault Policy (%s): %s", d.Id(), err)
-	}
-
-	return diags
+	}	return diags
 }

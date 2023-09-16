@@ -43,13 +43,13 @@ func (d *dataSourceAccelerator) Schema(ctx context.Context, req datasource.Schem
 Attributes: map[string]schema.Attribute{
 	"arn": schema.StringAttribute{
 CustomType: fwtypes.ARNType,
-Optional:   true,
-Computed:   true,
+Optional:true,
+Computed:true,
 	},
 	"attributes": schema.ListAttribute{
 ElementType: types.ObjectType{
 	AttrTypes: map[string]attr.Type{
-"flow_logs_enabled":   types.BoolType,
+"flow_logs_enabled":types.BoolType,
 "flow_logs_s3_bucket": types.StringType,
 "flow_logs_s3_prefix": types.StringType,
 	},
@@ -79,7 +79,7 @@ Computed: true,
 ElementType: types.ObjectType{
 	AttrTypes: map[string]attr.Type{
 "ip_addresses": types.ListType{ElemType: types.StringType},
-"ip_family":    types.StringType,
+"ip_family": types.StringType,
 	},
 },
 Computed: true,
@@ -108,7 +108,8 @@ return
 	ignoreTagsConfig := d.Meta().IgnoreTagsConfig
 
 	var results []*globalaccelerator.Accelerator
-	err := conn.ListAcceleratorsPagesWithContext(ctx, &globalaccelerator.ListAcceleratorsInput{}, func(page *globalaccelerator.ListAcceleratorsOutput, lastPage bool) bool {
+	err := conn.ListAcceleratorsPagesWithContext(ctx, &globalaccelerator.ListAcceleratorsInput{}, 
+func(page *globalaccelerator.ListAcceleratorsOutput, lastPage bool) bool {
 if page == nil {
 	return !lastPage
 }
@@ -186,11 +187,10 @@ return
 
 	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
 }
-
 func (d *dataSourceAccelerator) flattenIPSetFramework(ctx context.Context, apiObject *globalaccelerator.IpSet) types.Object {
 	attributeTypes := map[string]attr.Type{
 "ip_addresses": types.ListType{ElemType: types.StringType},
-"ip_family":    types.StringType,
+"ip_family": types.StringType,
 	}
 
 	if apiObject == nil {
@@ -199,16 +199,15 @@ return types.ObjectNull(attributeTypes)
 
 	attributes := map[string]attr.Value{
 "ip_addresses": flex.FlattenFrameworkStringListLegacy(ctx, apiObject.IpAddresses),
-"ip_family":    flex.StringToFrameworkLegacy(ctx, apiObject.IpFamily),
+"ip_family": flex.StringToFrameworkLegacy(ctx, apiObject.IpFamily),
 	}
 
 	return types.ObjectValueMust(attributeTypes, attributes)
 }
-
 func (d *dataSourceAccelerator) flattenIPSetsFramework(ctx context.Context, apiObjects []*globalaccelerator.IpSet) types.List {
 	elementType := types.ObjectType{AttrTypes: map[string]attr.Type{
 "ip_addresses": types.ListType{ElemType: types.StringType},
-"ip_family":    types.StringType,
+"ip_family": types.StringType,
 	}}
 	var elements []attr.Value
 
@@ -222,10 +221,9 @@ elements = append(elements, d.flattenIPSetFramework(ctx, apiObject))
 
 	return types.ListValueMust(elementType, elements)
 }
-
 func (d *dataSourceAccelerator) flattenAcceleratorAttributesFramework(ctx context.Context, apiObject *globalaccelerator.AcceleratorAttributes) types.List {
 	attributeTypes := map[string]attr.Type{
-"flow_logs_enabled":   types.BoolType,
+"flow_logs_enabled":types.BoolType,
 "flow_logs_s3_bucket": types.StringType,
 "flow_logs_s3_prefix": types.StringType,
 	}
@@ -238,7 +236,7 @@ return types.ListNull(elementType)
 	}
 
 	attributes := map[string]attr.Value{
-"flow_logs_enabled":   flex.BoolToFrameworkLegacy(ctx, apiObject.FlowLogsEnabled),
+"flow_logs_enabled":flex.BoolToFrameworkLegacy(ctx, apiObject.FlowLogsEnabled),
 "flow_logs_s3_bucket": flex.StringToFrameworkLegacy(ctx, apiObject.FlowLogsS3Bucket),
 "flow_logs_s3_prefix": flex.StringToFrameworkLegacy(ctx, apiObject.FlowLogsS3Prefix),
 	}
@@ -247,15 +245,15 @@ return types.ListNull(elementType)
 }
 
 type dataSourceAcceleratorData struct {
-	ARN     fwtypes.ARN  `tfsdk:"arn"`
-	Attributes       types.List   `tfsdk:"attributes"`
+	ARNfwtypes.ARN  `tfsdk:"arn"`
+	Attributes.List`tfsdk:"attributes"`
 	DnsName types.String `tfsdk:"dns_name"`
 	DualStackDNSName types.String `tfsdk:"dual_stack_dns_name"`
-	Enabled types.Bool   `tfsdk:"enabled"`
-	HostedZoneID     types.String `tfsdk:"hosted_zone_id"`
+	Enabled types.Bool`tfsdk:"enabled"`
+	HostedZoneIDtypes.String `tfsdk:"hosted_zone_id"`
 	IDtypes.String `tfsdk:"id"`
-	IpAddressType    types.String `tfsdk:"ip_address_type"`
-	IpSets  types.List   `tfsdk:"ip_sets"`
-	Name    types.String `tfsdk:"name"`
-	Tags    types.Map    `tfsdk:"tags"`
+	IpAddressType types.String `tfsdk:"ip_address_type"`
+	IpSets  types.List`tfsdk:"ip_sets"`
+	Name types.String `tfsdk:"name"`
+	Tags types.Map `tfsdk:"tags"`
 }

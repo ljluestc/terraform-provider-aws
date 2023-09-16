@@ -15,7 +15,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccOpenSearchDomainPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
@@ -24,13 +23,13 @@ func TestAccOpenSearchDomainPolicy_basic(t *testing.T) {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Action": "es:*",
-            "Principal": "*",
-            "Effect": "Allow",
-            "Condition": {
+   "Action": "es:*",
+   "Principal": "*",
+   "Effect": "Allow",
+   "Condition": {
  "IpAddress": {"aws:SourceIp": "127.0.0.1/32"}
-            },
-            "Resource": "${aws_opensearch_domain.test.arn}"
+   },
+   "Resource": "${aws_opensearch_domain.test.arn}"
         }
     ]
 }`
@@ -38,13 +37,13 @@ func TestAccOpenSearchDomainPolicy_basic(t *testing.T) {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Action": "es:*",
-            "Principal": "*",
-            "Effect": "Allow",
-            "Condition": {
+   "Action": "es:*",
+   "Principal": "*",
+   "Effect": "Allow",
+   "Condition": {
  "IpAddress": {"aws:SourceIp": "127.0.0.1/32"}
-            },
-            "Resource": "%s"
+   },
+   "Resource": "%s"
         }
     ]
 }`
@@ -75,7 +74,6 @@ func TestAccOpenSearchDomainPolicy_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckPolicyMatch(resource, attr, expectedPolicy string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resource]
@@ -104,7 +102,6 @@ func testAccCheckPolicyMatch(resource, attr, expectedPolicy string) resource.Tes
 		return nil
 	}
 }
-
 func buildDomainARN(name, partition, accId, region string) (string, error) {
 	if partition == "" {
 		return "", fmt.Errorf("Unable to construct OpenSearch Domain ARN because of missing AWS partition")
@@ -115,7 +112,6 @@ func buildDomainARN(name, partition, accId, region string) (string, error) {
 	// arn:aws:es:us-west-2:187416307283:domain/example-name
 	return fmt.Sprintf("arn:%s:es:%s:%s:domain/%s", partition, region, accId, name), nil
 }
-
 func testAccDomainPolicyConfig_basic(randInt int, policy string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {

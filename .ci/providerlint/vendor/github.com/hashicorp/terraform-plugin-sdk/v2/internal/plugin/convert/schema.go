@@ -1,22 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package convert
-
-import (
+// SPDX-License-Identifier: MPL-2.0package convertimport (
 	"context"
 	"fmt"
 	"reflect"
-	"sort"
-
-	"github.com/hashicorp/go-cty/cty"
+	"sort"	"github.com/hashicorp/go-cty/cty"
 	"github.com/hashicorp/terraform-plugin-go/tfprotov5"
 	"github.com/hashicorp/terraform-plugin-go/tftypes"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/configs/configschema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/logging"
 )
-
-
  tftypeFromCtyType(in cty.Type) (tftypes.Type, error) {
 	switch {
 	case in.Equals(cty.String):
@@ -78,8 +70,6 @@ import (
 	}
 	return nil, fmt.Errorf("unknown cty type %s", in.GoString())
 }
-
-
  ctyTypeFromTFType(in tftypes.Type) (cty.Type, error) {
 	switch {
 	case in.Is(tftypes.String):
@@ -130,23 +120,15 @@ import (
 		return cty.Object(attrTypes), nil
 	}
 	return cty.Type{}, fmt.Errorf("unknown tftypes.Type %s", in)
-}
-
-onfigSchemaToProto takes a *configschema.Block and converts it to a
-// tfprotov5.SchemaBlock for a grpc response.
-
- ConfigSchemaToProto(ctx context.Context, b *configschema.Block) *tfprotov5.SchemaBlock {
+}onfigSchemaToProto takes a *configschema.Block and converts it to a
+// tfprotov5.SchemaBlock for a grpc response. ConfigSchemaToProto(ctx context.Context, b *configschema.Block) *tfprotov5.SchemaBlock {
 	block := &tfprotov5.SchemaBlock{
 		Description:     b.Description,
 		DescriptionKind: protoStringKind(ctx, b.DescriptionKind),
 		Deprecated:      b.Deprecated,
-	}
-
-	for _, name := range sortedKeys(b.Attributes) {
-		a := b.Attributes[name]
-
-		attr := &tfprotov5.SchemaAttribute{
-			Name:            name,
+	}	for _, name := range sortedKeys(b.Attributes) {
+		a := b.Attributes[name]		attr := &tfprotov5.SchemaAttribute{
+			Name:   name,
 			Description:     a.Description,
 			DescriptionKind: protoStringKind(ctx, a.DescriptionKind),
 			Optional:        a.Optional,
@@ -154,26 +136,16 @@ onfigSchemaToProto takes a *configschema.Block and converts it to a
 			Required:        a.Required,
 			Sensitive:       a.Sensitive,
 			Deprecated:      a.Deprecated,
-		}
-
-		var err error
+		}		var err error
 		attr.Type, err = tftypeFromCtyType(a.Type)
 		if err != nil {
 			panic(err)
-		}
-
-		block.Attributes = append(block.Attributes, attr)
-	}
-
-	for _, name := range sortedKeys(b.BlockTypes) {
+		}		block.Attributes = append(block.Attributes, attr)
+	}	for _, name := range sortedKeys(b.BlockTypes) {
 		b := b.BlockTypes[name]
 		block.BlockTypes = append(block.BlockTypes, protoSchemaNestedBlock(ctx, name, b))
-	}
-
-urn block
+	}urn block
 }
-
-
  protoStringKind(ctx context.Context, k configschema.StringKind) tfprotov5.StringKind {
 	switch k {
 	default:
@@ -185,8 +157,6 @@ urn block
 turn tfprotov5.StringKindMarkdown
 	}
 }
-
-
  protoSchemaNestedBlock(ctx context.Context, name string, b *configschema.NestedBlock) *tfprotov5.SchemaNestedBlock {
 	var nesting tfprotov5.SchemaNestedBlockNestingMode
 	switch b.Nesting {
@@ -208,24 +178,14 @@ turn tfprotov5.StringKindMarkdown
 		Block:    ConfigSchemaToProto(ctx, &b.Block),
 		Nesting:  nesting,
 		MinItems: int64(b.MinItems),
-		MaxItems: int64(b.MaxItems),
-
-}
-
-// ProtoToConfigSchema takes the GetSchema_Block from a grpc response and converts it
-// to a terraform *configschema.Block.
-
- ProtoToConfigSchema(ctx context.Context, b *tfprotov5.SchemaBlock) *configschema.Block {
+		MaxItems: int64(b.MaxItems),}// ProtoToConfigSchema takes the GetSchema_Block from a grpc response and converts it
+// to a terraform *configschema.Block. ProtoToConfigSchema(ctx context.Context, b *tfprotov5.SchemaBlock) *configschema.Block {
 	block := &configschema.Block{
 		Attributes: make(map[string]*configschema.Attribute),
-		BlockTypes: make(map[string]*configschema.NestedBlock),
-
-		Description:     b.Description,
+		BlockTypes: make(map[string]*configschema.NestedBlock),		Description:     b.Description,
 		DescriptionKind: schemaStringKind(ctx, b.DescriptionKind),
 		Deprecated:      b.Deprecated,
-	}
-
-	for _, a := range b.Attributes {
+	}	for _, a := range b.Attributes {
 		attr := &configschema.Attribute{
 			Description:     a.Description,
 			DescriptionKind: schemaStringKind(ctx, a.DescriptionKind),
@@ -234,25 +194,15 @@ turn tfprotov5.StringKindMarkdown
 			Computed:        a.Computed,
 			Sensitive:       a.Sensitive,
 			Deprecated:      a.Deprecated,
-		}
-
-		var err error
+		}		var err error
 		attr.Type, err = ctyTypeFromTFType(a.Type)
 		if err != nil {
 			panic(err)
-		}
-
-		block.Attributes[a.Name] = attr
-	}
-
-	for _, b := range b.BlockTypes {
+		}		block.Attributes[a.Name] = attr
+	}	for _, b := range b.BlockTypes {
 ock.BlockTypes[b.TypeName] = schemaNestedBlock(ctx, b)
-	}
-
-	return block
+	}	return block
 }
-
-
  schemaStringKind(ctx context.Context, k tfprotov5.StringKind) configschema.StringKind {
 	switch k {
 	default:
@@ -264,8 +214,6 @@ e tfprotov5.StringKindPlain:
 		return configschema.StringMarkdown
 	}
 }
-
-
  schemaNestedBlock(ctx context.Context, b *tfprotov5.SchemaNestedBlock) *configschema.NestedBlock {
 	var nesting configschema.NestingMode
 	switch b.Nesting {
@@ -282,32 +230,20 @@ e tfprotov5.StringKindPlain:
 	default:
 		// In all other cases we'll leave it as the zero value (invalid) and
 		// let the caller validate it and deal with this.
-	}
-
-	nb := &configschema.NestedBlock{
+	}	nb := &configschema.NestedBlock{
 		Nesting:  nesting,
 		MinItems: int(b.MinItems),
 		MaxItems: int(b.MaxItems),
-	}
-
-ted := ProtoToConfigSchema(ctx, b.Block)
+	}ted := ProtoToConfigSchema(ctx, b.Block)
 	nb.Block = *nested
 	return nb
-}
-
-// sortedKeys returns the lexically sorted keys from the given map. This is
+}// sortedKeys returns the lexically sorted keys from the given map. This is
 // used to make schema conversions are deterministic. This panics if map keys
-// are not a string.
-
- sortedKeys(m interface{}) []string {
+// are not a string. sortedKeys(m interface{}) []string {
 	v := reflect.ValueOf(m)
-	keys := make([]string, v.Len())
-
-	mapKeys := v.MapKeys()
+	keys := make([]string, v.Len())	mapKeys := v.MapKeys()
 	for i, k := range mapKeys {
 		keys[i] = k.Interface().(string)
-	}
-
-	sort.Strings(keys)
+	}	sort.Strings(keys)
 	return keys
 }

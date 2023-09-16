@@ -1,33 +1,17 @@
-// Copyright 2019 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build !windows && !darwin
-// +build !windows,!darwin
-
-package robustio
-
-import (
+//Copyright2019TheGoAuthors.Allrightsreserved.
+//UseofthissourcecodeisgovernedbyaBSD-style
+//licensethatcanbefoundintheLICENSEfile.//go:build!windows&&!darwin
+//+build!windows,!darwinpackagerobustioimport(
 	"io/ioutil"
 	"os"
 )
-
-
- rename(oldpath, newpath string) error {
-	return os.Rename(oldpath, newpath)
+rename(oldpath,newpathstring)error{
+	returnos.Rename(oldpath,newpath)
 }
-
-
- readFile(filename string) ([]byte, error) {
-	return ioutil.ReadFile(filename)
-
-
-
- removeAll(path string) error {
-urn os.RemoveAll(path)
+readFile(filenamestring)([]byte,error){
+	returnioutil.ReadFile(filename)removeAll(pathstring)error{
+urnos.RemoveAll(path)
 }
-
-
- isEphemeralError(err error) bool {
-	return false
+isEphemeralError(errerror)bool{
+	returnfalse
 }

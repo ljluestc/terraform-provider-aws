@@ -21,7 +21,7 @@ func TestAccRedshiftServerlessNamespaceDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -51,7 +51,7 @@ func TestAccRedshiftServerlessNamespaceDataSource_iamRole(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -77,7 +77,7 @@ func TestAccRedshiftServerlessNamespaceDataSource_user(t *testing.T) {
 	username := "admin_user"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -101,7 +101,7 @@ func TestAccRedshiftServerlessNamespaceDataSource_logExports(t *testing.T) {
 	logExport := "userlog"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -138,26 +138,26 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-          "ec2.amazonaws.com"
-        ]
-      },
-      "Action": [
-        "sts:AssumeRole"
-      ]
-    }
+{
+ "Effect": "Allow",
+ "Principal": {
+   "Service": [
+"ec2.amazonaws.com"
+   ]
+ },
+ "Action": [
+   "sts:AssumeRole"
+ ]
+}
   ]
 }
 EOF
 }
 
 resource "aws_redshiftserverless_namespace" "test" {
-  namespace_name       = %[1]q
+  namespace_name  = %[1]q
   default_iam_role_arn = aws_iam_role.test.arn
-  iam_roles            = [aws_iam_role.test.arn]
+  iam_roles  = [aws_iam_role.test.arn]
 }
 
 data "aws_redshiftserverless_namespace" "test" {
@@ -169,8 +169,8 @@ data "aws_redshiftserverless_namespace" "test" {
 func testAccNamespaceDataSourceConfig_user(rName string, username string) string {
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
-  namespace_name      = %[1]q
-  admin_username      = %[2]q
+  namespace_name = %[1]q
+  admin_username = %[2]q
   admin_user_password = "Test_Password_123"
 }
 
@@ -184,7 +184,7 @@ func testAccNamespaceDataSourceConfig_logExports(rName string, logExport string)
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
-  log_exports    = [%[2]q]
+  log_exports= [%[2]q]
 }
 
 data "aws_redshiftserverless_namespace" "test" {

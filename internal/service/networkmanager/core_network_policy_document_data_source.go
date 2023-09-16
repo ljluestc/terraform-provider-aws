@@ -49,7 +49,7 @@ func DataSourceCoreNetworkPolicyDocument() *schema.Resource {
 							Optional: true,
 						},
 						"rule_number": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IntBetween(1, 65535),
 						},
@@ -167,7 +167,7 @@ func DataSourceCoreNetworkPolicyDocument() *schema.Resource {
 										ValidateFunc: verify.ValidRegionName,
 									},
 									"asn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: verify.Valid4ByteASN,
 									},
@@ -224,7 +224,7 @@ func DataSourceCoreNetworkPolicyDocument() *schema.Resource {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: verify.ValidRegionName,
 							},
 						},

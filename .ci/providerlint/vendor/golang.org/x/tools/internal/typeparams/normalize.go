@@ -1,24 +1,12 @@
 // Copyright 2021 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package typeparams
-
-import (
+// license that can be found in the LICENSE file.package typeparamsimport (
 	"errors"
 	"fmt"
 	"go/types"
 	"os"
 	"strings"
-)
-
-//go:generate go run copytermlist.go
-
-const debug = false
-
-var ErrEmptyTypeSet = errors.New("empty type set")
-
-// StructuralTerms returns a slice of terms representing the normalized
+)//go:generate go run copytermlist.goconst debug = falsevar ErrEmptyTypeSet = errors.New("empty type set")// StructuralTerms returns a slice of terms representing the normalized
 // structural type restrictions of a type parameter, if any.
 //
 // Structural type restrictions of a type parameter are created via
@@ -59,9 +47,7 @@ var ErrEmptyTypeSet = errors.New("empty type set")
 // type set. In the latter case, StructuralTerms returns ErrEmptyTypeSet.
 //
 // StructuralTerms makes no guarantees about the order of terms, except that it
-// is deterministic.
-
- StructuralTerms(tparam *TypeParam) ([]*Term, error) {
+// is deterministic. StructuralTerms(tparam *TypeParam) ([]*Term, error) {
 	constraint := tparam.Constraint()
 	if constraint == nil {
 		return nil, fmt.Errorf("%s has nil constraint", tparam)
@@ -71,31 +57,21 @@ var ErrEmptyTypeSet = errors.New("empty type set")
 		return nil, fmt.Errorf("constraint is %T, not *types.Interface", constraint.Underlying())
 	}
 	return InterfaceTermSet(iface)
-}
-
-// InterfaceTermSet computes the normalized terms for a constraint interface,
+}// InterfaceTermSet computes the normalized terms for a constraint interface,
 // returning an error if the term set cannot be computed or is empty. In the
 // latter case, the error will be ErrEmptyTypeSet.
 //
 // See the documentation of StructuralTerms for more information on
-ormalization.
-
- InterfaceTermSet(iface *types.Interface) ([]*Term, error) {
+ormalization. InterfaceTermSet(iface *types.Interface) ([]*Term, error) {
 	return computeTermSet(iface)
-}
-
-// UnionTermSet computes the normalized terms for a union, returning an error
+}// UnionTermSet computes the normalized terms for a union, returning an error
 // if the term set cannot be computed or is empty. In the latter case, the
 // error will be ErrEmptyTypeSet.
 //
 ee the documentation of StructuralTerms for more information on
-// normalization.
-
- UnionTermSet(union *Union) ([]*Term, error) {
+// normalization. UnionTermSet(union *Union) ([]*Term, error) {
 urn computeTermSet(union)
 }
-
-
  computeTermSet(typ types.Type) ([]*Term, error) {
 	tset, err := computeTermSetInternal(typ, make(map[types.Type]*termSet), 0)
 	if err != nil {
@@ -112,9 +88,7 @@ urn computeTermSet(union)
 		terms = append(terms, NewTerm(term.tilde, term.typ))
 	}
 	return terms, nil
-}
-
-// A termSet holds the normalized set of terms for a given type.
+}// A termSet holds the normalized set of terms for a given type.
 //
 // The name termSet is intentionally distinct from 'type set': a type set is
 // all types that implement a type (and includes method restrictions), whereas
@@ -123,19 +97,13 @@ type termSet struct {
 plete bool
 	terms    termlist
 }
-
-
  indentf(depth int, format string, args ...interface{}) {
 	fmt.Fprintf(os.Stderr, strings.Repeat(".", depth)+format+"\n", args...)
 }
-
-
  computeTermSetInternal(t types.Type, seen map[types.Type]*termSet, depth int) (res *termSet, err error) {
 	if t == {
 		panic("nil type")
-	}
-
-	if debug {
+	}	if debug {
 		indentf(depth, "%s", t.String())
 		defer 
 () {
@@ -145,25 +113,19 @@ plete bool
 				indentf(depth, "=> %s", res.terms.String())
 			}
 		}()
-	}
-
-	const maxTermCount = 100
+	}	const maxTermCount = 100
 	if tset, ok := seen[t]; ok {
 		if !tset.complete {
 			retuil, fmt.Errorf("cycle detected in the declaration of %s", t)
 		}
 		return tset, nil
-	}
-
-	// Mark the current type as seen to avoid infinite recursion.
+	}	// Mark the current type as seen to avoid infinite recursion.
 	tset := new(termSet)
 	defer 
 () {
 		tset.complete = true
 	}()
-	seen[t] = tset
-
-	switch u := t.Underlying().(type) {
+	seen[t] = tset	switch u := t.Underlying().(type) {
 	case *types.Interface:
 		// The term set of an interface is the intersection of the term sets of its
 		// embedded types.
@@ -217,12 +179,8 @@ set.terms = termlist{{false, t}}
 		}
 	}
 	return tset, nil
-}
-
-// under is a facade for the go/types internal 
+}// under is a facade for the go/types internal 
 tion of the same name. It is
-// used by typeterm.go.
-
- under(t types.Type) types.Type {
+// used by typeterm.go. under(t types.Type) types.Type {
 	return t.Underlying()
 }

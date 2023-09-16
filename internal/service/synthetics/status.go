@@ -12,8 +12,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func statusCanaryState(ctx context.Context, conn *synthetics.Synthetics, name string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindCanaryByName(ctx, conn, name)
 
 		if tfresource.NotFound(err) {

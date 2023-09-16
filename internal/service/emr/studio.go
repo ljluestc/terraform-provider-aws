@@ -29,7 +29,7 @@ import (
 func ResourceStudio() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceStudioCreate,
-ReadWithoutTimeout:   resourceStudioRead,
+ReadWithoutTimeout: resourceStudioRead,
 UpdateWithoutTimeout: resourceStudioUpdate,
 DeleteWithoutTimeout: resourceStudioDelete,
 Importer: &schema.ResourceImporter{
@@ -40,81 +40,81 @@ CustomizeDiff: verify.SetTagsDiff,
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"auth_mode": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type: schema.TypeString,
+Required: true,
+ForceNew: true,
 Validate
 func: validation.StringInSlice(emr.AuthMode_Values(), false),
 	},
 	"default_s3_location": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 	},
 	"description": {
-Type:         schema.TypeString,
-Optional:     true,
+Type: schema.TypeString,
+Optional: true,
 Validate
 func: validation.StringLenBetween(0, 256),
 	},
 	"engine_security_group_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
 	"idp_auth_url": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 ForceNew: true,
 	},
 	"idp_relay_state_parameter_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 ForceNew: true,
 	},
 	"name": {
-Type:         schema.TypeString,
-Required:     true,
+Type: schema.TypeString,
+Required: true,
 Validate
 func: validation.StringLenBetween(1, 256),
 	},
 	"service_role": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type: schema.TypeString,
+Required: true,
+ForceNew: true,
 Validate
 func: verify.ValidARN,
 	},
 	"subnet_ids": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 MaxItems: 5,
 MinItems: 1,
 Required: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"user_role": {
-Type:         schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Type: schema.TypeString,
+Optional: true,
+ForceNew: true,
 Validate
 func: verify.ValidARN,
 	},
 	"url": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"vpc_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
 	"workspace_security_group_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
@@ -128,14 +128,14 @@ func resourceStudioCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
 	input := &emr.CreateStudioInput{
-AuthMode:  aws.String(d.Get("auth_mode").(string)),
-DefaultS3Location:        aws.String(d.Get("default_s3_location").(string)),
-EngineSecurityGroupId:    aws.String(d.Get("engine_security_group_id").(string)),
-Name:      aws.String(d.Get("name").(string)),
-ServiceRole:              aws.String(d.Get("service_role").(string)),
+AuthMode:aws.String(d.Get("auth_mode").(string)),
+DefaultS3Location:aws.String(d.Get("default_s3_location").(string)),
+EngineSecurityGroupId:aws.String(d.Get("engine_security_group_id").(string)),
+Name:aws.String(d.Get("name").(string)),
+ServiceRole:aws.String(d.Get("service_role").(string)),
 SubnetIds: flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
-Tags:      getTagsIn(ctx),
-VpcId:     aws.String(d.Get("vpc_id").(string)),
+Tags:getTagsIn(ctx),
+VpcId: aws.String(d.Get("vpc_id").(string)),
 WorkspaceSecurityGroupId: aws.String(d.Get("workspace_security_group_id").(string)),
 	}
 

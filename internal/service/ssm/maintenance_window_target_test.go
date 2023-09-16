@@ -26,10 +26,10 @@ func TestAccSSMMaintenanceWindowTarget_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ssm_maintenance_window_target.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTargetDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTargetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTargetConfig_basic(rName),
@@ -63,10 +63,10 @@ func TestAccSSMMaintenanceWindowTarget_noNameOrDescription(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ssm_maintenance_window_target.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTargetDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTargetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTargetConfig_noNameOrDescription(rName),
@@ -95,10 +95,10 @@ func TestAccSSMMaintenanceWindowTarget_validation(t *testing.T) {
 	ctx := acctest.Context(t)
 	name := sdkacctest.RandString(10)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTargetDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTargetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccMaintenanceWindowTargetConfig_basic2(name, "Bäd Name!@#$%^", "good description"),
@@ -122,10 +122,10 @@ func TestAccSSMMaintenanceWindowTarget_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ssm_maintenance_window_target.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTargetDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTargetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTargetConfig_basic(rName),
@@ -179,10 +179,10 @@ func TestAccSSMMaintenanceWindowTarget_resourceGroup(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ssm_maintenance_window_target.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTargetDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTargetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTargetConfig_basicResourceGroup(rName),
@@ -215,10 +215,10 @@ func TestAccSSMMaintenanceWindowTarget_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ssm_maintenance_window_target.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTargetDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTargetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTargetConfig_basic(rName),
@@ -238,10 +238,10 @@ func TestAccSSMMaintenanceWindowTarget_Disappears_window(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_ssm_maintenance_window_target.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowTargetDestroy(ctx),
+		CheckDestroy:    testAccCheckMaintenanceWindowTargetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMaintenanceWindowTargetConfig_basic(rName),
@@ -340,7 +340,7 @@ resource "aws_ssm_maintenance_window" "test" {
 }
 
 resource "aws_ssm_maintenance_window_target" "test" {
-  name          = %[1]q
+  name = %[1]q
   description   = "This resource is for test purpose only"
   window_id     = aws_ssm_maintenance_window.test.id
   resource_type = "INSTANCE"
@@ -368,7 +368,7 @@ resource "aws_ssm_maintenance_window" "test" {
 }
 
 resource "aws_ssm_maintenance_window_target" "test" {
-  name          = %[1]q
+  name = %[1]q
   description   = "This resource is for test purpose only"
   window_id     = aws_ssm_maintenance_window.test.id
   resource_type = "RESOURCE_GROUP"
@@ -422,9 +422,9 @@ resource "aws_ssm_maintenance_window" "test" {
 }
 
 resource "aws_ssm_maintenance_window_target" "test" {
-  name              = %[1]q
+  name     = %[1]q
   description       = "This resource is for test purpose only - updated"
-  window_id         = aws_ssm_maintenance_window.test.id
+  window_id= aws_ssm_maintenance_window.test.id
   resource_type     = "INSTANCE"
   owner_information = "something"
 
@@ -451,9 +451,9 @@ resource "aws_ssm_maintenance_window" "test" {
 }
 
 resource "aws_ssm_maintenance_window_target" "test" {
-  name              = %[2]q
+  name     = %[2]q
   description       = %[3]q
-  window_id         = aws_ssm_maintenance_window.test.id
+  window_id= aws_ssm_maintenance_window.test.id
   resource_type     = "INSTANCE"
   owner_information = "something"
 

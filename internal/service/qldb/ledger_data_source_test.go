@@ -43,11 +43,11 @@ func testAccLedgerDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_qldb_ledger" "test" {
   name = %[1]q
-  permissions_mode    = "STANDARD"
+  permissions_mode= "STANDARD"
   deletion_protection = false
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 

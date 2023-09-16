@@ -1,75 +1,41 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfexec
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfexecimport (
 	"context"
 	"fmt"
 	"os/exec"
 	"strconv"
-)
-
-type workspaceDeleteConfig struct {
+)type workspaceDeleteConfig struct {
 	lock        bool
 	lockTimeout string
 	force       bool
-}
-
-var defaultWorkspaceDeleteOptions = workspaceDeleteConfig{
+}var defaultWorkspaceDeleteOptions = workspaceDeleteConfig{
 	lock:        true,
 	lockTimeout: "0s",
-}
-
-// WorkspaceDeleteCmdOption represents options that are applicable to the WorkspaceDelete method.
+}// WorkspaceDeleteCmdOption represents options that are applicable to the WorkspaceDelete method.
 type WorkspaceDeleteCmdOption interface {
 	configureWorkspaceDelete(*workspaceDeleteConfig)
 }
-
-
  (opt *LockOption) configureWorkspaceDelete(conf *workspaceDeleteConfig) {
 	conf.lock = opt.lock
 }
-
-
  (opt *LockTimeoutOption) configureWorkspaceDelete(conf *workspaceDeleteConfig) {
-	conf.lockTimeout = opt.timeout
-
-
-
- (opt *ForceOption) configureWorkspaceDelete(conf *workspaceDeleteConfig) {
+	conf.lockTimeout = opt.timeout (opt *ForceOption) configureWorkspaceDelete(conf *workspaceDeleteConfig) {
 	conf.force = opt.force
-
-
-// WorkspaceDelete represents the workspace delete subcommand to the Terraform CLI.
-
- (tf *Terraform) WorkspaceDelete(ctx context.Context, workspace string, opts ...WorkspaceDeleteCmdOption) error {
+// WorkspaceDelete represents the workspace delete subcommand to the Terraform CLI. (tf *Terraform) WorkspaceDelete(ctx context.Context, workspace string, opts ...WorkspaceDeleteCmdOption) error {
 	cmd, err := tf.workspaceDeleteCmd(ctx, workspace, opts...)
 	if err != nil {
-		return err
-
-	return tf.runTerraformCmd(ctx, cmd)
+		return err	return tf.runTerraformCmd(ctx, cmd)
 }
-
-
  (tf *Terraform) workspaceDeleteCmd(ctx context.Context, workspace string, opts ...WorkspaceDeleteCmdOption) (*exec.Cmd, error) {
-	c := defaultWorkspaceDeleteOptions
-
-	for _, o := range opts {
+	c := defaultWorkspaceDeleteOptions	for _, o := range opts {
 		switch o.(type) {
 		case *LockOption, *LockTimeoutOption:
 			err := tf.compatible(ctx, tf0_12_0, nil)
 			if err != nil {
 				return nil, fmt.Errorf("-lock and -lock-timeout were added to workspace delete in Terraform 0.12: %w", err)
 			}
-		}
-
-		o.configureWorkspaceDelete(&c)
-	}
-
-	args := []string{"workspace", "delete", "-no-color"}
-
-	if c.force {
+		}		o.configureWorkspaceDelete(&c)
+	}	args := []string{"workspace", "delete", "-no-color"}	if c.force {
 		args = append(args, "-force")
 	}
 	if c.lockTimeout != "" && c.lockTimeout != defaultWorkspaceDeleteOptions.lockTimeout {
@@ -79,11 +45,5 @@ type WorkspaceDeleteCmdOption interface {
 	if !c.lock {
 		// only pass if false, so we don't need to worry about the 0.11 version check
 		args = append(args, "-lock="+strconv.FormatBool(c.lock))
-	}
-
-	args = append(args, workspace)
-
-	cmd := tf.buildTerraformCmd(ctx, nil, args...)
-
-	return cmd, nil
+	}	args = append(args, workspace)	cmd := tf.buildTerraformCmd(ctx, nil, args...)	return cmd, nil
 }

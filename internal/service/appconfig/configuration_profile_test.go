@@ -27,7 +27,7 @@ func TestAccAppConfigConfigurationProfile_basic(t *testing.T) {
 	appResourceName := "aws_appconfig_application.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
@@ -47,8 +47,8 @@ func TestAccAppConfigConfigurationProfile_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -61,7 +61,7 @@ func TestAccAppConfigConfigurationProfile_disappears(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
@@ -84,7 +84,7 @@ func TestAccAppConfigConfigurationProfile_Validators_json(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
@@ -100,8 +100,8 @@ func TestAccAppConfigConfigurationProfile_Validators_json(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -111,13 +111,13 @@ func TestAccAppConfigConfigurationProfile_Validators_json(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "validator.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "validator.*", map[string]string{
 						"content": "",
-						"type":    appconfig.ValidatorTypeJsonSchema,
+						"type":appconfig.ValidatorTypeJsonSchema,
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -138,7 +138,7 @@ func TestAccAppConfigConfigurationProfile_Validators_lambda(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
@@ -155,8 +155,8 @@ func TestAccAppConfigConfigurationProfile_Validators_lambda(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -177,7 +177,7 @@ func TestAccAppConfigConfigurationProfile_Validators_multiple(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
@@ -189,7 +189,7 @@ func TestAccAppConfigConfigurationProfile_Validators_multiple(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "validator.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "validator.*", map[string]string{
 						"content": "{\"$schema\":\"http://json-schema.org/draft-05/schema#\",\"description\":\"BasicFeatureToggle-1\",\"title\":\"$id$\"}",
-						"type":    appconfig.ValidatorTypeJsonSchema,
+						"type":appconfig.ValidatorTypeJsonSchema,
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "validator.*.content", "aws_lambda_function.test", "arn"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "validator.*", map[string]string{
@@ -198,8 +198,8 @@ func TestAccAppConfigConfigurationProfile_Validators_multiple(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -213,7 +213,7 @@ func TestAccAppConfigConfigurationProfile_updateName(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
@@ -233,8 +233,8 @@ func TestAccAppConfigConfigurationProfile_updateName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -248,7 +248,7 @@ func TestAccAppConfigConfigurationProfile_updateDescription(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
@@ -261,8 +261,8 @@ func TestAccAppConfigConfigurationProfile_updateDescription(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -273,8 +273,8 @@ func TestAccAppConfigConfigurationProfile_updateDescription(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -287,7 +287,7 @@ func TestAccAppConfigConfigurationProfile_tags(t *testing.T) {
 	resourceName := "aws_appconfig_configuration_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConfigurationProfileDestroy(ctx),
@@ -301,8 +301,8 @@ func TestAccAppConfigConfigurationProfile_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -342,7 +342,7 @@ func testAccCheckConfigurationProfileDestroy(ctx context.Context) resource.TestC
 			}
 
 			input := &appconfig.GetConfigurationProfileInput{
-				ApplicationId:          aws.String(appID),
+				ApplicationId: aws.String(appID),
 				ConfigurationProfileId: aws.String(confProfID),
 			}
 
@@ -385,7 +385,7 @@ func testAccCheckConfigurationProfileExists(ctx context.Context, resourceName st
 		conn := acctest.Provider.Meta().(*conns.AWSClient).AppConfigConn(ctx)
 
 		output, err := conn.GetConfigurationProfileWithContext(ctx, &appconfig.GetConfigurationProfileInput{
-			ApplicationId:          aws.String(appID),
+			ApplicationId: aws.String(appID),
 			ConfigurationProfileId: aws.String(confProfID),
 		})
 
@@ -407,7 +407,7 @@ func testAccConfigurationProfileConfig_name(rName string) string {
 		fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
-  name           = %q
+  name  = %q
   location_uri   = "hosted"
 }
 `, rName))
@@ -419,8 +419,8 @@ func testAccConfigurationProfileConfig_description(rName, description string) st
 		fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
-  name           = %[1]q
-  description    = %[2]q
+  name  = %[1]q
+  description= %[2]q
   location_uri   = "hosted"
 }
 `, rName, description))
@@ -432,25 +432,25 @@ func testAccConfigurationProfileConfig_validatorJSON(rName string) string {
 		fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
-  name           = %q
+  name  = %q
   location_uri   = "hosted"
 
   validator {
-    content = jsonencode({
-      "$schema"            = "http://json-schema.org/draft-04/schema#"
-      title = "$id$"
-      description          = "BasicFeatureToggle-1"
-      type  = "object"
-      additionalProperties = false
-      patternProperties = {
-        "[^\\s]+$" = {
-          type = "boolean"
-        }
-      }
-      minProperties = 1
-    })
+content = jsonencode({
+  "$schema"   = "http://json-schema.org/draft-04/schema#"
+  title = "$id$"
+  description = "BasicFeatureToggle-1"
+  type  = "object"
+  additionalProperties = false
+  patternProperties = {
+"[^\\s]+$" = {
+ type = "boolean"
+}
+  }
+  minProperties = 1
+})
 
-    type = "JSON_SCHEMA"
+type = "JSON_SCHEMA"
   }
 }
 `, rName))
@@ -462,11 +462,11 @@ func testAccConfigurationProfileConfig_validatorNoJSONContent(rName string) stri
 		fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
-  name           = %q
+  name  = %q
   location_uri   = "hosted"
 
   validator {
-    type = "JSON_SCHEMA"
+type = "JSON_SCHEMA"
   }
 }
 `, rName))
@@ -483,25 +483,25 @@ resource "aws_iam_role" "lambda" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.${data.aws_partition.current.dns_suffix}"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+  "Action": "sts:AssumeRole",
+  "Principal": {
+"Service": "lambda.${data.aws_partition.current.dns_suffix}"
+  },
+  "Effect": "Allow",
+  "Sid": ""
+}
   ]
 }
 EOF
 }
 
 resource "aws_lambda_function" "test" {
-  filename      = "test-fixtures/lambdatest.zip"
+  filename  = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.lambda.arn
-  handler       = "exports.example"
-  runtime       = "nodejs16.x"
+  role = aws_iam_role.lambda.arn
+  handler   = "exports.example"
+  runtime   = "nodejs16.x"
 }
 `, rName)
 }
@@ -513,12 +513,12 @@ func testAccConfigurationProfileConfig_validatorLambda(rName string) string {
 		fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
-  name           = %[1]q
+  name  = %[1]q
   location_uri   = "hosted"
 
   validator {
-    content = aws_lambda_function.test.arn
-    type    = "LAMBDA"
+content = aws_lambda_function.test.arn
+type= "LAMBDA"
   }
 }
 `, rName))
@@ -531,22 +531,22 @@ func testAccConfigurationProfileConfig_validatorMultiple(rName string) string {
 		fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
-  name           = %[1]q
+  name  = %[1]q
   location_uri   = "hosted"
 
   validator {
-    content = jsonencode({
-      "$schema"   = "http://json-schema.org/draft-05/schema#"
-      title       = "$id$"
-      description = "BasicFeatureToggle-1"
-    })
+content = jsonencode({
+  "$schema"   = "http://json-schema.org/draft-05/schema#"
+  title   = "$id$"
+  description = "BasicFeatureToggle-1"
+})
 
-    type = "JSON_SCHEMA"
+type = "JSON_SCHEMA"
   }
 
   validator {
-    content = aws_lambda_function.test.arn
-    type    = "LAMBDA"
+content = aws_lambda_function.test.arn
+type= "LAMBDA"
   }
 }
 `, rName))
@@ -559,10 +559,10 @@ func testAccConfigurationProfileConfig_tags1(rName, tagKey1, tagValue1 string) s
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
   location_uri   = "hosted"
-  name           = %[1]q
+  name  = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -575,11 +575,11 @@ func testAccConfigurationProfileConfig_tags2(rName, tagKey1, tagValue1, tagKey2,
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
   location_uri   = "hosted"
-  name           = %[1]q
+  name  = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

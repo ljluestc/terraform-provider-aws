@@ -22,7 +22,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccLightsailBucket_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -61,7 +60,6 @@ func TestAccLightsailBucket_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailBucket_BundleId(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -101,7 +99,6 @@ func TestAccLightsailBucket_BundleId(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailBucket_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -128,7 +125,6 @@ func TestAccLightsailBucket_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailBucket_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_bucket.test"
@@ -177,7 +173,6 @@ func TestAccLightsailBucket_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckBucketExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -204,7 +199,6 @@ func testAccCheckBucketExists(ctx context.Context, resourceName string) resource
 		return nil
 	}
 }
-
 func testAccCheckBucketDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
@@ -230,7 +224,6 @@ func testAccCheckBucketDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccBucketConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_bucket" "test" {
@@ -239,7 +232,6 @@ resource "aws_lightsail_bucket" "test" {
 }
 `, rName)
 }
-
 func testAccBucketConfig_bundleId(rName string, rBundleId string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_bucket" "test" {
@@ -248,7 +240,6 @@ resource "aws_lightsail_bucket" "test" {
 }
 `, rName, rBundleId)
 }
-
 func testAccBucketConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_bucket" "test" {
@@ -260,7 +251,6 @@ resource "aws_lightsail_bucket" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccBucketConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_bucket" "test" {

@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_organizations_organizational_unit", name="Organizational Unit")
 // @Tags(identifierAttribute="id")
+
 func ResourceOrganizationalUnit() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceOrganizationalUnitCreate,
@@ -67,12 +68,12 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringLenBetween(1, 128),
 	},
 	"parent_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile("^(r-[0-9a-z]{4,32})|(ou-[0-9a-z]{4,32}-[0-9a-z]{8,32})$"), "see https://docs.aws.amazon.com/organizations/latest/APIReference/API_CreateOrganizationalUnit.html#organizations-CreateOrganizationalUnit-request-ParentId"),
@@ -85,6 +86,7 @@ CustomizeDiff: verify.SetTagsDiff,
 	}
 }
 
+
 func resourceOrganizationalUnitCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -96,7 +98,8 @@ ParentId: aws.String(d.Get("parent_id").(string)),
 Tags:     getTagsIn(ctx),
 	}
 
-	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 4*time.Minute, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 4*time.Minute, 
+func() (interface{}, error) {
 return conn.CreateOrganizationalUnitWithContext(ctx, input)
 	}, organizations.ErrCodeFinalizingOrganizationException)
 
@@ -108,6 +111,7 @@ return sdkdiag.AppendErrorf(diags, "creating Organizations Organizational Unit (
 
 	return append(diags, resourceOrganizationalUnitRead(ctx, d, meta)...)
 }
+
 
 func resourceOrganizationalUnitRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -147,6 +151,7 @@ return sdkdiag.AppendErrorf(diags, "setting accounts: %s", err)
 	return diags
 }
 
+
 func resourceOrganizationalUnitUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -166,6 +171,7 @@ if err != nil {
 
 	return diags
 }
+
 
 func resourceOrganizationalUnitDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -187,6 +193,7 @@ return sdkdiag.AppendErrorf(diags, "deleting Organizations Organizational Unit (
 	return diags
 }
 
+
 func findOrganizationalUnitByID(ctx context.Context, conn *organizations.Organizations, id string) (*organizations.OrganizationalUnit, error) {
 	input := &organizations.DescribeOrganizationalUnitInput{
 OrganizationalUnitId: aws.String(id),
@@ -194,6 +201,7 @@ OrganizationalUnitId: aws.String(id),
 
 	return findOrganizationalUnit(ctx, conn, input)
 }
+
 
 func findOrganizationalUnit(ctx context.Context, conn *organizations.Organizations, input *organizations.DescribeOrganizationalUnitInput) (*organizations.OrganizationalUnit, error) {
 	output, err := conn.DescribeOrganizationalUnitWithContext(ctx, input)
@@ -215,6 +223,7 @@ return nil, tfresource.NewEmptyResultError(input)
 
 	return output.OrganizationalUnit, nil
 }
+
 
 func flattenOrganizationalUnitAccounts(accounts []*organizations.Account) []map[string]interface{} {
 	if len(accounts) == 0 {

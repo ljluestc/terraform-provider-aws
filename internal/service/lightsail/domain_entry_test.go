@@ -22,7 +22,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccLightsailDomainEntry_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_domain_entry.test"
@@ -62,7 +61,6 @@ func TestAccLightsailDomainEntry_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDomainEntry_underscore(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_domain_entry.test"
@@ -102,7 +100,6 @@ func TestAccLightsailDomainEntry_underscore(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDomainEntry_apex(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_domain_entry.test"
@@ -142,7 +139,6 @@ func TestAccLightsailDomainEntry_apex(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDomainEntry_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_domain_entry.test"
@@ -166,7 +162,6 @@ func TestAccLightsailDomainEntry_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDomainEntry_typeAAAA(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_domain_entry.test"
@@ -206,7 +201,6 @@ func TestAccLightsailDomainEntry_typeAAAA(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckDomainEntryExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -234,7 +228,6 @@ func testAccCheckDomainEntryExists(ctx context.Context, n string) resource.TestC
 		return nil
 	}
 }
-
 func testAccCheckDomainEntryDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -260,7 +253,6 @@ func testAccCheckDomainEntryDestroy(ctx context.Context) resource.TestCheckFunc 
 		return nil
 	}
 }
-
 func testAccDomainEntryConfig_basic(domainName string, domainEntryName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_domain" "test" {
@@ -275,7 +267,6 @@ resource "aws_lightsail_domain_entry" "test" {
 }
 `, domainName, domainEntryName)
 }
-
 func testAccDomainEntryConfig_typeAAAA(domainName string, domainEntryName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_domain" "test" {
@@ -290,7 +281,6 @@ resource "aws_lightsail_domain_entry" "test" {
 }
 `, domainName, domainEntryName)
 }
-
 func testAccDomainEntryStateLegacyIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]

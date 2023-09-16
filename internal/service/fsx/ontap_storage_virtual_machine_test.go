@@ -28,7 +28,7 @@ func TestAccFSxOntapStorageVirtualMachine_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
@@ -53,8 +53,8 @@ func TestAccFSxOntapStorageVirtualMachine_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -68,7 +68,7 @@ func TestAccFSxOntapStorageVirtualMachine_rootVolumeSecurityStyle(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
@@ -90,9 +90,9 @@ func TestAccFSxOntapStorageVirtualMachine_rootVolumeSecurityStyle(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"root_volume_security_style"},
 			},
 		},
@@ -108,7 +108,7 @@ func TestAccFSxOntapStorageVirtualMachine_svmAdminPassword(t *testing.T) {
 	pass2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
@@ -121,9 +121,9 @@ func TestAccFSxOntapStorageVirtualMachine_svmAdminPassword(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"svm_admin_password"},
 			},
 			{
@@ -145,7 +145,7 @@ func TestAccFSxOntapStorageVirtualMachine_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
@@ -170,7 +170,7 @@ func TestAccFSxOntapStorageVirtualMachine_name(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
@@ -183,8 +183,8 @@ func TestAccFSxOntapStorageVirtualMachine_name(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -206,7 +206,7 @@ func TestAccFSxOntapStorageVirtualMachine_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
@@ -220,8 +220,8 @@ func TestAccFSxOntapStorageVirtualMachine_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -258,7 +258,7 @@ func TestAccFSxOntapStorageVirtualMachine_activeDirectory(t *testing.T) {
 	domainPassword1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapStorageVirtualMachineDestroy(ctx),
@@ -277,8 +277,8 @@ func TestAccFSxOntapStorageVirtualMachine_activeDirectory(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"active_directory_configuration",
@@ -362,39 +362,39 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.1.0/24"
+  vpc_id   = aws_vpc.test.id
+  cidr_block= "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test2" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.2.0/24"
+  vpc_id   = aws_vpc.test.id
+  cidr_block= "10.0.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 512
   preferred_subnet_id = aws_subnet.test1.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -405,13 +405,13 @@ func testAccOntapStorageVirtualMachineADConfig(rName string, domainName string, 
 
 resource "aws_directory_service_directory" "test" {
   edition  = "Standard"
-  name     = %[2]q
+  name = %[2]q
   password = %[3]q
-  type     = "MicrosoftAD"
+  type = "MicrosoftAD"
 
   vpc_settings {
-    subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
-    vpc_id     = aws_vpc.test.id
+subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+vpc_id = aws_vpc.test.id
   }
 }
 `, rName, domainName, domainPassword))
@@ -421,7 +421,7 @@ func testAccONTAPStorageVirtualMachineConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_storage_virtual_machine" "test" {
   file_system_id = aws_fsx_ontap_file_system.test.id
-  name           = %[1]q
+  name  = %[1]q
 }
 `, rName))
 }
@@ -430,7 +430,7 @@ func testAccONTAPStorageVirtualMachineConfig_rootVolumeSecurityStyle(rName strin
 	return acctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_storage_virtual_machine" "test" {
   file_system_id= aws_fsx_ontap_file_system.test.id
-  name        = %[1]q
+  name= %[1]q
   root_volume_security_style = "NTFS"
 }
 `, rName))
@@ -439,7 +439,7 @@ resource "aws_fsx_ontap_storage_virtual_machine" "test" {
 func testAccONTAPStorageVirtualMachineConfig_svmAdminPassword(rName string, pass string) string {
 	return acctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_storage_virtual_machine" "test" {
-  file_system_id     = aws_fsx_ontap_file_system.test.id
+  file_system_id = aws_fsx_ontap_file_system.test.id
   name= %[1]q
   svm_admin_password = %[2]q
 }
@@ -450,10 +450,10 @@ func testAccONTAPStorageVirtualMachineConfig_tags1(rName, tagKey1, tagValue1 str
 	return acctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_storage_virtual_machine" "test" {
   file_system_id = aws_fsx_ontap_file_system.test.id
-  name           = %[1]q
+  name  = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -463,11 +463,11 @@ func testAccONTAPStorageVirtualMachineConfig_tags2(rName, tagKey1, tagValue1, ta
 	return acctest.ConfigCompose(testAccOntapStorageVirtualMachineBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_storage_virtual_machine" "test" {
   file_system_id = aws_fsx_ontap_file_system.test.id
-  name           = %[1]q
+  name  = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -477,18 +477,18 @@ func testAccONTAPStorageVirtualMachineConfig_virutalSelfManagedActiveDirectory(r
 	return acctest.ConfigCompose(testAccOntapStorageVirtualMachineADConfig(rName, domainName, domainPassword), fmt.Sprintf(`
 resource "aws_fsx_ontap_storage_virtual_machine" "test" {
   file_system_id = aws_fsx_ontap_file_system.test.id
-  name           = %[1]q
-  depends_on     = [aws_directory_service_directory.test]
+  name  = %[1]q
+  depends_on = [aws_directory_service_directory.test]
 
   active_directory_configuration {
-    netbios_name = %[2]q
-    self_managed_active_directory_configuration {
-      dns_ips  = aws_directory_service_directory.test.dns_ip_addresses
-      domain_name= %[3]q
-      password = %[4]q
-      username = "Admin"
-      organizational_unit_distinguished_name = "OU=computers,OU=%[5]s"
-    }
+netbios_name = %[2]q
+self_managed_active_directory_configuration {
+  dns_ips  = aws_directory_service_directory.test.dns_ip_addresses
+  domain_name= %[3]q
+  password = %[4]q
+  username = "Admin"
+  organizational_unit_distinguished_name = "OU=computers,OU=%[5]s"
+}
   }
 }
 `, rName, netBiosName, domainName, domainPassword, domainNetbiosName))

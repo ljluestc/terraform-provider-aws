@@ -23,7 +23,7 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGroupPolicyDestroy(ctx),
@@ -38,8 +38,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      "aws_iam_group_policy.foo",
-				ImportState:       true,
+				ResourceName: "aws_iam_group_policy.foo",
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -53,8 +53,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      "aws_iam_group_policy.bar",
-				ImportState:       true,
+				ResourceName: "aws_iam_group_policy.bar",
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -64,7 +64,7 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGroupPolicyDestroy(ctx),
@@ -87,7 +87,7 @@ import (
 	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGroupPolicyDestroy(ctx),
@@ -112,9 +112,9 @@ import (
 				),
 			},
 			{
-				ResourceName:            "aws_iam_group_policy.test",
+				ResourceName:  "aws_iam_group_policy.test",
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
@@ -124,7 +124,7 @@ import (
 	var groupPolicy1, groupPolicy2 iam.GetGroupPolicyOutput
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGroupPolicyDestroy(ctx),
@@ -149,8 +149,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      "aws_iam_group_policy.test",
-				ImportState:       true,
+				ResourceName: "aws_iam_group_policy.test",
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -169,7 +169,7 @@ import (
 	groupName := "aws_iam_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRolePolicyDestroy(ctx),
@@ -293,9 +293,9 @@ resource "aws_iam_group_policy" "foo" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
 EOF
@@ -310,14 +310,14 @@ resource "aws_iam_group" "test" {
 
 resource "aws_iam_group_policy" "test" {
   name_prefix = %[1]q
-  group       = aws_iam_group.test.name
+  group  = aws_iam_group.test.name
 funclicy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": %[2]q,
-    "Resource": "*"
+"Effect": "Allow",
+"Action": %[2]q,
+"Resource": "*"
   }
 }
 EOF
@@ -335,9 +335,9 @@ resource "aws_iam_group_policy" "test" {
 
   policy = <<EOF
 {functatement": {
-    "Effect": "Allow",
-    "Action": %[2]q,
-    "Resource": "*"
+"Effect": "Allow",
+"Action": %[2]q,
+"Resource": "*"
   },
   "Version": "2012-10-17"
 }
@@ -358,9 +358,9 @@ resource "aws_iam_group_policy" "foo" {
   policy = <<EOF
 {funcersion": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
 EOF
@@ -374,9 +374,9 @@ resource "aws_iam_group_policy" "bar" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
 EOF
@@ -401,23 +401,23 @@ resource "aws_iam_group_policy" "test" {
   group = aws_iam_group.test.id
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Sid    = ""
-      Effect = "Allow"
-      Action = [
-        "s3:AbortMultipartUpload",
-        "s3:GetBucketLocation",
-        "s3:GetObject",
-        "s3:ListBucket",
-        "s3:ListBucketMultipartUploads",
-        "s3:PutObject",
-      ]
-      Resource = [
-        aws_s3_bucket.test.arn,
-        "${aws_s3_bucket.test.arn}/*",
-      ]
-    }]
+Version = "2012-10-17"
+Statement = [{
+ Sid= ""
+ Effect = "Allow"
+ Action = [
+   "s3:AbortMultipartUpload",
+   "s3:GetBucketLocation",
+   "s3:GetObject",
+   "s3:ListBucket",
+   "s3:ListBucketMultipartUploads",
+   "s3:PutObject",
+ ]
+ Resource = [
+   aws_s3_bucket.test.arn,
+   "${aws_s3_bucket.test.arn}/*",
+ ]
+}]
   })
 }
 `, rName)

@@ -25,7 +25,7 @@ func TestAccRedshiftParameterGroup_basic(t *testing.T) {
 	resourceName := "aws_redshift_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
@@ -55,8 +55,8 @@ func TestAccRedshiftParameterGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -70,7 +70,7 @@ func TestAccRedshiftParameterGroup_disappears(t *testing.T) {
 	resourceName := "aws_redshift_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
@@ -94,7 +94,7 @@ func TestAccRedshiftParameterGroup_update(t *testing.T) {
 	resourceName := "aws_redshift_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
@@ -112,8 +112,8 @@ func TestAccRedshiftParameterGroup_update(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -151,7 +151,7 @@ func TestAccRedshiftParameterGroup_tags(t *testing.T) {
 	resourceName := "aws_redshift_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
@@ -166,8 +166,8 @@ func TestAccRedshiftParameterGroup_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -249,18 +249,18 @@ resource "aws_redshift_parameter_group" "test" {
   family = "redshift-1.0"
 
   parameter {
-    name  = "require_ssl"
-    value = "true"
+name  = "require_ssl"
+value = "true"
   }
 
   parameter {
-    name  = "query_group"
-    value = "example"
+name  = "query_group"
+value = "example"
   }
 
   parameter {
-    name  = "enable_user_activity_logging"
-    value = "true"
+name  = "enable_user_activity_logging"
+value = "true"
   }
 }
 `, rName)
@@ -278,12 +278,12 @@ resource "aws_redshift_parameter_group" "test" {
 func testAccParameterGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_redshift_parameter_group" "test" {
-  name        = %[1]q
-  family      = "redshift-1.0"
+  name= %[1]q
+  family  = "redshift-1.0"
   description = "Test parameter group for terraform"
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -292,13 +292,13 @@ resource "aws_redshift_parameter_group" "test" {
 func testAccParameterGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_redshift_parameter_group" "test" {
-  name        = %[1]q
-  family      = "redshift-1.0"
+  name= %[1]q
+  family  = "redshift-1.0"
   description = "Test parameter group for terraform"
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

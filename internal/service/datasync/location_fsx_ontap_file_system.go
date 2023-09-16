@@ -73,7 +73,7 @@ func ResourceLocationFSxONTAPFileSystem() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"nfs": {
-							Type:         schema.TypeList,
+							Type:schema.TypeList,
 							Optional:     true,
 							ForceNew:     true,
 							MaxItems:     1,
@@ -103,7 +103,7 @@ func ResourceLocationFSxONTAPFileSystem() *schema.Resource {
 							},
 						},
 						"smb": {
-							Type:         schema.TypeList,
+							Type:schema.TypeList,
 							Optional:     true,
 							ForceNew:     true,
 							MaxItems:     1,
@@ -111,7 +111,7 @@ func ResourceLocationFSxONTAPFileSystem() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"domain": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringLenBetween(1, 253),
@@ -139,14 +139,14 @@ func ResourceLocationFSxONTAPFileSystem() *schema.Resource {
 										},
 									},
 									"password": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
 										Sensitive:    true,
 										ValidateFunc: validation.StringLenBetween(1, 104),
 									},
 									"user": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringLenBetween(1, 104),
@@ -164,18 +164,18 @@ func ResourceLocationFSxONTAPFileSystem() *schema.Resource {
 				MinItems: 1,
 				MaxItems: 5,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
 			"storage_virtual_machine_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"subdirectory": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -198,10 +198,10 @@ func resourceLocationFSxONTAPFileSystemCreate(ctx context.Context, d *schema.Res
 	conn := meta.(*conns.AWSClient).DataSyncConn(ctx)
 
 	input := &datasync.CreateLocationFsxOntapInput{
-		Protocol:                 expandProtocol(d.Get("protocol").([]interface{})),
+		Protocol:        expandProtocol(d.Get("protocol").([]interface{})),
 		SecurityGroupArns:        flex.ExpandStringSet(d.Get("security_group_arns").(*schema.Set)),
 		StorageVirtualMachineArn: aws.String(d.Get("storage_virtual_machine_arn").(string)),
-		Tags:                     getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("subdirectory"); ok {

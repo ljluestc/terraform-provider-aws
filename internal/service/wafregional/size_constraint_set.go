@@ -48,7 +48,7 @@ func resourceSizeConstraintSetCreate(ctx context.Context, d *schema.ResourceData
 		func(token *string) (interface{}, error) {
 			params := &waf.CreateSizeConstraintSetInput{
 				ChangeToken: token,
-				Name:        aws.String(name),
+				Name:  aws.String(name),
 			}
 
 			return conn.CreateSizeConstraintSetWithContext(ctx, params)

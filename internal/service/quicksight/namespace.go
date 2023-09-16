@@ -317,10 +317,10 @@ type resourceNamespaceData struct {
 	CreationStatus types.String   `tfsdk:"creation_status"`
 	ID    types.String   `tfsdk:"id"`
 	IdentityStore  types.String   `tfsdk:"identity_store"`
-	Namespace      types.String   `tfsdk:"namespace"`
-	Tags  types.Map      `tfsdk:"tags"`
-	TagsAll        types.Map      `tfsdk:"tags_all"`
-	Timeouts       timeouts.Value `tfsdk:"timeouts"`
+	Namespacetypes.String   `tfsdk:"namespace"`
+	Tags  types.Map`tfsdk:"tags"`
+	TagsAll  types.Map`tfsdk:"tags_all"`
+	Timeouts timeouts.Value `tfsdk:"timeouts"`
 }
 
 

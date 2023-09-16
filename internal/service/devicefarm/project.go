@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package devicefarm
-
-import (
+// SPDX-License-Identifier: MPL-2.0package devicefarmimport (
 	"context"
-	"log"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"log"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/devicefarm"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -19,133 +13,82 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-// @SDKResource("aws_devicefarm_project", name="Project")
+)// @SDKResource("aws_devicefarm_project", name="Project")
 // @Tags(identifierAttribute="arn")
 funcurn &schema.Resource{
 		CreateWithoutTimeout: resourceProjectCreate,
-		ReadWithoutTimeout:   resourceProjectRead,
+		ReadWithoutTimeout:resourceProjectRead,
 		UpdateWithoutTimeout: resourceProjectUpdate,
-		DeleteWithoutTimeout: resourceProjectDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceProjectDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"default_job_timeout_minutes": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
-
-		CustomizeDiff: verify.SetTagsDiff,
+		},		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-funcn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
-	name := d.Get("name").(string)
+funcn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)	name := d.Get("name").(string)
 	input := &devicefarm.CreateProjectInput{
 		Name: aws.String(name),
-	}
-
-	if v, ok := d.GetOk("default_job_timeout_minutes"); ok {
+	}	if v, ok := d.GetOk("default_job_timeout_minutes"); ok {
 		input.DefaultJobTimeoutMinutes = aws.Int64(int64(v.(int)))
-	}
-
-	output, err := conn.CreateProjectWithContext(ctx, input)
-
-	if err != nil {
+	}	output, err := conn.CreateProjectWithContext(ctx, input)	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating DeviceFarm Project (%s): %s", name, err)
-	}
-
-	d.SetId(aws.StringValue(output.Project.Arn))
-
-	if err := createTags(ctx, conn, d.Id(), getTagsIn(ctx)); err != nil {
+	}	d.SetId(aws.StringValue(output.Project.Arn))	if err := createTags(ctx, conn, d.Id(), getTagsIn(ctx)); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting DeviceFarm Project (%s) tags: %s", d.Id(), err)
-	}
-
-	return append(diags, resourceProjectRead(ctx, d, meta)...)
+	}	return append(diags, resourceProjectRead(ctx, d, meta)...)
 }
-
 func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 func
-	project, err := FindProjectByARN(ctx, conn, d.Id())
-
-	if !d.IsNewResource() && tfresource.NotFound(err) {
+	project, err := FindProjectByARN(ctx, conn, d.Id())	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] DeviceFarm Project (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading DeviceFarm Project (%s): %s", d.Id(), err)
-	}
-
-	arn := aws.StringValue(project.Arn)
+	}	arn := aws.StringValue(project.Arn)
 	d.Set("name", project.Name)
 	d.Set("arn", arn)
-	d.Set("default_job_timeout_minutes", project.DefaultJobTimeoutMinutes)
-
-	return diags
+	d.Set("default_job_timeout_minutes", project.DefaultJobTimeoutMinutes)	return diags
 }
-
 func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
 funcd.HasChangesExcept("tags", "tags_all") {
 		input := &devicefarm.UpdateProjectInput{
 			Arn: aws.String(d.Id()),
-		}
-
-		if d.HasChange("name") {
+		}		if d.HasChange("name") {
 			input.Name = aws.String(d.Get("name").(string))
-		}
-
-		if d.HasChange("default_job_timeout_minutes") {
+		}		if d.HasChange("default_job_timeout_minutes") {
 			input.DefaultJobTimeoutMinutes = aws.Int64(int64(d.Get("default_job_timeout_minutes").(int)))
-		}
-
-		_, err := conn.UpdateProjectWithContext(ctx, input)
-
-		if err != nil {
+		}		_, err := conn.UpdateProjectWithContext(ctx, input)		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating DeviceFarm Project (%s): %s", d.Id(), err)
 		}
-	}
-
-	return append(diags, resourceProjectRead(ctx, d, meta)...)
+	}	return append(diags, resourceProjectRead(ctx, d, meta)...)
 }
-
 func resourceProjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DeviceFarmConn(ctx)
-
 funcerr := conn.DeleteProjectWithContext(ctx, &devicefarm.DeleteProjectInput{
 		Arn: aws.String(d.Id()),
-	})
-
-	if tfawserr.ErrCodeEquals(err, devicefarm.ErrCodeNotFoundException) {
+	})	if tfawserr.ErrCodeEquals(err, devicefarm.ErrCodeNotFoundException) {
 		return diags
-	}
-
-	if err != nil {
+	}	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting DeviceFarm Project (%s): %s", d.Id(), err)
-	}
-
-	return diags
+	}	return diags
 }

@@ -1,27 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package backup_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package backup_testimport (
 	"context"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/backup"
+	"testing"	"github.com/aws/aws-sdk-go/service/backup"
 	"github.com/aws/aws-sdk-go/service/fsx"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
-)
-
-
-func TestAccBackupRegionSettings_basic(t *testing.T) {
+)func TestAccBackupRegionSettings_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var settings backup.DescribeRegionSettingsOutput
-	resourceName := "aws_backup_region_settings.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_backup_region_settings.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: 
 func() {
 	acctest.PreCheck(ctx, t)
@@ -30,7 +19,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil,
+CheckDestroy: nil,
 Steps: []resource.TestStep{
 	{
 Config: testAccRegionSettingsConfig_1(),
@@ -56,8 +45,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -108,98 +97,74 @@ func(
 	},
 },
 	})
-}
-
-
-func testAccCheckRegionSettingsExists(ctx context.Context, v *backup.DescribeRegionSettingsOutput) resource.TestCheck
+}func testAccCheckRegionSettingsExists(ctx context.Context, v *backup.DescribeRegionSettingsOutput) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
-
-output, err := conn.DescribeRegionSettingsWithContext(ctx, &backup.DescribeRegionSettingsInput{})
-
-if err != nil {
+conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)output, err := conn.DescribeRegionSettingsWithContext(ctx, &backup.DescribeRegionSettingsInput{})if err != nil {
 	return err
-}
-
-*v = *output
-
-return nil
+}*v = *outputreturn nil
 	}
-}
-
-
-func testAccRegionSettingsConfig_1() string {
+}func testAccRegionSettingsConfig_1() string {
 	return `
 resource "aws_backup_region_settings" "test" {
   resource_type_opt_in_preference = {
-    "Aurora" = true
-    "DocumentDB"      = true
-    "DynamoDB"        = true
-    "EBS"    = true
-    "EC2"    = true
-    "EFS"    = true
-    "FSx"    = true
-    "Neptune"= true
-    "RDS"    = true
-    "S3"     = true
-    "Storage Gateway" = true
-    "VirtualMachine"  = true
+ "Aurora" = true
+ "DocumentDB"= true
+ "DynamoDB"  = true
+ "EBS" = true
+ "EC2" = true
+ "EFS" = true
+ "FSx" = true
+ "Neptune"= true
+ "RDS" = true
+ "S3"= true
+ "Storage Gateway" = true
+ "VirtualMachine"  = true
   }
 }
 `
-}
-
-
-func testAccRegionSettingsConfig_2() string {
+}func testAccRegionSettingsConfig_2() string {
 	return `
 resource "aws_backup_region_settings" "test" {
   resource_type_opt_in_preference = {
-    "Aurora" = false
-    "DocumentDB"      = true
-    "DynamoDB"        = true
-    "EBS"    = true
-    "EC2"    = true
-    "EFS"    = true
-    "FSx"    = true
-    "Neptune"= true
-    "RDS"    = true
-    "S3"     = true
-    "Storage Gateway" = true
-    "VirtualMachine"  = true
-  }
-
-  resource_type_management_preference = {
-    "DynamoDB" = true
-    "EFS"      = true
+ "Aurora" = false
+ "DocumentDB"= true
+ "DynamoDB"  = true
+ "EBS" = true
+ "EC2" = true
+ "EFS" = true
+ "FSx" = true
+ "Neptune"= true
+ "RDS" = true
+ "S3"= true
+ "Storage Gateway" = true
+ "VirtualMachine"  = true
+  }  resource_type_management_preference = {
+ "DynamoDB" = true
+ "EFS"= true
   }
 }
 `
-}
-
-
-func testAccRegionSettingsConfig_3() string {
+}func testAccRegionSettingsConfig_3() string {
 	return `
 resource "aws_backup_region_settings" "test" {
   resource_type_opt_in_preference = {
-    "Aurora" = false
-    "DocumentDB"      = true
-    "DynamoDB"        = true
-    "EBS"    = true
-    "EC2"    = true
-    "EFS"    = true
-    "FSx"    = true
-    "Neptune"= true
-    "RDS"    = true
-    "S3"     = true
-    "Storage Gateway" = true
-    "VirtualMachine"  = false
-  }
-
-  resource_type_management_preference = {
-    "DynamoDB" = false
-    "EFS"      = true
+ "Aurora" = false
+ "DocumentDB"= true
+ "DynamoDB"  = true
+ "EBS" = true
+ "EC2" = true
+ "EFS" = true
+ "FSx" = true
+ "Neptune"= true
+ "RDS" = true
+ "S3"= true
+ "Storage Gateway" = true
+ "VirtualMachine"  = false
+  }  resource_type_management_preference = {
+ "DynamoDB" = false
+ "EFS"= true
   }
 }
 `

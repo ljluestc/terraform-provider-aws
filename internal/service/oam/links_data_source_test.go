@@ -4,50 +4,50 @@
 package oam_test
 
 import (
-	"fmt"
-	"testing"
+"fmt"
+"testing"
 
-	"github.com/YakDriver/regexache"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-	"github.com/hashicorp/terraform-provider-aws/names"
+"github.com/YakDriver/regexache"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/hashicorp/terraform-provider-aws/names"
 )
 
 func TestAccObservabilityAccessManagerLinksDataSource_basic(t *testing.T) {
-	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
-	}
+if testing.Short() {
+t.Skip("skipping long-running test in short mode")
+}
 
-	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_oam_links.test"
+ctx := acctest.Context(t)
+rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+dataSourceName := "data.aws_oam_links.test"
 
-	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-			acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:      acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLinksDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
-					acctest.MatchResourceAttrRegionalARN(dataSourceName, "arns.0", "oam", regexache.MustCompile(`link/+.`)),
-				),
-			},
-		},
-	})
+resource.Test(t, resource.TestCase{
+PreCheck: func() {
+acctest.PreCheck(ctx, t)
+acctest.PreCheckAlternateAccount(t)
+acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
+testAccPreCheck(ctx, t)
+},
+ErrorCheck:      acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+Steps: []resource.TestStep{
+{
+Config: testAccLinksDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
+acctest.MatchResourceAttrRegionalARN(dataSourceName, "arns.0", "oam", regexache.MustCompile(`link/+.`)),
+),
+},
+},
+})
 }
 
 func testAccLinksDataSourceConfig_basic(rName string) string {
-	return acctest.ConfigCompose(
-		acctest.ConfigAlternateAccountProvider(),
-		fmt.Sprintf(`
+return acctest.ConfigCompose(
+acctest.ConfigAlternateAccountProvider(),
+fmt.Sprintf(`
 data "aws_caller_identity" "source" {}
 data "aws_partition" "source" {}
 

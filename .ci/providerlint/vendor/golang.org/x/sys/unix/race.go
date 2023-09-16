@@ -1,31 +1,19 @@
 // Copyright 2012 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build (darwin && race) || (linux && race) || (freebsd && race)
-// +build darwin,race linux,race freebsd,race
-
-package unix
-
-import (
+// license that can be found in the LICENSE file.//go:build (darwin && race) || (linux && race) || (freebsd && race)
+// +build darwin,race linux,race freebsd,racepackage uniximport (
 	"runtime"
 	"unsafe"
-)
-
-const raceenabled = true
-
-func raceAcquire(addr unsafe.Pointer) {
+)const raceenabled = true
+ raceAcquire(addr unsafe.Pointer) {
 	runtime.RaceAcquire(addr)
 }
-
-func raceReleaseMerge(addr unsafe.Pointer) {
+ raceReleaseMerge(addr unsafe.Pointer) {
 	runtime.RaceReleaseMerge(addr)
 }
-
-func raceReadRange(addr unsafe.Pointer, len int) {
+ raceReadRange(addr unsafe.Pointer, len int) {
 	runtime.RaceReadRange(addr, len)
 }
-
-func raceWriteRange(addr unsafe.Pointer, len int) {
+ raceWriteRange(addr unsafe.Pointer, len int) {
 	runtime.RaceWriteRange(addr, len)
 }

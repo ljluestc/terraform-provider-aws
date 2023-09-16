@@ -29,7 +29,7 @@ import (
 func ResourceLayerVersionPermission() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceLayerVersionPermissionCreate,
-		ReadWithoutTimeout:   resourceLayerVersionPermissionRead,
+		ReadWithoutTimeout:resourceLayerVersionPermissionRead,
 		DeleteWithoutTimeout: resourceLayerVersionPermissionDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -47,48 +47,47 @@ func ResourceLayerVersionPermission() *schema.Resource {
 				ForceNew: true,
 			},
 			"version_number": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Required: true,
 				ForceNew: true,
 			},
 			"statement_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"action": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"principal": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"organization_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"revision_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"skip_destroy": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Default:  false,
 				ForceNew: true,
 				Optional: true,
 			},
 			"policy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceLayerVersionPermissionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -97,11 +96,11 @@ func resourceLayerVersionPermissionCreate(ctx context.Context, d *schema.Resourc
 	versionNumber := d.Get("version_number").(int)
 
 	params := &lambda.AddLayerVersionPermissionInput{
-		LayerName:     aws.String(layerName),
+		LayerName:aws.String(layerName),
 		VersionNumber: aws.Int64(int64(versionNumber)),
-		Action:        aws.String(d.Get("action").(string)),
-		Principal:     aws.String(d.Get("principal").(string)),
-		StatementId:   aws.String(d.Get("statement_id").(string)),
+		Action:aws.String(d.Get("action").(string)),
+		Principal:aws.String(d.Get("principal").(string)),
+		StatementId:aws.String(d.Get("statement_id").(string)),
 	}
 
 	if v, ok := d.GetOk("organization_id"); ok {
@@ -117,7 +116,6 @@ func resourceLayerVersionPermissionCreate(ctx context.Context, d *schema.Resourc
 
 	return append(diags, resourceLayerVersionPermissionRead(ctx, d, meta)...)
 }
-
 func resourceLayerVersionPermissionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -128,7 +126,7 @@ func resourceLayerVersionPermissionRead(ctx context.Context, d *schema.ResourceD
 	}
 
 	input := &lambda.GetLayerVersionPolicyInput{
-		LayerName:     aws.String(layerName),
+		LayerName:aws.String(layerName),
 		VersionNumber: aws.Int64(versionNumber),
 	}
 
@@ -203,7 +201,6 @@ func resourceLayerVersionPermissionRead(ctx context.Context, d *schema.ResourceD
 
 	return diags
 }
-
 func resourceLayerVersionPermissionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	if v, ok := d.GetOk("skip_destroy"); ok && v.(bool) {
@@ -219,9 +216,9 @@ func resourceLayerVersionPermissionDelete(ctx context.Context, d *schema.Resourc
 	}
 
 	input := &lambda.RemoveLayerVersionPermissionInput{
-		LayerName:     aws.String(layerName),
+		LayerName:aws.String(layerName),
 		VersionNumber: aws.Int64(versionNumber),
-		StatementId:   aws.String(d.Get("statement_id").(string)),
+		StatementId:aws.String(d.Get("statement_id").(string)),
 	}
 
 	_, err = conn.RemoveLayerVersionPermissionWithContext(ctx, input)
@@ -236,7 +233,6 @@ func resourceLayerVersionPermissionDelete(ctx context.Context, d *schema.Resourc
 
 	return diags
 }
-
 func ResourceLayerVersionPermissionParseId(id string) (string, int64, error) {
 	parts := strings.Split(id, ",")
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {

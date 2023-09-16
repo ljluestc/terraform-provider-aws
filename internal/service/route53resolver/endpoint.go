@@ -44,22 +44,22 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"direction": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 Validate
 func: validation.StringInSlice(route53resolver.ResolverEndpointDirection_Values(), false),
 	},
 	"host_vpc_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"ip_address": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Required: true,
 MinItems: 2,
 MaxItems: 10,
@@ -67,17 +67,17 @@ Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "ip": {
 	Type:schema.TypeString,
-	Optional:     true,
-	Computed:     true,
+	Optional:true,
+	Computed:true,
 	Validate
 func: validation.IsIPAddress,
 },
 "ip_id": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Computed: true,
 },
 "subnet_id": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Required: true,
 },
 	},
@@ -86,17 +86,17 @@ Set: endpointHashIPAddress,
 	},
 	"name": {
 Type:schema.TypeString,
-Optional:     true,
+Optional:true,
 Validate
 func: validResolverName,
 	},
 	"security_group_ids": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Required: true,
 ForceNew: true,
 MinItems: 1,
 MaxItems: 64,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem:&schema.Schema{Type: schema.TypeString},
 	},
 	names.AttrTags:    tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -118,8 +118,8 @@ func resourceEndpointCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	input := &route53resolver.CreateResolverEndpointInput{
 CreatorRequestId: aws.String(id.PrefixedUniqueId("tf-r53-resolver-endpoint-")),
-Direction:        aws.String(d.Get("direction").(string)),
-IpAddresses:      expandEndpointIPAddresses(d.Get("ip_address").(*schema.Set)),
+Direction:   aws.String(d.Get("direction").(string)),
+IpAddresses: expandEndpointIPAddresses(d.Get("ip_address").(*schema.Set)),
 SecurityGroupIds: flex.ExpandStringSet(d.Get("security_group_ids").(*schema.Set)),
 Tags:    getTagsIn(ctx),
 	}
@@ -338,10 +338,10 @@ return output, aws.StringValue(output.Status), nil
 func waitEndpointCreated(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverEndpoint, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:    []string{route53resolver.ResolverEndpointStatusCreating},
-Target:     []string{route53resolver.ResolverEndpointStatusOperational},
+Target:[]string{route53resolver.ResolverEndpointStatusOperational},
 Refresh:    statusEndpoint(ctx, conn, id),
 Timeout:    timeout,
-Delay:      10 * time.Second,
+Delay: 10 * time.Second,
 MinTimeout: 5 * time.Second,
 	}
 
@@ -360,10 +360,10 @@ return output, err
 func waitEndpointUpdated(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverEndpoint, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 Pending:    []string{route53resolver.ResolverEndpointStatusUpdating},
-Target:     []string{route53resolver.ResolverEndpointStatusOperational},
+Target:[]string{route53resolver.ResolverEndpointStatusOperational},
 Refresh:    statusEndpoint(ctx, conn, id),
 Timeout:    timeout,
-Delay:      10 * time.Second,
+Delay: 10 * time.Second,
 MinTimeout: 5 * time.Second,
 	}
 
@@ -382,10 +382,10 @@ return output, err
 func waitEndpointDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverEndpoint, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:    []string{route53resolver.ResolverEndpointStatusDeleting},
-Target:     []string{},
+Target:[]string{},
 Refresh:    statusEndpoint(ctx, conn, id),
 Timeout:    timeout,
-Delay:      10 * time.Second,
+Delay: 10 * time.Second,
 MinTimeout: 5 * time.Second,
 	}
 
@@ -460,8 +460,8 @@ return []interface{}{}
 	for _, ipAddress := range ipAddresses {
 mIpAddress := map[string]interface{}{
 	"subnet_id": aws.StringValue(ipAddress.SubnetId),
-	"ip":        aws.StringValue(ipAddress.Ip),
-	"ip_id":     aws.StringValue(ipAddress.IpId),
+	"ip":   aws.StringValue(ipAddress.Ip),
+	"ip_id":aws.StringValue(ipAddress.IpId),
 }
 
 vIpAddresses = append(vIpAddresses, mIpAddress)

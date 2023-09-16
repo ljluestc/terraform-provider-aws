@@ -1,8 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package sagemaker
-
-const (
-	ErrCodeValidationException = "ValidationException"
-)
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package sagemakerconst (ErrCodeValidationException = "ValidationException")

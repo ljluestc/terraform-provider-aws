@@ -54,8 +54,8 @@ func TestAccIdentityStoreGroupMembership_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -123,8 +123,8 @@ func TestAccIdentityStoreGroupMembership_GroupId(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -167,8 +167,8 @@ func TestAccIdentityStoreGroupMembership_MemberId(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -193,7 +193,7 @@ func testAccCheckGroupMembershipDestroy(ctx context.Context) resource.TestCheckF
 
 			_, err := conn.DescribeGroupMembership(ctx, &identitystore.DescribeGroupMembershipInput{
 				IdentityStoreId: aws.String(rs.Primary.Attributes["identity_store_id"]),
-				MembershipId:    aws.String(rs.Primary.Attributes["membership_id"]),
+				MembershipId:aws.String(rs.Primary.Attributes["membership_id"]),
 			})
 			if err != nil {
 				var nfe *types.ResourceNotFoundException
@@ -225,7 +225,7 @@ func testAccCheckGroupMembershipExists(ctx context.Context, name string, groupMe
 
 		resp, err := conn.DescribeGroupMembership(ctx, &identitystore.DescribeGroupMembershipInput{
 			IdentityStoreId: aws.String(rs.Primary.Attributes["identity_store_id"]),
-			MembershipId:    aws.String(rs.Primary.Attributes["membership_id"]),
+			MembershipId:aws.String(rs.Primary.Attributes["membership_id"]),
 		})
 
 		if err != nil {
@@ -246,18 +246,18 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 }
 
 resource "aws_identitystore_group" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
-  display_name      = %[2]q
-  description       = "Acceptance Test"
+  display_name = %[2]q
+  description  = "Acceptance Test"
 }
 
 resource "aws_identitystore_group_membership" "test" {

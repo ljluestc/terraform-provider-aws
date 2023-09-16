@@ -29,7 +29,7 @@ func TestAccKeyspacesKeyspace_basic(t *testing.T) {
 	resourceName := "aws_keyspaces_keyspace.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckKeyspaceDestroy(ctx),
@@ -44,8 +44,8 @@ func TestAccKeyspacesKeyspace_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -58,7 +58,7 @@ func TestAccKeyspacesKeyspace_disappears(t *testing.T) {
 	resourceName := "aws_keyspaces_keyspace.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckKeyspaceDestroy(ctx),
@@ -81,7 +81,7 @@ func TestAccKeyspacesKeyspace_tags(t *testing.T) {
 	resourceName := "aws_keyspaces_keyspace.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckKeyspaceDestroy(ctx),
@@ -95,8 +95,8 @@ func TestAccKeyspacesKeyspace_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -179,7 +179,7 @@ resource "aws_keyspaces_keyspace" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tag1Key, tag1Value)
@@ -191,8 +191,8 @@ resource "aws_keyspaces_keyspace" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tag1Key, tag1Value, tag2Key, tag2Value)

@@ -1,10 +1,6 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package proto
-
-import (
+// license that can be found in the LICENSE file.package protoimport (
 	"google.golang.org/protobuf/encoding/protowire"
 	"google.golang.org/protobuf/internal/encoding/messageset"
 	"google.golang.org/protobuf/internal/errors"
@@ -14,79 +10,51 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
 	"google.golang.org/protobuf/runtime/protoiface"
-)
-
-// UnmarshalOptions configures the unmarshaler.
+)// UnmarshalOptions configures the unmarshaler.
 //
 // Example usage:
 //
 //	err := UnmarshalOptions{DiscardUnknown: true}.Unmarshal(b, m)
 type UnmarshalOptions struct {
-	pragma.NoUnkeyedLiterals
-
-	// Merge merges the input into the destination message.
+	pragma.NoUnkeyedLiterals	// Merge merges the input into the destination message.
 	// The default behavior is to always reset the message before unmarshaling,
 	// unless Merge is specified.
-	Merge bool
-
-	// AllowPartial accepts input for messages that will result in missing
+	Merge bool	// AllowPartial accepts input for messages that will result in missing
 	// required fields. If AllowPartial is false (the default), Unmarshal will
 	// return an error if there are any missing required fields.
-	AllowPartial bool
-
-	// If DiscardUnknown is set, unknown fields are ignored.
-	DiscardUnknown bool
-
-	// Resolver is used for looking up types when unmarshaling extension fields.
+	AllowPartial bool	// If DiscardUnknown is set, unknown fields are ignored.
+	DiscardUnknown bool	// Resolver is used for looking up types when unmarshaling extension fields.
 	// If nil, this defaults to using protoregistry.GlobalTypes.
 	Resolver interface {
 		FindExtensionByName(field protoreflect.FullName) (protoreflect.ExtensionType, error)
 		FindExtensionByNumber(message protoreflect.FullName, field protoreflect.FieldNumber) (protoreflect.ExtensionType, error)
-	}
-
-	// RecursionLimit limits how deeply messages may be nested.
+	}	// RecursionLimit limits how deeply messages may be nested.
 	// If zero, a default limit is applied.
 	RecursionLimit int
-}
-
-// Unmarshal parses the wire-format message in b and places the result in m.
-// The provided message must be mutable (e.g., a non-nil pointer to a message).
-
- Unmarshal(b []byte, m Message) error {
+}// Unmarshal parses the wire-format message in b and places the result in m.
+// The provided message must be mutable (e.g., a non-nil pointer to a message). Unmarshal(b []byte, m Message) error {
 	_, err := UnmarshalOptions{RecursionLimit: protowire.DefaultRecursionLimit}.unmarshal(b, m.ProtoReflect())
 	return err
-}
-
-// Unmarshal parses the wire-format message in b and places the result in m.
-he provided message must be mutable (e.g., a non-nil pointer to a message).
-
- (o UnmarshalOptions) Unmarshal(b []byte, m Message) error {
+}// Unmarshal parses the wire-format message in b and places the result in m.
+he provided message must be mutable (e.g., a non-nil pointer to a message). (o UnmarshalOptions) Unmarshal(b []byte, m Message) error {
 	if o.RecursionLimit == 0 {
 		o.RecursionLimit = protowire.DefaultRecursionLimit
 	}
 	_, err := o.unmarshal(b, m.ProtoReflect())
 	return err
-}
-
-// UnmarshalState parses a wire-format message and places the result in m.
+}// UnmarshalState parses a wire-format message and places the result in m.
 //
 his method permits fine-grained control over the unmarshaler.
-// Most users should use Unmarshal instead.
-
- (o UnmarshalOptions) UnmarshalState(in protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+// Most users should use Unmarshal instead. (o UnmarshalOptions) UnmarshalState(in protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
 	if o.RecursionLimit == 0 {
 		o.RecursionLimit = protowire.DefaultRecursionLimit
 	}
 	return o.unmarshal(in.Buf, insage)
-}
-
-nmarshal is a centralized 
+}nmarshal is a centralized 
 tion that all unmarshal operations go through.
 // For profiling purposes, avoid changing the name of this 
 tion or
-// introducing other code paths for unmarshal that do not go through this.
-
- (o UnmarshalOptions) unmarshal(b []byte, m protoreflect.Message) (out protoiface.UnmarshalOutput, err error) {
+// introducing other code paths for unmarshal that do not go through this. (o UnmarshalOptions) unmarshal(b []byte, m protoreflect.Message) (out protoiface.UnmarshalOutput, err error) {
 	if o.Resolver == nil {
 		o.Resolver = protoregistry.GlobalTypes
 	}
@@ -124,14 +92,10 @@ allowPartial || (out.Flags&protoiface.UnmarshalInitialized != 0) {
 	}
 	return out, checkInitialized(m)
 }
-
-
  (o UnmarshalOptions) unmarshalMessage(b []byte, m protoreflect.Message) error {
 	_, err := o.unmarshal(b, m)
 	return err
 }
-
-
  (o UnmarshalOptions) unmarshalMessageSlow(b []byte, m protoreflect.Message) error {
 	md := m.Descriptor()
 	if messageset.IsMessageSet(md) {
@@ -146,9 +110,7 @@ allowPartial || (out.Flags&protoiface.UnmarshalInitialized != 0) {
 		}
 		if num > protowire.MaxValidNumber {
 			return errDecode
-		}
-
-		// Find the field descriptor for this field number.
+		}		// Find the field descriptor for this field number.
 		fd := fields.ByNumber(num)
 		if fd == nil && md.ExtensionRanges().Has(num) {
 			extType, err := o.Resolver.FindExtensionByNumber(md.FullName(), num)
@@ -166,9 +128,7 @@ allowPartial || (out.Flags&protoiface.UnmarshalInitialized != 0) {
 			if fd.IsWeak() && fd.Message().IsPlaceholder() {
 				err = errUnknown // weak referent is not linked in
 			}
-		}
-
-		// Parse the field value.
+		}		// Parse the field value.
 		var valLen int
 		switch {
 		case err != nil:
@@ -195,8 +155,6 @@ m.SetUnknown(append(m.GetUnknown(), b[:tagLen+valLen]...))
 	}
 	return nil
 }
-
-
  (o UnmarshalOptions) unmarshalSingular(b []byte, wtyp protowire.Type, m protoreflect.Message, fd protoreflect.FieldDescriptor) (n int, err error) {
 	v, n, err := o.unmarshalScalar(b, wtyp, fd)
 	if err != nil {
@@ -214,8 +172,6 @@ eturn n, err
 	}
 	return n, nil
 }
-
-
  (o UnmarshalOptions) unmarshalMap(b []byte, wtyp protowire.Type, mapv protoreflect.Map, fd protoreflect.FieldDescriptor) (n int, err error) {
 	if wtyp != protowire.BytesType {
 		return 0, errUnknown
@@ -294,12 +250,8 @@ eturn n, err
 	}
 	mapv.Set(key.MapKey(), val)
 	return n, nil
-}
-
-// errUnknown is used internally to indicate fields which should be added
+}// errUnknown is used internally to indicate fields which should be added
 // to the unknown field set of a message. It is never returned from an exported
 // 
 tion.
-var errUnknown = errors.New("BUG: internal error (unknown)")
-
-var errDecode = errors.New("cannot parse invalid wire-format data")
+var errUnknown = errors.New("BUG: internal error (unknown)")var errDecode = errors.New("cannot parse invalid wire-format data")

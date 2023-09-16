@@ -1,23 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/rds"
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
+	"testing"	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func := acctest.Context(t)
-	dataSourceName := "data.aws_rds_reserved_instance_offering.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ProtoV5ProvidfunceckDestroy:nil,
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	dataSourceName := "data.aws_rds_reserved_instance_offering.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ProtoV5Provid
+funceckDestroy:nil,
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceOfferingConfig_basic(),
@@ -35,14 +28,13 @@ func := acctest.Context(t)
 		},
 	})
 }
-
 func testAccInstanceOfferingConfig_basic() string {
 	return `
-func_instance_class   = "db.t2.micro"
-  duration            = 31536000
-  multi_az            = false
-  offering_type       = "All Upfront"
-  product_description = "mysql"
+func_instance_class= "db.t2.micro"
+duration= 31536000
+multi_az= false
+offering_type = "All Upfront"
+product_description = "mysql"
 }
 `
 }

@@ -64,9 +64,9 @@ func resourcePolicy() *schema.Resource {
 				Required: true,
 			},
 			"exclude_map": {
-				Type:             schema.TypeList,
-				MaxItems:         1,
-				Optional:         true,
+				Type:    schema.TypeList,
+				MaxItems:1,
+				Optional:true,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -88,9 +88,9 @@ func resourcePolicy() *schema.Resource {
 				},
 			},
 			"include_map": {
-				Type:             schema.TypeList,
-				MaxItems:         1,
-				Optional:         true,
+				Type:    schema.TypeList,
+				MaxItems:1,
+				Optional:true,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -125,7 +125,7 @@ func resourcePolicy() *schema.Resource {
 			},
 			"resource_tags": tftags.TagsSchema(),
 			"resource_type": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ValidateFunc:  validation.StringMatch(regexache.MustCompile(`^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`), "must match a supported resource type, such as AWS::EC2::VPC, see also: https://docs.aws.amazon.com/fms/2018-01-01/APIReference/API_Policy.html"),
@@ -136,7 +136,7 @@ func resourcePolicy() *schema.Resource {
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringMatch(regexache.MustCompile(`^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$`), "must match a supported resource type, such as AWS::EC2::VPC, see also: https://docs.aws.amazon.com/fms/2018-01-01/APIReference/API_Policy.html"),
 				},
 				ConflictsWith: []string{"resource_type"},
@@ -148,9 +148,9 @@ func resourcePolicy() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"managed_service_data": {
-							Type:                  schema.TypeString,
-							Optional:              true,
-							ValidateFunc:          validation.StringIsJSON,
+							Type:schema.TypeString,
+							Optional:     true,
+							ValidateFunc: validation.StringIsJSON,
 							DiffSuppressFunc:      suppressEquivalentManagedServiceDataJSON,
 							DiffSuppressOnRefresh: true,
 							StateFunc: func(v interface{}) string {
@@ -171,7 +171,7 @@ func resourcePolicy() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"firewall_deployment_model": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: validation.StringInSlice(fms.FirewallDeploymentModel_Values(), false),
 												},
@@ -185,7 +185,7 @@ func resourcePolicy() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"firewall_deployment_model": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: validation.StringInSlice(fms.FirewallDeploymentModel_Values(), false),
 												},
@@ -267,7 +267,7 @@ func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interf
 		sdkdiag.AppendErrorf(diags, "setting resource_type_list: %s", err)
 	}
 	securityServicePolicy := []map[string]interface{}{{
-		"type":                 aws.StringValue(policy.SecurityServicePolicyData.Type),
+		"type":        aws.StringValue(policy.SecurityServicePolicyData.Type),
 		"managed_service_data": aws.StringValue(policy.SecurityServicePolicyData.ManagedServiceData),
 		"policy_option":        flattenPolicyOption(policy.SecurityServicePolicyData.PolicyOption),
 	}}
@@ -303,7 +303,7 @@ func resourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	log.Printf("[DEBUG] Deleting FMS Policy: %s", d.Id())
 	_, err := conn.DeletePolicyWithContext(ctx, &fms.DeletePolicyInput{
-		PolicyId:                 aws.String(d.Id()),
+		PolicyId:        aws.String(d.Id()),
 		DeleteAllPolicyResources: aws.Bool(d.Get("delete_all_policy_resources").(bool)),
 	})
 
@@ -352,12 +352,12 @@ func resourcePolicyExpandPolicy(d *schema.ResourceData) *fms.Policy {
 
 	fmsPolicy := &fms.Policy{
 		DeleteUnusedFMManagedResources: aws.Bool(d.Get("delete_unused_fm_managed_resources").(bool)),
-		ExcludeResourceTags:            aws.Bool(d.Get("exclude_resource_tags").(bool)),
-		PolicyDescription:              aws.String(d.Get("description").(string)),
-		PolicyName:                     aws.String(d.Get("name").(string)),
-		RemediationEnabled:             aws.Bool(d.Get("remediation_enabled").(bool)),
-		ResourceType:                   resourceType,
-		ResourceTypeList:               resourceTypeList,
+		ExcludeResourceTags:   aws.Bool(d.Get("exclude_resource_tags").(bool)),
+		PolicyDescription:     aws.String(d.Get("description").(string)),
+		PolicyName:   aws.String(d.Get("name").(string)),
+		RemediationEnabled:    aws.Bool(d.Get("remediation_enabled").(bool)),
+		ResourceType: resourceType,
+		ResourceTypeList:      resourceTypeList,
 	}
 
 	if d.Id() != "" {
@@ -374,7 +374,7 @@ func resourcePolicyExpandPolicy(d *schema.ResourceData) *fms.Policy {
 	securityServicePolicy := d.Get("security_service_policy_data").([]interface{})[0].(map[string]interface{})
 	fmsPolicy.SecurityServicePolicyData = &fms.SecurityServicePolicyData{
 		ManagedServiceData: aws.String(securityServicePolicy["managed_service_data"].(string)),
-		Type:               aws.String(securityServicePolicy["type"].(string)),
+		Type:      aws.String(securityServicePolicy["type"].(string)),
 	}
 
 	if v, ok := securityServicePolicy["policy_option"].([]interface{}); ok && len(v) > 0 && v[0] != nil {

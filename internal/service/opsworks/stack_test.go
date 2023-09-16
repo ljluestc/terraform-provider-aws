@@ -37,7 +37,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStackDestroy(ctx),
+CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStackConfig_basic(rName),
@@ -71,8 +71,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -95,7 +95,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStackDestroy(ctx),
+CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStackConfig_basic(rName),
@@ -126,7 +126,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStackDestroy(ctx),
+CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStackConfig_noVPC(rName),
@@ -139,8 +139,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -171,7 +171,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStackDestroy(ctx),
+CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStackConfig_noVPCDefaultAZ(rName),
@@ -184,8 +184,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -208,7 +208,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStackDestroy(ctx),
+CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStackConfig_tags1(rName, "key1", "value1"),
@@ -220,8 +220,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -269,7 +269,7 @@ functionality.
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-CheckDestroy:    testAccCheckStackDestroy(ctx),
+CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStackConfig_tags1AlternateRegion(rName, "key1", "value1"),
@@ -281,7 +281,7 @@ func(value string) error {
 if !regexache.MustCompile(arn.ARN{
 	Partition: acctest.Partition(),
 	Service:   opsworks.ServiceName,
-	Region:    acctest.AlternateRegion(),
+	Region:acctest.AlternateRegion(),
 	AccountID: acctest.AccountID(),
 	Resource:  `stack/.+/`,
 }.String()).MatchString(value) {
@@ -298,8 +298,8 @@ return nil
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -341,7 +341,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStackDestroy(ctx),
+CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStackConfig_allAttributes(rName, "4039-20200430042739", "rgb(186, 65, 50)", "main", testAccCustomJSON1, "test1", "Baked_Goods"),
@@ -381,8 +381,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"custom_cookbooks_source.0.password",
@@ -482,7 +482,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStackDestroy(ctx),
+CheckDestroy:testAccCheckStackDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStackConfig_windows(rName, "Microsoft Windows Server 2012 R2 Base"),
@@ -496,8 +496,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -599,11 +599,11 @@ resource "aws_iam_role" "opsworks_service" {
 {
   "Version": "2008-10-17",
   "Statement": [{
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "opsworks.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+ "Service": "opsworks.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
   }]
 }
 EOT
@@ -616,16 +616,16 @@ resource "aws_iam_role_policy" "opsworks_service" {
   policy = <<EOT
 {
   "Statement": [{
-    "Action": [
-      "ec2:*",
-      "iam:PassRole",
-      "cloudwatch:GetMetricStatistics",
-      "elasticloadbalancing:*",
-      "rds:*",
-      "ecs:*"
-    ],
-    "Effect": "Allow",
-    "Resource": ["*"]
+"Action": [
+ "ec2:*",
+ "iam:PassRole",
+ "cloudwatch:GetMetricStatistics",
+ "elasticloadbalancing:*",
+ "rds:*",
+ "ecs:*"
+],
+"Effect": "Allow",
+"Resource": ["*"]
   }]
 }
 EOT
@@ -638,11 +638,11 @@ resource "aws_iam_role" "opsworks_instance" {
 {
   "Version": "2008-10-17",
   "Statement": [{
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "ec2.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+ "Service": "ec2.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
   }]
 }
 EOT
@@ -676,8 +676,8 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+name   = "opt-in-status"
+values = ["opt-in-not-required"]
   }
 }
 
@@ -687,7 +687,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -698,10 +698,10 @@ resource "aws_subnet" "test" {
 
   vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
+  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -712,11 +712,11 @@ func testAccStackConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region        = %[2]q
-  service_role_arn    = aws_iam_role.opsworks_service.arn
+  region   = %[2]q
+  service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
-  vpc_id        = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   use_opsworks_security_groups = false
 }
 `, rName, acctest.Region()))
@@ -729,8 +729,8 @@ testAccStackConfig_baseIAM(rName),
 fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region        = %[2]q
-  service_role_arn    = aws_iam_role.opsworks_service.arn
+  region   = %[2]q
+  service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
 }
@@ -748,11 +748,11 @@ testAccStackConfig_baseIAM(rName),
 fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region        = %[2]q
-  service_role_arn    = aws_iam_role.opsworks_service.arn
+  region   = %[2]q
+  service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
-  vpc_id        = data.aws_vpc.default.id
+  vpc_id   = data.aws_vpc.default.id
 }
 
 data "aws_vpc" "default" {
@@ -769,11 +769,11 @@ acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region        = %[2]q
-  service_role_arn    = aws_iam_role.opsworks_service.arn
+  region   = %[2]q
+  service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
-  default_availability_zone    = data.aws_availability_zones.available.names[1]
+  default_availability_zone= data.aws_availability_zones.available.names[1]
 }
 
 data "aws_vpc" "default" {
@@ -787,15 +787,15 @@ func testAccStackConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region        = %[2]q
-  service_role_arn    = aws_iam_role.opsworks_service.arn
+  region   = %[2]q
+  service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
-  vpc_id        = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   use_opsworks_security_groups = false
 
   tags = {
-    %[3]q = %[4]q
+%[3]q = %[4]q
   }
 }
 `, rName, acctest.Region(), tagKey1, tagValue1))
@@ -806,16 +806,16 @@ func testAccStackConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 stri
 	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region        = %[2]q
-  service_role_arn    = aws_iam_role.opsworks_service.arn
+  region   = %[2]q
+  service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
-  vpc_id        = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   use_opsworks_security_groups = false
 
   tags = {
-    %[3]q = %[4]q
-    %[5]q = %[6]q
+%[3]q = %[4]q
+%[5]q = %[6]q
   }
 }
 `, rName, acctest.Region(), tagKey1, tagValue1, tagKey2, tagValue2))
@@ -826,15 +826,15 @@ func testAccStackConfig_tags1AlternateRegion(rName, tagKey1, tagValue1 string) s
 	return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region        = %[2]q
-  service_role_arn    = aws_iam_role.opsworks_service.arn
+  region   = %[2]q
+  service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
-  vpc_id        = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   use_opsworks_security_groups = false
 
   tags = {
-    %[3]q = %[4]q
+%[3]q = %[4]q
   }
 }
 `, rName, acctest.AlternateRegion(), tagKey1, tagValue1))
@@ -845,16 +845,16 @@ func testAccStackConfig_tags2AlternateRegion(rName, tagKey1, tagValue1, tagKey2,
 	return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region        = %[2]q
-  service_role_arn    = aws_iam_role.opsworks_service.arn
+  region   = %[2]q
+  service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
-  vpc_id        = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   use_opsworks_security_groups = false
 
   tags = {
-    %[3]q = %[4]q
-    %[5]q = %[6]q
+%[3]q = %[4]q
+%[5]q = %[6]q
   }
 }
 `, rName, acctest.AlternateRegion(), tagKey1, tagValue1, tagKey2, tagValue2))
@@ -865,31 +865,31 @@ func testAccStackConfig_allAttributes(rName, agentVersion, color, customCookbook
 	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region        = %[2]q
-  service_role_arn    = aws_iam_role.opsworks_service.arn
+  region   = %[2]q
+  service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
-  vpc_id        = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   use_opsworks_security_groups = false
 
   agent_version  = %[3]q
   color = %[4]q
-  configuration_manager_name    = "Chef"
+  configuration_manager_name= "Chef"
   configuration_manager_version = "12"
-  custom_json    = %[6]q
-  default_os     = "Amazon Linux 2"
-  default_root_device_type      = "ebs"
+  custom_json= %[6]q
+  default_os= "Amazon Linux 2"
+  default_root_device_type = "ebs"
   default_ssh_key_name = %[7]q
   hostname_theme = %[8]q
-  manage_berkshelf     = false
+  manage_berkshelf= false
 
   use_custom_cookbooks = true
   custom_cookbooks_source {
-    type     = "git"
-    revision = %[5]q
-    url      = "https://github.com/aws/opsworks-example-cookbooks.git"
-    password = "avoid-plaintext-passwords"
-    username = "tfacctest"
+type= "git"
+revision = %[5]q
+url = "https://github.com/aws/opsworks-example-cookbooks.git"
+password = "avoid-plaintext-passwords"
+username = "tfacctest"
   }
 }
 `, rName, acctest.Region(), agentVersion, color, customCookbookRevision, customJSON, defaultSSHKeyName, hostnameTheme))
@@ -900,14 +900,14 @@ func testAccStackConfig_windows(rName, defaultOS string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region        = %[2]q
-  service_role_arn    = aws_iam_role.opsworks_service.arn
+  region   = %[2]q
+  service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id   = aws_subnet.test[0].id
-  vpc_id        = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   use_opsworks_security_groups = false
 
-  default_os     = %[3]q
+  default_os= %[3]q
   configuration_manager_version = "12.2"
 }
 `, rName, acctest.Region(), defaultOS))
@@ -927,29 +927,29 @@ resource "aws_vpc" "test" {
   cidr_block = "10.3.5.0/24"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   vpc_id   = aws_vpc.test.id
-  cidr_block        = aws_vpc.test.cidr_block
+  cidr_block   = aws_vpc.test.cidr_block
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_opsworks_stack" "test" {
   name = %[1]q
-  region        = data.aws_region.current.name
-  vpc_id        = aws_vpc.test.id
+  region   = data.aws_region.current.name
+  vpc_id   = aws_vpc.test.id
   default_subnet_id   = aws_subnet.test.id
-  service_role_arn    = aws_iam_role.opsworks_service.arn
+  service_role_arn= aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
-  default_os    = "Amazon Linux 2016.09"
-  default_root_device_type     = "ebs"
+  default_os= "Amazon Linux 2016.09"
+  default_root_device_type= "ebs"
 
   custom_json = <<EOF
 {
@@ -968,14 +968,14 @@ resource "aws_iam_role" "opsworks_service" {
 {
   "Version": "2008-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "opsworks.${data.aws_partition.current.dns_suffix}"
-      },
-      "Action": "sts:AssumeRole"
-    }
+{
+ "Sid": "",
+ "Effect": "Allow",
+ "Principal": {
+   "Service": "opsworks.${data.aws_partition.current.dns_suffix}"
+ },
+ "Action": "sts:AssumeRole"
+}
   ]
 }
 EOT
@@ -988,20 +988,20 @@ resource "aws_iam_role_policy" "opsworks_service" {
   policy = <<EOT
 {
   "Statement": [
-    {
-      "Action": [
-        "ec2:*",
-        "iam:PassRole",
-        "cloudwatch:GetMetricStatistics",
-        "elasticloadbalancing:*",
-        "rds:*",
-        "ecs:*"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "*"
-      ]
-    }
+{
+ "Action": [
+   "ec2:*",
+   "iam:PassRole",
+   "cloudwatch:GetMetricStatistics",
+   "elasticloadbalancing:*",
+   "rds:*",
+   "ecs:*"
+ ],
+ "Effect": "Allow",
+ "Resource": [
+   "*"
+ ]
+}
   ]
 }
 EOT
@@ -1014,14 +1014,14 @@ resource "aws_iam_role" "opsworks_instance" {
 {
   "Version": "2008-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.${data.aws_partition.current.dns_suffix}"
-      },
-      "Action": "sts:AssumeRole"
-    }
+{
+ "Sid": "",
+ "Effect": "Allow",
+ "Principal": {
+   "Service": "ec2.${data.aws_partition.current.dns_suffix}"
+ },
+ "Action": "sts:AssumeRole"
+}
   ]
 }
 EOT

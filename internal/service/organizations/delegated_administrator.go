@@ -23,6 +23,7 @@ import (
 )
 
 // @SDKResource("aws_organizations_delegated_administrator")
+
 func ResourceDelegatedAdministrator() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDelegatedAdministratorCreate,
@@ -35,7 +36,7 @@ func ResourceDelegatedAdministrator() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,
@@ -65,7 +66,7 @@ func ResourceDelegatedAdministrator() *schema.Resource {
 				Computed: true,
 			},
 			"service_principal": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
@@ -77,6 +78,7 @@ func ResourceDelegatedAdministrator() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceDelegatedAdministratorCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -100,6 +102,7 @@ func resourceDelegatedAdministratorCreate(ctx context.Context, d *schema.Resourc
 
 	return append(diags, resourceDelegatedAdministratorRead(ctx, d, meta)...)
 }
+
 
 func resourceDelegatedAdministratorRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -136,6 +139,7 @@ func resourceDelegatedAdministratorRead(ctx context.Context, d *schema.ResourceD
 	return diags
 }
 
+
 func resourceDelegatedAdministratorDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -159,6 +163,7 @@ func resourceDelegatedAdministratorDelete(ctx context.Context, d *schema.Resourc
 	return diags
 }
 
+
 func findDelegatedAdministratorByTwoPartKey(ctx context.Context, conn *organizations.Organizations, accountID, servicePrincipal string) (*organizations.DelegatedAdministrator, error) {
 	input := &organizations.ListDelegatedAdministratorsInput{
 		ServicePrincipal: aws.String(servicePrincipal),
@@ -179,10 +184,12 @@ func findDelegatedAdministratorByTwoPartKey(ctx context.Context, conn *organizat
 	return nil, &retry.NotFoundError{}
 }
 
+
 func findDelegatedAdministrators(ctx context.Context, conn *organizations.Organizations, input *organizations.ListDelegatedAdministratorsInput) ([]*organizations.DelegatedAdministrator, error) {
 	var output []*organizations.DelegatedAdministrator
 
-	err := conn.ListDelegatedAdministratorsPagesWithContext(ctx, input, func(page *organizations.ListDelegatedAdministratorsOutput, lastPage bool) bool {
+	err := conn.ListDelegatedAdministratorsPagesWithContext(ctx, input, 
+func(page *organizations.ListDelegatedAdministratorsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -201,12 +208,14 @@ func findDelegatedAdministrators(ctx context.Context, conn *organizations.Organi
 
 const delegatedAdministratorResourceIDSeparator = "/"
 
+
 func DelegatedAdministratorCreateResourceID(accountID, servicePrincipal string) string {
 	parts := []string{accountID, servicePrincipal}
 	id := strings.Join(parts, delegatedAdministratorResourceIDSeparator)
 
 	return id
 }
+
 
 func DelegatedAdministratorParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, delegatedAdministratorResourceIDSeparator)

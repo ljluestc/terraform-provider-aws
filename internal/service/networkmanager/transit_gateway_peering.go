@@ -76,7 +76,7 @@ func ResourceTransitGatewayPeering() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"transit_gateway_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -96,7 +96,7 @@ func resourceTransitGatewayPeeringCreate(ctx context.Context, d *schema.Resource
 	transitGatewayARN := d.Get("transit_gateway_arn").(string)
 	input := &networkmanager.CreateTransitGatewayPeeringInput{
 		CoreNetworkId:     aws.String(coreNetworkID),
-		Tags:              getTagsIn(ctx),
+		Tags:     getTagsIn(ctx),
 		TransitGatewayArn: aws.String(transitGatewayARN),
 	}
 

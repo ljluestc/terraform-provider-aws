@@ -1,19 +1,9 @@
 // Copyright 2020 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build zos && s390x
-// +build zos,s390x
-
-package unix
-
-import (
+// license that can be found in the LICENSE file.//go:build zos && s390x
+// +build zos,s390xpackage uniximport (
 	"unsafe"
-)
-
-// This file simulates fstatfs on z/OS using fstatvfs and w_getmntent.
-
-
+)// This file simulates fstatfs on z/OS using fstatvfs and w_getmntent.
  Fstatfs(fd int, stat *Statfs_t) (err error) {
 	var stat_v Statvfs_t
 	err = Fstatvfs(fd, &stat_v)
@@ -58,8 +48,6 @@ import (
 	}
 	return err
 }
-
-
  tryGetmntent64(stat *Statfs_t) (err error) {
 	var mnt_ent_buffer struct {
 		header       W_Mnth
@@ -78,11 +66,7 @@ import (
 			break
 		}
 	}
-	return err
-
-
-
- tryGetmntent128(stat *Statfs_t) (err error) {
+	return err tryGetmntent128(stat *Statfs_t) (err error) {
 	var mnt_ent_buffer struct {
 		header       W_Mnth
 		filesys_info [128]W_Mntent
@@ -102,8 +86,6 @@ import (
 	}
 urn err
 }
-
-
  tryGetmntent256(stat *Statfs_t) (err error) {
 	var mnt_ent_buffer struct {
 		header       W_Mnth
@@ -120,12 +102,8 @@ urn err
 			stat.Type = uint32(mnt_ent_buffer.filesys_info[i].Fstname[0])
 			err = nil
 			break
-		}
-
-	return err
+		}	return err
 }
-
-
  tryGetmntent512(stat *Statfs_t) (err error) {
 	var mnt_ent_buffer struct {
 		header       W_Mnth
@@ -141,13 +119,9 @@ urn err
 		if stat.Fsid == uint64(mnt_ent_buffer.filesys_info[i].Dev) {
 			stat.Type = uint32(mnt_ent_buffer.filesys_info[i].Fstname[0])
 			err = nil
-			break
-
-	}
+			break	}
 	return err
 }
-
-
  tryGetmntent1024(stat *Statfs_t) (err error) {
 	var mnt_ent_buffer struct {
 		header       W_Mnth

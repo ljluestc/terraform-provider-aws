@@ -38,33 +38,33 @@ func ResourceSegment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"created_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 160),
 			},
 			"experiment_count": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"last_updated_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"launch_count": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -73,7 +73,7 @@ func ResourceSegment() *schema.Resource {
 				),
 			},
 			"pattern": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -86,7 +86,7 @@ func ResourceSegment() *schema.Resource {
 					return json
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -99,9 +99,9 @@ func resourceSegmentCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	name := d.Get("name").(string)
 	input := &cloudwatchevidently.CreateSegmentInput{
-		Name:    aws.String(name),
+		Name:aws.String(name),
 		Pattern: aws.String(d.Get("pattern").(string)),
-		Tags:    getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

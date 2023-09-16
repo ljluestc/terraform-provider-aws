@@ -36,15 +36,15 @@ func TestAccDynamoDBGlobalTable_basic(t *testing.T) {
 		CheckDestroy:testAccCheckGlobalTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccGlobalTableConfig_invalidName(sdkacctest.RandString(2)),
+				Config:  testAccGlobalTableConfig_invalidName(sdkacctest.RandString(2)),
 				ExpectError: regexache.MustCompile("name length must be between 3 and 255 characters"),
 			},
 			{
-				Config:      testAccGlobalTableConfig_invalidName(sdkacctest.RandString(256)),
+				Config:  testAccGlobalTableConfig_invalidName(sdkacctest.RandString(256)),
 				ExpectError: regexache.MustCompile("name length must be between 3 and 255 characters"),
 			},
 			{
-				Config:      testAccGlobalTableConfig_invalidName("!!!!"),
+				Config:  testAccGlobalTableConfig_invalidName("!!!!"),
 				ExpectError: regexache.MustCompile("name must only include alphanumeric, underscore, period, or hyphen characters"),
 			},
 			{
@@ -57,8 +57,8 @@ func TestAccDynamoDBGlobalTable_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -90,9 +90,9 @@ func TestAccDynamoDBGlobalTable_multipleRegions(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccGlobalTableConfig_multipleRegions1(rName),
-				ResourceName:      resourceName,
-				ImportState:       true,
+				Config:   testAccGlobalTableConfig_multipleRegions1(rName),
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -196,15 +196,15 @@ data "aws_region" "current" {}
 
 resource "aws_dynamodb_table" "test" {
   hash_key= "myAttribute"
-  name    = %[1]q
+  name= %[1]q
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
-  read_capacity    = 1
+  read_capacity= 1
   write_capacity   = 1
 
   attribute {
-    name = "myAttribute"
-    type = "S"
+name = "myAttribute"
+type = "S"
   }
 }
 
@@ -214,7 +214,7 @@ resource "aws_dynamodb_global_table" "test" {
   name = %[1]q
 
   replica {
-    region_name = data.aws_region.current.name
+region_name = data.aws_region.current.name
   }
 }
 `, rName)
@@ -230,15 +230,15 @@ data "aws_region" "current" {}
 
 resource "aws_dynamodb_table" "test" {
   hash_key= "myAttribute"
-  name    = %[1]q
+  name= %[1]q
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
-  read_capacity    = 1
+  read_capacity= 1
   write_capacity   = 1
 
   attribute {
-    name = "myAttribute"
-    type = "S"
+name = "myAttribute"
+type = "S"
   }
 }
 
@@ -246,15 +246,15 @@ resource "aws_dynamodb_table" "alternate" {
   provider = "awsalternate"
 
   hash_key= "myAttribute"
-  name    = %[1]q
+  name= %[1]q
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
-  read_capacity    = 1
+  read_capacity= 1
   write_capacity   = 1
 
   attribute {
-    name = "myAttribute"
-    type = "S"
+name = "myAttribute"
+type = "S"
   }
 }
 `, tableName))
@@ -266,7 +266,7 @@ resource "aws_dynamodb_global_table" "test" {
   name = aws_dynamodb_table.test.name
 
   replica {
-    region_name = data.aws_region.current.name
+region_name = data.aws_region.current.name
   }
 }
 `)
@@ -280,11 +280,11 @@ resource "aws_dynamodb_global_table" "test" {
   name = aws_dynamodb_table.test.name
 
   replica {
-    region_name = data.aws_region.alternate.name
+region_name = data.aws_region.alternate.name
   }
 
   replica {
-    region_name = data.aws_region.current.name
+region_name = data.aws_region.current.name
   }
 }
 `)
@@ -298,7 +298,7 @@ resource "aws_dynamodb_global_table" "test" {
   name = %[1]q
 
   replica {
-    region_name = data.aws_region.current.name
+region_name = data.aws_region.current.name
   }
 }
 `, tableName))

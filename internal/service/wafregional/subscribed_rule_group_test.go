@@ -39,7 +39,7 @@ ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 CheckDestroy:    nil,
 Steps: []resource.TestStep{
 	{
-Config:      testAccSubscribedRuleGroupDataSourceConfig_nonexistent,
+Config:testAccSubscribedRuleGroupDataSourceConfig_nonexistent,
 ExpectError: regexache.MustCompile(`no matches found`),
 	},
 	{
@@ -67,7 +67,7 @@ func(
 ),
 	},
 	{
-Config:      testAccDataSourceSubscribedRuleGroupDataSourceConfig_nameAndMismatchingMetricName(ruleGroupName),
+Config:testAccDataSourceSubscribedRuleGroupDataSourceConfig_nameAndMismatchingMetricName(ruleGroupName),
 ExpectError: regexache.MustCompile(`no matches found`),
 	},
 },
@@ -96,7 +96,7 @@ data "aws_wafregional_subscribed_rule_group" "rulegroup" {
 func testAccSubscribedRuleGroupDataSourceConfig_nameAndMetricName(name string, metricName string) string {
 	return fmt.Sprintf(`
 data "aws_wafregional_subscribed_rule_group" "rulegroup" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[2]q
 }
 `, name, metricName)
@@ -106,7 +106,7 @@ data "aws_wafregional_subscribed_rule_group" "rulegroup" {
 func testAccDataSourceSubscribedRuleGroupDataSourceConfig_nameAndMismatchingMetricName(name string) string {
 	return fmt.Sprintf(`
 data "aws_wafregional_subscribed_rule_group" "rulegroup" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = "tf-acc-test-does-not-exist"
 }
 `, name)

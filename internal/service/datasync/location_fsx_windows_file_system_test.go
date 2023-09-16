@@ -34,9 +34,9 @@ func TestAccDataSyncLocationFSxWindowsFileSystem_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxWindowsDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxWindowsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxWindowsFileSystemConfig_basic(rName, domainName),
@@ -51,8 +51,8 @@ func TestAccDataSyncLocationFSxWindowsFileSystem_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateIdFunc:       testAccLocationFSxWindowsImportStateID(resourceName),
 				ImportStateVerifyIgnore: []string{"password"},
@@ -74,9 +74,9 @@ func TestAccDataSyncLocationFSxWindowsFileSystem_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxWindowsDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxWindowsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxWindowsFileSystemConfig_basic(rName, domainName),
@@ -103,9 +103,9 @@ func TestAccDataSyncLocationFSxWindowsFileSystem_subdirectory(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxWindowsDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxWindowsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxWindowsFileSystemConfig_subdirectory(rName, domainName, "/subdirectory1/"),
@@ -115,8 +115,8 @@ func TestAccDataSyncLocationFSxWindowsFileSystem_subdirectory(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateIdFunc:       testAccLocationFSxWindowsImportStateID(resourceName),
 				ImportStateVerifyIgnore: []string{"password"},
@@ -138,9 +138,9 @@ func TestAccDataSyncLocationFSxWindowsFileSystem_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxWindowsDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxWindowsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxWindowsFileSystemConfig_tags1(rName, domainName, "key1", "value1"),
@@ -151,8 +151,8 @@ func TestAccDataSyncLocationFSxWindowsFileSystem_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateIdFunc:       testAccLocationFSxWindowsImportStateID(resourceName),
 				ImportStateVerifyIgnore: []string{"password"},
@@ -282,7 +282,7 @@ resource "aws_fsx_windows_file_system" "test" {
   security_group_ids  = [aws_security_group.test.id]
   skip_final_backup   = true
   storage_capacity    = 32
-  subnet_ids          = [aws_subnet.test[0].id]
+  subnet_ids = [aws_subnet.test[0].id]
   throughput_capacity = 8
 
   tags = {
@@ -296,8 +296,8 @@ func testAccLocationFSxWindowsFileSystemConfig_basic(rName, domain string) strin
 	return acctest.ConfigCompose(testAccLocationFSxWindowsFileSystemConfig_baseFS(rName, domain), `
 resource "aws_datasync_location_fsx_windows_file_system" "test" {
   fsx_filesystem_arn  = aws_fsx_windows_file_system.test.arn
-  user                = "SomeUser"
-  password            = "SuperSecretPassw0rd"
+  user       = "SomeUser"
+  password   = "SuperSecretPassw0rd"
   security_group_arns = [aws_security_group.test.arn]
 }
 `)
@@ -307,8 +307,8 @@ func testAccLocationFSxWindowsFileSystemConfig_subdirectory(rName, domain, subdi
 	return acctest.ConfigCompose(testAccLocationFSxWindowsFileSystemConfig_baseFS(rName, domain), fmt.Sprintf(`
 resource "aws_datasync_location_fsx_windows_file_system" "test" {
   fsx_filesystem_arn  = aws_fsx_windows_file_system.test.arn
-  user                = "SomeUser"
-  password            = "SuperSecretPassw0rd"
+  user       = "SomeUser"
+  password   = "SuperSecretPassw0rd"
   security_group_arns = [aws_security_group.test.arn]
   subdirectory        = %[1]q
 }
@@ -319,8 +319,8 @@ func testAccLocationFSxWindowsFileSystemConfig_tags1(rName, domain, key1, value1
 	return acctest.ConfigCompose(testAccLocationFSxWindowsFileSystemConfig_baseFS(rName, domain), fmt.Sprintf(`
 resource "aws_datasync_location_fsx_windows_file_system" "test" {
   fsx_filesystem_arn  = aws_fsx_windows_file_system.test.arn
-  user                = "SomeUser"
-  password            = "SuperSecretPassw0rd"
+  user       = "SomeUser"
+  password   = "SuperSecretPassw0rd"
   security_group_arns = [aws_security_group.test.arn]
 
   tags = {
@@ -334,8 +334,8 @@ func testAccLocationFSxWindowsFileSystemConfig_tags2(rName, domain, key1, value1
 	return acctest.ConfigCompose(testAccLocationFSxWindowsFileSystemConfig_baseFS(rName, domain), fmt.Sprintf(`
 resource "aws_datasync_location_fsx_windows_file_system" "test" {
   fsx_filesystem_arn  = aws_fsx_windows_file_system.test.arn
-  user                = "SomeUser"
-  password            = "SuperSecretPassw0rd"
+  user       = "SomeUser"
+  password   = "SuperSecretPassw0rd"
   security_group_arns = [aws_security_group.test.arn]
 
   tags = {

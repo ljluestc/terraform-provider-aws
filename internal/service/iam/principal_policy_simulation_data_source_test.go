@@ -16,7 +16,7 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -84,7 +84,7 @@ resource "aws_vpc" "test" {
   cidr_block = "192.168.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -93,43 +93,43 @@ resource "aws_iam_user_policy" "test" {
   user = aws_iam_user.test.name
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action   = "ec2:AssociateVpcCidrBlock"
-        Effect   = "Allow"
-        Resource = aws_vpc.test.arn
-      },
-      {
-        Action   = "ec2:AttachClassicLinkVpc"
-        Effect   = "Deny"
-        Resource = aws_vpc.test.arn
-      },
-      {
-        Action   = "ec2:AttachInternetGateway"
-        Effect   = "Allow"
-        Resource = aws_vpc.test.arn
-        Condition = {
-          StringEquals = {
-            "ec2:ResourceTag/Foo" = "bar"
-          }
-        }
-      },
-    ]
+Version = "2012-10-17"
+Statement = [
+  {
+Action   = "ec2:AssociateVpcCidrBlock"
+Effect   = "Allow"
+Resource = aws_vpc.test.arn
+  },
+  {
+Action   = "ec2:AttachClassicLinkVpc"
+Effect   = "Deny"
+Resource = aws_vpc.test.arn
+  },
+  {
+Action   = "ec2:AttachInternetGateway"
+Effect   = "Allow"
+Resource = aws_vpc.test.arn
+Condition = {
+ StringEquals = {
+   "ec2:ResourceTag/Foo" = "bar"
+ }
+}
+  },
+]
   })
 }
 
 data "aws_iam_principal_policy_simulation" "allow_simple" {
-  action_names      = ["ec2:AssociateVpcCidrBlock"]
-  resource_arns     = [aws_vpc.test.arn]
+  action_names  = ["ec2:AssociateVpcCidrBlock"]
+  resource_arns = [aws_vpc.test.arn]
   policy_source_arn = aws_iam_user.test.arn
 
   depends_on = [aws_iam_user_policy.test]
 }
 
 data "aws_iam_principal_policy_simulation" "deny_explicit" {
-  action_names      = ["ec2:AttachClassicLinkVpc"]
-  resource_arns     = [aws_vpc.test.arn]
+  action_names  = ["ec2:AttachClassicLinkVpc"]
+  resource_arns = [aws_vpc.test.arn]
   policy_source_arn = aws_iam_user.test.arn
 
   depends_on = [aws_iam_user_policy.test]
@@ -138,36 +138,36 @@ data "aws_iam_principal_policy_simulation" "deny_explicit" {
 data "aws_iam_principal_policy_simulation" "deny_implicit" {
   # This one is implicit deny because our policy
   # doesn't mention ec2:AttachVpnGateway at all.
-  action_names      = ["ec2:AttachVpnGateway"]
-  resource_arns     = [aws_vpc.test.arn]
+  action_names  = ["ec2:AttachVpnGateway"]
+  resource_arns = [aws_vpc.test.arn]
   policy_source_arn = aws_iam_user.test.arn
 
   depends_on = [aws_iam_user_policy.test]
 }
 
 data "aws_iam_principal_policy_simulation" "allow_with_context" {
-  action_names      = ["ec2:AttachInternetGateway"]
-  resource_arns     = [aws_vpc.test.arn]
+  action_names  = ["ec2:AttachInternetGateway"]
+  resource_arns = [aws_vpc.test.arn]
   policy_source_arn = aws_iam_user.test.arn
 
   context {
-    key    = "ec2:ResourceTag/Foo"
-    type   = "string"
-    values = ["bar"]
+key= "ec2:ResourceTag/Foo"
+type   = "string"
+values = ["bar"]
   }
 
   depends_on = [aws_iam_user_policy.test]
 }
 
 data "aws_iam_principal_policy_simulation" "allow_with_wrong_context" {
-  action_names      = ["ec2:AttachInternetGateway"]
-  resource_arns     = [aws_vpc.test.arn]
+  action_names  = ["ec2:AttachInternetGateway"]
+  resource_arns = [aws_vpc.test.arn]
   policy_source_arn = aws_iam_user.test.arn
 
   context {
-    key    = "ec2:ResourceTag/Foo"
-    type   = "string"
-    values = ["baz"]
+key= "ec2:ResourceTag/Foo"
+type   = "string"
+values = ["baz"]
   }
 
   depends_on = [aws_iam_user_policy.test]
@@ -175,10 +175,10 @@ data "aws_iam_principal_policy_simulation" "allow_with_wrong_context" {
 
 data "aws_iam_principal_policy_simulation" "multiple_mixed" {
   action_names = [
-    "ec2:AssociateVpcCidrBlock",
-    "ec2:AttachClassicLinkVpc",
+"ec2:AssociateVpcCidrBlock",
+"ec2:AttachClassicLinkVpc",
   ]
-  resource_arns     = [aws_vpc.test.arn]
+  resource_arns = [aws_vpc.test.arn]
   policy_source_arn = aws_iam_user.test.arn
 
   depends_on = [aws_iam_user_policy.test]
@@ -186,16 +186,16 @@ data "aws_iam_principal_policy_simulation" "multiple_mixed" {
 
 data "aws_iam_principal_policy_simulation" "multiple_allow" {
   action_names = [
-    "ec2:AssociateVpcCidrBlock",
-    "ec2:AttachInternetGateway",
+"ec2:AssociateVpcCidrBlock",
+"ec2:AttachInternetGateway",
   ]
-  resource_arns     = [aws_vpc.test.arn]
+  resource_arns = [aws_vpc.test.arn]
   policy_source_arn = aws_iam_user.test.arn
 
   context {
-    key    = "ec2:ResourceTag/Foo"
-    type   = "string"
-    values = ["bar"]
+key= "ec2:ResourceTag/Foo"
+type   = "string"
+values = ["bar"]
   }
 
   depends_on = [aws_iam_user_policy.test]

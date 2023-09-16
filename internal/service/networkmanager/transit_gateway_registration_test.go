@@ -23,10 +23,10 @@ func TestAccNetworkManagerTransitGatewayRegistration_serial(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]func(t *testing.T){
-		"basic":                     testAccTransitGatewayRegistration_basic,
-		"disappears":                testAccTransitGatewayRegistration_disappears,
+		"basic":   testAccTransitGatewayRegistration_basic,
+		"disappears":       testAccTransitGatewayRegistration_disappears,
 		"disappears_TransitGateway": testAccTransitGatewayRegistration_Disappears_transitGateway,
-		"crossRegion":               testAccTransitGatewayRegistration_crossRegion,
+		"crossRegion":      testAccTransitGatewayRegistration_crossRegion,
 	}
 
 	acctest.RunSerialTests1Level(t, testCases, 0)
@@ -38,10 +38,10 @@ func testAccTransitGatewayRegistration_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayRegistrationDestroy(ctx),
+		CheckDestroy:    testAccCheckTransitGatewayRegistrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayRegistrationConfig_basic(rName),
@@ -64,10 +64,10 @@ func testAccTransitGatewayRegistration_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayRegistrationDestroy(ctx),
+		CheckDestroy:    testAccCheckTransitGatewayRegistrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayRegistrationConfig_basic(rName),
@@ -88,10 +88,10 @@ func testAccTransitGatewayRegistration_Disappears_transitGateway(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayRegistrationDestroy(ctx),
+		CheckDestroy:    testAccCheckTransitGatewayRegistrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayRegistrationConfig_basic(rName),
@@ -111,10 +111,10 @@ func testAccTransitGatewayRegistration_crossRegion(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckTransitGatewayRegistrationDestroy(ctx),
+		CheckDestroy:    testAccCheckTransitGatewayRegistrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayRegistrationConfig_crossRegion(rName),

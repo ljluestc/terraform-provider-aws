@@ -25,35 +25,34 @@ func DataSourceReplicationSubnetGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"replication_subnet_group_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"replication_subnet_group_description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"replication_subnet_group_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"subnet_group_status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func dataSourceReplicationSubnetGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
@@ -70,15 +69,16 @@ func dataSourceReplicationSubnetGroupRead(ctx context.Context, d *schema.Resourc
 	d.SetId(aws.StringValue(group.ReplicationSubnetGroupIdentifier))
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "dms",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"dms",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("subgrp:%s", d.Id()),
 	}.String()
 	d.Set("replication_subnet_group_arn", arn)
 	d.Set("replication_subnet_group_description", group.ReplicationSubnetGroupDescription)
 	d.Set("replication_subnet_group_id", group.ReplicationSubnetGroupIdentifier)
-	subnetIDs := tfslices.ApplyToAll(group.Subnets, func(sn *dms.Subnet) string {
+	subnetIDs := tfslices.ApplyToAll(group.Subnets, 
+func(sn *dms.Subnet) string {
 		return aws.StringValue(sn.SubnetIdentifier)
 	})
 	d.Set("subnet_ids", subnetIDs)

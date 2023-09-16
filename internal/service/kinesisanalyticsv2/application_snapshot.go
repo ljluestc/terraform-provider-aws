@@ -21,7 +21,8 @@ import (
 )
 
 // @SDKResource("aws_kinesisanalyticsv2_application_snapshot")
-func ResourceApplicationSnapshot() *schema.Resource {
+
+ ResourceApplicationSnapshot() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceApplicationSnapshotCreate,
 		ReadWithoutTimeout:   resourceApplicationSnapshotRead,
@@ -70,7 +71,8 @@ func ResourceApplicationSnapshot() *schema.Resource {
 	}
 }
 
-func resourceApplicationSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+ resourceApplicationSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
 	applicationName := d.Get("application_name").(string)
@@ -100,7 +102,8 @@ func resourceApplicationSnapshotCreate(ctx context.Context, d *schema.ResourceDa
 	return append(diags, resourceApplicationSnapshotRead(ctx, d, meta)...)
 }
 
-func resourceApplicationSnapshotRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+ resourceApplicationSnapshotRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
 
@@ -130,7 +133,8 @@ func resourceApplicationSnapshotRead(ctx context.Context, d *schema.ResourceData
 	return diags
 }
 
-func resourceApplicationSnapshotDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+ resourceApplicationSnapshotDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KinesisAnalyticsV2Conn(ctx)
 
@@ -147,9 +151,9 @@ func resourceApplicationSnapshotDelete(ctx context.Context, d *schema.ResourceDa
 
 	log.Printf("[DEBUG] Deleting Kinesis Analytics v2 Application Snapshot (%s)", d.Id())
 	_, err = conn.DeleteApplicationSnapshotWithContext(ctx, &kinesisanalyticsv2.DeleteApplicationSnapshotInput{
-		ApplicationName:           aws.String(applicationName),
+		ApplicationName:  aws.String(applicationName),
 		SnapshotCreationTimestamp: aws.Time(snapshotCreationTimestamp),
-		SnapshotName:              aws.String(snapshotName),
+		SnapshotName:     aws.String(snapshotName),
 	})
 
 	if tfawserr.ErrCodeEquals(err, kinesisanalyticsv2.ErrCodeResourceNotFoundException) {

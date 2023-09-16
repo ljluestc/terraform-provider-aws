@@ -30,10 +30,10 @@ import (
 	inventoryName := t.Name()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketInventoryDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketInventoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketInventoryConfig_basic(bucketName, inventoryName),
@@ -75,10 +75,10 @@ import (
 	inventoryName := t.Name()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketInventoryDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketInventoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketInventoryConfig_encryptSSE(bucketName, inventoryName),
@@ -103,10 +103,10 @@ import (
 	inventoryName := t.Name()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketInventoryDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketInventoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketInventoryConfig_encryptSSEKMS(bucketName, inventoryName),
@@ -253,7 +253,7 @@ funchedule {
 }func testAccBucketInventoryConfig_encryptSSEKMS(bucketName, inventoryName string) string {
 	return testAccBucketInventoryBucketConfig(bucketName) + fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = "Terraform acc test S3 inventory SSE-KMS encryption: %[1]s"
+  description    = "Terraform acc test S3 inventory SSE-KMS encryption: %[1]s"
   deletion_window_in_days = 7
 }
 
@@ -273,7 +273,7 @@ resource "aws_s3_bucket_inventory" "test" {
 
       encryption {
         sse_kms {
-          key_id = aws_kms_key.test.arn
+ key_id = aws_kms_key.test.arn
         }
       }
     }

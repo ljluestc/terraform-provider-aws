@@ -15,18 +15,18 @@ func TestAssociationRuleMigrateState(t *testing.T) {
 
 	cases := map[string]struct {
 		StateVersion int
-		ID           string
+		ID  string
 		Attributes   map[string]string
 		Expected     string
-		Meta         interface{}
+		Metainterface{}
 	}{
 		"v0_1": {
 			StateVersion: 0,
-			ID:           "test_document_association-dev",
+			ID:  "test_document_association-dev",
 			Attributes: map[string]string{
 				"association_id": "fb03b7e6-4a21-4012-965f-91a38cfeec72",
 				"instance_id":    "i-0381b34d460caf6ef",
-				"name":           "test_document_association-dev",
+				"name":  "test_document_association-dev",
 			},
 			Expected: "fb03b7e6-4a21-4012-965f-91a38cfeec72",
 		},
@@ -34,7 +34,7 @@ func TestAssociationRuleMigrateState(t *testing.T) {
 
 	for tn, tc := range cases {
 		is := &terraform.InstanceState{
-			ID:         tc.ID,
+			ID:tc.ID,
 			Attributes: tc.Attributes,
 		}
 		is, err := tfssm.AssociationMigrateState(

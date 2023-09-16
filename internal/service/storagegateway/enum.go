@@ -27,9 +27,9 @@ const (
 
 const (
 	defaultStorageClassS3IntelligentTiering = "S3_INTELLIGENT_TIERING"
-	defaultStorageClassS3OneZoneIA          = "S3_ONEZONE_IA"
-	defaultStorageClassS3Standard           = "S3_STANDARD"
-	defaultStorageClassS3StandardIA         = "S3_STANDARD_IA"
+	defaultStorageClassS3OneZoneIA = "S3_ONEZONE_IA"
+	defaultStorageClassS3Standard  = "S3_STANDARD"
+	defaultStorageClassS3StandardIA= "S3_STANDARD_IA"
 )
 
 func defaultStorageClass_Values() []string {
@@ -64,7 +64,7 @@ func gatewayType_Values() []string {
 const (
 	mediumChangerType_gatewayVTL       = "AWS-Gateway-VTL"
 	mediumChangerType_ibm03584L32_0402 = "IBM-03584L32-0402"
-	mediumChangerType_stkL700          = "STK-L700"
+	mediumChangerType_stkL700 = "STK-L700"
 )
 
 func mediumChangerType_Values() []string {
@@ -119,5 +119,5 @@ const (
 	fileSystemAssociationStatusDeleting      = "DELETING"
 	fileSystemAssociationStatusForceDeleting = "FORCE_DELETING"
 	fileSystemAssociationStatusUpdating      = "UPDATING"
-	fileSystemAssociationStatusError         = "ERROR"
+	fileSystemAssociationStatusError= "ERROR"
 )

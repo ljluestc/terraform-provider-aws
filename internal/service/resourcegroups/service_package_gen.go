@@ -32,7 +32,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceGroup,
 			TypeName: "aws_resourcegroups_group",
-			Name:     "Group",
+			Name: "Group",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -40,7 +40,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceResource,
 			TypeName: "aws_resourcegroups_resource",
-			Name:     "Resource",
+			Name: "Resource",
 		},
 	}
 }

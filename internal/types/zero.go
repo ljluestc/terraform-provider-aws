@@ -1,14 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package types
-
-import (
-	"reflect"
-)
-
-// IsZero returns true if `v` is `nil` or points to the zero value of `T`.
-
-ero[T any](v *T) bool {
-	return v == nil || reflect.ValueOf(*v).IsZero()
-}
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagetypesimport("reflect")//IsZeroreturnstrueif`v`is`nil`orpointstothezerovalueof`T`.ero[Tany](v*T)bool{returnv==nil||reflect.ValueOf(*v).IsZero()}

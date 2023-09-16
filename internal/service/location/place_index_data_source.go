@@ -51,7 +51,7 @@ func DataSourcePlaceIndex() *schema.Resource {
 				Computed: true,
 			},
 			"index_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
 			},

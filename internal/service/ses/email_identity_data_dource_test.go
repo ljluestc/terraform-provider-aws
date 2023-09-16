@@ -14,13 +14,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccSESEmailIdentityDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	email := acctest.DefaultEmailAddress
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEmailIdentityDestroy(ctx),
@@ -35,13 +35,13 @@ func TestAccSESEmailIdentityDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccSESEmailIdentityDataSource_trailingPeriod(t *testing.T) {
 	ctx := acctest.Context(t)
 	email := fmt.Sprintf("%s.", acctest.DefaultEmailAddress)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEmailIdentityDestroy(ctx),
@@ -56,7 +56,6 @@ func TestAccSESEmailIdentityDataSource_trailingPeriod(t *testing.T) {
 		},
 	})
 }
-
 func testAccEmailIdentityDataDourceConfig_source(email string) string {
 	return fmt.Sprintf(`
 resource "aws_ses_email_identity" "test" {
@@ -64,7 +63,7 @@ resource "aws_ses_email_identity" "test" {
 }
 data "aws_ses_email_identity" "test" {
   depends_on = [aws_ses_email_identity.test]
-  email      = %q
+  email= %q
 }
 `, email, email)
 }

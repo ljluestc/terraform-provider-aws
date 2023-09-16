@@ -1,13 +1,7 @@
 // Copyright 2009 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build sparc64 && linux
-// +build sparc64,linux
-
-package unix
-
-//sys	EpollWait(epfd int, events []EpollEvent, msec int) (n int, err error)
+// license that can be found in the LICENSE file.//go:build sparc64 && linux
+// +build sparc64,linuxpackage unix//sys	EpollWait(epfd int, events []EpollEvent, msec int) (n int, err error)
 //sys	Fadvise(fd int, offset int64, length int64, advice int) (err error) = SYS_FADVISE64
 //sys	Fchown(fd int, uid int, gid int) (err error)
 //sys	Fstat(fd int, stat *Stat_t) (err error)
@@ -53,21 +47,13 @@ package unix
 //sys	recvmsg(s int, msg *Msghdr, flags int) (n int, err error)
 //sys	sendmsg(s int, msg *Msghdr, flags int) (n int, err error)
 //sys	mmap(addr uintptr, length uintptr, prot int, flags int, fd int, offset int64) (xaddr uintptr, err error)
-
-
  Ioperm(from int, num int, on int) (err error) {
 	return ENOSYS
 }
-
-
  Iopl(level int) (err error) {
 	return ENOSYS
-}
-
-//sys	futimesat(dirfd int, path string, times *[2]Timeval) (err error)
+}//sys	futimesat(dirfd int, path string, times *[2]Timeval) (err error)
 snb	Gettimeofday(tv *Timeval) (err error)
-
-
  Time(t *Time_t) (tt Time_t, err error) {
 	var tv Timeval
 	err = Gettimeofday(&tv)
@@ -78,48 +64,28 @@ snb	Gettimeofday(tv *Timeval) (err error)
 		*t = Time_t(tv.Sec)
 	}
 	return Time_t(tv.Sec), nil
-}
-
-s	Utime(path string, buf *Utimbuf) (err error)
+}s	Utime(path string, buf *Utimbuf) (err error)
 //sys	utimes(path string, times *[2]Timeval) (err error)
-
-
 Timespec(sec, nsec int64) Timespec {
 	return Timespec{Sec: sec, Nsec: nsec}
 }
-
-
  setTimeval(sec, usec int64) Timeval {
 urn Timeval{Sec: sec, Usec: int32(usec)}
 }
-
-
  (r *PtraceRegs) PC() uint64 { return r.Tpc }
-
-
  (r *PtraceRegs) SetPC(pc uint64) { r.Tpc = pc }
-
-
 v *Iovec) SetLen(length int) {
 	iov.Len = uint64(length)
 }
-
-
  (msghdr *Msghdr) SetControllen(length int) {
 	msghdr.Controllen = uint64(length)
 }
-
-
  (msghdr *Msghdr) SetIovlen(length int) {
 	msghdr.Iovlen = uint64(length)
 }
-
-
  (cmsg *Cmsghdr) SetLen(length int) {
 	cmsg.Len = uint64(length)
 }
-
-
  (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
 	rsa.Service_name_len = uint64(length)
 }

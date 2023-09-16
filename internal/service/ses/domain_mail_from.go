@@ -19,7 +19,7 @@ import (
 func ResourceDomainMailFrom() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDomainMailFromSet,
-		ReadWithoutTimeout:   resourceDomainMailFromRead,
+		ReadWithoutTimeout:resourceDomainMailFromRead,
 		UpdateWithoutTimeout: resourceDomainMailFromSet,
 		DeleteWithoutTimeout: resourceDomainMailFromDelete,
 		Importer: &schema.ResourceImporter{
@@ -28,23 +28,22 @@ func ResourceDomainMailFrom() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"domain": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"mail_from_domain": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"behavior_on_mx_failure": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  ses.BehaviorOnMXFailureUseDefaultValue,
 			},
 		},
 	}
 }
-
 func resourceDomainMailFromSet(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -55,8 +54,8 @@ func resourceDomainMailFromSet(ctx context.Context, d *schema.ResourceData, meta
 
 	input := &ses.SetIdentityMailFromDomainInput{
 		BehaviorOnMXFailure: aws.String(behaviorOnMxFailure),
-		Identity:            aws.String(domainName),
-		MailFromDomain:      aws.String(mailFromDomain),
+		Identity:aws.String(domainName),
+		MailFromDomain:aws.String(mailFromDomain),
 	}
 
 	_, err := conn.SetIdentityMailFromDomainWithContext(ctx, input)
@@ -68,7 +67,6 @@ func resourceDomainMailFromSet(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceDomainMailFromRead(ctx, d, meta)...)
 }
-
 func resourceDomainMailFromRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -105,7 +103,6 @@ func resourceDomainMailFromRead(ctx context.Context, d *schema.ResourceData, met
 
 	return diags
 }
-
 func resourceDomainMailFromDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -113,7 +110,7 @@ func resourceDomainMailFromDelete(ctx context.Context, d *schema.ResourceData, m
 	domainName := d.Id()
 
 	deleteOpts := &ses.SetIdentityMailFromDomainInput{
-		Identity:       aws.String(domainName),
+		Identity: aws.String(domainName),
 		MailFromDomain: nil,
 	}
 

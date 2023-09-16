@@ -1233,7 +1233,7 @@ resource "aws_imagebuilder_distribution_configuration" "test" {
     container_distribution_configuration {
       target_repository {
         repository_name = %[2]q
-        service         = "ECR"
+        service= "ECR"
       }
     }
 
@@ -1254,7 +1254,7 @@ resource "aws_imagebuilder_distribution_configuration" "test" {
     container_distribution_configuration {
       target_repository {
         repository_name = "repository-name"
-        service         = "ECR"
+        service= "ECR"
       }
 
       description = %[2]q
@@ -1277,7 +1277,7 @@ resource "aws_imagebuilder_distribution_configuration" "test" {
     container_distribution_configuration {
       target_repository {
         repository_name = "repository-name"
-        service         = "ECR"
+        service= "ECR"
       }
 
       container_tags = [%[2]q]
@@ -1318,7 +1318,7 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_launch_template" "test" {
   instance_type = "t2.micro"
-  name          = %[1]q
+  name = %[1]q
 }
 
 resource "aws_imagebuilder_distribution_configuration" "test" {
@@ -1349,7 +1349,7 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_launch_template" "test2" {
   instance_type = "t2.micro"
-  name          = %[1]q
+  name = %[1]q
 }
 
 resource "aws_imagebuilder_distribution_configuration" "test" {
@@ -1383,7 +1383,7 @@ resource "aws_imagebuilder_distribution_configuration" "test" {
 
   distribution {
     fast_launch_configuration {
-      account_id            = data.aws_caller_identity.current.account_id
+      account_id   = data.aws_caller_identity.current.account_id
       enabled= true
       max_parallel_launches = %[2]d
     }
@@ -1427,7 +1427,7 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_launch_template" "test" {
   instance_type = "t2.micro"
-  name          = %[1]q
+  name = %[1]q
 }
 
 resource "aws_imagebuilder_distribution_configuration" "test" {
@@ -1435,9 +1435,9 @@ resource "aws_imagebuilder_distribution_configuration" "test" {
 
   distribution {
     launch_template_configuration {
-      default            = true
+      default   = true
       launch_template_id = aws_launch_template.test.id
-      account_id         = data.aws_caller_identity.current.account_id
+      account_id= data.aws_caller_identity.current.account_id
     }
 
     region = data.aws_region.current.name
@@ -1454,7 +1454,7 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_launch_template" "test" {
   instance_type = "t2.micro"
-  name          = %[1]q
+  name = %[1]q
 }
 
 resource "aws_imagebuilder_distribution_configuration" "test" {
@@ -1462,9 +1462,9 @@ resource "aws_imagebuilder_distribution_configuration" "test" {
 
   distribution {
     launch_template_configuration {
-      default            = false
+      default   = false
       launch_template_id = aws_launch_template.test.id
-      account_id         = data.aws_caller_identity.current.account_id
+      account_id= data.aws_caller_identity.current.account_id
     }
 
     region = data.aws_region.current.name
@@ -1479,7 +1479,7 @@ data "aws_region" "current" {}
 
 resource "aws_launch_template" "test" {
   instance_type = "t2.micro"
-  name          = %[1]q
+  name = %[1]q
 }
 
 resource "aws_imagebuilder_distribution_configuration" "test" {
@@ -1487,9 +1487,9 @@ resource "aws_imagebuilder_distribution_configuration" "test" {
 
   distribution {
     launch_template_configuration {
-      default            = false
+      default   = false
       launch_template_id = aws_launch_template.test.id
-      account_id         = %[2]q
+      account_id= %[2]q
     }
 
     ami_distribution_configuration {

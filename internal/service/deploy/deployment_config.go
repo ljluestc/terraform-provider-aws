@@ -91,7 +91,7 @@ func ResourceDeploymentConfig() *schema.Resource {
 						},
 
 						"time_based_canary": {
-							Type:          schema.TypeList,
+							Type: schema.TypeList,
 							Optional:      true,
 							ForceNew:      true,
 							ConflictsWith: []string{"traffic_routing_config.0.time_based_linear"},
@@ -113,7 +113,7 @@ func ResourceDeploymentConfig() *schema.Resource {
 						},
 
 						"time_based_linear": {
-							Type:          schema.TypeList,
+							Type: schema.TypeList,
 							Optional:      true,
 							ForceNew:      true,
 							ConflictsWith: []string{"traffic_routing_config.0.time_based_canary"},

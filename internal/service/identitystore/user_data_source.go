@@ -27,82 +27,82 @@ func DataSourceUser() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"addresses": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"country": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"formatted": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"locality": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"postal_code": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"primary": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"region": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"street_address": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"alternate_identifier": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"external_id": {
-							Type:         schema.TypeList,
-							Optional:     true,
-							MaxItems:     1,
+							Type:schema.TypeList,
+							Optional:true,
+							MaxItems:1,
 							ExactlyOneOf: []string{"alternate_identifier.0.external_id", "alternate_identifier.0.unique_attribute"},
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"id": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 									"issuer": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 								},
 							},
 						},
 						"unique_attribute": {
-							Type:         schema.TypeList,
-							Optional:     true,
-							MaxItems:     1,
+							Type:schema.TypeList,
+							Optional:true,
+							MaxItems:1,
 							ExactlyOneOf: []string{"alternate_identifier.0.external_id", "alternate_identifier.0.unique_attribute"},
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"attribute_path": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 									"attribute_value": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 								},
@@ -113,67 +113,67 @@ func DataSourceUser() *schema.Resource {
 				ConflictsWith: []string{"filter", "user_id"},
 			},
 			"display_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"emails": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"primary": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"value": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"external_ids": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"issuer": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"filter": {
-				Deprecated:    "Use the alternate_identifier attribute instead.",
-				Type:          schema.TypeList,
-				Optional:      true,
-				MaxItems:      1,
+				Deprecated:"Use the alternate_identifier attribute instead.",
+				Type:schema.TypeList,
+				Optional: true,
+				MaxItems: 1,
 				AtLeastOneOf:  []string{"alternate_identifier", "filter", "user_id"},
 				ConflictsWith: []string{"alternate_identifier"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"attribute_path": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"attribute_value": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"identity_store_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 64),
@@ -181,83 +181,83 @@ func DataSourceUser() *schema.Resource {
 				),
 			},
 			"locale": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"family_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"formatted": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"given_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"honorific_prefix": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"honorific_suffix": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"middle_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"nickname": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"phone_numbers": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"primary": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"value": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"preferred_language": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"profile_url": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"timezone": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"title": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"user_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ValidateFunc: validation.All(
@@ -268,11 +268,11 @@ func DataSourceUser() *schema.Resource {
 				ConflictsWith: []string{"alternate_identifier"},
 			},
 			"user_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"user_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -291,7 +291,7 @@ func dataSourceUserRead(ctx context.Context, d *schema.ResourceData, meta interf
 	if v, ok := d.GetOk("filter"); ok && len(v.([]interface{})) > 0 {
 		// Use ListUsers for backwards compat.
 		input := &identitystore.ListUsersInput{
-			Filters:         expandFilters(d.Get("filter").([]interface{})),
+			Filters:expandFilters(d.Get("filter").([]interface{})),
 			IdentityStoreId: aws.String(identityStoreID),
 		}
 		paginator := identitystore.NewListUsersPaginator(conn, input)
@@ -364,7 +364,7 @@ func dataSourceUserRead(ctx context.Context, d *schema.ResourceData, meta interf
 	if v, ok := d.GetOk("alternate_identifier"); ok && len(v.([]interface{})) > 0 {
 		input := &identitystore.GetUserIdInput{
 			AlternateIdentifier: expandAlternateIdentifier(v.([]interface{})[0].(map[string]interface{})),
-			IdentityStoreId:     aws.String(identityStoreID),
+			IdentityStoreId:aws.String(identityStoreID),
 		}
 
 		output, err := conn.GetUserId(ctx, input)

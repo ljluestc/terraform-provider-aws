@@ -23,10 +23,10 @@ func TestAccNetworkManagerCoreNetwork_basic(t *testing.T) {
 	resourceName := "aws_networkmanager_core_network.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCoreNetworkDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCoreNetworkConfig_basic(),
@@ -41,8 +41,8 @@ func TestAccNetworkManagerCoreNetwork_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"create_base_policy"},
 			},
@@ -55,10 +55,10 @@ func TestAccNetworkManagerCoreNetwork_disappears(t *testing.T) {
 	resourceName := "aws_networkmanager_core_network.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCoreNetworkDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCoreNetworkConfig_basic(),
@@ -77,10 +77,10 @@ func TestAccNetworkManagerCoreNetwork_tags(t *testing.T) {
 	resourceName := "aws_networkmanager_core_network.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCoreNetworkDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCoreNetworkConfig_tags1("key1", "value1"),
@@ -91,8 +91,8 @@ func TestAccNetworkManagerCoreNetwork_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"create_base_policy"},
 			},
@@ -124,10 +124,10 @@ func TestAccNetworkManagerCoreNetwork_description(t *testing.T) {
 	updatedDescription := "description2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCoreNetworkDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCoreNetworkConfig_description(originalDescription),
@@ -137,8 +137,8 @@ func TestAccNetworkManagerCoreNetwork_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"create_base_policy"},
 			},
@@ -158,10 +158,10 @@ func TestAccNetworkManagerCoreNetwork_createBasePolicyDocumentWithoutRegion(t *t
 	resourceName := "aws_networkmanager_core_network.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCoreNetworkDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCoreNetworkConfig_basePolicyDocumentWithoutRegion(),
@@ -170,21 +170,21 @@ func TestAccNetworkManagerCoreNetwork_createBasePolicyDocumentWithoutRegion(t *t
 					resource.TestCheckResourceAttr(resourceName, "create_base_policy", "true"),
 					resource.TestCheckNoResourceAttr(resourceName, "base_policy_region"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "edges.*", map[string]string{
-						"asn":                  "64512",
+						"asn":"64512",
 						"edge_location":        acctest.Region(),
 						"inside_cidr_blocks.#": "0",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "segments.*", map[string]string{
 						"edge_locations.#":  "1",
 						"edge_locations.0":  acctest.Region(),
-						"name":              "segment",
+						"name":     "segment",
 						"shared_segments.#": "0",
 					}),
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"create_base_policy"},
 			},
@@ -197,10 +197,10 @@ func TestAccNetworkManagerCoreNetwork_createBasePolicyDocumentWithRegion(t *test
 	resourceName := "aws_networkmanager_core_network.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCoreNetworkDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCoreNetworkConfig_basePolicyDocumentWithRegion(),
@@ -209,21 +209,21 @@ func TestAccNetworkManagerCoreNetwork_createBasePolicyDocumentWithRegion(t *test
 					resource.TestCheckResourceAttr(resourceName, "create_base_policy", "true"),
 					resource.TestCheckResourceAttr(resourceName, "base_policy_region", acctest.AlternateRegion()),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "edges.*", map[string]string{
-						"asn":                  "64512",
+						"asn":"64512",
 						"edge_location":        acctest.AlternateRegion(),
 						"inside_cidr_blocks.#": "0",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "segments.*", map[string]string{
 						"edge_locations.#":  "1",
 						"edge_locations.0":  acctest.AlternateRegion(),
-						"name":              "segment",
+						"name":     "segment",
 						"shared_segments.#": "0",
 					}),
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"base_policy_region", "create_base_policy"},
 			},
@@ -236,10 +236,10 @@ func TestAccNetworkManagerCoreNetwork_createBasePolicyDocumentWithMultiRegion(t 
 	resourceName := "aws_networkmanager_core_network.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCoreNetworkDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCoreNetworkConfig_basePolicyDocumentWithMultiRegion(),
@@ -250,25 +250,25 @@ func TestAccNetworkManagerCoreNetwork_createBasePolicyDocumentWithMultiRegion(t 
 					resource.TestCheckTypeSetElemAttr(resourceName, "base_policy_regions.*", acctest.AlternateRegion()),
 					resource.TestCheckTypeSetElemAttr(resourceName, "base_policy_regions.*", acctest.Region()),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "edges.*", map[string]string{
-						"asn":                  "64512",
+						"asn":"64512",
 						"edge_location":        acctest.AlternateRegion(),
 						"inside_cidr_blocks.#": "0",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "edges.*", map[string]string{
-						"asn":                  "64513",
+						"asn":"64513",
 						"edge_location":        acctest.Region(),
 						"inside_cidr_blocks.#": "0",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "segments.*", map[string]string{
 						"edge_locations.#":  "2",
-						"name":              "segment",
+						"name":     "segment",
 						"shared_segments.#": "0",
 					}),
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"base_policy_regions", "create_base_policy"},
 			},
@@ -281,10 +281,10 @@ func TestAccNetworkManagerCoreNetwork_withoutPolicyDocumentUpdateToCreateBasePol
 	resourceName := "aws_networkmanager_core_network.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCoreNetworkDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCoreNetworkConfig_basic(),
@@ -293,8 +293,8 @@ func TestAccNetworkManagerCoreNetwork_withoutPolicyDocumentUpdateToCreateBasePol
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"create_base_policy"},
 			},
@@ -305,14 +305,14 @@ func TestAccNetworkManagerCoreNetwork_withoutPolicyDocumentUpdateToCreateBasePol
 					resource.TestCheckResourceAttr(resourceName, "create_base_policy", "true"),
 					resource.TestCheckNoResourceAttr(resourceName, "base_policy_region"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "edges.*", map[string]string{
-						"asn":                  "64512",
+						"asn":"64512",
 						"edge_location":        acctest.Region(),
 						"inside_cidr_blocks.#": "0",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "segments.*", map[string]string{
 						"edge_locations.#":  "1",
 						"edge_locations.0":  acctest.Region(),
-						"name":              "segment",
+						"name":     "segment",
 						"shared_segments.#": "0",
 					}),
 				),

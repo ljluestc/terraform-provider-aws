@@ -19,7 +19,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfdocdb "github.com/hashicorp/terraform-provider-aws/internal/service/docdb"
 )
-
 func TestAccDocDBSubnetGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v docdb.DBSubnetGroup
@@ -27,7 +26,7 @@ func TestAccDocDBSubnetGroup_basic(t *testing.T) {
 	rName := fmt.Sprintf("tf-test-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -43,14 +42,13 @@ func TestAccDocDBSubnetGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      "aws_docdb_subnet_group.foo",
-				ImportState:       true,
+				ResourceName:ocdb_subnet_group.foo",
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccDocDBSubnetGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v docdb.DBSubnetGroup
@@ -58,7 +56,7 @@ func TestAccDocDBSubnetGroup_disappears(t *testing.T) {
 	rName := fmt.Sprintf("tf-test-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -74,13 +72,12 @@ func TestAccDocDBSubnetGroup_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDocDBSubnetGroup_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v docdb.DBSubnetGroup
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -94,21 +91,20 @@ func TestAccDocDBSubnetGroup_namePrefix(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            "aws_docdb_subnet_group.test",
+				ResourceName:ubnet_group.test",
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
 	})
 }
-
 func TestAccDocDBSubnetGroup_generatedName(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v docdb.DBSubnetGroup
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -120,14 +116,13 @@ func TestAccDocDBSubnetGroup_generatedName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      "aws_docdb_subnet_group.test",
-				ImportState:       true,
+				ResourceName:ocdb_subnet_group.test",
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccDocDBSubnetGroup_updateDescription(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v docdb.DBSubnetGroup
@@ -135,7 +130,7 @@ func TestAccDocDBSubnetGroup_updateDescription(t *testing.T) {
 	rName := fmt.Sprintf("tf-test-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -158,14 +153,13 @@ func TestAccDocDBSubnetGroup_updateDescription(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      "aws_docdb_subnet_group.foo",
-				ImportState:       true,
+				ResourceName:ocdb_subnet_group.foo",
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckSubnetGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DocDBConn(ctx)
@@ -196,7 +190,6 @@ func testAccCheckSubnetGroupDestroy(ctx context.Context) resource.TestCheckFunc 
 		return nil
 	}
 }
-
 func testAccCheckSubnetGroupDisappears(ctx context.Context, group *docdb.DBSubnetGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DocDBConn(ctx)
@@ -213,7 +206,6 @@ func testAccCheckSubnetGroupDisappears(ctx context.Context, group *docdb.DBSubne
 		return tfdocdb.WaitForSubnetGroupDeletion(ctx, conn, *group.DBSubnetGroupName)
 	}
 }
-
 func testAccCheckSubnetGroupExists(ctx context.Context, n string, v *docdb.DBSubnetGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -239,117 +231,114 @@ func testAccCheckSubnetGroupExists(ctx context.Context, n string, v *docdb.DBSub
 		return nil
 	}
 }
-
 func testAccSubnetGroupConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "foo" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = "terraform-testacc-docdb-subnet-group"
+ Name = "terraform-testacc-docdb-subnet-group"
   }
 }
 
 resource "aws_subnet" "foo" {
-  cidr_block        = "10.1.1.0/24"
+  cidr_block0.1.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
-  vpc_id            = aws_vpc.foo.id
+  vpc_ido.id
 
   tags = {
-    Name = "tf-acc-docdb-subnet-group-1"
+ Name = "tf-acc-docdb-subnet-group-1"
   }
 }
 
 resource "aws_subnet" "bar" {
-  cidr_block        = "10.1.2.0/24"
+  cidr_block0.1.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
-  vpc_id            = aws_vpc.foo.id
+  vpc_ido.id
 
   tags = {
-    Name = "tf-acc-docdb-subnet-group-2"
+ Name = "tf-acc-docdb-subnet-group-2"
   }
 }
 
 resource "aws_docdb_subnet_group" "foo" {
-  name       = "%s"
+  name"
   subnet_ids = [aws_subnet.foo.id, aws_subnet.bar.id]
 
   tags = {
-    Name = "tf-docdb-subnet-group-test"
+ Name = "tf-docdb-subnet-group-test"
   }
 }
 `, rName))
 }
-
 func testAccSubnetGroupConfig_updatedDescription(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "foo" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = "terraform-testacc-docdb-subnet-group"
+ Name = "terraform-testacc-docdb-subnet-group"
   }
 }
 
 resource "aws_subnet" "foo" {
-  cidr_block        = "10.1.1.0/24"
+  cidr_block0.1.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
-  vpc_id            = aws_vpc.foo.id
+  vpc_ido.id
 
   tags = {
-    Name = "tf-acc-docdb-subnet-group-1"
+ Name = "tf-acc-docdb-subnet-group-1"
   }
 }
 
 resource "aws_subnet" "bar" {
-  cidr_block        = "10.1.2.0/24"
+  cidr_block0.1.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
-  vpc_id            = aws_vpc.foo.id
+  vpc_ido.id
 
   tags = {
-    Name = "tf-acc-docdb-subnet-group-2"
+ Name = "tf-acc-docdb-subnet-group-2"
   }
 }
 
 resource "aws_docdb_subnet_group" "foo" {
-  name        = "%s"
+  names"
   description = "foo description updated"
   subnet_ids  = [aws_subnet.foo.id, aws_subnet.bar.id]
 
   tags = {
-    Name = "tf-docdb-subnet-group-test"
+ Name = "tf-docdb-subnet-group-test"
   }
 }
 `, rName))
 }
-
 func testAccSubnetGroupConfig_namePrefix() string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), `
 resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = "terraform-testacc-docdb-subnet-group-name-prefix"
+ Name = "terraform-testacc-docdb-subnet-group-name-prefix"
   }
 }
 
 resource "aws_subnet" "a" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.1.1.0/24"
+  vpc_idst.id
+  cidr_block0.1.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = "tf-acc-docdb-subnet-group-name-prefix-a"
+ Name = "tf-acc-docdb-subnet-group-name-prefix-a"
   }
 }
 
 resource "aws_subnet" "b" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.1.2.0/24"
+  vpc_idst.id
+  cidr_block0.1.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
-    Name = "tf-acc-docdb-subnet-group-name-prefix-b"
+ Name = "tf-acc-docdb-subnet-group-name-prefix-b"
   }
 }
 
@@ -358,34 +347,33 @@ resource "aws_docdb_subnet_group" "test" {
   subnet_ids  = [aws_subnet.a.id, aws_subnet.b.id]
 }`)
 }
-
 func testAccSubnetGroupConfig_generatedName() string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), `
 resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = "terraform-testacc-docdb-subnet-group-generated-name"
+ Name = "terraform-testacc-docdb-subnet-group-generated-name"
   }
 }
 
 resource "aws_subnet" "a" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.1.1.0/24"
+  vpc_idst.id
+  cidr_block0.1.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = "tf-acc-docdb-subnet-group-generated-name-a"
+ Name = "tf-acc-docdb-subnet-group-generated-name-a"
   }
 }
 
 resource "aws_subnet" "b" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.1.2.0/24"
+  vpc_idst.id
+  cidr_block0.1.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
-    Name = "tf-acc-docdb-subnet-group-generated-name-a"
+ Name = "tf-acc-docdb-subnet-group-generated-name-a"
   }
 }
 

@@ -91,7 +91,7 @@ func testAccOrderableDBInstanceDataSourceConfig_basic(class, engine, version, li
 	return fmt.Sprintf(`
 data "aws_neptune_orderable_db_instance" "test" {
   instance_class = %q
-  engine         = %q
+  engine= %q
   engine_version = %q
   license_model  = %q
 }
@@ -101,7 +101,7 @@ data "aws_neptune_orderable_db_instance" "test" {
 func testAccOrderableDBInstanceDataSourceConfig_preferred(engine, version, license, preferredOption string) string {
 	return fmt.Sprintf(`
 data "aws_neptune_orderable_db_instance" "test" {
-  engine         = %q
+  engine= %q
   engine_version = %q
   license_model  = %q
 

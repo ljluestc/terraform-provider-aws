@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfappsync "github.com/hashicorp/terraform-provider-aws/internal/service/appsync"
 )
-
 func testAccDomainName_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domainName appsync.DomainNameConfig
@@ -29,7 +28,7 @@ func testAccDomainName_basic(t *testing.T) {
 	resourceName := "aws_appsync_domain_name.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckDomainNameDestroy(ctx),
@@ -43,14 +42,13 @@ func testAccDomainName_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccDomainName_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domainName appsync.DomainNameConfig
@@ -60,7 +58,7 @@ func testAccDomainName_description(t *testing.T) {
 	resourceName := "aws_appsync_domain_name.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckDomainNameDestroy(ctx),
@@ -80,14 +78,13 @@ func testAccDomainName_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccDomainName_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domainName appsync.DomainNameConfig
@@ -97,7 +94,7 @@ func testAccDomainName_disappears(t *testing.T) {
 	resourceName := "aws_appsync_domain_name.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckDomainNameDestroy(ctx),
@@ -113,7 +110,6 @@ func testAccDomainName_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckDomainNameDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
@@ -139,7 +135,6 @@ func testAccCheckDomainNameDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckDomainNameExists(ctx context.Context, resourceName string, domainName *appsync.DomainNameConfig) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -162,31 +157,28 @@ func testAccCheckDomainNameExists(ctx context.Context, resourceName string, doma
 		return nil
 	}
 }
-
 func testAccDomainNameBaseConfig(domain string) string {
 	return acctest.ConfigAlternateRegionProvider() + fmt.Sprintf(`
 data "aws_acm_certificate" "test" {
-  provider    = "awsalternate"
-  domain      = "*.%[1]s"
+  provider= "awsalternate"
+  domain = "*.%[1]s"
   most_recent = true
 }
 `, domain)
 }
-
 func testAccDomainNameConfig_description(rName, domain, desc string) string {
 	return testAccDomainNameBaseConfig(domain) + fmt.Sprintf(`
 resource "aws_appsync_domain_name" "test" {
-  domain_name     = "%[2]s.%[1]s"
+  domain_name= "%[2]s.%[1]s"
   certificate_arn = data.aws_acm_certificate.test.arn
-  description     = %[3]q
+  description= %[3]q
 }
 `, domain, rName, desc)
 }
-
 func testAccDomainNameConfig_basic(rName, domain string) string {
 	return testAccDomainNameBaseConfig(domain) + fmt.Sprintf(`
 resource "aws_appsync_domain_name" "test" {
-  domain_name     = "%[2]s.%[1]s"
+  domain_name= "%[2]s.%[1]s"
   certificate_arn = data.aws_acm_certificate.test.arn
 }
 `, domain, rName)

@@ -46,8 +46,8 @@ func TestAccIdentityStoreGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -138,8 +138,8 @@ func testAccGroupConfig_basic(displayName string) string {
 data "aws_ssoadmin_instances" "test" {}
 resource "aws_identitystore_group" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
-  display_name      = %[1]q
-  description       = "Example description"
+  display_name = %[1]q
+  description  = "Example description"
 }
 `, displayName)
 }

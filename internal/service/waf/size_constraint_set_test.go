@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package waf_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package waf_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/waf"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -18,14 +12,11 @@ import (
 	tfwaf "github.com/hashicorp/terraform-provider-aws/internal/service/waf"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccWAFSizeConstraintSet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v waf.SizeConstraintSet
 	sizeConstraintSet := fmt.Sprintf("sizeConstraintSet-%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_size_constraint_set.size_constraint_set"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_size_constraint_set.size_constraint_set"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -40,7 +31,7 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "size_constraints.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "size_constraints.*", map[string]string{
 "comparison_operator": "EQ",
-"field_to_match.#":    "1",
+"field_to_match.#": "1",
 "size": "4096",
 "text_transformation": "NONE",
 	}),
@@ -51,22 +42,19 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccWAFSizeConstraintSet_changeNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after waf.SizeConstraintSet
 	sizeConstraintSet := fmt.Sprintf("sizeConstraintSet-%s", sdkacctest.RandString(5))
 	sizeConstraintSetNewName := fmt.Sprintf("sizeConstraintSet-%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_size_constraint_set.size_constraint_set"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_size_constraint_set.size_constraint_set"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -89,21 +77,18 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccWAFSizeConstraintSet_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v waf.SizeConstraintSet
 	sizeConstraintSet := fmt.Sprintf("sizeConstraintSet-%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_size_constraint_set.size_constraint_set"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_size_constraint_set.size_constraint_set"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -120,14 +105,11 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccWAFSizeConstraintSet_changeConstraints(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after waf.SizeConstraintSet
 	setName := fmt.Sprintf("sizeConstraintSet-%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_size_constraint_set.size_constraint_set"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_size_constraint_set.size_constraint_set"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -141,7 +123,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "size_constraints.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "size_constraints.*", map[string]string{
 "comparison_operator": "EQ",
-"field_to_match.#":    "1",
+"field_to_match.#": "1",
 "size": "4096",
 "text_transformation": "NONE",
 	}),
@@ -159,7 +141,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "size_constraints.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "size_constraints.*", map[string]string{
 "comparison_operator": "GE",
-"field_to_match.#":    "1",
+"field_to_match.#": "1",
 "size": "1024",
 "text_transformation": "NONE",
 	}),
@@ -170,21 +152,18 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccWAFSizeConstraintSet_noConstraints(t *testing.T) {
 	ctx := acctest.Context(t)
 	var contraints waf.SizeConstraintSet
 	setName := fmt.Sprintf("sizeConstraintSet-%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_size_constraint_set.size_constraint_set"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_size_constraint_set.size_constraint_set"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -199,119 +178,77 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func testAccCheckSizeConstraintSetExists(ctx context.Context, n string, v *waf.SizeConstraintSet) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No WAF Size Constraint Set ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
-
-output, err := tfwaf.FindSizeConstraintSetByID(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)output, err := tfwaf.FindSizeConstraintSetByID(ctx, conn, rs.Primary.ID)if err != nil {
 	return err
-}
-
-*v = *output
-
-return nil
+}*v = *outputreturn nil
 	}
 }
-
 func testAccCheckSizeConstraintSetDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_waf_size_contraint_set" {
 continue
-	}
-
-	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
-
-	_, err := tfwaf.FindSizeConstraintSetByID(ctx, conn, rs.Primary.ID)
-
-	if tfresource.NotFound(err) {
+	}	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)	_, err := tfwaf.FindSizeConstraintSetByID(ctx, conn, rs.Primary.ID)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
-	}
-
-	return fmt.Errorf("WAF Size Constraint Set %s still exists", rs.Primary.ID)
-}
-
-return nil
+	}	return fmt.Errorf("WAF Size Constraint Set %s still exists", rs.Primary.ID)
+}return nil
 	}
 }
-
 func testAccSizeConstraintSetConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_size_constraint_set" "size_constraint_set" {
-  name = %[1]q
-
-  size_constraints {
-    text_transformation = "NONE"
-    comparison_operator = "EQ"
-    size = "4096"
-
-    field_to_match {
-      type = "BODY"
-    }
+  name = %[1]q  size_constraints {
+ text_transformation = "NONE"
+ comparison_operator = "EQ"
+ size = "4096" field_to_match {
+ "BODY"
+ }
   }
 }
 `, name)
 }
-
 func testAccSizeConstraintSetConfig_changeName(name string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_size_constraint_set" "size_constraint_set" {
-  name = %[1]q
-
-  size_constraints {
-    text_transformation = "NONE"
-    comparison_operator = "EQ"
-    size = "4096"
-
-    field_to_match {
-      type = "BODY"
-    }
+  name = %[1]q  size_constraints {
+ text_transformation = "NONE"
+ comparison_operator = "EQ"
+ size = "4096" field_to_match {
+ "BODY"
+ }
   }
 }
 `, name)
 }
-
 func testAccSizeConstraintSetConfig_changes(name string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_size_constraint_set" "size_constraint_set" {
-  name = %[1]q
-
-  size_constraints {
-    text_transformation = "NONE"
-    comparison_operator = "GE"
-    size = "1024"
-
-    field_to_match {
-      type = "BODY"
-    }
+  name = %[1]q  size_constraints {
+ text_transformation = "NONE"
+ comparison_operator = "GE"
+ size = "1024" field_to_match {
+ "BODY"
+ }
   }
 }
 `, name)
 }
-
 func testAccSizeConstraintSetConfig_nos(name string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_size_constraint_set" "size_constraint_set" {

@@ -44,7 +44,7 @@ func ResourceRegion() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"desired_number_of_domain_controllers": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.IntAtLeast(2),
@@ -55,7 +55,7 @@ func ResourceRegion() *schema.Resource {
 				ForceNew: true,
 			},
 			"region_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidRegionName,

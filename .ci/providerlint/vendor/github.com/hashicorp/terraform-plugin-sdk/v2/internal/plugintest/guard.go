@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package plugintest
-
-import (
+// SPDX-License-Identifier: MPL-2.0package plugintestimport (
 	"fmt"
-)
-
-// TestControl is an interface requiring a subset of *testing.T which is used
+)// TestControl is an interface requiring a subset of *testing.T which is used
 // by the test guards and helpers in this package. Most callers can simply
 // pass their *testing.T value here, but the interface allows other
 // implementations to potentially be provided instead, for example to allow
@@ -24,9 +18,7 @@ type TestControl interface {
 	FailNow()
 	SkipNow()
 	Name() string
-}
-
-// testingT wraps a TestControl to recover some of the convenience behaviors
+}// testingT wraps a TestControl to recover some of the convenience behaviors
 // that would normally come from a real *testing.T, so we can keep TestControl
 // small while still having these conveniences. This is an abstraction
 // inversion, but accepted because it makes the public API more convenient
@@ -34,21 +26,13 @@ type TestControl interface {
 type testingT struct {
 	TestControl
 }
-
-
  (t testingT) Logf(f string, args ...interface{}) {
 	t.Helper()
-	t.Log(fmt.Sprintf(f, args...))
-
-
-
- (t testingT) Fatalf(f string, args ...interface{}) {
+	t.Log(fmt.Sprintf(f, args...)) (t testingT) Fatalf(f string, args ...interface{}) {
 	t.Helper()
 	t.Log(fmt.Sprintf(f, args...))
 ailNow()
 }
-
-
  (t testingT) Skipf(f string, args ...interface{}) {
 	t.Helper()
 	t.Log(fmt.Sprintf(f, args...))

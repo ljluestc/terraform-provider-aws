@@ -43,7 +43,6 @@ func ResourceStaticIP() *schema.Resource {
 		},
 	}
 }
-
 func resourceStaticIPCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -61,7 +60,6 @@ func resourceStaticIPCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceStaticIPRead(ctx, d, meta)...)
 }
-
 func resourceStaticIPRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -86,7 +84,6 @@ func resourceStaticIPRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func resourceStaticIPDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)

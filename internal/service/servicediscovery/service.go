@@ -28,7 +28,7 @@ import (
 func ResourceService() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceServiceCreate,
-		ReadWithoutTimeout:   resourceServiceRead,
+		ReadWithoutTimeout:resourceServiceRead,
 		UpdateWithoutTimeout: resourceServiceUpdate,
 		DeleteWithoutTimeout: resourceServiceDelete,
 
@@ -38,89 +38,89 @@ func ResourceService() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"dns_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"dns_records": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Required: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"ttl": {
-										Type:     schema.TypeInt,
+										Type:schema.TypeInt,
 										Required: true,
 									},
 									"type": {
 										Type:schema.TypeString,
-										Required:     true,
-										ForceNew:     true,
+										Required:true,
+										ForceNew:true,
 										ValidateFunc: validation.StringInSlice(servicediscovery.RecordType_Values(), false),
 									},
 								},
 							},
 						},
 						"namespace_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ForceNew: true,
 						},
 						"routing_policy": {
 							Type:schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
-							Default:      servicediscovery.RoutingPolicyMultivalue,
+							Optional:true,
+							ForceNew:true,
+							Default:ediscovery.RoutingPolicyMultivalue,
 							ValidateFunc: validation.StringInSlice(servicediscovery.RoutingPolicy_Values(), false),
 						},
 					},
 				},
 			},
 			"force_destroy": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"health_check_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"failure_threshold": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 						},
 						"resource_path": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"type": {
 							Type:schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Optional:true,
+							ForceNew:true,
 							ValidateFunc: validation.StringInSlice(servicediscovery.HealthCheckType_Values(), false),
 						},
 					},
 				},
 			},
 			"health_check_custom_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"failure_threshold": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 							ForceNew: true,
 						},
@@ -128,23 +128,23 @@ func ResourceService() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"namespace_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Computed:     true,
+				Optional:true,
+				ForceNew:true,
+				Computed:true,
 				ValidateFunc: validation.StringInSlice(servicediscovery.ServiceTypeOption_Values(), false),
 			},
 		},
@@ -152,15 +152,14 @@ func ResourceService() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceServiceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &servicediscovery.CreateServiceInput{
 		CreatorRequestId: aws.String(id.UniqueId()),
-		Name:    aws.String(name),
-		Tags:    getTagsIn(ctx),
+		Name: aws.String(name),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -197,7 +196,6 @@ func resourceServiceCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return resourceServiceRead(ctx, d, meta)
 }
-
 func resourceServiceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -243,7 +241,6 @@ func resourceServiceRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return nil
 }
-
 func resourceServiceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -278,7 +275,6 @@ func resourceServiceUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return resourceServiceRead(ctx, d, meta)
 }
-
 func resourceServiceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -333,7 +329,6 @@ func resourceServiceDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 	return nil
 }
-
 func expandDNSConfig(tfMap map[string]interface{}) *servicediscovery.DnsConfig {
 	if len(tfMap) == 0 {
 		return nil
@@ -355,7 +350,6 @@ func expandDNSConfig(tfMap map[string]interface{}) *servicediscovery.DnsConfig {
 
 	return apiObject
 }
-
 func expandDNSConfigChange(tfMap map[string]interface{}) *servicediscovery.DnsConfigChange {
 	if len(tfMap) == 0 {
 		return nil
@@ -369,7 +363,6 @@ func expandDNSConfigChange(tfMap map[string]interface{}) *servicediscovery.DnsCo
 
 	return apiObject
 }
-
 func expandDNSRecord(tfMap map[string]interface{}) *servicediscovery.DnsRecord {
 	if len(tfMap) == 0 {
 		return nil
@@ -387,7 +380,6 @@ func expandDNSRecord(tfMap map[string]interface{}) *servicediscovery.DnsRecord {
 
 	return apiObject
 }
-
 func expandDNSRecords(tfList []interface{}) []*servicediscovery.DnsRecord {
 	if len(tfList) == 0 {
 		return nil
@@ -413,7 +405,6 @@ func expandDNSRecords(tfList []interface{}) []*servicediscovery.DnsRecord {
 
 	return apiObjects
 }
-
 func flattenDNSConfig(apiObject *servicediscovery.DnsConfig) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -435,7 +426,6 @@ func flattenDNSConfig(apiObject *servicediscovery.DnsConfig) map[string]interfac
 
 	return tfMap
 }
-
 func flattenDNSRecord(apiObject *servicediscovery.DnsRecord) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -453,7 +443,6 @@ func flattenDNSRecord(apiObject *servicediscovery.DnsRecord) map[string]interfac
 
 	return tfMap
 }
-
 func flattenDNSRecords(apiObjects []*servicediscovery.DnsRecord) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -471,7 +460,6 @@ func flattenDNSRecords(apiObjects []*servicediscovery.DnsRecord) []interface{} {
 
 	return tfList
 }
-
 func expandHealthCheckConfig(tfMap map[string]interface{}) *servicediscovery.HealthCheckConfig {
 	if len(tfMap) == 0 {
 		return nil
@@ -493,7 +481,6 @@ func expandHealthCheckConfig(tfMap map[string]interface{}) *servicediscovery.Hea
 
 	return apiObject
 }
-
 func flattenHealthCheckConfig(apiObject *servicediscovery.HealthCheckConfig) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -515,7 +502,6 @@ func flattenHealthCheckConfig(apiObject *servicediscovery.HealthCheckConfig) map
 
 	return tfMap
 }
-
 func expandHealthCheckCustomConfig(tfMap map[string]interface{}) *servicediscovery.HealthCheckCustomConfig {
 	if len(tfMap) < 1 {
 		return nil
@@ -529,7 +515,6 @@ func expandHealthCheckCustomConfig(tfMap map[string]interface{}) *servicediscove
 
 	return apiObject
 }
-
 func flattenHealthCheckCustomConfig(apiObject *servicediscovery.HealthCheckCustomConfig) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -543,7 +528,6 @@ func flattenHealthCheckCustomConfig(apiObject *servicediscovery.HealthCheckCusto
 
 	return tfMap
 }
-
 func deregisterInstance(ctx context.Context, conn *servicediscovery.ServiceDiscovery, serviceID, instanceID string) error {
 	input := &servicediscovery.DeregisterInstanceInput{
 		InstanceId: aws.String(instanceID),

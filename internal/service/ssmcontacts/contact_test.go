@@ -39,7 +39,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContactDestroy(ctx),
+CheckDestroy:    testAccCheckContactDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContactConfig_basic(rName),
@@ -84,7 +84,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContactDestroy(ctx),
+CheckDestroy:    testAccCheckContactDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContactConfig_alias(oldAlias),
@@ -133,7 +133,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContactDestroy(ctx),
+CheckDestroy:    testAccCheckContactDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContactConfig_type(name, personalType),
@@ -179,7 +179,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContactDestroy(ctx),
+CheckDestroy:    testAccCheckContactDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContactConfig_basic(rName),
@@ -211,7 +211,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContactDestroy(ctx),
+CheckDestroy:    testAccCheckContactDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContactConfig_displayName(rName, oldDisplayName),
@@ -264,7 +264,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContactDestroy(ctx),
+CheckDestroy:    testAccCheckContactDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContactConfig_basic(rName),
@@ -484,7 +484,7 @@ fmt.Sprintf(`
 resource "aws_ssmcontacts_contact" "contact_one" {
   alias        = %[1]q
   display_name = %[2]q
-  type         = "PERSONAL"
+  type= "PERSONAL"
 
   depends_on = [aws_ssmincidents_replication_set.test]
 }

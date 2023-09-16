@@ -17,7 +17,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/awsv2"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_workspaces_directory", &resource.Sweeper{
 		Name: "aws_workspaces_directory",
@@ -38,7 +37,6 @@ func init() {
 		F:    sweepWorkspace,
 	})
 }
-
 func sweepDirectories(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -79,7 +77,6 @@ func sweepDirectories(region string) error {
 
 	return nil
 }
-
 func sweepIPGroups(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -123,7 +120,6 @@ func sweepIPGroups(region string) error {
 
 	return nil
 }
-
 func describeIPGroupsPages(ctx context.Context, conn *workspaces.Client, input *workspaces.DescribeIpGroupsInput, fn func(*workspaces.DescribeIpGroupsOutput, bool) bool) error {
 	for {
 		output, err := conn.DescribeIpGroups(ctx, input)
@@ -140,7 +136,6 @@ func describeIPGroupsPages(ctx context.Context, conn *workspaces.Client, input *
 	}
 	return nil
 }
-
 func sweepWorkspace(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

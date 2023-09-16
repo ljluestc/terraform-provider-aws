@@ -32,24 +32,24 @@ func ResourceDeployment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"auto_deployed": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"triggers": {
-				Type:     schema.TypeMap,
+				Type:schema.TypeMap,
 				Optional: true,
 				ForceNew: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
@@ -107,7 +107,7 @@ func resourceDeploymentUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.UpdateDeploymentInput{
-		ApiId:        aws.String(d.Get("api_id").(string)),
+		ApiId:   aws.String(d.Get("api_id").(string)),
 		DeploymentId: aws.String(d.Id()),
 	}
 	if d.HasChange("description") {
@@ -133,7 +133,7 @@ func resourceDeploymentDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	log.Printf("[DEBUG] Deleting API Gateway v2 deployment (%s)", d.Id())
 	_, err := conn.DeleteDeploymentWithContext(ctx, &apigatewayv2.DeleteDeploymentInput{
-		ApiId:        aws.String(d.Get("api_id").(string)),
+		ApiId:   aws.String(d.Get("api_id").(string)),
 		DeploymentId: aws.String(d.Id()),
 	})
 	if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {

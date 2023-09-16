@@ -102,7 +102,7 @@ func updateTags(ctx context.Context, conn *lightsail.Client, identifier string, 
 	if len(updatedTags) > 0 {
 		input := &lightsail.TagResourceInput{
 			ResourceName: aws.String(identifier),
-			Tags:         Tags(updatedTags),
+			Tags:Tags(updatedTags),
 		}
 
 		_, err := conn.TagResource(ctx, input)

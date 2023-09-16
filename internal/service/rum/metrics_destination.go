@@ -37,17 +37,17 @@ func ResourceMetricsDestination() *schema.Resource {
 				Required: true,
 			},
 			"destination": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(cloudwatchrum.MetricDestination_Values(), false),
 			},
 			"destination_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"iam_role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},

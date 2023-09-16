@@ -66,7 +66,7 @@ func FindDirectoryByID(ctx context.Context, conn *directoryservice.DirectoryServ
 
 func FindDomainController(ctx context.Context, conn *directoryservice.DirectoryService, directoryID, domainControllerID string) (*directoryservice.DomainController, error) {
 	input := &directoryservice.DescribeDomainControllersInput{
-		DirectoryId:         aws.String(directoryID),
+		DirectoryId:aws.String(directoryID),
 		DomainControllerIds: aws.StringSlice([]string{domainControllerID}),
 	}
 

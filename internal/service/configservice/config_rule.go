@@ -41,7 +41,7 @@ func ResourceConfigRule() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(0, 128),
 			},
@@ -54,17 +54,17 @@ func ResourceConfigRule() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
 			"input_parameters": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringIsJSON,
 			},
 			"maximum_execution_frequency": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(configservice.MaximumExecutionFrequency_Values(), false),
 			},
@@ -75,7 +75,7 @@ func ResourceConfigRule() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"compliance_resource_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 256),
 						},
@@ -84,18 +84,18 @@ func ResourceConfigRule() *schema.Resource {
 							Optional: true,
 							MaxItems: 100,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringLenBetween(0, 256),
 							},
 							Set: schema.HashString,
 						},
 						"tag_key": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 128),
 						},
 						"tag_value": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 256),
 						},
@@ -128,7 +128,7 @@ func ResourceConfigRule() *schema.Resource {
 										),
 									},
 									"policy_text": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(0, 10000),
 										DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool { // policy_text always returns empty
@@ -142,7 +142,7 @@ func ResourceConfigRule() *schema.Resource {
 							},
 						},
 						"owner": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(configservice.Owner_Values(), false),
 						},
@@ -154,18 +154,18 @@ func ResourceConfigRule() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"event_source": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Default:      "aws.config",
 										ValidateFunc: validation.StringInSlice(configservice.EventSource_Values(), false),
 									},
 									"maximum_execution_frequency": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringInSlice(configservice.MaximumExecutionFrequency_Values(), false),
 									},
 									"message_type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringInSlice(configservice.MessageType_Values(), false),
 									},
@@ -173,7 +173,7 @@ func ResourceConfigRule() *schema.Resource {
 							},
 						},
 						"source_identifier": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 256),
 						},
@@ -199,8 +199,8 @@ func resourceRulePutConfig(ctx context.Context, d *schema.ResourceData, meta int
 	name := d.Get("name").(string)
 	ruleInput := configservice.ConfigRule{
 		ConfigRuleName: aws.String(name),
-		Scope:          expandRuleScope(d.Get("scope").([]interface{})),
-		Source:         expandRuleSource(d.Get("source").([]interface{})),
+		Scope: expandRuleScope(d.Get("scope").([]interface{})),
+		Source:expandRuleSource(d.Get("source").([]interface{})),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

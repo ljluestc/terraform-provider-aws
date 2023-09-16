@@ -33,7 +33,7 @@ import (
 func resourceMonitor() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceMonitorCreate,
-		ReadWithoutTimeout:   resourceMonitorRead,
+		ReadWithoutTimeout:resourceMonitorRead,
 		UpdateWithoutTimeout: resourceMonitorUpdate,
 		DeleteWithoutTimeout: resourceMonitorDelete,
 
@@ -43,22 +43,22 @@ func resourceMonitor() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"health_events_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"availability_score_threshold": {
-							Type:     schema.TypeFloat,
+							Type:schema.TypeFloat,
 							Optional: true,
 							Default:  95.0,
 						},
 						"performance_score_threshold": {
-							Type:     schema.TypeFloat,
+							Type:schema.TypeFloat,
 							Optional: true,
 							Default:  95.0,
 						},
@@ -66,28 +66,28 @@ func resourceMonitor() *schema.Resource {
 				},
 			},
 			"internet_measurements_log_delivery": {
-				Type:    schema.TypeList,
+				Type: schema.TypeList,
 				Optional:true,
 				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"s3_config": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"bucket_name": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 									"bucket_prefix": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 									},
 									"log_delivery_status": {
-										Type:    schema.TypeString,
+										Type: schema.TypeString,
 										Optional:true,
 										Default: types.LogDeliveryStatusEnabled,
 										ValidateDiagFunc: enum.Validate[types.LogDeliveryStatus](),
@@ -100,18 +100,18 @@ func resourceMonitor() *schema.Resource {
 			},
 			"max_city_networks_to_monitor": {
 				Type:schema.TypeInt,
-				Optional:     true,
+				Optional:true,
 				ValidateFunc: validation.IntBetween(1, 500000),
 				AtLeastOneOf: []string{"traffic_percentage_to_monitor", "max_city_networks_to_monitor"},
 			},
 			"monitor_name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"resources": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Schema{
 					Type:schema.TypeString,
@@ -119,7 +119,7 @@ func resourceMonitor() *schema.Resource {
 				},
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  types.MonitorConfigStateActive,
 				ValidateFunc: validation.StringInSlice(enum.Slice(
@@ -127,11 +127,11 @@ func resourceMonitor() *schema.Resource {
 					types.MonitorConfigStateInactive,
 				), false),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"traffic_percentage_to_monitor": {
 				Type:schema.TypeInt,
-				Optional:     true,
+				Optional:true,
 				ValidateFunc: validation.IntBetween(1, 100),
 				AtLeastOneOf: []string{"traffic_percentage_to_monitor", "max_city_networks_to_monitor"},
 			},
@@ -143,7 +143,6 @@ func resourceMonitor() *schema.Resource {
 const (
 	errCodeResourceNotFoundException = "ResourceNotFoundException"
 )
-
 func resourceMonitorCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).InternetMonitorClient(ctx)
@@ -152,7 +151,7 @@ func resourceMonitorCreate(ctx context.Context, d *schema.ResourceData, meta int
 	input := &internetmonitor.CreateMonitorInput{
 		ClientToken: aws.String(id.UniqueId()),
 		MonitorName: aws.String(name),
-		Tags:        getTagsIn(ctx),
+		Tags:agsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("health_events_config"); ok {
@@ -192,7 +191,7 @@ func resourceMonitorCreate(ctx context.Context, d *schema.ResourceData, meta int
 			input := &internetmonitor.UpdateMonitorInput{
 				ClientToken: aws.String(id.UniqueId()),
 				MonitorName: aws.String(d.Id()),
-				Status:      v,
+				Status:
 			}
 
 			_, err := conn.UpdateMonitor(ctx, input)
@@ -209,7 +208,6 @@ func resourceMonitorCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceMonitorRead(ctx, d, meta)...)
 }
-
 func resourceMonitorRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).InternetMonitorClient(ctx)
@@ -243,7 +241,6 @@ func resourceMonitorRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
-
 func resourceMonitorUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).InternetMonitorClient(ctx)
@@ -299,7 +296,6 @@ func resourceMonitorUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceMonitorRead(ctx, d, meta)...)
 }
-
 func resourceMonitorDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).InternetMonitorClient(ctx)
@@ -307,7 +303,7 @@ func resourceMonitorDelete(ctx context.Context, d *schema.ResourceData, meta int
 	input := &internetmonitor.UpdateMonitorInput{
 		ClientToken: aws.String(id.UniqueId()),
 		MonitorName: aws.String(d.Id()),
-		Status:      types.MonitorConfigStateInactive,
+		Status:MonitorConfigStateInactive,
 	}
 
 	_, err := conn.UpdateMonitor(ctx, input)
@@ -341,7 +337,6 @@ func resourceMonitorDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
-
 func findMonitorByName(ctx context.Context, conn *internetmonitor.Client, name string) (*internetmonitor.GetMonitorOutput, error) {
 	input := &internetmonitor.GetMonitorInput{
 		MonitorName: aws.String(name),
@@ -352,7 +347,7 @@ func findMonitorByName(ctx context.Context, conn *internetmonitor.Client, name s
 	// if errs.IsA[*types.ResourceNotFoundException](err) {
 	if tfawserr.ErrCodeEquals(err, errCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}
@@ -367,7 +362,6 @@ func findMonitorByName(ctx context.Context, conn *internetmonitor.Client, name s
 
 	return output, nil
 }
-
 func statusMonitor(ctx context.Context, conn *internetmonitor.Client, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		monitor, err := findMonitorByName(ctx, conn, name)
@@ -383,7 +377,6 @@ func statusMonitor(ctx context.Context, conn *internetmonitor.Client, name strin
 		return monitor, string(monitor.Status), nil
 	}
 }
-
 func waitMonitor(ctx context.Context, conn *internetmonitor.Client, name string, targetState types.MonitorConfigState) error {
 	const (
 		timeout = 5 * time.Minute
@@ -393,7 +386,7 @@ func waitMonitor(ctx context.Context, conn *internetmonitor.Client, name string,
 		Target:  enum.Slice(targetState),
 		Refresh: statusMonitor(ctx, conn, name),
 		Timeout: timeout,
-		Delay:   10 * time.Second,
+		Delay:10 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -408,7 +401,6 @@ func waitMonitor(ctx context.Context, conn *internetmonitor.Client, name string,
 
 	return err
 }
-
 func expandHealthEventsConfig(tfList []interface{}) *types.HealthEventsConfig {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -427,7 +419,6 @@ func expandHealthEventsConfig(tfList []interface{}) *types.HealthEventsConfig {
 
 	return apiObject
 }
-
 func expandInternetMeasurementsLogDelivery(tfList []interface{}) *types.InternetMeasurementsLogDelivery {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -442,7 +433,6 @@ func expandInternetMeasurementsLogDelivery(tfList []interface{}) *types.Internet
 
 	return apiObject
 }
-
 func expandS3Config(tfList []interface{}) *types.S3Config {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -465,7 +455,6 @@ func expandS3Config(tfList []interface{}) *types.S3Config {
 
 	return apiObject
 }
-
 func flattenHealthEventsConfig(apiObject *types.HealthEventsConfig) []interface{} {
 	if apiObject == nil {
 		return []interface{}{}
@@ -478,7 +467,6 @@ func flattenHealthEventsConfig(apiObject *types.HealthEventsConfig) []interface{
 
 	return []interface{}{tfMap}
 }
-
 func flattenInternetMeasurementsLogDelivery(apiObject *types.InternetMeasurementsLogDelivery) []interface{} {
 	if apiObject == nil {
 		return []interface{}{}
@@ -490,7 +478,6 @@ func flattenInternetMeasurementsLogDelivery(apiObject *types.InternetMeasurement
 
 	return []interface{}{tfMap}
 }
-
 func flattenS3Config(apiObject *types.S3Config) []interface{} {
 	if apiObject == nil {
 		return []interface{}{}

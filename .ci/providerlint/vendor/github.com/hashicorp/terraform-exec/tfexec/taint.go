@@ -1,87 +1,47 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfexec
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfexecimport (
 	"context"
 	"fmt"
 	"os/exec"
 	"strconv"
-)
-
-type taintConfig struct {
+)type taintConfig struct {
 	state        string
 	allowMissing bool
-	lock         bool
+	lockbool
 	lockTimeout  string
-}
-
-var defaultTaintOptions = taintConfig{
+}var defaultTaintOptions = taintConfig{
 	allowMissing: false,
-	lock:         true,
-}
-
-// TaintOption represents options used in the Taint method.
+	lock:true,
+}// TaintOption represents options used in the Taint method.
 type TaintOption interface {
 	configureTaint(*taintConfig)
 }
-
-
  (opt *StateOption) configureTaint(conf *taintConfig) {
 	conf.state = opt.path
 }
-
-
  (opt *AllowMissingOption) configureTaint(conf *taintConfig) {
-	conf.allowMissing = opt.allowMissing
-
-
-
- (opt *LockOption) configureTaint(conf *taintConfig) {
+	conf.allowMissing = opt.allowMissing (opt *LockOption) configureTaint(conf *taintConfig) {
 f.lock = opt.lock
 }
-
-
  (opt *LockTimeoutOption) configureTaint(conf *taintConfig) {
 f.lockTimeout = opt.timeout
-}
-
-// Taint represents the terraform taint subcommand.
-
- (tf *Terraform) Taint(ctx context.Context, address string, opts ...TaintOption) error {
+}// Taint represents the terraform taint subcommand. (tf *Terraform) Taint(ctx context.Context, address string, opts ...TaintOption) error {
 	err := tf.compatible(ctx, tf0_4_1, nil)
 	if err != nil {
-		return fmt.Errorf("taint was first introduced in Terraform 0.4.1: %w", err)
-
-	taintCmd := tf.taintCmd(ctx, address, opts...)
+		return fmt.Errorf("taint was first introduced in Terraform 0.4.1: %w", err)	taintCmd := tf.taintCmd(ctx, address, opts...)
 	return tf.runTerraformCmd(ctx, taintCmd)
 }
-
-
  (tf *Terraform) taintCmd(ctx context.Context, address string, opts ...TaintOption) *exec.Cmd {
-	c := defaultTaintOptions
-
-	for _, o := range opts {
+	c := defaultTaintOptions	for _, o := range opts {
 		o.configureTaint(&c)
-	}
-
-	args := []string{"taint", "-no-color"}
-
-	if c.lockTimeout != "" {
+	}	args := []string{"taint", "-no-color"}	if c.lockTimeout != "" {
 		args = append(args, "-lock-timeout="+c.lockTimeout)
-	}
-
-	// string opts: only pass if set
+	}	// string opts: only pass if set
 	if c.state != "" {
 		args = append(args, "-state="+c.state)
-	}
-
-	args = append(args, "-lock="+strconv.FormatBool(c.lock))
+	}	args = append(args, "-lock="+strconv.FormatBool(c.lock))
 	if c.allowMissing {
 		args = append(args, "-allow-missing")
 	}
-	args = append(args, address)
-
-	return tf.buildTerraformCmd(ctx, nil, args...)
+	args = append(args, address)	return tf.buildTerraformCmd(ctx, nil, args...)
 }

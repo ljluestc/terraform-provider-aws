@@ -23,7 +23,7 @@ import (
 func ResourceTemplate() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTemplateCreate,
-		ReadWithoutTimeout:   resourceTemplateRead,
+		ReadWithoutTimeout:resourceTemplateRead,
 		UpdateWithoutTimeout: resourceTemplateUpdate,
 		DeleteWithoutTimeout: resourceTemplateDelete,
 
@@ -33,27 +33,27 @@ func ResourceTemplate() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 			"html": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringLenBetween(0, 512000),
 			},
 			"subject": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"text": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringLenBetween(0, 512000),
 			},
 		},
@@ -94,7 +94,6 @@ func resourceTemplateCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceTemplateRead(ctx, d, meta)...)
 }
-
 func resourceTemplateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -120,8 +119,8 @@ func resourceTemplateRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "ses",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"ses",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("template/%s", d.Id()),
 	}.String()
@@ -129,7 +128,6 @@ func resourceTemplateRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func resourceTemplateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -163,7 +161,6 @@ func resourceTemplateUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceTemplateRead(ctx, d, meta)...)
 }
-
 func resourceTemplateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)

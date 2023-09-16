@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfexec
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfexecimport (
 	"context"
 	"os/exec"
 	"strconv"
-)
-
-type stateMvConfig struct {
+)type stateMvConfig struct {
 	backup      string
 	backupOut   string
 	dryRun      bool
@@ -17,74 +11,42 @@ type stateMvConfig struct {
 	lockTimeout string
 	state       string
 	stateOut    string
-}
-
-var defaultStateMvOptions = stateMvConfig{
+}var defaultStateMvOptions = stateMvConfig{
 	lock:        true,
 	lockTimeout: "0s",
-}
-
-// StateMvCmdOption represents options used in the Refresh method.
+}// StateMvCmdOption represents options used in the Refresh method.
 type StateMvCmdOption interface {
 	configureStateMv(*stateMvConfig)
 }
-
-
  (opt *BackupOption) configureStateMv(conf *stateMvConfig) {
 	conf.backup = opt.path
 }
-
-
  (opt *BackupOutOption) configureStateMv(conf *stateMvConfig) {
-	conf.backupOut = opt.path
-
-
-
- (opt *DryRunOption) configureStateMv(conf *stateMvConfig) {
+	conf.backupOut = opt.path (opt *DryRunOption) configureStateMv(conf *stateMvConfig) {
 f.dryRun = opt.dryRun
 }
-
-
 t *LockOption) configureStateMv(conf *stateMvConfig) {
 	conf.lock = opt.lock
 }
-
-
  (opt *LockTimeoutOption) configureStateMv(conf *stateMvConfig) {
 	conf.lockTimeout = opt.timeout
 }
-
-
  (opt *StateOption) configureStateMv(conf *stateMvConfig) {
 	conf.state = opt.path
 }
-
-
  (opt *StateOutOption) configureStateMv(conf *stateMvConfig) {
 	conf.stateOut = opt.path
-}
-
-// StateMv represents the terraform state mv subcommand.
-
- *Terraform) StateMv(ctx context.Context, source string, destination string, opts ...StateMvCmdOption) error {
+}// StateMv represents the terraform state mv subcommand. *Terraform) StateMv(ctx context.Context, source string, destination string, opts ...StateMvCmdOption) error {
 	cmd, err := tf.stateMvCmd(ctx, source, destination, opts...)
 	if err != nil {
 		return err
 	}
 	return tf.runTerraformCmd(ctx, cmd)
 }
-
-
  (tf *Terraform) stateMvCmd(ctx context.Context, source string, destination string, opts ...StateMvCmdOption) (*exec.Cmd, error) {
-	c := defaultStateMvOptions
-
-	for _, o := range opts {
+	c := defaultStateMvOptions	for _, o := range opts {
 		o.configureStateMv(&c)
-	}
-
-	args := []string{"state", "mv", "-no-color"}
-
-	// string opts: only pass if set
+	}	args := []string{"state", "mv", "-no-color"}	// string opts: only pass if set
 	if c.backup != "" {
 		args = append(args, "-backup="+c.backup)
 	}
@@ -99,19 +61,11 @@ t *LockOption) configureStateMv(conf *stateMvConfig) {
 	}
 	if c.stateOut != "" {
 		args = append(args, "-state-out="+c.stateOut)
-	}
-
-	// boolean and numerical opts: always pass
-	args = append(args, "-lock="+strconv.FormatBool(c.lock))
-
-	// unary flags: pass if true
+	}	// boolean and numerical opts: always pass
+	args = append(args, "-lock="+strconv.FormatBool(c.lock))	// unary flags: pass if true
 	if c.dryRun {
 		args = append(args, "-dry-run")
-	}
-
-	// positional arguments
+	}	// positional arguments
 	args = append(args, source)
-	args = append(args, destination)
-
-	return tf.buildTerraformCmd(ctx, nil, args...), nil
+	args = append(args, destination)	return tf.buildTerraformCmd(ctx, nil, args...), nil
 }

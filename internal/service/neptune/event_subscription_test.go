@@ -86,7 +86,7 @@ func TestAccNeptuneEventSubscription_withPrefix(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
@@ -244,7 +244,7 @@ resource "aws_sns_topic" "aws_sns_topic" {
 }
 
 resource "aws_neptune_event_subscription" "test" {
-  name          = %[2]q
+  name = %[2]q
   sns_topic_arn = aws_sns_topic.aws_sns_topic.arn
   source_type   = "db-instance"
 
@@ -270,7 +270,7 @@ resource "aws_sns_topic" "aws_sns_topic" {
 }
 
 resource "aws_neptune_event_subscription" "test" {
-  name          = %[2]q
+  name = %[2]q
   sns_topic_arn = aws_sns_topic.aws_sns_topic.arn
   enabled       = false
   source_type   = "db-parameter-group"
@@ -325,7 +325,7 @@ resource "aws_neptune_parameter_group" "test" {
 }
 
 resource "aws_neptune_event_subscription" "test" {
-  name          = "tf-acc-test-neptune-event-subs-with-ids-%[1]d"
+  name = "tf-acc-test-neptune-event-subs-with-ids-%[1]d"
   sns_topic_arn = aws_sns_topic.aws_sns_topic.arn
   source_type   = "db-parameter-group"
   source_ids    = [aws_neptune_parameter_group.test.id]
@@ -360,7 +360,7 @@ resource "aws_neptune_parameter_group" "test_2" {
 }
 
 resource "aws_neptune_event_subscription" "test" {
-  name          = "tf-acc-test-neptune-event-subs-with-ids-%[1]d"
+  name = "tf-acc-test-neptune-event-subs-with-ids-%[1]d"
   sns_topic_arn = aws_sns_topic.aws_sns_topic.arn
   source_type   = "db-parameter-group"
   source_ids    = [aws_neptune_parameter_group.test.id, aws_neptune_parameter_group.test_2.id]
@@ -383,7 +383,7 @@ resource "aws_sns_topic" "aws_sns_topic" {
 }
 
 resource "aws_neptune_event_subscription" "test" {
-  name          = %[2]q
+  name = %[2]q
   sns_topic_arn = aws_sns_topic.aws_sns_topic.arn
   source_type   = "db-instance"
 

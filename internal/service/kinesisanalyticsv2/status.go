@@ -13,8 +13,10 @@ import (
 )
 
 // statusApplication fetches the ApplicationDetail and its Status
-func statusApplication(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, name string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+ statusApplication(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, name string) retry.StateRefreshFunc {
+	return 
+() (interface{}, string, error) {
 		applicationDetail, err := FindApplicationDetailByName(ctx, conn, name)
 
 		if tfresource.NotFound(err) {
@@ -30,8 +32,10 @@ func statusApplication(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnal
 }
 
 // statusSnapshotDetails fetches the SnapshotDetails and its Status
-func statusSnapshotDetails(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, applicationName, snapshotName string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+ statusSnapshotDetails(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, applicationName, snapshotName string) retry.StateRefreshFunc {
+	return 
+() (interface{}, string, error) {
 		snapshotDetails, err := FindSnapshotDetailsByApplicationAndSnapshotNames(ctx, conn, applicationName, snapshotName)
 
 		if tfresource.NotFound(err) {

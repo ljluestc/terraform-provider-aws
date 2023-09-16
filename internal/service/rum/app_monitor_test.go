@@ -248,8 +248,8 @@ resource "aws_rum_app_monitor" "test" {
 func testAccAppMonitorConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_rum_app_monitor" "test" {
-  name           = %[1]q
-  domain         = "localhost"
+  name  = %[1]q
+  domain= "localhost"
   cw_log_enabled = true
 }
 `, rName)

@@ -22,7 +22,7 @@ func TestAccEKSAddonVersionDataSource_basic(t *testing.T) {
 	addonName := "vpc-cni"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckAddon(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAddonDestroy(ctx),
@@ -52,13 +52,13 @@ func TestAccEKSAddonVersionDataSource_basic(t *testing.T) {
 func testAccAddonVersionDataSourceConfig_basic(rName, addonName string, mostRecent bool) string {
 	return acctest.ConfigCompose(testAccAddonConfig_base(rName), fmt.Sprintf(`
 data "aws_eks_addon_version" "test" {
-  addon_name         = %[2]q
+  addon_name= %[2]q
   kubernetes_version = aws_eks_cluster.test.version
-  most_recent        = %[3]t
+  most_recent   = %[3]t
 }
 
 resource "aws_eks_addon" "test" {
-  addon_name    = %[2]q
+  addon_name= %[2]q
   cluster_name  = aws_eks_cluster.test.name
   addon_version = data.aws_eks_addon_version.test.version
 
@@ -70,9 +70,9 @@ data "aws_eks_addon" "test" {
   cluster_name = aws_eks_cluster.test.name
 
   depends_on = [
-    data.aws_eks_addon_version.test,
-    aws_eks_addon.test,
-    aws_eks_cluster.test,
+data.aws_eks_addon_version.test,
+aws_eks_addon.test,
+aws_eks_cluster.test,
   ]
 }
 `, rName, addonName, mostRecent))

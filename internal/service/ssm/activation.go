@@ -45,7 +45,7 @@ Optional: true,
 ForceNew: true,
 	},
 	"expiration_date": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ForceNew:     true,
@@ -89,7 +89,7 @@ func resourceActivationCreate(ctx context.Context, d *schema.ResourceData, meta 
 	name := d.Get("name").(string)
 	input := &ssm.CreateActivationInput{
 DefaultInstanceName: aws.String(name),
-IamRole:             aws.String(d.Get("iam_role").(string)),
+IamRole:    aws.String(d.Get("iam_role").(string)),
 Tags: getTagsIn(ctx),
 	}
 

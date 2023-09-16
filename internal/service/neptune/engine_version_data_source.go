@@ -44,9 +44,9 @@ func DataSourceEngineVersion() *schema.Resource {
 			},
 
 			"preferred_versions": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
-				Elem:          &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"version"},
 			},
 
@@ -75,7 +75,7 @@ func DataSourceEngineVersion() *schema.Resource {
 			},
 
 			"version": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Computed:      true,
 				Optional:      true,
 				ConflictsWith: []string{"preferred_versions"},

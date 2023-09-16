@@ -42,7 +42,7 @@ func(
 	resource.TestCheckResourceAttr(
 resourceName, "name", sqlInjectionMatchSet),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "sql_injection_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "",
 "field_to_match.0.type": "QUERY_STRING",
 "text_transformation":   "URL_DECODE",
@@ -50,8 +50,8 @@ resourceName, "name", sqlInjectionMatchSet),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -96,8 +96,8 @@ resourceName, "sql_injection_match_tuple.#", "1"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -155,7 +155,7 @@ resourceName, "name", setName),
 	resource.TestCheckResourceAttr(
 resourceName, "sql_injection_match_tuple.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "sql_injection_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "",
 "field_to_match.0.type": "QUERY_STRING",
 "text_transformation":   "URL_DECODE",
@@ -172,7 +172,7 @@ resourceName, "name", setName),
 	resource.TestCheckResourceAttr(
 resourceName, "sql_injection_match_tuple.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "sql_injection_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "user-agent",
 "field_to_match.0.type": "HEADER",
 "text_transformation":   "NONE",
@@ -180,8 +180,8 @@ resourceName, "sql_injection_match_tuple.#", "1"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -214,8 +214,8 @@ resourceName, "sql_injection_match_tuple.#", "0"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -242,7 +242,7 @@ SqlInjectionMatchSetId: v.SqlInjectionMatchSetId,
 sqlInjectionMatchTupleUpdate := &waf.SqlInjectionMatchSetUpdate{
 	Action: aws.String("DELETE"),
 	SqlInjectionMatchTuple: &waf.SqlInjectionMatchTuple{
-FieldToMatch:       sqlInjectionMatchTuple.FieldToMatch,
+FieldToMatch: sqlInjectionMatchTuple.FieldToMatch,
 TextTransformation: sqlInjectionMatchTuple.TextTransformation,
 	},
 }
@@ -343,7 +343,7 @@ resource "aws_wafregional_sql_injection_match_set" "sql_injection_match_set" {
     text_transformation = "URL_DECODE"
 
     field_to_match {
-      type = "QUERY_STRING"
+type = "QUERY_STRING"
     }
   }
 }
@@ -360,8 +360,8 @@ resource "aws_wafregional_sql_injection_match_set" "sql_injection_match_set" {
     text_transformation = "NONE"
 
     field_to_match {
-      type = "HEADER"
-      data = "User-Agent"
+type = "HEADER"
+data = "User-Agent"
     }
   }
 }

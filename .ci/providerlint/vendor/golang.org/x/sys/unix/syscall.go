@@ -1,11 +1,7 @@
 // Copyright 2009 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build aix || darwin || dragonfly || freebsd || linux || netbsd || openbsd || solaris || zos
-// +build aix darwin dragonfly freebsd linux netbsd openbsd solaris zos
-
-// Package unix contains an interface to the low-level operating system
+// license that can be found in the LICENSE file.//go:build aix || darwin || dragonfly || freebsd || linux || netbsd || openbsd || solaris || zos
+// +build aix darwin dragonfly freebsd linux netbsd openbsd solaris zos// Package unix contains an interface to the low-level operating system
 // primitives. OS details vary depending on the underlying system, and
 // by default, godoc will display OS-specific documentation for the current
 // system. If you want godoc to display OS documentation for another
@@ -24,69 +20,45 @@ tions and data types in this package consult
 // These calls return err == nil to indicate success; otherwise
 // err represents an operating system error describing the failure and
 // holds a value of type syscall.Errno.
-package unix // import "golang.org/x/sys/unix"
-
-import (
+package unix // import "golang.org/x/sys/unix"import (
 	"bytes"
 	"strings"
 	"unsafe"
-)
-
-// ByteSliceFromString returns a NUL-terminated slice of bytes
+)// ByteSliceFromString returns a NUL-terminated slice of bytes
 // containing the text of s. If s contains a NUL byte at any
-ocation, it returns (nil, EINVAL).
-
- ByteSliceFromString(s string) ([]byte, error) {
+ocation, it returns (nil, EINVAL). ByteSliceFromString(s string) ([]byte, error) {
 	if strings.IndexByte(s, 0) != -1 {
 		return nil, EINVAL
 	}
 	a := make([]byte, len(s)+1)
 	copy(a, s)
 	return a, nil
-}
-
-// BytePtrFromString returns a pointer to a NUL-terminated array of
+}// BytePtrFromString returns a pointer to a NUL-terminated array of
 ytes containing the text of s. If s contains a NUL byte at any
-// location, it returns (nil, EINVAL).
-
- BytePtrFromString(s string) (*byte, error) {
+// location, it returns (nil, EINVAL). BytePtrFromString(s string) (*byte, error) {
 	a, err := ByteSliceFromString(s)
 	if err != nil {
 		return nil, err
 	}
 	return &a[0], nil
-}
-
-// ByteSliceToString returns a string form of the text represented by the slice s, with a terminating NUL and any
-// bytes after the NUL removed.
-
- ByteSliceToString(s []byte) string {
+}// ByteSliceToString returns a string form of the text represented by the slice s, with a terminating NUL and any
+// bytes after the NUL removed. ByteSliceToString(s []byte) string {
 	if i := bytes.IndexByte(s, 0); i != -1 {
 		s = s[:i]
 	}
 	return string(s)
-}
-
-// BytePtrToString takes a pointer to a sequence of text and returns the corresponding string.
+}// BytePtrToString takes a pointer to a sequence of text and returns the corresponding string.
 // If the pointer is nil, it returns the empty string. It assumes that the text sequence is terminated
-// at a zero byte; if the zero byte is not present, the program may crash.
-
- BytePtrToString(p *byte) string {
+// at a zero byte; if the zero byte is not present, the program may crash. BytePtrToString(p *byte) string {
 	if p == nil {
 		return ""
 	}
 	if *p == 0 {
 		return ""
-	}
-
-	// Find NUL terminator.
+	}	// Find NUL terminator.
 	n := 0
 	for ptr := unsafe.Pointer(p); *(*byte)(ptr) != 0; n++ {
 		ptr = unsafe.Pointer(uintptr(ptr) + 1)
-	}
-
-	return string(unsafe.Slice(p, n))
-}
-
-// Single-word zero for use when we need a valid pointer to 0 bytes.
+	}	return string(unsafe.Slice(p, n))
+}// Single-word zero for use when we need a valid pointer to 0 bytes.
 var _zero uintptr

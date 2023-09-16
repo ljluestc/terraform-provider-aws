@@ -37,7 +37,7 @@ func flattenParameters(list []*neptune.Parameter) []map[string]interface{} {
 		if i.ParameterValue != nil {
 			result = append(result, map[string]interface{}{
 				"apply_method": aws.StringValue(i.ApplyMethod),
-				"name":         aws.StringValue(i.ParameterName),
+				"name":aws.StringValue(i.ParameterName),
 				"value":        aws.StringValue(i.ParameterValue),
 			})
 		}

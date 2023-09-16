@@ -47,7 +47,7 @@ func ResourceMaintenanceWindowTarget() *schema.Resource {
 			},
 
 			"resource_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(ssm.MaintenanceWindowResourceType_Values(), true),
@@ -78,21 +78,21 @@ func ResourceMaintenanceWindowTarget() *schema.Resource {
 			},
 
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]{3,128}$`), "Only alphanumeric characters, hyphens, dots & underscores allowed"),
 			},
 
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(3, 128),
 			},
 
 			"owner_information": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},

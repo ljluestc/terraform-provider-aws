@@ -287,14 +287,14 @@ func testAccCapacityProviderConfig_base(rName string) string {
 resource "aws_launch_template" "test" {
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
-  name          = %[1]q
+  name = %[1]q
 }
 
 resource "aws_autoscaling_group" "test" {
   availability_zones = data.aws_availability_zones.available.names
   desired_capacity   = 0
-  max_size           = 0
-  min_size           = 0
+  max_size  = 0
+  min_size  = 0
   name  = %[1]q
 
   launch_template {
@@ -341,7 +341,7 @@ resource "aws_ecs_capacity_provider" "test" {
       maximum_scaling_step_size = %[3]d
       minimum_scaling_step_size = %[4]d
       status       = %[5]q
-      target_capacity           = %[6]d
+      target_capacity  = %[6]d
     }
   }
 }

@@ -25,7 +25,7 @@ func TestAccDynamoDBKinesisStreamingDestination_basic(t *testing.T) {
 	resourceName := "aws_dynamodb_kinesis_streaming_destination.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckKinesisStreamingDestinationDestroy(ctx),
@@ -39,8 +39,8 @@ func TestAccDynamoDBKinesisStreamingDestination_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -53,7 +53,7 @@ func TestAccDynamoDBKinesisStreamingDestination_disappears(t *testing.T) {
 	resourceName := "aws_dynamodb_kinesis_streaming_destination.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckKinesisStreamingDestinationDestroy(ctx),
@@ -78,7 +78,7 @@ func TestAccDynamoDBKinesisStreamingDestination_Disappears_dynamoDBTable(t *test
 	tableResourceName := "aws_dynamodb_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckKinesisStreamingDestinationDestroy(ctx),
@@ -101,16 +101,16 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
-  hash_key       = "hk"
+  hash_key   = "hk"
 
   attribute {
-    name = "hk"
-    type = "S"
+name = "hk"
+type = "S"
   }
 }
 
 resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+  name= %[1]q
   shard_count = 2
 }
 

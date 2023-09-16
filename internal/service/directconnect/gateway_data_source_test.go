@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDirectConnectGatewayDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -21,12 +20,12 @@ func TestAccDirectConnectGatewayDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_dx_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccGatewayDataSourceConfig_nonExistent,
+				Config:cGatewayDataSourceConfig_nonExistent,
 				ExpectError: regexache.MustCompile(`Direct Connect Gateway not found`),
 			},
 			{
@@ -41,17 +40,16 @@ func TestAccDirectConnectGatewayDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccGatewayDataSourceConfig_name(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
 resource "aws_dx_gateway" "wrong" {
   amazon_side_asn = "%d"
-  name            = "%s-wrong"
+  name
 }
 
 resource "aws_dx_gateway" "test" {
   amazon_side_asn = "%d"
-  name            = "%s"
+  name
 }
 
 data "aws_dx_gateway" "test" {

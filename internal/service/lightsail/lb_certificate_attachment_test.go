@@ -14,7 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func testAccLoadBalancerCertificateAttachment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	lbName := sdkacctest.RandomWithPrefix("tf-acc-test")
@@ -38,7 +37,6 @@ func testAccLoadBalancerCertificateAttachment_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancerCertificateAttachmentConfig_basic(lbName string, cName string, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
@@ -52,7 +50,7 @@ resource "aws_lightsail_lb_certificate" "test" {
   domain_name = %[3]q
 }
 resource "aws_lightsail_lb_certificate_attachment" "test" {
-  lb_name          = aws_lightsail_lb.test.name
+  lb_name = aws_lightsail_lb.test.name
   certificate_name = aws_lightsail_lb_certificate.test.name
 }
 `, lbName, cName, domainName)

@@ -30,9 +30,9 @@ func TestAccChimeVoiceConnectorGroup_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVoiceConnectorGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckVoiceConnectorGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVoiceConnectorGroupConfig_basic(vcgName),
@@ -64,9 +64,9 @@ func TestAccChimeVoiceConnectorGroup_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVoiceConnectorGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckVoiceConnectorGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVoiceConnectorGroupConfig_basic(vcgName),
@@ -92,9 +92,9 @@ func TestAccChimeVoiceConnectorGroup_update(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVoiceConnectorGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckVoiceConnectorGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVoiceConnectorGroupConfig_basic(vcgName),
@@ -132,7 +132,7 @@ resource "aws_chime_voice_connector_group" "test" {
 
   connector {
     voice_connector_id = aws_chime_voice_connector.chime.id
-    priority           = 1
+    priority  = 1
   }
 }
 `, name)
@@ -150,7 +150,7 @@ resource "aws_chime_voice_connector_group" "test" {
 
   connector {
     voice_connector_id = aws_chime_voice_connector.chime.id
-    priority           = 10
+    priority  = 10
   }
 }
 `, name)

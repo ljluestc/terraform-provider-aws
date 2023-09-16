@@ -47,7 +47,7 @@ Schema: map[string]*schema.Schema{
 	Optional: true,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"cross_dataset":       stringSchema(true, validation.StringInSlice(quicksight.CrossDatasetTypes_Values(), false)),
+	"cross_dataset": stringSchema(true, validation.StringInSlice(quicksight.CrossDatasetTypes_Values(), false)),
 	"filter_group_id":     idSchema(),
 	"filters":    filtersSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Filter.html
 	"scope_configuration": filterScopeConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterScopeConfiguration.html
@@ -85,7 +85,7 @@ Validate
 func: validation.StringInSlice(quicksight.SheetContentType_Values(), false),
 	},
 	"description":  stringSchema(false, validation.StringLenBetween(1, 1024)),
-	"filter_controls":       filterControlsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterControl.html
+	"filter_controls": filterControlsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterControl.html
 	"layouts":layoutSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Layout.html
 	"name":   stringSchema(false, validation.StringLenBetween(1, 2048)),
 	"parameter_controls":    parameterControlsSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ParameterControl.html

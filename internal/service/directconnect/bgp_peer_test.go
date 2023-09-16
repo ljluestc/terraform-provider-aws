@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccDirectConnectBGPPeer_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "DX_VIRTUAL_INTERFACE_ID"
@@ -29,7 +28,7 @@ func TestAccDirectConnectBGPPeer_basic(t *testing.T) {
 	bgpAsn := sdkacctest.RandIntRange(64512, 65534)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBGPPeerDestroy(ctx),
@@ -44,7 +43,6 @@ func TestAccDirectConnectBGPPeer_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckBGPPeerDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -72,7 +70,6 @@ func testAccCheckBGPPeerDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckBGPPeerExists(name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		_, ok := s.RootModule().Resources[name]
@@ -83,14 +80,13 @@ func testAccCheckBGPPeerExists(name string) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccBGPPeerConfig_basic(vifId string, bgpAsn int) string {
 	return fmt.Sprintf(`
 resource "aws_dx_bgp_peer" "foo" {
   virtual_interface_id = "%s"
 
   address_family = "ipv6"
-  bgp_asn        = %d
+  bgp_asn
 }
 `, vifId, bgpAsn)
 }

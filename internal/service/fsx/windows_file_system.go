@@ -53,13 +53,13 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"active_directory_id": {
-Type:          schema.TypeString,
-Optional:      true,
-ForceNew:      true,
+Type: schema.TypeString,
+Optional:  true,
+ForceNew:  true,
 ConflictsWith: []string{"self_managed_active_directory"},
 	},
 	"aliases": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Optional: true,
 MaxItems: 50,
 Elem: &schema.Schema{
@@ -71,60 +71,60 @@ validation.StringLenBetween(4, 253),
 },
 	},
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"audit_log_configuration": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "audit_log_destination": {
-	Type:         schema.TypeString,
-	Optional:     true,
-	Computed:     true,
+	Type:schema.TypeString,
+	Optional: true,
+	Computed: true,
 	ValidateFunc: verify.ValidARN,
-	StateFunc:    windowsAuditLogStateFunc,
+	StateFunc:windowsAuditLogStateFunc,
 	DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 return strings.HasPrefix(old, fmt.Sprintf("%s:", new))
 	},
 },
 "file_access_audit_log_level": {
-	Type:         schema.TypeString,
-	Optional:     true,
-	Default:      fsx.WindowsAccessAuditLogLevelDisabled,
+	Type:schema.TypeString,
+	Optional: true,
+	Default:  fsx.WindowsAccessAuditLogLevelDisabled,
 	ValidateFunc: validation.StringInSlice(fsx.WindowsAccessAuditLogLevel_Values(), false),
 },
 "file_share_access_audit_log_level": {
-	Type:         schema.TypeString,
-	Optional:     true,
-	Default:      fsx.WindowsAccessAuditLogLevelDisabled,
+	Type:schema.TypeString,
+	Optional: true,
+	Default:  fsx.WindowsAccessAuditLogLevelDisabled,
 	ValidateFunc: validation.StringInSlice(fsx.WindowsAccessAuditLogLevel_Values(), false),
 },
 	},
 },
 	},
 	"automatic_backup_retention_days": {
-Type:         schema.TypeInt,
-Optional:     true,
-Default:      7,
+Type:schema.TypeInt,
+Optional: true,
+Default:  7,
 ValidateFunc: validation.IntBetween(0, 90),
 	},
 	"backup_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 ForceNew: true,
 	},
 	"copy_tags_to_backups": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 ForceNew: true,
 	},
 	"daily_automatic_backup_start_time": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 Computed: true,
 ValidateFunc: validation.All(
@@ -133,159 +133,159 @@ ValidateFunc: validation.All(
 ),
 	},
 	"deployment_type": {
-Type:         schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      fsx.WindowsDeploymentTypeSingleAz1,
+Type:schema.TypeString,
+Optional: true,
+ForceNew: true,
+Default:  fsx.WindowsDeploymentTypeSingleAz1,
 ValidateFunc: validation.StringInSlice(fsx.WindowsDeploymentType_Values(), false),
 	},
 	"disk_iops_configuration": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "iops": {
-	Type:         schema.TypeInt,
-	Optional:     true,
-	Computed:     true,
+	Type:schema.TypeInt,
+	Optional: true,
+	Computed: true,
 	ValidateFunc: validation.IntBetween(0, 350000),
 },
 "mode": {
-	Type:         schema.TypeString,
-	Optional:     true,
-	Default:      fsx.DiskIopsConfigurationModeAutomatic,
+	Type:schema.TypeString,
+	Optional: true,
+	Default:  fsx.DiskIopsConfigurationModeAutomatic,
 	ValidateFunc: validation.StringInSlice(fsx.DiskIopsConfigurationMode_Values(), false),
 },
 	},
 },
 	},
 	"dns_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"kms_key_id": {
-Type:         schema.TypeString,
-Optional:     true,
-Computed:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Optional: true,
+Computed: true,
+ForceNew: true,
 ValidateFunc: verify.ValidARN,
 	},
 	"network_interface_ids": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 	},
 	"owner_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"preferred_file_server_ip": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"preferred_subnet_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"remote_administration_endpoint": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"security_group_ids": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Optional: true,
 ForceNew: true,
 MaxItems: 50,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 	},
 	"self_managed_active_directory": {
-Type:          schema.TypeList,
-Optional:      true,
-MaxItems:      1,
+Type: schema.TypeList,
+Optional:  true,
+MaxItems:  1,
 ConflictsWith: []string{"active_directory_id"},
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "dns_ips": {
-	Type:     schema.TypeSet,
+	Type: schema.TypeSet,
 	Required: true,
 	MinItems: 1,
 	MaxItems: 2,
 	Elem: &schema.Schema{
-Type:         schema.TypeString,
+Type:schema.TypeString,
 ValidateFunc: validation.IsIPAddress,
 	},
 },
 "domain_name": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Required: true,
 },
 "file_system_administrators_group": {
-	Type:         schema.TypeString,
-	Optional:     true,
-	Default:      "Domain Admins",
+	Type:schema.TypeString,
+	Optional: true,
+	Default:  "Domain Admins",
 	ValidateFunc: validation.StringLenBetween(1, 256),
 },
 "organizational_unit_distinguished_name": {
-	Type:         schema.TypeString,
-	Optional:     true,
+	Type:schema.TypeString,
+	Optional: true,
 	ValidateFunc: validation.StringLenBetween(1, 2000),
 },
 "password": {
-	Type:         schema.TypeString,
-	Required:     true,
-	Sensitive:    true,
+	Type:schema.TypeString,
+	Required: true,
+	Sensitive:true,
 	ValidateFunc: validation.StringLenBetween(1, 256),
 },
 "username": {
-	Type:         schema.TypeString,
-	Required:     true,
+	Type:schema.TypeString,
+	Required: true,
 	ValidateFunc: validation.StringLenBetween(1, 256),
 },
 	},
 },
 	},
 	"skip_final_backup": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"storage_capacity": {
-Type:         schema.TypeInt,
-Optional:     true,
-Computed:     true,
+Type:schema.TypeInt,
+Optional: true,
+Computed: true,
 ValidateFunc: validation.IntBetween(32, 65536),
 	},
 	"storage_type": {
-Type:         schema.TypeString,
-Optional:     true,
-ForceNew:     true,
-Default:      fsx.StorageTypeSsd,
+Type:schema.TypeString,
+Optional: true,
+ForceNew: true,
+Default:  fsx.StorageTypeSsd,
 ValidateFunc: validation.StringInSlice(fsx.StorageType_Values(), false),
 	},
 	"subnet_ids": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Required: true,
 ForceNew: true,
 MinItems: 1,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"throughput_capacity": {
-Type:         schema.TypeInt,
-Required:     true,
+Type:schema.TypeInt,
+Required: true,
 ValidateFunc: validation.IntBetween(8, 2048),
 	},
 	"vpc_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"weekly_maintenance_start_time": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 Computed: true,
 ValidateFunc: validation.All(
@@ -305,24 +305,24 @@ func resourceWindowsFileSystemCreate(ctx context.Context, d *schema.ResourceData
 
 	inputC := &fsx.CreateFileSystemInput{
 ClientRequestToken: aws.String(id.UniqueId()),
-FileSystemType:     aws.String(fsx.FileSystemTypeWindows),
-StorageCapacity:    aws.Int64(int64(d.Get("storage_capacity").(int))),
-SubnetIds:          flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
+FileSystemType: aws.String(fsx.FileSystemTypeWindows),
+StorageCapacity:aws.Int64(int64(d.Get("storage_capacity").(int))),
+SubnetIds: flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
 Tags:getTagsIn(ctx),
 WindowsConfiguration: &fsx.CreateFileSystemWindowsConfiguration{
 	AutomaticBackupRetentionDays: aws.Int64(int64(d.Get("automatic_backup_retention_days").(int))),
-	CopyTagsToBackups:            aws.Bool(d.Get("copy_tags_to_backups").(bool)),
-	ThroughputCapacity:           aws.Int64(int64(d.Get("throughput_capacity").(int))),
+	CopyTagsToBackups:   aws.Bool(d.Get("copy_tags_to_backups").(bool)),
+	ThroughputCapacity:  aws.Int64(int64(d.Get("throughput_capacity").(int))),
 },
 	}
 	inputB := &fsx.CreateFileSystemFromBackupInput{
 ClientRequestToken: aws.String(id.UniqueId()),
-SubnetIds:          flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
+SubnetIds: flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
 Tags:getTagsIn(ctx),
 WindowsConfiguration: &fsx.CreateFileSystemWindowsConfiguration{
 	AutomaticBackupRetentionDays: aws.Int64(int64(d.Get("automatic_backup_retention_days").(int))),
-	CopyTagsToBackups:            aws.Bool(d.Get("copy_tags_to_backups").(bool)),
-	ThroughputCapacity:           aws.Int64(int64(d.Get("throughput_capacity").(int))),
+	CopyTagsToBackups:   aws.Bool(d.Get("copy_tags_to_backups").(bool)),
+	ThroughputCapacity:  aws.Int64(int64(d.Get("throughput_capacity").(int))),
 },
 	}
 
@@ -478,7 +478,7 @@ add, del := flex.ExpandStringValueSet(ns.Difference(os)), flex.ExpandStringValue
 
 if len(add) > 0 {
 	input := &fsx.AssociateFileSystemAliasesInput{
-Aliases:      aws.StringSlice(add),
+Aliases:  aws.StringSlice(add),
 FileSystemId: aws.String(d.Id()),
 	}
 
@@ -495,7 +495,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for FSx for Windows File Server File
 
 if len(del) > 0 {
 	input := &fsx.DisassociateFileSystemAliasesInput{
-Aliases:      aws.StringSlice(del),
+Aliases:  aws.StringSlice(del),
 FileSystemId: aws.String(d.Id()),
 	}
 
@@ -518,7 +518,7 @@ o, n := d.GetChange("throughput_capacity")
 if o, n := o.(int), n.(int); n > o {
 	input := &fsx.UpdateFileSystemInput{
 ClientRequestToken: aws.String(id.UniqueId()),
-FileSystemId:       aws.String(d.Id()),
+FileSystemId:   aws.String(d.Id()),
 WindowsConfiguration: &fsx.UpdateFileSystemWindowsConfiguration{
 	ThroughputCapacity: aws.Int64(int64(n)),
 },
@@ -540,7 +540,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for FSx Windows File Server File Sys
 	if d.HasChangesExcept("aliases", "tags", "tags_all") {
 input := &fsx.UpdateFileSystemInput{
 	ClientRequestToken:   aws.String(id.UniqueId()),
-	FileSystemId:         aws.String(d.Id()),
+	FileSystemId:aws.String(d.Id()),
 	WindowsConfiguration: &fsx.UpdateFileSystemWindowsConfiguration{},
 }
 
@@ -597,7 +597,7 @@ func resourceWindowsFileSystemDelete(ctx context.Context, d *schema.ResourceData
 
 	input := &fsx.DeleteFileSystemInput{
 ClientRequestToken: aws.String(id.UniqueId()),
-FileSystemId:       aws.String(d.Id()),
+FileSystemId:   aws.String(d.Id()),
 WindowsConfiguration: &fsx.DeleteFileSystemWindowsConfiguration{
 	SkipFinalBackup: aws.Bool(d.Get("skip_final_backup").(bool)),
 },
@@ -640,7 +640,7 @@ return nil
 	data := l[0].(map[string]interface{})
 	req := &fsx.SelfManagedActiveDirectoryConfiguration{
 DomainName: aws.String(data["domain_name"].(string)),
-DnsIps:     flex.ExpandStringSet(data["dns_ips"].(*schema.Set)),
+DnsIps: flex.ExpandStringSet(data["dns_ips"].(*schema.Set)),
 Password:   aws.String(data["password"].(string)),
 UserName:   aws.String(data["username"].(string)),
 	}
@@ -693,7 +693,7 @@ return []map[string]interface{}{}
 	m := map[string]interface{}{
 "dns_ips":  aws.StringValueSlice(adopts.DnsIps),
 "domain_name":aws.StringValue(adopts.DomainName),
-"file_system_administrators_group":       aws.StringValue(adopts.FileSystemAdministratorsGroup),
+"file_system_administrators_group":   aws.StringValue(adopts.FileSystemAdministratorsGroup),
 "organizational_unit_distinguished_name": aws.StringValue(adopts.OrganizationalUnitDistinguishedName),
 "password": d.Get("self_managed_active_directory.0.password").(string),
 "username": aws.StringValue(adopts.UserName),
@@ -709,7 +709,7 @@ return nil
 
 	data := l[0].(map[string]interface{})
 	req := &fsx.WindowsAuditLogCreateConfiguration{
-FileAccessAuditLogLevel:      aws.String(data["file_access_audit_log_level"].(string)),
+FileAccessAuditLogLevel:  aws.String(data["file_access_audit_log_level"].(string)),
 FileShareAccessAuditLogLevel: aws.String(data["file_share_access_audit_log_level"].(string)),
 	}
 
@@ -726,7 +726,7 @@ return []map[string]interface{}{}
 	}
 
 	m := map[string]interface{}{
-"file_access_audit_log_level":       aws.StringValue(adopts.FileAccessAuditLogLevel),
+"file_access_audit_log_level":   aws.StringValue(adopts.FileAccessAuditLogLevel),
 "file_share_access_audit_log_level": aws.StringValue(adopts.FileShareAccessAuditLogLevel),
 	}
 

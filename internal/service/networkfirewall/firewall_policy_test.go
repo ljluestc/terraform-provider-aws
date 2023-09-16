@@ -26,7 +26,7 @@ func TestAccNetworkFirewallFirewallPolicy_basic(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -53,8 +53,8 @@ func TestAccNetworkFirewallFirewallPolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -68,7 +68,7 @@ func TestAccNetworkFirewallFirewallPolicy_encryptionConfiguration(t *testing.T) 
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -85,8 +85,8 @@ func TestAccNetworkFirewallFirewallPolicy_encryptionConfiguration(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -129,7 +129,7 @@ func TestAccNetworkFirewallFirewallPolicy_policyVariables(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -142,7 +142,7 @@ func TestAccNetworkFirewallFirewallPolicy_policyVariables(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.0.policy_variables.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.0.policy_variables.0.rule_variables.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firewall_policy.0.policy_variables.0.rule_variables.*", map[string]string{
-						"key":      "HOME_NET",
+						"key": "HOME_NET",
 						"ip_set.#": "1",
 						"ip_set.0.definition.#": "2",
 					}),
@@ -155,8 +155,8 @@ func TestAccNetworkFirewallFirewallPolicy_policyVariables(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -182,7 +182,7 @@ func TestAccNetworkFirewallFirewallPolicy_statefulDefaultActions(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -197,8 +197,8 @@ func TestAccNetworkFirewallFirewallPolicy_statefulDefaultActions(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -212,7 +212,7 @@ func TestAccNetworkFirewallFirewallPolicy_statefulEngineOption(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -228,8 +228,8 @@ func TestAccNetworkFirewallFirewallPolicy_statefulEngineOption(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -243,7 +243,7 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatefulEngineOption(t *testing.
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -278,8 +278,8 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatefulEngineOption(t *testing.
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -293,7 +293,7 @@ func TestAccNetworkFirewallFirewallPolicy_statefulEngineOptionsSingle(t *testing
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -319,8 +319,8 @@ func TestAccNetworkFirewallFirewallPolicy_statefulEngineOptionsSingle(t *testing
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -335,7 +335,7 @@ func TestAccNetworkFirewallFirewallPolicy_statefulRuleGroupReference(t *testing.
 	ruleGroupResourceName := "aws_networkfirewall_rule_group.test.0"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -352,8 +352,8 @@ func TestAccNetworkFirewallFirewallPolicy_statefulRuleGroupReference(t *testing.
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -367,7 +367,7 @@ func TestAccNetworkFirewallFirewallPolicy_statefulRuleGroupReferenceManaged(t *t
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -379,8 +379,8 @@ func TestAccNetworkFirewallFirewallPolicy_statefulRuleGroupReferenceManaged(t *t
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -395,7 +395,7 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatefulRuleGroupReference(t *te
 	ruleGroupResourceName := "aws_networkfirewall_rule_group.test.0"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -422,8 +422,8 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatefulRuleGroupReference(t *te
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -439,7 +439,7 @@ func TestAccNetworkFirewallFirewallPolicy_multipleStatefulRuleGroupReferences(t 
 	ruleGroupResourceName2 := "aws_networkfirewall_rule_group.test.1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -464,8 +464,8 @@ func TestAccNetworkFirewallFirewallPolicy_multipleStatefulRuleGroupReferences(t 
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -480,7 +480,7 @@ func TestAccNetworkFirewallFirewallPolicy_statefulRuleGroupPriorityReference(t *
 	ruleGroupResourceName := "aws_networkfirewall_rule_group.test.0"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -496,8 +496,8 @@ func TestAccNetworkFirewallFirewallPolicy_statefulRuleGroupPriorityReference(t *
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -512,7 +512,7 @@ func TestAccNetworkFirewallFirewallPolicy_statefulRuleGroupOverrideActionReferen
 	override_action := networkfirewall.OverrideActionDropToAlert
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -525,8 +525,8 @@ func TestAccNetworkFirewallFirewallPolicy_statefulRuleGroupOverrideActionReferen
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -541,7 +541,7 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatefulRuleGroupPriorityReferen
 	ruleGroupResourceName := "aws_networkfirewall_rule_group.test.0"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -568,8 +568,8 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatefulRuleGroupPriorityReferen
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -584,7 +584,7 @@ func TestAccNetworkFirewallFirewallPolicy_statelessRuleGroupReference(t *testing
 	ruleGroupResourceName := "aws_networkfirewall_rule_group.test.0"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -613,8 +613,8 @@ func TestAccNetworkFirewallFirewallPolicy_statelessRuleGroupReference(t *testing
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -629,7 +629,7 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatelessRuleGroupReference(t *t
 	ruleGroupResourceName := "aws_networkfirewall_rule_group.test.0"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -660,8 +660,8 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatelessRuleGroupReference(t *t
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -677,7 +677,7 @@ func TestAccNetworkFirewallFirewallPolicy_multipleStatelessRuleGroupReferences(t
 	ruleGroupResourceName2 := "aws_networkfirewall_rule_group.test.1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -711,8 +711,8 @@ func TestAccNetworkFirewallFirewallPolicy_multipleStatelessRuleGroupReferences(t
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -726,7 +726,7 @@ func TestAccNetworkFirewallFirewallPolicy_statelessCustomAction(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -738,7 +738,7 @@ func TestAccNetworkFirewallFirewallPolicy_statelessCustomAction(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.0.stateless_custom_action.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firewall_policy.0.stateless_custom_action.*", map[string]string{
-						"action_definition.#":           "1",
+						"action_definition.#": "1",
 						"action_definition.0.publish_metric_action.#":"1",
 						"action_definition.0.publish_metric_action.0.dimension.#": "1",
 						"action_name": "CustomAction",
@@ -746,8 +746,8 @@ func TestAccNetworkFirewallFirewallPolicy_statelessCustomAction(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -761,7 +761,7 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatelessCustomAction(t *testing
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -780,7 +780,7 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatelessCustomAction(t *testing
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.0.stateless_custom_action.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firewall_policy.0.stateless_custom_action.*", map[string]string{
-						"action_name":         "CustomAction",
+						"action_name":"CustomAction",
 						"action_definition.#": "1",
 						"action_definition.0.publish_metric_action.#":"1",
 						"action_definition.0.publish_metric_action.0.dimension.#": "1",
@@ -795,7 +795,7 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatelessCustomAction(t *testing
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.0.stateless_custom_action.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firewall_policy.0.stateless_custom_action.*", map[string]string{
-						"action_name":         "updated",
+						"action_name":"updated",
 						"action_definition.#": "1",
 						"action_definition.0.publish_metric_action.#":"1",
 						"action_definition.0.publish_metric_action.0.dimension.#": "1",
@@ -811,8 +811,8 @@ func TestAccNetworkFirewallFirewallPolicy_updateStatelessCustomAction(t *testing
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -826,7 +826,7 @@ func TestAccNetworkFirewallFirewallPolicy_multipleStatelessCustomActions(t *test
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -838,13 +838,13 @@ func TestAccNetworkFirewallFirewallPolicy_multipleStatelessCustomActions(t *test
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.0.stateless_custom_action.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firewall_policy.0.stateless_custom_action.*", map[string]string{
-						"action_name":         "CustomAction",
+						"action_name":"CustomAction",
 						"action_definition.#": "1",
 						"action_definition.0.publish_metric_action.#":"1",
 						"action_definition.0.publish_metric_action.0.dimension.#": "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firewall_policy.0.stateless_custom_action.*", map[string]string{
-						"action_name":         "CustomAction2",
+						"action_name":"CustomAction2",
 						"action_definition.#": "1",
 						"action_definition.0.publish_metric_action.#":"1",
 						"action_definition.0.publish_metric_action.0.dimension.#": "1",
@@ -859,7 +859,7 @@ func TestAccNetworkFirewallFirewallPolicy_multipleStatelessCustomActions(t *test
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.0.stateless_custom_action.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firewall_policy.0.stateless_custom_action.*", map[string]string{
-						"action_name":         "CustomAction",
+						"action_name":"CustomAction",
 						"action_definition.#": "1",
 						"action_definition.0.publish_metric_action.#":"1",
 						"action_definition.0.publish_metric_action.0.dimension.#": "1",
@@ -867,8 +867,8 @@ func TestAccNetworkFirewallFirewallPolicy_multipleStatelessCustomActions(t *test
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -883,7 +883,7 @@ func TestAccNetworkFirewallFirewallPolicy_statefulRuleGroupReferenceAndCustomAct
 	ruleGroupResourceName := "aws_networkfirewall_rule_group.test.0"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -896,7 +896,7 @@ func TestAccNetworkFirewallFirewallPolicy_statefulRuleGroupReferenceAndCustomAct
 					resource.TestCheckResourceAttr(resourceName, "firewall_policy.0.stateful_rule_group_reference.#", "1"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "firewall_policy.0.stateful_rule_group_reference.*.resource_arn", ruleGroupResourceName, "arn"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firewall_policy.0.stateless_custom_action.*", map[string]string{
-						"action_name":         "CustomAction",
+						"action_name":"CustomAction",
 						"action_definition.#": "1",
 						"action_definition.0.publish_metric_action.#":"1",
 						"action_definition.0.publish_metric_action.0.dimension.#": "1",
@@ -913,8 +913,8 @@ func TestAccNetworkFirewallFirewallPolicy_statefulRuleGroupReferenceAndCustomAct
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -928,7 +928,7 @@ func TestAccNetworkFirewallFirewallPolicy_tags(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -942,8 +942,8 @@ func TestAccNetworkFirewallFirewallPolicy_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -974,7 +974,7 @@ func TestAccNetworkFirewallFirewallPolicy_disappears(t *testing.T) {
 	resourceName := "aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFirewallPolicyDestroy(ctx),
@@ -1066,19 +1066,19 @@ resource "aws_networkfirewall_rule_group" "test" {
   count = %[1]d
 
   capacity = 100
-  name     = "%[2]s-${count.index}"
-  type     = "STATELESS"
+  name= "%[2]s-${count.index}"
+  type= "STATELESS"
 
   rule_group {
-    rules_source {
-      stateless_rules_and_custom_actions {
-        stateless_rule {
-          priority = 1
+rules_source {
+ stateless_rules_and_custom_actions {
+   stateless_rule {
+priority = 1
 
-          rule_definition {
-            actions = ["aws:drop"]
+rule_definition {
+  actions = ["aws:drop"]
 
-            match_attributes {
+  match_attributes {
  destination {
    address_definition = "1.2.3.4/32"
  }
@@ -1086,15 +1086,15 @@ resource "aws_networkfirewall_rule_group" "test" {
  source {
    address_definition = "124.1.1.5/32"
  }
-            }
-          }
-        }
-      }
-    }
+  }
+}
+   }
+ }
+}
   }
 
   lifecycle {
-    create_before_destroy = true
+create_before_destroy = true
   }
 }
 `, count, rName)
@@ -1106,21 +1106,21 @@ resource "aws_networkfirewall_rule_group" "test" {
   count = %[1]d
 
   capacity = 100
-  name     = "%[2]s-${count.index}"
-  type     = "STATEFUL"
+  name= "%[2]s-${count.index}"
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      rules_source_list {
-        generated_rules_type = "ALLOWLIST"
-        target_types         = ["HTTP_HOST"]
-        targets = ["test.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = "ALLOWLIST"
+   target_types= ["HTTP_HOST"]
+   targets = ["test.example.com"]
+ }
+}
   }
 
   lifecycle {
-    create_before_destroy = true
+create_before_destroy = true
   }
 }
 `, count, rName)
@@ -1132,37 +1132,37 @@ resource "aws_networkfirewall_rule_group" "test" {
   count = %[1]d
 
   capacity = 100
-  name     = "%[2]s-${count.index}"
-  type     = "STATEFUL"
+  name= "%[2]s-${count.index}"
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      stateful_rule {
-        action = "PASS"
+rules_source {
+ stateful_rule {
+   action = "PASS"
 
-        header {
-          destination      = "124.1.1.24/32"
-          destination_port = 53
-          direction        = "ANY"
-          protocol         = "TCP"
-          source           = "1.2.3.4/32"
-          source_port      = 53
-        }
+   header {
+destination = "124.1.1.24/32"
+destination_port = 53
+direction   = "ANY"
+protocol= "TCP"
+source = "1.2.3.4/32"
+source_port = 53
+   }
 
-        rule_option {
-          keyword  = "sid"
-          settings = ["1"]
-        }
-      }
-    }
+   rule_option {
+keyword  = "sid"
+settings = ["1"]
+   }
+ }
+}
 
-    stateful_rule_options {
-      rule_order = "STRICT_ORDER"
-    }
+stateful_rule_options {
+ rule_order = "STRICT_ORDER"
+}
   }
 
   lifecycle {
-    create_before_destroy = true
+create_before_destroy = true
   }
 }
 `, count, rName)
@@ -1174,8 +1174,8 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 }
 `, rName)
@@ -1187,12 +1187,12 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -1204,13 +1204,13 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -1222,13 +1222,13 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateful_engine_options {
-      rule_order = %[2]q
-      stream_exception_policy = %[3]q
-    }
+stateful_engine_options {
+ rule_order = %[2]q
+ stream_exception_policy = %[3]q
+}
   }
 }
 `, rName, ruleOrder, streamExceptionPolicy)
@@ -1240,16 +1240,16 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    policy_variables {
-      rule_variables {
-        key = "HOME_NET"
-        ip_set {
-          definition = ["10.0.0.0/16", "10.0.1.0/24"]
-        }
-      }
-    }
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+policy_variables {
+ rule_variables {
+   key = "HOME_NET"
+   ip_set {
+definition = ["10.0.0.0/16", "10.0.1.0/24"]
+   }
+ }
+}
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 }
 `, rName)
@@ -1261,12 +1261,12 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateful_engine_options {
-      rule_order = %[2]q
-    }
+stateful_engine_options {
+ rule_order = %[2]q
+}
   }
 }
 `, rName, ruleOrder)
@@ -1278,12 +1278,12 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateful_engine_options {
-      stream_exception_policy = %[2]q
-    }
+stateful_engine_options {
+ stream_exception_policy = %[2]q
+}
   }
 }
 `, rName, streamExceptionPolicy)
@@ -1295,13 +1295,13 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
-    stateful_default_actions           = ["aws:drop_established"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
+stateful_default_actions = ["aws:drop_established"]
 
-    stateful_engine_options {
-      rule_order = "STRICT_ORDER"
-    }
+stateful_engine_options {
+ rule_order = "STRICT_ORDER"
+}
   }
 }
 `, rName)
@@ -1313,12 +1313,12 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateful_rule_group_reference {
-      resource_arn = aws_networkfirewall_rule_group.test[0].arn
-    }
+stateful_rule_group_reference {
+ resource_arn = aws_networkfirewall_rule_group.test[0].arn
+}
   }
 }
 `, rName))
@@ -1333,12 +1333,12 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateful_rule_group_reference {
-      resource_arn = "arn:${data.aws_partition.current.partition}:network-firewall:${data.aws_region.current.name}:aws-managed:stateful-rulegroup/MalwareDomainsActionOrder"
-    }
+stateful_rule_group_reference {
+ resource_arn = "arn:${data.aws_partition.current.partition}:network-firewall:${data.aws_region.current.name}:aws-managed:stateful-rulegroup/MalwareDomainsActionOrder"
+}
   }
 }
 `, rName))
@@ -1350,16 +1350,16 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateful_rule_group_reference {
-      resource_arn = aws_networkfirewall_rule_group.test[0].arn
-    }
+stateful_rule_group_reference {
+ resource_arn = aws_networkfirewall_rule_group.test[0].arn
+}
 
-    stateful_rule_group_reference {
-      resource_arn = aws_networkfirewall_rule_group.test[1].arn
-    }
+stateful_rule_group_reference {
+ resource_arn = aws_networkfirewall_rule_group.test[1].arn
+}
   }
 }
 `, rName))
@@ -1371,17 +1371,17 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateful_engine_options {
-      rule_order = "STRICT_ORDER"
-    }
+stateful_engine_options {
+ rule_order = "STRICT_ORDER"
+}
 
-    stateful_rule_group_reference {
-      priority     = %[2]q
-      resource_arn = aws_networkfirewall_rule_group.test[0].arn
-    }
+stateful_rule_group_reference {
+ priority= %[2]q
+ resource_arn = aws_networkfirewall_rule_group.test[0].arn
+}
   }
 }
 `, rName, priority))
@@ -1396,16 +1396,16 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateful_rule_group_reference {
-      resource_arn = "arn:${data.aws_partition.current.partition}:network-firewall:${data.aws_region.current.name}:aws-managed:stateful-rulegroup/MalwareDomainsActionOrder"
+stateful_rule_group_reference {
+ resource_arn = "arn:${data.aws_partition.current.partition}:network-firewall:${data.aws_region.current.name}:aws-managed:stateful-rulegroup/MalwareDomainsActionOrder"
 
-      override {
-        action = %[2]q
-      }
-    }
+ override {
+   action = %[2]q
+ }
+}
   }
 }
 `, rName, override_action))
@@ -1417,12 +1417,12 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateful_rule_group_reference {
-      resource_arn = aws_networkfirewall_rule_group.test[0].arn
-    }
+stateful_rule_group_reference {
+ resource_arn = aws_networkfirewall_rule_group.test[0].arn
+}
   }
 }
 `, rName))
@@ -1434,13 +1434,13 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateless_rule_group_reference {
-      priority     = %[2]d
-      resource_arn = aws_networkfirewall_rule_group.test[0].arn
-    }
+stateless_rule_group_reference {
+ priority= %[2]d
+ resource_arn = aws_networkfirewall_rule_group.test[0].arn
+}
   }
 }
 `, rName, priority))
@@ -1452,18 +1452,18 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateless_rule_group_reference {
-      priority     = 1
-      resource_arn = aws_networkfirewall_rule_group.test[0].arn
-    }
+stateless_rule_group_reference {
+ priority= 1
+ resource_arn = aws_networkfirewall_rule_group.test[0].arn
+}
 
-    stateless_rule_group_reference {
-      priority     = 2
-      resource_arn = aws_networkfirewall_rule_group.test[1].arn
-    }
+stateless_rule_group_reference {
+ priority= 2
+ resource_arn = aws_networkfirewall_rule_group.test[1].arn
+}
   }
 }
 `, rName))
@@ -1475,13 +1475,13 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateless_rule_group_reference {
-      priority     = 1
-      resource_arn = aws_networkfirewall_rule_group.test[0].arn
-    }
+stateless_rule_group_reference {
+ priority= 1
+ resource_arn = aws_networkfirewall_rule_group.test[0].arn
+}
   }
 }
 `, rName))
@@ -1493,19 +1493,19 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateless_custom_action {
-      action_name = "CustomAction"
-      action_definition {
-        publish_metric_action {
-          dimension {
-            value = "example"
-          }
-        }
-      }
-    }
+stateless_custom_action {
+ action_name = "CustomAction"
+ action_definition {
+   publish_metric_action {
+dimension {
+  value = "example"
+}
+   }
+ }
+}
   }
 }
 `, rName)
@@ -1517,20 +1517,20 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateless_custom_action {
-      action_name = "updated"
+stateless_custom_action {
+ action_name = "updated"
 
-      action_definition {
-        publish_metric_action {
-          dimension {
-            value = "example-update"
-          }
-        }
-      }
-    }
+ action_definition {
+   publish_metric_action {
+dimension {
+  value = "example-update"
+}
+   }
+ }
+}
   }
 }
 `, rName)
@@ -1542,32 +1542,32 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateless_custom_action {
-      action_definition {
-        publish_metric_action {
-          dimension {
-            value = "example"
-          }
-        }
-      }
+stateless_custom_action {
+ action_definition {
+   publish_metric_action {
+dimension {
+  value = "example"
+}
+   }
+ }
 
-      action_name = "CustomAction"
-    }
+ action_name = "CustomAction"
+}
 
-    stateless_custom_action {
-      action_definition {
-        publish_metric_action {
-          dimension {
-            value = "example-custom-action"
-          }
-        }
-      }
+stateless_custom_action {
+ action_definition {
+   publish_metric_action {
+dimension {
+  value = "example-custom-action"
+}
+   }
+ }
 
-      action_name = "CustomAction2"
-    }
+ action_name = "CustomAction2"
+}
   }
 }
 `, rName)
@@ -1579,24 +1579,24 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
 
-    stateful_rule_group_reference {
-      resource_arn = aws_networkfirewall_rule_group.test[0].arn
-    }
+stateful_rule_group_reference {
+ resource_arn = aws_networkfirewall_rule_group.test[0].arn
+}
 
-    stateless_custom_action {
-      action_definition {
-        publish_metric_action {
-          dimension {
-            value = "example"
-          }
-        }
-      }
+stateless_custom_action {
+ action_definition {
+   publish_metric_action {
+dimension {
+  value = "example"
+}
+   }
+ }
 
-      action_name = "CustomAction"
-    }
+ action_name = "CustomAction"
+}
   }
 }
 `, rName))
@@ -1610,13 +1610,13 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   encryption_configuration {
-    key_id = aws_kms_key.test.arn
-    type   = "CUSTOMER_KMS"
+key_id = aws_kms_key.test.arn
+type   = "CUSTOMER_KMS"
   }
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = [%[2]q]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= [%[2]q]
   }
 }
 `, rName, statelessDefaultActions)
@@ -1634,8 +1634,8 @@ resource "aws_kms_key" "test" {}
 resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 }
 `, rName)

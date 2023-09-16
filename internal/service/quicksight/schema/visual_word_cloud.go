@@ -61,8 +61,8 @@ DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
-"category_items_limit": itemsLimitConfigurationSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
-"category_sort":        fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html
+"category_items_limit": itemsLimitConfigurationSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
+"category_sort":  fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html
 	},
 },
 	},
@@ -76,7 +76,7 @@ Elem: &schema.Resource{
 "cloud_layout": stringSchema(false, validation.StringInSlice(quicksight.WordCloudCloudLayout_Values(), false)),
 "maximum_string_length": intSchema(false, validation.IntBetween(1, 100)),
 "word_casing":  stringSchema(false, validation.StringInSlice(quicksight.WordCloudWordCasing_Values(), false)),
-"word_orientation":      stringSchema(false, validation.StringInSlice(quicksight.WordCloudWordOrientation_Values(), false)),
+"word_orientation":stringSchema(false, validation.StringInSlice(quicksight.WordCloudWordOrientation_Values(), false)),
 "word_padding": stringSchema(false, validation.StringInSlice(quicksight.WordCloudWordPadding_Values(), false)),
 "word_scaling": stringSchema(false, validation.StringInSlice(quicksight.WordCloudWordScaling_Values(), false)),
 	},

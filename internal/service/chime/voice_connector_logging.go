@@ -55,7 +55,7 @@ func resourceVoiceConnectorLoggingCreate(ctx context.Context, d *schema.Resource
 		VoiceConnectorId: aws.String(vcId),
 		LoggingConfiguration: &chime.LoggingConfiguration{
 			EnableMediaMetricLogs: aws.Bool(d.Get("enable_media_metric_logs").(bool)),
-			EnableSIPLogs:         aws.Bool(d.Get("enable_sip_logs").(bool)),
+			EnableSIPLogs:aws.Bool(d.Get("enable_sip_logs").(bool)),
 		},
 	}
 
@@ -99,7 +99,7 @@ func resourceVoiceConnectorLoggingUpdate(ctx context.Context, d *schema.Resource
 			VoiceConnectorId: aws.String(d.Id()),
 			LoggingConfiguration: &chime.LoggingConfiguration{
 				EnableMediaMetricLogs: aws.Bool(d.Get("enable_media_metric_logs").(bool)),
-				EnableSIPLogs:         aws.Bool(d.Get("enable_sip_logs").(bool)),
+				EnableSIPLogs:aws.Bool(d.Get("enable_sip_logs").(bool)),
 			},
 		}
 
@@ -117,7 +117,7 @@ func resourceVoiceConnectorLoggingDelete(ctx context.Context, d *schema.Resource
 	input := &chime.PutVoiceConnectorLoggingConfigurationInput{
 		VoiceConnectorId: aws.String(d.Id()),
 		LoggingConfiguration: &chime.LoggingConfiguration{
-			EnableSIPLogs:         aws.Bool(false),
+			EnableSIPLogs:aws.Bool(false),
 			EnableMediaMetricLogs: aws.Bool(false),
 		},
 	}

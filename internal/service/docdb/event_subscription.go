@@ -27,7 +27,7 @@ import (
 func ResourceEventSubscription() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEventSubscriptionCreate,
-		ReadWithoutTimeout:   resourceEventSubscriptionRead,
+		ReadWithoutTimeout:resourceEventSubscriptionRead,
 		UpdateWithoutTimeout: resourceEventSubscriptionUpdate,
 		DeleteWithoutTimeout: resourceEventSubscriptionDelete,
 
@@ -43,68 +43,67 @@ func ResourceEventSubscription() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"customer_aws_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"enabled": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"event_categories": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"name_prefix"},
 				ValidateFunc:  validEventSubscriptionName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"name"},
 				ValidateFunc:  validEventSubscriptionNamePrefix,
 			},
 			"sns_topic_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:ema.TypeString,
+				Required:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"source_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"source_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceEventSubscriptionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &docdb.CreateEventSubscriptionInput{
-		Enabled:          aws.Bool(d.Get("enabled").(bool)),
-		SnsTopicArn:      aws.String(d.Get("sns_topic_arn").(string)),
+		Enabled:s.Bool(d.Get("enabled").(bool)),
+		SnsTopicArn:ring(d.Get("sns_topic_arn").(string)),
 		SubscriptionName: aws.String(name),
 		Tags:getTagsIn(ctx),
 	}
@@ -135,7 +134,6 @@ func resourceEventSubscriptionCreate(ctx context.Context, d *schema.ResourceData
 
 	return resourceEventSubscriptionRead(ctx, d, meta)
 }
-
 func resourceEventSubscriptionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
 
@@ -163,7 +161,6 @@ func resourceEventSubscriptionRead(ctx context.Context, d *schema.ResourceData, 
 
 	return nil
 }
-
 func resourceEventSubscriptionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
 
@@ -243,7 +240,6 @@ func resourceEventSubscriptionUpdate(ctx context.Context, d *schema.ResourceData
 
 	return resourceEventSubscriptionRead(ctx, d, meta)
 }
-
 func resourceEventSubscriptionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
 

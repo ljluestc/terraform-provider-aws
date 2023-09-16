@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccServiceDiscoveryServiceDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -44,7 +43,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func TestAccServiceDiscoveryServiceDataSource_private(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -76,7 +74,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func TestAccServiceDiscoveryServiceDataSource_public(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -108,7 +105,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccServiceDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_http_namespace" "test" {
@@ -120,7 +116,7 @@ resource "aws_service_discovery_service" "test" {
   namespace_id = aws_service_discovery_http_namespace.test.id
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -130,14 +126,13 @@ data "aws_service_discovery_service" "test" {
 }
 `, rName)
 }
-
 func testAccServiceDataSourceConfig_private(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -150,16 +145,16 @@ resource "aws_service_discovery_service" "test" {
   name = %[1]q
 
   dns_config {
-    namespace_id = aws_service_discovery_private_dns_namespace.test.id
+ namespace_id = aws_service_discovery_private_dns_namespace.test.id
 
-    dns_records {
-      ttl  = 5
-      type = "A"
-    }
+ dns_records {
+ 5
+ "A"
+ }
   }
 
   health_check_custom_config {
-    failure_threshold = 5
+ failure_threshold = 5
   }
 }
 
@@ -169,7 +164,6 @@ data "aws_service_discovery_service" "test" {
 }
 `, rName)
 }
-
 func testAccServiceDataSourceConfig_public(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_public_dns_namespace" "test" {
@@ -182,20 +176,20 @@ resource "aws_service_discovery_service" "test" {
   description = "test"
 
   dns_config {
-    namespace_id = aws_service_discovery_public_dns_namespace.test.id
+ namespace_id = aws_service_discovery_public_dns_namespace.test.id
 
-    dns_records {
-      ttl  = 5
-      type = "A"
-    }
+ dns_records {
+ 5
+ "A"
+ }
 
-    routing_policy = "WEIGHTED"
+ routing_policy = "WEIGHTED"
   }
 
   health_check_config {
-    failure_threshold = 5
-    resource_path     = "/path"
-    type     = "HTTP"
+ failure_threshold = 5
+ resource_path= "/path"
+ type= "HTTP"
   }
 }
 

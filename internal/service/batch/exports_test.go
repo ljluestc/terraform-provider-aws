@@ -7,8 +7,8 @@ package batch
 var (
 	ResourceJobQueue = newResourceJobQueue
 
-	ExpandEC2ConfigurationsUpdate           = expandEC2ConfigurationsUpdate
+	ExpandEC2ConfigurationsUpdate = expandEC2ConfigurationsUpdate
 	ExpandLaunchTemplateSpecificationUpdate = expandLaunchTemplateSpecificationUpdate
-	FindComputeEnvironmentDetailByName      = findComputeEnvironmentDetailByName
-	FindJobQueueByName         = findJobQueueByName
+	FindComputeEnvironmentDetailByName = findComputeEnvironmentDetailByName
+	FindJobQueueByName = findJobQueueByName
 )

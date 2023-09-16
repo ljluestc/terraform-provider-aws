@@ -49,7 +49,7 @@ func TestAccStorageGatewayFileSystemAssociation_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"username", "password"},
@@ -82,7 +82,7 @@ func TestAccStorageGatewayFileSystemAssociation_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"username", "password"},
@@ -133,7 +133,7 @@ func TestAccStorageGatewayFileSystemAssociation_cacheAttributes(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"username", "password"},
@@ -171,7 +171,7 @@ func TestAccStorageGatewayFileSystemAssociation_auditDestination(t *testing.T) {
 					resource.TestCheckResourceAttrPair(resourceName, "audit_destination_arn", "aws_cloudwatch_log_group.test", "arn"),
 				),
 			}, {
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"username", "password"},
@@ -331,7 +331,7 @@ resource "aws_fsx_windows_file_system" "test" {
   security_group_ids  = [aws_security_group.test.id]
   skip_final_backup   = true
   storage_capacity    = 32
-  subnet_ids          = [aws_subnet.test[0].id]
+  subnet_ids = [aws_subnet.test[0].id]
   throughput_capacity = 8
 
   tags = {
@@ -404,8 +404,8 @@ resource "aws_storagegateway_file_system_association" "test" {
 func testAccFileSystemAssociationConfig_audit(rName, domainName, username string, loggingDestination string) string {
 	return testAccFileSystemAssociationBase(rName, domainName, username) + fmt.Sprintf(`
 resource "aws_storagegateway_file_system_association" "test" {
-  gateway_arn           = aws_storagegateway_gateway.test.arn
-  location_arn          = aws_fsx_windows_file_system.test.arn
+  gateway_arn  = aws_storagegateway_gateway.test.arn
+  location_arn = aws_fsx_windows_file_system.test.arn
   username = %[1]q
   password = aws_directory_service_directory.test.password
   audit_destination_arn = %[2]s
@@ -418,8 +418,8 @@ resource "aws_cloudwatch_log_group" "test2" {}
 func testAccFileSystemAssociationConfig_auditDisabled(rName, domainName, username string) string {
 	return testAccFileSystemAssociationBase(rName, domainName, username) + fmt.Sprintf(`
 resource "aws_storagegateway_file_system_association" "test" {
-  gateway_arn           = aws_storagegateway_gateway.test.arn
-  location_arn          = aws_fsx_windows_file_system.test.arn
+  gateway_arn  = aws_storagegateway_gateway.test.arn
+  location_arn = aws_fsx_windows_file_system.test.arn
   username = %[1]q
   password = aws_directory_service_directory.test.password
   audit_destination_arn = ""

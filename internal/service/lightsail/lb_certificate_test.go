@@ -22,7 +22,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func testAccLoadBalancerCertificate_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_lb_certificate.test"
@@ -58,7 +57,6 @@ func testAccLoadBalancerCertificate_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancerCertificate_subjectAlternativeNames(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_lb_certificate.test"
@@ -89,7 +87,6 @@ func testAccLoadBalancerCertificate_subjectAlternativeNames(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancerCertificate_domainValidationRecords(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_lb_certificate.test"
@@ -115,11 +112,11 @@ func testAccLoadBalancerCertificate_domainValidationRecords(t *testing.T) {
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckLoadBalancerCertificateExists(ctx, resourceName),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "domain_validation_records.*", map[string]string{
-						"domain_name":          domainName,
+						"domain_name": domainName,
 						"resource_record_type": "CNAME",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "domain_validation_records.*", map[string]string{
-						"domain_name":          subjectAlternativeName,
+						"domain_name": subjectAlternativeName,
 						"resource_record_type": "CNAME",
 					}),
 				),
@@ -127,7 +124,6 @@ func testAccLoadBalancerCertificate_domainValidationRecords(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancerCertificate_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_lb_certificate.test"
@@ -156,7 +152,6 @@ func testAccLoadBalancerCertificate_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckLoadBalancerCertificateDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -182,7 +177,6 @@ func testAccCheckLoadBalancerCertificateDestroy(ctx context.Context) resource.Te
 		return nil
 	}
 }
-
 func testAccCheckLoadBalancerCertificateExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -209,7 +203,6 @@ func testAccCheckLoadBalancerCertificateExists(ctx context.Context, n string) re
 		return nil
 	}
 }
-
 func testAccLoadBalancerCertificateConfigBase(lbName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
@@ -219,7 +212,6 @@ resource "aws_lightsail_lb" "test" {
 }
 `, lbName)
 }
-
 func testAccLoadBalancerCertificateConfig_basic(rName string, lbName string, domainName string) string {
 	return acctest.ConfigCompose(
 		testAccLoadBalancerCertificateConfigBase(lbName),
@@ -231,7 +223,6 @@ resource "aws_lightsail_lb_certificate" "test" {
 }
 `, rName, domainName))
 }
-
 func testAccLoadBalancerCertificateConfig_subjectAlternativeNames(rName string, lbName string, domainName string, san string) string {
 	return acctest.ConfigCompose(
 		testAccLoadBalancerCertificateConfigBase(lbName),

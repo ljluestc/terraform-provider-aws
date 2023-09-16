@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"context"
 	"fmt"
 	"reflect"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/rds"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -20,15 +14,14 @@ import (
 	tfrds "github.com/hashicorp/terraform-provider-aws/internal/service/rds"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func := acctest.Context(t)
 	var v rds.DBParameterGroup
 	resourceName := "aws_db_parameter_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
@@ -39,23 +32,23 @@ func := acctest.Context(t)
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "family", "mysql5.6"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_results",
+						"name":"character_set_results",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_server",
+						"name":"character_set_server",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_client",
+						"name":"character_set_client",
 						"value": "utf8",
 					}),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "rds", regexache.MustCompile(fmt.Sprintf("pg:%s$", rName))),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -66,23 +59,23 @@ func := acctest.Context(t)
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "family", "mysql5.6"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "collation_connection",
+						"name":"collation_connection",
 						"value": "utf8_unicode_ci",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_results",
+						"name":"character_set_results",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_server",
+						"name":"character_set_server",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "collation_server",
+						"name":"collation_server",
 						"value": "utf8_unicode_ci",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_client",
+						"name":"character_set_client",
 						"value": "utf8",
 					}),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "rds", regexache.MustCompile(fmt.Sprintf("pg:%s$", rName))),
@@ -97,15 +90,15 @@ func := acctest.Context(t)
 					testAccCheckParameterNotUserDefined(ctx, resourceName, "collation_server"),
 					resource.TestCheckResourceAttr(resourceName, "parameter.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_results",
+						"name":"character_set_results",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_server",
+						"name":"character_set_server",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_client",
+						"name":"character_set_client",
 						"value": "utf8",
 					}),
 				),
@@ -113,17 +106,16 @@ func := acctest.Context(t)
 		},
 	})
 }
-
 func TestAccRDSParameterGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 funcourceName := "aws_db_parameter_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:funceps: []resource.TestStep{
+		CheckDestroy:
+funceps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_basic(rName),
 				Check: resource.ComposeTestCheckFunc(
@@ -135,19 +127,20 @@ funcourceName := "aws_db_parameter_group.test"
 		},
 	})
 }
-
 func TestAccRDSParameterGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.DBParameterGroup
 	resourceName := "aws_db_parameter_group.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
-			{funcConfig: testAccParameterGroupConfig_tags1(rName, "key1", "value1"),
+			{
+funcConfig: testAccParameterGroupConfig_tags1(rName, "key1", "value1"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckParameterGroupExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -155,8 +148,8 @@ func
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -179,31 +172,28 @@ func
 		},
 	})
 }
-
 func TestAccRDSParameterGroup_caseWithMixedParameters(t *testing.T) {
 	ctx := acctest.Context(t)
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_caseWithMixedParameters(rName),
-				Check:  resfunc,
+				Check:res
+func,
 		},
 	})
 }
-
 func TestAccRDSParameterGroup_limit(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.DBParameterGroup
 	resourceName := "aws_db_parameter_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -211,177 +201,180 @@ funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 				Config: testAccParameterGroupConfig_exceedDefaultLimit(rName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckParameterGroupExists(ctx, resourceName, &v),
-					testAccChefunc	resource.TestCheckResourceAttr(resourceName, "name", rName),
+					testAccChe
+func	resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "family", "mysql5.6"),
 					resource.TestCheckResourceAttr(resourceName, "description", "RDS default parameter group: Exceed default AWS parameter group limit of twenty"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_server",
+						"name":"character_set_server",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_client",
+						"name":"character_set_client",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "collation_server",
+						"name":"collation_server",
 						"value": "utf8_general_ci",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "collation_connection",
+						"name":"collation_connection",
 						"value": "utf8_general_ci",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "join_buffer_size",
+						"name":"join_buffer_size",
 						"value": "16777216",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "key_buffer_size",
+						"name":"key_buffer_size",
 						"value": "67108864",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "max_connections",
+						"name":"max_connections",
 						"value": "3200",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "max_heap_table_size",
+						"name":"max_heap_table_size",
 						"value": "67108864",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "performance_schema",
+						"name":"performance_schema",
 						"value": "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "performance_schema_users_size",
+						"name":"performance_schema_users_size",
 						"value": "1048576",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "query_cache_limit",
+						"name":"query_cache_limit",
 						"value": "2097152",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "query_cache_size",
+						"name":"query_cache_size",
 						"value": "67108864",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "sort_buffer_size",
+						"name":"sort_buffer_size",
 						"value": "16777216",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "table_open_cache",
+						"name":"table_open_cache",
 						"value": "4096",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "tmp_table_size",
+						"name":"tmp_table_size",
 						"value": "67108864",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "binlog_cache_size",
+						"name":"binlog_cache_size",
 						"value": "131072",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_flush_log_at_trx_commit",
+						"name":"innodb_flush_log_at_trx_commit",
 						"value": "0",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_open_files",
+						"name":"innodb_open_files",
 						"value": "4000",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_read_io_threads",
+						"name":"innodb_read_io_threads",
 						"value": "64",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_thread_concurrency",
+						"name":"innodb_thread_concurrency",
 						"value": "0",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_write_io_threads",
+						"name":"innodb_write_io_threads",
 						"value": "64",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_connection",
+						"name":"character_set_connection",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_database",
+						"name":"character_set_database",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_filesystem",
+						"name":"character_set_filesystem",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_results",
+						"name":"character_set_results",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "event_scheduler",
+						"name":"event_scheduler",
 						"value": "on",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_buffer_pool_dump_at_shutdown",
+						"name":"innodb_buffer_pool_dump_at_shutdown",
 						"value": "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_file_format",
+						"name":"innodb_file_format",
 						"value": "barracuda",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_io_capacity",
+						"name":"innodb_io_capacity",
 						"value": "2000",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_io_capacity_max",
+						"name":"innodb_io_capacity_max",
 						"value": "3000",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_lock_wait_timeout",
+						"name":"innodb_lock_wait_timeout",
 						"value": "120",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_max_dirty_pages_pct",
+						"name":"innodb_max_dirty_pages_pct",
 						"value": "90",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "log_bin_trust_function_creators",
+						"name":"log_bin_trust_
+function_creators",
 						"value": "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "log_warnings",
+						"name":"log_warnings",
 						"value": "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "log_output",
+						"name":"log_output",
 						"value": "FILE",
-					}),func	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "max_allowed_packet",
+					}),
+func	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
+						"name":"max_allowed_packet",
 						"value": "1073741824",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "max_connect_errors",
+						"name":"max_connect_errors",
 						"value": "100",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "query_cache_min_res_unit",
+						"name":"query_cache_min_res_unit",
 						"value": "512",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "slow_query_log",
+						"name":"slow_query_log",
 						"value": "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "sync_binlog",
+						"name":"sync_binlog",
 						"value": "0",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "tx_isolation",
+						"name":"tx_isolation",
 						"value": "repeatable-read",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -393,166 +386,168 @@ funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 					resource.TestCheckResourceAttr(resourceName, "family", "mysql5.6"),
 					resource.TestCheckResourceAttr(resourceName, "description", "Updated RDS default parameter group: Exceed default AWS parameter group limit of twenty"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_server",
+						"name":"character_set_server",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_client",
+						"name":"character_set_client",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "collation_server",
+						"name":"collation_server",
 						"value": "utf8_general_ci",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "collation_connection",
+						"name":"collation_connection",
 						"value": "utf8_general_ci",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "join_buffer_size",
+						"name":"join_buffer_size",
 						"value": "16777216",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "key_buffer_size",
+						"name":"key_buffer_size",
 						"value": "67108864",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "max_connections",
+						"name":"max_connections",
 						"value": "3200",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "max_heap_table_size",
+						"name":"max_heap_table_size",
 						"value": "67108864",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "performance_schema",
+						"name":"performance_schema",
 						"value": "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "performance_schema_users_size",
+						"name":"performance_schema_users_size",
 						"value": "1048576",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "query_cache_limit",
+						"name":"query_cache_limit",
 						"value": "2097152",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "query_cache_size",
+						"name":"query_cache_size",
 						"value": "67108864",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "sort_buffer_size",
+						"name":"sort_buffer_size",
 						"value": "16777216",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "table_open_cache",
+						"name":"table_open_cache",
 						"value": "4096",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "tmp_table_size",
+						"name":"tmp_table_size",
 						"value": "67108864",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "binlog_cache_size",
+						"name":"binlog_cache_size",
 						"value": "131072",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_flush_log_at_trx_commit",
+						"name":"innodb_flush_log_at_trx_commit",
 						"value": "0",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_open_files",
+						"name":"innodb_open_files",
 						"value": "4000",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_read_io_threads",
+						"name":"innodb_read_io_threads",
 						"value": "64",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_thread_concurrency",
+						"name":"innodb_thread_concurrency",
 						"value": "0",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_write_io_threads",
+						"name":"innodb_write_io_threads",
 						"value": "64",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_connection",
+						"name":"character_set_connection",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_database",
+						"name":"character_set_database",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_filesystem",
+						"name":"character_set_filesystem",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_results",
+						"name":"character_set_results",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "event_scheduler",
+						"name":"event_scheduler",
 						"value": "on",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_buffer_pool_dump_at_shutdown",
+						"name":"innodb_buffer_pool_dump_at_shutdown",
 						"value": "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_file_format",
+						"name":"innodb_file_format",
 						"value": "barracuda",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_io_capacity",
+						"name":"innodb_io_capacity",
 						"value": "2000",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_io_capacity_max",
+						"name":"innodb_io_capacity_max",
 						"value": "3000",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_lock_wait_timeout",
+						"name":"innodb_lock_wait_timeout",
 						"value": "120",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "innodb_max_dirty_pages_pct",
+						"name":"innodb_max_dirty_pages_pct",
 						"value": "90",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "log_bin_trust_function_creators",
+						"name":"log_bin_trust_
+function_creators",
 						"value": "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "log_warnings",
+						"name":"log_warnings",
 						"value": "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "log_output",
+						"name":"log_output",
 						"value": "FILE",
 					}),
-					resource.TestCheckTypeSetfunc		"name":  "max_allowed_packet",
+					resource.TestCheckTypeSet
+func		"name":"max_allowed_packet",
 						"value": "1073741824",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "max_connect_errors",
+						"name":"max_connect_errors",
 						"value": "100",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "query_cache_min_res_unit",
+						"name":"query_cache_min_res_unit",
 						"value": "512",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "slow_query_log",
+						"name":"slow_query_log",
 						"value": "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "sync_binlog",
+						"name":"sync_binlog",
 						"value": "0",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "tx_isolation",
+						"name":"tx_isolation",
 						"value": "repeatable-read",
 					}),
 				),
@@ -560,14 +555,12 @@ funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		},
 	})
 }
-
 func TestAccRDSParameterGroup_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
-	var v rds.DBParameterGroup
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	var v rds.DBParameterGroup	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -578,15 +571,14 @@ func	testAccCheckParameterGroupExists(ctx, "aws_db_parameter_group.test", &v),
 				),
 			},
 		},
-	})func
-
+	})
+func
 func TestAccRDSParameterGroup_generatedName(t *testing.T) {
 	ctx := acctest.Context(t)
-	var v rds.DBParameterGroup
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	var v rds.DBParameterGroup	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -598,15 +590,14 @@ func,
 		},
 	})
 }
-
-func TestAccRDSfunc := acctest.Context(t)
+func TestAccRDS
+func := acctest.Context(t)
 	var v rds.DBParameterGroup
 	resourceName := "aws_db_parameter_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -618,34 +609,33 @@ func	resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "family", "mysql5.6"),
 					resource.TestCheckResourceAttr(resourceName, "description", "Managed by Terraform"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":         "character_set_server",
-						"value":        "utf8",
+						"name":"character_set_server",
+						"value":"utf8",
 						"apply_method": "immediate",
-					}),func	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":         "character_set_client",
-						"value":        "utf8",
+					}),
+func	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
+						"name":"character_set_client",
+						"value":"utf8",
 						"apply_method": "pending-reboot",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccRDSParameterGroup_only(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.DBParameterGroup
 	resourceName := "aws_db_parameter_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -658,22 +648,21 @@ func TestAccRDSParameterGroup_only(t *testing.T) {
 func),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
-		},func
+		},
+func
 }
-
 func TestAccRDSParameterGroup_matchDefault(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.DBParameterGroup
 	resourceName := "aws_db_parameter_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -685,23 +674,23 @@ func TestAccRDSParameterGroup_matchDefault(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "family", "postgres9.4"),
 				),
 			},
-funcResourceName:            resourceName,
+funcResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"parameter"},
 			},
 		},
 	})
-}func
+}
+func
 func TestAccRDSParameterGroup_updateParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.DBParameterGroup
 	resourceName := "aws_db_parameter_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -713,20 +702,21 @@ func TestAccRDSParameterGroup_updateParameters(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "family", "mysql5.6"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_results",
+						"name":"character_set_results",
 						"value": "utf8",
 func	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_server",
+						"name":"character_set_server",
 						"value": "utf8",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_client",
+						"name":"character_set_client",
 						"value": "utf8",
-					}),func),
+					}),
+func),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -735,15 +725,15 @@ func	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[s
 					testAccCheckParameterGroupExists(ctx, resourceName, &v),
 					testAccCheckParameterGroupAttributes(&v, rName),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_results",
+						"name":"character_set_results",
 						"value": "ascii",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_server",
+						"name":"character_set_server",
 						"value": "ascii",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "character_set_client",
+						"name":"character_set_client",
 						"value": "utf8",
 					}),
 				),
@@ -751,16 +741,14 @@ func	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[s
 		},
 	})
 }
-
 func TestAccRDSParameterGroup_caseParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.DBParameterGroup
 	resourceName := "aws_db_parameter_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -772,239 +760,235 @@ func TestAccRDSParameterGroup_caseParameters(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "family", "mysql5.6"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-						"name":  "Max_connections",
+						"name":"Max_connections",
 						"value": "LEAST({DBInstanceClassMemory/6000000},10)",
 					}),
 				),
 func
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
 				Config: testAccParameterGroupConfig_upperCase(rName, "max_connections"),
-			},func
+			},
+func
 	})
 }
-
 func TestDBParameterModifyChunk(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
+	t.Parallel()	cases := []struct {
 		Name string
-		ChunkSize         int
-		Parameters        []*rds.Parameter
-		ExpectedModify    []*rds.Parameter
+		ChunkSizeint
+		Parameters[]*rds.Parameter
+		ExpectedModify []*rds.Parameter
 		ExpectedRemainder []*rds.Parameter
 	}{
 		{
 			Name: "Empty",
-			ChunkSize:         20,
-			Parameters:        nil,
-			ExpectedModify:    nil,
+			ChunkSize:20,
+			Parameters:nil,
+			ExpectedModify: nil,
 			ExpectedRemainder: nil,
 		},
 		{
-			Name:      "A couple",
+			Name:"A couple",
 			ChunkSize: 20,
 			Parameters: []*rds.Parameter{
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("tx_isolation"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("tx_isolation"),
 					ParameterValue: aws.String("repeatable-read"),
 				},
-func	ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("binlog_cache_size"),
+func	ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("binlog_cache_size"),
 					ParameterValue: aws.String("131072"),
 				},
 			},
 			ExpectedModify: []*rds.Parameter{
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("tx_isolation"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("tx_isolation"),
 					ParameterValue: aws.String("repeatable-read"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("binlog_cache_size"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("binlog_cache_size"),
 					ParameterValue: aws.String("131072"),
 				},
 			},
 			ExpectedRemainder: nil,
 		},
 		{
-			Name:      "Over 3 max, 6 in",
+			Name:"Over 3 max, 6 in",
 			ChunkSize: 3,
 			Parameters: []*rds.Parameter{
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("tx_isolation"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("tx_isolation"),
 					ParameterValue: aws.String("repeatable-read"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("binlog_cache_size"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("binlog_cache_size"),
 					ParameterValue: aws.String("131072"),
 				},
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("innodb_read_io_threads"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("innodb_read_io_threads"),
 					ParameterValue: aws.String("64"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("character_set_server"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("character_set_server"),
 					ParameterValue: aws.String("utf8"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("innodb_flush_log_at_trx_commit"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("innodb_flush_log_at_trx_commit"),
 					ParameterValue: aws.String("0"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("character_set_filesystem"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("character_set_filesystem"),
 					ParameterValue: aws.String("utf8"),
 				},
 			},
 			ExpectedModify: []*rds.Parameter{
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("character_set_server"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("character_set_server"),
 					ParameterValue: aws.String("utf8"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("character_set_filesystem"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("character_set_filesystem"),
 					ParameterValue: aws.String("utf8"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("tx_isolation"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("tx_isolation"),
 					ParameterValue: aws.String("repeatable-read"),
 				},
 			},
 			ExpectedRemainder: []*rds.Parameter{
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("binlog_cache_size"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("binlog_cache_size"),
 					ParameterValue: aws.String("131072"),
 				},
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("innodb_read_io_threads"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("innodb_read_io_threads"),
 					ParameterValue: aws.String("64"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("innodb_flush_log_at_trx_commit"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("innodb_flush_log_at_trx_commit"),
 					ParameterValue: aws.String("0"),
 				},
 			},
 		},
 		{
-			Name:      "Over 3 max, 9 in",
+			Name:"Over 3 max, 9 in",
 			ChunkSize: 3,
 			Parameters: []*rds.Parameter{
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("tx_isolation"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("tx_isolation"),
 					ParameterValue: aws.String("repeatable-read"),
 				},
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("binlog_cache_size"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("binlog_cache_size"),
 					ParameterValue: aws.String("131072"),
 				},
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("innodb_read_io_threads"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("innodb_read_io_threads"),
 					ParameterValue: aws.String("64"),
 				},
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("character_set_server"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("character_set_server"),
 					ParameterValue: aws.String("utf8"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("innodb_flush_log_at_trx_commit"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("innodb_flush_log_at_trx_commit"),
 					ParameterValue: aws.String("0"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("character_set_filesystem"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("character_set_filesystem"),
 					ParameterValue: aws.String("utf8"),
 				},
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("innodb_max_dirty_pages_pct"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("innodb_max_dirty_pages_pct"),
 					ParameterValue: aws.String("90"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("character_set_connection"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("character_set_connection"),
 					ParameterValue: aws.String("utf8"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("key_buffer_size"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("key_buffer_size"),
 					ParameterValue: aws.String("67108864"),
 				},
 			},
 			ExpectedModify: []*rds.Parameter{
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("character_set_filesystem"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("character_set_filesystem"),
 					ParameterValue: aws.String("utf8"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("character_set_connection"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("character_set_connection"),
 					ParameterValue: aws.String("utf8"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("innodb_flush_log_at_trx_commit"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("innodb_flush_log_at_trx_commit"),
 					ParameterValue: aws.String("0"),
 				},
 			},
 			ExpectedRemainder: []*rds.Parameter{
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("tx_isolation"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("tx_isolation"),
 					ParameterValue: aws.String("repeatable-read"),
 				},
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("binlog_cache_size"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("binlog_cache_size"),
 					ParameterValue: aws.String("131072"),
 				},
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("innodb_read_io_threads"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("innodb_read_io_threads"),
 					ParameterValue: aws.String("64"),
 				},
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("character_set_server"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("character_set_server"),
 					ParameterValue: aws.String("utf8"),
 				},
 				{
-					ApplyMethod:    aws.String("pending-reboot"),
-					ParameterName:  aws.String("innodb_max_dirty_pages_pct"),
+					ApplyMethod: aws.String("pending-reboot"),
+					ParameterName:aws.String("innodb_max_dirty_pages_pct"),
 					ParameterValue: aws.String("90"),
 				},
 				{
-					ApplyMethod:    aws.String("immediate"),
-					ParameterName:  aws.String("key_buffer_size"),
+					ApplyMethod: aws.String("immediate"),
+					ParameterName:aws.String("key_buffer_size"),
 					ParameterValue: aws.String("67108864"),
 				},
 			},
 		},
-	}
-
-	for _, tc := range cases {
+	}	for _, tc := range cases {
 		mod, rem := tfrds.ResourceParameterModifyChunk(tc.Parameters, tc.ChunkSize)
 		if !reflect.DeepEqual(mod, tc.ExpectedModify) {
 			t.Errorf("Case %q: Modify did not match\n%#v\n\nGot:\n%#v", tc.Name, tc.ExpectedModify, mod)
@@ -1014,86 +998,60 @@ func	ApplyMethod:    aws.String("immediate"),
 		}
 	}
 }
-
 func testAccCheckParameterGroupDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_db_parameter_group" {
 				continue
-			}
-
-			_, err := tfrds.FindDBParameterGroupByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfrds.FindDBParameterGroupByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("RDS DB Parameter Group %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("RDS DB Parameter Group %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
-
 func testAccCheckParameterGroupAttributes(v *rds.DBParameterGroup, name string) resource.TestCheckFunc {
 func *v.DBParameterGroupName != name {
-			returfunc
-
-		family := "mysql5.6"
+			retur
+func		family := "mysql5.6"
 		if aws.StringValue(v.DBParameterGroupFamily) != family {
 			return fmt.Errorf("bad family, got: %s, expecting: %s", aws.StringValue(v.DBParameterGroupFamily), family)
-		}
-
-		return nil
+		}		return nil
 	}
 }
-
 func testAccCheckParameterGroupExists(ctx context.Context, n string, v *rds.DBParameterGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No RDS DB Parameter Group ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-		output, err := tfrds.FindDBParameterGroupByName(ctx, conn, rs.Primary.ID)
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)		output, err := tfrds.FindDBParameterGroupByName(ctx, conn, rs.Primary.ID)
 funceturn err
-		}func
-		*v = *output
-
-		return nil
+		}
+func
+		*v = *output		return nil
 	}
 }
-
 func testAccCheckParameterNotUserDefined(ctx context.Context, rName, paramName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[rName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", rName)
 		}
-
 funceturn fmt.Errorf("No DB Parameter Group ID is set")
-		}func
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-		opts := rds.DescribeDBParametersInput{
-			DBParameterGroupName: aws.String(rs.Primary.ID),
-			Source:  aws.String("user"),
 		}
-
-		userDefined := false
-		err := conn.DescribeDBParametersPagesWithContext(ctx, &opts, func(page *rds.DescribeDBParametersOutput, lastPage bool) bool {
+func
+		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)		opts := rds.DescribeDBParametersInput{
+			DBParameterGroupName: aws.String(rs.Primary.ID),
+			Source:aws.String("user"),
+		}		userDefined := false
+		err := conn.DescribeDBParametersPagesWithContext(ctx, &opts, 
+func(page *rds.DescribeDBParametersOutput, lastPage bool) bool {
 			for _, param := range page.Parameters {
 				if *param.ParameterName == paramName {
 					userDefined = true
@@ -1101,730 +1059,503 @@ funceturn fmt.Errorf("No DB Parameter Group ID is set")
 				}
 			}
 			return true
-		})
-
-		if userDefined {
+		})		if userDefined {
 			return fmt.Errorf("DB Parameter is user defined")
 		}
-
 func
-}func
+}
+func
 func testAccParameterGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name   = %[1]q
-  family = "mysql5.6"
-
-  parameter {
-    name  = "character_set_server"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_client"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_results"funcvalue = "utf8"
-  }
+name= %[1]q
+family = "mysql5.6"parameter {
+ name= "character_set_server"
+ value = "utf8"
+}parameter {
+ name= "character_set_client"
+ value = "utf8"
+}parameter {
+ name= "character_set_results"
+funcvalue = "utf8"
+}
 }
 `, rName)
 }
-
 func testAccParameterGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name   = %[1]q
-  family = "mysql5.6"
-
-  parameter {
-    name  = "character_set_server"
-    value = "utf8"
-  }
-
-  parameter {
+name= %[1]q
+family = "mysql5.6"parameter {
+ name= "character_set_server"
+ value = "utf8"
+}parameter {
 funcvalue = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_results"
-    value = "utf8"
-  }
-
-  tags = {
-    %[2]q = %[3]q
-  }
+}parameter {
+ name= "character_set_results"
+ value = "utf8"
+}tags = {
+ %[2]q = %[3]q
+}
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccParameterGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name   = %[1]q
-  family = "mysql5.6"
-
-  parameter {
-    name  = "character_set_server"
-    value = "utf8"
+name= %[1]q
+family = "mysql5.6"parameter {
+ name= "character_set_server"
+ value = "utf8"
 func
-  parameter {
-    name  = "character_set_client"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_results"
-    value = "utf8"
-  }
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+parameter {
+ name= "character_set_client"
+ value = "utf8"
+}parameter {
+ name= "character_set_results"
+ value = "utf8"
+}tags = {
+ %[2]q = %[3]q
+ %[4]q = %[5]q
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccParameterGroupConfig_caseWithMixedParameters(rName string) string {
 	return acctest.ConfigCompose(testAccInstanceConfig_orderableClassMySQL(), fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name   = %[1]q
-  family = "mysql5.6"
-
-  parameter {
-    name         = "character_set_server"
-    value        = "utf8mb4"
+name= %[1]q
+family = "mysql5.6"parameter {
+ name= "character_set_server"
+ value= "utf8mb4"
 func
-  parameter {
-    name         = "innodb_large_prefix"
-    value        = 1
-    apply_method = "pending-reboot"
-  }
-  parameter {
-    name         = "innodb_file_format"
-    value        = "Barracuda"
-    apply_method = "pending-reboot"
-  }
-  parameter {
-    name         = "innodb_log_file_size"
-    value        = 2147483648
-    apply_method = "pending-reboot"
-  }
-  parameter {
-    name         = "sql_mode"
-    value        = "STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
-    apply_method = "pending-reboot"
-  }
-  parameter {
-    name         = "innodb_log_buffer_size"
-    value        = 268435456
-    apply_method = "pending-reboot"
-  }
-  parameter {
-    name         = "max_allowed_packet"
-    value        = 268435456
+parameter {
+ name= "innodb_large_prefix"
+ value= 1
+ apply_method = "pending-reboot"
+}
+parameter {
+ name= "innodb_file_format"
+ value= "Barracuda"
+ apply_method = "pending-reboot"
+}
+parameter {
+ name= "innodb_log_file_size"
+ value= 2147483648
+ apply_method = "pending-reboot"
+}
+parameter {
+ name= "sql_mode"
+ value= "STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+ apply_method = "pending-reboot"
+}
+parameter {
+ name= "innodb_log_buffer_size"
+ value= 268435456
+ apply_method = "pending-reboot"
+}
+parameter {
+ name= "max_allowed_packet"
+ value= 268435456
 func
 }
 `, rName))
 }
-
 func testAccParameterGroupConfig_applyMethod(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name   = %[1]q
-  family = "mysql5.6"
-
-  parameter {
-    name  = "character_set_server"
-    value = "utf8"
-  }
-
-  parameter {
-    name         = "character_set_client"
-    value        = "utf8"
-    apply_method = "pending-reboot"
-  }
-
-  tags = {
-    foo = "test"
-  }
+name= %[1]q
+family = "mysql5.6"parameter {
+ name= "character_set_server"
+ value = "utf8"
+}parameter {
+ name= "character_set_client"
+ value= "utf8"
+ apply_method = "pending-reboot"
+}tags = {
+ foo = "test"
+}
 }
 `, rName)
 }
-
 func testAccParameterGroupConfig_addParameters(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name   = %[1]q
-  family = "mysql5.6"
-
-  parameter {
-    name  = "character_set_server"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_client"
-    value = "utf8"
-  }
-
-funcname  = "character_set_results"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "collation_server"
-    value = "utf8_unicode_ci"
-  }
-
-  parameter {
-    name  = "collation_connection"
-    value = "utf8_unicode_ci"
-  }
+name= %[1]q
+family = "mysql5.6"parameter {
+ name= "character_set_server"
+ value = "utf8"
+}parameter {
+ name= "character_set_client"
+ value = "utf8"
+}
+funcname= "character_set_results"
+ value = "utf8"
+}parameter {
+ name= "collation_server"
+ value = "utf8_unicode_ci"
+}parameter {
+ name= "collation_connection"
+ value = "utf8_unicode_ci"
+}
 }
 `, rName)
 }
-
 func testAccParameterGroupConfig_only(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name        = %[1]q
-  family      = "mysql5.6"
-  description = "Test parameter group for terraform"
+name= %[1]q
+family= "mysql5.6"
+description = "Test parameter group for terraform"
 }
 func
-
 func testAccParameterGroupConfig_exceedDefaultLimit(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name        = %[1]q
-  family      = "mysql5.6"
-  description = "RDS default parameter group: Exceed default AWS parameter group limit of twenty"
-
-  parameter {
-    name  = "binlog_cache_size"
-    value = 131072
-  }
-
-  parameter {
-    name  = "character_set_client"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_connection"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_database"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_filesystem"
-    value = "utf8"
-  }
-
-funcname  = "character_set_results"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_server"
-    value = "utf8"
-  }
-
-  parameter {
+name= %[1]q
+family= "mysql5.6"
+description = "RDS default parameter group: Exceed default AWS parameter group limit of twenty"parameter {
+ name= "binlog_cache_size"
+ value = 131072
+}parameter {
+ name= "character_set_client"
+ value = "utf8"
+}parameter {
+ name= "character_set_connection"
+ value = "utf8"
+}parameter {
+ name= "character_set_database"
+ value = "utf8"
+}parameter {
+ name= "character_set_filesystem"
+ value = "utf8"
+}
+funcname= "character_set_results"
+ value = "utf8"
+}parameter {
+ name= "character_set_server"
+ value = "utf8"
+}parameter {
 funcvalue = "utf8_general_ci"
-  }
-
-  parameter {
-    name  = "collation_server"
-    value = "utf8_general_ci"
-  }
-
-  parameter {
-    name  = "event_scheduler"
-    value = "on"
-  }
-
-  parameter {
-    name  = "innodb_buffer_pool_dump_at_shutdown"
-    value = 1
-  }
-
-  parameter {
-    name  = "innodb_file_format"
-    value = "barracuda"
-  }
-
-  parameter {
-    name  = "innodb_flush_log_at_trx_commit"
-    value = 0
-  }
-
-  parameter {
-    name  = "innodb_io_capacity"
-    value = 2000
-  }
-
-  parameter {
-    name  = "innodb_io_capacity_max"
-    value = 3000
-  }
-
-  parameter {
-    name  = "innodb_lock_wait_timeout"
-    value = 120
-  }
-
-  parameter {
-    name  = "innodb_max_dirty_pages_pct"
-    value = 90
-  }
-
-  parameter {
-    name         = "innodb_open_files"
-    value        = 4000
-    apply_method = "pending-reboot"
-  }
-
-  parameter {
-    name         = "innodb_read_io_threads"
-    value        = 64
-    apply_method = "pending-reboot"
-  }
-
-  parameter {
-    name  = "innodb_thread_concurrency"
-    value = 0
-  }
-
-  parameter {
-    name         = "innodb_write_io_threads"
-    value        = 64
-    apply_method = "pending-reboot"
-  }
-
-  parameter {
-    name  = "join_buffer_size"
-    value = 16777216
-  }
-
-  parameter {
-    name  = "key_buffer_size"
-    value = 67108864
-  }
-
-  parameter {
-    name  = "log_bin_trust_function_creators"
-    value = 1
-  }
-
-  parameter {
-    name  = "log_warnings"
-    value = 2
-  }
-
-  parameter {
-    name  = "log_output"
-    value = "FILE"
-  }
-
-  parameter {
-    name  = "max_allowed_packet"
-    value = 1073741824
-  }
-
-  parameter {
-    name  = "max_connect_errors"
-    value = 100
-  }
-
-  parameter {
-    name  = "max_connections"
-    value = 3200
-  }
-
-  parameter {
-    name  = "max_heap_table_size"
-    value = 67108864
-  }
-
-  parameter {
-    name         = "performance_schema"
-    value        = 1
-    apply_method = "pending-reboot"
-  }
-
-  parameter {
-    name         = "performance_schema_users_size"
-    value        = 1048576
-    apply_method = "pending-reboot"
-  }func
-  parameter {
-    name  = "query_cache_limit"
-    value = 2097152
-  }
-
-  parameter {
-    name  = "query_cache_min_res_unit"
-    value = 512
-  }
-
-  parameter {
-    name  = "query_cache_size"
-    value = 67108864
-  }
-
-  parameter {
-    name  = "slow_query_log"
-    value = 1
-  }
-
-  parameter {
-    name  = "sort_buffer_size"
-    value = 16777216
-  }
-
-  parameter {
-    name  = "sync_binlog"
-    value = 0
-  }
-
-  parameter {
-    name  = "table_open_cache"
-    value = 4096
-  }
-
-  parameter {
-    name  = "tmp_table_size"
-    value = 67108864
-  }
-
-  parameter {
-    name  = "tx_isolation"
-    value = "repeatable-read"
-  }
+}parameter {
+ name= "collation_server"
+ value = "utf8_general_ci"
+}parameter {
+ name= "event_scheduler"
+ value = "on"
+}parameter {
+ name= "innodb_buffer_pool_dump_at_shutdown"
+ value = 1
+}parameter {
+ name= "innodb_file_format"
+ value = "barracuda"
+}parameter {
+ name= "innodb_flush_log_at_trx_commit"
+ value = 0
+}parameter {
+ name= "innodb_io_capacity"
+ value = 2000
+}parameter {
+ name= "innodb_io_capacity_max"
+ value = 3000
+}parameter {
+ name= "innodb_lock_wait_timeout"
+ value = 120
+}parameter {
+ name= "innodb_max_dirty_pages_pct"
+ value = 90
+}parameter {
+ name= "innodb_open_files"
+ value= 4000
+ apply_method = "pending-reboot"
+}parameter {
+ name= "innodb_read_io_threads"
+ value= 64
+ apply_method = "pending-reboot"
+}parameter {
+ name= "innodb_thread_concurrency"
+ value = 0
+}parameter {
+ name= "innodb_write_io_threads"
+ value= 64
+ apply_method = "pending-reboot"
+}parameter {
+ name= "join_buffer_size"
+ value = 16777216
+}parameter {
+ name= "key_buffer_size"
+ value = 67108864
+}parameter {
+ name= "log_bin_trust_
+function_creators"
+ value = 1
+}parameter {
+ name= "log_warnings"
+ value = 2
+}parameter {
+ name= "log_output"
+ value = "FILE"
+}parameter {
+ name= "max_allowed_packet"
+ value = 1073741824
+}parameter {
+ name= "max_connect_errors"
+ value = 100
+}parameter {
+ name= "max_connections"
+ value = 3200
+}parameter {
+ name= "max_heap_table_size"
+ value = 67108864
+}parameter {
+ name= "performance_schema"
+ value= 1
+ apply_method = "pending-reboot"
+}parameter {
+ name= "performance_schema_users_size"
+ value= 1048576
+ apply_method = "pending-reboot"
+}
+func
+parameter {
+ name= "query_cache_limit"
+ value = 2097152
+}parameter {
+ name= "query_cache_min_res_unit"
+ value = 512
+}parameter {
+ name= "query_cache_size"
+ value = 67108864
+}parameter {
+ name= "slow_query_log"
+ value = 1
+}parameter {
+ name= "sort_buffer_size"
+ value = 16777216
+}parameter {
+ name= "sync_binlog"
+ value = 0
+}parameter {
+ name= "table_open_cache"
+ value = 4096
+}parameter {
+ name= "tmp_table_size"
+ value = 67108864
+}parameter {
+ name= "tx_isolation"
+ value = "repeatable-read"
+}
 }
 `, rName)
 }
-
 func testAccParameterGroupConfig_updateExceedDefaultLimit(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name        = %[1]q
-  family      = "mysql5.6"
-  description = "Updated RDS default parameter group: Exceed default AWS parameter group limit of twenty"
-
-  parameter {
-    name  = "binlog_cache_size"
-    value = 131072
-  }
-
-  parameter {
-    name  = "character_set_client"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_connection"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_database"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_filesystem"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_results"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_server"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "collation_connection"
-    value = "utf8_general_ci"
+name= %[1]q
+family= "mysql5.6"
+description = "Updated RDS default parameter group: Exceed default AWS parameter group limit of twenty"parameter {
+ name= "binlog_cache_size"
+ value = 131072
+}parameter {
+ name= "character_set_client"
+ value = "utf8"
+}parameter {
+ name= "character_set_connection"
+ value = "utf8"
+}parameter {
+ name= "character_set_database"
+ value = "utf8"
+}parameter {
+ name= "character_set_filesystem"
+ value = "utf8"
+}parameter {
+ name= "character_set_results"
+ value = "utf8"
+}parameter {
+ name= "character_set_server"
+ value = "utf8"
+}parameter {
+ name= "collation_connection"
+ value = "utf8_general_ci"
 func
-  parameter {
-    name  = "collation_server"
-    value = "utf8_general_ci"
-  }
-
-  parameter {
-    name  = "event_scheduler"
-    value = "on"
-  }
-
-  parameter {
-    name  = "innodb_buffer_pool_dump_at_shutdown"
-    value = 1
-  }
-
-  parameter {
-    name  = "innodb_file_format"
-    value = "barracuda"
-  }
-
-  parameter {
-    name  = "innodb_flush_log_at_trx_commit"
-    value = 0
-  }
-
-  parameter {
-    name  = "innodb_io_capacity"
-    value = 2000
-  }
-
-  parameter {
-    name  = "innodb_io_capacity_max"
-    value = 3000
-  }
-
-  parameter {
-    name  = "innodb_lock_wait_timeout"
-    value = 120
-  }
-
-  parameter {
-    name  = "innodb_max_dirty_pages_pct"
-    value = 90
-  }
-
-  parameter {
-    name         = "innodb_open_files"
-    value        = 4000
-    apply_method = "pending-reboot"
-  }
-
-  parameter {
-    name         = "innodb_read_io_threads"
-    value        = 64
-    apply_method = "pending-reboot"
-  }
-
-  parameter {
-    name  = "innodb_thread_concurrency"
-    value = 0
-  }
-
-  parameter {
-    name         = "innodb_write_io_threads"
-    value        = 64
-    apply_method = "pending-reboot"
-  }
-
-  parameter {
-    name  = "join_buffer_size"
-    value = 16777216
-  }
-
-  parameter {
-    name  = "key_buffer_size"
-    value = 67108864
-  }
-
-  parameter {
-    name  = "log_bin_trust_function_creators"
-    value = 1
-  }
-
-  parameter {
-    name  = "log_warnings"
-    value = 2
-  }
-
-  parameter {
-    name  = "log_output"
-    value = "FILE"
-  }
-
-  parameter {
-    name  = "max_allowed_packet"
-    value = 1073741824
-  }
-
-  parameter {
-    name  = "max_connect_errors"
-    value = 100
-  }
-
-  parameter {
-    name  = "max_connections"
-    value = 3200
-  }
-
-  parameter {
-    name  = "max_heap_table_size"
-    value = 67108864
-  }
-
-  parameter {
-    name         = "performance_schema"
-    value        = 1
-    apply_method = "pending-reboot"
-  }
-
-  parameter {
-    name         = "performance_schema_users_size"
-    value        = 1048576
-    apply_method = "pending-reboot"
-  }
-
-  parameter {funcname  = "query_cache_limit"
-    value = 2097152
-  }
-
-  parameter {
-    name  = "query_cache_min_res_unit"
-    value = 512
-  }
-
-  parameter {
-    name  = "query_cache_size"
-    value = 67108864
-  }
-
-  parameter {
-    name  = "slow_query_log"
-    value = 1
-  }
-
-  parameter {
-    name  = "sort_buffer_size"
-    value = 16777216
-  }
-
-  parameter {
-    name  = "sync_binlog"
-    value = 0
-  }
-
-  parameter {
-    name  = "table_open_cache"
-    value = 4096
-  }
-
-  parameter {
-    name  = "tmp_table_size"
-    value = 67108864
-  }
-
-  parameter {
-    name  = "tx_isolation"
-    value = "repeatable-read"
-  }
+parameter {
+ name= "collation_server"
+ value = "utf8_general_ci"
+}parameter {
+ name= "event_scheduler"
+ value = "on"
+}parameter {
+ name= "innodb_buffer_pool_dump_at_shutdown"
+ value = 1
+}parameter {
+ name= "innodb_file_format"
+ value = "barracuda"
+}parameter {
+ name= "innodb_flush_log_at_trx_commit"
+ value = 0
+}parameter {
+ name= "innodb_io_capacity"
+ value = 2000
+}parameter {
+ name= "innodb_io_capacity_max"
+ value = 3000
+}parameter {
+ name= "innodb_lock_wait_timeout"
+ value = 120
+}parameter {
+ name= "innodb_max_dirty_pages_pct"
+ value = 90
+}parameter {
+ name= "innodb_open_files"
+ value= 4000
+ apply_method = "pending-reboot"
+}parameter {
+ name= "innodb_read_io_threads"
+ value= 64
+ apply_method = "pending-reboot"
+}parameter {
+ name= "innodb_thread_concurrency"
+ value = 0
+}parameter {
+ name= "innodb_write_io_threads"
+ value= 64
+ apply_method = "pending-reboot"
+}parameter {
+ name= "join_buffer_size"
+ value = 16777216
+}parameter {
+ name= "key_buffer_size"
+ value = 67108864
+}parameter {
+ name= "log_bin_trust_
+function_creators"
+ value = 1
+}parameter {
+ name= "log_warnings"
+ value = 2
+}parameter {
+ name= "log_output"
+ value = "FILE"
+}parameter {
+ name= "max_allowed_packet"
+ value = 1073741824
+}parameter {
+ name= "max_connect_errors"
+ value = 100
+}parameter {
+ name= "max_connections"
+ value = 3200
+}parameter {
+ name= "max_heap_table_size"
+ value = 67108864
+}parameter {
+ name= "performance_schema"
+ value= 1
+ apply_method = "pending-reboot"
+}parameter {
+ name= "performance_schema_users_size"
+ value= 1048576
+ apply_method = "pending-reboot"
+}parameter {
+funcname= "query_cache_limit"
+ value = 2097152
+}parameter {
+ name= "query_cache_min_res_unit"
+ value = 512
+}parameter {
+ name= "query_cache_size"
+ value = 67108864
+}parameter {
+ name= "slow_query_log"
+ value = 1
+}parameter {
+ name= "sort_buffer_size"
+ value = 16777216
+}parameter {
+ name= "sync_binlog"
+ value = 0
+}parameter {
+ name= "table_open_cache"
+ value = 4096
+}parameter {
+ name= "tmp_table_size"
+ value = 67108864
+}parameter {
+ name= "tx_isolation"
+ value = "repeatable-read"
+}
 }
 `, rName)
 }
-
 func testAccParameterGroupConfig_includeDefault(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name   = %[1]q
-  family = "postgres9.4"
-
-  parameter {
-    name         = "client_encoding"
-    value        = "UTF8"
-    apply_method = "pending-reboot"
-  }
+name= %[1]q
+family = "postgres9.4"parameter {
+ name= "client_encoding"
+ value= "UTF8"
+ apply_method = "pending-reboot"
+}
 }
 `, rName)
 }
-
 func testAccParameterGroupConfig_updateParametersInitial(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name   = %[1]q
-  family = "mysql5.6"
-
-  parameter {
-    name  = "character_set_server"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_client"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_results"
-    value = "utf8"
-  }
+name= %[1]q
+family = "mysql5.6"parameter {
+ name= "character_set_server"
+ value = "utf8"
+}parameter {
+ name= "character_set_client"
+ value = "utf8"
+}parameter {
+ name= "character_set_results"
+ value = "utf8"
+}
 }
 `, rName)
 }
-
 func testAccParameterGroupConfig_updateParametersUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name   = %[1]q
-  family = "mysql5.6"
-
-  parameter {
-    name  = "character_set_server"
-func
-
-  parameter {
-    name  = "character_set_client"
-    value = "utf8"
-  }
-
-  parameter {
-    name  = "character_set_results"
-    value = "ascii"
-  }
+name= %[1]q
+family = "mysql5.6"parameter {
+ name= "character_set_server"
+funcparameter {
+ name= "character_set_client"
+ value = "utf8"
+}parameter {
+ name= "character_set_results"
+ value = "ascii"
+}
 }
 `, rName)
 }
-
 funcurn fmt.Sprintf(`
 resource "aws_db_parameter_group" "test" {
-  name   = %[1]q
-  family = "mysql5.6"
-
-  parameter {
-    name  = %[2]q
-    value = "LEAST({DBInstanceClassMemory/6000000},10)"
-  }
+name= %[1]q
+family = "mysql5.6"parameter {
+ name= %[2]q
+ value = "LEAST({DBInstanceClassMemory/6000000},10)"
+}
 }
 `, rName, paramName)
-}
-
-const testAccDBParameterGroupConfig_namePrefix = `
+}const testAccDBParameterGroupConfig_namePrefix = `
 resource "aws_db_parameter_group" "test" {
-  name_prefix = "tf-test-"
-  family      = "mysql5.6"
-
-  parameter {
-    name  = "sync_binlog"
-    value = 0
-  }
+name_prefix = "tf-test-"
+family= "mysql5.6"parameter {
+ name= "sync_binlog"
+ value = 0
+}
 }
 `
 funct testAccDBParameterGroupConfig_generatedName = `
 resource "aws_db_parameter_group" "test" {
-  family = "mysql5.6"
-
-  parameter {
-    name  = "sync_binlog"
-    value = 0
-  }
+family = "mysql5.6"parameter {
+ name= "sync_binlog"
+ value = 0
+}
 }
 `
 func

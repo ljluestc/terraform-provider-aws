@@ -26,7 +26,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckStaticWebLayerDestroy(ctx),
+CheckDestroy:testAccCheckStaticWebLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStaticWebLayerConfig_basic(rName),
@@ -37,8 +37,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },

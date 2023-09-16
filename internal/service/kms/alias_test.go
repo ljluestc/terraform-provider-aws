@@ -19,7 +19,6 @@ import (
 	tfkms "github.com/hashicorp/terraform-provider-aws/internal/service/kms"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccKMSAlias_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var alias kms.AliasListEntry
@@ -51,7 +50,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccKMSAlias_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var alias kms.AliasListEntry
@@ -75,7 +73,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccKMSAlias_Name_generated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var alias kms.AliasListEntry
@@ -104,7 +101,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccKMSAlias_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var alias kms.AliasListEntry
@@ -133,7 +129,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccKMSAlias_updateKeyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	var alias kms.AliasListEntry
@@ -172,7 +167,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccKMSAlias_multipleAliasesForSameKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	var alias kms.AliasListEntry
@@ -206,7 +200,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccKMSAlias_arnDiffSuppress(t *testing.T) {
 	ctx := acctest.Context(t)
 	var alias kms.AliasListEntry
@@ -239,7 +232,6 @@ Config:    testAccAliasConfig_diffSuppress(rName),
 },
 	})
 }
-
 func testAccCheckAliasDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).KMSConn(ctx)
@@ -265,7 +257,6 @@ return err
 return nil
 	}
 }
-
 func testAccCheckAliasExists(ctx context.Context, name string, v *kms.AliasListEntry) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
@@ -290,7 +281,6 @@ if err != nil {
 return nil
 	}
 }
-
 func testAccAliasConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -304,7 +294,6 @@ resource "aws_kms_alias" "test" {
 }
 `, rName)
 }
-
 func testAccAliasConfig_nameGenerated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -317,7 +306,6 @@ resource "aws_kms_alias" "test" {
 }
 `, rName)
 }
-
 func testAccAliasConfig_namePrefix(rName, namePrefix string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -331,7 +319,6 @@ resource "aws_kms_alias" "test" {
 }
 `, rName, namePrefix)
 }
-
 func testAccAliasConfig_updatedKeyID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -350,7 +337,6 @@ resource "aws_kms_alias" "test" {
 }
 `, rName)
 }
-
 func testAccAliasConfig_multiple(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -369,7 +355,6 @@ resource "aws_kms_alias" "test2" {
 }
 `, rName)
 }
-
 func testAccAliasConfig_diffSuppress(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {

@@ -1,20 +1,10 @@
 // Copyright 2023 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build linux || netbsd
-// +build linux netbsd
-
-package unix
-
-import "unsafe"
-
-type mremapMmapper struct {
+// license that can be found in the LICENSE file.//go:build linux || netbsd
+// +build linux netbsdpackage uniximport "unsafe"type mremapMmapper struct {
 	mmapper
 	mremap func(oldaddr uintptr, oldlength uintptr, newlength uintptr, flags int, newaddr uintptr) (xaddr uintptr, err error)
-}
-
-var mapper = &mremapMmapper{
+}var mapper = &mremapMmapper{
 	mmapper: mmapper{
 		active: make(map[*byte][]byte),
 		mmap:   mmap,
@@ -22,13 +12,10 @@ var mapper = &mremapMmapper{
 	},
 	mremap: mremap,
 }
-
-func (m *mremapMmapper) Mremap(oldData []byte, newLength int, flags int) (data []byte, err error) {
+ (m *mremapMmapper) Mremap(oldData []byte, newLength int, flags int) (data []byte, err error) {
 	if newLength <= 0 || len(oldData) == 0 || len(oldData) != cap(oldData) || flags&mremapFixed != 0 {
 		return nil, EINVAL
-	}
-
-	pOld := &oldData[cap(oldData)-1]
+	}	pOld := &oldData[cap(oldData)-1]
 	m.Lock()
 	defer m.Unlock()
 	bOld := m.active[pOld]
@@ -47,7 +34,6 @@ func (m *mremapMmapper) Mremap(oldData []byte, newLength int, flags int) (data [
 	m.active[pNew] = bNew
 	return bNew, nil
 }
-
-func Mremap(oldData []byte, newLength int, flags int) (data []byte, err error) {
+ Mremap(oldData []byte, newLength int, flags int) (data []byte, err error) {
 	return mapper.Mremap(oldData, newLength, flags)
 }

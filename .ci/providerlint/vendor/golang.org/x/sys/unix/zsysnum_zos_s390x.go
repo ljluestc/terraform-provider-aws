@@ -1,15 +1,7 @@
 // Copyright 2020 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build zos && s390x
-// +build zos,s390x
-
-package unix
-
-// TODO: auto-generate.
-
-const (
+// license that can be found in the LICENSE file.//go:build zos && s390x
+// +build zos,s390xpackage unix// TODO: auto-generate.const (
 	SYS_ACOSD128                        = 0xB80
 	SYS_ACOSD32                         = 0xB7E
 	SYS_ACOSD64                         = 0xB7F

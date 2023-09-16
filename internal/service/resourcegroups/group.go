@@ -43,25 +43,25 @@ func ResourceGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"configuration": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"parameters": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"values": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Required: true,
 										Elem: &schema.Schema{
 											Type: schema.TypeString,
@@ -71,34 +71,34 @@ func ResourceGroup() *schema.Resource {
 							},
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"resource_query": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MinItems: 1,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"query": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 							Default:  resourcegroups.QueryTypeTagFilters10,
 							ValidateFunc: validation.StringInSlice([]string{
@@ -108,7 +108,7 @@ func ResourceGroup() *schema.Resource {
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -122,8 +122,8 @@ func resourceGroupCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	name := d.Get("name").(string)
 	input := &resourcegroups.CreateGroupInput{
 		Description: aws.String(d.Get("description").(string)),
-		Name:        aws.String(name),
-		Tags:        getTagsIn(ctx),
+		Name:aws.String(name),
+		Tags:getTagsIn(ctx),
 	}
 
 	waitForConfigurationAttached := false
@@ -241,7 +241,7 @@ func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	if d.HasChange("resource_query") {
 		input := &resourcegroups.UpdateGroupQueryInput{
-			GroupName:     aws.String(d.Id()),
+			GroupName: aws.String(d.Id()),
 			ResourceQuery: extractResourceGroupResourceQuery(d.Get("resource_query").([]interface{})),
 		}
 
@@ -255,7 +255,7 @@ func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	if d.HasChange("configuration") {
 		input := &resourcegroups.PutGroupConfigurationInput{
 			Configuration: extractResourceGroupConfigurationItems(d.Get("configuration").(*schema.Set).List()),
-			Group:         aws.String(d.Id()),
+			Group:aws.String(d.Id()),
 		}
 
 		_, err := conn.PutGroupConfigurationWithContext(ctx, input)
@@ -403,7 +403,7 @@ func extractResourceGroupConfigurationItems(configurationItemList []interface{})
 		configItemMap := configItem.(map[string]interface{})
 		configurationItems = append(configurationItems, &resourcegroups.GroupConfigurationItem{
 			Parameters: extractResourceGroupConfigurationParameters(configItemMap["parameters"].(*schema.Set).List()),
-			Type:       aws.String(configItemMap["type"].(string)),
+			Type:   aws.String(configItemMap["type"].(string)),
 		})
 	}
 

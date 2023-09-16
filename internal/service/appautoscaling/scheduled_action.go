@@ -26,40 +26,40 @@ import (
 func ResourceScheduledAction() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceScheduledActionPut,
-		ReadWithoutTimeout:   resourceScheduledActionRead,
+		ReadWithoutTimeout:resourceScheduledActionRead,
 		UpdateWithoutTimeout: resourceScheduledActionPut,
 		DeleteWithoutTimeout: resourceScheduledActionDelete,
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"service_namespace": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"resource_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"scalable_dimension": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"scalable_target_action": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"max_capacity": {
-							Type:         nullable.TypeNullableInt,
-							Optional:     true,
+							Type:lable.TypeNullableInt,
+							Optional:true,
 							ValidateFunc: nullable.ValidateTypeStringNullableIntAtLeast(0),
 							AtLeastOneOf: []string{
 								"scalable_target_action.0.max_capacity",
@@ -67,8 +67,8 @@ func ResourceScheduledAction() *schema.Resource {
 							},
 						},
 						"min_capacity": {
-							Type:         nullable.TypeNullableInt,
-							Optional:     true,
+							Type:lable.TypeNullableInt,
+							Optional:true,
 							ValidateFunc: nullable.ValidateTypeStringNullableIntAtLeast(0),
 							AtLeastOneOf: []string{
 								"scalable_target_action.0.max_capacity",
@@ -79,45 +79,44 @@ func ResourceScheduledAction() *schema.Resource {
 				},
 			},
 			"schedule": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			// The AWS API normalizes start_time and end_time to UTC. Uses
 			// suppressEquivalentTime to allow any timezone to be used.
 			"start_time": {
 				Type:schema.TypeString,
-				Optional:         true,
-				ValidateFunc:     validation.IsRFC3339Time,
+				Optional:e,
+				ValidateFunc:validation.IsRFC3339Time,
 				DiffSuppressFunc: suppressEquivalentTime,
 			},
 			"end_time": {
 				Type:schema.TypeString,
-				Optional:         true,
-				ValidateFunc:     validation.IsRFC3339Time,
+				Optional:e,
+				ValidateFunc:validation.IsRFC3339Time,
 				DiffSuppressFunc: suppressEquivalentTime,
 			},
 			"timezone": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  "UTC",
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceScheduledActionPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppAutoScalingConn(ctx)
 
 	input := &applicationautoscaling.PutScheduledActionInput{
 		ScheduledActionName: aws.String(d.Get("name").(string)),
-		ServiceNamespace:    aws.String(d.Get("service_namespace").(string)),
-		ResourceId:          aws.String(d.Get("resource_id").(string)),
-		ScalableDimension:   aws.String(d.Get("scalable_dimension").(string)),
+		ServiceNamespace: aws.String(d.Get("service_namespace").(string)),
+		ResourceId:s.String(d.Get("resource_id").(string)),
+		ScalableDimension:aws.String(d.Get("scalable_dimension").(string)),
 	}
 
 	needsPut := true
@@ -152,7 +151,6 @@ func resourceScheduledActionPut(ctx context.Context, d *schema.ResourceData, met
 
 	return append(diags, resourceScheduledActionRead(ctx, d, meta)...)
 }
-
 func scheduledActionPopulateInputForCreate(input *applicationautoscaling.PutScheduledActionInput, d *schema.ResourceData) {
 	input.Schedule = aws.String(d.Get("schedule").(string))
 	input.ScalableTargetAction = expandScalableTargetAction(d.Get("scalable_target_action").([]interface{}))
@@ -167,7 +165,6 @@ func scheduledActionPopulateInputForCreate(input *applicationautoscaling.PutSche
 		input.EndTime = aws.Time(t)
 	}
 }
-
 func scheduledActionPopulateInputForUpdate(input *applicationautoscaling.PutScheduledActionInput, d *schema.ResourceData) bool {
 	hasChange := false
 
@@ -203,7 +200,6 @@ func scheduledActionPopulateInputForUpdate(input *applicationautoscaling.PutSche
 
 	return hasChange
 }
-
 func resourceScheduledActionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppAutoScalingConn(ctx)
@@ -234,15 +230,14 @@ func resourceScheduledActionRead(ctx context.Context, d *schema.ResourceData, me
 
 	return diags
 }
-
 func resourceScheduledActionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppAutoScalingConn(ctx)
 
 	input := &applicationautoscaling.DeleteScheduledActionInput{
 		ScheduledActionName: aws.String(d.Get("name").(string)),
-		ServiceNamespace:    aws.String(d.Get("service_namespace").(string)),
-		ResourceId:          aws.String(d.Get("resource_id").(string)),
+		ServiceNamespace: aws.String(d.Get("service_namespace").(string)),
+		ResourceId:s.String(d.Get("resource_id").(string)),
 	}
 	if v, ok := d.GetOk("scalable_dimension"); ok {
 		input.ScalableDimension = aws.String(v.(string))
@@ -257,7 +252,6 @@ func resourceScheduledActionDelete(ctx context.Context, d *schema.ResourceData, 
 
 	return diags
 }
-
 func expandScalableTargetAction(l []interface{}) *applicationautoscaling.ScalableTargetAction {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -280,7 +274,6 @@ func expandScalableTargetAction(l []interface{}) *applicationautoscaling.Scalabl
 
 	return result
 }
-
 func flattenScalableTargetAction(cfg *applicationautoscaling.ScalableTargetAction) []interface{} {
 	if cfg == nil {
 		return []interface{}{}

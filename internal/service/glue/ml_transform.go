@@ -79,7 +79,7 @@ func ResourceMLTransform() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"accuracy_cost_trade_off": {
-										Type:         schema.TypeFloat,
+										Type:schema.TypeFloat,
 										Optional:     true,
 										ValidateFunc: validation.FloatAtMost(1.0),
 									},
@@ -88,7 +88,7 @@ func ResourceMLTransform() *schema.Resource {
 										Optional: true,
 									},
 									"precision_recall_trade_off": {
-										Type:         schema.TypeFloat,
+										Type:schema.TypeFloat,
 										Optional:     true,
 										ValidateFunc: validation.FloatAtMost(1.0),
 									},
@@ -100,7 +100,7 @@ func ResourceMLTransform() *schema.Resource {
 							},
 						},
 						"transform_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(glue.TransformType_Values(), false),
 						},
@@ -117,25 +117,25 @@ func ResourceMLTransform() *schema.Resource {
 				Computed: true,
 			},
 			"max_capacity": {
-				Type:          schema.TypeFloat,
+				Type: schema.TypeFloat,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"number_of_workers", "worker_type"},
 				ValidateFunc:  validation.FloatBetween(2, 100),
 			},
 			"max_retries": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(0, 10),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -147,14 +147,14 @@ func ResourceMLTransform() *schema.Resource {
 				Default:  2880,
 			},
 			"worker_type": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"max_capacity"},
 				ValidateFunc:  validation.StringInSlice(glue.WorkerType_Values(), false),
 				RequiredWith:  []string{"number_of_workers"},
 			},
 			"number_of_workers": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				ConflictsWith: []string{"max_capacity"},
 				ValidateFunc:  validation.IntAtLeast(1),
@@ -189,10 +189,10 @@ func resourceMLTransformCreate(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).GlueConn(ctx)
 
 	input := &glue.CreateMLTransformInput{
-		Name:              aws.String(d.Get("name").(string)),
-		Role:              aws.String(d.Get("role_arn").(string)),
-		Tags:              getTagsIn(ctx),
-		Timeout:           aws.Int64(int64(d.Get("timeout").(int))),
+		Name:     aws.String(d.Get("name").(string)),
+		Role:     aws.String(d.Get("role_arn").(string)),
+		Tags:     getTagsIn(ctx),
+		Timeout:  aws.Int64(int64(d.Get("timeout").(int))),
 		InputRecordTables: expandMLTransformInputRecordTables(d.Get("input_record_tables").([]interface{})),
 		Parameters:        expandMLTransformParameters(d.Get("parameters").([]interface{})),
 	}

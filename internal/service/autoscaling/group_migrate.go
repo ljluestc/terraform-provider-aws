@@ -1,17 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package autoscaling
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/service/autoscaling"
+// SPDX-License-Identifier: MPL-2.0package autoscalingimport (
+	"context"	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/types/nullable"
-)
-
-// aws_autoscaling_group resource's Schema @v5.11.0 minus validators.
+)// aws_autoscaling_group resource's Schema @v5.11.0 minus validators.
 func resourceGroupV0() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
@@ -740,15 +732,10 @@ func resourceGroupV0() *schema.Resource {
 		},
 	}
 }
-
 func GroupStateUpgradeV0(_ context.Context, rawState map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
 	if rawState == nil {
 		rawState = map[string]interface{}{}
-	}
-
-	if _, ok := rawState["ignore_failed_scaling_activities"]; !ok {
+	}	if _, ok := rawState["ignore_failed_scaling_activities"]; !ok {
 		rawState["ignore_failed_scaling_activities"] = "false"
-	}
-
-	return rawState, nil
+	}	return rawState, nil
 }

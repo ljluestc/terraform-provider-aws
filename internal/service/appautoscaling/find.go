@@ -10,14 +10,13 @@ import (
 	"github.com/aws/aws-sdk-go/service/applicationautoscaling"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 )
-
 func FindScheduledAction(ctx context.Context, conn *applicationautoscaling.ApplicationAutoScaling, name, serviceNamespace, resourceId string) (*applicationautoscaling.ScheduledAction, error) {
 	var result *applicationautoscaling.ScheduledAction
 
 	input := &applicationautoscaling.DescribeScheduledActionsInput{
 		ScheduledActionNames: []*string{aws.String(name)},
-		ServiceNamespace:     aws.String(serviceNamespace),
-		ResourceId:           aws.String(resourceId),
+		ServiceNamespace:aws.String(serviceNamespace),
+		ResourceId:ws.String(resourceId),
 	}
 	err := conn.DescribeScheduledActionsPagesWithContext(ctx, input, func(page *applicationautoscaling.DescribeScheduledActionsOutput, lastPage bool) bool {
 		if page == nil {

@@ -35,7 +35,6 @@ func ResourceDomain() *schema.Resource {
 		},
 	}
 }
-
 func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -51,7 +50,6 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceDomainRead(ctx, d, meta)...)
 }
-
 func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -71,7 +69,6 @@ func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interf
 	d.Set("arn", resp.Domain.Arn)
 	return diags
 }
-
 func resourceDomainDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)

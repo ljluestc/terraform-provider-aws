@@ -18,14 +18,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfses "github.com/hashicorp/terraform-provider-aws/internal/service/ses"
 )
-
 func TestAccSESReceiptRuleSet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ses_receipt_rule_set.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckReceiptRuleSetDestroy(ctx),
@@ -39,21 +39,21 @@ func TestAccSESReceiptRuleSet_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccSESReceiptRuleSet_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ses_receipt_rule_set.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckReceiptRuleSetDestroy(ctx),
@@ -69,9 +69,9 @@ func TestAccSESReceiptRuleSet_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckReceiptRuleSetDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SESConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -99,9 +99,9 @@ func testAccCheckReceiptRuleSetDestroy(ctx context.Context) resource.TestCheckFu
 		return nil
 	}
 }
-
 func testAccCheckReceiptRuleSetExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("SES Receipt Rule Set not found: %s", n)
@@ -121,7 +121,6 @@ func testAccCheckReceiptRuleSetExists(ctx context.Context, n string) resource.Te
 		return err
 	}
 }
-
 func testAccReceiptRuleSetConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ses_receipt_rule_set" "test" {

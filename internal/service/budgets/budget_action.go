@@ -30,7 +30,7 @@ import (
 func ResourceBudgetAction() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBudgetActionCreate,
-		ReadWithoutTimeout:   resourceBudgetActionRead,
+		ReadWithoutTimeout:resourceBudgetActionRead,
 		UpdateWithoutTimeout: resourceBudgetActionUpdate,
 		DeleteWithoutTimeout: resourceBudgetActionDelete,
 
@@ -47,29 +47,29 @@ func ResourceBudgetAction() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"account_id": {
 				Type:schema.TypeString,
-				Computed:     true,
-				Optional:     true,
-				ForceNew:     true,
+				Computed:true,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"action_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"action_threshold": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"action_threshold_type": {
 							Type:schema.TypeString,
-							Required:     true,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(budgets.ThresholdType_Values(), false),
 						},
 						"action_threshold_value": {
 							Type:schema.TypeFloat,
-							Required:     true,
+							Required:true,
 							ValidateFunc: validation.FloatBetween(0, 40000000000),
 						},
 					},
@@ -77,21 +77,21 @@ func ResourceBudgetAction() *schema.Resource {
 			},
 			"action_type": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringInSlice(budgets.ActionType_Values(), false),
 			},
 			"approval_model": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(budgets.ApprovalModel_Values(), false),
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"budget_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -100,81 +100,81 @@ func ResourceBudgetAction() *schema.Resource {
 				),
 			},
 			"definition": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"iam_action_definition": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"groups": {
-										Type:     schema.TypeSet,
+										Type:schema.TypeSet,
 										Optional: true,
 										MaxItems: 100,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem:&schema.Schema{Type: schema.TypeString},
 									},
 									"policy_arn": {
 										Type:schema.TypeString,
-										Required:     true,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"roles": {
-										Type:     schema.TypeSet,
+										Type:schema.TypeSet,
 										Optional: true,
 										MaxItems: 100,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem:&schema.Schema{Type: schema.TypeString},
 									},
 									"users": {
-										Type:     schema.TypeSet,
+										Type:schema.TypeSet,
 										Optional: true,
 										MaxItems: 100,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem:&schema.Schema{Type: schema.TypeString},
 									},
 								},
 							},
 						},
 						"scp_action_definition": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"policy_id": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 									"target_ids": {
-										Type:     schema.TypeSet,
+										Type:schema.TypeSet,
 										Required: true,
 										MaxItems: 100,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem:&schema.Schema{Type: schema.TypeString},
 									},
 								},
 							},
 						},
 						"ssm_action_definition": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"action_sub_type": {
 										Type:schema.TypeString,
-										Required:     true,
+										Required:true,
 										ValidateFunc: validation.StringInSlice(budgets.ActionSubType_Values(), false),
 									},
 									"instance_ids": {
-										Type:     schema.TypeSet,
+										Type:schema.TypeSet,
 										Required: true,
 										MaxItems: 100,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem:&schema.Schema{Type: schema.TypeString},
 									},
 									"region": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 								},
@@ -185,26 +185,26 @@ func ResourceBudgetAction() *schema.Resource {
 			},
 			"execution_role_arn": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"notification_type": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(budgets.NotificationType_Values(), false),
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"subscriber": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Required: true,
 				MaxItems: 11,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"address": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 2147483647),
@@ -212,7 +212,7 @@ func ResourceBudgetAction() *schema.Resource {
 							)},
 						"subscription_type": {
 							Type:schema.TypeString,
-							Required:     true,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(budgets.SubscriptionType_Values(), false),
 						},
 					},
@@ -221,7 +221,6 @@ func ResourceBudgetAction() *schema.Resource {
 		},
 	}
 }
-
 func resourceBudgetActionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BudgetsConn(ctx)
@@ -231,15 +230,15 @@ func resourceBudgetActionCreate(ctx context.Context, d *schema.ResourceData, met
 		accountID = meta.(*conns.AWSClient).AccountID
 	}
 	input := &budgets.CreateBudgetActionInput{
-		AccountId:        aws.String(accountID),
-		ActionThreshold:  expandBudgetActionActionThreshold(d.Get("action_threshold").([]interface{})),
-		ActionType:       aws.String(d.Get("action_type").(string)),
-		ApprovalModel:    aws.String(d.Get("approval_model").(string)),
-		BudgetName:       aws.String(d.Get("budget_name").(string)),
-		Definition:       expandBudgetActionActionDefinition(d.Get("definition").([]interface{})),
+		AccountId:aws.String(accountID),
+		ActionThreshold:expandBudgetActionActionThreshold(d.Get("action_threshold").([]interface{})),
+		ActionType:aws.String(d.Get("action_type").(string)),
+		ApprovalModel: aws.String(d.Get("approval_model").(string)),
+		BudgetName:aws.String(d.Get("budget_name").(string)),
+		Definition:expandBudgetActionActionDefinition(d.Get("definition").([]interface{})),
 		ExecutionRoleArn: aws.String(d.Get("execution_role_arn").(string)),
 		NotificationType: aws.String(d.Get("notification_type").(string)),
-		Subscribers:      expandBudgetActionSubscriber(d.Get("subscriber").(*schema.Set)),
+		Subscribers: expandBudgetActionSubscriber(d.Get("subscriber").(*schema.Set)),
 	}
 
 	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, propagationTimeout, func() (interface{}, error) {
@@ -258,7 +257,6 @@ func resourceBudgetActionCreate(ctx context.Context, d *schema.ResourceData, met
 
 	return append(diags, resourceBudgetActionRead(ctx, d, meta)...)
 }
-
 func resourceBudgetActionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BudgetsConn(ctx)
@@ -290,9 +288,9 @@ func resourceBudgetActionRead(ctx context.Context, d *schema.ResourceData, meta 
 	d.Set("approval_model", output.ApprovalModel)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "budgets",
+		Service:"budgets",
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("budget/%s/action/%s", budgetName, actionID),
+		Resource:fmt.Sprintf("budget/%s/action/%s", budgetName, actionID),
 	}
 	d.Set("arn", arn.String())
 	d.Set("budget_name", budgetName)
@@ -308,7 +306,6 @@ func resourceBudgetActionRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
-
 func resourceBudgetActionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BudgetsConn(ctx)
@@ -320,8 +317,8 @@ func resourceBudgetActionUpdate(ctx context.Context, d *schema.ResourceData, met
 	}
 
 	input := &budgets.UpdateBudgetActionInput{
-		AccountId:  aws.String(accountID),
-		ActionId:   aws.String(actionID),
+		AccountId:aws.String(accountID),
+		ActionId:aws.String(actionID),
 		BudgetName: aws.String(budgetName),
 	}
 
@@ -357,7 +354,6 @@ func resourceBudgetActionUpdate(ctx context.Context, d *schema.ResourceData, met
 
 	return append(diags, resourceBudgetActionRead(ctx, d, meta)...)
 }
-
 func resourceBudgetActionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BudgetsConn(ctx)
@@ -371,8 +367,8 @@ func resourceBudgetActionDelete(ctx context.Context, d *schema.ResourceData, met
 	log.Printf("[DEBUG] Deleting Budget Action: %s", d.Id())
 	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete), func() (any, error) {
 		return conn.DeleteBudgetActionWithContext(ctx, &budgets.DeleteBudgetActionInput{
-			AccountId:  aws.String(accountID),
-			ActionId:   aws.String(actionID),
+			AccountId:aws.String(accountID),
+			ActionId:aws.String(actionID),
 			BudgetName: aws.String(budgetName),
 		})
 	}, budgets.ErrCodeResourceLockedException)
@@ -389,14 +385,12 @@ func resourceBudgetActionDelete(ctx context.Context, d *schema.ResourceData, met
 }
 
 const budgetActionResourceIDSeparator = ":"
-
 func BudgetActionCreateResourceID(accountID, actionID, budgetName string) string {
 	parts := []string{accountID, actionID, budgetName}
 	id := strings.Join(parts, budgetActionResourceIDSeparator)
 
 	return id
 }
-
 func BudgetActionParseResourceID(id string) (string, string, string, error) {
 	parts := strings.Split(id, budgetActionResourceIDSeparator)
 
@@ -410,11 +404,10 @@ func BudgetActionParseResourceID(id string) (string, string, string, error) {
 const (
 	propagationTimeout = 2 * time.Minute
 )
-
 func FindActionByThreePartKey(ctx context.Context, conn *budgets.Budgets, accountID, actionID, budgetName string) (*budgets.Action, error) {
 	input := &budgets.DescribeBudgetActionInput{
-		AccountId:  aws.String(accountID),
-		ActionId:   aws.String(actionID),
+		AccountId:aws.String(accountID),
+		ActionId:aws.String(actionID),
 		BudgetName: aws.String(budgetName),
 	}
 
@@ -422,7 +415,7 @@ func FindActionByThreePartKey(ctx context.Context, conn *budgets.Budgets, accoun
 
 	if tfawserr.ErrCodeEquals(err, budgets.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}
@@ -437,7 +430,6 @@ func FindActionByThreePartKey(ctx context.Context, conn *budgets.Budgets, accoun
 
 	return output.Action, nil
 }
-
 func expandBudgetActionActionThreshold(l []interface{}) *budgets.ActionThreshold {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -457,7 +449,6 @@ func expandBudgetActionActionThreshold(l []interface{}) *budgets.ActionThreshold
 
 	return config
 }
-
 func expandBudgetActionSubscriber(l *schema.Set) []*budgets.Subscriber {
 	if l.Len() == 0 {
 		return []*budgets.Subscriber{}
@@ -482,7 +473,6 @@ func expandBudgetActionSubscriber(l *schema.Set) []*budgets.Subscriber {
 
 	return items
 }
-
 func expandBudgetActionActionDefinition(l []interface{}) *budgets.Definition {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -506,7 +496,6 @@ func expandBudgetActionActionDefinition(l []interface{}) *budgets.Definition {
 
 	return config
 }
-
 func expandBudgetActionActionScpActionDefinition(l []interface{}) *budgets.ScpActionDefinition {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -526,7 +515,6 @@ func expandBudgetActionActionScpActionDefinition(l []interface{}) *budgets.ScpAc
 
 	return config
 }
-
 func expandBudgetActionActionSSMActionDefinition(l []interface{}) *budgets.SsmActionDefinition {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -550,7 +538,6 @@ func expandBudgetActionActionSSMActionDefinition(l []interface{}) *budgets.SsmAc
 
 	return config
 }
-
 func expandBudgetActionActionIAMActionDefinition(l []interface{}) *budgets.IamActionDefinition {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -578,7 +565,6 @@ func expandBudgetActionActionIAMActionDefinition(l []interface{}) *budgets.IamAc
 
 	return config
 }
-
 func flattenBudgetActionSubscriber(configured []*budgets.Subscriber) []map[string]interface{} {
 	dataResources := make([]map[string]interface{}, 0, len(configured))
 
@@ -592,20 +578,18 @@ func flattenBudgetActionSubscriber(configured []*budgets.Subscriber) []map[strin
 
 	return dataResources
 }
-
 func flattenBudgetActionActionThreshold(lt *budgets.ActionThreshold) []map[string]interface{} {
 	if lt == nil {
 		return []map[string]interface{}{}
 	}
 
 	attrs := map[string]interface{}{
-		"action_threshold_type":  aws.StringValue(lt.ActionThresholdType),
+		"action_threshold_type":aws.StringValue(lt.ActionThresholdType),
 		"action_threshold_value": aws.Float64Value(lt.ActionThresholdValue),
 	}
 
 	return []map[string]interface{}{attrs}
 }
-
 func flattenBudgetActionIAMActionDefinition(lt *budgets.IamActionDefinition) []map[string]interface{} {
 	if lt == nil {
 		return []map[string]interface{}{}
@@ -629,7 +613,6 @@ func flattenBudgetActionIAMActionDefinition(lt *budgets.IamActionDefinition) []m
 
 	return []map[string]interface{}{attrs}
 }
-
 func flattenBudgetActionScpActionDefinition(lt *budgets.ScpActionDefinition) []map[string]interface{} {
 	if lt == nil {
 		return []map[string]interface{}{}
@@ -645,7 +628,6 @@ func flattenBudgetActionScpActionDefinition(lt *budgets.ScpActionDefinition) []m
 
 	return []map[string]interface{}{attrs}
 }
-
 func flattenBudgetActionSSMActionDefinition(lt *budgets.SsmActionDefinition) []map[string]interface{} {
 	if lt == nil {
 		return []map[string]interface{}{}
@@ -653,13 +635,12 @@ func flattenBudgetActionSSMActionDefinition(lt *budgets.SsmActionDefinition) []m
 
 	attrs := map[string]interface{}{
 		"action_sub_type": aws.StringValue(lt.ActionSubType),
-		"instance_ids":    flex.FlattenStringSet(lt.InstanceIds),
+		"instance_ids": flex.FlattenStringSet(lt.InstanceIds),
 		"region": aws.StringValue(lt.Region),
 	}
 
 	return []map[string]interface{}{attrs}
 }
-
 func flattenBudgetActionDefinition(lt *budgets.Definition) []map[string]interface{} {
 	if lt == nil {
 		return []map[string]interface{}{}

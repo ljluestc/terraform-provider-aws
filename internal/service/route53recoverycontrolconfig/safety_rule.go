@@ -33,11 +33,11 @@ func ResourceSafetyRule() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"asserted_controls": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
@@ -49,12 +49,12 @@ func ResourceSafetyRule() *schema.Resource {
 				},
 			},
 			"control_panel_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"gating_controls": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
@@ -66,38 +66,38 @@ func ResourceSafetyRule() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"rule_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"inverted": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Required: true,
 						},
 						"threshold": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Required: true,
 						},
 						"type": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(r53rcc.RuleType_Values(), true),
 						},
 					},
 				},
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"target_controls": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
@@ -108,7 +108,7 @@ func ResourceSafetyRule() *schema.Resource {
 				},
 			},
 			"wait_period_ms": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Required: true,
 			},
 		},
@@ -254,8 +254,8 @@ func createAssertionRule(ctx context.Context, d *schema.ResourceData, meta inter
 	assertionRule := &r53rcc.NewAssertionRule{
 		Name:aws.String(d.Get("name").(string)),
 		ControlPanelArn:  aws.String(d.Get("control_panel_arn").(string)),
-		WaitPeriodMs:     aws.Int64(int64(d.Get("wait_period_ms").(int))),
-		RuleConfig:       testAccSafetyRuleConfig_expandRule(d.Get("rule_config").([]interface{})[0].(map[string]interface{})),
+		WaitPeriodMs:aws.Int64(int64(d.Get("wait_period_ms").(int))),
+		RuleConfig:  testAccSafetyRuleConfig_expandRule(d.Get("rule_config").([]interface{})[0].(map[string]interface{})),
 		AssertedControls: flex.ExpandStringList(d.Get("asserted_controls").([]interface{})),
 	}
 
@@ -290,10 +290,10 @@ func createGatingRule(ctx context.Context, d *schema.ResourceData, meta interfac
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
 
 	gatingRule := &r53rcc.NewGatingRule{
-		Name:            aws.String(d.Get("name").(string)),
+		Name:  aws.String(d.Get("name").(string)),
 		ControlPanelArn: aws.String(d.Get("control_panel_arn").(string)),
-		WaitPeriodMs:    aws.Int64(int64(d.Get("wait_period_ms").(int))),
-		RuleConfig:      testAccSafetyRuleConfig_expandRule(d.Get("rule_config").([]interface{})[0].(map[string]interface{})),
+		WaitPeriodMs:aws.Int64(int64(d.Get("wait_period_ms").(int))),
+		RuleConfig: testAccSafetyRuleConfig_expandRule(d.Get("rule_config").([]interface{})[0].(map[string]interface{})),
 		GatingControls:  flex.ExpandStringList(d.Get("gating_controls").([]interface{})),
 		TargetControls:  flex.ExpandStringList(d.Get("target_controls").([]interface{})),
 	}

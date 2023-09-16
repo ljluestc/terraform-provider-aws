@@ -17,10 +17,10 @@ ctx := acctest.Context(t)
 dataSourceName := "data.aws_outposts_outpost_instance_type.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil,
+CheckDestroy:    nil,
 Steps: []resource.TestStep{
 {
 Config: testAccOutpostInstanceTypeDataSourceConfig_basic(),
@@ -37,10 +37,10 @@ ctx := acctest.Context(t)
 dataSourceName := "data.aws_outposts_outpost_instance_type.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil,
+CheckDestroy:    nil,
 Steps: []resource.TestStep{
 {
 Config: testAccOutpostInstanceTypeDataSourceConfig_preferreds(),
@@ -61,7 +61,7 @@ data "aws_outposts_outpost_instance_types" "test" {
 }
 
 data "aws_outposts_outpost_instance_type" "test" {
-  arn           = tolist(data.aws_outposts_outposts.test.arns)[0]
+  arn  = tolist(data.aws_outposts_outposts.test.arns)[0]
   instance_type = tolist(data.aws_outposts_outpost_instance_types.test.instance_types)[0]
 }
 `
@@ -76,7 +76,7 @@ data "aws_outposts_outpost_instance_types" "test" {
 }
 
 data "aws_outposts_outpost_instance_type" "test" {
-  arn                      = tolist(data.aws_outposts_outposts.test.arns)[0]
+  arn    = tolist(data.aws_outposts_outposts.test.arns)[0]
   preferred_instance_types = data.aws_outposts_outpost_instance_types.test.instance_types
 }
 `

@@ -36,20 +36,20 @@ func ResourceApplication() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 		CustomizeDiff: verify.SetTagsDiff,
@@ -112,7 +112,7 @@ func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta i
 	arn := arn.ARN{
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
+		Region:meta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("application/%s", aws.StringValue(output.Id)),
 		Service:   "appconfig",
 	}.String()

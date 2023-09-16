@@ -14,23 +14,20 @@ import (
 )
 
 type servicePackage struct{}
-
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{}
 }
-
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{
 		{
 			Factory: newResourceJobQueue,
-			Name:    "Job Queue",
+			Name: "Job Queue",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
 		},
 	}
 }
-
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
 		{
@@ -47,13 +44,12 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 		},
 	}
 }
-
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
 			Factory:  ResourceComputeEnvironment,
 			TypeName: "aws_batch_compute_environment",
-			Name:     "Compute Environment",
+			Name:"Compute Environment",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -61,7 +57,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceJobDefinition,
 			TypeName: "aws_batch_job_definition",
-			Name:     "Job Definition",
+			Name:"Job Definition",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -69,14 +65,13 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceSchedulingPolicy,
 			TypeName: "aws_batch_scheduling_policy",
-			Name:     "Job Definition",
+			Name:"Job Definition",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
 		},
 	}
 }
-
 func (p *servicePackage) ServicePackageName() string {
 	return names.Batch
 }
@@ -87,7 +82,6 @@ func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*b
 
 	return batch_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }

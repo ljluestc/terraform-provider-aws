@@ -20,7 +20,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfses "github.com/hashicorp/terraform-provider-aws/internal/service/ses"
 )
-
 func TestAccSESTemplate_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ses_template.test"
@@ -28,7 +27,8 @@ func TestAccSESTemplate_basic(t *testing.T) {
 	var template ses.Template
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTemplateDestroy(ctx),
@@ -44,14 +44,13 @@ func TestAccSESTemplate_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccSESTemplate_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -59,7 +58,8 @@ func TestAccSESTemplate_update(t *testing.T) {
 	var template ses.Template
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTemplateDestroy(ctx),
@@ -76,8 +76,8 @@ func TestAccSESTemplate_update(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -103,7 +103,6 @@ func TestAccSESTemplate_update(t *testing.T) {
 		},
 	})
 }
-
 func TestAccSESTemplate_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ses_template.test"
@@ -111,7 +110,8 @@ func TestAccSESTemplate_disappears(t *testing.T) {
 	var template ses.Template
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTemplateDestroy(ctx),
@@ -127,9 +127,9 @@ func TestAccSESTemplate_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckTemplateExists(ctx context.Context, pr string, template *ses.Template) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SESConn(ctx)
 		rs, ok := s.RootModule().Resources[pr]
 		if !ok {
@@ -158,16 +158,17 @@ func testAccCheckTemplateExists(ctx context.Context, pr string, template *ses.Te
 		return nil
 	}
 }
-
 func testAccCheckTemplateDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SESConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_ses_template" {
 				continue
 			}
-			err := retry.RetryContext(ctx, 1*time.Minute, func() *retry.RetryError {
+			err := retry.RetryContext(ctx, 1*time.Minute, 
+func() *retry.RetryError {
 				input := ses.GetTemplateInput{
 					TemplateName: aws.String(rs.Primary.ID),
 				}
@@ -194,34 +195,31 @@ func testAccCheckTemplateDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccTemplateConfig_resourceBasic1(name string) string {
 	return fmt.Sprintf(`
 resource "aws_ses_template" "test" {
-  name    = "%s"
+  name = "%s"
   subject = "subject"
-  html    = "html"
+  html = "html"
 }
 `, name)
 }
-
 func testAccTemplateConfig_resourceBasic2(name string) string {
 	return fmt.Sprintf(`
 resource "aws_ses_template" "test" {
-  name    = "%s"
+  name = "%s"
   subject = "subject"
-  html    = "html"
-  text    = "text"
+  html = "html"
+  text = "text"
 }
 `, name)
 }
-
 func testAccTemplateConfig_resourceBasic3(name string) string {
 	return fmt.Sprintf(`
 resource "aws_ses_template" "test" {
-  name    = "%s"
+  name = "%s"
   subject = "subject"
-  html    = "html update"
+  html = "html update"
 }
 `, name)
 }

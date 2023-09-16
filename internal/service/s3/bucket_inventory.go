@@ -40,7 +40,7 @@ import (
 				ForceNew: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(0, 64),
@@ -87,12 +87,12 @@ import (
 										}, false),
 									},
 									"bucket_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"account_id": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: verify.ValidAccountID,
 									},
@@ -107,14 +107,14 @@ import (
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"sse_kms": {
-													Type:          schema.TypeList,
+													Type: schema.TypeList,
 													Optional:      true,
 													MaxItems:      1,
 													ConflictsWith: []string{"destination.0.bucket.0.encryption.0.sse_s3"},
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"key_id": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: verify.ValidARN,
 															},
@@ -122,7 +122,7 @@ import (
 													},
 												},
 												"sse_s3": {
-													Type:          schema.TypeList,
+													Type: schema.TypeList,
 													Optional:      true,
 													MaxItems:      1,
 													ConflictsWith: []string{"destination.0.bucket.0.encryption.0.sse_kms"},
@@ -171,7 +171,7 @@ import (
 				Type:     schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(s3.InventoryOptionalField_Values(), false),
 				},
 				Set: schema.HashString,
@@ -222,8 +222,8 @@ import (
 	}
 
 	input := &s3.PutBucketInventoryConfigurationInput{
-		Bucket:                 aws.String(bucket),
-		Id:                     aws.String(name),
+		Bucket:        aws.String(bucket),
+		Id:   aws.String(name),
 		InventoryConfiguration: inventoryConfiguration,
 	}
 

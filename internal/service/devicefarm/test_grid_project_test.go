@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package devicefarm_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package devicefarm_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/devicefarm"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -19,16 +13,15 @@ import (
 	tfdevicefarm "github.com/hashicorp/terraform-provider-aws/internal/service/devicefarm"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func := acctest.Context(t)
 	var proj devicefarm.TestGridProject
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix("tf-acc-test-updated")
-	resourceName := "aws_devicefarm_test_grid_project.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
-	acctest.Pfunctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
+	resourceName := "aws_devicefarm_test_grid_project.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() {
+	acctest.P
+functest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 	// Currently, DeviceFarm is only supported in us-west-2
 	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
@@ -48,8 +41,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -63,17 +56,16 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccDeviceFarmTestGridProject_vpc(t *testing.T) {
 	ctx := acctest.Context(t)
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_devicefarm_test_grid_project.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
+	resourceName := "aws_devicefarm_test_grid_project.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
-	// Currenfunchttps://docs.aws.amazon.com/general/latest/gr/devicefarm.html
+	// Curren
+funchttps://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 },
 ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
@@ -90,26 +82,27 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccDeviceFarmTestGridProject_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var proj devicefarm.TestGridProject
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 	// Currently, DeviceFarm is only supported in us-west-2
 	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
-	acctest.Pfunc
+	acctest.P
+func
 ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckProjectTestGridProjectDestroy(ctx),
@@ -123,8 +116,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -147,21 +140,21 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccDeviceFarmTestGridProject_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var proj devicefarm.TestGridProject
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_devicefarm_test_grid_project.test"
-
-funcheck: func() {
+funcheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 	// Currently, DeviceFarm is only supported in us-west-2
 	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 },
-ErrorCheckfuncoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+ErrorCheck
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckProjectTestGridProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -176,15 +169,13 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func testAccCheckProjectTestGridProjectExists(ctx context.Context, n string, v *devicefarm.TestGridProject) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 func
 func := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
 resp, err := tfdevicefarm.FindTestGridProjectByARN(ctx, conn, rs.Primary.ID)
@@ -193,105 +184,76 @@ if err != nil {
 }
 if resp == nil {
 	return fmt.Errorf("DeviceFarm Test Grid Project not found")
-}
-
-*v = *resp
-
-return nil
+}*v = *respreturn nil
 	}
 }
-
 func testAccCheckProjectTestGridProjectDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_devicefarm_test_grid_project" {
 continue
-	}
-
-	// Try to find the resource
+	}	// Try to find the resource
 functfresource.NotFound(err) {
-continuefunc
-
-	if err != nil {
+continue
+func	if err != nil {
 return err
-	}
-
-	return fmt.Errorf("DeviceFarm Test Grid Project %s still exists", rs.Primary.ID)
-}
-
-return nil
+	}	return fmt.Errorf("DeviceFarm Test Grid Project %s still exists", rs.Primary.ID)
+}return nil
 	}
 }
-
 func testAccTestGridProjectConfig_project(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_devicefarm_test_grid_project" "test" {
-  name = %[1]q
+name = %[1]q
 }
 `, rName)
 }
-
 func testAccTestGridProjectConfig_projectVPC(rName string) string {
 	return acctest.ConfigCompose(
 acctest.ConfigAvailableAZsNoOptIn(),
 fmt.Sprintf(`
 funcdr_block = "10.0.0.0/16"
-}
-
-resource "aws_subnet" "test" {
-  count= 2
-  availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = "10.0.${count.index}.0/24"
-  vpc_id            = aws_vpc.test.id
+}resource "aws_subnet" "test" {
+count= 2
+availability_zone = data.aws_availability_zones.available.names[count.index]
+cidr_block= "10.0.${count.index}.0/24"
+vpc_id= aws_vpc.test.id
 func
 resource "aws_security_group" "test" {
-  count = 2
-
-  name        = "%[1]s-${count.index}"
-  description = "Allow all inbound traffic"
-  vpc_id      = aws_vpc.test.id
-  ingress {
-    protocol    = "6"
-    from_port   = 80
-    to_port     = 8000
-    cidr_blocks = [aws_vpc.test.cidr_block]
-  }
+count = 2name= "%[1]s-${count.index}"
+description = "Allow all inbound traffic"
+vpc_id= aws_vpc.test.id
+ingress {
+ protocol = "6"
+ from_port= 80
+ to_port= 8000
+ cidr_blocks = [aws_vpc.test.cidr_block]
 }
-
-resource "aws_devicefarm_test_grid_project" "test" {
-  name = %[1]q
-
-  vpc_config {
-    vpc_id= aws_vpc.test.id
-    subnet_ids         = aws_subnet.test[*].id
-    security_group_ids = aws_security_group.test[*].id
-  }
+}resource "aws_devicefarm_test_grid_project" "test" {
+name = %[1]qvpc_config {
+ vpc_id= aws_vpc.test.id
+ subnet_ids= aws_subnet.test[*].id
+ security_group_ids = aws_security_group.test[*].id
+}
 }
 `, rName))
 }
-
 func testAccTestGridProjectConfig_projectTags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_devicefarm_test_grid_project" "test" {
-  name = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
-  }
+name = %[1]qtags = {
+ %[2]q = %[3]q
+}
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccTestGridProjectConfig_projectTags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
-funcme = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+funcme = %[1]qtags = {
+ %[2]q = %[3]q
+ %[4]q = %[5]q
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

@@ -45,7 +45,7 @@ func DataSourceIPSet() *schema.Resource {
 					Required: true,
 				},
 				"scope": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.Scope_Values(), false),
 				},
@@ -53,7 +53,6 @@ func DataSourceIPSet() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceIPSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)

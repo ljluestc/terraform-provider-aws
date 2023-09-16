@@ -21,7 +21,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccDocDBClusterInstance_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v docdb.DBInstance
@@ -29,7 +28,7 @@ func TestAccDocDBClusterInstance_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterDestroy(ctx),
@@ -60,8 +59,8 @@ func TestAccDocDBClusterInstance_basic(t *testing.T) {
 			},
 
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"apply_immediately",
@@ -71,7 +70,6 @@ func TestAccDocDBClusterInstance_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDocDBClusterInstance_performanceInsights(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v docdb.DBInstance
@@ -80,7 +78,7 @@ func TestAccDocDBClusterInstance_performanceInsights(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(rNamePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterDestroy(ctx),
@@ -96,8 +94,8 @@ func TestAccDocDBClusterInstance_performanceInsights(t *testing.T) {
 			},
 
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"apply_immediately",
@@ -109,7 +107,6 @@ func TestAccDocDBClusterInstance_performanceInsights(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDocDBClusterInstance_az(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v docdb.DBInstance
@@ -117,7 +114,7 @@ func TestAccDocDBClusterInstance_az(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterDestroy(ctx),
@@ -132,8 +129,8 @@ func TestAccDocDBClusterInstance_az(t *testing.T) {
 			},
 
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"apply_immediately",
@@ -143,7 +140,6 @@ func TestAccDocDBClusterInstance_az(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDocDBClusterInstance_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v docdb.DBInstance
@@ -152,7 +148,7 @@ func TestAccDocDBClusterInstance_namePrefix(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(rNamePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterDestroy(ctx),
@@ -168,8 +164,8 @@ func TestAccDocDBClusterInstance_namePrefix(t *testing.T) {
 			},
 
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"apply_immediately",
@@ -179,7 +175,6 @@ func TestAccDocDBClusterInstance_namePrefix(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDocDBClusterInstance_generatedName(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v docdb.DBInstance
@@ -187,7 +182,7 @@ func TestAccDocDBClusterInstance_generatedName(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterDestroy(ctx),
@@ -202,8 +197,8 @@ func TestAccDocDBClusterInstance_generatedName(t *testing.T) {
 			},
 
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"apply_immediately",
@@ -213,7 +208,6 @@ func TestAccDocDBClusterInstance_generatedName(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDocDBClusterInstance_kmsKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v docdb.DBInstance
@@ -221,7 +215,7 @@ func TestAccDocDBClusterInstance_kmsKey(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterDestroy(ctx),
@@ -235,8 +229,8 @@ func TestAccDocDBClusterInstance_kmsKey(t *testing.T) {
 			},
 
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"apply_immediately",
@@ -255,7 +249,7 @@ func TestAccDocDBClusterInstance_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, docdb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterDestroy(ctx),
@@ -272,7 +266,6 @@ func TestAccDocDBClusterInstance_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckClusterInstanceAttributes(v *docdb.DBInstance) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if *v.Engine != "docdb" {
@@ -286,7 +279,6 @@ func testAccCheckClusterInstanceAttributes(v *docdb.DBInstance) resource.TestChe
 		return nil
 	}
 }
-
 func testAccClusterInstanceDisappears(ctx context.Context, v *docdb.DBInstance) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DocDBConn(ctx)
@@ -313,7 +305,6 @@ func testAccClusterInstanceDisappears(ctx context.Context, v *docdb.DBInstance) 
 		})
 	}
 }
-
 func testAccCheckClusterInstanceExists(ctx context.Context, n string, v *docdb.DBInstance) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -351,50 +342,48 @@ func testAccClusterInstanceConfig_basic(rName string) string {
 resource "aws_docdb_cluster" "default" {
   cluster_identifier  = %[1]q
   availability_zones  = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
-  master_username     = "foo"
-  master_password     = "mustbeeightcharaters"
+  master_username= "foo"
+  master_password= "mustbeeightcharaters"
   skip_final_snapshot = true
 }
 
 data "aws_docdb_orderable_db_instance" "test" {
-  engine        = "docdb"
+  engineocdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
 resource "aws_docdb_cluster_instance" "cluster_instances" {
-  identifier         = %[1]q
+  identifier[1]q
   cluster_identifier = aws_docdb_cluster.default.id
-  instance_class     = data.aws_docdb_orderable_db_instance.test.instance_class
-  promotion_tier     = "3"
+  instance_class= data.aws_docdb_orderable_db_instance.test.instance_class
+  promotion_tier= "3"
 }
 `, rName))
 }
-
 func testAccClusterInstanceConfig_modified(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_docdb_cluster" "default" {
   cluster_identifier  = %[1]q
   availability_zones  = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
-  master_username     = "foo"
-  master_password     = "mustbeeightcharaters"
+  master_username= "foo"
+  master_password= "mustbeeightcharaters"
   skip_final_snapshot = true
 }
 
 data "aws_docdb_orderable_db_instance" "test" {
-  engine        = "docdb"
+  engineocdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
 resource "aws_docdb_cluster_instance" "cluster_instances" {
-  identifier    = %[1]q
-  cluster_identifier         = aws_docdb_cluster.default.id
+  identifier = %[1]q
+  cluster_identifierws_docdb_cluster.default.id
   instance_class= data.aws_docdb_orderable_db_instance.test.instance_class
   auto_minor_version_upgrade = false
   promotion_tier= "3"
 }
 `, rName))
 }
-
 func testAccClusterInstanceConfig_performanceInsights(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -405,11 +394,11 @@ resource "aws_kms_key" "test" {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
   "Statement": [
-    {
+ {
   	  "Sid": "Enable IAM User Permissions",
 	  "Effect": "Allow",
 	  "Principal": {
-	    "AWS": "*"
+	 "AWS": "*"
 	  },
 	  "Action": "kms:*",
 	  "Resource": "*"
@@ -421,69 +410,67 @@ POLICY
 resource "aws_docdb_cluster" "default" {
   cluster_identifier  = %[1]q
   availability_zones  = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
-  master_username     = "foo"
-  master_password     = "mustbeeightcharaters"
+  master_username= "foo"
+  master_password= "mustbeeightcharaters"
   skip_final_snapshot = true
 }
 
 data "aws_docdb_orderable_db_instance" "test" {
-  engine        = "docdb"
+  engineocdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
 resource "aws_docdb_cluster_instance" "test" {
-  identifier         = %[1]q
+  identifier[1]q
   cluster_identifier = aws_docdb_cluster.default.id
-  instance_class     = data.aws_docdb_orderable_db_instance.test.instance_class
-  promotion_tier     = "3"
-  enable_performance_insights     = true
+  instance_class= data.aws_docdb_orderable_db_instance.test.instance_class
+  promotion_tier= "3"
+  enable_performance_insights= true
   performance_insights_kms_key_id = aws_kms_key.test.arn
 }
 `, rName))
 }
-
 func testAccClusterInstanceConfig_az(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_docdb_cluster" "default" {
   cluster_identifier  = %[1]q
   availability_zones  = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
-  master_username     = "foo"
-  master_password     = "mustbeeightcharaters"
+  master_username= "foo"
+  master_password= "mustbeeightcharaters"
   skip_final_snapshot = true
 }
 
 data "aws_docdb_orderable_db_instance" "test" {
-  engine        = "docdb"
+  engineocdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
 resource "aws_docdb_cluster_instance" "cluster_instances" {
-  identifier         = %[1]q
+  identifier[1]q
   cluster_identifier = aws_docdb_cluster.default.id
-  instance_class     = data.aws_docdb_orderable_db_instance.test.instance_class
-  promotion_tier     = "3"
+  instance_class= data.aws_docdb_orderable_db_instance.test.instance_class
+  promotion_tier= "3"
   availability_zone  = data.aws_availability_zones.available.names[0]
 }
 `, rName))
 }
-
 func testAccClusterInstanceConfig_namePrefix(rName, rNamePrefix string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 data "aws_docdb_orderable_db_instance" "test" {
-  engine        = "docdb"
+  engineocdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
 resource "aws_docdb_cluster_instance" "test" {
   identifier_prefix  = %[2]q
   cluster_identifier = aws_docdb_cluster.test.id
-  instance_class     = data.aws_docdb_orderable_db_instance.test.instance_class
+  instance_class= data.aws_docdb_orderable_db_instance.test.instance_class
 }
 
 resource "aws_docdb_cluster" "test" {
-  cluster_identifier   = %[1]q
-  master_username      = "root"
-  master_password      = "password"
+  cluster_identifier= %[1]q
+  master_usernamet"
+  master_passwordsword"
   db_subnet_group_name = aws_docdb_subnet_group.test.name
   skip_final_snapshot  = true
 }
@@ -492,53 +479,52 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_subnet" "a" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.0.0/24"
+  vpc_idst.id
+  cidr_block0.0.0.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = "%[1]s-a"
+ Name = "%[1]s-a"
   }
 }
 
 resource "aws_subnet" "b" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.1.0/24"
+  vpc_idst.id
+  cidr_block0.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
-    Name = "%[1]s-b"
+ Name = "%[1]s-b"
   }
 }
 
 resource "aws_docdb_subnet_group" "test" {
-  name       = %[1]q
+  name]q
   subnet_ids = [aws_subnet.a.id, aws_subnet.b.id]
 }
 `, rName, rNamePrefix))
 }
-
 func testAccClusterInstanceConfig_generatedName(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 data "aws_docdb_orderable_db_instance" "test" {
-  engine        = "docdb"
+  engineocdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
 resource "aws_docdb_cluster_instance" "test" {
   cluster_identifier = aws_docdb_cluster.test.id
-  instance_class     = data.aws_docdb_orderable_db_instance.test.instance_class
+  instance_class= data.aws_docdb_orderable_db_instance.test.instance_class
 }
 
 resource "aws_docdb_cluster" "test" {
-  cluster_identifier   = %[1]q
-  master_username      = "root"
-  master_password      = "password"
+  cluster_identifier= %[1]q
+  master_usernamet"
+  master_passwordsword"
   db_subnet_group_name = aws_docdb_subnet_group.test.name
   skip_final_snapshot  = true
 }
@@ -547,37 +533,36 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_subnet" "a" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.0.0/24"
+  vpc_idst.id
+  cidr_block0.0.0.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = "%[1]s-a"
+ Name = "%[1]s-a"
   }
 }
 
 resource "aws_subnet" "b" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.1.0/24"
+  vpc_idst.id
+  cidr_block0.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
-    Name = "%[1]s-b"
+ Name = "%[1]s-b"
   }
 }
 
 resource "aws_docdb_subnet_group" "test" {
-  name       = %[1]q
+  name]q
   subnet_ids = [aws_subnet.a.id, aws_subnet.b.id]
 }
 `, rName))
 }
-
 func testAccClusterInstanceConfig_kmsKey(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_kms_key" "foo" {
@@ -588,15 +573,15 @@ resource "aws_kms_key" "foo" {
   "Version": "2012-10-17",
   "Id": "kms-tf-1",
   "Statement": [
-    {
-      "Sid": "Enable IAM User Permissions",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": "kms:*",
-      "Resource": "*"
-    }
+ {
+ "Enable IAM User Permissions",
+t": "Allow",
+ipal": {
+": "*"
+
+n": "kms:*",
+rce": "*"
+ }
   ]
 }
 POLICY
@@ -605,22 +590,22 @@ POLICY
 resource "aws_docdb_cluster" "default" {
   cluster_identifier  = %[1]q
   availability_zones  = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1], data.aws_availability_zones.available.names[2]]
-  master_username     = "foo"
-  master_password     = "mustbeeightcharaters"
-  storage_encrypted   = true
-  kms_key_id          = aws_kms_key.foo.arn
+  master_username= "foo"
+  master_password= "mustbeeightcharaters"
+  storage_encrypted= true
+  kms_key_idaws_kms_key.foo.arn
   skip_final_snapshot = true
 }
 
 data "aws_docdb_orderable_db_instance" "test" {
-  engine        = "docdb"
+  engineocdb"
   preferred_instance_classes = ["db.t3.medium", "db.r4.large", "db.r5.large", "db.r5.xlarge"]
 }
 
 resource "aws_docdb_cluster_instance" "cluster_instances" {
-  identifier         = %[1]q
+  identifier[1]q
   cluster_identifier = aws_docdb_cluster.default.id
-  instance_class     = data.aws_docdb_orderable_db_instance.test.instance_class
+  instance_class= data.aws_docdb_orderable_db_instance.test.instance_class
 }
 `, rName))
 }

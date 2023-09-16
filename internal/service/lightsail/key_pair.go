@@ -39,14 +39,14 @@ func ResourceKeyPair() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name_prefix"},
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name"},
@@ -96,7 +96,6 @@ func ResourceKeyPair() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceKeyPairCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -183,7 +182,6 @@ func resourceKeyPairCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceKeyPairRead(ctx, d, meta)...)
 }
-
 func resourceKeyPairRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -209,12 +207,10 @@ func resourceKeyPairRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
-
 func resourceKeyPairUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceKeyPairRead(ctx, d, meta)
 }
-
 func resourceKeyPairDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)

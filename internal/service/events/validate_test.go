@@ -1,47 +1,38 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package events
-
-import (
-	"testing"
-
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+// SPDX-License-Identifier: MPL-2.0package eventsimport (
+	"testing"	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 )
-
 func TestValidCustomEventBusSourceName(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
-		Value   string
+	t.Parallel()	cases := []struct {
+		Valuestring
 		IsValid bool
 	}{
 		{
-			Value:   "",
+			Value:"",
 			IsValid: false,
 		},
 		{
-			Value:   "default",
+			Value:"default",
 			IsValid: false,
 		},
 		{
-			Value:   "aws.partner/example.com/test/" + sdkacctest.RandStringFromCharSet(227, sdkacctest.CharSetAlpha),
+			Value:"aws.partner/example.com/test/" + sdkacctest.RandStringFromCharSet(227, sdkacctest.CharSetAlpha),
 			IsValid: true,
 		},
 		{
-			Value:   "aws.partner/example.com/test/" + sdkacctest.RandStringFromCharSet(228, sdkacctest.CharSetAlpha),
+			Value:"aws.partner/example.com/test/" + sdkacctest.RandStringFromCharSet(228, sdkacctest.CharSetAlpha),
 			IsValid: false,
 		},
 		{
-			Value:   "aws.partner/example.com/test/12345ab-cdef-1235",
+			Value:"aws.partner/example.com/test/12345ab-cdef-1235",
 			IsValid: true,
 		},
 		{
-			Value:   "/test0._1-",
+			Value:"/test0._1-",
 			IsValid: false,
 		},
 		{
-			Value:   "test0._1-",
+			Value:"test0._1-",
 			IsValid: false,
 		},
 	}
@@ -55,40 +46,37 @@ func TestValidCustomEventBusSourceName(t *testing.T) {
 		}
 	}
 }
-
 func TestValidCustomEventBusName(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
-		Value   string
+	t.Parallel()	cases := []struct {
+		Valuestring
 		IsValid bool
 	}{
 		{
-			Value:   "",
+			Value:"",
 			IsValid: false,
 		},
 		{
-			Value:   "default",
+			Value:"default",
 			IsValid: false,
 		},
 		{
-			Value:   sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
+			Value:sdkacctest.RandStringFromCharSet(256, sdkacctest.CharSetAlpha),
 			IsValid: true,
 		},
 		{
-			Value:   sdkacctest.RandStringFromCharSet(257, sdkacctest.CharSetAlpha),
+			Value:sdkacctest.RandStringFromCharSet(257, sdkacctest.CharSetAlpha),
 			IsValid: false,
 		},
 		{
-			Value:   "aws.partner/example.com/test/12345ab-cdef-1235",
+			Value:"aws.partner/example.com/test/12345ab-cdef-1235",
 			IsValid: true,
 		},
 		{
-			Value:   "/test0._1-",
+			Value:"/test0._1-",
 			IsValid: true,
 		},
 		{
-			Value:   "test0._1-",
+			Value:"test0._1-",
 			IsValid: true,
 		},
 	}
@@ -102,15 +90,12 @@ func TestValidCustomEventBusName(t *testing.T) {
 		}
 	}
 }
-
 func TestValidBusNameOrARN(t *testing.T) {
-	t.Parallel()
-
-	validNames := []string{
+	t.Parallel()	validNames := []string{
 		"HelloWorl_d",
 		"hello-world",
 		"hello.World0125",
-		"aws.partner/mongodb.com/stitch.trigger/something",        // nosemgrep:ci.domain-names
+		"aws.partner/mongodb.com/stitch.trigger/something",  // nosemgrep:ci.domain-names
 		"arn:aws:events:us-east-1:123456789012:event-bus/default", // lintignore:AWSAT003,AWSAT005
 	}
 	for _, v := range validNames {
@@ -118,9 +103,7 @@ func TestValidBusNameOrARN(t *testing.T) {
 		if len(errors) != 0 {
 			t.Fatalf("%q should be a valid CW event bus name: %q", v, errors)
 		}
-	}
-
-	invalidNames := []string{
+	}	invalidNames := []string{
 		"special@character",
 		"arn:aw:events:us-east-1:123456789012:event-bus/default", // lintignore:AWSAT003,AWSAT005
 	}
@@ -131,11 +114,8 @@ func TestValidBusNameOrARN(t *testing.T) {
 		}
 	}
 }
-
 func TestValidRuleName(t *testing.T) {
-	t.Parallel()
-
-	validNames := []string{
+	t.Parallel()	validNames := []string{
 		"HelloWorl_d",
 		"hello-world",
 		"hello.World0125",
@@ -145,9 +125,7 @@ func TestValidRuleName(t *testing.T) {
 		if len(errors) != 0 {
 			t.Fatalf("%q should be a valid CW event rule name: %q", v, errors)
 		}
-	}
-
-	invalidNames := []string{
+	}	invalidNames := []string{
 		"special@character",
 		"slash/in-the-middle",
 		// Length > 64

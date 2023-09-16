@@ -153,7 +153,7 @@ func FindContributorInsights(ctx context.Context, conn *dynamodb.DynamoDB, table
 
 	if status := aws.StringValue(output.ContributorInsightsStatus); status == dynamodb.ContributorInsightsStatusDisabled {
 		return nil, &retry.NotFoundError{
-			Message:     status,
+			Message: status,
 			LastRequest: input,
 		}
 	}

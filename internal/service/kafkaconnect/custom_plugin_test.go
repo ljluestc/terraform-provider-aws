@@ -26,7 +26,7 @@ func TestAccKafkaConnectCustomPlugin_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-CheckDestroy:    testAccCheckCustomPluginDestroy(ctx),
+CheckDestroy:testAccCheckCustomPluginDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -47,8 +47,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -63,7 +63,7 @@ func TestAccKafkaConnectCustomPlugin_disappears(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-CheckDestroy:    testAccCheckCustomPluginDestroy(ctx),
+CheckDestroy:testAccCheckCustomPluginDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -86,7 +86,7 @@ func TestAccKafkaConnectCustomPlugin_description(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-CheckDestroy:    testAccCheckCustomPluginDestroy(ctx),
+CheckDestroy:testAccCheckCustomPluginDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -97,8 +97,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -113,7 +113,7 @@ func TestAccKafkaConnectCustomPlugin_objectVersion(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-CheckDestroy:    testAccCheckCustomPluginDestroy(ctx),
+CheckDestroy:testAccCheckCustomPluginDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -124,8 +124,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -180,7 +180,7 @@ return nil
 func testAccCustomPluginBaseConfig(rName string, s3BucketVersioning bool) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket   = %[1]q
   force_destroy = true
 }
 
@@ -188,13 +188,13 @@ resource "aws_s3_bucket_versioning" "test" {
   bucket = aws_s3_bucket.test.bucket
 
   versioning_configuration {
-    status = %[2]t ? "Enabled" : "Suspended"
+status = %[2]t ? "Enabled" : "Suspended"
   }
 }
 
 resource "aws_s3_object" "test" {
   bucket = aws_s3_bucket_versioning.test.bucket
-  key    = "jcustenborder-kafka-connect-simulator-0.1.120.zip"
+  key= "jcustenborder-kafka-connect-simulator-0.1.120.zip"
   source = "test-fixtures/jcustenborder-kafka-connect-simulator-0.1.120.zip"
 }
 `, rName, s3BucketVersioning)
@@ -207,10 +207,10 @@ resource "aws_mskconnect_custom_plugin" "test" {
   content_type = "ZIP"
 
   location {
-    s3 {
-      bucket_arn = aws_s3_bucket.test.arn
-      file_key   = aws_s3_object.test.key
-    }
+s3 {
+ bucket_arn = aws_s3_bucket.test.arn
+ file_key   = aws_s3_object.test.key
+}
   }
 }
 `, rName))
@@ -224,10 +224,10 @@ resource "aws_mskconnect_custom_plugin" "test" {
   description  = "testing"
 
   location {
-    s3 {
-      bucket_arn = aws_s3_bucket.test.arn
-      file_key   = aws_s3_object.test.key
-    }
+s3 {
+ bucket_arn = aws_s3_bucket.test.arn
+ file_key   = aws_s3_object.test.key
+}
   }
 }
 `, rName))
@@ -241,11 +241,11 @@ resource "aws_mskconnect_custom_plugin" "test" {
   description  = "testing"
 
   location {
-    s3 {
-      bucket_arn     = aws_s3_bucket.test.arn
-      file_key       = aws_s3_object.test.key
-      object_version = aws_s3_object.test.version_id
-    }
+s3 {
+ bucket_arn= aws_s3_bucket.test.arn
+ file_key  = aws_s3_object.test.key
+ object_version = aws_s3_object.test.version_id
+}
   }
 }
 `, rName))

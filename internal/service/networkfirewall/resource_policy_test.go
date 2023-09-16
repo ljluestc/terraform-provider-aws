@@ -35,7 +35,7 @@ func TestAccNetworkFirewallResourcePolicy_basic(t *testing.T) {
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
@@ -49,8 +49,8 @@ func TestAccNetworkFirewallResourcePolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -63,7 +63,7 @@ func TestAccNetworkFirewallResourcePolicy_ignoreEquivalent(t *testing.T) {
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
@@ -93,7 +93,7 @@ func TestAccNetworkFirewallResourcePolicy_ruleGroup(t *testing.T) {
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
@@ -115,8 +115,8 @@ func TestAccNetworkFirewallResourcePolicy_ruleGroup(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -129,7 +129,7 @@ func TestAccNetworkFirewallResourcePolicy_disappears(t *testing.T) {
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
@@ -152,7 +152,7 @@ func TestAccNetworkFirewallResourcePolicy_Disappears_firewallPolicy(t *testing.T
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
@@ -175,7 +175,7 @@ func TestAccNetworkFirewallResourcePolicy_Disappears_ruleGroup(t *testing.T) {
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourcePolicyDestroy(ctx),
@@ -250,8 +250,8 @@ data "aws_caller_identity" "current" {}
 resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 }
 `, rName)
@@ -264,20 +264,20 @@ resource "aws_networkfirewall_resource_policy" "test" {
   resource_arn = aws_networkfirewall_firewall_policy.test.arn
   # policy's Action element must include all of the following operations
   policy = jsonencode({
-    Statement = [{
-      Action = [
-        "network-firewall:CreateFirewall",
-        "network-firewall:UpdateFirewall",
-        "network-firewall:AssociateFirewallPolicy",
-        "network-firewall:ListFirewallPolicies",
-      ]
-      Effect   = "Allow"
-      Resource = aws_networkfirewall_firewall_policy.test.arn
-      Principal = {
-        AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+ Action = [
+   "network-firewall:CreateFirewall",
+   "network-firewall:UpdateFirewall",
+   "network-firewall:AssociateFirewallPolicy",
+   "network-firewall:ListFirewallPolicies",
+ ]
+ Effect   = "Allow"
+ Resource = aws_networkfirewall_firewall_policy.test.arn
+ Principal = {
+   AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ }
+}]
+Version = "2012-10-17"
   })
 }
 `)
@@ -290,20 +290,20 @@ resource "aws_networkfirewall_resource_policy" "test" {
   resource_arn = aws_networkfirewall_firewall_policy.test.arn
   # policy's Action element must include all of the following operations
   policy = jsonencode({
-    Statement = [{
-      Action = [
-        "network-firewall:UpdateFirewall",
-        "network-firewall:AssociateFirewallPolicy",
-        "network-firewall:ListFirewallPolicies",
-        "network-firewall:CreateFirewall",
-      ]
-      Effect   = "Allow"
-      Resource = aws_networkfirewall_firewall_policy.test.arn
-      Principal = {
-        AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+ Action = [
+   "network-firewall:UpdateFirewall",
+   "network-firewall:AssociateFirewallPolicy",
+   "network-firewall:ListFirewallPolicies",
+   "network-firewall:CreateFirewall",
+ ]
+ Effect   = "Allow"
+ Resource = aws_networkfirewall_firewall_policy.test.arn
+ Principal = {
+   AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ }
+}]
+Version = "2012-10-17"
   })
 }
 `)
@@ -317,16 +317,16 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %q
-  type     = "STATEFUL"
+  name= %q
+  type= "STATEFUL"
   rule_group {
-    rules_source {
-      rules_source_list {
-        generated_rules_type = "ALLOWLIST"
-        target_types         = ["HTTP_HOST"]
-        targets = ["test.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = "ALLOWLIST"
+   target_types= ["HTTP_HOST"]
+   targets = ["test.example.com"]
+ }
+}
   }
 }
 `, rName)
@@ -339,19 +339,19 @@ resource "aws_networkfirewall_resource_policy" "test" {
   resource_arn = aws_networkfirewall_rule_group.test.arn
   # policy's Action element must include all of the following operations
   policy = jsonencode({
-    Statement = [{
-      Action = [
-        "network-firewall:CreateFirewallPolicy",
-        "network-firewall:UpdateFirewallPolicy",
-        "network-firewall:ListRuleGroups"
-      ]
-      Effect   = "Allow"
-      Resource = aws_networkfirewall_rule_group.test.arn
-      Principal = {
-        AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+ Action = [
+   "network-firewall:CreateFirewallPolicy",
+   "network-firewall:UpdateFirewallPolicy",
+   "network-firewall:ListRuleGroups"
+ ]
+ Effect   = "Allow"
+ Resource = aws_networkfirewall_rule_group.test.arn
+ Principal = {
+   AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ }
+}]
+Version = "2012-10-17"
   })
 }
 `)
@@ -364,19 +364,19 @@ resource "aws_networkfirewall_resource_policy" "test" {
   resource_arn = aws_networkfirewall_rule_group.test.arn
   # policy's Action element must include all of the following operations
   policy = jsonencode({
-    Statement = [{
-      Action = [
-        "network-firewall:UpdateFirewallPolicy",
-        "network-firewall:ListRuleGroups",
-        "network-firewall:CreateFirewallPolicy",
-      ]
-      Effect   = "Allow"
-      Resource = aws_networkfirewall_rule_group.test.arn
-      Principal = {
-        AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+ Action = [
+   "network-firewall:UpdateFirewallPolicy",
+   "network-firewall:ListRuleGroups",
+   "network-firewall:CreateFirewallPolicy",
+ ]
+ Effect   = "Allow"
+ Resource = aws_networkfirewall_rule_group.test.arn
+ Principal = {
+   AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ }
+}]
+Version = "2012-10-17"
   })
 }
 `)

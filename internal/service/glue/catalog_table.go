@@ -53,7 +53,7 @@ func ResourceCatalogTable() *schema.Resource {
 				Required: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 2048),
 			},
@@ -81,17 +81,17 @@ func ResourceCatalogTable() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"comment": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 255),
 						},
 						"name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 131072),
 						},
@@ -99,7 +99,7 @@ func ResourceCatalogTable() *schema.Resource {
 				},
 			},
 			"retention": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntAtLeast(0),
 			},
@@ -113,7 +113,7 @@ func ResourceCatalogTable() *schema.Resource {
 							Type:     schema.TypeList,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringLenBetween(1, 255),
 							},
 						},
@@ -124,12 +124,12 @@ func ResourceCatalogTable() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"comment": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(0, 255),
 									},
 									"name": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(1, 255),
 									},
@@ -139,7 +139,7 @@ func ResourceCatalogTable() *schema.Resource {
 										Elem:     &schema.Schema{Type: schema.TypeString},
 									},
 									"type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(0, 131072),
 									},
@@ -178,7 +178,7 @@ func ResourceCatalogTable() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 255),
 									},
@@ -188,7 +188,7 @@ func ResourceCatalogTable() *schema.Resource {
 										Elem:     &schema.Schema{Type: schema.TypeString},
 									},
 									"serialization_library": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringIsNotEmpty,
 									},
@@ -208,18 +208,18 @@ func ResourceCatalogTable() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"schema_arn": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: verify.ValidARN,
 													ExactlyOneOf: []string{"storage_descriptor.0.schema_reference.0.schema_id.0.schema_arn", "storage_descriptor.0.schema_reference.0.schema_id.0.schema_name"},
 												},
 												"schema_name": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ExactlyOneOf: []string{"storage_descriptor.0.schema_reference.0.schema_id.0.schema_arn", "storage_descriptor.0.schema_reference.0.schema_id.0.schema_name"},
 												},
 												"registry_name": {
-													Type:          schema.TypeString,
+													Type: schema.TypeString,
 													Optional:      true,
 													ConflictsWith: []string{"storage_descriptor.0.schema_reference.0.schema_id.0.schema_arn"},
 												},
@@ -227,12 +227,12 @@ func ResourceCatalogTable() *schema.Resource {
 										},
 									},
 									"schema_version_id": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ExactlyOneOf: []string{"storage_descriptor.0.schema_reference.0.schema_version_id", "storage_descriptor.0.schema_reference.0.schema_id"},
 									},
 									"schema_version_number": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Required:     true,
 										ValidateFunc: validation.IntBetween(1, 100000),
 									},
@@ -249,7 +249,7 @@ func ResourceCatalogTable() *schema.Resource {
 										Type:     schema.TypeList,
 										Optional: true,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 255),
 										},
 									},
@@ -272,12 +272,12 @@ func ResourceCatalogTable() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"column": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(1, 255),
 									},
 									"sort_order": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Required:     true,
 										ValidateFunc: validation.IntInSlice([]int{0, 1}),
 									},
@@ -308,12 +308,12 @@ func ResourceCatalogTable() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"metadata_operation": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringInSlice([]string{"CREATE"}, false),
 									},
 									"version": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 255),
 									},
@@ -346,12 +346,12 @@ func ResourceCatalogTable() *schema.Resource {
 				},
 			},
 			"view_original_text": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 409600),
 			},
 			"view_expanded_text": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 409600),
 			},
@@ -364,7 +364,7 @@ func ResourceCatalogTable() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"index_name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
@@ -401,10 +401,10 @@ func resourceCatalogTableCreate(ctx context.Context, d *schema.ResourceData, met
 	name := d.Get("name").(string)
 
 	input := &glue.CreateTableInput{
-		CatalogId:            aws.String(catalogID),
-		DatabaseName:         aws.String(dbName),
+		CatalogId:   aws.String(catalogID),
+		DatabaseName:aws.String(dbName),
 		OpenTableFormatInput: expandOpenTableFormat(d),
-		TableInput:           expandTableInput(d),
+		TableInput:  expandTableInput(d),
 		PartitionIndexes:     expandTablePartitionIndexes(d.Get("partition_index").([]interface{})),
 	}
 
@@ -553,7 +553,7 @@ func resourceCatalogTableDelete(ctx context.Context, d *schema.ResourceData, met
 	log.Printf("[DEBUG] Deleting Glue Catalog Table: %s", d.Id())
 	_, err = conn.DeleteTableWithContext(ctx, &glue.DeleteTableInput{
 		CatalogId:    aws.String(catalogID),
-		Name:         aws.String(name),
+		Name:aws.String(name),
 		DatabaseName: aws.String(dbName),
 	})
 
@@ -572,7 +572,7 @@ func FindTableByName(ctx context.Context, conn *glue.Glue, catalogID, dbName, na
 	input := &glue.GetTableInput{
 		CatalogId:    aws.String(catalogID),
 		DatabaseName: aws.String(dbName),
-		Name:         aws.String(name),
+		Name:aws.String(name),
 	}
 
 	output, err := conn.GetTableWithContext(ctx, input)

@@ -17,7 +17,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfmq "github.com/hashicorp/terraform-provider-aws/internal/service/mq"
 )
-
 func TestAccMQConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -47,8 +46,8 @@ func TestAccMQConfiguration_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -66,7 +65,6 @@ func TestAccMQConfiguration_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccMQConfiguration_withData(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -95,14 +93,13 @@ func TestAccMQConfiguration_withData(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccMQConfiguration_withLdapData(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -132,14 +129,13 @@ func TestAccMQConfiguration_withLdapData(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccMQConfiguration_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -164,8 +160,8 @@ func TestAccMQConfiguration_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -188,7 +184,6 @@ func TestAccMQConfiguration_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckConfigurationExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -207,14 +202,13 @@ func testAccCheckConfigurationExists(ctx context.Context, n string) resource.Tes
 		return err
 	}
 }
-
 func testAccConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
   description= "TfAccTest MQ Configuration"
-  name     = %[1]q
+  name= %[1]q
   engine_type= "ActiveMQ"
-  engine_version          = "5.15.0"
+  engine_version"5.15.0"
   authentication_strategy = "simple"
 
   data = <<DATA
@@ -225,13 +219,12 @@ DATA
 }
 `, rName)
 }
-
 func testAccConfigurationConfig_descriptionUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
-  description    = "TfAccTest MQ Configuration Updated"
-  name           = %[1]q
-  engine_type    = "ActiveMQ"
+  description = "TfAccTest MQ Configuration Updated"
+  name %[1]q
+  engine_type = "ActiveMQ"
   engine_version = "5.15.0"
 
   data = <<DATA
@@ -242,81 +235,78 @@ DATA
 }
 `, rName)
 }
-
 func testAccConfigurationConfig_data(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
-  description    = "TfAccTest MQ Configuration"
-  name           = %[1]q
-  engine_type    = "ActiveMQ"
+  description = "TfAccTest MQ Configuration"
+  name %[1]q
+  engine_type = "ActiveMQ"
   engine_version = "5.15.0"
 
   data = <<DATA
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <broker xmlns="http://activemq.apache.org/schema/core">
   <plugins>
-    <authorizationPlugin>
-      <map>
-        <authorizationMap>
-          <authorizationEntries>
-            <authorizationEntry admin="guests,users" queue="GUEST.&gt;" read="guests" write="guests,users"/>
-            <authorizationEntry admin="guests,users" read="guests,users" topic="ActiveMQ.Advisory.&gt;" write="guests,users"/>
-          </authorizationEntries>
-          <tempDestinationAuthorizationEntry>
-            <tempDestinationAuthorizationEntry admin="tempDestinationAdmins" read="tempDestinationAdmins" write="tempDestinationAdmins"/>
-          </tempDestinationAuthorizationEntry>
-        </authorizationMap>
-      </map>
-    </authorizationPlugin>
-    <forcePersistencyModeBrokerPlugin persistenceFlag="true"/>
-    <statisticsBrokerPlugin/>
-    <timeStampingBrokerPlugin ttlCeiling="86400000" zeroExpirationOverride="86400000"/>
+ <authorizationPlugin>
+
+horizationMap>
+uthorizationEntries>
+onEntry admin="guests,users" queue="GUEST.&gt;" read="guests" write="guests,users"/>
+onEntry admin="guests,users" read="guests,users" topic="ActiveMQ.Advisory.&gt;" write="guests,users"/>
+authorizationEntries>
+empDestinationAuthorizationEntry>
+tionAuthorizationEntry admin="tempDestinationAdmins" read="tempDestinationAdmins" write="tempDestinationAdmins"/>
+tempDestinationAuthorizationEntry>
+thorizationMap>
+
+ </authorizationPlugin>
+ <forcePersistencyModeBrokerPlugin persistenceFlag="true"/>
+ <statisticsBrokerPlugin/>
+ <timeStampingBrokerPlugin ttlCeiling="86400000" zeroExpirationOverride="86400000"/>
   </plugins>
 </broker>
 DATA
 }
 `, rName)
 }
-
 func testAccConfigurationConfig_ldapData(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
   description= "TfAccTest MQ Configuration"
-  name     = %[1]q
+  name= %[1]q
   engine_type= "ActiveMQ"
-  engine_version          = "5.15.0"
+  engine_version"5.15.0"
   authentication_strategy = "ldap"
 
   data = <<DATA
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <broker xmlns="http://activemq.apache.org/schema/core">
   <plugins>
-    <authorizationPlugin>
-      <map>
-        <cachedLDAPAuthorizationMap legacyGroupMapping="false" queueSearchBase="ou=Queue,ou=Destination,ou=ActiveMQ,dc=example,dc=org" refreshInterval="0" tempSearchBase="ou=Temp,ou=Destination,ou=ActiveMQ,dc=example,dc=org" topicSearchBase="ou=Topic,ou=Destination,ou=ActiveMQ,dc=example,dc=org"/>
-      </map>
-    </authorizationPlugin>
-    <forcePersistencyModeBrokerPlugin persistenceFlag="true"/>
-    <statisticsBrokerPlugin/>
-    <timeStampingBrokerPlugin ttlCeiling="86400000" zeroExpirationOverride="86400000"/>
+ <authorizationPlugin>
+
+hedLDAPAuthorizationMap legacyGroupMapping="false" queueSearchBase="ou=Queue,ou=Destination,ou=ActiveMQ,dc=example,dc=org" refreshInterval="0" tempSearchBase="ou=Temp,ou=Destination,ou=ActiveMQ,dc=example,dc=org" topicSearchBase="ou=Topic,ou=Destination,ou=ActiveMQ,dc=example,dc=org"/>
+
+ </authorizationPlugin>
+ <forcePersistencyModeBrokerPlugin persistenceFlag="true"/>
+ <statisticsBrokerPlugin/>
+ <timeStampingBrokerPlugin ttlCeiling="86400000" zeroExpirationOverride="86400000"/>
   </plugins>
 </broker>
 DATA
 }
 `, rName)
 }
-
 func testAccConfigurationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
   description= "TfAccTest MQ Configuration"
-  name     = %[1]q
+  name= %[1]q
   engine_type= "ActiveMQ"
-  engine_version          = "5.15.0"
+  engine_version"5.15.0"
   authentication_strategy = "simple"
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 
   data = <<DATA
@@ -327,19 +317,18 @@ DATA
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccConfigurationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
   description= "TfAccTest MQ Configuration"
-  name     = %[1]q
+  name= %[1]q
   engine_type= "ActiveMQ"
-  engine_version          = "5.15.0"
+  engine_version"5.15.0"
   authentication_strategy = "simple"
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 
   data = <<DATA

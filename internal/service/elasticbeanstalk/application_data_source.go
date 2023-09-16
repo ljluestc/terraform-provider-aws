@@ -57,7 +57,6 @@ func DataSourceApplication() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)

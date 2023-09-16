@@ -396,14 +396,14 @@ Currently failing when enabling oplocks:
 
         Error: error updating Storage Gateway SMB File Share (arn:aws:storagegateway:us-west-2:123456789012:share/share-86C5A6E3): InvalidGatewayRequestException: The specified gateway is out of date.
         {
-          RespMetadata: {
-            StatusCode: 400,
-            RequestID: "56a23d7f-b8c3-420a-ba06-a4fde82b4092"
-          },
-          Error_: {
-            ErrorCode: "OutdatedGateway"
-          },
-          Message_: "The specified gateway is out of date."
+ RespMetadata: {
+   StatusCode: 400,
+   RequestID: "56a23d7f-b8c3-420a-ba06-a4fde82b4092"
+ },
+ Error_: {
+   ErrorCode: "OutdatedGateway"
+ },
+ Message_: "The specified gateway is out of date."
         }
 
 func TestAccStorageGatewaySMBFileShare_opLocksEnabled(t *testing.T) {
@@ -1118,7 +1118,7 @@ resource "aws_storagegateway_smb_file_share" "test" {
 func testAccSMBFileShareConfig_accessBasedEnumeration(rName string, enabled bool) string {
 	return acctest.ConfigCompose(testAcc_SMBFileShare_GuestAccessBase(rName), fmt.Sprintf(`
 resource "aws_storagegateway_smb_file_share" "test" {
-  authentication           = "GuestAccess"
+  authentication  = "GuestAccess"
   gateway_arn = aws_storagegateway_gateway.test.arn
   location_arn= aws_s3_bucket.test.arn
   role_arn  = aws_iam_role.test.arn
@@ -1131,9 +1131,9 @@ func testAccSMBFileShareConfig_notificationPolicy(rName string) string {
 	return acctest.ConfigCompose(testAcc_SMBFileShare_GuestAccessBase(rName), `
 resource "aws_storagegateway_smb_file_share" "test" {
   authentication      = "GuestAccess"
-  gateway_arn         = aws_storagegateway_gateway.test.arn
+  gateway_arn= aws_storagegateway_gateway.test.arn
   location_arn        = aws_s3_bucket.test.arn
-  role_arn            = aws_iam_role.test.arn
+  role_arn   = aws_iam_role.test.arn
   notification_policy = "{\"Upload\": {\"SettlingTimeInSeconds\": 60}}"
 }
 `)
@@ -1145,8 +1145,8 @@ resource "aws_storagegateway_smb_file_share" "test" {
   # Use GuestAccess to simplify testing
   authentication        = "GuestAccess"
   default_storage_class = %q
-  gateway_arn           = aws_storagegateway_gateway.test.arn
-  location_arn          = aws_s3_bucket.test.arn
+  gateway_arn  = aws_storagegateway_gateway.test.arn
+  location_arn = aws_s3_bucket.test.arn
   role_arn = aws_iam_role.test.arn
 }
 `, defaultStorageClass))
@@ -1189,10 +1189,10 @@ func testAccSMBFileShareConfig_guessMIMETypeEnabled(rName string, guessMimeTypeE
 	return acctest.ConfigCompose(testAcc_SMBFileShare_GuestAccessBase(rName), fmt.Sprintf(`
 resource "aws_storagegateway_smb_file_share" "test" {
   # Use GuestAccess to simplify testing
-  authentication          = "GuestAccess"
+  authentication = "GuestAccess"
   gateway_arn= aws_storagegateway_gateway.test.arn
   guess_mime_type_enabled = %t
-  location_arn            = aws_s3_bucket.test.arn
+  location_arn   = aws_s3_bucket.test.arn
   role_arn = aws_iam_role.test.arn
 }
 `, guessMimeTypeEnabled))
@@ -1221,7 +1221,7 @@ resource "aws_storagegateway_smb_file_share" "test" {
   gateway_arn       = aws_storagegateway_gateway.test.arn
   invalid_user_list = [%q]
   location_arn      = aws_s3_bucket.test.arn
-  role_arn          = aws_iam_role.test.arn
+  role_arn = aws_iam_role.test.arn
 }
 `, invalidUser1))
 }
@@ -1234,7 +1234,7 @@ resource "aws_storagegateway_smb_file_share" "test" {
   gateway_arn       = aws_storagegateway_gateway.test.arn
   invalid_user_list = [%q, %q]
   location_arn      = aws_s3_bucket.test.arn
-  role_arn          = aws_iam_role.test.arn
+  role_arn = aws_iam_role.test.arn
 }
 `, invalidUser1, invalidUser2))
 }
@@ -1439,8 +1439,8 @@ resource "aws_cloudwatch_log_group" "test" {
 resource "aws_storagegateway_smb_file_share" "test" {
   # Use GuestAccess to simplify testing
   authentication        = "GuestAccess"
-  gateway_arn           = aws_storagegateway_gateway.test.arn
-  location_arn          = aws_s3_bucket.test.arn
+  gateway_arn  = aws_storagegateway_gateway.test.arn
+  location_arn = aws_s3_bucket.test.arn
   role_arn = aws_iam_role.test.arn
   audit_destination_arn = aws_cloudwatch_log_group.test.arn
 }
@@ -1460,8 +1460,8 @@ resource "aws_cloudwatch_log_group" "test2" {
 resource "aws_storagegateway_smb_file_share" "test" {
   # Use GuestAccess to simplify testing
   authentication        = "GuestAccess"
-  gateway_arn           = aws_storagegateway_gateway.test.arn
-  location_arn          = aws_s3_bucket.test.arn
+  gateway_arn  = aws_storagegateway_gateway.test.arn
+  location_arn = aws_s3_bucket.test.arn
   role_arn = aws_iam_role.test.arn
   audit_destination_arn = aws_cloudwatch_log_group.test2.arn
 }
@@ -1491,7 +1491,7 @@ resource "aws_storagegateway_smb_file_share" "test" {
   authentication   = "GuestAccess"
   gateway_arn      = aws_storagegateway_gateway.test.arn
   location_arn     = aws_s3_bucket.test.arn
-  role_arn         = aws_iam_role.test.arn
+  role_arn= aws_iam_role.test.arn
   case_sensitivity = %[1]q
 }
 `, option))

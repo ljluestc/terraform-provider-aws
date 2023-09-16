@@ -27,7 +27,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_qldb_stream.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
 ErrorCheck:  acctest.ErrorCheck(t, names.QLDBEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStreamDestroy(ctx),
@@ -59,7 +59,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_qldb_stream.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
 ErrorCheck:  acctest.ErrorCheck(t, names.QLDBEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStreamDestroy(ctx),
@@ -83,7 +83,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_qldb_stream.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
 ErrorCheck:  acctest.ErrorCheck(t, names.QLDBEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStreamDestroy(ctx),
@@ -124,7 +124,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_qldb_stream.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
 ErrorCheck:  acctest.ErrorCheck(t, names.QLDBEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckStreamDestroy(ctx),
@@ -199,13 +199,13 @@ func testAccStreamBaseConfig(rName string) string {
 return fmt.Sprintf(`
 resource "aws_qldb_ledger" "test" {
   name = %[1]q
-  permissions_mode    = "ALLOW_ALL"
+  permissions_mode= "ALLOW_ALL"
   deletion_protection = false
 }
 
 resource "aws_kinesis_stream" "test" {
   name= %[1]q
-  shard_count      = 1
+  shard_count  = 1
   retention_period = 24
 }
 
@@ -213,31 +213,31 @@ resource "aws_iam_role" "test" {
   name = %[1]q
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Sid    = ""
-      Principal = {
-        Service = "qldb.amazonaws.com"
-      }
-    }]
+Version = "2012-10-17"
+Statement = [{
+  Action = "sts:AssumeRole"
+  Effect = "Allow"
+  Sid= ""
+  Principal = {
+Service = "qldb.amazonaws.com"
+  }
+}]
   })
 
   inline_policy {
-    name = "test-qldb-policy"
-    policy = jsonencode({
-      Version = "2012-10-17"
-      Statement = [{
-        Action = [
-          "kinesis:PutRecord*",
-          "kinesis:DescribeStream",
-          "kinesis:ListShards",
-        ]
-        Effect   = "Allow"
-        Resource = aws_kinesis_stream.test.arn
-      }]
-    })
+name = "test-qldb-policy"
+policy = jsonencode({
+  Version = "2012-10-17"
+  Statement = [{
+Action = [
+ "kinesis:PutRecord*",
+ "kinesis:DescribeStream",
+ "kinesis:ListShards",
+]
+Effect   = "Allow"
+Resource = aws_kinesis_stream.test.arn
+  }]
+})
   }
 }
 `, rName)
@@ -246,13 +246,13 @@ resource "aws_iam_role" "test" {
 func testAccStreamConfig_basic(rName string) string {
 return acctest.ConfigCompose(testAccStreamBaseConfig(rName), fmt.Sprintf(`
 resource "aws_qldb_stream" "test" {
-  stream_name          = %[1]q
-  ledger_name          = aws_qldb_ledger.test.id
+  stream_name = %[1]q
+  ledger_name = aws_qldb_ledger.test.id
   inclusive_start_time = "2021-01-01T00:00:00Z"
   role_arn= aws_iam_role.test.arn
 
   kinesis_configuration {
-    stream_arn = aws_kinesis_stream.test.arn
+stream_arn = aws_kinesis_stream.test.arn
   }
 }
 `, rName))
@@ -261,15 +261,15 @@ resource "aws_qldb_stream" "test" {
 func testAccStreamConfig_endTime(rName string) string {
 return acctest.ConfigCompose(testAccStreamBaseConfig(rName), fmt.Sprintf(`
 resource "aws_qldb_stream" "test" {
-  stream_name          = %[1]q
-  ledger_name          = aws_qldb_ledger.test.id
+  stream_name = %[1]q
+  ledger_name = aws_qldb_ledger.test.id
   exclusive_end_time   = "2021-12-31T23:59:59Z"
   inclusive_start_time = "2021-01-01T00:00:00Z"
   role_arn= aws_iam_role.test.arn
 
   kinesis_configuration {
-    aggregation_enabled = false
-    stream_arn          = aws_kinesis_stream.test.arn
+aggregation_enabled = false
+stream_arn = aws_kinesis_stream.test.arn
   }
 }
 `, rName))
@@ -278,17 +278,17 @@ resource "aws_qldb_stream" "test" {
 func testAccStreamConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return acctest.ConfigCompose(testAccStreamBaseConfig(rName), fmt.Sprintf(`
 resource "aws_qldb_stream" "test" {
-  stream_name          = %[1]q
-  ledger_name          = aws_qldb_ledger.test.id
+  stream_name = %[1]q
+  ledger_name = aws_qldb_ledger.test.id
   inclusive_start_time = "2021-01-01T00:00:00Z"
   role_arn= aws_iam_role.test.arn
 
   kinesis_configuration {
-    stream_arn = aws_kinesis_stream.test.arn
+stream_arn = aws_kinesis_stream.test.arn
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -297,18 +297,18 @@ resource "aws_qldb_stream" "test" {
 func testAccStreamConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 return acctest.ConfigCompose(testAccStreamBaseConfig(rName), fmt.Sprintf(`
 resource "aws_qldb_stream" "test" {
-  stream_name          = %[1]q
-  ledger_name          = aws_qldb_ledger.test.id
+  stream_name = %[1]q
+  ledger_name = aws_qldb_ledger.test.id
   inclusive_start_time = "2021-01-01T00:00:00Z"
   role_arn= aws_iam_role.test.arn
 
   kinesis_configuration {
-    stream_arn = aws_kinesis_stream.test.arn
+stream_arn = aws_kinesis_stream.test.arn
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

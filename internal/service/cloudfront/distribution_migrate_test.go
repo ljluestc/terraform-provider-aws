@@ -17,7 +17,7 @@ func TestDistributionMigrateState(t *testing.T) {
 		StateVersion int
 		Attributes   map[string]string
 		Expected     map[string]string
-		Meta         interface{}
+		Metainterface{}
 	}{
 		"v0_to_v1": {
 			StateVersion: 0,
@@ -32,7 +32,7 @@ func TestDistributionMigrateState(t *testing.T) {
 
 	for testName, testCase := range testCases {
 		instanceState := &terraform.InstanceState{
-			ID:         "some_id",
+			ID:"some_id",
 			Attributes: testCase.Attributes,
 		}
 

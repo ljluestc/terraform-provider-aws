@@ -1,33 +1,21 @@
 // Copyright 2009 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Solaris system calls.
+// license that can be found in the LICENSE file.// Solaris system calls.
 // This file is compiled as ordinary Go code,
 // but it is also input to mksyscall,
 // which parses the //sys lines and generates system call stubs.
 // Note that sometimes we use a lowercase //sys name and wrap
 // it in our own nicer implementation, either here or in
-// syscall_solaris.go or syscall_unix.go.
-
-package unix
-
-import (
+// syscall_solaris.go or syscall_unix.go.package uniximport (
 	"fmt"
 	"os"
 	"runtime"
 	"sync"
 	"syscall"
 	"unsafe"
-)
-
-// Implemented in runtime/syscall_solaris.go.
+)// Implemented in runtime/syscall_solaris.go.
 type syscallFunc uintptr
-
-func rawSysvicall6(trap, nargs, a1, a2, a3, a4, a5, a6 uintptr) (r1, r2 uintptr, err syscall.Errno)
-func sysvicall6(trap, nargs, a1, a2, a3, a4, a5, a6 uintptr) (r1, r2 uintptr, err syscall.Errno)
-
-// SockaddrDatalink implements the Sockaddr interface for AF_LINK type sockets.
+ rawSysvicall6(trap, nargs, a1, a2, a3, a4, a5, a6 uintptr) (r1, r2 uintptr, err syscall.Errno) sysvicall6(trap, nargs, a1, a2, a3, a4, a5, a6 uintptr) (r1, r2 uintptr, err syscall.Errno)// SockaddrDatalink implements the Sockaddr interface for AF_LINK type sockets.
 type SockaddrDatalink struct {
 	Family uint16
 	Index  uint16
@@ -38,26 +26,20 @@ type SockaddrDatalink struct {
 	Data   [244]int8
 	raw    RawSockaddrDatalink
 }
-
-func direntIno(buf []byte) (uint64, bool) {
+ direntIno(buf []byte) (uint64, bool) {
 	return readInt(buf, unsafe.Offsetof(Dirent{}.Ino), unsafe.Sizeof(Dirent{}.Ino))
 }
-
-func direntReclen(buf []byte) (uint64, bool) {
+ direntReclen(buf []byte) (uint64, bool) {
 	return readInt(buf, unsafe.Offsetof(Dirent{}.Reclen), unsafe.Sizeof(Dirent{}.Reclen))
 }
-
-func direntNamlen(buf []byte) (uint64, bool) {
+ direntNamlen(buf []byte) (uint64, bool) {
 	reclen, ok := direntReclen(buf)
 	if !ok {
 		return 0, false
 	}
 	return reclen - uint64(unsafe.Offsetof(Dirent{}.Name)), true
-}
-
-//sysnb	pipe(p *[2]_C_int) (n int, err error)
-
-func Pipe(p []int) (err error) {
+}//sysnb	pipe(p *[2]_C_int) (n int, err error)
+ Pipe(p []int) (err error) {
 	if len(p) != 2 {
 		return EINVAL
 	}
@@ -71,11 +53,8 @@ func Pipe(p []int) (err error) {
 		p[1] = int(pp[1])
 	}
 	return nil
-}
-
-//sysnb	pipe2(p *[2]_C_int, flags int) (err error)
-
-func Pipe2(p []int, flags int) error {
+}//sysnb	pipe2(p *[2]_C_int, flags int) (err error)
+ Pipe2(p []int, flags int) error {
 	if len(p) != 2 {
 		return EINVAL
 	}
@@ -87,8 +66,7 @@ func Pipe2(p []int, flags int) error {
 	}
 	return err
 }
-
-func (sa *SockaddrInet4) sockaddr() (unsafe.Pointer, _Socklen, error) {
+ (sa *SockaddrInet4) sockaddr() (unsafe.Pointer, _Socklen, error) {
 	if sa.Port < 0 || sa.Port > 0xFFFF {
 		return nil, 0, EINVAL
 	}
@@ -99,8 +77,7 @@ func (sa *SockaddrInet4) sockaddr() (unsafe.Pointer, _Socklen, error) {
 	sa.raw.Addr = sa.Addr
 	return unsafe.Pointer(&sa.raw), SizeofSockaddrInet4, nil
 }
-
-func (sa *SockaddrInet6) sockaddr() (unsafe.Pointer, _Socklen, error) {
+ (sa *SockaddrInet6) sockaddr() (unsafe.Pointer, _Socklen, error) {
 	if sa.Port < 0 || sa.Port > 0xFFFF {
 		return nil, 0, EINVAL
 	}
@@ -112,8 +89,7 @@ func (sa *SockaddrInet6) sockaddr() (unsafe.Pointer, _Socklen, error) {
 	sa.raw.Addr = sa.Addr
 	return unsafe.Pointer(&sa.raw), SizeofSockaddrInet6, nil
 }
-
-func (sa *SockaddrUnix) sockaddr() (unsafe.Pointer, _Socklen, error) {
+ (sa *SockaddrUnix) sockaddr() (unsafe.Pointer, _Socklen, error) {
 	name := sa.Name
 	n := len(name)
 	if n >= len(sa.raw.Path) {
@@ -132,25 +108,17 @@ func (sa *SockaddrUnix) sockaddr() (unsafe.Pointer, _Socklen, error) {
 		sa.raw.Path[0] = 0
 		// Don't count trailing NUL for abstract address.
 		sl--
-	}
-
-	return unsafe.Pointer(&sa.raw), sl, nil
-}
-
-//sys	getsockname(fd int, rsa *RawSockaddrAny, addrlen *_Socklen) (err error) = libsocket.getsockname
-
-func Getsockname(fd int) (sa Sockaddr, err error) {
+	}	return unsafe.Pointer(&sa.raw), sl, nil
+}//sys	getsockname(fd int, rsa *RawSockaddrAny, addrlen *_Socklen) (err error) = libsocket.getsockname
+ Getsockname(fd int) (sa Sockaddr, err error) {
 	var rsa RawSockaddrAny
 	var len _Socklen = SizeofSockaddrAny
 	if err = getsockname(fd, &rsa, &len); err != nil {
 		return
 	}
 	return anyToSockaddr(fd, &rsa)
-}
-
-// GetsockoptString returns the string value of the socket option opt for the
-// socket associated with fd at the given socket level.
-func GetsockoptString(fd, level, opt int) (string, error) {
+}// GetsockoptString returns the string value of the socket option opt for the
+// socket associated with fd at the given socket level. GetsockoptString(fd, level, opt int) (string, error) {
 	buf := make([]byte, 256)
 	vallen := _Socklen(len(buf))
 	err := getsockopt(fd, level, opt, unsafe.Pointer(&buf[0]), &vallen)
@@ -158,13 +126,8 @@ func GetsockoptString(fd, level, opt int) (string, error) {
 		return "", err
 	}
 	return string(buf[:vallen-1]), nil
-}
-
-const ImplementsGetwd = true
-
-//sys	Getcwd(buf []byte) (n int, err error)
-
-func Getwd() (wd string, err error) {
+}const ImplementsGetwd = true//sys	Getcwd(buf []byte) (n int, err error)
+ Getwd() (wd string, err error) {
 	var buf [PathMax]byte
 	// Getcwd will return an error if it failed for any reason.
 	_, err = Getcwd(buf[0:])
@@ -176,16 +139,11 @@ func Getwd() (wd string, err error) {
 		return "", EINVAL
 	}
 	return string(buf[:n]), nil
-}
-
-/*
+}/*
  * Wrapped
- */
-
-//sysnb	getgroups(ngid int, gid *_Gid_t) (n int, err error)
+ *///sysnb	getgroups(ngid int, gid *_Gid_t) (n int, err error)
 //sysnb	setgroups(ngid int, gid *_Gid_t) (err error)
-
-func Getgroups() (gids []int, err error) {
+ Getgroups() (gids []int, err error) {
 	n, err := getgroups(0, nil)
 	// Check for error and sanity check group count. Newer versions of
 	// Solaris allow up to 1024 (NGROUPS_MAX).
@@ -196,9 +154,7 @@ func Getgroups() (gids []int, err error) {
 		return nil, EINVAL
 	} else if n == 0 {
 		return nil, nil
-	}
-
-	a := make([]_Gid_t, n)
+	}	a := make([]_Gid_t, n)
 	n, err = getgroups(n, &a[0])
 	if n == -1 {
 		return nil, err
@@ -209,80 +165,54 @@ func Getgroups() (gids []int, err error) {
 	}
 	return
 }
-
-func Setgroups(gids []int) (err error) {
+ Setgroups(gids []int) (err error) {
 	if len(gids) == 0 {
 		return setgroups(0, nil)
-	}
-
-	a := make([]_Gid_t, len(gids))
+	}	a := make([]_Gid_t, len(gids))
 	for i, v := range gids {
 		a[i] = _Gid_t(v)
 	}
 	return setgroups(len(a), &a[0])
-}
-
-// ReadDirent reads directory entries from fd and writes them into buf.
-func ReadDirent(fd int, buf []byte) (n int, err error) {
+}// ReadDirent reads directory entries from fd and writes them into buf. ReadDirent(fd int, buf []byte) (n int, err error) {
 	// Final argument is (basep *uintptr) and the syscall doesn't take nil.
 	// TODO(rsc): Can we use a single global basep for all calls?
 	return Getdents(fd, buf, new(uintptr))
-}
-
-// Wait status is 7 bits at bottom, either 0 (exited),
+}// Wait status is 7 bits at bottom, either 0 (exited),
 // 0x7F (stopped), or a signal number that caused an exit.
 // The 0x80 bit is whether there was a core dump.
 // An extra number (exit code, signal causing a stop)
-// is in the high bits.
-
-type WaitStatus uint32
-
-const (
+// is in the high bits.type WaitStatus uint32const (
 	mask  = 0x7F
 	core  = 0x80
-	shift = 8
-
-	exited  = 0
+	shift = 8	exited  = 0
 	stopped = 0x7F
 )
-
-func (w WaitStatus) Exited() bool { return w&mask == exited }
-
-func (w WaitStatus) ExitStatus() int {
+ (w WaitStatus) Exited() bool { return w&mask == exited }
+ (w WaitStatus) ExitStatus() int {
 	if w&mask != exited {
 		return -1
 	}
 	return int(w >> shift)
 }
-
-func (w WaitStatus) Signaled() bool { return w&mask != stopped && w&mask != 0 }
-
-func (w WaitStatus) Signal() syscall.Signal {
+ (w WaitStatus) Signaled() bool { return w&mask != stopped && w&mask != 0 }
+ (w WaitStatus) Signal() syscall.Signal {
 	sig := syscall.Signal(w & mask)
 	if sig == stopped || sig == 0 {
 		return -1
 	}
 	return sig
 }
-
-func (w WaitStatus) CoreDump() bool { return w.Signaled() && w&core != 0 }
-
-func (w WaitStatus) Stopped() bool { return w&mask == stopped && syscall.Signal(w>>shift) != SIGSTOP }
-
-func (w WaitStatus) Continued() bool { return w&mask == stopped && syscall.Signal(w>>shift) == SIGSTOP }
-
-func (w WaitStatus) StopSignal() syscall.Signal {
+ (w WaitStatus) CoreDump() bool { return w.Signaled() && w&core != 0 }
+ (w WaitStatus) Stopped() bool { return w&mask == stopped && syscall.Signal(w>>shift) != SIGSTOP }
+ (w WaitStatus) Continued() bool { return w&mask == stopped && syscall.Signal(w>>shift) == SIGSTOP }
+ (w WaitStatus) StopSignal() syscall.Signal {
 	if !w.Stopped() {
 		return -1
 	}
 	return syscall.Signal(w>>shift) & 0xFF
 }
-
-func (w WaitStatus) TrapCause() int { return -1 }
-
-//sys	wait4(pid int32, statusp *_C_int, options int, rusage *Rusage) (wpid int32, err error)
-
-func Wait4(pid int, wstatus *WaitStatus, options int, rusage *Rusage) (int, error) {
+ (w WaitStatus) TrapCause() int { return -1 }//sys	wait4(pid int32, statusp *_C_int, options int, rusage *Rusage) (wpid int32, err error)
+ Wait4(pid int, wstatus *WaitStatus, options int, rusage *Rusage) (int, error) {
 	var status _C_int
 	rpid, err := wait4(int32(pid), &status, options, rusage)
 	wpid := int(rpid)
@@ -293,11 +223,8 @@ func Wait4(pid int, wstatus *WaitStatus, options int, rusage *Rusage) (int, erro
 		*wstatus = WaitStatus(status)
 	}
 	return wpid, nil
-}
-
-//sys	gethostname(buf []byte) (n int, err error)
-
-func Gethostname() (name string, err error) {
+}//sys	gethostname(buf []byte) (n int, err error)
+ Gethostname() (name string, err error) {
 	var buf [MaxHostNameLen]byte
 	n, err := gethostname(buf[:])
 	if n != 0 {
@@ -308,11 +235,8 @@ func Gethostname() (name string, err error) {
 		return "", EFAULT
 	}
 	return string(buf[:n]), nil
-}
-
-//sys	utimes(path string, times *[2]Timeval) (err error)
-
-func Utimes(path string, tv []Timeval) (err error) {
+}//sys	utimes(path string, times *[2]Timeval) (err error)
+ Utimes(path string, tv []Timeval) (err error) {
 	if tv == nil {
 		return utimes(path, nil)
 	}
@@ -320,11 +244,8 @@ func Utimes(path string, tv []Timeval) (err error) {
 		return EINVAL
 	}
 	return utimes(path, (*[2]Timeval)(unsafe.Pointer(&tv[0])))
-}
-
-//sys	utimensat(fd int, path string, times *[2]Timespec, flag int) (err error)
-
-func UtimesNano(path string, ts []Timespec) error {
+}//sys	utimensat(fd int, path string, times *[2]Timespec, flag int) (err error)
+ UtimesNano(path string, ts []Timespec) error {
 	if ts == nil {
 		return utimensat(AT_FDCWD, path, nil, 0)
 	}
@@ -333,8 +254,7 @@ func UtimesNano(path string, ts []Timespec) error {
 	}
 	return utimensat(AT_FDCWD, path, (*[2]Timespec)(unsafe.Pointer(&ts[0])), 0)
 }
-
-func UtimesNanoAt(dirfd int, path string, ts []Timespec, flags int) error {
+ UtimesNanoAt(dirfd int, path string, ts []Timespec, flags int) error {
 	if ts == nil {
 		return utimensat(dirfd, path, nil, flags)
 	}
@@ -342,32 +262,21 @@ func UtimesNanoAt(dirfd int, path string, ts []Timespec, flags int) error {
 		return EINVAL
 	}
 	return utimensat(dirfd, path, (*[2]Timespec)(unsafe.Pointer(&ts[0])), flags)
-}
-
-//sys	fcntl(fd int, cmd int, arg int) (val int, err error)
-
-// FcntlInt performs a fcntl syscall on fd with the provided command and argument.
-func FcntlInt(fd uintptr, cmd, arg int) (int, error) {
+}//sys	fcntl(fd int, cmd int, arg int) (val int, err error)// FcntlInt performs a fcntl syscall on fd with the provided command and argument. FcntlInt(fd uintptr, cmd, arg int) (int, error) {
 	valptr, _, errno := sysvicall6(uintptr(unsafe.Pointer(&procfcntl)), 3, uintptr(fd), uintptr(cmd), uintptr(arg), 0, 0, 0)
 	var err error
 	if errno != 0 {
 		err = errno
 	}
 	return int(valptr), err
-}
-
-// FcntlFlock performs a fcntl syscall for the F_GETLK, F_SETLK or F_SETLKW command.
-func FcntlFlock(fd uintptr, cmd int, lk *Flock_t) error {
+}// FcntlFlock performs a fcntl syscall for the F_GETLK, F_SETLK or F_SETLKW command. FcntlFlock(fd uintptr, cmd int, lk *Flock_t) error {
 	_, _, e1 := sysvicall6(uintptr(unsafe.Pointer(&procfcntl)), 3, uintptr(fd), uintptr(cmd), uintptr(unsafe.Pointer(lk)), 0, 0, 0)
 	if e1 != 0 {
 		return e1
 	}
 	return nil
-}
-
-//sys	futimesat(fildes int, path *byte, times *[2]Timeval) (err error)
-
-func Futimesat(dirfd int, path string, tv []Timeval) error {
+}//sys	futimesat(fildes int, path *byte, times *[2]Timeval) (err error)
+ Futimesat(dirfd int, path string, tv []Timeval) error {
 	pathp, err := BytePtrFromString(path)
 	if err != nil {
 		return err
@@ -379,12 +288,9 @@ func Futimesat(dirfd int, path string, tv []Timeval) error {
 		return EINVAL
 	}
 	return futimesat(dirfd, pathp, (*[2]Timeval)(unsafe.Pointer(&tv[0])))
-}
-
-// Solaris doesn't have an futimes function because it allows NULL to be
+}// Solaris doesn't have an futimes function because it allows NULL to be
 // specified as the path for futimesat. However, Go doesn't like
-// NULL-style string interfaces, so this simple wrapper is provided.
-func Futimes(fd int, tv []Timeval) error {
+// NULL-style string interfaces, so this simple wrapper is provided. Futimes(fd int, tv []Timeval) error {
 	if tv == nil {
 		return futimesat(fd, nil, nil)
 	}
@@ -393,8 +299,7 @@ func Futimes(fd int, tv []Timeval) error {
 	}
 	return futimesat(fd, nil, (*[2]Timeval)(unsafe.Pointer(&tv[0])))
 }
-
-func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
+ anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 	switch rsa.Addr.Family {
 	case AF_UNIX:
 		pp := (*RawSockaddrUnix)(unsafe.Pointer(rsa))
@@ -409,17 +314,13 @@ func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 			n++
 		}
 		sa.Name = string(unsafe.Slice((*byte)(unsafe.Pointer(&pp.Path[0])), n))
-		return sa, nil
-
-	case AF_INET:
+		return sa, nil	case AF_INET:
 		pp := (*RawSockaddrInet4)(unsafe.Pointer(rsa))
 		sa := new(SockaddrInet4)
 		p := (*[2]byte)(unsafe.Pointer(&pp.Port))
 		sa.Port = int(p[0])<<8 + int(p[1])
 		sa.Addr = pp.Addr
-		return sa, nil
-
-	case AF_INET6:
+		return sa, nil	case AF_INET6:
 		pp := (*RawSockaddrInet6)(unsafe.Pointer(rsa))
 		sa := new(SockaddrInet6)
 		p := (*[2]byte)(unsafe.Pointer(&pp.Port))
@@ -429,11 +330,8 @@ func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 		return sa, nil
 	}
 	return nil, EAFNOSUPPORT
-}
-
-//sys	accept(s int, rsa *RawSockaddrAny, addrlen *_Socklen) (fd int, err error) = libsocket.accept
-
-func Accept(fd int) (nfd int, sa Sockaddr, err error) {
+}//sys	accept(s int, rsa *RawSockaddrAny, addrlen *_Socklen) (fd int, err error) = libsocket.accept
+ Accept(fd int) (nfd int, sa Sockaddr, err error) {
 	var rsa RawSockaddrAny
 	var len _Socklen = SizeofSockaddrAny
 	nfd, err = accept(fd, &rsa, &len)
@@ -446,11 +344,8 @@ func Accept(fd int) (nfd int, sa Sockaddr, err error) {
 		nfd = 0
 	}
 	return
-}
-
-//sys	recvmsg(s int, msg *Msghdr, flags int) (n int, err error) = libsocket.__xnet_recvmsg
-
-func recvmsgRaw(fd int, iov []Iovec, oob []byte, flags int, rsa *RawSockaddrAny) (n, oobn int, recvflags int, err error) {
+}//sys	recvmsg(s int, msg *Msghdr, flags int) (n int, err error) = libsocket.__xnet_recvmsg
+ recvmsgRaw(fd int, iov []Iovec, oob []byte, flags int, rsa *RawSockaddrAny) (n, oobn int, recvflags int, err error) {
 	var msg Msghdr
 	msg.Name = (*byte)(unsafe.Pointer(rsa))
 	msg.Namelen = uint32(SizeofSockaddrAny)
@@ -474,11 +369,8 @@ func recvmsgRaw(fd int, iov []Iovec, oob []byte, flags int, rsa *RawSockaddrAny)
 	}
 	oobn = int(msg.Accrightslen)
 	return
-}
-
-//sys	sendmsg(s int, msg *Msghdr, flags int) (n int, err error) = libsocket.__xnet_sendmsg
-
-func sendmsgN(fd int, iov []Iovec, oob []byte, ptr unsafe.Pointer, salen _Socklen, flags int) (n int, err error) {
+}//sys	sendmsg(s int, msg *Msghdr, flags int) (n int, err error) = libsocket.__xnet_sendmsg
+ sendmsgN(fd int, iov []Iovec, oob []byte, ptr unsafe.Pointer, salen _Socklen, flags int) (n int, err error) {
 	var msg Msghdr
 	msg.Name = (*byte)(unsafe.Pointer(ptr))
 	msg.Namelen = uint32(salen)
@@ -506,85 +398,57 @@ func sendmsgN(fd int, iov []Iovec, oob []byte, ptr unsafe.Pointer, salen _Sockle
 		n = 0
 	}
 	return n, nil
-}
-
-//sys	acct(path *byte) (err error)
-
-func Acct(path string) (err error) {
+}//sys	acct(path *byte) (err error)
+ Acct(path string) (err error) {
 	if len(path) == 0 {
 		// Assume caller wants to disable accounting.
 		return acct(nil)
-	}
-
-	pathp, err := BytePtrFromString(path)
+	}	pathp, err := BytePtrFromString(path)
 	if err != nil {
 		return err
 	}
 	return acct(pathp)
-}
-
-//sys	__makedev(version int, major uint, minor uint) (val uint64)
-
-func Mkdev(major, minor uint32) uint64 {
+}//sys	__makedev(version int, major uint, minor uint) (val uint64)
+ Mkdev(major, minor uint32) uint64 {
 	return __makedev(NEWDEV, uint(major), uint(minor))
-}
-
-//sys	__major(version int, dev uint64) (val uint)
-
-func Major(dev uint64) uint32 {
+}//sys	__major(version int, dev uint64) (val uint)
+ Major(dev uint64) uint32 {
 	return uint32(__major(NEWDEV, dev))
-}
-
-//sys	__minor(version int, dev uint64) (val uint)
-
-func Minor(dev uint64) uint32 {
+}//sys	__minor(version int, dev uint64) (val uint)
+ Minor(dev uint64) uint32 {
 	return uint32(__minor(NEWDEV, dev))
-}
-
-/*
+}/*
  * Expose the ioctl function
- */
-
-//sys	ioctlRet(fd int, req int, arg uintptr) (ret int, err error) = libc.ioctl
+ *///sys	ioctlRet(fd int, req int, arg uintptr) (ret int, err error) = libc.ioctl
 //sys	ioctlPtrRet(fd int, req int, arg unsafe.Pointer) (ret int, err error) = libc.ioctl
-
-func ioctl(fd int, req int, arg uintptr) (err error) {
+ ioctl(fd int, req int, arg uintptr) (err error) {
 	_, err = ioctlRet(fd, req, arg)
 	return err
 }
-
-func ioctlPtr(fd int, req int, arg unsafe.Pointer) (err error) {
+ ioctlPtr(fd int, req int, arg unsafe.Pointer) (err error) {
 	_, err = ioctlPtrRet(fd, req, arg)
 	return err
 }
-
-func IoctlSetTermio(fd int, req int, value *Termio) error {
+ IoctlSetTermio(fd int, req int, value *Termio) error {
 	return ioctlPtr(fd, req, unsafe.Pointer(value))
 }
-
-func IoctlGetTermio(fd int, req int) (*Termio, error) {
+ IoctlGetTermio(fd int, req int) (*Termio, error) {
 	var value Termio
 	err := ioctlPtr(fd, req, unsafe.Pointer(&value))
 	return &value, err
-}
-
-//sys	poll(fds *PollFd, nfds int, timeout int) (n int, err error)
-
-func Poll(fds []PollFd, timeout int) (n int, err error) {
+}//sys	poll(fds *PollFd, nfds int, timeout int) (n int, err error)
+ Poll(fds []PollFd, timeout int) (n int, err error) {
 	if len(fds) == 0 {
 		return poll(nil, 0, timeout)
 	}
 	return poll(&fds[0], len(fds), timeout)
 }
-
-func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
+ Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
 	}
 	return sendfile(outfd, infd, offset, count)
-}
-
-/*
+}/*
  * Exposed directly
  */
 //sys	Access(path string, mode uint32) (err error)
@@ -697,8 +561,7 @@ func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err e
 //sysnb	getpeername(fd int, rsa *RawSockaddrAny, addrlen *_Socklen) (err error) = libsocket.getpeername
 //sys	setsockopt(s int, level int, name int, val unsafe.Pointer, vallen uintptr) (err error) = libsocket.setsockopt
 //sys	recvfrom(fd int, p []byte, flags int, from *RawSockaddrAny, fromlen *_Socklen) (n int, err error) = libsocket.recvfrom
-
-func readlen(fd int, buf *byte, nbuf int) (n int, err error) {
+ readlen(fd int, buf *byte, nbuf int) (n int, err error) {
 	r0, _, e1 := sysvicall6(uintptr(unsafe.Pointer(&procread)), 3, uintptr(fd), uintptr(unsafe.Pointer(buf)), uintptr(nbuf), 0, 0, 0)
 	n = int(r0)
 	if e1 != 0 {
@@ -706,24 +569,17 @@ func readlen(fd int, buf *byte, nbuf int) (n int, err error) {
 	}
 	return
 }
-
-func writelen(fd int, buf *byte, nbuf int) (n int, err error) {
+ writelen(fd int, buf *byte, nbuf int) (n int, err error) {
 	r0, _, e1 := sysvicall6(uintptr(unsafe.Pointer(&procwrite)), 3, uintptr(fd), uintptr(unsafe.Pointer(buf)), uintptr(nbuf), 0, 0, 0)
 	n = int(r0)
 	if e1 != 0 {
 		err = e1
 	}
 	return
-}
-
-// Event Ports
-
-type fileObjCookie struct {
+}// Event Portstype fileObjCookie struct {
 	fobj   *fileObj
 	cookie interface{}
-}
-
-// EventPort provides a safe abstraction on top of Solaris/illumos Event Ports.
+}// EventPort provides a safe abstraction on top of Solaris/illumos Event Ports.
 type EventPort struct {
 	port  int
 	mu    sync.Mutex
@@ -741,9 +597,7 @@ type EventPort struct {
 	// thus the otherwise seemingly extraneous "cookies" map
 	// The key of this map is a pointer to the corresponding fCookie
 	cookies map[*fileObjCookie]struct{}
-}
-
-// PortEvent is an abstraction of the port_event C struct.
+}// PortEvent is an abstraction of the port_event C struct.
 // Compare Source against PORT_SOURCE_FILE or PORT_SOURCE_FD
 // to see if Path or Fd was the event source. The other will be
 // uninitialized.
@@ -754,11 +608,8 @@ type PortEvent struct {
 	Path   string
 	Source uint16
 	fobj   *fileObj
-}
-
-// NewEventPort creates a new EventPort including the
-// underlying call to port_create(3c).
-func NewEventPort() (*EventPort, error) {
+}// NewEventPort creates a new EventPort including the
+// underlying call to port_create(3c). NewEventPort() (*EventPort, error) {
 	port, err := port_create()
 	if err != nil {
 		return nil, err
@@ -770,16 +621,11 @@ func NewEventPort() (*EventPort, error) {
 		cookies: make(map[*fileObjCookie]struct{}),
 	}
 	return e, nil
-}
-
-//sys	port_create() (n int, err error)
+}//sys	port_create() (n int, err error)
 //sys	port_associate(port int, source int, object uintptr, events int, user *byte) (n int, err error)
 //sys	port_dissociate(port int, source int, object uintptr) (n int, err error)
 //sys	port_get(port int, pe *portEvent, timeout *Timespec) (n int, err error)
-//sys	port_getn(port int, pe *portEvent, max uint32, nget *uint32, timeout *Timespec) (n int, err error)
-
-// Close closes the event port.
-func (e *EventPort) Close() error {
+//sys	port_getn(port int, pe *portEvent, max uint32, nget *uint32, timeout *Timespec) (n int, err error)// Close closes the event port. (e *EventPort) Close() error {
 	e.mu.Lock()
 	defer e.mu.Unlock()
 	err := Close(e.port)
@@ -790,27 +636,18 @@ func (e *EventPort) Close() error {
 	e.paths = nil
 	e.cookies = nil
 	return nil
-}
-
-// PathIsWatched checks to see if path is associated with this EventPort.
-func (e *EventPort) PathIsWatched(path string) bool {
+}// PathIsWatched checks to see if path is associated with this EventPort. (e *EventPort) PathIsWatched(path string) bool {
 	e.mu.Lock()
 	defer e.mu.Unlock()
 	_, found := e.paths[path]
 	return found
-}
-
-// FdIsWatched checks to see if fd is associated with this EventPort.
-func (e *EventPort) FdIsWatched(fd uintptr) bool {
+}// FdIsWatched checks to see if fd is associated with this EventPort. (e *EventPort) FdIsWatched(fd uintptr) bool {
 	e.mu.Lock()
 	defer e.mu.Unlock()
 	_, found := e.fds[fd]
 	return found
-}
-
-// AssociatePath wraps port_associate(3c) for a filesystem path including
-// creating the necessary file_obj from the provided stat information.
-func (e *EventPort) AssociatePath(path string, stat os.FileInfo, events int, cookie interface{}) error {
+}// AssociatePath wraps port_associate(3c) for a filesystem path including
+// creating the necessary file_obj from the provided stat information. (e *EventPort) AssociatePath(path string, stat os.FileInfo, events int, cookie interface{}) error {
 	e.mu.Lock()
 	defer e.mu.Unlock()
 	if _, found := e.paths[path]; found {
@@ -827,10 +664,7 @@ func (e *EventPort) AssociatePath(path string, stat os.FileInfo, events int, coo
 	e.paths[path] = fCookie
 	e.cookies[fCookie] = struct{}{}
 	return nil
-}
-
-// DissociatePath wraps port_dissociate(3c) for a filesystem path.
-func (e *EventPort) DissociatePath(path string) error {
+}// DissociatePath wraps port_dissociate(3c) for a filesystem path. (e *EventPort) DissociatePath(path string) error {
 	e.mu.Lock()
 	defer e.mu.Unlock()
 	f, ok := e.paths[path]
@@ -851,10 +685,7 @@ func (e *EventPort) DissociatePath(path string) error {
 	}
 	delete(e.paths, path)
 	return err
-}
-
-// AssociateFd wraps calls to port_associate(3c) on file descriptors.
-func (e *EventPort) AssociateFd(fd uintptr, events int, cookie interface{}) error {
+}// AssociateFd wraps calls to port_associate(3c) on file descriptors. (e *EventPort) AssociateFd(fd uintptr, events int, cookie interface{}) error {
 	e.mu.Lock()
 	defer e.mu.Unlock()
 	if _, found := e.fds[fd]; found {
@@ -871,10 +702,7 @@ func (e *EventPort) AssociateFd(fd uintptr, events int, cookie interface{}) erro
 	e.fds[fd] = fCookie
 	e.cookies[fCookie] = struct{}{}
 	return nil
-}
-
-// DissociateFd wraps calls to port_dissociate(3c) on file descriptors.
-func (e *EventPort) DissociateFd(fd uintptr) error {
+}// DissociateFd wraps calls to port_dissociate(3c) on file descriptors. (e *EventPort) DissociateFd(fd uintptr) error {
 	e.mu.Lock()
 	defer e.mu.Unlock()
 	_, ok := e.fds[fd]
@@ -893,8 +721,7 @@ func (e *EventPort) DissociateFd(fd uintptr) error {
 	delete(e.fds, fd)
 	return err
 }
-
-func createFileObjCookie(name string, stat os.FileInfo, cookie interface{}) (*fileObjCookie, error) {
+ createFileObjCookie(name string, stat os.FileInfo, cookie interface{}) (*fileObjCookie, error) {
 	fCookie := new(fileObjCookie)
 	fCookie.cookie = cookie
 	if name != "" && stat != nil {
@@ -913,10 +740,7 @@ func createFileObjCookie(name string, stat os.FileInfo, cookie interface{}) (*fi
 		fCookie.fobj.Ctim.Nsec = s.Ctim.Nsec
 	}
 	return fCookie, nil
-}
-
-// GetOne wraps port_get(3c) and returns a single PortEvent.
-func (e *EventPort) GetOne(t *Timespec) (*PortEvent, error) {
+}// GetOne wraps port_get(3c) and returns a single PortEvent. (e *EventPort) GetOne(t *Timespec) (*PortEvent, error) {
 	pe := new(portEvent)
 	_, err := port_get(e.port, pe, t)
 	if err != nil {
@@ -930,26 +754,19 @@ func (e *EventPort) GetOne(t *Timespec) (*PortEvent, error) {
 		return nil, err
 	}
 	return p, nil
-}
-
-// peIntToExt converts a cgo portEvent struct into the friendlier PortEvent
-// NOTE: Always call this function while holding the e.mu mutex
-func (e *EventPort) peIntToExt(peInt *portEvent, peExt *PortEvent) error {
+}// peIntToExt converts a cgo portEvent struct into the friendlier PortEvent
+// NOTE: Always call this function while holding the e.mu mutex (e *EventPort) peIntToExt(peInt *portEvent, peExt *PortEvent) error {
 	if e.cookies == nil {
 		return fmt.Errorf("this EventPort is already closed")
 	}
 	peExt.Events = peInt.Events
 	peExt.Source = peInt.Source
 	fCookie := (*fileObjCookie)(unsafe.Pointer(peInt.User))
-	_, found := e.cookies[fCookie]
-
-	if !found {
+	_, found := e.cookies[fCookie]	if !found {
 		panic("unexpected event port address; may be due to kernel bug; see https://go.dev/issue/54254")
 	}
 	peExt.Cookie = fCookie.cookie
-	delete(e.cookies, fCookie)
-
-	switch peInt.Source {
+	delete(e.cookies, fCookie)	switch peInt.Source {
 	case PORT_SOURCE_FD:
 		peExt.Fd = uintptr(peInt.Object)
 		// Only remove the fds entry if it exists and this cookie matches
@@ -969,20 +786,14 @@ func (e *EventPort) peIntToExt(peInt *portEvent, peExt *PortEvent) error {
 		}
 	}
 	return nil
-}
-
-// Pending wraps port_getn(3c) and returns how many events are pending.
-func (e *EventPort) Pending() (int, error) {
+}// Pending wraps port_getn(3c) and returns how many events are pending. (e *EventPort) Pending() (int, error) {
 	var n uint32 = 0
 	_, err := port_getn(e.port, nil, 0, &n, nil)
 	return int(n), err
-}
-
-// Get wraps port_getn(3c) and fills a slice of PortEvent.
+}// Get wraps port_getn(3c) and fills a slice of PortEvent.
 // It will block until either min events have been received
 // or the timeout has been exceeded. It will return how many
-// events were actually received along with any error information.
-func (e *EventPort) Get(s []PortEvent, min int, timeout *Timespec) (int, error) {
+// events were actually received along with any error information. (e *EventPort) Get(s []PortEvent, min int, timeout *Timespec) (int, error) {
 	if min == 0 {
 		return 0, fmt.Errorf("need to request at least one event or use Pending() instead")
 	}
@@ -1014,11 +825,8 @@ func (e *EventPort) Get(s []PortEvent, min int, timeout *Timespec) (int, error) 
 		valid = i + 1
 	}
 	return valid, err
-}
-
-//sys	putmsg(fd int, clptr *strbuf, dataptr *strbuf, flags int) (err error)
-
-func Putmsg(fd int, cl []byte, data []byte, flags int) (err error) {
+}//sys	putmsg(fd int, clptr *strbuf, dataptr *strbuf, flags int) (err error)
+ Putmsg(fd int, cl []byte, data []byte, flags int) (err error) {
 	var clp, datap *strbuf
 	if len(cl) > 0 {
 		clp = &strbuf{
@@ -1033,11 +841,8 @@ func Putmsg(fd int, cl []byte, data []byte, flags int) (err error) {
 		}
 	}
 	return putmsg(fd, clp, datap, flags)
-}
-
-//sys	getmsg(fd int, clptr *strbuf, dataptr *strbuf, flags *int) (err error)
-
-func Getmsg(fd int, cl []byte, data []byte) (retCl []byte, retData []byte, flags int, err error) {
+}//sys	getmsg(fd int, clptr *strbuf, dataptr *strbuf, flags *int) (err error)
+ Getmsg(fd int, cl []byte, data []byte) (retCl []byte, retData []byte, flags int, err error) {
 	var clp, datap *strbuf
 	if len(cl) > 0 {
 		clp = &strbuf{
@@ -1050,13 +855,9 @@ func Getmsg(fd int, cl []byte, data []byte) (retCl []byte, retData []byte, flags
 			Maxlen: int32(len(data)),
 			Buf:    (*int8)(unsafe.Pointer(&data[0])),
 		}
-	}
-
-	if err = getmsg(fd, clp, datap, &flags); err != nil {
+	}	if err = getmsg(fd, clp, datap, &flags); err != nil {
 		return nil, nil, 0, err
-	}
-
-	if len(cl) > 0 {
+	}	if len(cl) > 0 {
 		retCl = cl[:clp.Len]
 	}
 	if len(data) > 0 {
@@ -1064,22 +865,17 @@ func Getmsg(fd int, cl []byte, data []byte) (retCl []byte, retData []byte, flags
 	}
 	return retCl, retData, flags, nil
 }
-
-func IoctlSetIntRetInt(fd int, req int, arg int) (int, error) {
+ IoctlSetIntRetInt(fd int, req int, arg int) (int, error) {
 	return ioctlRet(fd, req, uintptr(arg))
 }
-
-func IoctlSetString(fd int, req int, val string) error {
+ IoctlSetString(fd int, req int, val string) error {
 	bs := make([]byte, len(val)+1)
 	copy(bs[:len(bs)-1], val)
 	err := ioctlPtr(fd, req, unsafe.Pointer(&bs[0]))
 	runtime.KeepAlive(&bs[0])
 	return err
-}
-
-// Lifreq Helpers
-
-func (l *Lifreq) SetName(name string) error {
+}// Lifreq Helpers
+ (l *Lifreq) SetName(name string) error {
 	if len(name) >= len(l.Name) {
 		return fmt.Errorf("name cannot be more than %d characters", len(l.Name)-1)
 	}
@@ -1088,34 +884,25 @@ func (l *Lifreq) SetName(name string) error {
 	}
 	return nil
 }
-
-func (l *Lifreq) SetLifruInt(d int) {
+ (l *Lifreq) SetLifruInt(d int) {
 	*(*int)(unsafe.Pointer(&l.Lifru[0])) = d
 }
-
-func (l *Lifreq) GetLifruInt() int {
+ (l *Lifreq) GetLifruInt() int {
 	return *(*int)(unsafe.Pointer(&l.Lifru[0]))
 }
-
-func (l *Lifreq) SetLifruUint(d uint) {
+ (l *Lifreq) SetLifruUint(d uint) {
 	*(*uint)(unsafe.Pointer(&l.Lifru[0])) = d
 }
-
-func (l *Lifreq) GetLifruUint() uint {
+ (l *Lifreq) GetLifruUint() uint {
 	return *(*uint)(unsafe.Pointer(&l.Lifru[0]))
 }
-
-func IoctlLifreq(fd int, req int, l *Lifreq) error {
+ IoctlLifreq(fd int, req int, l *Lifreq) error {
 	return ioctlPtr(fd, req, unsafe.Pointer(l))
-}
-
-// Strioctl Helpers
-
-func (s *Strioctl) SetInt(i int) {
+}// Strioctl Helpers
+ (s *Strioctl) SetInt(i int) {
 	s.Len = int32(unsafe.Sizeof(i))
 	s.Dp = (*int8)(unsafe.Pointer(&i))
 }
-
-func IoctlSetStrioctlRetInt(fd int, req int, s *Strioctl) (int, error) {
+ IoctlSetStrioctlRetInt(fd int, req int, s *Strioctl) (int, error) {
 	return ioctlPtrRet(fd, req, unsafe.Pointer(s))
 }

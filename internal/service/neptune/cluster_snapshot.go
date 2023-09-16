@@ -108,7 +108,7 @@ func resourceClusterSnapshotCreate(ctx context.Context, d *schema.ResourceData, 
 
 	clusterSnapshotID := d.Get("db_cluster_snapshot_identifier").(string)
 	input := &neptune.CreateDBClusterSnapshotInput{
-		DBClusterIdentifier:         aws.String(d.Get("db_cluster_identifier").(string)),
+		DBClusterIdentifier:aws.String(d.Get("db_cluster_identifier").(string)),
 		DBClusterSnapshotIdentifier: aws.String(clusterSnapshotID),
 	}
 

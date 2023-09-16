@@ -46,12 +46,12 @@ func ResourceTask() *schema.Resource {
 				Computed: true,
 			},
 			"cloudwatch_log_group_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"destination_location_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -63,7 +63,7 @@ func ResourceTask() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"filter_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(datasync.FilterType_Values(), false),
 						},
@@ -81,7 +81,7 @@ func ResourceTask() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"filter_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(datasync.FilterType_Values(), false),
 						},
@@ -97,98 +97,98 @@ func ResourceTask() *schema.Resource {
 				Optional: true,
 			},
 			"options": {
-				Type:             schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Type:    schema.TypeList,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"atime": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.AtimeBestEffort,
 							ValidateFunc: validation.StringInSlice(datasync.Atime_Values(), false),
 						},
 						"bytes_per_second": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      -1,
 							ValidateFunc: validation.IntAtLeast(-1),
 						},
 						"gid": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.GidIntValue,
 							ValidateFunc: validation.StringInSlice(datasync.Gid_Values(), false),
 						},
 						"log_level": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.LogLevelOff,
 							ValidateFunc: validation.StringInSlice(datasync.LogLevel_Values(), false),
 						},
 						"mtime": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.MtimePreserve,
 							ValidateFunc: validation.StringInSlice(datasync.Mtime_Values(), false),
 						},
 						"object_tags": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.ObjectTagsPreserve,
 							ValidateFunc: validation.StringInSlice(datasync.ObjectTags_Values(), false),
 						},
 						"overwrite_mode": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.OverwriteModeAlways,
 							ValidateFunc: validation.StringInSlice(datasync.OverwriteMode_Values(), false),
 						},
 						"posix_permissions": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.PosixPermissionsPreserve,
 							ValidateFunc: validation.StringInSlice(datasync.PosixPermissions_Values(), false),
 						},
 						"preserve_deleted_files": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.PreserveDeletedFilesPreserve,
 							ValidateFunc: validation.StringInSlice(datasync.PreserveDeletedFiles_Values(), false),
 						},
 						"preserve_devices": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.PreserveDevicesNone,
 							ValidateFunc: validation.StringInSlice(datasync.PreserveDevices_Values(), false),
 						},
 						"security_descriptor_copy_flags": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.StringInSlice(datasync.SmbSecurityDescriptorCopyFlags_Values(), false),
 						},
 						"task_queueing": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.TaskQueueingEnabled,
 							ValidateFunc: validation.StringInSlice(datasync.TaskQueueing_Values(), false),
 						},
 						"transfer_mode": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.TransferModeChanged,
 							ValidateFunc: validation.StringInSlice(datasync.TransferMode_Values(), false),
 						},
 						"uid": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.UidIntValue,
 							ValidateFunc: validation.StringInSlice(datasync.Uid_Values(), false),
 						},
 						"verify_mode": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      datasync.VerifyModePointInTimeConsistent,
 							ValidateFunc: validation.StringInSlice(datasync.VerifyMode_Values(), false),
@@ -215,7 +215,7 @@ func ResourceTask() *schema.Resource {
 				},
 			},
 			"source_location_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -234,9 +234,9 @@ func resourceTaskCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	input := &datasync.CreateTaskInput{
 		DestinationLocationArn: aws.String(d.Get("destination_location_arn").(string)),
-		Options:                expandOptions(d.Get("options").([]interface{})),
+		Options:       expandOptions(d.Get("options").([]interface{})),
 		SourceLocationArn:      aws.String(d.Get("source_location_arn").(string)),
-		Tags:                   getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("cloudwatch_log_group_arn"); ok {
@@ -442,21 +442,21 @@ func flattenOptions(options *datasync.Options) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"atime":                          aws.StringValue(options.Atime),
-		"bytes_per_second":               aws.Int64Value(options.BytesPerSecond),
-		"gid":                            aws.StringValue(options.Gid),
-		"log_level":                      aws.StringValue(options.LogLevel),
-		"mtime":                          aws.StringValue(options.Mtime),
-		"object_tags":                    aws.StringValue(options.ObjectTags),
-		"overwrite_mode":                 aws.StringValue(options.OverwriteMode),
-		"posix_permissions":              aws.StringValue(options.PosixPermissions),
-		"preserve_deleted_files":         aws.StringValue(options.PreserveDeletedFiles),
-		"preserve_devices":               aws.StringValue(options.PreserveDevices),
+		"atime":        aws.StringValue(options.Atime),
+		"bytes_per_second":      aws.Int64Value(options.BytesPerSecond),
+		"gid": aws.StringValue(options.Gid),
+		"log_level":    aws.StringValue(options.LogLevel),
+		"mtime":        aws.StringValue(options.Mtime),
+		"object_tags":  aws.StringValue(options.ObjectTags),
+		"overwrite_mode":        aws.StringValue(options.OverwriteMode),
+		"posix_permissions":     aws.StringValue(options.PosixPermissions),
+		"preserve_deleted_files":aws.StringValue(options.PreserveDeletedFiles),
+		"preserve_devices":      aws.StringValue(options.PreserveDevices),
 		"security_descriptor_copy_flags": aws.StringValue(options.SecurityDescriptorCopyFlags),
-		"task_queueing":                  aws.StringValue(options.TaskQueueing),
-		"transfer_mode":                  aws.StringValue(options.TransferMode),
-		"uid":                            aws.StringValue(options.Uid),
-		"verify_mode":                    aws.StringValue(options.VerifyMode),
+		"task_queueing":aws.StringValue(options.TaskQueueing),
+		"transfer_mode":aws.StringValue(options.TransferMode),
+		"uid": aws.StringValue(options.Uid),
+		"verify_mode":  aws.StringValue(options.VerifyMode),
 	}
 
 	return []interface{}{m}
@@ -470,19 +470,19 @@ func expandOptions(l []interface{}) *datasync.Options {
 	m := l[0].(map[string]interface{})
 
 	options := &datasync.Options{
-		Atime:                aws.String(m["atime"].(string)),
-		Gid:                  aws.String(m["gid"].(string)),
-		LogLevel:             aws.String(m["log_level"].(string)),
-		Mtime:                aws.String(m["mtime"].(string)),
-		ObjectTags:           aws.String(m["object_tags"].(string)),
+		Atime:       aws.String(m["atime"].(string)),
+		Gid:aws.String(m["gid"].(string)),
+		LogLevel:    aws.String(m["log_level"].(string)),
+		Mtime:       aws.String(m["mtime"].(string)),
+		ObjectTags:  aws.String(m["object_tags"].(string)),
 		OverwriteMode:        aws.String(m["overwrite_mode"].(string)),
 		PreserveDeletedFiles: aws.String(m["preserve_deleted_files"].(string)),
 		PreserveDevices:      aws.String(m["preserve_devices"].(string)),
 		PosixPermissions:     aws.String(m["posix_permissions"].(string)),
-		TaskQueueing:         aws.String(m["task_queueing"].(string)),
-		TransferMode:         aws.String(m["transfer_mode"].(string)),
-		Uid:                  aws.String(m["uid"].(string)),
-		VerifyMode:           aws.String(m["verify_mode"].(string)),
+		TaskQueueing:aws.String(m["task_queueing"].(string)),
+		TransferMode:aws.String(m["transfer_mode"].(string)),
+		Uid:aws.String(m["uid"].(string)),
+		VerifyMode:  aws.String(m["verify_mode"].(string)),
 	}
 
 	if v, ok := m["bytes_per_second"].(int); ok && v != 0 {

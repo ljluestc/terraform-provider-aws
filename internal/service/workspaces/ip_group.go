@@ -49,7 +49,7 @@ func ResourceIPGroup() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"source": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.IsCIDR,
 						},
@@ -67,7 +67,6 @@ func ResourceIPGroup() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceIPGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)
@@ -88,7 +87,6 @@ func resourceIPGroupCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceIPGroupRead(ctx, d, meta)...)
 }
-
 func resourceIPGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)
@@ -122,7 +120,6 @@ func resourceIPGroupRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
-
 func resourceIPGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)
@@ -141,7 +138,6 @@ func resourceIPGroupUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceIPGroupRead(ctx, d, meta)...)
 }
-
 func resourceIPGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)
@@ -195,7 +191,6 @@ func resourceIPGroupDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
-
 func expandIPGroupRules(rules []interface{}) []types.IpRuleItem {
 	var result []types.IpRuleItem
 	for _, rule := range rules {
@@ -208,7 +203,6 @@ func expandIPGroupRules(rules []interface{}) []types.IpRuleItem {
 	}
 	return result
 }
-
 func flattenIPGroupRules(rules []types.IpRuleItem) []map[string]interface{} {
 	result := make([]map[string]interface{}, 0, len(rules))
 	for _, rule := range rules {

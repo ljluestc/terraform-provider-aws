@@ -1,2 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package ec2_testimport (	"log"	"testing"	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2")// testing rulesForGroupPermissions
-func
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package ec2_testimport ("log""testing""github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2")// testing rulesForGroupPermissions

@@ -1,10 +1,6 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package packages
-
-import (
+// license that can be found in the LICENSE file.package packagesimport (
 	"bytes"
 	"context"
 	"encoding/json"
@@ -20,143 +16,91 @@ import (
 	"strconv"
 	"strings"
 	"sync"
-	"unicode"
-
-	exec "golang.org/x/sys/execabs"
+	"unicode"	exec "golang.org/x/sys/execabs"
 	"golang.org/x/tools/go/internal/packagesdriver"
 	"golang.org/x/tools/internal/gocommand"
 	"golang.org/x/tools/internal/packagesinternal"
-)
-
-// debug controls verbose logging.
-var debug, _ = strconv.ParseBool(os.Getenv("GOPACKAGESDEBUG"))
-
-// A goTooOldError reports that the go command
+)// debug controls verbose logging.
+var debug, _ = strconv.ParseBool(os.Getenv("GOPACKAGESDEBUG"))// A goTooOldError reports that the go command
 // found by exec.LookPath is too old to use the new go list behavior.
 type goTooOldError struct {
 	error
-}
-
-// responseDeduper wraps a driverResponse, deduplicating its contents.
+}// responseDeduper wraps a driverResponse, deduplicating its contents.
 type responseDeduper struct {
 	seenRoots    map[string]bool
 	seenPackages map[string]*Package
 	dr           *driverResponse
 }
-
-
  newDeduper() *responseDeduper {
 	return &responseDeduper{
 		dr:           &driverResponse{},
 		seenRoots:    map[string]bool{},
 		seenPackages: map[string]*Package{},
 	}
-}
-
-ddAll fills in r with a driverResponse.
-
- (r *responseDeduper) addAll(dr *driverResponse) {
+}ddAll fills in r with a driverResponse. (r *responseDeduper) addAll(dr *driverResponse) {
 	for _, pkg := range dr.Packages {
 		r.addPackage(pkg)
 	}
 	for _, root := range dr.Roots {
 		r.addRoot(root)
 	}
-	r.dr.GoVersion = dr.GoVersion
-
-
-
- (r *responseDeduper) addPackage(p *Package) {
+	r.dr.GoVersion = dr.GoVersion (r *responseDeduper) addPackage(p *Package) {
 	if r.seenPackages[p.ID] != nil {
 		return
 	}
 	r.seenPackages[p.ID] = p
 r.Packages = append(r.dr.Packages, p)
 }
-
-
  (r *responseDeduper) addRoot(id string) {
 	if r.seenRoots[id] {
 		return
 	}
 	r.seenRoots[id] = true
 	r.dr.Roots = append(r.dr.Roots, id)
-}
-
-type golistState struct {
+}type golistState struct {
 	cfg *Config
-	ctx context.Context
-
-	envOnce    sync.Once
+	ctx context.Context	envOnce    sync.Once
 	goEnvError error
-	goEnv      map[string]string
-
-	rootsOnce     sync.Once
+	goEnv      map[string]string	rootsOnce     sync.Once
 	rootDirsError error
-	rootDirs      map[string]string
-
-	goVersionOnce  sync.Once
+	rootDirs      map[string]string	goVersionOnce  sync.Once
 	goVersionError error
-	goVersion      int // The X in Go 1.X.
-
-	// vendorDirs caches the (non)existence of vendor directories.
+	goVersion      int // The X in Go 1.X.	// vendorDirs caches the (non)existence of vendor directories.
 	vendorDirs map[string]bool
-
-
 // getEnv returns Go environment variables. Only specific variables are
-// populated -- computing all of them is slow.
-
- (state *golistState) getEnv() (map[string]string, error) {
+// populated -- computing all of them is slow. (state *golistState) getEnv() (map[string]string, error) {
 	state.envOnce.Do(
 () {
 		var b *bytes.Buffer
 		b, state.goEnvError = state.invokeGo("env", "-json", "GOMOD", "GOPATH")
 		if state.goEnvError != nil {
 			return
-		}
-
-		state.goEnv = make(map[string]string)
+		}		state.goEnv = make(map[string]string)
 		decoder := json.NewDecoder(b)
 		if state.goEnvError = decoder.Decode(&state.goEnv); state.goEnvError != nil {
-			return
-
-	})
+			return	})
 	return state.goEnv, state.goEnvError
-}
-
-// mustGetEnv is a convenience 
-tion that can be used if getEnv has already succeeded.
-
- (state *golistState) mustGetEnv() map[string]string {
+}// mustGetEnv is a convenience 
+tion that can be used if getEnv has already succeeded. (state *golistState) mustGetEnv() map[string]string {
 	env, err := state.getEnv()
 	if err != nil {
 nic(fmt.Sprintf("mustGetEnv: %v", err))
 	}
 	return env
-}
-
-// goListDriver uses the go list command to interpret the patterns and produce
+}// goListDriver uses the go list command to interpret the patterns and produce
 // the build system package structure.
-// See driver for more details.
-
- goListDriver(cfg *Config, patterns ...string) (*driverResponse, error) {
+// See driver for more details. goListDriver(cfg *Config, patterns ...string) (*driverResponse, error) {
 	// Make sure that any asynchronous go commands are killed when we return.
 	parentCtx := cfg.Context
 	if parentCtx == nil {
 		parentCtx = context.Background()
 	}
 	ctx, cancel := context.WithCancel(parentCtx)
-	defer cancel()
-
-	response := newDeduper()
-
-	state := &golistState{
+	defer cancel()	response := newDeduper()	state := &golistState{
 		cfg:        cfg,
 		ctx     ctx,
 		vendorDirs: map[string]bool{},
-	}
-
-	// Fill in response.Sizes asynchronously if necessary.
+	}	// Fill in response.Sizes asynchronously if necessary.
 	var sizeserr error
 	var sizeswg sync.WaitGroup
 	if cfg.Mode&NeedTypesSizes != 0 || cfg.Mode&NeedTypes != 0 {
@@ -169,9 +113,7 @@ nic(fmt.Sprintf("mustGetEnv: %v", err))
 			response.dr.Sizes, _ = sizes.(*types.StdSizes)
 			sizeswg.Done()
 		}()
-	}
-
-	// Determine files requested in contains patterns
+	}	// Determine files requested in contains patterns
 	var containFiles []string
 	restPatterns := make([]string, 0, len(patterns))
 	// Extract file= and other [querytype]= patterns. Report an error if querytype
@@ -201,9 +143,7 @@ extractQueries:
 				return nil, fmt.Errorf("invalid query type %q in query pattern %q", query, pattern)
 			}
 		}
-	}
-
-	// See if we have any patterns to pass through to go list. Zero initial
+	}	// See if we have any patterns to pass through to go list. Zero initial
 	// patterns also requires a go list call, since it's the equivalent of
 	// ".".
 	if len(restPatterns) > 0 || len(patterns) == 0 {
@@ -212,23 +152,17 @@ extractQueries:
 			return nil, err
 		}
 		response.addAll(dr)
-	}
-
-	if len(containFiles) != 0 {
+	}	if len(containFiles) != 0 {
 		if err := state.runContainsQueries(response, containFiles); err != nil {
 			return nil, err
 		}
-	}
-
-	// Only use go/packages' overlay processing if we're using a Go version
+	}	// Only use go/packages' overlay processing if we're using a Go version
 	// below 1.16. Otherwise, go list handles it.
 	if goVersion, err := state.getGoVersion(); err == nil && goVersion < 16 {
 		modifiedPkgs, needPkgs, err := state.processGolistOverlay(response)
 		if err != nil {
 			return nil, err
-		}
-
-		var containsCandidates []string
+		}		var containsCandidates []string
 		if len(containFiles) > 0 {
 			containsCandidates = append(containsCandidates, modifiedPkgs...)
 			containsCandidates = append(containsCandidates, needPkgs...)
@@ -272,27 +206,19 @@ extractQueries:
 				if match(pkg.PkgPath) {
 					response.addRoot(pkg.ID)
 				}
-			}
-
-	}
-
-	sizeswg.Wait()
+			}	}	sizeswg.Wait()
 	if sizeserr != nil {
 		return nil, sizeserr
 	}
 	return response.dr, nil
 }
-
-
  (state *golistState) addNeededOverlayPackages(response *responseDeduper, pkgs []string) error {
 	if len(pkgs) == 0 {
 		return nil
 	}
 	dr, err := state.createDriverResponse(pkgs...)
 	if err != nil {
-		return err
-
-	for _, pkg := range dr.Packages {
+		return err	for _, pkg := range dr.Packages {
 		response.addPackage(pkg)
 	}
 	_, needPkgs, err := state.processGolistOverlay(response)
@@ -301,8 +227,6 @@ extractQueries:
 	}
 	return state.addNeededOverlayPackages(response, needPkgs)
 }
-
-
  (state *golistState) runContainsQueries(response *responseDeduper, queries []string) error {
 	for _, query := range queries {
 		// TODO(matloob): Do only one query per directory.
@@ -313,9 +237,7 @@ extractQueries:
 		if err != nil {
 			return fmt.Errorf("could not determine absolute path of file= query path %q: %v", query, err)
 		}
-		dirResponse, err := state.createDriverResponse(pattern)
-
-		// If there was an error loading the package, or no packages are returned,
+		dirResponse, err := state.createDriverResponse(pattern)		// If there was an error loading the package, or no packages are returned,
 		// or the package is returned with errors, try to load the file as an
 		// ad-hoc package.
 		// Usually the error will appear in a returned package, but may not if we're
@@ -351,12 +273,8 @@ or _, pkgFile := range pkg.GoFiles {
 		}
 	}
 	return nil
-}
-
-// adhocPackage attempts to load or construct an ad-hoc package for a given
-// query, if the original call to the driver produced inadequate results.
-
- (state *golistState) adhocPackage(pattern, query string) (*driverResponse, error) {
+}// adhocPackage attempts to load or construct an ad-hoc package for a given
+// query, if the original call to the driver produced inadequate results. (state *golistState) adhocPackage(pattern, query string) (*driverResponse, error) {
 	response, err := state.createDriverResponse(query)
 	if err != nil {
 		return nil, err
@@ -395,9 +313,7 @@ or _, pkgFile := range pkg.GoFiles {
 		}
 	}
 	return response, nil
-}
-
-// Fields must match go list;
+}// Fields must match go list;
 // see $GOROOT/src/cmd/go/internal/load/pkg.go.
 type jsonPackage struct {
 	ImportPath        string
@@ -429,27 +345,17 @@ type jsonPackage struct {
 	XTestGoFiles      []string
 stImports      []string
 	ForTest           string // q in a "p [q.test]" package, else ""
-	DepOnly           bool
-
-	Error      *packagesinternal.PackageError
+	DepOnly           bool	Error      *packagesinternal.PackageError
 	DepsErrors []*packagesinternal.PackageError
-
-
 type jsonPackageError struct {
 	ImportStack []string
 	Pos         string
 	Err         string
 }
-
-
  otherFiles(p *jsonPackage) [][]string {
 	return [][]string{p.CFiles, p.CXXFiles, p.MFiles, p.HFiles, p.FFiles, p.SFiles, p.SwigFiles, p.SwigCXXFiles, p.SysoFiles}
-}
-
-// createDriverResponse uses the "go list" command to expand the pattern
-// words and return a response for the specified packages.
-
- (state *golistState) createDriverResponse(words ...string) (*driverResponse, error) {
+}// createDriverResponse uses the "go list" command to expand the pattern
+// words and return a response for the specified packages. (state *golistState) createDriverResponse(words ...string) (*driverResponse, error) {
 	// go list uses the following identifiers in ImportPath and Imports:
 	//
 	// 	"p"			-- importable package or main (command)
@@ -459,9 +365,7 @@ type jsonPackageError struct {
 	//
 	// The packages p that are built differently for a test q.test
 	// are q itself, plus any helpers used by the external test q_test,
-	// typically including "testing" and all its dependencies.
-
-	// Run "go list" for complete
+	// typically including "testing" and all its dependencies.	// Run "go list" for complete
 	// information on the specified packages.
 	goVersion, err := state.getGoVersion()
 	if err != nil {
@@ -470,9 +374,7 @@ type jsonPackageError struct {
 	buf, err := state.invokeGo("list", golistargs(state.cfg, words, goVersion)...)
 	if err != nil {
 		return nil, err
-	}
-
-	seen := make(map[string]*jsonPackage)
+	}	seen := make(map[string]*jsonPackage)
 	pkgs := make(map[string]*Package)
 	additionalErrors := make(map[string][]Error)
 	// Decode the JSON and convert it to Package form.
@@ -483,9 +385,7 @@ type jsonPackageError struct {
 		p := new(jsonPackage)
 		if err := dec.Decode(p); err != nil {
 			return nil, fmt.Errorf("JSON decoding failed: %v", err)
-		}
-
-		if p.ImportPath == "" {
+		}		if p.ImportPath == "" {
 			// The documentation for go list says that “[e]rroneous packages will have
 			// a non-empty ImportPath”. If for some reason it comes back empty, we
 			// prefer to error out rather than silently discarding data or handing
@@ -497,9 +397,7 @@ type jsonPackageError struct {
 				}
 			}
 			return nil, fmt.Errorf("package missing import path: %+v", p)
-		}
-
-		// Work around https://golang.org/issue/33157:
+		}		// Work around https://golang.org/issue/33157:
 		// go list -e, when given an absolute path, will find the package contained at
 		// that directory. But when no package exists there, it will return a fake package
 		// with an error and the ImportPath set to the absolute path provided to go list.
@@ -514,9 +412,7 @@ type jsonPackageError struct {
 			if ok {
 				p.ImportPath = pkgPath
 			}
-		}
-
-		if old, found := seen[p.ImportPath]; found {
+		}		if old, found := seen[p.ImportPath]; found {
 			// If one version of the package has an error, and the other doesn't, assume
 			// that this is a case where go list is reporting a fake dependency variant
 			// of the imported package: When a package tries to invalidly import another
@@ -525,25 +421,19 @@ type jsonPackageError struct {
 			// DepError set on it). An example of when this can happen is for imports of
 			// main packages: main packages can not be imported, but they may be
 			// separately matched and listed by another pattern.
-			// See golang.org/issue/36188 for more details.
-
-			// The plan is that eventually, hopefully in Go 1.15, the error will be
+			// See golang.org/issue/36188 for more details.			// The plan is that eventually, hopefully in Go 1.15, the error will be
 			// reported on the importing package rather than the duplicate "fake"
 			// version of the imported package. Once all supported versions of Go
 			// have the new behavior this logic can be deleted.
 			// TODO(matloob): delete the workaround logic once all supported versions of
-			// Go return the errors on the proper package.
-
-			// There should be exactly one version of a package that doesn't have an
+			// Go return the errors on the proper package.			// There should be exactly one version of a package that doesn't have an
 			// error.
 			if old.Error == nil && p.Error == nil {
 				if !reflect.DeepEqual(p, old) {
 					return nil, fmt.Errorf("internal error: go list gives conflicting information for package %v", p.ImportPath)
 				}
 				continue
-			}
-
-			// Determine if this package's error needs to be bubbled up.
+			}			// Determine if this package's error needs to be bubbled up.
 			// This is a hack, and we expect for go list to eventually set the error
 			// on the package.
 			if old.Error != nil {
@@ -573,19 +463,13 @@ type jsonPackageError struct {
 						Kind: ListError,
 					})
 				}
-			}
-
-			// Make sure that if there's a version of the package without an error,
+			}			// Make sure that if there's a version of the package without an error,
 			// that's the one reported to the user.
 			if old.Error == nil {
 				continue
-			}
-
-			// This package will replace the old one at the end of the loop.
+			}			// This package will replace the old one at the end of the loop.
 		}
-		seen[p.ImportPath] = p
-
-		pkg := &Package{
+		seen[p.ImportPath] = p		pkg := &Package{
 			Name:            p.Name,
 			ID:              p.ImportPath,
 			GoFiles:         absJoin(p.Dir, p.GoFiles, p.CgoFiles),
@@ -597,9 +481,7 @@ type jsonPackageError struct {
 			forTest:         p.ForTest,
 			depsErrors:      p.DepsErrors,
 			Module:          p.Module,
-		}
-
-		if (state.cfg.Mode&typecheckCgo) != 0 && len(p.CgoFiles) != 0 {
+		}		if (state.cfg.Mode&typecheckCgo) != 0 && len(p.CgoFiles) != 0 {
 			if len(p.CompiledGoFiles) > len(p.GoFiles) {
 				// We need the cgo definitions, which are in the first
 				// CompiledGoFile after the non-cgo ones. This is a hack but there
@@ -616,9 +498,7 @@ type jsonPackageError struct {
 					Kind: ListError,
 				})
 			}
-		}
-
-		// Work around https://golang.org/issue/28749:
+		}		// Work around https://golang.org/issue/28749:
 		// cmd/go puts assembly, C, and C++ files in CompiledGoFiles.
 		// Remove files from CompiledGoFiles that are non-go files
 		// (or are not files that look like they are from the cache).
@@ -631,31 +511,21 @@ type jsonPackageError struct {
 				out = append(out, f)
 			}
 			pkg.CompiledGoFiles = out
-		}
-
-		// Extract the PkgPath from the package's ID.
+		}		// Extract the PkgPath from the package's ID.
 		if i := strings.IndexByte(pkg.ID, ' '); i >= 0 {
 			pkg.PkgPath = pkg.ID[:i]
 		} else {
 			pkg.PkgPath = pkg.ID
-		}
-
-		if pkg.PkgPath == "unsafe" {
+		}		if pkg.PkgPath == "unsafe" {
 			pkg.GoFiles = nil // ignore fake unsafe.go file
-		}
-
-		// Assume go list emits only absolute paths for Dir.
+		}		// Assume go list emits only absolute paths for Dir.
 		if p.Dir != "" && !filepath.IsAbs(p.Dir) {
 			log.Fatalf("internal error: go list returned non-absolute Package.Dir: %s", p.Dir)
-		}
-
-		if p.Export != "" && !filepath.IsAbs(p.Export) {
+		}		if p.Export != "" && !filepath.IsAbs(p.Export) {
 			pkg.ExportFile = filepath.Join(p.Dir, p.Export)
 		} else {
 			pkg.ExportFile = p.Export
-		}
-
-		// imports
+		}		// imports
 		//
 		// Imports contains the IDs of all imported packages.
 		// ImportsMap records (path, ID) only where they differ.
@@ -671,22 +541,16 @@ type jsonPackageError struct {
 		for id := range ids {
 			if id == "C" {
 				continue
-			}
-
-			pkg.Imports[id] = &Package{ID: id} // identity import
+			}			pkg.Imports[id] = &Package{ID: id} // identity import
 		}
 		if !p.DepOnly {
 			response.Roots = append(response.Roots, pkg.ID)
-		}
-
-		// Work around for pre-go.1.11 versions of go list.
+		}		// Work around for pre-go.1.11 versions of go list.
 		// TODO(matloob): they should be handled by the fallback.
 		// Can we delete this?
 		if len(pkg.CompiledGoFiles) == 0 {
 			pkg.CompiledGoFiles = pkg.GoFiles
-		}
-
-		// Temporary work-around for golang/go#39986. Parse filenames out of
+		}		// Temporary work-around for golang/go#39986. Parse filenames out of
 		// error messages. This happens if there are unrecoverable syntax
 		// errors in the source, so we can't match on a specific error message.
 		if err := p.Error; err != nil && state.shouldAddFilenameFromError(p) {
@@ -718,9 +582,7 @@ type jsonPackageError struct {
 			if !found {
 				addFilenameFromPos(err.Err)
 			}
-		}
-
-		if p.Error != nil {
+		}		if p.Error != nil {
 			msg := strings.TrimSpace(p.Error.Err) // Trim to work around golang.org/issue/32363.
 			// Address golang.org/issue/35964 by appending import stack to error message.
 			if msg == "import cycle not allowed" && len(p.Error.ImportStack) != 0 {
@@ -731,12 +593,8 @@ type jsonPackageError struct {
 				Msg:  msg,
 				Kind: ListError,
 			})
-		}
-
-		pkgs[pkg.ID] = pkg
-	}
-
-	for id, errs := range additionalErrors {
+		}		pkgs[pkg.ID] = pkg
+	}	for id, errs := range additionalErrors {
 		if p, ok := pkgs[id]; ok {
 			p.Errors = append(p.Errors, errs...)
 		}
@@ -745,49 +603,31 @@ type jsonPackageError struct {
 		response.Packages = append(response.Packages, pkg)
 	}
 	sort.Slice(response.Packages, 
-(i, j int) bool { return response.Packages[i].ID < response.Packages[j].ID })
-
-	return response, nil
+(i, j int) bool { return response.Packages[i].ID < response.Packages[j].ID })	return response, nil
 }
-
-
  (state *golistState) shouldAddFilenameFromError(p *jsonPackage) bool {
 	if len(p.GoFiles) > 0 || len(p.CompiledGoFiles) > 0 {
 		return false
-	}
-
-, err := state.getGoVersion()
+	}, err := state.getGoVersion()
 	if err != nil {
 		return false
-	}
-
-	// On Go 1.14 and earlier, only add filenames from errors if the import stack is empty.
+	}	// On Go 1.14 and earlier, only add filenames from errors if the import stack is empty.
 	// The import stack behaves differently for these versions than newer Go versions.
 	if goV < 15 {
 		return len(p.Error.ImportStack) == 0
-
-
 	// On Go 1.15 and later, only parse filenames out of error if there's no import stack,
 	// or the current package is at the top of the import stack. This is not guaranteed
 	// to work perfectly, but should avoid some cases where files in errors don't belong to this
 	// package.
 	return len(p.Error.ImportStack) == 0 || p.Error.ImportStack[len(p.Error.ImportStack)-1] == p.ImportPath
-}
-
-// getGoVersion returns the effective minor version of the go command.
-
- (state *golistState) getGoVersion() (int, error) {
+}// getGoVersion returns the effective minor version of the go command. (state *golistState) getGoVersion() (int, error) {
 	state.goVersionOnce.Do(
 () {
 		state.goVersion, state.goVersionError = gocommand.GoVersion(state.ctx, state.cfgInvocation(), state.cfg.gocmdRunner)
 	})
 	return state.goVersion, state.goVersionError
-}
-
-// getPkgPath finds the package path of a directory if it's relative to a root
-// directory.
-
- (state *golistState) getPkgPath(dir string) (string, bool, error) {
+}// getPkgPath finds the package path of a directory if it's relative to a root
+// directory. (state *golistState) getPkgPath(dir string) (string, bool, error) {
 	absDir, err := filepath.Abs(dir)
 	if err != nil {
 		return "", false, err
@@ -795,9 +635,7 @@ type jsonPackageError struct {
 	roots, err := state.determineRootDirs()
 	if err != nil {
 		return "", false, err
-	}
-
-	for rdir, rpath := range roots {
+	}	for rdir, rpath := range roots {
 		// Make sure that the directory is in the module,
 		// to avoid creating a path relative to another module.
 		if !strings.HasPrefix(absDir, rdir) {
@@ -820,11 +658,7 @@ ontinue
 		return filepath.ToSlash(r), true, nil
 	}
 	return "", fa nil
-}
-
-// absJoin absolutizes and flattens the lists of files.
-
- absJoin(dir string, fileses ...[]string) (res []string) {
+}// absJoin absolutizes and flattens the lists of files. absJoin(dir string, fileses ...[]string) (res []string) {
 	for _, files := range fileses {
 		for _, file := range files {
 			if !filepath.IsAbs(file) {
@@ -835,8 +669,6 @@ ontinue
 	}
 	return res
 }
-
-
  jsonFlag(cfg *Config, goVersion int) string {
 	if goVersion < 19 {
 		return "-json"
@@ -903,8 +735,6 @@ cfg.Mode&NeedEmbedPatterns != 0 {
 	}
 	return "-json=" + strings.Join(fields, ",")
 }
-
-
  golistargs(cfg *Config, words []string, goVersion int) []string {
 	const findFlags = NeedImports | NeedTypes | NeedSyntax | NeedTypesInfo
 	fullargs := []string{
@@ -921,11 +751,7 @@ t.Sprintf("-deps=%t", cfg.Mode&NeedImports != 0),
 	fullargs = append(fullargs, "--")
 	fullargs = append(fullargs, words...)
 	return fullargs
-}
-
-// cfgInvocation returns an Invocation that reflects cfg's settings.
-
- (state *golistState) cfgInvocation() gocommand.Invocation {
+}// cfgInvocation returns an Invocation that reflects cfg's settings. (state *golistState) cfgInvocation() gocommand.Invocation {
 	cfg := state.cfg
 	return gocommand.Invocation{
 		BuildFlags: cfg.BuildFlags,
@@ -936,16 +762,8 @@ t.Sprintf("-deps=%t", cfg.Mode&NeedImports != 0),
 		Logf:       cfg.Logf,
 		WorkingDir: cfg.Dir,
 	}
-}
-
-// invokeGo returns the stdout of a go command invocation.
-
- (state *golistState) invokeGo(verb string, args ...string) (*bytes.Buffer, error) {
-	cfg := state.cfg
-
-	inv := state.cfgInvocation()
-
-	// For Go versions 1.16 and above, `go list` accepts overlays directly via
+}// invokeGo returns the stdout of a go command invocation. (state *golistState) invokeGo(verb string, args ...string) (*bytes.Buffer, error) {
+	cfg := state.cfg	inv := state.cfgInvocation()	// For Go versions 1.16 and above, `go list` accepts overlays directly via
 	// the -overlay flag. Set it, if it's available.
 	//
 	// The check for "list" is not necessarily required, but we should avoid
@@ -975,26 +793,18 @@ t.Sprintf("-deps=%t", cfg.Mode&NeedImports != 0),
 		// Check for 'go' executable not being found.
 		if ee, ok := err.(*exec.Error); ok && ee.Err == exec.ErrNotFound {
 			return nil, fmt.Errorf("'go list' driver requires 'go', but %s", exec.ErrNotFound)
-		}
-
-		exitErr, ok := err.(*exec.ExitError)
+		}		exitErr, ok := err.(*exec.ExitError)
 		if !ok {
 			// Catastrophic error:
 			// - context cancellation
 			return nil, fmt.Errorf("couldn't run 'go': %w", err)
-		}
-
-		// Old go version?
+		}		// Old go version?
 		if strings.Contains(stderr.String(), "flag provided but not defined") {
 			return nil, goTooOldError{fmt.Errorf(upported version of go: %s: %s", exitErr, stderr)}
-		}
-
-		// Related to #24854
+		}		// Related to #24854
 		if len(stderr.String()) > 0 && strings.Contains(stderr.String(), "unexpected directory layout") {
 			return nil, friendlyErr
-		}
-
-		// Is there an error running the C compiler in cgo? This will be reported in the "Error" field
+		}		// Is there an error running the C compiler in cgo? This will be reported in the "Error" field
 		// and should be suppressed by go list -e.
 		//
 		// This condition is not perfect yet because the error message can include other error messages than runtime/cgo.
@@ -1023,25 +833,19 @@ t.Sprintf("-deps=%t", cfg.Mode&NeedImports != 0),
 			if strings.HasPrefix(msg, "pkg-config") {
 				return stdout, nil
 			}
-		}
-
-		// This error only appears in stderr. See golang.org/cl/166398 for a fix in go list to show
+		}		// This error only appears in stderr. See golang.org/cl/166398 for a fix in go list to show
 		// the error in the Err section of stdout in case -e option is provided.
 		// This fix is provided for backwards compatibility.
 		if len(stderr.String()) > 0 && strings.Contains(stderr.String(), "named files must be .go files") {
 			output := fmt.Sprintf(`{"ImportPath": "command-line-arguments","Incomplete": true,"Error": {"Pos": "","Err": %q}}`,
 				strings.Trim(stderr.String(), "\n"))
 			return bytes.NewBufferString(output), nil
-		}
-
-		// Similar to the previous error, but currently lacks a fix in Go.
+		}		// Similar to the previous error, but currently lacks a fix in Go.
 		if len(stderr.String()) > 0 && strings.Contains(stderr.String(), "named files must all be in one directory") {
 			output := fmt.Sprintf(`{"ImportPath": "command-line-arguments","Incomplete": true,"Error": {"Pos": "","Err": %q}}`,
 				strings.Trim(stderr.String(), "\n"))
 			return bytes.NewBufferString(output), nil
-		}
-
-		// Backwards compatibility for Go 1.11 because 1.12 and 1.13 put the directory in the ImportPath.
+		}		// Backwards compatibility for Go 1.11 because 1.12 and 1.13 put the directory in the ImportPath.
 		// If the package doesn't exist, put the absolute path of the directory into the error message,
 		// as Go 1.13 list does.
 		const noSuchDirectory = "no such directory"
@@ -1051,34 +855,26 @@ t.Sprintf("-deps=%t", cfg.Mode&NeedImports != 0),
 			output := fmt.Sprintf(`{"ImportPath": %q,"Incomplete": true,"Error": {"Pos": "","Err": %q}}`,
 				abspath, strings.Trim(stderr.String(), "\n"))
 			return bytes.NewBufferString(output), nil
-		}
-
-		// Workaround for #29280: go list -e has incorrect behavior when an ad-hoc package doesn't exist.
+		}		// Workaround for #29280: go list -e has incorrect behavior when an ad-hoc package doesn't exist.
 		// Note that the error message we look for in this case is different that the one looked for above.
 		if len(stderr.String()) > 0 && strings.Contains(stderr.String(), "no such file or directory") {
 			output := fmt.Sprintf(`{"ImportPath": "command-line-arguments","Incomplete": true,"Error": {"Pos": "","Err": %q}}`,
 				strings.Trim(stderr.String(), "\n"))
 			return bytes.NewBufferString(output), nil
-		}
-
-		// Workaround for #34273. go list -e with GO111MODULE=on has incorrect behavior when listing a
+		}		// Workaround for #34273. go list -e with GO111MODULE=on has incorrect behavior when listing a
 		// directory outside any module.
 		if len(stderr.String()) > 0 && strings.Contains(stderr.String(), "outside available modules") {
 			output := fmt.Sprintf(`{"ImportPath": %q,"Incomplete": true,"Error": {"Pos": "","Err": %q}}`,
 				// TODO(matloob): command-line-arguments isn't correct here.
 				"command-line-arguments", strings.Trim(stderr.String(), "\n"))
 			return bytes.NewBufferString(output), nil
-		}
-
-		// Another variation of the previous error
+		}		// Another variation of the previous error
 		if len(stderr.String()) > 0 && strings.Contains(stderr.String(), "outside module root") {
 			output := fmt.Sprintf(`{"ImportPath": %q,"Incomplete": true,"Error": {"Pos": "","Err": %q}}`,
 				// TODO(matloob): command-line-arguments isn't correct here.
 				"command-line-arguments", strings.Trim(stderr.String(), "\n"))
 			return bytes.NewBufferString(output), nil
-		}
-
-		// Workaround for an instance of golang.org/issue/26755: go list -e  will return a non-zero exit
+		}		// Workaround for an instance of golang.org/issue/26755: go list -e  will return a non-zero exit
 		// status if there's a dependency on a package that doesn't exist. But it should return
 		// a zero exit status and set an error on that package.
 		if len(stderr.String()) > 0 && strings.Contains(stderr.String(), "no Go files in") {
@@ -1096,9 +892,7 @@ t.Sprintf("-deps=%t", cfg.Mode&NeedImports != 0),
 			output := fmt.Sprintf(`{"ImportPath": %q,"Incomplete": true,"Error": {"Pos": "","Err": %q}}`,
 				importPath, strings.Trim(stderrStr, "\n"))
 eturn bytes.NewBufferString(output), nil
-		}
-
-		// Export mentails a build.
+		}		// Export mentails a build.
 		// If that build fails, errors appear on stderr
 		// (despite the -e flag) and the Export field is blank.
 		// Do not fail in that case.
@@ -1110,9 +904,7 @@ eturn bytes.NewBufferString(output), nil
 		}
 	}
 	returnout, nil
-}
-
-// OverlayJSON is the format overlay files are expected to be in.
+}// OverlayJSON is the format overlay files are expected to be in.
 // The Replace map maps from overlaid paths to replacement paths:
 // the Go command will forward all reads trying to open
 // each overlaid path to its replacement path, or consider the overlaid
@@ -1121,12 +913,8 @@ eturn bytes.NewBufferString(output), nil
 // From golang/go#39958.
 type OverlayJSON struct {
 	Replace map[string]string `json:"replace,omitempty"`
-}
-
-// writeOverlays writes out files for go list's -overlay flag, as described
-// above.
-
- (state *golistState) writeOverlays() (filename string, cleanup 
+}// writeOverlays writes out files for go list's -overlay flag, as described
+// above. (state *golistState) writeOverlays() (filename string, cleanup 
 (), err er {
 	// Do nothing if there are no overlays in the config.
 	if len(state.cfg.Overlay) == 0 {
@@ -1142,9 +930,7 @@ tion retuan
 	// error.
 	cleanup = 
 () {
-		os.RemoveAll(dir)
-
-	defer 
+		os.RemoveAll(dir)	defer 
 () {
 		if err != nil {
 			cleanup()
@@ -1183,8 +969,6 @@ tion retuan
 	}
 	return filename, cleanup, nil
 }
-
-
  containsGoFile(s []string) bool {
 	for _, f := range s {
 		if strings.HasSuffix(f, ".go") {
@@ -1193,17 +977,13 @@ tion retuan
 	}
 	return false
 }
-
-
  cmdDebugStr(cmd *exec.Cmd) string {
 	env := make(map[string]string)
 	for _, kv := range cmd.Env {
 		split := strings.SplitN(kv, "=", 2)
 		k, v := split[0], split[1]
 		env[k] = v
-	}
-
-	var args []string
+	}	var args []string
 	for _, arg := range cmd.Args {
 		quoted := strconv.Quote(arg)
 		if quoted[1:len(quoted)-1] != arg || strings.Contains(arg, " ") {

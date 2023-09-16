@@ -74,7 +74,6 @@ func ResourceBucket() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceBucketCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -101,7 +100,6 @@ func resourceBucketCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return resourceBucketRead(ctx, d, meta)
 }
-
 func resourceBucketRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -130,7 +128,6 @@ func resourceBucketRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return nil
 }
-
 func resourceBucketUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -154,7 +151,6 @@ func resourceBucketUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return resourceBucketRead(ctx, d, meta)
 }
-
 func resourceBucketDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	out, err := conn.DeleteBucket(ctx, &lightsail.DeleteBucketInput{
@@ -177,7 +173,6 @@ func resourceBucketDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
-
 func FindBucketById(ctx context.Context, conn *lightsail.Client, id string) (*types.Bucket, error) {
 	in := &lightsail.GetBucketsInput{BucketName: aws.String(id)}
 	out, err := conn.GetBuckets(ctx, in)

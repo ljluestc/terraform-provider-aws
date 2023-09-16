@@ -61,7 +61,7 @@ func: verify.ValidAccountID,
 Schema: map[string]*schema.Schema{
 	"copy_source_arn": {
 Type: schema.TypeString,
-Optional:      true,
+Optional:true,
 Validate
 func:  verify.ValidARN,
 ConflictsWith: []string{"credentials.0.credential_pair"},
@@ -1501,8 +1501,8 @@ params = append(params, map[string]interface{}{
 map[string]interface{}{
 	"cluster_id": parameters.RedshiftParameters.ClusterId,
 	"database":   parameters.RedshiftParameters.Database,
-	"host":       parameters.RedshiftParameters.Host,
-	"port":       parameters.RedshiftParameters.Port,
+	"host": parameters.RedshiftParameters.Host,
+	"port": parameters.RedshiftParameters.Port,
 },
 	},
 })
@@ -1538,7 +1538,7 @@ params = append(params, map[string]interface{}{
 	"snowflake": []interface{}{
 map[string]interface{}{
 	"database":  parameters.SnowflakeParameters.Database,
-	"host":      parameters.SnowflakeParameters.Host,
+	"host":parameters.SnowflakeParameters.Host,
 	"warehouse": parameters.SnowflakeParameters.Warehouse,
 },
 	},

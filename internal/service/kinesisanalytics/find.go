@@ -40,7 +40,7 @@ func FindApplicationDetail(ctx context.Context, conn *kinesisanalytics.KinesisAn
 
 	if output == nil || output.ApplicationDetail == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message:"Empty result",
 			LastRequest: input,
 		}
 	}

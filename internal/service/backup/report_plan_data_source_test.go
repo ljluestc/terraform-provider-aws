@@ -1,35 +1,24 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package backup_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package backup_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/backup"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func TestAccBackupReportPlanDataSource_basic(t *testing.T) {
+)func TestAccBackupReportPlanDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_backup_report_plan.test"
 	resourceName := "aws_backup_report_plan.test"
 	rName := sdkacctest.RandomWithPrefix("tf-test-bucket")
-	rName2 := fmt.Sprintf("tf_acc_test_%s", sdkacctest.RandString(7))
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName2 := fmt.Sprintf("tf_acc_test_%s", sdkacctest.RandString(7))	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccReportPlanPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
-Config:      testAccReportPlanDataSourceConfig_nonExistent,
+Config:testAccReportPlanDataSourceConfig_nonExistent,
 ExpectError: regexache.MustCompile(`reading Backup Report Plan`),
 	},
 	{
@@ -53,17 +42,12 @@ func(
 	},
 },
 	})
-}
-
-
-func TestAccBackupReportPlanDataSource_reportSettings(t *testing.T) {
+}func TestAccBackupReportPlanDataSource_reportSettings(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_backup_report_plan.test"
 	resourceName := "aws_backup_report_plan.test"
 	rName := sdkacctest.RandomWithPrefix("tf-test-bucket")
-	rName2 := fmt.Sprintf("tf_acc_test_%s", sdkacctest.RandString(7))
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName2 := fmt.Sprintf("tf_acc_test_%s", sdkacctest.RandString(7))	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccReportPlanPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
@@ -94,46 +78,30 @@ func(
 	},
 },
 	})
-}
-
-const testAccReportPlanDataSourceConfig_nonExistent = `
+}const testAccReportPlanDataSourceConfig_nonExistent = `
 data "aws_backup_report_plan" "test" {
   name = "tf_acc_test_does_not_exist"
 }
-`
-
-
-func testAccReportPlanDataSourceConfig_basic(rName, rName2 string) string {
+`func testAccReportPlanDataSourceConfig_basic(rName, rName2 string) string {
 	return acctest.ConfigCompose(testAccReportPlanBaseConfig(rName), fmt.Sprintf(`
 resource "aws_backup_report_plan" "test" {
-  name        = %[1]q
-  description = "Test report plan data source"
-
-  report_delivery_channel {
-    formats = [
-      "CSV"
-    ]
-    s3_bucket_name = aws_s3_bucket.test.id
+  name  = %[1]q
+  description = "Test report plan data source"  report_delivery_channel {
+ formats = [
+"CSV"
+ ]
+ s3_bucket_name = aws_s3_bucket.test.id
+  }  report_setting {
+ report_template = "RESTORE_JOB_REPORT"
+  }  tags = {
+ "Name" = "Test Report Plan Data Source"
+ "Key2" = "Value2a"
   }
-
-  report_setting {
-    report_template = "RESTORE_JOB_REPORT"
-  }
-
-  tags = {
-    "Name" = "Test Report Plan Data Source"
-    "Key2" = "Value2a"
-  }
-}
-
-data "aws_backup_report_plan" "test" {
+}data "aws_backup_report_plan" "test" {
   name = aws_backup_report_plan.test.name
 }
 `, rName2))
-}
-
-
-func testAccReportPlanDataSourceConfig_reportSettings(rName, rName2 string) string {
+}func testAccReportPlanDataSourceConfig_reportSettings(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 testAccReportPlanConfig_reportSettings(rName, rName2, "Test report plan data source"),
 `

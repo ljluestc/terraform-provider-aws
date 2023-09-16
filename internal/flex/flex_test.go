@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package fleximport ("strings""testing""time""github.com/aws/aws-sdk-go/aws""github.com/google/go-cmp/cmp")funcfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfuncfunc
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagefleximport("strings""testing""time""github.com/aws/aws-sdk-go/aws""github.com/google/go-cmp/cmp")

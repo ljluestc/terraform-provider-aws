@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package connect_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package connect_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/connect"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -17,29 +11,20 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfconnect "github.com/hashicorp/terraform-provider-aws/internal/service/connect"
-)
-
-
-func testAccVocabulary_basic(t *testing.T) {
+)func testAccVocabulary_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
 	}
 	var v connect.DescribeVocabularyOutput
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-
-	content := "Phrase\tIPA\tSoundsLike\tDisplayAs\nLos-Angeles\t\t\tLos Angeles\nF.B.I.\tɛ f b i aɪ\t\tFBI\nEtienne\t\teh-tee-en\t"
-	languageCode := "en-US"
-
-	resourceName := "aws_connect_vocabulary.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")	content := "Phrase\tIPA\tSoundsLike\tDisplayAs\nLos-Angeles\t\t\tLos Angeles\nF.B.I.\tɛ f b i aɪ\t\tFBI\nEtienne\t\teh-tee-en\t"
+	languageCode := "en-US"	resourceName := "aws_connect_vocabulary.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVocabularyDestroy(ctx),
+CheckDestroy: testAccCheckVocabularyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
@@ -59,35 +44,26 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func testAccVocabulary_disappears(t *testing.T) {
+}func testAccVocabulary_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
 	}
 	var v connect.DescribeVocabularyOutput
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-
-	content := "Phrase\tIPA\tSoundsLike\tDisplayAs\nLos-Angeles\t\t\tLos Angeles\nF.B.I.\tɛ f b i aɪ\t\tFBI\nEtienne\t\teh-tee-en\t"
-	languageCode := "en-US"
-
-	resourceName := "aws_connect_vocabulary.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")	content := "Phrase\tIPA\tSoundsLike\tDisplayAs\nLos-Angeles\t\t\tLos Angeles\nF.B.I.\tɛ f b i aɪ\t\tFBI\nEtienne\t\teh-tee-en\t"
+	languageCode := "en-US"	resourceName := "aws_connect_vocabulary.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVocabularyDestroy(ctx),
+CheckDestroy: testAccCheckVocabularyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
@@ -100,29 +76,20 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func testAccVocabulary_updateTags(t *testing.T) {
+}func testAccVocabulary_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
 	}
 	var v connect.DescribeVocabularyOutput
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-
-	content := "Phrase\tIPA\tSoundsLike\tDisplayAs\nLos-Angeles\t\t\tLos Angeles\nF.B.I.\tɛ f b i aɪ\t\tFBI\nEtienne\t\teh-tee-en\t"
-	languageCode := "en-US"
-
-	resourceName := "aws_connect_vocabulary.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")	content := "Phrase\tIPA\tSoundsLike\tDisplayAs\nLos-Angeles\t\t\tLos Angeles\nF.B.I.\tɛ f b i aɪ\t\tFBI\nEtienne\t\teh-tee-en\t"
+	languageCode := "en-US"	resourceName := "aws_connect_vocabulary.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckVocabularyDestroy(ctx),
+CheckDestroy: testAccCheckVocabularyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
@@ -134,8 +101,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -161,10 +128,7 @@ func(
 	},
 },
 	})
-}
-
-
-func testAccCheckVocabularyExists(ctx context.Context, resourceName string, 
+}func testAccCheckVocabularyExists(ctx context.Context, resourceName string, 
 function *connect.DescribeVocabularyOutput) resource.TestCheck
 func {
 	return 
@@ -172,146 +136,93 @@ func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return fmt.Errorf("Connect Vocabulary not found: %s", resourceName)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("Connect Vocabulary ID not set")
 }
-instanceID, vocabularyID, err := tfconnect.VocabularyParseID(rs.Primary.ID)
-
-if err != nil {
+instanceID, vocabularyID, err := tfconnect.VocabularyParseID(rs.Primary.ID)if err != nil {
 	return err
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
-
-params := &connect.DescribeVocabularyInput{
-	InstanceId:   aws.String(instanceID),
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)params := &connect.DescribeVocabularyInput{
+	InstanceId:aws.String(instanceID),
 	VocabularyId: aws.String(vocabularyID),
-}
-
-get
+}get
 function, err := conn.DescribeVocabularyWithContext(ctx, params)
 if err != nil {
 	return err
-}
-
-*
+}*
 function = *get
-function
-
-return nil
+functionreturn nil
 	}
-}
-
-
-func testAccCheckVocabularyDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckVocabularyDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_connect_vocabulary" {
 continue
-	}
-
-	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
-
-	instanceID, vocabularyID, err := tfconnect.VocabularyParseID(rs.Primary.ID)
-
-	if err != nil {
+	}	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)	instanceID, vocabularyID, err := tfconnect.VocabularyParseID(rs.Primary.ID)	if err != nil {
 return err
-	}
-
-	params := &connect.DescribeVocabularyInput{
-InstanceId:   aws.String(instanceID),
+	}	params := &connect.DescribeVocabularyInput{
+InstanceId:aws.String(instanceID),
 VocabularyId: aws.String(vocabularyID),
-	}
-
-	resp, err := conn.DescribeVocabularyWithContext(ctx, params)
-
-	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
+	}	resp, err := conn.DescribeVocabularyWithContext(ctx, params)	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
-	}
-
-	// API returns an empty list for Vocabulary if there are none
+	}	// API returns an empty list for Vocabulary if there are none
 	if resp.Vocabulary == nil {
 continue
 	}
-}
-
-return nil
+}return nil
 	}
-}
-
-
-func testAccVocabularyConfig_base(rName string) string {
+}func testAccVocabularyConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
-  identity_management_type = "CONNECT_MANAGED"
-  inbound_calls_enabled    = true
-  instance_alias  = %[1]q
-  outbound_calls_enabled   = true
+identity_management_type = "CONNECT_MANAGED"
+inbound_calls_enabled = true
+instance_alias= %[1]q
+outbound_calls_enabled= true
 }
 `, rName)
-}
-
-
-func testAccVocabularyConfig_basic(rName, rName2, content, languageCode string) string {
+}func testAccVocabularyConfig_basic(rName, rName2, content, languageCode string) string {
 	return acctest.ConfigCompose(
 testAccVocabularyConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_connect_vocabulary" "test" {
-  instance_id   = aws_connect_instance.test.id
-  name = %[1]q
-  content       = %[2]q
-  language_code = %[3]q
-
-  tags = {
-    "Key1" = "Value1"
-  }
+instance_id= aws_connect_instance.test.id
+name = %[1]q
+content = %[2]q
+language_code = %[3]qtags = {
+ "Key1" = "Value1"
+}
 }
 `, rName2, content, languageCode))
-}
-
-
-func testAccVocabularyConfig_tags(rName, rName2, content, languageCode string) string {
+}func testAccVocabularyConfig_tags(rName, rName2, content, languageCode string) string {
 	return acctest.ConfigCompose(
 testAccVocabularyConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_connect_vocabulary" "test" {
-  instance_id   = aws_connect_instance.test.id
-  name = %[1]q
-  content       = %[2]q
-  language_code = %[3]q
-
-  tags = {
-    "Key1" = "Value1"
-    "Key2" = "Value2a"
-  }
+instance_id= aws_connect_instance.test.id
+name = %[1]q
+content = %[2]q
+language_code = %[3]qtags = {
+ "Key1" = "Value1"
+ "Key2" = "Value2a"
+}
 }
 `, rName2, content, languageCode))
-}
-
-
-func testAccVocabularyConfig_tagsUpdate(rName, rName2, content, languageCode string) string {
+}func testAccVocabularyConfig_tagsUpdate(rName, rName2, content, languageCode string) string {
 	return acctest.ConfigCompose(
 testAccVocabularyConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_connect_vocabulary" "test" {
-  instance_id   = aws_connect_instance.test.id
-  name = %[1]q
-  content       = %[2]q
-  language_code = %[3]q
-
-  tags = {
-    "Key1" = "Value1"
-    "Key2" = "Value2b"
-    "Key3" = "Value3"
-  }
+instance_id= aws_connect_instance.test.id
+name = %[1]q
+content = %[2]q
+language_code = %[3]qtags = {
+ "Key1" = "Value1"
+ "Key2" = "Value2b"
+ "Key3" = "Value3"
+}
 }
 `, rName2, content, languageCode))
 }

@@ -14,14 +14,14 @@ import (
 const (
 	gatewayConnectedMinTimeout = 10 * time.Second
 	gatewayConnectedContinuousTargetOccurence = 6
-	gatewayJoinDomainJoinedTimeout            = 5 * time.Minute
-	storediSCSIVolumeAvailableTimeout         = 5 * time.Minute
+	gatewayJoinDomainJoinedTimeout   = 5 * time.Minute
+	storediSCSIVolumeAvailableTimeout= 5 * time.Minute
 	nfsFileShareAvailableDelay = 5 * time.Second
 	nfsFileShareDeletedDelay   = 5 * time.Second
 	smbFileShareAvailableDelay = 5 * time.Second
 	smbFileShareDeletedDelay   = 5 * time.Second
 	fileSystemAssociationAvailableDelay       = 5 * time.Second
-	fileSystemAssociationDeletedDelay         = 5 * time.Second
+	fileSystemAssociationDeletedDelay= 5 * time.Second
 )
 
 func waitGatewayConnected(ctx context.Context, conn *storagegateway.StorageGateway, gatewayARN string, timeout time.Duration) (*storagegateway.DescribeGatewayInformationOutput, error) {
@@ -100,10 +100,10 @@ return output, err
 func waitNFSFileShareDeleted(ctx context.Context, conn *storagegateway.StorageGateway, arn string, timeout time.Duration) (*storagegateway.NFSFileShareInfo, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:        []string{fileShareStatusAvailable, fileShareStatusDeleting, fileShareStatusForceDeleting},
-Target:         []string{},
+Target:[]string{},
 Refresh:        statusNFSFileShare(ctx, conn, arn),
 Timeout:        timeout,
-Delay:          nfsFileShareDeletedDelay,
+Delay: nfsFileShareDeletedDelay,
 NotFoundChecks: 1,
 	}
 
@@ -155,10 +155,10 @@ return output, err
 func waitSMBFileShareDeleted(ctx context.Context, conn *storagegateway.StorageGateway, arn string, timeout time.Duration) (*storagegateway.SMBFileShareInfo, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:        []string{fileShareStatusAvailable, fileShareStatusDeleting, fileShareStatusForceDeleting},
-Target:         []string{},
+Target:[]string{},
 Refresh:        statusSMBFileShare(ctx, conn, arn),
 Timeout:        timeout,
-Delay:          smbFileShareDeletedDelay,
+Delay: smbFileShareDeletedDelay,
 NotFoundChecks: 1,
 	}
 
@@ -210,10 +210,10 @@ return output, err
 func waitFileSystemAssociationDeleted(ctx context.Context, conn *storagegateway.StorageGateway, fileSystemArn string, timeout time.Duration) (*storagegateway.FileSystemAssociationInfo, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:        []string{fileSystemAssociationStatusAvailable, fileSystemAssociationStatusDeleting, fileSystemAssociationStatusForceDeleting},
-Target:         []string{},
+Target:[]string{},
 Refresh:        statusFileSystemAssociation(ctx, conn, fileSystemArn),
 Timeout:        timeout,
-Delay:          fileSystemAssociationDeletedDelay,
+Delay: fileSystemAssociationDeletedDelay,
 NotFoundChecks: 1,
 	}
 

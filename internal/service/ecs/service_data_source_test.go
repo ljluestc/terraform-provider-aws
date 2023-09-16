@@ -64,8 +64,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = "mongodb"
-  cluster         = aws_ecs_cluster.test.id
+  name   = "mongodb"
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
   tags = {

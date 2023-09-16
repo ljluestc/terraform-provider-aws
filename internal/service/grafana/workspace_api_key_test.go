@@ -52,7 +52,7 @@ resource "aws_iam_role" "test" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Service = "grafana.amazonaws.com"
+ Service = "grafana.amazonaws.com"
         }
       },
     ]
@@ -62,7 +62,7 @@ resource "aws_iam_role" "test" {
 resource "aws_grafana_workspace" "test" {
   account_access_type      = "CURRENT_ACCOUNT"
   authentication_providers = ["SAML"]
-  permission_type          = "SERVICE_MANAGED"
+  permission_type = "SERVICE_MANAGED"
   role_arn    = aws_iam_role.test.arn
 }
 

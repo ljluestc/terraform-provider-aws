@@ -58,7 +58,7 @@ func DataSourceFunction() *schema.Resource {
 			},
 
 			"stage": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(cloudfront.FunctionStage_Values(), false),
 			},

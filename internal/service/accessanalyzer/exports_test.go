@@ -6,9 +6,9 @@ package accessanalyzer
 // Exports for use in tests only.
 var (
 	ArchiveRuleParseResourceID  = archiveRuleParseResourceID
-	FindAnalyzerByName          = findAnalyzerByName
+	FindAnalyzerByName = findAnalyzerByName
 	FindArchiveRuleByTwoPartKey = findArchiveRuleByTwoPartKey
 
-	ResourceAnalyzer    = resourceAnalyzer
+	ResourceAnalyzer= resourceAnalyzer
 	ResourceArchiveRule = resourceArchiveRule
 )

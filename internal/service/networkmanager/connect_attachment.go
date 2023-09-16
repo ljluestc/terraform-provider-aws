@@ -91,7 +91,7 @@ func ResourceConnectAttachment() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"protocol": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice([]string{"GRE"}, false),
 						},
@@ -141,10 +141,10 @@ func resourceConnectAttachmentCreate(ctx context.Context, d *schema.ResourceData
 	}
 
 	input := &networkmanager.CreateConnectAttachmentInput{
-		CoreNetworkId:         aws.String(coreNetworkID),
-		EdgeLocation:          aws.String(edgeLocation),
-		Options:               options,
-		Tags:                  getTagsIn(ctx),
+		CoreNetworkId:aws.String(coreNetworkID),
+		EdgeLocation: aws.String(edgeLocation),
+		Options:      options,
+		Tags:getTagsIn(ctx),
 		TransportAttachmentId: aws.String(transportAttachmentID),
 	}
 
@@ -342,7 +342,7 @@ func waitConnectAttachmentCreated(ctx context.Context, conn *networkmanager.Netw
 func waitConnectAttachmentDeleted(ctx context.Context, conn *networkmanager.NetworkManager, id string, timeout time.Duration) (*networkmanager.ConnectAttachment, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:        []string{networkmanager.AttachmentStateDeleting},
-		Target:         []string{},
+		Target:[]string{},
 		Timeout:        timeout,
 		Refresh:        statusConnectAttachmentState(ctx, conn, id),
 		NotFoundChecks: 1,

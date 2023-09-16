@@ -26,51 +26,51 @@ func DataSourceConfigurationProfile() *schema.Resource {
 		ReadWithoutTimeout: dataSourceConfigurationProfileRead,
 		Schema: map[string]*schema.Schema{
 			"application_id": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[a-z\d]{4,7}`), ""),
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"configuration_profile_id": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[a-z\d]{4,7}`), ""),
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"location_uri": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"retrieval_role_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"type": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"validator": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"content": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 					},
@@ -103,7 +103,7 @@ func dataSourceConfigurationProfileRead(ctx context.Context, d *schema.ResourceD
 	arn := arn.ARN{
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
+		Region:meta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("application/%s/configurationprofile/%s", appId, profileId),
 		Service:   "appconfig",
 	}.String()
@@ -138,7 +138,7 @@ func dataSourceConfigurationProfileRead(ctx context.Context, d *schema.ResourceD
 
 func findConfigurationProfileByApplicationAndProfile(ctx context.Context, conn *appconfig.AppConfig, appId string, cpId string) (*appconfig.GetConfigurationProfileOutput, error) {
 	res, err := conn.GetConfigurationProfileWithContext(ctx, &appconfig.GetConfigurationProfileInput{
-		ApplicationId:          aws.String(appId),
+		ApplicationId: aws.String(appId),
 		ConfigurationProfileId: aws.String(cpId),
 	})
 

@@ -26,12 +26,12 @@ func ResourceThingPrincipalAttachment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"principal": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"thing": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},

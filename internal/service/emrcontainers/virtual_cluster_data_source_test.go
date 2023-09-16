@@ -19,7 +19,7 @@ func TestAccEMRContainersVirtualClusterDataSource_basic(t *testing.T) {
 	resourceName := "aws_emrcontainers_virtual_cluster.test"
 	testExternalProviders := map[string]resource.ExternalProvider{
 "kubernetes": {
-	Source:            "hashicorp/kubernetes",
+	Source:   "hashicorp/kubernetes",
 	VersionConstraint: "~> 2.3",
 },
 	}
@@ -32,7 +32,7 @@ PreCheck: func() {
 ErrorCheck:acctest.ErrorCheck(t, eks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 ExternalProviders:        testExternalProviders,
-CheckDestroy:             testAccCheckVirtualClusterDestroy(ctx),
+CheckDestroy:    testAccCheckVirtualClusterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVirtualClusterDataSourceConfig_basic(rName),

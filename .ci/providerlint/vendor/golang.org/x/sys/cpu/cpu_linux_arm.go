@@ -1,10 +1,7 @@
 // Copyright 2019 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package cpu
-
-func doinit() {
+// license that can be found in the LICENSE file.package cpu
+ doinit() {
 	ARM.HasSWP = isSet(hwCap, hwcap_SWP)
 	ARM.HasHALF = isSet(hwCap, hwcap_HALF)
 	ARM.HasTHUMB = isSet(hwCap, hwcap_THUMB)
@@ -33,7 +30,6 @@ func doinit() {
 	ARM.HasSHA2 = isSet(hwCap2, hwcap2_SHA2)
 	ARM.HasCRC32 = isSet(hwCap2, hwcap2_CRC32)
 }
-
-func isSet(hwc uint, value uint) bool {
+ isSet(hwc uint, value uint) bool {
 	return hwc&value != 0
 }

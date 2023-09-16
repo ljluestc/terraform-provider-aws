@@ -21,7 +21,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_cloudtrail", &resource.Sweeper{
 		Name: "aws_cloudtrail",
-		F:    sweeps,
+		F:sweeps,
 	})
 }
 

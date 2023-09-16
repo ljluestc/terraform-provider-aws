@@ -59,14 +59,14 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"acl": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Default:      s3.ObjectCannedACLPrivate,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(s3.ObjectCannedACL_Values(), false),
 			},
 			"bucket": {
 				Deprecated:   "Use the aws_s3_object resource instead",
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.NoZeroValues,
@@ -81,12 +81,12 @@ import (
 				Optional: true,
 			},
 			"content": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"source", "content_base64"},
 			},
 			"content_base64": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"source", "content"},
 			},
@@ -123,13 +123,13 @@ import (
 			},
 			"key": {
 				Deprecated:   "Use the aws_s3_object resource instead",
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: verify.ValidARN,
@@ -142,34 +142,34 @@ import (
 				},
 			},
 			"metadata": {
-				Type:         schema.TypeMap,
+				Type:schema.TypeMap,
 				ValidateFunc: validateMetadataIsLowerCase,
 				Optional:     true,
-				Elem:         &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"object_lock_legal_hold_status": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(s3.ObjectLockLegalHoldStatus_Values(), false),
 			},
 			"object_lock_mode": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(s3.ObjectLockMode_Values(), false),
 			},
 			"object_lock_retain_until_date": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.IsRFC3339Time,
 			},
 			"server_side_encryption": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(s3.ServerSideEncryption_Values(), false),
 				Computed:     true,
 			},
 			"source": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"content", "content_base64"},
 			},
@@ -178,7 +178,7 @@ import (
 				Optional: true,
 			},
 			"storage_class": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringInSlice(s3.ObjectStorageClass_Values(), false),
@@ -315,7 +315,7 @@ import (
 			Bucket: aws.String(bucket),
 			Key:    aws.String(key),
 			Retention: &s3.ObjectLockRetention{
-				Mode:            aws.String(d.Get("object_lock_mode").(string)),
+				Mode:   aws.String(d.Get("object_lock_mode").(string)),
 				RetainUntilDate: expandObjectDate(d.Get("object_lock_retain_until_date").(string)),
 			},
 		}

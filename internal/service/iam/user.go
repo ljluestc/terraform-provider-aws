@@ -40,17 +40,17 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"force_destroy": {
-				Type:        schema.TypeBool,
-				Optional:    true,
-				Default:     false,
+				Type:   schema.TypeBool,
+				Optional:true,
+				Default:false,
 				Description: "Delete user even if it has non-Terraform-managed IAM access keys, login profile or MFA devices",
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ValidateFunc: validation.StringMatch(
 					regexache.MustCompile(`^[0-9A-Za-z=,.@\-_+]+$`),
@@ -58,16 +58,16 @@ import (
 				),
 			},
 			"path": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  "/",
 			},
 			"permissions_boundary": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringLenBetween(0, 2048),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			/*
 				The UniqueID could be used as the Id(), but none of the API
@@ -78,7 +78,7 @@ import (
 				the UniqueID, so we can make it available.
 			*/
 			"unique_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -91,8 +91,8 @@ import (
 	name := d.Get("name").(string)
 	path := d.Get("path").(string)
 	input := &iam.CreateUserInput{
-		Path:     aws.String(path),
-		Tags:     getTagsIn(ctx),
+		Path:aws.String(path),
+		Tags:getTagsIn(ctx),
 		UserName: aws.String(name),
 	}
 
@@ -166,9 +166,9 @@ import (
 	if d.HasChanges("name", "path") {
 		o, n := d.GetChange("name")
 		input := &iam.UpdateUserInput{
-			UserName:    aws.String(o.(string)),
+			UserName:aws.String(o.(string)),
 			NewUserName: aws.String(n.(string)),
-			NewPath:     aws.String(d.Get("path").(string)),
+			NewPath:aws.String(d.Get("path").(string)),
 		}
 
 		_, err := conn.UpdateUserWithContext(ctx, input)
@@ -184,7 +184,7 @@ import (
 		if v, ok := d.GetOk("permissions_boundary"); ok {
 			input := &iam.PutUserPermissionsBoundaryInput{
 				PermissionsBoundary: aws.String(v.(string)),
-				UserName:            aws.String(d.Id()),
+				UserName:  aws.String(d.Id()),
 			}
 
 			_, err := conn.PutUserPermissionsBoundaryWithContext(ctx, input)
@@ -335,7 +335,7 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 	}
 	for _, k := range publicKeys {
 		_, err := conn.DeleteSSHPublicKeyWithContext(ctx, &iam.DeleteSSHPublicKeyInput{
-			UserName:       aws.String(username),
+			UserName:  aws.String(username),
 			SSHPublicKeyId: aws.String(k),
 		})
 		if err != nil {
@@ -365,7 +365,7 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 	}
 	for _, m := range VirtualMFADevices {
 		_, err := conn.DeactivateMFADeviceWithContext(ctx, &iam.DeactivateMFADeviceInput{
-			UserName:     aws.String(username),
+			UserName:aws.String(username),
 			SerialNumber: aws.String(m),
 		})
 		if err != nil {
@@ -398,7 +398,7 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 	}
 	for _, m := range MFADevices {
 		_, err := conn.DeactivateMFADeviceWithContext(ctx, &iam.DeactivateMFADeviceInput{
-			UserName:     aws.String(username),
+			UserName:aws.String(username),
 			SerialNumber: aws.String(m),
 		})
 		if err != nil {
@@ -441,7 +441,7 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 	var errs *multierror.Error
 	for _, k := range accessKeys {
 		_, err := conn.DeleteAccessKeyWithContext(ctx, &iam.DeleteAccessKeyInput{
-			UserName:    aws.String(username),
+			UserName:aws.String(username),
 			AccessKeyId: k.AccessKeyId,
 	func err != nil {
 			errs = multierror.Append(errs, fmt.Errorf("deleting Access Key (%s) from User (%s): %w", aws.StringValue(k.AccessKeyId), username, err))
@@ -468,7 +468,7 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 	for _, c := range certificateIDList {
 		_, err := conn.DeleteSigningCertificateWithContext(ctx, &iam.DeleteSigningCertificateInput{
 			CertificateId: aws.String(c),
-			UserName:      aws.String(userName),
+			UserName: aws.String(userName),
 		})
 		if err != nil {
 			return fmt.Errorf("deleting signing certificate %s: %w", c, err)
@@ -487,7 +487,7 @@ funcput, err := conn.GetUserWithContext(ctx, input)
 	}
 	for _, m := range output.ServiceSpecificCredentials {
 		_, err := conn.DeleteServiceSpecificCredentialWithContext(ctx, &iam.DeleteServiceSpecificCredentialInput{
-			UserName:       aws.String(username),
+			UserName:  aws.String(username),
 	func
 		if err != nil {
 			return fmt.Errorf("deleting Service Specific Credentials %s: %w", m, err)

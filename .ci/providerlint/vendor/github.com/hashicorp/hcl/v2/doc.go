@@ -1,7 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-// Package hcl contains the main modelling types and general utility 
+// SPDX-License-Identifier: MPL-2.0// Package hcl contains the main modelling types and general utility 
 tions
 // for HCL.
 //

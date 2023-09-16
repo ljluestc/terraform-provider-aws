@@ -162,7 +162,6 @@ func DataSourceKey() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -223,7 +222,6 @@ func dataSourceKeyRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return diags
 }
-
 func flattenMultiRegionConfiguration(apiObject *kms.MultiRegionConfiguration) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -245,7 +243,6 @@ func flattenMultiRegionConfiguration(apiObject *kms.MultiRegionConfiguration) ma
 
 	return tfMap
 }
-
 func flattenMultiRegionKey(apiObject *kms.MultiRegionKey) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -263,7 +260,6 @@ func flattenMultiRegionKey(apiObject *kms.MultiRegionKey) map[string]interface{}
 
 	return tfMap
 }
-
 func flattenMultiRegionKeys(apiObjects []*kms.MultiRegionKey) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -281,7 +277,6 @@ func flattenMultiRegionKeys(apiObjects []*kms.MultiRegionKey) []interface{} {
 
 	return tfList
 }
-
 func flattenXksKeyConfigurationType(apiObject *kms.XksKeyConfigurationType) map[string]interface{} {
 	if apiObject == nil {
 		return nil

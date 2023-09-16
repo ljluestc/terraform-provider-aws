@@ -26,30 +26,30 @@ func DataSourceQueryLogConfig() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"destination_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"filter": namevaluesfilters.Schema(),
 			"name": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				Validate
 func: validResolverName,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"resolver_query_log_config_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"share_status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),

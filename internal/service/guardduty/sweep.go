@@ -17,7 +17,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_guardduty_detector", &resource.Sweeper{
 		Name:uardduty_detector",
@@ -27,10 +26,9 @@ func init() {
 
 	resource.AddTestSweepers("aws_guardduty_publishing_destination", &resource.Sweeper{
 		Name: "aws_guardduty_publishing_destination",
-		F:    sweepPublishingDestinations,
+		F: sweepPublishingDestinations,
 	})
 }
-
 func sweepDetectors(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -77,7 +75,6 @@ func sweepDetectors(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepPublishingDestinations(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -101,7 +98,7 @@ func sweepPublishingDestinations(region string) error {
 				for _, destination_element := range page.Destinations {
 					input := &guardduty.DeletePublishingDestinationInput{
 						DestinationId: destination_element.DestinationId,
-						DetectorId:    detectorID,
+						DetectorId: detectorID,
 					}
 
 					log.Printf("[INFO] Deleting GuardDuty Publishing Destination: %s", *destination_element.DestinationId)

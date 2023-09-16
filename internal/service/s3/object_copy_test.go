@@ -25,10 +25,10 @@ import (
 	targetKey := "target"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectCopyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectCopyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectCopyConfig_basic(rName1, sourceKey, rName2, targetKey),
@@ -90,10 +90,10 @@ import (
 	targetKey := "target"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectCopyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectCopyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectCopyConfig_basic(rName1, sourceKey, rName2, targetKey),
@@ -113,10 +113,10 @@ import (
 	targetKey := "target"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectCopyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectCopyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectCopyConfig_tags1(rName1, sourceKey, rName2, targetKey, "key1", "value1"),
@@ -156,10 +156,10 @@ import (
 	targetKey := "target"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectCopyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectCopyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectCopyConfig_metadata(rName1, sourceKey, rName2, targetKey),
@@ -180,10 +180,10 @@ import (
 	targetKey := "target"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectCopyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectCopyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectCopyConfig_grant(rName1, sourceKey, rName2, targetKey),
@@ -192,8 +192,8 @@ import (
 					resource.TestCheckResourceAttr(resourceName, "grant.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "grant.*", map[string]string{
 						"permissions.#": "1",
-						"type":          "Group",
-						"uri":           "http://acs.amazonaws.com/groups/global/AllUsers",
+						"type": "Group",
+						"uri":  "http://acs.amazonaws.com/groups/global/AllUsers",
 					}),
 				),
 			},
@@ -207,10 +207,10 @@ import (
 	funcgetKey := "target"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectCopyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectCopyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectCopyConfig_bucketKeyEnabledBucket(rName1, sourceKey, rName2, targetKey),
@@ -229,10 +229,10 @@ import (
 	sourceKey := "source"
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectCopyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectCopyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectCopyConfig_bucketKeyEnabledObject(rName1, sourceKey, rName2, targetKey),
@@ -251,10 +251,10 @@ import (
 	sourceKey := "dir1/dir2/source"
 	targetKey := "target"
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.S3EndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.S3EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectCopyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectCopyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectCopyConfig_baseSourceAndTargetBuckets(rName1, rName2),
@@ -401,7 +401,7 @@ resource "aws_s3_object_copy" "test" {
   source = "${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
 
   grant {
-    uri         = "http://acs.amazonaws.com/groups/global/AllUsers"
+    uri= "http://acs.amazonaws.com/groups/global/AllUsers"
     type        = "Group"
     permissions = ["READ"]
   }
@@ -410,7 +410,7 @@ resource "aws_s3_object_copy" "test" {
 }func testAccObjectCopyConfig_baseBucketKeyEnabled(sourceBucket, sourceKey, targetBucket string) string {
 	return acctest.ConfigCompose(testAccObjectCopyConfig_baseSourceObject(sourceBucket, sourceKey, targetBucket), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 `, targetBucket))
@@ -438,11 +438,11 @@ resource "aws_s3_object_copy" "test" {
 }func testAccObjectCopyConfig_bucketKeyEnabledObject(sourceBucket, sourceKey, targetBucket, targetKey string) string {
 	return acctest.ConfigCompose(testAccObjectCopyConfig_baseBucketKeyEnabled(sourceBucket, sourceKey, targetBucket), fmt.Sprintf(`
 resource "aws_s3_object_copy" "test" {
-  bucket             = aws_s3_bucket.target.bucket
+  bucket    = aws_s3_bucket.target.bucket
   bucket_key_enabled = true
-  key                = %[1]q
-  kms_key_id         = aws_kms_key.test.arn
-  source             = "${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
+  key       = %[1]q
+  kms_key_id= aws_kms_key.test.arn
+  source    = "${aws_s3_bucket.source.bucket}/${aws_s3_object.source.key}"
 }
 `, targetKey))
 }func testAccObjectCopyConfig_externalSourceObject(sourceBucket, sourceKey, targetBucket, targetKey string) string {

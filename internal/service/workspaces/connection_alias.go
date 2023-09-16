@@ -51,11 +51,9 @@ type resourceConnectionAlias struct {
 framework.ResourceWithConfigure
 framework.WithTimeouts
 }
-
 func (r *resourceConnectionAlias) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
 resp.TypeName = "aws_workspaces_connection_alias"
 }
-
 func (r *resourceConnectionAlias) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 resp.Schema = schema.Schema{
 Attributes: map[string]schema.Attribute{
@@ -93,7 +91,6 @@ Delete: true,
 },
 }
 }
-
 func (r *resourceConnectionAlias) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 conn := r.Meta().WorkSpacesClient(ctx)
 
@@ -139,7 +136,6 @@ return
 plan.update(ctx, alias)
 resp.Diagnostics.Append(resp.State.Set(ctx, plan)...)
 }
-
 func (r *resourceConnectionAlias) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 conn := r.Meta().WorkSpacesClient(ctx)
 
@@ -166,7 +162,6 @@ state.update(ctx, out)
 
 resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 }
-
 func (r *resourceConnectionAlias) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 var plan, state resourceConnectionAliasData
 resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
@@ -177,7 +172,6 @@ return
 
 resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
 }
-
 func (r *resourceConnectionAlias) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 conn := r.Meta().WorkSpacesClient(ctx)
 
@@ -213,28 +207,24 @@ err.Error(),
 return
 }
 }
-
 func (r *resourceConnectionAlias) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
-
 func (r *resourceConnectionAlias) ModifyPlan(ctx context.Context, request resource.ModifyPlanRequest, response *resource.ModifyPlanResponse) {
 r.SetTagsAll(ctx, request, response)
 }
-
 func (data *resourceConnectionAliasData) update(ctx context.Context, in *awstypes.ConnectionAlias) {
 data.ConnectionString = flex.StringToFramework(ctx, in.ConnectionString)
 data.OwnerAccountId = flex.StringToFramework(ctx, in.OwnerAccountId)
 data.State = flex.StringValueToFramework(ctx, in.State)
 }
-
 func waitConnectionAliasCreated(ctx context.Context, conn *workspaces.Client, id string, timeout time.Duration) (*awstypes.ConnectionAlias, error) {
 stateConf := &retry.StateChangeConf{
 Pending:      enum.Slice(awstypes.ConnectionAliasStateCreating),
 Target:       enum.Slice(awstypes.ConnectionAliasStateCreated),
 Refresh:      statusConnectionAlias(ctx, conn, id),
 Timeout:      timeout,
-NotFoundChecks:            20,
+NotFoundChecks:   20,
 ContinuousTargetOccurence: 2,
 }
 
@@ -245,7 +235,6 @@ return out, err
 
 return nil, err
 }
-
 func waitConnectionAliasDeleted(ctx context.Context, conn *workspaces.Client, id string, timeout time.Duration) (*awstypes.ConnectionAlias, error) {
 stateConf := &retry.StateChangeConf{
 Pending: enum.Slice(awstypes.ConnectionAliasStateDeleting),
@@ -261,7 +250,6 @@ return out, err
 
 return nil, err
 }
-
 func statusConnectionAlias(ctx context.Context, conn *workspaces.Client, id string) retry.StateRefreshFunc {
 return func() (interface{}, string, error) {
 out, err := FindConnectionAliasByID(ctx, conn, id)
@@ -276,7 +264,6 @@ return nil, "", err
 return out, string(out.State), nil
 }
 }
-
 func FindConnectionAliasByID(ctx context.Context, conn *workspaces.Client, id string) (*awstypes.ConnectionAlias, error) {
 in := &workspaces.DescribeConnectionAliasesInput{
 AliasIds: []string{id},
@@ -306,8 +293,8 @@ type resourceConnectionAliasData struct {
 ID  types.String   `tfsdk:"id"`
 ConnectionString types.String   `tfsdk:"connection_string"`
 OwnerAccountId   types.String   `tfsdk:"owner_account_id"`
-State            types.String   `tfsdk:"state"`
+State   types.String   `tfsdk:"state"`
 Tagstypes.Map      `tfsdk:"tags"`
-TagsAll          types.Map      `tfsdk:"tags_all"`
-Timeouts         timeouts.Value `tfsdk:"timeouts"`
+TagsAll types.Map      `tfsdk:"tags_all"`
+Timeoutstimeouts.Value `tfsdk:"timeouts"`
 }

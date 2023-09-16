@@ -20,52 +20,51 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfappautoscaling "github.com/hashicorp/terraform-provider-aws/internal/service/appautoscaling"
 )
-
 func TestValidatePolicyImportInput(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-input         string
+inputing
 errorExpected bool
-expected      []string
+expectedng
 	}{
 {
-	input:         "appstream/fleet/sample-fleet/appstream:fleet:DesiredCapacity/test-policy-name",
-	expected:      []string{"appstream", "fleet/sample-fleet", "appstream:fleet:DesiredCapacity", "test-policy-name"},
+	input:pstream/fleet/sample-fleet/appstream:fleet:DesiredCapacity/test-policy-name",
+	expected:ng{"appstream", "fleet/sample-fleet", "appstream:fleet:DesiredCapacity", "test-policy-name"},
 	errorExpected: false,
 },
 {
-	input:         "dynamodb/table/tableName/dynamodb:table:ReadCapacityUnits/DynamoDBReadCapacityUtilization:table/tableName",
-	expected:      []string{"dynamodb", "table/tableName", "dynamodb:table:ReadCapacityUnits", "DynamoDBReadCapacityUtilization:table/tableName"},
+	input:namodb/table/tableName/dynamodb:table:ReadCapacityUnits/DynamoDBReadCapacityUtilization:table/tableName",
+	expected:ng{"dynamodb", "table/tableName", "dynamodb:table:ReadCapacityUnits", "DynamoDBReadCapacityUtilization:table/tableName"},
 	errorExpected: false,
 },
 {
-	input:         "dynamodb/table/tableName/index/indexName/dynamodb:index:ReadCapacityUnits/DynamoDBReadCapacityUtilization:table/tableName/index/indexName",
-	expected:      []string{"dynamodb", "table/tableName/index/indexName", "dynamodb:index:ReadCapacityUnits", "DynamoDBReadCapacityUtilization:table/tableName/index/indexName"},
+	input:namodb/table/tableName/index/indexName/dynamodb:index:ReadCapacityUnits/DynamoDBReadCapacityUtilization:table/tableName/index/indexName",
+	expected:ng{"dynamodb", "table/tableName/index/indexName", "dynamodb:index:ReadCapacityUnits", "DynamoDBReadCapacityUtilization:table/tableName/index/indexName"},
 	errorExpected: false,
 },
 {
-	input:         "ec2/spot-fleet-request/sfr-d77c6508-1c1d-4e79-8789-fc019ee44c96/ec2:spot-fleet-request:TargetCapacity/test-appautoscaling-policy-ruuhd",
-	expected:      []string{"ec2", "spot-fleet-request/sfr-d77c6508-1c1d-4e79-8789-fc019ee44c96", "ec2:spot-fleet-request:TargetCapacity", "test-appautoscaling-policy-ruuhd"},
+	input:2/spot-fleet-request/sfr-d77c6508-1c1d-4e79-8789-fc019ee44c96/ec2:spot-fleet-request:TargetCapacity/test-appautoscaling-policy-ruuhd",
+	expected:ng{"ec2", "spot-fleet-request/sfr-d77c6508-1c1d-4e79-8789-fc019ee44c96", "ec2:spot-fleet-request:TargetCapacity", "test-appautoscaling-policy-ruuhd"},
 	errorExpected: false,
 },
 {
-	input:         "ecs/service/clusterName/serviceName/ecs:service:DesiredCount/scale-down",
-	expected:      []string{"ecs", "service/clusterName/serviceName", "ecs:service:DesiredCount", "scale-down"},
+	input:s/service/clusterName/serviceName/ecs:service:DesiredCount/scale-down",
+	expected:ng{"ecs", "service/clusterName/serviceName", "ecs:service:DesiredCount", "scale-down"},
 	errorExpected: false,
 },
 {
-	input:         "elasticmapreduce/instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0/elasticmapreduce:instancegroup:InstanceCount/test-appautoscaling-policy-ruuhd",
-	expected:      []string{"elasticmapreduce", "instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0", "elasticmapreduce:instancegroup:InstanceCount", "test-appautoscaling-policy-ruuhd"},
+	input:asticmapreduce/instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0/elasticmapreduce:instancegroup:InstanceCount/test-appautoscaling-policy-ruuhd",
+	expected:ng{"elasticmapreduce", "instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0", "elasticmapreduce:instancegroup:InstanceCount", "test-appautoscaling-policy-ruuhd"},
 	errorExpected: false,
 },
 {
-	input:         "rds/cluster:id/rds:cluster:ReadReplicaCount/cpu-auto-scaling",
-	expected:      []string{"rds", "cluster:id", "rds:cluster:ReadReplicaCount", "cpu-auto-scaling"},
+	input:s/cluster:id/rds:cluster:ReadReplicaCount/cpu-auto-scaling",
+	expected:ng{"rds", "cluster:id", "rds:cluster:ReadReplicaCount", "cpu-auto-scaling"},
 	errorExpected: false,
 },
 {
-	input:         "dynamodb/missing/parts",
+	input:namodb/missing/parts",
 	errorExpected: true,
 },
 	}
@@ -85,7 +84,6 @@ if !reflect.DeepEqual(tc.expected, idParts) {
 }
 	}
 }
-
 func TestAccAppAutoScalingPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy applicationautoscaling.ScalingPolicy
@@ -113,22 +111,21 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "step_scaling_policy_configuration.0.cooldown", "60"),
 	resource.TestCheckResourceAttr(resourceName, "step_scaling_policy_configuration.0.step_adjustment.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "step_scaling_policy_configuration.0.step_adjustment.*", map[string]string{
-"scaling_adjustment":          "1",
+"scaling_adjustment":",
 "metric_interval_lower_bound": "0",
 "metric_interval_upper_bound": "",
 	}),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateIdFunc: testAccPolicyImportStateIdFunc(resourceName),
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccAppAutoScalingPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy applicationautoscaling.ScalingPolicy
@@ -152,7 +149,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccAppAutoScalingPolicy_scaleOutAndIn(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy applicationautoscaling.ScalingPolicy
@@ -176,17 +172,17 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckTypeSetElemNestedAttrs("aws_appautoscaling_policy.foobar_out", "step_scaling_policy_configuration.0.step_adjustment.*", map[string]string{
 "metric_interval_lower_bound": "3",
 "metric_interval_upper_bound": "",
-"scaling_adjustment":          "3",
+"scaling_adjustment":",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs("aws_appautoscaling_policy.foobar_out", "step_scaling_policy_configuration.0.step_adjustment.*", map[string]string{
 "metric_interval_lower_bound": "1",
 "metric_interval_upper_bound": "3",
-"scaling_adjustment":          "2",
+"scaling_adjustment":",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs("aws_appautoscaling_policy.foobar_out", "step_scaling_policy_configuration.0.step_adjustment.*", map[string]string{
 "metric_interval_lower_bound": "0",
 "metric_interval_upper_bound": "1",
-"scaling_adjustment":          "1",
+"scaling_adjustment":",
 	}),
 	resource.TestCheckResourceAttr("aws_appautoscaling_policy.foobar_out", "name", fmt.Sprintf("%s-out", randPolicyNamePrefix)),
 	resource.TestCheckResourceAttr("aws_appautoscaling_policy.foobar_out", "policy_type", "StepScaling"),
@@ -200,17 +196,17 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckTypeSetElemNestedAttrs("aws_appautoscaling_policy.foobar_in", "step_scaling_policy_configuration.0.step_adjustment.*", map[string]string{
 "metric_interval_lower_bound": "-1",
 "metric_interval_upper_bound": "0",
-"scaling_adjustment":          "-1",
+"scaling_adjustment":1",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs("aws_appautoscaling_policy.foobar_in", "step_scaling_policy_configuration.0.step_adjustment.*", map[string]string{
 "metric_interval_lower_bound": "-3",
 "metric_interval_upper_bound": "-1",
-"scaling_adjustment":          "-2",
+"scaling_adjustment":2",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs("aws_appautoscaling_policy.foobar_in", "step_scaling_policy_configuration.0.step_adjustment.*", map[string]string{
 "metric_interval_lower_bound": "",
 "metric_interval_upper_bound": "-3",
-"scaling_adjustment":          "-3",
+"scaling_adjustment":3",
 	}),
 	resource.TestCheckResourceAttr("aws_appautoscaling_policy.foobar_in", "name", fmt.Sprintf("%s-in", randPolicyNamePrefix)),
 	resource.TestCheckResourceAttr("aws_appautoscaling_policy.foobar_in", "policy_type", "StepScaling"),
@@ -220,21 +216,20 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      "aws_appautoscaling_policy.foobar_out",
-ImportState:       true,
+ResourceName:ppautoscaling_policy.foobar_out",
+ImportState:
 ImportStateIdFunc: testAccPolicyImportStateIdFunc("aws_appautoscaling_policy.foobar_out"),
 ImportStateVerify: true,
 	},
 	{
-ResourceName:      "aws_appautoscaling_policy.foobar_in",
-ImportState:       true,
+ResourceName:ppautoscaling_policy.foobar_in",
+ImportState:
 ImportStateIdFunc: testAccPolicyImportStateIdFunc("aws_appautoscaling_policy.foobar_in"),
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccAppAutoScalingPolicy_spotFleetRequest(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy applicationautoscaling.ScalingPolicy
@@ -258,8 +253,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      "aws_appautoscaling_policy.test",
-ImportState:       true,
+ResourceName:ppautoscaling_policy.test",
+ImportState:
 ImportStateIdFunc: testAccPolicyImportStateIdFunc("aws_appautoscaling_policy.test"),
 ImportStateVerify: true,
 	},
@@ -292,15 +287,14 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      "aws_appautoscaling_policy.dynamo_test",
-ImportState:       true,
+ResourceName:ppautoscaling_policy.dynamo_test",
+ImportState:
 ImportStateIdFunc: testAccPolicyImportStateIdFunc("aws_appautoscaling_policy.dynamo_test"),
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccAppAutoScalingPolicy_DynamoDB_index(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy applicationautoscaling.ScalingPolicy
@@ -325,15 +319,14 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateIdFunc: testAccPolicyImportStateIdFunc(resourceName),
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccAppAutoScalingPolicy_multiplePoliciesSameName(t *testing.T) {
 	ctx := acctest.Context(t)
 	var readPolicy1 applicationautoscaling.ScalingPolicy
@@ -368,7 +361,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccAppAutoScalingPolicy_multiplePoliciesSameResource(t *testing.T) {
 	ctx := acctest.Context(t)
 	var readPolicy applicationautoscaling.ScalingPolicy
@@ -400,14 +392,14 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      "aws_appautoscaling_policy.read",
-ImportState:       true,
+ResourceName:ppautoscaling_policy.read",
+ImportState:
 ImportStateIdFunc: testAccPolicyImportStateIdFunc("aws_appautoscaling_policy.read"),
 ImportStateVerify: true,
 	},
 	{
-ResourceName:      "aws_appautoscaling_policy.write",
-ImportState:       true,
+ResourceName:ppautoscaling_policy.write",
+ImportState:
 ImportStateIdFunc: testAccPolicyImportStateIdFunc("aws_appautoscaling_policy.write"),
 ImportStateVerify: true,
 	},
@@ -450,7 +442,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccAppAutoScalingPolicy_TargetTrack_metricMath(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy applicationautoscaling.ScalingPolicy
@@ -475,75 +466,73 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateIdFunc: testAccPolicyImportStateIdFunc(resourceName),
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func testAccPolicyConfig_targetTrackingMetricMath(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfig_basic(rName), fmt.Sprintf(`
 resource "aws_appautoscaling_policy" "metric_math_test" {
   name= "%[1]s-tracking"
-  policy_type        = "TargetTrackingScaling"
-  resource_id        = aws_appautoscaling_target.test.resource_id
+  policy_typeargetTrackingScaling"
+  resource_ids_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
   service_namespace  = aws_appautoscaling_target.test.service_namespace
 
   target_tracking_scaling_policy_configuration {
-    customized_metric_specification {
-      metrics {
-        id          = "m1"
-        expression  = "TIME_SERIES(20)"
-        return_data = false
-      }
-      metrics {
-        id = "m2"
-        metric_stat {
-          metric {
-            namespace   = "foo"
-            metric_name = "bar"
-          }
-          unit = "Percent"
-          stat = "Sum"
-        }
-        return_data = false
-      }
-      metrics {
-        id = "m3"
-        metric_stat {
-          metric {
-            namespace   = "foo"
-            metric_name = "bar"
-            dimensions {
+ customized_metric_specification {
+s {
+  = 
+ession  = "TIME_SERIES(20)"
+rn_data = false
+
+s {
+ "m2"
+ic_stat {
+tric {
+= "foo"
+= "bar"
+
+it = "Percent"
+at = "Sum"
+
+rn_data = false
+
+s {
+ "m3"
+ic_stat {
+tric {
+= "foo"
+= "bar"
+
  name  = "x"
  value = "y"
-            }
-            dimensions {
+
+
  name  = "y"
  value = "x"
-            }
-          }
-          unit = "Percent"
-          stat = "Sum"
-        }
-        return_data = false
-      }
-      metrics {
-        id          = "e1"
-        expression  = "m1 + m2 + m3"
-        return_data = true
-      }
-    }
-    target_value = 12.3
+
+
+it = "Percent"
+at = "Sum"
+
+rn_data = false
+
+s {
+  = 
+ession  = "m1 + m2 + m3"
+rn_data = true
+
+ }
+ target_value = 12.3
   }
 }
 `, rName))
 }
-
 func testAccCheckPolicyExists(ctx context.Context, n string, policy *applicationautoscaling.ScalingPolicy) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
@@ -553,8 +542,8 @@ if !ok {
 
 conn := acctest.Provider.Meta().(*conns.AWSClient).AppAutoScalingConn(ctx)
 params := &applicationautoscaling.DescribeScalingPoliciesInput{
-	PolicyNames:       []*string{aws.String(rs.Primary.ID)},
-	ResourceId:        aws.String(rs.Primary.Attributes["resource_id"]),
+	PolicyNames:ring{aws.String(rs.Primary.ID)},
+	ResourceId:String(rs.Primary.Attributes["resource_id"]),
 	ScalableDimension: aws.String(rs.Primary.Attributes["scalable_dimension"]),
 	ServiceNamespace:  aws.String(rs.Primary.Attributes["service_namespace"]),
 }
@@ -571,7 +560,6 @@ if len(resp.ScalingPolicies) == 0 {
 return nil
 	}
 }
-
 func testAccCheckPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).AppAutoScalingConn(ctx)
@@ -579,7 +567,7 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).AppAutoScalingConn(ctx)
 for _, rs := range s.RootModule().Resources {
 	params := applicationautoscaling.DescribeScalingPoliciesInput{
 ServiceNamespace: aws.String(rs.Primary.Attributes["service_namespace"]),
-PolicyNames:      []*string{aws.String(rs.Primary.ID)},
+PolicyNames:ing{aws.String(rs.Primary.ID)},
 	}
 
 	resp, err := conn.DescribeScalingPoliciesWithContext(ctx, &params)
@@ -595,7 +583,6 @@ if len(resp.ScalingPolicies) != 0 &&
 return nil
 	}
 }
-
 func testAccPolicyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
@@ -608,11 +595,11 @@ resource "aws_ecs_task_definition" "test" {
   container_definitions = <<EOF
 [
   {
-    "name": "busybox",
-    "image": "busybox:latest",
-    "cpu": 10,
-    "memory": 128,
-    "essential": true
+ "name": "busybox",
+ "image": "busybox:latest",
+ "cpu": 10,
+ "memory": 128,
+ "essential": true
   }
 ]
 EOF
@@ -620,55 +607,54 @@ EOF
 
 resource "aws_ecs_service" "test" {
   cluster= aws_ecs_cluster.test.id
-  deployment_maximum_percent         = 200
+  deployment_maximum_percent00
   deployment_minimum_healthy_percent = 50
-  desired_count       = 0
+  desired_count
   name = %[1]q
-  task_definition     = aws_ecs_task_definition.test.arn
+  task_definition= aws_ecs_task_definition.test.arn
 }
 
 resource "aws_appautoscaling_target" "test" {
-  max_capacity       = 4
-  min_capacity       = 0
-  resource_id        = "service/${aws_ecs_cluster.test.name}/${aws_ecs_service.test.name}"
+  max_capacity
+  min_capacity
+  resource_idervice/${aws_ecs_cluster.test.name}/${aws_ecs_service.test.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
 
 resource "aws_appautoscaling_policy" "test" {
   name= %[1]q
-  resource_id        = aws_appautoscaling_target.test.resource_id
+  resource_ids_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
   service_namespace  = aws_appautoscaling_target.test.service_namespace
 
   step_scaling_policy_configuration {
-    adjustment_type         = "ChangeInCapacity"
-    cooldown = 60
-    metric_aggregation_type = "Average"
+ adjustment_typeChangeInCapacity"
+ cooldown = 60
+ metric_aggregation_type = "Average"
 
-    step_adjustment {
-      metric_interval_lower_bound = 0
-      scaling_adjustment          = 1
-    }
+ step_adjustment {
+_interval_lower_bound = 0
+g_adjustment = 
+ }
   }
 }
 `, rName)
 }
-
 func testAccPolicyConfig_spotFleetRequest(randPolicyName, validUntil string) string {
 	return fmt.Sprintf(`
 data "aws_ami" "amzn-ami-minimal-hvm-ebs" {
   most_recent = true
-  owners      = ["amazon"]
+  ownersazon"]
 
   filter {
-    name   = "name"
-    values = ["amzn-ami-minimal-hvm-*"]
+ name= "name"
+ values = ["amzn-ami-minimal-hvm-*"]
   }
 
   filter {
-    name   = "root-device-type"
-    values = ["ebs"]
+ name= "root-device-type"
+ values = ["ebs"]
   }
 }
 
@@ -679,292 +665,288 @@ resource "aws_iam_role" "fleet_role" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-          "spotfleet.${data.aws_partition.current.dns_suffix}",
-          "ec2.${data.aws_partition.current.dns_suffix}"
-        ]
-      },
-      "Action": "sts:AssumeRole"
-    }
+ {
+t": "Allow",
+ipal": {
+vice": [
+potfleet.${data.aws_partition.current.dns_suffix}",
+c2.${data.aws_partition.current.dns_suffix}"
+
+
+n": "sts:AssumeRole"
+ }
   ]
 }
 EOF
 }
 
 resource "aws_iam_role_policy_attachment" "fleet_role_policy" {
-  role       = aws_iam_role.fleet_role.name
+  role_iam_role.fleet_role.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole"
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_role       = aws_iam_role.fleet_role.arn
-  spot_price           = "0.005"
-  target_capacity      = 2
-  valid_until          = %[2]q
+  iam_fleet_role_iam_role.fleet_role.arn
+  spot_price "0.005"
+  target_capacity
+  valid_until%[2]q
   terminate_instances_with_expiration = true
 
   launch_specification {
-    instance_type = "m3.medium"
-    ami           = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+ instance_type = "m3.medium"
+ ami data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   }
 }
 
 resource "aws_appautoscaling_target" "test" {
   service_namespace  = "ec2"
-  resource_id        = "spot-fleet-request/${aws_spot_fleet_request.test.id}"
+  resource_idpot-fleet-request/${aws_spot_fleet_request.test.id}"
   scalable_dimension = "ec2:spot-fleet-request:TargetCapacity"
-  min_capacity       = 1
-  max_capacity       = 3
+  min_capacity
+  max_capacity
 }
 
 resource "aws_appautoscaling_policy" "test" {
   name= %[1]q
-  resource_id        = aws_appautoscaling_target.test.resource_id
+  resource_ids_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
   service_namespace  = aws_appautoscaling_target.test.service_namespace
 
   step_scaling_policy_configuration {
-    adjustment_type         = "ChangeInCapacity"
-    cooldown = 60
-    metric_aggregation_type = "Average"
+ adjustment_typeChangeInCapacity"
+ cooldown = 60
+ metric_aggregation_type = "Average"
 
-    step_adjustment {
-      metric_interval_lower_bound = 0
-      scaling_adjustment          = 1
-    }
+ step_adjustment {
+_interval_lower_bound = 0
+g_adjustment = 
+ }
   }
 }
 `, randPolicyName, validUntil)
 }
-
 func testAccPolicyConfig_dynamoDB(
 	randPolicyName string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "dynamodb_table_test" {
-  name           = "%s"
+  name "%s"
   read_capacity  = 5
   write_capacity = 5
-  hash_key       = "FooKey"
+  hash_keyoKey"
 
   attribute {
-    name = "FooKey"
-    type = "S"
+ name = "FooKey"
+ type = "S"
   }
 }
 
 resource "aws_appautoscaling_target" "dynamo_test" {
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test.name}"
+  resource_idable/${aws_dynamodb_table.dynamodb_table_test.name}"
   scalable_dimension = "dynamodb:table:WriteCapacityUnits"
-  min_capacity       = 1
-  max_capacity       = 10
+  min_capacity
+  max_capacity
 }
 
 resource "aws_appautoscaling_policy" "dynamo_test" {
   name= "DynamoDBWriteCapacityUtilization:${aws_appautoscaling_target.dynamo_test.resource_id}"
-  policy_type        = "TargetTrackingScaling"
+  policy_typeargetTrackingScaling"
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test.name}"
+  resource_idable/${aws_dynamodb_table.dynamodb_table_test.name}"
   scalable_dimension = "dynamodb:table:WriteCapacityUnits"
 
   target_tracking_scaling_policy_configuration {
-    predefined_metric_specification {
-      predefined_metric_type = "DynamoDBWriteCapacityUtilization"
-    }
+ predefined_metric_specification {
+ined_metric_type = "DynamoDBWriteCapacityUtilization"
+ }
 
-    scale_in_cooldown  = 10
-    scale_out_cooldown = 10
-    target_value       = 70
+ scale_in_cooldown  = 10
+ scale_out_cooldown = 10
+ target_value
   }
 
   depends_on = [aws_appautoscaling_target.dynamo_test]
 }
 `, randPolicyName)
 }
-
 func testAccPolicyConfig_dynamoDBIndex(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = "%[1]s"
+  name "%[1]s"
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = "UserId"
-  range_key      = "GameTitle"
+  hash_keyerId"
+  range_keyeTitle"
 
   attribute {
-    name = "UserId"
-    type = "S"
+ name = "UserId"
+ type = "S"
   }
 
   attribute {
-    name = "GameTitle"
-    type = "S"
+ name = "GameTitle"
+ type = "S"
   }
 
   attribute {
-    name = "TopScore"
-    type = "N"
+ name = "TopScore"
+ type = "N"
   }
 
   global_secondary_index {
-    name= "GameTitleIndex"
-    hash_key           = "GameTitle"
-    range_key          = "TopScore"
-    write_capacity     = 1
-    read_capacity      = 1
-    projection_type    = "INCLUDE"
-    non_key_attributes = ["UserId"]
+ name= "GameTitleIndex"
+ hash_key "GameTitle"
+ range_key"TopScore"
+ write_capacity= 1
+ read_capacity
+ projection_type = "INCLUDE"
+ non_key_attributes = ["UserId"]
   }
 }
 
 resource "aws_appautoscaling_target" "test" {
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.test.name}/index/GameTitleIndex"
+  resource_idable/${aws_dynamodb_table.test.name}/index/GameTitleIndex"
   scalable_dimension = "dynamodb:index:WriteCapacityUnits"
-  min_capacity       = 1
-  max_capacity       = 10
+  min_capacity
+  max_capacity
 }
 
 resource "aws_appautoscaling_policy" "test" {
   name= "DynamoDBWriteCapacityUtilization:${aws_appautoscaling_target.test.resource_id}"
-  policy_type        = "TargetTrackingScaling"
+  policy_typeargetTrackingScaling"
   service_namespace  = aws_appautoscaling_target.test.service_namespace
-  resource_id        = aws_appautoscaling_target.test.resource_id
+  resource_ids_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
 
   target_tracking_scaling_policy_configuration {
-    predefined_metric_specification {
-      predefined_metric_type = "DynamoDBWriteCapacityUtilization"
-    }
+ predefined_metric_specification {
+ined_metric_type = "DynamoDBWriteCapacityUtilization"
+ }
 
-    scale_in_cooldown  = 10
-    scale_out_cooldown = 10
-    target_value       = 70
+ scale_in_cooldown  = 10
+ scale_out_cooldown = 10
+ target_value
   }
 }
 `, rName)
 }
-
 func testAccPolicyConfig_multiplePoliciesSameName(tableName1, tableName2, namePrefix string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "dynamodb_table_test1" {
-  name           = "%[1]s"
+  name "%[1]s"
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = "FooKey"
+  hash_keyoKey"
 
   attribute {
-    name = "FooKey"
-    type = "S"
+ name = "FooKey"
+ type = "S"
   }
 }
 
 resource "aws_dynamodb_table" "dynamodb_table_test2" {
-  name           = "%[2]s"
+  name "%[2]s"
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = "FooKey"
+  hash_keyoKey"
 
   attribute {
-    name = "FooKey"
-    type = "S"
+ name = "FooKey"
+ type = "S"
   }
 }
 
 resource "aws_appautoscaling_target" "read1" {
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test1.name}"
+  resource_idable/${aws_dynamodb_table.dynamodb_table_test1.name}"
   scalable_dimension = "dynamodb:table:ReadCapacityUnits"
-  min_capacity       = 1
-  max_capacity       = 10
+  min_capacity
+  max_capacity
 }
 
 resource "aws_appautoscaling_policy" "read1" {
   name= "%[3]s-read"
-  policy_type        = "TargetTrackingScaling"
+  policy_typeargetTrackingScaling"
   service_namespace  = "dynamodb"
-  resource_id        = aws_appautoscaling_target.read1.resource_id
+  resource_ids_appautoscaling_target.read1.resource_id
   scalable_dimension = aws_appautoscaling_target.read1.scalable_dimension
 
   target_tracking_scaling_policy_configuration {
-    predefined_metric_specification {
-      predefined_metric_type = "DynamoDBReadCapacityUtilization"
-    }
+ predefined_metric_specification {
+ined_metric_type = "DynamoDBReadCapacityUtilization"
+ }
 
-    scale_in_cooldown  = 10
-    scale_out_cooldown = 10
-    target_value       = 70
+ scale_in_cooldown  = 10
+ scale_out_cooldown = 10
+ target_value
   }
 }
 
 resource "aws_appautoscaling_target" "read2" {
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test2.name}"
+  resource_idable/${aws_dynamodb_table.dynamodb_table_test2.name}"
   scalable_dimension = "dynamodb:table:ReadCapacityUnits"
-  min_capacity       = 1
-  max_capacity       = 10
+  min_capacity
+  max_capacity
 }
 
 resource "aws_appautoscaling_policy" "read2" {
   name= "%[3]s-read"
-  policy_type        = "TargetTrackingScaling"
+  policy_typeargetTrackingScaling"
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test2.name}"
+  resource_idable/${aws_dynamodb_table.dynamodb_table_test2.name}"
   scalable_dimension = aws_appautoscaling_target.read2.scalable_dimension
 
   target_tracking_scaling_policy_configuration {
-    predefined_metric_specification {
-      predefined_metric_type = "DynamoDBReadCapacityUtilization"
-    }
+ predefined_metric_specification {
+ined_metric_type = "DynamoDBReadCapacityUtilization"
+ }
 
-    scale_in_cooldown  = 10
-    scale_out_cooldown = 10
-    target_value       = 70
+ scale_in_cooldown  = 10
+ scale_out_cooldown = 10
+ target_value
   }
 }
 `, tableName1, tableName2, namePrefix)
 }
-
 func testAccPolicyConfig_multiplePoliciesSameResource(tableName, namePrefix string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "dynamodb_table_test" {
-  name           = "%s"
+  name "%s"
   read_capacity  = 5
   write_capacity = 5
-  hash_key       = "FooKey"
+  hash_keyoKey"
 
   attribute {
-    name = "FooKey"
-    type = "S"
+ name = "FooKey"
+ type = "S"
   }
 }
 
 resource "aws_appautoscaling_target" "write" {
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test.name}"
+  resource_idable/${aws_dynamodb_table.dynamodb_table_test.name}"
   scalable_dimension = "dynamodb:table:WriteCapacityUnits"
-  min_capacity       = 1
-  max_capacity       = 10
+  min_capacity
+  max_capacity
 }
 
 resource "aws_appautoscaling_policy" "write" {
   name= "%s-write"
-  policy_type        = "TargetTrackingScaling"
+  policy_typeargetTrackingScaling"
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test.name}"
+  resource_idable/${aws_dynamodb_table.dynamodb_table_test.name}"
   scalable_dimension = "dynamodb:table:WriteCapacityUnits"
 
   target_tracking_scaling_policy_configuration {
-    predefined_metric_specification {
-      predefined_metric_type = "DynamoDBWriteCapacityUtilization"
-    }
+ predefined_metric_specification {
+ined_metric_type = "DynamoDBWriteCapacityUtilization"
+ }
 
-    scale_in_cooldown  = 10
-    scale_out_cooldown = 10
-    target_value       = 70
+ scale_in_cooldown  = 10
+ scale_out_cooldown = 10
+ target_value
   }
 
   depends_on = [aws_appautoscaling_target.write]
@@ -972,34 +954,33 @@ resource "aws_appautoscaling_policy" "write" {
 
 resource "aws_appautoscaling_target" "read" {
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test.name}"
+  resource_idable/${aws_dynamodb_table.dynamodb_table_test.name}"
   scalable_dimension = "dynamodb:table:ReadCapacityUnits"
-  min_capacity       = 1
-  max_capacity       = 10
+  min_capacity
+  max_capacity
 }
 
 resource "aws_appautoscaling_policy" "read" {
   name= "%s-read"
-  policy_type        = "TargetTrackingScaling"
+  policy_typeargetTrackingScaling"
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test.name}"
+  resource_idable/${aws_dynamodb_table.dynamodb_table_test.name}"
   scalable_dimension = "dynamodb:table:ReadCapacityUnits"
 
   target_tracking_scaling_policy_configuration {
-    predefined_metric_specification {
-      predefined_metric_type = "DynamoDBReadCapacityUtilization"
-    }
+ predefined_metric_specification {
+ined_metric_type = "DynamoDBReadCapacityUtilization"
+ }
 
-    scale_in_cooldown  = 10
-    scale_out_cooldown = 10
-    target_value       = 70
+ scale_in_cooldown  = 10
+ scale_out_cooldown = 10
+ target_value
   }
 
   depends_on = [aws_appautoscaling_target.read]
 }
 `, tableName, namePrefix, namePrefix)
 }
-
 func testAccPolicyConfig_scaleOutAndIn(
 	randClusterName string,
 	randPolicyNamePrefix string) string {
@@ -1027,47 +1008,47 @@ EOF
 resource "aws_ecs_service" "service" {
   name = "foobar"
   cluster= aws_ecs_cluster.foo.id
-  task_definition     = aws_ecs_task_definition.task.arn
-  desired_count       = 1
-  deployment_maximum_percent         = 200
+  task_definition= aws_ecs_task_definition.task.arn
+  desired_count
+  deployment_maximum_percent00
   deployment_minimum_healthy_percent = 50
 }
 
 resource "aws_appautoscaling_target" "tgt" {
   service_namespace  = "ecs"
-  resource_id        = "service/${aws_ecs_cluster.foo.name}/${aws_ecs_service.service.name}"
+  resource_idervice/${aws_ecs_cluster.foo.name}/${aws_ecs_service.service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
-  min_capacity       = 1
-  max_capacity       = 4
+  min_capacity
+  max_capacity
 }
 
 resource "aws_appautoscaling_policy" "foobar_out" {
   name= "%s-out"
   service_namespace  = "ecs"
-  resource_id        = "service/${aws_ecs_cluster.foo.name}/${aws_ecs_service.service.name}"
+  resource_idervice/${aws_ecs_cluster.foo.name}/${aws_ecs_service.service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
 
   step_scaling_policy_configuration {
-    adjustment_type         = "PercentChangeInCapacity"
-    cooldown = 60
-    metric_aggregation_type = "Average"
+ adjustment_typePercentChangeInCapacity"
+ cooldown = 60
+ metric_aggregation_type = "Average"
 
-    step_adjustment {
-      metric_interval_lower_bound = 3
-      scaling_adjustment          = 3
-    }
+ step_adjustment {
+_interval_lower_bound = 3
+g_adjustment = 
+ }
 
-    step_adjustment {
-      metric_interval_upper_bound = 3
-      metric_interval_lower_bound = 1
-      scaling_adjustment          = 2
-    }
+ step_adjustment {
+_interval_upper_bound = 3
+_interval_lower_bound = 1
+g_adjustment = 
+ }
 
-    step_adjustment {
-      metric_interval_upper_bound = 1
-      metric_interval_lower_bound = 0
-      scaling_adjustment          = 1
-    }
+ step_adjustment {
+_interval_upper_bound = 1
+_interval_lower_bound = 0
+g_adjustment = 
+ }
   }
 
   depends_on = [aws_appautoscaling_target.tgt]
@@ -1076,37 +1057,36 @@ resource "aws_appautoscaling_policy" "foobar_out" {
 resource "aws_appautoscaling_policy" "foobar_in" {
   name= "%s-in"
   service_namespace  = "ecs"
-  resource_id        = "service/${aws_ecs_cluster.foo.name}/${aws_ecs_service.service.name}"
+  resource_idervice/${aws_ecs_cluster.foo.name}/${aws_ecs_service.service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
 
   step_scaling_policy_configuration {
-    adjustment_type         = "PercentChangeInCapacity"
-    cooldown = 60
-    metric_aggregation_type = "Average"
+ adjustment_typePercentChangeInCapacity"
+ cooldown = 60
+ metric_aggregation_type = "Average"
 
-    step_adjustment {
-      metric_interval_upper_bound = 0
-      metric_interval_lower_bound = -1
-      scaling_adjustment          = -1
-    }
+ step_adjustment {
+_interval_upper_bound = 0
+_interval_lower_bound = -1
+g_adjustment = 
+ }
 
-    step_adjustment {
-      metric_interval_upper_bound = -1
-      metric_interval_lower_bound = -3
-      scaling_adjustment          = -2
-    }
+ step_adjustment {
+_interval_upper_bound = -1
+_interval_lower_bound = -3
+g_adjustment = 
+ }
 
-    step_adjustment {
-      metric_interval_upper_bound = -3
-      scaling_adjustment          = -3
-    }
+ step_adjustment {
+_interval_upper_bound = -3
+g_adjustment = 
+ }
   }
 
   depends_on = [aws_appautoscaling_target.tgt]
 }
 `, randClusterName, randPolicyNamePrefix, randPolicyNamePrefix)
 }
-
 func testAccPolicyConfig_resourceIDForceNewBase(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
@@ -1119,11 +1099,11 @@ resource "aws_ecs_task_definition" "test" {
   container_definitions = <<EOF
 [
   {
-    "name": "busybox",
-    "image": "busybox:latest",
-    "cpu": 10,
-    "memory": 128,
-    "essential": true
+ "name": "busybox",
+ "image": "busybox:latest",
+ "cpu": 10,
+ "memory": 128,
+ "essential": true
   }
 ]
 EOF
@@ -1131,30 +1111,29 @@ EOF
 
 resource "aws_ecs_service" "test1" {
   cluster= aws_ecs_cluster.test.id
-  deployment_maximum_percent         = 200
+  deployment_maximum_percent00
   deployment_minimum_healthy_percent = 50
-  desired_count       = 0
+  desired_count
   name = "%[1]s-1"
-  task_definition     = aws_ecs_task_definition.test.arn
+  task_definition= aws_ecs_task_definition.test.arn
 }
 
 resource "aws_ecs_service" "test2" {
   cluster= aws_ecs_cluster.test.id
-  deployment_maximum_percent         = 200
+  deployment_maximum_percent00
   deployment_minimum_healthy_percent = 50
-  desired_count       = 0
+  desired_count
   name = "%[1]s-2"
-  task_definition     = aws_ecs_task_definition.test.arn
+  task_definition= aws_ecs_task_definition.test.arn
 }
 `, rName)
 }
-
 func testAccPolicyConfig_resourceIDForceNew1(rName string) string {
 	return testAccPolicyConfig_resourceIDForceNewBase(rName) + fmt.Sprintf(`
 resource "aws_appautoscaling_target" "test" {
-  max_capacity       = 4
-  min_capacity       = 0
-  resource_id        = "service/${aws_ecs_cluster.test.name}/${aws_ecs_service.test1.name}"
+  max_capacity
+  min_capacity
+  resource_idervice/${aws_ecs_cluster.test.name}/${aws_ecs_service.test1.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
@@ -1164,46 +1143,45 @@ resource "aws_appautoscaling_policy" "test" {
   depends_on = [aws_appautoscaling_target.test]
 
   name= %[1]q
-  resource_id        = "service/${aws_ecs_cluster.test.name}/${aws_ecs_service.test1.name}"
+  resource_idervice/${aws_ecs_cluster.test.name}/${aws_ecs_service.test1.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 
   step_scaling_policy_configuration {
-    adjustment_type         = "ChangeInCapacity"
-    cooldown = 60
-    metric_aggregation_type = "Average"
+ adjustment_typeChangeInCapacity"
+ cooldown = 60
+ metric_aggregation_type = "Average"
 
-    step_adjustment {
-      metric_interval_lower_bound = 0
-      scaling_adjustment          = 1
-    }
+ step_adjustment {
+_interval_lower_bound = 0
+g_adjustment = 
+ }
   }
 }
 
 resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_actions       = [aws_appautoscaling_policy.test.arn]
-  alarm_name          = %[1]q
+  alarm_actionss_appautoscaling_policy.test.arn]
+  alarm_name%[1]q
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = "5"
-  metric_name         = "CPUReservation"
-  namespace           = "AWS/ECS"
+  metric_nameCPUReservation"
+  namespace "AWS/ECS"
   period = "60"
-  statistic           = "Average"
-  threshold           = "0"
+  statistic "Average"
+  threshold "0"
 
   dimensions = {
-    ClusterName = aws_ecs_cluster.test.name
+ ClusterName = aws_ecs_cluster.test.name
   }
 }
 `, rName)
 }
-
 func testAccPolicyConfig_resourceIDForceNew2(rName string) string {
 	return testAccPolicyConfig_resourceIDForceNewBase(rName) + fmt.Sprintf(`
 resource "aws_appautoscaling_target" "test" {
-  max_capacity       = 4
-  min_capacity       = 0
-  resource_id        = "service/${aws_ecs_cluster.test.name}/${aws_ecs_service.test2.name}"
+  max_capacity
+  min_capacity
+  resource_idervice/${aws_ecs_cluster.test.name}/${aws_ecs_service.test2.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
@@ -1213,40 +1191,39 @@ resource "aws_appautoscaling_policy" "test" {
   depends_on = [aws_appautoscaling_target.test]
 
   name= %[1]q
-  resource_id        = "service/${aws_ecs_cluster.test.name}/${aws_ecs_service.test2.name}"
+  resource_idervice/${aws_ecs_cluster.test.name}/${aws_ecs_service.test2.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 
   step_scaling_policy_configuration {
-    adjustment_type         = "ChangeInCapacity"
-    cooldown = 60
-    metric_aggregation_type = "Average"
+ adjustment_typeChangeInCapacity"
+ cooldown = 60
+ metric_aggregation_type = "Average"
 
-    step_adjustment {
-      metric_interval_lower_bound = 0
-      scaling_adjustment          = 1
-    }
+ step_adjustment {
+_interval_lower_bound = 0
+g_adjustment = 
+ }
   }
 }
 
 resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_actions       = [aws_appautoscaling_policy.test.arn]
-  alarm_name          = %[1]q
+  alarm_actionss_appautoscaling_policy.test.arn]
+  alarm_name%[1]q
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = "5"
-  metric_name         = "CPUReservation"
-  namespace           = "AWS/ECS"
+  metric_nameCPUReservation"
+  namespace "AWS/ECS"
   period = "60"
-  statistic           = "Average"
-  threshold           = "0"
+  statistic "Average"
+  threshold "0"
 
   dimensions = {
-    ClusterName = aws_ecs_cluster.test.name
+ ClusterName = aws_ecs_cluster.test.name
   }
 }
 `, rName)
 }
-
 func testAccPolicyImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 rs, ok := s.RootModule().Resources[resourceName]

@@ -23,7 +23,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_auditmanager_assessment", &resource.Sweeper{
 		Name: "aws_auditmanager_assessment",
-		F:    sweepAssessments,
+		F:sweepAssessments,
 		Dependencies: []string{
 			"aws_auditmanager_control",
 			"aws_auditmanager_framework",
@@ -33,23 +33,23 @@ func init() {
 	})
 	resource.AddTestSweepers("aws_auditmanager_assessment_delegation", &resource.Sweeper{
 		Name: "aws_auditmanager_assessment_delegation",
-		F:    sweepAssessmentDelegations,
+		F:sweepAssessmentDelegations,
 	})
 	resource.AddTestSweepers("aws_auditmanager_assessment_report", &resource.Sweeper{
 		Name: "aws_auditmanager_assessment_report",
-		F:    sweepAssessmentReports,
+		F:sweepAssessmentReports,
 	})
 	resource.AddTestSweepers("aws_auditmanager_control", &resource.Sweeper{
 		Name: "aws_auditmanager_control",
-		F:    sweepControls,
+		F:sweepControls,
 	})
 	resource.AddTestSweepers("aws_auditmanager_framework", &resource.Sweeper{
 		Name: "aws_auditmanager_framework",
-		F:    sweepFrameworks,
+		F:sweepFrameworks,
 	})
 	resource.AddTestSweepers("aws_auditmanager_framework_share", &resource.Sweeper{
 		Name: "aws_auditmanager_framework_share",
-		F:    sweepFrameworkShares,
+		F:sweepFrameworkShares,
 	})
 }
 

@@ -9,7 +9,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/directconnect"
 	"github.com/aws/aws-sdk-go/service/directconnect/directconnectiface"
 )
-
 func describeGatewayAssociationProposalsPages(ctx context.Context, conn directconnectiface.DirectConnectAPI, input *directconnect.DescribeDirectConnectGatewayAssociationProposalsInput, fn func(*directconnect.DescribeDirectConnectGatewayAssociationProposalsOutput, bool) bool) error {
 	for {
 		output, err := conn.DescribeDirectConnectGatewayAssociationProposalsWithContext(ctx, input)

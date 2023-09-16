@@ -31,9 +31,9 @@ func testAccPolicy_basic(t *testing.T) {
 			acctest.PreCheckOrganizationsEnabled(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_basic(rName, rName),
@@ -48,8 +48,8 @@ func testAccPolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"policy_update_token", "delete_all_policy_resources"},
 			},
@@ -69,9 +69,9 @@ func testAccPolicy_disappears(t *testing.T) {
 			acctest.PreCheckOrganizationsEnabled(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_basic(rName, rName),
@@ -97,9 +97,9 @@ func testAccPolicy_cloudFrontDistribution(t *testing.T) {
 			acctest.PreCheckOrganizationsEnabled(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_cloudFrontDistribution(rName),
@@ -110,8 +110,8 @@ func testAccPolicy_cloudFrontDistribution(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"policy_update_token", "delete_all_policy_resources"},
 			},
@@ -131,9 +131,9 @@ func testAccPolicy_includeMap(t *testing.T) {
 			acctest.PreCheckOrganizationsEnabled(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_include(rName),
@@ -144,8 +144,8 @@ func testAccPolicy_includeMap(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"policy_update_token", "delete_all_policy_resources"},
 			},
@@ -166,9 +166,9 @@ func testAccPolicy_update(t *testing.T) {
 			acctest.PreCheckOrganizationsEnabled(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_basic(rName1, rName1),
@@ -198,9 +198,9 @@ func testAccPolicy_policyOption(t *testing.T) {
 			acctest.PreCheckOrganizationsEnabled(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_policyOption(rName, rName),
@@ -219,8 +219,8 @@ func testAccPolicy_policyOption(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"policy_update_token", "delete_all_policy_resources"},
 			},
@@ -240,9 +240,9 @@ func testAccPolicy_resourceTags(t *testing.T) {
 			acctest.PreCheckOrganizationsEnabled(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_resourceTags1(rName, "key1", "value1"),
@@ -276,9 +276,9 @@ func testAccPolicy_tags(t *testing.T) {
 			acctest.PreCheckOrganizationsEnabled(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_tags1(rName, "key1", "value1"),
@@ -312,9 +312,9 @@ func testAccPolicy_alb(t *testing.T) {
 			acctest.PreCheckOrganizationsEnabled(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_alb(rName),
@@ -346,9 +346,9 @@ func testAccPolicy_securityGroup(t *testing.T) {
 			acctest.PreCheckOrganizationsEnabled(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, fms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_securityGroup(rName),
@@ -415,8 +415,8 @@ func testAccPolicyConfig_basic(policyName, ruleGroupName string) string {
 	return acctest.ConfigCompose(testAccAdminAccountConfig_basic, fmt.Sprintf(`
 resource "aws_fms_policy" "test" {
   exclude_resource_tags = false
-  name                  = %[1]q
-  description           = "test description"
+  name= %[1]q
+  description  = "test description"
   remediation_enabled   = false
   resource_type_list    = ["AWS::ElasticLoadBalancingV2::LoadBalancer"]
 
@@ -425,7 +425,7 @@ resource "aws_fms_policy" "test" {
   }
 
   security_service_policy_data {
-    type                 = "WAF"
+    type        = "WAF"
     managed_service_data = "{\"type\": \"WAF\", \"ruleGroups\": [{\"id\":\"${aws_wafregional_rule_group.test.id}\", \"overrideAction\" : {\"type\": \"COUNT\"}}],\"defaultAction\": {\"type\": \"BLOCK\"}, \"overrideCustomerWebACLAssociation\": false}"
   }
 
@@ -443,7 +443,7 @@ func testAccPolicyConfig_policyOption(policyName, ruleGroupName string) string {
 	return acctest.ConfigCompose(testAccAdminAccountConfig_basic, fmt.Sprintf(`
 resource "aws_fms_policy" "test" {
   exclude_resource_tags = false
-  name                  = %[1]q
+  name= %[1]q
   remediation_enabled   = false
   resource_type_list    = ["AWS::ElasticLoadBalancingV2::LoadBalancer"]
 
@@ -452,7 +452,7 @@ resource "aws_fms_policy" "test" {
   }
 
   security_service_policy_data {
-    type                 = "WAF"
+    type        = "WAF"
     managed_service_data = "{\"type\": \"WAF\", \"ruleGroups\": [{\"id\":\"${aws_wafregional_rule_group.test.id}\", \"overrideAction\" : {\"type\": \"COUNT\"}}],\"defaultAction\": {\"type\": \"BLOCK\"}, \"overrideCustomerWebACLAssociation\": false}"
 
     policy_option {
@@ -482,12 +482,12 @@ data "aws_partition" "current" {}
 
 resource "aws_fms_policy" "test" {
   exclude_resource_tags = false
-  name                  = %[1]q
+  name= %[1]q
   remediation_enabled   = false
-  resource_type         = "AWS::CloudFront::Distribution"
+  resource_type= "AWS::CloudFront::Distribution"
 
   security_service_policy_data {
-    type                 = "WAFV2"
+    type        = "WAFV2"
     managed_service_data = "{\"type\":\"WAFV2\",\"preProcessRuleGroups\":[{\"ruleGroupArn\":null,\"overrideAction\":{\"type\":\"NONE\"},\"managedRuleGroupIdentifier\":{\"version\":null,\"vendorName\":\"AWS\",\"managedRuleGroupName\":\"AWSManagedRulesAmazonIpReputationList\"},\"ruleGroupType\":\"ManagedRuleGroup\",\"excludeRules\":[]}],\"postProcessRuleGroups\":[],\"defaultAction\":{\"type\":\"ALLOW\"},\"overrideCustomerWebACLAssociation\":false,\"loggingConfiguration\":{\"logDestinationConfigs\":[\"${aws_kinesis_firehose_delivery_stream.test.arn}\"],\"redactedFields\":[{\"redactedFieldType\":\"SingleHeader\",\"redactedFieldValue\":\"Cookies\"}]}}"
   }
 
@@ -501,7 +501,7 @@ resource "aws_iam_role" "test" {
       Action = "sts:AssumeRole"
       Condition = {
         StringEquals = {
-          "sts:ExternalId" = data.aws_caller_identity.current.account_id
+ "sts:ExternalId" = data.aws_caller_identity.current.account_id
         }
       }
       Effect = "Allow"
@@ -519,17 +519,17 @@ resource "aws_iam_role" "test" {
       Version = "2012-10-17"
       Statement = [{
         Action = [
-          "s3:AbortMultipartUpload",
-          "s3:GetBucketLocation",
-          "s3:GetObject",
-          "s3:ListBucket",
-          "s3:ListBucketMultipartUploads",
-          "s3:PutObject",
+ "s3:AbortMultipartUpload",
+ "s3:GetBucketLocation",
+ "s3:GetObject",
+ "s3:ListBucket",
+ "s3:ListBucketMultipartUploads",
+ "s3:PutObject",
         ]
         Effect = "Allow"
         Resource = [
-          aws_s3_bucket.test.arn,
-          "${aws_s3_bucket.test.arn}/*"
+ aws_s3_bucket.test.arn,
+ "${aws_s3_bucket.test.arn}/*"
         ]
         Sid = ""
       }]
@@ -557,7 +557,7 @@ func testAccPolicyConfig_updated(policyName, ruleGroupName string) string {
 	return acctest.ConfigCompose(testAccAdminAccountConfig_basic, fmt.Sprintf(`
 resource "aws_fms_policy" "test" {
   exclude_resource_tags = false
-  name                  = %[1]q
+  name= %[1]q
   remediation_enabled   = true
   resource_type_list    = ["AWS::ElasticLoadBalancingV2::LoadBalancer"]
 
@@ -566,7 +566,7 @@ resource "aws_fms_policy" "test" {
   }
 
   security_service_policy_data {
-    type                 = "WAF"
+    type        = "WAF"
     managed_service_data = "{\"type\": \"WAF\", \"ruleGroups\": [{\"id\":\"${aws_wafregional_rule_group.test.id}\", \"overrideAction\" : {\"type\": \"COUNT\"}}],\"defaultAction\": {\"type\": \"ALLOW\"}, \"overrideCustomerWebACLAssociation\": false}"
   }
 
@@ -588,7 +588,7 @@ func testAccPolicyConfig_include(rName string) string {
 	return acctest.ConfigCompose(testAccAdminAccountConfig_basic, fmt.Sprintf(`
 resource "aws_fms_policy" "test" {
   exclude_resource_tags = false
-  name                  = %[1]q
+  name= %[1]q
   remediation_enabled   = false
   resource_type_list    = ["AWS::ElasticLoadBalancingV2::LoadBalancer"]
 
@@ -597,7 +597,7 @@ resource "aws_fms_policy" "test" {
   }
 
   security_service_policy_data {
-    type                 = "WAF"
+    type        = "WAF"
     managed_service_data = "{\"type\": \"WAF\", \"ruleGroups\": [{\"id\":\"${aws_wafregional_rule_group.test.id}\", \"overrideAction\" : {\"type\": \"COUNT\"}}],\"defaultAction\": {\"type\": \"BLOCK\"}, \"overrideCustomerWebACLAssociation\": false}"
   }
 
@@ -615,12 +615,12 @@ func testAccPolicyConfig_resourceTags1(rName, tagKey1, tagValue1 string) string 
 	return acctest.ConfigCompose(testAccAdminAccountConfig_basic, fmt.Sprintf(`
 resource "aws_fms_policy" "test" {
   exclude_resource_tags = false
-  name                  = %[1]q
+  name= %[1]q
   remediation_enabled   = false
   resource_type_list    = ["AWS::ElasticLoadBalancingV2::LoadBalancer"]
 
   security_service_policy_data {
-    type                 = "WAF"
+    type        = "WAF"
     managed_service_data = "{\"type\": \"WAF\", \"ruleGroups\": [{\"id\":\"${aws_wafregional_rule_group.test.id}\", \"overrideAction\" : {\"type\": \"COUNT\"}}],\"defaultAction\": {\"type\": \"BLOCK\"}, \"overrideCustomerWebACLAssociation\": false}"
   }
 
@@ -642,12 +642,12 @@ func testAccPolicyConfig_resourceTags2(rName, tagKey1, tagValue1, tagKey2, tagVa
 	return acctest.ConfigCompose(testAccAdminAccountConfig_basic, fmt.Sprintf(`
 resource "aws_fms_policy" "test" {
   exclude_resource_tags = false
-  name                  = %[1]q
+  name= %[1]q
   remediation_enabled   = false
   resource_type_list    = ["AWS::ElasticLoadBalancingV2::LoadBalancer"]
 
   security_service_policy_data {
-    type                 = "WAF"
+    type        = "WAF"
     managed_service_data = "{\"type\": \"WAF\", \"ruleGroups\": [{\"id\":\"${aws_wafregional_rule_group.test.id}\", \"overrideAction\" : {\"type\": \"COUNT\"}}],\"defaultAction\": {\"type\": \"BLOCK\"}, \"overrideCustomerWebACLAssociation\": false}"
   }
 
@@ -670,12 +670,12 @@ func testAccPolicyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccAdminAccountConfig_basic, fmt.Sprintf(`
 resource "aws_fms_policy" "test" {
   exclude_resource_tags = false
-  name                  = %[1]q
+  name= %[1]q
   remediation_enabled   = false
   resource_type_list    = ["AWS::ElasticLoadBalancingV2::LoadBalancer"]
 
   security_service_policy_data {
-    type                 = "WAF"
+    type        = "WAF"
     managed_service_data = "{\"type\": \"WAF\", \"ruleGroups\": [{\"id\":\"${aws_wafregional_rule_group.test.id}\", \"overrideAction\" : {\"type\": \"COUNT\"}}],\"defaultAction\": {\"type\": \"BLOCK\"}, \"overrideCustomerWebACLAssociation\": false}"
   }
 
@@ -697,12 +697,12 @@ func testAccPolicyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 str
 	return acctest.ConfigCompose(testAccAdminAccountConfig_basic, fmt.Sprintf(`
 resource "aws_fms_policy" "test" {
   exclude_resource_tags = false
-  name                  = %[1]q
+  name= %[1]q
   remediation_enabled   = false
   resource_type_list    = ["AWS::ElasticLoadBalancingV2::LoadBalancer"]
 
   security_service_policy_data {
-    type                 = "WAF"
+    type        = "WAF"
     managed_service_data = "{\"type\": \"WAF\", \"ruleGroups\": [{\"id\":\"${aws_wafregional_rule_group.test.id}\", \"overrideAction\" : {\"type\": \"COUNT\"}}],\"defaultAction\": {\"type\": \"BLOCK\"}, \"overrideCustomerWebACLAssociation\": false}"
   }
 
@@ -729,35 +729,35 @@ locals {
     preProcessRuleGroups = [
       {
         overrideAction = {
-          type = "NONE"
+ type = "NONE"
         }
         managedRuleGroupIdentifier = {
-          vendorName           = "AWS"
-          managedRuleGroupName = "AWSManagedRulesAmazonIpReputationList"
-          version              = null
+ vendorName  = "AWS"
+ managedRuleGroupName = "AWSManagedRulesAmazonIpReputationList"
+ version     = null
         }
-        ruleGroupArn           = null
-        ruleGroupType          = "ManagedRuleGroup"
-        excludeRules           = null
+        ruleGroupArn  = null
+        ruleGroupType = "ManagedRuleGroup"
+        excludeRules  = null
         sampledRequestsEnabled = true
       },
       {
         overrideAction = {
-          type = "NONE"
+ type = "NONE"
         },
         managedRuleGroupIdentifier = {
-          vendorName           = "AWS"
-          managedRuleGroupName = "AWSManagedRulesKnownBadInputsRuleSet"
-          version              = "Version_1.1"
+ vendorName  = "AWS"
+ managedRuleGroupName = "AWSManagedRulesKnownBadInputsRuleSet"
+ version     = "Version_1.1"
         },
-        ruleGroupArn           = null
-        ruleGroupType          = "ManagedRuleGroup"
-        excludeRules           = null
+        ruleGroupArn  = null
+        ruleGroupType = "ManagedRuleGroup"
+        excludeRules  = null
         sampledRequestsEnabled = true
       }
     ]
-    postProcessRuleGroups                   = []
-    loggingConfiguration                    = null
+    postProcessRuleGroups = []
+    loggingConfiguration  = null
     sampledRequestsEnabledForDefaultActions = true
     defaultAction = {
       type = "ALLOW"
@@ -772,12 +772,12 @@ resource "aws_fms_policy" "test" {
     "disable" = ""
   }
   exclude_resource_tags       = true
-  remediation_enabled         = true
-  resource_type_list          = ["AWS::ElasticLoadBalancingV2::LoadBalancer"]
+  remediation_enabled= true
+  resource_type_list = ["AWS::ElasticLoadBalancingV2::LoadBalancer"]
   delete_all_policy_resources = false
 
   security_service_policy_data {
-    type                 = "WAFV2"
+    type        = "WAFV2"
     managed_service_data = jsonencode(local.msd)
   }
 
@@ -822,11 +822,11 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_fms_policy" "test" {
-  name                        = %[1]q
+  name      = %[1]q
   delete_all_policy_resources = false
   exclude_resource_tags       = false
-  remediation_enabled         = false
-  resource_type               = "AWS::EC2::SecurityGroup"
+  remediation_enabled= false
+  resource_type      = "AWS::EC2::SecurityGroup"
 
   security_service_policy_data {
     type = "SECURITY_GROUPS_CONTENT_AUDIT"
@@ -840,7 +840,7 @@ resource "aws_fms_policy" "test" {
 
       securityGroups = [
         {
-          id = aws_security_group.test.id
+ id = aws_security_group.test.id
         }
       ],
     })

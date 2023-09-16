@@ -40,7 +40,6 @@ func ResourceStaticIPAttachment() *schema.Resource {
 		},
 	}
 }
-
 func resourceStaticIPAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -59,7 +58,6 @@ func resourceStaticIPAttachmentCreate(ctx context.Context, d *schema.ResourceDat
 
 	return append(diags, resourceStaticIPAttachmentRead(ctx, d, meta)...)
 }
-
 func resourceStaticIPAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
@@ -88,7 +86,6 @@ func resourceStaticIPAttachmentRead(ctx context.Context, d *schema.ResourceData,
 
 	return diags
 }
-
 func resourceStaticIPAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)

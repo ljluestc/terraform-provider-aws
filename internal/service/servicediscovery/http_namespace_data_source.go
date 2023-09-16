@@ -15,27 +15,26 @@ import (
 )
 
 // @SDKDataSource("aws_service_discovery_http_namespace")
-
 func DataSourceHTTPNamespace() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceHTTPNamespaceRead,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"http_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				Validate
 func: validNamespaceName,
 			},
@@ -43,8 +42,6 @@ func: validNamespaceName,
 		},
 	}
 }
-
-
 func dataSourceHTTPNamespaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig

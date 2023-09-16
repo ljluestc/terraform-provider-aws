@@ -29,50 +29,50 @@ func ResourceIndexingConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"thing_group_indexing_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"custom_field": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"type": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional: true,
 										ValidateFunc: validation.StringInSlice(iot.FieldType_Values(), false),
 									},
 								},
 							},
 						},
 						"managed_field": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"type": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional: true,
 										ValidateFunc: validation.StringInSlice(iot.FieldType_Values(), false),
 									},
 								},
 							},
 						},
 						"thing_group_indexing_mode": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: validation.StringInSlice(iot.ThingGroupIndexingMode_Values(), false),
 						},
 					},
@@ -80,68 +80,68 @@ func ResourceIndexingConfiguration() *schema.Resource {
 				AtLeastOneOf: []string{"thing_group_indexing_configuration", "thing_indexing_configuration"},
 			},
 			"thing_indexing_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"custom_field": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"type": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional: true,
 										ValidateFunc: validation.StringInSlice(iot.FieldType_Values(), false),
 									},
 								},
 							},
 						},
 						"device_defender_indexing_mode": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      iot.DeviceDefenderIndexingModeOff,
+							Type:schema.TypeString,
+							Optional: true,
+							Default:  iot.DeviceDefenderIndexingModeOff,
 							ValidateFunc: validation.StringInSlice(iot.DeviceDefenderIndexingMode_Values(), false),
 						},
 						"managed_field": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"type": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional: true,
 										ValidateFunc: validation.StringInSlice(iot.FieldType_Values(), false),
 									},
 								},
 							},
 						},
 						"named_shadow_indexing_mode": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      iot.NamedShadowIndexingModeOff,
+							Type:schema.TypeString,
+							Optional: true,
+							Default:  iot.NamedShadowIndexingModeOff,
 							ValidateFunc: validation.StringInSlice(iot.NamedShadowIndexingMode_Values(), false),
 						},
 						"thing_connectivity_indexing_mode": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      iot.ThingConnectivityIndexingModeOff,
+							Type:schema.TypeString,
+							Optional: true,
+							Default:  iot.ThingConnectivityIndexingModeOff,
 							ValidateFunc: validation.StringInSlice(iot.ThingConnectivityIndexingMode_Values(), false),
 						},
 						"thing_indexing_mode": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: validation.StringInSlice(iot.ThingIndexingMode_Values(), false),
 						},
 					},

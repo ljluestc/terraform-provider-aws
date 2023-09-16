@@ -58,7 +58,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceApplication,
 			TypeName: "aws_appconfig_application",
-			Name:     "Application",
+			Name: "Application",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -66,7 +66,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceConfigurationProfile,
 			TypeName: "aws_appconfig_configuration_profile",
-			Name:     "Connection Profile",
+			Name: "Connection Profile",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -74,7 +74,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDeployment,
 			TypeName: "aws_appconfig_deployment",
-			Name:     "Deployment",
+			Name: "Deployment",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -82,7 +82,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDeploymentStrategy,
 			TypeName: "aws_appconfig_deployment_strategy",
-			Name:     "Deployment Strategy",
+			Name: "Deployment Strategy",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -90,7 +90,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceExtension,
 			TypeName: "aws_appconfig_extension",
-			Name:     "Extension",
+			Name: "Extension",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

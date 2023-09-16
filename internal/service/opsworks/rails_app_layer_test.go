@@ -30,7 +30,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRailsAppLayerDestroy(ctx),
+CheckDestroy:testAccCheckRailsAppLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRailsAppLayerConfig_basic(rName),
@@ -69,8 +69,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -89,7 +89,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRailsAppLayerDestroy(ctx),
+CheckDestroy:testAccCheckRailsAppLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRailsAppLayerConfig_basic(rName),
@@ -116,7 +116,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRailsAppLayerDestroy(ctx),
+CheckDestroy:testAccCheckRailsAppLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRailsAppLayerConfig_tags1(rName, "key1", "value1"),
@@ -171,7 +171,7 @@ functionality.
 },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-CheckDestroy:    testAccCheckRailsAppLayerDestroy(ctx),
+CheckDestroy:testAccCheckRailsAppLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRailsAppLayerConfig_tags1AlternateRegion(rName, "key1", "value1"),
@@ -217,7 +217,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRailsAppLayerDestroy(ctx),
+CheckDestroy:testAccCheckRailsAppLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRailsAppLayerConfig_allAttributes(rName, "nginx_unicorn", "1.12.5", false, "4.0.60", "2.6", "2.5.1"),
@@ -234,8 +234,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -268,7 +268,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRailsAppLayerDestroy(ctx),
+CheckDestroy:testAccCheckRailsAppLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRailsAppLayerConfig_elb(rName, 0),
@@ -279,8 +279,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -320,12 +320,12 @@ func testAccRailsAppLayerConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_opsworks_rails_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
-  name     = %[1]q
+  name= %[1]q
 
   custom_security_group_ids = aws_security_group.test[*].id
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -336,13 +336,13 @@ func testAccRailsAppLayerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagVal
 	return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_opsworks_rails_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
-  name     = %[1]q
+  name= %[1]q
 
   custom_security_group_ids = aws_security_group.test[*].id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -353,12 +353,12 @@ func testAccRailsAppLayerConfig_tags1AlternateRegion(rName, tagKey1, tagValue1 s
 	return acctest.ConfigCompose(testAccLayerConfig_baseAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_rails_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
-  name     = %[1]q
+  name= %[1]q
 
   custom_security_group_ids = aws_security_group.test[*].id
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -369,13 +369,13 @@ func testAccRailsAppLayerConfig_tags2AlternateRegion(rName, tagKey1, tagValue1, 
 	return acctest.ConfigCompose(testAccLayerConfig_baseAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_rails_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
-  name     = %[1]q
+  name= %[1]q
 
   custom_security_group_ids = aws_security_group.test[*].id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -385,16 +385,16 @@ resource "aws_opsworks_rails_app_layer" "test" {
 func testAccRailsAppLayerConfig_allAttributes(rName, appServer, bundlerVersion string, manageBundler bool, passengerVersion, rubyVersion, rubyGemsVersion string) string {
 	return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_opsworks_rails_app_layer" "test" {
-  name     = %[1]q
+  name= %[1]q
   stack_id = aws_opsworks_stack.test.id
 
   custom_security_group_ids = aws_security_group.test[*].id
 
-  app_server        = %[2]q
+  app_server   = %[2]q
   bundler_version   = %[3]q
-  manage_bundler    = %[4]t
+  manage_bundler= %[4]t
   passenger_version = %[5]q
-  ruby_version      = %[6]q
+  ruby_version = %[6]q
   rubygems_version  = %[7]q
 }
 `, rName, appServer, bundlerVersion, manageBundler, passengerVersion, rubyVersion, rubyGemsVersion))
@@ -407,7 +407,7 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -417,10 +417,10 @@ resource "aws_elb" "test" {
   subnets = aws_subnet.test[*].id
 
   listener {
-    instance_port     = 8000
-    instance_protocol = "http"
-    lb_port  = 80
-    lb_protocol       = "http"
+instance_port= 8000
+instance_protocol = "http"
+lb_port  = 80
+lb_protocol  = "http"
   }
 
   depends_on = [aws_internet_gateway.test]
@@ -428,7 +428,7 @@ resource "aws_elb" "test" {
 
 resource "aws_opsworks_rails_app_layer" "test" {
   stack_id = aws_opsworks_stack.test.id
-  name     = %[1]q
+  name= %[1]q
 
   custom_security_group_ids = aws_security_group.test[*].id
 

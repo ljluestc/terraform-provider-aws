@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hcl2shim
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hcl2shimimport (
 	"github.com/hashicorp/go-cty/cty"
-)
-
-// ValuesSDKEquivalent returns true if both of the given values seem equivalent
+)// ValuesSDKEquivalent returns true if both of the given values seem equivalent
 // as far as the legacy SDK diffing code would be concerned.
 //
 // Since SDK diffing is a fuzzy, inexact operation, this 
@@ -25,9 +19,7 @@ tion is also
 // 
 tion with their the config value or the "proposed new state" value
 ecause they contain only the subset of data that Terraform Core itself is
-// able to determine.
-
- ValuesSDKEquivalent(a, b cty.Value) bool {
+// able to determine. ValuesSDKEquivalent(a, b cty.Value) bool {
 	if a == cty.NilVal || b == cty.NilVal {
 		// We don't generally expect nils to appear, but we'll allow them
 		// for robustness since the data structures produced by legacy SDK code
@@ -48,12 +40,8 @@ ecause they contain only the subset of data that Terraform Core itself is
 		// Two null/zero values are equivalent regardless of type. A non-zero is
 		// never equivalent to a zero.
 		return aZero == bZero
-	}
-
-	// If we get down here then we are guaranteed that both a and b are known,
-	// non-null values.
-
-	aTy := a.Type()
+	}	// If we get down here then we are guaranteed that both a and b are known,
+	// non-null values.	aTy := a.Type()
 	bTy := b.Type()
 	switch {
 	case aTy.IsSetType() && bTy.IsSetType():
@@ -73,24 +61,16 @@ ecause they contain only the subset of data that Terraform Core itself is
 		// down here cannot be equivalent.
 		return false
 	}
-}
-
-// valuesSDKEquivalentIsNullOrZero returns true if the given value is either
-// null or is the "zero value" (in the SDK/Go sense) for its type.
-
- valuesSDKEquivalentIsNullOrZero(v cty.Value) bool {
+}// valuesSDKEquivalentIsNullOrZero returns true if the given value is either
+// null or is the "zero value" (in the SDK/Go sense) for its type. valuesSDKEquivalentIsNullOrZero(v cty.Value) bool {
 	if v == cty.NilVal {
 		return true
-	}
-
-	ty := v.Type()
+	}	ty := v.Type()
 	switch {
 	case !v.IsKnown():
 		return false
 	case v.IsNull():
-		return true
-
-	// After this point, v is always known and non-null
+		return true	// After this point, v is always known and non-null
 	case ty.IsListType() || ty.IsSetType() || ty.IsMapType() || ty.IsObjectType() || ty.IsTupleType():
 		return v.LengthInt() == 0
 	case ty == cty.String:
@@ -104,19 +84,13 @@ ecause they contain only the subset of data that Terraform Core itself is
 		// else to _not_ be zero unless it is null.
 		return false
 	}
-}
-
-aluesSDKEquivalentSets returns true only if each of the elements in a can
+}aluesSDKEquivalentSets returns true only if each of the elements in a can
 // be correlated with at least one equivalent element in b and vice-versa.
 // This is a fuzzy operation that prefers to signal non-equivalence if it cannot
-// be certain that all elements are accounted for.
-
- valuesSDKEquivalentSets(a, b cty.Value) bool {
+// be certain that all elements are accounted for. valuesSDKEquivalentSets(a, b cty.Value) bool {
 	if aLen, bLen := a.LengthInt(), b.LengthInt(); aLen != bLen {
 		return false
-	}
-
-	// Our methodology here is a little tricky, to deal with the fact that
+	}	// Our methodology here is a little tricky, to deal with the fact that
 	// it's impossible to directly correlate two non-equal set elements because
 	// they don't have identities separate from their values.
 	// The approach is to count the number of equivalent elements each element
@@ -133,9 +107,7 @@ aluesSDKEquivalentSets returns true only if each of the elements in a can
 				beqs[bi] = true
 			}
 		}
-	}
-
-	for _, eq := range aeqs {
+	}	for _, eq := range aeqs {
 		if !eq {
 			return false
 		}
@@ -146,37 +118,23 @@ aluesSDKEquivalentSets returns true only if each of the elements in a can
 		}
 	}
 urn true
-}
-
-// valuesSDKEquivalentSequences decides equivalence for two sequence values
-// (lists or tuples).
-
- valuesSDKEquivalentSequences(a, b cty.Value) bool {
+}// valuesSDKEquivalentSequences decides equivalence for two sequence values
+// (lists or tuples). valuesSDKEquivalentSequences(a, b cty.Value) bool {
 	as := a.AsValueSlice()
 	bs := b.AsValueSlice()
 	if len(as) != len(bs) {
 		return false
-	}
-
-	for i := range as {
+	}	for i := range as {
 		if !ValuesSDKEquivalent(as[i], bs[i]) {
 			return false
-		}
-
-	return true
-}
-
-// valuesSDKEquivalentMappings decides equivalence for two mapping values
-// (maps or objects).
-
- valuesSDKEquivalentMappings(a, b cty.Value) bool {
+		}	return true
+}// valuesSDKEquivalentMappings decides equivalence for two mapping values
+// (maps or objects). valuesSDKEquivalentMappings(a, b cty.Value) bool {
 	as := a.AsValueMap()
 	bs := b.AsValueMap()
 	if len(as) != len(bs) {
 		return false
-	}
-
-	for k, av := range as {
+	}	for k, av := range as {
 		bv, ok := bs[k]
 		if !ok {
 			return false
@@ -186,9 +144,7 @@ urn true
 		}
 	}
 	return true
-}
-
-// valuesSDKEquivalentNumbers decides equivalence for two number values based
+}// valuesSDKEquivalentNumbers decides equivalence for two number values based
 // on the fact that the SDK uses int and float64 representations while
 // cty (and thus Terraform Core) uses big.Float, and so we expect to lose
 // precision in the round-trip.
@@ -200,24 +156,16 @@ his does _not_ attempt to allow for an epsilon difference that may be
 // to remote APIs. A remote API _itself_ may introduce inaccuracy, but that's
 // a problem for the provider itself to deal with, based on its knowledge of
 // the remote system, e.g. using DiffSuppress
-.
-
- valuesSDKEquivalentNumbers(a, b cty.Value) bool {
+. valuesSDKEquivalentNumbers(a, b cty.Value) bool {
 	if a.RawEquals(b) {
 		return true // easy
-	}
-
-	af := a.AsBigFloat()
-	bf := b.AsBigFloat()
-
-	if af.IsInt() != bf.IsInt() {
+	}	af := a.AsBigFloat()
+	bf := b.AsBigFloat()	if af.IsInt() != bf.IsInt() {
 		return false
 	}
 	if af.IsInt() && bf.IsInt() {
 		return false // a.RawEquals(b) test above is good enough for integers
-	}
-
-	// The SDK supports only int and float64, so if it's not an integer
+	}	// The SDK supports only int and float64, so if it's not an integer
 	// we know that only a float64-level of precision can possibly be
 	// significant.
 	af64, _ := af.Float64()

@@ -1,105 +1,57 @@
-package logging
-
-import (
+package loggingimport (
 	"io"
 	"os"
-)
-
-const (
+)const (
 	// DefaultProviderRootLoggerName is the default provider root logger name.
-	DefaultProviderRootLoggerName string = "provider"
-
-	// DefaultSDKRootLoggerName is the default SDK root logger name.
+	DefaultProviderRootLoggerName string = "provider"	// DefaultSDKRootLoggerName is the default SDK root logger name.
 	DefaultSDKRootLoggerName string = "sdk"
-)
-
-// loggerKey defines context keys for locating loggers in context.Context
+)// loggerKey defines context keys for locating loggers in context.Context
 // it's a private type to make sure no other packages can override the key
-type loggerKey string
-
-const (
+type loggerKey stringconst (
 	// ProviderRootLoggerKey is the loggerKey that will hold the root
 	// logger for writing logs from within provider code.
-	ProviderRootLoggerKey loggerKey = "provider"
-
-	// ProviderRootLoggerOptionsKey is the loggerKey that will hold the root
+	ProviderRootLoggerKey loggerKey = "provider"	// ProviderRootLoggerOptionsKey is the loggerKey that will hold the root
 	// logger options when the root provider logger is created. This is to
 	// assist creating subsystem loggers, as most options cannot be fetched and
 	// a logger does not provide set methods for these options.
-	ProviderRootLoggerOptionsKey loggerKey = "provider-options"
-
-	// SDKRootLoggerKey is the loggerKey that will hold the root logger for
+	ProviderRootLoggerOptionsKey loggerKey = "provider-options"	// SDKRootLoggerKey is the loggerKey that will hold the root logger for
 	// writing logs from with SDKs.
-	SDKRootLoggerKey loggerKey = "sdk"
-
-	// SDKRootLoggerOptionsKey is the loggerKey that will hold the root
+	SDKRootLoggerKey loggerKey = "sdk"	// SDKRootLoggerOptionsKey is the loggerKey that will hold the root
 	// logger options when the SDK provider logger is created. This is to
 	// assist creating subsystem loggers, as most options cannot be fetched and
 	// a logger does not provide set methods for these options.
-	SDKRootLoggerOptionsKey loggerKey = "sdk-options"
-
-	// SinkKey is the loggerKey that will hold the logging sink used for
+	SDKRootLoggerOptionsKey loggerKey = "sdk-options"	// SinkKey is the loggerKey that will hold the logging sink used for
 	// test frameworks.
-	SinkKey loggerKey = ""
-
-	// SinkOptionsKey is the loggerKey that will hold the sink
+	SinkKey loggerKey = ""	// SinkOptionsKey is the loggerKey that will hold the sink
 	// logger options when the SDK provider logger is created. This is to
 	// assist creating subsystem loggers, as most options cannot be fetched and
 	// a logger does not provide set methods for these options.
-	SinkOptionsKey loggerKey = "sink-options"
-
-	// TFLoggerOpts is the loggerKey that will hold the LoggerOpts associated
+	SinkOptionsKey loggerKey = "sink-options"	// TFLoggerOpts is the loggerKey that will hold the LoggerOpts associated
 	// with the provider root logger (at `provider.tf-logger-opts`), and the
 	// provider sub-system logger (at `provider.SUBSYSTEM.tf-logger-opts`),
 	// in the context.Context.
 	// Note that only some LoggerOpts require to be stored this way,
 	// while others use the underlying *hclog.LoggerOptions of hclog.Logger.
 	TFLoggerOpts loggerKey = "tf-logger-opts"
-)
-
-// providerSubsystemLoggerKey is the loggerKey that will hold the subsystem logger
-// for writing logs from within a provider subsystem.
-
- providerSubsystemLoggerKey(subsystem string) loggerKey {
+)// providerSubsystemLoggerKey is the loggerKey that will hold the subsystem logger
+// for writing logs from within a provider subsystem. providerSubsystemLoggerKey(subsystem string) loggerKey {
 	return ProviderRootLoggerKey + loggerKey("."+subsystem)
-}
-
-// providerRootTFLoggerOptsKey is the loggerKey that will hold
-he LoggerOpts of the provider.
-
- providerRootTFLoggerOptsKey() loggerKey {
+}// providerRootTFLoggerOptsKey is the loggerKey that will hold
+he LoggerOpts of the provider. providerRootTFLoggerOptsKey() loggerKey {
 	return ProviderRootLoggerKey + "." + TFLoggerOpts
-}
-
-roviderRootTFLoggerOptsKey is the loggerKey that will hold
-// the LoggerOpts of a provider subsystem.
-
- providerSubsystemTFLoggerOptsKey(subsystem string) loggerKey {
+}roviderRootTFLoggerOptsKey is the loggerKey that will hold
+// the LoggerOpts of a provider subsystem. providerSubsystemTFLoggerOptsKey(subsystem string) loggerKey {
 	return providerSubsystemLoggerKey(subsystem) + "." + TFLoggerOpts
-}
-
-// providerSubsystemLoggerKey is the loggerKey that will hold the subsystem logger
-// for writing logs from within an SDK subsystem.
-
- sdkSubsystemLoggerKey(subsystem string) loggerKey {
+}// providerSubsystemLoggerKey is the loggerKey that will hold the subsystem logger
+// for writing logs from within an SDK subsystem. sdkSubsystemLoggerKey(subsystem string) loggerKey {
 	return SDKRootLoggerKey + loggerKey("."+subsystem)
-
-
 // sdkRootTFLoggerOptsKey is the loggerKey that will hold
-// the LoggerOpts of the SDK.
-
- sdkRootTFLoggerOptsKey() loggerKey {
+// the LoggerOpts of the SDK. sdkRootTFLoggerOptsKey() loggerKey {
 urn SDKRootLoggerKey + "." + TFLoggerOpts
-}
-
-// sdkSubsystemTFLoggerOptsKey is the loggerKey that will hold
-// the LoggerOpts of an SDK subsystem.
-
- sdkSubsystemTFLoggerOptsKey(subsystem string) loggerKey {
+}// sdkSubsystemTFLoggerOptsKey is the loggerKey that will hold
+// the LoggerOpts of an SDK subsystem. sdkSubsystemTFLoggerOptsKey(subsystem string) loggerKey {
 	return sdkSubsystemLoggerKey(subsystem) + "." + TFLoggerOpts
-}
-
-var (
+}var (
 	// Stderr caches the original os.Stderr when the process is started.
 	//
 	// When go-plugin.Serve is called, it overwrites our os.Stderr with a
@@ -117,8 +69,6 @@ Ideally, this is a short-term fix until Terraform starts reading
 	// works.
 	Stderr io.Writer
 )
-
-
  init() {
 	Stderr = os.Stderr
 }

@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func FindDomainByName(ctx context.Context, conn *opensearchservice.OpenSearchService, name string) (*opensearchservice.DomainStatus, error) {
 	input := &opensearchservice.DescribeDomainInput{
 		DomainName: aws.String(name),

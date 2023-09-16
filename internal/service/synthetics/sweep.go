@@ -17,17 +17,20 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
 
+
 func init() {
 	resource.AddTestSweepers("aws_synthetics_canary", &resource.Sweeper{
 		Name: "aws_synthetics_canary",
 		F:    sweepCanaries,
 		Dependencies: []string{
-			"aws_lambda_function",
+			"aws_lambda_
+function",
 			"aws_lambda_layer",
 			"aws_cloudwatch_log_group",
 		},
 	})
 }
+
 
 func sweepCanaries(region string) error {
 	ctx := sweep.Context(region)

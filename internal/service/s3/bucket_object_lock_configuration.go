@@ -32,19 +32,19 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"bucket": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 63),
 			},
 			"expected_bucket_owner": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"object_lock_enabled": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      s3.ObjectLockEnabledEnabled,
 				ForceNew:     true,
@@ -63,17 +63,17 @@ import (
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"days": {
-										Type:          schema.TypeInt,
+										Type: schema.TypeInt,
 										Optional:      true,
 										ConflictsWith: []string{"rule.0.default_retention.0.years"},
 									},
 									"mode": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringInSlice(s3.ObjectLockRetentionMode_Values(), false),
 									},
 									"years": {
-										Type:          schema.TypeInt,
+										Type: schema.TypeInt,
 										Optional:      true,
 										ConflictsWith: []string{"rule.0.default_retention.0.days"},
 									},
@@ -100,7 +100,7 @@ import (
 			// ObjectLockEnabled is required by the API, even if configured directly on the S3 bucket
 			// during creation, else a MalformedXML error will be returned.
 			ObjectLockEnabled: aws.String(d.Get("object_lock_enabled").(string)),
-			Rule:              expandBucketObjectLockConfigurationRule(d.Get("rule").([]interface{})),
+			Rule:     expandBucketObjectLockConfigurationRule(d.Get("rule").([]interface{})),
 		},
 	}
 
@@ -169,7 +169,7 @@ funcket, expectedBucketOwner, err := ParseResourceID(d.Id())
 			// ObjectLockEnabled is required by the API, even if configured directly on the S3 bucket
 			// during creation, else a MalformedXML error will be returned.
 			ObjectLockEnabled: aws.String(d.Get("object_lock_enabled").(string)),
-			Rule:              expandBucketObjectLockConfigurationRule(d.Get("rule").([]interface{})),
+			Rule:     expandBucketObjectLockConfigurationRule(d.Get("rule").([]interface{})),
 		},
 	}
 

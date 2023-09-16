@@ -278,7 +278,7 @@ func testAccAccountConfig_findingAndStatus(finding, status string) string {
 	return fmt.Sprintf(`
 resource "aws_macie2_account" "test" {
   finding_publishing_frequency = "%s"
-  status          = "%s"
+  status = "%s"
 }
 `, finding, status)
 }

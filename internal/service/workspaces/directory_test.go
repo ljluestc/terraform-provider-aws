@@ -21,7 +21,6 @@ import (
 	tfworkspaces "github.com/hashicorp/terraform-provider-aws/internal/service/workspaces"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func testAccDirectory_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspaceDirectory
@@ -91,7 +90,6 @@ func testAccDirectory_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccDirectory_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspaceDirectory
@@ -123,7 +121,6 @@ func testAccDirectory_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccDirectory_subnetIDs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspaceDirectory
@@ -159,7 +156,6 @@ func testAccDirectory_subnetIDs(t *testing.T) {
 		},
 	})
 }
-
 func testAccDirectory_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspaceDirectory
@@ -213,7 +209,6 @@ func testAccDirectory_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccDirectory_selfServicePermissions(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspaceDirectory
@@ -249,7 +244,6 @@ func testAccDirectory_selfServicePermissions(t *testing.T) {
 		},
 	})
 }
-
 func testAccDirectory_workspaceAccessProperties(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspaceDirectory
@@ -288,7 +282,6 @@ func testAccDirectory_workspaceAccessProperties(t *testing.T) {
 		},
 	})
 }
-
 func testAccDirectory_workspaceCreationProperties(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspaceDirectory
@@ -325,7 +318,6 @@ func testAccDirectory_workspaceCreationProperties(t *testing.T) {
 		},
 	})
 }
-
 func testAccDirectory_workspaceCreationProperties_customSecurityGroupId_defaultOu(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspaceDirectory
@@ -378,7 +370,6 @@ func testAccDirectory_workspaceCreationProperties_customSecurityGroupId_defaultO
 		},
 	})
 }
-
 func testAccDirectory_ipGroupIDs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspaceDirectory
@@ -424,7 +415,6 @@ func testAccDirectory_ipGroupIDs(t *testing.T) {
 		},
 	})
 }
-
 func TestExpandSelfServicePermissions(t *testing.T) {
 	t.Parallel()
 
@@ -465,7 +455,6 @@ func TestExpandSelfServicePermissions(t *testing.T) {
 		}
 	}
 }
-
 func TestFlattenSelfServicePermissions(t *testing.T) {
 	t.Parallel()
 
@@ -506,7 +495,6 @@ func TestFlattenSelfServicePermissions(t *testing.T) {
 		}
 	}
 }
-
 func TestExpandWorkspaceAccessProperties(t *testing.T) {
 	t.Parallel()
 
@@ -553,7 +541,6 @@ func TestExpandWorkspaceAccessProperties(t *testing.T) {
 		}
 	}
 }
-
 func TestFlattenWorkspaceAccessProperties(t *testing.T) {
 	t.Parallel()
 
@@ -600,7 +587,6 @@ func TestFlattenWorkspaceAccessProperties(t *testing.T) {
 		}
 	}
 }
-
 func TestExpandWorkspaceCreationProperties(t *testing.T) {
 	t.Parallel()
 
@@ -617,7 +603,7 @@ func TestExpandWorkspaceCreationProperties(t *testing.T) {
 		{
 			input: []interface{}{
 				map[string]interface{}{
-					"custom_security_group_id":            "sg-123456789012",
+					"custom_security_group_id":   "sg-123456789012",
 					"default_ou":"OU=AWS,DC=Workgroup,DC=Example,DC=com",
 					"enable_internet_access": true,
 					"enable_maintenance_mode":true,
@@ -625,10 +611,10 @@ func TestExpandWorkspaceCreationProperties(t *testing.T) {
 				},
 			},
 			expected: &types.WorkspaceCreationProperties{
-				CustomSecurityGroupId:           aws.String("sg-123456789012"),
-				DefaultOu:          aws.String("OU=AWS,DC=Workgroup,DC=Example,DC=com"),
-				EnableInternetAccess:            aws.Bool(true),
-				EnableMaintenanceMode:           aws.Bool(true),
+				CustomSecurityGroupId:  aws.String("sg-123456789012"),
+				DefaultOu: aws.String("OU=AWS,DC=Workgroup,DC=Example,DC=com"),
+				EnableInternetAccess:   aws.Bool(true),
+				EnableMaintenanceMode:  aws.Bool(true),
 				UserEnabledAsLocalAdministrator: aws.Bool(true),
 			},
 		},
@@ -636,7 +622,7 @@ func TestExpandWorkspaceCreationProperties(t *testing.T) {
 		{
 			input: []interface{}{
 				map[string]interface{}{
-					"custom_security_group_id":            "",
+					"custom_security_group_id":   "",
 					"default_ou":"",
 					"enable_internet_access": true,
 					"enable_maintenance_mode":true,
@@ -644,10 +630,10 @@ func TestExpandWorkspaceCreationProperties(t *testing.T) {
 				},
 			},
 			expected: &types.WorkspaceCreationProperties{
-				CustomSecurityGroupId:           nil,
-				DefaultOu:          nil,
-				EnableInternetAccess:            aws.Bool(true),
-				EnableMaintenanceMode:           aws.Bool(true),
+				CustomSecurityGroupId:  nil,
+				DefaultOu: nil,
+				EnableInternetAccess:   aws.Bool(true),
+				EnableMaintenanceMode:  aws.Bool(true),
 				UserEnabledAsLocalAdministrator: aws.Bool(true),
 			},
 		},
@@ -660,7 +646,6 @@ func TestExpandWorkspaceCreationProperties(t *testing.T) {
 		}
 	}
 }
-
 func TestFlattenWorkspaceCreationProperties(t *testing.T) {
 	t.Parallel()
 
@@ -676,15 +661,15 @@ func TestFlattenWorkspaceCreationProperties(t *testing.T) {
 		// Full
 		{
 			input: &types.DefaultWorkspaceCreationProperties{
-				CustomSecurityGroupId:           aws.String("sg-123456789012"),
-				DefaultOu:          aws.String("OU=AWS,DC=Workgroup,DC=Example,DC=com"),
-				EnableInternetAccess:            aws.Bool(true),
-				EnableMaintenanceMode:           aws.Bool(true),
+				CustomSecurityGroupId:  aws.String("sg-123456789012"),
+				DefaultOu: aws.String("OU=AWS,DC=Workgroup,DC=Example,DC=com"),
+				EnableInternetAccess:   aws.Bool(true),
+				EnableMaintenanceMode:  aws.Bool(true),
 				UserEnabledAsLocalAdministrator: aws.Bool(true),
 			},
 			expected: []interface{}{
 				map[string]interface{}{
-					"custom_security_group_id":            "sg-123456789012",
+					"custom_security_group_id":   "sg-123456789012",
 					"default_ou":"OU=AWS,DC=Workgroup,DC=Example,DC=com",
 					"enable_internet_access": true,
 					"enable_maintenance_mode":true,
@@ -701,7 +686,6 @@ func TestFlattenWorkspaceCreationProperties(t *testing.T) {
 		}
 	}
 }
-
 func testAccCheckDirectoryDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).WorkSpacesClient(ctx)
@@ -727,7 +711,6 @@ func testAccCheckDirectoryDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckDirectoryExists(ctx context.Context, n string, v *types.WorkspaceDirectory) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -752,7 +735,6 @@ func testAccCheckDirectoryExists(ctx context.Context, n string, v *types.Workspa
 		return nil
 	}
 }
-
 func testAccPreCheckDirectory(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).WorkSpacesClient(ctx)
 
@@ -768,7 +750,6 @@ func testAccPreCheckDirectory(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccDirectoryConfig_Prerequisites(rName, domain string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
@@ -795,7 +776,7 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "primary" {
   vpc_id  = aws_vpc.main.id
   availability_zone_id = local.workspaces_az_ids[0]
-  cidr_block           = "10.0.1.0/24"
+  cidr_block  = "10.0.1.0/24"
 
   tags = {
     Name = "tf-testacc-workspaces-directory-%[1]s-primary"
@@ -805,7 +786,7 @@ resource "aws_subnet" "primary" {
 resource "aws_subnet" "secondary" {
   vpc_id  = aws_vpc.main.id
   availability_zone_id = local.workspaces_az_ids[1]
-  cidr_block           = "10.0.2.0/24"
+  cidr_block  = "10.0.2.0/24"
 
   tags = {
     Name = "tf-testacc-workspaces-directory-%[1]s-secondary"
@@ -828,7 +809,6 @@ resource "aws_directory_service_directory" "main" {
 }
 `, rName, domain))
 }
-
 func testAccDirectoryConfig_basic(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -846,7 +826,6 @@ data "aws_iam_role" "workspaces-default" {
 }
 `, rName))
 }
-
 func testAccDirectoryConfig_selfServicePermissions(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -868,7 +847,6 @@ resource "aws_workspaces_directory" "main" {
 }
 `, rName))
 }
-
 func testAccDirectoryConfig_subnetIDs(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -883,7 +861,6 @@ resource "aws_workspaces_directory" "main" {
 }
 `, rName))
 }
-
 func testAccDirectoryConfig_tags1(rName, domain, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -897,7 +874,6 @@ resource "aws_workspaces_directory" "main" {
 }
 `, tagKey1, tagValue1))
 }
-
 func testAccDirectoryConfig_tags2(rName, domain, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -912,7 +888,6 @@ resource "aws_workspaces_directory" "main" {
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
 func testAccDirectoryConfig_workspaceAccessProperties(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -937,7 +912,6 @@ resource "aws_workspaces_directory" "main" {
 }
 `, rName))
 }
-
 func testAccDirectoryConfig_workspaceCreationProperties(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -951,7 +925,7 @@ resource "aws_workspaces_directory" "main" {
   directory_id = aws_directory_service_directory.main.id
 
   workspace_creation_properties {
-    custom_security_group_id            = aws_security_group.test.id
+    custom_security_group_id   = aws_security_group.test.id
     default_ou= "OU=AWS,DC=Workgroup,DC=Example,DC=com"
     enable_internet_access = true
     enable_maintenance_mode= false
@@ -964,7 +938,6 @@ resource "aws_workspaces_directory" "main" {
 }
 `, rName))
 }
-
 func testAccDirectoryConfig_creationPropertiesCustomSecurityGroupIdDefaultOUAbsent(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -984,7 +957,6 @@ resource "aws_workspaces_directory" "main" {
 }
 `, rName))
 }
-
 func testAccDirectoryConfig_creationPropertiesCustomSecurityGroupIdDefaultOUPresent(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -998,7 +970,7 @@ resource "aws_workspaces_directory" "main" {
   directory_id = aws_directory_service_directory.main.id
 
   workspace_creation_properties {
-    custom_security_group_id            = aws_security_group.test.id
+    custom_security_group_id   = aws_security_group.test.id
     default_ou= "OU=AWS,DC=Workgroup,DC=Example,DC=com"
     enable_internet_access = true
     enable_maintenance_mode= false
@@ -1011,7 +983,6 @@ resource "aws_workspaces_directory" "main" {
 }
 `, rName))
 }
-
 func testAccDirectoryConfig_ipGroupIdsCreate(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -1033,7 +1004,6 @@ resource "aws_workspaces_directory" "test" {
 }
 `, rName))
 }
-
 func testAccDirectoryConfig_ipGroupIdsUpdate(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),

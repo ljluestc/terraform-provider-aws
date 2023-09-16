@@ -70,7 +70,7 @@ func ResourceSite() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
@@ -86,17 +86,17 @@ func ResourceSite() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"address": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 256),
 						},
 						"latitude": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 256),
 						},
 						"longitude": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 256),
 						},
@@ -115,7 +115,7 @@ func resourceSiteCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	globalNetworkID := d.Get("global_network_id").(string)
 	input := &networkmanager.CreateSiteInput{
 		GlobalNetworkId: aws.String(globalNetworkID),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -182,7 +182,7 @@ func resourceSiteUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 		input := &networkmanager.UpdateSiteInput{
 			Description:     aws.String(d.Get("description").(string)),
 			GlobalNetworkId: aws.String(globalNetworkID),
-			SiteId:          aws.String(d.Id()),
+			SiteId: aws.String(d.Id()),
 		}
 
 		if v, ok := d.GetOk("location"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -214,7 +214,7 @@ func resourceSiteDelete(ctx context.Context, d *schema.ResourceData, meta interf
 		func() (interface{}, error) {
 			return conn.DeleteSiteWithContext(ctx, &networkmanager.DeleteSiteInput{
 				GlobalNetworkId: aws.String(globalNetworkID),
-				SiteId:          aws.String(d.Id()),
+				SiteId: aws.String(d.Id()),
 			})
 		},
 		func(err error) (bool, error) {
@@ -295,7 +295,7 @@ func FindSites(ctx context.Context, conn *networkmanager.NetworkManager, input *
 func FindSiteByTwoPartKey(ctx context.Context, conn *networkmanager.NetworkManager, globalNetworkID, siteID string) (*networkmanager.Site, error) {
 	input := &networkmanager.GetSitesInput{
 		GlobalNetworkId: aws.String(globalNetworkID),
-		SiteIds:         aws.StringSlice([]string{siteID}),
+		SiteIds:aws.StringSlice([]string{siteID}),
 	}
 
 	output, err := FindSite(ctx, conn, input)

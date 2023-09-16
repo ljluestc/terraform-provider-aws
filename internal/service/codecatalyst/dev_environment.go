@@ -70,8 +70,8 @@ func ResourceDevEnvironment() *schema.Resource {
 				Optional: true,
 			},
 			"instance_type": {
-				Type:             schema.TypeString,
-				Required:         true,
+				Type:    schema.TypeString,
+				Required:true,
 				ValidateDiagFunc: enum.Validate[types.InstanceType](),
 			},
 			"project_name": {
@@ -128,7 +128,7 @@ func resourceDevEnvironmentCreate(ctx context.Context, d *schema.ResourceData, m
 	instanceType := types.InstanceType(d.Get("instance_type").(string))
 	in := &codecatalyst.CreateDevEnvironmentInput{
 		ProjectName:       aws.String(d.Get("project_name").(string)),
-		SpaceName:         aws.String(d.Get("space_name").(string)),
+		SpaceName:aws.String(d.Get("space_name").(string)),
 		PersistentStorage: storage,
 		InstanceType:      instanceType,
 	}
@@ -251,7 +251,7 @@ func resourceDevEnvironmentDelete(ctx context.Context, d *schema.ResourceData, m
 	log.Printf("[INFO] Deleting Codecatalyst DevEnvironment %s", d.Id())
 
 	_, err := conn.DeleteDevEnvironment(ctx, &codecatalyst.DeleteDevEnvironmentInput{
-		Id:          aws.String(d.Id()),
+		Id: aws.String(d.Id()),
 		SpaceName:   aws.String(d.Get("space_name").(string)),
 		ProjectName: aws.String(d.Get("project_name").(string)),
 	})
@@ -268,11 +268,11 @@ func resourceDevEnvironmentDelete(ctx context.Context, d *schema.ResourceData, m
 
 func waitDevEnvironmentCreated(ctx context.Context, conn *codecatalyst.Client, id string, spaceName *string, projectName *string, timeout time.Duration) (*codecatalyst.GetDevEnvironmentOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.DevEnvironmentStatusPending, types.DevEnvironmentStatusStarting),
-		Target:                    enum.Slice(types.DevEnvironmentStatusRunning, types.DevEnvironmentStatusStopped, types.DevEnvironmentStatusStopping),
-		Refresh:                   statusDevEnvironment(ctx, conn, id, spaceName, projectName),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.DevEnvironmentStatusPending, types.DevEnvironmentStatusStarting),
+		Target:  enum.Slice(types.DevEnvironmentStatusRunning, types.DevEnvironmentStatusStopped, types.DevEnvironmentStatusStopping),
+		Refresh: statusDevEnvironment(ctx, conn, id, spaceName, projectName),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -286,11 +286,11 @@ func waitDevEnvironmentCreated(ctx context.Context, conn *codecatalyst.Client, i
 
 func waitDevEnvironmentUpdated(ctx context.Context, conn *codecatalyst.Client, id string, spaceName *string, projectName *string, timeout time.Duration) (*codecatalyst.GetDevEnvironmentOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.DevEnvironmentStatusStopping, types.DevEnvironmentStatusPending, types.DevEnvironmentStatusStopped),
-		Target:                    enum.Slice(types.DevEnvironmentStatusRunning),
-		Refresh:                   statusDevEnvironment(ctx, conn, id, spaceName, projectName),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.DevEnvironmentStatusStopping, types.DevEnvironmentStatusPending, types.DevEnvironmentStatusStopped),
+		Target:  enum.Slice(types.DevEnvironmentStatusRunning),
+		Refresh: statusDevEnvironment(ctx, conn, id, spaceName, projectName),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -319,7 +319,7 @@ func statusDevEnvironment(ctx context.Context, conn *codecatalyst.Client, id str
 
 func findDevEnvironmentByID(ctx context.Context, conn *codecatalyst.Client, id string, spaceName *string, projectName *string) (*codecatalyst.GetDevEnvironmentOutput, error) {
 	in := &codecatalyst.GetDevEnvironmentInput{
-		Id:          aws.String(id),
+		Id: aws.String(id),
 		ProjectName: projectName,
 		SpaceName:   spaceName,
 	}

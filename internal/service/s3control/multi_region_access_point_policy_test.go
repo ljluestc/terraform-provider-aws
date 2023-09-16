@@ -27,8 +27,8 @@ func TestAccS3ControlMultiRegionAccessPointPolicy_basic(t *testing.T) {
 	multiRegionAccessPointName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		// Multi-Region Access Point Policy cannot be deleted once applied.
 		// Ensure parent resource is destroyed instead.
@@ -65,8 +65,8 @@ func TestAccS3ControlMultiRegionAccessPointPolicy_disappears_MultiRegionAccessPo
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		// Multi-Region Access Point Policy cannot be deleted once applied.
 		// Ensure parent resource is destroyed instead.
@@ -92,8 +92,8 @@ func TestAccS3ControlMultiRegionAccessPointPolicy_details_policy(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		// Multi-Region Access Point Policy cannot be deleted once applied.
 		// Ensure parent resource is destroyed instead.
@@ -130,8 +130,8 @@ func TestAccS3ControlMultiRegionAccessPointPolicy_details_name(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		// Multi-Region Access Point Policy cannot be deleted once applied.
 		// Ensure parent resource is destroyed instead.
@@ -219,13 +219,13 @@ resource "aws_s3control_multi_region_access_point_policy" "test" {
       "Version" : "2012-10-17",
       "Statement" : [
         {
-          "Sid" : "Test",
-          "Effect" : "Allow",
-          "Principal" : {
-            "AWS" : data.aws_caller_identity.current.account_id
-          },
-          "Action" : "s3:GetObject",
-          "Resource" : "arn:${data.aws_partition.current.partition}:s3::${data.aws_caller_identity.current.account_id}:accesspoint/${aws_s3control_multi_region_access_point.test.alias}/object/*"
+ "Sid" : "Test",
+ "Effect" : "Allow",
+ "Principal" : {
+   "AWS" : data.aws_caller_identity.current.account_id
+ },
+ "Action" : "s3:GetObject",
+ "Resource" : "arn:${data.aws_partition.current.partition}:s3::${data.aws_caller_identity.current.account_id}:accesspoint/${aws_s3control_multi_region_access_point.test.alias}/object/*"
         }
       ]
     })
@@ -248,13 +248,13 @@ resource "aws_s3control_multi_region_access_point_policy" "test" {
       "Version" : "2012-10-17",
       "Statement" : [
         {
-          "Sid" : "Test",
-          "Effect" : "Allow",
-          "Principal" : {
-            "AWS" : data.aws_caller_identity.current.account_id
-          },
-          "Action" : "s3:PutObject",
-          "Resource" : "arn:${data.aws_partition.current.partition}:s3::${data.aws_caller_identity.current.account_id}:accesspoint/${aws_s3control_multi_region_access_point.test.alias}/object/*"
+ "Sid" : "Test",
+ "Effect" : "Allow",
+ "Principal" : {
+   "AWS" : data.aws_caller_identity.current.account_id
+ },
+ "Action" : "s3:PutObject",
+ "Resource" : "arn:${data.aws_partition.current.partition}:s3::${data.aws_caller_identity.current.account_id}:accesspoint/${aws_s3control_multi_region_access_point.test.alias}/object/*"
         }
       ]
     })

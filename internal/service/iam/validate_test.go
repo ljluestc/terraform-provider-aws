@@ -60,26 +60,26 @@ import (
 }func TestValidOpenIDURL(t *testing.T) {
 	t.Parallel()
 funces := []struct {
-		Value    string
+		Valuestring
 		ErrCount int
 	}{
 		{
 			Value: "https://good.test",
 		},
 		{
-			Value:    "http://wrong.scheme.test",
+			Value:"http://wrong.scheme.test",
 			ErrCount: 1,
 		},
 		{
-			Value:    "ftp://wrong.scheme.test",
+			Value:"ftp://wrong.scheme.test",
 			ErrCount: 1,
 		},
 		{
-			Value:    "%@invalidUrl",
+			Value:"%@invalidUrl",
 			ErrCount: 1,
 		},
 		{
-			Value:    "https://no-queries.test/?query=param",
+			Value:"https://no-queries.test/?query=param",
 			ErrCount: 1,
 		},
 	}
@@ -94,7 +94,7 @@ funces := []struct {
 }func TestValidRolePolicyRoleName(t *testing.T) {
 	t.Parallel()
 
-	funclue    string
+	funcluestring
 		ErrCount int
 	}{
 		{
@@ -104,7 +104,7 @@ funces := []struct {
 			Value: "role/S3Access",
 		},
 		{
-			Value:    "arn:aws:iam::123456789012:role/S3Access", // lintignore:AWSAT005
+			Value:"arn:aws:iam::123456789012:role/S3Access", // lintignore:AWSAT005
 			ErrCount: 1,
 		},
 	}

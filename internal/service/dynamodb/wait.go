@@ -16,12 +16,12 @@ import (
 const (
 	kinesisStreamingDestinationActiveTimeout   = 5 * time.Minute
 	kinesisStreamingDestinationDisabledTimeout = 5 * time.Minute
-	createTableTimeout            = 30 * time.Minute
-	updateTableTimeoutTotal       = 60 * time.Minute
-	replicaUpdateTimeout          = 30 * time.Minute
-	updateTableTimeout            = 20 * time.Minute
-	updateTableContinuousBackupsTimeout        = 20 * time.Minute
-	deleteTableTimeout            = 10 * time.Minute
+	createTableTimeout   = 30 * time.Minute
+	updateTableTimeoutTotal   = 60 * time.Minute
+	replicaUpdateTimeout = 30 * time.Minute
+	updateTableTimeout   = 20 * time.Minute
+	updateTableContinuousBackupsTimeout= 20 * time.Minute
+	deleteTableTimeout   = 10 * time.Minute
 	pitrUpdateTimeout= 30 * time.Second
 	ttlUpdateTimeout = 30 * time.Second
 )
@@ -165,17 +165,17 @@ func waitPITRUpdated(ctx context.Context, conn *dynamodb.DynamoDB, tableName str
 
 	if toEnable {
 		pending = []string{
-			dynamodb.TimeToLiveStatusEnabling,          // "ENABLING" const not available for PITR
+			dynamodb.TimeToLiveStatusEnabling, // "ENABLING" const not available for PITR
 			dynamodb.PointInTimeRecoveryStatusDisabled, // reports say it can get in fast enough to be in this state
 		}
 		target = []string{dynamodb.PointInTimeRecoveryStatusEnabled}
 	}
 
 	stateConf := &retry.StateChangeConf{
-		Pending:    pending,
-		Target:     target,
-		Timeout:    maxDuration(pitrUpdateTimeout, timeout),
-		Refresh:    statusPITR(ctx, conn, tableName),
+		Pending:pending,
+		Target: target,
+		Timeout:maxDuration(pitrUpdateTimeout, timeout),
+		Refresh:statusPITR(ctx, conn, tableName),
 		MinTimeout: 15 * time.Second,
 	}
 

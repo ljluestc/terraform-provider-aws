@@ -40,28 +40,28 @@ func ResourceGroupMembership() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"group_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 47),
 			},
 
 			"identity_store_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 36),
 			},
 
 			"member_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 47),
 			},
 
 			"membership_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -140,7 +140,7 @@ func resourceGroupMembershipDelete(ctx context.Context, d *schema.ResourceData, 
 	log.Printf("[INFO] Deleting IdentityStore GroupMembership %s", d.Id())
 
 	input := &identitystore.DeleteGroupMembershipInput{
-		MembershipId:    aws.String(d.Get("membership_id").(string)),
+		MembershipId:aws.String(d.Get("membership_id").(string)),
 		IdentityStoreId: aws.String(d.Get("identity_store_id").(string)),
 	}
 
@@ -184,7 +184,7 @@ func resourceGroupMembershipParseID(id string) (identityStoreId, groupMembership
 func findGroupMembershipByID(ctx context.Context, conn *identitystore.Client, identityStoreId, groupMembershipId string) (*identitystore.DescribeGroupMembershipOutput, error) {
 	in := &identitystore.DescribeGroupMembershipInput{
 		IdentityStoreId: aws.String(identityStoreId),
-		MembershipId:    aws.String(groupMembershipId),
+		MembershipId:aws.String(groupMembershipId),
 	}
 
 	out, err := conn.DescribeGroupMembership(ctx, in)

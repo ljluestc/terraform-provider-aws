@@ -41,7 +41,7 @@ func ResourceLocationSMB() *schema.Resource {
 				Type:     schema.TypeSet,
 				Required: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
@@ -50,20 +50,20 @@ func ResourceLocationSMB() *schema.Resource {
 				Computed: true,
 			},
 			"domain": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Computed:     true,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 253),
 			},
 			"mount_options": {
-				Type:             schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Type:    schema.TypeList,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"version": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Default:      datasync.SmbVersionAutomatic,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(datasync.SmbVersion_Values(), false),
@@ -72,19 +72,19 @@ func ResourceLocationSMB() *schema.Resource {
 				},
 			},
 			"password": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Sensitive:    true,
 				ValidateFunc: validation.StringLenBetween(1, 104),
 			},
 			"server_hostname": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"subdirectory": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 4096),
 				/*// Ignore missing trailing slash
@@ -106,7 +106,7 @@ func ResourceLocationSMB() *schema.Resource {
 				Computed: true,
 			},
 			"user": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 104),
 			},
@@ -126,8 +126,8 @@ func resourceLocationSMBCreate(ctx context.Context, d *schema.ResourceData, meta
 		Password:       aws.String(d.Get("password").(string)),
 		ServerHostname: aws.String(d.Get("server_hostname").(string)),
 		Subdirectory:   aws.String(d.Get("subdirectory").(string)),
-		Tags:           getTagsIn(ctx),
-		User:           aws.String(d.Get("user").(string)),
+		Tags:  getTagsIn(ctx),
+		User:  aws.String(d.Get("user").(string)),
 	}
 
 	if v, ok := d.GetOk("domain"); ok {
@@ -191,7 +191,7 @@ func resourceLocationSMBUpdate(ctx context.Context, d *schema.ResourceData, meta
 			MountOptions: expandSMBMountOptions(d.Get("mount_options").([]interface{})),
 			Password:     aws.String(d.Get("password").(string)),
 			Subdirectory: aws.String(d.Get("subdirectory").(string)),
-			User:         aws.String(d.Get("user").(string)),
+			User:aws.String(d.Get("user").(string)),
 		}
 
 		if v, ok := d.GetOk("domain"); ok {

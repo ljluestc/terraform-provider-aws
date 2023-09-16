@@ -10,7 +10,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccKMSCiphertextDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
@@ -28,7 +27,6 @@ func TestAccKMSCiphertextDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSCiphertextDataSource_validate(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
@@ -46,7 +44,6 @@ func TestAccKMSCiphertextDataSource_validate(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSCiphertextDataSource_Validate_withContext(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{

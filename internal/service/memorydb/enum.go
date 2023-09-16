@@ -9,7 +9,7 @@ package memorydb
 // unlikely to be exhaustive.
 
 const (
-	ACLStatusActive    = "active"
+	ACLStatusActive= "active"
 	ACLStatusCreating  = "creating"
 	ACLStatusDeleting  = "deleting"
 	ACLStatusModifying = "modifying"
@@ -25,11 +25,11 @@ func ACLStatus_Values() []string {
 }
 
 const (
-	ClusterStatusAvailable    = "available"
-	ClusterStatusCreating     = "creating"
-	ClusterStatusDeleting     = "deleting"
+	ClusterStatusAvailable= "available"
+	ClusterStatusCreating = "creating"
+	ClusterStatusDeleting = "deleting"
 	ClusterStatusSnapshotting = "snapshotting"
-	ClusterStatusUpdating     = "updating"
+	ClusterStatusUpdating = "updating"
 )
 
 func ClusterStatus_Values() []string {
@@ -55,7 +55,7 @@ func ClusterParameterGroupStatus_Values() []string {
 }
 
 const (
-	ClusterSecurityGroupStatusActive    = "active"
+	ClusterSecurityGroupStatusActive= "active"
 	ClusterSecurityGroupStatusModifying = "modifying"
 )
 
@@ -113,7 +113,7 @@ func SnapshotStatus_Values() []string {
 }
 
 const (
-	UserStatusActive    = "active"
+	UserStatusActive= "active"
 	UserStatusDeleting  = "deleting"
 	UserStatusModifying = "modifying"
 )

@@ -34,7 +34,7 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"account_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ForceNew:     true,

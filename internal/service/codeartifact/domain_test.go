@@ -19,14 +19,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcodeartifact "github.com/hashicorp/terraform-provider-aws/internal/service/codeartifact"
 )
-
 func testAccDomain_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codeartifact_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainDestroy(ctx),
@@ -46,21 +45,20 @@ func testAccDomain_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccDomain_defaultEncryptionKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codeartifact_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "codeartifact") },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "codeartifact") },
 		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainDestroy(ctx),
@@ -79,21 +77,20 @@ func testAccDomain_defaultEncryptionKey(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccDomain_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codeartifact_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "codeartifact") },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "codeartifact") },
 		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainDestroy(ctx),
@@ -107,8 +104,8 @@ func testAccDomain_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -130,14 +127,13 @@ func testAccDomain_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccDomain_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codeartifact_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainDestroy(ctx),
@@ -153,21 +149,20 @@ func testAccDomain_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccDomain_MigrateAssetSizeBytesToString(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codeartifact_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:     func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
-		ErrorCheck:   acctest.ErrorCheck(t, codeartifact.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		CheckDestroy: testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:ws",
 						VersionConstraint: "5.14.0",
 					},
 				},
@@ -180,13 +175,12 @@ func testAccDomain_MigrateAssetSizeBytesToString(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:      testAccDomainConfig_basic(rName),
-				PlanOnly:    true,
+				Config:cDomainConfig_basic(rName),
+				PlanOnly: true,
 			},
 		},
 	})
 }
-
 func testAccCheckDomainExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -206,14 +200,13 @@ func testAccCheckDomainExists(ctx context.Context, n string) resource.TestCheckF
 		}
 
 		_, err = conn.DescribeDomainWithContext(ctx, &codeartifact.DescribeDomainInput{
-			Domain:      aws.String(domainName),
+			Domain:ring(domainName),
 			DomainOwner: aws.String(domainOwner),
 		})
 
 		return err
 	}
 }
-
 func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -229,7 +222,7 @@ func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 			}
 
 			resp, err := conn.DescribeDomainWithContext(ctx, &codeartifact.DescribeDomainInput{
-				Domain:      aws.String(domainName),
+				Domain:ring(domainName),
 				DomainOwner: aws.String(domainOwner),
 			})
 
@@ -249,7 +242,6 @@ func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccDomainConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -258,37 +250,34 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_codeartifact_domain" "test" {
-  domain         = %[1]q
+  domain[1]q
   encryption_key = aws_kms_key.test.arn
 }
 `, rName)
 }
-
 func testAccDomainConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_codeartifact_domain" "test" {
   domain = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccDomainConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_codeartifact_domain" "test" {
   domain = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccDomainConfig_defaultEncryptionKey(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codeartifact_domain" "test" {

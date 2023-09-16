@@ -230,7 +230,7 @@ resource "aws_neptune_cluster" "test" {
 func testAccClusterEndpointConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccClusterEndpointBaseConfig(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_endpoint" "test" {
-  cluster_identifier          = aws_neptune_cluster.test.cluster_identifier
+  cluster_identifier = aws_neptune_cluster.test.cluster_identifier
   cluster_endpoint_identifier = %[1]q
   endpoint_type  = "READER"
 }
@@ -240,7 +240,7 @@ resource "aws_neptune_cluster_endpoint" "test" {
 func testAccClusterEndpointConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccClusterEndpointBaseConfig(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_endpoint" "test" {
-  cluster_identifier          = aws_neptune_cluster.test.cluster_identifier
+  cluster_identifier = aws_neptune_cluster.test.cluster_identifier
   cluster_endpoint_identifier = %[1]q
   endpoint_type  = "READER"
 
@@ -254,7 +254,7 @@ resource "aws_neptune_cluster_endpoint" "test" {
 func testAccClusterEndpointConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccClusterEndpointBaseConfig(rName), fmt.Sprintf(`
 resource "aws_neptune_cluster_endpoint" "test" {
-  cluster_identifier          = aws_neptune_cluster.test.cluster_identifier
+  cluster_identifier = aws_neptune_cluster.test.cluster_identifier
   cluster_endpoint_identifier = %[1]q
   endpoint_type  = "READER"
 

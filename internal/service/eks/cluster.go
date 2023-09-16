@@ -54,63 +54,63 @@ func ResourceCluster() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"certificate_authority": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"data": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"cluster_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"created_at": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"enabled_cluster_log_types": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(eks.LogType_Values(), true),
 				},
 				Set: schema.HashString,
 			},
 			"encryption_config": {
-				Type:          schema.TypeList,
-				MaxItems:      1,
-				Optional:      true,
+				Type:schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
 				ConflictsWith: []string{"outpost_config"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"provider": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							MaxItems: 1,
 							Required: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"key_arn": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 								},
 							},
 						},
 						"resources": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringInSlice(Resources_Values(), false),
 							},
 						},
@@ -118,21 +118,21 @@ func ResourceCluster() *schema.Resource {
 				},
 			},
 			"endpoint": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"identity": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"oidc": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"issuer": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 								},
@@ -142,22 +142,22 @@ func ResourceCluster() *schema.Resource {
 				},
 			},
 			"kubernetes_network_config": {
-				Type:          schema.TypeList,
-				Optional:      true,
-				Computed:      true,
-				MaxItems:      1,
+				Type:schema.TypeList,
+				Optional: true,
+				Computed: true,
+				MaxItems: 1,
 				ConflictsWith: []string{"outpost_config"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"ip_family": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Computed:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Optional:true,
+							Computed:true,
+							ForceNew:true,
 							ValidateFunc: validation.StringInSlice(eks.IpFamily_Values(), false),
 						},
 						"service_ipv4_cidr": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
@@ -167,38 +167,38 @@ func ResourceCluster() *schema.Resource {
 							),
 						},
 						"service_ipv6_cidr": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validClusterName,
 			},
 			"outpost_config": {
-				Type:          schema.TypeList,
-				MaxItems:      1,
-				Optional:      true,
+				Type:schema.TypeList,
+				MaxItems: 1,
+				Optional: true,
 				ConflictsWith: []string{"encryption_config", "kubernetes_network_config"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"control_plane_instance_type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ForceNew: true,
 						},
 						"control_plane_placement": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							MaxItems: 1,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"group_name": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 										ForceNew: true,
 									},
@@ -206,7 +206,7 @@ func ResourceCluster() *schema.Resource {
 							},
 						},
 						"outpost_arns": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
 							MinItems: 1,
 							Elem: &schema.Schema{
@@ -217,71 +217,71 @@ func ResourceCluster() *schema.Resource {
 				},
 			},
 			"platform_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"vpc_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				MinItems: 1,
 				MaxItems: 1,
 				Required: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cluster_security_group_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"endpoint_private_access": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"endpoint_public_access": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  true,
 						},
 						"public_access_cidrs": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
 							Computed: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: verify.ValidCIDRNetworkAddress,
 							},
 						},
 						"security_group_ids": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
 							ForceNew: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"subnet_ids": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
 							ForceNew: true,
 							MinItems: 1,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"vpc_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
@@ -297,10 +297,10 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 	name := d.Get("name").(string)
 	input := &eks.CreateClusterInput{
 		EncryptionConfig:   expandEncryptionConfig(d.Get("encryption_config").([]interface{})),
-		Logging:            expandLogging(d.Get("enabled_cluster_log_types").(*schema.Set)),
+		Logging:  expandLogging(d.Get("enabled_cluster_log_types").(*schema.Set)),
 		Name:  aws.String(name),
 		ResourcesVpcConfig: expandVPCConfigRequestForCreate(d.Get("vpc_config").([]interface{})),
-		RoleArn:            aws.String(d.Get("role_arn").(string)),
+		RoleArn:  aws.String(d.Get("role_arn").(string)),
 		Tags:  getTagsIn(ctx),
 	}
 
@@ -422,7 +422,7 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	// Do any version update first.
 	if d.HasChange("version") {
 		input := &eks.UpdateClusterVersionInput{
-			Name:    aws.String(d.Id()),
+			Name:aws.String(d.Id()),
 			Version: aws.String(d.Get("version").(string)),
 		}
 
@@ -446,7 +446,7 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 		if len(o.([]interface{})) == 0 && len(n.([]interface{})) == 1 {
 			input := &eks.AssociateEncryptionConfigInput{
-				ClusterName:      aws.String(d.Id()),
+				ClusterName: aws.String(d.Id()),
 				EncryptionConfig: expandEncryptionConfig(d.Get("encryption_config").([]interface{})),
 			}
 
@@ -469,7 +469,7 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	if d.HasChange("enabled_cluster_log_types") {
 		input := &eks.UpdateClusterConfigInput{
 			Logging: expandLogging(d.Get("enabled_cluster_log_types").(*schema.Set)),
-			Name:    aws.String(d.Id()),
+			Name:aws.String(d.Id()),
 		}
 
 		output, err := conn.UpdateClusterConfigWithContext(ctx, input)
@@ -592,7 +592,7 @@ func FindClusterByName(ctx context.Context, conn *eks.EKS, name string) (*eks.Cl
 
 func findClusterUpdateByTwoPartKey(ctx context.Context, conn *eks.EKS, name, id string) (*eks.Update, error) {
 	input := &eks.DescribeUpdateInput{
-		Name:     aws.String(name),
+		Name:aws.String(name),
 		UpdateId: aws.String(id),
 	}
 
@@ -801,7 +801,7 @@ func expandVPCConfigRequestForCreate(l []interface{}) *eks.VpcConfigRequest {
 	vpcConfigRequest := &eks.VpcConfigRequest{
 		EndpointPrivateAccess: aws.Bool(m["endpoint_private_access"].(bool)),
 		EndpointPublicAccess:  aws.Bool(m["endpoint_public_access"].(bool)),
-		SecurityGroupIds:      flex.ExpandStringSet(m["security_group_ids"].(*schema.Set)),
+		SecurityGroupIds: flex.ExpandStringSet(m["security_group_ids"].(*schema.Set)),
 		SubnetIds:flex.ExpandStringSet(m["subnet_ids"].(*schema.Set)),
 	}
 
@@ -947,11 +947,11 @@ func flattenVPCConfigResponse(vpcConfig *eks.VpcConfigResponse) []map[string]int
 	m := map[string]interface{}{
 		"cluster_security_group_id": aws.StringValue(vpcConfig.ClusterSecurityGroupId),
 		"endpoint_private_access":   aws.BoolValue(vpcConfig.EndpointPrivateAccess),
-		"endpoint_public_access":    aws.BoolValue(vpcConfig.EndpointPublicAccess),
-		"security_group_ids":        flex.FlattenStringSet(vpcConfig.SecurityGroupIds),
+		"endpoint_public_access":aws.BoolValue(vpcConfig.EndpointPublicAccess),
+		"security_group_ids":   flex.FlattenStringSet(vpcConfig.SecurityGroupIds),
 		"subnet_ids":   flex.FlattenStringSet(vpcConfig.SubnetIds),
-		"public_access_cidrs":       flex.FlattenStringSet(vpcConfig.PublicAccessCidrs),
-		"vpc_id":       aws.StringValue(vpcConfig.VpcId),
+		"public_access_cidrs":  flex.FlattenStringSet(vpcConfig.PublicAccessCidrs),
+		"vpc_id":  aws.StringValue(vpcConfig.VpcId),
 	}
 
 	return []map[string]interface{}{m}
@@ -982,7 +982,7 @@ func flattenKubernetesNetworkConfigResponse(apiObject *eks.KubernetesNetworkConf
 	tfMap := map[string]interface{}{
 		"service_ipv4_cidr": aws.StringValue(apiObject.ServiceIpv4Cidr),
 		"service_ipv6_cidr": aws.StringValue(apiObject.ServiceIpv6Cidr),
-		"ip_family":         aws.StringValue(apiObject.IpFamily),
+		"ip_family":aws.StringValue(apiObject.IpFamily),
 	}
 
 	return []interface{}{tfMap}
@@ -995,7 +995,7 @@ func flattenOutpostConfigResponse(apiObject *eks.OutpostConfigResponse) []interf
 
 	tfMap := map[string]interface{}{
 		"control_plane_instance_type": aws.StringValue(apiObject.ControlPlaneInstanceType),
-		"control_plane_placement":     flattenControlPlanePlacementResponse(apiObject.ControlPlanePlacement),
+		"control_plane_placement":flattenControlPlanePlacementResponse(apiObject.ControlPlanePlacement),
 		"outpost_arns":   aws.StringValueSlice(apiObject.OutpostArns),
 	}
 

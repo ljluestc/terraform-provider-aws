@@ -19,14 +19,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfcodeartifact "github.com/hashicorp/terraform-provider-aws/internal/service/codeartifact"
 )
-
 func testAccRepositoryPermissionsPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codeartifact_repository_permissions_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRepositoryPermissionsDestroy(ctx),
@@ -42,8 +41,8 @@ func testAccRepositoryPermissionsPolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -60,14 +59,13 @@ func testAccRepositoryPermissionsPolicy_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccRepositoryPermissionsPolicy_ignoreEquivalent(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codeartifact_repository_permissions_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRepositoryPermissionsDestroy(ctx),
@@ -83,20 +81,19 @@ func testAccRepositoryPermissionsPolicy_ignoreEquivalent(t *testing.T) {
 				),
 			},
 			{
-				Config:   testAccRepositoryPermissionsPolicyConfig_newOrder(rName),
+				Config:testAccRepositoryPermissionsPolicyConfig_newOrder(rName),
 				PlanOnly: true,
 			},
 		},
 	})
 }
-
 func testAccRepositoryPermissionsPolicy_owner(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codeartifact_repository_permissions_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRepositoryPermissionsDestroy(ctx),
@@ -112,21 +109,20 @@ func testAccRepositoryPermissionsPolicy_owner(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccRepositoryPermissionsPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codeartifact_repository_permissions_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRepositoryPermissionsDestroy(ctx),
@@ -142,14 +138,13 @@ func testAccRepositoryPermissionsPolicy_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccRepositoryPermissionsPolicy_Disappears_domain(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codeartifact_repository_permissions_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, codeartifact.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, codeartifact.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRepositoryPermissionsDestroy(ctx),
@@ -165,7 +160,6 @@ func testAccRepositoryPermissionsPolicy_Disappears_domain(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckRepositoryPermissionsExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -185,7 +179,7 @@ func testAccCheckRepositoryPermissionsExists(ctx context.Context, n string) reso
 		}
 
 		_, err = conn.GetRepositoryPermissionsPolicyWithContext(ctx, &codeartifact.GetRepositoryPermissionsPolicyInput{
-			Domain:      aws.String(domainName),
+			Domain:ring(domainName),
 			DomainOwner: aws.String(domainOwner),
 			Repository:  aws.String(repoName),
 		})
@@ -193,7 +187,6 @@ func testAccCheckRepositoryPermissionsExists(ctx context.Context, n string) reso
 		return err
 	}
 }
-
 func testAccCheckRepositoryPermissionsDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -209,7 +202,7 @@ func testAccCheckRepositoryPermissionsDestroy(ctx context.Context) resource.Test
 			}
 
 			resp, err := conn.GetRepositoryPermissionsPolicyWithContext(ctx, &codeartifact.GetRepositoryPermissionsPolicyInput{
-				Domain:      aws.String(domainName),
+				Domain:ring(domainName),
 				DomainOwner: aws.String(domainOwner),
 				Repository:  aws.String(repoName),
 			})
@@ -230,7 +223,6 @@ func testAccCheckRepositoryPermissionsDestroy(ctx context.Context) resource.Test
 		return nil
 	}
 }
-
 func testAccRepositoryPermissionsPolicyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -239,35 +231,34 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_codeartifact_domain" "test" {
-  domain         = %[1]q
+  domain[1]q
   encryption_key = aws_kms_key.test.arn
 }
 
 resource "aws_codeartifact_repository" "test" {
   repository = %[1]q
-  domain     = aws_codeartifact_domain.test.domain
+  domain= aws_codeartifact_domain.test.domain
 }
 
 resource "aws_codeartifact_repository_permissions_policy" "test" {
-  domain          = aws_codeartifact_domain.test.domain
-  repository      = aws_codeartifact_repository.test.repository
+  domainaws_codeartifact_domain.test.domain
+  repositorycodeartifact_repository.test.repository
   policy_document = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": "codeartifact:CreateRepository",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Resource": "${aws_codeartifact_domain.test.arn}"
-        }
-    ]
+ "Version": "2012-10-17",
+ "Statement": [
+
+odeartifact:CreateRepository",
+llow",
+ "*",
+"${aws_codeartifact_domain.test.arn}"
+
+ ]
 }
 EOF
 }
 `, rName)
 }
-
 func testAccRepositoryPermissionsPolicyConfig_owner(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -276,36 +267,35 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_codeartifact_domain" "test" {
-  domain         = %[1]q
+  domain[1]q
   encryption_key = aws_kms_key.test.arn
 }
 
 resource "aws_codeartifact_repository" "test" {
   repository = %[1]q
-  domain     = aws_codeartifact_domain.test.domain
+  domain= aws_codeartifact_domain.test.domain
 }
 
 resource "aws_codeartifact_repository_permissions_policy" "test" {
-  domain          = aws_codeartifact_domain.test.domain
-  domain_owner    = aws_codeartifact_domain.test.owner
-  repository      = aws_codeartifact_repository.test.repository
+  domainaws_codeartifact_domain.test.domain
+  domain_owner = aws_codeartifact_domain.test.owner
+  repositorycodeartifact_repository.test.repository
   policy_document = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": "codeartifact:CreateRepository",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Resource": "${aws_codeartifact_domain.test.arn}"
-        }
-    ]
+ "Version": "2012-10-17",
+ "Statement": [
+
+odeartifact:CreateRepository",
+llow",
+ "*",
+"${aws_codeartifact_domain.test.arn}"
+
+ ]
 }
 EOF
 }
 `, rName)
 }
-
 func testAccRepositoryPermissionsPolicyConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -314,38 +304,37 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_codeartifact_domain" "test" {
-  domain         = %[1]q
+  domain[1]q
   encryption_key = aws_kms_key.test.arn
 }
 
 resource "aws_codeartifact_repository" "test" {
   repository = %[1]q
-  domain     = aws_codeartifact_domain.test.domain
+  domain= aws_codeartifact_domain.test.domain
 }
 
 resource "aws_codeartifact_repository_permissions_policy" "test" {
-  domain          = aws_codeartifact_domain.test.domain
-  repository      = aws_codeartifact_repository.test.repository
+  domainaws_codeartifact_domain.test.domain
+  repositorycodeartifact_repository.test.repository
   policy_document = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": [
+ "Version": "2012-10-17",
+ "Statement": [
+
+
  				"codeartifact:CreateRepository",
 				"codeartifact:ListRepositoriesInDomain"
 			],
-            "Effect": "Allow",
-            "Principal": "*",
-            "Resource": "${aws_codeartifact_domain.test.arn}"
-        }
-    ]
+llow",
+ "*",
+"${aws_codeartifact_domain.test.arn}"
+
+ ]
 }
 EOF
 }
 `, rName)
 }
-
 func testAccRepositoryPermissionsPolicyConfig_order(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -354,34 +343,33 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_codeartifact_domain" "test" {
-  domain         = %[1]q
+  domain[1]q
   encryption_key = aws_kms_key.test.arn
 }
 
 resource "aws_codeartifact_repository" "test" {
   repository = %[1]q
-  domain     = aws_codeartifact_domain.test.domain
+  domain= aws_codeartifact_domain.test.domain
 }
 
 resource "aws_codeartifact_repository_permissions_policy" "test" {
-  domain     = aws_codeartifact_domain.test.domain
+  domain= aws_codeartifact_domain.test.domain
   repository = aws_codeartifact_repository.test.repository
   policy_document = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = [
-        "codeartifact:CreateRepository",
-        "codeartifact:ListRepositoriesInDomain",
-      ]
-      Effect    = "Allow"
-      Principal = "*"
-      Resource  = aws_codeartifact_domain.test.arn
-    }]
+ Version = "2012-10-17"
+ Statement = [{
+ = [
+eartifact:CreateRepository",
+eartifact:ListRepositoriesInDomain",
+
+ = "Allow"
+pal = "*"
+ce  = aws_codeartifact_domain.test.arn
+ }]
   })
 }
 `, rName)
 }
-
 func testAccRepositoryPermissionsPolicyConfig_newOrder(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -390,29 +378,29 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_codeartifact_domain" "test" {
-  domain         = %[1]q
+  domain[1]q
   encryption_key = aws_kms_key.test.arn
 }
 
 resource "aws_codeartifact_repository" "test" {
   repository = %[1]q
-  domain     = aws_codeartifact_domain.test.domain
+  domain= aws_codeartifact_domain.test.domain
 }
 
 resource "aws_codeartifact_repository_permissions_policy" "test" {
-  domain     = aws_codeartifact_domain.test.domain
+  domain= aws_codeartifact_domain.test.domain
   repository = aws_codeartifact_repository.test.repository
   policy_document = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = [
-        "codeartifact:ListRepositoriesInDomain",
-        "codeartifact:CreateRepository",
-      ]
-      Effect    = "Allow"
-      Principal = "*"
-      Resource  = aws_codeartifact_domain.test.arn
-    }]
+ Version = "2012-10-17"
+ Statement = [{
+ = [
+eartifact:ListRepositoriesInDomain",
+eartifact:CreateRepository",
+
+ = "Allow"
+pal = "*"
+ce  = aws_codeartifact_domain.test.arn
+ }]
   })
 }
 `, rName)

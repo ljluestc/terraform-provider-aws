@@ -48,8 +48,7 @@ type itemList struct {
 	head *itemNode
 	tail *itemNode
 }
-
-func (il *itemList) enqueue(i interface{}) {
+ (il *itemList) enqueue(i interface{}) {
 	n := &itemNode{it: i}
 	if il.tail == nil {
 		il.head, il.tail = n, n
@@ -60,12 +59,10 @@ func (il *itemList) enqueue(i interface{}) {
 }
 
 // peek returns the first item in the list without removing it from the
-// list.
-func (il *itemList) peek() interface{} {
+// list. (il *itemList) peek() interface{} {
 	return il.head.it
 }
-
-func (il *itemList) dequeue() interface{} {
+ (il *itemList) dequeue() interface{} {
 	if il.head == nil {
 		return nil
 	}
@@ -76,14 +73,12 @@ func (il *itemList) dequeue() interface{} {
 	}
 	return i
 }
-
-func (il *itemList) dequeueAll() *itemNode {
+ (il *itemList) dequeueAll() *itemNode {
 	h := il.head
 	il.head, il.tail = nil, nil
 	return h
 }
-
-func (il *itemList) isEmpty() bool {
+ (il *itemList) isEmpty() bool {
 	return il.head == nil
 }
 
@@ -106,8 +101,7 @@ type registerStream struct {
 	streamID uint32
 	wq       *writeQuota
 }
-
-func (*registerStream) isTransportResponseFrame() bool { return false }
+ (*registerStream) isTransportResponseFrame() bool { return false }
 
 // headerFrame is also used to register stream on the client-side.
 type headerFrame struct {
@@ -120,8 +114,7 @@ type headerFrame struct {
 	cleanup    *cleanupStream // Valid on the server side.
 	onOrphaned func(error)    // Valid on client-side
 }
-
-func (h *headerFrame) isTransportResponseFrame() bool {
+ (h *headerFrame) isTransportResponseFrame() bool {
 	return h.cleanup != nil && h.cleanup.rst // Results in a RST_STREAM
 }
 
@@ -131,8 +124,7 @@ type cleanupStream struct {
 	rstCode  http2.ErrCode
 	onWrite  func()
 }
-
-func (c *cleanupStream) isTransportResponseFrame() bool { return c.rst } // Results in a RST_STREAM
+ (c *cleanupStream) isTransportResponseFrame() bool { return c.rst } // Results in a RST_STREAM
 
 type earlyAbortStream struct {
 	httpStatus     uint32
@@ -141,8 +133,7 @@ type earlyAbortStream struct {
 	status         *status.Status
 	rst            bool
 }
-
-func (*earlyAbortStream) isTransportResponseFrame() bool { return false }
+ (*earlyAbortStream) isTransportResponseFrame() bool { return false }
 
 type dataFrame struct {
 	streamID  uint32
@@ -153,41 +144,35 @@ type dataFrame struct {
 	// a part of d is written out.
 	onEachWrite func()
 }
-
-func (*dataFrame) isTransportResponseFrame() bool { return false }
+ (*dataFrame) isTransportResponseFrame() bool { return false }
 
 type incomingWindowUpdate struct {
 	streamID  uint32
 	increment uint32
 }
-
-func (*incomingWindowUpdate) isTransportResponseFrame() bool { return false }
+ (*incomingWindowUpdate) isTransportResponseFrame() bool { return false }
 
 type outgoingWindowUpdate struct {
 	streamID  uint32
 	increment uint32
 }
-
-func (*outgoingWindowUpdate) isTransportResponseFrame() bool {
+ (*outgoingWindowUpdate) isTransportResponseFrame() bool {
 	return false // window updates are throttled by thresholds
 }
 
 type incomingSettings struct {
 	ss []http2.Setting
 }
-
-func (*incomingSettings) isTransportResponseFrame() bool { return true } // Results in a settings ACK
+ (*incomingSettings) isTransportResponseFrame() bool { return true } // Results in a settings ACK
 
 type outgoingSettings struct {
 	ss []http2.Setting
 }
-
-func (*outgoingSettings) isTransportResponseFrame() bool { return false }
+ (*outgoingSettings) isTransportResponseFrame() bool { return false }
 
 type incomingGoAway struct {
 }
-
-func (*incomingGoAway) isTransportResponseFrame() bool { return false }
+ (*incomingGoAway) isTransportResponseFrame() bool { return false }
 
 type goAway struct {
 	code      http2.ErrCode
@@ -195,29 +180,25 @@ type goAway struct {
 	headsUp   bool
 	closeConn error // if set, loopyWriter will exit, resulting in conn closure
 }
-
-func (*goAway) isTransportResponseFrame() bool { return false }
+ (*goAway) isTransportResponseFrame() bool { return false }
 
 type ping struct {
 	ack  bool
 	data [8]byte
 }
-
-func (*ping) isTransportResponseFrame() bool { return true }
+ (*ping) isTransportResponseFrame() bool { return true }
 
 type outFlowControlSizeRequest struct {
 	resp chan uint32
 }
-
-func (*outFlowControlSizeRequest) isTransportResponseFrame() bool { return false }
+ (*outFlowControlSizeRequest) isTransportResponseFrame() bool { return false }
 
 // closeConnection is an instruction to tell the loopy writer to flush the
 // framer and exit, which will cause the transport's connection to be closed
 // (by the client or server).  The transport itself will close after the reader
 // encounters the EOF caused by the connection closure.
 type closeConnection struct{}
-
-func (closeConnection) isTransportResponseFrame() bool { return false }
+ (closeConnection) isTransportResponseFrame() bool { return false }
 
 type outStreamState int
 
@@ -237,8 +218,7 @@ type outStream struct {
 	next *outStream
 	prev *outStream
 }
-
-func (s *outStream) deleteSelf() {
+ (s *outStream) deleteSelf() {
 	if s.prev != nil {
 		s.prev.next = s.next
 	}
@@ -259,8 +239,7 @@ type outStreamList struct {
 	head *outStream
 	tail *outStream
 }
-
-func newOutStreamList() *outStreamList {
+ newOutStreamList() *outStreamList {
 	head, tail := new(outStream), new(outStream)
 	head.next = tail
 	tail.prev = head
@@ -269,8 +248,7 @@ func newOutStreamList() *outStreamList {
 		tail: tail,
 	}
 }
-
-func (l *outStreamList) enqueue(s *outStream) {
+ (l *outStreamList) enqueue(s *outStream) {
 	e := l.tail.prev
 	e.next = s
 	s.prev = e
@@ -278,8 +256,7 @@ func (l *outStreamList) enqueue(s *outStream) {
 	l.tail.prev = s
 }
 
-// remove from the beginning of the list.
-func (l *outStreamList) dequeue() *outStream {
+// remove from the beginning of the list. (l *outStreamList) dequeue() *outStream {
 	b := l.head.next
 	if b == l.tail {
 		return nil
@@ -310,8 +287,7 @@ type controlBuffer struct {
 	transportResponseFrames int
 	trfChan                 atomic.Value // chan struct{}
 }
-
-func newControlBuffer(done <-chan struct{}) *controlBuffer {
+ newControlBuffer(done <-chan struct{}) *controlBuffer {
 	return &controlBuffer{
 		ch:   make(chan struct{}, 1),
 		list: &itemList{},
@@ -320,8 +296,7 @@ func newControlBuffer(done <-chan struct{}) *controlBuffer {
 }
 
 // throttle blocks if there are too many incomingSettings/cleanupStreams in the
-// controlbuf.
-func (c *controlBuffer) throttle() {
+// controlbuf. (c *controlBuffer) throttle() {
 	ch, _ := c.trfChan.Load().(chan struct{})
 	if ch != nil {
 		select {
@@ -330,13 +305,11 @@ func (c *controlBuffer) throttle() {
 		}
 	}
 }
-
-func (c *controlBuffer) put(it cbItem) error {
+ (c *controlBuffer) put(it cbItem) error {
 	_, err := c.executeAndPut(nil, it)
 	return err
 }
-
-func (c *controlBuffer) executeAndPut(f func(it interface{}) bool, it cbItem) (bool, error) {
+ (c *controlBuffer) executeAndPut(f func(it interface{}) bool, it cbItem) (bool, error) {
 	var wakeUp bool
 	c.mu.Lock()
 	if c.err != nil {
@@ -372,8 +345,7 @@ func (c *controlBuffer) executeAndPut(f func(it interface{}) bool, it cbItem) (b
 	return true, nil
 }
 
-// Note argument f should never be nil.
-func (c *controlBuffer) execute(f func(it interface{}) bool, it interface{}) (bool, error) {
+// Note argument f should never be nil. (c *controlBuffer) execute(f func(it interface{}) bool, it interface{}) (bool, error) {
 	c.mu.Lock()
 	if c.err != nil {
 		c.mu.Unlock()
@@ -386,8 +358,7 @@ func (c *controlBuffer) execute(f func(it interface{}) bool, it interface{}) (bo
 	c.mu.Unlock()
 	return true, nil
 }
-
-func (c *controlBuffer) get(block bool) (interface{}, error) {
+ (c *controlBuffer) get(block bool) (interface{}, error) {
 	for {
 		c.mu.Lock()
 		if c.err != nil {
@@ -422,8 +393,7 @@ func (c *controlBuffer) get(block bool) (interface{}, error) {
 		}
 	}
 }
-
-func (c *controlBuffer) finish() {
+ (c *controlBuffer) finish() {
 	c.mu.Lock()
 	if c.err != nil {
 		c.mu.Unlock()
@@ -494,8 +464,7 @@ type loopyWriter struct {
 	// Side-specific handlers
 	ssGoAwayHandler func(*goAway) (bool, error)
 }
-
-func newLoopyWriter(s side, fr *framer, cbuf *controlBuffer, bdpEst *bdpEstimator, conn net.Conn, logger *grpclog.PrefixLogger) *loopyWriter {
+ newLoopyWriter(s side, fr *framer, cbuf *controlBuffer, bdpEst *bdpEstimator, conn net.Conn, logger *grpclog.PrefixLogger) *loopyWriter {
 	var buf bytes.Buffer
 	l := &loopyWriter{
 		side:          s,
@@ -536,8 +505,7 @@ const minBatchSize = 1000
 //
 // Upon exiting, if the error causing the exit is not an I/O error, run()
 // flushes and closes the underlying connection.  Otherwise, the connection is
-// left open to allow the I/O error to be encountered by the reader instead.
-func (l *loopyWriter) run() (err error) {
+// left open to allow the I/O error to be encountered by the reader instead. (l *loopyWriter) run() (err error) {
 	defer func() {
 		if l.logger.V(logLevel) {
 			l.logger.Infof("loopyWriter exiting with error: %v", err)
@@ -594,12 +562,10 @@ func (l *loopyWriter) run() (err error) {
 		}
 	}
 }
-
-func (l *loopyWriter) outgoingWindowUpdateHandler(w *outgoingWindowUpdate) error {
+ (l *loopyWriter) outgoingWindowUpdateHandler(w *outgoingWindowUpdate) error {
 	return l.framer.fr.WriteWindowUpdate(w.streamID, w.increment)
 }
-
-func (l *loopyWriter) incomingWindowUpdateHandler(w *incomingWindowUpdate) {
+ (l *loopyWriter) incomingWindowUpdateHandler(w *incomingWindowUpdate) {
 	// Otherwise update the quota.
 	if w.streamID == 0 {
 		l.sendQuota += w.increment
@@ -615,17 +581,14 @@ func (l *loopyWriter) incomingWindowUpdateHandler(w *incomingWindowUpdate) {
 		}
 	}
 }
-
-func (l *loopyWriter) outgoingSettingsHandler(s *outgoingSettings) error {
+ (l *loopyWriter) outgoingSettingsHandler(s *outgoingSettings) error {
 	return l.framer.fr.WriteSettings(s.ss...)
 }
-
-func (l *loopyWriter) incomingSettingsHandler(s *incomingSettings) error {
+ (l *loopyWriter) incomingSettingsHandler(s *incomingSettings) error {
 	l.applySettings(s.ss)
 	return l.framer.fr.WriteSettingsAck()
 }
-
-func (l *loopyWriter) registerStreamHandler(h *registerStream) {
+ (l *loopyWriter) registerStreamHandler(h *registerStream) {
 	str := &outStream{
 		id:    h.streamID,
 		state: empty,
@@ -634,8 +597,7 @@ func (l *loopyWriter) registerStreamHandler(h *registerStream) {
 	}
 	l.estdStreams[h.streamID] = str
 }
-
-func (l *loopyWriter) headerHandler(h *headerFrame) error {
+ (l *loopyWriter) headerHandler(h *headerFrame) error {
 	if l.side == serverSide {
 		str, ok := l.estdStreams[h.streamID]
 		if !ok {
@@ -669,8 +631,7 @@ func (l *loopyWriter) headerHandler(h *headerFrame) error {
 	}
 	return l.originateStream(str, h)
 }
-
-func (l *loopyWriter) originateStream(str *outStream, hdr *headerFrame) error {
+ (l *loopyWriter) originateStream(str *outStream, hdr *headerFrame) error {
 	// l.draining is set when handling GoAway. In which case, we want to avoid
 	// creating new streams.
 	if l.draining {
@@ -687,8 +648,7 @@ func (l *loopyWriter) originateStream(str *outStream, hdr *headerFrame) error {
 	l.estdStreams[str.id] = str
 	return nil
 }
-
-func (l *loopyWriter) writeHeader(streamID uint32, endStream bool, hf []hpack.HeaderField, onWrite func()) error {
+ (l *loopyWriter) writeHeader(streamID uint32, endStream bool, hf []hpack.HeaderField, onWrite func()) error {
 	if onWrite != nil {
 		onWrite()
 	}
@@ -733,8 +693,7 @@ func (l *loopyWriter) writeHeader(streamID uint32, endStream bool, hf []hpack.He
 	}
 	return nil
 }
-
-func (l *loopyWriter) preprocessData(df *dataFrame) {
+ (l *loopyWriter) preprocessData(df *dataFrame) {
 	str, ok := l.estdStreams[df.streamID]
 	if !ok {
 		return
@@ -747,20 +706,17 @@ func (l *loopyWriter) preprocessData(df *dataFrame) {
 		l.activeStreams.enqueue(str)
 	}
 }
-
-func (l *loopyWriter) pingHandler(p *ping) error {
+ (l *loopyWriter) pingHandler(p *ping) error {
 	if !p.ack {
 		l.bdpEst.timesnap(p.data)
 	}
 	return l.framer.fr.WritePing(p.ack, p.data)
 
 }
-
-func (l *loopyWriter) outFlowControlSizeRequestHandler(o *outFlowControlSizeRequest) {
+ (l *loopyWriter) outFlowControlSizeRequestHandler(o *outFlowControlSizeRequest) {
 	o.resp <- l.sendQuota
 }
-
-func (l *loopyWriter) cleanupStreamHandler(c *cleanupStream) error {
+ (l *loopyWriter) cleanupStreamHandler(c *cleanupStream) error {
 	c.onWrite()
 	if str, ok := l.estdStreams[c.streamID]; ok {
 		// On the server side it could be a trailers-only response or
@@ -780,8 +736,7 @@ func (l *loopyWriter) cleanupStreamHandler(c *cleanupStream) error {
 	}
 	return nil
 }
-
-func (l *loopyWriter) earlyAbortStreamHandler(eas *earlyAbortStream) error {
+ (l *loopyWriter) earlyAbortStreamHandler(eas *earlyAbortStream) error {
 	if l.side == clientSide {
 		return errors.New("earlyAbortStream not handled on client")
 	}
@@ -806,8 +761,7 @@ func (l *loopyWriter) earlyAbortStreamHandler(eas *earlyAbortStream) error {
 	}
 	return nil
 }
-
-func (l *loopyWriter) incomingGoAwayHandler(*incomingGoAway) error {
+ (l *loopyWriter) incomingGoAwayHandler(*incomingGoAway) error {
 	if l.side == clientSide {
 		l.draining = true
 		if len(l.estdStreams) == 0 {
@@ -817,8 +771,7 @@ func (l *loopyWriter) incomingGoAwayHandler(*incomingGoAway) error {
 	}
 	return nil
 }
-
-func (l *loopyWriter) goAwayHandler(g *goAway) error {
+ (l *loopyWriter) goAwayHandler(g *goAway) error {
 	// Handling of outgoing GoAway is very specific to side.
 	if l.ssGoAwayHandler != nil {
 		draining, err := l.ssGoAwayHandler(g)
@@ -829,8 +782,7 @@ func (l *loopyWriter) goAwayHandler(g *goAway) error {
 	}
 	return nil
 }
-
-func (l *loopyWriter) handle(i interface{}) error {
+ (l *loopyWriter) handle(i interface{}) error {
 	switch i := i.(type) {
 	case *incomingWindowUpdate:
 		l.incomingWindowUpdateHandler(i)
@@ -867,8 +819,7 @@ func (l *loopyWriter) handle(i interface{}) error {
 	}
 	return nil
 }
-
-func (l *loopyWriter) applySettings(ss []http2.Setting) {
+ (l *loopyWriter) applySettings(ss []http2.Setting) {
 	for _, s := range ss {
 		switch s.ID {
 		case http2.SettingInitialWindowSize:
@@ -891,8 +842,7 @@ func (l *loopyWriter) applySettings(ss []http2.Setting) {
 
 // processData removes the first stream from active streams, writes out at most 16KB
 // of its data and then puts it at the end of activeStreams if there's still more data
-// to be sent and stream has some stream-level flow control.
-func (l *loopyWriter) processData() (bool, error) {
+// to be sent and stream has some stream-level flow control. (l *loopyWriter) processData() (bool, error) {
 	if l.sendQuota == 0 {
 		return true, nil
 	}
@@ -998,8 +948,7 @@ func (l *loopyWriter) processData() (bool, error) {
 	}
 	return false, nil
 }
-
-func min(a, b int) int {
+ min(a, b int) int {
 	if a < b {
 		return a
 	}

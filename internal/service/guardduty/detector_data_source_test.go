@@ -10,11 +10,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func testAccDetectorDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.Test(t, resource.TestCase{
-PreCheck:   func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck: acctest.ErrorCheck(t, guardduty.EndpointsID),
 ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 PreventPostDestroyRefresh: true,
@@ -35,7 +34,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccDetectorDataSource_ID(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.Test(t, resource.TestCase{
@@ -55,13 +53,11 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccDetectorDataSourceConfig_basicResource() string {
 	return `
 resource "aws_guardduty_detector" "test" {}
 `
 }
-
 func testAccDetectorDataSourceConfig_basicResource2() string {
 	return `
 resource "aws_guardduty_detector" "test" {}
@@ -69,7 +65,6 @@ resource "aws_guardduty_detector" "test" {}
 data "aws_guardduty_detector" "test" {}
 `
 }
-
 func testAccDetectorDataSourceConfig_explicit() string {
 	return `
 resource "aws_guardduty_detector" "test" {}

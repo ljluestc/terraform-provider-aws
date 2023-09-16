@@ -1,24 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package configschema
-
-import (
+// SPDX-License-Identifier: MPL-2.0package configschemaimport (
 	"github.com/hashicorp/go-cty/cty"
-)
-
-// StringKind represents the format a string is in.
-type StringKind int
-
-const (
+)// StringKind represents the format a string is in.
+type StringKind intconst (
 	// StringPlain indicates a string is plain-text and requires no processing for display.
 	StringPlain StringKind = iota
 	// StringMarkdown indicates a string is in markdown format and may
 	// require additional processing to display.
 	StringMarkdown
-)
-
-// Block represents a configuration block.
+)// Block represents a configuration block.
 //
 // "Block" here is a logical grouping construct, though it happens to map
 // directly onto the physical block syntax of Terraform's native configuration
@@ -30,72 +20,46 @@ const (
 type Block struct {
 	// Attributes describes any attributes that may appear directly inside
 	// the block.
-	Attributes map[string]*Attribute
-
-	// BlockTypes describes any nested block types that may appear directly
+	Attributes map[string]*Attribute	// BlockTypes describes any nested block types that may appear directly
 	// inside the block.
-	BlockTypes map[string]*NestedBlock
-
-	// Description and DescriptionKind contain a user facing description of the block
+	BlockTypes map[string]*NestedBlock	// Description and DescriptionKind contain a user facing description of the block
 	// and the format of that string.
 	Description     string
-	DescriptionKind StringKind
-
-	// Deprecated indicates whether the block has been marked as deprecated in the
+	DescriptionKind StringKind	// Deprecated indicates whether the block has been marked as deprecated in the
 	// provider and usage should be discouraged.
 	Deprecated bool
-}
-
-// Attribute represents a configuration attribute, within a block.
+}// Attribute represents a configuration attribute, within a block.
 type Attribute struct {
 	// Type is a type specification that the attribute's value must conform to.
-	Type cty.Type
-
-	// Description is an English-language description of the purpose and
+	Type cty.Type	// Description is an English-language description of the purpose and
 	// usage of the attribute. A description should be concise and use only
 	// one or two sentences, leaving full definition to longer-form
 	// documentation defined elsewhere.
 	Description     string
-	DescriptionKind StringKind
-
-	// Required, if set to true, specifies that an omitted or null value is
+	DescriptionKind StringKind	// Required, if set to true, specifies that an omitted or null value is
 	// not permitted.
-	Required bool
-
-	// Optional, if set to true, specifies that an omitted or null value is
+	Required bool	// Optional, if set to true, specifies that an omitted or null value is
 	// permitted. This field conflicts with Required.
-	Optional bool
-
-	// Computed, if set to true, specifies that the value comes from the
+	Optional bool	// Computed, if set to true, specifies that the value comes from the
 	// provider rather than from configuration. If combined with Optional,
 	// then the config may optionally provide an overridden value.
-	Computed bool
-
-	// Sensitive, if set to true, indicates that an attribute may contain
+	Computed bool	// Sensitive, if set to true, indicates that an attribute may contain
 	// sensitive information.
 	//
 	// At present nothing is done with this information, but callers are
 	// encouraged to set it where appropriate so that it may be used in the
 	// future to help Terraform mask sensitive information. (Terraform
 	// currently achieves this in a limited sense via other mechanisms.)
-	Sensitive bool
-
-	// Deprecated indicates whether the attribute has been marked as deprecated in the
+	Sensitive bool	// Deprecated indicates whether the attribute has been marked as deprecated in the
 	// provider and usage should be discouraged.
 	Deprecated bool
-}
-
-// NestedBlock represents the embedding of one block within another.
+}// NestedBlock represents the embedding of one block within another.
 type NestedBlock struct {
 	// Block is the description of the block that's nested.
-	Block
-
-	// Nesting provides the nesting mode for the child block, which determines
+	Block	// Nesting provides the nesting mode for the child block, which determines
 	// how many instances of the block are allowed, how many labels it expects,
 	// and how the resulting data will be converted into a data structure.
-	Nesting NestingMode
-
-	// MinItems and MaxItems set, for the NestingList and NestingSet nesting
+	Nesting NestingMode	// MinItems and MaxItems set, for the NestingList and NestingSet nesting
 	// modes, lower and upper limits on the number of child blocks allowed
 	// of the given type. If both are left at zero, no limit is applied.
 	//
@@ -105,26 +69,16 @@ type NestedBlock struct {
 	// These fields are ignored for other nesting modes and must both be left
 	// at zero.
 	MinItems, MaxItems int
-}
-
-// NestingMode is an enumeration of modes for nesting blocks inside other
+}// NestingMode is an enumeration of modes for nesting blocks inside other
 // blocks.
-type NestingMode int
-
-// This code was previously generated with a go:generate directive calling:
+type NestingMode int// This code was previously generated with a go:generate directive calling:
 // go run golang.org/x/tools/cmd/stringer -type=NestingMode
 // However, it is now considered frozen and the tooling dependency has been
-// removed. The String method can be manually updated if necessary.
-
-const (
-	nestingModeInvalid NestingMode = iota
-
-	// NestingSingle indicates that only a single instance of a given
+// removed. The String method can be manually updated if necessary.const (
+	nestingModeInvalid NestingMode = iota	// NestingSingle indicates that only a single instance of a given
 	// block type is permitted, with no labels, and its content should be
 	// provided directly as an object value.
-	NestingSingle
-
-	// NestingGroup is similar to NestingSingle in that it calls for only a
+	NestingSingle	// NestingGroup is similar to NestingSingle in that it calls for only a
 	// single instance of a given block type with no labels, but it additonally
 	// guarantees that its result will never be null, even if the block is
 	// absent, and instead the nested attributes and blocks will be treated
@@ -139,19 +93,13 @@ const (
 	// NestingSingle in that case, generated plans will show the block as
 	// present even when not present in configuration, thus allowing any
 	// default values within to be displayed to the user.
-	NestingGroup
-
-	// NestingList indicates that multiple blocks of the given type are
+	NestingGroup	// NestingList indicates that multiple blocks of the given type are
 	// permitted, with no labels, and that their corresponding objects should
 	// be provided in a list.
-	NestingList
-
-	// NestingSet indicates that multiple blocks of the given type are
+	NestingList	// NestingSet indicates that multiple blocks of the given type are
 	// permitted, with no labels, and that their corresponding objects should
 	// be provided in a set.
-	NestingSet
-
-	// NestingMap indicates that multiple blocks of the given type are
+	NestingSet	// NestingMap indicates that multiple blocks of the given type are
 	// permitted, each with a single label, and that their corresponding
 	// objects should be provided in a map whose keys are the labels.
 	//

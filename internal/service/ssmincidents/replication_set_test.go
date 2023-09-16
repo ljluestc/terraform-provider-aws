@@ -101,7 +101,7 @@ func testReplicationSet_updateRegionsWithoutCMK(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccReplicationSetConfig_basicOneRegion(region1),
+				Config:   testAccReplicationSetConfig_basicOneRegion(region1),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -124,7 +124,7 @@ func testReplicationSet_updateRegionsWithoutCMK(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccReplicationSetConfig_basicTwoRegion(region1, region2),
+				Config:   testAccReplicationSetConfig_basicTwoRegion(region1, region2),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -143,7 +143,7 @@ func testReplicationSet_updateRegionsWithoutCMK(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccReplicationSetConfig_basicOneRegion(region1),
+				Config:   testAccReplicationSetConfig_basicOneRegion(region1),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -182,7 +182,7 @@ func testReplicationSet_updateRegionsWithCMK(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccReplicationSetConfig_oneRegionWithCMK(),
+				Config:   testAccReplicationSetConfig_oneRegionWithCMK(),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -202,7 +202,7 @@ func testReplicationSet_updateRegionsWithCMK(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccReplicationSetConfig_twoRegionWithCMK(),
+				Config:   testAccReplicationSetConfig_twoRegionWithCMK(),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -219,7 +219,7 @@ func testReplicationSet_updateRegionsWithCMK(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccReplicationSetConfig_oneRegionWithCMK(),
+				Config:   testAccReplicationSetConfig_oneRegionWithCMK(),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,

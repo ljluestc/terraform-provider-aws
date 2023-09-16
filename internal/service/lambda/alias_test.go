@@ -16,7 +16,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccLambdaAlias_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf lambda.AliasConfiguration
@@ -35,7 +34,7 @@ func TestAccLambdaAlias_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAliasDestroy(ctx),
+CheckDestroy: testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_basic(roleName, policyName, attachmentName, funcName, aliasName),
@@ -48,19 +47,18 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateIdFunc: testAccAliasImportStateIDFunc(resourceName),
 ImportStateVerify: true,
 	},
 	{
-Config:   testAccAliasConfig_usingFunctionName(roleName, policyName, attachmentName, funcName, aliasName),
+Config:testAccAliasConfig_usingFunctionName(roleName, policyName, attachmentName, funcName, aliasName),
 PlanOnly: true,
 	},
 },
 	})
 }
-
 func TestAccLambdaAlias_FunctionName_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf lambda.AliasConfiguration
@@ -72,7 +70,7 @@ func TestAccLambdaAlias_FunctionName_name(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAliasDestroy(ctx),
+CheckDestroy: testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_usingFunctionName(rName, rName, rName, rName, rName),
@@ -85,15 +83,14 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateIdFunc: testAccAliasImportStateIDFunc(resourceName),
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccLambdaAlias_nameUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf lambda.AliasConfiguration
@@ -114,7 +111,7 @@ func TestAccLambdaAlias_nameUpdate(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAliasDestroy(ctx),
+CheckDestroy: testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_basic(roleName, policyName, attachmentName, funcName, aliasName),
@@ -125,8 +122,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateIdFunc: testAccAliasImportStateIDFunc(resourceName),
 ImportStateVerify: true,
 	},
@@ -141,7 +138,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccLambdaAlias_routing(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf lambda.AliasConfiguration
@@ -160,7 +156,7 @@ func TestAccLambdaAlias_routing(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckAliasDestroy(ctx),
+CheckDestroy: testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_basic(roleName, policyName, attachmentName, funcName, aliasName),
@@ -171,8 +167,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateIdFunc: testAccAliasImportStateIDFunc(resourceName),
 ImportStateVerify: true,
 	},
@@ -197,7 +193,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccCheckAliasDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaConn(ctx)
@@ -219,7 +214,6 @@ return fmt.Errorf("Lambda alias was not deleted")
 return nil
 	}
 }
-
 func testAccCheckAliasExists(ctx context.Context, n string, mapping *lambda.AliasConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
@@ -248,7 +242,6 @@ if err != nil {
 return nil
 	}
 }
-
 func testAccCheckAliasAttributes(mapping *lambda.AliasConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 name := *mapping.Name
@@ -262,14 +255,12 @@ if name == "" {
 return nil
 	}
 }
-
 func testAccCheckAliasInvokeARN(name string, mapping *lambda.AliasConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 arn := aws.StringValue(mapping.AliasArn)
 return acctest.CheckResourceAttrRegionalARNAccountID(name, "invoke_arn", "apigateway", "lambda", fmt.Sprintf("path/2015-03-31/functions/%s/invocations", arn))(s)
 	}
 }
-
 func testAccCheckAliasRoutingExistsConfig(mapping *lambda.AliasConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 routingConfig := mapping.RoutingConfig
@@ -283,7 +274,6 @@ if len(routingConfig.AdditionalVersionWeights) != 1 {
 return nil
 	}
 }
-
 func testAccCheckAliasRoutingDoesNotExistConfig(mapping *lambda.AliasConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 routingConfig := mapping.RoutingConfig
@@ -294,7 +284,6 @@ if routingConfig != nil {
 return nil
 	}
 }
-
 func testAccAliasImportStateIDFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 rs, ok := s.RootModule().Resources[resourceName]
@@ -305,7 +294,6 @@ if !ok {
 return fmt.Sprintf("%s/%s", rs.Primary.Attributes["function_name"], rs.Primary.Attributes["name"]), nil
 	}
 }
-
 func testAccAliasConfig_base(roleName, policyName, attachmentName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "iam_for_lambda" {
@@ -315,56 +303,55 @@ resource "aws_iam_role" "iam_for_lambda" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+ {
+ "Action": "sts:AssumeRole",
+ "Principal": {
+"Service": "lambda.amazonaws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+ }
   ]
 }
 EOF
 }
 
 resource "aws_iam_policy" "policy_for_role" {
-  name        = "%s"
-  path        = "/"
+  name= "%s"
+  path= "/"
   description = "IAM policy for Lamda alias testing"
 
   policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "lambda:*"
-      ],
-      "Resource": "*"
-    }
+ {
+ "Effect": "Allow",
+ "Action": [
+"lambda:*"
+ ],
+ "Resource": "*"
+ }
   ]
 }
 EOF
 }
 
 resource "aws_iam_policy_attachment" "policy_attachment_for_role" {
-  name       = "%s"
-  roles      = [aws_iam_role.iam_for_lambda.name]
+  name  = "%s"
+  roles = [aws_iam_role.iam_for_lambda.name]
   policy_arn = aws_iam_policy.policy_for_role.arn
 }
 `, roleName, policyName, attachmentName)
 }
-
 func testAccAliasConfig_basic(roleName, policyName, attachmentName, funcName, aliasName string) string {
 	return acctest.ConfigCompose(
 testAccAliasConfig_base(roleName, policyName, attachmentName),
 fmt.Sprintf(`
 resource "aws_lambda_function" "test" {
   filename= "test-fixtures/lambdatest.zip"
-  function_name    = "%s"
-  role    = aws_iam_role.iam_for_lambda.arn
+  function_name = "%s"
+  role = aws_iam_role.iam_for_lambda.arn
   handler = "exports.example"
   runtime = "nodejs16.x"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest.zip")
@@ -372,22 +359,21 @@ resource "aws_lambda_function" "test" {
 }
 
 resource "aws_lambda_alias" "test" {
-  name    = "%s"
-  description      = "a sample description"
-  function_name    = aws_lambda_function.test.arn
+  name = "%s"
+  description = "a sample description"
+  function_name = aws_lambda_function.test.arn
   function_version = "1"
 }
 `, funcName, aliasName))
 }
-
 func testAccAliasConfig_usingFunctionName(roleName, policyName, attachmentName, funcName, aliasName string) string {
 	return acctest.ConfigCompose(
 testAccAliasConfig_base(roleName, policyName, attachmentName),
 fmt.Sprintf(`
 resource "aws_lambda_function" "test" {
   filename= "test-fixtures/lambdatest.zip"
-  function_name    = "%s"
-  role    = aws_iam_role.iam_for_lambda.arn
+  function_name = "%s"
+  role = aws_iam_role.iam_for_lambda.arn
   handler = "exports.example"
   runtime = "nodejs16.x"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest.zip")
@@ -395,22 +381,21 @@ resource "aws_lambda_function" "test" {
 }
 
 resource "aws_lambda_alias" "test" {
-  name    = "%s"
-  description      = "a sample description"
-  function_name    = aws_lambda_function.test.function_name
+  name = "%s"
+  description = "a sample description"
+  function_name = aws_lambda_function.test.function_name
   function_version = "1"
 }
 `, funcName, aliasName))
 }
-
 func testAccAliasConfig_routing(roleName, policyName, attachmentName, funcName, aliasName string) string {
 	return acctest.ConfigCompose(
 testAccAliasConfig_base(roleName, policyName, attachmentName),
 fmt.Sprintf(`
 resource "aws_lambda_function" "test" {
   filename= "test-fixtures/lambdatest_modified.zip"
-  function_name    = "%s"
-  role    = aws_iam_role.iam_for_lambda.arn
+  function_name = "%s"
+  role = aws_iam_role.iam_for_lambda.arn
   handler = "exports.example"
   runtime = "nodejs16.x"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest_modified.zip")
@@ -418,15 +403,15 @@ resource "aws_lambda_function" "test" {
 }
 
 resource "aws_lambda_alias" "test" {
-  name    = "%s"
-  description      = "a sample description"
-  function_name    = aws_lambda_function.test.arn
+  name = "%s"
+  description = "a sample description"
+  function_name = aws_lambda_function.test.arn
   function_version = "1"
 
   routing_config {
-    additional_version_weights = {
-      "2" = 0.5
-    }
+ additional_version_weights = {
+ "2" = 0.5
+ }
   }
 }
 `, funcName, aliasName))

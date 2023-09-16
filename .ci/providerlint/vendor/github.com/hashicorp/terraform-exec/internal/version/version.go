@@ -1,14 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package version
-
-const version = "0.19.0"
-
-// ModuleVersion returns the current version of the github.com/hashicorp/terraform-exec Go module.
+// SPDX-License-Identifier: MPL-2.0package versionconst version = "0.19.0"// ModuleVersion returns the current version of the github.com/hashicorp/terraform-exec Go module.
 // This is a 
- to allow for future possible enhancement using debug.BuildInfo.
-
-uleVersion() string {
+ to allow for future possible enhancement using debug.BuildInfo.uleVersion() string {
 	return version
 }

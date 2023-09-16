@@ -39,7 +39,7 @@ func ResourceLocationEFS() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_point_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -60,12 +60,12 @@ func ResourceLocationEFS() *schema.Resource {
 							Required: true,
 							ForceNew: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: verify.ValidARN,
 							},
 						},
 						"subnet_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: verify.ValidARN,
@@ -74,19 +74,19 @@ func ResourceLocationEFS() *schema.Resource {
 				},
 			},
 			"efs_file_system_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"file_system_access_role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"in_transit_encryption": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(datasync.EfsInTransitEncryption_Values(), false),
@@ -127,7 +127,7 @@ func resourceLocationEFSCreate(ctx context.Context, d *schema.ResourceData, meta
 		Ec2Config:        expandEC2Config(d.Get("ec2_config").([]interface{})),
 		EfsFilesystemArn: aws.String(d.Get("efs_file_system_arn").(string)),
 		Subdirectory:     aws.String(d.Get("subdirectory").(string)),
-		Tags:             getTagsIn(ctx),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("access_point_arn"); ok {
@@ -248,7 +248,7 @@ func flattenEC2Config(ec2Config *datasync.Ec2Config) []interface{} {
 
 	m := map[string]interface{}{
 		"security_group_arns": flex.FlattenStringSet(ec2Config.SecurityGroupArns),
-		"subnet_arn":          aws.StringValue(ec2Config.SubnetArn),
+		"subnet_arn": aws.StringValue(ec2Config.SubnetArn),
 	}
 
 	return []interface{}{m}
@@ -263,7 +263,7 @@ func expandEC2Config(l []interface{}) *datasync.Ec2Config {
 
 	ec2Config := &datasync.Ec2Config{
 		SecurityGroupArns: flex.ExpandStringSet(m["security_group_arns"].(*schema.Set)),
-		SubnetArn:         aws.String(m["subnet_arn"].(string)),
+		SubnetArn:aws.String(m["subnet_arn"].(string)),
 	}
 
 	return ec2Config

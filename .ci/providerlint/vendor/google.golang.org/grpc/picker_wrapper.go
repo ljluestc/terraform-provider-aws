@@ -40,13 +40,11 @@ type pickerWrapper struct {
 	blockingCh chan struct{}
 	picker     balancer.Picker
 }
-
-func newPickerWrapper() *pickerWrapper {
+ newPickerWrapper() *pickerWrapper {
 	return &pickerWrapper{blockingCh: make(chan struct{})}
 }
 
-// updatePicker is called by UpdateBalancerState. It unblocks all blocked pick.
-func (pw *pickerWrapper) updatePicker(p balancer.Picker) {
+// updatePicker is called by UpdateBalancerState. It unblocks all blocked pick. (pw *pickerWrapper) updatePicker(p balancer.Picker) {
 	pw.mu.Lock()
 	if pw.done || pw.idle {
 		// There is a small window where a picker update from the LB policy can
@@ -67,8 +65,7 @@ func (pw *pickerWrapper) updatePicker(p balancer.Picker) {
 //   - increments the calls started channelz counter
 //   - wraps the done function in the passed in result to increment the calls
 //     failed or calls succeeded channelz counter before invoking the actual
-//     done function.
-func doneChannelzWrapper(acbw *acBalancerWrapper, result *balancer.PickResult) {
+//     done function. doneChannelzWrapper(acbw *acBalancerWrapper, result *balancer.PickResult) {
 	ac := acbw.ac
 	ac.incrCallsStarted()
 	done := result.Done
@@ -90,8 +87,7 @@ func doneChannelzWrapper(acbw *acBalancerWrapper, result *balancer.PickResult) {
 // - the current picker returns ErrNoSubConnAvailable
 // - the current picker returns other errors and failfast is false.
 // - the subConn returned by the current picker is not READY
-// When one of these situations happens, pick blocks until the picker gets updated.
-func (pw *pickerWrapper) pick(ctx context.Context, failfast bool, info balancer.PickInfo) (transport.ClientTransport, balancer.PickResult, error) {
+// When one of these situations happens, pick blocks until the picker gets updated. (pw *pickerWrapper) pick(ctx context.Context, failfast bool, info balancer.PickInfo) (transport.ClientTransport, balancer.PickResult, error) {
 	var ch chan struct{}
 
 	var lastPickErr error
@@ -179,8 +175,7 @@ func (pw *pickerWrapper) pick(ctx context.Context, failfast bool, info balancer.
 		// continue back to the beginning of the for loop to repick.
 	}
 }
-
-func (pw *pickerWrapper) close() {
+ (pw *pickerWrapper) close() {
 	pw.mu.Lock()
 	defer pw.mu.Unlock()
 	if pw.done {
@@ -189,8 +184,7 @@ func (pw *pickerWrapper) close() {
 	pw.done = true
 	close(pw.blockingCh)
 }
-
-func (pw *pickerWrapper) enterIdleMode() {
+ (pw *pickerWrapper) enterIdleMode() {
 	pw.mu.Lock()
 	defer pw.mu.Unlock()
 	if pw.done {
@@ -198,8 +192,7 @@ func (pw *pickerWrapper) enterIdleMode() {
 	}
 	pw.idle = true
 }
-
-func (pw *pickerWrapper) exitIdleMode() {
+ (pw *pickerWrapper) exitIdleMode() {
 	pw.mu.Lock()
 	defer pw.mu.Unlock()
 	if pw.done {

@@ -7,7 +7,6 @@ import (
 	"strings"
 	"testing"
 )
-
 func TestValidNamespaceName(t *testing.T) {
 	t.Parallel()
 

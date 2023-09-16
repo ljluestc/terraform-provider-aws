@@ -42,7 +42,7 @@ func resourceMultiRegionAccessPoint() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -65,17 +65,17 @@ func resourceMultiRegionAccessPoint() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validateS3MultiRegionAccessPointName,
 						},
 						"public_access_block": {
-							Type:             schema.TypeList,
-							Optional:         true,
-							ForceNew:         true,
-							MinItems:         0,
-							MaxItems:         1,
+							Type:    schema.TypeList,
+							Optional:true,
+							ForceNew:true,
+							MinItems:0,
+							MaxItems:1,
 							DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
@@ -115,7 +115,7 @@ func resourceMultiRegionAccessPoint() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"bucket": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringLenBetween(3, 255),

@@ -53,7 +53,7 @@ func ResourceOrganizationConformancePack() *schema.Resource {
 				),
 			},
 			"delivery_s3_key_prefix": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
@@ -62,7 +62,7 @@ func ResourceOrganizationConformancePack() *schema.Resource {
 				Optional: true,
 				MaxItems: 1000,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidAccountID,
 				},
 			},
@@ -94,8 +94,8 @@ func ResourceOrganizationConformancePack() *schema.Resource {
 				),
 			},
 			"template_body": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:    schema.TypeString,
+				Optional:true,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONOrYAMLDiffs,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 51200),

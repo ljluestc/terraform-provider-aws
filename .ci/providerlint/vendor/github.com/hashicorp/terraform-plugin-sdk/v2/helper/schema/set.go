@@ -1,41 +1,23 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package schema
-
-import (
+// SPDX-License-Identifier: MPL-2.0package schemaimport (
 	"bytes"
 	"fmt"
 	"reflect"
 	"sort"
 	"strconv"
-	"sync"
-
-	"github.com/google/go-cmp/cmp"
+	"sync"	"github.com/google/go-cmp/cmp"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/helper/hashcode"
-)
-
-// HashString hashes strings. If you want a Set of strings, this is the
+)// HashString hashes strings. If you want a Set of strings, this is the
 // SchemaSet
- want.
-
- HashString(v interface{}) int {
+ want. HashString(v interface{}) int {
 	return hashcode.String(v.(string))
-}
-
-ashInt hashes integers. If you want a Set of integers, this is the
+}ashInt hashes integers. If you want a Set of integers, this is the
 // SchemaSet
- you want.
-
- HashInt(v interface{}) int {
+ you want. HashInt(v interface{}) int {
 	return hashcode.String(strconv.Itoa(v.(int)))
-}
-
-// HashRrce hashes complex structures that are described using
+}// HashRrce hashes complex structures that are described using
 // a *Resource. This is the default set implementation used when a set's
-// element type is a full resource.
-
- HashResource(resource *Resource) SchemaSet
+// element type is a full resource. HashResource(resource *Resource) SchemaSet
  {
 	return 
 (v interface{}) int {
@@ -43,13 +25,9 @@ ashInt hashes integers. If you want a Set of integers, this is the
 		SerializeResourceForHash(&buf, v, resource)
 turn hashcode.String(buf.String())
 	}
-}
-
-// HashSchema hashes values that are described using a *Schema. This is the
+}// HashSchema hashes values that are described using a *Schema. This is the
 // default set implementation used when a set's element type is a single
-// schema.
-
- HashSchema(schema *Schema) SchemaSet
+// schema. HashSchema(schema *Schema) SchemaSet
  {
 	return 
 (v inter{}) int {
@@ -57,176 +35,94 @@ turn hashcode.String(buf.String())
 		SerializeValueForHash(&buf, v, schema)
 		return hashcode.String(buf.String())
 	}
-}
-
-// Set is a set data structure that is returned for elements of type
+}// Set is a set data structure that is returned for elements of type
 ypeSet.
 type Set struct {
 	F SchemaSet
-
-
 	m    map[string]interface{}
 	once sync.Once
-}
-
-// NewSet is a convenience method for creating a new set with the given
-tems.
-
- NewSet(f SchemaSet
+}// NewSet is a convenience method for creating a new set with the given
+tems. NewSet(f SchemaSet
 , items []interface{}) *Set {
 	s := &Set{F: f}
  _, i := range items {
 		s.Add(i)
-	}
-
-	return s
-
-
-// CopySet returns a copy of another set.
-
- CopySet(otherSet *Set) *Set {
+	}	return s
+// CopySet returns a copy of another set. CopySet(otherSet *Set) *Set {
 urn NewSet(otherSet.F, otherSet.List())
-}
-
-// Add adds an item to the set if it isn't already in the set.
-
- (s *Set) Add(item interface{}) {
+}// Add adds an item to the set if it isn't already in the set. (s *Set) Add(item interface{}) {
 dd(item, false)
-}
-
-// Remove removes an item if it's already in the set. Idempotent.
-
- (s *Set) Remove(item interface{}) {
+}// Remove removes an item if it's already in the set. Idempotent. (s *Set) Remove(item interface{}) {
 	s.remove(item)
-}
-
-// Contains checks if the set has the given item.
-
- (s *Set) Contains(item interface{}) bool {
+}// Contains checks if the set has the given item. (s *Set) Contains(item interface{}) bool {
 	_, ok := s.m[s.hash(item)]
 	return ok
-}
-
-// Len returns the amount of items in the set.
-
- (s *Set) Len() int {
+}// Len returns the amount of items in the set. (s *Set) Len() int {
 urn len(s.m)
-}
-
-// List returns the elements of this set in slice format.
+}// List returns the elements of this set in slice format.
 //
 // The order of the returned elements is deterministic. Given the same
-// set, the order of this will always be the same.
-
- (s *Set) List() []interface{} {
+// set, the order of this will always be the same. (s *Set) List() []interface{} {
 	result := make([]interface{}, len(s.m))
 	for i, k := range s.listCode() {
 		result[i] = s.m[k]
-	}
-
-	return result
-
-
+	}	return result
 // Difference performs a set difference of the two sets, returning
-// a new third set that has only the elements unique to this set.
-
- (s *Set) Difference(other *Set) *Set {
+// a new third set that has only the elements unique to this set. (s *Set) Difference(other *Set) *Set {
 	result := &Set{F: s.F}
-	result.once.Do(result.init)
-
-	for k, v := range s.m {
+	result.once.Do(result.init)	for k, v := range s.m {
 		if _, ok := other.m[k]; !ok {
 			result.m[k] = v
 		}
-	}
-
-urn result
-}
-
-// Intersection performs the set intersection of the two sets
-// and returns a new third set.
-
- (s *Set) Intersection(other *Set) *Set {
+	}urn result
+}// Intersection performs the set intersection of the two sets
+// and returns a new third set. (s *Set) Intersection(other *Set) *Set {
 	result := &Set{F: s.F}
-	result.once.Do(result.init)
-
-	for k, v := range s.m {
+	result.once.Do(result.init)	for k, v := range s.m {
 		if _, ok := other.m[k]; ok {
 			result.m[k] = v
 		}
-
-
 	return result
-}
-
-// Union performs the set union of the two sets and returns a new third
-// set.
-
- (s *Set) Union(other *Set) *Set {
+}// Union performs the set union of the two sets and returns a new third
+// set. (s *Set) Union(other *Set) *Set {
 	result := &Set{F: s.F}
-	result.once.Do(result.init)
-
-	for k, v := range s.m {
+	result.once.Do(result.init)	for k, v := range s.m {
 		result.m[k] = v
 	}
 	for k, v := range other.m {
 		result.m[k] = v
-	}
-
-	return result
+	}	return result
 }
-
-
  (s *Set) Equal(raw interface{}) bool {
 	other, ok := raw.(*Set)
 	if !ok {
 		return false
 	}
 	return cmp.Equal(s.m, other.m)
-}
-
-// HashEqual simply checks to the keys the top-level map to the keys in the
+}// HashEqual simply checks to the keys the top-level map to the keys in the
 // other set's top-level map to see if they are equal. This obviously assumes
 ou have a properly working hash 
-tion - use HashResource if in doubt.
-
- (s *Set) HashEqual(raw interface{}) bool {
+tion - use HashResource if in doubt. (s *Set) HashEqual(raw interface{}) bool {
 er, ok := raw.(*Set)
 	if !ok {
 		return false
-	}
-
-	ks1 := make([]string, 0)
-	ks2 := make([]string, 0)
-
-	for k := range s.m {
+	}	ks1 := make([]string, 0)
+	ks2 := make([]string, 0)	for k := range s.m {
 		ks1 = append(ks1, k)
 	}
 	for k := range other.m {
 		ks2 = append(ks2, k)
-	}
-
-	sort.Strings(ks1)
-	sort.Strings(ks2)
-
-	return reflect.DeepEqual(ks1, ks2)
+	}	sort.Strings(ks1)
+	sort.Strings(ks2)	return reflect.DeepEqual(ks1, ks2)
 }
-
-
  (s *Set) GoString() string {
 	return fmt.Sprintf("*Set(%#v)", s.m)
 }
-
-
  (s *Set) init() {
 	s.m = make(map[string]interface{})
 }
-
-
  (s *Set) add(item interface{}, computed bool) string {
-	s.once.Do(s.init)
-
-e := s.hash(item)
+	s.once.Do(s.init)e := s.hash(item)
 	if computed {
 		code = "~" + code
 		tmpCode := code
@@ -236,16 +132,10 @@ e := s.hash(item)
 			tmpCode = fmt.Sprintf("%s%d", code, count)
 		}
 de = tmpCode
-	}
-
-	if _, ok := s.m[code]; !ok {
+	}	if _, ok := s.m[code]; !ok {
 		s.m[code] = item
-	}
-
-	return code
+	}	return code
 }
-
-
  (s *Set) hash(item interface{}) string {
 	code := s.F(item)
 	// Always return a nonnegative hashcode.
@@ -254,18 +144,10 @@ de = tmpCode
 	}
 	return strconv.Itoa(code)
 }
-
-
  (s *Set) remove(item interface{}) string {
-	s.once.Do(s.init)
-
-	code := s.hash(item)
-	delete(s.m, code)
-
-	return code
+	s.once.Do(s.init)	code := s.hash(item)
+	delete(s.m, code)	return code
 }
-
-
  (s *Set) listCode() []string {
 	// Sort the hash codes so the order of the list is deterministic
 	keys := make([]string, 0, len(s.m))

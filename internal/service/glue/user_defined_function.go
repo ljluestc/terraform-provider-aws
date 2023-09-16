@@ -48,23 +48,23 @@ func ResourceUserDefinedFunction() *schema.Resource {
 				Required: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"class_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"owner_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"owner_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(glue.PrincipalType_Values(), false),
 			},
@@ -75,12 +75,12 @@ func ResourceUserDefinedFunction() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"resource_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(glue.ResourceType_Values(), false),
 						},
 						"uri": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 1024),
 						},
@@ -249,7 +249,7 @@ func expandUserDefinedFunctionResourceURI(conf *schema.Set) []*glue.ResourceUri 
 
 		uri := &glue.ResourceUri{
 			ResourceType: aws.String(uriRaw["resource_type"].(string)),
-			Uri:          aws.String(uriRaw["uri"].(string)),
+			Uri: aws.String(uriRaw["uri"].(string)),
 		}
 
 		result = append(result, uri)
@@ -264,7 +264,7 @@ func flattenUserDefinedFunctionResourceURI(uris []*glue.ResourceUri) []map[strin
 	for _, i := range uris {
 		l := map[string]interface{}{
 			"resource_type": aws.StringValue(i.ResourceType),
-			"uri":           aws.StringValue(i.Uri),
+			"uri":  aws.StringValue(i.Uri),
 		}
 
 		result = append(result, l)

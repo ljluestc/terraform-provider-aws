@@ -41,7 +41,7 @@ func ResourceAggregateAuthorization() *schema.Resource {
 				Computed: true,
 			},
 			"account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,
@@ -68,7 +68,7 @@ func resourceAggregateAuthorizationPut(ctx context.Context, d *schema.ResourceDa
 	input := &configservice.PutAggregationAuthorizationInput{
 		AuthorizedAccountId: aws.String(accountId),
 		AuthorizedAwsRegion: aws.String(region),
-		Tags:                getTagsIn(ctx),
+		Tags:       getTagsIn(ctx),
 	}
 
 	_, err := conn.PutAggregationAuthorizationWithContext(ctx, input)

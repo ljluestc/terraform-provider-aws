@@ -31,8 +31,8 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"bars_arrangement":stringOptionalComputedSchema(validation.StringInSlice(quicksight.BarsArrangement_Values(), false)),
 	"category_axis":   axisDisplayOptionsSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AxisDisplayOptions.html
-	"category_label_options":chartAxisLabelOptionsSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
-	"color_label_options":   chartAxisLabelOptionsSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
+	"category_label_options":chartAxisLabelOptionsSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
+	"color_label_options":   chartAxisLabelOptionsSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
 	"contribution_analysis_defaults": contributionAnalysisDefaultsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ContributionAnalysisDefault.html
 	"data_labels":     dataLabelOptionsSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataLabelOptions.html
 	"field_wells": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_BarChartFieldWells.html
@@ -49,7 +49,7 @@ Elem: &schema.Resource{
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"category":        dimensionFieldSchema(dimensionsFieldMaxItems200), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+	"category":  dimensionFieldSchema(dimensionsFieldMaxItems200), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 	"colors": dimensionFieldSchema(dimensionsFieldMaxItems200), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 	"small_multiples": dimensionFieldSchema(1),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 	"values": measureFieldSchema(measureFieldsMaxItems200),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
@@ -72,19 +72,19 @@ DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
-"category_items_limit": itemsLimitConfigurationSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
-"category_sort":        fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html,
-"color_items_limit":    itemsLimitConfigurationSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
+"category_items_limit": itemsLimitConfigurationSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
+"category_sort":  fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html,
+"color_items_limit":    itemsLimitConfigurationSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
 "color_sort":  fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html
-"small_multiples_limit_configuration": itemsLimitConfigurationSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
+"small_multiples_limit_configuration": itemsLimitConfigurationSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
 "small_multiples_sort": fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html
 	},
 },
 	},
-	"tooltip":    tooltipOptionsSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
+	"tooltip":    tooltipOptionsSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
 	"value_axis": axisDisplayOptionsSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AxisDisplayOptions.html
 	"value_label_options": chartAxisLabelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
-	"visual_palette":      visualPaletteSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
+	"visual_palette":visualPaletteSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
 },
 	},
 },

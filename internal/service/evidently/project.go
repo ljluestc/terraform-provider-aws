@@ -43,29 +43,29 @@ func ResourceProject() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"active_experiment_count": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"active_launch_count": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"created_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"data_delivery": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cloudwatch_logs": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							// You can't specify both cloudWatchLogs and s3Destination in the same operation.
@@ -74,7 +74,7 @@ func ResourceProject() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"log_group": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 										ValidateFunc: validation.All(
 											validation.StringLenBetween(1, 512),
@@ -85,7 +85,7 @@ func ResourceProject() *schema.Resource {
 							},
 						},
 						"s3_destination": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							// You can't specify both cloudWatchLogs and s3Destination in the same operation.
@@ -94,7 +94,7 @@ func ResourceProject() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"bucket": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 										ValidateFunc: validation.All(
 											validation.StringLenBetween(3, 63),
@@ -102,7 +102,7 @@ func ResourceProject() *schema.Resource {
 										),
 									},
 									"prefix": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 										ValidateFunc: validation.All(
 											validation.StringLenBetween(1, 1024),
@@ -116,28 +116,28 @@ func ResourceProject() *schema.Resource {
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(1, 160),
 			},
 			"experiment_count": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"feature_count": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"last_updated_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"launch_count": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -146,10 +146,10 @@ func ResourceProject() *schema.Resource {
 				),
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -235,7 +235,7 @@ func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	if d.HasChanges("description") {
 		_, err := conn.UpdateProjectWithContext(ctx, &cloudwatchevidently.UpdateProjectInput{
 			Description: aws.String(d.Get("description").(string)),
-			Project:     aws.String(d.Id()),
+			Project: aws.String(d.Id()),
 		})
 
 		if err != nil {

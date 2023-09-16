@@ -32,57 +32,57 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"app_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"certificate_verification_dns_record": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"domain_name": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 ValidateFunc: validation.StringLenBetween(1, 255),
 	},
 	"enable_auto_sub_domain": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"sub_domain": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Required: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "branch_name": {
-	Type:         schema.TypeString,
-	Required:     true,
+	Type:schema.TypeString,
+	Required: true,
 	ValidateFunc: validation.StringLenBetween(1, 255),
 },
 "dns_record": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Computed: true,
 },
 "prefix": {
-	Type:         schema.TypeString,
-	Required:     true,
+	Type:schema.TypeString,
+	Required: true,
 	ValidateFunc: validation.StringLenBetween(0, 255),
 },
 "verified": {
-	Type:     schema.TypeBool,
+	Type: schema.TypeBool,
 	Computed: true,
 },
 	},
 },
 	},
 	"wait_for_verification": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  true,
 	},
@@ -99,7 +99,7 @@ func resourceDomainAssociationCreate(ctx context.Context, d *schema.ResourceData
 	id := DomainAssociationCreateResourceID(appID, domainName)
 	input := &amplify.CreateDomainAssociationInput{
 AppId:aws.String(appID),
-DomainName:          aws.String(domainName),
+DomainName: aws.String(domainName),
 EnableAutoSubDomain: aws.Bool(d.Get("enable_auto_sub_domain").(bool)),
 SubDomainSettings:   expandSubDomainSettings(d.Get("sub_domain").(*schema.Set).List()),
 	}
@@ -171,7 +171,7 @@ return sdkdiag.AppendErrorf(diags, "parsing Amplify Domain Association ID: %s", 
 
 	if d.HasChanges("enable_auto_sub_domain", "sub_domain") {
 input := &amplify.UpdateDomainAssociationInput{
-	AppId:      aws.String(appID),
+	AppId:  aws.String(appID),
 	DomainName: aws.String(domainName),
 }
 
@@ -211,7 +211,7 @@ return sdkdiag.AppendErrorf(diags, "parsing Amplify Domain Association ID: %s", 
 
 	log.Printf("[DEBUG] Deleting Amplify Domain Association: %s", d.Id())
 	_, err = conn.DeleteDomainAssociationWithContext(ctx, &amplify.DeleteDomainAssociationInput{
-AppId:      aws.String(appID),
+AppId:  aws.String(appID),
 DomainName: aws.String(domainName),
 	})
 

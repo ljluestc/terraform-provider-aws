@@ -19,7 +19,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func testAccImageDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var image types.WorkspaceImage
@@ -44,13 +43,11 @@ func testAccImageDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccImagePreCheck(t *testing.T) {
 	if os.Getenv("AWS_WORKSPACES_IMAGE_ID") == "" {
 		t.Skip("AWS_WORKSPACES_IMAGE_ID env var must be set for AWS WorkSpaces image acceptance tests. This is required until AWS provides ubiquitous (Windows, Linux) import image API.")
 	}
 }
-
 func testAccImageDataSourceConfig_basic(imageID string) string {
 	return fmt.Sprintf(`
 # TODO: Create aws_workspaces_image resource when API will be provided
@@ -60,7 +57,6 @@ data aws_workspaces_image test {
 }
 `, imageID)
 }
-
 func testAccCheckImageExists(ctx context.Context, n string, image *types.WorkspaceImage) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -87,7 +83,6 @@ func testAccCheckImageExists(ctx context.Context, n string, image *types.Workspa
 		return nil
 	}
 }
-
 func testAccCheckImageAttributes(n string, image *types.WorkspaceImage) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		_, ok := s.RootModule().Resources[n]

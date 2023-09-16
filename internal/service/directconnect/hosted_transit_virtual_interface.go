@@ -25,7 +25,7 @@ import (
 func ResourceHostedTransitVirtualInterface() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceHostedTransitVirtualInterfaceCreate,
-		ReadWithoutTimeout:   resourceHostedTransitVirtualInterfaceRead,
+		ReadWithoutTimeout:resourceHostedTransitVirtualInterfaceRead,
 		DeleteWithoutTimeout: resourceHostedTransitVirtualInterfaceDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: resourceHostedTransitVirtualInterfaceImport,
@@ -33,7 +33,7 @@ func ResourceHostedTransitVirtualInterface() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"address_family": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.StringInSlice([]string{
@@ -42,71 +42,71 @@ func ResourceHostedTransitVirtualInterface() *schema.Resource {
 				}, false),
 			},
 			"amazon_address": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"amazon_side_asn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"aws_device": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"bgp_asn": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Required: true,
 				ForceNew: true,
 			},
 			"bgp_auth_key": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"connection_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"customer_address": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"jumbo_frame_capable": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"mtu": {
-				Type:         schema.TypeInt,
-				Default:      1500,
-				Optional:     true,
-				ForceNew:     true,
+				Type:ema.TypeInt,
+				Default:
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: validation.IntInSlice([]int{1500, 8500}),
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"owner_account_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"vlan": {
-				Type:         schema.TypeInt,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeInt,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.IntBetween(1, 4094),
 			},
 		},
@@ -117,7 +117,6 @@ func ResourceHostedTransitVirtualInterface() *schema.Resource {
 		},
 	}
 }
-
 func resourceHostedTransitVirtualInterfaceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -126,11 +125,11 @@ func resourceHostedTransitVirtualInterfaceCreate(ctx context.Context, d *schema.
 		ConnectionId: aws.String(d.Get("connection_id").(string)),
 		OwnerAccount: aws.String(d.Get("owner_account_id").(string)),
 		NewTransitVirtualInterfaceAllocation: &directconnect.NewTransitVirtualInterfaceAllocation{
-			AddressFamily:        aws.String(d.Get("address_family").(string)),
-			Asn:     aws.Int64(int64(d.Get("bgp_asn").(int))),
-			Mtu:     aws.Int64(int64(d.Get("mtu").(int))),
+			AddressFamily:String(d.Get("address_family").(string)),
+			Asn:aws.Int64(int64(d.Get("bgp_asn").(int))),
+			Mtu:aws.Int64(int64(d.Get("mtu").(int))),
 			VirtualInterfaceName: aws.String(d.Get("name").(string)),
-			Vlan:    aws.Int64(int64(d.Get("vlan").(int))),
+			Vlan: aws.Int64(int64(d.Get("vlan").(int))),
 		},
 	}
 	if v, ok := d.GetOk("amazon_address"); ok {
@@ -157,7 +156,6 @@ func resourceHostedTransitVirtualInterfaceCreate(ctx context.Context, d *schema.
 
 	return append(diags, resourceHostedTransitVirtualInterfaceRead(ctx, d, meta)...)
 }
-
 func resourceHostedTransitVirtualInterfaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -177,8 +175,8 @@ func resourceHostedTransitVirtualInterfaceRead(ctx context.Context, d *schema.Re
 	d.Set("amazon_side_asn", strconv.FormatInt(aws.Int64Value(vif.AmazonSideAsn), 10))
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "directconnect",
+		Region: meta.(*conns.AWSClient).Region,
+		Service:"directconnect",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("dxvif/%s", d.Id()),
 	}.String()
@@ -196,11 +194,9 @@ func resourceHostedTransitVirtualInterfaceRead(ctx context.Context, d *schema.Re
 
 	return diags
 }
-
 func resourceHostedTransitVirtualInterfaceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	return virtualInterfaceDelete(ctx, d, meta)
 }
-
 func resourceHostedTransitVirtualInterfaceImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
@@ -218,7 +214,6 @@ func resourceHostedTransitVirtualInterfaceImport(ctx context.Context, d *schema.
 
 	return []*schema.ResourceData{d}, nil
 }
-
 func hostedTransitVirtualInterfaceWaitUntilAvailable(ctx context.Context, conn *directconnect.DirectConnect, vifId string, timeout time.Duration) error {
 	return virtualInterfaceWaitUntilAvailable(ctx, conn,
 		vifId,

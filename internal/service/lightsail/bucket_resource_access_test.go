@@ -21,7 +21,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccLightsailBucketResourceAccess_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -54,7 +53,6 @@ func TestAccLightsailBucketResourceAccess_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailBucketResourceAccess_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -82,7 +80,6 @@ func TestAccLightsailBucketResourceAccess_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckBucketResourceAccessExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -109,7 +106,6 @@ func testAccCheckBucketResourceAccessExists(ctx context.Context, resourceName st
 		return nil
 	}
 }
-
 func testAccCheckBucketResourceAccessDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
@@ -135,7 +131,6 @@ func testAccCheckBucketResourceAccessDestroy(ctx context.Context) resource.TestC
 		return nil
 	}
 }
-
 func testAccBucketResourceAccessConfig_base(bucketName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_bucket" "test" {
@@ -153,14 +148,13 @@ data "aws_availability_zones" "available" {
 
 `, bucketName)
 }
-
 func testAccBucketResourceAccessConfig_basic(rName string, bucketName string) string {
 	return acctest.ConfigCompose(testAccBucketResourceAccessConfig_base(bucketName), fmt.Sprintf(`
 resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
 }
 
 resource "aws_lightsail_bucket_resource_access" "test" {

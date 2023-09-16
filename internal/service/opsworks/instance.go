@@ -43,13 +43,13 @@ func ResourceInstance() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"agent_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  "INHERIT",
 			},
 
 			"ami_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
@@ -57,211 +57,211 @@ func ResourceInstance() *schema.Resource {
 
 			"architecture": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      "x86_64",
+				Optional:true,
+				Default: "x86_64",
 				Validate
 func: validation.StringInSlice(opsworks.Architecture_Values(), false),
 			},
 
 			"auto_scaling_type": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				Validate
 func: validation.StringInSlice(opsworks.AutoScalingType_Values(), false),
 			},
 
 			"availability_zone": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 
 			"created_at": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"delete_ebs": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 
 			"delete_eip": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 
 			"ebs_optimized": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 				ForceNew: true,
 			},
 
 			"ec2_instance_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"ecs_cluster_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"elastic_ip": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"hostname": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 
 			"infrastructure_class": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"install_updates_on_boot": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 
 			"instance_profile_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"instance_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 
 			"last_service_error_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"layer_ids": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 
 			"os": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 
 			"platform": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"private_dns": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"private_ip": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"public_dns": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"public_ip": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"registered_by": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"reported_agent_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"reported_os_family": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"reported_os_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"reported_os_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"root_device_type": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Computed:     true,
+				Optional:true,
+				ForceNew:true,
+				Computed:true,
 				Validate
 func: validation.StringInSlice(opsworks.RootDeviceType_Values(), false),
 			},
 
 			"root_device_volume_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"security_group_ids": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 
 			"ssh_host_dsa_key_fingerprint": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"ssh_host_rsa_key_fingerprint": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"ssh_key_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"stack_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"state": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Validate
 func: validation.StringInSlice([]string{
@@ -271,20 +271,20 @@ func: validation.StringInSlice([]string{
 			},
 
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"subnet_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 
 			"tenancy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
@@ -298,56 +298,56 @@ func: validation.StringInSlice([]string{
 
 			"virtualization_type": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Optional:true,
+				Computed:true,
+				ForceNew:true,
 				Validate
 func: validation.StringInSlice(opsworks.VirtualizationType_Values(), false),
 			},
 
 			"ebs_block_device": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"delete_on_termination": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  true,
 							ForceNew: true,
 						},
 
 						"device_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ForceNew: true,
 						},
 
 						"iops": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
 						},
 
 						"snapshot_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
 						},
 
 						"volume_size": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
 						},
 
 						"volume_type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
@@ -364,19 +364,19 @@ func(v interface{}) int {
 				},
 			},
 			"ephemeral_block_device": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"device_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 
 						"virtual_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
@@ -393,10 +393,10 @@ func(v interface{}) int {
 
 			"root_block_device": {
 				// TODO: This is a set because we don't support singleton
-				//       sub-resources today. We'll enforce that the set only ever has
-				//       length zero or one below. When TF gains support for
-				//       sub-resources this can be converted.
-				Type:     schema.TypeSet,
+				//  sub-resources today. We'll enforce that the set only ever has
+				//  length zero or one below. When TF gains support for
+				//  sub-resources this can be converted.
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
@@ -406,28 +406,28 @@ func(v interface{}) int {
 					// device volume." - bit.ly/ec2bdmap
 					Schema: map[string]*schema.Schema{
 						"delete_on_termination": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  true,
 							ForceNew: true,
 						},
 
 						"iops": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
 						},
 
 						"volume_size": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
 						},
 
 						"volume_type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
@@ -596,8 +596,8 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 		EbsOptimized:aws.Bool(d.Get("ebs_optimized").(bool)),
 		InstallUpdatesOnBoot: aws.Bool(d.Get("install_updates_on_boot").(bool)),
 		InstanceType:aws.String(d.Get("instance_type").(string)),
-		LayerIds:    flex.ExpandStringList(d.Get("layer_ids").([]interface{})),
-		StackId:     aws.String(d.Get("stack_id").(string)),
+		LayerIds:flex.ExpandStringList(d.Get("layer_ids").([]interface{})),
+		StackId:aws.String(d.Get("stack_id").(string)),
 	}
 
 	if v, ok := d.GetOk("ami_id"); ok {
@@ -669,7 +669,7 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 			blockDevices = append(blockDevices, &opsworks.BlockDeviceMapping{
 				DeviceName: aws.String(bd["device_name"].(string)),
-				Ebs:        ebs,
+				Ebs:   ebs,
 			})
 		}
 	}
@@ -710,7 +710,7 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 			blockDevices = append(blockDevices, &opsworks.BlockDeviceMapping{
 				DeviceName: aws.String("ROOT_DEVICE"),
-				Ebs:        ebs,
+				Ebs:   ebs,
 			})
 		}
 	}
@@ -841,7 +841,7 @@ func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta in
 	}
 
 	req := &opsworks.DeleteInstanceInput{
-		InstanceId:      aws.String(d.Id()),
+		InstanceId: aws.String(d.Id()),
 		DeleteElasticIp: aws.Bool(d.Get("delete_eip").(bool)),
 		DeleteVolumes:   aws.Bool(d.Get("delete_ebs").(bool)),
 	}
@@ -930,11 +930,11 @@ func stopInstance(ctx context.Context, d *schema.ResourceData, meta interface{},
 
 func waitInstanceDeleted(ctx context.Context, conn *opsworks.OpsWorks, instanceId string) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{instanceStatusStopped, instanceStatusTerminating, instanceStatusTerminated},
-		Target:     []string{},
-		Refresh:    instanceStatus(ctx, conn, instanceId),
-		Timeout:    2 * time.Minute,
-		Delay:      10 * time.Second,
+		Pending:[]string{instanceStatusStopped, instanceStatusTerminating, instanceStatusTerminated},
+		Target:[]string{},
+		Refresh:instanceStatus(ctx, conn, instanceId),
+		Timeout:2 * time.Minute,
+		Delay: 10 * time.Second,
 		MinTimeout: 3 * time.Second,
 	}
 
@@ -945,11 +945,11 @@ func waitInstanceDeleted(ctx context.Context, conn *opsworks.OpsWorks, instanceI
 
 func waitInstanceStarted(ctx context.Context, conn *opsworks.OpsWorks, instanceId string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{instanceStatusRequested, instanceStatusPending, instanceStatusBooting, instanceStatusRunningSetup},
-		Target:     []string{instanceStatusOnline},
-		Refresh:    instanceStatus(ctx, conn, instanceId),
-		Timeout:    timeout,
-		Delay:      10 * time.Second,
+		Pending:[]string{instanceStatusRequested, instanceStatusPending, instanceStatusBooting, instanceStatusRunningSetup},
+		Target:[]string{instanceStatusOnline},
+		Refresh:instanceStatus(ctx, conn, instanceId),
+		Timeout:timeout,
+		Delay: 10 * time.Second,
 		MinTimeout: 3 * time.Second,
 	}
 	_, err := stateConf.WaitForStateContext(ctx)
@@ -959,11 +959,11 @@ func waitInstanceStarted(ctx context.Context, conn *opsworks.OpsWorks, instanceI
 
 func waitInstanceStopped(ctx context.Context, conn *opsworks.OpsWorks, instanceId string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{instanceStatusStopping, instanceStatusTerminating, instanceStatusShuttingDown, instanceStatusTerminated},
-		Target:     []string{instanceStatusStopped},
-		Refresh:    instanceStatus(ctx, conn, instanceId),
-		Timeout:    timeout,
-		Delay:      10 * time.Second,
+		Pending:[]string{instanceStatusStopping, instanceStatusTerminating, instanceStatusShuttingDown, instanceStatusTerminated},
+		Target:[]string{instanceStatusStopped},
+		Refresh:instanceStatus(ctx, conn, instanceId),
+		Timeout:timeout,
+		Delay: 10 * time.Second,
 		MinTimeout: 3 * time.Second,
 	}
 	_, err := stateConf.WaitForStateContext(ctx)

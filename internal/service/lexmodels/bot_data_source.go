@@ -22,70 +22,70 @@ ReadWithoutTimeout: dataSourceBotRead,
 
 Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "checksum": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "child_directed": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Computed: true,
 },
 "created_date": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "detect_sentiment": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Computed: true,
 },
 "enable_model_improvements": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Computed: true,
 },
 "failure_reason": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "idle_session_ttl_in_seconds": {
-Type:     schema.TypeInt,
+Type: schema.TypeInt,
 Computed: true,
 },
 "last_updated_date": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "locale": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "name": {
-Type:         schema.TypeString,
-Required:     true,
+Type:schema.TypeString,
+Required: true,
 ValidateFunc: validBotName,
 },
 "nlu_intent_confidence_threshold": {
-Type:     schema.TypeFloat,
+Type: schema.TypeFloat,
 Computed: true,
 },
 "status": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "version": {
-Type:         schema.TypeString,
-Optional:     true,
-Default:      BotVersionLatest,
+Type:schema.TypeString,
+Optional: true,
+Default:  BotVersionLatest,
 ValidateFunc: validBotVersion,
 },
 "voice_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 },
@@ -106,7 +106,7 @@ return sdkdiag.AppendErrorf(diags, "reading Lex Bot (%s/%s): %s", name, version,
 
 arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
-Region:    meta.(*conns.AWSClient).Region,
+Region:meta.(*conns.AWSClient).Region,
 Service:   "lex",
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("bot:%s", name),

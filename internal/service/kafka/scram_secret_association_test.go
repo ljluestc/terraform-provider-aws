@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfkafka "github.com/hashicorp/terraform-provider-aws/internal/service/kafka"
 )
-
 func TestAccKafkaScramSecretAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -30,7 +29,7 @@ func TestAccKafkaScramSecretAssociation_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kafka.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckScramSecretAssociationDestroy(ctx),
+CheckDestroy:testAccCheckScramSecretAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScramSecretAssociationConfig_basic(rName, 1),
@@ -42,14 +41,13 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccKafkaScramSecretAssociation_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -62,7 +60,7 @@ func TestAccKafkaScramSecretAssociation_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kafka.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckScramSecretAssociationDestroy(ctx),
+CheckDestroy:testAccCheckScramSecretAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScramSecretAssociationConfig_basic(rName, 1),
@@ -90,14 +88,13 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccKafkaScramSecretAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -107,7 +104,7 @@ func TestAccKafkaScramSecretAssociation_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kafka.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckScramSecretAssociationDestroy(ctx),
+CheckDestroy:testAccCheckScramSecretAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScramSecretAssociationConfig_basic(rName, 1),
@@ -120,7 +117,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccKafkaScramSecretAssociation_Disappears_cluster(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -131,7 +127,7 @@ func TestAccKafkaScramSecretAssociation_Disappears_cluster(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kafka.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckScramSecretAssociationDestroy(ctx),
+CheckDestroy:testAccCheckScramSecretAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScramSecretAssociationConfig_basic(rName, 1),
@@ -144,7 +140,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func testAccCheckScramSecretAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
@@ -168,7 +163,6 @@ return err
 return nil
 	}
 }
-
 func testAccCheckScramSecretAssociationExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
@@ -186,7 +180,6 @@ _, err := tfkafka.FindScramSecrets(ctx, conn, rs.Primary.ID)
 return err
 	}
 }
-
 func testAccScramSecretAssociationConfig_base(rName string, count int) string {
 	return acctest.ConfigCompose(testAccClusterConfig_base(rName), fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -197,66 +190,65 @@ resource "aws_msk_cluster" "test" {
   number_of_broker_nodes = 3
 
   broker_node_group_info {
-    client_subnets  = aws_subnet.test[*].id
-    instance_type   = "kafka.t3.small"
-    security_groups = [aws_security_group.test.id]
+client_subnets  = aws_subnet.test[*].id
+instance_type   = "kafka.t3.small"
+security_groups = [aws_security_group.test.id]
 
-    storage_info {
-      ebs_storage_info {
-        volume_size = 10
-      }
-    }
+storage_info {
+ ebs_storage_info {
+   volume_size = 10
+ }
+}
   }
 
   client_authentication {
-    sasl {
-      scram = true
-    }
+sasl {
+ scram = true
+}
   }
 }
 
 resource "aws_kms_key" "test" {
-  count       = %[2]d
+  count  = %[2]d
   description = "%[1]s-${count.index + 1}"
 }
 
 resource "aws_secretsmanager_secret" "test" {
-  count      = %[2]d
-  name       = "AmazonMSK_%[1]s-${count.index + 1}"
+  count = %[2]d
+  name  = "AmazonMSK_%[1]s-${count.index + 1}"
   kms_key_id = aws_kms_key.test[count.index].id
 }
 
 resource "aws_secretsmanager_secret_version" "test" {
   count= %[2]d
-  secret_id     = aws_secretsmanager_secret.test[count.index].id
+  secret_id= aws_secretsmanager_secret.test[count.index].id
   secret_string = jsonencode({ username = "user", password = "pass" })
 }
 
 resource "aws_secretsmanager_secret_policy" "test" {
-  count      = %[2]d
+  count = %[2]d
   secret_arn = aws_secretsmanager_secret.test[count.index].arn
-  policy     = <<POLICY
+  policy= <<POLICY
 {
   "Version" : "2012-10-17",
   "Statement" : [ {
-    "Sid": "AWSKafkaResourcePolicy",
-    "Effect" : "Allow",
-    "Principal" : {
-      "Service" : "kafka.${data.aws_partition.current.dns_suffix}"
-    },
-    "Action" : "secretsmanager:getSecretValue",
-    "Resource" : "${aws_secretsmanager_secret.test[count.index].arn}"
+"Sid": "AWSKafkaResourcePolicy",
+"Effect" : "Allow",
+"Principal" : {
+ "Service" : "kafka.${data.aws_partition.current.dns_suffix}"
+},
+"Action" : "secretsmanager:getSecretValue",
+"Resource" : "${aws_secretsmanager_secret.test[count.index].arn}"
   } ]
 }
 POLICY
 }
 `, rName, count))
 }
-
 func testAccScramSecretAssociationConfig_basic(rName string, count int) string {
 	return acctest.ConfigCompose(testAccScramSecretAssociationConfig_base(rName, count), `
 resource "aws_msk_scram_secret_association" "test" {
-  cluster_arn     = aws_msk_cluster.test.arn
+  cluster_arn= aws_msk_cluster.test.arn
   secret_arn_list = aws_secretsmanager_secret.test[*].arn
 
   depends_on = [aws_secretsmanager_secret_version.test]

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kendra
-
-import (
+// SPDX-License-Identifier: MPL-2.0package kendraimport (
 	"context"
 	"fmt"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/aws/arn"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -16,36 +10,33 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
-)
-
-// @SDKDataSource("aws_kendra_query_suggestions_block_list")
-
+)// @SDKDataSource("aws_kendra_query_suggestions_block_list")
 func DataSourceQuerySuggestionsBlockList() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceQuerySuggestionsBlockListRead,
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"created_at": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"error_message": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"file_size_bytes": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"index_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ValidateFunc: validation.StringMatch(
 					regexache.MustCompile(`[0-9A-Za-z][0-9A-Za-z-]{35}`),
@@ -53,15 +44,15 @@ func DataSourceQuerySuggestionsBlockList() *schema.Resource {
 				),
 			},
 			"item_count": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"query_suggestions_block_list_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ValidateFunc: validation.StringMatch(
 					regexache.MustCompile(`[0-9A-Za-z][0-9A-Za-z-]{35}`),
@@ -69,58 +60,47 @@ func DataSourceQuerySuggestionsBlockList() *schema.Resource {
 				),
 			},
 			"role_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"source_s3_path": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"bucket": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"key": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"updated_at": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
-}
-
-
-func dataSourceQuerySuggestionsBlockListRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+}func dataSourceQuerySuggestionsBlockListRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).KendraClient(ctx)
-	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig
-
-	querySuggestionsBlockListID := d.Get("query_suggestions_block_list_id").(string)
-	indexID := d.Get("index_id").(string)
-
-	resp, err := FindQuerySuggestionsBlockListByID(ctx, conn, querySuggestionsBlockListID, indexID)
-
-	if err != nil {
+	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig	querySuggestionsBlockListID := d.Get("query_suggestions_block_list_id").(string)
+	indexID := d.Get("index_id").(string)	resp, err := FindQuerySuggestionsBlockListByID(ctx, conn, querySuggestionsBlockListID, indexID)	if err != nil {
 		return diag.Errorf("reading Kendra QuerySuggestionsBlockList (%s): %s", querySuggestionsBlockListID, err)
-	}
-
-	arn := arn.ARN{
+	}	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "kendra",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"kendra",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("index/%s/query-suggestions-block-list/%s", indexID, querySuggestionsBlockListID),
+		Resource:fmt.Sprintf("index/%s/query-suggestions-block-list/%s", indexID, querySuggestionsBlockListID),
 	}.String()
 	d.Set("arn", arn)
 	d.Set("created_at", aws.ToTime(resp.CreatedAt).Format(time.RFC3339))
@@ -133,25 +113,11 @@ func dataSourceQuerySuggestionsBlockListRead(ctx context.Context, d *schema.Reso
 	d.Set("query_suggestions_block_list_id", resp.Id)
 	d.Set("role_arn", resp.RoleArn)
 	d.Set("status", resp.Status)
-	d.Set("updated_at", aws.ToTime(resp.UpdatedAt).Format(time.RFC3339))
-
-	if err := d.Set("source_s3_path", flattenSourceS3Path(resp.SourceS3Path)); err != nil {
+	d.Set("updated_at", aws.ToTime(resp.UpdatedAt).Format(time.RFC3339))	if err := d.Set("source_s3_path", flattenSourceS3Path(resp.SourceS3Path)); err != nil {
 		return diag.Errorf("setting source_s3_path: %s", err)
-	}
-
-	tags, err := listTags(ctx, conn, arn)
-
-	if err != nil {
+	}	tags, err := listTags(ctx, conn, arn)	if err != nil {
 		return diag.Errorf("listing tags for Kendra QuerySuggestionsBlockList (%s): %s", arn, err)
-	}
-
-	tags = tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig)
-
-	if err := d.Set("tags", tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
+	}	tags = tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig)	if err := d.Set("tags", tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
 		return diag.Errorf("setting tags: %s", err)
-	}
-
-	d.SetId(fmt.Sprintf("%s/%s", querySuggestionsBlockListID, indexID))
-
-	return nil
+	}	d.SetId(fmt.Sprintf("%s/%s", querySuggestionsBlockListID, indexID))	return nil
 }

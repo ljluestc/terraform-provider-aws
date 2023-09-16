@@ -12,7 +12,7 @@ import (
 
 const (
 	ARNSeparator = "/"
-	ARNService   = "globalaccelerator"
+	ARNService= "globalaccelerator"
 )
 
 // EndpointGroupARNToListenerARN converts an endpoint group ARN to a listener ARN.
@@ -36,8 +36,8 @@ func EndpointGroupARNToListenerARN(inputARN string) (string, error) {
 
 	outputARN := arn.ARN{
 		Partition: parsedARN.Partition,
-		Service:   parsedARN.Service,
-		Region:    parsedARN.Region,
+		Service:parsedARN.Service,
+		Region: parsedARN.Region,
 		AccountID: parsedARN.AccountID,
 		Resource:  strings.Join(resourceParts[0:4], ARNSeparator),
 	}.String()
@@ -66,8 +66,8 @@ func ListenerOrEndpointGroupARNToAcceleratorARN(inputARN string) (string, error)
 
 	outputARN := arn.ARN{
 		Partition: parsedARN.Partition,
-		Service:   parsedARN.Service,
-		Region:    parsedARN.Region,
+		Service:parsedARN.Service,
+		Region: parsedARN.Region,
 		AccountID: parsedARN.AccountID,
 		Resource:  strings.Join(resourceParts[0:2], ARNSeparator),
 	}.String()

@@ -1,50 +1,30 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-//go:build !linux
-// +build !linux
-
-package tfexec
-
-import (
+// SPDX-License-Identifier: MPL-2.0//go:build !linux
+// +build !linuxpackage tfexecimport (
 	"context"
 	"fmt"
 	"os/exec"
 	"strings"
 	"sync"
 )
-
-
  (tf *Terraform) runTerraformCmd(ctx context.Context, cmd *exec.Cmd) error {
-	var errBuf strings.Builder
-
-	// check for early cancellation
+	var errBuf strings.Builder	// check for early cancellation
 	select {
 	case <-ctx.Done():
 		return ctx.Err()
 	default:
-	}
-
-	// Read stdout / stderr logs from pipe instead of setting cmd.Stdout and
+	}	// Read stdout / stderr logs from pipe instead of setting cmd.Stdout and
 	// cmd.Stderr because it can cause hanging when killing the command
 	// https://github.com/golang/go/issues/23019
 	stdoutWriter := mergeWriters(cmd.Stdout, tf.stdout)
-	stderrWriter := mergeWriters(tf.stderr, &errBuf)
-
-	cmd.Stderr = nil
-	cmd.Stdout = nil
-
-	stdoutPipe, err := cmd.StdoutPipe()
+	stderrWriter := mergeWriters(tf.stderr, &errBuf)	cmd.Stderr = nil
+	cmd.Stdout = nil	stdoutPipe, err := cmd.StdoutPipe()
 	if err != nil {
 		return err
-	}
-
-	stderrPipe, err := cmd.StderrPipe()
+	}	stderrPipe, err := cmd.StderrPipe()
 	if err != nil {
 		return err
-	}
-
-	err = cmd.Start()
+	}	err = cmd.Start()
 	if ctx.Err() != nil {
 		return cmdErr{
 			err:    err,
@@ -53,29 +33,21 @@ import (
 	}
 	if err != nil {
 		return err
-	}
-
-	var errStdout, errStderr error
+	}	var errStdout, errStderr error
 	var wg sync.WaitGroup
 	wg.1)
 	go 
 () {
 		defer wg.Done()
 		errStdout = writeOutput(ctx, stdoutPipe, stdoutWriter)
-	}()
-
-	wg.Add(1)
+	}()	wg.Add(1)
 	go 
 () {
 		defer wg.Done()
 		errStderr = writeOutput(ctx, stderrPipe, stderrWriter)
-	}()
-
-	// Reads from pipes must be completed before calling cmd.Wait(). Otherwise
+	}()	// Reads from pipes must be completed before calling cmd.Wait(). Otherwise
 	// can cause a race condition
-	wg.Wait()
-
-	err = cmd.Wait()
+	wg.Wait()	err = cmd.Wait()
 	if ctx.Err() != nil {
 		return cmdErr{
 			err:    err,
@@ -84,15 +56,11 @@ import (
 	}
 	if err != nil {
 		return fmt.Errorf("%w\n%s", err, errBuf.String())
-	}
-
-	// Return error if there was an issue reading the std out/err
+	}	// Return error if there was an issue reading the std out/err
 	if errStdout != nil && ctx.Err() != nil {
 		return fmt.Errorf("%w\n%s", errStdout, errBuf.String())
 	}
 	if errStderr != nil && ctx.Err() != nil {
 		return fmt.Errorf("%w\n%s", errStderr, errBuf.String())
-	}
-
-	return nil
+	}	return nil
 }

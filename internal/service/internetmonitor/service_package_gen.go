@@ -13,32 +13,27 @@ import (
 )
 
 type servicePackage struct{}
-
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{}
 }
-
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{}
 }
-
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{}
 }
-
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
 			Factory:  resourceMonitor,
 			TypeName: "aws_internetmonitor_monitor",
-			Name:     "Monitor",
+			Name:"Monitor",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
 		},
 	}
 }
-
 func (p *servicePackage) ServicePackageName() string {
 	return names.InternetMonitor
 }
@@ -53,7 +48,6 @@ func (p *servicePackage) NewClient(ctx context.Context, config map[string]any) (
 		}
 	}), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }

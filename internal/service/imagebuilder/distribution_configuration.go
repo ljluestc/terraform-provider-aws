@@ -49,7 +49,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
@@ -66,12 +66,12 @@ func ResourceDistributionConfiguration() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"ami_tags": tftags.TagsSchema(),
 									"description": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(0, 1024),
 									},
 									"kms_key_id": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 1024),
 									},
@@ -85,7 +85,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 													Type:     schema.TypeSet,
 													Optional: true,
 													Elem: &schema.Schema{
-														Type:         schema.TypeString,
+														Type:schema.TypeString,
 														ValidateFunc: verify.ValidARN,
 													},
 												},
@@ -93,7 +93,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 													Type:     schema.TypeSet,
 													Optional: true,
 													Elem: &schema.Schema{
-														Type:         schema.TypeString,
+														Type:schema.TypeString,
 														ValidateFunc: verify.ValidARN,
 													},
 												},
@@ -101,7 +101,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 													Type:     schema.TypeSet,
 													Optional: true,
 													Elem: &schema.Schema{
-														Type:         schema.TypeString,
+														Type:schema.TypeString,
 														ValidateFunc: validation.StringLenBetween(1, 1024),
 													},
 												},
@@ -109,7 +109,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 													Type:     schema.TypeSet,
 													Optional: true,
 													Elem: &schema.Schema{
-														Type:         schema.TypeString,
+														Type:schema.TypeString,
 														ValidateFunc: verify.ValidAccountID,
 													},
 												},
@@ -128,7 +128,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 										Type:     schema.TypeSet,
 										Optional: true,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: verify.ValidAccountID,
 										},
 									},
@@ -145,12 +145,12 @@ func ResourceDistributionConfiguration() *schema.Resource {
 										Type:     schema.TypeSet,
 										Optional: true,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 1024),
 										},
 									},
 									"description": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 1024),
 									},
@@ -161,12 +161,12 @@ func ResourceDistributionConfiguration() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"repository_name": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(1, 1024),
 												},
 												"service": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice([]string{"ECR"}, false),
 												},
@@ -183,7 +183,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"account_id": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidAccountID,
 									},
@@ -198,17 +198,17 @@ func ResourceDistributionConfiguration() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"launch_template_id": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: verify.ValidLaunchTemplateID,
 												},
 												"launch_template_name": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: verify.ValidLaunchTemplateName,
 												},
 												"launch_template_version": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: validation.StringLenBetween(1, 1024),
 												},
@@ -216,7 +216,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 										},
 									},
 									"max_parallel_launches": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Default:      0,
 										ValidateFunc: validation.IntBetween(1, 10000),
@@ -228,7 +228,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"target_resource_count": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													ValidateFunc: validation.IntBetween(1, 10000),
 												},
@@ -245,7 +245,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"account_id": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: verify.ValidAccountID,
 									},
@@ -255,7 +255,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 										Default:  true,
 									},
 									"launch_template_id": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidLaunchTemplateID,
 									},
@@ -266,12 +266,12 @@ func ResourceDistributionConfiguration() *schema.Resource {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: verify.ValidARN,
 							},
 						},
 						"region": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(0, 1024),
 						},
@@ -279,7 +279,7 @@ func ResourceDistributionConfiguration() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 126),

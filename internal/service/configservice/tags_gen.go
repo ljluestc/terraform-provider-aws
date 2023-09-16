@@ -21,13 +21,13 @@ import (
 // it may also be a different identifier depending on the service.
 func listTags(ctx context.Context, conn configserviceiface.ConfigServiceAPI, identifier string) (tftags.KeyValueTags, error) {
 	input := &configservice.ListTagsForResourceInput{
-		ResourceArn: aws.String(identifier),
+ResourceArn: aws.String(identifier),
 	}
 
 	output, err := conn.ListTagsForResourceWithContext(ctx, input)
 
 	if err != nil {
-		return tftags.New(ctx, nil), err
+return tftags.New(ctx, nil), err
 	}
 
 	return KeyValueTags(ctx, output.Tags), nil
@@ -39,11 +39,11 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).ConfigServiceConn(ctx), identifier)
 
 	if err != nil {
-		return err
+return err
 	}
 
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(tags)
+inContext.TagsOut = types.Some(tags)
 	}
 
 	return nil
@@ -56,12 +56,12 @@ func Tags(tags tftags.KeyValueTags) []*configservice.Tag {
 	result := make([]*configservice.Tag, 0, len(tags))
 
 	for k, v := range tags.Map() {
-		tag := &configservice.Tag{
-			Key:   aws.String(k),
-			Value: aws.String(v),
-		}
+tag := &configservice.Tag{
+	Key:   aws.String(k),
+	Value: aws.String(v),
+}
 
-		result = append(result, tag)
+result = append(result, tag)
 	}
 
 	return result
@@ -72,7 +72,7 @@ func KeyValueTags(ctx context.Context, tags []*configservice.Tag) tftags.KeyValu
 	m := make(map[string]*string, len(tags))
 
 	for _, tag := range tags {
-		m[aws.StringValue(tag.Key)] = tag.Value
+m[aws.StringValue(tag.Key)] = tag.Value
 	}
 
 	return tftags.New(ctx, m)
@@ -82,9 +82,9 @@ func KeyValueTags(ctx context.Context, tags []*configservice.Tag) tftags.KeyValu
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) []*configservice.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
-		}
+if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
+	return tags
+}
 	}
 
 	return nil
@@ -93,7 +93,7 @@ func getTagsIn(ctx context.Context) []*configservice.Tag {
 // setTagsOut sets configservice service tags in Context.
 func setTagsOut(ctx context.Context, tags []*configservice.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
+inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }
 
@@ -109,31 +109,31 @@ func updateTags(ctx context.Context, conn configserviceiface.ConfigServiceAPI, i
 	removedTags := oldTags.Removed(newTags)
 	removedTags = removedTags.IgnoreSystem(names.ConfigService)
 	if len(removedTags) > 0 {
-		input := &configservice.UntagResourceInput{
-			ResourceArn: aws.String(identifier),
-			TagKeys:     aws.StringSlice(removedTags.Keys()),
-		}
+input := &configservice.UntagResourceInput{
+	ResourceArn: aws.String(identifier),
+	TagKeys:     aws.StringSlice(removedTags.Keys()),
+}
 
-		_, err := conn.UntagResourceWithContext(ctx, input)
+_, err := conn.UntagResourceWithContext(ctx, input)
 
-		if err != nil {
-			return fmt.Errorf("untagging resource (%s): %w", identifier, err)
-		}
+if err != nil {
+	return fmt.Errorf("untagging resource (%s): %w", identifier, err)
+}
 	}
 
 	updatedTags := oldTags.Updated(newTags)
 	updatedTags = updatedTags.IgnoreSystem(names.ConfigService)
 	if len(updatedTags) > 0 {
-		input := &configservice.TagResourceInput{
-			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
-		}
+input := &configservice.TagResourceInput{
+	ResourceArn: aws.String(identifier),
+	Tags:        Tags(updatedTags),
+}
 
-		_, err := conn.TagResourceWithContext(ctx, input)
+_, err := conn.TagResourceWithContext(ctx, input)
 
-		if err != nil {
-			return fmt.Errorf("tagging resource (%s): %w", identifier, err)
-		}
+if err != nil {
+	return fmt.Errorf("tagging resource (%s): %w", identifier, err)
+}
 	}
 
 	return nil

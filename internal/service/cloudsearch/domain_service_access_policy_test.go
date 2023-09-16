@@ -37,8 +37,8 @@ func TestAccCloudSearchDomainServiceAccessPolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -64,8 +64,8 @@ func TestAccCloudSearchDomainServiceAccessPolicy_update(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -141,8 +141,8 @@ resource "aws_cloudsearch_domain_service_access_policy" "test" {
     "Effect":"Allow",
     "Principal":"*",
     "Action":[
-      "cloudsearch:search",
-      "cloudsearch:document"
+ "cloudsearch:search",
+ "cloudsearch:document"
     ],
     "Condition":{"IpAddress":{"aws:SourceIp":"192.0.2.0/32"}}
   }]

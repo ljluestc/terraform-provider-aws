@@ -236,7 +236,7 @@ resource "aws_subnet" "test" {
   availability_zone = data.aws_outposts_outpost.test.availability_zone
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
   outpost_arn       = data.aws_outposts_outpost.test.arn
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -250,7 +250,7 @@ func testAccEndpointConfig_basic(rName string, rInt int) string {
 resource "aws_s3outposts_endpoint" "test" {
   outpost_id        = data.aws_outposts_outpost.test.id
   security_group_id = aws_security_group.test.id
-  subnet_id         = aws_subnet.test.id
+  subnet_id= aws_subnet.test.id
 }
 `)
 }
@@ -260,7 +260,7 @@ func testAccEndpointConfig_private(rName string, rInt int) string {
 resource "aws_s3outposts_endpoint" "test" {
   outpost_id        = data.aws_outposts_outpost.test.id
   security_group_id = aws_security_group.test.id
-  subnet_id         = aws_subnet.test.id
+  subnet_id= aws_subnet.test.id
   access_type       = "Private"
 }
 `)

@@ -35,8 +35,7 @@ import (
 var EnableTracing bool
 
 // methodFamily returns the trace family for the given method.
-// It turns "/pkg.Service/GetFoo" into "pkg.Service".
-func methodFamily(m string) string {
+// It turns "/pkg.Service/GetFoo" into "pkg.Service". methodFamily(m string) string {
 	m = strings.TrimPrefix(m, "/") // remove leading slash
 	if i := strings.Index(m, "/"); i >= 0 {
 		m = m[:i] // remove everything from second slash
@@ -59,14 +58,12 @@ type firstLine struct {
 	remoteAddr net.Addr
 	deadline   time.Duration // may be zero
 }
-
-func (f *firstLine) SetRemoteAddr(addr net.Addr) {
+ (f *firstLine) SetRemoteAddr(addr net.Addr) {
 	f.mu.Lock()
 	f.remoteAddr = addr
 	f.mu.Unlock()
 }
-
-func (f *firstLine) String() string {
+ (f *firstLine) String() string {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
@@ -87,8 +84,7 @@ func (f *firstLine) String() string {
 }
 
 const truncateSize = 100
-
-func truncate(x string, l int) string {
+ truncate(x string, l int) string {
 	if l > len(x) {
 		return x
 	}
@@ -101,8 +97,7 @@ type payload struct {
 	msg  interface{} // e.g. a proto.Message
 	// TODO(dsymonds): add stringifying info to codec, and limit how much we hold here?
 }
-
-func (p payload) String() string {
+ (p payload) String() string {
 	if p.sent {
 		return truncate(fmt.Sprintf("sent: %v", p.msg), truncateSize)
 	}
@@ -113,11 +108,9 @@ type fmtStringer struct {
 	format string
 	a      []interface{}
 }
-
-func (f *fmtStringer) String() string {
+ (f *fmtStringer) String() string {
 	return fmt.Sprintf(f.format, f.a...)
 }
 
 type stringer string
-
-func (s stringer) String() string { return string(s) }
+ (s stringer) String() string { return string(s) }

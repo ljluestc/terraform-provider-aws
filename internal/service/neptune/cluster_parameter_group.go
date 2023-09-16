@@ -41,7 +41,7 @@ func ResourceClusterParameterGroup() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -49,7 +49,7 @@ func ResourceClusterParameterGroup() *schema.Resource {
 				ValidateFunc:  validParamGroupName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,

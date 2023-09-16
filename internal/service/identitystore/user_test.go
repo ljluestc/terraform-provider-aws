@@ -68,8 +68,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -137,8 +137,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -157,8 +157,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -177,8 +177,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -189,8 +189,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -227,8 +227,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -242,8 +242,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -257,8 +257,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -269,8 +269,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -301,8 +301,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -313,8 +313,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -352,8 +352,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -391,8 +391,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -403,8 +403,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -442,8 +442,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -481,8 +481,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -520,8 +520,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -532,8 +532,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -571,8 +571,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -583,8 +583,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -622,8 +622,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -634,8 +634,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -676,8 +676,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -691,8 +691,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -706,8 +706,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -718,8 +718,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -750,8 +750,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -762,8 +762,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -801,8 +801,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -813,8 +813,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -852,8 +852,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -864,8 +864,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -903,8 +903,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -915,8 +915,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -954,8 +954,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -966,8 +966,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -1070,11 +1070,11 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 }
 `, rName)
@@ -1088,16 +1088,16 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 
   addresses {
-    country = "US"
-    type    = "Home"
+country = "US"
+type= "Home"
   }
 }
 `, rName)
@@ -1111,22 +1111,22 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 
   addresses {
-    country        = "US"
-    formatted      = "Formatted Address 1"
-    locality       = "The Locality 1"
-    postal_code    = "AAA BBB 1"
-    primary        = true
-    region         = "The Region 1"
-    street_address = "The Street Address 1"
-    type           = "The Type 1"
+country   = "US"
+formatted = "Formatted Address 1"
+locality  = "The Locality 1"
+postal_code= "AAA BBB 1"
+primary   = true
+region= "The Region 1"
+street_address = "The Street Address 1"
+type = "The Type 1"
   }
 }
 `, rName)
@@ -1140,22 +1140,22 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 
   addresses {
-    country        = "GB"
-    formatted      = "Formatted Address 2"
-    locality       = "The Locality 2"
-    postal_code    = "AAA BBB 2"
-    primary        = false
-    region         = "The Region 2"
-    street_address = "The Street Address 2"
-    type           = "The Type 2"
+country   = "GB"
+formatted = "Formatted Address 2"
+locality  = "The Locality 2"
+postal_code= "AAA BBB 2"
+primary   = false
+region= "The Region 2"
+street_address = "The Street Address 2"
+type = "The Type 2"
   }
 }
 `, rName)
@@ -1169,17 +1169,17 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "John"
-    given_name  = "Doe"
+family_name = "John"
+given_name  = "Doe"
   }
 
   emails {
-    primary = true
-    type    = "The Type 1"
-    value   = %[2]q
+primary = true
+type= "The Type 1"
+value   = %[2]q
   }
 }
 `, rName, email)
@@ -1193,17 +1193,17 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "John"
-    given_name  = "Doe"
+family_name = "John"
+given_name  = "Doe"
   }
 
   emails {
-    primary = false
-    type    = "The Type 2"
-    value   = %[2]q
+primary = false
+type= "The Type 2"
+value   = %[2]q
   }
 }
 `, rName, email)
@@ -1217,11 +1217,11 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "John"
-    given_name  = "Doe"
+family_name = "John"
+given_name  = "Doe"
   }
 
   emails {}
@@ -1237,13 +1237,13 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   locale = %[2]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 }
 `, rName, locale)
@@ -1257,11 +1257,11 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = %[2]q
-    given_name  = "John"
+family_name = %[2]q
+given_name  = "John"
   }
 }
 `, rName, familyName)
@@ -1275,12 +1275,12 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "Doe"
-    formatted   = %[2]q
-    given_name  = "John"
+family_name = "Doe"
+formatted   = %[2]q
+given_name  = "John"
   }
 }
 `, rName, formatted)
@@ -1294,11 +1294,11 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "Doe"
-    given_name  = %[2]q
+family_name = "Doe"
+given_name  = %[2]q
   }
 }
 `, rName, givenName)
@@ -1312,12 +1312,12 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name      = "Doe"
-    given_name       = "John"
-    honorific_prefix = %[2]q
+family_name = "Doe"
+given_name  = "John"
+honorific_prefix = %[2]q
   }
 }
 `, rName, honorificPrefix)
@@ -1331,12 +1331,12 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name      = "Doe"
-    given_name       = "John"
-    honorific_suffix = %[2]q
+family_name = "Doe"
+given_name  = "John"
+honorific_suffix = %[2]q
   }
 }
 `, rName, honorificSuffix)
@@ -1350,12 +1350,12 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
-    middle_name = %[2]q
+family_name = "Doe"
+given_name  = "John"
+middle_name = %[2]q
   }
 }
 `, rName, middleName)
@@ -1369,13 +1369,13 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   nickname = %[2]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 }
 `, rName, nickName)
@@ -1389,17 +1389,17 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "John"
-    given_name  = "Doe"
+family_name = "John"
+given_name  = "Doe"
   }
 
   phone_numbers {
-    primary = true
-    type    = "The Type 1"
-    value   = "111111"
+primary = true
+type= "The Type 1"
+value   = "111111"
   }
 }
 `, rName)
@@ -1413,17 +1413,17 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "John"
-    given_name  = "Doe"
+family_name = "John"
+given_name  = "Doe"
   }
 
   phone_numbers {
-    primary = false
-    type    = "The Type 2"
-    value   = "2222222"
+primary = false
+type= "The Type 2"
+value   = "2222222"
   }
 }
 `, rName)
@@ -1437,15 +1437,15 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   name {
-    family_name = "John"
-    given_name  = "Doe"
+family_name = "John"
+given_name  = "Doe"
   }
 
   phone_numbers {
-    value = "2222222"
+value = "2222222"
   }
 }
 `, rName)
@@ -1459,13 +1459,13 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   preferred_language = %[2]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 }
 `, rName, preferredLanguage)
@@ -1479,13 +1479,13 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   profile_url = %[2]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 }
 `, rName, profileUrl)
@@ -1499,13 +1499,13 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   timezone = %[2]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 }
 `, rName, timezone)
@@ -1519,13 +1519,13 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   title = %[2]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 }
 `, rName, title)
@@ -1539,13 +1539,13 @@ resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   display_name = "Acceptance Test"
-  user_name    = %[1]q
+  user_name= %[1]q
 
   user_type = %[2]q
 
   name {
-    family_name = "Doe"
-    given_name  = "John"
+family_name = "Doe"
+given_name  = "John"
   }
 }
 `, rName, userType)

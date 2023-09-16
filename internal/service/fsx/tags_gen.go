@@ -111,7 +111,7 @@ func updateTags(ctx context.Context, conn fsxiface.FSxAPI, identifier string, ol
 	if len(removedTags) > 0 {
 		input := &fsx.UntagResourceInput{
 			ResourceARN: aws.String(identifier),
-			TagKeys:     aws.StringSlice(removedTags.Keys()),
+			TagKeys: aws.StringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagResourceWithContext(ctx, input)
@@ -126,7 +126,7 @@ func updateTags(ctx context.Context, conn fsxiface.FSxAPI, identifier string, ol
 	if len(updatedTags) > 0 {
 		input := &fsx.TagResourceInput{
 			ResourceARN: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:Tags(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)

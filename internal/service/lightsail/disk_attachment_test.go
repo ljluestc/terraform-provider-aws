@@ -22,7 +22,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccLightsailDiskAttachment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_disk_attachment.test"
@@ -57,7 +56,6 @@ func TestAccLightsailDiskAttachment_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDiskAttachment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_disk_attachment.test"
@@ -86,7 +84,6 @@ func TestAccLightsailDiskAttachment_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckDiskAttachmentExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -113,7 +110,6 @@ func testAccCheckDiskAttachmentExists(ctx context.Context, n string) resource.Te
 		return nil
 	}
 }
-
 func testAccCheckDiskAttachmentDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -139,7 +135,6 @@ func testAccCheckDiskAttachmentDestroy(ctx context.Context) resource.TestCheckFu
 		return nil
 	}
 }
-
 func testAccDiskAttachmentConfig_basic(dName string, liName string, diskPath string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
@@ -160,7 +155,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
 }
 
 resource "aws_lightsail_disk_attachment" "test" {

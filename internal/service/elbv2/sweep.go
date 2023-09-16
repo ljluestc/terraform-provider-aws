@@ -1,66 +1,47 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-//go:build sweep
-// +build sweep
-
-package elbv2
-
-import (
+// SPDX-License-Identifier: MPL-2.0//go:build sweep
+// +build sweeppackage elbv2import (
 	"fmt"
-	"log"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"log"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/elbv2"
 	"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_lb", &resource.Sweeper{
 		Name: "aws_lb",
-		F:    sweepLoadBalancers,
+		F: sweepLoadBalancers,
 		Dependencies: []string{
 			"aws_api_gateway_vpc_link",
 			"aws_vpc_endpoint_service",
 			"aws_lb_listener",
 		},
-	})
-
-	resource.AddTestSweepers("aws_lb_target_group", &resource.Sweeper{
+	})	resource.AddTestSweepers("aws_lb_target_group", &resource.Sweeper{
 		Name: "aws_lb_target_group",
-		F:    sweepTargetGroups,
+		F: sweepTargetGroups,
 		Dependencies: []string{
 			"aws_lb",
 		},
-	})
-
-	resource.AddTestSweepers("aws_lb_listener", &resource.Sweeper{
+	})	resource.AddTestSweepers("aws_lb_listener", &resource.Sweeper{
 		Name: "aws_lb_listener",
-		F:    sweepListeners,
+		F: sweepListeners,
 	})
 }
-
 func sweepLoadBalancers(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("getting client: %s", err)
 	}
-	conn := client.ELBV2Conn(ctx)
-
-	var sweeperErrs *multierror.Error
-	err = conn.DescribeLoadBalancersPagesWithContext(ctx, &elbv2.DescribeLoadBalancersInput{}, func(page *elbv2.DescribeLoadBalancersOutput, lastPage bool) bool {
+	conn := client.ELBV2Conn(ctx)	var sweeperErrs *multierror.Error
+	err = conn.DescribeLoadBalancersPagesWithContext(ctx, &elbv2.DescribeLoadBalancersInput{}, 
+func(page *elbv2.DescribeLoadBalancersOutput, lastPage bool) bool {
 		if page == nil || len(page.LoadBalancers) == 0 {
 			log.Print("[DEBUG] No LBs to sweep")
 			return false
-		}
-
-		for _, loadBalancer := range page.LoadBalancers {
-			name := aws.StringValue(loadBalancer.LoadBalancerName)
-
-			log.Printf("[INFO] Deleting LB: %s", name)
+		}		for _, loadBalancer := range page.LoadBalancers {
+			name := aws.StringValue(loadBalancer.LoadBalancerName)			log.Printf("[INFO] Deleting LB: %s", name)
 			_, err := conn.DeleteLoadBalancerWithContext(ctx, &elbv2.DeleteLoadBalancerInput{
 				LoadBalancerArn: loadBalancer.LoadBalancerArn,
 			})
@@ -77,29 +58,21 @@ func sweepLoadBalancers(region string) error {
 	}
 	if err != nil {
 		sweeperErrs = multierror.Append(sweeperErrs, fmt.Errorf("retrieving LBs: %w", err))
-	}
-
-	return sweeperErrs.ErrorOrNil()
+	}	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepTargetGroups(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("getting client: %w", err)
 	}
-	conn := client.ELBV2Conn(ctx)
-
-	err = conn.DescribeTargetGroupsPagesWithContext(ctx, &elbv2.DescribeTargetGroupsInput{}, func(page *elbv2.DescribeTargetGroupsOutput, lastPage bool) bool {
+	conn := client.ELBV2Conn(ctx)	err = conn.DescribeTargetGroupsPagesWithContext(ctx, &elbv2.DescribeTargetGroupsInput{}, 
+func(page *elbv2.DescribeTargetGroupsOutput, lastPage bool) bool {
 		if page == nil || len(page.TargetGroups) == 0 {
 			log.Print("[DEBUG] No LB Target Groups to sweep")
 			return false
-		}
-
-		for _, targetGroup := range page.TargetGroups {
-			name := aws.StringValue(targetGroup.TargetGroupName)
-
-			log.Printf("[INFO] Deleting LB Target Group: %s", name)
+		}		for _, targetGroup := range page.TargetGroups {
+			name := aws.StringValue(targetGroup.TargetGroupName)			log.Printf("[INFO] Deleting LB Target Group: %s", name)
 			_, err := conn.DeleteTargetGroupWithContext(ctx, &elbv2.DeleteTargetGroupInput{
 				TargetGroupArn: targetGroup.TargetGroupArn,
 			})
@@ -118,67 +91,44 @@ func sweepTargetGroups(region string) error {
 	}
 	return nil
 }
-
 func sweepListeners(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
 		return fmt.Errorf("getting client: %s", err)
-	}
-
-	conn := client.ELBV2Conn(ctx)
+	}	conn := client.ELBV2Conn(ctx)
 	sweepResources := make([]sweep.Sweepable, 0)
-	var errs *multierror.Error
-
-	err = conn.DescribeLoadBalancersPagesWithContext(ctx, &elbv2.DescribeLoadBalancersInput{}, func(page *elbv2.DescribeLoadBalancersOutput, lastPage bool) bool {
+	var errs *multierror.Error	err = conn.DescribeLoadBalancersPagesWithContext(ctx, &elbv2.DescribeLoadBalancersInput{}, 
+func(page *elbv2.DescribeLoadBalancersOutput, lastPage bool) bool {
 		if page == nil || len(page.LoadBalancers) == 0 {
 			log.Print("[DEBUG] No LBs to sweep")
 			return false
-		}
-
-		for _, loadBalancer := range page.LoadBalancers {
+		}		for _, loadBalancer := range page.LoadBalancers {
 			err = conn.DescribeListenersPagesWithContext(ctx, &elbv2.DescribeListenersInput{
 				LoadBalancerArn: loadBalancer.LoadBalancerArn,
-			}, func(page *elbv2.DescribeListenersOutput, lastPage bool) bool {
+			}, 
+func(page *elbv2.DescribeListenersOutput, lastPage bool) bool {
 				if page == nil {
 					return !lastPage
-				}
-
-				for _, listener := range page.Listeners {
+				}				for _, listener := range page.Listeners {
 					if listener == nil {
 						continue
-					}
-
-					r := ResourceListener()
+					}					r := ResourceListener()
 					d := r.Data(nil)
-					d.SetId(aws.StringValue(listener.ListenerArn))
-
-					sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-				}
-
-				return !lastPage
-			})
-
-			if err != nil {
+					d.SetId(aws.StringValue(listener.ListenerArn))					sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+				}				return !lastPage
+			})			if err != nil {
 				errs = multierror.Append(errs, fmt.Errorf("failed to describe LB Listeners (%s): %w", region, err))
 				continue
 			}
 		}
 		return !lastPage
-	})
-
-	if err != nil {
+	})	if err != nil {
 		errs = multierror.Append(errs, fmt.Errorf("error describing ELBv2 Listeners for %s: %w", region, err))
-	}
-
-	if err = sweep.SweepOrchestrator(ctx, sweepResources); err != nil {
+	}	if err = sweep.SweepOrchestrator(ctx, sweepResources); err != nil {
 		errs = multierror.Append(errs, fmt.Errorf("error sweeping ELBv2 Listeners for %s: %w", region, err))
-	}
-
-	if sweep.SkipSweepError(errs.ErrorOrNil()) {
+	}	if sweep.SkipSweepError(errs.ErrorOrNil()) {
 		log.Printf("[WARN] Skipping ELBv2 Listener sweep for %s: %s", region, errs)
 		return nil
-	}
-
-	return errs.ErrorOrNil()
+	}	return errs.ErrorOrNil()
 }

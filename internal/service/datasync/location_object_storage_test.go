@@ -27,10 +27,10 @@ func TestAccDataSyncLocationObjectStorage_basic(t *testing.T) {
 	domain := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationObjectStorageDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationObjectStorageDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationObjectStorageConfig_basic(rName, domain),
@@ -67,10 +67,10 @@ func TestAccDataSyncLocationObjectStorage_disappears(t *testing.T) {
 	domain := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationObjectStorageDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationObjectStorageDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationObjectStorageConfig_basic(rName, domain),
@@ -92,10 +92,10 @@ func TestAccDataSyncLocationObjectStorage_tags(t *testing.T) {
 	domain := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationObjectStorageDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationObjectStorageDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationObjectStorageConfig_tags1(rName, domain, "key1", "value1"),
@@ -141,10 +141,10 @@ func TestAccDataSyncLocationObjectStorage_serverCertificate(t *testing.T) {
 	caCertificate := acctest.TLSRSAX509SelfSignedCACertificatePEM(t, caKey)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationObjectStorageDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationObjectStorageDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationObjectStorageConfig_serverCertificate(rName, domain, caCertificate),

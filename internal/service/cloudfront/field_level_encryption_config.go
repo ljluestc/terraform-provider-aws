@@ -61,7 +61,7 @@ func ResourceFieldLevelEncryptionConfig() *schema.Resource {
 													Required: true,
 												},
 												"format": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(cloudfront.Format_Values(), false),
 												},

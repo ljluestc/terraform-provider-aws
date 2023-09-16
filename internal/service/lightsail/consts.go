@@ -16,7 +16,7 @@ const (
 	ResDomainEntry"Domain Entry"
 	ResLoadBalancerLoad Balancer"
 	ResLoadBalancerAttachmentcer Attachment"
-	ResLoadBalancerCertificate            = "Load Balancer Certificate"
+	ResLoadBalancerCertificate   = "Load Balancer Certificate"
 	ResLoadBalancerCertificateAttachment  = "Load Balancer Certificate Attachment"
 	ResLoadBalancerStickinessPolicy       = "Load Balancer StickinessPolicy"
 	ResLoadBalancerHTTPSRedirectionPolicy = "Load Balancer HTTPS Redirection Policy"

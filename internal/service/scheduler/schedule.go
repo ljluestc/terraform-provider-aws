@@ -51,12 +51,12 @@ func resourceSchedule() *schema.Resource {
 			},
 			"description": {
 				Type:ring,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(0, 512)),
 			},
 			"end_date": {
 				Type:ring,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.IsRFC3339Time),
 			},
 			"flexible_time_window": {
@@ -67,12 +67,12 @@ func resourceSchedule() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"maximum_window_in_minutes": {
 							Type:t,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(1, 1440)),
 						},
 						"mode": {
 							Type:ring,
-							Required:         true,
+							Required:true,
 							ValidateDiagFunc: enum.Validate[types.FlexibleTimeWindowMode](),
 						},
 					},
@@ -89,11 +89,11 @@ func resourceSchedule() *schema.Resource {
 			},
 			"kms_key_arn": {
 				Type:ring,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -104,7 +104,7 @@ func resourceSchedule() *schema.Resource {
 				)),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -116,24 +116,24 @@ func resourceSchedule() *schema.Resource {
 			},
 			"schedule_expression": {
 				Type:ring,
-				Required:         true,
+				Required:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 256)),
 			},
 			"schedule_expression_timezone": {
 				Type:ring,
-				Optional:         true,
-				Default:          "UTC",
+				Optional:true,
+				Default: "UTC",
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 50)),
 			},
 			"start_date": {
 				Type:ring,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.IsRFC3339Time),
 			},
 			"state": {
 				Type:ring,
-				Optional:         true,
-				Default:          types.ScheduleStateEnabled,
+				Optional:true,
+				Default: types.ScheduleStateEnabled,
 				ValidateDiagFunc: enum.Validate[types.ScheduleState](),
 			},
 			"target": {
@@ -144,7 +144,7 @@ func resourceSchedule() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"arn": {
 							Type:ring,
-							Required:         true,
+							Required:true,
 							ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
 						},
 						"dead_letter_config": {
@@ -155,7 +155,7 @@ func resourceSchedule() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"arn": {
 										Type:ring,
-										Required:         true,
+										Required:true,
 										ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
 									},
 								},
@@ -176,17 +176,17 @@ func resourceSchedule() *schema.Resource {
 											Schema: map[string]*schema.Schema{
 												"base": {
 													Type:t,
-													Optional:         true,
+													Optional:true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(0, 100000)),
 												},
 												"capacity_provider": {
 													Type:ring,
-													Required:         true,
+													Required:true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 255)),
 												},
 												"weight": {
 													Type:t,
-													Optional:         true,
+													Optional:true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(0, 1000)),
 												},
 											},
@@ -202,12 +202,12 @@ func resourceSchedule() *schema.Resource {
 									},
 									"group": {
 										Type:ring,
-										Optional:         true,
+										Optional:true,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 255)),
 									},
 									"launch_type": {
 										Type:ring,
-										Optional:         true,
+										Optional:true,
 										ValidateDiagFunc: enum.Validate[types.LaunchType](),
 									},
 									"network_configuration": {
@@ -243,12 +243,12 @@ func resourceSchedule() *schema.Resource {
 											Schema: map[string]*schema.Schema{
 												"expression": {
 													Type:ring,
-													Optional:         true,
+													Optional:true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 2000)),
 												},
 												"type": {
 													Type:ring,
-													Required:         true,
+													Required:true,
 													ValidateDiagFunc: enum.Validate[types.PlacementConstraintType](),
 												},
 											},
@@ -270,7 +270,7 @@ func resourceSchedule() *schema.Resource {
 												},
 												"type": {
 													Type:ring,
-													Required:         true,
+													Required:true,
 													ValidateDiagFunc: enum.Validate[types.PlacementStrategyType](),
 												},
 											},
@@ -282,7 +282,7 @@ func resourceSchedule() *schema.Resource {
 									},
 									"propagate_tags": {
 										Type:ring,
-										Optional:         true,
+										Optional:true,
 										ValidateDiagFunc: enum.Validate[types.PropagateTags](),
 									},
 									"reference_id": {
@@ -292,13 +292,13 @@ func resourceSchedule() *schema.Resource {
 									"tags": tftags.TagsSchema(),
 									"task_count": {
 										Type:t,
-										Optional:         true,
-										Default:          1,
+										Optional:true,
+										Default: 1,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(0, 10)),
 									},
 									"task_definition_arn": {
 										Type:ring,
-										Required:         true,
+										Required:true,
 										ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
 									},
 								},
@@ -312,12 +312,12 @@ func resourceSchedule() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"detail_type": {
 										Type:ring,
-										Required:         true,
+										Required:true,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 128)),
 									},
 									"source": {
 										Type:ring,
-										Required:         true,
+										Required:true,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 256)),
 									},
 								},
@@ -325,7 +325,7 @@ func resourceSchedule() *schema.Resource {
 						},
 						"input": {
 							Type:ring,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, math.MaxInt)),
 						},
 						"kinesis_parameters": {
@@ -336,7 +336,7 @@ func resourceSchedule() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"partition_key": {
 										Type:ring,
-										Required:         true,
+										Required:true,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 256)),
 									},
 								},
@@ -350,14 +350,14 @@ func resourceSchedule() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"maximum_event_age_in_seconds": {
 										Type:t,
-										Optional:         true,
-										Default:          86400,
+										Optional:true,
+										Default: 86400,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(60, 86400)),
 									},
 									"maximum_retry_attempts": {
 										Type:t,
-										Optional:         true,
-										Default:          185,
+										Optional:true,
+										Default: 185,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(0, 185)),
 									},
 								},
@@ -374,7 +374,7 @@ func resourceSchedule() *schema.Resource {
 						},
 						"role_arn": {
 							Type:ring,
-							Required:         true,
+							Required:true,
 							ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
 						},
 						"sagemaker_pipeline_parameters": {
@@ -392,12 +392,12 @@ func resourceSchedule() *schema.Resource {
 											Schema: map[string]*schema.Schema{
 												"name": {
 													Type:ring,
-													Required:         true,
+													Required:true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 256)),
 												},
 												"value": {
 													Type:ring,
-													Required:         true,
+													Required:true,
 													ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 												},
 											},
@@ -414,7 +414,7 @@ func resourceSchedule() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"message_group_id": {
 										Type:ring,
-										Optional:         true,
+										Optional:true,
 										ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 128)),
 									},
 								},
@@ -570,7 +570,7 @@ func resourceScheduleUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	in := &scheduler.UpdateScheduleInput{
 		FlexibleTimeWindow: expandFlexibleTimeWindow(d.Get("flexible_time_window").([]interface{})[0].(map[string]interface{})),
-		GroupName:          aws.String(d.Get("group_name").(string)),
+		GroupName: aws.String(d.Get("group_name").(string)),
 		Name:d.Get("name").(string)),
 		ScheduleExpression: aws.String(d.Get("schedule_expression").(string)),
 		Target:ctx, d.Get("target").([]interface{})[0].(map[string]interface{})),

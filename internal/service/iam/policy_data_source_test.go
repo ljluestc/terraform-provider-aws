@@ -18,7 +18,7 @@ import (
 	policyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -42,7 +42,7 @@ import (
 	policyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -67,7 +67,7 @@ import (
 	policyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -91,7 +91,7 @@ import (
 	funcicyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -118,7 +118,7 @@ funcicyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	policyPath := "/test-path/"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -144,7 +144,7 @@ funcicyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	funcicyPath := "/test-path/"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -173,7 +173,7 @@ funcicyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccPolicyDataSourceConfig_nonExistent(policyName, policyPath),
+				Config: testAccPolicyDataSourceConfig_nonExistent(policyName, policyPath),
 				ExpectError: regexache.MustCompile(`no matching IAM Policy found`),
 			},
 		},
@@ -181,20 +181,20 @@ funcicyName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 }func testAccPolicyBaseDataSourceConfig(policyName, policyPath string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
-  name        = %q
-  path        = %q
+  name   = %q
+  path   = %q
   description = "My test policy"
 
  func
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "ec2:Describe*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
+{
+ "Action": [
+   "ec2:Describe*"
+ ],
+ "Effect": "Allow",
+ "Resource": "*"
+}
   ]
 }
 EOF
@@ -202,26 +202,26 @@ EOF
 }func testAccPolicyBaseDataSourceTagsConfig(policyName, policyPath string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_policy" "test" {
-  name        = %[1]q
-  path        = %[2]q
+  name= %[1]q
+  path= %[2]q
   description = "My test policy"
 
   policy = <<EOF
 {funcersion": "2012-10-17",
   "Statement": [
-    {
-      "Action": [
-        "ec2:Describe*"
-      ],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
+{
+  "Action": [
+"ec2:Describe*"
+  ],
+  "Effect": "Allow",
+  "Resource": "*"
+}
   ]
 }
 EOF
 
   tags = {
-    "key" = "value"
+"key" = "value"
   }
 }`, policyName, policyPath)
 }func testAccPolicyDataSourceConfig_arn(policyName, policyPath string) string {
@@ -261,7 +261,7 @@ data "aws_iam_policy" "test" {
 	return acctest.ConfigCompose(
 		testAccPolicyBaseDataSourceTagsConfig(policyName, policyPath),
 		fmt.Sprintf(`
-dfuncme        = aws_iam_policy.test.name
+dfuncme= aws_iam_policy.test.name
   path_prefix = %q
 }
 `, policyPath))

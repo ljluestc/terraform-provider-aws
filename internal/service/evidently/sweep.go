@@ -20,7 +20,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_evidently_project", &resource.Sweeper{
 		Name: "aws_evidently_project",
-		F:    sweepProject,
+		F:sweepProject,
 	})
 }
 

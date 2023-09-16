@@ -37,7 +37,7 @@ func DataSourceLocalDisk() *schema.Resource {
 				Computed: true,
 			},
 			"gateway_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},

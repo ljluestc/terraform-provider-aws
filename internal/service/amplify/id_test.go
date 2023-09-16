@@ -13,38 +13,38 @@ func TestBranchParseResourceID(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-		TestName           string
-		InputID            string
-		ExpectError        bool
-		ExpectedAppID      string
+		TestName  string
+		InputID   string
+		ExpectErrorbool
+		ExpectedAppID  string
 		ExpectedBranchName string
 	}{
 		{
-			TestName:    "empty ID",
-			InputID:     "",
+			TestName:"empty ID",
+			InputID: "",
 			ExpectError: true,
 		},
 		{
-			TestName:    "incorrect format",
-			InputID:     "test",
+			TestName:"incorrect format",
+			InputID: "test",
 			ExpectError: true,
 		},
 		{
-			TestName:           "valid ID",
-			InputID:            tfamplify.BranchCreateResourceID("appID", "branchName"),
-			ExpectedAppID:      "appID",
+			TestName:  "valid ID",
+			InputID:   tfamplify.BranchCreateResourceID("appID", "branchName"),
+			ExpectedAppID:  "appID",
 			ExpectedBranchName: "branchName",
 		},
 		{
-			TestName:           "valid ID one slash",
-			InputID:            tfamplify.BranchCreateResourceID("appID", "part1/part_2"),
-			ExpectedAppID:      "appID",
+			TestName:  "valid ID one slash",
+			InputID:   tfamplify.BranchCreateResourceID("appID", "part1/part_2"),
+			ExpectedAppID:  "appID",
 			ExpectedBranchName: "part1/part_2",
 		},
 		{
-			TestName:           "valid ID three slashes",
-			InputID:            tfamplify.BranchCreateResourceID("appID", "part1/part_2/part-3/part4"),
-			ExpectedAppID:      "appID",
+			TestName:  "valid ID three slashes",
+			InputID:   tfamplify.BranchCreateResourceID("appID", "part1/part_2/part-3/part4"),
+			ExpectedAppID:  "appID",
 			ExpectedBranchName: "part1/part_2/part-3/part4",
 		},
 	}

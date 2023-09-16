@@ -28,17 +28,17 @@ func ResourceTag() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"resource_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"key": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"value": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 		},

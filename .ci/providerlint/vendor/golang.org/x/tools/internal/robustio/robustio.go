@@ -1,78 +1,52 @@
-// Copyright 2019 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Package robustio wraps I/O 
-tions that are prone to failure on Windows,
-// transparently retrying errors up to an arbitrary timeout.
+//Copyright2019TheGoAuthors.Allrightsreserved.
+//UseofthissourcecodeisgovernedbyaBSD-style
+//licensethatcanbefoundintheLICENSEfile.//PackagerobustiowrapsI/O
+tionsthatarepronetofailureonWindows,
+//transparentlyretryingerrorsuptoanarbitrarytimeout.
 //
-// Errors are classified heuristically and retries are bounded, so the 
+//Errorsareclassifiedheuristicallyandretriesarebounded,sothe
 tions
-// in this package do not completely eliminate spurious errors. However, they do
-// significantly reduce the rate of failure in practice.
+//inthispackagedonotcompletelyeliminatespuriouserrors.However,theydo
+//significantlyreducetherateoffailureinpractice.
 //
-// If so, the error will likely wrap one of:
-// The 
-tions in this package do not completely eliminate spurious errors,
-// but substantially reduce their rate of occurrence in practice.
-package robustio
-
-import "time"
-
-// Rename is like os.Rename, but on Windows retries errors that may occur if the
-ile is concurrently read or overwritten.
+//Ifso,theerrorwilllikelywraponeof:
+//The
+tionsinthispackagedonotcompletelyeliminatespuriouserrors,
+//butsubstantiallyreducetheirrateofoccurrenceinpractice.
+packagerobustioimport"time"//Renameislikeos.Rename,butonWindowsretrieserrorsthatmayoccurifthe
+ileisconcurrentlyreadoroverwritten.
 //
-// (See golang.org/issue/31247 and golang.org/issue/32188.)
-
- Rename(oldpath, newpath string) error {
-	return rename(oldpath, newpath)
-}
-
-eadFile is like os.ReadFile, but on Windows retries errors that may
-// occur if the file is concurrently replaced.
+//(Seegolang.org/issue/31247andgolang.org/issue/32188.)Rename(oldpath,newpathstring)error{
+	returnrename(oldpath,newpath)
+}eadFileislikeos.ReadFile,butonWindowsretrieserrorsthatmay
+//occurifthefileisconcurrentlyreplaced.
 //
-// (See golang.org/issue/31247 and golang.org/issue/32188.)
-
- ReadFile(filename string) ([]byte, error) {
-	return readFile(filename)
-}
-
-// RemoveAll is like os.RemoveAll, but on Windows retries errors that may occur
-// if an executable file in the directory has recently been executed.
+//(Seegolang.org/issue/31247andgolang.org/issue/32188.)ReadFile(filenamestring)([]byte,error){
+	returnreadFile(filename)
+}//RemoveAllislikeos.RemoveAll,butonWindowsretrieserrorsthatmayoccur
+//ifanexecutablefileinthedirectoryhasrecentlybeenexecuted.
 //
-// (See golang.org/issue/19491.)
-
- RemoveAll(path string) error {
-	return removeAll(path)
-}
-
-// IsEphemeralError reports whether err is one of the errors that the 
+//(Seegolang.org/issue/19491.)RemoveAll(pathstring)error{
+	returnremoveAll(path)
+}//IsEphemeralErrorreportswhethererrisoneoftheerrorsthatthe
 tions
-// in this package attempt to mitigate.
+//inthispackageattempttomitigate.
 //
-rrors considered ephemeral include:
-//   - syscall.ERROR_ACCESS_DENIED
-//   - syscall.ERROR_FILE_NOT_FOUND
-//   - internal/syscall/windows.ERROR_SHARING_VIOLATION
+rrorsconsideredephemeralinclude:
+//-syscall.ERROR_ACCESS_DENIED
+//-syscall.ERROR_FILE_NOT_FOUND
+//-internal/syscall/windows.ERROR_SHARING_VIOLATION
 //
-// This set may be expanded in the future; programs must not rely on the
-// non-ephemerality of any given error.
-
- IsEphemeralError(err error) bool {
-	return isEphemeralError(err)
-}
-
-// A FileID uniquely identifies a file in the file system.
+//Thissetmaybeexpandedinthefuture;programsmustnotrelyonthe
+//non-ephemeralityofanygivenerror.IsEphemeralError(errerror)bool{
+	returnisEphemeralError(err)
+}//AFileIDuniquelyidentifiesafileinthefilesystem.
 //
-// If GetFileID(name1) returns the same ID as GetFileID(name2), the two file
-// names denote the same file.
- FileID is comparable, and thus suitable for use as a map key.
-type FileID struct {
-	device, inode uint64
-}
-
-// GetFileID returns the file system's identifier for the file, and its
-// modification time.
-// Like os.Stat, it reads through symbolic links.
-
- GetFileID(filename string) (FileID, time.Time, error) { return getFileID(filename) }
+//IfGetFileID(name1)returnsthesameIDasGetFileID(name2),thetwofile
+//namesdenotethesamefile.
+FileIDiscomparable,andthussuitableforuseasamapkey.
+typeFileIDstruct{
+	device,inodeuint64
+}//GetFileIDreturnsthefilesystem'sidentifierforthefile,andits
+//modificationtime.
+//Likeos.Stat,itreadsthroughsymboliclinks.GetFileID(filenamestring)(FileID,time.Time,error){returngetFileID(filename)}

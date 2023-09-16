@@ -30,9 +30,9 @@ func testAccMemberAssociation_basic(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckMemberAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckMemberAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberAssociationConfig_basic(),
@@ -65,9 +65,9 @@ func testAccMemberAssociation_disappears(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckMemberAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckMemberAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMemberAssociationConfig_basic(),

@@ -22,10 +22,10 @@ import (
 	resourceName := "aws_s3_bucket_logging.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketLoggingDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketLoggingDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketLoggingConfig_basic(rName),
@@ -50,10 +50,10 @@ import (
 	resourceName := "aws_s3_bucket_logging.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketLoggingDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketLoggingDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketLoggingConfig_basic(rName),
@@ -70,10 +70,10 @@ import (
 	funcourceName := "aws_s3_bucket_logging.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketLoggingDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketLoggingDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketLoggingConfig_basic(rName),
@@ -104,10 +104,10 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketLoggingDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketLoggingDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketLoggingConfig_targetGrantByID(rName, s3.BucketLogsPermissionFullControl),
@@ -166,10 +166,10 @@ import (
 	resourceName := "aws_s3_bucket_logging.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketLoggingDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketLoggingDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketLoggingConfig_targetGrantByEmail(rName, rEmail, s3.BucketLogsPermissionFullControl),
@@ -177,10 +177,10 @@ import (
 					testAccCheckBucketLoggingExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "target_grant.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "target_grant.*", map[string]string{
-						"grantee.#":               "1",
+						"grantee.#":      "1",
 						"grantee.0.email_address": rEmail,
-						"grantee.0.type":          s3.TypeAmazonCustomerByEmail,
-						"permission":              s3.BucketLogsPermissionFullControl,
+						"grantee.0.type": s3.TypeAmazonCustomerByEmail,
+						"permission":     s3.BucketLogsPermissionFullControl,
 					}),
 				),
 			},
@@ -221,10 +221,10 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_logging.test"
 
-	funceCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funceCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketLoggingDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketLoggingDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketLoggingConfig_targetGrantByGroup(rName, s3.BucketLogsPermissionFullControl),
@@ -277,10 +277,10 @@ import (
 	bucketResourceName := "aws_s3_bucket.test"
 	resourceName := "aws_s3_bucket_logging.test"
 
-	funceCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funceCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_logging(bucketName),
@@ -308,9 +308,9 @@ import (
 	resourceName := "aws_s3_bucket_logging.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-	funcrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funcrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_logging(bucketName),
@@ -337,9 +337,9 @@ import (
 	resourceName := "aws_s3_bucket_logging.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-	funceckDestroy:             testAccCheckBucketLoggingDestroy(ctx),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
+	funceckDestroy:    testAccCheckBucketLoggingDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketLoggingConfig_withExpectedBucketOwner(rName),
@@ -480,7 +480,7 @@ resource "aws_s3_bucket_logging" "test" {
   target_grant {
     grantee {
       email_address = %[1]q
-      type          = "AmazonCustomerByEmail"
+      type = "AmazonCustomerByEmail"
     }
     permission = %[2]q
   }

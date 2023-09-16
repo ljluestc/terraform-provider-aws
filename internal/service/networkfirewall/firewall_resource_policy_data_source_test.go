@@ -20,7 +20,7 @@ func TestAccNetworkFirewallFirewallResourcePolicyDataSource_basic(t *testing.T) 
 	resourceName := "aws_networkfirewall_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -49,8 +49,8 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 }
 
@@ -58,18 +58,18 @@ resource "aws_networkfirewall_resource_policy" "test" {
   resource_arn = aws_networkfirewall_firewall_policy.test.arn
 
   policy = jsonencode({
-    Statement = [{
-      Action = [
-        "network-firewall:AssociateFirewallPolicy",
-        "network-firewall:ListFirewallPolicies",
-      ]
-      Effect   = "Allow"
-      Resource = aws_networkfirewall_firewall_policy.test.arn
-      Principal = {
-        AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
-      }
-    }]
-    Version = "2012-10-17"
+Statement = [{
+ Action = [
+   "network-firewall:AssociateFirewallPolicy",
+   "network-firewall:ListFirewallPolicies",
+ ]
+ Effect   = "Allow"
+ Resource = aws_networkfirewall_firewall_policy.test.arn
+ Principal = {
+   AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ }
+}]
+Version = "2012-10-17"
   })
 }
 `, rName)

@@ -36,7 +36,7 @@ func ResourceVoiceConnectorTermination() *schema.Resource {
 				Required: true,
 				MinItems: 1,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(2, 2),
 				},
 			},
@@ -45,18 +45,18 @@ func ResourceVoiceConnectorTermination() *schema.Resource {
 				Required: true,
 				MinItems: 1,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.IsCIDRNetwork(27, 32),
 				},
 			},
 			"cps_limit": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      1,
 				ValidateFunc: validation.IntAtLeast(1),
 			},
 			"default_phone_number": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^\+?[1-9]\d{1,14}$`), "must match ^\\+?[1-9]\\d{1,14}$"),
 			},

@@ -19,7 +19,7 @@ func dataSourceAccountPublicAccessBlock() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidAccountID,
 			},

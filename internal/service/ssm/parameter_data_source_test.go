@@ -19,8 +19,8 @@ func TestAccSSMParameterDataSource_basic(t *testing.T) {
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -54,8 +54,8 @@ func TestAccSSMParameterDataSource_fullPath(t *testing.T) {
 	name := sdkacctest.RandomWithPrefix("/tf-acc-test/tf-acc-test")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -80,10 +80,10 @@ func TestAccSSMParameterDataSource_insecureValue(t *testing.T) {
 	dataSourceName := "data.aws_ssm_parameter.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckParameterDestroy(ctx),
+		CheckDestroy:    testAccCheckParameterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterConfig_insecureValue(rName, "String"),
@@ -105,7 +105,7 @@ resource "aws_ssm_parameter" "test" {
 }
 
 data "aws_ssm_parameter" "test" {
-  name            = aws_ssm_parameter.test.name
+  name   = aws_ssm_parameter.test.name
   with_decryption = %s
 }
 `, name, withDecryption)
@@ -114,8 +114,8 @@ data "aws_ssm_parameter" "test" {
 func testAccParameterConfig_insecureValue(rName, pType string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_parameter" "test" {
-  name           = %[1]q
-  type           = %[2]q
+  name  = %[1]q
+  type  = %[2]q
   insecure_value = "notsecret"
 }
 

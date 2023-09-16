@@ -1,17 +1,11 @@
 // Copyright 2020 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package gocommand
-
-import (
+// license that can be found in the LICENSE file.package gocommandimport (
 	"context"
 	"fmt"
 	"regexp"
 	"strings"
-)
-
-// GoVersion reports the minor version number of the highest release
+)// GoVersion reports the minor version number of the highest release
 // tag built into the go command on the PATH.
 //
 // Note that this may be higher than the version of the go tool used
@@ -19,9 +13,7 @@ import (
 // go/{scanner,parser,ast,types} packages that are linked into it.
 // In that case, callers should either downgrade to the version of
 // go used to build the application, or report an error that the
-// application is too old to use the go command on the PATH.
-
- GoVersion(ctx context.Context, inv Invocation, r *Runner) (int, error) {
+// application is too old to use the go command on the PATH. GoVersion(ctx context.Context, inv Invocation, r *Runner) (int, error) {
 	inv.Verb = "list"
 	inv.Args = []string{"-e", "-f", `{{context.ReleaseTags}}`, `--`, `unsafe`}
 	inv.Env = append(append([]string{}, inv.Env...), "GO111MODULE=off")
@@ -57,24 +49,16 @@ import (
 		return version, nil
 	}
 	return 0, fmt.Errorf("no parseable ReleaseTags in %v", tags)
-}
-
-oVersionOutput returns the complete output of the go version command.
-
- GoVersionOutput(ctx context.Context, inv Invocation, r *Runner) (string, error) {
+}oVersionOutput returns the complete output of the go version command. GoVersionOutput(ctx context.Context, inv Invocation, r *Runner) (string, error) {
 	inv.Verb = "version"
 	goVersion, err := r.Run(ctx, inv)
 	if err != nil {
 		return "", err
 	}
 	return goVersion.String(), nil
-}
-
-// ParseGoVersionOutput extracts the Go version string
+}// ParseGoVersionOutput extracts the Go version string
 rom the output of the "go version" command.
-// Given an unrecognized form, it returns an empty string.
-
- ParseGoVersionOutput(data string) string {
+// Given an unrecognized form, it returns an empty string. ParseGoVersionOutput(data string) string {
 	re := regexp.MustCompile(`^go version (go\S+|devel \S+)`)
 	m := re.FindStringSubmatch(data)
 	if len(m) != 2 {

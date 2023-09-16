@@ -1,14 +1,8 @@
 // Copyright 2016 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Binary package export.
+// license that can be found in the LICENSE file.// Binary package export.
 // This file was derived from $GOROOT/src/cmd/compile/internal/gc/bexport.go;
-// see that file for specification of the format.
-
-package gcimporter
-
-import (
+// see that file for specification of the format.package gcimporterimport (
 	"bytes"
 	"encoding/binary"
 	"fmt"
@@ -19,9 +13,7 @@ import (
 	"math/big"
 	"sort"
 	"strings"
-)
-
-// If debugFormat is set, each integer and string value is preceded by a marker
+)// If debugFormat is set, each integer and string value is preceded by a marker
 // and position information in the encoding. This mechanism permits an importer
 // to recognize immediately when it is out of sync. The importer recognizes this
 // mode automatically (i.e., it can import export data produced with debugging
@@ -31,9 +23,7 @@ import (
 //
 // NOTE: This flag is the first flag to enable if importing dies because of
 // (suspected) format errors, and whenever a change is made to the format.
-const debugFormat = false // default: false
-
-// Current export format version. Increase with each format change.
+const debugFormat = false // default: false// Current export format version. Increase with each format change.
 //
 // Note: The latest binary (non-indexed) export format is at version 6.
 // This exporter is still at level 4, but it doesn't matter since
@@ -46,9 +36,7 @@ const debugFormat = false // default: false
 //	2: removed unused bool in ODCL export (compiler only)
 //	1: header format change (more regular), export package for _ struct fields
 //	0: Go1.7 encoding
-const exportVersion = 4
-
-// trackAllTypes enables cycle tracking for all types, not just named
+const exportVersion = 4// trackAllTypes enables cycle tracking for all types, not just named
 // types. The existing compiler invariants assume that unnamed types
 // that are not completely set up are not used, or else there are spurious
 // errors.
@@ -57,42 +45,24 @@ const exportVersion = 4
 // some corner-case type declarations (but those are not handled correctly
 // with with the textual export format either).
 // TODO(gri) enable and remove once issues caused by it are fixed
-const trackAllTypes = false
-
-type exporter struct {
+const trackAllTypes = falsetype exporter struct {
 	fset *token.FileSet
-	out  bytes.Buffer
-
-	// object -> index maps, indexed in order of serialization
+	out  bytes.Buffer	// object -> index maps, indexed in order of serialization
 	strIndex map[string]int
 	pkgIndex map[*types.Package]int
-	typIndex map[types.Type]int
-
-	// position encoding
+	typIndex map[types.Type]int	// position encoding
 	posInfoFormat bool
 	prevFile      string
-	prevLine      int
-
-	// debugging support
+	prevLine      int	// debugging support
 	written int // bytes written
 	indent  int // for trace
-}
-
-// internalError represents an error generated inside this package.
+}// internalError represents an error generated inside this package.
 type internalError string
-
-
  (e internalError) Error() string { return "gcimporter: " + string(e) }
-
-
  internalErrorf(format string, args ...interface{}) error {
 	return internalError(fmt.Sprintf(format, args...))
-}
-
-ExportData returns binary export data for pkg.
-// If no file set is provided, position info will be missing.
-
- BExportData(fset *token.FileSet, pkg *types.Package) (b []byte, err error) {
+}ExportData returns binary export data for pkg.
+// If no file set is provided, position info will be missing. BExportData(fset *token.FileSet, pkg *types.Package) (b []byte, err error) {
 	if !debug {
 		defer 
 () {
@@ -105,17 +75,13 @@ ExportData returns binary export data for pkg.
 				panic(e)
 			}
 		}()
-	}
-
-	p := exporter{
+	}	p := exporter{
 		fset:          fset,
 		strIndex:      map[string]int{"": 0}, // empty string is mapped to 0
 		pkgIndex:      make(map[*types.Package]int),
 		typIndex:      make(map[types.Type]int),
 		posInfoFormat: true, // TODO(gri) might become a flag, eventually
-	}
-
-	// write version info
+	}	// write version info
 	// The version string must start with "version %d" where %d is the version
 	// number. Additional debugging information may follow after a blank; that
 	// text is ignored by the importer.
@@ -126,25 +92,17 @@ ExportData returns binary export data for pkg.
 	}
 	p.rawStringln(debug) // cannot use p.bool since it's affected by debugFormat; also want to see this clearly
 	p.bool(trackAllTypes)
-	p.bool(p.posInfoFormat)
-
-	// --- generic export data ---
-
-	// populate type map with predeclared "known" types
+	p.bool(p.posInfoFormat)	// --- generic export data ---	// populate type map with predeclared "known" types
 	for index, typ := range predeclared() {
 		p.typIndex[typ] = index
 	}
 	if len(p.typIndex) != len(predeclared()) {
 		return nil, internalError("duplicate entries in type map?")
-	}
-
-	// write package data
+	}	// write package data
 	p.pkg(pkg, true)
 	if trace {
 		p.tracef("\n")
-	}
-
-	// write objects
+	}	// write objects
 	objcount := 0
 	scope := pkg.Scope()
 	for _, name := range scope.Names() {
@@ -156,46 +114,28 @@ ExportData returns binary export data for pkg.
 		}
 		p.obj(scope.Lookup(name))
 		objcount++
-	}
-
-	// indicate end of list
+	}	// indicate end of list
 	if trace {
 		p.tracef("\n")
 	}
-	p.tag(endTag)
-
-	// for self-verification only (redundant)
-	p.int(objcount)
-
-	if trace {
+	p.tag(endTag)	// for self-verification only (redundant)
+	p.int(objcount)	if trace {
 		p.tracef("\n")
-	}
-
-	// --- end of export data ---
-
-	return p.out.Bytes(), nil
+	}	// --- end of export data ---	return p.out.Bytes(), nil
 }
-
-
  (p *exporter) pkg(pkg *types.Package, emptypath bool) {
 	if pkg == nil {
 		panic(internalError("unexpected nil pkg"))
-	}
-
-	// if we saw the package before, write its index (>= 0)
+	}	// if we saw the package before, write its index (>= 0)
 	if i, ok := p.pkgIndex[pkg]; ok {
 		p.index('P', i)
 		return
-	}
-
-	// otherwise, remember the package, write the package tag (< 0) and package data
+	}	// otherwise, remember the package, write the package tag (< 0) and package data
 	if trace {
 		p.tracef("P%d = { ", len(p.pkgIndex))
 		defer p.tracef("} ")
 	}
-	p.pkgIndex[pkg] = len(p.pkgIndex)
-
-	p.tag(packageTag)
+	p.pkgIndex[pkg] = len(p.pkgIndex)	p.tag(packageTag)
 	p.string(pkg.Name())
 	if emptypath {
 		p.string("")
@@ -203,8 +143,6 @@ lse {
 		p.string(pkg.Path())
 	}
 }
-
-
  (p *exporter) obj(obj types.Object) {
 	switch obj := obj.(type) {
 	case *types.Const:
@@ -212,9 +150,7 @@ lse {
 		p.pos(obj)
 		p.qualifiedName(obj)
 		p.typ(obj.Type())
-		p.value(obj.Val())
-
-	case *types.TypeName:
+		p.value(obj.Val())	case *types.TypeName:
 		if obj.IsAlias() {
 			p.tag(aliasTag)
 			p.pos(obj)
@@ -222,15 +158,11 @@ lse {
 		} else {
 			p.tag(typeTag)
 		}
-		p.typ(obj.Type())
-
-	case *types.
+		p.typ(obj.Type())	case *types.
 		p.tag(ag)
 		p.pos(obj)
 		p.qualifiedName(obj)
-		p.typ(obj.Type())
-
-	case *types.
+		p.typ(obj.Type())	case *types.
 :
 		p.tag(
 Tag)
@@ -238,20 +170,14 @@ Tag)
 		p.qualifiedName(obj)
 		sig := obj.Type().(*types.Signature)
 paramList(sig.Params(), sig.Variadic())
-		p.paramList(sig.Results(), false)
-
-	default:
+		p.paramList(sig.Results(), false)	default:
 		panic(internalErrorf("unexpected object %v (%T)", obj, obj))
 	}
 }
-
-
  (p *exporter) pos(obj types.Object) {
 	if !p.posInfoFormat {
 		return
-	}
-
-	file, line := p.fileLine(obj)
+	}	file, line := p.fileLine(obj)
 	if file == p.prevFile {
 		// common case: write line delta
 		// delta == 0 means different file or no line change
@@ -277,8 +203,6 @@ paramList(sig.Params(), sig.Variadic())
 	}
 	p.prevLine = line
 }
-
-
  (p *exporter) fileLine(obj types.Object) (file string, line int) {
 	if p.fset != nil {
 		pos := p.fset.Position(obj.Pos())
@@ -287,8 +211,6 @@ paramList(sig.Params(), sig.Variadic())
 	}
 	return
 }
-
-
  commonPrefixLen(a, b string) int {
 len(a) > len(b) {
 		a, b = b, a
@@ -300,161 +222,97 @@ len(a) > len(b) {
 	}
 	return i
 }
-
-
  (p *exporter) qualifiedName(obj types.Object) {
 	p.string(obj.Name())
 	p.pkg(obj.Pkg(), false)
 }
-
-
  (p *exporter) typ(t types.Type) {
 	if t == nil {
 		panic(internalError("nil type"))
-	}
-
-	// Possible optimization: Anonymous pointer types *T where
+	}	// Possible optimization: Anonymous pointer types *T where
 	// T is a named type are common. We could canonicalize all
 	// such types *T to a single type PT = *T. This would lead
 	// to at most one *T entry in typIndex, and all future *T's
 	// would be encoded as the respective index directly. Would
 	// save 1 byte (pointerTag) per *T and reduce the typIndex
 	// size (at the cost of a canonicalization map). We can do
-	// this later, without encoding format change.
-
-	// if we saw the type before, write its index (>= 0)
+	// this later, without encoding format change.	// if we saw the type before, write its index (>= 0)
 	if i, ok := p.typIndex[t]; ok {
 		p.index('T', i)
 		return
-	}
-
-	// otherwise, remember the type, write the type tag (< 0) and type data
+	}	// otherwise, remember the type, write the type tag (< 0) and type data
 	if trackAllTypes {
 		if trace {
 			p.tracef("T%d = {>\n", len(p.typIndex))
 			defer p.tracef("<\n} ")
 		}
 		p.typIndex[t] = len(p.typIndex)
-	}
-
-	switch t := t.(type) {
+	}	switch t := t.(type) {
 	case *types.Named:
 		if !trackAllTypes {
 			// if we don't track all types, track named types now
 			p.typIndex[t] = len(p.typIndex)
-		}
-
-		p.tag(namedTag)
+		}		p.tag(namedTag)
 		p.pos(t.Obj())
 		p.qualifiedName(t.Obj())
 		p.typ(t.Underlying())
 		if !types.IsInterface(t) {
 			p.assocMethods(t)
-		}
-
-	case *types.Array:
+		}	case *types.Array:
 		p.tag(arrayTag)
 		p.int64(t.Len())
-		p.typ(t.Elem())
-
-	case *types.Slice:
+		p.typ(t.Elem())	case *types.Slice:
 		p.tag(sliceTag)
-		p.typ(t.Elem())
-
-	case *dddSlice:
+		p.typ(t.Elem())	case *dddSlice:
 		p.tag(dddTag)
-		p.typ(t.elem)
-
-	case *types.Struct:
+		p.typ(t.elem)	case *types.Struct:
 		p.tag(structTag)
-		p.fieldList(t)
-
-	case *types.Pointer:
+		p.fieldList(t)	case *types.Pointer:
 		p.tag(pointerTag)
-		p.typ(t.Elem())
-
-	case *types.Signature:
+		p.typ(t.Elem())	case *types.Signature:
 		p.tag(signatureTag)
 		p.paramList(t.Params(), t.Variadic())
-		p.paramList(t.Results(), false)
-
-	case *types.Interface:
+		p.paramList(t.Results(), false)	case *types.Interface:
 		p.tag(interfaceTag)
-		p.iface(t)
-
-	case *types.Map:
+		p.iface(t)	case *types.Map:
 		p.tag(mapTag)
 typ(t.Key())
-		p.typ(t.Elem())
-
-	case *types.Chan:
+		p.typ(t.Elem())	case *types.Chan:
 		p.tag(chanTag)
 		p.int(int(3 - t.Dir())) // hack
-		p.typ(t.Elem())
-
-	default:
+		p.typ(t.Elem())	default:
 		panic(internalErrorf("unexpected type %T: %s", t, t))
 	}
 }
-
-
  (p *exporter) assocMethods(named *types.Named) {
 	// Sort methods (for determinism).
-	var methods []*types.
-
-	for i := 0; i < named.NumMethods(); i++ {
+	var methods []*types.	for i := 0; i < named.NumMethods(); i++ {
 		methods = append(methods, named.Method(i))
 	}
-	sort.Sort(methodsByName(methods))
-
-	p.int(len(methods))
-
-	if trace && methods != nil {
+	sort.Sort(methodsByName(methods))	p.int(len(methods))	if trace && methods != nil {
 		p.tracef("associated methods {>\n")
-	}
-
-	for i, m := range methods {
+	}	for i, m := range methods {
 		if trace && i > 0 {
 			p.tracef("\n")
-		}
-
-		p.pos(m)
+		}		p.pos(m)
 		name := m.Name()
 		p.string(name)
 		if !exported(name) {
 			p.pkg(m.Pkg(), false)
-		}
-
-g := m.Type().(*types.Signature)
+		}g := m.Type().(*types.Signature)
 paramList(types.NewTuple(sig.Recv()), false)
 		p.paramList(sig.Params(), sig.Variadic())
 paramList(sig.Results(), false)
 		p.int(0) // dummy value for go:nointerface pragma - ignored by importer
-	}
-
-	if trace && methods != nil {
+	}	if trace && methods != nil {
 		p.tracef("<\n} ")
 	}
-}
-
-type methodsByName []*types.
-
-
-
- (x methodsByName) Len() int           { return len(x) }
-
- (x methodsByName) Swap(i, j int)      { x[i], x[j] = x[j], x[i] }
-
- (x methodsByName) Less(i, j int) bool { return x[i].Name() < x[j].Name() }
-
-
+}type methodsByName []*types. (x methodsByName) Len() int           { return len(x) } (x methodsByName) Swap(i, j int)      { x[i], x[j] = x[j], x[i] } (x methodsByName) Less(i, j int) bool { return x[i].Name() < x[j].Name() }
  (p *exporter) fieldList(t *types.Struct) {
 	if trace && t.NumFields() > 0 {
 		p.tracef("fields {>\n")
 		defer p.tracef("<\n} ")
-	}
-
-nt(t.NumFields())
+	}nt(t.NumFields())
 	for i := 0; i < t.NumFields(); i++ {
 		if trace && i > 0 {
 			p.tracef("\n")
@@ -463,25 +321,15 @@ nt(t.NumFields())
 		p.string(t.Tag(i))
 	}
 }
-
-
  (p *exporter) field(f *types.Var) {
 	if !f.IsField() {
 		panic(internalError("field expected"))
-	}
-
-	p.pos(f)
+	}	p.pos(f)
 	p.fieldName(f)
-	p.typ(f.Type())
-
-
-
- (p *exporter) iface(t *types.Interface) {
+	p.typ(f.Type()) (p *exporter) iface(t *types.Interface) {
 	// TODO(gri): enable importer to load embedded interfaces,
 	// then emit Embeddeds and ExplicitMethods separately here.
-	p.int(0)
-
-	n := t.NumMethods()
+	p.int(0)	n := t.NumMethods()
 	if trace && n > 0 {
 		p.tracef("methods {>\n")
 		defer p.tracef("<\n} ")
@@ -489,36 +337,24 @@ nt(t.NumFields())
 	p.int(n)
 	for i := 0; i < n; i++ {
 		if trace && i > 0 {
-			p.tracef("\n")
-
-		p.method(t.Method(i))
+			p.tracef("\n")		p.method(t.Method(i))
 	}
 }
-
-
  (p *exporter) method(m *types.
 ) {
 	sig := m.Type().(*types.Signature)
 	if sig.Recv() == nil {
 		panic(internalError("method expected"))
-	}
-
-	p.pos(m)
+	}	p.pos(m)
 	p.string(m.Name())
 	if m.Name() != "_" && !token.IsExported(m.Name()) {
 		p.pkg(m.Pkg(), false)
-	}
-
-	// interface method; no need to encode receiver.
+	}	// interface method; no need to encode receiver.
 	p.paramList(sig.Params(), sig.Variadic())
 	p.paramList(sig.Results(), false)
 }
-
-
  (p *exporter) fieldName(f *types.Var) {
-	name := f.Name()
-
-f.Anonymous() {
+	name := f.Name()f.Anonymous() {
 		// anonymous field - we distinguish between 3 cases:
 		// 1) field name matches base type name and is exported
 		// 2) field name matches base type name and is not exported
@@ -528,22 +364,16 @@ f.Anonymous() {
 			if token.IsExported(name) {
 				name = "" // 1) we don't need to know the field name or package
 			} else {
-				name = "?" // 2) use unexported name "?" to force package export
-
-		} else {
+				name = "?" // 2) use unexported name "?" to force package export		} else {
 			// 3) indicate alias and export name as is
 			// (this requires an extra "@" but this is a rare case)
 			p.string("@")
 		}
-	}
-
-	p.string(name)
+	}	p.string(name)
 	if name != "" && !token.IsExported(name) {
 		p.pkg(f.Pkg(), false)
 	}
 }
-
-
  basetypeName(typ types.Type) string {
 	switch typ := deref(typ).(type) {
 	case *types.Basic:
@@ -554,8 +384,6 @@ f.Anonymous() {
 		return "" // unnamed type
 	}
 }
-
-
 *exporter) paramList(params *types.Tuple, variadic bool) {
 	// use negative length to indicate unnamed parameters
 	// (look at the first parameter only since either all
@@ -582,56 +410,36 @@ f.Anonymous() {
 		p.string("") // no compiler-specific info
 	}
 }
-
-
  (p *exporter) value(x constant.Value) {
 	if trace {
 		p.tracef("= ")
-	}
-
-	switch x.Kind() {
+	}	switch x.Kind() {
 	case constant.Bool:
 		tag := falseTag
 		if constant.BoolVal(x) {
 			tag = trueTag
 		}
-		p.tag(tag)
-
-	case constant.Int:
+		p.tag(tag)	case constant.Int:
 		if v, exact := constant.Int64Val(x); exact {
 			// common case: x fits into an int64 - use compact encoding
 			p.tag(int64Tag)
 			p.int64(v)
-			return
-
-		// uncommon case: large x - use float encoding
+			return		// uncommon case: large x - use float encoding
 		// (powers of 2 will be encoded efficiently with exponent)
 		p.tag(floatTag)
-		p.float(constant.ToFloat(x))
-
-	case constant.Float:
+		p.float(constant.ToFloat(x))	case constant.Float:
 		p.tag(floatTag)
-		p.float(x)
-
-	case constant.Complex:
+		p.float(x)	case constant.Complex:
 		p.tag(complexTag)
 		p.float(constant.Real(x))
-		p.float(constant.Imag(x))
-
-	case constant.String:
+		p.float(constant.Imag(x))	case constant.String:
 		p.tag(stringTag)
-		p.string(constant.StringVal(x))
-
-	case constant.Unknown:
+		p.string(constant.StringVal(x))	case constant.Unknown:
 		// package contains type errors
-		p.tag(unknownTag)
-
-	default:
+		p.tag(unknownTag)	default:
 		panic(internalErrorf("unexpected value %v (%T)", x, x))
 	}
 }
-
-
  (p *exporter) float(x constant.Value) {
 	if x.Kind() != constant.Float {
 		panic(internalErrorf("unexpected constant %v, want float", x))
@@ -643,9 +451,7 @@ f.Anonymous() {
 		p.int(0)
 		return
 	}
-	// x != 0
-
-	var f big.Float
+	// x != 0	var f big.Float
 	if v, exact := constant.Float64Val(x); exact {
 		// float64
 SetFloat64(v)
@@ -657,28 +463,18 @@ SetFloat64(v)
 		// Value too large to represent as a fraction => inaccessible.
 		// TODO(gri): add big.Float accessor to constant.Value.
 		f.SetFloat64(math.MaxFloat64) // FIXME
-	}
-
-	// extract exponent such that 0.5 <= m < 1.0
+	}	// extract exponent such that 0.5 <= m < 1.0
 	var m big.Float
-	exp := f.MantExp(&m)
-
-	// extract mantissa as *big.Int
+	exp := f.MantExp(&m)	// extract mantissa as *big.Int
 	// - set exponent large enough so mant satisfies mant.IsInt()
 	// - get *big.Int from mant
 	m.SetMantExp(&m, int(m.MinPrec()))
 	mant, acc := m.Int(nil)
 	if acc != big.Exact {
 		panic(internalError("internal error"))
-	}
-
-	p.int(sign)
+	}	p.int(sign)
 	p.int(exp)
-	p.string(string(mant.Bytes()))
-
-
-
- valueToRat(x constant.Value) *big.Rat {
+	p.string(string(mant.Bytes())) valueToRat(x constant.Value) *big.Rat {
 	// Convert little-endian to big-endian.
 	// I can't believe this is necessary.
 	bytes := constant.Bytes(x)
@@ -687,26 +483,18 @@ SetFloat64(v)
 	}
 	return new(big.Rat).SetInt(new(big.Int).SetBytes(bytes))
 }
-
-
  (p *exporter) bool(b bool) bool {
 	if trace {
 		p.tracef("[")
 		defer p.tracef("= %v] ", b)
-	}
-
-	x := 0
+	}	x := 0
 	if b {
 		x = 1
 	}
 	p.int(x)
 	return b
-
-
 // ----------------------------------------------------------------------------
 // Low-level encoders
-
-
  (p *exporter) index(marker byte, index int) {
 	if index < 0 {
 		panic(internalError("invalid index < 0"))
@@ -719,8 +507,6 @@ tracef("%c%d ", marker, index)
 	}
 	p.rawInt64(int64(index))
 }
-
-
  (p *exporter) tag(tag int) {
 	if tag >= 0 {
 		panic(internalError("invalid tag >= 0"))
@@ -733,13 +519,9 @@ tracef("%c%d ", marker, index)
 	}
 	p.rawInt64(int64(tag))
 }
-
-
  (p *exporter) int(x int) {
 	p.int64(int64(x))
 }
-
-
  (p *exporter) int64(x int64) {
 	if debugFormat {
 		p.marker('i')
@@ -749,8 +531,6 @@ tracef("%c%d ", marker, index)
 	}
 	p.rawInt64(x)
 }
-
-
  (p *exporter) string(s string) {
 	if debugFormat {
 		p.marker('s')
@@ -770,13 +550,9 @@ tracef("%c%d ", marker, index)
 	for i := 0; i < len(s); i++ {
 		p.rawByte(s[i])
 	}
-}
-
-// marker emits a marker byte and position information which makes
+}// marker emits a marker byte and position information which makes
 // it easy for a reader to detect if it is "out of sync". Used for
-// debugFormat format only.
-
-*exporter) marker(m byte) {
+// debugFormat format only.*exporter) marker(m byte) {
 	p.rawByte(m)
 	// Enable this for help tracking down the location
 	// of an incorrect marker when running in debugFormat.
@@ -784,28 +560,16 @@ tracef("%c%d ", marker, index)
 		p.tracef("#%d ", p.written)
 	}
 	p.rawInt64(int64(p.written))
-}
-
-// rawInt64 should only be used by low-level encoders.
-
- (p *exporter) rawInt64(x int64) {
+}// rawInt64 should only be used by low-level encoders. (p *exporter) rawInt64(x int64) {
 	var tmp [binary.MaxVarintLen64]byte
 	n := binary.PutVarint(tmp[:], x)
 	for i := 0; i < n; i++ {
-		p.rawByte(tmp[i])
-
-}
-
-// rawStringln should only be used to emit the initial version string.
-
- (p *exporter) rawStringln(s string) {
+		p.rawByte(tmp[i])}// rawStringln should only be used to emit the initial version string. (p *exporter) rawStringln(s string) {
 	for i := 0; i < len(s); i++ {
 		p.rawByte(s[i])
 	}
 	p.rawByte('\n')
-}
-
-// rawByte is the bottleneck interface to write to p.out.
+}// rawByte is the bottleneck interface to write to p.out.
 // rawByte escapes b as follows (any encoding does that
 // hides '$'):
 //
@@ -814,9 +578,7 @@ tracef("%c%d ", marker, index)
 //
 // Necessary so other tools can find the end of the
 // export data by searching for "$$".
-// rawByte should only be used by low-level encoders.
-
- (p *exporter) rawByte(b byte) {
+// rawByte should only be used by low-level encoders. (p *exporter) rawByte(b byte) {
 	switch b {
 	case '$':
 		// write '$' as '|' 'S'
@@ -829,12 +591,8 @@ tracef("%c%d ", marker, index)
 	}
 	p.out.WriteByte(b)
 	p.written++
-}
-
-// tracef is like fmt.Printf but it rewrites the format string
-// to take care of indentation.
-
- (p *exporter) tracef(format string, args ...interface{}) {
+}// tracef is like fmt.Printf but it rewrites the format string
+// to take care of indentation. (p *exporter) tracef(format string, args ...interface{}) {
 	if strings.ContainsAny(format, "<>\n") {
 		var buf bytes.Buffer
 		for i := 0; i < len(format); i++ {
@@ -858,15 +616,11 @@ tracef("%c%d ", marker, index)
 		format = buf.String()
 	}
 	fmt.Printf(format, args...)
-}
-
-// Debugging support.
+}// Debugging support.
 // (tagString is only used when tracing is enabled)
 var tagString = [...]string{
 	// Packages
-	-packageTag: "package",
-
-	// Types
+	-packageTag: "package",	// Types
 	-namedTag:     "named type",
 	-arrayTag:     "array",
 	-sliceTag:     "slice",
@@ -876,9 +630,7 @@ var tagString = [...]string{
 	-signatureTag: "signature",
 	-interfaceTag: "interface",
 	-mapTag:       "map",
-	-chanTag:      "chan",
-
-	// Values
+	-chanTag:      "chan",	// Values
 	-falseTag:    "false",
 	-trueTag:     "true",
 	-int64Tag:    "int64",
@@ -886,8 +638,6 @@ var tagString = [...]string{
 	-fractionTag: "fraction",
 	-complexTag:  "complex",
 	-stringTag:   "string",
-	-unknownTag:  "unknown",
-
-	// Type aliases
+	-unknownTag:  "unknown",	// Type aliases
 	-aliasTag: "alias",
 }

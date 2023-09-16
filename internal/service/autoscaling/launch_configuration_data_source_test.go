@@ -1,27 +1,19 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package autoscaling_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package autoscaling_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/autoscaling"
+	"testing"	"github.com/aws/aws-sdk-go/service/autoscaling"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccAutoScalingLaunchConfigurationDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_launch_configuration.test"
 	datasourceName := "data.aws_launch_configuration.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -49,15 +41,13 @@ func TestAccAutoScalingLaunchConfigurationDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccAutoScalingLaunchConfigurationDataSource_securityGroups(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_launch_configuration.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -69,16 +59,14 @@ func TestAccAutoScalingLaunchConfigurationDataSource_securityGroups(t *testing.T
 		},
 	})
 }
-
 func TestAccAutoScalingLaunchConfigurationDataSource_ebsNoDevice(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_launch_configuration.test"
 	datasourceName := "data.aws_launch_configuration.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -90,18 +78,16 @@ func TestAccAutoScalingLaunchConfigurationDataSource_ebsNoDevice(t *testing.T) {
 		},
 	})
 }
-
 func TestAccAutoScalingLaunchConfigurationDataSource_metadataOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_launch_configuration.test"
-	resourceName := "aws_launch_configuration.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
+	resourceName := "aws_launch_configuration.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
+		CheckDestroy: testAccCheckLaunchConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchConfigurationDataSourceConfig_metaOptions(rName),
@@ -115,112 +101,80 @@ func TestAccAutoScalingLaunchConfigurationDataSource_metadataOptions(t *testing.
 		},
 	})
 }
-
 func testAccLaunchConfigurationDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
   name= %[1]q
-  image_id     = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type= "m1.small"
   associate_public_ip_address = true
-  user_data    = "test-user-data"
-
-  root_block_device {
-    volume_type = "gp2"
-    volume_size = 11
+  user_data = "test-user-data"  root_block_device {
+ volume_type = "gp2"
+ volume_size = 11
+  }  ebs_block_device {
+ device_name = "/dev/sdb"
+ volume_size = 9
+  }  ebs_block_device {
+ device_name = "/dev/sdc"
+ volume_size = 10
+ volume_type = "gp3"
+ iops  = 3000
+ throughput  = 125
+  }  ephemeral_block_device {
+ device_name  = "/dev/sde"
+ virtual_name = "ephemeral0"
   }
-
-  ebs_block_device {
-    device_name = "/dev/sdb"
-    volume_size = 9
-  }
-
-  ebs_block_device {
-    device_name = "/dev/sdc"
-    volume_size = 10
-    volume_type = "gp3"
-    iops        = 3000
-    throughput  = 125
-  }
-
-  ephemeral_block_device {
-    device_name  = "/dev/sde"
-    virtual_name = "ephemeral0"
-  }
-}
-
-data "aws_launch_configuration" "test" {
+}data "aws_launch_configuration" "test" {
   name = aws_launch_configuration.test.name
 }
 `, rName))
 }
-
 func testAccLaunchConfigurationDataSourceConfig_securityGroups(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.1.0.0/16"
-
-  tags = {
-    Name = %[1]q
+  cidr_block = "10.1.0.0/16"  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test" {
-  name   = %[1]q
-  vpc_id = aws_vpc.test.id
-
-  tags = {
-    Name = %[1]q
+}resource "aws_security_group" "test" {
+  name= %[1]q
+  vpc_id = aws_vpc.test.id  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_launch_configuration" "test" {
-  name   = %[1]q
-  image_id        = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type   = "m1.small"
+}resource "aws_launch_configuration" "test" {
+  name= %[1]q
+  image_id  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_type= "m1.small"
   security_groups = [aws_security_group.test.id]
-}
-
-data "aws_launch_configuration" "test" {
+}data "aws_launch_configuration" "test" {
   name = aws_launch_configuration.test.name
 }
 `, rName))
 }
-
 func testAccLaunchConfigurationDataSourceConfig_metaOptions(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.nano"
-  name = %[1]q
-
-  metadata_options {
-    http_endpoint= "enabled"
-    http_tokens  = "required"
-    http_put_response_hop_limit = 2
+  name = %[1]q  metadata_options {
+ http_endpoint= "enabled"
+ http_tokens  = "required"
+ http_put_response_hop_limit = 2
   }
-}
-
-data "aws_launch_configuration" "test" {
+}data "aws_launch_configuration" "test" {
   name = aws_launch_configuration.test.name
 }
 `, rName))
 }
-
 func testAccLaunchConfigurationDataSourceConfig_ebsNoDevice(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
   name = %[1]q
-  image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  instance_type = "m1.small"
-
-  ebs_block_device {
-    device_name = "/dev/sda2"
-    no_device   = true
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  instance_type = "m1.small"  ebs_block_device {
+ device_name = "/dev/sda2"
+ no_device= true
   }
-}
-
-data "aws_launch_configuration" "test" {
+}data "aws_launch_configuration" "test" {
   name = aws_launch_configuration.test.name
 }
 `, rName))

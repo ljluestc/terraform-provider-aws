@@ -22,9 +22,9 @@ func TestUserARN(t *testing.T) {
 	t.Parallel()
 
 	arnTests := []struct {
-		arn      string // input arn
+		arn string // input arn
 		expected string // canonacalized arn
-		err      error  // expected error value
+		err error  // expected error value
 	}{
 		{"NOT AN ARN", "", fmt.Errorf("Not an arn")},
 		//lintignore:AWSAT005

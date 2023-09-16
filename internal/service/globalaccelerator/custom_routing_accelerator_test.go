@@ -18,7 +18,6 @@ import (
 	tfglobalaccelerator "github.com/hashicorp/terraform-provider-aws/internal/service/globalaccelerator"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccGlobalAcceleratorCustomRoutingAccelerator_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_globalaccelerator_custom_routing_accelerator.test"
@@ -27,10 +26,11 @@ func TestAccGlobalAcceleratorCustomRoutingAccelerator_basic(t *testing.T) {
 	dnsNameRegex := regexache.MustCompile(`^a[0-9a-f]{16}\.awsglobalaccelerator\.com$`)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+PreCheck:  
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+CheckDestroy: testAccCheckCustomRoutingAcceleratorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomRoutingAcceleratorConfig_basic(rName),
@@ -54,24 +54,24 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccGlobalAcceleratorCustomRoutingAccelerator_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_globalaccelerator_custom_routing_accelerator.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+PreCheck:  
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+CheckDestroy: testAccCheckCustomRoutingAcceleratorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomRoutingAcceleratorConfig_basic(rName),
@@ -84,17 +84,17 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccGlobalAcceleratorCustomRoutingAccelerator_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_globalaccelerator_custom_routing_accelerator.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+PreCheck:  
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+CheckDestroy: testAccCheckCustomRoutingAcceleratorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomRoutingAcceleratorConfig_tags1(rName, "key1", "value1"),
@@ -106,8 +106,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -130,7 +130,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccGlobalAcceleratorCustomRoutingAccelerator_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_globalaccelerator_custom_routing_accelerator.test"
@@ -138,10 +137,11 @@ func TestAccGlobalAcceleratorCustomRoutingAccelerator_update(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+PreCheck:  
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+CheckDestroy: testAccCheckCustomRoutingAcceleratorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomRoutingAcceleratorConfig_basic(rName1),
@@ -151,8 +151,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -165,9 +165,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccCheckCustomRoutingAcceleratorExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
 rs, ok := s.RootModule().Resources[n]
@@ -184,9 +184,9 @@ _, err := tfglobalaccelerator.FindCustomRoutingAcceleratorByARN(ctx, conn, rs.Pr
 return err
 	}
 }
-
 func testAccCheckCustomRoutingAcceleratorDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
 for _, rs := range s.RootModule().Resources {
@@ -209,7 +209,6 @@ return err
 return nil
 	}
 }
-
 func testAccCustomRoutingAcceleratorConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_custom_routing_accelerator" "test" {
@@ -217,27 +216,25 @@ resource "aws_globalaccelerator_custom_routing_accelerator" "test" {
 }
 `, rName)
 }
-
 func testAccCustomRoutingAcceleratorConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_custom_routing_accelerator" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccCustomRoutingAcceleratorConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_custom_routing_accelerator" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

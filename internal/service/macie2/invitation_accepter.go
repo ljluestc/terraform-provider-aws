@@ -31,7 +31,7 @@ func ResourceInvitationAccepter() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"administrator_account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,
@@ -93,7 +93,7 @@ func resourceInvitationAccepterCreate(ctx context.Context, d *schema.ResourceDat
 	}
 
 	acceptInvitationInput := &macie2.AcceptInvitationInput{
-		InvitationId:           aws.String(invitationID),
+		InvitationId:  aws.String(invitationID),
 		AdministratorAccountId: aws.String(adminAccountID),
 	}
 

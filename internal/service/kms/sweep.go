@@ -19,14 +19,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/sdk"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_kms_key", &resource.Sweeper{
 		Name: "aws_kms_key",
 		F:    sweepKeys,
 	})
 }
-
 func sweepKeys(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

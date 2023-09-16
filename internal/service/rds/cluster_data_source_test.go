@@ -1,26 +1,19 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/rds"
+	"testing"	"github.com/aws/aws-sdk-go/service/rds"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_rds_cluster.test"
-	resourceName := "aws_rds_cluster.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	resourceName := "aws_rds_cluster.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccClusterDataSourceConfig_basic(rName),
@@ -45,17 +38,16 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func TestAccRDSClusterDataSource_ManagedMasterPassword_managed(t *testing.T) {
 	ctx := acctest.Context(t)
 funcaSourceName := "data.aws_rds_cluster.test"
-	resourceName := "aws_rds_cluster.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_rds_cluster.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resofunc
+Steps: []reso
+func
 Config: testAccClusterDataSourceConfig_managedMasterPassword(rName),
 Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
@@ -80,56 +72,44 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccClusterDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_db_subnet_group" "test" {
-  name       = %[1]q
-func
-
-resource "aws_rds_cluster" "test" {
-  cluster_identifier = %[1]q
-  database_name      = "test"
-  engine= "aurora-mysql"
-  master_username    = "tfacctest"
-  master_password    = "avoid-plaintext-passwords"
-  db_cluster_parameter_group_name = "default.aurora-mysql5.7"
-  skip_final_snapshot= true
-  db_subnet_group_name            = aws_db_subnet_group.test.name
-
-  tags = {
-    Name = %[1]q
-  }
+name = %[1]q
+funcresource "aws_rds_cluster" "test" {
+cluster_identifier = %[1]q
+database_name= "test"
+engine= "aurora-mysql"
+master_username = "tfacctest"
+master_password = "avoid-plaintext-passwords"
+db_cluster_parameter_group_name = "default.aurora-mysql5.7"
+skip_final_snapshot= true
+db_subnet_group_name= aws_db_subnet_group.test.nametags = {
+ Name = %[1]q
 }
-
-data "aws_rds_cluster" "test" {
-  cluster_identifier = aws_rds_cluster.test.cluster_identifier
+}data "aws_rds_cluster" "test" {
+cluster_identifier = aws_rds_cluster.test.cluster_identifier
 }
 `, rName))
 }
-
 func testAccClusterDataSourceConfig_managedMasterPassword(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_db_subnet_group" "test" {
-  name       = %[1]q
-  subnet_ids = aws_subnet.test[*].id
+name = %[1]q
+subnet_ids = aws_subnet.test[*].id
 func
 resource "aws_rds_cluster" "test" {
-  cluster_identifier = %[1]q
-  database_name      = "test"
-  db_cluster_parameter_group_name = "default.aurora5.6"
-  db_subnet_group_name            = aws_db_subnet_group.test.name
-  manage_master_user_password     = true
-  master_username    = "tfacctest"
-  skip_final_snapshot= true
-
-  tags = {
-    Name = %[1]q
-  }
+cluster_identifier = %[1]q
+database_name= "test"
+db_cluster_parameter_group_name = "default.aurora5.6"
+db_subnet_group_name= aws_db_subnet_group.test.name
+manage_master_user_password= true
+master_username = "tfacctest"
+skip_final_snapshot= truetags = {
+ Name = %[1]q
 }
-
-data "aws_rds_cluster" "test" {
-  cluster_identifier = aws_rds_cluster.test.cluster_identifier
+}data "aws_rds_cluster" "test" {
+cluster_identifier = aws_rds_cluster.test.cluster_identifier
 }
 `, rName))
 }

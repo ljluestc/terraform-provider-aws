@@ -20,7 +20,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfroute53recoveryreadiness "github.com/hashicorp/terraform-provider-aws/internal/service/route53recoveryreadiness"
 )
-
 func TestAccRoute53RecoveryReadinessResourceSet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -56,7 +55,6 @@ func TestAccRoute53RecoveryReadinessResourceSet_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccRoute53RecoveryReadinessResourceSet_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -86,7 +84,6 @@ func TestAccRoute53RecoveryReadinessResourceSet_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccRoute53RecoveryReadinessResourceSet_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -138,7 +135,6 @@ func TestAccRoute53RecoveryReadinessResourceSet_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccRoute53RecoveryReadinessResourceSet_readinessScope(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -173,7 +169,6 @@ func TestAccRoute53RecoveryReadinessResourceSet_readinessScope(t *testing.T) {
 		},
 	})
 }
-
 func TestAccRoute53RecoveryReadinessResourceSet_basicDNSTargetResource(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -217,7 +212,6 @@ func TestAccRoute53RecoveryReadinessResourceSet_basicDNSTargetResource(t *testin
 		},
 	})
 }
-
 func TestAccRoute53RecoveryReadinessResourceSet_dnsTargetResourceNLBTarget(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -255,7 +249,6 @@ func TestAccRoute53RecoveryReadinessResourceSet_dnsTargetResourceNLBTarget(t *te
 		},
 	})
 }
-
 func TestAccRoute53RecoveryReadinessResourceSet_dnsTargetResourceR53Target(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -296,7 +289,6 @@ func TestAccRoute53RecoveryReadinessResourceSet_dnsTargetResourceR53Target(t *te
 		},
 	})
 }
-
 func TestAccRoute53RecoveryReadinessResourceSet_timeout(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -332,7 +324,6 @@ func TestAccRoute53RecoveryReadinessResourceSet_timeout(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckResourceSetDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -355,7 +346,6 @@ func testAccCheckResourceSetDestroy(ctx context.Context) resource.TestCheckFunc 
 		return nil
 	}
 }
-
 func testAccCheckResourceSetExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -374,7 +364,6 @@ func testAccCheckResourceSetExists(ctx context.Context, name string) resource.Te
 		return err
 	}
 }
-
 func testAccPreCheckResourceSet(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
 
@@ -390,7 +379,6 @@ func testAccPreCheckResourceSet(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccResourceSetConfig_NLB(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
@@ -435,7 +423,6 @@ resource "aws_subnet" "test2" {
 data "aws_caller_identity" "current" {}
 `, rName)
 }
-
 func testAccResourceSetConfig_basic(rName, cwArn string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_resource_set" "test" {
@@ -448,7 +435,6 @@ resource "aws_route53recoveryreadiness_resource_set" "test" {
 }
 `, rName, cwArn)
 }
-
 func testAccResourceSetConfig_tags1(rName, cwArn, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_resource_set" "test" {
@@ -465,7 +451,6 @@ resource "aws_route53recoveryreadiness_resource_set" "test" {
 }
 `, rName, cwArn, tagKey1, tagValue1)
 }
-
 func testAccResourceSetConfig_tags2(rName, cwArn, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_resource_set" "test" {
@@ -483,7 +468,6 @@ resource "aws_route53recoveryreadiness_resource_set" "test" {
 }
 `, rName, cwArn, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccResourceSetConfig_readinessScopes(rName, cwArn string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_cell" "test" {
@@ -501,7 +485,6 @@ resource "aws_route53recoveryreadiness_resource_set" "test" {
 }
 `, rName, cwArn)
 }
-
 func testAccResourceSetConfig_basicDNSTarget(rName, domainName, hzArn, recordType, recordSetId string) string {
 	return acctest.ConfigCompose(fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_resource_set" "test" {
@@ -519,7 +502,6 @@ resource "aws_route53recoveryreadiness_resource_set" "test" {
 }
 `, rName, domainName, hzArn, recordType, recordSetId))
 }
-
 func testAccResourceSetConfig_dnsTargetNlbTarget(rName, hzArn string) string {
 	return acctest.ConfigCompose(testAccResourceSetConfig_NLB(rName), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_resource_set" "test" {
@@ -543,7 +525,6 @@ resource "aws_route53recoveryreadiness_resource_set" "test" {
 }
 `, rName, hzArn))
 }
-
 func testAccResourceSetConfig_dnsTargetR53Target(rName, hzArn, domainName, recordSetId string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_resource_set" "test" {
@@ -568,7 +549,6 @@ resource "aws_route53recoveryreadiness_resource_set" "test" {
 }
 `, rName, hzArn, domainName, recordSetId)
 }
-
 func testAccResourceSetConfig_timeout(rName, cwArn string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_resource_set" "test" {

@@ -54,18 +54,18 @@ func ResourceClassificationJob() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"daily_schedule": {
-							Type:          schema.TypeBool,
+							Type: schema.TypeBool,
 							Optional:      true,
 							ConflictsWith: []string{"schedule_frequency.0.weekly_schedule", "schedule_frequency.0.monthly_schedule"},
 						},
 						"weekly_schedule": {
-							Type:          schema.TypeString,
+							Type: schema.TypeString,
 							Optional:      true,
 							Computed:      true,
 							ConflictsWith: []string{"schedule_frequency.0.daily_schedule", "schedule_frequency.0.monthly_schedule"},
 						},
 						"monthly_schedule": {
-							Type:          schema.TypeInt,
+							Type: schema.TypeInt,
 							Optional:      true,
 							Computed:      true,
 							ConflictsWith: []string{"schedule_frequency.0.daily_schedule", "schedule_frequency.0.weekly_schedule"},
@@ -80,7 +80,7 @@ func ResourceClassificationJob() *schema.Resource {
 				ForceNew: true,
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -88,7 +88,7 @@ func ResourceClassificationJob() *schema.Resource {
 				ValidateFunc:  validation.StringLenBetween(0, 500),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -96,7 +96,7 @@ func ResourceClassificationJob() *schema.Resource {
 				ValidateFunc:  validation.StringLenBetween(0, 500-id.UniqueIDSuffixLength),
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -108,7 +108,7 @@ func ResourceClassificationJob() *schema.Resource {
 				ForceNew: true,
 			},
 			"job_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(macie2.JobType_Values(), false),
@@ -122,7 +122,7 @@ func ResourceClassificationJob() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"bucket_definitions": {
 							ConflictsWith: []string{"s3_job_definition.0.bucket_criteria"},
-							Type:          schema.TypeList,
+							Type: schema.TypeList,
 							Optional:      true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
@@ -140,7 +140,7 @@ func ResourceClassificationJob() *schema.Resource {
 						},
 						"bucket_criteria": {
 							ConflictsWith: []string{"s3_job_definition.0.bucket_definitions"},
-							Type:          schema.TypeList,
+							Type: schema.TypeList,
 							Optional:      true,
 							Computed:      true,
 							MaxItems:      1,
@@ -167,7 +167,7 @@ func ResourceClassificationJob() *schema.Resource {
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"comparator": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Optional:     true,
 																			Computed:     true,
 																			ValidateFunc: validation.StringInSlice(macie2.JobComparator_Values(), false),
@@ -194,7 +194,7 @@ func ResourceClassificationJob() *schema.Resource {
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"comparator": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Optional:     true,
 																			Computed:     true,
 																			ValidateFunc: validation.StringInSlice(macie2.JobComparator_Values(), false),
@@ -247,7 +247,7 @@ func ResourceClassificationJob() *schema.Resource {
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"comparator": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Optional:     true,
 																			Computed:     true,
 																			ValidateFunc: validation.StringInSlice(macie2.JobComparator_Values(), false),
@@ -274,7 +274,7 @@ func ResourceClassificationJob() *schema.Resource {
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"comparator": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Optional:     true,
 																			Computed:     true,
 																			ValidateFunc: validation.StringInSlice(macie2.JobComparator_Values(), false),
@@ -337,7 +337,7 @@ func ResourceClassificationJob() *schema.Resource {
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"comparator": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Optional:     true,
 																			Computed:     true,
 																			ValidateFunc: validation.StringInSlice(macie2.JobComparator_Values(), false),
@@ -349,7 +349,7 @@ func ResourceClassificationJob() *schema.Resource {
 																			Elem:     &schema.Schema{Type: schema.TypeString},
 																		},
 																		"key": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Optional:     true,
 																			Computed:     true,
 																			ValidateFunc: validation.StringInSlice(macie2.ScopeFilterKey_Values(), false),
@@ -365,7 +365,7 @@ func ResourceClassificationJob() *schema.Resource {
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"comparator": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Optional:     true,
 																			Computed:     true,
 																			ValidateFunc: validation.StringInSlice(macie2.JobComparator_Values(), false),
@@ -390,13 +390,13 @@ func ResourceClassificationJob() *schema.Resource {
 																			},
 																		},
 																		"key": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Optional:     true,
 																			Computed:     true,
 																			ValidateFunc: validation.StringInSlice(tagScopeTermKey_Values(), false),
 																		},
 																		"target": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Optional:     true,
 																			Computed:     true,
 																			ValidateFunc: validation.StringInSlice(macie2.TagTarget_Values(), false),
@@ -480,13 +480,13 @@ func ResourceClassificationJob() *schema.Resource {
 																			},
 																		},
 																		"key": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Optional:     true,
 																			Computed:     true,
 																			ValidateFunc: validation.StringInSlice(tagScopeTermKey_Values(), false),
 																		},
 																		"target": {
-																			Type:         schema.TypeString,
+																			Type:schema.TypeString,
 																			Optional:     true,
 																			Computed:     true,
 																			ValidateFunc: validation.StringInSlice(macie2.TagTarget_Values(), false),
@@ -517,7 +517,7 @@ func ResourceClassificationJob() *schema.Resource {
 				Computed: true,
 			},
 			"job_status": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringInSlice([]string{macie2.JobStatusCancelled, macie2.JobStatusRunning, macie2.JobStatusUserPaused}, false),
@@ -581,10 +581,10 @@ func resourceClassificationJobCreate(ctx context.Context, d *schema.ResourceData
 
 	input := &macie2.CreateClassificationJobInput{
 		ClientToken:     aws.String(id.UniqueId()),
-		Name:            aws.String(create.Name(d.Get("name").(string), d.Get("name_prefix").(string))),
-		JobType:         aws.String(d.Get("job_type").(string)),
+		Name:   aws.String(create.Name(d.Get("name").(string), d.Get("name_prefix").(string))),
+		JobType:aws.String(d.Get("job_type").(string)),
 		S3JobDefinition: expandS3JobDefinition(d.Get("s3_job_definition").([]interface{})),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("custom_data_identifier_ids"); ok {
@@ -1074,7 +1074,7 @@ func flattenS3JobDefinition(s3JobDefinition *macie2.S3JobDefinition) []map[strin
 	jobDefinitions = append(jobDefinitions, map[string]interface{}{
 		"bucket_criteria":    flattenS3BucketCriteriaForJob(s3JobDefinition.BucketCriteria),
 		"bucket_definitions": flattenBucketDefinition(s3JobDefinition.BucketDefinitions),
-		"scoping":            flattenScoping(s3JobDefinition.Scoping),
+		"scoping":   flattenScoping(s3JobDefinition.Scoping),
 	})
 
 	return jobDefinitions

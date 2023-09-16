@@ -40,22 +40,22 @@ Delete: schema.DefaultTimeout(1 * time.Minute),
 
 Schema: map[string]*schema.Schema{
 names.AttrARN: {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 names.AttrName: {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 ValidateFunc: validGlobalTableName,
 },
 "replica": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Required: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "region_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 },
 },
@@ -223,10 +223,10 @@ return output, aws.StringValue(output.GlobalTableStatus), nil
 
 func waitGlobalTableCreated(ctx context.Context, conn *dynamodb.DynamoDB, name string, timeout time.Duration) (*dynamodb.GlobalTableDescription, error) {
 stateConf := &retry.StateChangeConf{
-Pending:    []string{dynamodb.GlobalTableStatusCreating},
-Target:     []string{dynamodb.GlobalTableStatusActive},
-Refresh:    statusGlobalTable(ctx, conn, name),
-Timeout:    timeout,
+Pending:[]string{dynamodb.GlobalTableStatusCreating},
+Target: []string{dynamodb.GlobalTableStatusActive},
+Refresh:statusGlobalTable(ctx, conn, name),
+Timeout:timeout,
 MinTimeout: 10 * time.Second,
 }
 
@@ -241,10 +241,10 @@ return nil, err
 
 func waitGlobalTableDeleted(ctx context.Context, conn *dynamodb.DynamoDB, name string, timeout time.Duration) (*dynamodb.GlobalTableDescription, error) {
 stateConf := &retry.StateChangeConf{
-Pending:    []string{dynamodb.GlobalTableStatusActive, dynamodb.GlobalTableStatusDeleting},
-Target:     []string{},
-Refresh:    statusGlobalTable(ctx, conn, name),
-Timeout:    timeout,
+Pending:[]string{dynamodb.GlobalTableStatusActive, dynamodb.GlobalTableStatusDeleting},
+Target: []string{},
+Refresh:statusGlobalTable(ctx, conn, name),
+Timeout:timeout,
 MinTimeout: 10 * time.Second,
 }
 
@@ -259,10 +259,10 @@ return nil, err
 
 func waitGlobalTableUpdated(ctx context.Context, conn *dynamodb.DynamoDB, name string, timeout time.Duration) (*dynamodb.GlobalTableDescription, error) {
 stateConf := &retry.StateChangeConf{
-Pending:    []string{dynamodb.GlobalTableStatusUpdating},
-Target:     []string{dynamodb.GlobalTableStatusActive},
-Refresh:    statusGlobalTable(ctx, conn, name),
-Timeout:    timeout,
+Pending:[]string{dynamodb.GlobalTableStatusUpdating},
+Target: []string{dynamodb.GlobalTableStatusActive},
+Refresh:statusGlobalTable(ctx, conn, name),
+Timeout:timeout,
 MinTimeout: 10 * time.Second,
 }
 

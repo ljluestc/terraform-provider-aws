@@ -30,7 +30,7 @@ import (
 func ResourceThreatIntelSet() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceThreatIntelSetCreate,
-		ReadWithoutTimeout:   resourceThreatIntelSetRead,
+		ReadWithoutTimeout:resourceThreatIntelSetRead,
 		UpdateWithoutTimeout: resourceThreatIntelSetUpdate,
 		DeleteWithoutTimeout: resourceThreatIntelSetDelete,
 
@@ -66,14 +66,13 @@ func ResourceThreatIntelSet() *schema.Resource {
 				Type:eBool,
 				Required: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceThreatIntelSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -84,8 +83,8 @@ func resourceThreatIntelSetCreate(ctx context.Context, d *schema.ResourceData, m
 		DetectorId: aws.String(detectorID),
 		Name:ng(name),
 		Format:(d.Get("format").(string)),
-		Location:   aws.String(d.Get("location").(string)),
-		Activate:   aws.Bool(d.Get("activate").(bool)),
+		Location:aws.String(d.Get("location").(string)),
+		Activate:aws.Bool(d.Get("activate").(bool)),
 		Tags:n(ctx),
 	}
 
@@ -95,10 +94,10 @@ func resourceThreatIntelSetCreate(ctx context.Context, d *schema.ResourceData, m
 	}
 
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{guardduty.ThreatIntelSetStatusActivating, guardduty.ThreatIntelSetStatusDeactivating},
+		Pending: []string{guardduty.ThreatIntelSetStatusActivating, guardduty.ThreatIntelSetStatusDeactivating},
 		Target:uardduty.ThreatIntelSetStatusActive, guardduty.ThreatIntelSetStatusInactive},
-		Refresh:    threatintelsetRefreshStatusFunc(ctx, conn, *resp.ThreatIntelSetId, detectorID),
-		Timeout:    5 * time.Minute,
+		Refresh: threatintelsetRefreshStatusFunc(ctx, conn, *resp.ThreatIntelSetId, detectorID),
+		Timeout: 5 * time.Minute,
 		MinTimeout: 3 * time.Second,
 	}
 
@@ -110,7 +109,6 @@ func resourceThreatIntelSetCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceThreatIntelSetRead(ctx, d, meta)...)
 }
-
 func resourceThreatIntelSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -136,8 +134,8 @@ func resourceThreatIntelSetRead(ctx context.Context, d *schema.ResourceData, met
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "guardduty",
+		Region: meta.(*conns.AWSClient).Region,
+		Service:"guardduty",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("detector/%s/threatintelset/%s", detectorId, threatIntelSetId),
 	}.String()
@@ -153,7 +151,6 @@ func resourceThreatIntelSetRead(ctx context.Context, d *schema.ResourceData, met
 
 	return diags
 }
-
 func resourceThreatIntelSetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -186,7 +183,6 @@ func resourceThreatIntelSetUpdate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceThreatIntelSetRead(ctx, d, meta)...)
 }
-
 func resourceThreatIntelSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -214,8 +210,8 @@ func resourceThreatIntelSetDelete(ctx context.Context, d *schema.ResourceData, m
 			guardduty.ThreatIntelSetStatusDeletePending,
 		},
 		Target:uardduty.ThreatIntelSetStatusDeleted},
-		Refresh:    threatintelsetRefreshStatusFunc(ctx, conn, threatIntelSetID, detectorId),
-		Timeout:    5 * time.Minute,
+		Refresh: threatintelsetRefreshStatusFunc(ctx, conn, threatIntelSetID, detectorId),
+		Timeout: 5 * time.Minute,
 		MinTimeout: 3 * time.Second,
 	}
 
@@ -226,7 +222,6 @@ func resourceThreatIntelSetDelete(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
-
 func threatintelsetRefreshStatusFunc(ctx context.Context, conn *guardduty.GuardDuty, threatIntelSetID, detectorID string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		input := &guardduty.GetThreatIntelSetInput{
@@ -240,7 +235,6 @@ func threatintelsetRefreshStatusFunc(ctx context.Context, conn *guardduty.GuardD
 		return resp, *resp.Status, nil
 	}
 }
-
 func DecodeThreatIntelSetID(id string) (threatIntelSetID, detectorID string, err error) {
 	parts := strings.Split(id, ":")
 	if len(parts) != 2 {

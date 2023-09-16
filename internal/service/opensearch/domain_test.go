@@ -21,7 +21,6 @@ import (
 	tfopensearch "github.com/hashicorp/terraform-provider-aws/internal/service/opensearch"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestEBSVolumeTypePermitsIopsInput(t *testing.T) {
 	t.Parallel()
 
@@ -47,7 +46,6 @@ func TestEBSVolumeTypePermitsIopsInput(t *testing.T) {
 		})
 	}
 }
-
 func TestEBSVolumeTypePermitsThroughputInput(t *testing.T) {
 	t.Parallel()
 
@@ -73,12 +71,11 @@ func TestEBSVolumeTypePermitsThroughputInput(t *testing.T) {
 		})
 	}
 }
-
 func TestParseEngineVersion(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-		TestName           string
+		TestName  string
 		InputEngineVersion string
 		ExpectError        bool
 		ExpectedEngineType string
@@ -89,17 +86,17 @@ func TestParseEngineVersion(t *testing.T) {
 			ExpectError: true,
 		},
 		{
-			TestName:           "no separator",
+			TestName:  "no separator",
 			InputEngineVersion: "OpenSearch2.0",
 			ExpectError:        true,
 		},
 		{
-			TestName:           "too many separators",
+			TestName:  "too many separators",
 			InputEngineVersion: "Open_Search_2.0",
 			ExpectError:        true,
 		},
 		{
-			TestName:           "valid",
+			TestName:  "valid",
 			InputEngineVersion: "Elasticsearch_7.2",
 			ExpectedEngineType: "Elasticsearch",
 			ExpectedSemver:     "7.2",
@@ -131,7 +128,6 @@ func TestParseEngineVersion(t *testing.T) {
 		})
 	}
 }
-
 func TestAccOpenSearchDomain_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -169,7 +165,6 @@ func TestAccOpenSearchDomain_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_requireHTTPS(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
@@ -204,7 +199,6 @@ func TestAccOpenSearchDomain_requireHTTPS(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_customEndpoint(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -260,7 +254,6 @@ func TestAccOpenSearchDomain_customEndpoint(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Cluster_zoneAwareness(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain1, domain2, domain3, domain4 opensearchservice.DomainStatus
@@ -320,7 +313,6 @@ func TestAccOpenSearchDomain_Cluster_zoneAwareness(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Cluster_coldStorage(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -362,7 +354,6 @@ func TestAccOpenSearchDomain_Cluster_coldStorage(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Cluster_warm(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
@@ -420,7 +411,6 @@ func TestAccOpenSearchDomain_Cluster_warm(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Cluster_dedicatedMaster(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
@@ -460,7 +450,6 @@ func TestAccOpenSearchDomain_Cluster_dedicatedMaster(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Cluster_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -501,7 +490,6 @@ func TestAccOpenSearchDomain_Cluster_update(t *testing.T) {
 			},
 		}})
 }
-
 func TestAccOpenSearchDomain_Cluster_multiAzWithStandbyEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
@@ -537,7 +525,6 @@ func TestAccOpenSearchDomain_Cluster_multiAzWithStandbyEnabled(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_duplicate(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -590,7 +577,6 @@ func TestAccOpenSearchDomain_duplicate(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_v23(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -624,7 +610,6 @@ func TestAccOpenSearchDomain_v23(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_complex(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -656,7 +641,6 @@ func TestAccOpenSearchDomain_complex(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_VPC_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -688,7 +672,6 @@ func TestAccOpenSearchDomain_VPC_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_VPC_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
@@ -724,7 +707,6 @@ func TestAccOpenSearchDomain_VPC_update(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_VPC_internetToVPCEndpoint(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -762,7 +744,6 @@ func TestAccOpenSearchDomain_VPC_internetToVPCEndpoint(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_autoTuneOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -806,7 +787,6 @@ func TestAccOpenSearchDomain_autoTuneOptions(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_AdvancedSecurityOptions_userDB(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -844,7 +824,6 @@ func TestAccOpenSearchDomain_AdvancedSecurityOptions_userDB(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_AdvancedSecurityOptions_anonymousAuth(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -889,7 +868,6 @@ func TestAccOpenSearchDomain_AdvancedSecurityOptions_anonymousAuth(t *testing.T)
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_AdvancedSecurityOptions_iam(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -927,7 +905,6 @@ func TestAccOpenSearchDomain_AdvancedSecurityOptions_iam(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_AdvancedSecurityOptions_disabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -964,7 +941,6 @@ func TestAccOpenSearchDomain_AdvancedSecurityOptions_disabled(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_LogPublishingOptions_indexSlowLogs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1000,7 +976,6 @@ func TestAccOpenSearchDomain_LogPublishingOptions_indexSlowLogs(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_LogPublishingOptions_searchSlowLogs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1036,7 +1011,6 @@ func TestAccOpenSearchDomain_LogPublishingOptions_searchSlowLogs(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_LogPublishingOptions_applicationLogs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1072,7 +1046,6 @@ func TestAccOpenSearchDomain_LogPublishingOptions_applicationLogs(t *testing.T) 
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_LogPublishingOptions_auditLogs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1110,7 +1083,6 @@ func TestAccOpenSearchDomain_LogPublishingOptions_auditLogs(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_CognitoOptions_createAndRemove(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1154,7 +1126,6 @@ func TestAccOpenSearchDomain_CognitoOptions_createAndRemove(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_CognitoOptions_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1198,7 +1169,6 @@ func TestAccOpenSearchDomain_CognitoOptions_update(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Policy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1230,7 +1200,6 @@ func TestAccOpenSearchDomain_Policy_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Policy_ignoreEquivalent(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1260,7 +1229,6 @@ func TestAccOpenSearchDomain_Policy_ignoreEquivalent(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Encryption_atRestDefaultKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1293,7 +1261,6 @@ func TestAccOpenSearchDomain_Encryption_atRestDefaultKey(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Encryption_atRestSpecifyKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1326,7 +1293,6 @@ func TestAccOpenSearchDomain_Encryption_atRestSpecifyKey(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Encryption_atRestEnable(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1368,7 +1334,6 @@ func TestAccOpenSearchDomain_Encryption_atRestEnable(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Encryption_atRestEnableLegacy(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1402,7 +1367,6 @@ func TestAccOpenSearchDomain_Encryption_atRestEnableLegacy(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Encryption_nodeToNode(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1435,7 +1399,6 @@ func TestAccOpenSearchDomain_Encryption_nodeToNode(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Encryption_nodeToNodeEnable(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1477,7 +1440,6 @@ func TestAccOpenSearchDomain_Encryption_nodeToNodeEnable(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_Encryption_nodeToNodeEnableLegacy(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1518,7 +1480,6 @@ func TestAccOpenSearchDomain_Encryption_nodeToNodeEnableLegacy(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_offPeakWindowOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1580,7 +1541,6 @@ func TestAccOpenSearchDomain_offPeakWindowOptions(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1631,7 +1591,6 @@ func TestAccOpenSearchDomain_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_VolumeType_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1772,7 +1731,6 @@ func TestAccOpenSearchDomain_VolumeType_missing(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchDomain_versionUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain1, domain2, domain3 opensearchservice.DomainStatus
@@ -1816,7 +1774,6 @@ func TestAccOpenSearchDomain_versionUpdate(t *testing.T) {
 			},
 		}})
 }
-
 func TestAccOpenSearchDomain_softwareUpdateOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1875,11 +1832,9 @@ func TestAccOpenSearchDomain_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccRandomDomainName() string {
 	return fmt.Sprintf("%s-%s", acctest.ResourcePrefix, sdkacctest.RandString(28-(len(acctest.ResourcePrefix)+1)))
 }
-
 func testAccCheckDomainEndpointOptions(enforceHTTPS bool, tls string, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		options := status.DomainEndpointOptions
@@ -1892,7 +1847,6 @@ func testAccCheckDomainEndpointOptions(enforceHTTPS bool, tls string, status *op
 		return nil
 	}
 }
-
 func testAccCheckCustomEndpoint(n string, customEndpointEnabled bool, customEndpoint string, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -1915,7 +1869,6 @@ func testAccCheckCustomEndpoint(n string, customEndpointEnabled bool, customEndp
 		return nil
 	}
 }
-
 func testAccCheckNumberOfSecurityGroups(numberOfSecurityGroups int, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		count := len(status.VPCOptions.SecurityGroupIds)
@@ -1925,7 +1878,6 @@ func testAccCheckNumberOfSecurityGroups(numberOfSecurityGroups int, status *open
 		return nil
 	}
 }
-
 func testAccCheckEBSVolumeThroughput(ebsVolumeThroughput int, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conf := status.EBSOptions
@@ -1935,7 +1887,6 @@ func testAccCheckEBSVolumeThroughput(ebsVolumeThroughput int, status *opensearch
 		return nil
 	}
 }
-
 func testAccCheckEBSVolumeIops(ebsVolumeIops int, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conf := status.EBSOptions
@@ -1945,7 +1896,6 @@ func testAccCheckEBSVolumeIops(ebsVolumeIops int, status *opensearchservice.Doma
 		return nil
 	}
 }
-
 func testAccCheckEBSVolumeSize(ebsVolumeSize int, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conf := status.EBSOptions
@@ -1955,7 +1905,6 @@ func testAccCheckEBSVolumeSize(ebsVolumeSize int, status *opensearchservice.Doma
 		return nil
 	}
 }
-
 func testAccCheckEBSVolumeEnabled(ebsEnabled bool, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conf := status.EBSOptions
@@ -1965,7 +1914,6 @@ func testAccCheckEBSVolumeEnabled(ebsEnabled bool, status *opensearchservice.Dom
 		return nil
 	}
 }
-
 func testAccCheckSnapshotHour(snapshotHour int, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conf := status.SnapshotOptions
@@ -1975,7 +1923,6 @@ func testAccCheckSnapshotHour(snapshotHour int, status *opensearchservice.Domain
 		return nil
 	}
 }
-
 func testAccCheckNumberOfInstances(numberOfInstances int, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conf := status.ClusterConfig
@@ -1985,7 +1932,6 @@ func testAccCheckNumberOfInstances(numberOfInstances int, status *opensearchserv
 		return nil
 	}
 }
-
 func testAccCheckDomainEncrypted(encrypted bool, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conf := status.EncryptionAtRestOptions
@@ -1995,7 +1941,6 @@ func testAccCheckDomainEncrypted(encrypted bool, status *opensearchservice.Domai
 		return nil
 	}
 }
-
 func testAccCheckNodeToNodeEncrypted(encrypted bool, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		options := status.NodeToNodeEncryptionOptions
@@ -2005,7 +1950,6 @@ func testAccCheckNodeToNodeEncrypted(encrypted bool, status *opensearchservice.D
 		return nil
 	}
 }
-
 func testAccCheckAdvancedSecurityOptions(enabled bool, userDbEnabled bool, anonymousAuthEnabled bool, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conf := status.AdvancedSecurityOptions
@@ -2041,7 +1985,6 @@ func testAccCheckAdvancedSecurityOptions(enabled bool, userDbEnabled bool, anony
 		return nil
 	}
 }
-
 func testAccCheckCognitoOptions(enabled bool, status *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conf := status.CognitoOptions
@@ -2051,7 +1994,6 @@ func testAccCheckCognitoOptions(enabled bool, status *opensearchservice.DomainSt
 		return nil
 	}
 }
-
 func testAccCheckDomainExists(ctx context.Context, n string, domain *opensearchservice.DomainStatus) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -2113,7 +2055,6 @@ func testAccCheckDomainNotRecreated(domain1, domain2 *opensearchservice.DomainSt
 		return nil
 	}
 }
-
 func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -2137,7 +2078,6 @@ func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccGetValidStartAtTime(t *testing.T, timeUntilStart string) string {
 	n := time.Now().UTC()
 	d, err := time.ParseDuration(timeUntilStart)
@@ -2146,11 +2086,9 @@ func testAccGetValidStartAtTime(t *testing.T, timeUntilStart string) string {
 	}
 	return n.Add(d).Format(time.RFC3339)
 }
-
 func testAccPreCheckIAMServiceLinkedRole(ctx context.Context, t *testing.T) {
 	acctest.PreCheckIAMServiceLinkedRole(ctx, t, "/aws-service-role/opensearchservice")
 }
-
 func testAccPreCheckCognitoIdentityProvider(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
 
@@ -2168,7 +2106,6 @@ func testAccPreCheckCognitoIdentityProvider(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccDomainConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2181,7 +2118,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName)
 }
-
 func testAccDomainConfig_autoTuneOptions(rName, autoTuneStartAtTime string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2211,7 +2147,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, autoTuneStartAtTime)
 }
-
 func testAccDomainConfig_disabledEBSNullVolume(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2231,7 +2166,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName)
 }
-
 func testAccDomainConfig_endpointOptions(rName string, enforceHttps bool, tlsSecurityPolicy string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2249,7 +2183,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, enforceHttps, tlsSecurityPolicy)
 }
-
 func testAccDomainConfig_customEndpoint(rName string, enforceHttps bool, tlsSecurityPolicy string, customEndpointEnabled bool, customEndpoint string, certKey string, certBody string) string {
 	return fmt.Sprintf(`
 resource "aws_acm_certificate" "test" {
@@ -2263,7 +2196,7 @@ resource "aws_opensearch_domain" "test" {
   domain_endpoint_options {
     enforce_https    = %[2]t
     tls_security_policy= %[3]q
-    custom_endpoint_enabled         = %[4]t
+    custom_endpoint_enabled= %[4]t
     custom_endpoint  = "%[5]s"
     custom_endpoint_certificate_arn = aws_acm_certificate.test.arn
   }
@@ -2275,7 +2208,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, enforceHttps, tlsSecurityPolicy, customEndpointEnabled, customEndpoint, acctest.TLSPEMEscapeNewlines(certKey), acctest.TLSPEMEscapeNewlines(certBody))
 }
-
 func testAccDomainConfig_clusterZoneAwarenessAZCount(rName string, availabilityZoneCount int) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2283,8 +2215,8 @@ resource "aws_opensearch_domain" "test" {
   engine_version = "Elasticsearch_1.5"
 
   cluster_config {
-    instance_type          = "t2.small.search"
-    instance_count         = 6
+    instance_type = "t2.small.search"
+    instance_count= 6
     zone_awareness_enabled = true
 
     zone_awareness_config {
@@ -2299,7 +2231,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, availabilityZoneCount)
 }
-
 func testAccDomainConfig_clusterColdStorageOptions(rName string, warmEnabled bool, csEnabled bool) string {
 	warmConfig := ""
 	if warmEnabled {
@@ -2325,8 +2256,8 @@ resource "aws_opensearch_domain" "test" {
 
   cluster_config {
     zone_awareness_enabled   = true
-    instance_type            = "c5.large.search"
-    instance_count           = "3"
+    instance_type   = "c5.large.search"
+    instance_count  = "3"
     dedicated_master_enabled = true
     dedicated_master_count   = "3"
     dedicated_master_type    = "c5.large.search"
@@ -2347,7 +2278,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, warmEnabled, warmConfig, coldConfig)
 }
-
 func testAccDomainConfig_clusterZoneAwarenessEnabled(rName string, zoneAwarenessEnabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2355,8 +2285,8 @@ resource "aws_opensearch_domain" "test" {
   engine_version = "Elasticsearch_1.5"
 
   cluster_config {
-    instance_type          = "t2.small.search"
-    instance_count         = 6
+    instance_type = "t2.small.search"
+    instance_count= 6
     zone_awareness_enabled = %[2]t
   }
 
@@ -2367,7 +2297,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, zoneAwarenessEnabled)
 }
-
 func testAccDomainConfig_clusterWarm(rName, warmType string, enabled bool, warmCnt int) string {
 	warmConfig := ""
 	if enabled {
@@ -2384,8 +2313,8 @@ resource "aws_opensearch_domain" "test" {
 
   cluster_config {
     zone_awareness_enabled   = true
-    instance_type            = "c5.large.search"
-    instance_count           = "3"
+    instance_type   = "c5.large.search"
+    instance_count  = "3"
     dedicated_master_enabled = true
     dedicated_master_count   = "3"
     dedicated_master_type    = "c5.large.search"
@@ -2405,15 +2334,14 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, enabled, warmConfig)
 }
-
 func testAccDomainConfig_dedicatedClusterMaster(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
   domain_name = %[1]q
 
   cluster_config {
-    instance_type            = "t2.small.search"
-    instance_count           = "1"
+    instance_type   = "t2.small.search"
+    instance_count  = "1"
     dedicated_master_enabled = %t
     dedicated_master_count   = "3"
     dedicated_master_type    = "t2.small.search"
@@ -2426,7 +2354,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, enabled)
 }
-
 func testAccDomainConfig_multiAzWithStandbyEnabled(rName string, enableStandby bool) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2450,8 +2377,8 @@ resource "aws_opensearch_domain" "test" {
 
   cluster_config {
     zone_awareness_enabled   = true
-    instance_count           = 3
-    instance_type            = "m6g.large.search"
+    instance_count  = 3
+    instance_type   = "m6g.large.search"
     dedicated_master_enabled = true
     dedicated_master_count   = 3
     dedicated_master_type    = "m6g.large.search"
@@ -2465,7 +2392,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, enableStandby)
 }
-
 func testAccDomainConfig_clusterUpdate(rName string, instanceInt, snapshotInt int) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2481,9 +2407,9 @@ resource "aws_opensearch_domain" "test" {
   }
 
   cluster_config {
-    instance_count         = %d
+    instance_count= %d
     zone_awareness_enabled = true
-    instance_type          = "t2.small.search"
+    instance_type = "t2.small.search"
   }
 
   snapshot_options {
@@ -2496,7 +2422,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, instanceInt, snapshotInt)
 }
-
 func testAccDomainConfig_clusterUpdateEBSVolume(rName string, volumeSize int, volumeThroughput int, volumeIops int) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2517,14 +2442,13 @@ resource "aws_opensearch_domain" "test" {
   }
 
   cluster_config {
-    instance_count         = 2
+    instance_count= 2
     zone_awareness_enabled = true
-    instance_type          = "t3.small.search"
+    instance_type = "t3.small.search"
   }
 }
 `, rName, volumeSize, volumeThroughput, volumeIops)
 }
-
 func testAccDomainConfig_clusterEBSVolumeGP3DefaultIopsThroughput(rName string, volumeSize int) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2542,7 +2466,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, volumeSize)
 }
-
 func testAccDomainConfig_clusterEBSVolumeGP2(rName string, volumeSize int) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2560,7 +2483,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, volumeSize)
 }
-
 func testAccDomainConfig_clusterUpdateVersion(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2574,14 +2496,13 @@ resource "aws_opensearch_domain" "test" {
   }
 
   cluster_config {
-    instance_count         = 1
+    instance_count= 1
     zone_awareness_enabled = false
-    instance_type          = "t2.small.search"
+    instance_type = "t2.small.search"
   }
 }
 `, rName, version)
 }
-
 func testAccDomainConfig_clusterUpdateInstanceStore(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2598,14 +2519,13 @@ resource "aws_opensearch_domain" "test" {
   }
 
   cluster_config {
-    instance_count         = 2
+    instance_count= 2
     zone_awareness_enabled = true
-    instance_type          = "i3.large.search"
+    instance_type = "i3.large.search"
   }
 }
 `, rName)
 }
-
 func testAccDomainConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2622,7 +2542,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccDomainConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2638,7 +2557,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccDomainConfig_policy(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -2681,7 +2599,6 @@ data "aws_iam_policy_document" "test" {
 }
 `, rName)
 }
-
 func testAccDomainConfig_policyOrder(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -2700,8 +2617,8 @@ resource "aws_opensearch_domain" "test" {
       Effect = "Allow"
       Principal = {
         AWS = [
-          aws_iam_role.test.arn,
-          aws_iam_role.test2.arn,
+ aws_iam_role.test.arn,
+ aws_iam_role.test2.arn,
         ]
       }
       Action   = "es:*"
@@ -2732,7 +2649,6 @@ data "aws_iam_policy_document" "test" {
 }
 `, rName)
 }
-
 func testAccDomainConfig_policyNewOrder(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -2751,8 +2667,8 @@ resource "aws_opensearch_domain" "test" {
       Effect = "Allow"
       Principal = {
         AWS = [
-          aws_iam_role.test2.arn,
-          aws_iam_role.test.arn,
+ aws_iam_role.test2.arn,
+ aws_iam_role.test.arn,
         ]
       }
       Action   = "es:*"
@@ -2783,7 +2699,6 @@ data "aws_iam_policy_document" "test" {
 }
 `, rName)
 }
-
 func testAccDomainConfig_encryptAtRestDefaultKey(rName, version string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2806,7 +2721,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, version, enabled)
 }
-
 func testAccDomainConfig_encryptAtRestKey(rName, version string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -2836,7 +2750,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, version, enabled)
 }
-
 func testAccDomainConfig_nodeToNodeEncryption(rName, version string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2859,7 +2772,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, version, enabled)
 }
-
 func testAccDomainConfig_complex(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2875,9 +2787,9 @@ resource "aws_opensearch_domain" "test" {
   }
 
   cluster_config {
-    instance_count         = 2
+    instance_count= 2
     zone_awareness_enabled = true
-    instance_type          = "t2.small.search"
+    instance_type = "t2.small.search"
   }
 
   snapshot_options {
@@ -2890,7 +2802,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName)
 }
-
 func testAccDomainConfig_v23(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -2905,7 +2816,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName)
 }
-
 func testAccDomainConfig_vpc(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
@@ -2919,7 +2829,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "192.168.0.0/24"
 
@@ -2929,7 +2839,7 @@ resource "aws_subnet" "test" {
 }
 
 resource "aws_subnet" "test2" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
   cidr_block        = "192.168.1.0/24"
 
@@ -2955,19 +2865,18 @@ resource "aws_opensearch_domain" "test" {
   }
 
   cluster_config {
-    instance_count         = 2
+    instance_count= 2
     zone_awareness_enabled = true
-    instance_type          = "t2.small.search"
+    instance_type = "t2.small.search"
   }
 
   vpc_options {
     security_group_ids = [aws_security_group.test.id, aws_security_group.test2.id]
-    subnet_ids         = [aws_subnet.test.id, aws_subnet.test2.id]
+    subnet_ids= [aws_subnet.test.id, aws_subnet.test2.id]
   }
 }
 `, rName))
 }
-
 func testAccDomainConfig_vpcUpdate1(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
@@ -2981,7 +2890,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "az1_first" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "192.168.0.0/24"
 
@@ -2991,7 +2900,7 @@ resource "aws_subnet" "az1_first" {
 }
 
 resource "aws_subnet" "az2_first" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
   cidr_block        = "192.168.1.0/24"
 
@@ -3001,7 +2910,7 @@ resource "aws_subnet" "az2_first" {
 }
 
 resource "aws_subnet" "az1_second" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "192.168.2.0/24"
 
@@ -3011,7 +2920,7 @@ resource "aws_subnet" "az1_second" {
 }
 
 resource "aws_subnet" "az2_second" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
   cidr_block        = "192.168.3.0/24"
 
@@ -3037,19 +2946,18 @@ resource "aws_opensearch_domain" "test" {
   }
 
   cluster_config {
-    instance_count         = 2
+    instance_count= 2
     zone_awareness_enabled = true
-    instance_type          = "t2.small.search"
+    instance_type = "t2.small.search"
   }
 
   vpc_options {
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.az1_first.id, aws_subnet.az2_first.id]
+    subnet_ids= [aws_subnet.az1_first.id, aws_subnet.az2_first.id]
   }
 }
 `, rName))
 }
-
 func testAccDomainConfig_vpcUpdate2(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
@@ -3063,7 +2971,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "az1_first" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "192.168.0.0/24"
 
@@ -3073,7 +2981,7 @@ resource "aws_subnet" "az1_first" {
 }
 
 resource "aws_subnet" "az2_first" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
   cidr_block        = "192.168.1.0/24"
 
@@ -3083,7 +2991,7 @@ resource "aws_subnet" "az2_first" {
 }
 
 resource "aws_subnet" "az1_second" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "192.168.2.0/24"
 
@@ -3093,7 +3001,7 @@ resource "aws_subnet" "az1_second" {
 }
 
 resource "aws_subnet" "az2_second" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
   cidr_block        = "192.168.3.0/24"
 
@@ -3119,19 +3027,18 @@ resource "aws_opensearch_domain" "test" {
   }
 
   cluster_config {
-    instance_count         = 2
+    instance_count= 2
     zone_awareness_enabled = true
-    instance_type          = "t2.small.search"
+    instance_type = "t2.small.search"
   }
 
   vpc_options {
     security_group_ids = [aws_security_group.test.id, aws_security_group.test2.id]
-    subnet_ids         = [aws_subnet.az1_second.id, aws_subnet.az2_second.id]
+    subnet_ids= [aws_subnet.az1_second.id, aws_subnet.az2_second.id]
   }
 }
 `, rName))
 }
-
 func testAccDomainConfig_internetToVPCEndpoint(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
@@ -3145,7 +3052,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "192.168.0.0/24"
 
@@ -3155,7 +3062,7 @@ resource "aws_subnet" "test" {
 }
 
 resource "aws_subnet" "test2" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
   cidr_block        = "192.168.1.0/24"
 
@@ -3181,19 +3088,18 @@ resource "aws_opensearch_domain" "test" {
   }
 
   cluster_config {
-    instance_count         = 2
+    instance_count= 2
     zone_awareness_enabled = true
-    instance_type          = "t2.small.search"
+    instance_type = "t2.small.search"
   }
 
   vpc_options {
     security_group_ids = [aws_security_group.test.id, aws_security_group.test2.id]
-    subnet_ids         = [aws_subnet.test.id, aws_subnet.test2.id]
+    subnet_ids= [aws_subnet.test.id, aws_subnet.test2.id]
   }
 }
 `, rName))
 }
-
 func testAccDomainConfig_advancedSecurityOptionsUserDB(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -3205,7 +3111,7 @@ resource "aws_opensearch_domain" "test" {
   }
 
   advanced_security_options {
-    enabled         = true
+    enabled= true
     internal_user_database_enabled = true
     master_user_options {
       master_user_name     = "testmasteruser"
@@ -3233,7 +3139,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName)
 }
-
 func testAccDomainConfig_advancedSecurityOptionsAnonymousAuth(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -3245,8 +3150,8 @@ resource "aws_opensearch_domain" "test" {
   }
 
   advanced_security_options {
-    enabled         = %[2]t
-    anonymous_auth_enabled         = true
+    enabled= %[2]t
+    anonymous_auth_enabled= true
     internal_user_database_enabled = true
     master_user_options {
       master_user_name     = "testmasteruser"
@@ -3274,7 +3179,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, enabled)
 }
-
 func testAccDomainConfig_advancedSecurityOptionsIAM(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
@@ -3290,7 +3194,7 @@ resource "aws_opensearch_domain" "test" {
   }
 
   advanced_security_options {
-    enabled         = true
+    enabled= true
     internal_user_database_enabled = false
     master_user_options {
       master_user_arn = aws_iam_user.test.arn
@@ -3317,7 +3221,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName)
 }
-
 func testAccDomainConfig_advancedSecurityOptionsDisabled(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -3329,7 +3232,7 @@ resource "aws_opensearch_domain" "test" {
   }
 
   advanced_security_options {
-    enabled         = false
+    enabled= false
     internal_user_database_enabled = true
     master_user_options {
       master_user_name     = "testmasteruser"
@@ -3357,7 +3260,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName)
 }
-
 func testAccDomain_logPublishingOptionsBase(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -3375,7 +3277,7 @@ resource "aws_cloudwatch_log_resource_policy" "test" {
       Effect = "Allow"
       Principal = {
         Service = [
-          "es.${data.aws_partition.current.dns_suffix}",
+ "es.${data.aws_partition.current.dns_suffix}",
         ]
       }
       Action = [
@@ -3389,13 +3291,12 @@ resource "aws_cloudwatch_log_resource_policy" "test" {
 }
 `, rName)
 }
-
 func testAccDomainConfig_logPublishingOptions(rName, logType string) string {
 	var auditLogsConfig string
 	if logType == opensearchservice.LogTypeAuditLogs {
 		auditLogsConfig = `
 	  	advanced_security_options {
-	enabled         = true
+	enabled= true
 	internal_user_database_enabled = true
 	master_user_options {
 	  master_user_name     = "testmasteruser"
@@ -3432,16 +3333,15 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, auditLogsConfig, logType))
 }
-
 func testAccDomainConfig_cognitoOptions(rName string, includeCognitoOptions bool) string {
 	var cognitoOptions string
 	if includeCognitoOptions {
 		cognitoOptions = `
 cognito_options {
-	enabled          = true
+	enabled = true
 	user_pool_id     = aws_cognito_user_pool.test.id
 	identity_pool_id = aws_cognito_identity_pool.test.id
-	role_arn         = aws_iam_role.test.arn
+	role_arn= aws_iam_role.test.arn
 }`
 	} else {
 		cognitoOptions = ""
@@ -3510,7 +3410,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, cognitoOptions)
 }
-
 func testAccDomainConfig_offPeakWindowOptions(rName string, h, m int) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {
@@ -3533,7 +3432,6 @@ resource "aws_opensearch_domain" "test" {
 }
 `, rName, h, m)
 }
-
 func testAccDomainConfig_softwareUpdateOptions(rName string, option bool) string {
 	return fmt.Sprintf(`
 resource "aws_opensearch_domain" "test" {

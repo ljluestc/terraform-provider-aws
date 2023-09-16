@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccBatchSchedulingPolicyDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("tf_acc_test_")
@@ -20,7 +19,7 @@ func TestAccBatchSchedulingPolicyDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_batch_scheduling_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -39,34 +38,32 @@ func TestAccBatchSchedulingPolicyDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccSchedulingPolicyDataSourceConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_batch_scheduling_policy" "test" {
   name = %[1]q
 
   fair_share_policy {
-    compute_reservation = 1
-    share_decay_seconds = 3600
+ compute_reservation = 1
+ share_decay_seconds = 3600
 
-    share_distribution {
-      share_identifier = "A1*"
-      weight_factor    = 0.1
-    }
+ share_distribution {
+ share_identifier = "A1*"
+ weight_factor = 0.1
+ }
 
-    share_distribution {
-      share_identifier = "A2"
-      weight_factor    = 0.2
-    }
+ share_distribution {
+ share_identifier = "A2"
+ weight_factor = 0.2
+ }
   }
 
   tags = {
-    "Name" = "Test Batch Scheduling Policy"
+ "Name" = "Test Batch Scheduling Policy"
   }
 }
 `, rName)
 }
-
 func testAccSchedulingPolicyDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(testAccSchedulingPolicyDataSourceConfig(rName) + `
 data "aws_batch_scheduling_policy" "test" {

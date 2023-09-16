@@ -49,8 +49,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"ingestion_type",
@@ -164,20 +164,20 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
 }

@@ -1,18 +1,1 @@
-//go:build appengine || js || nacl || wasm
-// +build appengine js nacl wasm
-
-package isatty
-
-// IsTerminal returns true if the file descriptor is terminal which
-// is always false on js and appengine classic which is a sandboxed PaaS.
-
-erminal(fd uintptr) bool {
-	return false
-}
-
-// IsCygwinTerminal() return true if the file descriptor is a cygwin or msys2
-// terminal. This is also always false on this environment.
-
-ygwinTerminal(fd uintptr) bool {
-	return false
-}
+//go:buildappengine||js||nacl||wasm//+buildappenginejsnaclwasmpackageisatty//IsTerminalreturnstrueifthefiledescriptoristerminalwhich//isalwaysfalseonjsandappengineclassicwhichisasandboxedPaaS.erminal(fduintptr)bool{returnfalse}//IsCygwinTerminal()returntrueifthefiledescriptorisacygwinormsys2//terminal.Thisisalsoalwaysfalseonthisenvironment.ygwinTerminal(fduintptr)bool{returnfalse}

@@ -47,8 +47,8 @@ func TestUpdateDiffGSI(t *testing.T) {
 		{ // No-op => no changes
 			Old: []interface{}{
 				map[string]interface{}{
-					names.AttrName:    "att1-index",
-					"hash_key":        "att1",
+					names.AttrName:"att1-index",
+					"hash_key":"att1",
 					"write_capacity":  10,
 					"read_capacity":   10,
 					"projection_type": "ALL",
@@ -56,8 +56,8 @@ func TestUpdateDiffGSI(t *testing.T) {
 			},
 			New: []interface{}{
 				map[string]interface{}{
-					names.AttrName:    "att1-index",
-					"hash_key":        "att1",
+					names.AttrName:"att1-index",
+					"hash_key":"att1",
 					"write_capacity":  10,
 					"read_capacity":   10,
 					"projection_type": "ALL",
@@ -68,21 +68,21 @@ func TestUpdateDiffGSI(t *testing.T) {
 		{ // No-op => ignore ordering of non_key_attributes
 			Old: []interface{}{
 				map[string]interface{}{
-					names.AttrName:       "att1-index",
-					"hash_key":           "att1",
-					"write_capacity":     10,
-					"read_capacity":      10,
-					"projection_type":    "INCLUDE",
+					names.AttrName:   "att1-index",
+					"hash_key":  "att1",
+					"write_capacity": 10,
+					"read_capacity":  10,
+					"projection_type":"INCLUDE",
 					"non_key_attributes": schema.NewSet(schema.HashString, []interface{}{"attr3", "attr1", "attr2"}),
 				},
 			},
 			New: []interface{}{
 				map[string]interface{}{
-					names.AttrName:       "att1-index",
-					"hash_key":           "att1",
-					"write_capacity":     10,
-					"read_capacity":      10,
-					"projection_type":    "INCLUDE",
+					names.AttrName:   "att1-index",
+					"hash_key":  "att1",
+					"write_capacity": 10,
+					"read_capacity":  10,
+					"projection_type":"INCLUDE",
 					"non_key_attributes": schema.NewSet(schema.HashString, []interface{}{"attr1", "attr2", "attr3"}),
 				},
 			},
@@ -92,8 +92,8 @@ func TestUpdateDiffGSI(t *testing.T) {
 		{ // Creation
 			Old: []interface{}{
 				map[string]interface{}{
-					names.AttrName:    "att1-index",
-					"hash_key":        "att1",
+					names.AttrName:"att1-index",
+					"hash_key":"att1",
 					"write_capacity":  10,
 					"read_capacity":   10,
 					"projection_type": "ALL",
@@ -101,15 +101,15 @@ func TestUpdateDiffGSI(t *testing.T) {
 			},
 			New: []interface{}{
 				map[string]interface{}{
-					names.AttrName:    "att1-index",
-					"hash_key":        "att1",
+					names.AttrName:"att1-index",
+					"hash_key":"att1",
 					"write_capacity":  10,
 					"read_capacity":   10,
 					"projection_type": "ALL",
 				},
 				map[string]interface{}{
-					names.AttrName:    "att2-index",
-					"hash_key":        "att2",
+					names.AttrName:"att2-index",
+					"hash_key":"att2",
 					"write_capacity":  12,
 					"read_capacity":   11,
 					"projection_type": "ALL",
@@ -122,7 +122,7 @@ func TestUpdateDiffGSI(t *testing.T) {
 						KeySchema: []*dynamodb.KeySchemaElement{
 							{
 								AttributeName: aws.String("att2"),
-								KeyType:       aws.String("HASH"),
+								KeyType:   aws.String("HASH"),
 							},
 						},
 						ProvisionedThroughput: &dynamodb.ProvisionedThroughput{
@@ -140,15 +140,15 @@ func TestUpdateDiffGSI(t *testing.T) {
 		{ // Deletion
 			Old: []interface{}{
 				map[string]interface{}{
-					names.AttrName:    "att1-index",
-					"hash_key":        "att1",
+					names.AttrName:"att1-index",
+					"hash_key":"att1",
 					"write_capacity":  10,
 					"read_capacity":   10,
 					"projection_type": "ALL",
 				},
 				map[string]interface{}{
-					names.AttrName:    "att2-index",
-					"hash_key":        "att2",
+					names.AttrName:"att2-index",
+					"hash_key":"att2",
 					"write_capacity":  12,
 					"read_capacity":   11,
 					"projection_type": "ALL",
@@ -156,8 +156,8 @@ func TestUpdateDiffGSI(t *testing.T) {
 			},
 			New: []interface{}{
 				map[string]interface{}{
-					names.AttrName:    "att1-index",
-					"hash_key":        "att1",
+					names.AttrName:"att1-index",
+					"hash_key":"att1",
 					"write_capacity":  10,
 					"read_capacity":   10,
 					"projection_type": "ALL",
@@ -175,8 +175,8 @@ func TestUpdateDiffGSI(t *testing.T) {
 		{ // Update
 			Old: []interface{}{
 				map[string]interface{}{
-					names.AttrName:    "att1-index",
-					"hash_key":        "att1",
+					names.AttrName:"att1-index",
+					"hash_key":"att1",
 					"write_capacity":  10,
 					"read_capacity":   10,
 					"projection_type": "ALL",
@@ -184,8 +184,8 @@ func TestUpdateDiffGSI(t *testing.T) {
 			},
 			New: []interface{}{
 				map[string]interface{}{
-					names.AttrName:    "att1-index",
-					"hash_key":        "att1",
+					names.AttrName:"att1-index",
+					"hash_key":"att1",
 					"write_capacity":  20,
 					"read_capacity":   30,
 					"projection_type": "ALL",
@@ -207,8 +207,8 @@ func TestUpdateDiffGSI(t *testing.T) {
 		{ // Update of non-capacity attributes
 			Old: []interface{}{
 				map[string]interface{}{
-					names.AttrName:    "att1-index",
-					"hash_key":        "att1",
+					names.AttrName:"att1-index",
+					"hash_key":"att1",
 					"write_capacity":  10,
 					"read_capacity":   10,
 					"projection_type": "ALL",
@@ -216,12 +216,12 @@ func TestUpdateDiffGSI(t *testing.T) {
 			},
 			New: []interface{}{
 				map[string]interface{}{
-					names.AttrName:       "att1-index",
-					"hash_key":           "att-new",
-					"range_key":          "new-range-key",
-					"write_capacity":     10,
-					"read_capacity":      10,
-					"projection_type":    "KEYS_ONLY",
+					names.AttrName:   "att1-index",
+					"hash_key":  "att-new",
+					"range_key": "new-range-key",
+					"write_capacity": 10,
+					"read_capacity":  10,
+					"projection_type":"KEYS_ONLY",
 					"non_key_attributes": schema.NewSet(schema.HashString, []interface{}{"RandomAttribute"}),
 				},
 			},
@@ -237,11 +237,11 @@ func TestUpdateDiffGSI(t *testing.T) {
 						KeySchema: []*dynamodb.KeySchemaElement{
 							{
 								AttributeName: aws.String("att-new"),
-								KeyType:       aws.String("HASH"),
+								KeyType:   aws.String("HASH"),
 							},
 							{
 								AttributeName: aws.String("new-range-key"),
-								KeyType:       aws.String("RANGE"),
+								KeyType:   aws.String("RANGE"),
 							},
 						},
 						ProvisionedThroughput: &dynamodb.ProvisionedThroughput{
@@ -260,8 +260,8 @@ func TestUpdateDiffGSI(t *testing.T) {
 		{ // Update of all attributes
 			Old: []interface{}{
 				map[string]interface{}{
-					names.AttrName:    "att1-index",
-					"hash_key":        "att1",
+					names.AttrName:"att1-index",
+					"hash_key":"att1",
 					"write_capacity":  10,
 					"read_capacity":   10,
 					"projection_type": "ALL",
@@ -269,12 +269,12 @@ func TestUpdateDiffGSI(t *testing.T) {
 			},
 			New: []interface{}{
 				map[string]interface{}{
-					names.AttrName:       "att1-index",
-					"hash_key":           "att-new",
-					"range_key":          "new-range-key",
-					"write_capacity":     12,
-					"read_capacity":      12,
-					"projection_type":    "INCLUDE",
+					names.AttrName:   "att1-index",
+					"hash_key":  "att-new",
+					"range_key": "new-range-key",
+					"write_capacity": 12,
+					"read_capacity":  12,
+					"projection_type":"INCLUDE",
 					"non_key_attributes": schema.NewSet(schema.HashString, []interface{}{"RandomAttribute"}),
 				},
 			},
@@ -290,11 +290,11 @@ func TestUpdateDiffGSI(t *testing.T) {
 						KeySchema: []*dynamodb.KeySchemaElement{
 							{
 								AttributeName: aws.String("att-new"),
-								KeyType:       aws.String("HASH"),
+								KeyType:   aws.String("HASH"),
 							},
 							{
 								AttributeName: aws.String("new-range-key"),
-								KeyType:       aws.String("RANGE"),
+								KeyType:   aws.String("RANGE"),
 							},
 						},
 						ProvisionedThroughput: &dynamodb.ProvisionedThroughput{
@@ -335,7 +335,7 @@ func TestAccDynamoDBTable_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -377,8 +377,8 @@ func TestAccDynamoDBTable_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -392,7 +392,7 @@ func TestAccDynamoDBTable_deletion_protection(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -411,8 +411,8 @@ func TestAccDynamoDBTable_deletion_protection(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			// disable deletion protection for the sweeper to work
@@ -431,7 +431,7 @@ func TestAccDynamoDBTable_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -455,7 +455,7 @@ func TestAccDynamoDBTable_Disappears_payPerRequestWithGSI(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -475,8 +475,8 @@ func TestAccDynamoDBTable_Disappears_payPerRequestWithGSI(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -494,7 +494,7 @@ func TestAccDynamoDBTable_extended(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -507,8 +507,8 @@ func TestAccDynamoDBTable_extended(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -542,18 +542,18 @@ func TestAccDynamoDBTable_extended(t *testing.T) {
 						names.AttrType: "N",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-						names.AttrName:         "ReplacementTestTableGSI",
+						names.AttrName:"ReplacementTestTableGSI",
 						"hash_key":"TestTableHashKey",
-						"range_key":            "ReplacementGSIRangeKey",
-						"write_capacity":       "5",
-						"read_capacity":        "5",
-						"projection_type":      "INCLUDE",
+						"range_key":   "ReplacementGSIRangeKey",
+						"write_capacity":   "5",
+						"read_capacity":"5",
+						"projection_type":  "INCLUDE",
 						"non_key_attributes.#": "1",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "global_secondary_index.*.non_key_attributes.*", "TestNonKeyAttribute"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "local_secondary_index.*", map[string]string{
-						names.AttrName:    "TestTableLSI",
-						"range_key":       "TestLSIRangeKey",
+						names.AttrName:"TestTableLSI",
+						"range_key":   "TestLSIRangeKey",
 						"projection_type": "ALL",
 					}),
 				),
@@ -569,7 +569,7 @@ func TestAccDynamoDBTable_enablePITR(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -582,8 +582,8 @@ func TestAccDynamoDBTable_enablePITR(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -605,7 +605,7 @@ func TestAccDynamoDBTable_BillingMode_payPerRequestToProvisioned(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -620,8 +620,8 @@ func TestAccDynamoDBTable_BillingMode_payPerRequestToProvisioned(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -644,7 +644,7 @@ func TestAccDynamoDBTable_BillingMode_payPerRequestToProvisionedIgnoreChanges(t 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -659,8 +659,8 @@ func TestAccDynamoDBTable_BillingMode_payPerRequestToProvisionedIgnoreChanges(t 
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -687,7 +687,7 @@ func TestAccDynamoDBTable_BillingMode_provisionedToPayPerRequest(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -702,8 +702,8 @@ func TestAccDynamoDBTable_BillingMode_provisionedToPayPerRequest(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -730,7 +730,7 @@ func TestAccDynamoDBTable_BillingMode_provisionedToPayPerRequestIgnoreChanges(t 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -745,8 +745,8 @@ func TestAccDynamoDBTable_BillingMode_provisionedToPayPerRequestIgnoreChanges(t 
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -769,7 +769,7 @@ func TestAccDynamoDBTable_BillingModeGSI_payPerRequestToProvisioned(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -784,8 +784,8 @@ func TestAccDynamoDBTable_BillingModeGSI_payPerRequestToProvisioned(t *testing.T
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -806,7 +806,7 @@ func TestAccDynamoDBTable_BillingModeGSI_provisionedToPayPerRequest(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -819,8 +819,8 @@ func TestAccDynamoDBTable_BillingModeGSI_provisionedToPayPerRequest(t *testing.T
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -841,7 +841,7 @@ func TestAccDynamoDBTable_streamSpecification(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -857,8 +857,8 @@ func TestAccDynamoDBTable_streamSpecification(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -882,7 +882,7 @@ func TestAccDynamoDBTable_streamSpecificationDiffs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -964,13 +964,13 @@ func TestAccDynamoDBTable_streamSpecificationDiffs(t *testing.T) {
 func TestAccDynamoDBTable_streamSpecificationValidation(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccTableConfig_streamSpecification("anything", true, ""),
+				Config:  testAccTableConfig_streamSpecification("anything", true, ""),
 				ExpectError: regexache.MustCompile(`stream_view_type is required when stream_enabled = true`),
 			},
 		},
@@ -984,7 +984,7 @@ func TestAccDynamoDBTable_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -998,8 +998,8 @@ func TestAccDynamoDBTable_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1014,7 +1014,7 @@ func TestAccDynamoDBTable_gsiUpdateCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -1042,8 +1042,8 @@ func TestAccDynamoDBTable_gsiUpdateCapacity(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -1083,7 +1083,7 @@ func TestAccDynamoDBTable_gsiUpdateOtherAttributes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -1095,36 +1095,36 @@ func TestAccDynamoDBTable_gsiUpdateOtherAttributes(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "global_secondary_index.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att3",
-						names.AttrName:         "att3-index",
+						names.AttrName:"att3-index",
 						"non_key_attributes.#": "0",
-						"projection_type":      "ALL",
-						"range_key":            "",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "ALL",
+						"range_key":   "",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att1",
-						names.AttrName:         "att1-index",
+						names.AttrName:"att1-index",
 						"non_key_attributes.#": "0",
-						"projection_type":      "ALL",
-						"range_key":            "",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "ALL",
+						"range_key":   "",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att2",
-						names.AttrName:         "att2-index",
+						names.AttrName:"att2-index",
 						"non_key_attributes.#": "0",
-						"projection_type":      "ALL",
-						"range_key":            "",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "ALL",
+						"range_key":   "",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -1134,31 +1134,31 @@ func TestAccDynamoDBTable_gsiUpdateOtherAttributes(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "global_secondary_index.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att4",
-						names.AttrName:         "att2-index",
+						names.AttrName:"att2-index",
 						"non_key_attributes.#": "0",
-						"projection_type":      "ALL",
-						"range_key":            "att2",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "ALL",
+						"range_key":   "att2",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att3",
-						names.AttrName:         "att3-index",
+						names.AttrName:"att3-index",
 						"non_key_attributes.#": "1",
-						"projection_type":      "INCLUDE",
-						"range_key":            "att4",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "INCLUDE",
+						"range_key":   "att4",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "global_secondary_index.*.non_key_attributes.*", "RandomAttribute"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att1",
-						names.AttrName:         "att1-index",
+						names.AttrName:"att1-index",
 						"non_key_attributes.#": "0",
-						"projection_type":      "ALL",
-						"range_key":            "",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "ALL",
+						"range_key":   "",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 				),
 			},
@@ -1174,7 +1174,7 @@ func TestAccDynamoDBTable_lsiNonKeyAttributes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -1185,17 +1185,17 @@ func TestAccDynamoDBTable_lsiNonKeyAttributes(t *testing.T) {
 					testAccCheckInitialTableExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "local_secondary_index.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "local_secondary_index.*", map[string]string{
-						names.AttrName:         "TestTableLSI",
+						names.AttrName:"TestTableLSI",
 						"non_key_attributes.#": "1",
 						"non_key_attributes.0": "TestNonKeyAttribute",
-						"projection_type":      "INCLUDE",
-						"range_key":            "TestLSIRangeKey",
+						"projection_type":  "INCLUDE",
+						"range_key":   "TestLSIRangeKey",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1214,7 +1214,7 @@ func TestAccDynamoDBTable_gsiUpdateNonKeyAttributes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -1226,37 +1226,37 @@ func TestAccDynamoDBTable_gsiUpdateNonKeyAttributes(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "global_secondary_index.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att4",
-						names.AttrName:         "att2-index",
+						names.AttrName:"att2-index",
 						"non_key_attributes.#": "0",
-						"projection_type":      "ALL",
-						"range_key":            "att2",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "ALL",
+						"range_key":   "att2",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att3",
-						names.AttrName:         "att3-index",
+						names.AttrName:"att3-index",
 						"non_key_attributes.#": "1",
-						"projection_type":      "INCLUDE",
-						"range_key":            "att4",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "INCLUDE",
+						"range_key":   "att4",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "global_secondary_index.*.non_key_attributes.*", "RandomAttribute"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att1",
-						names.AttrName:         "att1-index",
+						names.AttrName:"att1-index",
 						"non_key_attributes.#": "0",
-						"projection_type":      "ALL",
-						"range_key":            "",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "ALL",
+						"range_key":   "",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -1265,32 +1265,32 @@ func TestAccDynamoDBTable_gsiUpdateNonKeyAttributes(t *testing.T) {
 					testAccCheckInitialTableExists(ctx, resourceName, &conf),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att4",
-						names.AttrName:         "att2-index",
+						names.AttrName:"att2-index",
 						"non_key_attributes.#": "0",
-						"projection_type":      "ALL",
-						"range_key":            "att2",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "ALL",
+						"range_key":   "att2",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att3",
-						names.AttrName:         "att3-index",
+						names.AttrName:"att3-index",
 						"non_key_attributes.#": "2",
-						"projection_type":      "INCLUDE",
-						"range_key":            "att4",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "INCLUDE",
+						"range_key":   "att4",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "global_secondary_index.*.non_key_attributes.*", "RandomAttribute"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "global_secondary_index.*.non_key_attributes.*", "AnotherAttribute"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att1",
-						names.AttrName:         "att1-index",
+						names.AttrName:"att1-index",
 						"non_key_attributes.#": "0",
-						"projection_type":      "ALL",
-						"range_key":            "",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "ALL",
+						"range_key":   "",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 				),
 			},
@@ -1308,7 +1308,7 @@ func TestAccDynamoDBTable_GsiUpdateNonKeyAttributes_emptyPlan(t *testing.T) {
 	reorderedAttributes := fmt.Sprintf("%q, %q", "RandomAttribute", "AnotherAttribute")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -1319,25 +1319,25 @@ func TestAccDynamoDBTable_GsiUpdateNonKeyAttributes_emptyPlan(t *testing.T) {
 					testAccCheckInitialTableExists(ctx, resourceName, &conf),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
 						"hash_key":"att1",
-						names.AttrName:         "att1-index",
+						names.AttrName:"att1-index",
 						"non_key_attributes.#": "2",
-						"projection_type":      "INCLUDE",
-						"range_key":            "att2",
-						"read_capacity":        "1",
-						"write_capacity":       "1",
+						"projection_type":  "INCLUDE",
+						"range_key":   "att2",
+						"read_capacity":"1",
+						"write_capacity":   "1",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "global_secondary_index.*.non_key_attributes.*", "AnotherAttribute"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "global_secondary_index.*.non_key_attributes.*", "RandomAttribute"),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
 				Config:testAccTableConfig_gsiMultipleNonKeyAttributes(rName, reorderedAttributes),
-				PlanOnly:           true,
+				PlanOnly:  true,
 				ExpectNonEmptyPlan: false,
 			},
 		},
@@ -1353,7 +1353,7 @@ func TestAccDynamoDBTable_TTL_enabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -1367,8 +1367,8 @@ func TestAccDynamoDBTable_TTL_enabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1384,7 +1384,7 @@ func TestAccDynamoDBTable_TTL_disabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -1398,8 +1398,8 @@ func TestAccDynamoDBTable_TTL_disabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -1425,7 +1425,7 @@ func TestAccDynamoDBTable_attributeUpdate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -1437,8 +1437,8 @@ func TestAccDynamoDBTable_attributeUpdate(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{ // Attribute type change
@@ -1470,7 +1470,7 @@ func TestAccDynamoDBTable_lsiUpdate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -1482,8 +1482,8 @@ func TestAccDynamoDBTable_lsiUpdate(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{ // Change name of local secondary index
@@ -1501,21 +1501,21 @@ func TestAccDynamoDBTable_attributeUpdateValidation(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccTableConfig_oneAttribute(rName, "firstKey", "unusedKey", "S"),
+				Config:  testAccTableConfig_oneAttribute(rName, "firstKey", "unusedKey", "S"),
 				ExpectError: regexache.MustCompile(`attributes must be indexed. Unused attributes: \["unusedKey"\]`),
 			},
 			{
-				Config:      testAccTableConfig_twoAttributes(rName, "firstKey", "secondKey", "firstUnused", "N", "secondUnused", "S"),
+				Config:  testAccTableConfig_twoAttributes(rName, "firstKey", "secondKey", "firstUnused", "N", "secondUnused", "S"),
 				ExpectError: regexache.MustCompile(`attributes must be indexed. Unused attributes: \["firstUnused"\ \"secondUnused\"]`),
 			},
 			{
-				Config:      testAccTableConfig_unmatchedIndexes(rName, "firstUnused", "secondUnused"),
+				Config:  testAccTableConfig_unmatchedIndexes(rName, "firstUnused", "secondUnused"),
 				ExpectError: regexache.MustCompile(`indexes must match a defined attribute. Unmatched indexes:`),
 			},
 		},
@@ -1534,7 +1534,7 @@ func TestAccDynamoDBTable_encryption(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -1549,8 +1549,8 @@ func TestAccDynamoDBTable_encryption(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -1602,9 +1602,9 @@ func TestAccDynamoDBTable_Replica_multiple(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccTableConfig_replica2(rName),
-				ResourceName:      resourceName,
-				ImportState:       true,
+				Config:   testAccTableConfig_replica2(rName),
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -1656,9 +1656,9 @@ func TestAccDynamoDBTable_Replica_single(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccTableConfig_replica1(rName),
-				ResourceName:      resourceName,
-				ImportState:       true,
+				Config:   testAccTableConfig_replica1(rName),
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -1850,9 +1850,9 @@ func TestAccDynamoDBTable_Replica_singleAddCMK(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccTableConfig_replicaCMKUpdate(rName, "replica2"),
-				ResourceName:      resourceName,
-				ImportState:       true,
+				Config:   testAccTableConfig_replicaCMKUpdate(rName, "replica2"),
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1887,11 +1887,11 @@ func TestAccDynamoDBTable_Replica_pitr(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "true",
-						"region_name":            acctest.AlternateRegion(),
+						"region_name":   acctest.AlternateRegion(),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "false",
-						"region_name":            acctest.ThirdRegion(),
+						"region_name":   acctest.ThirdRegion(),
 					}),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.0.enabled", "false"),
@@ -1908,11 +1908,11 @@ func TestAccDynamoDBTable_Replica_pitr(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "false",
-						"region_name":            acctest.AlternateRegion(),
+						"region_name":   acctest.AlternateRegion(),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "true",
-						"region_name":            acctest.ThirdRegion(),
+						"region_name":   acctest.ThirdRegion(),
 					}),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.0.enabled", "true"),
@@ -1950,11 +1950,11 @@ func TestAccDynamoDBTable_Replica_pitrKMS(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "false",
-						"region_name":            acctest.AlternateRegion(),
+						"region_name":   acctest.AlternateRegion(),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "false",
-						"region_name":            acctest.ThirdRegion(),
+						"region_name":   acctest.ThirdRegion(),
 					}),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.0.enabled", "false"),
@@ -1971,11 +1971,11 @@ func TestAccDynamoDBTable_Replica_pitrKMS(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "true",
-						"region_name":            acctest.AlternateRegion(),
+						"region_name":   acctest.AlternateRegion(),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "false",
-						"region_name":            acctest.ThirdRegion(),
+						"region_name":   acctest.ThirdRegion(),
 					}),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.0.enabled", "false"),
@@ -1992,11 +1992,11 @@ func TestAccDynamoDBTable_Replica_pitrKMS(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "true",
-						"region_name":            acctest.AlternateRegion(),
+						"region_name":   acctest.AlternateRegion(),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "true",
-						"region_name":            acctest.ThirdRegion(),
+						"region_name":   acctest.ThirdRegion(),
 					}),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.0.enabled", "false"),
@@ -2013,11 +2013,11 @@ func TestAccDynamoDBTable_Replica_pitrKMS(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "false",
-						"region_name":            acctest.AlternateRegion(),
+						"region_name":   acctest.AlternateRegion(),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "true",
-						"region_name":            acctest.ThirdRegion(),
+						"region_name":   acctest.ThirdRegion(),
 					}),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.0.enabled", "true"),
@@ -2034,11 +2034,11 @@ func TestAccDynamoDBTable_Replica_pitrKMS(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "false",
-						"region_name":            acctest.AlternateRegion(),
+						"region_name":   acctest.AlternateRegion(),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
 						"point_in_time_recovery": "false",
-						"region_name":            acctest.ThirdRegion(),
+						"region_name":   acctest.ThirdRegion(),
 					}),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "point_in_time_recovery.0.enabled", "false"),
@@ -2075,11 +2075,11 @@ func TestAccDynamoDBTable_Replica_tagsOneOfTwo(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.ThirdRegion(), 0),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.ThirdRegion(),
+						"region_name":acctest.ThirdRegion(),
 						"propagate_tags": "false",
 					}),
 				),
@@ -2115,11 +2115,11 @@ func TestAccDynamoDBTable_Replica_tagsTwoOfTwo(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.ThirdRegion(), 3),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.ThirdRegion(),
+						"region_name":acctest.ThirdRegion(),
 						"propagate_tags": "true",
 					}),
 				),
@@ -2139,7 +2139,7 @@ func TestAccDynamoDBTable_Replica_tagsNext(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -2151,7 +2151,7 @@ func TestAccDynamoDBTable_Replica_tagsNext(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.AlternateRegion(), 2),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "true",
 					}),
 				),
@@ -2164,11 +2164,11 @@ func TestAccDynamoDBTable_Replica_tagsNext(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.ThirdRegion(), 2),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.ThirdRegion(),
+						"region_name":acctest.ThirdRegion(),
 						"propagate_tags": "true",
 					}),
 				),
@@ -2180,7 +2180,7 @@ func TestAccDynamoDBTable_Replica_tagsNext(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.AlternateRegion(), 2),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "true",
 					}),
 				),
@@ -2193,11 +2193,11 @@ func TestAccDynamoDBTable_Replica_tagsNext(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.ThirdRegion(), 0),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.ThirdRegion(),
+						"region_name":acctest.ThirdRegion(),
 						"propagate_tags": "false",
 					}),
 				),
@@ -2210,11 +2210,11 @@ func TestAccDynamoDBTable_Replica_tagsNext(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.ThirdRegion(), 0),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.ThirdRegion(),
+						"region_name":acctest.ThirdRegion(),
 						"propagate_tags": "false",
 					}),
 				),
@@ -2234,7 +2234,7 @@ func TestAccDynamoDBTable_Replica_tagsUpdate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -2246,7 +2246,7 @@ func TestAccDynamoDBTable_Replica_tagsUpdate(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.AlternateRegion(), 2),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "true",
 					}),
 				),
@@ -2258,7 +2258,7 @@ func TestAccDynamoDBTable_Replica_tagsUpdate(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.AlternateRegion(), 4),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "true",
 					}),
 				),
@@ -2271,11 +2271,11 @@ func TestAccDynamoDBTable_Replica_tagsUpdate(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.ThirdRegion(), 4),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.ThirdRegion(),
+						"region_name":acctest.ThirdRegion(),
 						"propagate_tags": "true",
 					}),
 				),
@@ -2288,11 +2288,11 @@ func TestAccDynamoDBTable_Replica_tagsUpdate(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.ThirdRegion(), 6),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.ThirdRegion(),
+						"region_name":acctest.ThirdRegion(),
 						"propagate_tags": "true",
 					}),
 				),
@@ -2305,11 +2305,11 @@ func TestAccDynamoDBTable_Replica_tagsUpdate(t *testing.T) {
 					testAccCheckReplicaHasTags(ctx, resourceName, acctest.ThirdRegion(), 1),
 					resource.TestCheckResourceAttr(resourceName, "replica.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.AlternateRegion(),
+						"region_name":acctest.AlternateRegion(),
 						"propagate_tags": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "replica.*", map[string]string{
-						"region_name":    acctest.ThirdRegion(),
+						"region_name":acctest.ThirdRegion(),
 						"propagate_tags": "true",
 					}),
 				),
@@ -2325,7 +2325,7 @@ func TestAccDynamoDBTable_tableClassInfrequentAccess(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -2338,8 +2338,8 @@ func TestAccDynamoDBTable_tableClassInfrequentAccess(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -2350,8 +2350,8 @@ func TestAccDynamoDBTable_tableClassInfrequentAccess(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -2365,7 +2365,7 @@ func TestAccDynamoDBTable_tableClassExplicitDefault(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -2378,8 +2378,8 @@ func TestAccDynamoDBTable_tableClassExplicitDefault(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -2397,7 +2397,7 @@ func TestAccDynamoDBTable_tableClass_ConcurrentModification(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -2412,8 +2412,8 @@ func TestAccDynamoDBTable_tableClass_ConcurrentModification(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -2426,8 +2426,8 @@ func TestAccDynamoDBTable_tableClass_ConcurrentModification(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -2441,14 +2441,14 @@ func TestAccDynamoDBTable_tableClass_migrate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:     func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:   acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		CheckDestroy: testAccCheckTableDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:   "hashicorp/aws",
 						VersionConstraint: "4.57.0",
 					},
 				},
@@ -2460,8 +2460,8 @@ func TestAccDynamoDBTable_tableClass_migrate(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:      testAccTableConfig_basic(rName),
-				PlanOnly:    true,
+				Config:  testAccTableConfig_basic(rName),
+				PlanOnly:true,
 			},
 		},
 	})
@@ -2479,7 +2479,7 @@ func TestAccDynamoDBTable_backupEncryption(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -2494,8 +2494,8 @@ func TestAccDynamoDBTable_backupEncryption(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"restore_to_latest_time",
@@ -2519,7 +2519,7 @@ func TestAccDynamoDBTable_backup_overrideEncryption(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -2534,8 +2534,8 @@ func TestAccDynamoDBTable_backup_overrideEncryption(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"restore_to_latest_time",
@@ -2714,16 +2714,16 @@ func testAccCheckInitialTableConf(resourceName string) resource.TestCheckFunc {
 			names.AttrType: "S",
 		}),
 		resource.TestCheckTypeSetElemNestedAttrs(resourceName, "global_secondary_index.*", map[string]string{
-			names.AttrName:    "InitialTestTableGSI",
-			"hash_key":        "TestTableHashKey",
-			"range_key":       "TestGSIRangeKey",
+			names.AttrName:"InitialTestTableGSI",
+			"hash_key":"TestTableHashKey",
+			"range_key":   "TestGSIRangeKey",
 			"write_capacity":  "1",
 			"read_capacity":   "1",
 			"projection_type": "KEYS_ONLY",
 		}),
 		resource.TestCheckTypeSetElemNestedAttrs(resourceName, "local_secondary_index.*", map[string]string{
-			names.AttrName:    "TestTableLSI",
-			"range_key":       "TestLSIRangeKey",
+			names.AttrName:"TestTableLSI",
+			"range_key":   "TestLSIRangeKey",
 			"projection_type": "ALL",
 		}),
 	)
@@ -2735,11 +2735,11 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = %[1]q
+  hash_key   = %[1]q
 
   attribute {
-    name = %[1]q
-    type = "S"
+name = %[1]q
+type = "S"
   }
 }
 `, rName)
@@ -2750,13 +2750,13 @@ func testAccTableConfig_enable_deletion_protection(rName string) string {
 resource "aws_dynamodb_table" "test" {
   name= %[1]q
   read_capacity= 1
-  write_capacity     = 1
-  hash_key     = %[1]q
+  write_capacity = 1
+  hash_key = %[1]q
   deletion_protection_enabled = true
 
   attribute {
-    name = %[1]q
-    type = "S"
+name = %[1]q
+type = "S"
   }
 }
 `, rName)
@@ -2767,12 +2767,12 @@ func testAccTableConfig_disable_deletion_protection(rName string) string {
 resource "aws_dynamodb_table" "test" {
   name= %[1]q
   read_capacity= 1
-  write_capacity     = 1
-  hash_key     = %[1]q
+  write_capacity = 1
+  hash_key = %[1]q
   deletion_protection_enabled = false
   attribute {
-    name = %[1]q
-    type = "S"
+name = %[1]q
+type = "S"
   }
 }
 `, rName)
@@ -2784,15 +2784,15 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = "TestTableHashKey"
+  hash_key   = "TestTableHashKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   point_in_time_recovery {
-    enabled = true
+enabled = true
   }
 }
 `, rName)
@@ -2803,11 +2803,11 @@ func testAccTableConfig_billingPayPerRequest(rName string) string {
 resource "aws_dynamodb_table" "test" {
   name= %[1]q
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "TestTableHashKey"
+  hash_key = "TestTableHashKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 }
 `, rName)
@@ -2818,15 +2818,15 @@ func testAccTableConfig_billingPayPerRequestIgnoreChanges(rName string) string {
 resource "aws_dynamodb_table" "test" {
   name= %[1]q
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "TestTableHashKey"
+  hash_key = "TestTableHashKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   lifecycle {
-    ignore_changes = [read_capacity, write_capacity]
+ignore_changes = [read_capacity, write_capacity]
   }
 }
 `, rName)
@@ -2837,14 +2837,14 @@ func testAccTableConfig_billingProvisioned(rName string) string {
 resource "aws_dynamodb_table" "test" {
   name= %[1]q
   billing_mode = "PROVISIONED"
-  hash_key     = "TestTableHashKey"
+  hash_key = "TestTableHashKey"
 
   read_capacity  = 5
   write_capacity = 5
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 }
 `, rName)
@@ -2855,18 +2855,18 @@ func testAccTableConfig_billingProvisionedIgnoreChanges(rName string) string {
 resource "aws_dynamodb_table" "test" {
   name= %[1]q
   billing_mode = "PROVISIONED"
-  hash_key     = "TestTableHashKey"
+  hash_key = "TestTableHashKey"
 
   read_capacity  = 5
   write_capacity = 5
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   lifecycle {
-    ignore_changes = [read_capacity, write_capacity]
+ignore_changes = [read_capacity, write_capacity]
   }
 }
 `, rName)
@@ -2877,22 +2877,22 @@ func testAccTableConfig_billingPayPerRequestGSI(rName string) string {
 resource "aws_dynamodb_table" "test" {
   name= %[1]q
   billing_mode = "PAY_PER_REQUEST"
-  hash_key     = "TestTableHashKey"
+  hash_key = "TestTableHashKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   attribute {
-    name = "TestTableGSIKey"
-    type = "S"
+name = "TestTableGSIKey"
+type = "S"
   }
 
   global_secondary_index {
-    name   = "TestTableGSI"
-    hash_key        = "TestTableGSIKey"
-    projection_type = "KEYS_ONLY"
+name   = "TestTableGSI"
+hash_key= "TestTableGSIKey"
+projection_type = "KEYS_ONLY"
   }
 }
 `, rName)
@@ -2902,27 +2902,27 @@ func testAccTableConfig_billingProvisionedGSI(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
   billing_mode   = "PROVISIONED"
-  hash_key       = "TestTableHashKey"
+  hash_key   = "TestTableHashKey"
   name  = %[1]q
   read_capacity  = 1
   write_capacity = 1
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   attribute {
-    name = "TestTableGSIKey"
-    type = "S"
+name = "TestTableGSIKey"
+type = "S"
   }
 
   global_secondary_index {
-    hash_key        = "TestTableGSIKey"
-    name   = "TestTableGSI"
-    projection_type = "KEYS_ONLY"
-    read_capacity   = 1
-    write_capacity  = 1
+hash_key= "TestTableGSIKey"
+name   = "TestTableGSI"
+projection_type = "KEYS_ONLY"
+read_capacity   = 1
+write_capacity  = 1
   }
 }
 `, rName)
@@ -2934,42 +2934,42 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 1
   write_capacity = 2
-  hash_key       = "TestTableHashKey"
-  range_key      = "TestTableRangeKey"
+  hash_key   = "TestTableHashKey"
+  range_key  = "TestTableRangeKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   attribute {
-    name = "TestTableRangeKey"
-    type = "S"
+name = "TestTableRangeKey"
+type = "S"
   }
 
   attribute {
-    name = "TestLSIRangeKey"
-    type = "N"
+name = "TestLSIRangeKey"
+type = "N"
   }
 
   attribute {
-    name = "TestGSIRangeKey"
-    type = "S"
+name = "TestGSIRangeKey"
+type = "S"
   }
 
   local_secondary_index {
-    name   = "TestTableLSI"
-    range_key       = "TestLSIRangeKey"
-    projection_type = "ALL"
+name   = "TestTableLSI"
+range_key   = "TestLSIRangeKey"
+projection_type = "ALL"
   }
 
   global_secondary_index {
-    name   = "InitialTestTableGSI"
-    hash_key        = "TestTableHashKey"
-    range_key       = "TestGSIRangeKey"
-    write_capacity  = 1
-    read_capacity   = 1
-    projection_type = "KEYS_ONLY"
+name   = "InitialTestTableGSI"
+hash_key= "TestTableHashKey"
+range_key   = "TestGSIRangeKey"
+write_capacity  = 1
+read_capacity   = 1
+projection_type = "KEYS_ONLY"
   }
 }
 `, rName)
@@ -2982,7 +2982,7 @@ data "aws_kms_alias" "dynamodb" {
 }
 
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
@@ -2990,15 +2990,15 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = "TestTableHashKey"
+  hash_key   = "TestTableHashKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   server_side_encryption {
-    enabled = %[2]t
+enabled = %[2]t
   }
 }
 `, rName, enabled)
@@ -3007,7 +3007,7 @@ resource "aws_dynamodb_table" "test" {
 func testAccTableConfig_initialStateEncryptionBYOK(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
@@ -3015,16 +3015,16 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 2
   write_capacity = 2
-  hash_key       = "TestTableHashKey"
+  hash_key   = "TestTableHashKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   server_side_encryption {
-    enabled     = true
-    kms_key_arn = aws_kms_key.test.arn
+enabled = true
+kms_key_arn = aws_kms_key.test.arn
   }
 }
 `, rName)
@@ -3036,43 +3036,43 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 2
   write_capacity = 2
-  hash_key       = "TestTableHashKey"
-  range_key      = "TestTableRangeKey"
+  hash_key   = "TestTableHashKey"
+  range_key  = "TestTableRangeKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   attribute {
-    name = "TestTableRangeKey"
-    type = "S"
+name = "TestTableRangeKey"
+type = "S"
   }
 
   attribute {
-    name = "TestLSIRangeKey"
-    type = "N"
+name = "TestLSIRangeKey"
+type = "N"
   }
 
   attribute {
-    name = "ReplacementGSIRangeKey"
-    type = "N"
+name = "ReplacementGSIRangeKey"
+type = "N"
   }
 
   local_secondary_index {
-    name   = "TestTableLSI"
-    range_key       = "TestLSIRangeKey"
-    projection_type = "ALL"
+name   = "TestTableLSI"
+range_key   = "TestLSIRangeKey"
+projection_type = "ALL"
   }
 
   global_secondary_index {
-    name= "ReplacementTestTableGSI"
-    hash_key  = "TestTableHashKey"
-    range_key = "ReplacementGSIRangeKey"
-    write_capacity     = 5
-    read_capacity      = 5
-    projection_type    = "INCLUDE"
-    non_key_attributes = ["TestNonKeyAttribute"]
+name= "ReplacementTestTableGSI"
+hash_key  = "TestTableHashKey"
+range_key = "ReplacementGSIRangeKey"
+write_capacity = 5
+read_capacity  = 5
+projection_type= "INCLUDE"
+non_key_attributes = ["TestNonKeyAttribute"]
   }
 }
 `, rName)
@@ -3087,11 +3087,11 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 1
   write_capacity = 2
-  hash_key       = "TestTableHashKey"
+  hash_key   = "TestTableHashKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   stream_enabled   = %[2]t
@@ -3106,48 +3106,48 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 1
   write_capacity = 2
-  hash_key       = "TestTableHashKey"
-  range_key      = "TestTableRangeKey"
+  hash_key   = "TestTableHashKey"
+  range_key  = "TestTableRangeKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   attribute {
-    name = "TestTableRangeKey"
-    type = "S"
+name = "TestTableRangeKey"
+type = "S"
   }
 
   attribute {
-    name = "TestLSIRangeKey"
-    type = "N"
+name = "TestLSIRangeKey"
+type = "N"
   }
 
   attribute {
-    name = "TestGSIRangeKey"
-    type = "S"
+name = "TestGSIRangeKey"
+type = "S"
   }
 
   local_secondary_index {
-    name   = "TestTableLSI"
-    range_key       = "TestLSIRangeKey"
-    projection_type = "ALL"
+name   = "TestTableLSI"
+range_key   = "TestLSIRangeKey"
+projection_type = "ALL"
   }
 
   global_secondary_index {
-    name   = "InitialTestTableGSI"
-    hash_key        = "TestTableHashKey"
-    range_key       = "TestGSIRangeKey"
-    write_capacity  = 1
-    read_capacity   = 1
-    projection_type = "KEYS_ONLY"
+name   = "InitialTestTableGSI"
+hash_key= "TestTableHashKey"
+range_key   = "TestGSIRangeKey"
+write_capacity  = 1
+read_capacity   = 1
+projection_type = "KEYS_ONLY"
   }
 
   tags = {
-    Name    = %[1]q
-    AccTest = "yes"
-    Testing = "absolutely"
+Name= %[1]q
+AccTest = "yes"
+Testing = "absolutely"
   }
 }
 `, rName)
@@ -3163,50 +3163,50 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = var.capacity
   write_capacity = var.capacity
-  hash_key       = "id"
+  hash_key   = "id"
 
   attribute {
-    name = "id"
-    type = "S"
+name = "id"
+type = "S"
   }
 
   attribute {
-    name = "att1"
-    type = "S"
+name = "att1"
+type = "S"
   }
 
   attribute {
-    name = "att2"
-    type = "S"
+name = "att2"
+type = "S"
   }
 
   attribute {
-    name = "att3"
-    type = "S"
+name = "att3"
+type = "S"
   }
 
   global_secondary_index {
-    name   = "att1-index"
-    hash_key        = "att1"
-    write_capacity  = var.capacity
-    read_capacity   = var.capacity
-    projection_type = "ALL"
+name   = "att1-index"
+hash_key= "att1"
+write_capacity  = var.capacity
+read_capacity   = var.capacity
+projection_type = "ALL"
   }
 
   global_secondary_index {
-    name   = "att2-index"
-    hash_key        = "att2"
-    write_capacity  = var.capacity
-    read_capacity   = var.capacity
-    projection_type = "ALL"
+name   = "att2-index"
+hash_key= "att2"
+write_capacity  = var.capacity
+read_capacity   = var.capacity
+projection_type = "ALL"
   }
 
   global_secondary_index {
-    name   = "att3-index"
-    hash_key        = "att3"
-    write_capacity  = var.capacity
-    read_capacity   = var.capacity
-    projection_type = "ALL"
+name   = "att3-index"
+hash_key= "att3"
+write_capacity  = var.capacity
+read_capacity   = var.capacity
+projection_type = "ALL"
   }
 }
 `, rName)
@@ -3222,50 +3222,50 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = var.capacity
   write_capacity = var.capacity
-  hash_key       = "id"
+  hash_key   = "id"
 
   attribute {
-    name = "id"
-    type = "S"
+name = "id"
+type = "S"
   }
 
   attribute {
-    name = "att1"
-    type = "S"
+name = "att1"
+type = "S"
   }
 
   attribute {
-    name = "att2"
-    type = "S"
+name = "att2"
+type = "S"
   }
 
   attribute {
-    name = "att3"
-    type = "S"
+name = "att3"
+type = "S"
   }
 
   global_secondary_index {
-    name   = "att1-index"
-    hash_key        = "att1"
-    write_capacity  = var.capacity
-    read_capacity   = var.capacity
-    projection_type = "ALL"
+name   = "att1-index"
+hash_key= "att1"
+write_capacity  = var.capacity
+read_capacity   = var.capacity
+projection_type = "ALL"
   }
 
   global_secondary_index {
-    name   = "att2-index"
-    hash_key        = "att2"
-    write_capacity  = var.capacity
-    read_capacity   = var.capacity
-    projection_type = "ALL"
+name   = "att2-index"
+hash_key= "att2"
+write_capacity  = var.capacity
+read_capacity   = var.capacity
+projection_type = "ALL"
   }
 
   global_secondary_index {
-    name   = "att3-index"
-    hash_key        = "att3"
-    write_capacity  = var.capacity
-    read_capacity   = var.capacity
-    projection_type = "ALL"
+name   = "att3-index"
+hash_key= "att3"
+write_capacity  = var.capacity
+read_capacity   = var.capacity
+projection_type = "ALL"
   }
 }
 `, rName)
@@ -3281,58 +3281,58 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = var.capacity
   write_capacity = var.capacity
-  hash_key       = "id"
+  hash_key   = "id"
 
   attribute {
-    name = "id"
-    type = "S"
+name = "id"
+type = "S"
   }
 
   attribute {
-    name = "att1"
-    type = "S"
+name = "att1"
+type = "S"
   }
 
   attribute {
-    name = "att2"
-    type = "S"
+name = "att2"
+type = "S"
   }
 
   attribute {
-    name = "att3"
-    type = "S"
+name = "att3"
+type = "S"
   }
 
   attribute {
-    name = "att4"
-    type = "S"
+name = "att4"
+type = "S"
   }
 
   global_secondary_index {
-    name   = "att1-index"
-    hash_key        = "att1"
-    write_capacity  = var.capacity
-    read_capacity   = var.capacity
-    projection_type = "ALL"
+name   = "att1-index"
+hash_key= "att1"
+write_capacity  = var.capacity
+read_capacity   = var.capacity
+projection_type = "ALL"
   }
 
   global_secondary_index {
-    name   = "att2-index"
-    hash_key        = "att4"
-    range_key       = "att2"
-    write_capacity  = var.capacity
-    read_capacity   = var.capacity
-    projection_type = "ALL"
+name   = "att2-index"
+hash_key= "att4"
+range_key   = "att2"
+write_capacity  = var.capacity
+read_capacity   = var.capacity
+projection_type = "ALL"
   }
 
   global_secondary_index {
-    name= "att3-index"
-    hash_key  = "att3"
-    range_key = "att4"
-    write_capacity     = var.capacity
-    read_capacity      = var.capacity
-    projection_type    = "INCLUDE"
-    non_key_attributes = ["RandomAttribute"]
+name= "att3-index"
+hash_key  = "att3"
+range_key = "att4"
+write_capacity = var.capacity
+read_capacity  = var.capacity
+projection_type= "INCLUDE"
+non_key_attributes = ["RandomAttribute"]
   }
 }
 `, rName)
@@ -3348,58 +3348,58 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = var.capacity
   write_capacity = var.capacity
-  hash_key       = "id"
+  hash_key   = "id"
 
   attribute {
-    name = "id"
-    type = "S"
+name = "id"
+type = "S"
   }
 
   attribute {
-    name = "att1"
-    type = "S"
+name = "att1"
+type = "S"
   }
 
   attribute {
-    name = "att2"
-    type = "S"
+name = "att2"
+type = "S"
   }
 
   attribute {
-    name = "att3"
-    type = "S"
+name = "att3"
+type = "S"
   }
 
   attribute {
-    name = "att4"
-    type = "S"
+name = "att4"
+type = "S"
   }
 
   global_secondary_index {
-    name   = "att1-index"
-    hash_key        = "att1"
-    write_capacity  = var.capacity
-    read_capacity   = var.capacity
-    projection_type = "ALL"
+name   = "att1-index"
+hash_key= "att1"
+write_capacity  = var.capacity
+read_capacity   = var.capacity
+projection_type = "ALL"
   }
 
   global_secondary_index {
-    name   = "att2-index"
-    hash_key        = "att4"
-    range_key       = "att2"
-    write_capacity  = var.capacity
-    read_capacity   = var.capacity
-    projection_type = "ALL"
+name   = "att2-index"
+hash_key= "att4"
+range_key   = "att2"
+write_capacity  = var.capacity
+read_capacity   = var.capacity
+projection_type = "ALL"
   }
 
   global_secondary_index {
-    name= "att3-index"
-    hash_key  = "att3"
-    range_key = "att4"
-    write_capacity     = var.capacity
-    read_capacity      = var.capacity
-    projection_type    = "INCLUDE"
-    non_key_attributes = ["RandomAttribute", "AnotherAttribute"]
+name= "att3-index"
+hash_key  = "att3"
+range_key = "att4"
+write_capacity = var.capacity
+read_capacity  = var.capacity
+projection_type= "INCLUDE"
+non_key_attributes = ["RandomAttribute", "AnotherAttribute"]
   }
 }
 `, rName)
@@ -3415,31 +3415,31 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = var.capacity
   write_capacity = var.capacity
-  hash_key       = "id"
+  hash_key   = "id"
 
   attribute {
-    name = "id"
-    type = "S"
+name = "id"
+type = "S"
   }
 
   attribute {
-    name = "att1"
-    type = "S"
+name = "att1"
+type = "S"
   }
 
   attribute {
-    name = "att2"
-    type = "S"
+name = "att2"
+type = "S"
   }
 
   global_secondary_index {
-    name= "att1-index"
-    hash_key  = "att1"
-    range_key = "att2"
-    write_capacity     = var.capacity
-    read_capacity      = var.capacity
-    projection_type    = "INCLUDE"
-    non_key_attributes = [%s]
+name= "att1-index"
+hash_key  = "att1"
+range_key = "att2"
+write_capacity = var.capacity
+read_capacity  = var.capacity
+projection_type= "INCLUDE"
+non_key_attributes = [%s]
   }
 }
 `, rName, attributes)
@@ -3449,31 +3449,31 @@ func testAccTableConfig_lsiNonKeyAttributes(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
   name  = %[1]q
-  hash_key       = "TestTableHashKey"
-  range_key      = "TestTableRangeKey"
+  hash_key   = "TestTableHashKey"
+  range_key  = "TestTableRangeKey"
   write_capacity = 1
   read_capacity  = 1
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   attribute {
-    name = "TestTableRangeKey"
-    type = "S"
+name = "TestTableRangeKey"
+type = "S"
   }
 
   attribute {
-    name = "TestLSIRangeKey"
-    type = "N"
+name = "TestLSIRangeKey"
+type = "N"
   }
 
   local_secondary_index {
-    name= "TestTableLSI"
-    range_key = "TestLSIRangeKey"
-    projection_type    = "INCLUDE"
-    non_key_attributes = ["TestNonKeyAttribute"]
+name= "TestTableLSI"
+range_key = "TestLSIRangeKey"
+projection_type= "INCLUDE"
+non_key_attributes = ["TestNonKeyAttribute"]
   }
 }
 `, rName)
@@ -3482,19 +3482,19 @@ resource "aws_dynamodb_table" "test" {
 func testAccTableConfig_timeToLive(rName string, ttlEnabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  hash_key       = "TestTableHashKey"
+  hash_key   = "TestTableHashKey"
   name  = %[1]q
   read_capacity  = 1
   write_capacity = 1
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   ttl {
-    attribute_name = %[2]t ? "TestTTL" : ""
-    enabled        = %[2]t
+attribute_name = %[2]t ? "TestTTL" : ""
+enabled= %[2]t
   }
 }
 `, rName, ttlEnabled)
@@ -3506,24 +3506,24 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
-  hash_key       = "staticHashKey"
+  hash_key   = "staticHashKey"
 
   attribute {
-    name = "staticHashKey"
-    type = "S"
+name = "staticHashKey"
+type = "S"
   }
 
   attribute {
-    name = %[3]q
-    type = %[4]q
+name = %[3]q
+type = %[4]q
   }
 
   global_secondary_index {
-    name   = "gsiName"
-    hash_key        = %[2]q
-    write_capacity  = 10
-    read_capacity   = 10
-    projection_type = "KEYS_ONLY"
+name   = "gsiName"
+hash_key= %[2]q
+write_capacity  = 10
+read_capacity   = 10
+projection_type = "KEYS_ONLY"
   }
 }
 `, rName, hashKey, attrName, attrType)
@@ -3535,30 +3535,30 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
-  hash_key       = "staticHashKey"
+  hash_key   = "staticHashKey"
 
   attribute {
-    name = "staticHashKey"
-    type = "S"
+name = "staticHashKey"
+type = "S"
   }
 
   attribute {
-    name = %[4]q
-    type = %[5]q
+name = %[4]q
+type = %[5]q
   }
 
   attribute {
-    name = %[6]q
-    type = %[7]q
+name = %[6]q
+type = %[7]q
   }
 
   global_secondary_index {
-    name   = "gsiName"
-    hash_key        = %[2]q
-    range_key       = %[3]q
-    write_capacity  = 10
-    read_capacity   = 10
-    projection_type = "KEYS_ONLY"
+name   = "gsiName"
+hash_key= %[2]q
+range_key   = %[3]q
+write_capacity  = 10
+read_capacity   = 10
+projection_type = "KEYS_ONLY"
   }
 }
 `, rName, hashKey, rangeKey, attrName1, attrType1, attrName2, attrType2)
@@ -3570,18 +3570,18 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
-  hash_key       = "staticHashKey"
-  range_key      = %[2]q
+  hash_key   = "staticHashKey"
+  range_key  = %[2]q
 
   attribute {
-    name = "staticHashKey"
-    type = "S"
+name = "staticHashKey"
+type = "S"
   }
 
   local_secondary_index {
-    name   = "lsiName"
-    range_key       = %[3]q
-    projection_type = "KEYS_ONLY"
+name   = "lsiName"
+range_key   = %[3]q
+projection_type = "KEYS_ONLY"
   }
 }
 `, rName, attr1, attr2)
@@ -3592,15 +3592,15 @@ func testAccTableConfig_replica0(rName string) string {
 		acctest.ConfigMultipleRegionProvider(3), // Prevent "Provider configuration not present" errors
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 }
 `, rName))
@@ -3615,19 +3615,19 @@ data "aws_region" "alternate" {
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name = data.aws_region.alternate.name
+region_name = data.aws_region.alternate.name
   }
 }
 `, rName))
@@ -3642,23 +3642,23 @@ data "aws_region" "alternate" {
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   server_side_encryption {
-    enabled = true
+enabled = true
   }
 
   replica {
-    region_name = data.aws_region.alternate.name
+region_name = data.aws_region.alternate.name
   }
 }
 `, rName))
@@ -3673,48 +3673,48 @@ data "aws_region" "alternate" {
 }
 
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key" "replica" {
   provider = "awsalternate"
-  description    = "%[1]s-2"
+  description= "%[1]s-2"
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key" "replica2" {
   provider = "awsalternate"
-  description    = "%[1]s-3"
+  description= "%[1]s-3"
   deletion_window_in_days = 7
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name = data.aws_region.alternate.name
-    kms_key_arn = aws_kms_key.replica.arn
+region_name = data.aws_region.alternate.name
+kms_key_arn = aws_kms_key.replica.arn
   }
 
   server_side_encryption {
-    enabled     = true
-    kms_key_arn = aws_kms_key.test.arn
+enabled = true
+kms_key_arn = aws_kms_key.test.arn
   }
 
   timeouts {
-    create = "20m"
-    update = "20m"
-    delete = "20m"
+create = "20m"
+update = "20m"
+delete = "20m"
   }
 }
 `, rName))
@@ -3729,48 +3729,48 @@ data "aws_region" "alternate" {
 }
 
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key" "replica" {
   provider = "awsalternate"
-  description    = "%[1]s-2"
+  description= "%[1]s-2"
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key" "replica2" {
   provider = "awsalternate"
-  description    = "%[1]s-3"
+  description= "%[1]s-3"
   deletion_window_in_days = 7
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name = data.aws_region.alternate.name
-    kms_key_arn = aws_kms_key.%[2]s.arn
+region_name = data.aws_region.alternate.name
+kms_key_arn = aws_kms_key.%[2]s.arn
   }
 
   server_side_encryption {
-    enabled     = true
-    kms_key_arn = aws_kms_key.test.arn
+enabled = true
+kms_key_arn = aws_kms_key.test.arn
   }
 
   timeouts {
-    create = "20m"
-    update = "20m"
-    delete = "20m"
+create = "20m"
+update = "20m"
+delete = "20m"
   }
 }
 `, rName, key))
@@ -3789,34 +3789,34 @@ data "aws_kms_alias" "dynamodb" {
 }
 
 data "aws_kms_alias" "replica" {
-  name     = "alias/aws/dynamodb"
+  name = "alias/aws/dynamodb"
   provider = "awsalternate"
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name = data.aws_region.alternate.name
+region_name = data.aws_region.alternate.name
   }
 
   server_side_encryption {
-    enabled = true
+enabled = true
   }
 
   timeouts {
-    create = "20m"
-    update = "20m"
-    delete = "20m"
+create = "20m"
+update = "20m"
+delete = "20m"
   }
 }
 `, rName))
@@ -3835,29 +3835,29 @@ data "aws_region" "third" {
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   point_in_time_recovery {
-    enabled = %[2]t
+enabled = %[2]t
   }
 
   replica {
-    region_name   = data.aws_region.alternate.name
-    point_in_time_recovery = %[3]t
+region_name   = data.aws_region.alternate.name
+point_in_time_recovery = %[3]t
   }
 
   replica {
-    region_name   = data.aws_region.third.name
-    point_in_time_recovery = %[4]t
+region_name   = data.aws_region.third.name
+point_in_time_recovery = %[4]t
   }
 }
 `, rName, mainPITR, replica1, replica2))
@@ -3876,53 +3876,53 @@ data "aws_region" "third" {
 }
 
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key" "alternate" {
   provider = awsalternate
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key" "third" {
   provider = awsthird
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   point_in_time_recovery {
-    enabled = %[2]t
+enabled = %[2]t
   }
 
   server_side_encryption {
-    enabled     = true
-    kms_key_arn = aws_kms_key.test.arn
+enabled = true
+kms_key_arn = aws_kms_key.test.arn
   }
 
   replica {
-    region_name   = data.aws_region.alternate.name
-    point_in_time_recovery = %[3]t
-    kms_key_arn   = aws_kms_key.alternate.arn
+region_name   = data.aws_region.alternate.name
+point_in_time_recovery = %[3]t
+kms_key_arn   = aws_kms_key.alternate.arn
   }
 
   replica {
-    region_name   = data.aws_region.third.name
-    point_in_time_recovery = %[4]t
-    kms_key_arn   = aws_kms_key.third.arn
+region_name   = data.aws_region.third.name
+point_in_time_recovery = %[4]t
+kms_key_arn   = aws_kms_key.third.arn
   }
 }
 `, rName, mainPITR, replica1, replica2))
@@ -3941,31 +3941,31 @@ data "aws_region" "third" {
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name    = data.aws_region.alternate.name
-    propagate_tags = %[4]t
+region_name= data.aws_region.alternate.name
+propagate_tags = %[4]t
   }
 
   replica {
-    region_name    = data.aws_region.third.name
-    propagate_tags = %[5]t
+region_name= data.aws_region.third.name
+propagate_tags = %[5]t
   }
 
   tags = {
-    Name  = %[1]q
-    Pozo  = "Amargo"
-    %[2]s = %[3]q
+Name  = %[1]q
+Pozo  = "Amargo"
+%[2]s = %[3]q
   }
 }
 `, rName, key, value, propagate1, propagate2))
@@ -3984,23 +3984,23 @@ data "aws_region" "third" {
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name = data.aws_region.alternate.name
+region_name = data.aws_region.alternate.name
   }
 
   replica {
-    region_name = data.aws_region.third.name
+region_name = data.aws_region.third.name
   }
 }
 `, rName))
@@ -4011,25 +4011,25 @@ func testAccTableConfig_replicaTagsNext1(rName string, region1 string, propagate
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name    = %[2]q
-    propagate_tags = %[3]t
+region_name= %[2]q
+propagate_tags = %[3]t
   }
 
   tags = {
-    Name = %[1]q
-    Pozo = "Amargo"
+Name = %[1]q
+Pozo = "Amargo"
   }
 }
 `, rName, region1, propagate1))
@@ -4040,30 +4040,30 @@ func testAccTableConfig_replicaTagsNext2(rName, region1 string, propagate1 bool,
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name    = %[2]q
-    propagate_tags = %[3]t
+region_name= %[2]q
+propagate_tags = %[3]t
   }
 
   replica {
-    region_name    = %[4]q
-    propagate_tags = %[5]t
+region_name= %[4]q
+propagate_tags = %[5]t
   }
 
   tags = {
-    Name = %[1]q
-    Pozo = "Amargo"
+Name = %[1]q
+Pozo = "Amargo"
   }
 }
 `, rName, region1, propagate1, region2, propagate2))
@@ -4074,25 +4074,25 @@ func testAccTableConfig_replicaTagsUpdate1(rName, region1 string) string {
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name    = %[2]q
-    propagate_tags = true
+region_name= %[2]q
+propagate_tags = true
   }
 
   tags = {
-    Name = %[1]q
-    Pozo = "Amargo"
+Name = %[1]q
+Pozo = "Amargo"
   }
 }
 `, rName, region1))
@@ -4103,27 +4103,27 @@ func testAccTableConfig_replicaTagsUpdate2(rName, region1 string) string {
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name    = %[2]q
-    propagate_tags = true
+region_name= %[2]q
+propagate_tags = true
   }
 
   tags = {
-    Name   = %[1]q
-    Pozo   = "Amargo"
-    tyDi   = "Lullaby"
-    Thrill = "Seekers"
+Name   = %[1]q
+Pozo   = "Amargo"
+tyDi   = "Lullaby"
+Thrill = "Seekers"
   }
 }
 `, rName, region1))
@@ -4134,32 +4134,32 @@ func testAccTableConfig_replicaTagsUpdate3(rName, region1 string, region2 string
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name    = %[2]q
-    propagate_tags = true
+region_name= %[2]q
+propagate_tags = true
   }
 
   replica {
-    region_name    = %[3]q
-    propagate_tags = true
+region_name= %[3]q
+propagate_tags = true
   }
 
   tags = {
-    Name   = %[1]q
-    Pozo   = "Amargo"
-    tyDi   = "Lullaby"
-    Thrill = "Seekers"
+Name   = %[1]q
+Pozo   = "Amargo"
+tyDi   = "Lullaby"
+Thrill = "Seekers"
   }
 }
 `, rName, region1, region2))
@@ -4170,34 +4170,34 @@ func testAccTableConfig_replicaTagsUpdate4(rName, region1 string, region2 string
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name    = %[2]q
-    propagate_tags = true
+region_name= %[2]q
+propagate_tags = true
   }
 
   replica {
-    region_name    = %[3]q
-    propagate_tags = true
+region_name= %[3]q
+propagate_tags = true
   }
 
   tags = {
-    Name    = %[1]q
-    Pozo    = "Amargo"
-    tyDi    = "Lullaby"
-    Thrill  = "Seekers"
-    Tristan = "Joe"
-    Humming = "bird"
+Name= %[1]q
+Pozo= "Amargo"
+tyDi= "Lullaby"
+Thrill  = "Seekers"
+Tristan = "Joe"
+Humming = "bird"
   }
 }
 `, rName, region1, region2))
@@ -4208,29 +4208,29 @@ func testAccTableConfig_replicaTagsUpdate5(rName, region1 string, region2 string
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name    = %[2]q
-    propagate_tags = true
+region_name= %[2]q
+propagate_tags = true
   }
 
   replica {
-    region_name    = %[3]q
-    propagate_tags = true
+region_name= %[3]q
+propagate_tags = true
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, region1, region2))
@@ -4249,16 +4249,16 @@ data "aws_region" "alternate" {
 
 resource "aws_dynamodb_table" "test" {
   name= %[1]q
-  hash_key     = "TestTableHashKey"
+  hash_key = "TestTableHashKey"
   billing_mode = "PAY_PER_REQUEST"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   replica {
-    region_name = data.aws_region.alternate.name
+region_name = data.aws_region.alternate.name
   }
 
   stream_enabled   = %[2]t
@@ -4273,28 +4273,28 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
-  hash_key       = "staticHashKey"
-  range_key      = "staticRangeKey"
+  hash_key   = "staticHashKey"
+  range_key  = "staticRangeKey"
 
   attribute {
-    name = "staticHashKey"
-    type = "S"
+name = "staticHashKey"
+type = "S"
   }
 
   attribute {
-    name = "staticRangeKey"
-    type = "S"
+name = "staticRangeKey"
+type = "S"
   }
 
   attribute {
-    name = "staticLSIRangeKey"
-    type = "S"
+name = "staticLSIRangeKey"
+type = "S"
   }
 
   local_secondary_index {
-    name   = %[2]q
-    range_key       = "staticLSIRangeKey"
-    projection_type = "KEYS_ONLY"
+name   = %[2]q
+range_key   = "staticLSIRangeKey"
+projection_type = "KEYS_ONLY"
   }
 }
 `, rName, lsiName)
@@ -4306,13 +4306,13 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = %[1]q
+  hash_key   = %[1]q
 
   table_class = %[2]q
 
   attribute {
-    name = %[1]q
-    type = "S"
+name = %[1]q
+type = "S"
   }
 }
 `, rName, tableClass)
@@ -4321,15 +4321,15 @@ resource "aws_dynamodb_table" "test" {
 func testAccTableConfig_classConcurrent(rName, tableClass string, capacity int) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  hash_key       = "TestTableHashKey"
+  hash_key   = "TestTableHashKey"
   name  = %[1]q
   read_capacity  = %[2]d
   write_capacity = %[2]d
-  table_class    = %[3]q
+  table_class= %[3]q
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 }
 `, rName, capacity, tableClass)
@@ -4341,35 +4341,35 @@ resource "aws_dynamodb_table" "source" {
   name  = "%[1]s-source"
   read_capacity  = 2
   write_capacity = 2
-  hash_key       = "TestTableHashKey"
+  hash_key   = "TestTableHashKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   point_in_time_recovery {
-    enabled = true
+enabled = true
   }
 
   server_side_encryption {
-    enabled = false
+enabled = false
   }
 }
 
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = "%[1]s-target"
-  restore_source_name    = aws_dynamodb_table.source.name
+  name= "%[1]s-target"
+  restore_source_name= aws_dynamodb_table.source.name
   restore_to_latest_time = true
 
   server_side_encryption {
-    enabled     = true
-    kms_key_arn = aws_kms_key.test.arn
+enabled = true
+kms_key_arn = aws_kms_key.test.arn
   }
 }
 `, rName)
@@ -4381,31 +4381,31 @@ resource "aws_dynamodb_table" "source" {
   name  = "%[1]s-source"
   read_capacity  = 2
   write_capacity = 2
-  hash_key       = "TestTableHashKey"
+  hash_key   = "TestTableHashKey"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   point_in_time_recovery {
-    enabled = true
+enabled = true
   }
 
   server_side_encryption {
-    enabled     = true
-    kms_key_arn = aws_kms_key.test.arn
+enabled = true
+kms_key_arn = aws_kms_key.test.arn
   }
 }
 
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = "%[1]s-target"
-  restore_source_name    = aws_dynamodb_table.source.name
+  name= "%[1]s-target"
+  restore_source_name= aws_dynamodb_table.source.name
   restore_to_latest_time = true
 }
 `, rName)

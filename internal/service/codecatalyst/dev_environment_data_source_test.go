@@ -24,7 +24,7 @@ func TestAccCodeCatalystDevEnvironmentDataSource_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.CodeCatalyst)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeCatalyst),
+		ErrorCheck:      acctest.ErrorCheck(t, names.CodeCatalyst),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -41,7 +41,7 @@ func TestAccCodeCatalystDevEnvironmentDataSource_basic(t *testing.T) {
 func testAccDevEnvironmentDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codecatalyst_dev_environment" "test" {
-  alias         = %[1]q
+  alias= %[1]q
   space_name    = "tf-cc-aws-provider"
   project_name  = "tf-cc"
   instance_type = "dev.standard1.small"

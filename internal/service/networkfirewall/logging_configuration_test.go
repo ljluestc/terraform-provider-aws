@@ -26,7 +26,7 @@ func TestAccNetworkFirewallLoggingConfiguration_CloudWatchLogDestination_logGrou
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -37,9 +37,9 @@ func TestAccNetworkFirewallLoggingConfiguration_CloudWatchLogDestination_logGrou
 					testAccCheckLoggingConfigurationExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":        "1",
+						"log_destination.%":   "1",
 						"log_destination.logGroup": logGroupName,
-						"log_destination_type":     networkfirewall.LogDestinationTypeCloudWatchLogs,
+						"log_destination_type":networkfirewall.LogDestinationTypeCloudWatchLogs,
 					}),
 				),
 			},
@@ -49,15 +49,15 @@ func TestAccNetworkFirewallLoggingConfiguration_CloudWatchLogDestination_logGrou
 					testAccCheckLoggingConfigurationExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":        "1",
+						"log_destination.%":   "1",
 						"log_destination.logGroup": updatedLogGroupName,
-						"log_destination_type":     networkfirewall.LogDestinationTypeCloudWatchLogs,
+						"log_destination_type":networkfirewall.LogDestinationTypeCloudWatchLogs,
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -71,7 +71,7 @@ func TestAccNetworkFirewallLoggingConfiguration_CloudWatchLogDestination_logType
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -97,8 +97,8 @@ func TestAccNetworkFirewallLoggingConfiguration_CloudWatchLogDestination_logType
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -113,7 +113,7 @@ func TestAccNetworkFirewallLoggingConfiguration_KinesisLogDestination_deliverySt
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -126,7 +126,7 @@ func TestAccNetworkFirewallLoggingConfiguration_KinesisLogDestination_deliverySt
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
 						"log_destination.%": "1",
 						"log_destination.deliveryStream": streamName,
-						"log_destination_type":           networkfirewall.LogDestinationTypeKinesisDataFirehose,
+						"log_destination_type": networkfirewall.LogDestinationTypeKinesisDataFirehose,
 					}),
 				),
 			},
@@ -138,13 +138,13 @@ func TestAccNetworkFirewallLoggingConfiguration_KinesisLogDestination_deliverySt
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
 						"log_destination.%": "1",
 						"log_destination.deliveryStream": updatedStreamName,
-						"log_destination_type":           networkfirewall.LogDestinationTypeKinesisDataFirehose,
+						"log_destination_type": networkfirewall.LogDestinationTypeKinesisDataFirehose,
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -158,7 +158,7 @@ func TestAccNetworkFirewallLoggingConfiguration_KinesisLogDestination_logType(t 
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -184,8 +184,8 @@ func TestAccNetworkFirewallLoggingConfiguration_KinesisLogDestination_logType(t 
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -200,7 +200,7 @@ func TestAccNetworkFirewallLoggingConfiguration_S3LogDestination_bucketName(t *t
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -212,7 +212,7 @@ func TestAccNetworkFirewallLoggingConfiguration_S3LogDestination_bucketName(t *t
 					testAccCheckLoggingConfigurationExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":          "1",
+						"log_destination.%":"1",
 						"log_destination.bucketName": bucketName,
 					}),
 				),
@@ -223,14 +223,14 @@ func TestAccNetworkFirewallLoggingConfiguration_S3LogDestination_bucketName(t *t
 					testAccCheckLoggingConfigurationExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":          "1",
+						"log_destination.%":"1",
 						"log_destination.bucketName": updatedBucketName,
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -244,7 +244,7 @@ func TestAccNetworkFirewallLoggingConfiguration_S3LogDestination_logType(t *test
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -271,8 +271,8 @@ func TestAccNetworkFirewallLoggingConfiguration_S3LogDestination_logType(t *test
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -286,7 +286,7 @@ func TestAccNetworkFirewallLoggingConfiguration_S3LogDestination_prefix(t *testi
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -298,7 +298,7 @@ func TestAccNetworkFirewallLoggingConfiguration_S3LogDestination_prefix(t *testi
 					testAccCheckLoggingConfigurationExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":          "1",
+						"log_destination.%":"1",
 						"log_destination.bucketName": bucketName,
 					}),
 				),
@@ -309,15 +309,15 @@ func TestAccNetworkFirewallLoggingConfiguration_S3LogDestination_prefix(t *testi
 					testAccCheckLoggingConfigurationExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":          "2",
+						"log_destination.%":"2",
 						"log_destination.bucketName": bucketName,
-						"log_destination.prefix":     "update-prefix",
+						"log_destination.prefix":"update-prefix",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -332,7 +332,7 @@ func TestAccNetworkFirewallLoggingConfiguration_updateFirewallARN(t *testing.T) 
 	firewallResourceName := "aws_networkfirewall_firewall.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -353,8 +353,8 @@ func TestAccNetworkFirewallLoggingConfiguration_updateFirewallARN(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -370,7 +370,7 @@ func TestAccNetworkFirewallLoggingConfiguration_updateLogDestinationType(t *test
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -381,10 +381,10 @@ func TestAccNetworkFirewallLoggingConfiguration_updateLogDestinationType(t *test
 					testAccCheckLoggingConfigurationExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":        "1",
+						"log_destination.%":   "1",
 						"log_destination.logGroup": logGroupName,
-						"log_destination_type":     networkfirewall.LogDestinationTypeCloudWatchLogs,
-						"log_type":    networkfirewall.LogTypeFlow,
+						"log_destination_type":networkfirewall.LogDestinationTypeCloudWatchLogs,
+						"log_type":networkfirewall.LogTypeFlow,
 					}),
 				),
 			},
@@ -396,8 +396,8 @@ func TestAccNetworkFirewallLoggingConfiguration_updateLogDestinationType(t *test
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
 						"log_destination.%": "1",
 						"log_destination.deliveryStream": streamName,
-						"log_destination_type":           networkfirewall.LogDestinationTypeKinesisDataFirehose,
-						"log_type":          networkfirewall.LogTypeFlow,
+						"log_destination_type": networkfirewall.LogDestinationTypeKinesisDataFirehose,
+						"log_type":networkfirewall.LogTypeFlow,
 					}),
 				),
 			},
@@ -413,8 +413,8 @@ func TestAccNetworkFirewallLoggingConfiguration_updateLogDestinationType(t *test
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -429,7 +429,7 @@ func TestAccNetworkFirewallLoggingConfiguration_updateToMultipleLogDestinations(
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -449,14 +449,14 @@ func TestAccNetworkFirewallLoggingConfiguration_updateToMultipleLogDestinations(
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
 						"log_destination.%": "1",
 						"log_destination.deliveryStream": streamName,
-						"log_destination_type":           networkfirewall.LogDestinationTypeKinesisDataFirehose,
-						"log_type":          networkfirewall.LogTypeFlow,
+						"log_destination_type": networkfirewall.LogDestinationTypeKinesisDataFirehose,
+						"log_type":networkfirewall.LogTypeFlow,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":          "1",
+						"log_destination.%":"1",
 						"log_destination.bucketName": bucketName,
-						"log_destination_type":       networkfirewall.LogDestinationTypeS3,
-						"log_type":      networkfirewall.LogTypeAlert,
+						"log_destination_type":  networkfirewall.LogDestinationTypeS3,
+						"log_type": networkfirewall.LogTypeAlert,
 					}),
 				),
 			},
@@ -469,8 +469,8 @@ func TestAccNetworkFirewallLoggingConfiguration_updateToMultipleLogDestinations(
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -485,7 +485,7 @@ func TestAccNetworkFirewallLoggingConfiguration_updateToSingleAlertTypeLogDestin
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -497,16 +497,16 @@ func TestAccNetworkFirewallLoggingConfiguration_updateToSingleAlertTypeLogDestin
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.0.log_destination_config.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":        "1",
+						"log_destination.%":   "1",
 						"log_destination.logGroup": logGroupName,
-						"log_destination_type":     networkfirewall.LogDestinationTypeCloudWatchLogs,
-						"log_type":    networkfirewall.LogTypeFlow,
+						"log_destination_type":networkfirewall.LogDestinationTypeCloudWatchLogs,
+						"log_type":networkfirewall.LogTypeFlow,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":          "1",
+						"log_destination.%":"1",
 						"log_destination.bucketName": bucketName,
-						"log_destination_type":       networkfirewall.LogDestinationTypeS3,
-						"log_type":      networkfirewall.LogTypeAlert,
+						"log_destination_type":  networkfirewall.LogDestinationTypeS3,
+						"log_type": networkfirewall.LogTypeAlert,
 					}),
 				),
 			},
@@ -517,16 +517,16 @@ func TestAccNetworkFirewallLoggingConfiguration_updateToSingleAlertTypeLogDestin
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.0.log_destination_config.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":          "1",
+						"log_destination.%":"1",
 						"log_destination.bucketName": bucketName,
-						"log_destination_type":       networkfirewall.LogDestinationTypeS3,
-						"log_type":      networkfirewall.LogTypeAlert,
+						"log_destination_type":  networkfirewall.LogDestinationTypeS3,
+						"log_type": networkfirewall.LogTypeAlert,
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -541,7 +541,7 @@ func TestAccNetworkFirewallLoggingConfiguration_updateToSingleFlowTypeLogDestina
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -553,16 +553,16 @@ func TestAccNetworkFirewallLoggingConfiguration_updateToSingleFlowTypeLogDestina
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.0.log_destination_config.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":        "1",
+						"log_destination.%":   "1",
 						"log_destination.logGroup": logGroupName,
-						"log_destination_type":     networkfirewall.LogDestinationTypeCloudWatchLogs,
-						"log_type":    networkfirewall.LogTypeFlow,
+						"log_destination_type":networkfirewall.LogDestinationTypeCloudWatchLogs,
+						"log_type":networkfirewall.LogTypeFlow,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":          "1",
+						"log_destination.%":"1",
 						"log_destination.bucketName": bucketName,
-						"log_destination_type":       networkfirewall.LogDestinationTypeS3,
-						"log_type":      networkfirewall.LogTypeAlert,
+						"log_destination_type":  networkfirewall.LogDestinationTypeS3,
+						"log_type": networkfirewall.LogTypeAlert,
 					}),
 				),
 			},
@@ -573,16 +573,16 @@ func TestAccNetworkFirewallLoggingConfiguration_updateToSingleFlowTypeLogDestina
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.0.log_destination_config.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_configuration.0.log_destination_config.*", map[string]string{
-						"log_destination.%":        "1",
+						"log_destination.%":   "1",
 						"log_destination.logGroup": logGroupName,
-						"log_destination_type":     networkfirewall.LogDestinationTypeCloudWatchLogs,
-						"log_type":    networkfirewall.LogTypeFlow,
+						"log_destination_type":networkfirewall.LogDestinationTypeCloudWatchLogs,
+						"log_type":networkfirewall.LogTypeFlow,
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -596,7 +596,7 @@ func TestAccNetworkFirewallLoggingConfiguration_disappears(t *testing.T) {
 	resourceName := "aws_networkfirewall_logging_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLoggingConfigurationDestroy(ctx),
@@ -667,8 +667,8 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+name   = "opt-in-status"
+values = ["opt-in-not-required"]
   }
 }
 
@@ -676,25 +676,25 @@ resource "aws_vpc" "test" {
   cidr_block = "192.168.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  vpc_id  = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 }
 
@@ -704,7 +704,7 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
   }
 }
 `, rName)
@@ -716,8 +716,8 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+name   = "opt-in-status"
+values = ["opt-in-not-required"]
   }
 }
 
@@ -725,25 +725,25 @@ resource "aws_vpc" "test" {
   cidr_block = "192.168.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  vpc_id  = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 }
 
@@ -753,7 +753,7 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
   }
 }
 `, rName)
@@ -762,11 +762,11 @@ resource "aws_networkfirewall_firewall" "test" {
 func testAccLoggingConfigurationS3BucketDependencyConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %q
+  bucket   = %q
   force_destroy = true
 
   lifecycle {
-    create_before_destroy = true
+create_before_destroy = true
   }
 }
 `, rName)
@@ -778,7 +778,7 @@ resource "aws_cloudwatch_log_group" "test" {
   name = %q
 
   lifecycle {
-    create_before_destroy = true
+create_before_destroy = true
   }
 }
 `, rName)
@@ -797,19 +797,19 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "firehose.${data.aws_partition.current.dns_suffix}"
-      },
-      "Action": "sts:AssumeRole",
-      "Condition": {
-        "StringEquals": {
-          "sts:ExternalId": "${data.aws_caller_identity.current.account_id}"
-        }
-      }
-    }
+{
+ "Sid": "",
+ "Effect": "Allow",
+ "Principal": {
+   "Service": "firehose.${data.aws_partition.current.dns_suffix}"
+ },
+ "Action": "sts:AssumeRole",
+ "Condition": {
+   "StringEquals": {
+"sts:ExternalId": "${data.aws_caller_identity.current.account_id}"
+   }
+ }
+}
   ]
 }
 EOF
@@ -823,62 +823,62 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Action": [
-        "s3:AbortMultipartUpload",
-        "s3:GetBucketLocation",
-        "s3:GetObject",
-        "s3:ListBucket",
-        "s3:ListBucketMultipartUploads",
-        "s3:PutObject"
-      ],
-      "Resource": [
-        "${aws_s3_bucket.logs.arn}",
-        "${aws_s3_bucket.logs.arn}/*"
-      ]
-    },
-    {
-      "Sid": "GlueAccess",
-      "Effect": "Allow",
-      "Action": [
-        "glue:GetTableVersions"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
+{
+ "Sid": "",
+ "Effect": "Allow",
+ "Action": [
+   "s3:AbortMultipartUpload",
+   "s3:GetBucketLocation",
+   "s3:GetObject",
+   "s3:ListBucket",
+   "s3:ListBucketMultipartUploads",
+   "s3:PutObject"
+ ],
+ "Resource": [
+   "${aws_s3_bucket.logs.arn}",
+   "${aws_s3_bucket.logs.arn}/*"
+ ]
+},
+{
+ "Sid": "GlueAccess",
+ "Effect": "Allow",
+ "Action": [
+   "glue:GetTableVersions"
+ ],
+ "Resource": [
+   "*"
+ ]
+}
   ]
 }
 EOF
 }
 
 resource "aws_s3_bucket" "logs" {
-  bucket        = %[1]q
+  bucket   = %[1]q
   force_destroy = true
 }
 
 resource "aws_kinesis_firehose_delivery_stream" "test" {
   depends_on  = [aws_iam_role_policy.test]
-  name        = %[2]q
+  name   = %[2]q
   destination = "extended_s3"
 
   extended_s3_configuration {
-    role_arn   = aws_iam_role.test.arn
-    bucket_arn = aws_s3_bucket.logs.arn
+role_arn   = aws_iam_role.test.arn
+bucket_arn = aws_s3_bucket.logs.arn
   }
 
   tags = {
-    LogDeliveryEnabled = "placeholder"
+LogDeliveryEnabled = "placeholder"
   }
 
   lifecycle {
-    create_before_destroy = true
-    ignore_changes = [
-      # Ignore changes to LogDeliveryEnabled tag as API adds this tag when broker log delivery is enabled
-      tags["LogDeliveryEnabled"],
-    ]
+create_before_destroy = true
+ignore_changes = [
+ # Ignore changes to LogDeliveryEnabled tag as API adds this tag when broker log delivery is enabled
+ tags["LogDeliveryEnabled"],
+]
   }
 }
 `, rName, streamName)
@@ -893,13 +893,13 @@ resource "aws_networkfirewall_logging_configuration" "test" {
   firewall_arn = aws_networkfirewall_firewall.test.arn
 
   logging_configuration {
-    log_destination_config {
-      log_destination = {
-        bucketName = aws_s3_bucket.test.bucket
-      }
-      log_destination_type = %[2]q
-      log_type= %[3]q
-    }
+log_destination_config {
+ log_destination = {
+   bucketName = aws_s3_bucket.test.bucket
+ }
+ log_destination_type = %[2]q
+ log_type= %[3]q
+}
   }
 }
 `, rName, destinationType, logType))
@@ -914,13 +914,13 @@ resource "aws_networkfirewall_logging_configuration" "test" {
   firewall_arn = aws_networkfirewall_firewall.test.arn
 
   logging_configuration {
-    log_destination_config {
-      log_destination = {
-        bucketName = aws_s3_bucket.test.bucket
-      }
-      log_destination_type = %[2]q
-      log_type= %[3]q
-    }
+log_destination_config {
+ log_destination = {
+   bucketName = aws_s3_bucket.test.bucket
+ }
+ log_destination_type = %[2]q
+ log_type= %[3]q
+}
   }
 }
 `, rName, destinationType, logType))
@@ -935,14 +935,14 @@ resource "aws_networkfirewall_logging_configuration" "test" {
   firewall_arn = aws_networkfirewall_firewall.test.arn
 
   logging_configuration {
-    log_destination_config {
-      log_destination = {
-        bucketName = aws_s3_bucket.test.bucket
-        prefix     = "update-prefix"
-      }
-      log_destination_type = %[2]q
-      log_type= %[3]q
-    }
+log_destination_config {
+ log_destination = {
+   bucketName = aws_s3_bucket.test.bucket
+   prefix= "update-prefix"
+ }
+ log_destination_type = %[2]q
+ log_type= %[3]q
+}
   }
 }
 `, rName, destinationType, logType))
@@ -957,13 +957,13 @@ resource "aws_networkfirewall_logging_configuration" "test" {
   firewall_arn = aws_networkfirewall_firewall.test.arn
 
   logging_configuration {
-    log_destination_config {
-      log_destination = {
-        deliveryStream = aws_kinesis_firehose_delivery_stream.test.name
-      }
-      log_destination_type = %[2]q
-      log_type= %[3]q
-    }
+log_destination_config {
+ log_destination = {
+   deliveryStream = aws_kinesis_firehose_delivery_stream.test.name
+ }
+ log_destination_type = %[2]q
+ log_type= %[3]q
+}
   }
 }
 `, rName, destinationType, logType))
@@ -978,13 +978,13 @@ resource "aws_networkfirewall_logging_configuration" "test" {
   firewall_arn = aws_networkfirewall_firewall.test.arn
 
   logging_configuration {
-    log_destination_config {
-      log_destination = {
-        logGroup = aws_cloudwatch_log_group.test.name
-      }
-      log_destination_type = %[2]q
-      log_type= %[3]q
-    }
+log_destination_config {
+ log_destination = {
+   logGroup = aws_cloudwatch_log_group.test.name
+ }
+ log_destination_type = %[2]q
+ log_type= %[3]q
+}
   }
 }
 `, rName, destinationType, logType))
@@ -1000,21 +1000,21 @@ resource "aws_networkfirewall_logging_configuration" "test" {
   firewall_arn = aws_networkfirewall_firewall.test.arn
 
   logging_configuration {
-    log_destination_config {
-      log_destination = {
-        bucketName = aws_s3_bucket.test.bucket
-      }
-      log_destination_type = "S3"
-      log_type= %[2]q
-    }
+log_destination_config {
+ log_destination = {
+   bucketName = aws_s3_bucket.test.bucket
+ }
+ log_destination_type = "S3"
+ log_type= %[2]q
+}
 
-    log_destination_config {
-      log_destination = {
-        deliveryStream = aws_kinesis_firehose_delivery_stream.test.name
-      }
-      log_destination_type = "KinesisDataFirehose"
-      log_type= %[3]q
-    }
+log_destination_config {
+ log_destination = {
+   deliveryStream = aws_kinesis_firehose_delivery_stream.test.name
+ }
+ log_destination_type = "KinesisDataFirehose"
+ log_type= %[3]q
+}
   }
 }
 `, rName, logTypeS3, logTypeKinesis))
@@ -1030,21 +1030,21 @@ resource "aws_networkfirewall_logging_configuration" "test" {
   firewall_arn = aws_networkfirewall_firewall.test.arn
 
   logging_configuration {
-    log_destination_config {
-      log_destination = {
-        bucketName = aws_s3_bucket.test.bucket
-      }
-      log_destination_type = "S3"
-      log_type= %[2]q
-    }
+log_destination_config {
+ log_destination = {
+   bucketName = aws_s3_bucket.test.bucket
+ }
+ log_destination_type = "S3"
+ log_type= %[2]q
+}
 
-    log_destination_config {
-      log_destination = {
-        logGroup = aws_cloudwatch_log_group.test.name
-      }
-      log_destination_type = "CloudWatchLogs"
-      log_type= %[3]q
-    }
+log_destination_config {
+ log_destination = {
+   logGroup = aws_cloudwatch_log_group.test.name
+ }
+ log_destination_type = "CloudWatchLogs"
+ log_type= %[3]q
+}
   }
 }
 `, rName, logTypeS3, logTypeCloudWatch))

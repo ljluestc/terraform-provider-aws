@@ -49,7 +49,6 @@ func ResourceOutboundConnection() *schema.Resource {
 		},
 	}
 }
-
 func resourceOutboundConnectionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
 
@@ -78,7 +77,6 @@ func resourceOutboundConnectionCreate(ctx context.Context, d *schema.ResourceDat
 
 	return resourceOutboundConnectionRead(ctx, d, meta)
 }
-
 func resourceOutboundConnectionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
 
@@ -104,7 +102,6 @@ func resourceOutboundConnectionRead(ctx context.Context, d *schema.ResourceData,
 
 	return nil
 }
-
 func resourceOutboundConnectionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
 
@@ -128,7 +125,6 @@ func resourceOutboundConnectionDelete(ctx context.Context, d *schema.ResourceDat
 
 	return nil
 }
-
 func outboundConnectionRefreshState(ctx context.Context, conn *opensearchservice.OpenSearchService, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		resp, err := conn.DescribeOutboundConnectionsWithContext(ctx, &opensearchservice.DescribeOutboundConnectionsInput{
@@ -166,7 +162,6 @@ func outboundConnectionRefreshState(ctx context.Context, conn *opensearchservice
 		return ccsc, statusCode, nil
 	}
 }
-
 func outboundConnectionWaitUntilAvailable(ctx context.Context, conn *opensearchservice.OpenSearchService, id string, timeout time.Duration) error {
 	log.Printf("[DEBUG] Waiting for Outbound Connection (%s) to become available.", id)
 	stateConf := &retry.StateChangeConf{
@@ -189,7 +184,6 @@ func outboundConnectionWaitUntilAvailable(ctx context.Context, conn *opensearchs
 	}
 	return nil
 }
-
 func waitForOutboundConnectionDeletion(ctx context.Context, conn *opensearchservice.OpenSearchService, id string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
@@ -209,7 +203,6 @@ func waitForOutboundConnectionDeletion(ctx context.Context, conn *opensearchserv
 
 	return err
 }
-
 func outboundConnectionDomainInfoSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -237,7 +230,6 @@ func outboundConnectionDomainInfoSchema() *schema.Schema {
 		},
 	}
 }
-
 func expandOutboundConnectionDomainInfo(vOptions []interface{}) *opensearchservice.DomainInformationContainer {
 	if len(vOptions) == 0 || vOptions[0] == nil {
 		return nil
@@ -253,7 +245,6 @@ func expandOutboundConnectionDomainInfo(vOptions []interface{}) *opensearchservi
 		},
 	}
 }
-
 func flattenOutboundConnectionDomainInfo(domainInfo *opensearchservice.DomainInformationContainer) []interface{} {
 	if domainInfo == nil || domainInfo.AWSDomainInformation == nil {
 		return nil

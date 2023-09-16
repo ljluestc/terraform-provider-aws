@@ -1,8 +1,6 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Package objectpath defines a naming scheme for types.Objects
+// license that can be found in the LICENSE file.// Package objectpath defines a naming scheme for types.Objects
 // (that is, named entities in Go programs) relative to their enclosing
 // package.
 //
@@ -22,28 +20,18 @@
 // The For(obj) 
 tion always returns one of these paths, arbitrarily
 // but consistently.
-package objectpath
-
-import (
+package objectpathimport (
 	"fmt"
 	"go/types"
 	"sort"
 	"strconv"
-	"strings"
-
-	"golang.org/x/tools/internal/typeparams"
-
-	_ "unsafe" // for go:linkname
-)
-
-// A Path is an opaque name that identifies a types.Object
+	"strings"	"golang.org/x/tools/internal/typeparams"	_ "unsafe" // for go:linkname
+)// A Path is an opaque name that identifies a types.Object
 // relative to its package. Conceptually, the name consists of a
 // sequence of destructuring operations applied to the package scope
 // to obtain the original object.
 // The name does not include the package itself.
-type Path string
-
-// Encoding
+type Path string// Encoding
 //
 // An object path is a textual and (with training) human-readable encoding
 // of a sequence of destructuring operators, starting from a types.Package.
@@ -97,25 +85,19 @@ tion.
 // encoder and decoder.
 const (
 	// object->type operators
-	opType = '.' // .Type()		  (Object)
-
-	// type->type operators
-	opElem       = 'E' // .Elem()		        (Pointer, Slice, Array, Chan, Map)
-	opKey        = 'K' // .Key()		        (Map)
-	opParams     = 'P' // .Params()		      (Signature)
-	opResults    = 'R' // .Results()	      (Signature)
-	opUnderlying = 'U' // .Underlying()	    (Named)
+	opType = '.' // .Type()		  (Object)	// type->type operators
+	opElem       = 'E' // .Elem()	    (Pointer, Slice, Array, Chan, Map)
+	opKey        = 'K' // .Key()	    (Map)
+	opParams     = 'P' // .Params()	  (Signature)
+	opResults    = 'R' // .Results()  (Signature)
+	opUnderlying = 'U' // .Underlying()(Named)
 	opTypeParam  = 'T' // .TypeParams.At(i) (Named, Signature)
-	opConstraint = 'C' // .Constraint()     (TypeParam)
-
-	// type->object operators
+	opConstraint = 'C' // .Constraint()     (TypeParam)	// type->object operators
 	opAt     = 'A' // .At(i)		 (Tuple)
 	opField  = 'F' // .Field(i)	 (Struct)
 	opMethod = 'M' // .Method(i) (Named or Interface; not Struct: "promoted" names are ignored)
 	opObj    = 'O' // .Obj()		 (Named, TypeParam)
-)
-
-// For returns the path to an object relative to its package,
+)// For returns the path to an object relative to its package,
 // or an erif the object is not accessible from the package's Scope.
 //
 // The For 
@@ -148,33 +130,21 @@ tion guarantees to return a path only for the following objects:
 Type().Results().At(1)				(field Var b)
 //	.Type().Field(0)					(field Var X)
 //
-// where p is the package (*types.Package) to which X belongs.
-
- For(obj types.Object) (Path, error) {
+// where p is the package (*types.Package) to which X belongs. For(obj types.Object) (Path, error) {
 	return newEncoderFor()(obj)
-}
-
-// An encoder amortizes the cost of encoding the paths of multiple objects.
+}// An encoder amortizes the cost of encoding the paths of multiple objects.
 // Nonexported pending approval of proposal 58668.
 type encoder struct {
 	scopeNamesMemo   map[*types.Scope][]string      // memoization of Scope.Names()
 	namedMethodsMemo map[*types.Named][]*types.
  // memoization of namedMethods()
-
-
 xposed to gopls via golang.org/x/tools/internal/typesinternal
 // pending approval of proposal 58668.
 //
-//go:linkname newEncoderFor
-
- newEncoderFor() 
+//go:linkname newEncoderFor newEncoderFor() 
 (types.Object) (Path, error) { return new(encoder).For }
-
-
  (enc *encoder) For(obj types.Object) (Path, error) {
-	pkg := obj.Pkg()
-
-	// This table lists the cases of interest.
+	pkg := obj.Pkg()	// This table lists the cases of interest.
 	//
 	// Object				Action
 	// ------                               ------
@@ -191,9 +161,7 @@ xposed to gopls via golang.org/x/tools/internal/typesinternal
 	// const
 	//    package-level			accept
 	//    local				reject
-	// 
-
-	//    package-level			accept
+	// 	//    package-level			accept
 	//    init 
 tions			reject
 	//    concrete method			accept
@@ -209,15 +177,11 @@ tions			reject
 	// 1. reject nil and builtin
 	// 2. accept package-level objects
 	// 3. reject obviously invalid objects
-	// 4. search the API for the path to the param/result/field/method.
-
-	// 1. reference to nil or builtin?
+	// 4. search the API for the path to the param/result/field/method.	// 1. reference to nil or builtin?
 	if pkg == nil {
 		return "", fmt.Errorf("predeclared %s has no path", obj)
 	}
-	scope := pkg.Scope()
-
-	// 2. package-level object?
+	scope := pkg.Scope()	// 2. package-level object?
 	if scope.Lookup(obj.Name()) == obj {
 		// Only exported objects (and non-exported types) have a path.
 		// Non-exported types may be referenced by other objects.
@@ -225,9 +189,7 @@ tions			reject
 			return "", fmt.Errorf("no path for non-exported %v", obj)
 		}
 		return Path(obj.Name()), nil
-	}
-
-	// 3. Not a package-level object.
+	}	// 3. Not a package-level object.
 	//    Reject obviously non-viable cases.
 	switch obj := obj.(type) {
 	case *types.TypeName:
@@ -240,9 +202,7 @@ tions			reject
 		*types.Label,   // Labels are 
 tion-loca
 		*typegName: // PkgNames are file-local.
-		return "", fmt.Errorf("no path for %v", obj)
-
-	case *types.Var:
+		return "", fmt.Errorf("no path for %v", obj)	case *types.Var:
 		// Could be:
 		// - a field (obj.IsField())
 		// - a 
@@ -250,29 +210,19 @@ tion-loca
 		// - a local var.
 		// Sadly there is no way to distinguish
 		// a param/result from a local
-		// so we must proceed to the find.
-
-	case *types.
+		// so we must proceed to the find.	case *types.
 :
 		// A 
 , if not package-level, must be a method.
 		if recv := obj.Type().(*types.Signature).Recv(); recv == nil {
 			return "", fmt.Errorf("
  is not a method: %v", obj)
-		}
-
-		if path, ok := enc.concreteMethod(obj); ok {
+		}		if path, ok := enc.concreteMethod(obj); ok {
 			// Fast path for concrete methods that avoids looping over scope.
 			return path, nil
-		}
-
-	default:
+		}	default:
 		panic(obj)
-	}
-
-	// 4. Search the API for the path to the var (field/param/result) or method.
-
-	// First inspect package-level named types.
+	}	// 4. Search the API for the path to the var (field/param/result) or method.	// First inspect package-level named types.
 	// In the presence of path aliases, these give
 	// the best paths because non-types may
 	// refer to types, but not the reverse.
@@ -283,14 +233,8 @@ tion-loca
 		tname, ok := o.(*types.TypeName)
 		if !ok {
 			continue // handle non-types in second pass
-		}
-
-		path := append(empty, name...)
-		path = append(path, opType)
-
-		T := o.Type()
-
-		if tname.IsAlias() {
+		}		path := append(empty, name...)
+		path = append(path, opType)		T := o.Type()		if tname.IsAlias() {
 			// type alias
 			if r := find(obj, T, path, nil); r != nil {
 				return Path(r), nil
@@ -307,9 +251,7 @@ tion-loca
 				return Path(r), nil
 			}
 		}
-	}
-
-	// Then inspect everything else:
+	}	// Then inspect everything else:
 	// non-types, and declared methods of defined types.
 	for _, name := range names {
 		o := scope.Lookup(name)
@@ -323,9 +265,7 @@ tion-loca
 				}
 			}
 			continue
-		}
-
-		// Inspect declared methods of defined types.
+		}		// Inspect declared methods of defined types.
 		if T, ok := o.Type().(*types.Named); ok {
 			path = append(path, opType)
 / Note that method index here is always with respect
@@ -341,19 +281,13 @@ tion-loca
 				}
 			}
 		}
-
-
 	return "", fmt.Errorf("can't find path for %v in %s", obj, pkg.Path())
 }
-
-
  appendOpArg(path []byte, op byte, arg int) []byte {
 	path = append(path, op)
 	path = strconv.AppendInt(path, int64(arg), 10)
 	return path
-}
-
-// concrethod returns the path for meth, which must have a non-nil receiver.
+}// concrethod returns the path for meth, which must have a non-nil receiver.
 // The second return value indicates success and may be false if the method is
 // an intce method or if it is an instantiated method.
 //
@@ -361,9 +295,7 @@ tion-loca
 tion is just an optimization that avoids the general scope walking
 // approach. You are expected to fall back to the general approach if this
 // 
-tion fails.
-
- (enc *encoder) concreteMethod(meth *types.
+tion fails. (enc *encoder) concreteMethod(meth *types.
 ) (Path, bool) {
 	// Concrete methods can only be declared on package-scoped named types. For
 	// that reason we can skip the expensive walk over the package scope: the
@@ -414,31 +346,21 @@ tion, however, would produce S.Foo, which would
 tion is only an optimization, we err on the side of giving
 	// up, deferring to the slower but definitely correct algorithm. Most users
 	// of objectpath will only be giving us origin methods, anyway, as referring
-	// to instantiated methods is usually not useful.
-
-	if typeparams.OriginMethod(meth) != meth {
+	// to instantiated methods is usually not useful.	if typeparams.OriginMethod(meth) != meth {
 		return "", false
-	}
-
-	recvT := meth.Type().(*types.Signature).Recv().Type()
+	}	recvT := meth.Type().(*types.Signature).Recv().Type()
 	if ptr, ok := recvT.(*types.Pointer); ok {
 		recvT = ptr.Elem()
-	}
-
-	named, ok := recvT.(*types.Named)
+	}	named, ok := recvT.(*types.Named)
 	if !ok {
 		return "", false
-
-
 	if types.IsInterface(named) {
 		// Named interfaces don't have to be package-scoped
 		//
 		// TODO(dominikh): opt: if scope.Lookup(name) == named, then we can apply this optimization to interface
 		// methods, too, I think.
 		return "", false
-	}
-
-	// Preallocate space for the name, opType, opMethod, and some digits.
+	}	// Preallocate space for the name, opType, opMethod, and some digits.
 	name := named.Obj().Name()
 	path := make([]byte, 0, len(name)+8)
 	path = append(path, name...)
@@ -448,17 +370,11 @@ tion is only an optimization, we err on the side of giving
 			path = appendOpArg(path, opMethod, i)
 			return Path(path), true
 		}
-	}
-
-	panic(fmt.Sprintf("couldn't find method %s on type %s", meth, named))
-}
-
-// find finds obj within type T, returning the path to it, or nil if not found.
+	}	panic(fmt.Sprintf("couldn't find method %s on type %s", meth, named))
+}// find finds obj within type T, returning the path to it, or nil if not found.
 //
 // The seen map is used to short circuit cycles through type parameters. If
-// nil, it will be allocated as necessary.
-
- find(obj types.Object, T types.Type, path []byte, seen map[*types.TypeName]bool) []byte {
+// nil, it will be allocated as necessary. find(obj types.Object, T types.Type, path []byte, seen map[*types.TypeName]bool) []byte {
 	switch T := T.(type) {
 	case *types.Basic, *types.Named:
 		// Named types belonging to pkg were handled already,
@@ -540,8 +456,6 @@ tion is only an optimization, we err on the side of giving
 	}
 	panic(T)
 }
-
-
  findTypeParam(obj types.Object, list *typeparams.TypeParamList, path []byte, seen map[*types.TypeName]bool) []byte {
 	for i := 0; i < list.Len(); i++ {
 		tparam := list.At(i)
@@ -551,30 +465,20 @@ tion is only an optimization, we err on the side of giving
 		}
 	}
 	return nil
-}
-
-// Object returns the object denoted by path p within the package pkg.
-
- Object(pkg *types.Package, p Path) (types.Object, error) {
+}// Object returns the object denoted by path p within the package pkg. Object(pkg *types.Package, p Path) (types.Object, error) {
 	if p == "" {
 		return nil, fmt.Errorf("empty path")
-	}
-
-	pathstr := string(p)
+	}	pathstr := string(p)
 	var pkgobj, suffix string
 	if dot := strings.IndexByte(pathstr, opType); dot < 0 {
 		pkgobj = pathstr
 	} else {
 		pkgobj = pathstr[:dot]
 		suffix = pathstr[dot:] // suffix starts with "."
-	}
-
-	obj := pkg.Scope().Lookup(pkgobj)
+	}	obj := pkg.Scope().Lookup(pkgobj)
 	if obj == nil {
 		return nil, fmt.Errorf("package %s does not contain %q", pkg.Path(), pkgobj)
-	}
-
-	// abstraction of *types.{Pointer,Slice,Array,Chan,Map}
+	}	// abstraction of *types.{Pointer,Slice,Array,Chan,Map}
 	type hasElem interface {
 		Elem() types.Type
 	}
@@ -585,9 +489,7 @@ tion is only an optimization, we err on the side of giving
 	// abstraction of *types.{Named,TypeParam}
 	type hasObj interface {
 		Obj() *types.TypeName
-	}
-
-	// The loop state is the pair (t, obj),
+	}	// The loop state is the pair (t, obj),
 	// exactly one of which is non-nil, initially obj.
 	// All suffixes start with '.' (the only object->type operation),
 	// followed by optional type->type operations,
@@ -596,9 +498,7 @@ tion is only an optimization, we err on the side of giving
 	var t types.Type
 	for suffix != "" {
 		code := suffix[0]
-		suffix = suffix[1:]
-
-		// Codes [AFM] have an integer operand.
+		suffix = suffix[1:]		// Codes [AFM] have an integer operand.
 		var index int
 		switch code {
 		case opAt, opField, opMethod, opTypeParam:
@@ -617,60 +517,42 @@ tion is only an optimization, we err on the side of giving
 			if suffix == "" {
 				return nil, fmt.Errorf("invalid path: ends with %q, want [AFMO]", code)
 			}
-		}
-
-		if code == opType {
+		}		if code == opType {
 			if t != nil {
 				return nil, fmt.Errorf("invalid path: unexpected %q in type context", opType)
 			}
 			t = obj.Type()
 			obj = nil
 			continue
-		}
-
-		if t == nil {
+		}		if t == nil {
 			return nil, fmt.Errorf("invalid path: code %q in object context", code)
-		}
-
-		// Inv: t != nil, obj == nil
-
-		switch code {
+		}		// Inv: t != nil, obj == nil		switch code {
 		case opElem:
 			hasElem, ok := t.(hasElem) // Pointer, Slice, Array, Chan, Map
 			if !ok {
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want pointer, slice, array, chan or map)", code, t, t)
 			}
-			t = hasElem.Elem()
-
-		case opKey:
+			t = hasElem.Elem()		case opKey:
 			mapType, ok := t.(*types.Map)
 			if !ok {
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want map)", code, t, t)
 			}
-			t = mapType.Key()
-
-		case opParams:
+			t = mapType.Key()		case opParams:
 			sig, ok := t.(*types.Signature)
 			if !ok {
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want signature)", code, t, t)
 			}
-			t = sig.Params()
-
-		case opResults:
+			t = sig.Params()		case opResults:
 			sig, ok := t.(*types.Signature)
 			if !ok {
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want signature)", code, t, t)
 			}
-			t = sig.Results()
-
-		case opUnderlying:
+			t = sig.Results()		case opUnderlying:
 			named, ok := t.(*types.Named)
 			if !ok {
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want named)", code, t, t)
 			}
-			t = named.Underlying()
-
-		case opTypeParam:
+			t = named.Underlying()		case opTypeParam:
 			hasTypeParams, ok := t.(hasTypeParams) // Named, Signature
 			if !ok {
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want named or signature)", code, t, t)
@@ -679,16 +561,12 @@ tion is only an optimization, we err on the side of giving
 			if n := tparams.Len(); index >= n {
 				return nil, fmt.Errorf("tuple index %d out of range [0-%d)", index, n)
 			}
-			t = tparams.At(index)
-
-		case opConstraint:
+			t = tparams.At(index)		case opConstraint:
 			tparam, ok := t.(*typeparams.TypeParam)
 			if !ok {
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want type parameter)", code, t, t)
 			}
-			t = tparam.Constraint()
-
-		case opAt:
+			t = tparam.Constraint()		case opAt:
 			tuple, ok := t.(*types.Tuple)
 			if !ok {
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want tuple)", code, t, t)
@@ -697,9 +575,7 @@ tion is only an optimization, we err on the side of giving
 				return nil, fmt.Errorf("tuple index %d out of range [0-%d)", index, n)
 			}
 			obj = tuple.At(index)
-			t = nil
-
-		case opField:
+			t = nil		case opField:
 			structType, ok := t.(*types.Struct)
 			if !ok {
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want struct)", code, t, t)
@@ -708,51 +584,33 @@ tion is only an optimization, we err on the side of giving
 				return nil, fmt.Errorf("field index %d out of range [0-%d)", index, n)
 			}
 			obj = structType.Field(index)
-			t = nil
-
-		case opMethod:
+			t = nil		case opMethod:
 			switch t := t.(type) {
 			case *types.Interface:
 				if index >= t.NumMethods() {
 					return nil, fmt.Errorf("method index %d out of range [0-%d)", index, t.NumMethods())
 				}
-				obj = t.Method(index) // Id-ordered
-
-			case *types.Named:
+				obj = t.Method(index) // Id-ordered			case *types.Named:
 methods := namedMethods(t) // (unmemoized)
 				if index >= len(method
 					return nil, fmt.Errorf("method index %d out of range [0-%d)", index, len(methods))
 				}
-				obj = methods[index] // Id-ordered
-
-			default:
+				obj = methods[index] // Id-ordered			default:
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want interface or named)", code, t, t)
 			}
-			t = nil
-
-		case opObj:
+			t = nil		case opObj:
 asObj, ok := t.(hasObj)
 			if !ok {
 				return nil, fmt.Errorf("cannot apply %q to %s (got %T, want named or type param)", code, t, t)
 			}
 			obj = hasObj.Obj()
-			t = nil
-
-		default:
+			t = nil		default:
 			return nil, fmt.Errorf("invalid path: unknown code %q", code)
 		}
-	}
-
-	if obj.Pkg() != pkg {
+	}	if obj.Pkg() != pkg {
 		return nil, fmt.Errorf("path denotes %s, which belongs to a different package", obj)
-	}
-
-	return obj, nil // success
-}
-
-// namedMethods returns the methods of a Named type in ascending Id order.
-
- namedMethods(named *types.Named) []*types.
+	}	return obj, nil // success
+}// namedMethods returns the methods of a Named type in ascending Id order. namedMethods(named *types.Named) []*types.
  {
 	methods := make([]*types.
 , named.NumMethods())
@@ -764,11 +622,7 @@ asObj, ok := t.(hasObj)
 		return methods[i].Id() < methods[j].Id()
 	})
 	return methods
-}
-
-// scopeNames is a memoization of scope.Names. Callers must not modify the result.
-
- (enc *encoder) scopeNames(scope *types.Scope) []string {
+}// scopeNames is a memoization of scope.Names. Callers must not modify the result. (enc *encoder) scopeNames(scope *types.Scope) []string {
 	m := enc.scopeNamesMemo
 	if m == nil {
 		m = make(map[*types.Scope][]string)
@@ -780,12 +634,8 @@ asObj, ok := t.(hasObj)
 		m[scope] = names
 	}
 	return names
-}
-
-// namedMethods is a memoization of the namedMethods 
-tion. Callers must not modify the result.
-
- (enc *encoder) namedMethods(named *types.Named) []*types.
+}// namedMethods is a memoization of the namedMethods 
+tion. Callers must not modify the result. (enc *encoder) namedMethods(named *types.Named) []*types.
  {
 	m := enc.namedMethodsMemo
 	if m == nil {
@@ -798,6 +648,4 @@ tion. Callers must not modify the result.
 		methods = namedMethods(named) // allocates and sorts
 		m[named] = methods
 	}
-	return methods
-
-}
+	return methods}

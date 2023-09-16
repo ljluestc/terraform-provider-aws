@@ -49,7 +49,7 @@ func ResourceGlobalNetwork() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
@@ -374,7 +374,7 @@ func waitGlobalNetworkCreated(ctx context.Context, conn *networkmanager.NetworkM
 func waitGlobalNetworkDeleted(ctx context.Context, conn *networkmanager.NetworkManager, id string, timeout time.Duration) (*networkmanager.GlobalNetwork, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:        []string{networkmanager.GlobalNetworkStateDeleting},
-		Target:         []string{},
+		Target:[]string{},
 		Timeout:        timeout,
 		Refresh:        statusGlobalNetworkState(ctx, conn, id),
 		NotFoundChecks: 1,

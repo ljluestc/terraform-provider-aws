@@ -32,7 +32,7 @@ func ResourceAccountSettingDefault() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(ecs.SettingName_Values(), false),
@@ -42,7 +42,7 @@ func ResourceAccountSettingDefault() *schema.Resource {
 				Computed: true,
 			},
 			"value": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice([]string{"enabled", "disabled"}, false),
 			},

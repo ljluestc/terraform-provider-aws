@@ -31,7 +31,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  resourceApplication,
 			TypeName: "aws_emrserverless_application",
-			Name:     "Application",
+			Name: "Application",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

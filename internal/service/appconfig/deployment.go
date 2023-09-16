@@ -39,54 +39,54 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"application_id": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
 	},
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"configuration_profile_id": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
 	},
 	"configuration_version": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 	},
 	"deployment_number": {
-Type:     schema.TypeInt,
+Type: schema.TypeInt,
 Computed: true,
 	},
 	"deployment_strategy_id": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`(^[0-9a-z]{4,7}$|^AppConfig\.[0-9A-Za-z]{9,40}$)`), ""),
 	},
 	"description": {
-Type:         schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Optional: true,
+ForceNew: true,
 ValidateFunc: validation.StringLenBetween(0, 1024),
 	},
 	"environment_id": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
 	},
 	"state": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },
 CustomizeDiff: verify.SetTagsDiff,
@@ -98,13 +98,13 @@ func resourceDeploymentCreate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).AppConfigConn(ctx)
 
 	input := &appconfig.StartDeploymentInput{
-ApplicationId:          aws.String(d.Get("application_id").(string)),
-EnvironmentId:          aws.String(d.Get("environment_id").(string)),
+ApplicationId: aws.String(d.Get("application_id").(string)),
+EnvironmentId: aws.String(d.Get("environment_id").(string)),
 ConfigurationProfileId: aws.String(d.Get("configuration_profile_id").(string)),
 ConfigurationVersion:   aws.String(d.Get("configuration_version").(string)),
 DeploymentStrategyId:   aws.String(d.Get("deployment_strategy_id").(string)),
-Description:            aws.String(d.Get("description").(string)),
-Tags:    getTagsIn(ctx),
+Description:   aws.String(d.Get("description").(string)),
+Tags:getTagsIn(ctx),
 	}
 
 	output, err := conn.StartDeploymentWithContext(ctx, input)
@@ -137,9 +137,9 @@ return sdkdiag.AppendErrorf(diags, "reading AppConfig Deployment (%s): %s", d.Id
 	}
 
 	input := &appconfig.GetDeploymentInput{
-ApplicationId:    aws.String(appID),
+ApplicationId:aws.String(appID),
 DeploymentNumber: aws.Int64(int64(deploymentNum)),
-EnvironmentId:    aws.String(envID),
+EnvironmentId:aws.String(envID),
 	}
 
 	output, err := conn.GetDeploymentWithContext(ctx, input)
@@ -161,7 +161,7 @@ return sdkdiag.AppendErrorf(diags, "reading AppConfig Deployment (%s): empty res
 	arn := arn.ARN{
 AccountID: meta.(*conns.AWSClient).AccountID,
 Partition: meta.(*conns.AWSClient).Partition,
-Region:    meta.(*conns.AWSClient).Region,
+Region:meta.(*conns.AWSClient).Region,
 Resource:  fmt.Sprintf("application/%s/environment/%s/deployment/%d", aws.StringValue(output.ApplicationId), aws.StringValue(output.EnvironmentId), aws.Int64Value(output.DeploymentNumber)),
 Service:   "appconfig",
 	}.String()

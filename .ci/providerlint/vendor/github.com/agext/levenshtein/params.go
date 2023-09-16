@@ -10,11 +10,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
-// limitations under the License.
-
-package levenshtein
-
-// Params represents a set of parameter values for the various formulas involved
+// limitations under the License.package levenshtein// Params represents a set of parameter values for the various formulas involved
 // in the calculation of the Levenshtein string metrics.
 type Params struct {
 	insCost        int
@@ -25,138 +21,90 @@ type Params struct {
 	bonusPrefix    int
 	bonusScale     float64
 	bonusThreshold float64
-}
-
-var (
+}var (
 	defaultParams = NewParams()
-)
-
-// NewParams creates a new set of parameters and initializes it with the default values.
-
- NewParams() *Params {
+)// NewParams creates a new set of parameters and initializes it with the default values. NewParams() *Params {
 	return &Params{
-		insCost:        1,
-		subCost:        1,
-		delCost:        1,
-		maxCost:        0,
-		minScore:       0,
-		bonusPrefix:    4,
-		bonusScale:     .1,
-		bonusThreshold: .7,
+insCost:        1,
+subCost:        1,
+delCost:        1,
+maxCost:        0,
+minScore:       0,
+bonusPrefix:    4,
+bonusScale:     .1,
+bonusThreshold: .7,
 	}
-}
-
-// Clone returns a pointer to a copy of the receiver parameter set, or of a new
-efault parameter set if the receiver is nil.
-
- (p *Params) Clone() *Params {
+}// Clone returns a pointer to a copy of the receiver parameter set, or of a new
+efault parameter set if the receiver is nil. (p *Params) Clone() *Params {
 	if p == nil {
-		return NewParams()
+return NewParams()
 	}
 	return &Params{
-		insCost:        p.insCost,
-		subCost:        p.subCost,
-		delCost:        p.delCost,
-		maxCost:        p.maxCost,
-		minScore:       p.minScore,
-		bonusPrefix:    p.bonusPrefix,
-		bonusScale:     p.bonusScale,
-		bonusThreshold: p.bonusThreshold,
+insCost:        p.insCost,
+subCost:        p.subCost,
+delCost:        p.delCost,
+maxCost:        p.maxCost,
+minScore:       p.minScore,
+bonusPrefix:    p.bonusPrefix,
+bonusScale:     p.bonusScale,
+bonusThreshold: p.bonusThreshold,
 	}
-}
-
-nsCost overrides the default value of 1 for the cost of insertion.
-// The new value must be zero or positive.
-
- (p *Params) InsCost(v int) *Params {
+}nsCost overrides the default value of 1 for the cost of insertion.
+// The new value must be zero or positive. (p *Params) InsCost(v int) *Params {
 	if v >= 0 {
-		p.insCost = v
+p.insCost = v
 	}
 	return p
-}
-
-// SubCost overrides the default value of 1 for the cost of substitution.
-// The new value must be zero or positive.
-
- (p *Params) SubCost(v int) *Params {
+}// SubCost overrides the default value of 1 for the cost of substitution.
+// The new value must be zero or positive. (p *Params) SubCost(v int) *Params {
 	if v >= 0 {
-		p.subCost = v
+p.subCost = v
 	}
 	return p
-
-
 // DelCost overrides the default value of 1 for the cost of deletion.
-// The new value must be zero or positive.
-
- (p *Params) DelCost(v int) *Params {
+// The new value must be zero or positive. (p *Params) DelCost(v int) *Params {
 	if v >= 0 {
-		p.delCost = v
+p.delCost = v
 	}
 	return p
-}
-
-// MaxCost overrides the default value of 0 (meaning unlimited) for the maximum cost.
+}// MaxCost overrides the default value of 0 (meaning unlimited) for the maximum cost.
 // The calculation of Distance() stops when the result is guaranteed to exceed
 // this maximum, returning a lower-bound rather than exact value.
-// The new value must be zero or positive.
-
- (p *Params) MaxCost(v int) *Params {
+// The new value must be zero or positive. (p *Params) MaxCost(v int) *Params {
 	if v >= 0 {
-		p.maxCost = v
+p.maxCost = v
 	}
 	return p
-
-
 // MinScore overrides the default value of 0 for the minimum similarity score.
 // Scores below this threshold are returned as 0 by Similarity() and Match().
 // The new value must be zero or positive. Note that a minimum greater than 1
-// can never be satisfied, resulting in a score of 0 for any pair of strings.
-
- (p *Params) MinScore(v float64) *Params {
+// can never be satisfied, resulting in a score of 0 for any pair of strings. (p *Params) MinScore(v float64) *Params {
 	if v >= 0 {
-		p.minScore = v
-
-	return p
-}
-
-// BonusPrefix overrides the default value for the maximum length of
+p.minScore = v	return p
+}// BonusPrefix overrides the default value for the maximum length of
 // common prefix to be considered for bonus by Match().
-// The new value must be zero or positive.
-
- (p *Params) BonusPrefix(v int) *Params {
+// The new value must be zero or positive. (p *Params) BonusPrefix(v int) *Params {
 	if v >= 0 {
-		p.bonusPrefix = v
+p.bonusPrefix = v
 	}
 urn p
-}
-
-// BonusScale overrides the default value for the scaling factor used by Match()
+}// BonusScale overrides the default value for the scaling factor used by Match()
 // in calculating the bonus.
 // The new value must be zero or positive. To guarantee that the similarity score
 // remains in the interval 0..1, this scaling factor is not allowed to exceed
-// 1 / BonusPrefix.
-
- (p *Params) BonusScale(v float64) *Params {
+// 1 / BonusPrefix. (p *Params) BonusScale(v float64) *Params {
 	if v >= 0 {
-		p.bonusScale = v
-	}
-
-	// the bonus cannot exceed (1-sim), or the score may become greater than 1.
+p.bonusScale = v
+	}	// the bonus cannot exceed (1-sim), or the score may become greater than 1.
 	if float64(p.bonusPrefix)*p.bonusScale > 1 {
-		p.bonusScale = 1 / float64(p.bonusPrefix)
-
-
+p.bonusScale = 1 / float64(p.bonusPrefix)
 	return p
-}
-
-// BonusThreshold overrides the default value for the minimum similarity score
+}// BonusThreshold overrides the default value for the minimum similarity score
 // for which Match() can assign a bonus.
 // The new value must be zero or positive. Note that a threshold greater than 1
-// effectively makes Match() become the equivalent of Similarity().
-
- (p *Params) BonusThreshold(v float64) *Params {
+// effectively makes Match() become the equivalent of Similarity(). (p *Params) BonusThreshold(v float64) *Params {
 	if v >= 0 {
-		p.bonusThreshold = v
+p.bonusThreshold = v
 	}
 	return p
 }

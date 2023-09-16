@@ -61,7 +61,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceAddon,
 			TypeName: "aws_eks_addon",
-			Name:     "Add-On",
+			Name:"Add-On",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -69,7 +69,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceCluster,
 			TypeName: "aws_eks_cluster",
-			Name:     "Cluster",
+			Name:"Cluster",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -77,7 +77,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceFargateProfile,
 			TypeName: "aws_eks_fargate_profile",
-			Name:     "Fargate Profile",
+			Name:"Fargate Profile",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -85,7 +85,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceIdentityProviderConfig,
 			TypeName: "aws_eks_identity_provider_config",
-			Name:     "Identity Provider Config",
+			Name:"Identity Provider Config",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -93,7 +93,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceNodeGroup,
 			TypeName: "aws_eks_node_group",
-			Name:     "Node Group",
+			Name:"Node Group",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

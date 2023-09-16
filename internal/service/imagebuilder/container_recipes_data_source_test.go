@@ -47,7 +47,7 @@ resource "aws_ecr_repository" "test" {
 }
 
 resource "aws_imagebuilder_container_recipe" "test" {
-  name           = %[1]q
+  name  = %[1]q
   container_type = "DOCKER"
   parent_image   = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-x86-2/x.x.x"
   version        = "1.0.0"
@@ -64,7 +64,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 }
 

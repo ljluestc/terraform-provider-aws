@@ -24,10 +24,10 @@ func TestAccNetworkManagerDevice_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeviceDestroy(ctx),
+		CheckDestroy:    testAccCheckDeviceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeviceConfig_basic(rName),
@@ -61,10 +61,10 @@ func TestAccNetworkManagerDevice_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeviceDestroy(ctx),
+		CheckDestroy:    testAccCheckDeviceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeviceConfig_basic(rName),
@@ -84,10 +84,10 @@ func TestAccNetworkManagerDevice_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeviceDestroy(ctx),
+		CheckDestroy:    testAccCheckDeviceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeviceConfig_tags1(rName, "key1", "value1"),
@@ -132,10 +132,10 @@ func TestAccNetworkManagerDevice_allAttributes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeviceDestroy(ctx),
+		CheckDestroy:    testAccCheckDeviceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeviceConfig_allAttributes(rName),
@@ -186,10 +186,10 @@ func TestAccNetworkManagerDevice_awsLocation(t *testing.T) { // nosemgrep:ci.aws
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeviceDestroy(ctx),
+		CheckDestroy:    testAccCheckDeviceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeviceConfig_awsLocation(rName),
@@ -343,10 +343,10 @@ resource "aws_networkmanager_device" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
 
   description   = "description1"
-  model         = "model1"
+  model= "model1"
   serial_number = "sn1"
   site_id       = aws_networkmanager_site.test1.id
-  type          = "type1"
+  type = "type1"
   vendor        = "vendor1"
 
   location {
@@ -390,10 +390,10 @@ resource "aws_networkmanager_device" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
 
   description   = "description2"
-  model         = "model2"
+  model= "model2"
   serial_number = "sn2"
   site_id       = aws_networkmanager_site.test2.id
-  type          = "type2"
+  type = "type2"
   vendor        = "vendor2"
 
   location {
@@ -422,7 +422,7 @@ resource "aws_vpc" "test" {
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -462,7 +462,7 @@ resource "aws_vpc" "test" {
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q

@@ -24,9 +24,9 @@ func TestAccAuditManagerAccountRegistration_serial(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]func(t *testing.T){
-		"basic":      testAccAccountRegistration_basic,
+		"basic": testAccAccountRegistration_basic,
 		"disappears": testAccAccountRegistration_disappears,
-		"kms key":    testAccAccountRegistration_optionalKMSKey,
+		"kms key":testAccAccountRegistration_optionalKMSKey,
 	}
 
 	acctest.RunSerialTests1Level(t, testCases, 0)
@@ -52,8 +52,8 @@ func testAccAccountRegistration_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -87,7 +87,7 @@ func testAccAccountRegistration_disappears(t *testing.T) {
 				),
 			},
 			{
-				RefreshState:       true,
+				RefreshState:  true,
 				ExpectNonEmptyPlan: true,
 			},
 		},

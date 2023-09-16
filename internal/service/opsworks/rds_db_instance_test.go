@@ -34,7 +34,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRDSDBInstanceDestroy(ctx),
+CheckDestroy:testAccCheckRDSDBInstanceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRDSDBInstanceConfig_basic(rName, "user1", "password1"),
@@ -83,7 +83,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckRDSDBInstanceDestroy(ctx),
+CheckDestroy:testAccCheckRDSDBInstanceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRDSDBInstanceConfig_basic(rName, "user1", "password1"),
@@ -172,16 +172,16 @@ data "aws_rds_orderable_db_instance" "test" {
 }
 
 resource "aws_db_instance" "test" {
-  identifier     = %[1]q
-  allocated_storage       = 10
+  identifier= %[1]q
+  allocated_storage  = 10
   backup_retention_period = 0
   db_name  = "test"
   engine   = data.aws_rds_orderable_db_instance.test.engine
   engine_version = data.aws_rds_orderable_db_instance.test.engine_version
   instance_class = data.aws_rds_orderable_db_instance.test.instance_class
-  maintenance_window      = "Fri:09:00-Fri:09:30"
-  parameter_group_name    = "default.mysql8.0"
-  skip_final_snapshot     = true
+  maintenance_window = "Fri:09:00-Fri:09:30"
+  parameter_group_name= "default.mysql8.0"
+  skip_final_snapshot= true
   password = "avoid-plaintext-passwords"
   username = "tfacctest"
 }
@@ -190,7 +190,7 @@ resource "aws_opsworks_rds_db_instance" "test" {
   stack_id = aws_opsworks_stack.test.id
 
   rds_db_instance_arn = aws_db_instance.test.arn
-  db_user    = %[2]q
+  db_user= %[2]q
   db_password= %[3]q
 }
 `, rName, userName, password))

@@ -7,7 +7,6 @@ import (
 	"strings"
 	"testing"
 )
-
 func TestValidIdentifier(t *testing.T) {
 	t.Parallel()
 

@@ -40,7 +40,7 @@ func ResourceLocationObjectStorage() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_key": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(8, 200),
 			},
@@ -48,7 +48,7 @@ func ResourceLocationObjectStorage() *schema.Resource {
 				Type:     schema.TypeSet,
 				Required: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
@@ -57,13 +57,13 @@ func ResourceLocationObjectStorage() *schema.Resource {
 				Computed: true,
 			},
 			"bucket_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(3, 63),
 			},
 			"secret_key": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Sensitive:    true,
 				ValidateFunc: validation.StringLenBetween(8, 200),
@@ -73,25 +73,25 @@ func ResourceLocationObjectStorage() *schema.Resource {
 				Optional: true,
 			},
 			"server_hostname": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(0, 255),
 			},
 			"server_port": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      443,
 				ValidateFunc: validation.IsPortNumber,
 			},
 			"server_protocol": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      datasync.ObjectStorageServerProtocolHttps,
 				ValidateFunc: validation.StringInSlice(datasync.ObjectStorageServerProtocol_Values(), false),
 			},
 			"subdirectory": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringLenBetween(1, 4096),
@@ -117,7 +117,7 @@ func resourceLocationObjectStorageCreate(ctx context.Context, d *schema.Resource
 		BucketName:     aws.String(d.Get("bucket_name").(string)),
 		ServerHostname: aws.String(d.Get("server_hostname").(string)),
 		Subdirectory:   aws.String(d.Get("subdirectory").(string)),
-		Tags:           getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("access_key"); ok {

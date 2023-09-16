@@ -20,7 +20,6 @@ import (
 	tflambda "github.com/hashicorp/terraform-provider-aws/internal/service/lambda"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccLambdaFunctionEventInvokeConfig_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -32,10 +31,10 @@ func TestAccLambdaFunctionEventInvokeConfig_basic(t *testing.T) {
 	resourceName := "aws_lambda_function_event_invoke_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_name(rName),
@@ -49,14 +48,13 @@ func TestAccLambdaFunctionEventInvokeConfig_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_Disappears_lambdaFunction(t *testing.T) {
 	ctx := acctest.Context(t)
 	var function lambda.GetFunctionOutput
@@ -65,10 +63,10 @@ func TestAccLambdaFunctionEventInvokeConfig_Disappears_lambdaFunction(t *testing
 	resourceName := "aws_lambda_function_event_invoke_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_name(rName),
@@ -82,17 +80,16 @@ func TestAccLambdaFunctionEventInvokeConfig_Disappears_lambdaFunction(t *testing
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_Disappears_lambdaFunctionEventInvoke(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_lambda_function_event_invoke_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_name(rName),
@@ -105,7 +102,6 @@ func TestAccLambdaFunctionEventInvokeConfig_Disappears_lambdaFunctionEventInvoke
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_DestinationOnFailure_destination(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -118,10 +114,10 @@ func TestAccLambdaFunctionEventInvokeConfig_DestinationOnFailure_destination(t *
 	snsTopicResourceName := "aws_sns_topic.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_destinationOnFailureDestinationSQSQueue(rName),
@@ -133,8 +129,8 @@ func TestAccLambdaFunctionEventInvokeConfig_DestinationOnFailure_destination(t *
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -149,7 +145,6 @@ func TestAccLambdaFunctionEventInvokeConfig_DestinationOnFailure_destination(t *
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_DestinationOnSuccess_destination(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -162,10 +157,10 @@ func TestAccLambdaFunctionEventInvokeConfig_DestinationOnSuccess_destination(t *
 	snsTopicResourceName := "aws_sns_topic.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_destinationOnSuccessDestinationSQSQueue(rName),
@@ -177,8 +172,8 @@ func TestAccLambdaFunctionEventInvokeConfig_DestinationOnSuccess_destination(t *
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -193,7 +188,6 @@ func TestAccLambdaFunctionEventInvokeConfig_DestinationOnSuccess_destination(t *
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_Destination_remove(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -205,10 +199,10 @@ func TestAccLambdaFunctionEventInvokeConfig_Destination_remove(t *testing.T) {
 	sqsQueueResourceName := "aws_sqs_queue.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_destinationOnFailureDestinationSQSQueue(rName),
@@ -220,8 +214,8 @@ func TestAccLambdaFunctionEventInvokeConfig_Destination_remove(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -234,7 +228,6 @@ func TestAccLambdaFunctionEventInvokeConfig_Destination_remove(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_Destination_swap(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -246,10 +239,10 @@ func TestAccLambdaFunctionEventInvokeConfig_Destination_swap(t *testing.T) {
 	sqsQueueResourceName := "aws_sqs_queue.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_destinationOnFailureDestinationSQSQueue(rName),
@@ -261,8 +254,8 @@ func TestAccLambdaFunctionEventInvokeConfig_Destination_swap(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -277,7 +270,6 @@ func TestAccLambdaFunctionEventInvokeConfig_Destination_swap(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_FunctionName_arn(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -289,10 +281,10 @@ func TestAccLambdaFunctionEventInvokeConfig_FunctionName_arn(t *testing.T) {
 	resourceName := "aws_lambda_function_event_invoke_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_nameARN(rName),
@@ -303,14 +295,13 @@ func TestAccLambdaFunctionEventInvokeConfig_FunctionName_arn(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_QualifierFunctionName_arn(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -322,10 +313,10 @@ func TestAccLambdaFunctionEventInvokeConfig_QualifierFunctionName_arn(t *testing
 	resourceName := "aws_lambda_function_event_invoke_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_qualifierNameARN(rName),
@@ -336,14 +327,13 @@ func TestAccLambdaFunctionEventInvokeConfig_QualifierFunctionName_arn(t *testing
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_maximumEventAgeInSeconds(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -354,10 +344,10 @@ func TestAccLambdaFunctionEventInvokeConfig_maximumEventAgeInSeconds(t *testing.
 	resourceName := "aws_lambda_function_event_invoke_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_maximumAgeInSeconds(rName, 100),
@@ -367,8 +357,8 @@ func TestAccLambdaFunctionEventInvokeConfig_maximumEventAgeInSeconds(t *testing.
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -381,7 +371,6 @@ func TestAccLambdaFunctionEventInvokeConfig_maximumEventAgeInSeconds(t *testing.
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_maximumRetryAttempts(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -392,10 +381,10 @@ func TestAccLambdaFunctionEventInvokeConfig_maximumRetryAttempts(t *testing.T) {
 	resourceName := "aws_lambda_function_event_invoke_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_maximumRetryAttempts(rName, 0),
@@ -405,8 +394,8 @@ func TestAccLambdaFunctionEventInvokeConfig_maximumRetryAttempts(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -426,7 +415,6 @@ func TestAccLambdaFunctionEventInvokeConfig_maximumRetryAttempts(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_Qualifier_aliasName(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -434,10 +422,10 @@ func TestAccLambdaFunctionEventInvokeConfig_Qualifier_aliasName(t *testing.T) {
 	resourceName := "aws_lambda_function_event_invoke_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_qualifierAliasName(rName),
@@ -447,14 +435,13 @@ func TestAccLambdaFunctionEventInvokeConfig_Qualifier_aliasName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_Qualifier_functionVersion(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -462,10 +449,10 @@ func TestAccLambdaFunctionEventInvokeConfig_Qualifier_functionVersion(t *testing
 	resourceName := "aws_lambda_function_event_invoke_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_qualifierVersion(rName),
@@ -476,24 +463,23 @@ func TestAccLambdaFunctionEventInvokeConfig_Qualifier_functionVersion(t *testing
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccLambdaFunctionEventInvokeConfig_Qualifier_latest(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_lambda_function_event_invoke_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.LambdaEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, names.LambdaEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFunctionEventInvokeConfigDestroy(ctx),
+		CheckDestroy: testAccCheckFunctionEventInvokeConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFunctionEventInvokeConfigConfig_qualifierLatest(rName),
@@ -503,14 +489,13 @@ func TestAccLambdaFunctionEventInvokeConfig_Qualifier_latest(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckFunctionEventInvokeConfigDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaClient(ctx)
@@ -551,7 +536,6 @@ func testAccCheckFunctionEventInvokeConfigDestroy(ctx context.Context) resource.
 		return nil
 	}
 }
-
 func testAccCheckFunctionDisappears(ctx context.Context, function *lambda.GetFunctionOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaClient(ctx)
@@ -565,7 +549,6 @@ func testAccCheckFunctionDisappears(ctx context.Context, function *lambda.GetFun
 		return err
 	}
 }
-
 func testAccCheckFunctionEventInvokeDisappearsConfig(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -598,7 +581,6 @@ func testAccCheckFunctionEventInvokeDisappearsConfig(ctx context.Context, resour
 		return err
 	}
 }
-
 func testAccCheckFunctionEventInvokeExistsConfig(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -631,7 +613,6 @@ func testAccCheckFunctionEventInvokeExistsConfig(ctx context.Context, resourceNa
 		return err
 	}
 }
-
 func testAccFunctionEventInvokeConfigConfig_base(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -643,14 +624,14 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+ {
+ "Action": "sts:AssumeRole",
+ "Principal": {
+"Service": "lambda.amazonaws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+ }
   ]
 }
 POLICY
@@ -658,29 +639,28 @@ POLICY
 
 resource "aws_iam_role_policy_attachment" "test" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  role       = aws_iam_role.test.id
+  role  = aws_iam_role.test.id
 }
 
 resource "aws_lambda_function" "test" {
-  filename      = "test-fixtures/lambdapinpoint.zip"
+  filename = "test-fixtures/lambdapinpoint.zip"
   function_name = %[1]q
   role = aws_iam_role.test.arn
-  handler       = "lambdapinpoint.handler"
-  publish       = true
-  runtime       = "nodejs16.x"
+  handler  = "lambdapinpoint.handler"
+  publish  = true
+  runtime  = "nodejs16.x"
 
   depends_on = [
-    aws_iam_role_policy_attachment.test,
+ aws_iam_role_policy_attachment.test,
   ]
 }
 `, rName)
 }
-
 func testAccFunctionEventInvokeConfigConfig_destinationOnFailureDestinationSNSTopic(rName string) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + fmt.Sprintf(`
 resource "aws_iam_role_policy_attachment" "test-AmazonSNSFullAccess" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSNSFullAccess"
-  role       = aws_iam_role.test.id
+  role  = aws_iam_role.test.id
 }
 
 resource "aws_sns_topic" "test" {
@@ -691,21 +671,20 @@ resource "aws_lambda_function_event_invoke_config" "test" {
   function_name = aws_lambda_function.test.function_name
 
   destination_config {
-    on_failure {
-      destination = aws_sns_topic.test.arn
-    }
+ on_failure {
+ destination = aws_sns_topic.test.arn
+ }
   }
 
   depends_on = [aws_iam_role_policy_attachment.test-AmazonSNSFullAccess]
 }
 `, rName)
 }
-
 func testAccFunctionEventInvokeConfigConfig_destinationOnFailureDestinationSQSQueue(rName string) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + fmt.Sprintf(`
 resource "aws_iam_role_policy_attachment" "test-AmazonSQSFullAccess" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSQSFullAccess"
-  role       = aws_iam_role.test.id
+  role  = aws_iam_role.test.id
 }
 
 resource "aws_sqs_queue" "test" {
@@ -716,21 +695,20 @@ resource "aws_lambda_function_event_invoke_config" "test" {
   function_name = aws_lambda_function.test.function_name
 
   destination_config {
-    on_failure {
-      destination = aws_sqs_queue.test.arn
-    }
+ on_failure {
+ destination = aws_sqs_queue.test.arn
+ }
   }
 
   depends_on = [aws_iam_role_policy_attachment.test-AmazonSQSFullAccess]
 }
 `, rName)
 }
-
 func testAccFunctionEventInvokeConfigConfig_destinationOnSuccessDestinationSNSTopic(rName string) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + fmt.Sprintf(`
 resource "aws_iam_role_policy_attachment" "test-AmazonSNSFullAccess" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSNSFullAccess"
-  role       = aws_iam_role.test.id
+  role  = aws_iam_role.test.id
 }
 
 resource "aws_sns_topic" "test" {
@@ -741,21 +719,20 @@ resource "aws_lambda_function_event_invoke_config" "test" {
   function_name = aws_lambda_function.test.function_name
 
   destination_config {
-    on_success {
-      destination = aws_sns_topic.test.arn
-    }
+ on_success {
+ destination = aws_sns_topic.test.arn
+ }
   }
 
   depends_on = [aws_iam_role_policy_attachment.test-AmazonSNSFullAccess]
 }
 `, rName)
 }
-
 func testAccFunctionEventInvokeConfigConfig_destinationOnSuccessDestinationSQSQueue(rName string) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + fmt.Sprintf(`
 resource "aws_iam_role_policy_attachment" "test-AmazonSQSFullAccess" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSQSFullAccess"
-  role       = aws_iam_role.test.id
+  role  = aws_iam_role.test.id
 }
 
 resource "aws_sqs_queue" "test" {
@@ -766,16 +743,15 @@ resource "aws_lambda_function_event_invoke_config" "test" {
   function_name = aws_lambda_function.test.function_name
 
   destination_config {
-    on_success {
-      destination = aws_sqs_queue.test.arn
-    }
+ on_success {
+ destination = aws_sqs_queue.test.arn
+ }
   }
 
   depends_on = [aws_iam_role_policy_attachment.test-AmazonSQSFullAccess]
 }
 `, rName)
 }
-
 func testAccFunctionEventInvokeConfigConfig_name(rName string) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + `
 resource "aws_lambda_function_event_invoke_config" "test" {
@@ -783,7 +759,6 @@ resource "aws_lambda_function_event_invoke_config" "test" {
 }
 `
 }
-
 func testAccFunctionEventInvokeConfigConfig_nameARN(rName string) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + `
 resource "aws_lambda_function_event_invoke_config" "test" {
@@ -791,16 +766,14 @@ resource "aws_lambda_function_event_invoke_config" "test" {
 }
 `
 }
-
 func testAccFunctionEventInvokeConfigConfig_qualifierNameARN(rName string) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + `
 resource "aws_lambda_function_event_invoke_config" "test" {
   function_name = aws_lambda_function.test.arn
-  qualifier     = "$LATEST"
+  qualifier= "$LATEST"
 }
 `
 }
-
 func testAccFunctionEventInvokeConfigConfig_maximumAgeInSeconds(rName string, maximumEventAgeInSeconds int) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + fmt.Sprintf(`
 resource "aws_lambda_function_event_invoke_config" "test" {
@@ -809,7 +782,6 @@ resource "aws_lambda_function_event_invoke_config" "test" {
 }
 `, maximumEventAgeInSeconds)
 }
-
 func testAccFunctionEventInvokeConfigConfig_maximumRetryAttempts(rName string, maximumRetryAttempts int) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + fmt.Sprintf(`
 resource "aws_lambda_function_event_invoke_config" "test" {
@@ -818,36 +790,33 @@ resource "aws_lambda_function_event_invoke_config" "test" {
 }
 `, maximumRetryAttempts)
 }
-
 func testAccFunctionEventInvokeConfigConfig_qualifierAliasName(rName string) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + `
 resource "aws_lambda_alias" "test" {
-  function_name    = aws_lambda_function.test.function_name
+  function_name = aws_lambda_function.test.function_name
   function_version = aws_lambda_function.test.version
-  name    = "test"
+  name = "test"
 }
 
 resource "aws_lambda_function_event_invoke_config" "test" {
   function_name = aws_lambda_alias.test.function_name
-  qualifier     = aws_lambda_alias.test.name
+  qualifier= aws_lambda_alias.test.name
 }
 `
 }
-
 func testAccFunctionEventInvokeConfigConfig_qualifierVersion(rName string) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + `
 resource "aws_lambda_function_event_invoke_config" "test" {
   function_name = aws_lambda_function.test.function_name
-  qualifier     = aws_lambda_function.test.version
+  qualifier= aws_lambda_function.test.version
 }
 `
 }
-
 func testAccFunctionEventInvokeConfigConfig_qualifierLatest(rName string) string {
 	return testAccFunctionEventInvokeConfigConfig_base(rName) + `
 resource "aws_lambda_function_event_invoke_config" "test" {
   function_name = aws_lambda_function.test.function_name
-  qualifier     = "$LATEST"
+  qualifier= "$LATEST"
 }
 `
 }

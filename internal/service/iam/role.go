@@ -35,7 +35,7 @@ import (
 )
 
 const (
-	roleNameMaxLen       = 64
+	roleNameMaxLen  = 64
 	roleNamePrefixMaxLen = roleNameMaxLen - id.UniqueIDSuffixLength
 )
 
@@ -53,14 +53,14 @@ const (
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"assume_role_policy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				ValidateFunc:validation.StringIsJSON,
+				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
@@ -68,11 +68,11 @@ const (
 				},
 			},
 			"create_date": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(0, 1000),
@@ -81,18 +81,18 @@ const (
 				),
 			},
 			"force_detach_policies": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"inline_policy": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true, // semantically required but syntactically optional to allow empty inline_policy
 							ValidateFunc: validation.All(
 								validation.StringIsNotEmpty,
@@ -100,10 +100,10 @@ const (
 							),
 						},
 						"policy": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true, // semantically required but syntactically optional to allow empty inline_policy
-							ValidateFunc:          verify.ValidIAMPolicyJSON,
-							DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+							ValidateFunc:verify.ValidIAMPolicyJSON,
+							DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 							DiffSuppressOnRefresh: true,
 							StateFunc: func(v interface{}) string {
 								json, _ := verify.LegacyPolicyNormalize(v)
@@ -121,52 +121,52 @@ const (
 				},
 			},
 			"managed_policy_arns": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
 			"max_session_duration": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				Default:      3600,
+				Type:schema.TypeInt,
+				Optional:true,
+				Default: 3600,
 				ValidateFunc: validation.IntBetween(3600, 43200),
 			},
 			"name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ConflictsWith: []string{"name_prefix"},
 				ValidateFunc:  validResourceName(roleNameMaxLen),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ConflictsWith: []string{"name"},
 				ValidateFunc:  validResourceName(roleNamePrefixMaxLen),
 			},
 			"path": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      "/",
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Default: "/",
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(0, 512),
 			},
 			"permissions_boundary": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: verify.ValidARN,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"unique_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -186,9 +186,9 @@ const (
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &iam.CreateRoleInput{
 		AssumeRolePolicyDocument: aws.String(assumeRolePolicy),
-		Path:        aws.String(d.Get("path").(string)),
-		RoleName:    aws.String(name),
-		Tags:        getTagsIn(ctx),
+		Path:   aws.String(d.Get("path").(string)),
+		RoleName:aws.String(name),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -332,7 +332,7 @@ funcd.HasChange("assume_role_policy") {
 		}
 
 		input := &iam.UpdateAssumeRolePolicyInput{
-			RoleName:       aws.String(d.Id()),
+			RoleName:  aws.String(d.Id()),
 			PolicyDocument: aws.String(assumeRolePolicy),
 		}
 
@@ -356,7 +356,7 @@ funcd.HasChange("assume_role_policy") {
 
 	if d.HasChange("description") {
 		input := &iam.UpdateRoleDescriptionInput{
-			RoleName:    aws.String(d.Id()),
+			RoleName:aws.String(d.Id()),
 			Description: aws.String(d.Get("description").(string)),
 		}
 
@@ -369,7 +369,7 @@ funcd.HasChange("assume_role_policy") {
 
 	if d.HasChange("max_session_duration") {
 		input := &iam.UpdateRoleInput{
-			RoleName:           aws.String(d.Id()),
+			RoleName: aws.String(d.Id()),
 			MaxSessionDuration: aws.Int64(int64(d.Get("max_session_duration").(int))),
 		}
 
@@ -385,7 +385,7 @@ funcd.HasChange("assume_role_policy") {
 		if permissionsBoundary != "" {
 			input := &iam.PutRolePermissionsBoundaryInput{
 				PermissionsBoundary: aws.String(permissionsBoundary),
-				RoleName:            aws.String(d.Id()),
+				RoleName:  aws.String(d.Id()),
 			}
 
 			_, err := conn.PutRolePermissionsBoundaryWithContext(ctx, input)
@@ -553,7 +553,7 @@ funcerr != nil {
 		instanceProfileName := aws.StringValue(instanceProfile.InstanceProfileName)
 		input := &iam.RemoveRoleFromInstanceProfileInput{
 			InstanceProfileName: aws.String(instanceProfileName),
-			RoleName:            aws.String(roleName),
+			RoleName:  aws.String(roleName),
 		}
 
 		_, err := conn.RemoveRoleFromInstanceProfileWithContext(ctx, input)
@@ -847,9 +847,9 @@ func errs *multierror.Error
 		}
 
 		apiObject := &iam.PutRolePolicyInput{
-			RoleName:       aws.String(roleName),
+			RoleName:  aws.String(roleName),
 			PolicyDocument: aws.String(p),
-			PolicyName:     aws.String(policyName),
+			PolicyName:aws.String(policyName),
 		}
 
 		apiObjects = append(apiObjects, apiObject)

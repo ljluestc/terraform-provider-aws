@@ -16,8 +16,7 @@ import (
 )
 
 var limitSem = make(chan int, 100) // TODO(dsymonds): Use environment variable.
-
-func limitRelease() {
+ limitRelease() {
 	// non-blocking
 	select {
 	case <-limitSem:
@@ -26,8 +25,7 @@ func limitRelease() {
 		log.Print("appengine: unbalanced limitSem release!")
 	}
 }
-
-func limitDial(network, addr string) (net.Conn, error) {
+ limitDial(network, addr string) (net.Conn, error) {
 	limitSem <- 1
 
 	// Dial with a timeout in case the API host is MIA.
@@ -46,8 +44,7 @@ type limitConn struct {
 	close sync.Once
 	net.Conn
 }
-
-func (lc *limitConn) Close() error {
+ (lc *limitConn) Close() error {
 	defer lc.close.Do(func() {
 		limitRelease()
 		runtime.SetFinalizer(lc, nil)

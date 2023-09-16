@@ -26,42 +26,42 @@ func DataSourceGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"alternate_identifier": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"external_id": {
-							Type:         schema.TypeList,
-							Optional:     true,
-							MaxItems:     1,
+							Type:schema.TypeList,
+							Optional:true,
+							MaxItems:1,
 							ExactlyOneOf: []string{"alternate_identifier.0.external_id", "alternate_identifier.0.unique_attribute"},
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"id": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 									"issuer": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 								},
 							},
 						},
 						"unique_attribute": {
-							Type:         schema.TypeList,
-							Optional:     true,
-							MaxItems:     1,
+							Type:schema.TypeList,
+							Optional:true,
+							MaxItems:1,
 							ExactlyOneOf: []string{"alternate_identifier.0.external_id", "alternate_identifier.0.unique_attribute"},
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"attribute_path": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 									"attribute_value": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 								},
@@ -72,51 +72,51 @@ func DataSourceGroup() *schema.Resource {
 				ConflictsWith: []string{"filter", "group_id"},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"display_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"external_ids": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"issuer": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"filter": {
-				Deprecated:    "Use the alternate_identifier attribute instead.",
-				Type:          schema.TypeList,
-				Optional:      true,
-				MaxItems:      1,
+				Deprecated:"Use the alternate_identifier attribute instead.",
+				Type:schema.TypeList,
+				Optional: true,
+				MaxItems: 1,
 				AtLeastOneOf:  []string{"alternate_identifier", "filter", "group_id"},
 				ConflictsWith: []string{"alternate_identifier"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"attribute_path": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"attribute_value": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"group_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ValidateFunc: validation.All(
@@ -127,7 +127,7 @@ func DataSourceGroup() *schema.Resource {
 				ConflictsWith: []string{"alternate_identifier"},
 			},
 			"identity_store_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 64),
@@ -151,7 +151,7 @@ func dataSourceGroupRead(ctx context.Context, d *schema.ResourceData, meta inter
 		// Use ListGroups for backwards compat.
 		input := &identitystore.ListGroupsInput{
 			IdentityStoreId: aws.String(identityStoreID),
-			Filters:         expandFilters(d.Get("filter").([]interface{})),
+			Filters:expandFilters(d.Get("filter").([]interface{})),
 		}
 		paginator := identitystore.NewListGroupsPaginator(conn, input)
 		var results []types.Group
@@ -199,7 +199,7 @@ func dataSourceGroupRead(ctx context.Context, d *schema.ResourceData, meta inter
 	if v, ok := d.GetOk("alternate_identifier"); ok && len(v.([]interface{})) > 0 {
 		input := &identitystore.GetGroupIdInput{
 			AlternateIdentifier: expandAlternateIdentifier(v.([]interface{})[0].(map[string]interface{})),
-			IdentityStoreId:     aws.String(identityStoreID),
+			IdentityStoreId:aws.String(identityStoreID),
 		}
 
 		output, err := conn.GetGroupId(ctx, input)

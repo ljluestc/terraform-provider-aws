@@ -34,15 +34,15 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"user": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"groups": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Required: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}

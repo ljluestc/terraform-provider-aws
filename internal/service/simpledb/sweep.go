@@ -16,14 +16,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/framework"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_simpledb_domain", &resource.Sweeper{
 		Name: "aws_simpledb_domain",
-		F:    sweepDomains,
+		F:sweepDomains,
 	})
 }
-
 func sweepDomains(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

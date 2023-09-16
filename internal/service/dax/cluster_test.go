@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccDAXCluster_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dc dax.Cluster
@@ -27,10 +26,10 @@ func TestAccDAXCluster_basic(t *testing.T) {
 	resourceName := "aws_dax_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, dax.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, dax.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckClusterDestroy(ctx),
+		CheckDestroy: testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_basic(rString),
@@ -69,14 +68,13 @@ func TestAccDAXCluster_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccDAXCluster_resize(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dc dax.Cluster
@@ -84,10 +82,10 @@ func TestAccDAXCluster_resize(t *testing.T) {
 	resourceName := "aws_dax_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, dax.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, dax.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckClusterDestroy(ctx),
+		CheckDestroy: testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_resizeSingleNode(rString),
@@ -98,8 +96,8 @@ func TestAccDAXCluster_resize(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -121,7 +119,6 @@ func TestAccDAXCluster_resize(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDAXCluster_Encryption_disabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dc dax.Cluster
@@ -129,10 +126,10 @@ func TestAccDAXCluster_Encryption_disabled(t *testing.T) {
 	resourceName := "aws_dax_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, dax.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, dax.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckClusterDestroy(ctx),
+		CheckDestroy: testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_encryption(rString, false),
@@ -143,20 +140,19 @@ func TestAccDAXCluster_Encryption_disabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			// Ensure it shows no difference when removing server_side_encryption configuration
 			{
-				Config:    testAccClusterConfig_basic(rString),
+				Config: testAccClusterConfig_basic(rString),
 				PlanOnly:  true,
 				ExpectNonEmptyPlan: false,
 			},
 		},
 	})
 }
-
 func TestAccDAXCluster_Encryption_enabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dc dax.Cluster
@@ -164,10 +160,10 @@ func TestAccDAXCluster_Encryption_enabled(t *testing.T) {
 	resourceName := "aws_dax_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, dax.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, dax.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckClusterDestroy(ctx),
+		CheckDestroy: testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_encryption(rString, true),
@@ -178,20 +174,19 @@ func TestAccDAXCluster_Encryption_enabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			// Ensure it shows a difference when removing server_side_encryption configuration
 			{
-				Config:    testAccClusterConfig_basic(rString),
+				Config: testAccClusterConfig_basic(rString),
 				PlanOnly:  true,
 				ExpectNonEmptyPlan: true,
 			},
 		},
 	})
 }
-
 func TestAccDAXCluster_EndpointEncryption_disabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dc dax.Cluster
@@ -200,10 +195,10 @@ func TestAccDAXCluster_EndpointEncryption_disabled(t *testing.T) {
 	clusterEndpointEncryptionType := "NONE"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, dax.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, dax.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckClusterDestroy(ctx),
+		CheckDestroy: testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_endpointEncryption(rString, clusterEndpointEncryptionType),
@@ -213,20 +208,19 @@ func TestAccDAXCluster_EndpointEncryption_disabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			// Ensure it shows no difference when removing cluster_endpoint_encryption_type configuration
 			{
-				Config:    testAccClusterConfig_basic(rString),
+				Config: testAccClusterConfig_basic(rString),
 				PlanOnly:  true,
 				ExpectNonEmptyPlan: false,
 			},
 		},
 	})
 }
-
 func TestAccDAXCluster_EndpointEncryption_enabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dc dax.Cluster
@@ -235,10 +229,10 @@ func TestAccDAXCluster_EndpointEncryption_enabled(t *testing.T) {
 	clusterEndpointEncryptionType := "TLS"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, dax.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, dax.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckClusterDestroy(ctx),
+		CheckDestroy: testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClusterConfig_endpointEncryption(rString, clusterEndpointEncryptionType),
@@ -248,20 +242,19 @@ func TestAccDAXCluster_EndpointEncryption_enabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			// Ensure it shows a difference when removing cluster_endpoint_encryption_type configuration
 			{
-				Config:    testAccClusterConfig_basic(rString),
+				Config: testAccClusterConfig_basic(rString),
 				PlanOnly:  true,
 				ExpectNonEmptyPlan: true,
 			},
 		},
 	})
 }
-
 func testAccCheckClusterDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DAXConn(ctx)
@@ -287,7 +280,6 @@ func testAccCheckClusterDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckClusterExists(ctx context.Context, n string, v *dax.Cluster) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -316,7 +308,6 @@ func testAccCheckClusterExists(ctx context.Context, n string, v *dax.Cluster) re
 		return nil
 	}
 }
-
 func testAccPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).DAXConn(ctx)
 
@@ -337,16 +328,16 @@ const baseConfig = `
 resource "aws_iam_role" "test" {
   assume_role_policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-       {
-   "Effect": "Allow",
-   "Principal": {
+ "Version": "2012-10-17",
+ "Statement": [
+
+"Effect": "Allow",
+"Principal": {
  "Service": "dax.amazonaws.com"
-   },
-   "Action": "sts:AssumeRole"
-        }
-    ]
+},
+"Action": "sts:AssumeRole"
+
+ ]
 }
 EOF
 }
@@ -356,88 +347,83 @@ resource "aws_iam_role_policy" "test" {
 
   policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-   "Action": "dynamodb:*",
-   "Effect": "Allow",
-   "Resource": "*"
-        }
-    ]
+ "Version": "2012-10-17",
+ "Statement": [
+
+"Action": "dynamodb:*",
+"Effect": "Allow",
+"Resource": "*"
+
+ ]
 }
 EOF
 }
 `
-
 func testAccClusterConfig_basic(rString string) string {
 	return fmt.Sprintf(`%s
 resource "aws_dax_cluster" "test" {
-  cluster_name       = "tf-%s"
-  iam_role_arn       = aws_iam_role.test.arn
+  cluster_name-%s"
+  iam_role_arn_iam_role.test.arn
   node_type = "dax.t2.small"
   replication_factor = 1
-  description        = "test cluster"
+  descriptionest cluster"
 
   tags = {
-    foo = "bar"
+ foo = "bar"
   }
 }
 `, baseConfig, rString)
 }
-
 func testAccClusterConfig_encryption(rString string, enabled bool) string {
 	return fmt.Sprintf(`%s
 resource "aws_dax_cluster" "test" {
-  cluster_name       = "tf-%s"
-  iam_role_arn       = aws_iam_role.test.arn
+  cluster_name-%s"
+  iam_role_arn_iam_role.test.arn
   node_type = "dax.t2.small"
   replication_factor = 1
-  description        = "test cluster"
+  descriptionest cluster"
 
   tags = {
-    foo = "bar"
+ foo = "bar"
   }
 
   server_side_encryption {
-    enabled = %t
+ enabled = %t
   }
 }
 `, baseConfig, rString, enabled)
 }
-
 func testAccClusterConfig_endpointEncryption(rString string, encryptionType string) string {
 	return fmt.Sprintf(`%s
 resource "aws_dax_cluster" "test" {
-  cluster_name      = "tf-%s"
+  cluster_name%s"
   cluster_endpoint_encryption_type = "%s"
-  iam_role_arn      = aws_iam_role.test.arn
+  iam_role_arniam_role.test.arn
   node_type= "dax.t2.small"
   replication_factor= 1
-  description       = "test cluster"
+  descriptionst cluster"
 
   tags = {
-    foo = "bar"
+ foo = "bar"
   }
 }
 `, baseConfig, rString, encryptionType)
 }
-
 func testAccClusterConfig_resizeSingleNode(rString string) string {
 	return fmt.Sprintf(`%s
 resource "aws_dax_cluster" "test" {
-  cluster_name       = "tf-%s"
-  iam_role_arn       = aws_iam_role.test.arn
+  cluster_name-%s"
+  iam_role_arn_iam_role.test.arn
   node_type = "dax.r3.large"
   replication_factor = 1
 }
 `, baseConfig, rString)
 }
-
 func testAccClusterConfig_resizeMultiNode(rString string) string {
 	return fmt.Sprintf(`%s
 resource "aws_dax_cluster" "test" {
-  cluster_name       = "tf-%s"
-  iam_role_arn       = aws_iam_role.test.arn
+  cluster_name-%s"
+  iam_role_arn_iam_role.test.arn
   node_type = "dax.r3.large"
   replication_factor = 2
 }

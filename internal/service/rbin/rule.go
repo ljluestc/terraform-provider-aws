@@ -29,7 +29,8 @@ import (
 
 // @SDKResource("aws_rbin_rule", name="Rule")
 // @Tags(identifierAttribute="arn")
-func ResourceRule() *schema.Resource {
+
+ ResourceRule() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRuleCreate,
 		ReadWithoutTimeout:   resourceRuleRead,
@@ -52,7 +53,7 @@ func ResourceRule() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringLenBetween(0, 500),
@@ -69,12 +70,12 @@ func ResourceRule() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"resource_tag_key": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(0, 127),
 						},
 						"resource_tag_value": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 256),
 						},
@@ -83,8 +84,8 @@ func ResourceRule() *schema.Resource {
 			},
 			"resource_type": {
 				Type:schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Required:true,
+				ForceNew:true,
 				ValidateDiagFunc: enum.Validate[types.ResourceType](),
 			},
 			"retention_period": {
@@ -94,13 +95,13 @@ func ResourceRule() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"retention_period_value": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IntBetween(1, 365),
 						},
 						"retention_period_unit": {
 							Type:schema.TypeString,
-							Required:         true,
+							Required:true,
 							ValidateDiagFunc: enum.Validate[types.RetentionPeriodUnit](),
 						},
 					},
@@ -120,11 +121,11 @@ func ResourceRule() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"unlock_delay_unit": {
 										Type:schema.TypeString,
-										Required:         true,
+										Required:true,
 										ValidateDiagFunc: enum.Validate[types.UnlockDelayUnit](),
 									},
 									"unlock_delay_value": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Required:     true,
 										ValidateFunc: validation.IntBetween(7, 30),
 									},
@@ -158,13 +159,14 @@ const (
 	ResNameRule = "Rule"
 )
 
-func resourceRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+ resourceRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).RBinClient(ctx)
 
 	in := &rbin.CreateRuleInput{
 		ResourceType:    types.ResourceType(d.Get("resource_type").(string)),
 		RetentionPeriod: expandRetentionPeriod(d.Get("retention_period").([]interface{})),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if _, ok := d.GetOk("description"); ok {
@@ -193,7 +195,8 @@ func resourceRuleCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	return resourceRuleRead(ctx, d, meta)
 }
 
-func resourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+ resourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).RBinClient(ctx)
 
 	out, err := findRuleByID(ctx, conn, d.Id())
@@ -232,7 +235,8 @@ func resourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interfac
 	return nil
 }
 
-func resourceRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+ resourceRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).RBinClient(ctx)
 
 	update := false
@@ -273,7 +277,8 @@ func resourceRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	return resourceRuleRead(ctx, d, meta)
 }
 
-func resourceRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+ resourceRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	log.Printf("[INFO] Deleting RBin Rule %s", d.Id())
 
 	conn := meta.(*conns.AWSClient).RBinClient(ctx)
@@ -298,13 +303,14 @@ func resourceRuleDelete(ctx context.Context, d *schema.ResourceData, meta interf
 	return nil
 }
 
-func waitRuleCreated(ctx context.Context, conn *rbin.Client, id string, timeout time.Duration) (*rbin.GetRuleOutput, error) {
+
+ waitRuleCreated(ctx context.Context, conn *rbin.Client, id string, timeout time.Duration) (*rbin.GetRuleOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:      enum.Slice(types.RuleStatusPending),
 		Target:       enum.Slice(types.RuleStatusAvailable),
 		Refresh:      statusRule(ctx, conn, id),
 		Timeout:      timeout,
-		NotFoundChecks:            20,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -316,13 +322,14 @@ func waitRuleCreated(ctx context.Context, conn *rbin.Client, id string, timeout 
 	return nil, err
 }
 
-func waitRuleUpdated(ctx context.Context, conn *rbin.Client, id string, timeout time.Duration) (*rbin.GetRuleOutput, error) {
+
+ waitRuleUpdated(ctx context.Context, conn *rbin.Client, id string, timeout time.Duration) (*rbin.GetRuleOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:      enum.Slice(types.RuleStatusPending),
 		Target:       enum.Slice(types.RuleStatusAvailable),
 		Refresh:      statusRule(ctx, conn, id),
 		Timeout:      timeout,
-		NotFoundChecks:            20,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -334,7 +341,8 @@ func waitRuleUpdated(ctx context.Context, conn *rbin.Client, id string, timeout 
 	return nil, err
 }
 
-func waitRuleDeleted(ctx context.Context, conn *rbin.Client, id string, timeout time.Duration) (*rbin.GetRuleOutput, error) {
+
+ waitRuleDeleted(ctx context.Context, conn *rbin.Client, id string, timeout time.Duration) (*rbin.GetRuleOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.RuleStatusPending, types.RuleStatusAvailable),
 		Target:  []string{},
@@ -350,8 +358,10 @@ func waitRuleDeleted(ctx context.Context, conn *rbin.Client, id string, timeout 
 	return nil, err
 }
 
-func statusRule(ctx context.Context, conn *rbin.Client, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+ statusRule(ctx context.Context, conn *rbin.Client, id string) retry.StateRefreshFunc {
+	return 
+() (interface{}, string, error) {
 		out, err := findRuleByID(ctx, conn, id)
 		if tfresource.NotFound(err) {
 			return nil, "", nil
@@ -365,7 +375,8 @@ func statusRule(ctx context.Context, conn *rbin.Client, id string) retry.StateRe
 	}
 }
 
-func findRuleByID(ctx context.Context, conn *rbin.Client, id string) (*rbin.GetRuleOutput, error) {
+
+ findRuleByID(ctx context.Context, conn *rbin.Client, id string) (*rbin.GetRuleOutput, error) {
 	in := &rbin.GetRuleInput{
 		Identifier: aws.String(id),
 	}
@@ -389,7 +400,8 @@ func findRuleByID(ctx context.Context, conn *rbin.Client, id string) (*rbin.GetR
 	return out, nil
 }
 
-func flattenResourceTag(rTag types.ResourceTag) map[string]interface{} {
+
+ flattenResourceTag(rTag types.ResourceTag) map[string]interface{} {
 	m := map[string]interface{}{}
 
 	if v := rTag.ResourceTagKey; v != nil {
@@ -403,7 +415,8 @@ func flattenResourceTag(rTag types.ResourceTag) map[string]interface{} {
 	return m
 }
 
-func flattenResourceTags(rTags []types.ResourceTag) []interface{} {
+
+ flattenResourceTags(rTags []types.ResourceTag) []interface{} {
 	if len(rTags) == 0 {
 		return nil
 	}
@@ -417,7 +430,8 @@ func flattenResourceTags(rTags []types.ResourceTag) []interface{} {
 	return l
 }
 
-func flattenRetentionPeriod(retPeriod *types.RetentionPeriod) []interface{} {
+
+ flattenRetentionPeriod(retPeriod *types.RetentionPeriod) []interface{} {
 	m := map[string]interface{}{}
 
 	if v := retPeriod.RetentionPeriodUnit; v != "" {
@@ -431,7 +445,8 @@ func flattenRetentionPeriod(retPeriod *types.RetentionPeriod) []interface{} {
 	return []interface{}{m}
 }
 
-func expandResourceTag(tfMap map[string]interface{}) *types.ResourceTag {
+
+ expandResourceTag(tfMap map[string]interface{}) *types.ResourceTag {
 	if tfMap == nil {
 		return nil
 	}
@@ -449,7 +464,8 @@ func expandResourceTag(tfMap map[string]interface{}) *types.ResourceTag {
 	return a
 }
 
-func expandResourceTags(tfList []interface{}) []types.ResourceTag {
+
+ expandResourceTags(tfList []interface{}) []types.ResourceTag {
 	if len(tfList) == 0 {
 		return nil
 	}
@@ -475,7 +491,8 @@ func expandResourceTags(tfList []interface{}) []types.ResourceTag {
 	return s
 }
 
-func expandRetentionPeriod(tfList []interface{}) *types.RetentionPeriod {
+
+ expandRetentionPeriod(tfList []interface{}) *types.RetentionPeriod {
 	if tfList == nil {
 		return nil
 	}

@@ -29,10 +29,10 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_secretsmanager_secret_policy.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSecretPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckSecretPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccSecretPolicyConfig_basic(rName),
@@ -43,8 +43,8 @@ regexache.MustCompile(`{"Action":"secretsmanager:GetSecretValue".+`)),
 ),
 },
 {
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"block_public_policy"},
 },
@@ -67,10 +67,10 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_secretsmanager_secret_policy.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSecretPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckSecretPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccSecretPolicyConfig_block(rName, true),
@@ -80,8 +80,8 @@ resource.TestCheckResourceAttr(resourceName, "block_public_policy", "true"),
 ),
 },
 {
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"block_public_policy"},
 },
@@ -110,10 +110,10 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_secretsmanager_secret_policy.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSecretPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckSecretPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 {
 Config: testAccSecretPolicyConfig_basic(rName),
@@ -225,7 +225,7 @@ return nil
 func testAccSecretPolicyConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name      = %[1]q
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -302,7 +302,7 @@ POLICY
 func testAccSecretPolicyConfig_block(rName string, block bool) string {
 return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name      = %[1]q
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -325,7 +325,7 @@ resource "aws_secretsmanager_secret" "test" {
 }
 
 resource "aws_secretsmanager_secret_policy" "test" {
-  secret_arn          = aws_secretsmanager_secret.test.arn
+  secret_arn = aws_secretsmanager_secret.test.arn
   block_public_policy = %[2]t
 
   policy = <<POLICY

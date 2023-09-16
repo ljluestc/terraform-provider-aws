@@ -25,7 +25,7 @@ func TestAccResourceGroupsResource_basic(t *testing.T) {
 	resourceName := "aws_resourcegroups_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, resourcegroups.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -93,13 +93,13 @@ func testAccCheckResourceExists(ctx context.Context, n string, v *resourcegroups
 func testAccResourceConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_host" "test" {
-  auto_placement    = "on"
+  auto_placement= "on"
   availability_zone = data.aws_availability_zones.available.names[0]
-  host_recovery     = "off"
+  host_recovery = "off"
   instance_family   = "c5"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -107,52 +107,52 @@ resource "aws_resourcegroups_group" "test" {
   name = %[1]q
 
   configuration {
-    type = "AWS::EC2::HostManagement"
-    parameters {
-      name = "any-host-based-license-configuration"
-      values = [
-        "true"
-      ]
-    }
+type = "AWS::EC2::HostManagement"
+parameters {
+  name = "any-host-based-license-configuration"
+  values = [
+"true"
+  ]
+}
 
-    parameters {
-      name = "auto-allocate-host"
-      values = [
-        "false"
-      ]
-    }
+parameters {
+  name = "auto-allocate-host"
+  values = [
+"false"
+  ]
+}
 
-    parameters {
-      name = "auto-host-recovery"
-      values = [
-        "false"
-      ]
-    }
+parameters {
+  name = "auto-host-recovery"
+  values = [
+"false"
+  ]
+}
 
-    parameters {
-      name = "auto-release-host"
-      values = [
-        "false"
-      ]
-    }
+parameters {
+  name = "auto-release-host"
+  values = [
+"false"
+  ]
+}
   }
 
   configuration {
-    type = "AWS::ResourceGroups::Generic"
+type = "AWS::ResourceGroups::Generic"
 
-    parameters {
-      name = "allowed-resource-types"
-      values = [
-        "AWS::EC2::Host"
-      ]
-    }
+parameters {
+  name = "allowed-resource-types"
+  values = [
+"AWS::EC2::Host"
+  ]
+}
 
-    parameters {
-      name = "deletion-protection"
-      values = [
-        "UNLESS_EMPTY"
-      ]
-    }
+parameters {
+  name = "deletion-protection"
+  values = [
+"UNLESS_EMPTY"
+  ]
+}
   }
 }
 `, rName))
@@ -161,7 +161,7 @@ resource "aws_resourcegroups_group" "test" {
 func testAccResourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccResourceConfig_base(rName), `
 resource "aws_resourcegroups_resource" "test" {
-  group_arn    = aws_resourcegroups_group.test.arn
+  group_arn= aws_resourcegroups_group.test.arn
   resource_arn = aws_ec2_host.test.arn
 }
 	`)

@@ -913,8 +913,8 @@ awsAccountId = v.(string)
 
 	input := &quicksight.CreateDataSetInput{
 AwsAccountId:     aws.String(awsAccountId),
-DataSetId:        aws.String(dataSetID),
-ImportMode:       aws.String(d.Get("import_mode").(string)),
+DataSetId:  aws.String(dataSetID),
+ImportMode: aws.String(d.Get("import_mode").(string)),
 PhysicalTableMap: expandDataSetPhysicalTableMap(d.Get("physical_table_map").(*schema.Set)),
 Name:    aws.String(d.Get("name").(string)),
 Tags:    getTagsIn(ctx),
@@ -1090,8 +1090,8 @@ if err != nil {
 
 params := &quicksight.UpdateDataSetInput{
 	AwsAccountId:     aws.String(awsAccountId),
-	DataSetId:        aws.String(dataSetId),
-	ImportMode:       aws.String(d.Get("import_mode").(string)),
+	DataSetId:  aws.String(dataSetId),
+	ImportMode: aws.String(d.Get("import_mode").(string)),
 	PhysicalTableMap: expandDataSetPhysicalTableMap(d.Get("physical_table_map").(*schema.Set)),
 	Name:    aws.String(d.Get("name").(string)),
 }

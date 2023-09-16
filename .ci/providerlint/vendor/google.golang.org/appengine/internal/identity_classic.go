@@ -11,48 +11,38 @@ import (
 
 	netcontext "golang.org/x/net/context"
 )
-
-func init() {
+ init() {
 	appengineStandard = true
 }
-
-func DefaultVersionHostname(ctx netcontext.Context) string {
+ DefaultVersionHostname(ctx netcontext.Context) string {
 	c := fromContext(ctx)
 	if c == nil {
 		panic(errNotAppEngineContext)
 	}
 	return appengine.DefaultVersionHostname(c)
 }
-
-func Datacenter(_ netcontext.Context) string { return appengine.Datacenter() }
-func ServerSoftware() string                 { return appengine.ServerSoftware() }
-func InstanceID() string                     { return appengine.InstanceID() }
-func IsDevAppServer() bool                   { return appengine.IsDevAppServer() }
-
-func RequestID(ctx netcontext.Context) string {
+ Datacenter(_ netcontext.Context) string { return appengine.Datacenter() } ServerSoftware() string                 { return appengine.ServerSoftware() } InstanceID() string                     { return appengine.InstanceID() } IsDevAppServer() bool                   { return appengine.IsDevAppServer() }
+ RequestID(ctx netcontext.Context) string {
 	c := fromContext(ctx)
 	if c == nil {
 		panic(errNotAppEngineContext)
 	}
 	return appengine.RequestID(c)
 }
-
-func ModuleName(ctx netcontext.Context) string {
+ ModuleName(ctx netcontext.Context) string {
 	c := fromContext(ctx)
 	if c == nil {
 		panic(errNotAppEngineContext)
 	}
 	return appengine.ModuleName(c)
-}
-func VersionID(ctx netcontext.Context) string {
+} VersionID(ctx netcontext.Context) string {
 	c := fromContext(ctx)
 	if c == nil {
 		panic(errNotAppEngineContext)
 	}
 	return appengine.VersionID(c)
 }
-
-func fullyQualifiedAppID(ctx netcontext.Context) string {
+ fullyQualifiedAppID(ctx netcontext.Context) string {
 	c := fromContext(ctx)
 	if c == nil {
 		panic(errNotAppEngineContext)

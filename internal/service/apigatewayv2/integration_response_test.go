@@ -215,7 +215,7 @@ return fmt.Sprintf("%s/%s/%s", rs.Primary.Attributes["api_id"], rs.Primary.Attri
 func testAccIntegrationResponseConfig_basic(rName string) string {
 	return testAccIntegrationConfig_basic(rName) + `
 resource "aws_apigatewayv2_integration_response" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   integration_idgatewayv2_integration.test.id
   integration_response_key = "/200/"
 }
@@ -225,7 +225,7 @@ resource "aws_apigatewayv2_integration_response" "test" {
 func testAccIntegrationResponseConfig_allAttributes(rName string) string {
 	return testAccIntegrationConfig_basic(rName) + `
 resource "aws_apigatewayv2_integration_response" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   integration_idgatewayv2_integration.test.id
   integration_response_key = "$default"
 
@@ -233,7 +233,7 @@ resource "aws_apigatewayv2_integration_response" "test" {
   template_selection_expression = "$request.body.name"
 
   response_templates = {
-    "application/json" = ""
+"application/json" = ""
   }
 }
 `
@@ -242,7 +242,7 @@ resource "aws_apigatewayv2_integration_response" "test" {
 func testAccIntegrationResponseConfig_allAttributesUpdated(rName string) string {
 	return testAccIntegrationConfig_basic(rName) + `
 resource "aws_apigatewayv2_integration_response" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   integration_idgatewayv2_integration.test.id
   integration_response_key = "/404/"
 
@@ -250,8 +250,8 @@ resource "aws_apigatewayv2_integration_response" "test" {
   template_selection_expression = "$request.body.id"
 
   response_templates = {
-    "application/json" = "#set($number=42)"
-    "application/xml"  = "#set($percent=$number/100)"
+"application/json" = "#set($number=42)"
+"application/xml"  = "#set($percent=$number/100)"
   }
 }
 `

@@ -27,7 +27,7 @@ func testAccBranch_basic(t *testing.T) {
 	resourceName := "aws_amplify_branch.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBranchDestroy(ctx),
@@ -60,8 +60,8 @@ func testAccBranch_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -75,7 +75,7 @@ func testAccBranch_disappears(t *testing.T) {
 	resourceName := "aws_amplify_branch.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBranchDestroy(ctx),
@@ -99,7 +99,7 @@ func testAccBranch_tags(t *testing.T) {
 	resourceName := "aws_amplify_branch.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBranchDestroy(ctx),
@@ -113,8 +113,8 @@ func testAccBranch_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -148,7 +148,7 @@ func testAccBranch_BasicAuthCredentials(t *testing.T) {
 	credentials2 := base64.StdEncoding.EncodeToString([]byte("username2:password2"))
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBranchDestroy(ctx),
@@ -162,8 +162,8 @@ func testAccBranch_BasicAuthCredentials(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -194,7 +194,7 @@ func testAccBranch_EnvironmentVariables(t *testing.T) {
 	resourceName := "aws_amplify_branch.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBranchDestroy(ctx),
@@ -208,8 +208,8 @@ func testAccBranch_EnvironmentVariables(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -242,7 +242,7 @@ func testAccBranch_OptionalArguments(t *testing.T) {
 	backendEnvironment2ResourceName := "aws_amplify_backend_environment.test2"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBranchDestroy(ctx),
@@ -265,8 +265,8 @@ func testAccBranch_OptionalArguments(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -360,7 +360,7 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_branch" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 }
 `, rName)
@@ -373,11 +373,11 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_branch" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -390,12 +390,12 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_branch" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -408,11 +408,11 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_branch" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 
   basic_auth_credentials = %[2]q
-  enable_basic_auth      = true
+  enable_basic_auth  = true
 }
 `, rName, basicAuthCredentials)
 }
@@ -424,11 +424,11 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_branch" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 
   environment_variables = {
-    ENVVAR1 = "1"
+ENVVAR1 = "1"
   }
 }
 `, rName)
@@ -441,12 +441,12 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_branch" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 
   environment_variables = {
-    ENVVAR1 = "2",
-    ENVVAR2 = "2"
+ENVVAR1 = "2",
+ENVVAR2 = "2"
   }
 }
 `, rName)
@@ -459,30 +459,30 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_backend_environment" "test1" {
-  app_id           = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   environment_name = "%[2]sa"
 }
 
 resource "aws_amplify_backend_environment" "test2" {
-  app_id           = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   environment_name = "%[2]sb"
 }
 
 resource "aws_amplify_branch" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 
-  backend_environment_arn       = aws_amplify_backend_environment.test1.arn
-  description    = "testdescription1"
+  backend_environment_arn   = aws_amplify_backend_environment.test1.arn
+  description= "testdescription1"
   display_name   = "testdisplayname1"
   enable_auto_build= false
-  enable_notification           = true
-  enable_performance_mode       = true
+  enable_notification  = true
+  enable_performance_mode   = true
   enable_pull_request_preview   = false
-  framework      = "React"
+  framework  = "React"
   pull_request_environment_name = "testpr1"
-  stage          = "DEVELOPMENT"
-  ttl            = "10"
+  stage = "DEVELOPMENT"
+  ttl   = "10"
 }
 `, rName, environmentName)
 }
@@ -494,30 +494,30 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_backend_environment" "test1" {
-  app_id           = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   environment_name = "%[2]sa"
 }
 
 resource "aws_amplify_backend_environment" "test2" {
-  app_id           = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   environment_name = "%[2]sb"
 }
 
 resource "aws_amplify_branch" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 
-  backend_environment_arn       = aws_amplify_backend_environment.test2.arn
-  description    = "testdescription2"
+  backend_environment_arn   = aws_amplify_backend_environment.test2.arn
+  description= "testdescription2"
   display_name   = "testdisplayname2"
   enable_auto_build= true
-  enable_notification           = false
-  enable_performance_mode       = true
+  enable_notification  = false
+  enable_performance_mode   = true
   enable_pull_request_preview   = true
-  framework      = "Angular"
+  framework  = "Angular"
   pull_request_environment_name = "testpr2"
-  stage          = "EXPERIMENTAL"
-  ttl            = "15"
+  stage = "EXPERIMENTAL"
+  ttl   = "15"
 }
 `, rName, environmentName)
 }

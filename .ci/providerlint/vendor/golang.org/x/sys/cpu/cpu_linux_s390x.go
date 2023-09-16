@@ -1,10 +1,6 @@
 // Copyright 2019 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package cpu
-
-const (
+// license that can be found in the LICENSE file.package cpuconst (
 	// bit mask values from /usr/include/bits/hwcap.h
 	hwcap_ZARCH  = 2
 	hwcap_STFLE  = 4
@@ -16,17 +12,12 @@ const (
 	hwcap_VX     = 2048
 	hwcap_VXE    = 8192
 )
-
-func initS390Xbase() {
+ initS390Xbase() {
 	// test HWCAP bit vector
 	has := func(featureMask uint) bool {
 		return hwCap&featureMask == featureMask
-	}
-
-	// mandatory
-	S390X.HasZARCH = has(hwcap_ZARCH)
-
-	// optional
+	}	// mandatory
+	S390X.HasZARCH = has(hwcap_ZARCH)	// optional
 	S390X.HasSTFLE = has(hwcap_STFLE)
 	S390X.HasLDISP = has(hwcap_LDISP)
 	S390X.HasEIMM = has(hwcap_EIMM)

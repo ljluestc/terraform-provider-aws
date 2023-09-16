@@ -11,10 +11,10 @@ import (
 
 const (
 	aclNameMaxLength   = 40
-	clusterNameMaxLength        = 40
+	clusterNameMaxLength= 40
 	parameterGroupNameMaxLength = 255
-	snapshotNameMaxLength       = 255
-	subnetGroupNameMaxLength    = 255
+	snapshotNameMaxLength   = 255
+	subnetGroupNameMaxLength= 255
 	userNameMaxLength  = 40
 )
 

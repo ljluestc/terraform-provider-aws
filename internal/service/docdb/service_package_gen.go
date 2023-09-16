@@ -14,15 +14,12 @@ import (
 )
 
 type servicePackage struct{}
-
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{}
 }
-
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{}
 }
-
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
 		{
@@ -35,13 +32,12 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 		},
 	}
 }
-
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
 			Factory:  ResourceCluster,
 			TypeName: "aws_docdb_cluster",
-			Name:     "Cluster",
+			Name:"Cluster",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -49,7 +45,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceClusterInstance,
 			TypeName: "aws_docdb_cluster_instance",
-			Name:     "Cluster Instance",
+			Name:"Cluster Instance",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -57,7 +53,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceClusterParameterGroup,
 			TypeName: "aws_docdb_cluster_parameter_group",
-			Name:     "Cluster Parameter Group",
+			Name:"Cluster Parameter Group",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -69,7 +65,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceEventSubscription,
 			TypeName: "aws_docdb_event_subscription",
-			Name:     "Event Subscription",
+			Name:"Event Subscription",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -81,14 +77,13 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceSubnetGroup,
 			TypeName: "aws_docdb_subnet_group",
-			Name:     "Subnet Group",
+			Name:"Subnet Group",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
 		},
 	}
 }
-
 func (p *servicePackage) ServicePackageName() string {
 	return names.DocDB
 }
@@ -99,7 +94,6 @@ func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*d
 
 	return docdb_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }

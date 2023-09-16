@@ -36,7 +36,7 @@ return []*types.ServicePackageSDKResource{
 {
 Factory:  resourceLedger,
 TypeName: "aws_qldb_ledger",
-Name:     "Ledger",
+Name: "Ledger",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 },
@@ -44,7 +44,7 @@ IdentifierAttribute: "arn",
 {
 Factory:  resourceStream,
 TypeName: "aws_qldb_stream",
-Name:     "Stream",
+Name: "Stream",
 Tags: &types.ServicePackageResourceTags{
 IdentifierAttribute: "arn",
 },

@@ -56,7 +56,6 @@ func ResourceLoadBalancerStickinessPolicy() *schema.Resource {
 		},
 	}
 }
-
 func resourceLoadBalancerStickinessPolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	lbName := d.Get("lb_name").(string)
@@ -92,7 +91,6 @@ func resourceLoadBalancerStickinessPolicyCreate(ctx context.Context, d *schema.R
 
 	return resourceLoadBalancerStickinessPolicyRead(ctx, d, meta)
 }
-
 func resourceLoadBalancerStickinessPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -124,7 +122,6 @@ func resourceLoadBalancerStickinessPolicyRead(ctx context.Context, d *schema.Res
 
 	return nil
 }
-
 func resourceLoadBalancerStickinessPolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	lbName := d.Get("lb_name").(string)
@@ -170,7 +167,6 @@ func resourceLoadBalancerStickinessPolicyUpdate(ctx context.Context, d *schema.R
 
 	return resourceLoadBalancerStickinessPolicyRead(ctx, d, meta)
 }
-
 func resourceLoadBalancerStickinessPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	lbName := d.Get("lb_name").(string)
@@ -194,7 +190,6 @@ func resourceLoadBalancerStickinessPolicyDelete(ctx context.Context, d *schema.R
 
 	return nil
 }
-
 func FindLoadBalancerStickinessPolicyById(ctx context.Context, conn *lightsail.Client, id string) (map[string]string, error) {
 	in := &lightsail.GetLoadBalancerInput{LoadBalancerName: aws.String(id)}
 	out, err := conn.GetLoadBalancer(ctx, in)

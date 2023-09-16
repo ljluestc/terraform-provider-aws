@@ -14,7 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func testAccWorkspaceBundleDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_workspaces_bundle.test"
@@ -42,7 +41,6 @@ func testAccWorkspaceBundleDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccWorkspaceBundleDataSource_byOwnerName(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_workspaces_bundle.test"
@@ -70,7 +68,6 @@ func testAccWorkspaceBundleDataSource_byOwnerName(t *testing.T) {
 		},
 	})
 }
-
 func testAccWorkspaceBundleDataSource_bundleIDAndNameConflict(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.Test(t, resource.TestCase{
@@ -85,7 +82,6 @@ func testAccWorkspaceBundleDataSource_bundleIDAndNameConflict(t *testing.T) {
 		},
 	})
 }
-
 func testAccWorkspaceBundleDataSource_privateOwner(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_workspaces_bundle.test"
@@ -108,13 +104,11 @@ func testAccWorkspaceBundleDataSource_privateOwner(t *testing.T) {
 		},
 	})
 }
-
 func testAccBundlePreCheck(t *testing.T) {
 	if os.Getenv("AWS_WORKSPACES_BUNDLE_NAME") == "" {
 		t.Skip("AWS_WORKSPACES_BUNDLE_NAME env var must be set for AWS WorkSpaces private bundle acceptance test. This is required until AWS provides bundle creation API.")
 	}
 }
-
 func testAccBundleDataSourceConfig_basic(bundleID string) string {
 	return fmt.Sprintf(`
 data "aws_workspaces_bundle" "test" {
@@ -122,7 +116,6 @@ data "aws_workspaces_bundle" "test" {
 }
 `, bundleID)
 }
-
 func testAccBundleDataSourceConfig_byOwnerName(owner, name string) string {
 	return fmt.Sprintf(`
 data "aws_workspaces_bundle" "test" {
@@ -131,7 +124,6 @@ data "aws_workspaces_bundle" "test" {
 }
 `, owner, name)
 }
-
 func testAccBundleDataSourceConfig_idAndOwnerNameConflict(bundleID, owner, name string) string {
 	return fmt.Sprintf(`
 data "aws_workspaces_bundle" "test" {
@@ -141,7 +133,6 @@ data "aws_workspaces_bundle" "test" {
 }
 `, bundleID, owner, name)
 }
-
 func testAccBundleDataSourceConfig_privateOwner(name string) string {
 	return fmt.Sprintf(`
 data "aws_workspaces_bundle" "test" {

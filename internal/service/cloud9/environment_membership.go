@@ -35,23 +35,23 @@ func ResourceEnvironmentMembership() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"environment_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"permissions": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(cloud9.Permissions_Values(), false),
 			},
 			"user_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"user_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -67,7 +67,7 @@ func resourceEnvironmentMembershipCreate(ctx context.Context, d *schema.Resource
 	input := &cloud9.CreateEnvironmentMembershipInput{
 		EnvironmentId: aws.String(envId),
 		Permissions:   aws.String(d.Get("permissions").(string)),
-		UserArn:       aws.String(userArn),
+		UserArn:  aws.String(userArn),
 	}
 
 	_, err := conn.CreateEnvironmentMembershipWithContext(ctx, input)
@@ -117,7 +117,7 @@ func resourceEnvironmentMembershipUpdate(ctx context.Context, d *schema.Resource
 	input := cloud9.UpdateEnvironmentMembershipInput{
 		EnvironmentId: aws.String(d.Get("environment_id").(string)),
 		Permissions:   aws.String(d.Get("permissions").(string)),
-		UserArn:       aws.String(d.Get("user_arn").(string)),
+		UserArn:  aws.String(d.Get("user_arn").(string)),
 	}
 
 	log.Printf("[INFO] Updating Cloud9 Environment Membership: %#v", input)
@@ -136,7 +136,7 @@ func resourceEnvironmentMembershipDelete(ctx context.Context, d *schema.Resource
 
 	_, err := conn.DeleteEnvironmentMembershipWithContext(ctx, &cloud9.DeleteEnvironmentMembershipInput{
 		EnvironmentId: aws.String(d.Get("environment_id").(string)),
-		UserArn:       aws.String(d.Get("user_arn").(string)),
+		UserArn:  aws.String(d.Get("user_arn").(string)),
 	})
 
 	if tfawserr.ErrCodeEquals(err, cloud9.ErrCodeNotFoundException) {

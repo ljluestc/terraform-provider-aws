@@ -96,7 +96,7 @@ func TestAccECSTaskDefinition_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -127,7 +127,7 @@ func TestAccECSTaskDefinition_scratchVolume(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -164,14 +164,14 @@ func TestAccECSTaskDefinition_DockerVolume_basic(t *testing.T) {
 						"docker_volume_configuration.0.driver_opts.%":      "2",
 						"docker_volume_configuration.0.driver_opts.device": "tmpfs",
 						"docker_volume_configuration.0.driver_opts.uid":    "1000",
-						"docker_volume_configuration.0.labels.%":           "2",
+						"docker_volume_configuration.0.labels.%":  "2",
 						"docker_volume_configuration.0.labels.environment": "test",
 						"docker_volume_configuration.0.labels.stack":       "april",
 					}),
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -207,7 +207,7 @@ func TestAccECSTaskDefinition_DockerVolume_minimal(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -242,7 +242,7 @@ func TestAccECSTaskDefinition_runtimePlatform(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -277,7 +277,7 @@ func TestAccECSTaskDefinition_Fargate_runtimePlatform(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -311,7 +311,7 @@ func TestAccECSTaskDefinition_Fargate_runtimePlatformWithoutArch(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -340,14 +340,14 @@ func TestAccECSTaskDefinition_EFSVolume_minimal(t *testing.T) {
 					testAccCheckTaskDefinitionExists(ctx, resourceName, &def),
 					resource.TestCheckResourceAttr(resourceName, "volume.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "volume.*", map[string]string{
-						"name":          rName,
+						"name": rName,
 						"efs_volume_configuration.#": "1",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "volume.*.efs_volume_configuration.0.file_system_id", "aws_efs_file_system.test", "id"),
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -376,7 +376,7 @@ func TestAccECSTaskDefinition_EFSVolume_basic(t *testing.T) {
 					testAccCheckTaskDefinitionExists(ctx, resourceName, &def),
 					resource.TestCheckResourceAttr(resourceName, "volume.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "volume.*", map[string]string{
-						"name":          rName,
+						"name": rName,
 						"efs_volume_configuration.#": "1",
 						"efs_volume_configuration.0.root_directory": "/home/test",
 					}),
@@ -384,7 +384,7 @@ func TestAccECSTaskDefinition_EFSVolume_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -412,9 +412,9 @@ func TestAccECSTaskDefinition_EFSVolume_transitEncryption(t *testing.T) {
 					testAccCheckTaskDefinitionExists(ctx, resourceName, &def),
 					resource.TestCheckResourceAttr(resourceName, "volume.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "volume.*", map[string]string{
-						"name":          rName,
+						"name": rName,
 						"efs_volume_configuration.#": "1",
-						"efs_volume_configuration.0.root_directory":          "/home/test",
+						"efs_volume_configuration.0.root_directory": "/home/test",
 						"efs_volume_configuration.0.transit_encryption":      "ENABLED",
 						"efs_volume_configuration.0.transit_encryption_port": "2999",
 					}),
@@ -422,7 +422,7 @@ func TestAccECSTaskDefinition_EFSVolume_transitEncryption(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -450,7 +450,7 @@ func TestAccECSTaskDefinition_EFSVolume_transitEncryptionDisabled(t *testing.T) 
 					testAccCheckTaskDefinitionExists(ctx, resourceName, &def),
 					resource.TestCheckResourceAttr(resourceName, "volume.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "volume.*", map[string]string{
-						"name":          rName,
+						"name": rName,
 						"efs_volume_configuration.#": "1",
 						"efs_volume_configuration.0.root_directory":     "/",
 						"efs_volume_configuration.0.transit_encryption": "DISABLED",
@@ -459,7 +459,7 @@ func TestAccECSTaskDefinition_EFSVolume_transitEncryptionDisabled(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -488,10 +488,10 @@ func TestAccECSTaskDefinition_EFSVolume_accessPoint(t *testing.T) {
 					testAccCheckTaskDefinitionExists(ctx, resourceName, &def),
 					resource.TestCheckResourceAttr(resourceName, "volume.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "volume.*", map[string]string{
-						"name":          rName,
+						"name": rName,
 						"efs_volume_configuration.#": "1",
 						"efs_volume_configuration.0.root_directory":"/",
-						"efs_volume_configuration.0.transit_encryption":         "ENABLED",
+						"efs_volume_configuration.0.transit_encryption":"ENABLED",
 						"efs_volume_configuration.0.transit_encryption_port":    "2999",
 						"efs_volume_configuration.0.authorization_config.#":     "1",
 						"efs_volume_configuration.0.authorization_config.0.iam": "DISABLED",
@@ -501,7 +501,7 @@ func TestAccECSTaskDefinition_EFSVolume_accessPoint(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -541,8 +541,8 @@ func TestAccECSTaskDefinition_fsxWinFileSystem(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "volume.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "volume.*", map[string]string{
 						"name": rName,
-						"fsx_windows_file_server_volume_configuration.#":           "1",
-						"fsx_windows_file_server_volume_configuration.0.root_directory":         "\\data",
+						"fsx_windows_file_server_volume_configuration.#":  "1",
+						"fsx_windows_file_server_volume_configuration.0.root_directory":"\\data",
 						"fsx_windows_file_server_volume_configuration.0.authorization_config.#": "1",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "volume.*.fsx_windows_file_server_volume_configuration.0.file_system_id", "aws_fsx_windows_file_system.test", "id"),
@@ -551,7 +551,7 @@ func TestAccECSTaskDefinition_fsxWinFileSystem(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -583,7 +583,7 @@ func TestAccECSTaskDefinition_DockerVolume_taskScoped(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -623,7 +623,7 @@ func TestAccECSTaskDefinition_service(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -653,7 +653,7 @@ func TestAccECSTaskDefinition_taskRoleARN(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -684,7 +684,7 @@ func TestAccECSTaskDefinition_networkMode(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -715,7 +715,7 @@ func TestAccECSTaskDefinition_ipcMode(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -746,7 +746,7 @@ func TestAccECSTaskDefinition_pidMode(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -778,7 +778,7 @@ func TestAccECSTaskDefinition_constraint(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -816,7 +816,7 @@ func TestAccECSTaskDefinition_changeVolumesForcesNewResource(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -847,7 +847,7 @@ func TestAccECSTaskDefinition_arrays(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -880,7 +880,7 @@ func TestAccECSTaskDefinition_Fargate_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -888,7 +888,7 @@ func TestAccECSTaskDefinition_Fargate_basic(t *testing.T) {
 			},
 			{
 				ExpectNonEmptyPlan: false,
-				PlanOnly:           true,
+				PlanOnly:  true,
 				Config:testAccTaskDefinitionConfig_fargate(rName, `[{"protocol": "tcp", "containerPort": 8000, "hostPort": 8000}]`),
 			},
 		},
@@ -920,7 +920,7 @@ func TestAccECSTaskDefinition_Fargate_ephemeralStorage(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -950,7 +950,7 @@ func TestAccECSTaskDefinition_executionRole(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -1011,7 +1011,7 @@ func TestAccECSTaskDefinition_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -1068,7 +1068,7 @@ func TestAccECSTaskDefinition_proxy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -1099,7 +1099,7 @@ func TestAccECSTaskDefinition_inferenceAccelerator(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateIdFunc:       testAccTaskDefinitionImportStateIdFunc(resourceName),
 				ImportStateVerify:       true,
@@ -1140,12 +1140,12 @@ resource "aws_ecs_task_definition" "test" {
   network_mode = "awsvpc"
 
   proxy_configuration {
-    type           = %[2]q
+    type  = %[2]q
     container_name = %[3]q
     properties = {
-      IgnoredUID         = %[4]q
-      IgnoredGID         = %[5]q
-      AppPorts           = %[6]q
+      IgnoredUID= %[4]q
+      IgnoredGID= %[5]q
+      AppPorts  = %[6]q
       ProxyIngressPort   = %[7]q
       ProxyEgressPort    = %[8]q
       EgressIgnoredPorts = %[9]q
@@ -1531,36 +1531,36 @@ resource "aws_ecs_task_definition" "test" {
       ],
       "ulimits": [
         {
-          "name": "core",
-          "softLimit": 10, "hardLimit": 20
+ "name": "core",
+ "softLimit": 10, "hardLimit": 20
         },
         {
-          "name": "cpu",
-          "softLimit": 10, "hardLimit": 20
+ "name": "cpu",
+ "softLimit": 10, "hardLimit": 20
         },
         {
-          "name": "fsize",
-          "softLimit": 10, "hardLimit": 20
+ "name": "fsize",
+ "softLimit": 10, "hardLimit": 20
         }
       ],
       "linuxParameters": {
         "capabilities": {
-          "add": ["AUDIT_CONTROL", "AUDIT_WRITE", "BLOCK_SUSPEND"],
-          "drop": ["CHOWN", "IPC_LOCK", "KILL"]
+ "add": ["AUDIT_CONTROL", "AUDIT_WRITE", "BLOCK_SUSPEND"],
+ "drop": ["CHOWN", "IPC_LOCK", "KILL"]
         }
       },
       "devices": [
         {
-          "hostPath": "/path1",
-          "permissions": ["read", "write", "mknod"]
+ "hostPath": "/path1",
+ "permissions": ["read", "write", "mknod"]
         },
         {
-          "hostPath": "/path2",
-          "permissions": ["read", "write"]
+ "hostPath": "/path2",
+ "permissions": ["read", "write"]
         },
         {
-          "hostPath": "/path3",
-          "permissions": ["read", "mknod"]
+ "hostPath": "/path3",
+ "permissions": ["read", "mknod"]
         }
       ],
       "dockerSecurityOptions": ["label:one", "label:two", "label:three"],
@@ -1609,7 +1609,7 @@ resource "aws_ecs_task_definition" "test" {
   family      = %[1]q
   network_mode= "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu         = "256"
+  cpu= "256"
   memory      = "512"
 
   container_definitions = <<TASK_DEFINITION
@@ -1635,7 +1635,7 @@ resource "aws_ecs_task_definition" "test" {
   family      = %[1]q
   network_mode= "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu         = "256"
+  cpu= "256"
   memory      = "512"
 
   ephemeral_storage {
@@ -1854,7 +1854,7 @@ TASK_DEFINITION
 func testAccTaskDefinitionConfig_fargateRuntimePlatformMinimal(rName string, architecture bool, osFamily bool) string {
 	var arch string
 	if architecture {
-		arch = `cpu_architecture         = "X86_64"`
+		arch = `cpu_architecture= "X86_64"`
 	} else {
 		arch = ``
 	}
@@ -1871,7 +1871,7 @@ resource "aws_ecs_task_definition" "test" {
   family      = %[1]q
   requires_compatibilities = ["FARGATE"]
   network_mode= "awsvpc"
-  cpu         = 1024
+  cpu= 1024
   memory      = 2048
 
   runtime_platform {
@@ -2017,8 +2017,8 @@ TASK_DEFINITION
     name = %[1]q
 
     efs_volume_configuration {
-      file_system_id          = aws_efs_file_system.test.id
-      root_directory          = "/home/test"
+      file_system_id = aws_efs_file_system.test.id
+      root_directory = "/home/test"
       transit_encryption      = %[2]q
       transit_encryption_port = %[3]d
     }
@@ -2100,7 +2100,7 @@ TASK_DEFINITION
     name = %[1]q
 
     efs_volume_configuration {
-      file_system_id          = aws_efs_file_system.test.id
+      file_system_id = aws_efs_file_system.test.id
       transit_encryption      = "ENABLED"
       transit_encryption_port = 2999
       authorization_config {
@@ -2408,8 +2408,8 @@ resource "aws_ecs_cluster" "test" {
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 }
@@ -2444,8 +2444,8 @@ resource "aws_ecs_cluster" "test" {
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 }
@@ -2633,10 +2633,10 @@ resource "aws_ecs_task_definition" "test" {
 			}
 		],
         "resourceRequirements":[
-            {
+   {
    "type":"InferenceAccelerator",
    "value":"device_1"
-            }
+   }
         ]
 	}
 ]
@@ -2675,7 +2675,7 @@ resource "aws_iam_role" "test" {
       {
         "Action" : "sts:AssumeRole",
         "Principal" : {
-          "Service" : "ecs-tasks.${data.aws_partition.current.dns_suffix}"
+ "Service" : "ecs-tasks.${data.aws_partition.current.dns_suffix}"
         },
         "Effect" : "Allow",
         "Sid" : ""
@@ -2777,7 +2777,7 @@ resource "aws_fsx_windows_file_system" "test" {
   active_directory_id = aws_directory_service_directory.test.id
   skip_final_backup   = true
   storage_capacity    = 32
-  subnet_ids          = [aws_subnet.test[0].id]
+  subnet_ids = [aws_subnet.test[0].id]
   throughput_capacity = 8
 }
 `)

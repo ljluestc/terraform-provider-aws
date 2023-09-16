@@ -164,9 +164,9 @@ MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
-"paper_margin":      spacingSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Spacing.html
+"paper_margin":spacingSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Spacing.html
 "paper_orientation": stringSchema(false, validation.StringInSlice(quicksight.PaperOrientation_Values(), false)),
-"paper_size":        stringSchema(false, validation.StringInSlice(quicksight.PaperSize_Values(), false)),
+"paper_size":  stringSchema(false, validation.StringInSlice(quicksight.PaperSize_Values(), false)),
 	},
 },
 	}
@@ -344,7 +344,7 @@ Elem: &schema.Resource{
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"column_span": {
-Type:         schema.TypeInt,
+Type:   schema.TypeInt,
 Required:     true,
 Validate
 func: validation.IntBetween(1, 36),
@@ -352,19 +352,19 @@ func: validation.IntBetween(1, 36),
 	"element_id":   idSchema(),
 	"element_type": stringSchema(true, validation.StringInSlice(quicksight.LayoutElementType_Values(), false)),
 	"row_span": {
-Type:         schema.TypeInt,
+Type:   schema.TypeInt,
 Required:     true,
 Validate
 func: validation.IntBetween(1, 21),
 	},
 	"column_index": {
-Type:         schema.TypeInt,
+Type:   schema.TypeInt,
 Optional:     true,
 Validate
 func: validation.IntBetween(0, 35),
 	},
 	"row_index": {
-Type:         schema.TypeInt,
+Type:   schema.TypeInt,
 Optional:     true,
 Validate
 func: validation.IntBetween(0, 9009),
@@ -413,7 +413,7 @@ Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "layout":     sectionLayoutConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SectionLayoutConfiguration.html
 "section_id": idSchema(),
-"style":      sectionStyleSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SectionStyle.html
+"style":sectionStyleSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SectionStyle.html
 	},
 },
 	}
@@ -472,7 +472,7 @@ Elem: &schema.Resource{
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"color":      stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}(?:[0-9A-F]{2})?$`), "")),
+	"color":stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}(?:[0-9A-F]{2})?$`), "")),
 	"visibility": stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 },
 	},
@@ -484,7 +484,7 @@ Schema: map[string]*schema.Schema{
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"color":      stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}(?:[0-9A-F]{2})?$`), "")),
+	"color":stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}(?:[0-9A-F]{2})?$`), "")),
 	"visibility": stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 },
 	},
@@ -529,7 +529,7 @@ Elem: &schema.Resource{
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"color":      stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}(?:[0-9A-F]{2})?$`), "")),
+	"color":stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}(?:[0-9A-F]{2})?$`), "")),
 	"visibility": stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 },
 	},
@@ -2028,10 +2028,10 @@ if config == nil {
 }
 
 tfMap := map[string]interface{}{
-	"element_id":      aws.StringValue(config.ElementId),
+	"element_id":aws.StringValue(config.ElementId),
 	"element_type":    aws.StringValue(config.ElementType),
-	"height":          aws.StringValue(config.Height),
-	"width":           aws.StringValue(config.Width),
+	"height":    aws.StringValue(config.Height),
+	"width":     aws.StringValue(config.Width),
 	"x_axis_location": aws.StringValue(config.XAxisLocation),
 	"y_axis_location": aws.StringValue(config.YAxisLocation),
 }

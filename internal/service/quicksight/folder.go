@@ -85,7 +85,7 @@ func: validation.All(
 			"folder_type": {
 				Type:schema.TypeString,
 				Optional:     true,
-				Default:      quicksight.FolderTypeShared,
+				Default:quicksight.FolderTypeShared,
 				Validate
 func: validation.StringInSlice(quicksight.FolderType_Values(), false),
 			},

@@ -66,7 +66,7 @@ func() map[string]*schema.Schema {
 	ForceNew: true,
 },
 "authentication_method": {
-	Type:         schema.TypeString,
+	Type:   schema.TypeString,
 	Required:     true,
 	ForceNew:     true,
 	Validate
@@ -80,7 +80,7 @@ func: validation.StringInSlice(quicksight.AuthenticationMethodOption_Values(), f
 	ForceNew: true,
 },
 "aws_account_id": {
-	Type:         schema.TypeString,
+	Type:   schema.TypeString,
 	Optional:     true,
 	Computed:     true,
 	ForceNew:     true,
@@ -98,7 +98,7 @@ func: verify.ValidAccountID,
 	ForceNew: true,
 },
 "edition": {
-	Type:         schema.TypeString,
+	Type:   schema.TypeString,
 	Required:     true,
 	ForceNew:     true,
 	Validate
@@ -155,10 +155,10 @@ awsAccountId = v.(string)
 	}
 
 	in := &quicksight.CreateAccountSubscriptionInput{
-AwsAccountId:         aws.String(awsAccountId),
-AccountName:          aws.String(d.Get("account_name").(string)),
+AwsAccountId:   aws.String(awsAccountId),
+AccountName:    aws.String(d.Get("account_name").(string)),
 AuthenticationMethod: aws.String(d.Get("authentication_method").(string)),
-Edition:              aws.String(d.Get("edition").(string)),
+Edition:  aws.String(d.Get("edition").(string)),
 NotificationEmail:    aws.String(d.Get("notification_email").(string)),
 	}
 
@@ -278,10 +278,10 @@ return create.DiagError(names.QuickSight, create.ErrActionWaitingForDeletion, Re
 // Not documented on AWS
 const (
 	statusCreated  = "ACCOUNT_CREATED"
-	statusOk       = "OK"
+	statusOk = "OK"
 	statusSignupAttemptInProgress = "SIGNUP_ATTEMPT_IN_PROGRESS"
 	statusUnsuscribeInProgress    = "UNSUBSCRIBE_IN_PROGRESS"
-	statusUnsuscribed             = "UNSUBSCRIBED"
+	statusUnsuscribed = "UNSUBSCRIBED"
 )
 
 
@@ -291,7 +291,7 @@ Pending:    []string{statusSignupAttemptInProgress},
 Target:     []string{statusCreated, statusOk},
 Refresh:    statusAccountSubscription(ctx, conn, id),
 Timeout:    timeout,
-NotFoundChecks:            20,
+NotFoundChecks:20,
 ContinuousTargetOccurence: 2,
 	}
 

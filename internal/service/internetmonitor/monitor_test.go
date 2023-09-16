@@ -18,17 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccInternetMonitorMonitor_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckMonitorDestroy(ctx),
+		CheckDestroy: testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitorConfig_basic(rName),
@@ -46,8 +45,8 @@ func TestAccInternetMonitorMonitor_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -60,17 +59,16 @@ func TestAccInternetMonitorMonitor_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccInternetMonitorMonitor_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckMonitorDestroy(ctx),
+		CheckDestroy: testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitorConfig_basic(rName),
@@ -83,17 +81,16 @@ func TestAccInternetMonitorMonitor_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccInternetMonitorMonitor_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckMonitorDestroy(ctx),
+		CheckDestroy: testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitorConfig_tags1(rName, "key1", "value1"),
@@ -104,8 +101,8 @@ func TestAccInternetMonitorMonitor_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -128,17 +125,16 @@ func TestAccInternetMonitorMonitor_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccInternetMonitorMonitor_healthEventsConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckMonitorDestroy(ctx),
+		CheckDestroy: testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitorConfig_healthEventsConfig(rName),
@@ -150,8 +146,8 @@ func TestAccInternetMonitorMonitor_healthEventsConfig(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -166,17 +162,16 @@ func TestAccInternetMonitorMonitor_healthEventsConfig(t *testing.T) {
 		},
 	})
 }
-
 func TestAccInternetMonitorMonitor_log(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckMonitorDestroy(ctx),
+		CheckDestroy: testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMonitorConfig_log(rName),
@@ -188,14 +183,13 @@ func TestAccInternetMonitorMonitor_log(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckMonitorDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).InternetMonitorClient(ctx)
@@ -221,7 +215,6 @@ func testAccCheckMonitorDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckMonitorExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -236,26 +229,23 @@ func testAccCheckMonitorExists(ctx context.Context, n string) resource.TestCheck
 		return err
 	}
 }
-
 func testAccMonitorConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name   = %[1]q
+  monitor_name= %[1]q
   traffic_percentage_to_monitor = 1
 }
 `, rName)
 }
-
 func testAccMonitorConfig_status(rName, status string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name   = %[1]q
+  monitor_name= %[1]q
   traffic_percentage_to_monitor = 1
   status= %[2]q
 }
 `, rName, status)
 }
-
 func testAccMonitorConfig_healthEventsConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
@@ -263,12 +253,11 @@ resource "aws_internetmonitor_monitor" "test" {
   max_city_networks_to_monitor = 2
 
   health_events_config {
-    availability_score_threshold = 50
+ availability_score_threshold = 50
   }
 }
 `, rName)
 }
-
 func testAccMonitorConfig_healthEventsConfigUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
@@ -276,41 +265,40 @@ resource "aws_internetmonitor_monitor" "test" {
   max_city_networks_to_monitor = 2
 
   health_events_config {
-    availability_score_threshold = 75
-    performance_score_threshold  = 85
+ availability_score_threshold = 75
+ performance_score_threshold  = 85
   }
 }
 `, rName)
 }
-
 func testAccMonitorConfig_log(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket1]q
   force_destroy = true
 }
 
 data "aws_iam_policy_document" "test" {
   statement {
-    actions   = ["s3:PutObject"]
-    effect    = "Allow"
-    resources = ["${aws_s3_bucket.test.arn}/*"]
+ actions= ["s3:PutObject"]
+ effect = "Allow"
+ resources = ["${aws_s3_bucket.test.arn}/*"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["delivery.logs.amazonaws.com"]
-    }
+ principals {
+= "S"
+fiers = ["delivery.logs.amazonaws.com"]
+ }
   }
 
   statement {
-    actions   = ["s3:GetBucketAcl"]
-    effect    = "Allow"
-    resources = [aws_s3_bucket.test.arn]
+ actions= ["s3:GetBucketAcl"]
+ effect = "Allow"
+ resources = [aws_s3_bucket.test.arn]
 
-    principals {
-      type        = "Service"
-      identifiers = ["delivery.logs.amazonaws.com"]
-    }
+ principals {
+= "S"
+fiers = ["delivery.logs.amazonaws.com"]
+ }
   }
 }
 
@@ -320,40 +308,38 @@ resource "aws_s3_bucket_policy" "test" {
 }
 
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name   = %[1]q
+  monitor_name= %[1]q
   traffic_percentage_to_monitor = 1
 
   internet_measurements_log_delivery {
-    s3_config {
-      bucket_name = aws_s3_bucket_policy.test.bucket
-    }
+ s3_config {
+_name = aws_s3_bucket_policy.test.bucket
+ }
   }
 }
 `, rName)
 }
-
 func testAccMonitorConfig_tags1(rName string, tagKey1 string, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name   = %[1]q
+  monitor_name= %[1]q
   traffic_percentage_to_monitor = 1
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccMonitorConfig_tags2(rName string, tagKey1 string, tagValue1 string, tagKey2 string, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name   = %[1]q
+  monitor_name= %[1]q
   traffic_percentage_to_monitor = 1
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

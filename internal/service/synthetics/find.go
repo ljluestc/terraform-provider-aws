@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func FindCanaryByName(ctx context.Context, conn *synthetics.Synthetics, name string) (*synthetics.Canary, error) {
 	input := &synthetics.GetCanaryInput{
 		Name: aws.String(name),
@@ -38,6 +39,7 @@ func FindCanaryByName(ctx context.Context, conn *synthetics.Synthetics, name str
 	return output.Canary, nil
 }
 
+
 func FindGroupByName(ctx context.Context, conn *synthetics.Synthetics, name string) (*synthetics.Group, error) {
 	input := &synthetics.GetGroupInput{
 		GroupIdentifier: aws.String(name),
@@ -61,6 +63,7 @@ func FindGroupByName(ctx context.Context, conn *synthetics.Synthetics, name stri
 
 	return output.Group, nil
 }
+
 
 func FindAssociatedGroup(ctx context.Context, conn *synthetics.Synthetics, canaryArn string, groupName string) (*synthetics.GroupSummary, error) {
 	input := &synthetics.ListAssociatedGroupsInput{

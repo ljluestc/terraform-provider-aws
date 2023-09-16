@@ -48,9 +48,9 @@ func TestAccGameLiftGameServerGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 		},
@@ -81,9 +81,9 @@ func TestAccGameLiftGameServerGroup_AutoScalingPolicy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 		},
@@ -114,9 +114,9 @@ func TestAccGameLiftGameServerGroup_AutoScalingPolicy_EstimatedInstanceWarmup(t 
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 		},
@@ -146,9 +146,9 @@ func TestAccGameLiftGameServerGroup_BalancingStrategy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 		},
@@ -182,9 +182,9 @@ func TestAccGameLiftGameServerGroup_GameServerGroupName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 			{
@@ -221,9 +221,9 @@ func TestAccGameLiftGameServerGroup_InstanceDefinition(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 			{
@@ -262,9 +262,9 @@ func TestAccGameLiftGameServerGroup_InstanceDefinition_WeightedCapacity(t *testi
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 			{
@@ -305,9 +305,9 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Id(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 		},
@@ -339,9 +339,9 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Name(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 		},
@@ -373,9 +373,9 @@ func TestAccGameLiftGameServerGroup_LaunchTemplate_Version(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 		},
@@ -405,9 +405,9 @@ func TestAccGameLiftGameServerGroup_GameServerProtectionPolicy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 		},
@@ -441,9 +441,9 @@ func TestAccGameLiftGameServerGroup_MaxSize(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 			{
@@ -484,9 +484,9 @@ func TestAccGameLiftGameServerGroup_MinSize(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 			{
@@ -524,9 +524,9 @@ func TestAccGameLiftGameServerGroup_roleARN(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 			{
@@ -567,9 +567,9 @@ func TestAccGameLiftGameServerGroup_vpcSubnets(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"vpc_subnets"},
 			},
 			{
@@ -651,28 +651,28 @@ data "aws_partition" %[2]q {}
 
 resource "aws_iam_role" %[2]q {
   assume_role_policy = <<-EOF
-    {
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Principal": {
-            "Service": [
+{
+  "Version": "2012-10-17",
+  "Statement": [
+{
+ "Effect": "Allow",
+ "Principal": {
+   "Service": [
  "autoscaling.amazonaws.com",
  "gamelift.amazonaws.com"
-            ]
-          },
-          "Action": "sts:AssumeRole"
-        }
-      ]
-    }
+   ]
+ },
+ "Action": "sts:AssumeRole"
+}
+  ]
+}
   EOF
   name = "%[1]s-%[2]s"
 }
 
 resource "aws_iam_role_policy_attachment" %[2]q {
   policy_arn = "arn:${data.aws_partition.%[2]s.partition}:iam::aws:policy/GameLiftGameServerGroupPolicy"
-  role       = aws_iam_role.%[2]s.name
+  role   = aws_iam_role.%[2]s.name
 }
 `, rName, name)
 }
@@ -685,17 +685,17 @@ data "aws_vpc" "test" {
 
 data "aws_subnets" "test" {
   filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.test.id]
+name   = "vpc-id"
+values = [data.aws_vpc.test.id]
   }
 }
 
 resource "aws_launch_template" "test" {
   image_id = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-  name     = %[1]q
+  name = %[1]q
 
   network_interfaces {
-    subnet_id = data.aws_subnets.test.ids[0]
+subnet_id = data.aws_subnets.test.ids[0]
   }
 }
 `, rName)
@@ -705,8 +705,8 @@ func testAccGameServerGroupInstanceTypeOfferingsConfig() string {
 	return `
 data "aws_ec2_instance_type_offerings" "available" {
   filter {
-    name   = "instance-type"
-    values = ["c5a.large", "c5a.2xlarge", "c5.large", "c5.2xlarge", "m4.large", "m4.2xlarge", "m5a.large", "m5a.2xlarge", "m5.large", "m5.2xlarge"]
+name   = "instance-type"
+values = ["c5a.large", "c5a.2xlarge", "c5.large", "c5.2xlarge", "m4.large", "m4.2xlarge", "m5a.large", "m5a.2xlarge", "m5.large", "m5.2xlarge"]
   }
 }
 `
@@ -722,13 +722,13 @@ func testAccGameServerGroupConfig_basic(rName string) string {
 resource "aws_gamelift_game_server_group" "test" {
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = 1
@@ -751,19 +751,19 @@ func testAccGameServerGroupConfig_autoScalingPolicy(rName string) string {
 		fmt.Sprintf(`
 resource "aws_gamelift_game_server_group" "test" {
   auto_scaling_policy {
-    target_tracking_configuration {
-      target_value = 77.7
-    }
+target_tracking_configuration {
+  target_value = 77.7
+}
   }
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = 1
@@ -786,20 +786,20 @@ func testAccGameServerGroupConfig_autoScalingPolicyEstimatedInstanceWarmup(rName
 		fmt.Sprintf(`
 resource "aws_gamelift_game_server_group" "test" {
   auto_scaling_policy {
-    estimated_instance_warmup = 66
-    target_tracking_configuration {
-      target_value = 77.7
-    }
+estimated_instance_warmup = 66
+target_tracking_configuration {
+  target_value = 77.7
+}
   }
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = 1
@@ -821,16 +821,16 @@ func testAccGameServerGroupConfig_balancingStrategy(rName string, balancingStrat
 		testAccGameServerGroupLaunchTemplateConfig(rName),
 		fmt.Sprintf(`
 resource "aws_gamelift_game_server_group" "test" {
-  balancing_strategy     = %[2]q
+  balancing_strategy = %[2]q
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = 1
@@ -854,13 +854,13 @@ func testAccGameServerGroupConfig_name(rName string, gameServerGroupName string)
 resource "aws_gamelift_game_server_group" "test" {
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = 1
@@ -884,13 +884,13 @@ func testAccGameServerGroupConfig_instanceDefinition(rName string, count int) st
 resource "aws_gamelift_game_server_group" "test" {
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = slice(sort(tolist(data.aws_ec2_instance_type_offerings.available.instance_types)), 0, %[2]d)
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = slice(sort(tolist(data.aws_ec2_instance_type_offerings.available.instance_types)), 0, %[2]d)
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = 1
@@ -914,14 +914,14 @@ func testAccGameServerGroupConfig_instanceDefinitionWeightedCapacity(rName strin
 resource "aws_gamelift_game_server_group" "test" {
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = slice(sort(tolist(data.aws_ec2_instance_type_offerings.available.instance_types)), 0, 2)
-    content {
-      instance_type     = instance_definition.value
-      weighted_capacity = %[2]q
-    }
+for_each = slice(sort(tolist(data.aws_ec2_instance_type_offerings.available.instance_types)), 0, 2)
+content {
+  instance_type = instance_definition.value
+  weighted_capacity = %[2]q
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = 1
@@ -945,13 +945,13 @@ func testAccGameServerGroupConfig_launchTemplateID(rName string) string {
 resource "aws_gamelift_game_server_group" "test" {
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = 1
@@ -975,13 +975,13 @@ func testAccGameServerGroupConfig_launchTemplateName(rName string) string {
 resource "aws_gamelift_game_server_group" "test" {
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    name = aws_launch_template.test.name
+name = aws_launch_template.test.name
   }
 
   max_size = 1
@@ -1005,14 +1005,14 @@ func testAccGameServerGroupConfig_launchTemplateVersion(rName string) string {
 resource "aws_gamelift_game_server_group" "test" {
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id      = aws_launch_template.test.id
-    version = 1
+id  = aws_launch_template.test.id
+version = 1
   }
 
   max_size = 1
@@ -1036,13 +1036,13 @@ func testAccGameServerGroupConfig_maxSize(rName string, maxSize string) string {
 resource "aws_gamelift_game_server_group" "test" {
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = %[2]s
@@ -1066,13 +1066,13 @@ func testAccGameServerGroupConfig_minSize(rName string, minSize string) string {
 resource "aws_gamelift_game_server_group" "test" {
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = 2
@@ -1094,16 +1094,16 @@ func testAccGameServerGroupConfig_protectionPolicy(rName string, gameServerProte
 		testAccGameServerGroupLaunchTemplateConfig(rName),
 		fmt.Sprintf(`
 resource "aws_gamelift_game_server_group" "test" {
-  game_server_group_name        = %[1]q
+  game_server_group_name= %[1]q
   game_server_protection_policy = %[2]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = 1
@@ -1127,13 +1127,13 @@ func testAccGameServerGroupConfig_roleARN(rName string, roleArn string) string {
 resource "aws_gamelift_game_server_group" "test" {
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
   max_size = 1
@@ -1157,18 +1157,18 @@ func testAccGameServerGroupConfig_vpcSubnets(rName string, count int) string {
 resource "aws_gamelift_game_server_group" "test" {
   game_server_group_name = %[1]q
   dynamic "instance_definition" {
-    for_each = data.aws_ec2_instance_type_offerings.available.instance_types
-    content {
-      instance_type = instance_definition.value
-    }
+for_each = data.aws_ec2_instance_type_offerings.available.instance_types
+content {
+  instance_type = instance_definition.value
+}
   }
   launch_template {
-    id = aws_launch_template.test.id
+id = aws_launch_template.test.id
   }
 
-  max_size    = 1
-  min_size    = 1
-  role_arn    = aws_iam_role.test.arn
+  max_size= 1
+  min_size= 1
+  role_arn= aws_iam_role.test.arn
   vpc_subnets = slice(data.aws_subnets.test.ids, 0, %[2]d)
 
   depends_on = [aws_iam_role_policy_attachment.test]

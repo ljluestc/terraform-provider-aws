@@ -89,10 +89,10 @@ func (d *dataSourceARN) Read(ctx context.Context, request datasource.ReadRequest
 
 type dataSourceARNData struct {
 	Account   types.String `tfsdk:"account"`
-	ARN       fwtypes.ARN  `tfsdk:"arn"`
-	ID        types.String `tfsdk:"id"`
+	ARN   fwtypes.ARN  `tfsdk:"arn"`
+	IDtypes.String `tfsdk:"id"`
 	Partition types.String `tfsdk:"partition"`
-	Region    types.String `tfsdk:"region"`
+	Regiontypes.String `tfsdk:"region"`
 	Resource  types.String `tfsdk:"resource"`
 	Service   types.String `tfsdk:"service"`
 }

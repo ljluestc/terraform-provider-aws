@@ -22,14 +22,14 @@ func DataSourceNodeGroups() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"cluster_name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"names": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}

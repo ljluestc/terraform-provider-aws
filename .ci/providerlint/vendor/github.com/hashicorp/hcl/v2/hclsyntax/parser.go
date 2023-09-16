@@ -1,48 +1,30 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hclsyntax
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hclsyntaximport (
 	"bytes"
 	"fmt"
 	"strconv"
-	"unicode/utf8"
-
-	"github.com/apparentlymart/go-textseg/v15/textseg"
+	"unicode/utf8"	"github.com/apparentlymart/go-textseg/v15/textseg"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/zclconf/go-cty/cty"
-)
-
-type parser struct {
-	*peeker
-
-	// set to true if any recovery is attempted. The parser can use this
+)type parser struct {
+	*peeker	// set to true if any recovery is attempted. The parser can use this
 	// to attempt to reduce error noise by suppressing "bad token" errors
 	// in recovery mode, assuming that the recovery heuristics have failed
 	// in this case and left the peeker in a wrong place.
 	recovery bool
 }
-
-
  (p *parser) ParseBody(end TokenType) (*Body, hcl.Diagnostics) {
 	attrs := Attributes{}
 	blocks := Blocks{}
-	var diags hcl.Diagnostics
-
-	startRange := p.PrevRange()
-	var endRange hcl.Range
-
-Token:
+	var diags hcl.Diagnostics	startRange := p.PrevRange()
+	var endRange hcl.RangeToken:
 	for {
 		next := p.Peek()
 		if next.Type == end {
 			endRange = p.NextRange()
 			p.Read()
 			break Token
-		}
-
-		switch next.Type {
+		}		switch next.Type {
 		case TokenNewline:
 			p.Read()
 			continue
@@ -119,18 +101,12 @@ Token:
 					})
 				}
 			}
-			endRange = p.PrevRange() // arbitrary, but somewhere inside the body means better diagnostics
-
-			p.recover(end) // attempt to recover to the token after the end of this body
+			endRange = p.PrevRange() // arbitrary, but somewhere inside the body means better diagnostics			p.recover(end) // attempt to recover to the token after the end of this body
 			break Token
 		}
-	}
-
-	return &Body{
+	}	return &Body{
 		Attributes: attrs,
-		Blocks:     blocks,
-
-		SrcRange: hcl.RangeBetween(startRange, endRange),
+		Blocks:     blocks,		SrcRange: hcl.RangeBetween(startRange, endRange),
 		EndRange: hcl.Range{
 			Filename: endRange.Filename,
 			Start:    endRange.End,
@@ -138,8 +114,6 @@ Token:
 		},
 	}, diags
 }
-
-
  (p *parser) ParseBodyItem() (Node, hcl.Diagnostics) {
 	ident := p.Read()
 	if ident.Type != TokenIdent {
@@ -152,11 +126,7 @@ Token:
 				Subject:  &ident.Range,
 			},
 		}
-	}
-
-	next := p.Peek()
-
-	switch next.Type {
+	}	next := p.Peek()	switch next.Type {
 	case TokenEqual:
 		return p.finishParsingBodyAttribute(ident, false)
 	case TokenOQuote, TokenOBrace, TokenIdent:
@@ -172,14 +142,10 @@ Token:
 			},
 		}
 	}
-}
-
-// parseSingleAttrBody is a weird variant of ParseBody that deals with the
+}// parseSingleAttrBody is a weird variant of ParseBody that deals with the
 // body of a nested block containing only one attribute value all on a single
 ine, like foo { bar = baz } . It expects to find a single attribute item
-// immediately followed by the end token type with no intervening newlines.
-
- (p *parser) parseSingleAttrBody(end TokenType) (*Body, hcl.Diagnostics) {
+// immediately followed by the end token type with no intervening newlines. (p *parser) parseSingleAttrBody(end TokenType) (*Body, hcl.Diagnostics) {
 	ident := p.Read()
 	if ident.Type != TokenIdent {
 		p.recoverAfterBodyItem()
@@ -191,14 +157,8 @@ ine, like foo { bar = baz } . It expects to find a single attribute item
 				Subject:  &ident.Range,
 			},
 		}
-	}
-
-	var attr *Attribute
-	var diags hcl.Diagnostics
-
-	next := p.Peek()
-
-	switch next.Type {
+	}	var attr *Attribute
+	var diags hcl.Diagnostics	next := p.Peek()	switch next.Type {
 	case TokenEqual:
 		node, attrDiags := p.finishParsingBodyAttribute(ident, true)
 		diags = append(diags, attrDiags...)
@@ -223,34 +183,22 @@ ine, like foo { bar = baz } . It expects to find a single attribute item
 				Subject:  &ident.Range,
 			},
 		}
-	}
-
-	return &Body{
+	}	return &Body{
 		Attributes: Attributes{
 			string(ident.Bytes): attr,
-		},
-
-		SrcRange: attr.SrcRange,
+		},		SrcRange: attr.SrcRange,
 		EndRange: hcl.Range{
 			Filename: attr.SrcRange.Filename,
 			Start:    attr.SrcRange.End,
 			End:      attr.SrcRange.End,
 		},
-	}, diags
-
-}
-
-
+	}, diags}
  (p *parser) finishParsingBodyAttribute(ident Token, singleLine bool) (Node, hcl.Diagnostics) {
 	eqTok := p.Read() // eat equals token
 	if eqTok.Type != TokenEqual {
 		// should never happen if caller behaves
 		panic("finishParsingBodyAttribute called with next not equals")
-	}
-
-	var endRange hcl.Range
-
-	expr, diags := p.ParseExpression()
+	}	var endRange hcl.Range	expr, diags := p.ParseExpression()
 	if p.recovery && diags.HasErrors() {
 		// recovery within expressions tends to be tricky, so we've probably
 		// landed somewhere weird. We'll try to reset to the start of a body
@@ -264,14 +212,10 @@ ine, like foo { bar = baz } . It expects to find a single attribute item
 			if end.Type != TokenNewline && end.Type != TokenEOF {
 				if !p.recovery {
 					summary := "Missing newline after argument"
-					detail := "An argument definition must end with a newline."
-
-					if end.Type == TokenComma {
+					detail := "An argument definition must end with a newline."					if end.Type == TokenComma {
 						summary = "Unexpected comma after argument"
 						detail = "Argument definitions must be separated by newlines, not commas. " + detail
-					}
-
-					diags = append(diags, &hcl.Diagnostic{
+					}					diags = append(diags, &hcl.Diagnostic{
 						Severity: hcl.DiagError,
 						Summary:  summary,
 						Detail:   detail,
@@ -286,53 +230,33 @@ ine, like foo { bar = baz } . It expects to find a single attribute item
 				p.Read() // eat newline
 			}
 		}
-	}
-
-	return &Attribute{
+	}	return &Attribute{
 		Name: string(ident.Bytes),
-		Expr: expr,
-
-		SrcRange:    hcl.RangeBetween(ident.Range, endRange),
+		Expr: expr,		SrcRange:    hcl.RangeBetween(ident.Range, endRange),
 		NameRange:   ident.Range,
 ualsRange: eqTok.Range,
 	}, diags
 }
-
-
  (p *parser) finishParsingBodyBlock(ident Token) (Node, hcl.Diagnostics) {
 	var blockType = string(ident.Bytes)
 	var diags hcl.Diagnostics
 	var labels []string
-	var labelRanges []hcl.Range
-
-	var oBrace Token
-
-Token:
+	var labelRanges []hcl.Range	var oBrace TokenToken:
 	for {
-		tok := p.Peek()
-
-		switch tok.Type {
-
-		case TokenOBrace:
+		tok := p.Peek()		switch tok.Type {		case TokenOBrace:
 			oBrace = p.Read()
-			break Token
-
-		case TokenOQuote:
+			break Token		case TokenOQuote:
 			label, labelRange, labelDiags := p.parseQuotedStringLiteral()
 			diags = append(diags, labelDiags...)
 			labels = append(labels, label)
 			labelRanges = append(labelRanges, labelRange)
 			// parseQuoteStringLiteral recovers up to the closing quote
 			// if it encounters problems, so we can continue looking for
-			// more labels and eventually the block body even.
-
-		case TokenIdent:
+			// more labels and eventually the block body even.		case TokenIdent:
 			tok = p.Read() // eat token
 			label, labelRange := string(tok.Bytes), tok.Range
 			labels = append(labels, label)
-			labelRanges = append(labelRanges, labelRange)
-
-		default:
+			labelRanges = append(labelRanges, labelRange)		default:
 			switch tok.Type {
 			case TokenEqual:
 				diags = append(diags, &hcl.Diagnostic{
@@ -360,27 +284,19 @@ Token:
 						Context:  hcl.RangeBetween(ident.Range, tok.Range).Ptr(),
 					})
 				}
-			}
-
-			p.recoverAfterBodyItem()
-
-			return &Block{
+			}			p.recoverAfterBodyItem()			return &Block{
 				Type:   blockType,
 				Labels: labels,
 				Body: &Body{
 					SrcRange: ident.Range,
 					EndRange: ident.Range,
-				},
-
-				TypeRange:       ident.Range,
+				},				TypeRange:       ident.Range,
 				LabelRanges:     labelRanges,
 				OpenBraceRange:  ident.Range, // placeholder
 				CloseBraceRange: ident.Range, // placeholder
 			}, diags
 		}
-	}
-
-	// Once we fall out here, the peeker is pointed just after our opening
+	}	// Once we fall out here, the peeker is pointed just after our opening
 	// brace, so we can begin our nested body parsing.
 	var body *Body
 	var bodyDiags hcl.Diagnostics
@@ -439,9 +355,7 @@ Token:
 		}
 	}
 	diags = append(diags, bodyDiags...)
-	cBraceRange := p.PrevRange()
-
-	eol := p.Peek()
+	cBraceRange := p.PrevRange()	eol := p.Peek()
 	if eol.Type == TokenNewline || eol.Type == TokenEOF {
 		p.Read() // eat newline
 	} else {
@@ -455,9 +369,7 @@ Token:
 			})
 		}
 		p.recoverAfterBodyItem()
-	}
-
-	// We must never produce a nil body, since the caller may attempt to
+	}	// We must never produce a nil body, since the caller may attempt to
 	// do analysis of a partial result when there's an error, so we'll
 	// insert a placeholder if we otherwise failed to produce a valid
 	// body due to one of the syntax error paths above.
@@ -466,26 +378,18 @@ Token:
 			SrcRange: hcl.RangeBetween(oBrace.Range, cBraceRange),
 			EndRange: cBraceRange,
 		}
-	}
-
-	return &Block{
+	}	return &Block{
 		Type:   blockType,
 		Labels: labels,
-		Body:   body,
-
-		TypeRange:       ident.Range,
+		Body:   body,		TypeRange:       ident.Range,
 		LabelRanges:     labelRanges,
 enBraceRange:  oBrace.Range,
 		CloseBraceRange: cBraceRange,
 	}, diags
 }
-
-
  (p *parser) ParseExpression() (Expression, hcl.Diagnostics) {
 	return p.parseTernaryConditional()
 }
-
-
  (p *parser) parseTernaryConditional() (Expression, hcl.Diagnostics) {
 	// The ternary conditional operator (.. ? .. : ..) behaves somewhat
 	// like a binary operator except that the "symbol" is itself
@@ -493,32 +397,20 @@ enBraceRange:  oBrace.Range,
 	// The middle expression is parsed as if the ? and : symbols
 	// were parentheses. The "rhs" (the "false expression") is then
 	// treated right-associatively so it behaves similarly to the
-	// middle in terms of precedence.
-
-	startRange := p.NextRange()
+	// middle in terms of precedence.	startRange := p.NextRange()
 	var condExpr, trueExpr, falseExpr Expression
-	var diags hcl.Diagnostics
-
-	condExpr, condDiags := p.parseBinaryOps(binaryOps)
+	var diags hcl.Diagnostics	condExpr, condDiags := p.parseBinaryOps(binaryOps)
 	diags = append(diags, condDiags...)
 	if p.recovery && condDiags.HasErrors() {
 		return condExpr, diags
-	}
-
-	questionMark := p.Peek()
+	}	questionMark := p.Peek()
 	if questionMark.Type != TokenQuestion {
 		return condExpr, diags
-	}
-
-	p.Read() // eat question mark
-
-	trueExpr, trueDiags := p.ParseExpression()
+	}	p.Read() // eat question mark	trueExpr, trueDiags := p.ParseExpression()
 	diags = append(diags, trueDiags...)
 	if p.recovery && trueDiags.HasErrors() {
 		return condExpr, diags
-	}
-
-	colon := p.Peek()
+	}	colon := p.Peek()
 	if colon.Type != TokenColon {
 		diags = append(diags, &hcl.Diagnostic{
 			Severity: hcl.DiagError,
@@ -528,43 +420,25 @@ enBraceRange:  oBrace.Range,
 			Context:  hcl.RangeBetween(startRange, colon.Range).Ptr(),
 		})
 		return condExpr, diags
-	}
-
-	p.Read() // eat colon
-
-	falseExpr, falseDiags := p.ParseExpression()
+	}	p.Read() // eat colon	falseExpr, falseDiags := p.ParseExpression()
 	diags = append(diags, falseDiags...)
 	if p.recovery && falseDiags.HasErrors() {
 		return condExpr, diags
-	}
-
-	return &ConditionalExpr{
+	}	return &ConditionalExpr{
 		Condition:   condExpr,
 		TrueResult:  trueExpr,
-		FalseResult: falseExpr,
-
-cRange: hcl.RangeBetween(startRange, falseExpr.Range()),
+		FalseResult: falseExpr,cRange: hcl.RangeBetween(startRange, falseExpr.Range()),
 	}, diags
-}
-
-// parseBinaryOps calls itself recursively to work through all of the
+}// parseBinaryOps calls itself recursively to work through all of the
 // operator precedence groups, and then eventually calls parseExpressionTerm
-// for each operand.
-
- (p *parser) parseBinaryOps(ops []map[TokenType]*Operation) (Expression, hcl.Diagnostics) {
+// for each operand. (p *parser) parseBinaryOps(ops []map[TokenType]*Operation) (Expression, hcl.Diagnostics) {
 	if len(ops) == 0 {
 		// We've run out of operators, so now we'll just try to parse a term.
 		return p.parseExpressionWithTraversals()
-	}
-
-	thisLevel := ops[0]
-	remaining := ops[1:]
-
-	var lhs, rhs Expression
+	}	thisLevel := ops[0]
+	remaining := ops[1:]	var lhs, rhs Expression
 	var operation *Operation
-	var diags hcl.Diagnostics
-
-	// Parse a term that might be the first operand of a binary
+	var diags hcl.Diagnostics	// Parse a term that might be the first operand of a binary
 	// operation or it might just be a standalone term.
 	// We won't know until we've parsed it and can look ahead
 	// to see if there's an operator token for this level.
@@ -572,9 +446,7 @@ cRange: hcl.RangeBetween(startRange, falseExpr.Range()),
 	diags = append(diags, lhsDiags...)
 	if p.recovery && lhsDiags.HasErrors() {
 		return lhs, diags
-	}
-
-	// We'll keep eating up operators until we run out, so that operators
+	}	// We'll keep eating up operators until we run out, so that operators
 	// with the same precedence will combine in a left-associative manner:
 	// a+b+c => (a+b)+c, not a+(b+c)
 	//
@@ -587,20 +459,14 @@ cRange: hcl.RangeBetween(startRange, falseExpr.Range()),
 		var ok bool
 		if newOp, ok = thisLevel[next.Type]; !ok {
 			break
-		}
-
-		// Are we extending an expression started on the previous iteration?
+		}		// Are we extending an expression started on the previous iteration?
 		if operation != nil {
 			lhs = &BinaryOpExpr{
 				LHS: lhs,
 				Op:  operation,
-				RHS: rhs,
-
-				SrcRange: hcl.RangeBetween(lhs.Range(), rhs.Range()),
+				RHS: rhs,				SrcRange: hcl.RangeBetween(lhs.Range(), rhs.Range()),
 			}
-		}
-
-		operation = newOp
+		}		operation = newOp
 		p.Read() // eat operator token
 		var rhsDiags hcl.Diagnostics
 		rhs, rhsDiags = p.parseBinaryOps(remaining)
@@ -608,45 +474,29 @@ cRange: hcl.RangeBetween(startRange, falseExpr.Range()),
 		if p.recovery && rhsDiags.HasErrors() {
 			return lhs, diags
 		}
-	}
-
-	if operation == nil {
+	}	if operation == nil {
 		return lhs, diags
-	}
-
-	return &BinaryOpExpr{
+	}	return &BinaryOpExpr{
 S: lhs,
 		Op:  operation,
-		RHS: rhs,
-
-		SrcRange: hcl.RangeBetween(lhs.Range(), rhs.Range()),
+		RHS: rhs,		SrcRange: hcl.RangeBetween(lhs.Range(), rhs.Range()),
 	}, diags
 }
-
-
  (p *parser) parseExpressionWithTraversals() (Expression, hcl.Diagnostics) {
 	term, diags := p.parseExpressionTerm()
 	ret, moreDiags := p.parseExpressionTraversals(term)
 	diags = append(diags, moreDiags...)
 	return ret, diags
 }
-
-
  (p *parser) parseExpressionTraversals(from Expression) (Expression, hcl.Diagnostics) {
 	var diags hcl.Diagnostics
-	ret := from
-
-Traversal:
+	ret := fromTraversal:
 	for {
-		next := p.Peek()
-
-		switch next.Type {
+		next := p.Peek()		switch next.Type {
 		case TokenDot:
 			// Attribute access or splat
 			dot := p.Read()
-			attrTok := p.Peek()
-
-			switch attrTok.Type {
+			attrTok := p.Peek()			switch attrTok.Type {
 			case TokenIdent:
 				attrTok = p.Read() // eat token
 				name := string(attrTok.Bytes)
@@ -654,11 +504,7 @@ Traversal:
 				step := hcl.TraverseAttr{
 					Name:     name,
 					SrcRange: rng,
-				}
-
-				ret = makeRelativeTraversal(ret, step, rng)
-
-			case TokenNumberLit:
+				}				ret = makeRelativeTraversal(ret, step, rng)			case TokenNumberLit:
 				// This is a weird form we inherited from HIL, allowing numbers
 				// to be used as attributes as a weird way of writing [n].
 				// This was never actually a first-class thing in HIL, but
@@ -666,9 +512,7 @@ Traversal:
 				// calling applications like Terraform exploited that to
 				// introduce indexing syntax where none existed.
 				numTok := p.Read() // eat token
-				attrTok = numTok
-
-				// This syntax is ambiguous if multiple indices are used in
+				attrTok = numTok				// This syntax is ambiguous if multiple indices are used in
 				// succession, like foo.0.1.baz: that actually parses as
 				// a fractional number 0.1. Since we're only supporting this
 				// syntax for compatibility with legacy Terraform
@@ -692,20 +536,12 @@ Traversal:
 					}
 					ret = makeRelativeTraversal(ret, step, rng)
 					break
-				}
-
-				numVal, numDiags := p.numberLitValue(numTok)
-				diags = append(diags, numDiags...)
-
-				rng := hcl.RangeBetween(dot.Range, numTok.Range)
+				}				numVal, numDiags := p.numberLitValue(numTok)
+				diags = append(diags, numDiags...)				rng := hcl.RangeBetween(dot.Range, numTok.Range)
 				step := hcl.TraverseIndex{
 					Key:      numVal,
 					SrcRange: rng,
-				}
-
-				ret = makeRelativeTraversal(ret, step, rng)
-
-			case TokenStar:
+				}				ret = makeRelativeTraversal(ret, step, rng)			case TokenStar:
 				// "Attribute-only" splat expression.
 				// (This is a kinda weird construct inherited from HIL, which
 				// behaves a bit like a [*] splat except that it is only able
@@ -717,17 +553,13 @@ Traversal:
 				firstRange = p.NextRange()
 				lastRange = marker.Range
 				for p.Peek().Type == TokenDot {
-					dot := p.Read()
-
-					if p.Peek().Type == TokenNumberLit {
+					dot := p.Read()					if p.Peek().Type == TokenNumberLit {
 						// Continuing the "weird stuff inherited from HIL"
 						// theme, we also allow numbers as attribute names
 						// inside splats and interpret them as indexing
 						// into a list, for expressions like:
 						// foo.bar.*.baz.0.foo
-						numTok := p.Read()
-
-						// Weird special case if the user writes something
+						numTok := p.Read()						// Weird special case if the user writes something
 						// like foo.bar.*.baz.0.0.foo, where 0.0 parses
 						// as a number.
 						if dotIdx := bytes.IndexByte(numTok.Bytes, '.'); dotIdx >= 0 {
@@ -745,9 +577,7 @@ Traversal:
 							})
 							lastRange = numTok.Range
 							continue
-						}
-
-						numVal, numDiags := p.numberLitValue(numTok)
+						}						numVal, numDiags := p.numberLitValue(numTok)
 						diags = append(diags, numDiags...)
 						trav = append(trav, hcl.TraverseIndex{
 							Key:      numVal,
@@ -755,9 +585,7 @@ Traversal:
 						})
 						lastRange = numTok.Range
 						continue
-					}
-
-					if p.Peek().Type != TokenIdent {
+					}					if p.Peek().Type != TokenIdent {
 						if !p.recovery {
 							if p.Peek().Type == TokenStar {
 								diags = append(diags, &hcl.Diagnostic{
@@ -777,17 +605,13 @@ Traversal:
 						}
 						p.setRecovery()
 						continue Traversal
-					}
-
-					attrTok := p.Read()
+					}					attrTok := p.Read()
 					trav = append(trav, hcl.TraverseAttr{
 						Name:     string(attrTok.Bytes),
 						SrcRange: hcl.RangeBetween(dot.Range, attrTok.Range),
 					})
 					lastRange = attrTok.Range
-				}
-
-				itemExpr := &AnonSymbolExpr{
+				}				itemExpr := &AnonSymbolExpr{
 					SrcRange: hcl.RangeBetween(dot.Range, marker.Range),
 				}
 				var travExpr Expression
@@ -799,18 +623,12 @@ Traversal:
 						Traversal: trav,
 						SrcRange:  hcl.RangeBetween(firstRange, lastRange),
 					}
-				}
-
-				ret = &SplatExpr{
+				}				ret = &SplatExpr{
 					Source: ret,
 					Each:   travExpr,
-					Item:   itemExpr,
-
-					SrcRange:    hcl.RangeBetween(from.Range(), lastRange),
+					Item:   itemExpr,					SrcRange:    hcl.RangeBetween(from.Range(), lastRange),
 					MarkerRange: hcl.RangeBetween(dot.Range, marker.Range),
-				}
-
-			default:
+				}			default:
 				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
 					Summary:  "Invalid attribute name",
@@ -825,14 +643,10 @@ Traversal:
 				// in order to support autocomplete triggered by typing a
 				// period.
 				p.setRecovery()
-			}
-
-		case TokenOBrack:
+			}		case TokenOBrack:
 			// Indexing of a collection.
 			// This may or may not be a hcl.Traverser, depending on whether
-			// the key value is something constant.
-
-			open := p.Read()
+			// the key value is something constant.			open := p.Read()
 			switch p.Peek().Type {
 			case TokenStar:
 				// This is a full splat expression, like foo[*], which consumes
@@ -860,20 +674,12 @@ tion.
 tion to eat any
 				// remaining traversal steps against the anonymous symbol.
 				travExpr, nestedDiags := p.parseExpressionTraversals(itemExpr)
-				diags = append(diags, nestedDiags...)
-
-				ret = &SplatExpr{
+				diags = append(diags, nestedDiags...)				ret = &SplatExpr{
 					Source: ret,
 					Each:   travExpr,
-					Item:   itemExpr,
-
-					SrcRange:    hcl.RangeBetween(from.Range(), travExpr.Range()),
+					Item:   itemExpr,					SrcRange:    hcl.RangeBetween(from.Range(), travExpr.Range()),
 					MarkerRange: hcl.RangeBetween(open.Range, close.Range),
-				}
-
-			default:
-
-				var close Token
+				}			default:				var close Token
 				p.PushIncludeNewlines(false) // arbitrary newlines allowed in brackets
 				keyExpr, keyDiags := p.ParseExpression()
 				diags = append(diags, keyDiags...)
@@ -891,9 +697,7 @@ tion to eat any
 						close = p.recover(TokenCBrack)
 					}
 				}
-				p.PopIncludeNewlines()
-
-				if lit, isLit := keyExpr.(*LiteralValueExpr); isLit {
+				p.PopIncludeNewlines()				if lit, isLit := keyExpr.(*LiteralValueExpr); isLit {
 					litKey, _ := lit.Value(nil)
 					rng := hcl.RangeBetween(open.Range, close.Range)
 					step := hcl.TraverseIndex{
@@ -913,29 +717,19 @@ tion to eat any
 					rng := hcl.RangeBetween(open.Range, close.Range)
 					ret = &IndexExpr{
 						Collection: ret,
-						Key:        keyExpr,
-
-						SrcRange:     hcl.RangeBetween(from.Range(), rng),
+						Key:        keyExpr,						SrcRange:     hcl.RangeBetween(from.Range(), rng),
 						OpenRange:    open.Range,
 						BracketRange: rng,
 					}
 				}
-			}
-
-fault:
+			}fault:
 			break Traversal
 		}
-	}
-
-	return ret, diags
-}
-
-// makeRelativeTraversal takes an expression and a traverser and returns
+	}	return ret, diags
+}// makeRelativeTraversal takes an expression and a traverser and returns
 // a traversal expression that combines the two. If the given expression
 // is already a traversal, it is extended in place (mutating it) and
-// returned. If it isn't, a new RelativeTraversalExpr is created and returned.
-
- makeRelativeTraversal(expr Expression, next hcl.Traverser, rng hcl.Range) Expression {
+// returned. If it isn't, a new RelativeTraversalExpr is created and returned. makeRelativeTraversal(expr Expression, next hcl.Traverser, rng hcl.Range) Expression {
 	switch texpr := expr.(type) {
 	case *ScopeTraversalExpr:
 		texpr.Traversal = append(texpr.Traversal, next)
@@ -953,18 +747,10 @@ e *RelativeTraversalExpr:
 		}
 	}
 }
-
-
  (p *parser) parseExpressionTerm() (Expression, hcl.Diagnostics) {
-	start := p.Peek()
-
-	switch start.Type {
+	start := p.Peek()	switch start.Type {
 	case TokenOParen:
-		oParen := p.Read() // eat open paren
-
-		p.PushIncludeNewlines(false)
-
-		expr, diags := p.ParseExpression()
+		oParen := p.Read() // eat open paren		p.PushIncludeNewlines(false)		expr, diags := p.ParseExpression()
 		if diags.HasErrors() {
 			// attempt to place the peeker after our closing paren
 			// before we return, so that the next parser has some
@@ -972,9 +758,7 @@ e *RelativeTraversalExpr:
 			p.recover(TokenCParen)
 			p.PopIncludeNewlines()
 			return expr, diags
-		}
-
-		close := p.Peek()
+		}		close := p.Peek()
 		if close.Type != TokenCParen {
 			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
@@ -984,12 +768,8 @@ e *RelativeTraversalExpr:
 				Context:  hcl.RangeBetween(start.Range, close.Range).Ptr(),
 			})
 			p.setRecovery()
-		}
-
-		cParen := p.Read() // eat closing paren
-		p.PopIncludeNewlines()
-
-		// Our parser's already taken care of the precedence effect of the
+		}		cParen := p.Read() // eat closing paren
+		p.PopIncludeNewlines()		// Our parser's already taken care of the precedence effect of the
 		// parentheses by considering them to be a kind of "term", but we
 		// still need to include the parentheses in our AST so we can give
 		// an accurate representation of the source range that includes the
@@ -997,28 +777,16 @@ e *RelativeTraversalExpr:
 		expr = &ParenthesesExpr{
 			Expression: expr,
 			SrcRange:   hcl.RangeBetween(oParen.Range, cParen.Range),
-		}
-
-		return expr, diags
-
-	case TokenNumberLit:
-		tok := p.Read() // eat number token
-
-		numVal, diags := p.numberLitValue(tok)
+		}		return expr, diags	case TokenNumberLit:
+		tok := p.Read() // eat number token		numVal, diags := p.numberLitValue(tok)
 		return &LiteralValueExpr{
 			Val:      numVal,
 			SrcRange: tok.Range,
-		}, diags
-
-	case TokenIdent:
-		tok := p.Read() // eat identifier token
-
-		if p.Peek().Type == TokenOParen {
+		}, diags	case TokenIdent:
+		tok := p.Read() // eat identifier token		if p.Peek().Type == TokenOParen {
 			return p.finishParsing
 tionCall(tok)
-		}
-
-		name := string(tok.Bytes)
+		}		name := string(tok.Bytes)
 		switch name {
 		case "true":
 			return &LiteralValueExpr{
@@ -1045,16 +813,10 @@ tionCall(tok)
 				},
 				SrcRange: tok.Range,
 			}, nil
-		}
-
-	case TokenOQuote, TokenOHeredoc:
+		}	case TokenOQuote, TokenOHeredoc:
 		open := p.Read() // eat opening marker
 		closer := p.oppositeBracket(open.Type)
-		exprs, passthru, _, diags := p.parseTemplateInner(closer, tokenOpensFlushHeredoc(open))
-
-		closeRange := p.PrevRange()
-
-		if passthru {
+		exprs, passthru, _, diags := p.parseTemplateInner(closer, tokenOpensFlushHeredoc(open))		closeRange := p.PrevRange()		if passthru {
 			if len(exprs) != 1 {
 				panic("passthru set with len(exprs) != 1")
 			}
@@ -1062,51 +824,31 @@ tionCall(tok)
 				Wrapped:  exprs[0],
 				SrcRange: hcl.RangeBetween(open.Range, closeRange),
 			}, diags
-		}
-
-		return &TemplateExpr{
+		}		return &TemplateExpr{
 			Parts:    exprs,
 			SrcRange: hcl.RangeBetween(open.Range, closeRange),
-		}, diags
-
-	case TokenMinus:
-		tok := p.Read() // eat minus token
-
-		// Important to use parseExpressionWithTraversals rather than parseExpression
+		}, diags	case TokenMinus:
+		tok := p.Read() // eat minus token		// Important to use parseExpressionWithTraversals rather than parseExpression
 		// here, otherwise we can capture a following binary expression into
 		// our negation.
 		// e.g. -46+5 should parse as (-46)+5, not -(46+5)
 		operand, diags := p.parseExpressionWithTraversals()
 		return &UnaryOpExpr{
 			Op:  OpNegate,
-			Val: operand,
-
-			SrcRange:    hcl.RangeBetween(tok.Range, operand.Range()),
+			Val: operand,			SrcRange:    hcl.RangeBetween(tok.Range, operand.Range()),
 			SymbolRange: tok.Range,
-		}, diags
-
-	case TokenBang:
-		tok := p.Read() // eat bang token
-
-		// Important to use parseExpressionWithTraversals rather than parseExpression
+		}, diags	case TokenBang:
+		tok := p.Read() // eat bang token		// Important to use parseExpressionWithTraversals rather than parseExpression
 		// here, otherwise we can capture a following binary expression into
 		// our negation.
 		operand, diags := p.parseExpressionWithTraversals()
 		return &UnaryOpExpr{
 			Op:  OpLogicalNot,
-			Val: operand,
-
-			SrcRange:    hcl.RangeBetween(tok.Range, operand.Range()),
+			Val: operand,			SrcRange:    hcl.RangeBetween(tok.Range, operand.Range()),
 			SymbolRange: tok.Range,
-		}, diags
-
-	case TokenOBrack:
-		return p.parseTupleCons()
-
-	case TokenOBrace:
-		return p.parseObjectCons()
-
-	default:
+		}, diags	case TokenOBrack:
+		return p.parseTupleCons()	case TokenOBrace:
+		return p.parseObjectCons()	default:
 		var diags hcl.Diagnostics
 		if !p.recovery {
 			switch start.Type {
@@ -1126,9 +868,7 @@ tionCall(tok)
 				})
 			}
 		}
-		p.setRecovery()
-
-		// Return a placeholder so that the AST is still structurally sound
+		p.setRecovery()		// Return a placeholder so that the AST is still structurally sound
 		// even in the presence of parse errors.
 		return &LiteralValueExpr{
 			Val:      cty.DynamicVal,
@@ -1136,8 +876,6 @@ tionCall(tok)
 		}, diags
 	}
 }
-
-
  (p *parser) numberLitValue(tok Token) (cty.Value, hcl.Diagnostics) {
 	// The cty.ParseNumberVal is always the same behavior as converting a
 	// string to a number, ensuring we always interpret decimal numbers in
@@ -1145,9 +883,7 @@ tionCall(tok)
 	numVal, err := cty.ParseNumberVal(string(tok.Bytes))
 	if err != nil {
 		ret := cty.UnknownVal(cty.Number)
-		return ret, hcl.Diagnostics{
-
-				Severity: hcl.DiagError,
+		return ret, hcl.Diagnostics{				Severity: hcl.DiagError,
 				Summary:  "Invalid number literal",
 				// FIXME: not a very good error message, but convert only
 				// gives us "a numis required", so not much help either.
@@ -1157,68 +893,46 @@ tionCall(tok)
 		}
 	}
 	return numVal, nil
-}
-
-// finishParsing
+}// finishParsing
 tionCall parses a 
 tion call assuming that the 
 tion
 // name was already read, and so the peeker should be pointing at the opening
-// parenthesis after the name.
-
- (p *parser) finishParsing
+// parenthesis after the name. (p *parser) finishParsing
 tionCall(name Token) (Expression, hcl.Diagnostics) {
 	openTok := p.Read()
 	if openTok.Type != TokenOParen {
 		// should never happen if callers behave
 		panic("finishParsing
 tionCall called with non-parenthesis as next token")
-	}
-
-	var args []Expression
+	}	var args []Expression
 	var diags hcl.Diagnostics
 	var expandFinal bool
-	var closeTok Token
-
-	// Arbitrary newlines are allowed inside the 
+	var closeTok Token	// Arbitrary newlines are allowed inside the 
 tion call parentheses.
-	p.PushIncludeNewlines(false)
-
-Token:
+	p.PushIncludeNewlines(false)Token:
 	for {
-		tok := p.Peek()
-
-		if tok.Type == TokenCParen {
+		tok := p.Peek()		if tok.Type == TokenCParen {
 			closeTok = p.Read() // eat closing paren
 			break Token
-		}
-
-		arg, argDiags := p.ParseExpression()
+		}		arg, argDiags := p.ParseExpression()
 		args = append(args, arg)
 		diags = append(diags, argDiags...)
 		if p.recovery && argDiags.HasErrors() {
 			// if there was a parse error in the argument then we've
 			// probably been left in a weird place in the token stream,
 			// so we'll bail out with a partial argument list.
-			recoveredTok := p.recover(nCParen)
-
-			// record the recovered token, if one was found
+			recoveredTok := p.recover(nCParen)			// record the recovered token, if one was found
 			if recoveredTok.Type == TokenCParen {
 				closeTok = recoveredTok
 			}
 			break Token
-		}
-
-		sep := p.Read()
+		}		sep := p.Read()
 		if sep.Type == TokenCParen {
 			closeTok = sep
 			break Token
-		}
-
-		if sep.Type == TokenEllipsis {
-			expandFinal = true
-
-			if p.Peek().Type != TokenCParen {
+		}		if sep.Type == TokenEllipsis {
+			expandFinal = true			if p.Peek().Type != TokenCParen {
 				if !p.recovery {
 					diags = append(diags, &hcl.Diagnostic{
 						Severity: hcl.DiagError,
@@ -1234,9 +948,7 @@ tion argument (with ...) must be immediately followed by closing parentheses.",
 				closeTok = p.Read() // eat closing paren
 			}
 			break Token
-		}
-
-		if sep.Type != TokenComma {
+		}		if sep.Type != TokenComma {
 			switch sep.Type {
 			case TokenEOF:
 				diags = append(diags, &hcl.Diagnostic{
@@ -1255,81 +967,47 @@ tion  before the end of the file. This may be caused by incorrect parethesis nes
 tion argument from the next.",
 					Subject:  &sep.Range,
 					Context:  hcl.RangeBetween(name.Range, sep.Range).Ptr(),
-				})
-
-			closeTok = p.recover(TokenCParen)
+				})			closeTok = p.recover(TokenCParen)
 			break Token
-		}
-
-		if p.Peek().Type == TokenCParen {
+		}		if p.Peek().Type == TokenCParen {
 			// A trailing comma after the last argument gets us in here.
 			closeTok = p.Read() // eat closing paren
 			break Token
-		}
-
-	}
-
-	p.PopIncludeNewlines()
-
-	return &
+		}	}	p.PopIncludeNewlines()	return &
 tionCallExpr{
 		Name: string(name.Bytes),
-		Args: args,
-
-		ExpandFinal: expandFinal,
-
-		NameRange:       name.Range,
+		Args: args,		ExpandFinal: expandFinal,		NameRange:       name.Range,
 		OpenParenRange:  openTok.Range,
 		CloseParenRange: closeTok.Range,
 	}, diags
 }
-
-
  (p *parser) parseTupleCons() (Expression, hcl.Diagnostics) {
 	open := p.Read()
 	if open.Type != TokenOBrack {
 		// Should never happen if callers are behaving
 		panic("parseTupleCons called without peeker pointing to open bracket")
-	}
-
-	p.PushIncludeNewlines(false)
-	defer p.PopIncludeNewlines()
-
-	if forKeyword.TokenMatches(p.Peek()) {
+	}	p.PushIncludeNewlines(false)
+	defer p.PopIncludeNewlines()	if forKeyword.TokenMatches(p.Peek()) {
 		return p.finishParsingForExpr(open)
-	}
-
-	var close Token
-
-	var diags hcl.Diagnostics
-	var exprs []Expression
-
-	for {
+	}	var close Token	var diags hcl.Diagnostics
+	var exprs []Expression	for {
 		next := p.Peek()
 		if next.Type == TokenCBrack {
 			close = p.Read() // eat closer
 			break
-		}
-
-		expr, exprDiags := p.ParseExpression()
+		}		expr, exprDiags := p.ParseExpression()
 		exprs = append(exprs, expr)
-		diags = append(diags, exprDiags...)
-
-		if p.recovery && exprDiags.HasErrors() {
+		diags = append(diags, exprDiags...)		if p.recovery && exprDiags.HasErrors() {
 			// If expression parsing failed then we are probably in a strange
 			// place in the token stream, so we'll bail out and try to reset
 			// to after our closing bracket to allow parsing to continue.
 			close = p.recover(TokenCBrack)
 			break
-		}
-
-		next = p.Peek()
+		}		next = p.Peek()
 		if next.Type == TokenCBrack {
 			close = p.Read() // eat closer
 			break
-		}
-
-		if next.Type != TokenComma {
+		}		if next.Type != TokenComma {
 			if !p.recovery {
 				switch next.Type {
 				case TokenEOF:
@@ -1351,29 +1029,17 @@ tionCallExpr{
 			}
 			close = p.recover(TokenCBrack)
 			break
-		}
-
-		p.Read() // eat comma
-
-	}
-
-	return &TupleConsExpr{
-		Exprs: exprs,
-
-		SrcRange:  hcl.RangeBetween(open.Range, close.Range),
+		}		p.Read() // eat comma	}	return &TupleConsExpr{
+		Exprs: exprs,		SrcRange:  hcl.RangeBetween(open.Range, close.Range),
 		OpenRange: open.Range,
 	}, diags
 }
-
-
  (p *parser) parseObjectCons() (Expression, hcl.Diagnostics) {
 	open := p.Read()
 	if open.Type != TokenOBrace {
 		// Should never happen if callers are behaving
 		panic("parseObjectCons called without peeker pointing to open brace")
-	}
-
-	// We must temporarily stop looking at newlines here while we check for
+	}	// We must temporarily stop looking at newlines here while we check for
 	// a "for" keyword, since for expressions are _not_ newline-sensitive,
 	// even though object constructors are.
 	p.PushIncludeNewlines(false)
@@ -1381,57 +1047,37 @@ tionCallExpr{
 	p.PopIncludeNewlines()
 	if isFor {
 		return p.finishParsingForExpr(open)
-	}
-
-	p.PushIncludeNewlines(true)
-	defer p.PopIncludeNewlines()
-
-	var close Token
-
-	var diags hcl.Diagnostics
-	var items []ObjectConsItem
-
-	for {
+	}	p.PushIncludeNewlines(true)
+	defer p.PopIncludeNewlines()	var close Token	var diags hcl.Diagnostics
+	var items []ObjectConsItem	for {
 		next := p.Peek()
 		if next.Type == TokenNewline {
 			p.Read() // eat newline
 			continue
-		}
-
-		if next.Type == TokenCBrace {
+		}		if next.Type == TokenCBrace {
 			close = p.Read() // eat closer
 			break
-		}
-
-		// Wrapping parens are not explicitly represented in the AST, but
+		}		// Wrapping parens are not explicitly represented in the AST, but
 		// we want to use them here to disambiguate intepreting a mapping
 		// key as a full expression rather than just a name, and so
 		// we'll remember this was present and use it to force the
 		// behavior of our final ObjectConsKeyExpr.
-		forceNonLiteral := (p.Peek().Type == TokenOParen)
-
-		var key Expression
+		forceNonLiteral := (p.Peek().Type == TokenOParen)		var key Expression
 		var keyDiags hcl.Diagnostics
 		key, keyDiags = p.ParseExpression()
-		diags = append(diags, keyDiags...)
-
-		if p.recovery && keyDiags.HasErrors() {
+		diags = append(diags, keyDiags...)		if p.recovery && keyDiags.HasErrors() {
 			// If expression parsing failed then we are probably in a strange
 			// place in the token stream, so we'll bail out and try to reset
 			// to after our closing brace to allow parsing to continue.
 			close = p.recover(TokenCBrace)
 			break
-		}
-
-		// We wrap up the key expression in a special wrapper that deals
+		}		// We wrap up the key expression in a special wrapper that deals
 		// with our special case that naked identifiers as object keys
 		// are interpreted as literal strings.
 		key = &ObjectConsKeyExpr{
-			Wrapped:         key,
+			Wrapped:key,
 			ForceNonLiteral: forceNonLiteral,
-		}
-
-		next = p.Peek()
+		}		next = p.Peek()
 		if next.Type != TokenEqual && next.Type != TokenColon {
 			if !p.recovery {
 				switch next.Type {
@@ -1478,33 +1124,21 @@ tionCallExpr{
 			}
 			close = p.recover(TokenCBrace)
 			break
-		}
-
-		p.Read() // eat equals sign or colon
-
-		value, valueDiags := p.ParseExpression()
-		diags = append(diags, valueDiags...)
-
-		if p.recovery && valueDiags.HasErrors() {
+		}		p.Read() // eat equals sign or colon		value, valueDiags := p.ParseExpression()
+		diags = append(diags, valueDiags...)		if p.recovery && valueDiags.HasErrors() {
 			// If expression parsing failed then we are probably in a strange
 			// place in the token stream, so we'll bail out and try to reset
 			// to after our closing brace to allow parsing to continue.
 			close = p.recover(TokenCBrace)
 			break
-		}
-
-		items = append(items, ObjectConsItem{
+		}		items = append(items, ObjectConsItem{
 			KeyExpr:   key,
 			ValueExpr: value,
-		})
-
-		next = p.Peek()
+		})		next = p.Peek()
 		if next.Type == TokenCBrace {
 			close = p.Read() // eat closer
 			break
-		}
-
-		if next.Type != TokenComma && next.Type != TokenNewline {
+		}		if next.Type != TokenComma && next.Type != TokenNewline {
 			if !p.recovery {
 				switch next.Type {
 				case TokenEOF:
@@ -1526,21 +1160,11 @@ tionCallExpr{
 			}
 			close = p.recover(TokenCBrace)
 			break
-		}
-
-		p.Read() // eat comma or newline
-
-	}
-
-	return &ObjectConsExpr{
-		Items: items,
-
-		SrcRange:  hcl.RangeBetween(open.Range, close.Range),
+		}		p.Read() // eat comma or newline	}	return &ObjectConsExpr{
+		Items: items,		SrcRange:  hcl.RangeBetween(open.Range, close.Range),
 		OpenRange: open.Range,
 	}, diags
 }
-
-
  (p *parser) finishParsingForExpr(open Token) (Expression, hcl.Diagnostics) {
 	p.PushIncludeNewlines(false)
 	defer p.PopIncludeNewlines()
@@ -1548,9 +1172,7 @@ tionCallExpr{
 	if !forKeyword.TokenMatches(introducer) {
 		// Should never happen if callers are behaving
 		panic("finishParsingForExpr called without peeker pointing to 'for' identifier")
-	}
-
-	var makeObj bool
+	}	var makeObj bool
 	var closeType TokenType
 	switch open.Type {
 	case TokenOBrace:
@@ -1562,12 +1184,8 @@ tionCallExpr{
 	default:
 		// Should never happen if callers are behaving
 		panic("finishParsingForExpr called with invalid open token")
-	}
-
-	var diags hcl.Diagnostics
-	var keyName, valName string
-
-	if p.Peek().Type != TokenIdent {
+	}	var diags hcl.Diagnostics
+	var keyName, valName string	if p.Peek().Type != TokenIdent {
 		if !p.recovery {
 			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
@@ -1582,16 +1200,10 @@ tionCallExpr{
 			Val:      cty.DynamicVal,
 			SrcRange: hcl.RangeBetween(open.Range, close.Range),
 		}, diags
-	}
-
-	valName = string(p.Read().Bytes)
-
-	if p.Peek().Type == TokenComma {
+	}	valName = string(p.Read().Bytes)	if p.Peek().Type == TokenComma {
 		// What we just read was actually the key, then.
 		keyName = valName
-		p.Read() // eat comma
-
-		if p.Peek().Type != TokenIdent {
+		p.Read() // eat comma		if p.Peek().Type != TokenIdent {
 			if !p.recovery {
 				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
@@ -1606,12 +1218,8 @@ tionCallExpr{
 				Val:      cty.DynamicVal,
 				SrcRange: hcl.RangeBetween(open.Range, close.Range),
 			}, diags
-		}
-
-		valName = string(p.Read().Bytes)
-	}
-
-	if !inKeyword.TokenMatches(p.Peek()) {
+		}		valName = string(p.Read().Bytes)
+	}	if !inKeyword.TokenMatches(p.Peek()) {
 		if !p.recovery {
 			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
@@ -1627,9 +1235,7 @@ tionCallExpr{
 			SrcRange: hcl.RangeBetween(open.Range, close.Range),
 		}, diags
 	}
-	p.Read() // eat 'in' keyword
-
-	collExpr, collDiags := p.ParseExpression()
+	p.Read() // eat 'in' keyword	collExpr, collDiags := p.ParseExpression()
 	diags = append(diags, collDiags...)
 	if p.recovery && collDiags.HasErrors() {
 		close := p.recover(closeType)
@@ -1637,9 +1243,7 @@ tionCallExpr{
 			Val:      cty.DynamicVal,
 			SrcRange: hcl.RangeBetween(open.Range, close.Range),
 		}, diags
-	}
-
-	if p.Peek().Type != TokenColon {
+	}	if p.Peek().Type != TokenColon {
 		if !p.recovery {
 			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
@@ -1655,17 +1259,13 @@ tionCallExpr{
 			SrcRange: hcl.RangeBetween(open.Range, close.Range),
 		}, diags
 	}
-	p.Read() // eat colon
-
-	var keyExpr, valExpr Expression
+	p.Read() // eat colon	var keyExpr, valExpr Expression
 	var keyDiags, valDiags hcl.Diagnostics
 	valExpr, valDiags = p.ParseExpression()
 	if p.Peek().Type == TokenFatArrow {
 		// What we just parsed was actually keyExpr
 		p.Read() // eat the fat arrow
-		keyExpr, keyDiags = valExpr, valDiags
-
-		valExpr, valDiags = p.ParseExpression()
+		keyExpr, keyDiags = valExpr, valDiags		valExpr, valDiags = p.ParseExpression()
 	}
 	diags = append(diags, keyDiags...)
 	diags = append(diags, valDiags...)
@@ -1675,16 +1275,12 @@ tionCallExpr{
 			Val:      cty.DynamicVal,
 			SrcRange: hcl.RangeBetween(open.Range, close.Range),
 		}, diags
-	}
-
-	group := false
+	}	group := false
 	var ellipsis Token
 	if p.Peek().Type == TokenEllipsis {
 		ellipsis = p.Read()
 		group = true
-	}
-
-	var condExpr Expression
+	}	var condExpr Expression
 	var condDiags hcl.Diagnostics
 	if ifKeyword.TokenMatches(p.Peek()) {
 		p.Read() // eat "if"
@@ -1697,9 +1293,7 @@ tionCallExpr{
 				SrcRange: hcl.RangeBetween(open.Range, close.Range),
 			}, diags
 		}
-	}
-
-	var close Token
+	}	var close Token
 	if p.Peek().Type == closeType {
 		close = p.Read()
 	} else {
@@ -1713,9 +1307,7 @@ tionCallExpr{
 			})
 		}
 		close = p.recover(closeType)
-	}
-
-	if !makeObj {
+	}	if !makeObj {
 		if keyExpr != nil {
 			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
@@ -1724,9 +1316,7 @@ tionCallExpr{
 				Subject:  keyExpr.Range().Ptr(),
 				Context:  hcl.RangeBetween(open.Range, close.Range).Ptr(),
 			})
-		}
-
-		if group {
+		}		if group {
 			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
 				Summary:  "Invalid 'for' expression",
@@ -1745,27 +1335,19 @@ tionCallExpr{
 				Context:  hcl.RangeBetween(open.Range, close.Range).Ptr(),
 			})
 		}
-	}
-
-	return &ForExpr{
+	}	return &ForExpr{
 		KeyVar:   keyName,
 		ValVar:   valName,
 		CollExpr: collExpr,
 		KeyExpr:  keyExpr,
 		ValExpr:  valExpr,
 		CondExpr: condExpr,
-		Group:    group,
-
-		SrcRange:   hcl.RangeBetween(open.Range, close.Range),
+		Group:    group,		SrcRange:   hcl.RangeBetween(open.Range, close.Range),
 		OpenRange:  open.Range,
 		CloseRange: close.Range,
 	}, diags
-}
-
-// parseQuotedStringLiteral is a helper for parsing quoted strings that
-// aren't allowed to contain any interpolations, such as block labels.
-
- (p *parser) parseQuotedStringLiteral() (string, hcl.Range, hcl.Diagnostics) {
+}// parseQuotedStringLiteral is a helper for parsing quoted strings that
+// aren't allowed to contain any interpolations, such as block labels. (p *parser) parseQuotedStringLiteral() (string, hcl.Range, hcl.Diagnostics) {
 	oQuote := p.Read()
 	if oQuote.Type != TokenOQuote {
 		return "", oQuote.Range, hcl.Diagnostics{
@@ -1776,33 +1358,21 @@ tionCallExpr{
 				Subject:  &oQuote.Range,
 			},
 		}
-	}
-
-	var diags hcl.Diagnostics
+	}	var diags hcl.Diagnostics
 	ret := &bytes.Buffer{}
-	var endRange hcl.Range
-
-Token:
+	var endRange hcl.RangeToken:
 	for {
 		tok := p.Read()
-		switch tok.Type {
-
-		case TokenCQuote:
+		switch tok.Type {		case TokenCQuote:
 			endRange = tok.Range
-			break Token
-
-		case TokenQuotedLit:
+			break Token		case TokenQuotedLit:
 			s, sDiags := ParseStringLiteralToken(tok)
 			diags = append(diags, sDiags...)
-			ret.WriteString(s)
-
-		case TokenTemplateControl, TokenTemplateInterp:
+			ret.WriteString(s)		case TokenTemplateControl, TokenTemplateInterp:
 			which := "$"
 			if tok.Type == TokenTemplateControl {
 				which = "%"
-			}
-
-			diags = append(diags, &hcl.Diagnostic{
+			}			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
 				Summary:  "Invalid string literal",
 				Detail: fmt.Sprintf(
@@ -1811,19 +1381,13 @@ Token:
 				),
 				Subject: &tok.Range,
 				Context: hcl.RangeBetween(oQuote.Range, tok.Range).Ptr(),
-			})
-
-			// Now that we're returning an error callers won't attempt to use
+			})			// Now that we're returning an error callers won't attempt to use
 			// the result for any real operations, but they might try to use
 			// the partial AST for other analyses, so we'll leave a marker
 			// to indicate that there was something invalid in the string to
 			// help avoid misinterpretation of the partial result
 			ret.WriteString(which)
-			ret.WriteString("{ ... }")
-
-			p.recover(TokenTemplateSeqEnd) // we'll try to keep parsing after the sequence ends
-
-		case TokenEOF:
+			ret.WriteString("{ ... }")			p.recover(TokenTemplateSeqEnd) // we'll try to keep parsing after the sequence ends		case TokenEOF:
 			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
 				Summary:  "Unterminated string literal",
@@ -1832,9 +1396,7 @@ Subject:  &tok.Range,
 				Context:  hcl.RangeBetween(oQuote.Range, tok.Range).Ptr(),
 			})
 			endRange = tok.Range
-			break Token
-
-		default:
+			break Token		default:
 			// Should never happen, as long as the scanner is behaving itself
 			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
@@ -1845,23 +1407,13 @@ Subject:  &tok.Range,
 			})
 			p.recover(TokenCQuote)
 			endRange = tok.Range
-			break Token
-
-		}
-
-	}
-
-	return ret.String(), hcl.RangeBetween(oQuote.Range, endRange), diags
-}
-
-// ParseStringLiteralToken processes the given token, which must be either a
+			break Token		}	}	return ret.String(), hcl.RangeBetween(oQuote.Range, endRange), diags
+}// ParseStringLiteralToken processes the given token, which must be either a
 // TokenQuotedLit or a TokenStringLit, returning the string resulting from
 // resolving any escape sequences.
 //
 // If any error diagnostics are returned, the returned string may be incomplete
-// or otherwise invalid.
-
- ParseStringLiteralToken(tok Token) (string, hcl.Diagnostics) {
+// or otherwise invalid. ParseStringLiteralToken(tok Token) (string, hcl.Diagnostics) {
 	var quoted bool
 	switch tok.Type {
 	case TokenQuotedLit:
@@ -1871,27 +1423,17 @@ Subject:  &tok.Range,
 	default:
 		panic("ParseStringLiteralToken can only be used with TokenStringLit and TokenQuotedLit tokens")
 	}
-	var diags hcl.Diagnostics
-
-	ret := make([]byte, 0, len(tok.Bytes))
-	slices := scanStringLit(tok.Bytes, quoted)
-
-	// We will mutate rng constantly as we walk through our token slices below.
+	var diags hcl.Diagnostics	ret := make([]byte, 0, len(tok.Bytes))
+	slices := scanStringLit(tok.Bytes, quoted)	// We will mutate rng constantly as we walk through our token slices below.
 	// Any diagnostics must take a copy of this rng rather than simply pointing
 	// to it, e.g. by using rng.Ptr() rather than &rng.
 	rng := tok.Range
-	rng.End = rng.Start
-
-Slices:
+	rng.End = rng.StartSlices:
 	for _, slice := range slices {
 		if len(slice) == 0 {
 			continue
-		}
-
-		// Advance the start of our range to where the previous token ended
-		rng.Start = rng.End
-
-		// Advance the end of our range to after our token.
+		}		// Advance the start of our range to where the previous token ended
+		rng.Start = rng.End		// Advance the end of our range to after our token.
 		b := slice
 		for len(b) > 0 {
 			adv, ch, _ := textseg.ScanGraphemeClusters(b, true)
@@ -1904,9 +1446,7 @@ Slices:
 				rng.End.Column++
 			}
 			b = b[adv:]
-		}
-
-	TokenType:
+		}	TokenType:
 		switch slice[0] {
 		case '\\':
 			if !quoted {
@@ -1923,11 +1463,7 @@ Slices:
 					Subject:  rng.Ptr(),
 				})
 				break TokenType
-			}
-
-			switch slice[1] {
-
-			case 'n':
+			}			switch slice[1] {			case 'n':
 				ret = append(ret, '\n')
 				continue Slices
 			case 'r':
@@ -1959,17 +1495,13 @@ Slices:
 						Subject:  rng.Ptr(),
 					})
 					break TokenType
-				}
-
-				numHex := string(slice[2:])
+				}				numHex := string(slice[2:])
 				num, err := strconv.ParseUint(numHex, 16, 32)
 				if err != nil {
 					// Should never happen because the scanner won't match
 					// a sequence of digits that isn't valid.
 					panic(err)
-				}
-
-				r := rune(num)
+				}				r := rune(num)
 				l := utf8.RuneLen(r)
 				if l == -1 {
 					diags = append(diags, &hcl.Diagnostic{
@@ -1984,11 +1516,7 @@ Slices:
 					ret = append(ret, 0)
 				}
 				rb := ret[len(ret)-l:]
-				utf8.EncodeRune(rb, r)
-
-				continue Slices
-
-			default:
+				utf8.EncodeRune(rb, r)				continue Slices			default:
 				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
 					Summary:  "Invalid escape sequence",
@@ -1997,40 +1525,24 @@ Slices:
 				})
 				ret = append(ret, slice[1:]...)
 				continue Slices
-			}
-
-		case '$', '%':
+			}		case '$', '%':
 			if len(slice) != 3 {
 				// Not long enough to be our escape sequence, so it's literal.
 				break TokenType
-			}
-
-			if slice[1] == slice[0] && slice[2] == '{' {
+			}			if slice[1] == slice[0] && slice[2] == '{' {
 				ret = append(ret, slice[0])
 				ret = append(ret, '{')
 				continue Slices
-			}
-
-			break TokenType
-		}
-
-		// If we fall out here or break out of here from the switch above
+			}			break TokenType
+		}		// If we fall out here or break out of here from the switch above
 		// then this slice is just a literal.
 		ret = append(ret, slice...)
-	}
-
-	return string(ret), diags
-}
-
-// setRecovery turns on recovery mode without actually doing any recovery.
+	}	return string(ret), diags
+}// setRecovery turns on recovery mode without actually doing any recovery.
 // This can be used when a parser knowingly leaves the peeker in a useless
-// place and wants to suppress errors that might result from that decision.
-
- (p *parser) setRecovery() {
+// place and wants to suppress errors that might result from that decision. (p *parser) setRecovery() {
 	p.recovery = true
-}
-
-// recover seeks forward in the token stream until it finds TokenType "end",
+}// recover seeks forward in the token stream until it finds TokenType "end",
 // then returns with the peeker pointed at the following token.
 //
 // If the given token type is a bracketer, this 
@@ -2038,13 +1550,9 @@ tion will additionally
 // count nested instances of the brackets to try to leave the peeker at
 // the end of the _current_ instance of that bracketer, skipping over any
 // nested instances. This is a best-effort operation and may have
-// unpredictable results on input with bad bracketer nesting.
-
- (p *parser) recover(end TokenType) Token {
+// unpredictable results on input with bad bracketer nesting. (p *parser) recover(end TokenType) Token {
 	start := p.oppositeBracket(end)
-	p.recovery = true
-
-	nest := 0
+	p.recovery = true	nest := 0
 	for {
 		tok := p.Read()
 		ty := tok.Type
@@ -2054,36 +1562,26 @@ tion will additionally
 			// with TokenTemplateSeqEnd and thus we need to count both
 			// openers if that's the closer we're looking for.
 			ty = TokenTemplateInterp
-		}
-
-		switch ty {
+		}		switch ty {
 		case start:
 			nest++
 		case end:
 			if nest < 1 {
 return tok
-			}
-
-			nest--
+			}			nest--
 		case TokenEOF:
 			return tok
 		}
 	}
-}
-
-// recoverOver seeks forward in the token stream until it finds a block
+}// recoverOver seeks forward in the token stream until it finds a block
 // starting with TokenType "start", then finds the corresponding end token,
 // leaving the peeker pointed at the token after that end token.
 //
 // The given token type _must_ be a bracketer. For example, if the given
 // start token is TokenOBrace then the parser will be left at the _end_ of
 // the next brace-delimited block encountered, or at EOF if no such block
-// is found or it is unclosed.
-
- (p *parser) recoverOver(start TokenType) {
-	end := p.oppositeBracket(start)
-
-	// find the opening bracket first
+// is found or it is unclosed. (p *parser) recoverOver(start TokenType) {
+	end := p.oppositeBracket(start)	// find the opening bracket first
 Token:
 	for {
 		tok := p.Read()
@@ -2091,68 +1589,42 @@ Token:
 		case start, TokenEOF:
 			break Token
 		}
-	}
-
-	// Now use our existing recover 
+	}	// Now use our existing recover 
 tion to locate the _end_ of the
 	// container we've found.
 	p.recover(end)
 }
-
-
  (p *parser) recoverAfterBodyItem() {
 	p.recovery = true
-	var open []TokenType
-
-Token:
+	var open []TokenTypeToken:
 	for {
-		tok := p.Read()
-
-itch tok.Type {
-
-		case TokenNewline:
+		tok := p.Read()itch tok.Type {		case TokenNewline:
 			if len(open) == 0 {
 				break Token
-			}
-
-		case TokenEOF:
-			break Token
-
-		case TokenOBrace, TokenOBrack, TokenOParen, TokenOQuote, TokenOHeredoc, TokenTemplateInterp, TokenTemplateControl:
-			open = append(open, tok.Type)
-
-		case TokenCBrace, TokenCBrack, TokenCParen, TokenCQuote, TokenCHeredoc:
+			}		case TokenEOF:
+			break Token		case TokenOBrace, TokenOBrack, TokenOParen, TokenOQuote, TokenOHeredoc, TokenTemplateInterp, TokenTemplateControl:
+			open = append(open, tok.Type)		case TokenCBrace, TokenCBrack, TokenCParen, TokenCQuote, TokenCHeredoc:
 			opener := p.oppositeBracket(tok.Type)
 			for len(open) > 0 && open[len(open)-1] != opener {
 				open = open[:len(open)-1]
 			}
 			if len(open) > 0 {
 				open = open[:len(open)-1]
-			}
-
-		case TokenTemplateSeqEnd:
+			}		case TokenTemplateSeqEnd:
 			for len(open) > 0 && open[len(open)-1] != TokenTemplateInterp && open[len(open)-1] != TokenTemplateControl {
 				open = open[:len(open)-1]
 			}
 			if len(open) > 0 {
 				open = open[:len(open)-1]
-			}
-
-		}
+			}		}
 	}
-}
-
-// oppositeBracket finds the bracket that opposes the given bracketer, or
+}// oppositeBracket finds the bracket that opposes the given bracketer, or
 // NilToken if the given token isn't a bracketer.
 //
 // "Bracketer", for the sake of this 
 tion, is one end of a matching
-pen/close set of tokens that establish a bracketing context.
-
- (p *parser) oppositeBracket(ty TokenType) TokenType {
-	switch ty {
-
-	case TokenOBrace:
+pen/close set of tokens that establish a bracketing context. (p *parser) oppositeBracket(ty TokenType) TokenType {
+	switch ty {	case TokenOBrace:
 		return TokenCBrace
 	case TokenOBrack:
 		return TokenCBrack
@@ -2161,9 +1633,7 @@ pen/close set of tokens that establish a bracketing context.
 	case TokenOQuote:
 		return TokenCQuote
 	case TokenOHeredoc:
-		return TokenCHeredoc
-
-	case TokenCBrace:
+		return TokenCHeredoc	case TokenCBrace:
 		return TokenOBrace
 	case TokenCBrack:
 		return TokenOBrack
@@ -2172,23 +1642,17 @@ pen/close set of tokens that establish a bracketing context.
 	case TokenCQuote:
 		return TokenOQuote
 	case TokenCHeredoc:
-		return TokenOHeredoc
-
-	case TokenTemplateControl:
+		return TokenOHeredoc	case TokenTemplateControl:
 		return TokenTemplateSeqEnd
 	case TokenTemplateInterp:
 		return TokenTemplateSeqEnd
 	case TokenTemplateSeqEnd:
 		// This is ambigous, but we return Interp here because that's
 		// what's assumed by the "recover" method.
-		return TokenTemplateInterp
-
-	default:
+		return TokenTemplateInterp	default:
 		return TokenNil
 	}
 }
-
-
  errPlaceholderExpr(rng hcl.Range) Expression {
 	return &LiteralValueExpr{
 		Val:      cty.DynamicVal,

@@ -1,5 +1,1 @@
-package terraformtype
-
-const (
-	ModuleTerraformPluginSdk = `github.com/hashicorp/terraform-plugin-sdk`
-)
+package terraformtypeconst (	ModuleTerraformPluginSdk = `github.com/hashicorp/terraform-plugin-sdk`)

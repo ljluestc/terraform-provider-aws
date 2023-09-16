@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func FindClusterByID(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, id string) (*cloudhsmv2.Cluster, error) {
 	input := &cloudhsmv2.DescribeClustersInput{
 		Filters: map[string][]*string{
@@ -27,7 +26,7 @@ func FindClusterByID(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, id string
 
 	if state := aws.StringValue(output.State); state == cloudhsmv2.ClusterStateDeleted {
 		return nil, &retry.NotFoundError{
-			Message:     state,
+			Message:state,
 			LastRequest: input,
 		}
 	}
@@ -41,7 +40,6 @@ func FindClusterByID(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, id string
 
 	return output, nil
 }
-
 func findCluster(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, input *cloudhsmv2.DescribeClustersInput) (*cloudhsmv2.Cluster, error) {
 	output, err := findClusters(ctx, conn, input)
 
@@ -59,12 +57,12 @@ func findCluster(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, input *cloudh
 
 	return output[0], nil
 }
-
 func findClusters(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, input *cloudhsmv2.DescribeClustersInput) ([]*cloudhsmv2.Cluster, error) {
 	var output []*cloudhsmv2.Cluster
 
 	err := conn.DescribeClustersPagesWithContext(ctx, input,
-		func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
+		
+func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
 			if page == nil {
 				return !lastPage
 			}
@@ -84,7 +82,6 @@ func findClusters(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, input *cloud
 
 	return output, nil
 }
-
 func FindHSMByTwoPartKey(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, hsmID, eniID string) (*cloudhsmv2.Hsm, error) {
 	input := &cloudhsmv2.DescribeClustersInput{}
 

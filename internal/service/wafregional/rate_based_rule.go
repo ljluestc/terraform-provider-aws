@@ -108,10 +108,10 @@ func(token *string) (interface{}, error) {
 		input := &waf.CreateRateBasedRuleInput{
 			ChangeToken: token,
 			MetricName:  aws.String(d.Get("metric_name").(string)),
-			Name:        aws.String(d.Get("name").(string)),
+			Name:  aws.String(d.Get("name").(string)),
 			RateKey:     aws.String(d.Get("rate_key").(string)),
 			RateLimit:   aws.Int64(int64(d.Get("rate_limit").(int))),
-			Tags:        getTagsIn(ctx),
+			Tags:  getTagsIn(ctx),
 		}
 
 		return conn.CreateRateBasedRuleWithContext(ctx, input)
@@ -225,7 +225,7 @@ func resourceRateBasedRuleDelete(ctx context.Context, d *schema.ResourceData, me
 func(token *string) (interface{}, error) {
 		req := &waf.DeleteRateBasedRuleInput{
 			ChangeToken: token,
-			RuleId:      aws.String(d.Id()),
+			RuleId:aws.String(d.Id()),
 		}
 		log.Printf("[INFO] Deleting WAF Regional Rate Based Rule")
 		return conn.DeleteRateBasedRuleWithContext(ctx, req)
@@ -247,7 +247,7 @@ func updateRateBasedRuleResourceWR(ctx context.Context, id string, oldP, newP []
 func(token *string) (interface{}, error) {
 		req := &waf.UpdateRateBasedRuleInput{
 			ChangeToken: token,
-			RuleId:      aws.String(id),
+			RuleId:aws.String(id),
 			Updates:     tfwaf.DiffRulePredicates(oldP, newP),
 			RateLimit:   aws.Int64(int64(rateLimit.(int))),
 		}

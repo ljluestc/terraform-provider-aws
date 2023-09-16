@@ -1,20 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package connect_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package connect_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/connect"
+	"testing"	"github.com/aws/aws-sdk-go/service/connect"
 	sdkacctest "github.com/hashicorp/terraform-plugin-sdk/v2/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
-
-
 func testAccUserDataSource_userID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -25,11 +16,8 @@ func testAccUserDataSource_userID(t *testing.T) {
 	domain := acctest.RandomDomainName()
 	email := acctest.RandomEmailAddress(domain)
 	resourceName := "aws_connect_user.test"
-	datasourceName := "data.aws_connect_user.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
-
+	datasourceName := "data.aws_connect_user.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -63,9 +51,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
-
-
 func testAccUserDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -76,11 +61,8 @@ func testAccUserDataSource_name(t *testing.T) {
 	domain := acctest.RandomDomainName()
 	email := acctest.RandomEmailAddress(domain)
 	resourceName := "aws_connect_user.test"
-	datasourceName := "data.aws_connect_user.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
-
+	datasourceName := "data.aws_connect_user.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -114,67 +96,50 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
-
-
 func testAccUserBaseDataSourceConfig(rName, rName2, rName3, rName4, rName5, email string) string {
 	return acctest.ConfigCompose(
 testAccUserConfig_base(rName, rName2, rName3, rName4),
 fmt.Sprintf(`
 resource "aws_connect_user" "test" {
-  instance_id        = aws_connect_instance.test.id
-  name= %[1]q
-  password  = "Password123"
-  routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
-  hierarchy_group_id = aws_connect_user_hierarchy_group.parent.hierarchy_group_id
-
-  security_profile_ids = [
-    data.aws_connect_security_profile.agent.security_profile_id,
-    data.aws_connect_security_profile.call_center_manager.security_profile_id,
-  ]
-
-  identity_info {
-    email      = %[2]q
-    first_name = "example"
-    last_name  = "example2"
-  }
-
-  phone_config {
-    after_contact_work_time_limit = 0
-    auto_accept    = true
-    desk_phone_number    = "+112345678913"
-    phone_type     = "DESK_PHONE"
-  }
-
-  tags = {
-    "Key1" = "Value1",
-  }
+instance_id= aws_connect_instance.test.id
+name= %[1]q
+password= "Password123"
+routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
+hierarchy_group_id = aws_connect_user_hierarchy_group.parent.hierarchy_group_idsecurity_profile_ids = [
+ data.aws_connect_security_profile.agent.security_profile_id,
+ data.aws_connect_security_profile.call_center_manager.security_profile_id,
+]identity_info {
+ email= %[2]q
+ first_name = "example"
+ last_name= "example2"
+}phone_config {
+ after_contact_work_time_limit = 0
+ auto_accept = true
+ desk_phone_number = "+112345678913"
+ phone_type= "DESK_PHONE"
+}tags = {
+ "Key1" = "Value1",
+}
 }
 `, rName5, email))
 }
-
-
-
 func testAccUserDataSourceConfig_id(rName, rName2, rName3, rName4, rName5, email string) string {
 	return acctest.ConfigCompose(
 testAccUserBaseDataSourceConfig(rName, rName2, rName3, rName4, rName5, email),
 `
 data "aws_connect_user" "test" {
-  instance_id = aws_connect_instance.test.id
-  user_id     = aws_connect_user.test.user_id
+instance_id = aws_connect_instance.test.id
+user_id= aws_connect_user.test.user_id
 }
 `)
 }
-
-
-
 func testAccUserDataSourceConfig_name(rName, rName2, rName3, rName4, rName5, email string) string {
 	return acctest.ConfigCompose(
 testAccUserBaseDataSourceConfig(rName, rName2, rName3, rName4, rName5, email),
 `
 data "aws_connect_user" "test" {
-  instance_id = aws_connect_instance.test.id
-  name        = aws_connect_user.test.name
+instance_id = aws_connect_instance.test.id
+name= aws_connect_user.test.name
 }
 `)
 }

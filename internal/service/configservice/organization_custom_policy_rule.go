@@ -51,12 +51,12 @@ func ResourceOrganizationCustomPolicyRule() *schema.Resource {
 				Optional: true,
 				MaxItems: 1000,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidAccountID,
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
@@ -65,13 +65,13 @@ func ResourceOrganizationCustomPolicyRule() *schema.Resource {
 				Optional: true,
 				MaxItems: 1000,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidAccountID,
 				},
 			},
 			"input_parameters": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:    schema.TypeString,
+				Optional:true,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(0, 2048),
@@ -79,28 +79,28 @@ func ResourceOrganizationCustomPolicyRule() *schema.Resource {
 				),
 			},
 			"maximum_execution_frequency": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(configservice.MaximumExecutionFrequency_Values(), false),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 			"policy_runtime": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 			"policy_text": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(0, 10000),
 			},
 			"resource_id_scope": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 768),
 			},
@@ -109,17 +109,17 @@ func ResourceOrganizationCustomPolicyRule() *schema.Resource {
 				Optional: true,
 				MaxItems: 100,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(0, 256),
 				},
 			},
 			"tag_key_scope": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 128),
 			},
 			"tag_value_scope": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
@@ -151,8 +151,8 @@ func resourceOrganizationCustomPolicyRuleCreate(ctx context.Context, d *schema.R
 	in := &configservice.PutOrganizationConfigRuleInput{
 		OrganizationConfigRuleName: aws.String(name),
 		OrganizationCustomPolicyRuleMetadata: &configservice.OrganizationCustomPolicyRuleMetadata{
-			PolicyRuntime:                      aws.String(d.Get("policy_runtime").(string)),
-			PolicyText:                         aws.String(d.Get("policy_text").(string)),
+			PolicyRuntime:    aws.String(d.Get("policy_runtime").(string)),
+			PolicyText:       aws.String(d.Get("policy_text").(string)),
 			OrganizationConfigRuleTriggerTypes: flex.ExpandStringSet(d.Get("trigger_types").(*schema.Set)),
 		},
 	}
@@ -282,8 +282,8 @@ func resourceOrganizationCustomPolicyRuleUpdate(ctx context.Context, d *schema.R
 	in := &configservice.PutOrganizationConfigRuleInput{
 		OrganizationConfigRuleName: aws.String(d.Id()),
 		OrganizationCustomPolicyRuleMetadata: &configservice.OrganizationCustomPolicyRuleMetadata{
-			PolicyText:                         aws.String(d.Get("policy_text").(string)),
-			PolicyRuntime:                      aws.String(d.Get("policy_runtime").(string)),
+			PolicyText:       aws.String(d.Get("policy_text").(string)),
+			PolicyRuntime:    aws.String(d.Get("policy_runtime").(string)),
 			OrganizationConfigRuleTriggerTypes: flex.ExpandStringSet(d.Get("trigger_types").(*schema.Set)),
 		},
 	}

@@ -23,7 +23,7 @@ func expandParameters(configured []interface{}) []*docdb.Parameter {
 		data := pRaw.(map[string]interface{})
 
 		p := &docdb.Parameter{
-			ApplyMethod:    aws.String(data["apply_method"].(string)),
+			ApplyMethod: aws.String(data["apply_method"].(string)),
 			ParameterName:  aws.String(data["name"].(string)),
 			ParameterValue: aws.String(data["value"].(string)),
 		}
@@ -56,14 +56,13 @@ func flattenParameters(list []*docdb.Parameter, parameterList []interface{}) []m
 
 			result = append(result, map[string]interface{}{
 				"apply_method": aws.StringValue(i.ApplyMethod),
-				"name":         aws.StringValue(i.ParameterName),
-				"value":        aws.StringValue(i.ParameterValue),
+				"name":.StringValue(i.ParameterName),
+				"value":StringValue(i.ParameterValue),
 			})
 		}
 	}
 	return result
 }
-
 func validEventSubscriptionName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
@@ -76,7 +75,6 @@ func validEventSubscriptionName(v interface{}, k string) (ws []string, errors []
 	}
 	return
 }
-
 func validEventSubscriptionNamePrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {

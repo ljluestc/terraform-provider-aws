@@ -17,17 +17,16 @@ import (
 	tfglobalaccelerator "github.com/hashicorp/terraform-provider-aws/internal/service/globalaccelerator"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccGlobalAcceleratorListener_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_globalaccelerator_listener.example"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckListenerDestroy(ctx),
+		CheckDestroy: testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_basic(rName),
@@ -38,29 +37,28 @@ func TestAccGlobalAcceleratorListener_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "port_range.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "port_range.*", map[string]string{
 						"from_port": "80",
-						"to_port":   "81",
+						"to_port":"81",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorListener_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_globalaccelerator_listener.example"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckListenerDestroy(ctx),
+		CheckDestroy: testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_basic(rName),
@@ -73,17 +71,16 @@ func TestAccGlobalAcceleratorListener_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorListener_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_globalaccelerator_listener.example"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckListenerDestroy(ctx),
+		CheckDestroy: testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_basic(rName),
@@ -97,21 +94,21 @@ func TestAccGlobalAcceleratorListener_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "port_range.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "port_range.*", map[string]string{
 						"from_port": "443",
-						"to_port":   "444",
+						"to_port":"444",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckListenerExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
 		rs, ok := s.RootModule().Resources[n]
@@ -128,9 +125,9 @@ func testAccCheckListenerExists(ctx context.Context, n string) resource.TestChec
 		return err
 	}
 }
-
 func testAccCheckListenerDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -153,31 +150,29 @@ func testAccCheckListenerDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccListenerConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "example" {
-  name   = %[1]q
+  name= %[1]q
   ip_address_type = "IPV4"
   enabled= false
 }
 
 resource "aws_globalaccelerator_listener" "example" {
   accelerator_arn = aws_globalaccelerator_accelerator.example.id
-  protocol        = "TCP"
+  protocolCP"
 
   port_range {
-    from_port = 80
-    to_port   = 81
+ from_port = 80
+ to_port= 81
   }
 }
 `, rName)
 }
-
 func testAccListenerConfig_update(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "example" {
-  name   = %[1]q
+  name= %[1]q
   ip_address_type = "IPV4"
   enabled= false
 }
@@ -185,11 +180,11 @@ resource "aws_globalaccelerator_accelerator" "example" {
 resource "aws_globalaccelerator_listener" "example" {
   accelerator_arn = aws_globalaccelerator_accelerator.example.id
   client_affinity = "SOURCE_IP"
-  protocol        = "UDP"
+  protocolDP"
 
   port_range {
-    from_port = 443
-    to_port   = 444
+ from_port = 443
+ to_port= 444
   }
 }
 `, rName)

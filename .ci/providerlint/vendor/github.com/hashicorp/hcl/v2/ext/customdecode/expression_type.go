@@ -1,17 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package customdecode
-
-import (
+// SPDX-License-Identifier: MPL-2.0package customdecodeimport (
 	"fmt"
-	"reflect"
-
-	"github.com/hashicorp/hcl/v2"
+	"reflect"	"github.com/hashicorp/hcl/v2"
 	"github.com/zclconf/go-cty/cty"
-)
-
-// ExpressionType is a cty capsule type that carries hcl.Expression values.
+)// ExpressionType is a cty capsule type that carries hcl.Expression values.
 //
 // This type implements custom decoding in the most general way possible: it
 // just captures whatever expression is given to it, with no further processing
@@ -23,77 +15,47 @@ import (
 // situations where the recipient of the value only intends to do static
 // analysis, but ExpressionClosureType is more appropriate in situations where
 // the recipient will eventually evaluate the given expression.
-var ExpressionType cty.Type
-
-// ExpressionVal returns a new cty value of type ExpressionType, wrapping the
-// given expression.
-
- ExpressionVal(expr hcl.Expression) cty.Value {
+var ExpressionType cty.Type// ExpressionVal returns a new cty value of type ExpressionType, wrapping the
+// given expression. ExpressionVal(expr hcl.Expression) cty.Value {
 	return cty.CapsuleVal(ExpressionType, &expr)
-}
-
-// ExpressionFromVal returns the expression encapsulated in the given value, or
-anics if the value is not a known value of ExpressionType.
-
- ExpressionFromVal(v cty.Value) hcl.Expression {
+}// ExpressionFromVal returns the expression encapsulated in the given value, or
+anics if the value is not a known value of ExpressionType. ExpressionFromVal(v cty.Value) hcl.Expression {
 	if !v.Type().Equals(ExpressionType) {
 		panic("value is not of ExpressionType")
 	}
 	ptr := v.EncapsulatedValue().(*hcl.Expression)
 	return *ptr
-}
-
-// ExpressionClosureType is a cty capsule type that carries hcl.Expression
+}// ExpressionClosureType is a cty capsule type that carries hcl.Expression
 // values along with their original evaluation contexts.
 //
 // This is similar to ExpressionType except that during custom decoding it
 // also captures the hcl.EvalContext that was provided, allowing callers to
 // evaluate the expression later in the same context where it would originally
 // have been evaluated, or a context derived from that one.
-var ExpressionClosureType cty.Type
-
-// ExpressionClosure is the type encapsulated in ExpressionClosureType
+var ExpressionClosureType cty.Type// ExpressionClosure is the type encapsulated in ExpressionClosureType
 type ExpressionClosure struct {
 	Expression  hcl.Expression
 	EvalContext *hcl.EvalContext
-}
-
-xpressionClosureVal returns a new cty value of type ExpressionClosureType,
-// wrapping the given expression closure.
-
- ExpressionClosureVal(closure *ExpressionClosure) cty.Value {
+}xpressionClosureVal returns a new cty value of type ExpressionClosureType,
+// wrapping the given expression closure. ExpressionClosureVal(closure *ExpressionClosure) cty.Value {
 	return cty.CapsuleVal(ExpressionClosureType, closure)
-}
-
-// Value evaluates the closure's expression using the closure's EvalContext,
-// returning the result.
-
- (c *ExpressionClosure) Value() (cty.Value, hcl.Diagnostics) {
+}// Value evaluates the closure's expression using the closure's EvalContext,
+// returning the result. (c *ExpressionClosure) Value() (cty.Value, hcl.Diagnostics) {
 	return c.Expression.Value(c.EvalContext)
-}
-
-// ExpressionClosureFromVal returns the expression closure encapsulated in the
+}// ExpressionClosureFromVal returns the expression closure encapsulated in the
 // given value, or panics if the value is not a known value of
-// ExpressionClosureType.
-
-// The caller MUST NOT modify the returned closure or the EvalContext inside
+// ExpressionClosureType.// The caller MUST NOT modify the returned closure or the EvalContext inside
 // it. To derive a new EvalContext, either create a child context or make
-// a copy.
-
- ExpressionClosureFromVal(v cty.Value) *ExpressionClosure {
+// a copy. ExpressionClosureFromVal(v cty.Value) *ExpressionClosure {
 	if !v.Type().Equals(ExpressionClosureType) {
 nic("value is not of ExpressionClosureType")
 	}
 	return v.EncapsulatedValue().(*ExpressionClosure)
 }
-
-
  init() {
 	// Getting hold of a reflect.Type for hcl.Expression is a bit tricky because
 	// it's an interface type, but we can do it with some indirection.
-	goExpressionType := reflect.TypeOhcl.Expression)(nil)).Elem()
-
-	ExpressionType = cty.CapsuleWithOps("expression", goExpressionType, &cty.CapsuleOps{
+	goExpressionType := reflect.TypeOhcl.Expression)(nil)).Elem()	ExpressionType = cty.CapsuleWithOps("expression", goExpressionType, &cty.CapsuleOps{
 		ExtensionData: 
 (key interface{}) interface{} {
 			switch key {

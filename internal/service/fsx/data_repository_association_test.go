@@ -54,9 +54,9 @@ func TestAccFSxDataRepositoryAssociation_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
 		},
@@ -151,9 +151,9 @@ func TestAccFSxDataRepositoryAssociation_fileSystemPathUpdated(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
 			{
@@ -198,9 +198,9 @@ func TestAccFSxDataRepositoryAssociation_dataRepositoryPathUpdated(t *testing.T)
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
 			{
@@ -242,9 +242,9 @@ func TestAccFSxDataRepositoryAssociation_importedFileChunkSize(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
 		},
@@ -278,9 +278,9 @@ func TestAccFSxDataRepositoryAssociation_importedFileChunkSizeUpdated(t *testing
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
 			{
@@ -321,9 +321,9 @@ func TestAccFSxDataRepositoryAssociation_deleteDataInFilesystem(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
 		},
@@ -359,9 +359,9 @@ func TestAccFSxDataRepositoryAssociation_s3AutoExportPolicy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
 		},
@@ -398,9 +398,9 @@ func TestAccFSxDataRepositoryAssociation_s3AutoExportPolicyUpdate(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
 			{
@@ -444,9 +444,9 @@ func TestAccFSxDataRepositoryAssociation_s3AutoImportPolicy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
 		},
@@ -483,9 +483,9 @@ func TestAccFSxDataRepositoryAssociation_s3AutoImportPolicyUpdate(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
 			{
@@ -531,9 +531,9 @@ func TestAccFSxDataRepositoryAssociation_s3FullPolicy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"delete_data_in_filesystem"},
 			},
 		},
@@ -610,7 +610,7 @@ func testAccCheckDataRepositoryAssociationRecreated(i, j *fsx.DataRepositoryAsso
 func testAccDataRepositoryAssociationConfig_s3Bucket(rName, bucketName string) string {
 	return acctest.ConfigCompose(testAccLustreFileSystemConfig_base(rName), fmt.Sprintf(`
 resource "aws_fsx_lustre_file_system" "test" {
-  storage_capacity            = 1200
+  storage_capacity   = 1200
   subnet_ids   = aws_subnet.test[*].id
   deployment_type= "PERSISTENT_2"
   per_unit_storage_throughput = 125
@@ -625,9 +625,9 @@ resource "aws_s3_bucket" "test" {
 func testAccDataRepositoryAssociationConfig_fileSystemPath(rName, bucketName, fileSystemPath string) string {
 	return acctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName, bucketName), fmt.Sprintf(`
 resource "aws_fsx_data_repository_association" "test" {
-  file_system_id       = aws_fsx_lustre_file_system.test.id
+  file_system_id   = aws_fsx_lustre_file_system.test.id
   data_repository_path = "s3://%[1]s"
-  file_system_path     = %[2]q
+  file_system_path = %[2]q
 }
 `, bucketName, fileSystemPath))
 }
@@ -637,9 +637,9 @@ func testAccDataRepositoryAssociationConfig_importedFileChunkSize(rName, bucketN
 
 	return acctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName, bucketName), fmt.Sprintf(`
 resource "aws_fsx_data_repository_association" "test" {
-  file_system_id           = aws_fsx_lustre_file_system.test.id
-  data_repository_path     = %[1]q
-  file_system_path         = %[2]q
+  file_system_id  = aws_fsx_lustre_file_system.test.id
+  data_repository_path = %[1]q
+  file_system_path= %[2]q
   imported_file_chunk_size = %[3]d
 }
 `, bucketPath, fileSystemPath, fileChunkSize))
@@ -649,9 +649,9 @@ func testAccDataRepositoryAssociationConfig_deleteInFilesystem(rName, bucketName
 	bucketPath := fmt.Sprintf("s3://%s", bucketName)
 	return acctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName, bucketName), fmt.Sprintf(`
 resource "aws_fsx_data_repository_association" "test" {
-  file_system_id            = aws_fsx_lustre_file_system.test.id
-  data_repository_path      = %[1]q
-  file_system_path          = %[2]q
+  file_system_id   = aws_fsx_lustre_file_system.test.id
+  data_repository_path  = %[1]q
+  file_system_path = %[2]q
   delete_data_in_filesystem = %[3]q
 }
 `, bucketPath, fileSystemPath, deleteDataInFilesystem))
@@ -662,14 +662,14 @@ func testAccDataRepositoryAssociationConfig_s3AutoExportPolicy(rName, bucketName
 	eventsString := strings.Replace(fmt.Sprintf("%q", events), " ", ", ", -1)
 	return acctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName, bucketName), fmt.Sprintf(`
 resource "aws_fsx_data_repository_association" "test" {
-  file_system_id       = aws_fsx_lustre_file_system.test.id
+  file_system_id   = aws_fsx_lustre_file_system.test.id
   data_repository_path = %[1]q
-  file_system_path     = %[2]q
+  file_system_path = %[2]q
 
   s3 {
-    auto_export_policy {
-      events = %[3]s
-    }
+auto_export_policy {
+  events = %[3]s
+}
   }
 }
 `, bucketPath, fileSystemPath, eventsString))
@@ -680,14 +680,14 @@ func testAccDataRepositoryAssociationConfig_s3AutoImportPolicy(rName, bucketName
 	eventsString := strings.Replace(fmt.Sprintf("%q", events), " ", ", ", -1)
 	return acctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName, bucketName), fmt.Sprintf(`
 resource "aws_fsx_data_repository_association" "test" {
-  file_system_id       = aws_fsx_lustre_file_system.test.id
+  file_system_id   = aws_fsx_lustre_file_system.test.id
   data_repository_path = %[1]q
-  file_system_path     = %[2]q
+  file_system_path = %[2]q
 
   s3 {
-    auto_import_policy {
-      events = %[3]s
-    }
+auto_import_policy {
+  events = %[3]s
+}
   }
 }
 `, bucketPath, fileSystemPath, eventsString))
@@ -697,18 +697,18 @@ func testAccDataRepositoryAssociationConfig_s3FullPolicy(rName, bucketName, file
 	bucketPath := fmt.Sprintf("s3://%s", bucketName)
 	return acctest.ConfigCompose(testAccDataRepositoryAssociationConfig_s3Bucket(rName, bucketName), fmt.Sprintf(`
 resource "aws_fsx_data_repository_association" "test" {
-  file_system_id       = aws_fsx_lustre_file_system.test.id
+  file_system_id   = aws_fsx_lustre_file_system.test.id
   data_repository_path = %[1]q
-  file_system_path     = %[2]q
+  file_system_path = %[2]q
 
   s3 {
-    auto_export_policy {
-      events = ["NEW", "CHANGED", "DELETED"]
-    }
+auto_export_policy {
+  events = ["NEW", "CHANGED", "DELETED"]
+}
 
-    auto_import_policy {
-      events = ["NEW", "CHANGED", "DELETED"]
-    }
+auto_import_policy {
+  events = ["NEW", "CHANGED", "DELETED"]
+}
   }
 }
 `, bucketPath, fileSystemPath))

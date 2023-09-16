@@ -133,11 +133,11 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
-  hash_key       = %[2]q
+  hash_key   = %[2]q
 
   attribute {
-    name = %[3]q
-    type = "S"
+name = %[3]q
+type = "S"
   }
 }
 
@@ -153,7 +153,7 @@ ITEM
 data "aws_dynamodb_table_item" "test" {
   table_name = aws_dynamodb_table.test.name
 
-  key        = <<KEY
+  key= <<KEY
 %[5]s
 KEY
   depends_on = [aws_dynamodb_table_item.test]
@@ -167,11 +167,11 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
-  hash_key       = %[2]q
+  hash_key   = %[2]q
 
   attribute {
-    name = %[3]q
-    type = "S"
+name = %[3]q
+type = "S"
   }
 }
 
@@ -187,7 +187,7 @@ ITEM
 data "aws_dynamodb_table_item" "test" {
   table_name   = aws_dynamodb_table.test.name
   projection_expression = %[5]q
-  key    = <<KEY
+  key= <<KEY
 %[6]s
 KEY
   depends_on   = [aws_dynamodb_table_item.test]
@@ -201,11 +201,11 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
-  hash_key       = %[2]q
+  hash_key   = %[2]q
 
   attribute {
-    name = %[3]q
-    type = "S"
+name = %[3]q
+type = "S"
   }
 }
 
@@ -221,10 +221,10 @@ ITEM
 data "aws_dynamodb_table_item" "test" {
   table_name = aws_dynamodb_table.test.name
   expression_attribute_names = {
-    "#P" = "Percentile"
+"#P" = "Percentile"
   }
   projection_expression = "#P"
-  key    = <<KEY
+  key= <<KEY
 %[5]s
 KEY
   depends_on   = [aws_dynamodb_table_item.test]

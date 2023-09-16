@@ -92,7 +92,7 @@ func (r *resourceFrameworkShare) Create(ctx context.Context, req resource.Create
 	in := auditmanager.StartAssessmentFrameworkShareInput{
 		DestinationAccount: aws.String(plan.DestinationAccount.ValueString()),
 		DestinationRegion:  aws.String(plan.DestinationRegion.ValueString()),
-		FrameworkId:        aws.String(plan.FrameworkID.ValueString()),
+		FrameworkId:   aws.String(plan.FrameworkID.ValueString()),
 	}
 	if !plan.Comment.IsNull() {
 		in.Comment = aws.String(plan.Comment.ValueString())
@@ -163,7 +163,7 @@ func (r *resourceFrameworkShare) Delete(ctx context.Context, req resource.Delete
 		in := auditmanager.UpdateAssessmentFrameworkShareInput{
 			RequestId:   aws.String(state.ID.ValueString()),
 			RequestType: awstypes.ShareRequestTypeSent,
-			Action:      awstypes.ShareRequestActionRevoke,
+			Action: awstypes.ShareRequestActionRevoke,
 		}
 		_, err := conn.UpdateAssessmentFrameworkShare(ctx, &in)
 		if err != nil {
@@ -232,11 +232,11 @@ func CanBeRevoked(status string) bool {
 }
 
 type resourceFrameworkShareData struct {
-	Comment            types.String `tfsdk:"comment"`
+	Comment  types.String `tfsdk:"comment"`
 	DestinationAccount types.String `tfsdk:"destination_account"`
 	DestinationRegion  types.String `tfsdk:"destination_region"`
-	FrameworkID        types.String `tfsdk:"framework_id"`
-	ID    types.String `tfsdk:"id"`
+	FrameworkID   types.String `tfsdk:"framework_id"`
+	IDtypes.String `tfsdk:"id"`
 	Statustypes.String `tfsdk:"status"`
 }
 

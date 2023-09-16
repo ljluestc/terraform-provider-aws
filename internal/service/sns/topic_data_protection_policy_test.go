@@ -26,10 +26,10 @@ func TestAccSNSTopicDataProtectionPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sns.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTopicDataProtectionPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckTopicDataProtectionPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTopicDataProtectionPolicyConfig_basic(rName),
@@ -55,10 +55,10 @@ func TestAccSNSTopicDataProtectionPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sns.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTopicDataProtectionPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckTopicDataProtectionPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTopicDataProtectionPolicyConfig_basic(rName),
@@ -114,17 +114,17 @@ resource "aws_sns_topic_data_protection_policy" "test" {
       "Name"        = "__default_data_protection_policy"
       "Statement" = [
         {
-          "DataDirection" = "Inbound"
-          "DataIdentifier" = [
-            "arn:${data.aws_partition.current.partition}:dataprotection::aws:data-identifier/EmailAddress",
-          ]
-          "Operation" = {
-            "Deny" = {}
-          }
-          "Principal" = [
-            "*",
-          ]
-          "Sid" = %[1]q
+ "DataDirection" = "Inbound"
+ "DataIdentifier" = [
+   "arn:${data.aws_partition.current.partition}:dataprotection::aws:data-identifier/EmailAddress",
+ ]
+ "Operation" = {
+   "Deny" = {}
+ }
+ "Principal" = [
+   "*",
+ ]
+ "Sid" = %[1]q
         },
       ]
       "Version" = "2021-06-01"

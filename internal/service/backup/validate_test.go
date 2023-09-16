@@ -1,17 +1,10 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package backup
-
-import (
+// SPDX-License-Identifier: MPL-2.0package backupimport (
 	"strings"
 	"testing"
 )
-
 func TestValidReportPlanName(t *testing.T) {
-	t.Parallel()
-
-	validNames := []string{
+	t.Parallel()	validNames := []string{
 		strings.Repeat("W", 256), // <= 256
 	}
 	for _, v := range validNames {
@@ -19,9 +12,7 @@ func TestValidReportPlanName(t *testing.T) {
 		if len(errors) != 0 {
 			t.Fatalf("%q should be a valid Backup Report Plan name: %q", v, errors)
 		}
-	}
-
-	invalidNames := []string{
+	}	invalidNames := []string{
 		"@error",
 		strings.Repeat("W", 257), // >= 257
 	}
@@ -32,11 +23,8 @@ func TestValidReportPlanName(t *testing.T) {
 		}
 	}
 }
-
 func TestValidFrameworkName(t *testing.T) {
-	t.Parallel()
-
-	validNames := []string{
+	t.Parallel()	validNames := []string{
 		strings.Repeat("W", 256), // <= 256
 	}
 	for _, v := range validNames {
@@ -44,9 +32,7 @@ func TestValidFrameworkName(t *testing.T) {
 		if len(errors) != 0 {
 			t.Fatalf("%q should be a valid Backup Framework name: %q", v, errors)
 		}
-	}
-
-	invalidNames := []string{
+	}	invalidNames := []string{
 		"@error",
 		strings.Repeat("W", 257), // >= 257
 	}

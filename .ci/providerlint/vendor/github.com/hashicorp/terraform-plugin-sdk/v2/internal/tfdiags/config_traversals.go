@@ -1,22 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfdiags
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfdiagsimport (
 	"bytes"
 	"fmt"
-	"strconv"
-
-	"github.com/hashicorp/go-cty/cty"
-)
-
-// FormatCtyPath is a helper 
+	"strconv"	"github.com/hashicorp/go-cty/cty"
+)// FormatCtyPath is a helper 
 tion to produce a user-friendly string
 // representation of a cty.Path. The result uses a syntax similar to the
-CL expression language in the hope of it being familiar to users.
-
- FormatCtyPath(path cty.Path) string {
+CL expression language in the hope of it being familiar to users. FormatCtyPath(path cty.Path) string {
 	var buf bytes.Buffer
 	for _, step := range path {
 		switch ts := step.(type) {
@@ -43,21 +33,13 @@ CL expression language in the hope of it being familiar to users.
 		}
 	}
 	return buf.String()
-}
-
-// FormatError is a helper 
+}// FormatError is a helper 
 tion to produce a user-friendly string
 // representation of certain special error types that we might want to
-// include in diagnostic messages.
-
-// This currently has special behavior only for cty.PathError, where a
-// non-empty path is rendered in a HCL-like syntax as context.
-
- FormatError(err error) string {
+// include in diagnostic messages.// This currently has special behavior only for cty.PathError, where a
+// non-empty path is rendered in a HCL-like syntax as context. FormatError(err error) string {
 	perr, ok := err.(cty.PathError)
 	if !ok || len(perr.Path) == 0 {
 		return err.Error()
-	}
-
-	return fmt.Sprintf("%s: %s", FormatCtyPath(perr.Path), perr.Error())
+	}	return fmt.Sprintf("%s: %s", FormatCtyPath(perr.Path), perr.Error())
 }

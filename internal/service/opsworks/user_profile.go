@@ -29,22 +29,22 @@ func ResourceUserProfile() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"allow_self_management": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Default:  false,
+Type:schema.TypeBool,
+Optional: true,
+Default:  false,
 			},
 			"ssh_public_key": {
-				Type:     schema.TypeString,
-				Optional: true,
+Type:schema.TypeString,
+Optional: true,
 			},
 			"ssh_username": {
-				Type:     schema.TypeString,
-				Required: true,
+Type:schema.TypeString,
+Required: true,
 			},
 			"user_arn": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 			},
 		},
 	}
@@ -107,7 +107,7 @@ func resourceUserProfileUpdate(ctx context.Context, d *schema.ResourceData, meta
 	input := &opsworks.UpdateUserProfileInput{
 		AllowSelfManagement: aws.Bool(d.Get("allow_self_management").(bool)),
 		IamUserArn: aws.String(d.Get("user_arn").(string)),
-		SshPublicKey:        aws.String(d.Get("ssh_public_key").(string)),
+		SshPublicKey:   aws.String(d.Get("ssh_public_key").(string)),
 		SshUsername:aws.String(d.Get("ssh_username").(string)),
 	}
 

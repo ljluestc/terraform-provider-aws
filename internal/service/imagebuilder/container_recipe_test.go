@@ -197,7 +197,7 @@ func TestAccImageBuilderContainerRecipe_dockerfileTemplateURI(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"dockerfile_template_uri"},
@@ -684,7 +684,7 @@ func TestAccImageBuilderContainerRecipe_platformOverride(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"platform_override"},
@@ -766,7 +766,7 @@ func testAccContainerRecipeConfig_name(rName string) string {
 		testAccContainerRecipeBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_imagebuilder_container_recipe" "test" {
-  name           = %[1]q
+  name  = %[1]q
   container_type = "DOCKER"
   parent_image   = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-x86-2/x.x.x"
   version        = "1.0.0"
@@ -783,7 +783,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 }
 `, rName))
@@ -794,7 +794,7 @@ func testAccContainerRecipeConfig_component(rName string) string {
 		testAccContainerRecipeBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_imagebuilder_container_recipe" "test" {
-  name           = %[1]q
+  name  = %[1]q
   container_type = "DOCKER"
   parent_image   = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-x86-2/x.x.x"
   version        = "1.0.0"
@@ -815,7 +815,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 }
 `, rName))
@@ -833,9 +833,9 @@ phases:
       - name: example
         action: ExecuteBash
         inputs:
-          commands:
-            - echo {{ Parameter1 }}
-            - echo {{ Parameter2 }}
+ commands:
+   - echo {{ Parameter1 }}
+   - echo {{ Parameter2 }}
 parameters:
   - Parameter1:
       type: string
@@ -878,7 +878,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 }
 `, rName))
@@ -908,7 +908,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 }
 `, rName))
@@ -948,7 +948,7 @@ resource "aws_imagebuilder_container_recipe" "test" {
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   depends_on = [
@@ -981,7 +981,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1016,7 +1016,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1053,7 +1053,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1090,7 +1090,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1131,7 +1131,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1178,7 +1178,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1215,7 +1215,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1253,7 +1253,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1290,7 +1290,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1327,7 +1327,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1362,7 +1362,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1407,7 +1407,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   instance_configuration {
@@ -1444,7 +1444,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   kms_key_id = aws_kms_key.test.arn
@@ -1475,7 +1475,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   tags = {
@@ -1508,7 +1508,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   tags = {
@@ -1542,7 +1542,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   working_directory = "/tmp"
@@ -1558,7 +1558,7 @@ resource "aws_imagebuilder_container_recipe" "test" {
   name
   container_type    = "DOCKER"
   parent_image      = "public.ecr.aws/amazonlinux/amazonlinux:latest"
-  version           = "1.0.0"
+  version  = "1.0.0"
   platform_override = "Linux"
 
   component {
@@ -1573,7 +1573,7 @@ EOF
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 }
 `, rName))

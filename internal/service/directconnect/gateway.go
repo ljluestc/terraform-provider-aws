@@ -24,7 +24,7 @@ import (
 func ResourceGateway() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceGatewayCreate,
-		ReadWithoutTimeout:   resourceGatewayRead,
+		ReadWithoutTimeout:resourceGatewayRead,
 		UpdateWithoutTimeout: resourceGatewayUpdate,
 		DeleteWithoutTimeout: resourceGatewayDelete,
 
@@ -34,17 +34,17 @@ func ResourceGateway() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"amazon_side_asn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidAmazonSideASN,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"owner_account_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -55,7 +55,6 @@ func ResourceGateway() *schema.Resource {
 		},
 	}
 }
-
 func resourceGatewayCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -84,7 +83,6 @@ func resourceGatewayCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceGatewayRead(ctx, d, meta)...)
 }
-
 func resourceGatewayRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -107,14 +105,13 @@ func resourceGatewayRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
-
 func resourceGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
 	if d.HasChange("name") {
 		input := &directconnect.UpdateDirectConnectGatewayInput{
-			DirectConnectGatewayId:      aws.String(d.Id()),
+			DirectConnectGatewayId:ring(d.Id()),
 			NewDirectConnectGatewayName: aws.String(d.Get("name").(string)),
 		}
 
@@ -127,7 +124,6 @@ func resourceGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceGatewayRead(ctx, d, meta)...)
 }
-
 func resourceGatewayDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)

@@ -16,16 +16,15 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_appsync_graphql_api", &resource.Sweeper{
 		Name: "aws_appsync_graphql_api",
-		F:    sweepGraphQLAPIs,
+		F:sweepGraphQLAPIs,
 	})
 
 	resource.AddTestSweepers("aws_appsync_domain_name", &resource.Sweeper{
 		Name: "aws_appsync_domain_name",
-		F:    sweepDomainNames,
+		F:sweepDomainNames,
 		Dependencies: []string{
 			"aws_appsync_domain_name_api_association",
 		},
@@ -33,10 +32,9 @@ func init() {
 
 	resource.AddTestSweepers("aws_appsync_domain_name_api_association", &resource.Sweeper{
 		Name: "aws_appsync_domain_name_api_association",
-		F:    sweepDomainNameAssociations,
+		F:sweepDomainNameAssociations,
 	})
 }
-
 func sweepGraphQLAPIs(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -92,7 +90,6 @@ func sweepGraphQLAPIs(region string) error {
 
 	return errs.ErrorOrNil()
 }
-
 func sweepDomainNames(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -148,7 +145,6 @@ func sweepDomainNames(region string) error {
 
 	return errs.ErrorOrNil()
 }
-
 func sweepDomainNameAssociations(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

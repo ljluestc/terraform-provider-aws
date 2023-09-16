@@ -29,7 +29,7 @@ func ResourceSSHKey() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"body": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
@@ -41,15 +41,15 @@ func ResourceSSHKey() *schema.Resource {
 
 			"server_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validServerID,
 			},
 
 			"user_name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validUserName,
 			},
 		},
@@ -131,8 +131,8 @@ func resourceSSHKeyDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 
 	delOpts := &transfer.DeleteSshPublicKeyInput{
-		UserName:       aws.String(userName),
-		ServerId:       aws.String(serverID),
+		UserName:   aws.String(userName),
+		ServerId:   aws.String(serverID),
 		SshPublicKeyId: aws.String(sshKeyID),
 	}
 

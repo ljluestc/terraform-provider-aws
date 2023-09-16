@@ -1,17 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package fromproto
-
-import (
-	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
-	"github.com/hashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6"
-)
-
-
-amicValue(in *tfplugin6.DynamicValue) *tfprotov6.DynamicValue {
-	return &tfprotov6.DynamicValue{
-		MsgPack: in.Msgpack,
-		JSON:    in.Json,
-	}
-}
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package fromprotoimport (	"github.com/hashicorp/terraform-plugin-go/tfprotov6"	"github.com/hashicorp/terraform-plugin-go/tfprotov6/internal/tfplugin6")amicValue(in *tfplugin6.DynamicValue) *tfprotov6.DynamicValue {	return &tfprotov6.DynamicValue{		MsgPack: in.Msgpack,		JSON:    in.Json,	}}

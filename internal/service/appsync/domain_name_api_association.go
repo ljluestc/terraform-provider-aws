@@ -29,24 +29,23 @@ func ResourceDomainNameAPIAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"domain_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 		},
 	}
 }
-
 func resourceDomainNameAPIAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
 
 	params := &appsync.AssociateApiInput{
-		ApiId:      aws.String(d.Get("api_id").(string)),
+		ApiId: aws.String(d.Get("api_id").(string)),
 		DomainName: aws.String(d.Get("domain_name").(string)),
 	}
 
@@ -63,7 +62,6 @@ func resourceDomainNameAPIAssociationCreate(ctx context.Context, d *schema.Resou
 
 	return append(diags, resourceDomainNameAPIAssociationRead(ctx, d, meta)...)
 }
-
 func resourceDomainNameAPIAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -84,13 +82,12 @@ func resourceDomainNameAPIAssociationRead(ctx context.Context, d *schema.Resourc
 
 	return diags
 }
-
 func resourceDomainNameAPIAssociationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
 
 	params := &appsync.AssociateApiInput{
-		ApiId:      aws.String(d.Get("api_id").(string)),
+		ApiId: aws.String(d.Get("api_id").(string)),
 		DomainName: aws.String(d.Get("domain_name").(string)),
 	}
 
@@ -105,7 +102,6 @@ func resourceDomainNameAPIAssociationUpdate(ctx context.Context, d *schema.Resou
 
 	return append(diags, resourceDomainNameAPIAssociationRead(ctx, d, meta)...)
 }
-
 func resourceDomainNameAPIAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)

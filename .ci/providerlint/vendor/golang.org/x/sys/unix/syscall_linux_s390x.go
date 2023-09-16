@@ -1,17 +1,9 @@
 // Copyright 2016 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build s390x && linux
-// +build s390x,linux
-
-package unix
-
-import (
+// license that can be found in the LICENSE file.//go:build s390x && linux
+// +build s390x,linuxpackage uniximport (
 	"unsafe"
-)
-
-//sys	EpollWait(epfd int, events []EpollEvent, msec int) (n int, err error)
+)//sys	EpollWait(epfd int, events []EpollEvent, msec int) (n int, err error)
 //sys	Fadvise(fd int, offset int64, length int64, advice int) (err error) = SYS_FADVISE64
 //sys	Fchown(fd int, uid int, gid int) (err error)
 //sys	Fstat(fd int, stat *Stat_t) (err error)
@@ -41,12 +33,8 @@ import (
 //sys	Truncate(path string, length int64) (err error)
 //sys	Ustat(dev int, ubuf *Ustat_t) (err error)
 //sysnb	getgroups(n int, list *_Gid_t) (nn int, err error)
-//sysnb	setgroups(n int, list *_Gid_t) (err error)
-
-//sys	futimesat(dirfd int, path string, times *[2]Timeval) (err error)
+//sysnb	setgroups(n int, list *_Gid_t) (err error)//sys	futimesat(dirfd int, path string, times *[2]Timeval) (err error)
 //sysnb	Gettimeofday(tv *Timeval) (err error)
-
-
  Time(t *Time_t) (tt Time_t, err error) {
 	var tv Timeval
 	err = Gettimeofday(&tv)
@@ -57,66 +45,36 @@ import (
 		*t = Time_t(tv.Sec)
 	}
 	return Time_t(tv.Sec), nil
-}
-
-//sys	Utime(path string, buf *Utimbuf) (err error)
+}//sys	Utime(path string, buf *Utimbuf) (err error)
 //sys	utimes(path string, times *[2]Timeval) (err error)
-
-
  setTimespec(sec, nsec int64) Timespec {
-	return Timespec{Sec: sec, Nsec: nsec}
-
-
-
- setTimeval(sec, usec int64) Timeval {
+	return Timespec{Sec: sec, Nsec: nsec} setTimeval(sec, usec int64) Timeval {
 urn Timeval{Sec: sec, Usec: usec}
 }
-
-
 erm(from int, num int, on int) (err error) {
 	return ENOSYS
 }
-
-
  Iopl(level int) (err error) {
 urn ENOSYS
 }
-
-
  (r *PtraceRegs) PC() uint64 { return r.Psw.Addr }
-
-
  (r *PtraceRegs) SetPC(pc uint64) { r.Psw.Addr = pc }
-
-
 v *Iovec) SetLen(length int) {
 	iov.Len = uint64(length)
 }
-
-
  (msghdr *Msghdr) SetControllen(length int) {
 	msghdr.Controllen = uint64(length)
 }
-
-
  (msghdr *Msghdr) SetIovlen(length int) {
 	msghdr.Iovlen = uint64(length)
 }
-
-
  (cmsg *Cmsghdr) SetLen(length int) {
 	cmsg.Len = uint64(length)
 }
-
-
  (rsa *RawSockaddrNFCLLCP) SetServiceNameLen(length int) {
 	rsa.Service_name_len = uint64(length)
-}
-
-// Linux on s390x uses the old mmap interface, which requires arguments to be passed in a struct.
-// mmap2 also requires arguments to be passed in a struct; it is currently not exposed in <asm/unistd.h>.
-
- mmap(addr uintptr, length uintptr, prot int, flags int, fd int, offset int64) (xaddr uintptr, err error) {
+}// Linux on s390x uses the old mmap interface, which requires arguments to be passed in a struct.
+// mmap2 also requires arguments to be passed in a struct; it is currently not exposed in <asm/unistd.h>. mmap(addr uintptr, length uintptr, prot int, flags int, fd int, offset int64) (xaddr uintptr, err error) {
 	mmap_args := [6]uintptr{addr, length, uintptr(prot), uintptr(flags), uintptr(fd), uintptr(offset)}
 	r0, _, e1 := Syscall(SYS_MMAP, uintptr(unsafe.Pointer(&mmap_args[0])), 0, 0)
 	xaddr = uintptr(r0)
@@ -124,9 +82,7 @@ v *Iovec) SetLen(length int) {
 		err = errnoErr(e1)
 	}
 	return
-}
-
-// On s390x Linux, all the socket calls go through an extra indirection.
+}// On s390x Linux, all the socket calls go through an extra indirection.
 // The arguments to the underlying system call (SYS_SOCKETCALL) are the
 // number below and a pointer to an array of uintptr.
 const (
@@ -152,8 +108,6 @@ Recv        = 10
 RecvMMsg    = 19
 	netSendMMsg    = 20
 )
-
-
  accept4(s int, rsa *RawSockaddrAny, addrlen *_Socklen, flags int) (int, error) {
 	args := [4]uintptr{uintptr(s), uintptr(unsafe.Pointer(rsa)), uintptr(unsafe.Pointer(addrlen)), uintptr(flags)}
 	fd, _, err := Syscall(SYS_SOCKETCALL, netAccept4, uintptr(unsafe.Pointer(&args)), 0)
@@ -162,8 +116,6 @@ turn 0, err
 	}
 	return int(fd), nil
 }
-
-
  getsockname(s int, rsa *RawSockaddrAny, addrlen *_Socklen) error {
 	args := [3]uintptr{uintptr(s), uintptr(unsafe.Pointer(rsa)), uintptr(unsafe.Pointer(addrlen))}
 	_, _, err := RawSyscall(SYS_SOCKETCALL, netGetSockName, uintptr(unsafe.Pointer(&args)), 0)
@@ -172,8 +124,6 @@ err != 0 {
 	}
 	return nil
 }
-
-
  getpeername(s int, rsa *RawSockaddrAny, addrlen *_Socklen) error {
 	args := [3]uintptr{uintptr(s), uintptr(unsafe.Pointer(rsa)), uintptr(unsafe.Pointer(addrlen))}
 _, err := RawSyscall(SYS_SOCKETCALL, netGetPeerName, uintptr(unsafe.Pointer(&args)), 0)
@@ -182,8 +132,6 @@ _, err := RawSyscall(SYS_SOCKETCALL, netGetPeerName, uintptr(unsafe.Pointer(&arg
 	}
 	return nil
 }
-
-
  socketpair(domain int, typ int, flags int, fd *[2]int32) error {
 s := [4]uintptr{uintptr(domain), uintptr(typ), uintptr(flags), uintptr(unsafe.Pointer(fd))}
 	_, _, err := RawSyscall(SYS_SOCKETCALL, netSocketPair, uintptr(unsafe.Pointer(&args)), 0)
@@ -192,8 +140,6 @@ s := [4]uintptr{uintptr(domain), uintptr(typ), uintptr(flags), uintptr(unsafe.Po
 	}
 	return nil
 }
-
-
 d(s int, addr unsafe.Pointer, addrlen _Socklen) error {
 	args := [3]uintptr{uintptr(s), uintptr(addr), uintptr(addrlen)}
 	_, _, err := Syscall(SYS_SOCKETCALL, netBind, uintptr(unsafe.Pointer(&args)), 0)
@@ -202,8 +148,6 @@ d(s int, addr unsafe.Pointer, addrlen _Socklen) error {
 	}
 	return nil
 }
-
-
  connect(s int, addr unsafe.Pointer, addrlen _Socklen) error {
 	args := [3]uintptr{uintptr(s), uintptr(addr), uintptr(addrlen)}
 	_, _, err := Syscall(SYS_SOCKETCALL, netConnect, uintptr(unsafe.Pointer(&args)), 0)
@@ -212,19 +156,13 @@ d(s int, addr unsafe.Pointer, addrlen _Socklen) error {
 	}
 	return nil
 }
-
-
  socket(domain int, typ int, proto int) (int, error) {
 	args := [3]uintptr{uintptr(domain), uintptr(typ), uintptr(proto)}
 	fd, _, err := RawSyscall(SYS_SOCKETCALL, netSocket, uintptr(unsafe.Pointer(&args)), 0)
 	if err != 0 {
 		return 0, err
 	}
-	return int(fd), nil
-
-
-
- getsockopt(s int, level int, name int, val unsafe.Pointer, vallen *_Socklen) error {
+	return int(fd), nil getsockopt(s int, level int, name int, val unsafe.Pointer, vallen *_Socklen) error {
 	args := [5]uintptr{uintptr(s), uintptr(level), uintptr(name), uintptr(val), uintptr(unsafe.Pointer(vallen))}
 	_, _, err := Syscall(SYS_SOCKETCALL, netGetSockOpt, uintptr(unsafe.Pointer(&args)), 0)
 	if err != 0 {
@@ -232,8 +170,6 @@ d(s int, addr unsafe.Pointer, addrlen _Socklen) error {
 	}
 	return nil
 }
-
-
 sockopt(s int, level int, name int, val unsafe.Pointer, vallen uintptr) error {
 	args := [5]uintptr{uintptr(s), uintptr(level), uintptr(name), uintptr(val), vallen}
 	_, _, err := Syscall(SYS_SOCKETCALL, netSetSockOpt, uintptr(unsafe.Pointer(&args)), 0)
@@ -242,8 +178,6 @@ sockopt(s int, level int, name int, val unsafe.Pointer, vallen uintptr) error {
 	}
 	return nil
 }
-
-
  recvfrom(s int, p []byte, flags int, from *RawSockaddrAny, fromlen *_Socklen) (int, error) {
 	var base uintptr
 	if len(p) > 0 {
@@ -256,8 +190,6 @@ se = uintptr(unsafe.Pointer(&p[0]))
 	}
 	return int(n), nil
 }
-
-
  sendto(s int, p []byte, flags int, to unsafe.Pointer, addrlen _Socklen) error {
 	var base uintptr
 	if len(p) > 0 {
@@ -270,8 +202,6 @@ err != 0 {
 	}
 	return nil
 }
-
-
  recvmsg(s int, msg *Msghdr, flags int) (int, error) {
 	args := [3]uintptr{uintptr(s), uintptr(unsafe.Pointer(msg)), uintptr(flags)}
 _, err := Syscall(SYS_SOCKETCALL, netRecvMsg, uintptr(unsafe.Pointer(&args)), 0)
@@ -280,8 +210,6 @@ _, err := Syscall(SYS_SOCKETCALL, netRecvMsg, uintptr(unsafe.Pointer(&args)), 0)
 	}
 	return int(n), nil
 }
-
-
  sendmsg(s int, msg *Msghdr, flags int) (int, error) {
 	args := [3]uintptr{uintptr(s), uintptr(unsafe.Pointer(msg)), uintptr(flags)}
 	n, _, err := Syscall(SYS_SOCKETCALL, netSendMsg, uintptr(unsafe.Pointer(&args)), 0)
@@ -290,8 +218,6 @@ err != 0 {
 	}
 	return int(n), nil
 }
-
-
  Listen(s int, n int) error {
 	args := [2]uintptr{uintptr(s), uintptr(n)}
 	_, _, err := Syscall(SYS_SOCKETCALL, netListen, uintptr(unsafe.Pointer(&args)), 0)
@@ -300,8 +226,6 @@ err != 0 {
 	}
 	return nil
 }
-
-
  Shutdown(s, how int) error {
 	args := [2]uintptr{uintptr(s), uintptr(how)}
 	_, _, err := Syscall(SYS_SOCKETCALL, netShutdown, uintptr(unsafe.Pointer(&args)), 0)
@@ -309,11 +233,7 @@ err != 0 {
 		return err
 	}
 	return nil
-}
-
-//sys	kexecFileLoad(kernelFd int, initrdFd int, cmdlineLen int, cmdline string, flags int) (err error)
-
-
+}//sys	kexecFileLoad(kernelFd int, initrdFd int, cmdlineLen int, cmdline string, flags int) (err error)
  KexecFileLoad(kernelFd int, initrdFd int, cmdline string, flags int) error {
 	cmdlineLen := len(cmdline)
 	if cmdlineLen > 0 {

@@ -26,10 +26,10 @@ func TestAccDataSyncLocationAzureBlob_basic(t *testing.T) {
 	resourceName := "aws_datasync_location_azure_blob.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationAzureBlobDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationAzureBlobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationAzureBlobConfig_basic(rName),
@@ -49,8 +49,8 @@ func TestAccDataSyncLocationAzureBlob_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"container_url", "sas_configuration"},
 			},
@@ -65,10 +65,10 @@ func TestAccDataSyncLocationAzureBlob_disappears(t *testing.T) {
 	resourceName := "aws_datasync_location_azure_blob.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationAzureBlobDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationAzureBlobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationAzureBlobConfig_basic(rName),
@@ -89,10 +89,10 @@ func TestAccDataSyncLocationAzureBlob_tags(t *testing.T) {
 	resourceName := "aws_datasync_location_azure_blob.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationAzureBlobDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationAzureBlobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationAzureBlobConfig_tags1(rName, "key1", "value1"),
@@ -103,8 +103,8 @@ func TestAccDataSyncLocationAzureBlob_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"container_url", "sas_configuration"},
 			},
@@ -136,10 +136,10 @@ func TestAccDataSyncLocationAzureBlob_update(t *testing.T) {
 	resourceName := "aws_datasync_location_azure_blob.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationAzureBlobDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationAzureBlobDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationAzureBlobConfig_basic(rName),
@@ -238,7 +238,7 @@ resource "aws_datasync_agent" "test" {
 func testAccLocationAzureBlobConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccLocationAzureBlobConfig_base(rName), `
 resource "aws_datasync_location_azure_blob" "test" {
-  agent_arns          = [aws_datasync_agent.test.arn]
+  agent_arns = [aws_datasync_agent.test.arn]
   authentication_type = "SAS"
   container_url       = "https://example.com/path"
 
@@ -252,7 +252,7 @@ resource "aws_datasync_location_azure_blob" "test" {
 func testAccLocationAzureBlobConfig_tags1(rName, key1, value1 string) string {
 	return acctest.ConfigCompose(testAccLocationAzureBlobConfig_base(rName), fmt.Sprintf(`
 resource "aws_datasync_location_azure_blob" "test" {
-  agent_arns          = [aws_datasync_agent.test.arn]
+  agent_arns = [aws_datasync_agent.test.arn]
   authentication_type = "SAS"
   container_url       = "https://example.com/path"
 
@@ -270,7 +270,7 @@ resource "aws_datasync_location_azure_blob" "test" {
 func testAccLocationAzureBlobConfig_tags2(rName, key1, value1, key2, value2 string) string {
 	return acctest.ConfigCompose(testAccLocationAzureBlobConfig_base(rName), fmt.Sprintf(`
 resource "aws_datasync_location_azure_blob" "test" {
-  agent_arns          = [aws_datasync_agent.test.arn]
+  agent_arns = [aws_datasync_agent.test.arn]
   authentication_type = "SAS"
   container_url       = "https://example.com/path"
 
@@ -289,8 +289,8 @@ resource "aws_datasync_location_azure_blob" "test" {
 func testAccLocationAzureBlobConfig_updated(rName string) string {
 	return acctest.ConfigCompose(testAccLocationAzureBlobConfig_base(rName), `
 resource "aws_datasync_location_azure_blob" "test" {
-  access_tier         = "COOL"
-  agent_arns          = [aws_datasync_agent.test.arn]
+  access_tier= "COOL"
+  agent_arns = [aws_datasync_agent.test.arn]
   authentication_type = "SAS"
   container_url       = "https://example.com/path"
 

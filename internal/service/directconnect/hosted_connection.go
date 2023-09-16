@@ -23,93 +23,92 @@ import (
 func ResourceHostedConnection() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceHostedConnectionCreate,
-		ReadWithoutTimeout:   resourceHostedConnectionRead,
+		ReadWithoutTimeout:resourceHostedConnectionRead,
 		DeleteWithoutTimeout: resourceHostedConnectionDelete,
 
 		Schema: map[string]*schema.Schema{
 			"aws_device": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"bandwidth": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validConnectionBandWidth(),
 			},
 			"connection_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"has_logical_redundancy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"jumbo_frame_capable": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"lag_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"loa_issue_time": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"location": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"owner_account_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"partner_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"provider_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"region": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"vlan": {
-				Type:         schema.TypeInt,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeInt,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.IntBetween(1, 4094),
 			},
 		},
 	}
 }
-
 func resourceHostedConnectionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &directconnect.AllocateHostedConnectionInput{
-		Bandwidth:      aws.String(d.Get("bandwidth").(string)),
-		ConnectionId:   aws.String(d.Get("connection_id").(string)),
+		Bandwidth:ring(d.Get("bandwidth").(string)),
+		ConnectionId:aws.String(d.Get("connection_id").(string)),
 		ConnectionName: aws.String(name),
-		OwnerAccount:   aws.String(d.Get("owner_account_id").(string)),
-		Vlan:           aws.Int64(int64(d.Get("vlan").(int))),
+		OwnerAccount:aws.String(d.Get("owner_account_id").(string)),
+		Vlan:ws.Int64(int64(d.Get("vlan").(int))),
 	}
 
 	log.Printf("[DEBUG] Creating Direct Connect Hosted Connection: %s", input)
@@ -123,7 +122,6 @@ func resourceHostedConnectionCreate(ctx context.Context, d *schema.ResourceData,
 
 	return append(diags, resourceHostedConnectionRead(ctx, d, meta)...)
 }
-
 func resourceHostedConnectionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -159,7 +157,6 @@ func resourceHostedConnectionRead(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
-
 func resourceHostedConnectionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)

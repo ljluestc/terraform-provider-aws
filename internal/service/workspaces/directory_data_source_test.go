@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func testAccDirectoryDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandString(8)
@@ -72,7 +71,6 @@ func testAccDirectoryDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccDirectoryDataSourceConfig_basic(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -109,7 +107,7 @@ resource "aws_workspaces_directory" "test" {
   }
 
   workspace_creation_properties {
-    custom_security_group_id            = aws_security_group.test.id
+    custom_security_group_id   = aws_security_group.test.id
     default_ou= "OU=AWS,DC=Workgroup,DC=Example,DC=com"
     enable_internet_access = true
     enable_maintenance_mode= false

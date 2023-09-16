@@ -45,7 +45,7 @@ func ResourceParameter() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"allowed_pattern": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
@@ -65,12 +65,12 @@ func ResourceParameter() *schema.Resource {
 				}, false),
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"insecure_value": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"insecure_value", "value"},
@@ -81,7 +81,7 @@ func ResourceParameter() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 2048),
@@ -94,7 +94,7 @@ func ResourceParameter() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"tier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringInSlice(ssm.ParameterTier_Values(), false),
@@ -106,12 +106,12 @@ func ResourceParameter() *schema.Resource {
 				},
 			},
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(ssm.ParameterType_Values(), false),
 			},
 			"value": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Sensitive:    true,
 				Computed:     true,
@@ -156,9 +156,9 @@ func resourceParameterCreate(ctx context.Context, d *schema.ResourceData, meta i
 	}
 
 	input := &ssm.PutParameterInput{
-		Name:           aws.String(name),
-		Type:           aws.String(d.Get("type").(string)),
-		Value:          aws.String(value),
+		Name:  aws.String(name),
+		Type:  aws.String(d.Get("type").(string)),
+		Value: aws.String(value),
 		Overwrite:      aws.Bool(ShouldUpdateParameter(d)),
 		AllowedPattern: aws.String(d.Get("allowed_pattern").(string)),
 	}
@@ -218,7 +218,7 @@ func resourceParameterRead(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).SSMConn(ctx)
 
 	input := &ssm.GetParameterInput{
-		Name:           aws.String(d.Id()),
+		Name:  aws.String(d.Id()),
 		WithDecryption: aws.Bool(true),
 	}
 
@@ -310,10 +310,10 @@ func resourceParameterUpdate(ctx context.Context, d *schema.ResourceData, meta i
 			value = v
 		}
 		paramInput := &ssm.PutParameterInput{
-			Name:           aws.String(d.Get("name").(string)),
-			Type:           aws.String(d.Get("type").(string)),
-			Tier:           aws.String(d.Get("tier").(string)),
-			Value:          aws.String(value),
+			Name:  aws.String(d.Get("name").(string)),
+			Type:  aws.String(d.Get("type").(string)),
+			Tier:  aws.String(d.Get("tier").(string)),
+			Value: aws.String(value),
 			Overwrite:      aws.Bool(ShouldUpdateParameter(d)),
 			AllowedPattern: aws.String(d.Get("allowed_pattern").(string)),
 		}

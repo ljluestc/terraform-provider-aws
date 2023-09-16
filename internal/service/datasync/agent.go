@@ -48,7 +48,7 @@ func ResourceAgent() *schema.Resource {
 				Computed: true,
 			},
 			"activation_key": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -56,14 +56,14 @@ func ResourceAgent() *schema.Resource {
 				ConflictsWith: []string{"private_link_endpoint"},
 			},
 			"ip_address": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
 				ExactlyOneOf: []string{"activation_key", "ip_address"},
 			},
 			"private_link_endpoint": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -178,7 +178,7 @@ func resourceAgentCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	input := &datasync.CreateAgentInput{
 		ActivationKey: aws.String(activationKey),
-		Tags:          getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("name"); ok {

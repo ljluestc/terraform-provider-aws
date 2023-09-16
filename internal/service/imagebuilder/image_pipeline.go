@@ -41,7 +41,7 @@ func ResourceImagePipeline() *schema.Resource {
 				Computed: true,
 			},
 			"container_recipe_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):container-recipe/[0-9a-z_-]+/\d+\.\d+\.\d+$`), "valid container recipe ARN must be provided"),
@@ -64,12 +64,12 @@ func ResourceImagePipeline() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"distribution_configuration_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):distribution-configuration/[0-9a-z_-]+$`), "valid distribution configuration ARN must be provided"),
 			},
@@ -79,7 +79,7 @@ func ResourceImagePipeline() *schema.Resource {
 				Default:  true,
 			},
 			"image_recipe_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):image-recipe/[0-9a-z_-]+/\d+\.\d+\.\d+$`), "valid image recipe ARN must be provided"),
@@ -134,7 +134,7 @@ func ResourceImagePipeline() *schema.Resource {
 							Default:  true,
 						},
 						"timeout_minutes": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      720,
 							ValidateFunc: validation.IntBetween(60, 1440),
@@ -143,12 +143,12 @@ func ResourceImagePipeline() *schema.Resource {
 				},
 			},
 			"infrastructure_configuration_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):infrastructure-configuration/[0-9a-z_-]+$`), "valid infrastructure configuration ARN must be provided"),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile("^[0-9A-Za-z_-][0-9A-Za-z_ -]{1,126}[0-9A-Za-z_-]$"), "valid name must be provided"),
@@ -164,13 +164,13 @@ func ResourceImagePipeline() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"pipeline_execution_start_condition": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      imagebuilder.PipelineExecutionStartConditionExpressionMatchAndDependencyUpdatesAvailable,
 							ValidateFunc: validation.StringInSlice(imagebuilder.PipelineExecutionStartCondition_Values(), false),
 						},
 						"schedule_expression": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 1024),
 						},
@@ -186,7 +186,7 @@ func ResourceImagePipeline() *schema.Resource {
 				},
 			},
 			"status": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      imagebuilder.PipelineStatusEnabled,
 				ValidateFunc: validation.StringInSlice(imagebuilder.PipelineStatus_Values(), false),

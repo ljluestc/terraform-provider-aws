@@ -38,33 +38,33 @@ func ResourceThingGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"metadata": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"creation_date": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"parent_group_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"root_to_parent_groups": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"group_arn": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"group_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 								},
@@ -74,48 +74,48 @@ func ResourceThingGroup() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"parent_group_name": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"properties": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"attribute_payload": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"attributes": {
-										Type:     schema.TypeMap,
+										Type: schema.TypeMap,
 										Optional: true,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem: &schema.Schema{Type: schema.TypeString},
 									},
 								},
 							},
 						},
 						"description": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"version": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 		},
@@ -134,7 +134,7 @@ func resourceThingGroupCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	name := d.Get("name").(string)
 	input := &iot.CreateThingGroupInput{
-		Tags:           getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 		ThingGroupName: aws.String(name),
 	}
 

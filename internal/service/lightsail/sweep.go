@@ -17,7 +17,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/awsv2"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_lightsail_container_service", &resource.Sweeper{
 		Name: "aws_lightsail_container_service",
@@ -34,7 +33,6 @@ func init() {
 		F:    sweepStaticIPs,
 	})
 }
-
 func sweepContainerServices(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -71,7 +69,6 @@ func sweepContainerServices(region string) error {
 
 	return nil
 }
-
 func sweepInstances(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -120,7 +117,6 @@ func sweepInstances(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepStaticIPs(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

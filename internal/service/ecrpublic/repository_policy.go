@@ -35,11 +35,11 @@ func ResourceRepositoryPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
+				Type:schema.TypeString,
+				Required:     true,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				ValidateFunc:          validation.StringIsJSON,
+				ValidateFunc: validation.StringIsJSON,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json

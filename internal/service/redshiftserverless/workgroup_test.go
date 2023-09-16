@@ -25,7 +25,7 @@ func TestAccRedshiftServerlessWorkgroup_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckWorkgroupDestroy(ctx),
@@ -42,8 +42,8 @@ func TestAccRedshiftServerlessWorkgroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -56,7 +56,7 @@ func TestAccRedshiftServerlessWorkgroup_baseCapacityAndPubliclyAccessible(t *tes
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckWorkgroupDestroy(ctx),
@@ -70,8 +70,8 @@ func TestAccRedshiftServerlessWorkgroup_baseCapacityAndPubliclyAccessible(t *tes
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -92,7 +92,7 @@ func TestAccRedshiftServerlessWorkgroup_configParameters(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckWorkgroupDestroy(ctx),
@@ -133,8 +133,8 @@ func TestAccRedshiftServerlessWorkgroup_configParameters(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -182,7 +182,7 @@ func TestAccRedshiftServerlessWorkgroup_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckWorkgroupDestroy(ctx),
@@ -196,8 +196,8 @@ func TestAccRedshiftServerlessWorkgroup_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -226,7 +226,7 @@ func TestAccRedshiftServerlessWorkgroup_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckWorkgroupDestroy(ctx),
@@ -307,9 +307,9 @@ resource "aws_redshiftserverless_namespace" "test" {
 }
 
 resource "aws_redshiftserverless_workgroup" "test" {
-  namespace_name      = aws_redshiftserverless_namespace.test.namespace_name
-  workgroup_name      = %[1]q
-  base_capacity       = %[2]d
+  namespace_name = aws_redshiftserverless_namespace.test.namespace_name
+  workgroup_name = %[1]q
+  base_capacity  = %[2]d
   publicly_accessible = %[3]t
 }
 `, rName, baseCapacity, publiclyAccessible)
@@ -326,32 +326,32 @@ resource "aws_redshiftserverless_workgroup" "test" {
   workgroup_name = %[1]q
 
   config_parameter {
-    parameter_key   = "datestyle"
-    parameter_value = "ISO, MDY"
+parameter_key   = "datestyle"
+parameter_value = "ISO, MDY"
   }
   config_parameter {
-    parameter_key   = "enable_user_activity_logging"
-    parameter_value = "true"
+parameter_key   = "enable_user_activity_logging"
+parameter_value = "true"
   }
   config_parameter {
-    parameter_key   = "query_group"
-    parameter_value = "default"
+parameter_key   = "query_group"
+parameter_value = "default"
   }
   config_parameter {
-    parameter_key   = "search_path"
-    parameter_value = "$user, public"
+parameter_key   = "search_path"
+parameter_value = "$user, public"
   }
   config_parameter {
-    parameter_key   = "max_query_execution_time"
-    parameter_value = %[2]q
+parameter_key   = "max_query_execution_time"
+parameter_value = %[2]q
   }
   config_parameter {
-    parameter_key   = "auto_mv"
-    parameter_value = "true"
+parameter_key   = "auto_mv"
+parameter_value = "true"
   }
   config_parameter {
-    parameter_key   = "enable_case_sensitive_identifier"
-    parameter_value = "false"
+parameter_key   = "enable_case_sensitive_identifier"
+parameter_value = "false"
   }
 }
 `, rName, maxQueryExecutionTime)
@@ -368,7 +368,7 @@ resource "aws_redshiftserverless_workgroup" "test" {
   workgroup_name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -385,8 +385,8 @@ resource "aws_redshiftserverless_workgroup" "test" {
   workgroup_name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

@@ -11,15 +11,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccLambdaFunctionsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_lambda_functions.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -32,7 +31,6 @@ func TestAccLambdaFunctionsDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccFunctionsDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccFunctionConfig_basic(rName, rName, rName, rName), `
 data "aws_lambda_functions" "test" {

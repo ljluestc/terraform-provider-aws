@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ses
-
-import (
+// SPDX-License-Identifier: MPL-2.0package sesimport (
 	"context"
 	"fmt"
 	"log"
-	"strings"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"strings"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/ses"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -17,28 +11,22 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
-)
-
-// @SDKResource("aws_ses_identity_notification_topic")
+)// @SDKResource("aws_ses_identity_notification_topic")
 func ResourceIdentityNotificationTopic() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNotificationTopicSet,
-		ReadWithoutTimeout:   resourceIdentityNotificationTopicRead,
+		ReadWithoutTimeout:resourceIdentityNotificationTopicRead,
 		UpdateWithoutTimeout: resourceNotificationTopicSet,
 		DeleteWithoutTimeout: resourceIdentityNotificationTopicDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"topic_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: verify.ValidARN,
-			},
-
-			"notification_type": {
-				Type:     schema.TypeString,
+			},			"notification_type": {
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.StringInSlice([]string{
@@ -46,51 +34,36 @@ func ResourceIdentityNotificationTopic() *schema.Resource {
 					ses.NotificationTypeComplaint,
 					ses.NotificationTypeDelivery,
 				}, false),
-			},
-
-			"identity": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+			},			"identity": {
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.NoZeroValues,
-			},
-
-			"include_original_headers": {
-				Type:     schema.TypeBool,
+			},			"include_original_headers": {
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 		},
 	}
 }
-
 func resourceNotificationTopicSet(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
 	notification := d.Get("notification_type").(string)
 	identity := d.Get("identity").(string)
-	includeOriginalHeaders := d.Get("include_original_headers").(bool)
-
-	setOpts := &ses.SetIdentityNotificationTopicInput{
-		Identity:         aws.String(identity),
+	includeOriginalHeaders := d.Get("include_original_headers").(bool)	setOpts := &ses.SetIdentityNotificationTopicInput{
+		Identity:aws.String(identity),
 		NotificationType: aws.String(notification),
-	}
-
-	if v, ok := d.GetOk("topic_arn"); ok {
+	}	if v, ok := d.GetOk("topic_arn"); ok {
 		setOpts.SnsTopic = aws.String(v.(string))
-	}
-
-	d.SetId(fmt.Sprintf("%s|%s", identity, notification))
-
-	log.Printf("[DEBUG] Setting SES Identity Notification Topic: %#v", setOpts)
-
-	if _, err := conn.SetIdentityNotificationTopicWithContext(ctx, setOpts); err != nil {
+	}	d.SetId(fmt.Sprintf("%s|%s", identity, notification))	log.Printf("[DEBUG] Setting SES Identity Notification Topic: %#v", setOpts)	if _, err := conn.SetIdentityNotificationTopicWithContext(ctx, setOpts); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting SES Identity Notification Topic: %s", err)
 	}
 
 	setHeadersOpts := &ses.SetIdentityHeadersInNotificationsEnabledInput{
-		Identity:         aws.String(identity),
+		Identity:aws.String(identity),
 		NotificationType: aws.String(notification),
-		Enabled:          aws.Bool(includeOriginalHeaders),
+		Enabled: aws.Bool(includeOriginalHeaders),
 	}
 
 	log.Printf("[DEBUG] Setting SES Identity Notification Topic Headers: %#v", setHeadersOpts)
@@ -101,7 +74,6 @@ func resourceNotificationTopicSet(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceIdentityNotificationTopicRead(ctx, d, meta)...)
 }
-
 func resourceIdentityNotificationTopicRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -148,7 +120,6 @@ func resourceIdentityNotificationTopicRead(ctx context.Context, d *schema.Resour
 
 	return diags
 }
-
 func resourceIdentityNotificationTopicDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -159,9 +130,9 @@ func resourceIdentityNotificationTopicDelete(ctx context.Context, d *schema.Reso
 	}
 
 	setOpts := &ses.SetIdentityNotificationTopicInput{
-		Identity:         aws.String(identity),
+		Identity:aws.String(identity),
 		NotificationType: aws.String(notificationType),
-		SnsTopic:         nil,
+		SnsTopic:nil,
 	}
 
 	if _, err := conn.SetIdentityNotificationTopicWithContext(ctx, setOpts); err != nil {
@@ -170,7 +141,6 @@ func resourceIdentityNotificationTopicDelete(ctx context.Context, d *schema.Reso
 
 	return append(diags, resourceIdentityNotificationTopicRead(ctx, d, meta)...)
 }
-
 func decodeIdentityNotificationTopicID(id string) (string, string, error) {
 	parts := strings.Split(id, "|")
 	if len(parts) != 2 {

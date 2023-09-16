@@ -240,7 +240,7 @@ MaxItems: 1,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
-"font_color":      stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}$`), "")),
+"font_color":stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}$`), "")),
 "font_decoration": stringSchema(false, validation.StringInSlice(quicksight.FontDecoration_Values(), false)),
 "font_size": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FontSize.html
 	Type:     schema.TypeList,

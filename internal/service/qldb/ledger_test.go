@@ -27,7 +27,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_qldb_ledger.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
 ErrorCheck:  acctest.ErrorCheck(t, names.QLDBEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckLedgerDestroy(ctx),
@@ -45,8 +45,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 },
 },
@@ -60,7 +60,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_qldb_ledger.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
 ErrorCheck:  acctest.ErrorCheck(t, names.QLDBEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckLedgerDestroy(ctx),
@@ -83,7 +83,7 @@ var v qldb.DescribeLedgerOutput
 resourceName := "aws_qldb_ledger.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
 ErrorCheck:  acctest.ErrorCheck(t, names.QLDBEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckLedgerDestroy(ctx),
@@ -96,8 +96,8 @@ resource.TestMatchResourceAttr(resourceName, "name", regexache.MustCompile(`tf\d
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 },
 },
@@ -111,7 +111,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_qldb_ledger.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
 ErrorCheck:  acctest.ErrorCheck(t, names.QLDBEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckLedgerDestroy(ctx),
@@ -125,8 +125,8 @@ resource.TestCheckResourceAttr(resourceName, "permissions_mode", "ALLOW_ALL"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 },
 {
@@ -157,7 +157,7 @@ resourceName := "aws_qldb_ledger.test"
 kmsKeyResourceName := "aws_kms_key.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
 ErrorCheck:  acctest.ErrorCheck(t, names.QLDBEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckLedgerDestroy(ctx),
@@ -170,8 +170,8 @@ resource.TestCheckResourceAttrPair(resourceName, "kms_key", kmsKeyResourceName, 
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 },
 {
@@ -192,7 +192,7 @@ rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 resourceName := "aws_qldb_ledger.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
 ErrorCheck:  acctest.ErrorCheck(t, names.QLDBEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckLedgerDestroy(ctx),
@@ -206,8 +206,8 @@ resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 },
 {
@@ -286,7 +286,7 @@ func testAccLedgerConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_qldb_ledger" "test" {
   name = %[1]q
-  permissions_mode    = "ALLOW_ALL"
+  permissions_mode= "ALLOW_ALL"
   deletion_protection = false
 }
 `, rName)
@@ -296,7 +296,7 @@ func testAccLedgerConfig_updated(rName string) string {
 return fmt.Sprintf(`
 resource "aws_qldb_ledger" "test" {
   name = %[1]q
-  permissions_mode    = "STANDARD"
+  permissions_mode= "STANDARD"
   deletion_protection = true
 }
 `, rName)
@@ -305,7 +305,7 @@ resource "aws_qldb_ledger" "test" {
 func testAccLedgerConfig_nameGenerated() string {
 return `
 resource "aws_qldb_ledger" "test" {
-  permissions_mode    = "ALLOW_ALL"
+  permissions_mode= "ALLOW_ALL"
   deletion_protection = false
 }
 `
@@ -320,7 +320,7 @@ resource "aws_kms_key" "test" {
 
 resource "aws_qldb_ledger" "test" {
   name = %[1]q
-  permissions_mode    = "ALLOW_ALL"
+  permissions_mode= "ALLOW_ALL"
   deletion_protection = false
   kms_key= aws_kms_key.test.arn
 }
@@ -336,7 +336,7 @@ resource "aws_kms_key" "test" {
 
 resource "aws_qldb_ledger" "test" {
   name = %[1]q
-  permissions_mode    = "ALLOW_ALL"
+  permissions_mode= "ALLOW_ALL"
   deletion_protection = false
   kms_key= "AWS_OWNED_KMS_KEY"
 }
@@ -347,11 +347,11 @@ func testAccLedgerConfig_tags1(rName, tagKey1, tagValue1 string) string {
 return fmt.Sprintf(`
 resource "aws_qldb_ledger" "test" {
   name = %[1]q
-  permissions_mode    = "ALLOW_ALL"
+  permissions_mode= "ALLOW_ALL"
   deletion_protection = false
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -361,12 +361,12 @@ func testAccLedgerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 str
 return fmt.Sprintf(`
 resource "aws_qldb_ledger" "test" {
   name = %[1]q
-  permissions_mode    = "ALLOW_ALL"
+  permissions_mode= "ALLOW_ALL"
   deletion_protection = false
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

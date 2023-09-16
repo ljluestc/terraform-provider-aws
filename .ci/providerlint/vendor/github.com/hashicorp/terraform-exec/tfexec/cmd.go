@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfexec
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfexecimport (
 	"bufio"
 	"bytes"
 	"context"
@@ -14,31 +10,23 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
-	"strings"
-
-	"github.com/hashicorp/terraform-exec/internal/version"
-)
-
-const (
+	"strings"	"github.com/hashicorp/terraform-exec/internal/version"
+)const (
 	checkpointDisableEnvVar  = "CHECKPOINT_DISABLE"
-	cliArgsEnvVar            = "TF_CLI_ARGS"
-	inputEnvVar              = "TF_INPUT"
-	automationEnvVar         = "TF_IN_AUTOMATION"
-	logEnvVar                = "TF_LOG"
-	logCoreEnvVar            = "TF_LOG_CORE"
-	logPathEnvVar            = "TF_LOG_PATH"
+	cliArgsEnvVar   = "TF_CLI_ARGS"
+	inputEnvVar     = "TF_INPUT"
+	automationEnvVar= "TF_IN_AUTOMATION"
+	logEnvVar       = "TF_LOG"
+	logCoreEnvVar   = "TF_LOG_CORE"
+	logPathEnvVar   = "TF_LOG_PATH"
 	logProviderEnvVar        = "TF_LOG_PROVIDER"
-	reattachEnvVar           = "TF_REATTACH_PROVIDERS"
+	reattachEnvVar  = "TF_REATTACH_PROVIDERS"
 	appendUserAgentEnvVar    = "TF_APPEND_USER_AGENT"
-	workspaceEnvVar          = "TF_WORKSPACE"
+	workspaceEnvVar = "TF_WORKSPACE"
 	disablePluginTLSEnvVar   = "TF_DISABLE_PLUGIN_TLS"
-	skipProviderVerifyEnvVar = "TF_SKIP_PROVIDER_VERIFY"
-
-	varEnvVarPrefix    = "TF_VAR_"
+	skipProviderVerifyEnvVar = "TF_SKIP_PROVIDER_VERIFY"	varEnvVarPrefix    = "TF_VAR_"
 	cliArgEnvVarPrefix = "TF_CLI_ARGS_"
-)
-
-var prohibitedEnvVars = []string{
+)var prohibitedEnvVars = []string{
 	cliArgsEnvVar,
 	inputEnvVar,
 	automationEnvVar,
@@ -51,14 +39,10 @@ var prohibitedEnvVars = []string{
 	workspaceEnvVar,
 	disablePluginTLSEnvVar,
 	skipProviderVerifyEnvVar,
-}
-
-var prohibitedEnvVarPrefixes = []string{
+}var prohibitedEnvVarPrefixes = []string{
 	varEnvVarPrefix,
 	cliArgEnvVarPrefix,
 }
-
-
  manualEnvVars(env map[string]string, cb 
 (k string)) {
 	for k := range env {
@@ -76,23 +60,15 @@ var prohibitedEnvVarPrefixes = []string{
 		}
 	NextEnvVar:
 	}
-}
-
-rohibitedEnv returns a slice of environment variable keys that are not allowed
-// to be set manually from the passed environment.
-
- ProhibitedEnv(env map[string]string) []string {
+}rohibitedEnv returns a slice of environment variable keys that are not allowed
+// to be set manually from the passed environment. ProhibitedEnv(env map[string]string) []string {
 	var p []string
 	manualEnvVars(env, 
 (k string) {
 		p = append(p, k)
 	})
 urn p
-}
-
-// CleanEnv removes any prohibited environment variables from an environment map.
-
- CleanEnv(dirty map[string]string) map[string]string {
+}// CleanEnv removes any prohibited environment variables from an environment map. CleanEnv(dirty map[string]string) map[string]string {
 	clean := dirty
 	manualEnvVars(clean, 
 tring) {
@@ -100,8 +76,6 @@ tring) {
 	})
 	return clean
 }
-
-
  envMap(environ []string) map[string]string {
 	env := map[string]string{}
 	for _, ev := range environ {
@@ -118,8 +92,6 @@ tring) {
 	}
 	return env
 }
-
-
 Slice(environ map[string]string) []string {
 	env := []string{}
 	for k, v := range environ {
@@ -127,8 +99,6 @@ Slice(environ map[string]string) []string {
 	}
 	return env
 }
-
-
  (tf *Terraform) buildEnv(mergeEnv map[string]string) []string {
 	// set Terraform level env, if env is nil, fall back to os.Environ
 	var env map[string]string
@@ -139,28 +109,20 @@ Slice(environ map[string]string) []string {
 		for k, v := range tf.env {
 			env[k] = v
 		}
-	}
-
-	// override env with any command specific environment
+	}	// override env with any command specific environment
 	for k, v := range mergeEnv {
 		env[k] = v
-	}
-
-	// always propagate CHECKPOINT_DISABLE env var unless it is
+	}	// always propagate CHECKPOINT_DISABLE env var unless it is
 	// explicitly overridden with tf.SetEnv or command env
 	if _, ok := env[checkpointDisableEnvVar]; !ok {
 		env[checkpointDisableEnvVar] = os.Getenv(checkpointDisableEnvVar)
-	}
-
-	// always override user agent
+	}	// always override user agent
 	ua := mergeUserAgent(
 		os.Getenv(appendUserAgentEnvVar),
 		tf.appendUserAgent,
 		fmt.Sprintf("HashiCorp-terraform-exec/%s", version.ModuleVersion()),
 	)
-	env[appendUserAgentEnvVar] = ua
-
-	// always override logging
+	env[appendUserAgentEnvVar] = ua	// always override logging
 	if tf.logPath == "" {
 		// so logging can't pollute our stderr output
 		env[logEnvVar] = ""
@@ -172,62 +134,32 @@ Slice(environ map[string]string) []string {
 		env[logCoreEnvVar] = tf.logCore
 		env[logPathEnvVar] = tf.logPath
 		env[logProviderEnvVar] = tf.logProvider
-	}
-
-	// constant automation override env vars
-	env[automationEnvVar] = "1"
-
-	// force usage of workspace methods for switching
-	delete(env, workspaceEnvVar)
-
-	if tf.disablePluginTLS {
+	}	// constant automation override env vars
+	env[automationEnvVar] = "1"	// force usage of workspace methods for switching
+	delete(env, workspaceEnvVar)	if tf.disablePluginTLS {
 		env[disablePluginTLSEnvVar] = "1"
-
-
 	if tf.skipProviderVerify {
 		env[skipProviderVerifyEnvVar] = "1"
-	}
-
-	return envSlice(env)
+	}	return envSlice(env)
 }
-
-
  (tf *Terraform) buildTerraformCmd(ctx context.Context, mergeEnv map[string]string, args ...string) *exec.Cmd {
- := exec.CommandContext(ctx, tf.execPath, args...)
-
-	cmd.Env = tf.buildEnv(mergeEnv)
-	cmd.Dir = tf.workingDir
-
-	tf.logger.Printf("[INFO] running Terraform command: %s", cmd.String())
-
-	return cmd
+ := exec.CommandContext(ctx, tf.execPath, args...)	cmd.Env = tf.buildEnv(mergeEnv)
+	cmd.Dir = tf.workingDir	tf.logger.Printf("[INFO] running Terraform command: %s", cmd.String())	return cmd
 }
-
-
  (tf *Terraform) runTerraformCmdJSON(ctx context.Context, cmd *exec.Cmd, v interface{}) error {
 	var outbuf = bytes.Buffer{}
-	cmd.Stdout = mergeWriters(cmd.Stdout, &outbuf)
-
-	err := tf.runTerraformCmd(ctx, cmd)
+	cmd.Stdout = mergeWriters(cmd.Stdout, &outbuf)	err := tf.runTerraformCmd(ctx, cmd)
 err != nil {
 		return err
-	}
-
-	dec := json.NewDecoder(&outbuf)
+	}	dec := json.NewDecoder(&outbuf)
 	dec.UseNumber()
 	return dec.Decode(v)
-}
-
-// mergeUserAgent does some minor deduplication to ensure we aren't
-// just using the same append string over and over.
-
- mergeUserAgent(uas ...string) string {
+}// mergeUserAgent does some minor deduplication to ensure we aren't
+// just using the same append string over and over. mergeUserAgent(uas ...string) string {
 	included := map[string]bool{}
 	merged := []string{}
 	for _, ua := range uas {
-		ua = strings.TrimSpace(ua)
-
- ua == "" {
+		ua = strings.TrimSpace(ua) ua == "" {
 			continue
 		}
 		if included[ua] {
@@ -238,8 +170,6 @@ err != nil {
 	}
 	return strings.Join(merged, " ")
 }
-
-
  mergeWriters(writers ...io.Writer) io.Writer {
 	compact := []io.Writer{}
 	for _, w := range writers {
@@ -255,8 +185,6 @@ err != nil {
 	}
 	return io.MultiWriter(compact...)
 }
-
-
  writeOutput(ctx context.Context, r io.ReadCloser, w io.Writer) error {
 	// ReadBytes will block until bytes are read, which can cause a delay in
 	// returning even if the command's context has been canceled. Use a separate
@@ -271,9 +199,7 @@ err != nil {
 		case <-closeCtx.Done():
 			return
 		}
-	}()
-
-	buf := bufio.NewReader(r)
+	}()	buf := bufio.NewReader(r)
 	for {
 		line, err := buf.ReadBytes('\n')
 		if len(line) > 0 {
@@ -284,9 +210,7 @@ err != nil {
 		if err != nil {
 			if errors.Is(err, io.EOF) {
 				return nil
-			}
-
-			return err
+			}			return err
 		}
 	}
 }

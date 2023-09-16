@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package provider
+packageprovider
 
-import (
+import(
 	"context"
 	"fmt"
 	"log"
@@ -14,8 +14,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/feature/ec2/imds"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
-	awsbase "github.com/hashicorp/aws-sdk-go-base/v2"
-	multierror "github.com/hashicorp/go-multierror"
+	awsbase"github.com/hashicorp/aws-sdk-go-base/v2"
+	multierror"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -23,874 +23,874 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
-	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
+	tftags"github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/internal/types/nullable"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// New returns a new, initialized Terraform Plugin SDK v2-style provider instance.
-// The provider instance is fully configured once the `ConfigureContextFunc` has been called.
-func New(ctx context.Context) (*schema.Provider, error) {
-	provider := &schema.Provider{
-		// This schema must match exactly the Terraform Protocol v6 (Terraform Plugin Framework) provider's schema.
-		// Notably the attributes can have no Default values.
-		Schema: map[string]*schema.Schema{
-			"access_key": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "The access key for API operations. You can retrieve this\n" +
-					"from the 'Security & Credentials' section of the AWS console.",
-			},
-			"allowed_account_ids": {
-				Type:          schema.TypeSet,
-				Elem:          &schema.Schema{Type: schema.TypeString},
-				Optional:      true,
-				ConflictsWith: []string{"forbidden_account_ids"},
-			},
-			"assume_role":                   assumeRoleSchema(),
-			"assume_role_with_web_identity": assumeRoleWithWebIdentitySchema(),
-			"custom_ca_bundle": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "File containing custom root and intermediate certificates. " +
-					"Can also be configured using the `AWS_CA_BUNDLE` environment variable. " +
-					"(Setting `ca_bundle` in the shared config file is not supported.)",
-			},
-			"default_tags": {
-				Type:        schema.TypeList,
-				Optional:    true,
-				MaxItems:    1,
-				Description: "Configuration block with settings to default resource tags across all resources.",
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"tags": {
-							Type:        schema.TypeMap,
-							Optional:    true,
-							Elem:        &schema.Schema{Type: schema.TypeString},
-							Description: "Resource tags to default across all resources",
-						},
-					},
-				},
-			},
-			"ec2_metadata_service_endpoint": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "Address of the EC2 metadata service endpoint to use. " +
-					"Can also be configured using the `AWS_EC2_METADATA_SERVICE_ENDPOINT` environment variable.",
-			},
-			"ec2_metadata_service_endpoint_mode": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "Protocol to use with EC2 metadata service endpoint." +
-					"Valid values are `IPv4` and `IPv6`. Can also be configured using the `AWS_EC2_METADATA_SERVICE_ENDPOINT_MODE` environment variable.",
-			},
-			"endpoints": endpointsSchema(),
-			"forbidden_account_ids": {
-				Type:          schema.TypeSet,
-				Elem:          &schema.Schema{Type: schema.TypeString},
-				Optional:      true,
-				ConflictsWith: []string{"allowed_account_ids"},
-			},
-			"http_proxy": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "The address of an HTTP proxy to use when accessing the AWS API. " +
-					"Can also be configured using the `HTTP_PROXY` or `HTTPS_PROXY` environment variables.",
-			},
-			"ignore_tags": {
-				Type:        schema.TypeList,
-				Optional:    true,
-				MaxItems:    1,
-				Description: "Configuration block with settings to ignore resource tags across all resources.",
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"keys": {
-							Type:        schema.TypeSet,
-							Optional:    true,
-							Elem:        &schema.Schema{Type: schema.TypeString},
-							Description: "Resource tag keys to ignore across all resources.",
-						},
-						"key_prefixes": {
-							Type:        schema.TypeSet,
-							Optional:    true,
-							Elem:        &schema.Schema{Type: schema.TypeString},
-							Description: "Resource tag key prefixes to ignore across all resources.",
-						},
-					},
-				},
-			},
-			"insecure": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Description: "Explicitly allow the provider to perform \"insecure\" SSL requests. If omitted, " +
-					"default value is `false`",
-			},
-			"max_retries": {
-				Type:     schema.TypeInt,
-				Optional: true,
-				Description: "The maximum number of times an AWS API request is\n" +
-					"being executed. If the API request still fails, an error is\n" +
-					"thrown.",
-			},
-			"profile": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "The profile for API operations. If not set, the default profile\n" +
-					"created with `aws configure` will be used.",
-			},
-			"region": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "The region where AWS operations will take place. Examples\n" +
-					"are us-east-1, us-west-2, etc.", // lintignore:AWSAT003,
-			},
-			"retry_mode": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "Specifies how retries are attempted. Valid values are `standard` and `adaptive`. " +
-					"Can also be configured using the `AWS_RETRY_MODE` environment variable.",
-			},
-			"s3_use_path_style": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Description: "Set this to true to enable the request to use path-style addressing,\n" +
-					"i.e., https://s3.amazonaws.com/BUCKET/KEY. By default, the S3 client will\n" +
-					"use virtual hosted bucket addressing when possible\n" +
-					"(https://BUCKET.s3.amazonaws.com/KEY). Specific to the Amazon S3 service.",
-			},
-			"s3_us_east_1_regional_endpoint": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "Specifies whether S3 API calls in the `us-east-1` region use the legacy global endpoint or a regional endpoint. " + //lintignore:AWSAT003
-					"Valid values are `legacy` or `regional`. " +
-					"Can also be configured using the `AWS_S3_US_EAST_1_REGIONAL_ENDPOINT` environment variable or the `s3_us_east_1_regional_endpoint` shared config file parameter",
-			},
-			"secret_key": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "The secret key for API operations. You can retrieve this\n" +
-					"from the 'Security & Credentials' section of the AWS console.",
-			},
-			"shared_config_files": {
-				Type:        schema.TypeList,
-				Optional:    true,
-				Description: "List of paths to shared config files. If not set, defaults to [~/.aws/config].",
-				Elem:        &schema.Schema{Type: schema.TypeString},
-			},
-			"shared_credentials_files": {
-				Type:        schema.TypeList,
-				Optional:    true,
-				Description: "List of paths to shared credentials files. If not set, defaults to [~/.aws/credentials].",
-				Elem:        &schema.Schema{Type: schema.TypeString},
-			},
-			"skip_credentials_validation": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Description: "Skip the credentials validation via STS API. " +
-					"Used for AWS API implementations that do not have STS available/implemented.",
-			},
-			"skip_metadata_api_check": {
-				Type:         nullable.TypeNullableBool,
-				Optional:     true,
-				ValidateFunc: nullable.ValidateTypeStringNullableBool,
-				Description: "Skip the AWS Metadata API check. " +
-					"Used for AWS API implementations that do not have a metadata api endpoint.",
-			},
-			"skip_region_validation": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Description: "Skip static validation of region name. " +
-					"Used by users of alternative AWS-like APIs or users w/ access to regions that are not public (yet).",
-			},
-			"skip_requesting_account_id": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Description: "Skip requesting the account ID. " +
-					"Used for AWS API implementations that do not have IAM/STS API and/or metadata API.",
-			},
-			"sts_region": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "The region where AWS STS operations will take place. Examples\n" +
-					"are us-east-1 and us-west-2.", // lintignore:AWSAT003,
-			},
-			"token": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Description: "session token. A session token is only required if you are\n" +
-					"using temporary security credentials.",
-			},
-			"use_dualstack_endpoint": {
-				Type:        schema.TypeBool,
-				Optional:    true,
-				Description: "Resolve an endpoint with DualStack capability",
-			},
-			"use_fips_endpoint": {
-				Type:        schema.TypeBool,
-				Optional:    true,
-				Description: "Resolve an endpoint with FIPS capability",
-			},
+//Newreturnsanew,initializedTerraformPluginSDKv2-styleproviderinstance.
+//Theproviderinstanceisfullyconfiguredoncethe`ConfigureContextFunc`hasbeencalled.
+funcNew(ctxcontext.Context)(*schema.Provider,error){
+	provider:=&schema.Provider{
+		//ThisschemamustmatchexactlytheTerraformProtocolv6(TerraformPluginFramework)provider'sschema.
+		//NotablytheattributescanhavenoDefaultvalues.
+		Schema:map[string]*schema.Schema{
+"access_key":{
+Type:schema.TypeString,
+Optional:true,
+Description:"TheaccesskeyforAPIoperations.Youcanretrievethis\n"+
+	"fromthe'Security&Credentials'sectionoftheAWSconsole.",
+},
+"allowed_account_ids":{
+Type:schema.TypeSet,
+Elem:&schema.Schema{Type:schema.TypeString},
+Optional:true,
+ConflictsWith:[]string{"forbidden_account_ids"},
+},
+"assume_role":assumeRoleSchema(),
+"assume_role_with_web_identity":assumeRoleWithWebIdentitySchema(),
+"custom_ca_bundle":{
+Type:schema.TypeString,
+Optional:true,
+Description:"Filecontainingcustomrootandintermediatecertificates."+
+	"Canalsobeconfiguredusingthe`AWS_CA_BUNDLE`environmentvariable."+
+	"(Setting`ca_bundle`inthesharedconfigfileisnotsupported.)",
+},
+"default_tags":{
+Type:schema.TypeList,
+Optional:true,
+MaxItems:1,
+Description:"Configurationblockwithsettingstodefaultresourcetagsacrossallresources.",
+Elem:&schema.Resource{
+	Schema:map[string]*schema.Schema{
+		"tags":{
+Type:schema.TypeMap,
+Optional:true,
+Elem:&schema.Schema{Type:schema.TypeString},
+Description:"Resourcetagstodefaultacrossallresources",
+		},
+	},
+},
+},
+"ec2_metadata_service_endpoint":{
+Type:schema.TypeString,
+Optional:true,
+Description:"AddressoftheEC2metadataserviceendpointtouse."+
+	"Canalsobeconfiguredusingthe`AWS_EC2_METADATA_SERVICE_ENDPOINT`environmentvariable.",
+},
+"ec2_metadata_service_endpoint_mode":{
+Type:schema.TypeString,
+Optional:true,
+Description:"ProtocoltousewithEC2metadataserviceendpoint."+
+	"Validvaluesare`IPv4`and`IPv6`.Canalsobeconfiguredusingthe`AWS_EC2_METADATA_SERVICE_ENDPOINT_MODE`environmentvariable.",
+},
+"endpoints":endpointsSchema(),
+"forbidden_account_ids":{
+Type:schema.TypeSet,
+Elem:&schema.Schema{Type:schema.TypeString},
+Optional:true,
+ConflictsWith:[]string{"allowed_account_ids"},
+},
+"http_proxy":{
+Type:schema.TypeString,
+Optional:true,
+Description:"TheaddressofanHTTPproxytousewhenaccessingtheAWSAPI."+
+	"Canalsobeconfiguredusingthe`HTTP_PROXY`or`HTTPS_PROXY`environmentvariables.",
+},
+"ignore_tags":{
+Type:schema.TypeList,
+Optional:true,
+MaxItems:1,
+Description:"Configurationblockwithsettingstoignoreresourcetagsacrossallresources.",
+Elem:&schema.Resource{
+	Schema:map[string]*schema.Schema{
+		"keys":{
+Type:schema.TypeSet,
+Optional:true,
+Elem:&schema.Schema{Type:schema.TypeString},
+Description:"Resourcetagkeystoignoreacrossallresources.",
+		},
+		"key_prefixes":{
+Type:schema.TypeSet,
+Optional:true,
+Elem:&schema.Schema{Type:schema.TypeString},
+Description:"Resourcetagkeyprefixestoignoreacrossallresources.",
+		},
+	},
+},
+},
+"insecure":{
+Type:schema.TypeBool,
+Optional:true,
+Description:"Explicitlyallowtheprovidertoperform\"insecure\"SSLrequests.Ifomitted,"+
+	"defaultvalueis`false`",
+},
+"max_retries":{
+Type:schema.TypeInt,
+Optional:true,
+Description:"ThemaximumnumberoftimesanAWSAPIrequestis\n"+
+	"beingexecuted.IftheAPIrequeststillfails,anerroris\n"+
+	"thrown.",
+},
+"profile":{
+Type:schema.TypeString,
+Optional:true,
+Description:"TheprofileforAPIoperations.Ifnotset,thedefaultprofile\n"+
+	"createdwith`awsconfigure`willbeused.",
+},
+"region":{
+Type:schema.TypeString,
+Optional:true,
+Description:"TheregionwhereAWSoperationswilltakeplace.Examples\n"+
+	"areus-east-1,us-west-2,etc.",//lintignore:AWSAT003,
+},
+"retry_mode":{
+Type:schema.TypeString,
+Optional:true,
+Description:"Specifieshowretriesareattempted.Validvaluesare`standard`and`adaptive`."+
+	"Canalsobeconfiguredusingthe`AWS_RETRY_MODE`environmentvariable.",
+},
+"s3_use_path_style":{
+Type:schema.TypeBool,
+Optional:true,
+Description:"Setthistotruetoenabletherequesttousepath-styleaddressing,\n"+
+	"i.e.,https://s3.amazonaws.com/BUCKET/KEY.Bydefault,theS3clientwill\n"+
+	"usevirtualhostedbucketaddressingwhenpossible\n"+
+	"(https://BUCKET.s3.amazonaws.com/KEY).SpecifictotheAmazonS3service.",
+},
+"s3_us_east_1_regional_endpoint":{
+Type:schema.TypeString,
+Optional:true,
+Description:"SpecifieswhetherS3APIcallsinthe`us-east-1`regionusethelegacyglobalendpointoraregionalendpoint."+//lintignore:AWSAT003
+	"Validvaluesare`legacy`or`regional`."+
+	"Canalsobeconfiguredusingthe`AWS_S3_US_EAST_1_REGIONAL_ENDPOINT`environmentvariableorthe`s3_us_east_1_regional_endpoint`sharedconfigfileparameter",
+},
+"secret_key":{
+Type:schema.TypeString,
+Optional:true,
+Description:"ThesecretkeyforAPIoperations.Youcanretrievethis\n"+
+	"fromthe'Security&Credentials'sectionoftheAWSconsole.",
+},
+"shared_config_files":{
+Type:schema.TypeList,
+Optional:true,
+Description:"Listofpathstosharedconfigfiles.Ifnotset,defaultsto[~/.aws/config].",
+Elem:&schema.Schema{Type:schema.TypeString},
+},
+"shared_credentials_files":{
+Type:schema.TypeList,
+Optional:true,
+Description:"Listofpathstosharedcredentialsfiles.Ifnotset,defaultsto[~/.aws/credentials].",
+Elem:&schema.Schema{Type:schema.TypeString},
+},
+"skip_credentials_validation":{
+Type:schema.TypeBool,
+Optional:true,
+Description:"SkipthecredentialsvalidationviaSTSAPI."+
+	"UsedforAWSAPIimplementationsthatdonothaveSTSavailable/implemented.",
+},
+"skip_metadata_api_check":{
+Type:nullable.TypeNullableBool,
+Optional:true,
+ValidateFunc:nullable.ValidateTypeStringNullableBool,
+Description:"SkiptheAWSMetadataAPIcheck."+
+	"UsedforAWSAPIimplementationsthatdonothaveametadataapiendpoint.",
+},
+"skip_region_validation":{
+Type:schema.TypeBool,
+Optional:true,
+Description:"Skipstaticvalidationofregionname."+
+	"UsedbyusersofalternativeAWS-likeAPIsorusersw/accesstoregionsthatarenotpublic(yet).",
+},
+"skip_requesting_account_id":{
+Type:schema.TypeBool,
+Optional:true,
+Description:"SkiprequestingtheaccountID."+
+	"UsedforAWSAPIimplementationsthatdonothaveIAM/STSAPIand/ormetadataAPI.",
+},
+"sts_region":{
+Type:schema.TypeString,
+Optional:true,
+Description:"TheregionwhereAWSSTSoperationswilltakeplace.Examples\n"+
+	"areus-east-1andus-west-2.",//lintignore:AWSAT003,
+},
+"token":{
+Type:schema.TypeString,
+Optional:true,
+Description:"sessiontoken.Asessiontokenisonlyrequiredifyouare\n"+
+	"usingtemporarysecuritycredentials.",
+},
+"use_dualstack_endpoint":{
+Type:schema.TypeBool,
+Optional:true,
+Description:"ResolveanendpointwithDualStackcapability",
+},
+"use_fips_endpoint":{
+Type:schema.TypeBool,
+Optional:true,
+Description:"ResolveanendpointwithFIPScapability",
+},
 		},
 
-		// Data sources and resources implemented using Terraform Plugin SDK
-		// should use the @SDKDataSource and @SDKResource function-level annotations
-		// rather than adding directly to these maps.
-		DataSourcesMap: make(map[string]*schema.Resource),
-		ResourcesMap:   make(map[string]*schema.Resource),
+		//DatasourcesandresourcesimplementedusingTerraformPluginSDK
+		//shouldusethe@SDKDataSourceand@SDKResourcefunction-levelannotations
+		//ratherthanaddingdirectlytothesemaps.
+		DataSourcesMap:make(map[string]*schema.Resource),
+		ResourcesMap:make(map[string]*schema.Resource),
 	}
 
-	provider.ConfigureContextFunc = func(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
-		return configure(ctx, provider, d)
+	provider.ConfigureContextFunc=func(ctxcontext.Context,d*schema.ResourceData)(interface{},diag.Diagnostics){
+		returnconfigure(ctx,provider,d)
 	}
 
-	var errs *multierror.Error
-	servicePackageMap := make(map[string]conns.ServicePackage)
+	varerrs*multierror.Error
+	servicePackageMap:=make(map[string]conns.ServicePackage)
 
-	for _, sp := range servicePackages(ctx) {
-		servicePackageName := sp.ServicePackageName()
-		servicePackageMap[servicePackageName] = sp
+	for_,sp:=rangeservicePackages(ctx){
+		servicePackageName:=sp.ServicePackageName()
+		servicePackageMap[servicePackageName]=sp
 
-		for _, v := range sp.SDKDataSources(ctx) {
-			v := v
-			typeName := v.TypeName
+		for_,v:=rangesp.SDKDataSources(ctx){
+v:=v
+typeName:=v.TypeName
 
-			if _, ok := provider.DataSourcesMap[typeName]; ok {
-				errs = multierror.Append(errs, fmt.Errorf("duplicate data source: %s", typeName))
-				continue
-			}
+if_,ok:=provider.DataSourcesMap[typeName];ok{
+errs=multierror.Append(errs,fmt.Errorf("duplicatedatasource:%s",typeName))
+continue
+}
 
-			r := v.Factory()
+r:=v.Factory()
 
-			// Ensure that the correct CRUD handler variants are used.
-			if r.Read != nil || r.ReadContext != nil {
-				errs = multierror.Append(errs, fmt.Errorf("incorrect Read handler variant: %s", typeName))
-				continue
-			}
+//EnsurethatthecorrectCRUDhandlervariantsareused.
+ifr.Read!=nil||r.ReadContext!=nil{
+errs=multierror.Append(errs,fmt.Errorf("incorrectReadhandlervariant:%s",typeName))
+continue
+}
 
-			// bootstrapContext is run on all wrapped methods before any interceptors.
-			bootstrapContext := func(ctx context.Context, meta any) context.Context {
-				ctx = conns.NewDataSourceContext(ctx, servicePackageName, v.Name)
-				if v, ok := meta.(*conns.AWSClient); ok {
-					ctx = tftags.NewContext(ctx, v.DefaultTagsConfig, v.IgnoreTagsConfig)
-				}
+//bootstrapContextisrunonallwrappedmethodsbeforeanyinterceptors.
+bootstrapContext:=func(ctxcontext.Context,metaany)context.Context{
+ctx=conns.NewDataSourceContext(ctx,servicePackageName,v.Name)
+ifv,ok:=meta.(*conns.AWSClient);ok{
+	ctx=tftags.NewContext(ctx,v.DefaultTagsConfig,v.IgnoreTagsConfig)
+}
 
-				return ctx
-			}
-			interceptors := interceptorItems{}
+returnctx
+}
+interceptors:=interceptorItems{}
 
-			if v.Tags != nil {
-				schema := r.SchemaMap()
+ifv.Tags!=nil{
+schema:=r.SchemaMap()
 
-				// The data source has opted in to transparent tagging.
-				// Ensure that the schema look OK.
-				if v, ok := schema[names.AttrTags]; ok {
-					if !v.Computed {
-						errs = multierror.Append(errs, fmt.Errorf("`%s` attribute must be Computed: %s", names.AttrTags, typeName))
-						continue
-					}
-				} else {
-					errs = multierror.Append(errs, fmt.Errorf("no `%s` attribute defined in schema: %s", names.AttrTags, typeName))
-					continue
-				}
+//Thedatasourcehasoptedintotransparenttagging.
+//EnsurethattheschemalookOK.
+ifv,ok:=schema[names.AttrTags];ok{
+	if!v.Computed{
+		errs=multierror.Append(errs,fmt.Errorf("`%s`attributemustbeComputed:%s",names.AttrTags,typeName))
+		continue
+	}
+}else{
+	errs=multierror.Append(errs,fmt.Errorf("no`%s`attributedefinedinschema:%s",names.AttrTags,typeName))
+	continue
+}
 
-				interceptors = append(interceptors, interceptorItem{
-					when: Before | After,
-					why:  Read,
-					interceptor: tagsDataSourceInterceptor{
-						tags: v.Tags,
-					},
-				})
-			}
+interceptors=append(interceptors,interceptorItem{
+	when:Before|After,
+	why:Read,
+	interceptor:tagsDataSourceInterceptor{
+		tags:v.Tags,
+	},
+})
+}
 
-			ds := &wrappedDataSource{
-				bootstrapContext: bootstrapContext,
-				interceptors:     interceptors,
-			}
+ds:=&wrappedDataSource{
+bootstrapContext:bootstrapContext,
+interceptors:interceptors,
+}
 
-			if v := r.ReadWithoutTimeout; v != nil {
-				r.ReadWithoutTimeout = ds.Read(v)
-			}
+ifv:=r.ReadWithoutTimeout;v!=nil{
+r.ReadWithoutTimeout=ds.Read(v)
+}
 
-			provider.DataSourcesMap[typeName] = r
+provider.DataSourcesMap[typeName]=r
 		}
 
-		for _, v := range sp.SDKResources(ctx) {
-			v := v
-			typeName := v.TypeName
+		for_,v:=rangesp.SDKResources(ctx){
+v:=v
+typeName:=v.TypeName
 
-			if _, ok := provider.ResourcesMap[typeName]; ok {
-				errs = multierror.Append(errs, fmt.Errorf("duplicate resource: %s", typeName))
-				continue
-			}
+if_,ok:=provider.ResourcesMap[typeName];ok{
+errs=multierror.Append(errs,fmt.Errorf("duplicateresource:%s",typeName))
+continue
+}
 
-			r := v.Factory()
+r:=v.Factory()
 
-			// Ensure that the correct CRUD handler variants are used.
-			if r.Create != nil || r.CreateContext != nil {
-				errs = multierror.Append(errs, fmt.Errorf("incorrect Create handler variant: %s", typeName))
-				continue
-			}
-			if r.Read != nil || r.ReadContext != nil {
-				errs = multierror.Append(errs, fmt.Errorf("incorrect Read handler variant: %s", typeName))
-				continue
-			}
-			if r.Update != nil || r.UpdateContext != nil {
-				errs = multierror.Append(errs, fmt.Errorf("incorrect Update handler variant: %s", typeName))
-				continue
-			}
-			if r.Delete != nil || r.DeleteContext != nil {
-				errs = multierror.Append(errs, fmt.Errorf("incorrect Delete handler variant: %s", typeName))
-				continue
-			}
+//EnsurethatthecorrectCRUDhandlervariantsareused.
+ifr.Create!=nil||r.CreateContext!=nil{
+errs=multierror.Append(errs,fmt.Errorf("incorrectCreatehandlervariant:%s",typeName))
+continue
+}
+ifr.Read!=nil||r.ReadContext!=nil{
+errs=multierror.Append(errs,fmt.Errorf("incorrectReadhandlervariant:%s",typeName))
+continue
+}
+ifr.Update!=nil||r.UpdateContext!=nil{
+errs=multierror.Append(errs,fmt.Errorf("incorrectUpdatehandlervariant:%s",typeName))
+continue
+}
+ifr.Delete!=nil||r.DeleteContext!=nil{
+errs=multierror.Append(errs,fmt.Errorf("incorrectDeletehandlervariant:%s",typeName))
+continue
+}
 
-			// bootstrapContext is run on all wrapped methods before any interceptors.
-			bootstrapContext := func(ctx context.Context, meta any) context.Context {
-				ctx = conns.NewResourceContext(ctx, servicePackageName, v.Name)
-				if v, ok := meta.(*conns.AWSClient); ok {
-					ctx = tftags.NewContext(ctx, v.DefaultTagsConfig, v.IgnoreTagsConfig)
-				}
+//bootstrapContextisrunonallwrappedmethodsbeforeanyinterceptors.
+bootstrapContext:=func(ctxcontext.Context,metaany)context.Context{
+ctx=conns.NewResourceContext(ctx,servicePackageName,v.Name)
+ifv,ok:=meta.(*conns.AWSClient);ok{
+	ctx=tftags.NewContext(ctx,v.DefaultTagsConfig,v.IgnoreTagsConfig)
+}
 
-				return ctx
-			}
-			interceptors := interceptorItems{}
+returnctx
+}
+interceptors:=interceptorItems{}
 
-			if v.Tags != nil {
-				schema := r.SchemaMap()
+ifv.Tags!=nil{
+schema:=r.SchemaMap()
 
-				// The resource has opted in to transparent tagging.
-				// Ensure that the schema look OK.
-				if v, ok := schema[names.AttrTags]; ok {
-					if v.Computed {
-						errs = multierror.Append(errs, fmt.Errorf("`%s` attribute cannot be Computed: %s", names.AttrTags, typeName))
-						continue
-					}
-				} else {
-					errs = multierror.Append(errs, fmt.Errorf("no `%s` attribute defined in schema: %s", names.AttrTags, typeName))
-					continue
-				}
-				if v, ok := schema[names.AttrTagsAll]; ok {
-					if !v.Computed {
-						errs = multierror.Append(errs, fmt.Errorf("`%s` attribute must be Computed: %s", names.AttrTags, typeName))
-						continue
-					}
-				} else {
-					errs = multierror.Append(errs, fmt.Errorf("no `%s` attribute defined in schema: %s", names.AttrTagsAll, typeName))
-					continue
-				}
+//Theresourcehasoptedintotransparenttagging.
+//EnsurethattheschemalookOK.
+ifv,ok:=schema[names.AttrTags];ok{
+	ifv.Computed{
+		errs=multierror.Append(errs,fmt.Errorf("`%s`attributecannotbeComputed:%s",names.AttrTags,typeName))
+		continue
+	}
+}else{
+	errs=multierror.Append(errs,fmt.Errorf("no`%s`attributedefinedinschema:%s",names.AttrTags,typeName))
+	continue
+}
+ifv,ok:=schema[names.AttrTagsAll];ok{
+	if!v.Computed{
+		errs=multierror.Append(errs,fmt.Errorf("`%s`attributemustbeComputed:%s",names.AttrTags,typeName))
+		continue
+	}
+}else{
+	errs=multierror.Append(errs,fmt.Errorf("no`%s`attributedefinedinschema:%s",names.AttrTagsAll,typeName))
+	continue
+}
 
-				interceptors = append(interceptors, interceptorItem{
-					when: Before | After | Finally,
-					why:  Create | Read | Update,
-					interceptor: tagsResourceInterceptor{
-						tags:       v.Tags,
-						updateFunc: tagsUpdateFunc,
-						readFunc:   tagsReadFunc,
-					},
-				})
-			}
+interceptors=append(interceptors,interceptorItem{
+	when:Before|After|Finally,
+	why:Create|Read|Update,
+	interceptor:tagsResourceInterceptor{
+		tags:v.Tags,
+		updateFunc:tagsUpdateFunc,
+		readFunc:tagsReadFunc,
+	},
+})
+}
 
-			rs := &wrappedResource{
-				bootstrapContext: bootstrapContext,
-				interceptors:     interceptors,
-			}
+rs:=&wrappedResource{
+bootstrapContext:bootstrapContext,
+interceptors:interceptors,
+}
 
-			if v := r.CreateWithoutTimeout; v != nil {
-				r.CreateWithoutTimeout = rs.Create(v)
-			}
-			if v := r.ReadWithoutTimeout; v != nil {
-				r.ReadWithoutTimeout = rs.Read(v)
-			}
-			if v := r.UpdateWithoutTimeout; v != nil {
-				r.UpdateWithoutTimeout = rs.Update(v)
-			}
-			if v := r.DeleteWithoutTimeout; v != nil {
-				r.DeleteWithoutTimeout = rs.Delete(v)
-			}
-			if v := r.Importer; v != nil {
-				if v := v.StateContext; v != nil {
-					r.Importer.StateContext = rs.State(v)
-				}
-			}
-			if v := r.CustomizeDiff; v != nil {
-				r.CustomizeDiff = rs.CustomizeDiff(v)
-			}
-			for _, stateUpgrader := range r.StateUpgraders {
-				if v := stateUpgrader.Upgrade; v != nil {
-					stateUpgrader.Upgrade = rs.StateUpgrade(v)
-				}
-			}
+ifv:=r.CreateWithoutTimeout;v!=nil{
+r.CreateWithoutTimeout=rs.Create(v)
+}
+ifv:=r.ReadWithoutTimeout;v!=nil{
+r.ReadWithoutTimeout=rs.Read(v)
+}
+ifv:=r.UpdateWithoutTimeout;v!=nil{
+r.UpdateWithoutTimeout=rs.Update(v)
+}
+ifv:=r.DeleteWithoutTimeout;v!=nil{
+r.DeleteWithoutTimeout=rs.Delete(v)
+}
+ifv:=r.Importer;v!=nil{
+ifv:=v.StateContext;v!=nil{
+	r.Importer.StateContext=rs.State(v)
+}
+}
+ifv:=r.CustomizeDiff;v!=nil{
+r.CustomizeDiff=rs.CustomizeDiff(v)
+}
+for_,stateUpgrader:=ranger.StateUpgraders{
+ifv:=stateUpgrader.Upgrade;v!=nil{
+	stateUpgrader.Upgrade=rs.StateUpgrade(v)
+}
+}
 
-			provider.ResourcesMap[typeName] = r
+provider.ResourcesMap[typeName]=r
 		}
 	}
 
-	if err := errs.ErrorOrNil(); err != nil {
-		return nil, err
+	iferr:=errs.ErrorOrNil();err!=nil{
+		returnnil,err
 	}
 
-	// Set the provider Meta (instance data) here.
-	// It will be overwritten by the result of the call to ConfigureContextFunc,
-	// but can be used pre-configuration by other (non-primary) provider servers.
-	var meta *conns.AWSClient
-	if v, ok := provider.Meta().(*conns.AWSClient); ok {
-		meta = v
-	} else {
-		meta = new(conns.AWSClient)
+	//SettheproviderMeta(instancedata)here.
+	//ItwillbeoverwrittenbytheresultofthecalltoConfigureContextFunc,
+	//butcanbeusedpre-configurationbyother(non-primary)providerservers.
+	varmeta*conns.AWSClient
+	ifv,ok:=provider.Meta().(*conns.AWSClient);ok{
+		meta=v
+	}else{
+		meta=new(conns.AWSClient)
 	}
-	meta.ServicePackages = servicePackageMap
+	meta.ServicePackages=servicePackageMap
 	provider.SetMeta(meta)
 
-	return provider, nil
+	returnprovider,nil
 }
 
-// configure ensures that the provider is fully configured.
-func configure(ctx context.Context, provider *schema.Provider, d *schema.ResourceData) (*conns.AWSClient, diag.Diagnostics) {
-	var diags diag.Diagnostics
+//configureensuresthattheproviderisfullyconfigured.
+funcconfigure(ctxcontext.Context,provider*schema.Provider,d*schema.ResourceData)(*conns.AWSClient,diag.Diagnostics){
+	vardiagsdiag.Diagnostics
 
-	terraformVersion := provider.TerraformVersion
-	if terraformVersion == "" {
-		// Terraform 0.12 introduced this field to the protocol
-		// We can therefore assume that if it's missing it's 0.10 or 0.11
-		terraformVersion = "0.11+compatible"
+	terraformVersion:=provider.TerraformVersion
+	ifterraformVersion==""{
+		//Terraform0.12introducedthisfieldtotheprotocol
+		//Wecanthereforeassumethatifit'smissingit's0.10or0.11
+		terraformVersion="0.11+compatible"
 	}
 
-	config := conns.Config{
-		AccessKey:                      d.Get("access_key").(string),
-		CustomCABundle:                 d.Get("custom_ca_bundle").(string),
-		EC2MetadataServiceEndpoint:     d.Get("ec2_metadata_service_endpoint").(string),
-		EC2MetadataServiceEndpointMode: d.Get("ec2_metadata_service_endpoint_mode").(string),
-		Endpoints:                      make(map[string]string),
-		HTTPProxy:                      d.Get("http_proxy").(string),
-		Insecure:                       d.Get("insecure").(bool),
-		MaxRetries:                     25, // Set default here, not in schema (muxing with v6 provider).
-		Profile:                        d.Get("profile").(string),
-		Region:                         d.Get("region").(string),
-		S3UsePathStyle:                 d.Get("s3_use_path_style").(bool),
-		SecretKey:                      d.Get("secret_key").(string),
-		SkipCredsValidation:            d.Get("skip_credentials_validation").(bool),
-		SkipRegionValidation:           d.Get("skip_region_validation").(bool),
-		SkipRequestingAccountId:        d.Get("skip_requesting_account_id").(bool),
-		STSRegion:                      d.Get("sts_region").(string),
-		TerraformVersion:               terraformVersion,
-		Token:                          d.Get("token").(string),
-		UseDualStackEndpoint:           d.Get("use_dualstack_endpoint").(bool),
-		UseFIPSEndpoint:                d.Get("use_fips_endpoint").(bool),
+	config:=conns.Config{
+		AccessKey:d.Get("access_key").(string),
+		CustomCABundle:d.Get("custom_ca_bundle").(string),
+		EC2MetadataServiceEndpoint:d.Get("ec2_metadata_service_endpoint").(string),
+		EC2MetadataServiceEndpointMode:d.Get("ec2_metadata_service_endpoint_mode").(string),
+		Endpoints:make(map[string]string),
+		HTTPProxy:d.Get("http_proxy").(string),
+		Insecure:d.Get("insecure").(bool),
+		MaxRetries:25,//Setdefaulthere,notinschema(muxingwithv6provider).
+		Profile:d.Get("profile").(string),
+		Region:d.Get("region").(string),
+		S3UsePathStyle:d.Get("s3_use_path_style").(bool),
+		SecretKey:d.Get("secret_key").(string),
+		SkipCredsValidation:d.Get("skip_credentials_validation").(bool),
+		SkipRegionValidation:d.Get("skip_region_validation").(bool),
+		SkipRequestingAccountId:d.Get("skip_requesting_account_id").(bool),
+		STSRegion:d.Get("sts_region").(string),
+		TerraformVersion:terraformVersion,
+		Token:d.Get("token").(string),
+		UseDualStackEndpoint:d.Get("use_dualstack_endpoint").(bool),
+		UseFIPSEndpoint:d.Get("use_fips_endpoint").(bool),
 	}
 
-	if v, ok := d.Get("retry_mode").(string); ok && v != "" {
-		mode, err := aws.ParseRetryMode(v)
-		if err != nil {
-			return nil, sdkdiag.AppendFromErr(diags, err)
+	ifv,ok:=d.Get("retry_mode").(string);ok&&v!=""{
+		mode,err:=aws.ParseRetryMode(v)
+		iferr!=nil{
+returnnil,sdkdiag.AppendFromErr(diags,err)
 		}
-		config.RetryMode = mode
+		config.RetryMode=mode
 	}
 
-	if v, ok := d.Get("s3_us_east_1_regional_endpoint").(string); ok && v != "" {
-		endpoint, err := endpoints.GetS3UsEast1RegionalEndpoint(v)
-		if err != nil {
-			return nil, sdkdiag.AppendFromErr(diags, err)
+	ifv,ok:=d.Get("s3_us_east_1_regional_endpoint").(string);ok&&v!=""{
+		endpoint,err:=endpoints.GetS3UsEast1RegionalEndpoint(v)
+		iferr!=nil{
+returnnil,sdkdiag.AppendFromErr(diags,err)
 		}
-		config.S3UsEast1RegionalEndpoint = endpoint
+		config.S3UsEast1RegionalEndpoint=endpoint
 	}
 
-	if v, ok := d.GetOk("allowed_account_ids"); ok && v.(*schema.Set).Len() > 0 {
-		config.AllowedAccountIds = flex.ExpandStringValueSet(v.(*schema.Set))
+	ifv,ok:=d.GetOk("allowed_account_ids");ok&&v.(*schema.Set).Len()>0{
+		config.AllowedAccountIds=flex.ExpandStringValueSet(v.(*schema.Set))
 	}
 
-	if v, ok := d.GetOk("assume_role"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
-		config.AssumeRole = expandAssumeRole(ctx, v.([]interface{})[0].(map[string]interface{}))
-		tflog.Info(ctx, "assume_role configuration set", map[string]any{
-			"tf_aws.assume_role.role_arn":        config.AssumeRole.RoleARN,
-			"tf_aws.assume_role.session_name":    config.AssumeRole.SessionName,
-			"tf_aws.assume_role.external_id":     config.AssumeRole.ExternalID,
-			"tf_aws.assume_role.source_identity": config.AssumeRole.SourceIdentity,
+	ifv,ok:=d.GetOk("assume_role");ok&&len(v.([]interface{}))>0&&v.([]interface{})[0]!=nil{
+		config.AssumeRole=expandAssumeRole(ctx,v.([]interface{})[0].(map[string]interface{}))
+		tflog.Info(ctx,"assume_roleconfigurationset",map[string]any{
+"tf_aws.assume_role.role_arn":config.AssumeRole.RoleARN,
+"tf_aws.assume_role.session_name":config.AssumeRole.SessionName,
+"tf_aws.assume_role.external_id":config.AssumeRole.ExternalID,
+"tf_aws.assume_role.source_identity":config.AssumeRole.SourceIdentity,
 		})
 	}
 
-	if v, ok := d.GetOk("assume_role_with_web_identity"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
-		config.AssumeRoleWithWebIdentity = expandAssumeRoleWithWebIdentity(ctx, v.([]interface{})[0].(map[string]interface{}))
-		tflog.Info(ctx, "assume_role_with_web_identity configuration set", map[string]any{
-			"tf_aws.assume_role_with_web_identity.role_arn":     config.AssumeRoleWithWebIdentity.RoleARN,
-			"tf_aws.assume_role_with_web_identity.session_name": config.AssumeRoleWithWebIdentity.SessionName,
+	ifv,ok:=d.GetOk("assume_role_with_web_identity");ok&&len(v.([]interface{}))>0&&v.([]interface{})[0]!=nil{
+		config.AssumeRoleWithWebIdentity=expandAssumeRoleWithWebIdentity(ctx,v.([]interface{})[0].(map[string]interface{}))
+		tflog.Info(ctx,"assume_role_with_web_identityconfigurationset",map[string]any{
+"tf_aws.assume_role_with_web_identity.role_arn":config.AssumeRoleWithWebIdentity.RoleARN,
+"tf_aws.assume_role_with_web_identity.session_name":config.AssumeRoleWithWebIdentity.SessionName,
 		})
 	}
 
-	if v, ok := d.GetOk("default_tags"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
-		config.DefaultTagsConfig = expandDefaultTags(ctx, v.([]interface{})[0].(map[string]interface{}))
+	ifv,ok:=d.GetOk("default_tags");ok&&len(v.([]interface{}))>0&&v.([]interface{})[0]!=nil{
+		config.DefaultTagsConfig=expandDefaultTags(ctx,v.([]interface{})[0].(map[string]interface{}))
 	}
 
-	if v, ok := d.GetOk("endpoints"); ok && v.(*schema.Set).Len() > 0 {
-		endpoints, err := expandEndpoints(ctx, v.(*schema.Set).List())
+	ifv,ok:=d.GetOk("endpoints");ok&&v.(*schema.Set).Len()>0{
+		endpoints,err:=expandEndpoints(ctx,v.(*schema.Set).List())
 
-		if err != nil {
-			return nil, sdkdiag.AppendFromErr(diags, err)
+		iferr!=nil{
+returnnil,sdkdiag.AppendFromErr(diags,err)
 		}
 
-		config.Endpoints = endpoints
+		config.Endpoints=endpoints
 	}
 
-	if v, ok := d.GetOk("forbidden_account_ids"); ok && v.(*schema.Set).Len() > 0 {
-		config.ForbiddenAccountIds = flex.ExpandStringValueSet(v.(*schema.Set))
+	ifv,ok:=d.GetOk("forbidden_account_ids");ok&&v.(*schema.Set).Len()>0{
+		config.ForbiddenAccountIds=flex.ExpandStringValueSet(v.(*schema.Set))
 	}
 
-	if v, ok := d.GetOk("ignore_tags"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
-		config.IgnoreTagsConfig = expandIgnoreTags(ctx, v.([]interface{})[0].(map[string]interface{}))
+	ifv,ok:=d.GetOk("ignore_tags");ok&&len(v.([]interface{}))>0&&v.([]interface{})[0]!=nil{
+		config.IgnoreTagsConfig=expandIgnoreTags(ctx,v.([]interface{})[0].(map[string]interface{}))
 	}
 
-	if v, ok := d.GetOk("max_retries"); ok {
-		config.MaxRetries = v.(int)
+	ifv,ok:=d.GetOk("max_retries");ok{
+		config.MaxRetries=v.(int)
 	}
 
-	if v, ok := d.GetOk("shared_credentials_files"); ok && len(v.([]interface{})) > 0 {
-		config.SharedCredentialsFiles = flex.ExpandStringValueList(v.([]interface{}))
+	ifv,ok:=d.GetOk("shared_credentials_files");ok&&len(v.([]interface{}))>0{
+		config.SharedCredentialsFiles=flex.ExpandStringValueList(v.([]interface{}))
 	}
 
-	if v, ok := d.GetOk("shared_config_files"); ok && len(v.([]interface{})) > 0 {
-		config.SharedConfigFiles = flex.ExpandStringValueList(v.([]interface{}))
+	ifv,ok:=d.GetOk("shared_config_files");ok&&len(v.([]interface{}))>0{
+		config.SharedConfigFiles=flex.ExpandStringValueList(v.([]interface{}))
 	}
 
-	if v, null, _ := nullable.Bool(d.Get("skip_metadata_api_check").(string)).Value(); !null {
-		if v {
-			config.EC2MetadataServiceEnableState = imds.ClientDisabled
-		} else {
-			config.EC2MetadataServiceEnableState = imds.ClientEnabled
+	ifv,null,_:=nullable.Bool(d.Get("skip_metadata_api_check").(string)).Value();!null{
+		ifv{
+config.EC2MetadataServiceEnableState=imds.ClientDisabled
+		}else{
+config.EC2MetadataServiceEnableState=imds.ClientEnabled
 		}
 	}
 
-	var meta *conns.AWSClient
-	if v, ok := provider.Meta().(*conns.AWSClient); ok {
-		meta = v
-	} else {
-		meta = new(conns.AWSClient)
+	varmeta*conns.AWSClient
+	ifv,ok:=provider.Meta().(*conns.AWSClient);ok{
+		meta=v
+	}else{
+		meta=new(conns.AWSClient)
 	}
-	meta, ds := config.ConfigureProvider(ctx, meta)
-	diags = append(diags, ds...)
+	meta,ds:=config.ConfigureProvider(ctx,meta)
+	diags=append(diags,ds...)
 
-	if diags.HasError() {
-		return nil, diags
+	ifdiags.HasError(){
+		returnnil,diags
 	}
 
-	return meta, diags
+	returnmeta,diags
 }
 
-func assumeRoleSchema() *schema.Schema {
-	return &schema.Schema{
-		Type:     schema.TypeList,
-		Optional: true,
-		MaxItems: 1,
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
-				"duration": {
-					Type:         schema.TypeString,
-					Optional:     true,
-					Description:  "The duration, between 15 minutes and 12 hours, of the role session. Valid time units are ns, us (or µs), ms, s, h, or m.",
-					ValidateFunc: validAssumeRoleDuration,
-				},
-				"external_id": {
-					Type:        schema.TypeString,
-					Optional:    true,
-					Description: "A unique identifier that might be required when you assume a role in another account.",
-					ValidateFunc: validation.All(
-						validation.StringLenBetween(2, 1224),
-						validation.StringMatch(regexache.MustCompile(`[\w+=,.@:\/\-]*`), ""),
-					),
-				},
-				"policy": {
-					Type:         schema.TypeString,
-					Optional:     true,
-					Description:  "IAM Policy JSON describing further restricting permissions for the IAM Role being assumed.",
-					ValidateFunc: validation.StringIsJSON,
-				},
-				"policy_arns": {
-					Type:        schema.TypeSet,
-					Optional:    true,
-					Description: "Amazon Resource Names (ARNs) of IAM Policies describing further restricting permissions for the IAM Role being assumed.",
-					Elem: &schema.Schema{
-						Type:         schema.TypeString,
-						ValidateFunc: verify.ValidARN,
-					},
-				},
-				"role_arn": {
-					Type:         schema.TypeString,
-					Optional:     true,
-					Description:  "Amazon Resource Name (ARN) of an IAM Role to assume prior to making API calls.",
-					ValidateFunc: verify.ValidARN,
-				},
-				"session_name": {
-					Type:         schema.TypeString,
-					Optional:     true,
-					Description:  "An identifier for the assumed role session.",
-					ValidateFunc: validAssumeRoleSessionName,
-				},
-				"source_identity": {
-					Type:         schema.TypeString,
-					Optional:     true,
-					Description:  "Source identity specified by the principal assuming the role.",
-					ValidateFunc: validAssumeRoleSourceIdentity,
-				},
-				"tags": {
-					Type:        schema.TypeMap,
-					Optional:    true,
-					Description: "Assume role session tags.",
-					Elem:        &schema.Schema{Type: schema.TypeString},
-				},
-				"transitive_tag_keys": {
-					Type:        schema.TypeSet,
-					Optional:    true,
-					Description: "Assume role session tag keys to pass to any subsequent sessions.",
-					Elem:        &schema.Schema{Type: schema.TypeString},
-				},
-			},
+funcassumeRoleSchema()*schema.Schema{
+	return&schema.Schema{
+		Type:schema.TypeList,
+		Optional:true,
+		MaxItems:1,
+		Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"duration":{
+	Type:schema.TypeString,
+	Optional:true,
+	Description:"Theduration,between15minutesand12hours,oftherolesession.Validtimeunitsarens,us(orµs),ms,s,h,orm.",
+	ValidateFunc:validAssumeRoleDuration,
+},
+"external_id":{
+	Type:schema.TypeString,
+	Optional:true,
+	Description:"Auniqueidentifierthatmightberequiredwhenyouassumearoleinanotheraccount.",
+	ValidateFunc:validation.All(
+		validation.StringLenBetween(2,1224),
+		validation.StringMatch(regexache.MustCompile(`[\w+=,.@:\/\-]*`),""),
+	),
+},
+"policy":{
+	Type:schema.TypeString,
+	Optional:true,
+	Description:"IAMPolicyJSONdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
+	ValidateFunc:validation.StringIsJSON,
+},
+"policy_arns":{
+	Type:schema.TypeSet,
+	Optional:true,
+	Description:"AmazonResourceNames(ARNs)ofIAMPoliciesdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
+	Elem:&schema.Schema{
+		Type:schema.TypeString,
+		ValidateFunc:verify.ValidARN,
+	},
+},
+"role_arn":{
+	Type:schema.TypeString,
+	Optional:true,
+	Description:"AmazonResourceName(ARN)ofanIAMRoletoassumepriortomakingAPIcalls.",
+	ValidateFunc:verify.ValidARN,
+},
+"session_name":{
+	Type:schema.TypeString,
+	Optional:true,
+	Description:"Anidentifierfortheassumedrolesession.",
+	ValidateFunc:validAssumeRoleSessionName,
+},
+"source_identity":{
+	Type:schema.TypeString,
+	Optional:true,
+	Description:"Sourceidentityspecifiedbytheprincipalassumingtherole.",
+	ValidateFunc:validAssumeRoleSourceIdentity,
+},
+"tags":{
+	Type:schema.TypeMap,
+	Optional:true,
+	Description:"Assumerolesessiontags.",
+	Elem:&schema.Schema{Type:schema.TypeString},
+},
+"transitive_tag_keys":{
+	Type:schema.TypeSet,
+	Optional:true,
+	Description:"Assumerolesessiontagkeystopasstoanysubsequentsessions.",
+	Elem:&schema.Schema{Type:schema.TypeString},
+},
+},
 		},
 	}
 }
 
-func assumeRoleWithWebIdentitySchema() *schema.Schema {
-	return &schema.Schema{
-		Type:     schema.TypeList,
-		Optional: true,
-		MaxItems: 1,
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
-				"duration": {
-					Type:         schema.TypeString,
-					Optional:     true,
-					Description:  "The duration, between 15 minutes and 12 hours, of the role session. Valid time units are ns, us (or µs), ms, s, h, or m.",
-					ValidateFunc: validAssumeRoleDuration,
-				},
-				"policy": {
-					Type:         schema.TypeString,
-					Optional:     true,
-					Description:  "IAM Policy JSON describing further restricting permissions for the IAM Role being assumed.",
-					ValidateFunc: validation.StringIsJSON,
-				},
-				"policy_arns": {
-					Type:        schema.TypeSet,
-					Optional:    true,
-					Description: "Amazon Resource Names (ARNs) of IAM Policies describing further restricting permissions for the IAM Role being assumed.",
-					Elem: &schema.Schema{
-						Type:         schema.TypeString,
-						ValidateFunc: verify.ValidARN,
-					},
-				},
-				"role_arn": {
-					Type:         schema.TypeString,
-					Optional:     true,
-					Description:  "Amazon Resource Name (ARN) of an IAM Role to assume prior to making API calls.",
-					ValidateFunc: verify.ValidARN,
-				},
-				"session_name": {
-					Type:         schema.TypeString,
-					Optional:     true,
-					Description:  "An identifier for the assumed role session.",
-					ValidateFunc: validAssumeRoleSessionName,
-				},
-				"web_identity_token": {
-					Type:         schema.TypeString,
-					Optional:     true,
-					ValidateFunc: validation.StringLenBetween(4, 20000),
-					ExactlyOneOf: []string{"assume_role_with_web_identity.0.web_identity_token", "assume_role_with_web_identity.0.web_identity_token_file"},
-				},
-				"web_identity_token_file": {
-					Type:         schema.TypeString,
-					Optional:     true,
-					ExactlyOneOf: []string{"assume_role_with_web_identity.0.web_identity_token", "assume_role_with_web_identity.0.web_identity_token_file"},
-				},
-			},
+funcassumeRoleWithWebIdentitySchema()*schema.Schema{
+	return&schema.Schema{
+		Type:schema.TypeList,
+		Optional:true,
+		MaxItems:1,
+		Elem:&schema.Resource{
+Schema:map[string]*schema.Schema{
+"duration":{
+	Type:schema.TypeString,
+	Optional:true,
+	Description:"Theduration,between15minutesand12hours,oftherolesession.Validtimeunitsarens,us(orµs),ms,s,h,orm.",
+	ValidateFunc:validAssumeRoleDuration,
+},
+"policy":{
+	Type:schema.TypeString,
+	Optional:true,
+	Description:"IAMPolicyJSONdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
+	ValidateFunc:validation.StringIsJSON,
+},
+"policy_arns":{
+	Type:schema.TypeSet,
+	Optional:true,
+	Description:"AmazonResourceNames(ARNs)ofIAMPoliciesdescribingfurtherrestrictingpermissionsfortheIAMRolebeingassumed.",
+	Elem:&schema.Schema{
+		Type:schema.TypeString,
+		ValidateFunc:verify.ValidARN,
+	},
+},
+"role_arn":{
+	Type:schema.TypeString,
+	Optional:true,
+	Description:"AmazonResourceName(ARN)ofanIAMRoletoassumepriortomakingAPIcalls.",
+	ValidateFunc:verify.ValidARN,
+},
+"session_name":{
+	Type:schema.TypeString,
+	Optional:true,
+	Description:"Anidentifierfortheassumedrolesession.",
+	ValidateFunc:validAssumeRoleSessionName,
+},
+"web_identity_token":{
+	Type:schema.TypeString,
+	Optional:true,
+	ValidateFunc:validation.StringLenBetween(4,20000),
+	ExactlyOneOf:[]string{"assume_role_with_web_identity.0.web_identity_token","assume_role_with_web_identity.0.web_identity_token_file"},
+},
+"web_identity_token_file":{
+	Type:schema.TypeString,
+	Optional:true,
+	ExactlyOneOf:[]string{"assume_role_with_web_identity.0.web_identity_token","assume_role_with_web_identity.0.web_identity_token_file"},
+},
+},
 		},
 	}
 }
 
-func endpointsSchema() *schema.Schema {
-	endpointsAttributes := make(map[string]*schema.Schema)
+funcendpointsSchema()*schema.Schema{
+	endpointsAttributes:=make(map[string]*schema.Schema)
 
-	for _, serviceKey := range names.Aliases() {
-		endpointsAttributes[serviceKey] = &schema.Schema{
-			Type:        schema.TypeString,
-			Optional:    true,
-			Default:     "",
-			Description: "Use this to override the default service endpoint URL",
+	for_,serviceKey:=rangenames.Aliases(){
+		endpointsAttributes[serviceKey]=&schema.Schema{
+Type:schema.TypeString,
+Optional:true,
+Default:"",
+Description:"UsethistooverridethedefaultserviceendpointURL",
 		}
 	}
 
-	return &schema.Schema{
-		Type:     schema.TypeSet,
-		Optional: true,
-		Elem: &schema.Resource{
-			Schema: endpointsAttributes,
+	return&schema.Schema{
+		Type:schema.TypeSet,
+		Optional:true,
+		Elem:&schema.Resource{
+Schema:endpointsAttributes,
 		},
 	}
 }
 
-func expandAssumeRole(_ context.Context, tfMap map[string]interface{}) *awsbase.AssumeRole {
-	if tfMap == nil {
-		return nil
+funcexpandAssumeRole(_context.Context,tfMapmap[string]interface{})*awsbase.AssumeRole{
+	iftfMap==nil{
+		returnnil
 	}
 
-	assumeRole := awsbase.AssumeRole{}
+	assumeRole:=awsbase.AssumeRole{}
 
-	if v, ok := tfMap["duration"].(string); ok && v != "" {
-		duration, _ := time.ParseDuration(v)
-		assumeRole.Duration = duration
+	ifv,ok:=tfMap["duration"].(string);ok&&v!=""{
+		duration,_:=time.ParseDuration(v)
+		assumeRole.Duration=duration
 	}
 
-	if v, ok := tfMap["external_id"].(string); ok && v != "" {
-		assumeRole.ExternalID = v
+	ifv,ok:=tfMap["external_id"].(string);ok&&v!=""{
+		assumeRole.ExternalID=v
 	}
 
-	if v, ok := tfMap["policy"].(string); ok && v != "" {
-		assumeRole.Policy = v
+	ifv,ok:=tfMap["policy"].(string);ok&&v!=""{
+		assumeRole.Policy=v
 	}
 
-	if v, ok := tfMap["policy_arns"].(*schema.Set); ok && v.Len() > 0 {
-		assumeRole.PolicyARNs = flex.ExpandStringValueSet(v)
+	ifv,ok:=tfMap["policy_arns"].(*schema.Set);ok&&v.Len()>0{
+		assumeRole.PolicyARNs=flex.ExpandStringValueSet(v)
 	}
 
-	if v, ok := tfMap["role_arn"].(string); ok && v != "" {
-		assumeRole.RoleARN = v
+	ifv,ok:=tfMap["role_arn"].(string);ok&&v!=""{
+		assumeRole.RoleARN=v
 	}
 
-	if v, ok := tfMap["session_name"].(string); ok && v != "" {
-		assumeRole.SessionName = v
+	ifv,ok:=tfMap["session_name"].(string);ok&&v!=""{
+		assumeRole.SessionName=v
 	}
 
-	if v, ok := tfMap["source_identity"].(string); ok && v != "" {
-		assumeRole.SourceIdentity = v
+	ifv,ok:=tfMap["source_identity"].(string);ok&&v!=""{
+		assumeRole.SourceIdentity=v
 	}
 
-	if v, ok := tfMap["tags"].(map[string]interface{}); ok && len(v) > 0 {
-		assumeRole.Tags = flex.ExpandStringValueMap(v)
+	ifv,ok:=tfMap["tags"].(map[string]interface{});ok&&len(v)>0{
+		assumeRole.Tags=flex.ExpandStringValueMap(v)
 	}
 
-	if v, ok := tfMap["transitive_tag_keys"].(*schema.Set); ok && v.Len() > 0 {
-		assumeRole.TransitiveTagKeys = flex.ExpandStringValueSet(v)
+	ifv,ok:=tfMap["transitive_tag_keys"].(*schema.Set);ok&&v.Len()>0{
+		assumeRole.TransitiveTagKeys=flex.ExpandStringValueSet(v)
 	}
 
-	return &assumeRole
+	return&assumeRole
 }
 
-func expandAssumeRoleWithWebIdentity(_ context.Context, tfMap map[string]interface{}) *awsbase.AssumeRoleWithWebIdentity {
-	if tfMap == nil {
-		return nil
+funcexpandAssumeRoleWithWebIdentity(_context.Context,tfMapmap[string]interface{})*awsbase.AssumeRoleWithWebIdentity{
+	iftfMap==nil{
+		returnnil
 	}
 
-	assumeRole := awsbase.AssumeRoleWithWebIdentity{}
+	assumeRole:=awsbase.AssumeRoleWithWebIdentity{}
 
-	if v, ok := tfMap["duration"].(string); ok && v != "" {
-		duration, _ := time.ParseDuration(v)
-		assumeRole.Duration = duration
+	ifv,ok:=tfMap["duration"].(string);ok&&v!=""{
+		duration,_:=time.ParseDuration(v)
+		assumeRole.Duration=duration
 	}
 
-	if v, ok := tfMap["policy"].(string); ok && v != "" {
-		assumeRole.Policy = v
+	ifv,ok:=tfMap["policy"].(string);ok&&v!=""{
+		assumeRole.Policy=v
 	}
 
-	if v, ok := tfMap["policy_arns"].(*schema.Set); ok && v.Len() > 0 {
-		assumeRole.PolicyARNs = flex.ExpandStringValueSet(v)
+	ifv,ok:=tfMap["policy_arns"].(*schema.Set);ok&&v.Len()>0{
+		assumeRole.PolicyARNs=flex.ExpandStringValueSet(v)
 	}
 
-	if v, ok := tfMap["role_arn"].(string); ok && v != "" {
-		assumeRole.RoleARN = v
+	ifv,ok:=tfMap["role_arn"].(string);ok&&v!=""{
+		assumeRole.RoleARN=v
 	}
 
-	if v, ok := tfMap["session_name"].(string); ok && v != "" {
-		assumeRole.SessionName = v
+	ifv,ok:=tfMap["session_name"].(string);ok&&v!=""{
+		assumeRole.SessionName=v
 	}
 
-	if v, ok := tfMap["web_identity_token"].(string); ok && v != "" {
-		assumeRole.WebIdentityToken = v
+	ifv,ok:=tfMap["web_identity_token"].(string);ok&&v!=""{
+		assumeRole.WebIdentityToken=v
 	}
 
-	if v, ok := tfMap["web_identity_token_file"].(string); ok && v != "" {
-		assumeRole.WebIdentityTokenFile = v
+	ifv,ok:=tfMap["web_identity_token_file"].(string);ok&&v!=""{
+		assumeRole.WebIdentityTokenFile=v
 	}
 
-	return &assumeRole
+	return&assumeRole
 }
 
-func expandDefaultTags(ctx context.Context, tfMap map[string]interface{}) *tftags.DefaultConfig {
-	if tfMap == nil {
-		return nil
+funcexpandDefaultTags(ctxcontext.Context,tfMapmap[string]interface{})*tftags.DefaultConfig{
+	iftfMap==nil{
+		returnnil
 	}
 
-	defaultConfig := &tftags.DefaultConfig{}
+	defaultConfig:=&tftags.DefaultConfig{}
 
-	if v, ok := tfMap["tags"].(map[string]interface{}); ok {
-		defaultConfig.Tags = tftags.New(ctx, v)
+	ifv,ok:=tfMap["tags"].(map[string]interface{});ok{
+		defaultConfig.Tags=tftags.New(ctx,v)
 	}
 
-	return defaultConfig
+	returndefaultConfig
 }
 
-func expandIgnoreTags(ctx context.Context, tfMap map[string]interface{}) *tftags.IgnoreConfig {
-	if tfMap == nil {
-		return nil
+funcexpandIgnoreTags(ctxcontext.Context,tfMapmap[string]interface{})*tftags.IgnoreConfig{
+	iftfMap==nil{
+		returnnil
 	}
 
-	ignoreConfig := &tftags.IgnoreConfig{}
+	ignoreConfig:=&tftags.IgnoreConfig{}
 
-	if v, ok := tfMap["keys"].(*schema.Set); ok {
-		ignoreConfig.Keys = tftags.New(ctx, v.List())
+	ifv,ok:=tfMap["keys"].(*schema.Set);ok{
+		ignoreConfig.Keys=tftags.New(ctx,v.List())
 	}
 
-	if v, ok := tfMap["key_prefixes"].(*schema.Set); ok {
-		ignoreConfig.KeyPrefixes = tftags.New(ctx, v.List())
+	ifv,ok:=tfMap["key_prefixes"].(*schema.Set);ok{
+		ignoreConfig.KeyPrefixes=tftags.New(ctx,v.List())
 	}
 
-	return ignoreConfig
+	returnignoreConfig
 }
 
-func expandEndpoints(_ context.Context, tfList []interface{}) (map[string]string, error) {
-	if len(tfList) == 0 {
-		return nil, nil
+funcexpandEndpoints(_context.Context,tfList[]interface{})(map[string]string,error){
+	iflen(tfList)==0{
+		returnnil,nil
 	}
 
-	endpoints := make(map[string]string)
+	endpoints:=make(map[string]string)
 
-	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
+	for_,tfMapRaw:=rangetfList{
+		tfMap,ok:=tfMapRaw.(map[string]interface{})
 
-		if !ok {
-			continue
+		if!ok{
+continue
 		}
 
-		for _, alias := range names.Aliases() {
-			pkg, err := names.ProviderPackageForAlias(alias)
+		for_,alias:=rangenames.Aliases(){
+pkg,err:=names.ProviderPackageForAlias(alias)
 
-			if err != nil {
-				return nil, fmt.Errorf("failed to assign endpoint (%s): %w", alias, err)
-			}
+iferr!=nil{
+returnnil,fmt.Errorf("failedtoassignendpoint(%s):%w",alias,err)
+}
 
-			if endpoints[pkg] == "" {
-				if v := tfMap[alias].(string); v != "" {
-					endpoints[pkg] = v
-				}
-			}
-		}
-	}
-
-	for _, pkg := range names.ProviderPackages() {
-		if endpoints[pkg] != "" {
-			continue
-		}
-
-		envVar := names.EnvVar(pkg)
-		if envVar != "" {
-			if v := os.Getenv(envVar); v != "" {
-				endpoints[pkg] = v
-				continue
-			}
-		}
-
-		if deprecatedEnvVar := names.DeprecatedEnvVar(pkg); deprecatedEnvVar != "" {
-			if v := os.Getenv(deprecatedEnvVar); v != "" {
-				// TODO: Make this a Warning Diagnostic
-				log.Printf("[WARN] The environment variable %q is deprecated. Use %q instead.", deprecatedEnvVar, envVar)
-				endpoints[pkg] = v
-			}
+ifendpoints[pkg]==""{
+ifv:=tfMap[alias].(string);v!=""{
+	endpoints[pkg]=v
+}
+}
 		}
 	}
 
-	return endpoints, nil
+	for_,pkg:=rangenames.ProviderPackages(){
+		ifendpoints[pkg]!=""{
+continue
+		}
+
+		envVar:=names.EnvVar(pkg)
+		ifenvVar!=""{
+ifv:=os.Getenv(envVar);v!=""{
+endpoints[pkg]=v
+continue
+}
+		}
+
+		ifdeprecatedEnvVar:=names.DeprecatedEnvVar(pkg);deprecatedEnvVar!=""{
+ifv:=os.Getenv(deprecatedEnvVar);v!=""{
+//TODO:MakethisaWarningDiagnostic
+log.Printf("[WARN]Theenvironmentvariable%qisdeprecated.Use%qinstead.",deprecatedEnvVar,envVar)
+endpoints[pkg]=v
+}
+		}
+	}
+
+	returnendpoints,nil
 }

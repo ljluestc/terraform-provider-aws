@@ -39,14 +39,14 @@ func ResourceVoiceConnector() *schema.Resource {
 				Computed: true,
 			},
 			"aws_region": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Optional:     true,
 				Default:      chime.VoiceConnectorAwsRegionUsEast1,
 				ValidateFunc: validation.StringInSlice([]string{chime.VoiceConnectorAwsRegionUsEast1, chime.VoiceConnectorAwsRegionUsWest2}, false),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.NoZeroValues,
 			},
@@ -71,7 +71,7 @@ func resourceVoiceConnectorCreate(ctx context.Context, d *schema.ResourceData, m
 	conn := meta.(*conns.AWSClient).ChimeConn(ctx)
 
 	createInput := &chime.CreateVoiceConnectorInput{
-		Name:              aws.String(d.Get("name").(string)),
+		Name:     aws.String(d.Get("name").(string)),
 		RequireEncryption: aws.Bool(d.Get("require_encryption").(bool)),
 	}
 
@@ -129,7 +129,7 @@ func resourceVoiceConnectorUpdate(ctx context.Context, d *schema.ResourceData, m
 	if d.HasChanges("name", "require_encryption") {
 		updateInput := &chime.UpdateVoiceConnectorInput{
 			VoiceConnectorId:  aws.String(d.Id()),
-			Name:              aws.String(d.Get("name").(string)),
+			Name:     aws.String(d.Get("name").(string)),
 			RequireEncryption: aws.Bool(d.Get("require_encryption").(bool)),
 		}
 

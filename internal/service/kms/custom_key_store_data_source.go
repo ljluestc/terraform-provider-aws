@@ -22,13 +22,13 @@ return &schema.Resource{
 ReadWithoutTimeout: dataSourceCustomKeyStoreRead,
 Schema: map[string]*schema.Schema{
 "custom_key_store_id": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 Computed:      true,
 ConflictsWith: []string{"custom_key_store_name"},
 },
 "custom_key_store_name": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 Computed:      true,
 ConflictsWith: []string{"custom_key_store_id"},
@@ -56,7 +56,6 @@ Computed: true,
 const (
 DSNameCustomKeyStore = "Custom Key Store"
 )
-
 func dataSourceCustomKeyStoreRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).KMSConn(ctx)
 

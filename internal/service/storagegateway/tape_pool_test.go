@@ -224,7 +224,7 @@ func testAccTapePoolConfig_retention(rName string) string {
 resource "aws_storagegateway_tape_pool" "test" {
   pool_name    = %[1]q
   storage_class= "GLACIER"
-  retention_lock_type         = "GOVERNANCE"
+  retention_lock_type= "GOVERNANCE"
   retention_lock_time_in_days = 1
 }
 `, rName)

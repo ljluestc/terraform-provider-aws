@@ -47,7 +47,7 @@ func (d *dataSourceRegions) Schema(ctx context.Context, req datasource.SchemaReq
 			},
 			"names": schema.SetAttribute{
 				ElementType: types.StringType,
-				Computed:    true,
+				Computed:true,
 			},
 		},
 		Blocks: map[string]schema.Block{
@@ -71,7 +71,7 @@ func (d *dataSourceRegions) Read(ctx context.Context, request datasource.ReadReq
 
 	input := &ec2.DescribeRegionsInput{
 		AllRegions: flex.BoolFromFramework(ctx, data.AllRegions),
-		Filters:    tfec2.BuildCustomFilters(ctx, data.Filters),
+		Filters:tfec2.BuildCustomFilters(ctx, data.Filters),
 	}
 
 	output, err := conn.DescribeRegionsWithContext(ctx, input)
@@ -95,7 +95,7 @@ func (d *dataSourceRegions) Read(ctx context.Context, request datasource.ReadReq
 
 type dataSourceRegionsData struct {
 	AllRegions types.Bool   `tfsdk:"all_regions"`
-	Filters    types.Set    `tfsdk:"filter"`
-	ID         types.String `tfsdk:"id"`
-	Names      types.Set    `tfsdk:"names"`
+	Filterstypes.Set`tfsdk:"filter"`
+	IDtypes.String `tfsdk:"id"`
+	Names  types.Set`tfsdk:"names"`
 }

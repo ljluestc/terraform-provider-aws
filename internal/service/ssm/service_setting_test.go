@@ -29,7 +29,7 @@ func TestAccSSMServiceSetting_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceSettingDestroy(ctx),
+CheckDestroy:    testAccCheckServiceSettingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceSettingConfig_basic("false"),

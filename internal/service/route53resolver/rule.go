@@ -48,13 +48,13 @@ func ResourceRule() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"domain_name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				Validate
 func: validation.StringLenBetween(1, 256),
 				State
@@ -62,46 +62,46 @@ func:    trimTrailingPeriod,
 			},
 			"name": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				Validate
 func: validResolverName,
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"resolver_endpoint_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"rule_type": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				Validate
 func: validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
 			},
 			"share_status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"target_ip": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"ip": {
 							Type:schema.TypeString,
-							Required:     true,
+							Required:true,
 							Validate
 func: validation.IsIPAddress,
 						},
 						"port": {
 							Type:schema.TypeInt,
-							Optional:     true,
-							Default:      53,
+							Optional:true,
+							Default: 53,
 							Validate
 func: validation.IntBetween(1, 65535),
 						},
@@ -123,7 +123,7 @@ func resourceRuleCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	input := &route53resolver.CreateResolverRuleInput{
 		CreatorRequestId: aws.String(id.PrefixedUniqueId("tf-r53-resolver-rule-")),
-		DomainName:       aws.String(d.Get("domain_name").(string)),
+		DomainName:  aws.String(d.Get("domain_name").(string)),
 		RuleType:aws.String(d.Get("rule_type").(string)),
 		Tags:    getTagsIn(ctx),
 	}

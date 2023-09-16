@@ -39,7 +39,7 @@ func testAccInvitationAccepter_basic(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccInvitationAccepterConfig_basic(email),
+				Config:   testAccInvitationAccepterConfig_basic(email),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -117,12 +117,12 @@ resource "aws_macie2_account" "admin" {
 resource "aws_macie2_account" "member" {}
 
 resource "aws_macie2_member" "member" {
-  provider           = "awsalternate"
-  account_id         = data.aws_caller_identity.member.account_id
+  provider  = "awsalternate"
+  account_id= data.aws_caller_identity.member.account_id
   email = %[1]q
   invite= true
   invitation_message = "This is a message of the invite"
-  depends_on         = [aws_macie2_account.admin]
+  depends_on= [aws_macie2_account.admin]
 }
 
 resource "aws_macie2_invitation_accepter" "member" {

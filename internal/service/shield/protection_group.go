@@ -35,12 +35,12 @@ func ResourceProtectionGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"aggregation": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(shield.ProtectionGroupAggregation_Values(), false),
 			},
 			"members": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
 				MinItems:      0,
 				MaxItems:      10000,
@@ -53,12 +53,12 @@ func ResourceProtectionGroup() *schema.Resource {
 				},
 			},
 			"pattern": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(shield.ProtectionGroupPattern_Values(), false),
 			},
 			"protection_group_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 36),
 				ForceNew:     true,
@@ -68,7 +68,7 @@ func ResourceProtectionGroup() *schema.Resource {
 				Computed: true,
 			},
 			"resource_type": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"members"},
 				ValidateFunc:  validation.StringInSlice(shield.ProtectedResourceType_Values(), false),
@@ -87,9 +87,9 @@ func resourceProtectionGroupCreate(ctx context.Context, d *schema.ResourceData, 
 	protectionGroupID := d.Get("protection_group_id").(string)
 	input := &shield.CreateProtectionGroupInput{
 		Aggregation:       aws.String(d.Get("aggregation").(string)),
-		Pattern:           aws.String(d.Get("pattern").(string)),
+		Pattern:  aws.String(d.Get("pattern").(string)),
 		ProtectionGroupId: aws.String(protectionGroupID),
-		Tags:              getTagsIn(ctx),
+		Tags:     getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("members"); ok {
@@ -150,7 +150,7 @@ func resourceProtectionGroupUpdate(ctx context.Context, d *schema.ResourceData, 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &shield.UpdateProtectionGroupInput{
 			Aggregation:       aws.String(d.Get("aggregation").(string)),
-			Pattern:           aws.String(d.Get("pattern").(string)),
+			Pattern:  aws.String(d.Get("pattern").(string)),
 			ProtectionGroupId: aws.String(d.Id()),
 		}
 

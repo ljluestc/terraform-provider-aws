@@ -1,38 +1,22 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hclsyntax
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hclsyntaximport (
 	"fmt"
 	"sort"
-	"sync"
-
-	"github.com/hashicorp/hcl/v2"
+	"sync"	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/ext/customdecode"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
 	"github.com/zclconf/go-cty/cty/
 tion"
-)
-
-// Expression is the abstract type for nodes that behave as HCL expressions.
+)// Expression is the abstract type for nodes that behave as HCL expressions.
 type Expression interface {
-	Node
-
-	// The hcl.Expression methods are duplicated here, rather than simply
+	Node	// The hcl.Expression methods are duplicated here, rather than simply
 	// embedded, because both Node and hcl.Expression have a Range method
-	// and so they conflict.
-
-	Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics)
+	// and so they conflict.	Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics)
 	Variables() []hcl.Traversal
 	StartRange() hcl.Range
-}
-
-// Assert that Expression implements hcl.Expression
-var _ hcl.Expression = Expression(nil)
-
-// ParenthesesExpr represents an expression written in grouping
+}// Assert that Expression implements hcl.Expression
+var _ hcl.Expression = Expression(nil)// ParenthesesExpr represents an expression written in grouping
 // parentheses.
 //
 // The parser takes care of the precedence effect of the parentheses, so the
@@ -43,54 +27,30 @@ var _ hcl.Expression = Expression(nil)
 type ParenthesesExpr struct {
 	Expression
 	SrcRange hcl.Range
-}
-
-var _ hcl.Expression = (*ParenthesesExpr)(nil)
-
-
+}var _ hcl.Expression = (*ParenthesesExpr)(nil)
  (e *ParenthesesExpr) Range() hcl.Range {
-	return e.SrcRange
-
-
-
- (e *ParenthesesExpr) walkChildNodes(w internalWalk
+	return e.SrcRange (e *ParenthesesExpr) walkChildNodes(w internalWalk
 ) {
 	// We override the walkChildNodes from the embedded Expression to
 	// ensure that both the parentheses _and_ the content are visible
 	// in a walk.
 	w(e.Expression)
-}
-
-// LiteralValueExpr is an expression that just always returns a given value.
+}// LiteralValueExpr is an expression that just always returns a given value.
 type LiteralValueExpr struct {
       cty.Value
 	SrcRange hcl.Range
 }
-
-
  (e *LiteralValueExpr) walkChildNodes(w internalWalk
 ) {
-	// Literal values have no child nodes
-
-
-
- (e *LiteralValueExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+	// Literal values have no child nodes (e *LiteralValueExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 urn e.Val, nil
 }
-
-
  (e *LiteralValueExpr) Range() hcl.Range {
 urn e.SrcRange
 }
-
-
  (e *LiteralValueExpr) StartRange() hcl.Range {
 	return e.SrcRange
-}
-
-// Implementation for hcl.AbsTraversalForExpr.
-
- (e *LiteralValueExpr) AsTraversal() hcl.Traversal {
+}// Implementation for hcl.AbsTraversalForExpr. (e *LiteralValueExpr) AsTraversal() hcl.Traversal {
 	// This one's a little weird: the contract for AsTraversal is to interpret
 	// an expression as if it were traversal syntax, and traversal syntax
 	// doesn't have the special keywords "null", "true", and "false" so these
@@ -99,9 +59,7 @@ urn e.SrcRange
 	// we get here, we need to undo this and infer the name that would've
 	// originally led to our value.
 	// We don't do anything for any other values, since they don't overlap
-	// with traversal roots.
-
-	if e.Val.IsNull() {
+	// with traversal roots.	if e.Val.IsNull() {
 		// In practice the parser only generates null values of the dynamic
 		// pseudo-type for literals, so we can safely assume that any null
 		// was orignally the keyword "null".
@@ -111,9 +69,7 @@ urn e.SrcRange
 				SrcRange: e.SrcRange,
 			},
 		}
-	}
-
-	switch e.Val {
+	}	switch e.Val {
 	case cty.True:
 		return hcl.Traversal{
 			hcl.TraverseRoot{
@@ -130,61 +86,37 @@ urn e.SrcRange
 		}
 	default:
 		// No traversal is possible for any other value.
-		return nil
-
-}
-
-// ScopeTraversalExpr is an Expression that retrieves a value from the scope
+		return nil}// ScopeTraversalExpr is an Expression that retrieves a value from the scope
 sing a traversal.
 type ScopeTraversalExpr struct {
 	Traversal hcl.Traversal
 	SrcRange  hcl.Range
 }
-
-
  (e *ScopeTraversalExpr) walkChildNodes(w internalWalk
 ) {
-	// Scope traversals have no child nodes
-
-
-
- (e *ScopeTraversalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
+	// Scope traversals have no child nodes (e *ScopeTraversalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	val, diags := e.Traversal.TraverseAbs(ctx)
 DiagEvalContext(diags, e, ctx)
 	return val, diags
 }
-
-
  (e *ScopeTraversalExpr) Range() hcl.Range {
 	return e.SrcRange
 }
-
-
  (e *ScopeTraversalExpr) StartRange() hcl.Range {
 	return e.SrcRange
-
-
-// Implementation for hcl.AbsTraversalForExpr.
-
-*ScopeTraversalExpr) AsTraversal() hcl.Traversal {
+// Implementation for hcl.AbsTraversalForExpr.*ScopeTraversalExpr) AsTraversal() hcl.Traversal {
 	return e.Traversal
-}
-
-// RelativeTraversalExpr is an Expression that retrieves a value from another
+}// RelativeTraversalExpr is an Expression that retrieves a value from another
 // value using a _relative_ traversal.
 type RelativeTraversalExpr struct {
 	Source    Expression
 versal hcl.Traversal
 	SrcRange  hcl.Range
 }
-
-
  (e *RelativeTraversalExpr) walkChildNodes(w internalWalk
 ) {
 	w(e.Source)
 }
-
-
  (e *RelativeTraversalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	src, diags := e.Source.Value(ctx)
 	ret, travDiags := e.Traversal.TraverseRel(src)
@@ -192,51 +124,33 @@ versal hcl.Traversal
 	diags = append(diags, travDiags...)
 	return ret, diags
 }
-
-
  (e *RelativeTraversalExpr) Range() hcl.Range {
 	return e.SrcRange
 }
-
-
  (e *RelativeTraversalExpr) StartRange() hcl.Range {
 	return e.SrcRange
-}
-
-// Implementation for hcl.AbsTraversalForExpr.
-
- (e *RelativeTraversalExpr) AsTraversal() hcl.Traversal {
+}// Implementation for hcl.AbsTraversalForExpr. (e *RelativeTraversalExpr) AsTraversal() hcl.Traversal {
 	// We can produce a traversal only if our source can.
 	st, diags := hcl.AbsTraversalForExpr(e.Source)
 	if diags.HasErrors() {
 		return nil
-	}
-
-	ret := make(hcl.Traversal, len(st)+len(e.Traversal))
+	}	ret := make(hcl.Traversal, len(st)+len(e.Traversal))
 	copy(ret, st)
 	copy(ret[len(st):], e.Traversal)
 	return ret
-}
-
-// 
+}// 
 tionCallExpr is an Expression that calls a 
 tioom thalContext
 // and returns its result.
 type 
 tionCallExpr struct {
 	Name string
-	Args []Expren
-
-	// If true, the final argument should be a tuple, list or set which will
+	Args []Expren	// If true, the final argument should be a tuple, list or set which will
 	// expand to be one argument per element.
-	ExpandFinal bool
-
-	NameRange       hcl.Range
+	ExpandFinal bool	NameRange       hcl.Range
 	OpenParenRange  hcl.Range
 	CloseParenRange hcl.Range
 }
-
-
  (e *
 tionCallExpr) walkChildNodes(w internalWalk
 ) {
@@ -244,13 +158,9 @@ tionCallExpr) walkChildNodes(w internalWalk
 		w(arg)
 	}
 }
-
-
  (e *
 tionCallExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
-	var diags hcl.Diagnostics
-
-	var f 
+	var diags hcl.Diagnostics	var f 
 tion.
 tion
 	exists := false
@@ -269,9 +179,7 @@ tions[e.Name]
 			break
 		}
 		thisCtx = thisCtx.Parent()
-	}
-
-	if !exists {
+	}	if !exists {
 		if !hasNonNilMap {
 			return cty.micVal, hcl.Diagnostics{
 				{
@@ -285,9 +193,7 @@ tions may not be called here.",
 					EvalContext: ctx,
 				},
 			}
-		}
-
-		avail := make([]string, 0, len(ctx.
+		}		avail := make([]string, 0, len(ctx.
 tions))
 		for name := range ctx.
 tions {
@@ -296,9 +202,7 @@ tions {
 		suggestion := nameSuggestion(e.Name, avail)
 		if suggestion != "" {
 			suggestion = fmt.Sprintf(" Did you mean %q?", suggestion)
-		}
-
-		return cty.DynamicVal, hcl.Diagnostics{
+		}		return cty.DynamicVal, hcl.Diagnostics{
 			{
 				Severity:    hcl.DiagError,
 				Summary:     "Call to unknown 
@@ -311,18 +215,12 @@ tion named %q.%s", e.Name, suggestion),
 				EvalContext: ctx,
 			},
 		}
-	}
-
-	diagExtra := 
+	}	diagExtra := 
 tionCallDiagExtra{
 		called
 tionName: e.Name,
-	}
-
-	params := f.Params()
-	varParam := f.VarParam()
-
-	args := e.Args
+	}	params := f.Params()
+	varParam := f.VarParam()	args := e.Args
 	if e.ExpandFinal {
 		if len(args) < 1 {
 			// should never happen if the parser is behaving
@@ -334,9 +232,7 @@ tion call with no arguments")
 		diags = append(diags, expandDiags...)
 		if expandDiags.HasErrors() {
 			return cty.DynamicVal, diags
-		}
-
-		switch {
+		}		switch {
 		case expandVal.Type().Equals(cty.DynamicPseudoType):
 			if expandVal.IsNull() {
 				diags = append(diags, &hcl.Diagnostic{
@@ -368,9 +264,7 @@ tion call with no arguments")
 			}
 			if !expandVal.IsKnown()
 				return cty.DynamicVal, diags
-			}
-
-			// When expanding arguments from a collection, we must first unmark
+			}			// When expanding arguments from a collection, we must first unmark
 			// the collection itself, and apply any marks directly to the
 			// elements. This ensures that marks propagate correctly.
 			expandVal, marks := expandVal.Unmark()
@@ -398,9 +292,7 @@ tion call with no arguments")
 			})
 			return cty.DynamicVal, diags
 		}
-	}
-
-	if len(args) < len(params) {
+	}	if len(args) < len(params) {
 		missing := ms[len(args)]
 		qual := ""
 		if varParam != nil {
@@ -423,9 +315,7 @@ tion %q expects%s %d argument(s). Missing value for %q.",
 				Extra:       &diagExtra,
 			},
 		}
-	}
-
-	if varParam == nil && len(args) > len(params) {
+	}	if varParam == nil && len(args) > len(params) {
 		return cty.DynamicVal, hcl.Diagnostics{
 			{
 				Severity: hcl.DiagError,
@@ -443,20 +333,14 @@ tion %q expects only %d argument(s).",
 				Extra:       &diagExtra,
 			},
 		}
-	}
-
-	argVals := make([]cty.Value, len(args))
-
-	for i, argExpr := range args 
+	}	argVals := make([]cty.Value, len(args))	for i, argExpr := range args 
 		var param *
 tion.Parameter
 		if i < len(params) {
 			param = &params[i]
 		} else {
 			param = varParam
-		}
-
-		var val cty.Value
+		}		var val cty.Value
 		if decodeF customdecode.CustomExpressionDecoderForType(param.Type); decodeFn != nil {
 			var argDiags hcl.Diagnostics
 			val, argDiags = decodeFn(argExpr, ctx)
@@ -469,9 +353,7 @@ tion.Parameter
 			val, argDiags = argExpr.Value(ctx)
 			if len(argDiags) > 0 {
 				diags = append(diags, argDiags...)
-			}
-
-			// Try to convert our value to the parameter type
+			}			// Try to convert our value to the parameter type
 			var err error
 			val, err = convert.Convert(val, param.Type)
 			if err != nil {
@@ -490,27 +372,19 @@ tion argument",
 					Extra:       &diagExtra,
 				})
 			}
-		}
-
-		argVals[i] = val
-	}
-
-	if diags.HasErrors() {
+		}		argVals[i] = val
+	}	if diags.HasErrors() {
 		// Don't try to execute the 
 tion if we already have errors with
 		// the arguments, because the result will probably be a confusing
 		// error message.
 		return cty.DynamicVal, diags
-	}
-
-	resultVal, err := f.Call(argVals)
+	}	resultVal, err := f.Call(argVals)
 	if err != nil {
 		// For errors in the underlying call itself we also return the raw
 		// call error via an extethod on our "diagnostic extra" value.
 		diagExtra.
-tionCallErroerr
-
-		switch terr := err.(type) {
+tionCallErroerr		switch terr := err.(type) {
 		case 
 tion.ArgError:
 			i := terr.Index
@@ -520,9 +394,7 @@ tion.Parameter
 				param = &params[i]
 			} else {
 				param = varParam
-			}
-
-			if param == nil || i > len(args)-1 {
+			}			if param == nil || i > len(args)-1 {
 				// Getting here means that the 
 tion we called has a bug:
 				// it returned an arror that refers to an argument index
@@ -579,9 +451,7 @@ tion %q failed: %s.",
 					})
 				}
 			} else {
-				argExpr := args[i]
-
-				// TODO: we should also unpick a PathError here and show the
+				argExpr := args[i]				// TODO: we should also unpick a PathError here and show the
 				// path to the deep value where the error was detected.
 			gs = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
@@ -597,9 +467,7 @@ tion argument",
 					EvalCot: ctx,
 					Extra:       &diagExtra,
 				})
-			}
-
-		default:
+			}		default:
 	ags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
 				Summary:  "Error in 
@@ -615,29 +483,17 @@ tion %q failed: %s.",
 EvalCxt: ctx,
 				Extra:   &diagExtra,
 			})
-		}
-
-		return cty.DynamicVal, diags
-	}
-
-	return resultVal, diags
+		}		return cty.DynamicVal, diags
+	}	return resultVal, diags
 }
-
-
 *
 tionCallExpr) Range() hcl.Range {
 	return hcl.RangeBetween(e.NameRange, e.CloseParenRange)
 }
-
-
 *
 tionCallExpr) StartRange() hcl.Range {
 	return hcl.RangeBetween(e.NameRange, e.OpenParenRange)
-}
-
-// Implementation for hcl.ExprCall.
-
- (e *
+}// Implementation for hcl.ExprCall. (e *
 tionCallExpr) ExprCall() *hcl.StaticCall {
 	ret := &hcl.StaticCall{
 		Name:      e.Name,
@@ -650,9 +506,7 @@ tionCallExpr) ExprCall() *hcl.StaticCall {
 		ret.Arguments[i] = arg
 	}
 	return ret
-}
-
-// 
+}// 
 tionCallDiagExtra is an interface implemented by the value in the "Extra"
 // field of some diagnostics returned by 
 tionCallExpr.Value, giving
@@ -667,9 +521,7 @@ tion being called at
 	// if there is no known called 
 tion.
 	Called
-tionName() string
-
-	// 
+tionName() string	// 
 tionCallError returns the error value returned by the implementation
 	// of the 
 tion being called, if any. Returns nil if the diagnostic was
@@ -682,64 +534,44 @@ tion, in which case this method
 	// will return nil.
 	
 tionCallError() error
-}
-
-type 
+}type 
 tionCallDiagExtra struct {
 	called
 tionName string
 	
 tionCallError  error
 }
-
-
  (e *
 tionCallDiagExtra) Called
 tionName() string {
 	return e.called
 tionName
 }
-
-
  (e *
 tionCallDiagExtra) 
 tionCallError() error {
 	return e.
 tionCallError
-}
-
-type ConditionalExpr struct {
+}type ConditionalExpr struct {
 	Condition   Expression
 	TrueResult  Expression
-	FalseResult Expression
-
-	SrcRange hcl.Range
+	FalseResult Expression	SrcRange hcl.Range
 }
-
-
  (e *ConditionalExpr) walkChildNodes(w internalWalk
 ) {
 	w(e.Condition)
 	w(e.TrueResult)
 	w(e.FalseResult)
 }
-
-
  (e *ConditionalExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	trueResult, trueDiags := e.TrueResult.Value(ctx)
 	falseResult, falseDiags := e.FalseResult.Value(ctx)
-	var diags hcl.Diagnostics
-
-	resultType := cty.DynamicPseudoType
-	convs := make([]convert.Conversion, 2)
-
-	switch {
+	var diags hcl.Diagnostics	resultType := cty.DynamicPseudoType
+	convs := make([]convert.Conversion, 2)	switch {
 	// If either case is a dynamic null value (which would result from a
 	// literal null in the config), we know that it can convert to the expected
 	// type of the opposite case, and we don't need to speculatively reduce the
-	// final result type to DynamicPseudoType.
-
-	// If we know that either Type is a DynamicPseudoType, we can be certain
+	// final result type to DynamicPseudoType.	// If we know that either Type is a DynamicPseudoType, we can be certain
 	// that the other value can convert since it's a pass-through, and we don't
 	// need to unify the types. If the final evaluation results in the dynamic
 	// value being returned, there's no conversion we can do, so we return the
@@ -752,14 +584,10 @@ type ConditionalExpr struct {
 		convs[1] = convert.GetConversionUnsafe(cty.DynamicPseudoType, resultType)
 	case trueResult.Type() == cty.DynamicPseudoType, falseResult.Type() == cty.DynamicPseudoType:
 		// the final resultType type is still unknown
-		// we don't need to get the conversion, because both are a noop.
-
-	default:
+		// we don't need to get the conversion, because both are a noop.	default:
 		// Try to find a type that both results can be converted to.
 		resultType, convs = convert.UnifyUnsafe([]cty.Type{trueResult.Type(), falseResult.Type()})
-	}
-
-	if resultType == cty.NilType {
+	}	if resultType == cty.NilType {
 		return cty.DynamicVal, hcl.Diagnostics{
 			{
 				Severity: hcl.DiagError,
@@ -774,9 +602,7 @@ type ConditionalExpr struct {
 				EvalContext: ctx,
 			},
 		}
-	}
-
-	condResult, condDiags := e.Condition.Value(ctx)
+	}	condResult, condDiags := e.Condition.Value(ctx)
 	diags = append(diags, condDiags...)
 	if condResult.IsNull() {
 		diags = append(diags, &hcl.Diagnostic{
@@ -857,9 +683,7 @@ type ConditionalExpr struct {
 			EvalContext: ctx,
 		})
 		return cty.UnknownVal(resultType), diags
-	}
-
-	// Unmark result before testing for truthiness
+	}	// Unmark result before testing for truthiness
 	condResult, _ = condResult.UnmarkDeep()
 	if condResult.True() {
 		diags = append(diags, trueDiags...)
@@ -908,9 +732,7 @@ type ConditionalExpr struct {
 		}
 		return falseResult, diags
 	}
-}
-
-// describeConditionalTypeMismatch makes a best effort to describe the
+}// describeConditionalTypeMismatch makes a best effort to describe the
 // difference between types in the true and false arms of a conditional
 // expression in a way that would be useful to someone trying to understand
 // why their conditional expression isn't valid.
@@ -922,16 +744,12 @@ tion is only designed to deal with situations
 tion also only really
 // deals with situations that type unification can't resolve, so we should
 // call this 
-tion only after trying type unification first.
-
- describeConditionalTypeMismatch(trueTy, falseTy cty.Type) string {
+tion only after trying type unification first. describeConditionalTypeMismatch(trueTy, falseTy cty.Type) string {
 	// The main tricky cases here are when both trueTy and falseTy are
 	// of the same structural type kind, such as both being object types
 	// or both being tuple types. In that case the "FriendlyName" method
 	// returns only "object" or "tuple" and so we need to do some more
-	// work to describe what's different inside them.
-
-	switch {
+	// work to describe what's different inside them.	switch {
 	case trueTy.IsObjectType() && falseTy.IsObjectType():
 		// We'll first gather up the attribute names and sort them. In the
 		// event that there are multiple attributes that disagree across
@@ -946,9 +764,7 @@ tion only after trying type unification first.
 		for name := range falseTy.AttributeTypes() {
 			falseAttrs = append(falseAttrs, name)
 		}
-		sort.Strings(falseAttrs)
-
-		for _, name := range trueAttrs {
+		sort.Strings(falseAttrs)		for _, name := range trueAttrs {
 			if !falseTy.HasAttribute(name) {
 				return fmt.Sprintf("The 'true' value includes object attribute %q, which is absent in the 'false' value", name)
 			}
@@ -969,28 +785,20 @@ alseAty := falseTy.AttributeType(name)
 		}
 		for _, name := range falseAttrs {
 			if !trueTy.HasAttribute(name) {
-				return fmt.Sprintf("The 'false' value includes object attribute %q, which is absent in the 'true' value", name)
-
-			// NOTE: We don't need to check the attribute types again, because
+				return fmt.Sprintf("The 'false' value includes object attribute %q, which is absent in the 'true' value", name)			// NOTE: We don't need to check the attribute types again, because
 			// any attribute that both types have in common would already have
 			// been checked in the previous loop.
 		}
 e trueTy.IsTupleType() && falseTy.IsTupleType():
 		trueEtys := trueTy.TupleElementTypes()
-		falseEtys := falseTy.TupleElementTypes()
-
-		if trueCount, falseCount := len(trueEtys), len(falseEtys); trueCount != falseCount {
+		falseEtys := falseTy.TupleElementTypes()		if trueCount, falseCount := len(trueEtys), len(falseEtys); trueCount != falseCount {
 			return fmt.Sprintf("The 'true' tuple has length %d, but the 'false' tuple has length %d", trueCount, falseCount)
-		}
-
-		// NOTE: Thanks to the condition above, we know that both tuples are
+		}		// NOTE: Thanks to the condition above, we know that both tuples are
 		// of the same length and so they must have some differing types
 		// instead.
 		for i := range trueEtys {
 			trueEty := trueEtys[i]
-alseEty := falseEtys[i]
-
-			if !trueEty.Equals(falseEty) {
+alseEty := falseEtys[i]			if !trueEty.Equals(falseEty) {
 				// For deeply-nested differences this will likely get very
 // clunky quickly by nesting these messages inside one another,
 				// but we'll accept that for now in the interests of producing
@@ -1031,9 +839,7 @@ e trueTy.IsCollectionType() && falseTy.IsCollectipe():
 				)
 			}
 		}
-	}
-
-	// If we don't manage any more specialized message, we'll just report
+	}	// If we don't manage any more specialized message, we'll just report
 	// what the two types are.
 	trueName := trueTy.FriendlyName()
 	falseName := falseTy.FriendlyName()
@@ -1048,123 +854,73 @@ e trueTy.IsCollectionType() && falseTy.IsCollectipe():
 	return fmt.Sprintf(
 		"The 'true' value is %s, but the 'false' value is %s",
 		trueTy.FriendlyName(), falseTy.FriendlyName(),
-	)
-
-}
-
-
+	)}
  (e *ConditionalExpr) Range() hcl.Range {
 	return e.SrcRange
 }
-
-
  (e *ConditionalExpr) StartRange() hcl.Range {
 urn e.Condition.StartRange()
-}
-
-type IndexExpr struct {
+}type IndexExpr struct {
 	Collection Expression
-	Key        Expression
-
-	SrcRange     hcl.Range
+	Key        Expression	SrcRange     hcl.Range
 	OpenRange    hcl.Range
 	BracketRange hcl.Range
 }
-
-
  (e *IndexExpr) walkChildNodes(w internalWalk
 ) {
 	w(e.Collection)
 	w(e.Key)
 }
-
-
  (e *IndexExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	var diags hcl.Diagnostics
 	coll, collDiags := e.Collection.Value(ctx)
 	key, keyDiags := e.Key.Value(ctx)
 	diags = append(diags, collDiags...)
-	diags = append(diags, keyDiags...)
-
-	val, indexDiags := hcl.Index(coll, key, &e.BracketRange)
+	diags = append(diags, keyDiags...)	val, indexDiags := hcl.Index(coll, key, &e.BracketRange)
 	setDiagEvalContext(indexDiags, e, ctx)
 	diags = append(diags, indexDiags...)
 	return val, diags
 }
-
-
  (e *IndexExpr) Range() hcl.Range {
 	return e.SrcRange
 }
-
-
  (e *IndexExpr) StartRange() hcl.Range {
 	return e.OpenRange
-}
-
-type TupleConsExpr struct {
-	Exprs []Expression
-
-	SrcRange  hcl.Range
+}type TupleConsExpr struct {
+	Exprs []Expression	SrcRange  hcl.Range
 	OpenRange hcl.Range
 }
-
-
  (e *TupleConsExpr) walkChildNodes(w internalWalk
 ) {
 	for _, expr := range e.Exprs {
 		w(expr)
 	}
 }
-
-
  (e *TupleConsExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	var vals []cty.Value
-	var diags hcl.Diagnostics
-
-	vals = make([]cty.Value, len(e.Exprs))
+	var diags hcl.Diagnostics	vals = make([]cty.Value, len(e.Exprs))
 	for i, expr := range e.Exprs {
 		val, valDiags := expr.Value(ctx)
 		vals[i] = val
 		diags = append(diags, valDiags...)
-	}
-
-	return cty.TupleVal(vals), diags
+	}	return cty.TupleVal(vals), diags
 }
-
-
  (e *TupleConsExpr) Range() hcl.Range {
-	return e.SrcRange
-
-
-
- (e *TupleConsExpr) StartRange() hcl.Range {
+	return e.SrcRange (e *TupleConsExpr) StartRange() hcl.Range {
 urn e.OpenRange
-}
-
-// Implementation for hcl.ExprList
-
-*TupleConsExpr) ExprList() []hcl.Expression {
+}// Implementation for hcl.ExprList*TupleConsExpr) ExprList() []hcl.Expression {
 	ret := make([]hcl.Expression, len(e.Exprs))
 	for i, expr := range e.Exprs {
 		ret[i] = expr
 	}
 	return ret
-}
-
-type ObjectConsExpr struct {
-	Items []ObjectConsItem
-
-	SrcRange  hcl.Range
+}type ObjectConsExpr struct {
+	Items []ObjectConsItem	SrcRange  hcl.Range
 	OpenRange hcl.Range
-}
-
-type ObjectConsItem struct {
+}type ObjectConsItem struct {
 	KeyExpr   Expression
 	ValueExpr Expression
 }
-
-
  (e *ObjectConsExpr) walkChildNodes(w internalWalk
 ) {
 	for _, item := range e.Items {
@@ -1172,14 +928,10 @@ type ObjectConsItem struct {
 		w(item.ValueExpr)
 	}
 }
-
-
  (e *ObjectConsExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	var vals map[string]cty.Value
 	var diags hcl.Diagnostics
-	var marks []cty.ValueMarks
-
-	// This will get set to true if we fail to produce any of our keys,
+	var marks []cty.ValueMarks	// This will get set to true if we fail to produce any of our keys,
 either because they are actually unknown or if the evaluation produces
 	// errors. In all of these case we must return DynamicPseudoType because
 	// we're unable to know the full set of keys our object has, and thus
@@ -1187,22 +939,14 @@ either because they are actually unknown or if the evaluation produces
 	//
 	// We still evaluate all of the item keys and values to make sure that we
 	// get as complete as possible a set of diagnostics.
-	known := true
-
-	vals = make(map[string]cty.Value, len(e.Items))
+	known := true	vals = make(map[string]cty.Value, len(e.Items))
 	for _, item := range e.Items {
 		key, keyDiags := item.KeyExpr.Value(ctx)
-		diags = append(diags, keyDiags...)
-
-		val, valDiags := item.ValueExpr.Value(ctx)
-		diags = append(diags, valDiags...)
-
-		if keyDiags.HasErrors() {
+		diags = append(diags, keyDiags...)		val, valDiags := item.ValueExpr.Value(ctx)
+		diags = append(diags, valDiags...)		if keyDiags.HasErrors() {
 			known = false
 			continue
-		}
-
-		if key.IsNull() {
+		}		if key.IsNull() {
 			diags = append(diags, &hcl.Diagnostic{
 				Severity:    hcl.DiagError,
 				Summary:     "Null value as key",
@@ -1213,12 +957,8 @@ EvalContext: ctx,
 			})
 			known = false
 			continue
-
-
 		key, keyMarks := key.Unmark()
-		marks = append(marks, keyMarks)
-
-r err error
+		marks = append(marks, keyMarks)r err error
 		key, err = convert.Convert(key, cty.String)
 		if err != nil {
 			diags = append(diags, &hcl.Diagnostic{
@@ -1231,38 +971,20 @@ r err error
 			})
 			known = false
 			continue
-		}
-
-		if !key.IsKnown() {
+		}		if !key.IsKnown() {
 nown = false
 			continue
-		}
-
-		keyStr := key.AsString()
-
-		vals[keyStr] = val
-	}
-
-	if !known {
+		}		keyStr := key.AsString()		vals[keyStr] = val
+	}	if !known {
 		return cty.DynamicVal, diags
-	}
-
-	return cty.ObjectVal(vals).WithMarks(marks...), diags
+	}	return cty.ObjectVal(vals).WithMarks(marks...), diags
 }
-
-
  (e *ObjectConsExpr) Range() hcl.Range {
 	return e.SrcRange
 }
-
-
  (e *ObjectConsExpr) StartRange() hcl.Range {
 	return e.OpenRange
-}
-
-mplementation for hcl.ExprMap
-
- (e *ObjectConsExpr) ExprMap() []hcl.KeyValuePair {
+}mplementation for hcl.ExprMap (e *ObjectConsExpr) ExprMap() []hcl.KeyValuePair {
 	ret := make([]hcl.KeyValuePair, len(e.Items))
 	for i, item := range e.Items {
 		ret[i] = hcl.KeyValuePair{
@@ -1271,17 +993,13 @@ mplementation for hcl.ExprMap
 		}
 	}
 	return ret
-}
-
-// ObjectConsKeyExpr is a special wrapper used only for ObjectConsExpr keys,
+}// ObjectConsKeyExpr is a special wrapper used only for ObjectConsExpr keys,
 // which deals with the special case that a naked identifier in that position
 // must be interpreted as a literal string rather than evaluated directly.
 type ObjectConsKeyExpr struct {
-	Wrapped         Expression
+	WrappedExpression
 	ForceNonLiteral bool
 }
-
-
  (e *ObjectConsKeyExpr) literalName() string {
 	// This is our logic for deciding whether to behave like a literal string.
 	// We lean on our AbsTraversalForExpr implementation here, which already
@@ -1290,8 +1008,6 @@ type ObjectConsKeyExpr struct {
 	// as keys here too.
 	return hcl.ExprAsKeyword(e.Wrapped)
 }
-
-
  (e *ObjectConsKeyExpr) walkChildNodes(w internalWalk
 ) {
 	// We only treat our wrapped expression as a real expression if we're
@@ -1300,8 +1016,6 @@ type ObjectConsKeyExpr struct {
 		w(e.Wrapped)
 	}
 }
-
-
  (e *ObjectConsKeyExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	// Because we accept a naked identifier as a literal key rather than a
 	// reference, it's confusing to accept a traversal containing periods
@@ -1322,79 +1036,47 @@ type ObjectConsKeyExpr struct {
 				Subject:  e.Range().Ptr(),
 			})
 			return cty.DynamicVal, diags
-		}
-
-		if ln := e.literalName(); ln != "" {
+		}		if ln := e.literalName(); ln != "" {
 			return cty.StringVal(ln), nil
 		}
 	}
 	return e.Wrapped.Value(ctx)
 }
-
-
  (e *ObjectConsKeyExpr) Range() hcl.Range {
 	return e.Wrapped.Range()
 }
-
-
  (e *ObjectConsKeyExpr) StartRange() hcl.Range {
 	return e.Wrapped.StartRange()
-}
-
-// Implementation for hcl.AbsTraversalForExpr.
-
- (e *ObjectConsKeyExpr) AsTraversal() hcl.Traversal {
+}// Implementation for hcl.AbsTraversalForExpr. (e *ObjectConsKeyExpr) AsTraversal() hcl.Traversal {
 	// If we're forcing a non-literal then we can never be interpreted
 	// as a traversal.
 	if e.ForceNonLiteral {
 		return nil
-	}
-
-	// We can produce a traversal only if our wrappee can.
+	}	// We can produce a traversal only if our wrappee can.
 	st, diags := hcl.AbsTraversalForExpr(e.Wrapped)
 	if diags.HasErrors() {
 		return nil
-	}
-
-	return st
+	}	return st
 }
-
-
  (e *ObjectConsKeyExpr) UnwrapExpression() Expression {
 	return e.Wrapped
-}
-
-// ForExpr represents iteration constructs:
+}// ForExpr represents iteration constructs:
 //
 //     tuple = [for i, v in list: upper(v) if i > 2]
 //     object = {for k, v in map: k => upper(v)}
 //     object_of_tuples = {for v in list: v.key: v...}
 type ForExpr struct {
 	KeyVar string // empty if ignoring the key
-	ValVar string
-
-	CollExpr Expression
-
-	KeyExpr  Expression // nil when producing a tuple
+	ValVar string	CollExpr Expression	KeyExpr  Expression // nil when producing a tuple
 	ValExpr  Expression
-	CondExpr Expression // null if no "if" clause is present
-
-	Group bool // set if the ellipsis is used on the value in an object for
-
-	SrcRange   hcl.Range
+	CondExpr Expression // null if no "if" clause is present	Group bool // set if the ellipsis is used on the value in an object for	SrcRange   hcl.Range
 	OpenRange  hcl.Range
 	CloseRange hcl.Range
 }
-
-
  (e *ForExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	var diags hcl.Diagnostics
-	var marks []cty.ValueMarks
-
-	collVal, collDiags := e.CollExpr.Value(ctx)
-	diags = append(diags, collDiags...)
-
-	if collVal.IsNull() {
+	var marks []cty.ValueMarks	collVal, collDiags := e.CollExpr.Value(ctx)
+	diags = append(diags, collDiags...)	if collVal.IsNull() {
 		diags = append(diags, &hcl.Diagnostic{
 			Severity:    hcl.DiagError,
 			Summary:     "Iteration over null value",
@@ -1430,9 +1112,7 @@ type ForExpr struct {
 	}
 	if !collVal.IsKnown() {
 		return cty.DynamicVal, diags
-	}
-
-	// Before we start we'll do an early check to see if any CondExpr we've
+	}	// Before we start we'll do an early check to see if any CondExpr we've
 	// been given is of the wrong type. This isn't 100% reliable (it may
 	// be DynamicVal until real values are given) but it should catch some
 	// straightforward cases and prevent a barrage of repeated errors.
@@ -1442,9 +1122,7 @@ type ForExpr struct {
 		if e.KeyVar != "" {
 			childCtx.Variables[e.KeyVar] = cty.DynamicVal
 		}
-		childCtx.Variables[e.ValVar] = cty.DynamicVal
-
-		result, condDiags := e.CondExpr.Value(childCtx)
+		childCtx.Variables[e.ValVar] = cty.DynamicVal		result, condDiags := e.CondExpr.Value(childCtx)
 		diags = append(diags, condDiags...)
 		if result.IsNull() {
 			diags = append(diags, &hcl.Diagnostic{
@@ -1474,9 +1152,7 @@ type ForExpr struct {
 		if condDiags.HasErrors() {
 			return cty.DynamicVal, diags
 		}
-	}
-
-	if e.KeyExpr != nil {
+	}	if e.KeyExpr != nil {
 		// Producing an object
 		var vals map[string]cty.Value
 		var groupVals map[string][]cty.Value
@@ -1484,11 +1160,7 @@ type ForExpr struct {
 			groupVals = map[string][]cty.Value{}
 		} else {
 			vals = map[string]cty.Value{}
-		}
-
-		it := collVal.ElementIterator()
-
-		known := true
+		}		it := collVal.ElementIterator()		known := true
 		for it.Next() {
 			k, v := it.Element()
 			childCtx := ctx.NewChild()
@@ -1496,9 +1168,7 @@ type ForExpr struct {
 			if e.KeyVar != "" {
 				childCtx.Variables[e.KeyVar] = k
 			}
-			childCtx.Variables[e.ValVar] = v
-
-			if e.CondExpr != nil {
+			childCtx.Variables[e.ValVar] = v			if e.CondExpr != nil {
 				includeRaw, condDiags := e.CondExpr.Value(childCtx)
 				diags = append(diags, condDiags...)
 				if includeRaw.IsNull() {
@@ -1535,9 +1205,7 @@ type ForExpr struct {
 				if !include.IsKnown() {
 					known = false
 					continue
-				}
-
-				// Extract and merge marks from the include expression into the
+				}				// Extract and merge marks from the include expression into the
 				// main set of marks
 				includeUnmarked, includeMarks := include.Unmark()
 				marks = append(marks, includeMarks)
@@ -1545,9 +1213,7 @@ type ForExpr struct {
 					// Skip this element
 					continue
 				}
-			}
-
-			keyRaw, keyDiags := e.KeyExpr.Value(childCtx)
+			}			keyRaw, keyDiags := e.KeyExpr.Value(childCtx)
 			diags = append(diags, keyDiags...)
 			if keyRaw.IsNull() {
 				if known {
@@ -1567,9 +1233,7 @@ type ForExpr struct {
 			if !keyRaw.IsKnown() {
 				known = false
 				continue
-			}
-
-			key, err := convert.Convert(keyRaw, cty.String)
+			}			key, err := convert.Convert(keyRaw, cty.String)
 			if err != nil {
 				if known {
 					diags = append(diags, &hcl.Diagnostic{
@@ -1584,15 +1248,9 @@ type ForExpr struct {
 				}
 				known = false
 				continue
-
-
 			key, keyMarks := key.Unmark()
-			marks = append(marks, keyMarks)
-
-			val, valDiags := e.ValExpr.Value(childCtx)
-			diags = append(diags, valDiags...)
-
-			if e.Group {
+			marks = append(marks, keyMarks)			val, valDiags := e.ValExpr.Value(childCtx)
+			diags = append(diags, valDiags...)			if e.Group {
 				k := key.AsString()
 				groupVals[k] = append(groupVals[k], val)
 			} else {
@@ -1612,30 +1270,16 @@ type ForExpr struct {
 					})
 				} else {
 					vals[key.AsString()] = val
-				}
-
-		}
-
-		if !known {
+				}		}		if !known {
 eturn cty.DynamicVal, diags
-		}
-
-		if e.Group {
+		}		if e.Group {
 			vals = map[string]cty.Value{}
 			for k, gvs := range groupVals {
 				vals[k] = cty.TupleVal(gvs)
 			}
-		}
-
-		return cty.ObjectVal(vals).WithMarks(marks...), diags
-
-	} else {
+		}		return cty.ObjectVal(vals).WithMarks(marks...), diags	} else {
  Producing a tuple
-		vals := []cty.Value{}
-
-		it := collVal.ElementIterator()
-
-		known := true
+		vals := []cty.Value{}		it := collVal.ElementIterator()		known := true
 		for it.Next() {
 			k, v := it.Element()
 			childCtx := ctx.NewChild()
@@ -1643,9 +1287,7 @@ eturn cty.DynamicVal, diags
 			if e.KeyVar != "" {
 				childCtx.Variables[e.KeyVar] = k
 			}
-			childCtx.Variables[e.ValVar] = v
-
-			if e.CondExpr != nil {
+			childCtx.Variables[e.ValVar] = v			if e.CondExpr != nil {
 				includeRaw, condDiags := e.CondExpr.Value(childCtx)
 				diags = append(diags, condDiags...)
 				if includeRaw.IsNull() {
@@ -1669,9 +1311,7 @@ eturn cty.DynamicVal, diags
 					// for later elements.
 					known = false
 					continue
-				}
-
-				include, err := convert.Convert(includeRaw, cty.Bool)
+				}				include, err := convert.Convert(includeRaw, cty.Bool)
 				if err != nil {
 					if known {
 						diags = append(diags, &hcl.Diagnostic{
@@ -1686,9 +1326,7 @@ eturn cty.DynamicVal, diags
 					}
 					known = false
 					continue
-				}
-
-				// Extract and merge marks from the include expression into the
+				}				// Extract and merge marks from the include expression into the
 				// main set of marks
 				includeUnmarked, includeMarks := include.Unmark()
 				marks = append(marks, includeMarks)
@@ -1696,35 +1334,23 @@ eturn cty.DynamicVal, diags
 					// Skip this element
 					continue
 				}
-			}
-
-			val, valDiags := e.ValExpr.Value(childCtx)
+			}			val, valDiags := e.ValExpr.Value(childCtx)
 			diags = append(diags, valDiags...)
 			vals = append(vals, val)
-		}
-
-		if !known {
+		}		if !known {
 			return cty.DynamicVal, diags
-		}
-
-		return cty.TupleVal(vals).WithMarks(marks...), diags
+		}		return cty.TupleVal(vals).WithMarks(marks...), diags
 	}
 }
-
-
  (e *ForExpr) walkChildNodes(w internalWalk
 ) {
-	w(e.CollExpr)
-
-	scopeNames := map[string]struct{}{}
+	w(e.CollExpr)	scopeNames := map[string]struct{}{}
 	if e.KeyVar != "" {
 		scopeNames[e.KeyVar] = struct{}{}
 	}
 	if e.ValVar != "" {
 		scopeNames[e.ValVar] = struct{}{}
-	}
-
-	if e.KeyExpr != nil {
+	}	if e.KeyExpr != nil {
 		w(ChildScope{
 			LocalNames: scopeNames,
 			Expr:       e.KeyExpr,
@@ -1741,27 +1367,17 @@ eturn cty.DynamicVal, diags
 		})
 	}
 }
-
-
  (e *ForExpr) Range() hcl.Range {
 	return e.SrcRange
 }
-
-
  (e *ForExpr) StartRange() hcl.Range {
 	return e.OpenRange
-}
-
-type SplatExpr struct {
+}type SplatExpr struct {
 	Source Expression
 	Each   Expression
-	Item   *AnonSymbolExpr
-
-	SrcRange    hcl.Range
+	Item   *AnonSymbolExpr	SrcRange    hcl.Range
 	MarkerRange hcl.Range
 }
-
-
  (e *SplatExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	sourceVal, diags := e.Source.Value(ctx)
 	if diags.HasErrors() {
@@ -1772,17 +1388,11 @@ type SplatExpr struct {
 		_, itemDiags := e.Item.Value(ctx)
 		diags = append(diags, itemDiags...)
 		return cty.DynamicVal, diags
-	}
-
-	sourceTy := sourceVal.Type()
-
-	// A "special power" of splat expressions is that they can be applied
+	}	sourceTy := sourceVal.Type()	// A "special power" of splat expressions is that they can be applied
 	// both to tuples/lists and to other values, and in the latter case
 	// the value will be treated as an implicit single-item tuple, or as
 	// an empty tuple if the value is null.
-	autoUpgrade := !(sourceTy.IsTupleType() || sourceTy.IsListType() || sourceTy.IsSetType())
-
-	if sourceVal.IsNull() {
+	autoUpgrade := !(sourceTy.IsTupleType() || sourceTy.IsListType() || sourceTy.IsSetType())	if sourceVal.IsNull() {
 		if autoUpgrade {
 			return cty.EmptyTupleVal, diags
 		}
@@ -1793,18 +1403,12 @@ type SplatExpr struct {
 			Subject:     e.Source.Range().Ptr(),
 			Context:     hcl.RangeBetween(e.Source.Range(), e.MarkerRange).Ptr(),
 			Expression:  e.Source,
-			EvalContext: ctx,
-
-		return cty.DynamicVal, diags
-	}
-
-	if sourceTy == cty.DynamicPseudoType {
+			EvalContext: ctx,		return cty.DynamicVal, diags
+	}	if sourceTy == cty.DynamicPseudoType {
  If we don't even know the _type_ of our source value yet then
 		// we'll need to defer all processing, since we can't decide our
 		// result type either.
 		return cty.DynamicVal, diags
-
-
 	upgradedUnknown := false
 	if autoUpgrade {
 		// If we're upgrading an unknown value to a tuple/list, the result
@@ -1821,13 +1425,9 @@ type SplatExpr struct {
 			if sourceRng.CouldBeNull() {
 				upgradedUnknown = true
 			}
-		}
-
-		sourceVal = cty.TupleVal([]cty.Value{sourceVal})
+		}		sourceVal = cty.TupleVal([]cty.Value{sourceVal})
 		sourceTy = sourceVal.Type()
-	}
-
-	// We'll compute our result type lazily if we need it. In the normal case
+	}	// We'll compute our result type lazily if we need it. In the normal case
 	// it's inferred automatically from the value we construct.
 	resultTy := 
 cty.Type, hcl.Diagnostics) {
@@ -1856,9 +1456,7 @@ diags = append(diags, itemDiags...)
 			// Should never happen because of our promotion to list above.
 			return cty.DynamicPseudoType, diags
 		}
-	}
-
-	if !sourceVal.IsKnown() {
+	}	if !sourceVal.IsKnown() {
 		// We can't produce a known result in this case, but we'll still
  indicate what the result type would be, allowing any downstream type
 		// checking to proceed.
@@ -1878,9 +1476,7 @@ CollectionLengthLowerBound(sourceRng.LengthLowerBo)).
 				NewValue()
 		}
 turn ret.WithSameMarks(sourceVal), diags
-	}
-
-	// Unmark the collection, and save the marks to apply to the returned
+	}	// Unmark the collection, and save the marks to apply to the returned
 collection result
 	sourceVal, marks := sourceVal.Unmark()
 	vals := make([]cty.Value, 0, sourceVal.LengthInt())
@@ -1901,20 +1497,14 @@ collection result
 		}
 		vals = append(vals, newItem)
 	}
-	e.Item.clearValue(ctx) // clean up our temporary value
-
-	if upgradedUnknown {
+	e.Item.clearValue(ctx) // clean up our temporary value	if upgradedUnknown {
 		return cty.DynamicVal, diags
-	}
-
-	if !isKnown {
+	}	if !isKnown {
 		// We'll ingore the resultTy diagnostics in this case since they
 		// will just be the same errors we saw while iterating above.
 		ty, _ := resultTy()
 		return cty.UnknownVal(ty), diags
-	}
-
-	switch {
+	}	switch {
 	case sourceTy.IsListType() || sourceTy.IsSetType():
 		if len(vals) == 0 {
 			ty, tyDiags := resultTy()
@@ -1926,25 +1516,17 @@ collection result
 		return cty.TupleVal(vals).WithMarks(marks), diags
 	}
 }
-
-
  (e *SplatExpr) walkChildNodes(w internalWalk
 ) {
 	w(e.Source)
 	w(e.Each)
 }
-
-
  (e *SplatExpr) Range() hcl.Range {
 	return e.SrcRange
 }
-
-
  (e *SplatExpr) StartRange() hcl.Range {
 	return e.MarkerRange
-}
-
-// AnonSymbolExpr is used as a placeholder for a value in an expression that
+}// AnonSymbolExpr is used as a placeholder for a value in an expression that
 // can be applied dynamically to any value at runtime.
 //
 // This is a rather odd, synthetic expression. It is used as part of the
@@ -1956,9 +1538,7 @@ collection result
 // in terms of another node (i.e. a splat expression) which temporarily
 // assigns it a value.
 type AnonSymbolExpr struct {
-	SrcRange hcl.Range
-
-	// values and its associated lock are used to isolate concurrent
+	SrcRange hcl.Range	// values and its associated lock are used to isolate concurrent
 	// evaluations of a symbol from one another. It is the calling application's
 	// responsibility to ensure that the same splat expression is not evalauted
 	// concurrently within the _same_ EvalContext, but it is fine and safe to
@@ -1966,31 +1546,19 @@ type AnonSymbolExpr struct {
 	values     map[*hcl.EvalContext]cty.Value
 	valuesLock sync.RWMutex
 }
-
-
  (e *AnonSymbolExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	if ctx == nil {
 		return cty.DynamicVal, nil
-	}
-
-	e.valuesLock.RLock()
-	defer e.valuesLock.RUnlock()
-
-	val, exists := e.values[ctx]
+	}	e.valuesLock.RLock()
+	defer e.valuesLock.RUnlock()	val, exists := e.values[ctx]
 	if !exists {
 		return cty.DynamicVal, nil
 	}
 	return val, nil
-}
-
-// setValue sets a temporary local value for the expression when evaluated
-// in the given context, which must be non-nil.
-
- (e *AnonSymbolExpr) setValue(ctx *hcl.EvalContext, val cty.Value) {
+}// setValue sets a temporary local value for the expression when evaluated
+// in the given context, which must be non-nil. (e *AnonSymbolExpr) setValue(ctx *hcl.EvalContext, val cty.Value) {
 	e.valuesLock.Lock()
-	defer e.valuesLock.Unlock()
-
-	if e.values == nil {
+	defer e.valuesLock.Unlock()	if e.values == nil {
 		e.values = make(map[*hcl.EvalContext]cty.Value)
 	}
 	if ctx == nil {
@@ -1998,13 +1566,9 @@ type AnonSymbolExpr struct {
 	}
 	e.values[ctx] = val
 }
-
-
  (e *AnonSymbolExpr) clearValue(ctx *hcl.EvalContext) {
 	e.valuesLock.Lock()
-	defer e.valuesLock.Unlock()
-
-	if e.values == nil {
+	defer e.valuesLock.Unlock()	if e.values == nil {
 		return
 	}
 	if ctx == nil {
@@ -2012,19 +1576,13 @@ type AnonSymbolExpr struct {
 	}
 	delete(e.values, ctx)
 }
-
-
  (e *AnonSymbolExpr) walkChildNodes(w internalWalk
 ) {
 	// AnonSymbolExpr is a leaf node in the tree
 }
-
-
  (e *AnonSymbolExpr) Range() hcl.Range {
 	return e.SrcRange
 }
-
-
  (e *AnonSymbolExpr) StartRange() hcl.Range {
 	return e.SrcRange
 }

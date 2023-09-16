@@ -35,9 +35,9 @@ func TestAccVPCLatticeService_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServiceDestroy(ctx),
+		CheckDestroy:    testAccCheckServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceConfig_basic(rName),
@@ -69,9 +69,9 @@ func TestAccVPCLatticeService_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServiceDestroy(ctx),
+		CheckDestroy:    testAccCheckServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceConfig_basic(rName),
@@ -98,9 +98,9 @@ func TestAccVPCLatticeService_full(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServiceDestroy(ctx),
+		CheckDestroy:    testAccCheckServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceConfig_full(rName),
@@ -127,10 +127,10 @@ func TestAccVPCLatticeService_tags(t *testing.T) {
 	resourceName := "aws_vpclattice_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServiceDestroy(ctx),
+		CheckDestroy:    testAccCheckServiceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceConfig_tags1(rName, "key1", "value1"),

@@ -102,11 +102,11 @@ func dataSourceRandomPasswordRead(ctx context.Context, d *schema.ResourceData, m
 	input := &secretsmanager.GetRandomPasswordInput{
 		ExcludeCharacters:       aws.String(excludeCharacters),
 		ExcludeLowercase:        aws.Bool(excludeLowercase),
-		ExcludeNumbers:          aws.Bool(excludeNumbers),
+		ExcludeNumbers: aws.Bool(excludeNumbers),
 		ExcludePunctuation:      aws.Bool(excludePunctuation),
 		ExcludeUppercase:        aws.Bool(excludeUppercase),
-		IncludeSpace:            aws.Bool(includeSpace),
-		PasswordLength:          aws.Int64(passwordLength),
+		IncludeSpace:   aws.Bool(includeSpace),
+		PasswordLength: aws.Int64(passwordLength),
 		RequireEachIncludedType: aws.Bool(requireEachIncludedType),
 	}
 

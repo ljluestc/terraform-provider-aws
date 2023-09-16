@@ -54,8 +54,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -115,8 +115,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -172,8 +172,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -194,8 +194,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -292,16 +292,16 @@ func testAccBaseDataSourceConfig(rName string) string {
 data "aws_partition" "current" {}
 
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket  = %[1]q
   force_destroy = true
 }
 
 resource "aws_s3_bucket_public_access_block" "test" {
   bucket = aws_s3_bucket.test.id
 
-  block_public_acls       = false
+  block_public_acls = false
   block_public_policy     = false
-  ignore_public_acls      = false
+  ignore_public_acls= false
   restrict_public_buckets = false
 }
 
@@ -351,14 +351,14 @@ resource "aws_s3_object" "test" {
   content = <<EOF
 {
   "fileLocations": [
-      {
+{
  "URIs": [
      "https://${aws_s3_bucket.test.bucket}.s3.${data.aws_partition.current.dns_suffix}/%[1]s-test-data"
  ]
-      }
+}
   ],
   "globalUploadSettings": {
-      "format": "JSON"
+"format": "JSON"
   }
 }
 EOF
@@ -378,10 +378,10 @@ resource "aws_quicksight_data_source" "test" {
 
   parameters {
     s3 {
-      manifest_file_location {
-        bucket = aws_s3_bucket.test.bucket
-        key    = aws_s3_object.test.key
-      }
+manifest_file_location {
+  bucket = aws_s3_bucket.test.bucket
+  key    = aws_s3_object.test.key
+}
     }
   }
 
@@ -401,10 +401,10 @@ resource "aws_quicksight_data_source" "test" {
 
   parameters {
     s3 {
-      manifest_file_location {
-        bucket = aws_s3_bucket.test.bucket
-        key    = aws_s3_object.test.key
-      }
+manifest_file_location {
+  bucket = aws_s3_bucket.test.bucket
+  key    = aws_s3_object.test.key
+}
     }
   }
 
@@ -428,10 +428,10 @@ resource "aws_quicksight_data_source" "test" {
 
   parameters {
     s3 {
-      manifest_file_location {
-        bucket = aws_s3_bucket.test.bucket
-        key    = aws_s3_object.test.key
-      }
+manifest_file_location {
+  bucket = aws_s3_bucket.test.bucket
+  key    = aws_s3_object.test.key
+}
     }
   }
 
@@ -451,10 +451,10 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_quicksight_user" "test" {
   aws_account_id = data.aws_caller_identity.current.account_id
-  user_name      = %[1]q
+  user_name= %[1]q
   email = %[2]q
   identity_type  = "QUICKSIGHT"
-  user_role      = "AUTHOR"
+  user_role= "AUTHOR"
 
   lifecycle {
     create_before_destroy = true
@@ -472,10 +472,10 @@ resource "aws_quicksight_user" "test" {
   count = %[3]d
 
   aws_account_id = data.aws_caller_identity.current.account_id
-  user_name      = "%[1]s-${count.index}"
+  user_name= "%[1]s-${count.index}"
   email = %[2]q
   identity_type  = "QUICKSIGHT"
-  user_role      = "AUTHOR"
+  user_role= "AUTHOR"
 
   lifecycle {
     create_before_destroy = true
@@ -496,18 +496,18 @@ resource "aws_quicksight_data_source" "test" {
 
   parameters {
     s3 {
-      manifest_file_location {
-        bucket = aws_s3_bucket.test.bucket
-        key    = aws_s3_object.test.key
-      }
+manifest_file_location {
+  bucket = aws_s3_bucket.test.bucket
+  key    = aws_s3_object.test.key
+}
     }
   }
 
   permission {
     actions = [
-      "quicksight:DescribeDataSource",
-      "quicksight:DescribeDataSourcePermissions",
-      "quicksight:PassDataSource"
+"quicksight:DescribeDataSource",
+"quicksight:DescribeDataSourcePermissions",
+"quicksight:PassDataSource"
     ]
 
     principal = aws_quicksight_user.test.arn
@@ -530,21 +530,21 @@ resource "aws_quicksight_data_source" "test" {
 
   parameters {
     s3 {
-      manifest_file_location {
-        bucket = aws_s3_bucket.test.bucket
-        key    = aws_s3_object.test.key
-      }
+manifest_file_location {
+  bucket = aws_s3_bucket.test.bucket
+  key    = aws_s3_object.test.key
+}
     }
   }
 
   permission {
     actions = [
-      "quicksight:DescribeDataSource",
-      "quicksight:DescribeDataSourcePermissions",
-      "quicksight:PassDataSource",
-      "quicksight:UpdateDataSource",
-      "quicksight:DeleteDataSource",
-      "quicksight:UpdateDataSourcePermissions"
+"quicksight:DescribeDataSource",
+"quicksight:DescribeDataSourcePermissions",
+"quicksight:PassDataSource",
+"quicksight:UpdateDataSource",
+"quicksight:DeleteDataSource",
+"quicksight:UpdateDataSourcePermissions"
     ]
 
     principal = aws_quicksight_user.test.arn

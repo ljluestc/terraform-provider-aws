@@ -37,41 +37,41 @@ func ResourceHSMConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"hsm_configuration_identifier": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"hsm_ip_address": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"hsm_partition_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"hsm_partition_password": {
-				Type:      schema.TypeString,
+				Type:  schema.TypeString,
 				Required:  true,
 				ForceNew:  true,
 				Sensitive: true,
 			},
 			"hsm_server_public_certificate": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -88,10 +88,10 @@ func resourceHSMConfigurationCreate(ctx context.Context, d *schema.ResourceData,
 		Description:   aws.String(d.Get("description").(string)),
 		HsmConfigurationIdentifier: aws.String(hsmConfigurationID),
 		HsmIpAddress:  aws.String(d.Get("hsm_ip_address").(string)),
-		HsmPartitionName:           aws.String(d.Get("hsm_partition_name").(string)),
-		HsmPartitionPassword:       aws.String(d.Get("hsm_partition_password").(string)),
+		HsmPartitionName:  aws.String(d.Get("hsm_partition_name").(string)),
+		HsmPartitionPassword:   aws.String(d.Get("hsm_partition_password").(string)),
 		HsmServerPublicCertificate: aws.String(d.Get("hsm_server_public_certificate").(string)),
-		Tags:          getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateHsmConfigurationWithContext(ctx, input)
@@ -124,7 +124,7 @@ func resourceHSMConfigurationRead(ctx context.Context, d *schema.ResourceData, m
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:   redshift.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
+		Region:meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("hsmconfiguration:%s", d.Id()),
 	}.String()

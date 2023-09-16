@@ -14,6 +14,7 @@ import (
 )
 
 // @SDKDataSource("aws_organizations_policy")
+
 func DataSourcePolicy() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourcePolicyRead,
@@ -50,6 +51,7 @@ func DataSourcePolicy() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

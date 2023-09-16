@@ -19,7 +19,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
 )
-
 func TestAccLightsailKeyPair_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -49,7 +48,6 @@ func TestAccLightsailKeyPair_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailKeyPair_publicKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -86,7 +84,6 @@ func TestAccLightsailKeyPair_publicKey(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailKeyPair_encrypted(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -118,7 +115,6 @@ func TestAccLightsailKeyPair_encrypted(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailKeyPair_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
@@ -143,7 +139,6 @@ func TestAccLightsailKeyPair_namePrefix(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailKeyPair_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -188,7 +183,6 @@ func TestAccLightsailKeyPair_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailKeyPair_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -216,7 +210,6 @@ func TestAccLightsailKeyPair_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckKeyPairExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -244,7 +237,6 @@ func testAccCheckKeyPairExists(ctx context.Context, n string) resource.TestCheck
 		return nil
 	}
 }
-
 func testAccCheckKeyPairDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -274,7 +266,6 @@ func testAccCheckKeyPairDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccKeyPairConfig_basic(lightsailName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_key_pair" "test" {
@@ -282,7 +273,6 @@ resource "aws_lightsail_key_pair" "test" {
 }
 `, lightsailName)
 }
-
 func testAccKeyPairConfig_imported(lightsailName, publicKey string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_key_pair" "test" {
@@ -292,7 +282,6 @@ resource "aws_lightsail_key_pair" "test" {
 }
 `, lightsailName, publicKey)
 }
-
 func testAccKeyPairConfig_encrypted(lightsailName, key string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_key_pair" "test" {
@@ -304,7 +293,6 @@ EOF
 }
 `, lightsailName, key)
 }
-
 func testAccKeyPairConfig_prefixed() string {
 	return `
 resource "aws_lightsail_key_pair" "lightsail_key_pair_test_omit" {}
@@ -314,7 +302,6 @@ resource "aws_lightsail_key_pair" "lightsail_key_pair_test_prefixed" {
 }
 `
 }
-
 func testAccKeyPairConfig_tags1(lightsailName, key1, value1 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_key_pair" "test" {
@@ -326,7 +313,6 @@ resource "aws_lightsail_key_pair" "test" {
 }
 `, lightsailName, key1, value1)
 }
-
 func testAccKeyPairConfig_tags2(lightsailName, key1, value1, key2, value2 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_key_pair" "test" {

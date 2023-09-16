@@ -29,7 +29,7 @@ func TestAccSSMAssociation_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basic(rName),
@@ -66,7 +66,7 @@ func TestAccSSMAssociation_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basic(rName),
@@ -89,7 +89,7 @@ func TestAccSSMAssociation_disappears_document(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basic(rName),
@@ -112,7 +112,7 @@ func TestAccSSMAssociation_applyOnlyAtCronInterval(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basicApplyOnlyAtCronInterval(rName, true),
@@ -166,7 +166,7 @@ targets {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basicTargets(rName, oneTarget),
@@ -215,7 +215,7 @@ func TestAccSSMAssociation_withParameters(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basicParameters(rName),
@@ -225,8 +225,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"parameters"},
 	},
@@ -252,7 +252,7 @@ func TestAccSSMAssociation_withAssociationName(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basicName(rName, assocName1),
@@ -289,7 +289,7 @@ func TestAccSSMAssociation_withAssociationNameAndScheduleExpression(t *testing.T
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_nameAndScheduleExpression(rName, assocName, scheduleExpression1),
@@ -325,7 +325,7 @@ func TestAccSSMAssociation_withDocumentVersion(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basicDocumentVersion(rName),
@@ -352,7 +352,7 @@ func TestAccSSMAssociation_withOutputLocation(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basicOutPutLocation(rName),
@@ -396,7 +396,7 @@ func TestAccSSMAssociation_withOutputLocation_s3Region(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_outputLocationS3Region(rName),
@@ -447,7 +447,7 @@ func TestAccSSMAssociation_withOutputLocation_waitForSuccessTimeout(t *testing.T
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_outputLocationAndWaitForSuccess(rName),
@@ -476,7 +476,7 @@ func TestAccSSMAssociation_withAutomationTargetParamName(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basicAutomationTargetParamName(rName),
@@ -486,8 +486,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"parameters"},
 	},
@@ -511,7 +511,7 @@ func TestAccSSMAssociation_withScheduleExpression(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basicScheduleExpression(rName),
@@ -548,7 +548,7 @@ func TestAccSSMAssociation_withComplianceSeverity(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basicComplianceSeverity(compSeverity1, rName, assocName),
@@ -584,7 +584,7 @@ func TestAccSSMAssociation_rateControl(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_rateControl(rName, "10%"),
@@ -620,7 +620,7 @@ func TestAccSSMAssociation_syncCompliance(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationSyncComplianceConfig(rName, "MANUAL"),
@@ -690,7 +690,7 @@ return nil
 func testAccAssociationConfig_basicApplyOnlyAtCronInterval(rName string, applyOnlyAtCronInterval bool) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -702,10 +702,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -716,8 +716,8 @@ DOC
 }
 
 resource "aws_ssm_association" "test" {
-  name         = aws_ssm_document.test.name
-  schedule_expression         = "cron(0 16 ? * TUE *)"
+  name= aws_ssm_document.test.name
+  schedule_expression= "cron(0 16 ? * TUE *)"
   apply_only_at_cron_interval = %[2]t
 
   targets {
@@ -760,7 +760,7 @@ EOF
 }
 
 resource "aws_ssm_document" "foo" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Automation"
 
   content = <<DOC
@@ -798,7 +798,7 @@ resource "aws_ssm_document" "foo" {
       "onFailure": "Continue",
       "inputs": {
         "InstanceIds": [
-          "{{ startInstances.InstanceIds }}"
+ "{{ startInstances.InstanceIds }}"
         ],
         "DesiredState": "stopped"
       }
@@ -810,7 +810,7 @@ resource "aws_ssm_document" "foo" {
       "onFailure": "Continue",
       "inputs": {
         "InstanceIds": [
-          "{{ startInstances.InstanceIds }}"
+ "{{ startInstances.InstanceIds }}"
         ],
         "DesiredState": "terminated"
       }
@@ -822,12 +822,12 @@ DOC
 }
 
 resource "aws_ssm_association" "test" {
-  name              = aws_ssm_document.foo.name
+  name     = aws_ssm_document.foo.name
   automation_target_parameter_name = "Directory"
 
   parameters = {
     AutomationAssumeRole = aws_iam_role.ssm_role.id
-    Directory            = "myWorkSpace"
+    Directory   = "myWorkSpace"
   }
 
   targets {
@@ -843,7 +843,7 @@ resource "aws_ssm_association" "test" {
 func testAccAssociationConfig_basicParametersUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = "%[1]s-2"
+  name = "%[1]s-2"
   document_type = "Command"
 
   content = <<-DOC
@@ -862,10 +862,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -893,7 +893,7 @@ resource "aws_ssm_association" "test" {
 func testAccAssociationConfig_basicParameters(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<-DOC
@@ -912,10 +912,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -943,7 +943,7 @@ resource "aws_ssm_association" "test" {
 func testAccAssociationConfig_basicTargets(rName, targetsStr string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -955,10 +955,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1005,7 +1005,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "first" {
-  vpc_id            = aws_vpc.main.id
+  vpc_id   = aws_vpc.main.id
   cidr_block        = "10.0.0.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 }
@@ -1026,9 +1026,9 @@ resource "aws_security_group" "test" {
 resource "aws_instance" "test" {
   ami     = data.aws_ami.amzn.image_id
   availability_zone      = data.aws_availability_zones.available.names[0]
-  instance_type          = "t2.micro"
+  instance_type = "t2.micro"
   vpc_security_group_ids = [aws_security_group.test.id]
-  subnet_id              = aws_subnet.first.id
+  subnet_id     = aws_subnet.first.id
 
   tags = {
     Name = %[1]q
@@ -1036,7 +1036,7 @@ resource "aws_instance" "test" {
 }
 
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1048,10 +1048,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1071,7 +1071,7 @@ resource "aws_ssm_association" "test" {
 func testAccAssociationConfig_basicDocumentVersion(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1083,10 +1083,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1097,7 +1097,7 @@ DOC
 }
 
 resource "aws_ssm_association" "test" {
-  name             = %[1]q
+  name    = %[1]q
   document_version = aws_ssm_document.test.latest_version
 
   targets {
@@ -1111,7 +1111,7 @@ resource "aws_ssm_association" "test" {
 func testAccAssociationConfig_basicScheduleExpression(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1123,10 +1123,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1151,7 +1151,7 @@ resource "aws_ssm_association" "test" {
 func testAccAssociationConfig_basicScheduleExpressionUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1163,10 +1163,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1196,7 +1196,7 @@ resource "aws_s3_bucket" "output_location" {
 }
 
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1208,10 +1208,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1245,7 +1245,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1257,10 +1257,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1343,7 +1343,7 @@ resource "aws_s3_bucket" "output_location_updated" {
 }
 
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1355,10 +1355,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1397,7 +1397,7 @@ resource "aws_s3_bucket" "output_location_updated" {
 }
 
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1409,10 +1409,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1441,7 +1441,7 @@ resource "aws_ssm_association" "test" {
 func testAccAssociationConfig_basicName(rName, assocName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1453,10 +1453,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1467,7 +1467,7 @@ DOC
 }
 
 resource "aws_ssm_association" "test" {
-  name             = aws_ssm_document.test.name
+  name    = aws_ssm_document.test.name
   association_name = %[2]q
 
   targets {
@@ -1481,7 +1481,7 @@ resource "aws_ssm_association" "test" {
 func testAccAssociationConfig_nameAndScheduleExpression(rName, associationName, scheduleExpression string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1493,10 +1493,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1522,7 +1522,7 @@ resource "aws_ssm_association" "test" {
 func testAccAssociationConfig_basicComplianceSeverity(compSeverity, rName, assocName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1534,10 +1534,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1563,7 +1563,7 @@ resource "aws_ssm_association" "test" {
 func testAccAssociationConfig_rateControl(rName, rate string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1575,10 +1575,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1589,7 +1589,7 @@ DOC
 }
 
 resource "aws_ssm_association" "test" {
-  name            = aws_ssm_document.test.name
+  name   = aws_ssm_document.test.name
   max_concurrency = %[2]q
   max_errors      = %[2]q
 
@@ -1610,7 +1610,7 @@ resource "aws_ssm_association" "test" {
     values = ["*"]
   }
   apply_only_at_cron_interval = false
-  sync_compliance             = %[2]q
+  sync_compliance    = %[2]q
   parameters = {
     Operation    = "Scan"
     RebootOption = "NoReboot"

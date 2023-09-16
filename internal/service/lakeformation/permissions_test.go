@@ -1202,7 +1202,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -1597,7 +1597,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 }
 
@@ -1617,7 +1617,7 @@ resource "aws_lakeformation_permissions" "test" {
 
   table {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
   }
 
   # for consistency, ensure that admins are setup before testing
@@ -1645,7 +1645,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -1672,7 +1672,7 @@ resource "aws_lakeformation_permissions" "test" {
 
   table {
     database_name = aws_glue_catalog_database.test.name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
   }
 }
 `, rName)
@@ -1703,7 +1703,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -1742,7 +1742,7 @@ resource "aws_lakeformation_permissions" "test" {
 
   table {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
   }
 
   # for consistency, ensure that admins are setup before testing
@@ -1792,7 +1792,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 }
 
@@ -1812,7 +1812,7 @@ resource "aws_lakeformation_permissions" "test" {
 
   table {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
   }
 
   # for consistency, ensure that admins are setup before testing
@@ -1825,7 +1825,7 @@ resource "aws_lakeformation_permissions" "test2" {
 
   table {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
   }
 
   # for consistency, ensure that admins are setup before testing
@@ -1859,7 +1859,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 }
 
@@ -1879,7 +1879,7 @@ resource "aws_lakeformation_permissions" "test" {
 
   table {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
   }
 
   # for consistency, ensure that admins are setup before testing
@@ -1913,7 +1913,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -1952,7 +1952,7 @@ resource "aws_lakeformation_permissions" "test" {
 
   table {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
   }
 
   # for consistency, ensure that admins are setup before testing
@@ -2036,7 +2036,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -2108,7 +2108,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -2181,7 +2181,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -2218,7 +2218,7 @@ resource "aws_lakeformation_permissions" "test" {
 
   table_with_columns {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
     column_names  = [%[2]s]
   }
 
@@ -2253,7 +2253,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -2292,7 +2292,7 @@ resource "aws_lakeformation_permissions" "test" {
 
   table_with_columns {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
     wildcard      = true
   }
 
@@ -2327,7 +2327,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -2363,7 +2363,7 @@ resource "aws_lakeformation_permissions" "test" {
   principal   = aws_iam_role.test.arn
 
   table_with_columns {
-    database_name         = aws_glue_catalog_table.test.database_name
+    database_name= aws_glue_catalog_table.test.database_name
     name     = aws_glue_catalog_table.test.name
     wildcard = true
     excluded_column_names = ["value"]
@@ -2400,7 +2400,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 }
 
@@ -2420,7 +2420,7 @@ resource "aws_lakeformation_permissions" "test" {
 
   table_with_columns {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
     wildcard      = true
   }
 
@@ -2455,7 +2455,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -2492,7 +2492,7 @@ resource "aws_lakeformation_permissions" "test" {
 
   table_with_columns {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
     wildcard      = true
   }
 

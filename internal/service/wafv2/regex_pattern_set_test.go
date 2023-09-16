@@ -18,7 +18,6 @@ import (
 	tfwafv2 "github.com/hashicorp/terraform-provider-aws/internal/service/wafv2"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccWAFV2RegexPatternSet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RegexPatternSet
@@ -79,7 +78,6 @@ func TestAccWAFV2RegexPatternSet_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RegexPatternSet_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RegexPatternSet
@@ -103,7 +101,6 @@ func TestAccWAFV2RegexPatternSet_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RegexPatternSet_minimal(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RegexPatternSet
@@ -130,7 +127,6 @@ func TestAccWAFV2RegexPatternSet_minimal(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RegexPatternSet_changeNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after wafv2.RegexPatternSet
@@ -169,7 +165,6 @@ func TestAccWAFV2RegexPatternSet_changeNameForceNew(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RegexPatternSet_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RegexPatternSet
@@ -219,7 +214,6 @@ func TestAccWAFV2RegexPatternSet_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckRegexPatternSetDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -245,7 +239,6 @@ func testAccCheckRegexPatternSetDestroy(ctx context.Context) resource.TestCheckF
 		return nil
 	}
 }
-
 func testAccCheckRegexPatternSetExists(ctx context.Context, n string, v *wafv2.RegexPatternSet) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -270,7 +263,6 @@ func testAccCheckRegexPatternSetExists(ctx context.Context, n string, v *wafv2.R
 		return nil
 	}
 }
-
 func testAccRegexPatternSetConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
@@ -288,7 +280,6 @@ resource "aws_wafv2_regex_pattern_set" "test" {
 }
 `, name)
 }
-
 func testAccRegexPatternSetConfig_update(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
@@ -310,7 +301,6 @@ resource "aws_wafv2_regex_pattern_set" "test" {
 }
 `, name)
 }
-
 func testAccRegexPatternSetConfig_minimal(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
@@ -319,7 +309,6 @@ resource "aws_wafv2_regex_pattern_set" "test" {
 }
 `, name)
 }
-
 func testAccRegexPatternSetConfig_oneTag(name, tagKey, tagValue string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
@@ -341,7 +330,6 @@ resource "aws_wafv2_regex_pattern_set" "test" {
 }
 `, name, tagKey, tagValue)
 }
-
 func testAccRegexPatternSetConfig_twoTags(name, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
@@ -360,7 +348,6 @@ resource "aws_wafv2_regex_pattern_set" "test" {
 }
 `, name, tag1Key, tag1Value, tag2Key, tag2Value)
 }
-
 func testAccRegexPatternSetImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]

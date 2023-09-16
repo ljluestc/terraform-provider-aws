@@ -30,7 +30,7 @@ func testAccLoggingOptions_basic(t *testing.T) {
 	resourceName := "aws_iot_logging_options.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:acctest.CheckDestroyNoop,
@@ -53,7 +53,7 @@ func testAccLoggingOptions_update(t *testing.T) {
 	resourceName := "aws_iot_logging_options.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:acctest.CheckDestroyNoop,
@@ -87,9 +87,9 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Action": "sts:AssumeRole",
-    "Principal": {"Service": "iot.amazonaws.com"},
-    "Effect": "Allow"
+"Action": "sts:AssumeRole",
+"Principal": {"Service": "iot.amazonaws.com"},
+"Effect": "Allow"
   }]
 }
 EOF
@@ -103,15 +103,15 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Effect": "Allow",
-    "Action": [
-      "logs:CreateLogGroup",
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-      "logs:PutMetricFilter",
-      "logs:PutRetentionPolicy"
-    ],
-    "Resource": ["*"]
+"Effect": "Allow",
+"Action": [
+  "logs:CreateLogGroup",
+  "logs:CreateLogStream",
+  "logs:PutLogEvents",
+  "logs:PutMetricFilter",
+  "logs:PutRetentionPolicy"
+],
+"Resource": ["*"]
   }]
 }
 EOF
@@ -123,7 +123,7 @@ func testAccLoggingOptionsConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccLoggingOptionsBaseConfig(rName), `
 resource "aws_iot_logging_options" "test" {
   default_log_level = "WARN"
-  role_arn          = aws_iam_role.test.arn
+  role_arn = aws_iam_role.test.arn
 
   depends_on = [aws_iam_role_policy.test]
 }
@@ -135,7 +135,7 @@ func testAccLoggingOptionsConfig_updated(rName string) string {
 resource "aws_iot_logging_options" "test" {
   default_log_level = "DISABLED"
   disable_all_logs  = true
-  role_arn          = aws_iam_role.test.arn
+  role_arn = aws_iam_role.test.arn
 
   depends_on = [aws_iam_role_policy.test]
 }

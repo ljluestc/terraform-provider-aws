@@ -34,7 +34,7 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"bucket": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 63),
@@ -53,7 +53,7 @@ import (
 				},
 			},
 			"expected_bucket_owner": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,
@@ -88,7 +88,7 @@ import (
 							Required: true,
 						},
 						"protocol": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(s3.Protocol_Values(), false),
 						},
@@ -96,7 +96,7 @@ import (
 				},
 			},
 			"routing_rule": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"routing_rules"},
@@ -134,7 +134,7 @@ import (
 										Optional: true,
 									},
 									"protocol": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringInSlice(s3.Protocol_Values(), false),
 									},
@@ -153,7 +153,7 @@ import (
 				},
 			},
 			"routing_rules": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"routing_rule"},
@@ -205,7 +205,7 @@ import (
 	}
 
 	input := &s3.PutBucketWebsiteInput{
-		Bucket:               aws.String(bucket),
+		Bucket:      aws.String(bucket),
 		WebsiteConfiguration: websiteConfig,
 	}
 
@@ -344,7 +344,7 @@ funcket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	}
 
 	input := &s3.PutBucketWebsiteInput{
-		Bucket:               aws.String(bucket),
+		Bucket:      aws.String(bucket),
 		WebsiteConfiguration: websiteConfig,
 	}
 

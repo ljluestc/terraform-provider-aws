@@ -32,10 +32,10 @@ func TestAccDeployDeploymentGroup_basic(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_basic(rName, false),
@@ -106,10 +106,10 @@ func TestAccDeployDeploymentGroup_Basic_tagSet(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_basic(rName, true),
@@ -178,10 +178,10 @@ func TestAccDeployDeploymentGroup_onPremiseTag(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_onPremiseTags(rName),
@@ -220,10 +220,10 @@ func TestAccDeployDeploymentGroup_disappears(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_basic(rName, false),
@@ -244,10 +244,10 @@ func TestAccDeployDeploymentGroup_Disappears_app(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_basic(rName, false),
@@ -269,10 +269,10 @@ func TestAccDeployDeploymentGroup_tags(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_tags1(rName, "key1", "value1"),
@@ -317,10 +317,10 @@ func TestAccDeployDeploymentGroup_Trigger_basic(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_triggerConfigurationCreate(rName),
@@ -367,10 +367,10 @@ func TestAccDeployDeploymentGroup_Trigger_multiple(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_triggerConfigurationCreateMultiple(rName),
@@ -429,10 +429,10 @@ func TestAccDeployDeploymentGroup_AutoRollback_create(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_autoRollbackConfigurationCreate(rName),
@@ -465,10 +465,10 @@ func TestAccDeployDeploymentGroup_AutoRollback_update(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_autoRollbackConfigurationCreate(rName),
@@ -515,10 +515,10 @@ func TestAccDeployDeploymentGroup_AutoRollback_delete(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_autoRollbackConfigurationCreate(rName),
@@ -559,10 +559,10 @@ func TestAccDeployDeploymentGroup_AutoRollback_disable(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_autoRollbackConfigurationCreate(rName),
@@ -608,10 +608,10 @@ func TestAccDeployDeploymentGroup_Alarm_create(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_alarmConfigurationCreate(rName),
@@ -646,10 +646,10 @@ func TestAccDeployDeploymentGroup_Alarm_update(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_alarmConfigurationCreate(rName),
@@ -700,10 +700,10 @@ func TestAccDeployDeploymentGroup_Alarm_delete(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_alarmConfigurationCreate(rName),
@@ -746,10 +746,10 @@ func TestAccDeployDeploymentGroup_Alarm_disable(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_alarmConfigurationCreate(rName),
@@ -800,10 +800,10 @@ func TestAccDeployDeploymentGroup_DeploymentStyle_default(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_styleDefault(rName),
@@ -835,10 +835,10 @@ func TestAccDeployDeploymentGroup_DeploymentStyle_create(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_styleCreate(rName),
@@ -878,10 +878,10 @@ func TestAccDeployDeploymentGroup_DeploymentStyle_update(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_styleCreate(rName),
@@ -926,10 +926,10 @@ func TestAccDeployDeploymentGroup_DeploymentStyle_delete(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_styleCreate(rName),
@@ -973,10 +973,10 @@ func TestAccDeployDeploymentGroup_LoadBalancerInfo_create(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_loadBalancerInfoCreate(rName),
@@ -1009,10 +1009,10 @@ func TestAccDeployDeploymentGroup_LoadBalancerInfo_update(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_loadBalancerInfoCreate(rName),
@@ -1058,10 +1058,10 @@ func TestAccDeployDeploymentGroup_LoadBalancerInfo_delete(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_loadBalancerInfoCreate(rName),
@@ -1102,10 +1102,10 @@ func TestAccDeployDeploymentGroup_LoadBalancerInfoTargetGroupInfo_create(t *test
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_loadBalancerInfoTargetInfoCreate(rName),
@@ -1139,10 +1139,10 @@ func TestAccDeployDeploymentGroup_LoadBalancerInfoTargetGroupInfo_update(t *test
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_loadBalancerInfoTargetInfoCreate(rName),
@@ -1188,10 +1188,10 @@ func TestAccDeployDeploymentGroup_LoadBalancerInfoTargetGroupInfo_delete(t *test
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_loadBalancerInfoTargetInfoCreate(rName),
@@ -1232,10 +1232,10 @@ func TestAccDeployDeploymentGroup_InPlaceDeploymentWithTrafficControl_create(t *
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_inPlaceTrafficControlCreate(rName),
@@ -1275,10 +1275,10 @@ func TestAccDeployDeploymentGroup_InPlaceDeploymentWithTrafficControl_update(t *
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_inPlaceTrafficControlCreate(rName),
@@ -1352,10 +1352,10 @@ func TestAccDeployDeploymentGroup_BlueGreenDeployment_create(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_blueGreenConfigCreateASG(rName),
@@ -1409,10 +1409,10 @@ func TestAccDeployDeploymentGroup_BlueGreenDeployment_updateWithASG(t *testing.T
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_blueGreenConfigCreateASG(rName),
@@ -1478,10 +1478,10 @@ func TestAccDeployDeploymentGroup_BlueGreenDeployment_update(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_blueGreenConfigCreateNoASG(rName),
@@ -1561,10 +1561,10 @@ func TestAccDeployDeploymentGroup_BlueGreenDeployment_delete(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_blueGreenConfigCreateNoASG(rName),
@@ -1630,10 +1630,10 @@ func TestAccDeployDeploymentGroup_BlueGreenDeployment_complete(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_blueGreenComplete(rName),
@@ -1738,10 +1738,10 @@ func TestAccDeployDeploymentGroup_ECS_blueGreen(t *testing.T) {
 	resourceName := "aws_codedeploy_deployment_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codedeploy.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, codedeploy.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeploymentGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckDeploymentGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeploymentGroupConfig_ecsBlueGreen(rName),
@@ -2099,7 +2099,7 @@ func TestDeploymentGroup_expandBlueGreenDeploymentConfig(t *testing.T) {
 
 			"terminate_blue_instances_on_deployment_success": []interface{}{
 				map[string]interface{}{
-					"action":                           "TERMINATE",
+					"action":"TERMINATE",
 					"termination_wait_time_in_minutes": 90,
 				},
 			},
@@ -2117,7 +2117,7 @@ func TestDeploymentGroup_expandBlueGreenDeploymentConfig(t *testing.T) {
 		},
 
 		TerminateBlueInstancesOnDeploymentSuccess: &codedeploy.BlueInstanceTerminationOption{
-			Action:                       aws.String("TERMINATE"),
+			Action:     aws.String("TERMINATE"),
 			TerminationWaitTimeInMinutes: aws.Int64(90),
 		},
 	}
@@ -2144,7 +2144,7 @@ func TestDeploymentGroup_flattenBlueGreenDeploymentConfig(t *testing.T) {
 		},
 
 		TerminateBlueInstancesOnDeploymentSuccess: &codedeploy.BlueInstanceTerminationOption{
-			Action:                       aws.String("KEEP_ALIVE"),
+			Action:     aws.String("KEEP_ALIVE"),
 			TerminationWaitTimeInMinutes: aws.Int64(90),
 		},
 	}
@@ -2165,7 +2165,7 @@ func TestDeploymentGroup_flattenBlueGreenDeploymentConfig(t *testing.T) {
 
 		"terminate_blue_instances_on_deployment_success": []map[string]interface{}{
 			{
-				"action":                           "KEEP_ALIVE",
+				"action":"KEEP_ALIVE",
 				"termination_wait_time_in_minutes": 90,
 			},
 		},
@@ -2212,7 +2212,7 @@ func TestDeploymentGroup_buildAlarmConfig(t *testing.T) {
 			"alarms": schema.NewSet(schema.HashString, []interface{}{
 				"test-alarm",
 			}),
-			"enabled":                   true,
+			"enabled": true,
 			"ignore_poll_alarm_failure": false,
 		},
 	}
@@ -2223,7 +2223,7 @@ func TestDeploymentGroup_buildAlarmConfig(t *testing.T) {
 				Name: aws.String("test-alarm"),
 			},
 		},
-		Enabled:                aws.Bool(true),
+		Enabled:       aws.Bool(true),
 		IgnorePollAlarmFailure: aws.Bool(false),
 	}
 
@@ -2247,7 +2247,7 @@ func TestDeploymentGroup_alarmConfigToMap(t *testing.T) {
 				Name: aws.String("test-alarm"),
 			},
 		},
-		Enabled:                aws.Bool(false),
+		Enabled:       aws.Bool(false),
 		IgnorePollAlarmFailure: aws.Bool(true),
 	}
 
@@ -2256,7 +2256,7 @@ func TestDeploymentGroup_alarmConfigToMap(t *testing.T) {
 			"test-alarm-2",
 			"test-alarm",
 		}),
-		"enabled":                   false,
+		"enabled": false,
 		"ignore_poll_alarm_failure": true,
 	}
 
@@ -2454,7 +2454,7 @@ resource "aws_iam_role" "test" {
       "Effect": "Allow",
       "Principal": {
         "Service": [
-          "codedeploy.${data.aws_partition.current.dns_suffix}"
+ "codedeploy.${data.aws_partition.current.dns_suffix}"
         ]
       },
       "Action": "sts:AssumeRole"
@@ -2490,7 +2490,7 @@ ec2_tag_filter {
 
 	return testAccDeploymentGroupConfig_base2(rName) + fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
   %[2]s
@@ -2522,7 +2522,7 @@ ec2_tag_filter {
 
 	return testAccDeploymentGroupConfig_base2(rName) + fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-updated-%[1]s"
   service_role_arn      = aws_iam_role.test_updated.arn
   %[2]s
@@ -2569,7 +2569,7 @@ resource "aws_iam_role" "test_updated" {
       "Effect": "Allow",
       "Principal": {
         "Service": [
-          "codedeploy.${data.aws_partition.current.dns_suffix}"
+ "codedeploy.${data.aws_partition.current.dns_suffix}"
         ]
       },
       "Action": "sts:AssumeRole"
@@ -2584,7 +2584,7 @@ EOF
 func testAccDeploymentGroupConfig_onPremiseTags(rName string) string {
 	return testAccDeploymentGroupConfig_base2(rName) + fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2665,7 +2665,7 @@ resource "aws_sns_topic" "test" {
 func testAccDeploymentGroupConfig_triggerConfigurationCreate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2681,7 +2681,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_triggerConfigurationUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2697,7 +2697,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_triggerConfigurationCreateMultiple(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2723,7 +2723,7 @@ resource "aws_sns_topic" "test_2" {
 func testAccDeploymentGroupConfig_triggerConfigurationUpdateMultiple(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2753,7 +2753,7 @@ resource "aws_sns_topic" "test_3" {
 func testAccDeploymentGroupConfig_autoRollbackConfigurationCreate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2768,7 +2768,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_autoRollbackConfigurationUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2783,7 +2783,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_autoRollbackConfigurationNone(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 }
@@ -2793,7 +2793,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_autoRollbackConfigurationDisable(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2808,7 +2808,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_alarmConfigurationCreate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2823,13 +2823,13 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_alarmConfigurationUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
   alarm_configuration {
-    alarms                    = ["test-alarm", "test-alarm-2"]
-    enabled                   = true
+    alarms  = ["test-alarm", "test-alarm-2"]
+    enabled = true
     ignore_poll_alarm_failure = true
   }
 }
@@ -2839,7 +2839,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_alarmConfigurationNone(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 }
@@ -2849,7 +2849,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_alarmConfigurationDisable(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2864,7 +2864,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_styleDefault(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 }
@@ -2874,7 +2874,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_styleCreate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2895,7 +2895,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_styleUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2910,7 +2910,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_loadBalancerInfoNone(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 }
@@ -2920,7 +2920,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_loadBalancerInfoCreate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2936,7 +2936,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_loadBalancerInfoUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2952,7 +2952,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_loadBalancerInfoTargetInfoCreate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2968,7 +2968,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_loadBalancerInfoTargetInfoUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -2984,7 +2984,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_loadBalancerInfoTargetInfoDelete(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 }
@@ -2994,7 +2994,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_inPlaceTrafficControlCreate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -3015,7 +3015,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_inPlaceTrafficControlUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -3050,7 +3050,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_blueGreenConfigDelete(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 }
@@ -3060,7 +3060,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_blueGreenConfigCreateASG(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -3088,7 +3088,7 @@ resource "aws_codedeploy_deployment_group" "test" {
     }
 
     terminate_blue_instances_on_deployment_success {
-      action                           = "TERMINATE"
+      action= "TERMINATE"
       termination_wait_time_in_minutes = 120
     }
   }
@@ -3134,9 +3134,9 @@ resource "aws_launch_configuration" "test" {
 }
 
 resource "aws_autoscaling_group" "test" {
-  name             = "tf-acc-test-codedeploy-deployment-group-%[1]s"
-  max_size         = 2
-  min_size         = 0
+  name    = "tf-acc-test-codedeploy-deployment-group-%[1]s"
+  max_size= 2
+  min_size= 0
   desired_capacity = 1
 
   vpc_zone_identifier = [data.aws_subnet.test.id]
@@ -3153,7 +3153,7 @@ resource "aws_autoscaling_group" "test" {
 func testAccDeploymentGroupConfig_blueGreenConfigUpdateASG(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -3226,9 +3226,9 @@ resource "aws_launch_configuration" "test" {
 }
 
 resource "aws_autoscaling_group" "test" {
-  name             = "tf-acc-test-codedeploy-deployment-group-%[1]s"
-  max_size         = 2
-  min_size         = 0
+  name    = "tf-acc-test-codedeploy-deployment-group-%[1]s"
+  max_size= 2
+  min_size= 0
   desired_capacity = 1
 
   vpc_zone_identifier = [data.aws_subnet.test.id]
@@ -3245,7 +3245,7 @@ resource "aws_autoscaling_group" "test" {
 func testAccDeploymentGroupConfig_blueGreenConfigCreateNoASG(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -3271,7 +3271,7 @@ resource "aws_codedeploy_deployment_group" "test" {
     }
 
     terminate_blue_instances_on_deployment_success {
-      action                           = "TERMINATE"
+      action= "TERMINATE"
       termination_wait_time_in_minutes = 120
     }
   }
@@ -3282,7 +3282,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_blueGreenConfigUpdateNoASG(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -3317,7 +3317,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_blueGreenComplete(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -3353,7 +3353,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_blueGreenCompleteUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -3409,7 +3409,7 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = "tf-acc-test-codedeploy-deployment-group-ecs"
@@ -3452,12 +3452,12 @@ resource "aws_lb" "test" {
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.arn
-  port              = "80"
-  protocol          = "HTTP"
+  port     = "80"
+  protocol = "HTTP"
 
   default_action {
     target_group_arn = aws_lb_target_group.blue.arn
-    type             = "forward"
+    type    = "forward"
   }
 }
 
@@ -3466,10 +3466,10 @@ resource "aws_ecs_cluster" "test" {
 }
 
 resource "aws_ecs_task_definition" "test" {
-  cpu                      = "256"
-  family                   = %[1]q
-  memory                   = "512"
-  network_mode             = "awsvpc"
+  cpu    = "256"
+  family = %[1]q
+  memory = "512"
+  network_mode    = "awsvpc"
   requires_compatibilities = ["FARGATE"]
 
   container_definitions = <<DEFINITION
@@ -3493,10 +3493,10 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  cluster         = aws_ecs_cluster.test.id
+  cluster= aws_ecs_cluster.test.id
   desired_count   = 1
   launch_type     = "FARGATE"
-  name            = %[1]q
+  name   = %[1]q
   task_definition = aws_ecs_task_definition.test.arn
 
   deployment_controller {
@@ -3512,13 +3512,13 @@ resource "aws_ecs_service" "test" {
   network_configuration {
     assign_public_ip = true
     security_groups  = [aws_security_group.test.id]
-    subnets          = aws_subnet.test[*].id
+    subnets = aws_subnet.test[*].id
   }
 }
 
 resource "aws_codedeploy_app" "test" {
   compute_platform = "ECS"
-  name             = %[1]q
+  name    = %[1]q
 }
 
 data "aws_partition" "current" {}
@@ -3536,7 +3536,7 @@ resource "aws_iam_role" "test" {
       "Action": "sts:AssumeRole",
       "Principal": {
         "Service": [
-          "codedeploy.${data.aws_partition.current.dns_suffix}"
+ "codedeploy.${data.aws_partition.current.dns_suffix}"
         ]
       }
     }
@@ -3583,7 +3583,7 @@ POLICY
 func testAccDeploymentGroupConfig_ecsBlueGreen(rName string) string {
 	return testAccDeploymentGroupConfig_ecsBase(rName) + fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name               = aws_codedeploy_app.test.name
+  app_name      = aws_codedeploy_app.test.name
   deployment_config_name = "CodeDeployDefault.ECSAllAtOnce"
   deployment_group_name  = %q
   service_role_arn       = aws_iam_role.test.arn
@@ -3599,7 +3599,7 @@ resource "aws_codedeploy_deployment_group" "test" {
     }
 
     terminate_blue_instances_on_deployment_success {
-      action                           = "TERMINATE"
+      action= "TERMINATE"
       termination_wait_time_in_minutes = 5
     }
   }
@@ -3636,7 +3636,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_ecsBlueGreenUpdate(rName string) string {
 	return testAccDeploymentGroupConfig_ecsBase(rName) + fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name               = aws_codedeploy_app.test.name
+  app_name      = aws_codedeploy_app.test.name
   deployment_config_name = "CodeDeployDefault.ECSAllAtOnce"
   deployment_group_name  = %q
   service_role_arn       = aws_iam_role.test.arn
@@ -3653,7 +3653,7 @@ resource "aws_codedeploy_deployment_group" "test" {
     }
 
     terminate_blue_instances_on_deployment_success {
-      action                           = "TERMINATE"
+      action= "TERMINATE"
       termination_wait_time_in_minutes = 60
     }
   }
@@ -3690,7 +3690,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return testAccDeploymentGroupConfig_base2(rName) + fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 
@@ -3704,7 +3704,7 @@ resource "aws_codedeploy_deployment_group" "test" {
 func testAccDeploymentGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return testAccDeploymentGroupConfig_base2(rName) + fmt.Sprintf(`
 resource "aws_codedeploy_deployment_group" "test" {
-  app_name              = aws_codedeploy_app.test.name
+  app_name     = aws_codedeploy_app.test.name
   deployment_group_name = "tf-acc-test-%[1]s"
   service_role_arn      = aws_iam_role.test.arn
 

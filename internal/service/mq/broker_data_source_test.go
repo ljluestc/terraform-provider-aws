@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccMQBrokerDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -26,7 +25,7 @@ func TestAccMQBrokerDataSource_basic(t *testing.T) {
 	dataSourceByNameName := "data.aws_mq_broker.by_name"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, mq.EndpointsID) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, mq.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -65,12 +64,11 @@ func TestAccMQBrokerDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccBrokerDataSourceConfig_base(rName string) string {
 	return acctest.ConfigCompose(testAccBrokerConfig_baseCustomVPC(rName), fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
-  name           = %[1]q
-  engine_type    = "ActiveMQ"
+  name %[1]q
+  engine_type = "ActiveMQ"
   engine_version = "5.15.12"
 
   data = <<DATA
@@ -82,46 +80,45 @@ DATA
 
 resource "aws_mq_broker" "test" {
   auto_minor_version_upgrade = true
-  apply_immediately          = true
+  apply_immediatelytrue
   broker_name = %[1]q
 
   configuration {
-    id       = aws_mq_configuration.test.id
-    revision = aws_mq_configuration.test.latest_revision
+ id_mq_configuration.test.id
+ revision = aws_mq_configuration.test.latest_revision
   }
 
-  deployment_mode    = "ACTIVE_STANDBY_MULTI_AZ"
-  engine_type        = "ActiveMQ"
-  engine_version     = "5.15.12"
+  deployment_mode = "ACTIVE_STANDBY_MULTI_AZ"
+  engine_typectiveMQ"
+  engine_version= "5.15.12"
   host_instance_type = "mq.t2.micro"
 
   maintenance_window_start_time {
-    day_of_week = "TUESDAY"
-    time_of_day = "02:00"
-    time_zone   = "CET"
+ day_of_week = "TUESDAY"
+ time_of_day = "02:00"
+ time_zone= "CET"
   }
 
   publicly_accessible = true
-  security_groups     = aws_security_group.test[*].id
-  subnet_ids          = aws_subnet.test[*].id
+  security_groups= aws_security_group.test[*].id
+  subnet_idsaws_subnet.test[*].id
 
   user {
-    username = "Ender"
-    password = "AndrewWiggin"
+ username = "Ender"
+ password = "AndrewWiggin"
   }
 
   user {
-    username       = "Petra"
-    password       = "PetraArkanian"
-    console_access = true
-    groups         = ["dragon", "salamander", "leopard"]
+ usernametra"
+ passwordtraArkanian"
+ console_access = true
+ groups"dragon", "salamander", "leopard"]
   }
 
   depends_on = [aws_internet_gateway.test]
 }
 `, rName))
 }
-
 func testAccBrokerDataSourceConfig_byID(rName string) string {
 	return acctest.ConfigCompose(testAccBrokerDataSourceConfig_base(rName), `
 data "aws_mq_broker" "by_id" {
@@ -129,7 +126,6 @@ data "aws_mq_broker" "by_id" {
 }
 `)
 }
-
 func testAccBrokerDataSourceConfig_byName(rName string) string {
 	return acctest.ConfigCompose(testAccBrokerDataSourceConfig_base(rName), `
 data "aws_mq_broker" "by_name" {

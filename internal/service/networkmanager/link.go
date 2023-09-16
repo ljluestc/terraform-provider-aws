@@ -87,7 +87,7 @@ func ResourceLink() *schema.Resource {
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
@@ -97,7 +97,7 @@ func ResourceLink() *schema.Resource {
 				ForceNew: true,
 			},
 			"provider_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 128),
 			},
@@ -109,7 +109,7 @@ func ResourceLink() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 128),
 			},
@@ -123,8 +123,8 @@ func resourceLinkCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	globalNetworkID := d.Get("global_network_id").(string)
 	input := &networkmanager.CreateLinkInput{
 		GlobalNetworkId: aws.String(globalNetworkID),
-		SiteId:          aws.String(d.Get("site_id").(string)),
-		Tags:            getTagsIn(ctx),
+		SiteId: aws.String(d.Get("site_id").(string)),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("bandwidth"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -202,9 +202,9 @@ func resourceLinkUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 		input := &networkmanager.UpdateLinkInput{
 			Description:     aws.String(d.Get("description").(string)),
 			GlobalNetworkId: aws.String(globalNetworkID),
-			LinkId:          aws.String(d.Id()),
+			LinkId: aws.String(d.Id()),
 			Provider:        aws.String(d.Get("provider_name").(string)),
-			Type:            aws.String(d.Get("type").(string)),
+			Type:   aws.String(d.Get("type").(string)),
 		}
 
 		if v, ok := d.GetOk("bandwidth"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -234,7 +234,7 @@ func resourceLinkDelete(ctx context.Context, d *schema.ResourceData, meta interf
 	log.Printf("[DEBUG] Deleting Network Manager Link: %s", d.Id())
 	_, err := conn.DeleteLinkWithContext(ctx, &networkmanager.DeleteLinkInput{
 		GlobalNetworkId: aws.String(globalNetworkID),
-		LinkId:          aws.String(d.Id()),
+		LinkId: aws.String(d.Id()),
 	})
 
 	if globalNetworkIDNotFoundError(err) || tfawserr.ErrCodeEquals(err, networkmanager.ErrCodeResourceNotFoundException) {
@@ -306,7 +306,7 @@ func FindLinks(ctx context.Context, conn *networkmanager.NetworkManager, input *
 func FindLinkByTwoPartKey(ctx context.Context, conn *networkmanager.NetworkManager, globalNetworkID, linkID string) (*networkmanager.Link, error) {
 	input := &networkmanager.GetLinksInput{
 		GlobalNetworkId: aws.String(globalNetworkID),
-		LinkIds:         aws.StringSlice([]string{linkID}),
+		LinkIds:aws.StringSlice([]string{linkID}),
 	}
 
 	output, err := FindLink(ctx, conn, input)

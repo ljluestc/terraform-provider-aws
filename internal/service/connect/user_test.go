@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package connect_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package connect_testimport (
 	"context"
 	"fmt"
 	"strconv"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/connect"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -19,9 +13,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfconnect "github.com/hashicorp/terraform-provider-aws/internal/service/connect"
 )
-
-
-
 func testAccUser_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserOutput
@@ -29,13 +20,8 @@ func testAccUser_basic(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-
-	resourceName := "aws_connect_user.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
-
+	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")	resourceName := "aws_connect_user.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -44,7 +30,6 @@ Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_basic(rName, rName2, rName3, rName4, rName5),
 Check: resource.ComposeTestCheck
-
 func(
 	testAccCheckUserExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -69,9 +54,6 @@ func(
 },
 	})
 }
-
-
-
 func testAccUser_updateHierarchyGroupId(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserOutput
@@ -79,13 +61,8 @@ func testAccUser_updateHierarchyGroupId(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-
-	resourceName := "aws_connect_user.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
-
+	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")	resourceName := "aws_connect_user.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -94,22 +71,20 @@ Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_hierarchyGroupID(rName, rName2, rName3, rName4, rName5, "first"),
 Check: resource.ComposeTestCheck
-
 func(
 	testAccCheckUserExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_group_id", "aws_connect_user_hierarchy_group.parent", "hierarchy_group_id"),
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"password"},
 	},
 	{
 Config: testAccUserConfig_hierarchyGroupID(rName, rName2, rName3, rName4, rName5, "second"),
 Check: resource.ComposeTestCheck
-
 func(
 	testAccCheckUserExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_group_id", "aws_connect_user_hierarchy_group.child", "hierarchy_group_id"),
@@ -118,9 +93,6 @@ func(
 },
 	})
 }
-
-
-
 func testAccUser_updateIdentityInfo(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserOutput
@@ -135,13 +107,8 @@ func testAccUser_updateIdentityInfo(t *testing.T) {
 	lastNameOriginal := "example-last-name-original"
 	emailUpdated := acctest.RandomEmailAddress(domain)
 	firstNameUpdated := "example-first-name-updated"
-	lastNameUpdated := "example-last-name-updated"
-
-	resourceName := "aws_connect_user.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
-
+	lastNameUpdated := "example-last-name-updated"	resourceName := "aws_connect_user.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -150,7 +117,6 @@ Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_identityInfo(rName, rName2, rName3, rName4, rName5, emailOriginal, firstNameOriginal, lastNameOriginal),
 Check: resource.ComposeTestCheck
-
 func(
 	testAccCheckUserExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "identity_info.#", "1"),
@@ -160,15 +126,14 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"password"},
 	},
 	{
 Config: testAccUserConfig_identityInfo(rName, rName2, rName3, rName4, rName5, emailUpdated, firstNameUpdated, lastNameUpdated),
 Check: resource.ComposeTestCheck
-
 func(
 	testAccCheckUserExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "identity_info.#", "1"),
@@ -180,9 +145,6 @@ func(
 },
 	})
 }
-
-
-
 func testAccUser_updatePhoneConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserOutput
@@ -196,13 +158,8 @@ func testAccUser_updatePhoneConfig(t *testing.T) {
 	desk_phone_number_original := "+112345678912"
 	after_contact_work_time_limit_updated := 1
 	auto_accept_updated := true
-	desk_phone_number_updated := "+112345678913"
-
-	resourceName := "aws_connect_user.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
-
+	desk_phone_number_updated := "+112345678913"	resourceName := "aws_connect_user.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -211,7 +168,6 @@ Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_basic(rName, rName2, rName3, rName4, rName5),
 Check: resource.ComposeTestCheck
-
 func(
 	testAccCheckUserExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "phone_config.#", "1"),
@@ -220,15 +176,14 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"password"},
 	},
 	{
 Config: testAccUserConfig_phoneDeskPhone(rName, rName2, rName3, rName4, rName5, after_contact_work_time_limit_original, auto_accept_original, desk_phone_number_original),
 Check: resource.ComposeTestCheck
-
 func(
 	testAccCheckUserExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "phone_config.#", "1"),
@@ -239,15 +194,14 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"password"},
 	},
 	{
 Config: testAccUserConfig_phoneDeskPhone(rName, rName2, rName3, rName4, rName5, after_contact_work_time_limit_updated, auto_accept_updated, desk_phone_number_updated),
 Check: resource.ComposeTestCheck
-
 func(
 	testAccCheckUserExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "phone_config.#", "1"),
@@ -260,9 +214,6 @@ func(
 },
 	})
 }
-
-
-
 func testAccUser_updateSecurityProfileIds(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserOutput
@@ -270,13 +221,8 @@ func testAccUser_updateSecurityProfileIds(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-
-	resourceName := "aws_connect_user.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
-
+	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")	resourceName := "aws_connect_user.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -285,7 +231,6 @@ Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_securityProfileIDs(rName, rName2, rName3, rName4, rName5, "first"),
 Check: resource.ComposeTestCheck
-
 func(
 	testAccCheckUserExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "security_profile_ids.#", "1"),
@@ -293,15 +238,14 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"password"},
 	},
 	{
 Config: testAccUserConfig_securityProfileIDs(rName, rName2, rName3, rName4, rName5, "second"),
 Check: resource.ComposeTestCheck
-
 func(
 	testAccCheckUserExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "security_profile_ids.#", "2"),
@@ -310,9 +254,9 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"password"},
 	},
 	{
@@ -327,22 +271,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-
-func testAccUser_updateRoutingProfileId(t *testing.T) {
+}func testAccUser_updateRoutingProfileId(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserOutput
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-
-	resourceName := "aws_connect_user.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")	resourceName := "aws_connect_user.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -356,9 +293,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"password"},
 	},
 	{
@@ -370,22 +307,15 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-
-func testAccUser_updateTags(t *testing.T) {
+}func testAccUser_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserOutput
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-
-	resourceName := "aws_connect_user.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")	resourceName := "aws_connect_user.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -400,9 +330,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"password"},
 	},
 	{
@@ -426,10 +356,7 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-
-func testAccUser_disappears(t *testing.T) {
+}func testAccUser_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeUserOutput
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -437,10 +364,8 @@ func testAccUser_disappears(t *testing.T) {
 	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_user.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+	resourceName := "aws_connect_user.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -456,433 +381,278 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func testAccCheckUserExists(ctx context.Context, resourceName string, 
+}func testAccCheckUserExists(ctx context.Context, resourceName string, 
 function *connect.DescribeUserOutput) resource.TestCheckFunc {
 	return 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return fmt.Errorf("Connect User not found: %s", resourceName)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("Connect User ID not set")
 }
-instanceID, userID, err := tfconnect.UserParseID(rs.Primary.ID)
-
-if err != nil {
+instanceID, userID, err := tfconnect.UserParseID(rs.Primary.ID)if err != nil {
 	return err
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
-
-params := &connect.DescribeUserInput{
-	UserId:     aws.String(userID),
+}conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)params := &connect.DescribeUserInput{
+	UserId:aws.String(userID),
 	InstanceId: aws.String(instanceID),
-}
-
-getFunction, err := conn.DescribeUserWithContext(ctx, params)
+}getFunction, err := conn.DescribeUserWithContext(ctx, params)
 if err != nil {
 	return err
-}
-
-*
-function = *getFunction
-
-return nil
+}*
+function = *getFunctionreturn nil
 	}
-}
-
-
-func testAccCheckUserDestroy(ctx context.Context) resource.TestCheckFunc {
+}func testAccCheckUserDestroy(ctx context.Context) resource.TestCheckFunc {
 	return 
 func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_connect_user" {
 continue
-	}
-
-	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
-
-	instanceID, userID, err := tfconnect.UserParseID(rs.Primary.ID)
-
-	if err != nil {
+	}	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)	instanceID, userID, err := tfconnect.UserParseID(rs.Primary.ID)	if err != nil {
 return err
-	}
-
-	params := &connect.DescribeUserInput{
-UserId:     aws.String(userID),
+	}	params := &connect.DescribeUserInput{
+UserId:aws.String(userID),
 InstanceId: aws.String(instanceID),
-	}
-
-	_, err = conn.DescribeUserWithContext(ctx, params)
-
-	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
+	}	_, err = conn.DescribeUserWithContext(ctx, params)	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
 	}
-}
-
-return nil
+}return nil
 	}
-}
-
-
-func testAccUserConfig_base(rName, rName2, rName3, rName4 string) string {
+}func testAccUserConfig_base(rName, rName2, rName3, rName4 string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
-  identity_management_type = "CONNECT_MANAGED"
-  inbound_calls_enabled    = true
-  instance_alias           = %[1]q
-  outbound_calls_enabled   = true
+identity_management_type = "CONNECT_MANAGED"
+inbound_calls_enabled = true
+instance_alias= %[1]q
+outbound_calls_enabled= true
+}data "aws_connect_queue" "test" {
+instance_id = aws_connect_instance.test.id
+name= "BasicQueue"
+}resource "aws_connect_routing_profile" "test" {
+instance_id= aws_connect_instance.test.id
+name = %[2]q
+default_outbound_queue_id = data.aws_connect_queue.test.queue_id
+description= "test routing profile"media_concurrencies {
+ channel= "VOICE"
+ concurrency = 1
 }
-
-data "aws_connect_queue" "test" {
-  instance_id = aws_connect_instance.test.id
-  name        = "BasicQueue"
+}data "aws_connect_routing_profile" "test" {
+instance_id = aws_connect_instance.test.id
+name= "Basic Routing Profile"
+}data "aws_connect_security_profile" "admin" {
+instance_id = aws_connect_instance.test.id
+name= "Admin"
+}data "aws_connect_security_profile" "agent" {
+instance_id = aws_connect_instance.test.id
+name= "Agent"
+}data "aws_connect_security_profile" "call_center_manager" {
+instance_id = aws_connect_instance.test.id
+name= "CallCenterManager"
+}resource "aws_connect_user_hierarchy_structure" "test" {
+instance_id = aws_connect_instance.test.idhierarchy_structure {
+ level_one {
+name = "levelone"
+ } level_two {
+name = "leveltwo"
+ }
 }
-
-resource "aws_connect_routing_profile" "test" {
-  instance_id= aws_connect_instance.test.id
-  name       = %[2]q
-  default_outbound_queue_id = data.aws_connect_queue.test.queue_id
-  description= "test routing profile"
-
-  media_concurrencies {
-    channel     = "VOICE"
-    concurrency = 1
-  }
+}resource "aws_connect_user_hierarchy_group" "parent" {
+instance_id = aws_connect_instance.test.id
+name= %[3]qtags = {
+ "Name" = "Test User Hierarchy Group Parent"
+}depends_on = [
+ aws_connect_user_hierarchy_structure.test,
+]
+}resource "aws_connect_user_hierarchy_group" "child" {
+instance_id= aws_connect_instance.test.id
+name= %[4]q
+parent_group_id = aws_connect_user_hierarchy_group.parent.hierarchy_group_idtags = {
+ "Name" = "Test User Hierarchy Group Child"
 }
-
-data "aws_connect_routing_profile" "test" {
-  instance_id = aws_connect_instance.test.id
-  name        = "Basic Routing Profile"
-}
-
-data "aws_connect_security_profile" "admin" {
-  instance_id = aws_connect_instance.test.id
-  name        = "Admin"
-}
-
-data "aws_connect_security_profile" "agent" {
-  instance_id = aws_connect_instance.test.id
-  name        = "Agent"
-}
-
-data "aws_connect_security_profile" "call_center_manager" {
-  instance_id = aws_connect_instance.test.id
-  name        = "CallCenterManager"
-}
-
-resource "aws_connect_user_hierarchy_structure" "test" {
-  instance_id = aws_connect_instance.test.id
-
-  hierarchy_structure {
-    level_one {
-      name = "levelone"
-    }
-
-    level_two {
-      name = "leveltwo"
-    }
-  }
-}
-
-resource "aws_connect_user_hierarchy_group" "parent" {
-  instance_id = aws_connect_instance.test.id
-  name        = %[3]q
-
-  tags = {
-    "Name" = "Test User Hierarchy Group Parent"
-  }
-
-  depends_on = [
-    aws_connect_user_hierarchy_structure.test,
-  ]
-}
-
-resource "aws_connect_user_hierarchy_group" "child" {
-  instance_id     = aws_connect_instance.test.id
-  name            = %[4]q
-  parent_group_id = aws_connect_user_hierarchy_group.parent.hierarchy_group_id
-
-  tags = {
-    "Name" = "Test User Hierarchy Group Child"
-  }
 }
 `, rName, rName2, rName3, rName4)
-}
-
-
-func testAccUserConfig_basic(rName, rName2, rName3, rName4, rName5 string) string {
+}func testAccUserConfig_basic(rName, rName2, rName3, rName4, rName5 string) string {
 	return acctest.ConfigCompose(
 testAccUserConfig_base(rName, rName2, rName3, rName4),
 fmt.Sprintf(`
 resource "aws_connect_user" "test" {
-  instance_id        = aws_connect_instance.test.id
-  name= %[1]q
-  password           = "Password123"
-  routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
-
-  security_profile_ids = [
-    data.aws_connect_security_profile.agent.security_profile_id
-  ]
-
-  identity_info {
-    first_name = "example"
-    last_name  = "example2"
-  }
-
-  phone_config {
-    after_contact_work_time_limit = 0
-    phone_type     = "SOFT_PHONE"
-  }
-
-  tags = {
-    "Key1" = "Value1",
-  }
+instance_id= aws_connect_instance.test.id
+name= %[1]q
+password= "Password123"
+routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_idsecurity_profile_ids = [
+ data.aws_connect_security_profile.agent.security_profile_id
+]identity_info {
+ first_name = "example"
+ last_name= "example2"
+}phone_config {
+ after_contact_work_time_limit = 0
+ phone_type= "SOFT_PHONE"
+}tags = {
+ "Key1" = "Value1",
+}
 }
 `, rName5))
-}
-
-
-func testAccUserConfig_hierarchyGroupID(rName, rName2, rName3, rName4, rName5, selectHierarchyGroupId string) string {
+}func testAccUserConfig_hierarchyGroupID(rName, rName2, rName3, rName4, rName5, selectHierarchyGroupId string) string {
 	return acctest.ConfigCompose(
 testAccUserConfig_base(rName, rName2, rName3, rName4),
 fmt.Sprintf(`
 locals {
-  select_hierarchy_group_id = %[2]q
+select_hierarchy_group_id = %[2]q
+}resource "aws_connect_user" "test" {
+instance_id= aws_connect_instance.test.id
+name= %[1]q
+password= "Password123"
+routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
+hierarchy_group_id = local.select_hierarchy_group_id == "first" ? aws_connect_user_hierarchy_group.parent.hierarchy_group_id : aws_connect_user_hierarchy_group.child.hierarchy_group_idsecurity_profile_ids = [
+ data.aws_connect_security_profile.agent.security_profile_id
+]identity_info {
+ first_name = "example"
+ last_name= "example2"
+}phone_config {
+ after_contact_work_time_limit = 0
+ phone_type= "SOFT_PHONE"
 }
-
-resource "aws_connect_user" "test" {
-  instance_id        = aws_connect_instance.test.id
-  name= %[1]q
-  password           = "Password123"
-  routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
-  hierarchy_group_id = local.select_hierarchy_group_id == "first" ? aws_connect_user_hierarchy_group.parent.hierarchy_group_id : aws_connect_user_hierarchy_group.child.hierarchy_group_id
-
-  security_profile_ids = [
-    data.aws_connect_security_profile.agent.security_profile_id
-  ]
-
-  identity_info {
-    first_name = "example"
-    last_name  = "example2"
-  }
-
-  phone_config {
-    after_contact_work_time_limit = 0
-    phone_type     = "SOFT_PHONE"
-  }
 }
 `, rName5, selectHierarchyGroupId))
-}
-
-
-func testAccUserConfig_identityInfo(rName, rName2, rName3, rName4, rName5, email, first_name, last_name string) string {
+}func testAccUserConfig_identityInfo(rName, rName2, rName3, rName4, rName5, email, first_name, last_name string) string {
 	return acctest.ConfigCompose(
 testAccUserConfig_base(rName, rName2, rName3, rName4),
 fmt.Sprintf(`
 resource "aws_connect_user" "test" {
-  instance_id        = aws_connect_instance.test.id
-  name= %[1]q
-  password           = "Password123"
-  routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
-
-  security_profile_ids = [
-    data.aws_connect_security_profile.agent.security_profile_id
-  ]
-
-  identity_info {
-    email      = %[2]q
-    first_name = %[3]q
-    last_name  = %[4]q
-  }
-
-  phone_config {
-    after_contact_work_time_limit = 0
-    phone_type     = "SOFT_PHONE"
-  }
+instance_id= aws_connect_instance.test.id
+name= %[1]q
+password= "Password123"
+routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_idsecurity_profile_ids = [
+ data.aws_connect_security_profile.agent.security_profile_id
+]identity_info {
+ email= %[2]q
+ first_name = %[3]q
+ last_name= %[4]q
+}phone_config {
+ after_contact_work_time_limit = 0
+ phone_type= "SOFT_PHONE"
+}
 }
 `, rName5, email, first_name, last_name))
-}
-
-
-func testAccUserConfig_phoneDeskPhone(rName, rName2, rName3, rName4, rName5 string, after_contact_work_time_limit int, auto_accept bool, desk_phone_number string) string {
+}func testAccUserConfig_phoneDeskPhone(rName, rName2, rName3, rName4, rName5 string, after_contact_work_time_limit int, auto_accept bool, desk_phone_number string) string {
 	return acctest.ConfigCompose(
 testAccUserConfig_base(rName, rName2, rName3, rName4),
 fmt.Sprintf(`
 resource "aws_connect_user" "test" {
-  instance_id        = aws_connect_instance.test.id
-  name= %[1]q
-  password           = "Password123"
-  routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
-
-  security_profile_ids = [
-    data.aws_connect_security_profile.agent.security_profile_id
-  ]
-
-  identity_info {
-    first_name = "example"
-    last_name  = "example2"
-  }
-
-  phone_config {
-    after_contact_work_time_limit = %[2]d
-    auto_accept    = %[3]t
-    desk_phone_number= %[4]q
-    phone_type     = "DESK_PHONE"
-  }
-
-  tags = {
-    "Key1" = "Value1",
-  }
+instance_id= aws_connect_instance.test.id
+name= %[1]q
+password= "Password123"
+routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_idsecurity_profile_ids = [
+ data.aws_connect_security_profile.agent.security_profile_id
+]identity_info {
+ first_name = "example"
+ last_name= "example2"
+}phone_config {
+ after_contact_work_time_limit = %[2]d
+ auto_accept = %[3]t
+ desk_phone_number= %[4]q
+ phone_type= "DESK_PHONE"
+}tags = {
+ "Key1" = "Value1",
+}
 }
 `, rName5, after_contact_work_time_limit, auto_accept, desk_phone_number))
-}
-
-
-func testAccUserConfig_routingProfileID(rName, rName2, rName3, rName4, rName5, selectRoutingProfileId string) string {
+}func testAccUserConfig_routingProfileID(rName, rName2, rName3, rName4, rName5, selectRoutingProfileId string) string {
 	return acctest.ConfigCompose(
 testAccUserConfig_base(rName, rName2, rName3, rName4),
 fmt.Sprintf(`
 locals {
-  selectRoutingProfileId = %[2]q
+selectRoutingProfileId = %[2]q
+}resource "aws_connect_user" "test" {
+instance_id= aws_connect_instance.test.id
+name= %[1]q
+password= "Password123"
+routing_profile_id = local.selectRoutingProfileId == "first" ? aws_connect_routing_profile.test.routing_profile_id : data.aws_connect_routing_profile.test.routing_profile_idsecurity_profile_ids = [
+ data.aws_connect_security_profile.agent.security_profile_id
+]identity_info {
+ first_name = "example"
+ last_name= "example2"
+}phone_config {
+ after_contact_work_time_limit = 0
+ phone_type= "SOFT_PHONE"
 }
-
-resource "aws_connect_user" "test" {
-  instance_id        = aws_connect_instance.test.id
-  name= %[1]q
-  password           = "Password123"
-  routing_profile_id = local.selectRoutingProfileId == "first" ? aws_connect_routing_profile.test.routing_profile_id : data.aws_connect_routing_profile.test.routing_profile_id
-
-  security_profile_ids = [
-    data.aws_connect_security_profile.agent.security_profile_id
-  ]
-
-  identity_info {
-    first_name = "example"
-    last_name  = "example2"
-  }
-
-  phone_config {
-    after_contact_work_time_limit = 0
-    phone_type     = "SOFT_PHONE"
-  }
 }
 `, rName5, selectRoutingProfileId))
-}
-
-
-func testAccUserConfig_securityProfileIDs(rName, rName2, rName3, rName4, rName5, selectSecurityProfileIds string) string {
+}func testAccUserConfig_securityProfileIDs(rName, rName2, rName3, rName4, rName5, selectSecurityProfileIds string) string {
 	return acctest.ConfigCompose(
 testAccUserConfig_base(rName, rName2, rName3, rName4),
 fmt.Sprintf(`
 locals {
-  security_profile_ids_map = {
-    "first" = [data.aws_connect_security_profile.agent.security_profile_id],
-    "second" = [
-      data.aws_connect_security_profile.agent.security_profile_id,
-      data.aws_connect_security_profile.call_center_manager.security_profile_id,
-    ]
-    "third" = [
-      data.aws_connect_security_profile.agent.security_profile_id,
-      data.aws_connect_security_profile.call_center_manager.security_profile_id,
-      data.aws_connect_security_profile.admin.security_profile_id,
-    ]
-  }
+security_profile_ids_map = {
+ "first" = [data.aws_connect_security_profile.agent.security_profile_id],
+ "second" = [
+data.aws_connect_security_profile.agent.security_profile_id,
+data.aws_connect_security_profile.call_center_manager.security_profile_id,
+ ]
+ "third" = [
+data.aws_connect_security_profile.agent.security_profile_id,
+data.aws_connect_security_profile.call_center_manager.security_profile_id,
+data.aws_connect_security_profile.admin.security_profile_id,
+ ]
 }
-
-resource "aws_connect_user" "test" {
-  instance_id        = aws_connect_instance.test.id
-  name= %[1]q
-  password           = "Password123"
-  routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
-
-  security_profile_ids = local.security_profile_ids_map[%[2]q]
-
-  identity_info {
-    first_name = "example"
-    last_name  = "example2"
-  }
-
-  phone_config {
-    after_contact_work_time_limit = 0
-    phone_type     = "SOFT_PHONE"
-  }
+}resource "aws_connect_user" "test" {
+instance_id= aws_connect_instance.test.id
+name= %[1]q
+password= "Password123"
+routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_idsecurity_profile_ids = local.security_profile_ids_map[%[2]q]identity_info {
+ first_name = "example"
+ last_name= "example2"
+}phone_config {
+ after_contact_work_time_limit = 0
+ phone_type= "SOFT_PHONE"
+}
 }
 `, rName5, selectSecurityProfileIds))
-}
-
-
-func testAccUserConfig_tags(rName, rName2, rName3, rName4, rName5 string) string {
+}func testAccUserConfig_tags(rName, rName2, rName3, rName4, rName5 string) string {
 	return acctest.ConfigCompose(
 testAccUserConfig_base(rName, rName2, rName3, rName4),
 fmt.Sprintf(`
 resource "aws_connect_user" "test" {
-  instance_id        = aws_connect_instance.test.id
-  name= %[1]q
-  password           = "Password123"
-  routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
-
-  security_profile_ids = [
-    data.aws_connect_security_profile.agent.security_profile_id
-  ]
-
-  identity_info {
-    first_name = "example"
-    last_name  = "example2"
-  }
-
-  phone_config {
-    after_contact_work_time_limit = 0
-    phone_type     = "SOFT_PHONE"
-  }
-
-  tags = {
-    "Key1" = "Value1",
-    "Key2" = "Value2a",
-  }
+instance_id= aws_connect_instance.test.id
+name= %[1]q
+password= "Password123"
+routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_idsecurity_profile_ids = [
+ data.aws_connect_security_profile.agent.security_profile_id
+]identity_info {
+ first_name = "example"
+ last_name= "example2"
+}phone_config {
+ after_contact_work_time_limit = 0
+ phone_type= "SOFT_PHONE"
+}tags = {
+ "Key1" = "Value1",
+ "Key2" = "Value2a",
+}
 }
 `, rName5))
-}
-
-
-func testAccUserConfig_tagsUpdated(rName, rName2, rName3, rName4, rName5 string) string {
+}func testAccUserConfig_tagsUpdated(rName, rName2, rName3, rName4, rName5 string) string {
 	return acctest.ConfigCompose(
 testAccUserConfig_base(rName, rName2, rName3, rName4),
 fmt.Sprintf(`
 resource "aws_connect_user" "test" {
-  instance_id        = aws_connect_instance.test.id
-  name= %[1]q
-  password           = "Password123"
-  routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
-
-  security_profile_ids = [
-    data.aws_connect_security_profile.agent.security_profile_id
-  ]
-
-  identity_info {
-    first_name = "example"
-    last_name  = "example2"
-  }
-
-  phone_config {
-    after_contact_work_time_limit = 0
-    phone_type     = "SOFT_PHONE"
-  }
-
-  tags = {
-    "Key1" = "Value1",
-    "Key2" = "Value2b"
-    "Key3" = "Value3"
-  }
+instance_id= aws_connect_instance.test.id
+name= %[1]q
+password= "Password123"
+routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_idsecurity_profile_ids = [
+ data.aws_connect_security_profile.agent.security_profile_id
+]identity_info {
+ first_name = "example"
+ last_name= "example2"
+}phone_config {
+ after_contact_work_time_limit = 0
+ phone_type= "SOFT_PHONE"
+}tags = {
+ "Key1" = "Value1",
+ "Key2" = "Value2b"
+ "Key3" = "Value3"
+}
 }
 `, rName5))
 }

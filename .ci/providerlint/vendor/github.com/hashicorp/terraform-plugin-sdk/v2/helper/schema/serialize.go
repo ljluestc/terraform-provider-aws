@@ -1,23 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package schema
-
-import (
+// SPDX-License-Identifier: MPL-2.0package schemaimport (
 	"bytes"
 	"fmt"
 	"sort"
 	"strconv"
 )
-
-
  SerializeValueForHash(buf *bytes.Buffer, val interface{}, schema *Schema) {
 	if val == nil {
 		buf.WriteRune(';')
 		return
-	}
-
-	switch schema.Type {
+	}	switch schema.Type {
 	case TypeBool:
 		if val.(bool) {
 			buf.WriteRune('1')
@@ -37,9 +29,7 @@ import (
 			serializeCollectionMemberForHash(buf, innerVal, schema.Elem)
 		}
 		buf.WriteRune(')')
-	case TypeMap:
-
-		m := val.(map[string]interface{})
+	case TypeMap:		m := val.(map[string]interface{})
 		var keys []string
 		for k := range m {
 			keys = append(keys, k)
@@ -52,9 +42,7 @@ import (
 				continue
 			}
 			buf.WriteString(k)
-			buf.WriteRune(':')
-
-			switch innerVal := innerVal.(type) {
+			buf.WriteRune(':')			switch innerVal := innerVal.(type) {
 			case int:
 				buf.WriteString(strconv.Itoa(innerVal))
 			case float64:
@@ -63,9 +51,7 @@ import (
 				buf.WriteString(innerVal)
 			default:
 				panic(fmt.Sprintf("unknown value type in TypeMap %T", innerVal))
-			}
-
-			buf.WriteRune(';')
+			}			buf.WriteRune(';')
 		}
 		buf.WriteRune(']')
 	case TypeSet:
@@ -79,18 +65,14 @@ import (
 		panic("unknown schema type to serialize")
 	}
 	buf.WriteRune(';')
-}
-
-// SerializeValueForHash appends a serialization of the given resource config
+}// SerializeValueForHash appends a serialization of the given resource config
 // to the given buffer, guaranteeing deterministic results given the same value
 // and schema.
 //
 // Its primary purpose is as input into a hashing 
 tion in order
 o hash complex substructures when used in sets, and so the serialization
-// is not reversible.
-
- SerializeResourceForHash(buf *bytes.Buffer, val interface{}, resource *Resource) {
+// is not reversible. SerializeResourceForHash(buf *bytes.Buffer, val interface{}, resource *Resource) {
 	if val == nil {
 		return
 	}
@@ -101,9 +83,7 @@ o hash complex substructures when used in sets, and so the serialization
 	for k, v := range sm {
 		if v.Optional || v.Required {
 			allComputed = false
-		}
-
-		keys = append(keys, k)
+		}		keys = append(keys, k)
 	}
 	sort.Strings(keys)
 	for _, k := range keys {
@@ -113,16 +93,10 @@ o hash complex substructures when used in sets, and so the serialization
 		// be known at plan/diff time.
 		if !allComputed && !(innerSchema.Required || innerSchema.Optional) {
 			continue
-		}
-
-		buf.WriteString(k)
+		}		buf.WriteString(k)
 		buf.WriteRune(':')
 		innerVal := m[k]
-		SerializeValueForHash(buf, innerVal, innerSchema)
-
-}
-
-
+		SerializeValueForHash(buf, innerVal, innerSchema)}
  serializeCollectionMemberForHash(buf *bytes.Buffer, val interface{}, elem interface{}) {
 	switch tElem := elem.(type) {
 	case *Schema:

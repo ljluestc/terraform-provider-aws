@@ -47,7 +47,7 @@ func ResourceSecretRotation() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"automatically_after_days": {
-							Type:          schema.TypeInt,
+							Type: schema.TypeInt,
 							Optional:      true,
 							ConflictsWith: []string{"rotation_rules.0.schedule_expression"},
 							ExactlyOneOf:  []string{"rotation_rules.0.automatically_after_days", "rotation_rules.0.schedule_expression"},
@@ -56,15 +56,15 @@ func ResourceSecretRotation() *schema.Resource {
 								return exists
 							},
 							DiffSuppressOnRefresh: true,
-							ValidateFunc:          validation.IntBetween(1, 1000),
+							ValidateFunc: validation.IntBetween(1, 1000),
 						},
 						"duration": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9h]+`), ""),
 						},
 						"schedule_expression": {
-							Type:          schema.TypeString,
+							Type: schema.TypeString,
 							Optional:      true,
 							ConflictsWith: []string{"rotation_rules.0.automatically_after_days"},
 							ExactlyOneOf:  []string{"rotation_rules.0.automatically_after_days", "rotation_rules.0.schedule_expression"},
@@ -91,7 +91,7 @@ func resourceSecretRotationCreate(ctx context.Context, d *schema.ResourceData, m
 		input := &secretsmanager.RotateSecretInput{
 			RotationLambdaARN: aws.String(v.(string)),
 			RotationRules:     expandRotationRules(d.Get("rotation_rules").([]interface{})),
-			SecretId:          aws.String(secretID),
+			SecretId: aws.String(secretID),
 		}
 
 		// AccessDeniedException: Secrets Manager cannot invoke the specified Lambda function.
@@ -154,7 +154,7 @@ func resourceSecretRotationUpdate(ctx context.Context, d *schema.ResourceData, m
 			input := &secretsmanager.RotateSecretInput{
 				RotationLambdaARN: aws.String(v.(string)),
 				RotationRules:     expandRotationRules(d.Get("rotation_rules").([]interface{})),
-				SecretId:          aws.String(secretID),
+				SecretId: aws.String(secretID),
 			}
 
 			// AccessDeniedException: Secrets Manager cannot invoke the specified Lambda function.

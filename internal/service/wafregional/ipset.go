@@ -74,7 +74,7 @@ func resourceIPSetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 		func(token *string) (interface{}, error) {
 			params := &waf.CreateIPSetInput{
 				ChangeToken: token,
-				Name:        aws.String(d.Get("name").(string)),
+				Name:  aws.String(d.Get("name").(string)),
 			}
 			return conn.CreateIPSetWithContext(ctx, params)
 		})

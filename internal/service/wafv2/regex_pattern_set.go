@@ -60,7 +60,7 @@ func ResourceRegexPatternSet() *schema.Resource {
 					Computed: true,
 				},
 				"description": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringLenBetween(1, 256),
 				},
@@ -69,7 +69,7 @@ func ResourceRegexPatternSet() *schema.Resource {
 					Computed: true,
 				},
 				"name": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ForceNew:     true,
 					ValidateFunc: validation.StringLenBetween(1, 128),
@@ -92,7 +92,7 @@ func ResourceRegexPatternSet() *schema.Resource {
 					},
 				},
 				"scope": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ForceNew:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.Scope_Values(), false),
@@ -105,7 +105,6 @@ func ResourceRegexPatternSet() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceRegexPatternSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -135,7 +134,6 @@ func resourceRegexPatternSetCreate(ctx context.Context, d *schema.ResourceData, 
 
 	return resourceRegexPatternSetRead(ctx, d, meta)
 }
-
 func resourceRegexPatternSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -163,7 +161,6 @@ func resourceRegexPatternSetRead(ctx context.Context, d *schema.ResourceData, me
 
 	return nil
 }
-
 func resourceRegexPatternSetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -194,7 +191,6 @@ func resourceRegexPatternSetUpdate(ctx context.Context, d *schema.ResourceData, 
 
 	return resourceRegexPatternSetRead(ctx, d, meta)
 }
-
 func resourceRegexPatternSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -220,7 +216,6 @@ func resourceRegexPatternSetDelete(ctx context.Context, d *schema.ResourceData, 
 
 	return nil
 }
-
 func FindRegexPatternSetByThreePartKey(ctx context.Context, conn *wafv2.WAFV2, id, name, scope string) (*wafv2.GetRegexPatternSetOutput, error) {
 	input := &wafv2.GetRegexPatternSetInput{
 		Id:    aws.String(id),

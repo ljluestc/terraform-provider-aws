@@ -47,7 +47,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"

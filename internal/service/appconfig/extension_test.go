@@ -43,8 +43,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
@@ -76,8 +76,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -139,15 +139,15 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckExtensionExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "parameter.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-"name":        pName1,
+"name":pName1,
 "description": pDescription1,
-"required":    pRequiredTrue,
+"required":pRequiredTrue,
 	}),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -156,14 +156,14 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckExtensionExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "parameter.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-"name":        "parameter1",
+"name":"parameter1",
 "description": "description1",
-"required":    "true",
+"required":"true",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-"name":        "parameter2",
+"name":"parameter2",
 "description": "description2",
-"required":    "false",
+"required":"false",
 	}),
 ),
 	},
@@ -173,9 +173,9 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckExtensionExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "parameter.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
-"name":        pName2,
+"name":pName2,
 "description": pDescription2,
-"required":    pRequiredFalse,
+"required":pRequiredFalse,
 	}),
 ),
 	},
@@ -203,8 +203,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -240,8 +240,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -275,8 +275,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -394,12 +394,12 @@ resource "aws_sns_topic" "test" {
 
 data "aws_iam_policy_document" "test" {
   statement {
-    actions = ["sts:AssumeRole"]
+actions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["appconfig.amazonaws.com"]
-    }
+principals {
+  type= "Service"
+  identifiers = ["appconfig.amazonaws.com"]
+}
   }
 }
 resource "aws_iam_role" "test" {
@@ -414,15 +414,15 @@ func testAccExtensionConfig_name(rName string) string {
 testAccExtensionConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_appconfig_extension" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = "test description"
   action_point {
-    point = "ON_DEPLOYMENT_COMPLETE"
-    action {
-      name     = "test"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_COMPLETE"
+action {
+  name = "test"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
 }
 `, rName))
@@ -433,15 +433,15 @@ func testAccExtensionConfig_description(rName string, rDescription string) strin
 testAccExtensionConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_appconfig_extension" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = %[2]q
   action_point {
-    point = "ON_DEPLOYMENT_COMPLETE"
-    action {
-      name     = "test"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_COMPLETE"
+action {
+  name = "test"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
 }
 `, rName, rDescription))
@@ -454,15 +454,15 @@ fmt.Sprintf(`
 resource "aws_appconfig_extension" "test" {
   name = %[1]q
   action_point {
-    point = "ON_DEPLOYMENT_COMPLETE"
-    action {
-      name     = "test"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_COMPLETE"
+action {
+  name = "test"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -475,16 +475,16 @@ fmt.Sprintf(`
 resource "aws_appconfig_extension" "test" {
   name = %[1]q
   action_point {
-    point = "ON_DEPLOYMENT_COMPLETE"
-    action {
-      name     = "test"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_COMPLETE"
+action {
+  name = "test"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -497,20 +497,20 @@ fmt.Sprintf(`
 resource "aws_appconfig_extension" "test" {
   name = %[1]q
   action_point {
-    point = "ON_DEPLOYMENT_COMPLETE"
-    action {
-      name     = "test"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_COMPLETE"
+action {
+  name = "test"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
   action_point {
-    point = "ON_DEPLOYMENT_ROLLED_BACK"
-    action {
-      name     = "test2"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_ROLLED_BACK"
+action {
+  name = "test2"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
 }
 `, rName))
@@ -523,17 +523,17 @@ fmt.Sprintf(`
 resource "aws_appconfig_extension" "test" {
   name = %[1]q
   action_point {
-    point = "ON_DEPLOYMENT_COMPLETE"
-    action {
-      name     = "test"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_COMPLETE"
+action {
+  name = "test"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
   parameter {
-    name        = %[2]q
-    description = %[3]q
-    required    = %[4]s
+name= %[2]q
+description = %[3]q
+required= %[4]s
   }
 }
 `, rName, pName, pDescription, pRequired))
@@ -546,22 +546,22 @@ fmt.Sprintf(`
 resource "aws_appconfig_extension" "test" {
   name = %[1]q
   action_point {
-    point = "ON_DEPLOYMENT_COMPLETE"
-    action {
-      name     = "test"
-      role_arn = aws_iam_role.test.arn
-      uri      = aws_sns_topic.test.arn
-    }
+point = "ON_DEPLOYMENT_COMPLETE"
+action {
+  name = "test"
+  role_arn = aws_iam_role.test.arn
+  uri  = aws_sns_topic.test.arn
+}
   }
   parameter {
-    name        = "parameter1"
-    description = "description1"
-    required    = true
+name= "parameter1"
+description = "description1"
+required= true
   }
   parameter {
-    name        = "parameter2"
-    description = "description2"
-    required    = false
+name= "parameter2"
+description = "description2"
+required= false
   }
 }
 `, rName))

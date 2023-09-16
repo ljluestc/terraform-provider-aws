@@ -466,11 +466,11 @@ func waitForOrganizationConformancePackStatusDeleteSuccessful(ctx context.Contex
 func waitForOrganizationRuleStatusCreateSuccessful(ctx context.Context, conn *configservice.ConfigService, name string, timeout time.Duration) error {
 	stateChangeConf := &retry.StateChangeConf{
 		Pending:        []string{configservice.OrganizationRuleStatusCreateInProgress},
-		Target:         []string{configservice.OrganizationRuleStatusCreateSuccessful},
+		Target:[]string{configservice.OrganizationRuleStatusCreateSuccessful},
 		Refresh:        refreshOrganizationConfigRuleStatus(ctx, conn, name, configservice.OrganizationRuleStatusCreateSuccessful),
 		Timeout:        timeout,
 		NotFoundChecks: 10,
-		Delay:          30 * time.Second,
+		Delay: 30 * time.Second,
 	}
 
 	_, err := stateChangeConf.WaitForStateContext(ctx)

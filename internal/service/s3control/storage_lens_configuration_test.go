@@ -27,7 +27,7 @@ func TestAccS3ControlStorageLensConfiguration_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckStorageLensConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckStorageLensConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStorageLensConfigurationConfig_basic(rName),
@@ -73,7 +73,7 @@ func TestAccS3ControlStorageLensConfiguration_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckStorageLensConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckStorageLensConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStorageLensConfigurationConfig_basic(rName),
@@ -96,7 +96,7 @@ func TestAccS3ControlStorageLensConfiguration_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckStorageLensConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckStorageLensConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStorageLensConfigurationConfig_tags1(rName, "key1", "value1"),
@@ -141,7 +141,7 @@ func TestAccS3ControlStorageLensConfiguration_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckStorageLensConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckStorageLensConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStorageLensConfigurationConfig_allAttributes(rName),
@@ -247,7 +247,7 @@ func TestAccS3ControlStorageLensConfiguration_advancedMetrics(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckStorageLensConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckStorageLensConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStorageLensConfigurationConfig_advancedMetrics(rName),
@@ -460,19 +460,19 @@ resource "aws_s3control_storage_lens_configuration" "test" {
 
       bucket_level {
         activity_metrics {
-          enabled = true
+ enabled = true
         }
 
         prefix_level {
-          storage_metrics {
-            enabled = true
+ storage_metrics {
+   enabled = true
 
-            selection_criteria {
-              delimiter     = ","
-              max_depth     = 3
-              min_storage_bytes_percentage = 49.5
-            }
-          }
+   selection_criteria {
+     delimiter     = ","
+     max_depth     = 3
+     min_storage_bytes_percentage = 49.5
+   }
+ }
         }
       }
     }
@@ -483,7 +483,7 @@ resource "aws_s3control_storage_lens_configuration" "test" {
       }
 
       s3_bucket_destination {
-        account_id            = data.aws_caller_identity.current.account_id
+        account_id   = data.aws_caller_identity.current.account_id
         arn    = aws_s3_bucket.test[0].arn
         format = "CSV"
         output_schema_version = "V_1"
@@ -521,7 +521,7 @@ resource "aws_s3control_storage_lens_configuration" "test" {
 
       bucket_level {
         activity_metrics {
-          enabled = true
+ enabled = true
         }
       }
     }
@@ -532,13 +532,13 @@ resource "aws_s3control_storage_lens_configuration" "test" {
       }
 
       s3_bucket_destination {
-        account_id            = data.aws_caller_identity.current.account_id
+        account_id   = data.aws_caller_identity.current.account_id
         arn    = aws_s3_bucket.test[0].arn
         format = "Parquet"
         output_schema_version = "V_1"
 
         encryption {
-          sse_s3 {}
+ sse_s3 {}
         }
       }
     }
@@ -578,19 +578,19 @@ resource "aws_s3control_storage_lens_configuration" "test" {
 
       bucket_level {
         activity_metrics {
-          enabled = true
+ enabled = true
         }
 
         advanced_cost_optimization_metrics {
-          enabled = true
+ enabled = true
         }
 
         advanced_data_protection_metrics {
-          enabled = true
+ enabled = true
         }
 
         detailed_status_code_metrics {
-          enabled = true
+ enabled = true
         }
       }
     }

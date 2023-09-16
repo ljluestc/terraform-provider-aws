@@ -38,13 +38,13 @@ func DataSourceServiceQuota() *schema.Resource {
 				Computed: true,
 			},
 			"quota_code": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"quota_code", "quota_name"},
 			},
 			"quota_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"quota_code", "quota_name"},
@@ -129,10 +129,10 @@ func flattenUsageMetric(usageMetric *servicequotas.MetricInfo) []interface{} {
 	}
 
 	usageMetrics = append(usageMetrics, map[string]interface{}{
-		"metric_name":                     usageMetric.MetricName,
-		"metric_namespace":                usageMetric.MetricNamespace,
+		"metric_name":   usageMetric.MetricName,
+		"metric_namespace":       usageMetric.MetricNamespace,
 		"metric_statistic_recommendation": usageMetric.MetricStatisticRecommendation,
-		"metric_dimensions":               metricDimensions,
+		"metric_dimensions":      metricDimensions,
 	})
 
 	return usageMetrics

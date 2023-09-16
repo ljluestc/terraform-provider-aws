@@ -19,8 +19,8 @@ import (
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -42,8 +42,8 @@ import (
 	funct := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -65,8 +65,8 @@ import (
 	ctx := acctest.Context(t)
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -93,8 +93,8 @@ import (
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -120,8 +120,8 @@ funcource.ParallelTest(t, resource.TestCase{
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
 
-	funceCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
+	funceCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -144,7 +144,7 @@ funcource.ParallelTest(t, resource.TestCase{
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-	funcrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
+	funcrorCheck:       acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -167,7 +167,7 @@ funcource.ParallelTest(t, resource.TestCase{
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 	funcotoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
 		PreventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
@@ -189,8 +189,8 @@ funcource.ParallelTest(t, resource.TestCase{
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:                acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:       acctest.ErrorCheck(t, s3.EndpointsID),
 	funceventPostDestroyRefresh: true,
 		Steps: []resource.TestStep{
 			{

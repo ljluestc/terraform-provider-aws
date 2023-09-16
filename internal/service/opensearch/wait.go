@@ -38,7 +38,6 @@ func waitUpgradeSucceeded(ctx context.Context, conn *opensearchservice.OpenSearc
 
 	return nil, err
 }
-
 func WaitForDomainCreation(ctx context.Context, conn *opensearchservice.OpenSearchService, domainName string, timeout time.Duration) error {
 	var out *opensearchservice.DomainStatus
 	err := tfresource.Retry(ctx, timeout, func() *retry.RetryError {
@@ -70,7 +69,6 @@ func WaitForDomainCreation(ctx context.Context, conn *opensearchservice.OpenSear
 	}
 	return nil
 }
-
 func waitForDomainUpdate(ctx context.Context, conn *opensearchservice.OpenSearchService, domainName string, timeout time.Duration) error {
 	var out *opensearchservice.DomainStatus
 	err := tfresource.Retry(ctx, timeout, func() *retry.RetryError {
@@ -102,7 +100,6 @@ func waitForDomainUpdate(ctx context.Context, conn *opensearchservice.OpenSearch
 	}
 	return nil
 }
-
 func waitForDomainDelete(ctx context.Context, conn *opensearchservice.OpenSearchService, domainName string, timeout time.Duration) error {
 	var out *opensearchservice.DomainStatus
 	err := tfresource.Retry(ctx, timeout, func() *retry.RetryError {

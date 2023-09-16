@@ -25,7 +25,7 @@ func TestAccRedshiftHSMConfiguration_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckHSMConfigurationDestroy(ctx),
@@ -40,9 +40,9 @@ func TestAccRedshiftHSMConfiguration_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"hsm_partition_password", "hsm_server_public_certificate"},
 			},
 		},
@@ -55,7 +55,7 @@ func TestAccRedshiftHSMConfiguration_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckHSMConfigurationDestroy(ctx),
@@ -69,9 +69,9 @@ func TestAccRedshiftHSMConfiguration_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"hsm_partition_password", "hsm_server_public_certificate"},
 			},
 			{
@@ -100,7 +100,7 @@ func TestAccRedshiftHSMConfiguration_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckHSMConfigurationDestroy(ctx),
@@ -165,11 +165,11 @@ func testAccCheckHSMConfigurationExists(ctx context.Context, name string) resour
 func testAccHSMConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_redshift_hsm_configuration" "test" {
-  description      = %[1]q
+  description  = %[1]q
   hsm_configuration_identifier  = %[1]q
   hsm_ip_address   = "10.0.0.1"
-  hsm_partition_name            = "aws"
-  hsm_partition_password        = %[1]q
+  hsm_partition_name   = "aws"
+  hsm_partition_password= %[1]q
   hsm_server_public_certificate = %[1]q
 }
 `, rName)
@@ -178,15 +178,15 @@ resource "aws_redshift_hsm_configuration" "test" {
 func testAccHSMConfigurationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_redshift_hsm_configuration" "test" {
-  description      = %[1]q
+  description  = %[1]q
   hsm_configuration_identifier  = %[1]q
   hsm_ip_address   = "10.0.0.1"
-  hsm_partition_name            = "aws"
-  hsm_partition_password        = %[1]q
+  hsm_partition_name   = "aws"
+  hsm_partition_password= %[1]q
   hsm_server_public_certificate = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -195,16 +195,16 @@ resource "aws_redshift_hsm_configuration" "test" {
 func testAccHSMConfigurationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_redshift_hsm_configuration" "test" {
-  description      = %[1]q
+  description  = %[1]q
   hsm_configuration_identifier  = %[1]q
   hsm_ip_address   = "10.0.0.1"
-  hsm_partition_name            = "aws"
-  hsm_partition_password        = %[1]q
+  hsm_partition_name   = "aws"
+  hsm_partition_password= %[1]q
   hsm_server_public_certificate = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

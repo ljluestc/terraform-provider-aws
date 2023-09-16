@@ -33,10 +33,10 @@ func TestAccNetworkManagerSiteToSiteVPNAttachment_basic(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSiteToSiteVPNAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckSiteToSiteVPNAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSiteToSiteVPNAttachmentConfig_basic(rName, bgpASN, vpnIP),
@@ -77,10 +77,10 @@ func TestAccNetworkManagerSiteToSiteVPNAttachment_disappears(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSiteToSiteVPNAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckSiteToSiteVPNAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSiteToSiteVPNAttachmentConfig_basic(rName, bgpASN, vpnIP),
@@ -106,10 +106,10 @@ func TestAccNetworkManagerSiteToSiteVPNAttachment_tags(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSiteToSiteVPNAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckSiteToSiteVPNAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSiteToSiteVPNAttachmentConfig_tags1(rName, vpnIP, "segment", "shared", bgpASN),
@@ -213,7 +213,7 @@ resource "aws_customer_gateway" "test" {
 
 resource "aws_vpn_connection" "test" {
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type       = "ipsec.1"
 
   tags = {
     Name = %[1]q
@@ -250,8 +250,8 @@ data "aws_networkmanager_core_network_policy_document" "test" {
   }
 
   segments {
-    name                          = "shared"
-    description                   = "SegmentForSharedServices"
+    name        = "shared"
+    description = "SegmentForSharedServices"
     require_attachment_acceptance = true
   }
 
@@ -275,7 +275,7 @@ data "aws_networkmanager_core_network_policy_document" "test" {
 
     action {
       association_method = "constant"
-      segment            = "shared"
+      segment   = "shared"
     }
   }
 }

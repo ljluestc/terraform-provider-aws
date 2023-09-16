@@ -19,7 +19,6 @@ import (
 	tfwafv2 "github.com/hashicorp/terraform-provider-aws/internal/service/wafv2"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccWAFV2WebACLAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -51,7 +50,6 @@ func TestAccWAFV2WebACLAssociation_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2WebACLAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -86,7 +84,6 @@ func TestAccWAFV2WebACLAssociation_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckWebACLAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -118,7 +115,6 @@ func testAccCheckWebACLAssociationDestroy(ctx context.Context) resource.TestChec
 		return nil
 	}
 }
-
 func testAccCheckWebACLAssociationExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -143,7 +139,6 @@ func testAccCheckWebACLAssociationExists(ctx context.Context, n string) resource
 		return err
 	}
 }
-
 func testAccWebACLAssociationConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_api_gateway_stage" "test" {

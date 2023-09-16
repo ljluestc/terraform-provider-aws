@@ -1,26 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package connect_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package connect_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/connect"
+	"testing"	"github.com/aws/aws-sdk-go/service/connect"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func := acctest.Context(t)
+)func := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	resourceName := "aws_connect_contact_flow_module.test"
-	datasourceName := "data.aws_connect_contact_flow_module.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+	datasourceName := "data.aws_connect_contact_flow_module.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -41,17 +30,12 @@ funcource.TestCheckResourceAttrPair(datasourceName, "contact_flow_module_id", re
 	},
 },
 	})
-}
-
-
-func testAccContactFlowModuleDataSource_name(t *testing.T) {
+}func testAccContactFlowModuleDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 funcourceName := "aws_connect_contact_flow_module.test"
-	datasourceName := "data.aws_connect_contact_flow_module.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
+	datasourceName := "data.aws_connect_contact_flow_module.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -72,50 +56,37 @@ funcource.TestCheckResourceAttrPair(datasourceName, "description", resourceName,
 	},
 },
 	})
-}
-
-
-func testAccContactFlowModuleBaseDataSourceConfig(rName, rName2 string) string {
+}func testAccContactFlowModuleBaseDataSourceConfig(rName, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
-  identity_management_type = "CONNECT_MANAGED"
-  inbound_calls_enabled    = true
-  instance_alias  = %[1]q
-func
-
-resource "aws_connect_contact_flow_module" "test" {
-  instance_id = aws_connect_instance.test.id
-  name        = %[2]q
-  description = "Test Contact Flow Module Description"
-  content     = file("./test-fixtures/connect_contact_flow_module.json")
-
-  tags = {
-    "Name"        = "Test Contact Flow Module",
-    "Application" = "Terraform",
-    "Method"      = "Create"
-  }
+identity_management_type = "CONNECT_MANAGED"
+inbound_calls_enabled = true
+instance_alias= %[1]q
+funcresource "aws_connect_contact_flow_module" "test" {
+instance_id = aws_connect_instance.test.id
+name= %[2]q
+description = "Test Contact Flow Module Description"
+content= file("./test-fixtures/connect_contact_flow_module.json")tags = {
+ "Name"= "Test Contact Flow Module",
+ "Application" = "Terraform",
+ "Method"= "Create"
 }
-    `, rName, rName2)
 }
-
-
-func testAccContactFlowModuleDataSourceConfig_id(rName, rName2 string) string {
+ `, rName, rName2)
+}func testAccContactFlowModuleDataSourceConfig_id(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 testAccContactFlowModuleBaseDataSourceConfig(rName, rName2),
 `
 data "aws_connect_contact_flow_module" "test" {
-  instance_id   = aws_connect_instance.test.id
-  contact_flow_module_id = aws_connect_contact_flow_module.test.contact_flow_module_id
+instance_id= aws_connect_instance.test.id
+contact_flow_module_id = aws_connect_contact_flow_module.test.contact_flow_module_id
 func
-}
-
-
-func testAccContactFlowModuleDataSourceConfig_name(rName, rName2 string) string {
+}func testAccContactFlowModuleDataSourceConfig_name(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 testAccContactFlowModuleBaseDataSourceConfig(rName, rName2),
 `
 data "aws_connect_contact_flow_module" "test" {
-  instance_id = aws_connect_instance.test.id
-  name        = aws_connect_contact_flow_module.test.name
+instance_id = aws_connect_instance.test.id
+name= aws_connect_contact_flow_module.test.name
 }
 func

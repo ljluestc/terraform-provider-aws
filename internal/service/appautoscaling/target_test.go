@@ -18,7 +18,6 @@ import (
 	tfappautoscaling "github.com/hashicorp/terraform-provider-aws/internal/service/appautoscaling"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccAppAutoScalingTarget_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var target applicationautoscaling.ScalableTarget
@@ -26,7 +25,7 @@ func TestAccAppAutoScalingTarget_basic(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -54,15 +53,14 @@ func TestAccAppAutoScalingTarget_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccAppAutoScalingTarget_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var target applicationautoscaling.ScalableTarget
@@ -70,7 +68,7 @@ func TestAccAppAutoScalingTarget_disappears(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -86,7 +84,6 @@ func TestAccAppAutoScalingTarget_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccAppAutoScalingTarget_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var target applicationautoscaling.ScalableTarget
@@ -94,7 +91,7 @@ func TestAccAppAutoScalingTarget_tags(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -108,8 +105,8 @@ func TestAccAppAutoScalingTarget_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
@@ -133,7 +130,6 @@ func TestAccAppAutoScalingTarget_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccAppAutoScalingTarget_spotFleetRequest(t *testing.T) {
 	ctx := acctest.Context(t)
 	var target applicationautoscaling.ScalableTarget
@@ -142,7 +138,7 @@ func TestAccAppAutoScalingTarget_spotFleetRequest(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -156,15 +152,14 @@ func TestAccAppAutoScalingTarget_spotFleetRequest(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccAppAutoScalingTarget_emrCluster(t *testing.T) {
 	ctx := acctest.Context(t)
 	var target applicationautoscaling.ScalableTarget
@@ -172,7 +167,7 @@ func TestAccAppAutoScalingTarget_emrCluster(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -186,15 +181,14 @@ func TestAccAppAutoScalingTarget_emrCluster(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateIdFunc: testAccTargetImportStateIdFunc(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccAppAutoScalingTarget_multipleTargets(t *testing.T) {
 	ctx := acctest.Context(t)
 	var writeTarget applicationautoscaling.ScalableTarget
@@ -204,7 +198,7 @@ func TestAccAppAutoScalingTarget_multipleTargets(t *testing.T) {
 	writeResourceName := "aws_appautoscaling_target.write"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -230,7 +224,6 @@ func TestAccAppAutoScalingTarget_multipleTargets(t *testing.T) {
 		},
 	})
 }
-
 func TestAccAppAutoScalingTarget_optionalRoleARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	var readTarget applicationautoscaling.ScalableTarget
@@ -238,7 +231,7 @@ func TestAccAppAutoScalingTarget_optionalRoleARN(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTargetDestroy(ctx),
@@ -253,7 +246,6 @@ func TestAccAppAutoScalingTarget_optionalRoleARN(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckTargetDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).AppAutoScalingConn(ctx)
@@ -279,7 +271,6 @@ func testAccCheckTargetDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckTargetExists(ctx context.Context, n string, v *applicationautoscaling.ScalableTarget) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -304,7 +295,6 @@ func testAccCheckTargetExists(ctx context.Context, n string, v *applicationautos
 		return nil
 	}
 }
-
 func testAccTargetConfig_baseECS(rName string, serviceDesiredCount int) string {
 	return fmt.Sprintf(`
 resource "aws_ecs_cluster" "test" {
@@ -316,110 +306,105 @@ resource "aws_ecs_task_definition" "test" {
 
   container_definitions = <<EOF
 [
-    {
-        "name": "busybox",
-        "image": "busybox:latest",
-        "cpu": 10,
-        "memory": 128,
-        "essential": true
-    }
+ {
+e": "busybox",
+ge": "busybox:latest",
+": 10,
+ory": 128,
+ential": true
+ }
 ]
 EOF
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name
+  clusterws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
-  desired_count   = %[2]d
+  desired_count= %[2]d
 
-  deployment_maximum_percent         = 200
+  deployment_maximum_percent00
   deployment_minimum_healthy_percent = 50
 }
 `, rName, serviceDesiredCount)
 }
-
 func testAccTargetConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTargetConfig_baseECS(rName, 1), `
 resource "aws_appautoscaling_target" "test" {
   service_namespace  = "ecs"
-  resource_id        = "service/${aws_ecs_cluster.test.name}/${aws_ecs_service.test.name}"
+  resource_idervice/${aws_ecs_cluster.test.name}/${aws_ecs_service.test.name}"
   scalable_dimension = "ecs:service:DesiredCount"
-  min_capacity       = 1
-  max_capacity       = 3
+  min_capacity
+  max_capacity
 }
 `)
 }
-
 func testAccTargetConfig_update(rName string) string {
 	return acctest.ConfigCompose(testAccTargetConfig_baseECS(rName, 2), `
 resource "aws_appautoscaling_target" "test" {
   service_namespace  = "ecs"
-  resource_id        = "service/${aws_ecs_cluster.test.name}/${aws_ecs_service.test.name}"
+  resource_idervice/${aws_ecs_cluster.test.name}/${aws_ecs_service.test.name}"
   scalable_dimension = "ecs:service:DesiredCount"
-  min_capacity       = 2
-  max_capacity       = 8
+  min_capacity
+  max_capacity
 }
 `)
 }
-
 func testAccTargetConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name %[1]q
   read_capacity  = 5
   write_capacity = 5
-  hash_key       = "TestKey"
+  hash_keystKey"
 
   attribute {
-    name = "TestKey"
-    type = "S"
+ name = "TestKey"
+ type = "S"
   }
 }
 
 resource "aws_appautoscaling_target" "test" {
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.test.name}"
+  resource_idable/${aws_dynamodb_table.test.name}"
   scalable_dimension = "dynamodb:table:ReadCapacityUnits"
-  min_capacity       = 2
-  max_capacity       = 15
+  min_capacity
+  max_capacity
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccTargetConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name %[1]q
   read_capacity  = 5
   write_capacity = 5
-  hash_key       = "TestKey"
+  hash_keystKey"
 
   attribute {
-    name = "TestKey"
-    type = "S"
+ name = "TestKey"
+ type = "S"
   }
 }
 
 resource "aws_appautoscaling_target" "test" {
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.test.name}"
+  resource_idable/${aws_dynamodb_table.test.name}"
   scalable_dimension = "dynamodb:table:ReadCapacityUnits"
-  min_capacity       = 2
-  max_capacity       = 15
+  min_capacity
+  max_capacity
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccTargetConfig_spotFleetRequest(rName, validUntil string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"), fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -431,61 +416,60 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-          "spotfleet.amazonaws.com",
-          "ec2.amazonaws.com"
-        ]
-      },
-      "Action": "sts:AssumeRole"
-    }
+ {
+t": "Allow",
+ipal": {
+vice": [
+potfleet.amazonaws.com",
+c2.amazonaws.com"
+
+
+n": "sts:AssumeRole"
+ }
   ]
 }
 EOF
 }
 
 resource "aws_iam_role_policy_attachment" "test" {
-  role       = aws_iam_role.test.name
+  role_iam_role.test.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole"
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_role       = aws_iam_role.test.arn
-  spot_price           = "0.005"
-  target_capacity      = 2
-  valid_until          = %[2]q
+  iam_fleet_role_iam_role.test.arn
+  spot_price "0.005"
+  target_capacity
+  valid_until%[2]q
   terminate_instances_with_expiration = true
 
   launch_specification {
-    instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-    ami           = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+ instance_type = data.aws_ec2_instance_type_offering.available.instance_type
+ ami data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 
-    tags = {
-      Name = %[1]q
-    }
+ tags = {
+ %[1]q
+ }
   }
 }
 
 resource "aws_appautoscaling_target" "test" {
   service_namespace  = "ec2"
-  resource_id        = "spot-fleet-request/${aws_spot_fleet_request.test.id}"
+  resource_idpot-fleet-request/${aws_spot_fleet_request.test.id}"
   scalable_dimension = "ec2:spot-fleet-request:TargetCapacity"
-  min_capacity       = 1
-  max_capacity       = 3
+  min_capacity
+  max_capacity
 }
 `, rName, validUntil))
 }
-
 func testAccTargetConfig_emrCluster(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block "10.0.0.0/16"
   enable_dns_hostnames = true
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -493,47 +477,47 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name= %[1]q
   vpc_id = aws_vpc.test.id
 
   ingress {
-    from_port = 0
-    protocol  = "-1"
-    self      = true
-    to_port   = 0
+ from_port = 0
+ protocol  = "-1"
+ self
+ to_port= 0
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+ cidr_blocks = ["0.0.0.0/0"]
+ from_port= 0
+ protocol = "-1"
+ to_port= 0
   }
 
   tags = {
-    Name       = %[1]q
-    for-use-with-amazon-emr-managed-policies = true
+ Name]q
+ for-use-with-amazon-emr-managed-policies = true
   }
 
   # EMR will modify ingress rules
   lifecycle {
-    ignore_changes = [ingress]
+ ignore_changes = [ingress]
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id            = aws_vpc.test.id
+  cidr_blockdrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  vpc_idst.id
 
   tags = {
-    Name       = %[1]q
-    for-use-with-amazon-emr-managed-policies = true
+ Name]q
+ for-use-with-amazon-emr-managed-policies = true
   }
 }
 
@@ -541,73 +525,73 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.test.id
+ cidr_block = "0.0.0.0/0"
+ gateway_id = aws_internet_gateway.test.id
   }
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_route_table_association" "test" {
   route_table_id = aws_route_table.test.id
-  subnet_id      = aws_subnet.test.id
+  subnet_idsubnet.test.id
 }
 
 data "aws_partition" "current" {}
 
 resource "aws_emr_cluster" "test" {
-  name          = %[1]q
+  name%[1]q
   release_label = "emr-4.6.0"
   applications  = ["Spark"]
 
   ec2_attributes {
-    subnet_id          = aws_subnet.test.id
-    emr_managed_master_security_group = aws_security_group.test.id
-    emr_managed_slave_security_group  = aws_security_group.test.id
-    instance_profile   = aws_iam_instance_profile.emr_instance_profile.arn
+ subnet_idaws_subnet.test.id
+ emr_managed_master_security_group = aws_security_group.test.id
+ emr_managed_slave_security_group  = aws_security_group.test.id
+ instance_profile= aws_iam_instance_profile.emr_instance_profile.arn
   }
 
   master_instance_group {
-    instance_type = "c4.large"
+ instance_type = "c4.large"
   }
 
   core_instance_group {
-    instance_count = 2
-    instance_type  = "c4.large"
+ instance_count = 2
+ instance_type  = "c4.large"
   }
 
   tags = {
-    role     = "rolename"
-    dns_zone = "env_zone"
-    env      = "env"
-    name     = "name-env"
+ role= "rolename"
+ dns_zone = "env_zone"
+ env"
+ name= "name-env"
   }
 
   keep_job_flow_alive_when_no_steps = true
 
   bootstrap_action {
-    path = "s3://elasticmapreduce/bootstrap-actions/run-if"
-    name = "runif"
-    args = ["instance.isMaster=true", "echo running on master node"]
+ path = "s3://elasticmapreduce/bootstrap-actions/run-if"
+ name = "runif"
+ args = ["instance.isMaster=true", "echo running on master node"]
   }
 
   configurations = "test-fixtures/emr_configurations.json"
 
   depends_on = [
-    aws_route_table_association.test,
-    aws_iam_role_policy_attachment.emr_service,
-    aws_iam_role_policy_attachment.emr_instance_profile,
-    aws_iam_role_policy_attachment.emr_autoscaling,
+ aws_route_table_association.test,
+ aws_iam_role_policy_attachment.emr_service,
+ aws_iam_role_policy_attachment.emr_instance_profile,
+ aws_iam_role_policy_attachment.emr_autoscaling,
   ]
 
-  service_role     = aws_iam_role.emr_service.arn
+  service_role= aws_iam_role.emr_service.arn
   autoscaling_role = aws_iam_role.emr_autoscaling.arn
 }
 
 resource "aws_emr_instance_group" "test" {
-  cluster_id     = aws_emr_cluster.test.id
+  cluster_id= aws_emr_cluster.test.id
   instance_count = 1
   instance_type  = "c4.large"
 }
@@ -619,21 +603,21 @@ resource "aws_iam_role" "emr_service" {
 {
   "Version": "2008-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "elasticmapreduce.${data.aws_partition.current.dns_suffix}"
-      },
-      "Action": "sts:AssumeRole"
-    }
+ {
+ "",
+t": "Allow",
+ipal": {
+vice": "elasticmapreduce.${data.aws_partition.current.dns_suffix}"
+
+n": "sts:AssumeRole"
+ }
   ]
 }
 EOT
 }
 
 resource "aws_iam_role_policy_attachment" "emr_service" {
-  role       = aws_iam_role.emr_service.id
+  role_iam_role.emr_service.id
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonElasticMapReduceRole"
 }
 
@@ -644,14 +628,14 @@ resource "aws_iam_role" "emr_instance_profile" {
 {
   "Version": "2008-10-17",
   "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.${data.aws_partition.current.dns_suffix}"
-      },
-      "Action": "sts:AssumeRole"
-    }
+ {
+ "",
+t": "Allow",
+ipal": {
+vice": "ec2.${data.aws_partition.current.dns_suffix}"
+
+n": "sts:AssumeRole"
+ }
   ]
 }
 EOT
@@ -663,7 +647,7 @@ resource "aws_iam_instance_profile" "emr_instance_profile" {
 }
 
 resource "aws_iam_role_policy_attachment" "emr_instance_profile" {
-  role       = aws_iam_role.emr_instance_profile.id
+  role_iam_role.emr_instance_profile.id
   policy_arn = aws_iam_policy.emr_instance_profile.arn
 }
 
@@ -672,35 +656,35 @@ resource "aws_iam_policy" "emr_instance_profile" {
 
   policy = <<EOT
 {
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Resource": "*",
-        "Action": [
-            "cloudwatch:*",
-            "dynamodb:*",
-            "ec2:Describe*",
-            "elasticmapreduce:Describe*",
-            "elasticmapreduce:ListBootstrapActions",
-            "elasticmapreduce:ListClusters",
-            "elasticmapreduce:ListInstanceGroups",
-            "elasticmapreduce:ListInstances",
-            "elasticmapreduce:ListSteps",
-            "kinesis:CreateStream",
-            "kinesis:DeleteStream",
-            "kinesis:DescribeStream",
-            "kinesis:GetRecords",
-            "kinesis:GetShardIterator",
-            "kinesis:MergeShards",
-            "kinesis:PutRecord",
-            "kinesis:SplitShard",
-            "rds:Describe*",
-            "s3:*",
-            "sdb:*",
-            "sns:*",
-            "sqs:*"
-        ]
-    }]
+ "Version": "2012-10-17",
+ "Statement": [{
+ect": "Allow",
+ource": "*",
+ion": [
+*",
+,
+e*",
+educe:Describe*",
+educe:ListBootstrapActions",
+educe:ListClusters",
+educe:ListInstanceGroups",
+educe:ListInstances",
+educe:ListSteps",
+ateStream",
+eteStream",
+cribeStream",
+Records",
+ShardIterator",
+geShards",
+Record",
+itShard",
+e*",
+
+
+
+
+
+ }]
 }
 EOT
 }
@@ -712,92 +696,89 @@ resource "aws_iam_role" "emr_autoscaling" {
 
 data "aws_iam_policy_document" "emr_autoscaling_role_policy" {
   statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
+ effect  = "Allow"
+ actions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["elasticmapreduce.${data.aws_partition.current.dns_suffix}", "application-autoscaling.${data.aws_partition.current.dns_suffix}"]
-    }
+ principals {
+= "S"
+fiers = ["elasticmapreduce.${data.aws_partition.current.dns_suffix}", "application-autoscaling.${data.aws_partition.current.dns_suffix}"]
+ }
   }
 }
 
 resource "aws_iam_role_policy_attachment" "emr_autoscaling" {
-  role       = aws_iam_role.emr_autoscaling.name
+  role_iam_role.emr_autoscaling.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonElasticMapReduceforAutoScalingRole"
 }
 
 resource "aws_appautoscaling_target" "test" {
   service_namespace  = "elasticmapreduce"
-  resource_id        = "instancegroup/${aws_emr_cluster.test.id}/${aws_emr_instance_group.test.id}"
+  resource_idnstancegroup/${aws_emr_cluster.test.id}/${aws_emr_instance_group.test.id}"
   scalable_dimension = "elasticmapreduce:instancegroup:InstanceCount"
-  role_arn           = aws_iam_role.emr_autoscaling.arn
-  min_capacity       = 1
-  max_capacity       = 8
+  role_arn aws_iam_role.emr_autoscaling.arn
+  min_capacity
+  max_capacity
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 `, rName))
 }
-
 func testAccTargetConfig_multiple(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name %[1]q
   read_capacity  = 5
   write_capacity = 5
-  hash_key       = "TestKey"
+  hash_keystKey"
 
   attribute {
-    name = "TestKey"
-    type = "S"
+ name = "TestKey"
+ type = "S"
   }
 }
 
 resource "aws_appautoscaling_target" "write" {
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.test.name}"
+  resource_idable/${aws_dynamodb_table.test.name}"
   scalable_dimension = "dynamodb:table:WriteCapacityUnits"
-  min_capacity       = 1
-  max_capacity       = 10
+  min_capacity
+  max_capacity
 }
 
 resource "aws_appautoscaling_target" "read" {
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.test.name}"
+  resource_idable/${aws_dynamodb_table.test.name}"
   scalable_dimension = "dynamodb:table:ReadCapacityUnits"
-  min_capacity       = 2
-  max_capacity       = 15
+  min_capacity
+  max_capacity
 }
 `, rName)
 }
-
 func testAccTargetConfig_optionalRoleARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name %[1]q
   read_capacity  = 5
   write_capacity = 5
-  hash_key       = "TestKey"
+  hash_keystKey"
 
   attribute {
-    name = "TestKey"
-    type = "S"
+ name = "TestKey"
+ type = "S"
   }
 }
 
 resource "aws_appautoscaling_target" "test" {
   service_namespace  = "dynamodb"
-  resource_id        = "table/${aws_dynamodb_table.test.name}"
+  resource_idable/${aws_dynamodb_table.test.name}"
   scalable_dimension = "dynamodb:table:ReadCapacityUnits"
-  min_capacity       = 2
-  max_capacity       = 15
+  min_capacity
+  max_capacity
 }
 `, rName)
 }
-
 func testAccTargetImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]

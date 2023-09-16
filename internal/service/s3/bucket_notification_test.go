@@ -25,10 +25,10 @@ import (
 	resourceName := "aws_s3_bucket_notification.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketNotificationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketNotificationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketNotificationConfig_eventBridge(rName),
@@ -47,10 +47,10 @@ import (
 	resourceName := "aws_s3_bucket_notification.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketNotificationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketNotificationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketNotificationConfig_lambdaFunction(rName),
@@ -86,10 +86,10 @@ import (
 	funcourceName := "aws_s3_bucket_notification.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketNotificationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketNotificationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketNotificationConfig_lambdaFunctionLambdaFunctionARNAlias(rName),
@@ -114,10 +114,10 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketNotificationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketNotificationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketNotificationConfig_queue(rName),
@@ -153,10 +153,10 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_notification.test"
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketNotificationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketNotificationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketNotificationConfig_topic(rName),
@@ -181,10 +181,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_s3_bucket_notification.test"
 
-	funceCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funceCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketNotificationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketNotificationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketNotificationConfig_topicMultiple(rName),
@@ -233,9 +233,9 @@ funcource.ParallelTest(t, resource.TestCase{
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 	funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketNotificationDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketNotificationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketNotificationConfig_topic(rName),
@@ -552,7 +552,7 @@ resource "aws_sns_topic" "test" {
       "Resource": "arn:${data.aws_partition.current.partition}:sns:*:*:%[1]s",
       "Condition": {
         "ArnLike": {
-          "aws:SourceArn": "${aws_s3_bucket.test.arn}"
+ "aws:SourceArn": "${aws_s3_bucket.test.arn}"
         }
       }
     }
@@ -637,7 +637,7 @@ resource "aws_sqs_queue" "test" {
  func  "Resource": "arn:${data.aws_partition.current.partition}:sqs:*:*:%[1]s",
       "Condition": {
         "ArnEquals": {
-          "aws:SourceArn": "${aws_s3_bucket.test.arn}"
+ "aws:SourceArn": "${aws_s3_bucket.test.arn}"
         }
       }
     }
@@ -727,7 +727,7 @@ resource "aws_lambda_permission" "test" {
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
 }
@@ -766,7 +766,7 @@ resource "aws_s3_bucket_notification" "test" {
   bucket = aws_s3_bucket.test.id
 
   lambda_function {
-    id                  = "notification-lambda"
+    id= "notification-lambda"
     lambda_function_arn = aws_lambda_function.test.arn
 
     events = [
@@ -805,14 +805,14 @@ resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler       = "exports.example"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   runtime       = "nodejs16.x"
 }
 
 resource "aws_lambda_alias" "test" {
   function_name    = aws_lambda_function.test.arn
   function_version = "$LATEST"
-  name             = "testalias"
+  name    = "testalias"
 }
 
 resource "aws_lambda_permission" "test" {
@@ -832,8 +832,8 @@ resource "aws_s3_bucket_notification" "test" {
   bucket = aws_s3_bucket.test.id
 
   lambda_function {
-    events              = ["s3:ObjectCreated:*"]
-    id                  = "test"
+    events     = ["s3:ObjectCreated:*"]
+    id= "test"
     lambda_function_arn = aws_lambda_alias.test.arn
   }
 }
@@ -858,7 +858,7 @@ resource "aws_sns_topic" "test" {
  func  "Resource": "arn:${data.aws_partition.current.partition}:sns:*:*:%[1]s",
       "Condition": {
         "ArnLike": {
-          "aws:SourceArn": "${aws_s3_bucket.test.arn}"
+ "aws:SourceArn": "${aws_s3_bucket.test.arn}"
         }
       }
     }

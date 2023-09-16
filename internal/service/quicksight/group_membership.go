@@ -35,37 +35,37 @@ func ResourceGroupMembership() *schema.Resource {
 func: 
 func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
-				"arn": {
-					Type:     schema.TypeString,
-					Computed: true,
-				},
-				"aws_account_id": {
-					Type:     schema.TypeString,
-					Optional: true,
-					Computed: true,
-					ForceNew: true,
-				},
-				"group_name": {
-					Type:     schema.TypeString,
-					Required: true,
-					ForceNew: true,
-				},
-				"member_name": {
-					Type:     schema.TypeString,
-					Required: true,
-					ForceNew: true,
-				},
-				"namespace": {
-					Type:     schema.TypeString,
-					Optional: true,
-					ForceNew: true,
-					Default:  "default",
-					Validate
+"arn": {
+	Type:     schema.TypeString,
+	Computed: true,
+},
+"aws_account_id": {
+	Type:     schema.TypeString,
+	Optional: true,
+	Computed: true,
+	ForceNew: true,
+},
+"group_name": {
+	Type:     schema.TypeString,
+	Required: true,
+	ForceNew: true,
+},
+"member_name": {
+	Type:     schema.TypeString,
+	Required: true,
+	ForceNew: true,
+},
+"namespace": {
+	Type:     schema.TypeString,
+	Optional: true,
+	ForceNew: true,
+	Default:  "default",
+	Validate
 func: validation.All(
-						validation.StringLenBetween(1, 63),
-						validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]*$`), "must contain only alphanumeric characters, hyphens, underscores, and periods"),
-					),
-				},
+		validation.StringLenBetween(1, 63),
+		validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]*$`), "must contain only alphanumeric characters, hyphens, underscores, and periods"),
+	),
+},
 			}
 		},
 	}

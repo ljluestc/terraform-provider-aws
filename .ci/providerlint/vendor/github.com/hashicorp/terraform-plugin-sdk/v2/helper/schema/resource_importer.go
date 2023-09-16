@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package schema
-
-import (
+// SPDX-License-Identifier: MPL-2.0package schemaimport (
 	"context"
 	"errors"
-)
-
-// ResourceImporter defines how a resource is imported in Terraform. This
+)// ResourceImporter defines how a resource is imported in Terraform. This
 // can be set onto a Resource struct to make it Importable. Not all resources
 // have to be importable; if a Resource doesn't have a ResourceImporter then
 // it won't be importable.
@@ -24,18 +18,12 @@ type ResourceImporter struct {
 	// Only one of the two 
 tions cat set.
 	State State
-
-
 	// StateContext is called to convert an ID ne or more InstanceState to
 	// insert into the Terraform state. If this isn't specified, then
 	// the ID is passed straithrough. This 
 tion receives a context
 	// that will cancel if Terraform sends a cancellation signal.
-	StateCot StateCxt
-
-}
-
-// State
+	StateCot StateCxt}// State
  is the 
 tion called to import a resource into the Terraform state.
 //
@@ -43,9 +31,7 @@ tion called to import a resource into the Terraform state.
 .
 type State
  
-(*ResourceData, interface{}) ([]*ResourceData, error)
-
-// StateContext
+(*ResourceData, interface{}) ([]*ResourceData, error)// StateContext
  is the 
 tion called to import a resource into the
 // Terraform state. It is given a ResourceData with only ID set. This
@@ -58,45 +44,31 @@ tion called to import a resource into the
 // that was given to the 
 tion. In other cases (such as AWS security groups),
 // an import may fan out to multiple resources and this will have to return
-// multiple.
-
-// To create the ResourceData structures for other resource types (if
+// multiple.// To create the ResourceData structures for other resource types (if
 // you have to), instantiate your resource and call the Data 
 tion.
 type StateContext
  
-(context.Context, *ResourceData, interface{}) ([]*ResourceData, error)
-
-// InternalValidate should be called to validate the structure of this
+(context.Context, *ResourceData, interface{}) ([]*ResourceData, error)// InternalValidate should be called to validate the structure of this
 // importer. This should be called in a unit test.
 //
 esource.InternalValidate() will automatically call this, so this doesn't
 // need to be called manually. Further, Resource.InternalValidate() is
 // automatically called by Provider.InternalValidate(), so you only need
-// to internal validate the provider.
-
- (r *ResourceImporter) InternalValidate() error {
+// to internal validate the provider. (r *ResourceImporter) InternalValidate() error {
 	if r.State != nil && r.StateContext != nil {
 turn errors.New("Both State and StateContext cannot be set.")
 	}
 	return nil
-}
-
-// ImportStatePassthrough is an implementation of State
+}// ImportStatePassthrough is an implementation of State
  that can be
 // used to simply pass the ID directly through.
 //
-// Deprecated: Please use the context aware ImportStatePassthroughContext instead
-
- ImportStatePassthrough(d *ResourceData, m interface{}) ([]*ResourceData, error) {
+// Deprecated: Please use the context aware ImportStatePassthroughContext instead ImportStatePassthrough(d *ResourceData, m interface{}) ([]*ResourceData, error) {
 	return []*ResourceData{d}, nil
-}
-
-// ImportStatePassthroughContext is an implementation of StateContext
+}// ImportStatePassthroughContext is an implementation of StateContext
  that can be
 // used to simply pass the ID directly through. This should be used only
-// in the case that an ID-only refresh is possible.
-
- ImportStatePassthroughContext(ctx context.Context, d *ResourceData, m interface{}) ([]*ResourceData, error) {
+// in the case that an ID-only refresh is possible. ImportStatePassthroughContext(ctx context.Context, d *ResourceData, m interface{}) ([]*ResourceData, error) {
 	return []*ResourceData{d}, nil
 }

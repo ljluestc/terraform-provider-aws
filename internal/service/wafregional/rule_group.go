@@ -107,8 +107,8 @@ func(token *string) (interface{}, error) {
 		input := &waf.CreateRuleGroupInput{
 			ChangeToken: token,
 			MetricName:  aws.String(d.Get("metric_name").(string)),
-			Name:        aws.String(d.Get("name").(string)),
-			Tags:        getTagsIn(ctx),
+			Name:  aws.String(d.Get("name").(string)),
+			Tags:  getTagsIn(ctx),
 		}
 
 		return conn.CreateRuleGroupWithContext(ctx, input)

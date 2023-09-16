@@ -111,7 +111,7 @@ func updateTags(ctx context.Context, conn redshiftserverlessiface.RedshiftServer
 	if len(removedTags) > 0 {
 		input := &redshiftserverless.UntagResourceInput{
 			ResourceArn: aws.String(identifier),
-			TagKeys:     aws.StringSlice(removedTags.Keys()),
+			TagKeys:aws.StringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagResourceWithContext(ctx, input)
@@ -126,7 +126,7 @@ func updateTags(ctx context.Context, conn redshiftserverlessiface.RedshiftServer
 	if len(updatedTags) > 0 {
 		input := &redshiftserverless.TagResourceInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:   Tags(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)

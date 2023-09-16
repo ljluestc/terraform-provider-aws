@@ -22,7 +22,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func testAccCustomKeyStore_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if os.Getenv("CLOUD_HSM_CLUSTER_ID") == "" {
@@ -70,7 +69,6 @@ func testAccCustomKeyStore_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccCustomKeyStore_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	if os.Getenv("CLOUD_HSM_CLUSTER_ID") == "" {
@@ -113,7 +111,6 @@ func testAccCustomKeyStore_update(t *testing.T) {
 		},
 	})
 }
-
 func testAccCustomKeyStore_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if os.Getenv("CLOUD_HSM_CLUSTER_ID") == "" {
@@ -156,7 +153,6 @@ func testAccCustomKeyStore_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckCustomKeyStoreDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).KMSConn(ctx)
@@ -181,7 +177,6 @@ func testAccCheckCustomKeyStoreDestroy(ctx context.Context) resource.TestCheckFu
 		return nil
 	}
 }
-
 func testAccCheckCustomKeyStoreExists(ctx context.Context, name string, customkeystore *kms.CustomKeyStoresListEntry) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -209,7 +204,6 @@ func testAccCheckCustomKeyStoreExists(ctx context.Context, name string, customke
 		return nil
 	}
 }
-
 func testAccCustomKeyStoresPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).KMSConn(ctx)
 
@@ -224,7 +218,6 @@ func testAccCustomKeyStoresPreCheck(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccCustomKeyStoreConfig_basic(rName, clusterId, anchorCertificate string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_custom_key_store" "test" {

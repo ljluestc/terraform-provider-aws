@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDirectConnectPublicVirtualInterface_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "DX_CONNECTION_ID"
@@ -40,7 +39,7 @@ func TestAccDirectConnectPublicVirtualInterface_basic(t *testing.T) {
 	vlan := sdkacctest.RandIntRange(2049, 4094)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPublicVirtualInterfaceDestroy(ctx),
@@ -68,14 +67,13 @@ func TestAccDirectConnectPublicVirtualInterface_basic(t *testing.T) {
 			},
 			// Test import.
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectPublicVirtualInterface_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "DX_CONNECTION_ID"
@@ -93,7 +91,7 @@ func TestAccDirectConnectPublicVirtualInterface_tags(t *testing.T) {
 	vlan := sdkacctest.RandIntRange(2049, 4094)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPublicVirtualInterfaceDestroy(ctx),
@@ -148,88 +146,83 @@ func TestAccDirectConnectPublicVirtualInterface_tags(t *testing.T) {
 			},
 			// Test import.
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckPublicVirtualInterfaceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		return testAccCheckVirtualInterfaceDestroy(ctx, s, "aws_dx_public_virtual_interface")
 	}
 }
-
 func testAccCheckPublicVirtualInterfaceExists(ctx context.Context, name string, vif *directconnect.VirtualInterface) resource.TestCheckFunc {
 	return testAccCheckVirtualInterfaceExists(ctx, name, vif)
 }
-
 func testAccPublicVirtualInterfaceConfig_basic(cid, rName, amzAddr, custAddr string, bgpAsn, vlan int) string {
 	return fmt.Sprintf(`
 resource "aws_dx_public_virtual_interface" "test" {
-  address_family   = "ipv4"
-  amazon_address   = %[3]q
-  bgp_asn          = %[5]d
-  connection_id    = %[1]q
+  address_family= "ipv4"
+  amazon_address= %[3]q
+  bgp_asn%[5]d
+  connection_id = %[1]q
   customer_address = %[4]q
   name= %[2]q
   vlan= %[6]d
 
   route_filter_prefixes = [
-    "175.45.176.0/22",
-    "210.52.109.0/24",
+ "175.45.176.0/22",
+ "210.52.109.0/24",
   ]
 }
 `, cid, rName, amzAddr, custAddr, bgpAsn, vlan)
 }
-
 func testAccPublicVirtualInterfaceConfig_tags(cid, rName, amzAddr, custAddr string, bgpAsn, vlan int) string {
 	return fmt.Sprintf(`
 resource "aws_dx_public_virtual_interface" "test" {
-  address_family   = "ipv4"
-  amazon_address   = %[3]q
-  bgp_asn          = %[5]d
-  connection_id    = %[1]q
+  address_family= "ipv4"
+  amazon_address= %[3]q
+  bgp_asn%[5]d
+  connection_id = %[1]q
   customer_address = %[4]q
   name= %[2]q
   vlan= %[6]d
 
   route_filter_prefixes = [
-    "175.45.176.0/22",
-    "210.52.109.0/24",
+ "175.45.176.0/22",
+ "210.52.109.0/24",
   ]
 
   tags = {
-    Name = %[2]q
-    Key1 = "Value1"
-    Key2 = "Value2a"
+ Name = %[2]q
+ Key1 = "Value1"
+ Key2 = "Value2a"
   }
 }
 `, cid, rName, amzAddr, custAddr, bgpAsn, vlan)
 }
-
 func testAccPublicVirtualInterfaceConfig_tagsUpdated(cid, rName, amzAddr, custAddr string, bgpAsn, vlan int) string {
 	return fmt.Sprintf(`
 resource "aws_dx_public_virtual_interface" "test" {
-  address_family   = "ipv4"
-  amazon_address   = %[3]q
-  bgp_asn          = %[5]d
-  connection_id    = %[1]q
+  address_family= "ipv4"
+  amazon_address= %[3]q
+  bgp_asn%[5]d
+  connection_id = %[1]q
   customer_address = %[4]q
   name= %[2]q
   vlan= %[6]d
 
   route_filter_prefixes = [
-    "175.45.176.0/22",
-    "210.52.109.0/24",
+ "175.45.176.0/22",
+ "210.52.109.0/24",
   ]
 
   tags = {
-    Name = %[2]q
-    Key2 = "Value2b"
-    Key3 = "Value3"
+ Name = %[2]q
+ Key2 = "Value2b"
+ Key3 = "Value3"
   }
 }
 `, cid, rName, amzAddr, custAddr, bgpAsn, vlan)

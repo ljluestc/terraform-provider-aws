@@ -9,7 +9,7 @@ import (
 
 const (
 	clusterAvailabilityStatusAvailable   = "Available"
-	clusterAvailabilityStatusFailed      = "Failed"
+	clusterAvailabilityStatusFailed  = "Failed"
 	clusterAvailabilityStatusMaintenance = "Maintenance"
 	clusterAvailabilityStatusModifying   = "Modifying"
 	clusterAvailabilityStatusUnavailable = "Unavailable"
@@ -35,8 +35,8 @@ const (
 )
 
 const (
-	clusterAvailabilityZoneRelocationStatusEnabled          = "enabled"
-	clusterAvailabilityZoneRelocationStatusDisabled         = "disabled"
+	clusterAvailabilityZoneRelocationStatusEnabled = "enabled"
+	clusterAvailabilityZoneRelocationStatusDisabled= "disabled"
 	clusterAvailabilityZoneRelocationStatusPendingEnabling  = "pending_enabling"
 	clusterAvailabilityZoneRelocationStatusPendingDisabling = "pending_disabling"
 )
@@ -55,7 +55,7 @@ func clusterAvailabilityZoneRelocationStatus_PendingValues() []string {
 }
 
 const (
-	endpointAccessStatusActive    = "active"
+	endpointAccessStatusActive= "active"
 	endpointAccessStatusCreating  = "creating"
 	endpointAccessStatusDeleting  = "deleting"
 	endpointAccessStatusModifying = "modifying"

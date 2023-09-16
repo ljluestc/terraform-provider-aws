@@ -21,23 +21,23 @@ ReadWithoutTimeout: dataSourceSiteRead,
 
 Schema: map[string]*schema.Schema{
 "account_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "id": {
-Type:         schema.TypeString,
-Optional:     true,
-Computed:     true,
+Type:schema.TypeString,
+Optional: true,
+Computed: true,
 ExactlyOneOf: []string{"id", "name"},
 },
 "name": {
-Type:         schema.TypeString,
-Optional:     true,
-Computed:     true,
+Type:schema.TypeString,
+Optional: true,
+Computed: true,
 ExactlyOneOf: []string{"id", "name"},
 },
 },

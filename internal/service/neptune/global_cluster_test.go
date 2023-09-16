@@ -236,7 +236,7 @@ func TestAccNeptuneGlobalCluster_SourceDBClusterIdentifier_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"source_db_cluster_identifier"},
@@ -266,7 +266,7 @@ func TestAccNeptuneGlobalCluster_SourceDBClusterIdentifier_storageEncrypted(t *t
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"source_db_cluster_identifier"},
@@ -403,7 +403,7 @@ func testAccGlobalClusterConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_neptune_global_cluster" "test" {
   engine       = "neptune"
-  engine_version            = "1.2.0.0"
+  engine_version   = "1.2.0.0"
   global_cluster_identifier = %[1]q
 }
 `, rName)
@@ -414,7 +414,7 @@ func testAccGlobalClusterConfig_deletionProtection(rName string, deletionProtect
 resource "aws_neptune_global_cluster" "test" {
   engine       = "neptune"
   deletion_protection       = %[1]t
-  engine_version            = "1.2.0.0"
+  engine_version   = "1.2.0.0"
   global_cluster_identifier = %[2]q
 }
 `, deletionProtection, rName)
@@ -424,7 +424,7 @@ func testAccGlobalClusterConfig_engine(rName, engine string) string {
 	return fmt.Sprintf(`
 resource "aws_neptune_global_cluster" "test" {
   engine       = %[1]q
-  engine_version            = "1.2.0.0"
+  engine_version   = "1.2.0.0"
   global_cluster_identifier = %[2]q
 }
 `, engine, rName)
@@ -434,22 +434,22 @@ func testAccGlobalClusterConfig_engineVersion(rName1, rName2, rName3, engineVers
 	return fmt.Sprintf(`
 resource "aws_neptune_global_cluster" "test" {
   engine       = "neptune"
-  engine_version            = %[4]q
+  engine_version   = %[4]q
   global_cluster_identifier = %[1]q
 }
 
 resource "aws_neptune_cluster" "test" {
   cluster_identifier      = %[2]q
   skip_final_snapshot     = true
-  global_cluster_identifier            = aws_neptune_global_cluster.test.id
+  global_cluster_identifier   = aws_neptune_global_cluster.test.id
   engine     = aws_neptune_global_cluster.test.engine
-  engine_version          = aws_neptune_global_cluster.test.engine_version
+  engine_version = aws_neptune_global_cluster.test.engine_version
   neptune_cluster_parameter_group_name = "default.neptune1.2"
   apply_immediately       = true
 }
 
 data "aws_neptune_orderable_db_instance" "test" {
-  engine         = "neptune"
+  engine= "neptune"
   engine_version = aws_neptune_cluster.test.engine_version
   license_model  = "amazon-license"
 
@@ -458,8 +458,8 @@ data "aws_neptune_orderable_db_instance" "test" {
 
 resource "aws_neptune_cluster_instance" "test" {
   identifier      = %[3]q
-  cluster_identifier           = aws_neptune_cluster.test.id
-  apply_immediately            = true
+  cluster_identifier  = aws_neptune_cluster.test.id
+  apply_immediately   = true
   instance_class  = data.aws_neptune_orderable_db_instance.test.instance_class
   neptune_parameter_group_name = aws_neptune_cluster.test.neptune_cluster_parameter_group_name
   promotion_tier  = "3"
@@ -471,17 +471,17 @@ func testAccGlobalClusterConfig_completeBasic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_neptune_global_cluster" "test" {
   engine       = "neptune"
-  engine_version            = "1.2.0.0"
+  engine_version   = "1.2.0.0"
   global_cluster_identifier = %[1]q
 }
 
 resource "aws_neptune_cluster" "test" {
   cluster_identifier      = %[1]q
   engine     = "neptune"
-  engine_version          = "1.2.0.0"
+  engine_version = "1.2.0.0"
   skip_final_snapshot     = true
   neptune_cluster_parameter_group_name = "default.neptune1.2"
-  global_cluster_identifier            = aws_neptune_global_cluster.test.id
+  global_cluster_identifier   = aws_neptune_global_cluster.test.id
 }
 `, rName)
 }
@@ -491,7 +491,7 @@ func testAccGlobalClusterConfig_sourceDBIdentifier(rName string) string {
 resource "aws_neptune_cluster" "test" {
   cluster_identifier      = %[1]q
   engine     = "neptune"
-  engine_version          = "1.2.0.0"
+  engine_version = "1.2.0.0"
   skip_final_snapshot     = true
   neptune_cluster_parameter_group_name = "default.neptune1.2"
 
@@ -514,7 +514,7 @@ func testAccGlobalClusterConfig_sourceDBIdentifierStorageEncrypted(rName string)
 resource "aws_neptune_cluster" "test" {
   cluster_identifier      = %[1]q
   engine     = "neptune"
-  engine_version          = "1.2.0.0"
+  engine_version = "1.2.0.0"
   skip_final_snapshot     = true
   storage_encrypted       = true
   neptune_cluster_parameter_group_name = "default.neptune1.2"
@@ -537,8 +537,8 @@ func testAccGlobalClusterConfig_storageEncrypted(rName string, storageEncrypted 
 resource "aws_neptune_global_cluster" "test" {
   global_cluster_identifier = %[1]q
   engine       = "neptune"
-  engine_version            = "1.2.0.0"
-  storage_encrypted         = %[2]t
+  engine_version   = "1.2.0.0"
+  storage_encrypted= %[2]t
 }
 `, rName, storageEncrypted)
 }

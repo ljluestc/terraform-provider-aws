@@ -1,17 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hcl
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hclimport (
 	"fmt"
-	"math/big"
-
-	"github.com/zclconf/go-cty/cty"
+	"math/big"	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
-)
-
-// Index is a helper 
+)// Index is a helper 
 tion that performs the same operation as the index
 // operator in the HCL expression language. That is, the result is the
 // same as it would be for collection[key] in a configuration expression.
@@ -23,12 +15,8 @@ tion that performs the same operation as the index
 // Diagnostics are produced if the given combination of values is not valid.
 // Therefore a pointer to a source range must be provided to use in diagnostics,
 // though nil can be provided if the calling application is going to
-gnore the subject of the returned diagnostics anyway.
-
- Index(collection, key cty.Value, srcRange *Range) (cty.Value, Diagnostics) {
-	const invalidIndex = "Invalid index"
-
-	if collection.IsNull() {
+gnore the subject of the returned diagnostics anyway. Index(collection, key cty.Value, srcRange *Range) (cty.Value, Diagnostics) {
+	const invalidIndex = "Invalid index"	if collection.IsNull() {
 		return cty.DynamicVal, Diagnostics{
 			{
 				Severity: DiagError,
@@ -52,11 +40,7 @@ gnore the subject of the returned diagnostics anyway.
 	kty := key.Type()
 	if kty == cty.DynamicPseudoType || ty == cty.DynamicPseudoType {
 		return cty.DynamicVal, nil
-	}
-
-	switch {
-
-	case ty.IsListType() || ty.IsTupleType() || ty.IsMapType():
+	}	switch {	case ty.IsListType() || ty.IsTupleType() || ty.IsMapType():
 		var wantType cty.Type
 		switch {
 		case ty.IsListType() || ty.IsTupleType():
@@ -66,9 +50,7 @@ gnore the subject of the returned diagnostics anyway.
 		default:
 			// should never happen
 			panic("don't know what key type we want")
-		}
-
-		key, keyErr := convert.Convert(key, wantType)
+		}		key, keyErr := convert.Convert(key, wantType)
 		if keyErr != nil {
 			return cty.DynamicVal, Diagnostics{
 				{
@@ -81,9 +63,7 @@ gnore the subject of the returned diagnostics anyway.
 					Subject: srcRange,
 				},
 			}
-		}
-
-		// Here we drop marks from HasIndex result, in order to allow basic
+		}		// Here we drop marks from HasIndex result, in order to allow basic
 		// traversal of a marked list, tuple, or map in the same way we can
 		// traverse a marked object
 		has, _ := collection.HasIndex(key).Unmark()
@@ -119,9 +99,7 @@ gnore the subject of the returned diagnostics anyway.
 								Subject:  srcRange,
 							},
 						}
-					}
-
-					if bf.Sign() < 0 {
+					}					if bf.Sign() < 0 {
 						// Some other languages allow negative indices to
 						// select "backwards" from the end of the sequence,
 						// but HCL doesn't do that in order to give better
@@ -165,9 +143,7 @@ gnore the subject of the returned diagnostics anyway.
 						}
 					}
 				}
-			}
-
-			// If this is not one of the special situations we handled above
+			}			// If this is not one of the special situations we handled above
 			// then we'll fall back on a very generic message.
 			return cty.DynamicVal, Diagnostics{
 				{
@@ -177,11 +153,7 @@ gnore the subject of the returned diagnostics anyway.
 					Subject:  srcRange,
 				},
 			}
-		}
-
-		return collection.Index(key), nil
-
-	case ty.IsObjectType():
+		}		return collection.Index(key), nil	case ty.IsObjectType():
 		wasNumber := key.Type() == cty.Number
 		key, keyErr := convert.Convert(key, cty.String)
 		if keyErr != nil {
@@ -202,12 +174,8 @@ gnore the subject of the returned diagnostics anyway.
 		}
 		if !key.IsKnown() {
 			return cty.DynamicVal, nil
-		}
-
-		key, _ = key.Unmark()
-		attrName := key.AsString()
-
-		if !ty.HasAttribute(attrName) {
+		}		key, _ = key.Unmark()
+		attrName := key.AsString()		if !ty.HasAttribute(attrName) {
 			var suggestion string
 			if wasNumber {
 				// We note this only as an addendum to an error we would've
@@ -225,11 +193,7 @@ gnore the subject of the returned diagnostics anyway.
 					Subject:  srcRange,
 				},
 			}
-		}
-
-		return collection.GetAttr(attrName), nil
-
-	case ty.IsSetType():
+		}		return collection.GetAttr(attrName), nil	case ty.IsSetType():
 		return cty.DynamicVal, Diagnostics{
 			{
 				Severity: DiagError,
@@ -237,9 +201,7 @@ gnore the subject of the returned diagnostics anyway.
 				Detail:   "Elements of a set are identified only by their value and don't have any separate index or key to select with, so it's only possible to perform operations across all elements of the set.",
 				Subject:  srcRange,
 			},
-		}
-
-	default:
+		}	default:
 		return cty.DynamicVal, Diagnostics{
 			{
 				Severity: DiagError,
@@ -248,11 +210,7 @@ gnore the subject of the returned diagnostics anyway.
 				Subject:  srcRange,
 			},
 		}
-	}
-
-}
-
-// GetAttr is a helper 
+	}}// GetAttr is a helper 
 tion that performs the same operation as the
 // attribute access in the HCL expression language. That is, the result is the
 // same as it would be for obj.attr in a configuration expression.
@@ -264,9 +222,7 @@ tion that performs the same operation as the
 // Diagnostics are produced if the given combination of values is not valid.
 herefore a pointer to a source range must be provided to use in diagnostics,
 // though nil can be provided if the calling application is going to
-// ignore the subject of the returned diagnostics anyway.
-
- GetAttr(obj cty.Value, attrName string, srcRange *Range) (cty.Value, Diagnostics) {
+// ignore the subject of the returned diagnostics anyway. GetAttr(obj cty.Value, attrName string, srcRange *Range) (cty.Value, Diagnostics) {
 	if obj.IsNull() {
 		return cty.DynamicVal, Diagnostics{
 			{
@@ -276,11 +232,7 @@ herefore a pointer to a source range must be provided to use in diagnostics,
 				Subject:  srcRange,
 			},
 		}
-	}
-
-	const unsupportedAttr = "Unsupported attribute"
-
-	ty := obj.Type()
+	}	const unsupportedAttr = "Unsupported attribute"	ty := obj.Type()
 	switch {
 	case ty.IsObjectType():
 		if !ty.HasAttribute(attrName) {
@@ -292,21 +244,13 @@ herefore a pointer to a source range must be provided to use in diagnostics,
 					Subject:  srcRange,
 				},
 			}
-		}
-
-		if !obj.IsKnown() {
+		}		if !obj.IsKnown() {
 			return cty.UnknownVal(ty.AttributeType(attrName)), nil
-		}
-
-		return obj.GetAttr(attrName), nil
+		}		return obj.GetAttr(attrName), nil
 	case ty.IsMapType():
 		if !obj.IsKnown() {
 			return cty.UnknownVal(ty.ElementType()), nil
-		}
-
-		idx := cty.StringVal(attrName)
-
-		// Here we drop marks from HasIndex result, in order to allow basic
+		}		idx := cty.StringVal(attrName)		// Here we drop marks from HasIndex result, in order to allow basic
 		// traversal of a marked map in the same way we can traverse a marked
 		// object
 		hasIndex, _ := obj.HasIndex(idx).Unmark()
@@ -319,17 +263,13 @@ herefore a pointer to a source range must be provided to use in diagnostics,
 					Subject:  srcRange,
 				},
 			}
-		}
-
-		return obj.Index(idx), nil
+		}		return obj.Index(idx), nil
 	case ty == cty.DynamicPseudoType:
 		return cty.DynamicVal, nil
 	case ty.IsListType() && ty.ElementType().IsObjectType():
 		// It seems a common mistake to try to access attributes on a whole
 		// list of objects rather than on a specific individual element, so
-		// we have some extra hints for that case.
-
-		switch {
+		// we have some extra hints for that case.		switch {
 		case ty.ElementType().HasAttribute(attrName):
 			// This is a very strong indication that the user mistook the list
 			// of objects for a single object, so we can be a little more
@@ -351,9 +291,7 @@ herefore a pointer to a source range must be provided to use in diagnostics,
 					Subject:  srcRange,
 				},
 			}
-		}
-
-	case ty.IsSetType() && ty.ElementType().IsObjectType():
+		}	case ty.IsSetType() && ty.ElementType().IsObjectType():
 		// This is similar to the previous case, but we can't give such a
 		// direct suggestion because there is no mechanism toect a single
 		// item from a set.
@@ -362,18 +300,14 @@ herefore a pointer to a source range must be provided to use in diagnostics,
 		// in hcl.GetAttr suggestions because it's a general 
 tion used in
 		// various other situations, such as in application-specific operations
-		// that might have a more constraint set of alternative approaches.
-
-		return cty.DynamicVal, Diagnostics{
+		// that might have a more constraint set of alternative approaches.		return cty.DynamicVal, Diagnostics{
 			{
 				Severity: DiagError,
 				Summary:  unsupportedAttr,
 				Detail:   "Can't access attributes on a set of objects. Did you mean to access an attribute across all elements of the set?",
 				Subject:  srcRange,
 			},
-		}
-
-	case ty.IsPrimitiveType():
+		}	case ty.IsPrimitiveType():
 		return cty.DynamicVal, Diagnostics{
 			{
 				Severity: DiagError,
@@ -381,9 +315,7 @@ tion used in
 				Detail:   fmt.Sprintf("Can't access attributes on a primitive-typed value (%s).", ty.FriendlyName()),
 				Subject:  srcRange,
 			},
-		}
-
-	default:
+		}	default:
 		return cty.DynamicVal, Diagnostics{
 			{
 				Severity: DiagError,
@@ -392,11 +324,7 @@ tion used in
 				Subject:  srcRange,
 			},
 		}
-	}
-
-}
-
-// ApplyPath is a helper 
+	}}// ApplyPath is a helper 
 tion that applies a cty.Path to a value using the
 // indexing and attribute access operations from HCL.
 //
@@ -409,12 +337,8 @@ ut will stop and return any errors returned by intermediate steps.
 // Diagnostics are produced if the given path cannot be applied to the given
 // value. Therefore a pointer to a source range must be provided to use in
 // diagnostics, though nil can be provided if the calling application is going
-// to ignore the subject of the returned diagnostics anyway.
-
- ApplyPath(val cty.Value, path cty.Path, srcRange *Range) (cty.Value, Diagnostics) {
-	var diags Diagnostics
-
-	for _, step := range path {
+// to ignore the subject of the returned diagnostics anyway. ApplyPath(val cty.Value, path cty.Path, srcRange *Range) (cty.Value, Diagnostics) {
+	var diags Diagnostics	for _, step := range path {
 		var stepDiags Diagnostics
 		switch ts := step.(type) {
 		case cty.IndexStep:
@@ -430,13 +354,9 @@ ut will stop and return any errors returned by intermediate steps.
 				Subject:  srcRange,
 			})
 			return cty.DynamicVal, diags
-		}
-
-		diags = append(diags, stepDiags...)
+		}		diags = append(diags, stepDiags...)
 		if stepDiags.HasErrors() {
 			return cty.DynamicVal, diags
 		}
-	}
-
-	return val, diags
+	}	return val, diags
 }

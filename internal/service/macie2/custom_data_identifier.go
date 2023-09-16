@@ -36,7 +36,7 @@ func ResourceCustomDataIdentifier() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"regex": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(0, 512),
@@ -48,7 +48,7 @@ func ResourceCustomDataIdentifier() *schema.Resource {
 				MinItems: 1,
 				MaxItems: 50,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(3, 90),
 				},
 			},
@@ -59,12 +59,12 @@ func ResourceCustomDataIdentifier() *schema.Resource {
 				MinItems: 1,
 				MaxItems: 10,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(4, 90),
 				},
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -72,7 +72,7 @@ func ResourceCustomDataIdentifier() *schema.Resource {
 				ValidateFunc:  validation.StringLenBetween(0, 128),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -80,13 +80,13 @@ func ResourceCustomDataIdentifier() *schema.Resource {
 				ValidateFunc:  validation.StringLenBetween(0, 128-id.UniqueIDSuffixLength),
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(0, 512),
 			},
 			"maximum_match_distance": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,

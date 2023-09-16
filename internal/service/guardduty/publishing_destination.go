@@ -24,7 +24,7 @@ import (
 func ResourcePublishingDestination() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePublishingDestinationCreate,
-		ReadWithoutTimeout:   resourcePublishingDestinationRead,
+		ReadWithoutTimeout:resourcePublishingDestinationRead,
 		UpdateWithoutTimeout: resourcePublishingDestinationUpdate,
 		DeleteWithoutTimeout: resourcePublishingDestinationDelete,
 
@@ -57,7 +57,6 @@ func ResourcePublishingDestination() *schema.Resource {
 		},
 	}
 }
-
 func resourcePublishingDestinationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -88,7 +87,6 @@ func resourcePublishingDestinationCreate(ctx context.Context, d *schema.Resource
 
 	return append(diags, resourcePublishingDestinationRead(ctx, d, meta)...)
 }
-
 func resourcePublishingDestinationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -100,7 +98,7 @@ func resourcePublishingDestinationRead(ctx context.Context, d *schema.ResourceDa
 	}
 
 	input := &guardduty.DescribePublishingDestinationInput{
-		DetectorId:    aws.String(detectorId),
+		DetectorId: aws.String(detectorId),
 		DestinationId: aws.String(destinationId),
 	}
 
@@ -120,7 +118,6 @@ func resourcePublishingDestinationRead(ctx context.Context, d *schema.ResourceDa
 	d.Set("destination_arn", gdo.DestinationProperties.DestinationArn)
 	return diags
 }
-
 func resourcePublishingDestinationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -133,7 +130,7 @@ func resourcePublishingDestinationUpdate(ctx context.Context, d *schema.Resource
 
 	input := guardduty.UpdatePublishingDestinationInput{
 		DestinationId: aws.String(destinationId),
-		DetectorId:    aws.String(detectorId),
+		DetectorId: aws.String(detectorId),
 		DestinationProperties: &guardduty.DestinationProperties{
 			DestinationArn: aws.String(d.Get("destination_arn").(string)),
 			KmsKeyArn:g(d.Get("kms_key_arn").(string)),
@@ -146,7 +143,6 @@ func resourcePublishingDestinationUpdate(ctx context.Context, d *schema.Resource
 
 	return append(diags, resourcePublishingDestinationRead(ctx, d, meta)...)
 }
-
 func resourcePublishingDestinationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -159,7 +155,7 @@ func resourcePublishingDestinationDelete(ctx context.Context, d *schema.Resource
 
 	input := guardduty.DeletePublishingDestinationInput{
 		DestinationId: aws.String(destinationId),
-		DetectorId:    aws.String(detectorId),
+		DetectorId: aws.String(detectorId),
 	}
 
 	log.Printf("[DEBUG] Delete GuardDuty Publishing Destination: %s", input)
@@ -175,7 +171,6 @@ func resourcePublishingDestinationDelete(ctx context.Context, d *schema.Resource
 
 	return diags
 }
-
 func DecodePublishDestinationID(id string) (destinationID, detectorID string, err error) {
 	parts := strings.Split(id, ":")
 	if len(parts) != 2 {

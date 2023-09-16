@@ -17,7 +17,6 @@ import (
 	tfdirectconnect "github.com/hashicorp/terraform-provider-aws/internal/service/directconnect"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccDirectConnectGateway_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v directconnect.Gateway
@@ -26,7 +25,7 @@ func TestAccDirectConnectGateway_basic(t *testing.T) {
 	resourceName := "aws_dx_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGatewayDestroy(ctx),
@@ -39,14 +38,13 @@ func TestAccDirectConnectGateway_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectGateway_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v directconnect.Gateway
@@ -55,7 +53,7 @@ func TestAccDirectConnectGateway_disappears(t *testing.T) {
 	resourceName := "aws_dx_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGatewayDestroy(ctx),
@@ -71,7 +69,6 @@ func TestAccDirectConnectGateway_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDirectConnectGateway_complex(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v directconnect.Gateway
@@ -80,7 +77,7 @@ func TestAccDirectConnectGateway_complex(t *testing.T) {
 	resourceName := "aws_dx_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGatewayDestroy(ctx),
@@ -93,14 +90,13 @@ func TestAccDirectConnectGateway_complex(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectGateway_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v directconnect.Gateway
@@ -110,7 +106,7 @@ func TestAccDirectConnectGateway_update(t *testing.T) {
 	resourceName := "aws_dx_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGatewayDestroy(ctx),
@@ -132,7 +128,6 @@ func TestAccDirectConnectGateway_update(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckGatewayDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -157,7 +152,6 @@ func testAccCheckGatewayDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckGatewayExists(ctx context.Context, name string, v *directconnect.Gateway) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -182,11 +176,10 @@ func testAccCheckGatewayExists(ctx context.Context, name string, v *directconnec
 		return nil
 	}
 }
-
 func testAccGatewayConfig_basic(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
 resource "aws_dx_gateway" "test" {
-  name            = %[1]q
+  name
   amazon_side_asn = "%[2]d"
 }
 `, rName, rBgpAsn)

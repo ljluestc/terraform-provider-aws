@@ -37,10 +37,10 @@ func TestAccAppIntegrationsDataIntegration_basic(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataIntegrationDestroy(ctx),
+		CheckDestroy:    testAccCheckDataIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataIntegrationConfig_basic(rName, description, sourceUri, firstExecutionFrom),
@@ -88,10 +88,10 @@ func TestAccAppIntegrationsDataIntegration_updateDescription(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataIntegrationDestroy(ctx),
+		CheckDestroy:    testAccCheckDataIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataIntegrationConfig_basic(rName, originalDescription, sourceUri, firstExecutionFrom),
@@ -136,10 +136,10 @@ func TestAccAppIntegrationsDataIntegration_updateName(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataIntegrationDestroy(ctx),
+		CheckDestroy:    testAccCheckDataIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataIntegrationConfig_basic(rName, description, sourceUri, firstExecutionFrom),
@@ -183,10 +183,10 @@ func TestAccAppIntegrationsDataIntegration_updateTags(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataIntegrationDestroy(ctx),
+		CheckDestroy:    testAccCheckDataIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataIntegrationConfig_basic(rName, description, sourceUri, firstExecutionFrom),
@@ -312,7 +312,7 @@ resource "aws_appintegrations_data_integration" "test" {
 
   schedule_config {
     first_execution_from = %[4]q
-    object               = "Account"
+    object      = "Account"
     schedule_expression  = "rate(1 hour)"
   }
 
@@ -335,7 +335,7 @@ resource "aws_appintegrations_data_integration" "test" {
 
   schedule_config {
     first_execution_from = %[4]q
-    object               = "Account"
+    object      = "Account"
     schedule_expression  = "rate(1 hour)"
   }
 
@@ -359,7 +359,7 @@ resource "aws_appintegrations_data_integration" "test" {
 
   schedule_config {
     first_execution_from = %[4]q
-    object               = "Account"
+    object      = "Account"
     schedule_expression  = "rate(1 hour)"
   }
 

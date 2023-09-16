@@ -30,28 +30,28 @@ func ResourceControlPanel() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"cluster_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"default_control_panel": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"routing_control_count": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -64,8 +64,8 @@ func resourceControlPanelCreate(ctx context.Context, d *schema.ResourceData, met
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
 
 	input := &r53rcc.CreateControlPanelInput{
-		ClientToken:      aws.String(id.UniqueId()),
-		ClusterArn:       aws.String(d.Get("cluster_arn").(string)),
+		ClientToken: aws.String(id.UniqueId()),
+		ClusterArn:  aws.String(d.Get("cluster_arn").(string)),
 		ControlPanelName: aws.String(d.Get("name").(string)),
 	}
 

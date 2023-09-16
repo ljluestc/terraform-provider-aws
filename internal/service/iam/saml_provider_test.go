@@ -23,7 +23,7 @@ import (
 	resourceName := "aws_iam_saml_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSAMLProviderDestroy(ctx),
@@ -48,8 +48,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -60,7 +60,7 @@ import (
 	resourceName := "aws_iam_saml_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSAMLProviderDestroy(ctx),
@@ -74,8 +74,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -103,7 +103,7 @@ import (
 	resourceName := "aws_iam_saml_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSAMLProviderDestroy(ctx),
@@ -160,19 +160,19 @@ funcr _, rs := range s.RootModule().Resources {
 }func testAccSAMLProviderConfig_basic(rName, idpEntityId string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_saml_provider" "test" {
-  name    = %[1]q
+  name= %[1]q
   saml_metadata_document = templatefile("./test-fixtures/saml-metadata.xml.tpl", { entity_id = %[2]q })
 }funcName, idpEntityId)
 }func testAccSAMLProviderConfig_update(rName, idpEntityIdModified string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_saml_provider" "test" {
-  name    = %[1]q
+  name= %[1]q
   saml_metadata_document = templatefile("./test-fixtures/saml-metadata-modified.xml.tpl", { entity_id_modified = %[2]q })
 }
 `funcc testAccSAMLProviderConfig_tags1(rName, idpEntityId, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_saml_provider" "test" {
-  name    = %[1]q
+  name= %[1]q
   saml_metadata_document = templatefile("./test-fixtures/saml-metadata.xml.tpl", { entity_id = %[2]q })
 
   tags = {
@@ -182,11 +182,11 @@ resource "aws_iam_saml_provider" "test" {
 }func testAccSAMLProviderConfig_tags2(rName, idpEntityId, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_saml_provider" "test" {
-  name    = %[1]q
+  name= %[1]q
   saml_metadata_document = templatefile("./test-fixtures/saml-metadata.xml.tpl", { entity_id = %[2]q })
 
   tags = {
-    %[3]q = %[4]q
+%[3]q = %[4]q
  func
 }
 `, rName, idpEntityId, tagKey1, tagValue1, tagKey2, tagValue2)

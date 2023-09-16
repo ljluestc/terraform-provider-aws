@@ -42,7 +42,7 @@ func ResourceProtection() *schema.Resource {
 				ForceNew: true,
 			},
 			"resource_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,

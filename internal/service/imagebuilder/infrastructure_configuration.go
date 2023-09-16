@@ -50,7 +50,7 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"description": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 	},
@@ -61,12 +61,12 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "http_put_response_hop_limit": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntBetween(1, 64),
 },
 "http_tokens": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	ValidateFunc: validation.StringInSlice([]string{"required", "optional"}, false),
 },
@@ -74,7 +74,7 @@ Elem: &schema.Resource{
 },
 	},
 	"instance_profile_name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 	},
@@ -85,7 +85,7 @@ Elem:     &schema.Schema{Type: schema.TypeString},
 Set:      schema.HashString,
 	},
 	"key_pair": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 	},
@@ -102,12 +102,12 @@ Elem: &schema.Resource{
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"s3_bucket_name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 	},
 	"s3_key_prefix": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 Default:      "/",
@@ -131,12 +131,12 @@ Elem:     &schema.Schema{Type: schema.TypeString},
 Set:      schema.HashString,
 	},
 	"sns_topic_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: verify.ValidARN,
 	},
 	"subnet_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 	},

@@ -31,9 +31,9 @@ func TestAccDSDirectory_basic(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:    testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_basic(rName, domainName),
@@ -83,9 +83,9 @@ func TestAccDSDirectory_disappears(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:    testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_basic(rName, domainName),
@@ -112,9 +112,9 @@ func TestAccDSDirectory_tags(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:    testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_tags1(rName, domainName, "key1", "value1"),
@@ -161,10 +161,10 @@ func TestAccDSDirectory_microsoft(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:    testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_microsoft(rName, domainName),
@@ -209,10 +209,10 @@ func TestAccDSDirectory_microsoftStandard(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:    testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_microsoftStandard(rName, domainName),
@@ -262,9 +262,9 @@ func TestAccDSDirectory_connector(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:    testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_connector(rName, domainName),
@@ -317,9 +317,9 @@ func TestAccDSDirectory_withAliasAndSSO(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:    testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_alias(rName, domainName, alias),
@@ -378,10 +378,10 @@ func TestAccDSDirectory_desiredNumberOfDomainControllers(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDirectoryDestroy(ctx),
+		CheckDestroy:    testAccCheckDirectoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDirectoryConfig_desiredNumberOfDomainControllers(rName, domainName, 2),
@@ -557,7 +557,7 @@ resource "aws_directory_service_directory" "test" {
   connect_settings {
     customer_dns_ips  = aws_directory_service_directory.base.dns_ip_addresses
     customer_username = "Administrator"
-    vpc_id            = aws_vpc.test.id
+    vpc_id   = aws_vpc.test.id
     subnet_ids        = aws_subnet.test[*].id
   }
 }

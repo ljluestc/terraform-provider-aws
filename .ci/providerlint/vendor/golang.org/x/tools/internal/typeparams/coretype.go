@@ -1,39 +1,25 @@
 // Copyright 2022 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package typeparams
-
-import (
+// license that can be found in the LICENSE file.package typeparamsimport (
 	"go/types"
-)
-
-// CoreType returns the core type of T or nil if T does not have a core type.
+)// CoreType returns the core type of T or nil if T does not have a core type.
 //
-// See https://go.dev/ref/spec#Core_types for the definition of a core type.
-
- CoreType(T types.Type) types.Type {
+// See https://go.dev/ref/spec#Core_types for the definition of a core type. CoreType(T types.Type) types.Type {
 	U := T.Underlying()
 	if _, ok := U.(*types.Interface); !ok {
 		return U // for non-interface types,
-	}
-
-	terms, err := _NormalTerms(U)
+	}	terms, err := _NormalTerms(U)
 	if len(terms) == 0 || err != nil {
 		// len(terms) -> empty type set of interface.
 		// err != nil => U is invalid, exceeds complexity bounds, or has an empty type set.
 		return nil // no core type.
-	}
-
-	U = terms[0].Type().Underlying()
+	}	U = terms[0].Type().Underlying()
 	var identical int // i in [0,identical) => Identical(U, terms[i].Type().Underlying())
 	for identical = 1; identical < len(terms); identical++ {
 		if !types.Identical(U, terms[identical].Type().Underlying()) {
 			break
 		}
-	}
-
-	if identical == len(terms) {
+	}	if identical == len(terms) {
 		// https://go.dev/ref/spec#Core_types
 		// "There is a single type U which is the underlying type of all types in the type set of T"
 		return U
@@ -62,9 +48,7 @@ import (
 		}
 	}
 	return ch
-}
-
-// _NormalTerms returns a slice of terms representing the normalized structural
+}// _NormalTerms returns a slice of terms representing the normalized structural
 // type restrictions of a type, if any.
 //
 // For all types other than *types.TypeParam, *types.Interface, and
@@ -108,9 +92,7 @@ import (
 // case, _NormalTerms returns ErrEmptyTypeSet.
 //
 // _NormalTerms makes no guarantees about the order of terms, except that it
-s deterministic.
-
- _NormalTerms(typ types.Type) ([]*Term, error) {
+s deterministic. _NormalTerms(typ types.Type) ([]*Term, error) {
 	switch typ := typ.(type) {
 	case *TypeParam:
 		return StructuralTerms(typ)

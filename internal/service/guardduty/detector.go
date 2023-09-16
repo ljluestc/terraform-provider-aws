@@ -28,7 +28,7 @@ import (
 func ResourceDetector() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDetectorCreate,
-		ReadWithoutTimeout:   resourceDetectorRead,
+		ReadWithoutTimeout:resourceDetectorRead,
 		UpdateWithoutTimeout: resourceDetectorUpdate,
 		DeleteWithoutTimeout: resourceDetectorDelete,
 
@@ -141,21 +141,20 @@ func ResourceDetector() *schema.Resource {
 				Computed: true,
 			},
 
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceDetectorCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
 
 	input := guardduty.CreateDetectorInput{
 		Enable: aws.Bool(d.Get("enable").(bool)),
-		Tags:   getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("finding_publishing_frequency"); ok {
@@ -175,7 +174,6 @@ func resourceDetectorCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceDetectorRead(ctx, d, meta)...)
 }
-
 func resourceDetectorRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -197,8 +195,8 @@ func resourceDetectorRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "guardduty",
+		Region: meta.(*conns.AWSClient).Region,
+		Service:"guardduty",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("detector/%s", d.Id()),
 	}.String()
@@ -221,7 +219,6 @@ func resourceDetectorRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func resourceDetectorUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -246,7 +243,6 @@ func resourceDetectorUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceDetectorRead(ctx, d, meta)...)
 }
-
 func resourceDetectorDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -279,7 +275,6 @@ func resourceDetectorDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func expandDataSourceConfigurations(tfMap map[string]interface{}) *guardduty.DataSourceConfigurations {
 	if tfMap == nil {
 		return nil
@@ -298,7 +293,6 @@ func expandDataSourceConfigurations(tfMap map[string]interface{}) *guardduty.Dat
 	}
 	return apiObject
 }
-
 func expandS3LogsConfiguration(tfMap map[string]interface{}) *guardduty.S3LogsConfiguration {
 	if tfMap == nil {
 		return nil
@@ -312,7 +306,6 @@ func expandS3LogsConfiguration(tfMap map[string]interface{}) *guardduty.S3LogsCo
 
 	return apiObject
 }
-
 func expandKubernetesConfiguration(tfMap map[string]interface{}) *guardduty.KubernetesConfiguration {
 	if tfMap == nil {
 		return nil
@@ -332,7 +325,6 @@ func expandKubernetesConfiguration(tfMap map[string]interface{}) *guardduty.Kube
 		AuditLogs: expandKubernetesAuditLogsConfiguration(m),
 	}
 }
-
 func expandKubernetesAuditLogsConfiguration(tfMap map[string]interface{}) *guardduty.KubernetesAuditLogsConfiguration {
 	if tfMap == nil {
 		return nil
@@ -346,7 +338,6 @@ func expandKubernetesAuditLogsConfiguration(tfMap map[string]interface{}) *guard
 
 	return apiObject
 }
-
 func expandMalwareProtectionConfiguration(tfMap map[string]interface{}) *guardduty.MalwareProtectionConfiguration {
 	if tfMap == nil {
 		return nil
@@ -366,7 +357,6 @@ func expandMalwareProtectionConfiguration(tfMap map[string]interface{}) *guarddu
 		ScanEc2InstanceWithFindings: expandMalwareProtectionScanEC2InstanceWithFindingsConfiguration(m),
 	}
 }
-
 func expandMalwareProtectionScanEC2InstanceWithFindingsConfiguration(tfMap map[string]interface{}) *guardduty.ScanEc2InstanceWithFindings {
 	if tfMap == nil {
 		return nil
@@ -387,7 +377,6 @@ func expandMalwareProtectionScanEC2InstanceWithFindingsConfiguration(tfMap map[s
 	}
 	return apiObject
 }
-
 func expandMalwareProtectionEBSVolumesConfiguration(tfMap map[string]interface{}) *bool {
 	if tfMap == nil {
 		return nil
@@ -401,7 +390,6 @@ func expandMalwareProtectionEBSVolumesConfiguration(tfMap map[string]interface{}
 
 	return apiObject
 }
-
 func flattenDataSourceConfigurationsResult(apiObject *guardduty.DataSourceConfigurationsResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -423,7 +411,6 @@ func flattenDataSourceConfigurationsResult(apiObject *guardduty.DataSourceConfig
 
 	return tfMap
 }
-
 func flattenS3LogsConfigurationResult(apiObject *guardduty.S3LogsConfigurationResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -437,7 +424,6 @@ func flattenS3LogsConfigurationResult(apiObject *guardduty.S3LogsConfigurationRe
 
 	return tfMap
 }
-
 func flattenKubernetesConfiguration(apiObject *guardduty.KubernetesConfigurationResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -451,7 +437,6 @@ func flattenKubernetesConfiguration(apiObject *guardduty.KubernetesConfiguration
 
 	return tfMap
 }
-
 func flattenKubernetesAuditLogsConfiguration(apiObject *guardduty.KubernetesAuditLogsConfigurationResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -465,7 +450,6 @@ func flattenKubernetesAuditLogsConfiguration(apiObject *guardduty.KubernetesAudi
 
 	return tfMap
 }
-
 func flattenMalwareProtectionConfiguration(apiObject *guardduty.MalwareProtectionConfigurationResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -479,7 +463,6 @@ func flattenMalwareProtectionConfiguration(apiObject *guardduty.MalwareProtectio
 
 	return tfMap
 }
-
 func flattenMalwareProtectionScanEC2InstanceWithFindingsConfigurationResult(apiObject *guardduty.ScanEc2InstanceWithFindingsResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -493,7 +476,6 @@ func flattenMalwareProtectionScanEC2InstanceWithFindingsConfigurationResult(apiO
 
 	return tfMap
 }
-
 func flattenMalwareProtectionEBSVolumesConfigurationResult(apiObject *guardduty.EbsVolumesResult) map[string]interface{} {
 	if apiObject == nil {
 		return nil

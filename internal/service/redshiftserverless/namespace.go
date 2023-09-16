@@ -41,64 +41,64 @@ func ResourceNamespace() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"admin_user_password": {
-				Type:      schema.TypeString,
+				Type: schema.TypeString,
 				Optional:  true,
 				Sensitive: true,
 			},
 			"admin_username": {
-				Type:      schema.TypeString,
+				Type: schema.TypeString,
 				Optional:  true,
 				Sensitive: true,
 				Computed:  true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"db_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 				Computed: true,
 			},
 			"default_iam_role_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"iam_roles": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"log_exports": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(redshiftserverless.LogExport_Values(), false),
 				},
 			},
 			"namespace_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"namespace_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -113,7 +113,7 @@ func resourceNamespaceCreate(ctx context.Context, d *schema.ResourceData, meta i
 	name := d.Get("namespace_name").(string)
 	input := &redshiftserverless.CreateNamespaceInput{
 		NamespaceName: aws.String(name),
-		Tags:          getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("admin_user_password"); ok {

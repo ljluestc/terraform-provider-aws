@@ -86,9 +86,9 @@ Optional: true,
 Computed: true,
 },
 "encryption_type": {
-Type:         schema.TypeString,
+Type:   schema.TypeString,
 Optional:     true,
-Default:      kinesis.EncryptionTypeNone,
+Default:kinesis.EncryptionTypeNone,
 ValidateFunc: validation.StringInSlice(kinesis.EncryptionType_Values(), true),
 DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 return strings.EqualFold(old, new)
@@ -109,9 +109,9 @@ Required: true,
 ForceNew: true,
 },
 "retention_period": {
-Type:         schema.TypeInt,
+Type:   schema.TypeInt,
 Optional:     true,
-Default:      24,
+Default:24,
 ValidateFunc: validation.IntBetween(24, 8760),
 },
 "shard_count": {
@@ -131,7 +131,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "stream_mode": {
-Type:         schema.TypeString,
+Type:   schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringInSlice(kinesis.StreamMode_Values(), false),
 },
@@ -182,7 +182,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for Kinesis Stream (%s) create: %s",
 if v, ok := d.GetOk("retention_period"); ok && v.(int) > 0 {
 input := &kinesis.IncreaseStreamRetentionPeriodInput{
 RetentionPeriodHours: aws.Int64(int64(v.(int))),
-StreamName:           aws.String(name),
+StreamName:     aws.String(name),
 }
 
 log.Printf("[DEBUG] Increasing Kinesis Stream retention period: %s", input)
@@ -202,7 +202,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for Kinesis Stream (%s) update (Incr
 if v, ok := d.GetOk("shard_level_metrics"); ok && v.(*schema.Set).Len() > 0 {
 input := &kinesis.EnableEnhancedMonitoringInput{
 ShardLevelMetrics: flex.ExpandStringSet(v.(*schema.Set)),
-StreamName:        aws.String(name),
+StreamName:  aws.String(name),
 }
 
 log.Printf("[DEBUG] Enabling Kinesis Stream enhanced monitoring: %s", input)
@@ -226,7 +226,7 @@ return sdkdiag.AppendErrorf(diags, "KMS Key Id required when setting encryption_
 
 input := &kinesis.StartStreamEncryptionInput{
 EncryptionType: aws.String(v.(string)),
-KeyId:          aws.String(d.Get("kms_key_id").(string)),
+KeyId:    aws.String(d.Get("kms_key_id").(string)),
 StreamName:     aws.String(name),
 }
 
@@ -330,8 +330,8 @@ return sdkdiag.AppendErrorf(diags, "waiting for Kinesis Stream (%s) update (Upda
 
 if streamMode := getStreamMode(d); streamMode == kinesis.StreamModeProvisioned && d.HasChange("shard_count") {
 input := &kinesis.UpdateShardCountInput{
-ScalingType:      aws.String(kinesis.ScalingTypeUniformScaling),
-StreamName:       aws.String(name),
+ScalingType:aws.String(kinesis.ScalingTypeUniformScaling),
+StreamName: aws.String(name),
 TargetShardCount: aws.Int64(int64(d.Get("shard_count").(int))),
 }
 
@@ -357,7 +357,7 @@ n := nraw.(int)
 if n > o {
 input := &kinesis.IncreaseStreamRetentionPeriodInput{
 RetentionPeriodHours: aws.Int64(int64(n)),
-StreamName:           aws.String(name),
+StreamName:     aws.String(name),
 }
 
 log.Printf("[DEBUG] Increasing Kinesis Stream retention period: %s", input)
@@ -375,7 +375,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for Kinesis Stream (%s) update (Incr
 } else if n != 0 {
 input := &kinesis.DecreaseStreamRetentionPeriodInput{
 RetentionPeriodHours: aws.Int64(int64(n)),
-StreamName:           aws.String(name),
+StreamName:     aws.String(name),
 }
 
 log.Printf("[DEBUG] Decreasing Kinesis Stream retention period: %s", input)
@@ -401,7 +401,7 @@ ns := n.(*schema.Set)
 if del := os.Difference(ns); del.Len() > 0 {
 input := &kinesis.DisableEnhancedMonitoringInput{
 ShardLevelMetrics: flex.ExpandStringSet(del),
-StreamName:        aws.String(name),
+StreamName:  aws.String(name),
 }
 
 log.Printf("[DEBUG] Disabling Kinesis Stream enhanced monitoring: %s", input)
@@ -421,7 +421,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for Kinesis Stream (%s) update (Disa
 if add := ns.Difference(os); add.Len() > 0 {
 input := &kinesis.EnableEnhancedMonitoringInput{
 ShardLevelMetrics: flex.ExpandStringSet(add),
-StreamName:        aws.String(name),
+StreamName:  aws.String(name),
 }
 
 log.Printf("[DEBUG] Enabling Kinesis Stream enhanced monitoring: %s", input)
@@ -451,7 +451,7 @@ return sdkdiag.AppendErrorf(diags, "KMS Key Id required when setting encryption_
 
 input := &kinesis.StartStreamEncryptionInput{
 EncryptionType: aws.String(newEncryptionType),
-KeyId:          aws.String(newKeyID),
+KeyId:    aws.String(newKeyID),
 StreamName:     aws.String(name),
 }
 
@@ -471,7 +471,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for Kinesis Stream (%s) update (Star
 case kinesis.EncryptionTypeNone:
 input := &kinesis.StopStreamEncryptionInput{
 EncryptionType: aws.String(oldEncryptionType.(string)),
-KeyId:          aws.String(oldKeyID.(string)),
+KeyId:    aws.String(oldKeyID.(string)),
 StreamName:     aws.String(name),
 }
 
@@ -585,7 +585,7 @@ Pending:    []string{kinesis.StreamStatusCreating},
 Target:     []string{kinesis.StreamStatusActive},
 Refresh:    streamStatus(ctx, conn, name),
 Timeout:    timeout,
-Delay:      10 * time.Second,
+Delay:10 * time.Second,
 MinTimeout: 3 * time.Second,
 }
 
@@ -604,7 +604,7 @@ Pending:    []string{kinesis.StreamStatusDeleting},
 Target:     []string{},
 Refresh:    streamStatus(ctx, conn, name),
 Timeout:    timeout,
-Delay:      10 * time.Second,
+Delay:10 * time.Second,
 MinTimeout: 3 * time.Second,
 }
 
@@ -623,7 +623,7 @@ Pending:    []string{kinesis.StreamStatusUpdating},
 Target:     []string{kinesis.StreamStatusActive},
 Refresh:    streamStatus(ctx, conn, name),
 Timeout:    timeout,
-Delay:      10 * time.Second,
+Delay:10 * time.Second,
 MinTimeout: 3 * time.Second,
 }
 

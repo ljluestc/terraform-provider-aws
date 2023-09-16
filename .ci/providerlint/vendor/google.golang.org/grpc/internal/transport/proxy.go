@@ -36,8 +36,7 @@ var (
 	// The following variable will be overwritten in the tests.
 	httpProxyFromEnvironment = http.ProxyFromEnvironment
 )
-
-func mapAddress(address string) (*url.URL, error) {
+ mapAddress(address string) (*url.URL, error) {
 	req := &http.Request{
 		URL: &url.URL{
 			Scheme: "https",
@@ -60,17 +59,14 @@ type bufConn struct {
 	net.Conn
 	r io.Reader
 }
-
-func (c *bufConn) Read(b []byte) (int, error) {
+ (c *bufConn) Read(b []byte) (int, error) {
 	return c.r.Read(b)
 }
-
-func basicAuth(username, password string) string {
+ basicAuth(username, password string) string {
 	auth := username + ":" + password
 	return base64.StdEncoding.EncodeToString([]byte(auth))
 }
-
-func doHTTPConnectHandshake(ctx context.Context, conn net.Conn, backendAddr string, proxyURL *url.URL, grpcUA string) (_ net.Conn, err error) {
+ doHTTPConnectHandshake(ctx context.Context, conn net.Conn, backendAddr string, proxyURL *url.URL, grpcUA string) (_ net.Conn, err error) {
 	defer func() {
 		if err != nil {
 			conn.Close()
@@ -111,8 +107,7 @@ func doHTTPConnectHandshake(ctx context.Context, conn net.Conn, backendAddr stri
 
 // proxyDial dials, connecting to a proxy first if necessary. Checks if a proxy
 // is necessary, dials, does the HTTP CONNECT handshake, and returns the
-// connection.
-func proxyDial(ctx context.Context, addr string, grpcUA string) (conn net.Conn, err error) {
+// connection. proxyDial(ctx context.Context, addr string, grpcUA string) (conn net.Conn, err error) {
 	newAddr := addr
 	proxyURL, err := mapAddress(addr)
 	if err != nil {
@@ -132,8 +127,7 @@ func proxyDial(ctx context.Context, addr string, grpcUA string) (conn net.Conn, 
 	}
 	return
 }
-
-func sendHTTPRequest(ctx context.Context, req *http.Request, conn net.Conn) error {
+ sendHTTPRequest(ctx context.Context, req *http.Request, conn net.Conn) error {
 	req = req.WithContext(ctx)
 	if err := req.Write(conn); err != nil {
 		return fmt.Errorf("failed to write the HTTP request: %v", err)

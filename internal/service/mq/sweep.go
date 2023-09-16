@@ -15,14 +15,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_mq_broker", &resource.Sweeper{
 		Name: "aws_mq_broker",
-		F:    sweepBrokers,
+		F: sweepBrokers,
 	})
 }
-
 func sweepBrokers(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

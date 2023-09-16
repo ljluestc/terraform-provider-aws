@@ -47,8 +47,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -184,7 +184,7 @@ resource "aws_vpc" "test" {
 
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
-  name        = %[1]q
+  name   = %[1]q
   rule_type   = "SYSTEM"
 }
 

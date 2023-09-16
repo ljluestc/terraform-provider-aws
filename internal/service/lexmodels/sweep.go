@@ -20,24 +20,24 @@ import (
 func init() {
 resource.AddTestSweepers("aws_lex_bot_alias", &resource.Sweeper{
 Name: "aws_lex_bot_alias",
-F:    sweepBotAliases,
+F:sweepBotAliases,
 })
 
 resource.AddTestSweepers("aws_lex_bot", &resource.Sweeper{
-Name:         "aws_lex_bot",
-F:            sweepBots,
+Name:"aws_lex_bot",
+F:   sweepBots,
 Dependencies: []string{"aws_lex_bot_alias"},
 })
 
 resource.AddTestSweepers("aws_lex_intent", &resource.Sweeper{
-Name:         "aws_lex_intent",
-F:            sweepIntents,
+Name:"aws_lex_intent",
+F:   sweepIntents,
 Dependencies: []string{"aws_lex_bot"},
 })
 
 resource.AddTestSweepers("aws_lex_slot_type", &resource.Sweeper{
-Name:         "aws_lex_slot_type",
-F:            sweepSlotTypes,
+Name:"aws_lex_slot_type",
+F:   sweepSlotTypes,
 Dependencies: []string{"aws_lex_intent"},
 })
 }

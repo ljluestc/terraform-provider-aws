@@ -18,23 +18,23 @@ func TestFindRegionByEC2Endpoint(t *testing.T) {
 	t.Parallel()
 
 	var testCases = []struct {
-		Value    string
+		Valuestring
 		ErrCount int
 	}{
 		{
-			Value:    "does-not-exist",
+			Value:"does-not-exist",
 			ErrCount: 1,
 		},
 		{
-			Value:    "ec2.does-not-exist.amazonaws.com",
+			Value:"ec2.does-not-exist.amazonaws.com",
 			ErrCount: 1,
 		},
 		{
-			Value:    "us-east-1", // lintignore:AWSAT003
+			Value:"us-east-1", // lintignore:AWSAT003
 			ErrCount: 1,
 		},
 		{
-			Value:    "ec2.us-east-1.amazonaws.com", // lintignore:AWSAT003
+			Value:"ec2.us-east-1.amazonaws.com", // lintignore:AWSAT003
 			ErrCount: 0,
 		},
 	}
@@ -54,19 +54,19 @@ func TestFindRegionByName(t *testing.T) {
 	t.Parallel()
 
 	var testCases = []struct {
-		Value    string
+		Valuestring
 		ErrCount int
 	}{
 		{
-			Value:    "does-not-exist",
+			Value:"does-not-exist",
 			ErrCount: 1,
 		},
 		{
-			Value:    "ec2.us-east-1.amazonaws.com", // lintignore:AWSAT003
+			Value:"ec2.us-east-1.amazonaws.com", // lintignore:AWSAT003
 			ErrCount: 1,
 		},
 		{
-			Value:    "us-east-1", // lintignore:AWSAT003
+			Value:"us-east-1", // lintignore:AWSAT003
 			ErrCount: 0,
 		},
 	}
@@ -87,7 +87,7 @@ func TestAccMetaRegionDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_region.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -108,7 +108,7 @@ func TestAccMetaRegionDataSource_endpoint(t *testing.T) {
 	dataSourceName := "data.aws_region.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -129,7 +129,7 @@ func TestAccMetaRegionDataSource_endpointAndName(t *testing.T) {
 	dataSourceName := "data.aws_region.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -150,7 +150,7 @@ func TestAccMetaRegionDataSource_name(t *testing.T) {
 	dataSourceName := "data.aws_region.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -190,7 +190,7 @@ data "aws_regions" "test" {}
 
 data "aws_region" "test" {
   endpoint = "ec2.${tolist(data.aws_regions.test.names)[0]}.${data.aws_partition.test.dns_suffix}"
-  name     = tolist(data.aws_regions.test.names)[0]
+  name = tolist(data.aws_regions.test.names)[0]
 }
 `
 }

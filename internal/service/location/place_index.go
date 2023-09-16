@@ -50,7 +50,7 @@ func ResourcePlaceIndex() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"intended_use": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      locationservice.IntendedUseSingleUse,
 							ValidateFunc: validation.StringInSlice(locationservice.IntendedUse_Values(), false),
@@ -59,7 +59,7 @@ func ResourcePlaceIndex() *schema.Resource {
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 1000),
 			},
@@ -68,7 +68,7 @@ func ResourcePlaceIndex() *schema.Resource {
 				Computed: true,
 			},
 			"index_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),

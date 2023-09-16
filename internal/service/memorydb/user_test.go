@@ -24,10 +24,10 @@ func TestAccMemoryDBUser_basic(t *testing.T) {
 	resourceName := "aws_memorydb_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckUserDestroy(ctx),
+		CheckDestroy:testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserConfig_basic(rName),
@@ -47,8 +47,8 @@ func TestAccMemoryDBUser_basic(t *testing.T) {
 			},
 			{
 				ResourceName:   resourceName,
-				ImportState:    true,
-				ImportStateVerify:       true,
+				ImportState:true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"authentication_mode.0.passwords"},
 			},
 		},
@@ -61,10 +61,10 @@ func TestAccMemoryDBUser_disappears(t *testing.T) {
 	resourceName := "aws_memorydb_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckUserDestroy(ctx),
+		CheckDestroy:testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserConfig_basic(rName),
@@ -84,10 +84,10 @@ func TestAccMemoryDBUser_update_accessString(t *testing.T) {
 	resourceName := "aws_memorydb_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckUserDestroy(ctx),
+		CheckDestroy:testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserConfig_accessString(rName, "on ~* &* +@all"),
@@ -98,8 +98,8 @@ func TestAccMemoryDBUser_update_accessString(t *testing.T) {
 			},
 			{
 				ResourceName:   resourceName,
-				ImportState:    true,
-				ImportStateVerify:       true,
+				ImportState:true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"authentication_mode.0.passwords"},
 			},
 			{
@@ -119,10 +119,10 @@ func TestAccMemoryDBUser_update_passwords(t *testing.T) {
 	resourceName := "aws_memorydb_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckUserDestroy(ctx),
+		CheckDestroy:testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserConfig_passwords2(rName, "aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbb"),
@@ -133,8 +133,8 @@ func TestAccMemoryDBUser_update_passwords(t *testing.T) {
 			},
 			{
 				ResourceName:   resourceName,
-				ImportState:    true,
-				ImportStateVerify:       true,
+				ImportState:true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"authentication_mode.0.passwords"},
 			},
 			{
@@ -146,8 +146,8 @@ func TestAccMemoryDBUser_update_passwords(t *testing.T) {
 			},
 			{
 				ResourceName:   resourceName,
-				ImportState:    true,
-				ImportStateVerify:       true,
+				ImportState:true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"authentication_mode.0.passwords"},
 			},
 			{
@@ -159,8 +159,8 @@ func TestAccMemoryDBUser_update_passwords(t *testing.T) {
 			},
 			{
 				ResourceName:   resourceName,
-				ImportState:    true,
-				ImportStateVerify:       true,
+				ImportState:true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"authentication_mode.0.passwords"},
 			},
 		},
@@ -173,10 +173,10 @@ func TestAccMemoryDBUser_tags(t *testing.T) {
 	resourceName := "aws_memorydb_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckUserDestroy(ctx),
+		CheckDestroy:testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserConfig_tags1(rName, "key1", "value1"),
@@ -188,8 +188,8 @@ func TestAccMemoryDBUser_tags(t *testing.T) {
 			},
 			{
 				ResourceName:   resourceName,
-				ImportState:    true,
-				ImportStateVerify:       true,
+				ImportState:true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"authentication_mode.0.passwords"},
 			},
 			{
@@ -262,15 +262,15 @@ func testAccUserConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name     = %[1]q
+  user_name = %[1]q
 
   authentication_mode {
-    type      = "password"
-    passwords = ["aaaaaaaaaaaaaaaa"]
+type  = "password"
+passwords = ["aaaaaaaaaaaaaaaa"]
   }
 
   tags = {
-    Test = "test"
+Test = "test"
   }
 }
 `, rName)
@@ -280,11 +280,11 @@ func testAccUserConfig_accessString(rName, accessString string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = %[2]q
-  user_name     = %[1]q
+  user_name = %[1]q
 
   authentication_mode {
-    type      = "password"
-    passwords = ["aaaaaaaaaaaaaaaa"]
+type  = "password"
+passwords = ["aaaaaaaaaaaaaaaa"]
   }
 }
 `, rName, accessString)
@@ -294,11 +294,11 @@ func testAccUserConfig_passwords1(rName, password1 string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name     = %[1]q
+  user_name = %[1]q
 
   authentication_mode {
-    type      = "password"
-    passwords = [%[2]q]
+type  = "password"
+passwords = [%[2]q]
   }
 }
 `, rName, password1)
@@ -308,11 +308,11 @@ func testAccUserConfig_passwords2(rName, password1, password2 string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name     = %[1]q
+  user_name = %[1]q
 
   authentication_mode {
-    type      = "password"
-    passwords = [%[2]q, %[3]q]
+type  = "password"
+passwords = [%[2]q, %[3]q]
   }
 }
 `, rName, password1, password2)
@@ -322,15 +322,15 @@ func testAccUserConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name     = %[1]q
+  user_name = %[1]q
 
   authentication_mode {
-    type      = "password"
-    passwords = ["aaaaaaaaaaaaaaaa"]
+type  = "password"
+passwords = ["aaaaaaaaaaaaaaaa"]
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -340,16 +340,16 @@ func testAccUserConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 strin
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name     = %[1]q
+  user_name = %[1]q
 
   authentication_mode {
-    type      = "password"
-    passwords = ["aaaaaaaaaaaaaaaa"]
+type  = "password"
+passwords = ["aaaaaaaaaaaaaaaa"]
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

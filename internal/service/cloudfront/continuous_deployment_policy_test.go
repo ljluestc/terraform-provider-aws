@@ -252,13 +252,13 @@ func testAccCheckContinuousDeploymentPolicyExists(ctx context.Context, name stri
 func testAccContinuousDeploymentPolicyConfigBase_staging() string {
 	return `
 resource "aws_cloudfront_distribution" "staging" {
-  enabled          = true
+  enabled = true
   retain_on_delete = false
-  staging          = true
+  staging = true
 
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
-    cached_methods         = ["GET", "HEAD"]
+    cached_methods= ["GET", "HEAD"]
     target_origin_id       = "test"
     viewer_protocol_policy = "allow-all"
 
@@ -303,12 +303,12 @@ resource "aws_cloudfront_distribution" "staging" {
 func testAccContinuousDeploymentPolicyConfigBase_productionInit() string {
 	return `
 resource "aws_cloudfront_distribution" "test" {
-  enabled          = true
+  enabled = true
   retain_on_delete = false
 
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
-    cached_methods         = ["GET", "HEAD"]
+    cached_methods= ["GET", "HEAD"]
     target_origin_id       = "test"
     viewer_protocol_policy = "allow-all"
 
@@ -349,14 +349,14 @@ resource "aws_cloudfront_distribution" "test" {
 func testAccContinuousDeploymentPolicyConfigBase_production() string {
 	return `
 resource "aws_cloudfront_distribution" "test" {
-  enabled          = true
+  enabled = true
   retain_on_delete = false
 
   continuous_deployment_policy_id = aws_cloudfront_continuous_deployment_policy.test.id
 
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
-    cached_methods         = ["GET", "HEAD"]
+    cached_methods= ["GET", "HEAD"]
     target_origin_id       = "test"
     viewer_protocol_policy = "allow-all"
 

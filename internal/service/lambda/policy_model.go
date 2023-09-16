@@ -14,37 +14,36 @@ const (
 )
 
 type IAMPolicyDoc struct {
-	Version    string       `json:",omitempty"`
-	Idstring       `json:",omitempty"`
+	Version string  `json:",omitempty"`
+	Idstring  `json:",omitempty"`
 	Statements []*IAMPolicyStatement `json:"Statement"`
 }
 
 type IAMPolicyStatement struct {
 	Sid  string
-	Effect        string       `json:",omitempty"`
-	Actions       interface{}  `json:"Action,omitempty"`
-	NotActions    interface{}  `json:"NotAction,omitempty"`
-	Resources     interface{}  `json:"Resource,omitempty"`
+	Effectstring  `json:",omitempty"`
+	Actions  interface{}  `json:"Action,omitempty"`
+	NotActions interface{}  `json:"NotAction,omitempty"`
+	Resourcesinterface{}  `json:"Resource,omitempty"`
 	NotResources  interface{}  `json:"NotResource,omitempty"`
-	Principals    IAMPolicyStatementPrincipalSet `json:"Principal,omitempty"`
+	Principals IAMPolicyStatementPrincipalSet `json:"Principal,omitempty"`
 	NotPrincipals IAMPolicyStatementPrincipalSet `json:"NotPrincipal,omitempty"`
-	Conditions    IAMPolicyStatementConditionSet `json:"Condition,omitempty"`
+	Conditions IAMPolicyStatementConditionSet `json:"Condition,omitempty"`
 }
 
 type IAMPolicyStatementPrincipal struct {
-	Type        string
+	Typestring
 	Identifiers interface{}
 }
 
 type IAMPolicyStatementCondition struct {
-	Test     string
+	Teststring
 	Variable string
-	Values   interface{}
+	Valuesinterface{}
 }
 
 type IAMPolicyStatementPrincipalSet []IAMPolicyStatementPrincipal
 type IAMPolicyStatementConditionSet []IAMPolicyStatementCondition
-
 func (s *IAMPolicyDoc) Merge(newDoc *IAMPolicyDoc) {
 	// adopt newDoc's Id
 	if len(newDoc.Id) > 0 {
@@ -76,7 +75,6 @@ func (s *IAMPolicyDoc) Merge(newDoc *IAMPolicyDoc) {
 		}
 	}
 }
-
 func (ps IAMPolicyStatementPrincipalSet) MarshalJSON() ([]byte, error) {
 	raw := map[string]interface{}{}
 
@@ -130,7 +128,6 @@ func (ps IAMPolicyStatementPrincipalSet) MarshalJSON() ([]byte, error) {
 
 	return json.Marshal(&raw)
 }
-
 func (ps *IAMPolicyStatementPrincipalSet) UnmarshalJSON(b []byte) error {
 	var out IAMPolicyStatementPrincipalSet
 
@@ -164,7 +161,6 @@ func (ps *IAMPolicyStatementPrincipalSet) UnmarshalJSON(b []byte) error {
 	*ps = out
 	return nil
 }
-
 func (cs IAMPolicyStatementConditionSet) MarshalJSON() ([]byte, error) {
 	raw := map[string]map[string]interface{}{}
 
@@ -188,7 +184,6 @@ func (cs IAMPolicyStatementConditionSet) MarshalJSON() ([]byte, error) {
 
 	return json.Marshal(&raw)
 }
-
 func (cs *IAMPolicyStatementConditionSet) UnmarshalJSON(b []byte) error {
 	var out IAMPolicyStatementConditionSet
 

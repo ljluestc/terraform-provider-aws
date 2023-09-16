@@ -1665,8 +1665,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 }
@@ -1696,8 +1696,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 2
 }
@@ -1728,7 +1728,7 @@ resource "aws_route_table" "test" {
 }
 
 resource "aws_route_table_association" "test" {
-  count          = 2
+  count = 2
   subnet_id      = element(aws_subnet.test[*].id, count.index)
   route_table_id = aws_route_table.test.id
 }
@@ -1770,7 +1770,7 @@ resource "aws_ecs_task_definition" "test" {
   family      = %[1]q
   network_mode= "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu         = "256"
+  cpu= "256"
   memory      = "512"
 
   container_definitions = <<DEFINITION
@@ -1792,15 +1792,15 @@ DEFINITION
 func testAccServiceConfig_launchTypeFargate(rName string, assignPublicIP bool) string {
 	return acctest.ConfigCompose(testAccServiceConfig_launchTypeFargateBase(rName), fmt.Sprintf(`
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
   launch_type     = "FARGATE"
 
   network_configuration {
     security_groups  = aws_security_group.test[*].id
-    subnets          = aws_subnet.test[*].id
+    subnets = aws_subnet.test[*].id
     assign_public_ip = %[2]t
   }
 }
@@ -1811,7 +1811,7 @@ func testAccServiceConfig_launchTypeFargateAndPlatformVersion(rName, platformVer
 	return acctest.ConfigCompose(testAccServiceConfig_launchTypeFargateBase(rName), fmt.Sprintf(`
 resource "aws_ecs_service" "test" {
   name= %[1]q
-  cluster          = aws_ecs_cluster.test.id
+  cluster = aws_ecs_cluster.test.id
   task_definition  = aws_ecs_task_definition.test.arn
   desired_count    = 1
   launch_type      = "FARGATE"
@@ -1819,7 +1819,7 @@ resource "aws_ecs_service" "test" {
 
   network_configuration {
     security_groups  = aws_security_group.test[*].id
-    subnets          = aws_subnet.test[*].id
+    subnets = aws_subnet.test[*].id
     assign_public_ip = false
   }
 }
@@ -1829,15 +1829,15 @@ resource "aws_ecs_service" "test" {
 func testAccServiceConfig_launchTypeFargateNoWait(rName string) string {
 	return acctest.ConfigCompose(testAccServiceConfig_launchTypeFargateBase(rName), fmt.Sprintf(`
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
   launch_type     = "FARGATE"
 
   network_configuration {
     security_groups  = [aws_security_group.test[0].id]
-    subnets          = aws_subnet.test[*].id
+    subnets = aws_subnet.test[*].id
     assign_public_ip = true
   }
 }
@@ -1847,15 +1847,15 @@ resource "aws_ecs_service" "test" {
 func testAccServiceConfig_launchTypeFargateAndWait(rName string, desiredCount int, waitForSteadyState bool) string {
 	return acctest.ConfigCompose(testAccServiceConfig_launchTypeFargateBase(rName), fmt.Sprintf(`
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = %[2]d
   launch_type     = "FARGATE"
 
   network_configuration {
     security_groups  = [aws_security_group.test[0].id]
-    subnets          = aws_subnet.test[*].id
+    subnets = aws_subnet.test[*].id
     assign_public_ip = true
   }
 
@@ -1888,8 +1888,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
@@ -1940,7 +1940,7 @@ resource "aws_ecs_service" "test" {
 
   capacity_provider_strategy {
     capacity_provider = aws_ecs_capacity_provider.test.name
-    weight            = %[2]d
+    weight   = %[2]d
     base = %[3]d
   }
 }
@@ -1959,7 +1959,7 @@ resource "aws_ecs_task_definition" "test" {
   family      = %[1]q
   network_mode= "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu         = "256"
+  cpu= "256"
   memory      = "512"
 
   container_definitions = <<DEFINITION
@@ -2018,13 +2018,13 @@ resource "aws_ecs_service" "test" {
 
   network_configuration {
     security_groups  = [aws_security_group.test.id]
-    subnets          = [aws_subnet.test.id]
+    subnets = [aws_subnet.test.id]
     assign_public_ip = false
   }
 
   capacity_provider_strategy {
     capacity_provider = %[3]q
-    weight            = %[2]d
+    weight   = %[2]d
   }
 }
 `, rName, weight, capacityProvider))
@@ -2165,8 +2165,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
@@ -2201,9 +2201,9 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  cluster         = aws_ecs_cluster.test.id
+  cluster= aws_ecs_cluster.test.id
   desired_count   = 1
-  name            = %[1]q
+  name   = %[1]q
   task_definition = aws_ecs_task_definition.test.arn
 
   ordered_placement_strategy {
@@ -2236,8 +2236,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
@@ -2271,8 +2271,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
@@ -2321,8 +2321,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
@@ -2357,8 +2357,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
@@ -2458,7 +2458,7 @@ resource "aws_lb" "test" {
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.test.id
   port = "80"
-  protocol          = "HTTP"
+  protocol = "HTTP"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
@@ -2521,10 +2521,10 @@ resource "aws_iam_role" "ecs_service" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Action": "sts:AssumeRole",
-            "Principal": {"AWS": "*"},
-            "Effect": "Allow",
-            "Sid": ""
+   "Action": "sts:AssumeRole",
+   "Principal": {"AWS": "*"},
+   "Effect": "Allow",
+   "Sid": ""
         }
     ]
 }
@@ -2562,14 +2562,14 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8080
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
   iam_role        = aws_iam_role.ecs_service.name
@@ -2608,8 +2608,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
@@ -2659,8 +2659,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 }
@@ -2702,8 +2702,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 }
@@ -2746,10 +2746,10 @@ resource "aws_iam_role" "ecs_service" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Action": "sts:AssumeRole",
-            "Principal": {"AWS": "*"},
-            "Effect": "Allow",
-            "Sid": ""
+   "Action": "sts:AssumeRole",
+   "Principal": {"AWS": "*"},
+   "Effect": "Allow",
+   "Sid": ""
         }
     ]
 }
@@ -2796,7 +2796,7 @@ resource "aws_lb" "test" {
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.test.id
   port = "80"
-  protocol          = "HTTP"
+  protocol = "HTTP"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
@@ -2805,8 +2805,8 @@ resource "aws_lb_listener" "front_end" {
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
   iam_role        = aws_iam_role.ecs_service.name
@@ -2853,8 +2853,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = "${aws_ecs_task_definition.test.family}:${aws_ecs_task_definition.test.revision}"
   desired_count   = 1
 }
@@ -2884,8 +2884,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = "${aws_ecs_task_definition.test.family}:${aws_ecs_task_definition.test.revision}"
   desired_count   = 1
 }
@@ -2915,8 +2915,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.name
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.name
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 }
@@ -3012,7 +3012,7 @@ resource "aws_lb" "test" {
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.test.id
   port = "80"
-  protocol          = "HTTP"
+  protocol = "HTTP"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
@@ -3021,8 +3021,8 @@ resource "aws_lb_listener" "front_end" {
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
   iam_role        = aws_iam_role.ecs_service.name
@@ -3093,7 +3093,7 @@ resource "aws_lb" "test" {
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.test.id
   port = "80"
-  protocol          = "HTTP"
+  protocol = "HTTP"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
@@ -3118,8 +3118,8 @@ resource "aws_lb_listener_rule" "static" {
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
@@ -3164,7 +3164,7 @@ resource "aws_ecs_cluster" "test" {
 
 resource "aws_ecs_task_definition" "test" {
   family   = %[1]q
-  network_mode          = "awsvpc"
+  network_mode = "awsvpc"
   container_definitions = <<DEFINITION
 [
   {
@@ -3179,13 +3179,13 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
   network_configuration {
     security_groups = [%[2]s]
-    subnets         = aws_subnet.test[*].id
+    subnets= aws_subnet.test[*].id
   }
 }
 `, rName, securityGroups))
@@ -3220,7 +3220,7 @@ resource "aws_security_group" "test" {
 resource "aws_service_discovery_private_dns_namespace" "test" {
   name        = "%[1]s.terraform.local"
   description = "test"
-  vpc         = aws_vpc.test.id
+  vpc= aws_vpc.test.id
 }
 
 resource "aws_service_discovery_service" "test" {
@@ -3258,19 +3258,19 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
   service_registries {
-    port         = 34567
+    port= 34567
     registry_arn = aws_service_discovery_service.test.arn
   }
 
   network_configuration {
     security_groups = [aws_security_group.test.id]
-    subnets         = aws_subnet.test[*].id
+    subnets= aws_subnet.test[*].id
   }
 }
 `, rName))
@@ -3297,7 +3297,7 @@ resource "aws_security_group" "test" {
 resource "aws_service_discovery_private_dns_namespace" "test" {
   name        = "%[1]s.terraform.local"
   description = "test"
-  vpc         = aws_vpc.test.id
+  vpc= aws_vpc.test.id
 }
 
 resource "aws_service_discovery_service" "test" {
@@ -3342,8 +3342,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
@@ -3377,7 +3377,7 @@ resource "aws_security_group" "test" {
 resource "aws_service_discovery_private_dns_namespace" "test" {
   name        = "%[2]s.terraform.local"
   description = "test"
-  vpc         = aws_vpc.test.id
+  vpc= aws_vpc.test.id
 }
 
 resource "aws_service_discovery_service" "test" {
@@ -3415,19 +3415,19 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
   service_registries {
-    port         = 34567
+    port= 34567
     registry_arn = aws_service_discovery_service.test.arn
   }
 
   network_configuration {
     security_groups = [aws_security_group.test.id]
-    subnets         = aws_subnet.test[*].id
+    subnets= aws_subnet.test[*].id
   }
 }
 `, rName, discoveryName))
@@ -3455,7 +3455,7 @@ resource "aws_security_group" "test" {
 resource "aws_service_discovery_private_dns_namespace" "test" {
   name        = "%[2]s.terraform.local"
   description = "test"
-  vpc         = aws_vpc.test.id
+  vpc= aws_vpc.test.id
 }
 
 resource "aws_ecs_cluster" "test" {
@@ -3480,14 +3480,14 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
   network_configuration {
     security_groups = [aws_security_group.test.id]
-    subnets         = aws_subnet.test[*].id
+    subnets= aws_subnet.test[*].id
   }
 }
 `, rName, discoveryName))
@@ -3512,7 +3512,7 @@ resource "aws_security_group" "test" {
 resource "aws_service_discovery_private_dns_namespace" "test" {
   name        = "%[2]s.terraform.local"
   description = "test"
-  vpc         = aws_vpc.test.id
+  vpc= aws_vpc.test.id
 }
 
 resource "aws_service_discovery_service" "test" {
@@ -3550,19 +3550,19 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
   service_registries {
-    port         = 34567
+    port= 34567
     registry_arn = aws_service_discovery_service.test.arn
   }
 
   network_configuration {
     security_groups = [aws_security_group.test.id]
-    subnets         = aws_subnet.test[*].id
+    subnets= aws_subnet.test[*].id
   }
 }
 `, rName, discoveryName))
@@ -3642,7 +3642,7 @@ resource "aws_lb" "test" {
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
   port = "80"
-  protocol          = "HTTP"
+  protocol = "HTTP"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
@@ -3684,9 +3684,9 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  cluster         = aws_ecs_cluster.test.id
+  cluster= aws_ecs_cluster.test.id
   desired_count   = 0
-  name            = %[1]q
+  name   = %[1]q
   task_definition = aws_ecs_task_definition.test.arn
 
   deployment_controller {
@@ -3752,7 +3752,7 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_route_table_association" "test" {
-  count          = 2
+  count = 2
   subnet_id      = element(aws_subnet.test[*].id, count.index)
   route_table_id = aws_route_table.test.id
 }
@@ -3766,7 +3766,7 @@ resource "aws_lb" "test" {
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
   port = "80"
-  protocol          = "HTTP"
+  protocol = "HTTP"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
@@ -3790,7 +3790,7 @@ resource "aws_ecs_task_definition" "test" {
   family      = %[1]q
   requires_compatibilities = ["FARGATE"]
   network_mode= "awsvpc"
-  cpu         = "256"
+  cpu= "256"
   memory      = "512"
 
   container_definitions = <<DEFINITION
@@ -3824,7 +3824,7 @@ resource "aws_ecs_service" "test" {
   capacity_provider_strategy {
     capacity_provider = "FARGATE"
     base = 1
-    weight            = 1
+    weight   = 1
   }
 
   load_balancer {
@@ -3834,7 +3834,7 @@ resource "aws_ecs_service" "test" {
   }
 
   network_configuration {
-    subnets          = aws_subnet.test[*].id
+    subnets = aws_subnet.test[*].id
     security_groups  = [aws_security_group.test.id]
     assign_public_ip = true
   }
@@ -3851,7 +3851,7 @@ resource "aws_ecs_cluster" "test" {
 resource "aws_ecs_service" "test" {
   cluster       = aws_ecs_cluster.test.id
   desired_count = 0
-  name          = %[1]q
+  name = %[1]q
 
   deployment_controller {
     type = "EXTERNAL"
@@ -3884,9 +3884,9 @@ DEFINITION
 
 resource "aws_ecs_service" "test" {
   cluster  = aws_ecs_cluster.test.id
-  deployment_maximum_percent         = %[2]d
+  deployment_maximum_percent= %[2]d
   deployment_minimum_healthy_percent = %[3]d
-  desired_count         = 1
+  desired_count= 1
   name     = %[1]q
   task_definition       = aws_ecs_task_definition.test.arn
 }
@@ -3916,9 +3916,9 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  cluster         = aws_ecs_cluster.test.id
+  cluster= aws_ecs_cluster.test.id
   desired_count   = 1
-  name            = %[1]q
+  name   = %[1]q
   task_definition = aws_ecs_task_definition.test.arn
 
   deployment_circuit_breaker {
@@ -3952,9 +3952,9 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  cluster         = aws_ecs_cluster.test.id
+  cluster= aws_ecs_cluster.test.id
   desired_count   = 0
-  name            = %[1]q
+  name   = %[1]q
   task_definition = aws_ecs_task_definition.test.arn
 
   tags = {
@@ -3987,9 +3987,9 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  cluster         = aws_ecs_cluster.test.id
+  cluster= aws_ecs_cluster.test.id
   desired_count   = 0
-  name            = %[1]q
+  name   = %[1]q
   task_definition = aws_ecs_task_definition.test.arn
 
   tags = {
@@ -4024,9 +4024,9 @@ DEFINITION
 
 resource "aws_ecs_service" "test" {
   cluster    = aws_ecs_cluster.test.id
-  desired_count           = 0
+  desired_count  = 0
   name       = %[1]q
-  task_definition         = aws_ecs_task_definition.test.arn
+  task_definition= aws_ecs_task_definition.test.arn
   enable_ecs_managed_tags = true
 
   tags = {
@@ -4064,11 +4064,11 @@ DEFINITION
 
 resource "aws_ecs_service" "test" {
   cluster    = aws_ecs_cluster.test.id
-  desired_count           = 0
+  desired_count  = 0
   name       = %[1]q
-  task_definition         = aws_ecs_task_definition.test.arn
+  task_definition= aws_ecs_task_definition.test.arn
   enable_ecs_managed_tags = true
-  propagate_tags          = %[2]q
+  propagate_tags = %[2]q
 
   tags = {
     tag-key = "service"
@@ -4139,10 +4139,10 @@ EOF
        {
        "Effect": "Allow",
        "Action": [
-            "ssmmessages:CreateControlChannel",
-            "ssmmessages:CreateDataChannel",
-            "ssmmessages:OpenControlChannel",
-            "ssmmessages:OpenDataChannel"
+   "ssmmessages:CreateControlChannel",
+   "ssmmessages:CreateDataChannel",
+   "ssmmessages:OpenControlChannel",
+   "ssmmessages:OpenDataChannel"
        ],
       "Resource": "*"
       }
@@ -4176,7 +4176,7 @@ DEFINITION
 
 resource "aws_ecs_service" "test" {
   cluster   = aws_ecs_cluster.test.id
-  desired_count          = 0
+  desired_count = 0
   name      = %[1]q
   task_definition        = aws_ecs_task_definition.test.arn
   enable_execute_command = %[2]t
@@ -4223,8 +4223,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
@@ -4271,8 +4271,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
@@ -4350,7 +4350,7 @@ resource "aws_ecs_task_definition" "test" {
     memory    = 512
     essential = true
     portMappings = [{
-      name          = "nginx-http"
+      name = "nginx-http"
       containerPort = 8080
       protocol      = "tcp"
       appProtocol   = "http"
@@ -4359,13 +4359,13 @@ resource "aws_ecs_task_definition" "test" {
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 
   network_configuration {
-    subnets          = aws_subnet.test[*].id
+    subnets = aws_subnet.test[*].id
     security_groups  = [aws_security_group.test.id]
     assign_public_ip = false
   }
@@ -4425,8 +4425,8 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name            = %[1]q
-  cluster         = aws_ecs_cluster.test.id
+  name   = %[1]q
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   desired_count   = 1
 }

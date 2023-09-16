@@ -30,7 +30,7 @@ import (
 func ResourceReplicationTask() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceReplicationTaskCreate,
-		ReadWithoutTimeout:   resourceReplicationTaskRead,
+		ReadWithoutTimeout:resourceReplicationTaskRead,
 		UpdateWithoutTimeout: resourceReplicationTaskUpdate,
 		DeleteWithoutTimeout: resourceReplicationTaskDelete,
 
@@ -40,19 +40,19 @@ func ResourceReplicationTask() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"cdc_start_position": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
+				Type: schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ConflictsWith: []string{"cdc_start_time"},
 			},
 			"cdc_start_time": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				// Requires a Unix timestamp in seconds. Example 1484346880
 				ConflictsWith: []string{"cdc_start_position"},
 			},
 			"migration_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ValidateFunc: validation.StringInSlice([]string{
 					dms.MigrationTypeValueFullLoad,
@@ -61,54 +61,54 @@ func ResourceReplicationTask() *schema.Resource {
 				}, false),
 			},
 			"replication_instance_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"replication_task_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"replication_task_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validReplicationTaskID,
 			},
 			"replication_task_settings": {
 				Type:schema.TypeString,
-				Optional:         true,
-				ValidateFunc:     validation.StringIsJSON,
+				Optional:true,
+				ValidateFunc:validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 			},
 			"source_endpoint_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"start_replication_task": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Default:  false,
 				Optional: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"table_mappings": {
 				Type:schema.TypeString,
-				Required:         true,
-				ValidateFunc:     validation.StringIsJSON,
+				Required:true,
+				ValidateFunc:validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"target_endpoint_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 		},
@@ -116,7 +116,6 @@ func ResourceReplicationTask() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceReplicationTaskCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
@@ -125,12 +124,12 @@ func resourceReplicationTaskCreate(ctx context.Context, d *schema.ResourceData, 
 
 	request := &dms.CreateReplicationTaskInput{
 		MigrationType:aws.String(d.Get("migration_type").(string)),
-		ReplicationInstanceArn:    aws.String(d.Get("replication_instance_arn").(string)),
+		ReplicationInstanceArn: aws.String(d.Get("replication_instance_arn").(string)),
 		ReplicationTaskIdentifier: aws.String(taskId),
-		SourceEndpointArn:         aws.String(d.Get("source_endpoint_arn").(string)),
+		SourceEndpointArn:aws.String(d.Get("source_endpoint_arn").(string)),
 		TableMappings:aws.String(d.Get("table_mappings").(string)),
-		Tags:         getTagsIn(ctx),
-		TargetEndpointArn:         aws.String(d.Get("target_endpoint_arn").(string)),
+		Tags:getTagsIn(ctx),
+		TargetEndpointArn:aws.String(d.Get("target_endpoint_arn").(string)),
 	}
 
 	if v, ok := d.GetOk("cdc_start_position"); ok {
@@ -170,7 +169,6 @@ func resourceReplicationTaskCreate(ctx context.Context, d *schema.ResourceData, 
 
 	return append(diags, resourceReplicationTaskRead(ctx, d, meta)...)
 }
-
 func resourceReplicationTaskRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
@@ -210,7 +208,6 @@ func resourceReplicationTaskRead(ctx context.Context, d *schema.ResourceData, me
 
 	return diags
 }
-
 func resourceReplicationTaskUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
@@ -218,8 +215,8 @@ func resourceReplicationTaskUpdate(ctx context.Context, d *schema.ResourceData, 
 	if d.HasChangesExcept("tags", "tags_all", "start_replication_task") {
 		input := &dms.ModifyReplicationTaskInput{
 			ReplicationTaskArn: aws.String(d.Get("replication_task_arn").(string)),
-			MigrationType:      aws.String(d.Get("migration_type").(string)),
-			TableMappings:      aws.String(d.Get("table_mappings").(string)),
+			MigrationType:aws.String(d.Get("migration_type").(string)),
+			TableMappings:aws.String(d.Get("table_mappings").(string)),
 		}
 
 		if d.HasChange("cdc_start_position") {
@@ -283,7 +280,6 @@ func resourceReplicationTaskUpdate(ctx context.Context, d *schema.ResourceData, 
 
 	return append(diags, resourceReplicationTaskRead(ctx, d, meta)...)
 }
-
 func resourceReplicationTaskDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
@@ -319,7 +315,6 @@ func resourceReplicationTaskDelete(ctx context.Context, d *schema.ResourceData, 
 
 	return diags
 }
-
 func replicationTaskRemoveReadOnlySettings(settings string) (*string, error) {
 	var settingsData map[string]interface{}
 	if err := json.Unmarshal([]byte(settings), &settingsData); err != nil {
@@ -346,7 +341,6 @@ func replicationTaskRemoveReadOnlySettings(settings string) (*string, error) {
 	cleanedSettingsString := string(cleanedSettings)
 	return &cleanedSettingsString, nil
 }
-
 func startReplicationTask(ctx context.Context, id string, conn *dms.DatabaseMigrationService) error {
 	log.Printf("[DEBUG] Starting DMS Replication Task: (%s)", id)
 
@@ -365,7 +359,7 @@ func startReplicationTask(ctx context.Context, id string, conn *dms.DatabaseMigr
 	}
 
 	_, err = conn.StartReplicationTaskWithContext(ctx, &dms.StartReplicationTaskInput{
-		ReplicationTaskArn:       task.ReplicationTaskArn,
+		ReplicationTaskArn: task.ReplicationTaskArn,
 		StartReplicationTaskType: aws.String(startReplicationTaskType),
 	})
 
@@ -380,7 +374,6 @@ func startReplicationTask(ctx context.Context, id string, conn *dms.DatabaseMigr
 
 	return nil
 }
-
 func stopReplicationTask(ctx context.Context, id string, conn *dms.DatabaseMigrationService) error {
 	log.Printf("[DEBUG] Stopping DMS Replication Task: (%s)", id)
 

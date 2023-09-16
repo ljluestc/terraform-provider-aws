@@ -16,13 +16,13 @@ func TestAccSSM_serial(t *testing.T) {
 	testCases := map[string]map[string]func(t *testing.T){
 "DefaultPatchBaseline": {
 	"basic": testAccSSMDefaultPatchBaseline_basic,
-	"disappears":           testAccSSMDefaultPatchBaseline_disappears,
+	"disappears":  testAccSSMDefaultPatchBaseline_disappears,
 	"otherOperatingSystem": testAccSSMDefaultPatchBaseline_otherOperatingSystem,
 	"patchBaselineARN":     testAccSSMDefaultPatchBaseline_patchBaselineARN,
 	"systemDefault":        testAccSSMDefaultPatchBaseline_systemDefault,
 	"update":testAccSSMDefaultPatchBaseline_update,
 	"deleteDefault":        testAccSSMPatchBaseline_deleteDefault,
-	"multiRegion":          testAccSSMDefaultPatchBaseline_multiRegion,
+	"multiRegion": testAccSSMDefaultPatchBaseline_multiRegion,
 	"wrongOperatingSystem": testAccSSMDefaultPatchBaseline_wrongOperatingSystem,
 },
 "PatchBaseline": {

@@ -16,7 +16,7 @@ import (
 
 func FindBotVersionByName(ctx context.Context, conn *lexmodelbuildingservice.LexModelBuildingService, name, version string) (*lexmodelbuildingservice.GetBotOutput, error) {
 input := &lexmodelbuildingservice.GetBotInput{
-Name:           aws.String(name),
+Name:  aws.String(name),
 VersionOrAlias: aws.String(version),
 }
 
@@ -42,7 +42,7 @@ return output, nil
 
 func FindSlotTypeVersionByName(ctx context.Context, conn *lexmodelbuildingservice.LexModelBuildingService, name, version string) (*lexmodelbuildingservice.GetSlotTypeOutput, error) {
 input := &lexmodelbuildingservice.GetSlotTypeInput{
-Name:    aws.String(name),
+Name:aws.String(name),
 Version: aws.String(version),
 }
 

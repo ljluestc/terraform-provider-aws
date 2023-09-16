@@ -1,21 +1,13 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package configschema
-
-import (
+// SPDX-License-Identifier: MPL-2.0package configschemaimport (
 	"github.com/hashicorp/go-cty/cty"
-)
-
-// EmptyValue returns the "empty value" for the recieving block, which for
+)// EmptyValue returns the "empty value" for the recieving block, which for
 // a block type is a non-null object where all of the attribute values are
 // the empty values of the block's attributes and nested block types.
 //
 // In other words, it returns the value that would be returned if an empty
 // block were decoded against the recieving schema, assuming that no required
-// attribute or block constraints were honored.
-
- (b *Block) EmptyValue() cty.Value {
+// attribute or block constraints were honored. (b *Block) EmptyValue() cty.Value {
 	vals := make(map[string]cty.Value)
 	for name, attrS := range b.Attributes {
 		vals[name] = attrS.EmptyValue()
@@ -24,20 +16,12 @@ import (
 		vals[name] = blockS.EmptyValue()
 	}
 	return cty.ObjectVal(vals)
-}
-
-// EmptyValue returns the "empty value" for the receiving attribute, which is
+}// EmptyValue returns the "empty value" for the receiving attribute, which is
 // the value that would be returned if there were no definition of the attribute
-t all, ignoring any required constraint.
-
- (a *Attribute) EmptyValue() cty.Value {
+t all, ignoring any required constraint. (a *Attribute) EmptyValue() cty.Value {
 	return cty.NullVal(a.Type)
-}
-
-mptyValue returns the "empty value" for when there are zero nested blocks
-// present of the receiving type.
-
- (b *NestedBlock) EmptyValue() cty.Value {
+}mptyValue returns the "empty value" for when there are zero nested blocks
+// present of the receiving type. (b *NestedBlock) EmptyValue() cty.Value {
 	switch b.Nesting {
 	case NestingSingle:
 		return cty.NullVal(b.Block.ImpliedType())

@@ -23,7 +23,7 @@ import (
 func ResourceReceiptFilter() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceReceiptFilterCreate,
-		ReadWithoutTimeout:   resourceReceiptFilterRead,
+		ReadWithoutTimeout:resourceReceiptFilterRead,
 		DeleteWithoutTimeout: resourceReceiptFilterDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -31,11 +31,11 @@ func ResourceReceiptFilter() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -47,7 +47,7 @@ func ResourceReceiptFilter() *schema.Resource {
 			},
 
 			"cidr": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.Any(
@@ -57,7 +57,7 @@ func ResourceReceiptFilter() *schema.Resource {
 			},
 
 			"policy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.StringInSlice([]string{
@@ -68,7 +68,6 @@ func ResourceReceiptFilter() *schema.Resource {
 		},
 	}
 }
-
 func resourceReceiptFilterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -79,7 +78,7 @@ func resourceReceiptFilterCreate(ctx context.Context, d *schema.ResourceData, me
 		Filter: &ses.ReceiptFilter{
 			Name: aws.String(name),
 			IpFilter: &ses.ReceiptIpFilter{
-				Cidr:   aws.String(d.Get("cidr").(string)),
+				Cidr:aws.String(d.Get("cidr").(string)),
 				Policy: aws.String(d.Get("policy").(string)),
 			},
 		},
@@ -94,7 +93,6 @@ func resourceReceiptFilterCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return append(diags, resourceReceiptFilterRead(ctx, d, meta)...)
 }
-
 func resourceReceiptFilterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -127,8 +125,8 @@ func resourceReceiptFilterRead(ctx context.Context, d *schema.ResourceData, meta
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "ses",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"ses",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("receipt-filter/%s", d.Id()),
 	}.String()
@@ -136,7 +134,6 @@ func resourceReceiptFilterRead(ctx context.Context, d *schema.ResourceData, meta
 
 	return diags
 }
-
 func resourceReceiptFilterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)

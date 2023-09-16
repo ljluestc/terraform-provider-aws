@@ -33,7 +33,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
+CheckDestroy:    testAccCheckVoiceConnectorStreamingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceConnectorStreamingConfig_basic(name),
@@ -65,7 +65,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
+CheckDestroy:    testAccCheckVoiceConnectorStreamingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceConnectorStreamingConfig_basic(name),
@@ -91,7 +91,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
+CheckDestroy:    testAccCheckVoiceConnectorStreamingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceConnectorStreamingConfig_basic(name),
@@ -154,7 +154,7 @@ resource "aws_chime_voice_connector_streaming" "test" {
   data_retention  = 2
   streaming_notification_targets = ["SQS", "SNS"]
   media_insights_configuration {
-    disabled          = false
+    disabled = false
     configuration_arn = aws_chimesdkmediapipelines_media_insights_pipeline_configuration.test.arn
   }
 }

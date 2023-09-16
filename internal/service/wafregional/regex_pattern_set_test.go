@@ -63,8 +63,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -109,8 +109,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -141,8 +141,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -188,7 +188,7 @@ wr := tfwafregional.NewRetryer(conn, region)
 _, err := wr.RetryWithToken(ctx, 
 func(token *string) (interface{}, error) {
 	req := &waf.UpdateRegexPatternSetInput{
-ChangeToken:       token,
+ChangeToken: token,
 RegexPatternSetId: set.RegexPatternSetId,
 	}
 
@@ -209,7 +209,7 @@ if err != nil {
 _, err = wr.RetryWithToken(ctx, 
 func(token *string) (interface{}, error) {
 	opts := &waf.DeleteRegexPatternSetInput{
-ChangeToken:       token,
+ChangeToken: token,
 RegexPatternSetId: set.RegexPatternSetId,
 	}
 	return conn.DeleteRegexPatternSetWithContext(ctx, opts)

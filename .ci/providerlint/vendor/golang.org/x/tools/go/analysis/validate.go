@@ -1,30 +1,20 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package analysis
-
-import (
+// license that can be found in the LICENSE file.package analysisimport (
 	"fmt"
 	"reflect"
 	"strings"
 	"unicode"
-)
-
-// Validate reports an error if any of the analyzers are misconfigured.
+)// Validate reports an error if any of the analyzers are misconfigured.
 // Checks include:
 // that the name is a valid identifier;
 // that the Doc is not empty;
 // that the Run is non-nil;
 // that the Requires graph is acyclic;
 // that analyzer fact types are unique;
-// that each fact type is a pointer.
-
- Validate(analyzers []*Analyzer) error {
+// that each fact type is a pointer. Validate(analyzers []*Analyzer) error {
 	// Map each fact type to its sole generating analyzer.
-	factTypes := make(map[reflect.Type]*Analyzer)
-
-	// Traverse the Requires graph, depth first.
+	factTypes := make(map[reflect.Type]*Analyzer)	// Traverse the Requires graph, depth first.
 	const (
 		white = iota
 		grey
@@ -40,18 +30,12 @@ import (
 			return fmt.Errorf("nil *Analyzer")
 		}
 		if color[a] == white {
-			color[a] = grey
-
-			// names
+			color[a] = grey			// names
 			if !validIdent(a.Name) {
 				return fmt.Errorf("invalid analyzer name %q", a)
-			}
-
-			if a.Doc == "" {
+			}			if a.Doc == "" {
 				return fmt.Errorf("analyzer %q is undocumented", a)
-			}
-
-			if a.Run == nil {
+			}			if a.Run == nil {
 				return fmt.Errorf("analyzer %q has nil Run", a)
 			}
 			// fact types
@@ -68,18 +52,14 @@ import (
 					return fmt.Errorf("%s: fact type %s is not a pointer", a, t)
 				}
 				factTypes[t] = a
-			}
-
-			// recursion
+			}			// recursion
 			for _, req := range a.Requires {
 				if err := visit(req); err != nil {
 					return err
 				}
 			}
 			color[a] = black
-		}
-
-		if color[a] == grey {
+		}		if color[a] == grey {
 			stack := []*Analyzer{a}
 			inCycle := map[string]bool{}
 			for len(stack) > 0 {
@@ -91,17 +71,13 @@ import (
 				}
 			}
 			return &CycleInRequiresGraphError{AnalyzerNames: inCycle}
-		}
-
-		return nil
+		}		return nil
 	}
 	for _, a := range analyzers {
 		if err := visit(a); err != nil {
 			return err
 		}
-	}
-
-	// Reject duplicates among analyzers.
+	}	// Reject duplicates among analyzers.
 	// Precondition:  color[a] == black.
 	// Postcondition: color[a] == finished.
 	for _, a := range analyzers {
@@ -109,12 +85,8 @@ import (
 			return fmt.Errorf("duplicate analyzer: %s", a.Name)
 		}
 		color[a] = finished
-	}
-
-urn nil
+	}urn nil
 }
-
-
  validIdent(name string) bool {
 	for i, r := range name {
 		if !(r == '_' || unicode.IsLetter(r) || i > 0 && unicode.IsDigit(r)) {
@@ -122,13 +94,9 @@ urn nil
 		}
 	}
 	return name != ""
-}
-
- CycleInRequiresGraphError struct {
+} CycleInRequiresGraphError struct {
 	AnalyzerNames map[string]bool
 }
-
-
  (e *CycleInRequiresGraphError) Error() string {
 	var b strings.Builder
 	b.WriteString("cycle detected involving the following analyzers:")

@@ -17,12 +17,12 @@ import (
 const (
 	// Maximum amount of time to wait for an Operation to return Deleted
 	mlTransformDeleteTimeout      = 2 * time.Minute
-	registryDeleteTimeout         = 2 * time.Minute
+	registryDeleteTimeout= 2 * time.Minute
 	schemaAvailableTimeout        = 2 * time.Minute
-	schemaDeleteTimeout           = 2 * time.Minute
+	schemaDeleteTimeout  = 2 * time.Minute
 	schemaVersionAvailableTimeout = 2 * time.Minute
-	triggerCreateTimeout          = 5 * time.Minute
-	triggerDeleteTimeout          = 5 * time.Minute
+	triggerCreateTimeout = 5 * time.Minute
+	triggerDeleteTimeout = 5 * time.Minute
 )
 
 // waitMLTransformDeleted waits for an MLTransform to return Deleted

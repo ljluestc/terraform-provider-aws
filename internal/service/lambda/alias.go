@@ -22,7 +22,7 @@ import (
 func ResourceAlias() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAliasCreate,
-		ReadWithoutTimeout:   resourceAliasRead,
+		ReadWithoutTimeout:resourceAliasRead,
 		UpdateWithoutTimeout: resourceAliasUpdate,
 		DeleteWithoutTimeout: resourceAliasDelete,
 		Importer: &schema.ResourceImporter{
@@ -31,11 +31,11 @@ func ResourceAlias() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"function_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
@@ -47,32 +47,32 @@ func ResourceAlias() *schema.Resource {
 				},
 			},
 			"function_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"invoke_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"routing_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"additional_version_weights": {
-							Type:     schema.TypeMap,
+							Type:schema.TypeMap,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeFloat},
+							Elem:&schema.Schema{Type: schema.TypeFloat},
 						},
 					},
 				},
@@ -93,11 +93,11 @@ func resourceAliasCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	log.Printf("[DEBUG] Creating Lambda alias: alias %s for function %s", aliasName, functionName)
 
 	params := &lambda.CreateAliasInput{
-		Description:     aws.String(d.Get("description").(string)),
-		FunctionName:    aws.String(functionName),
+		Description:aws.String(d.Get("description").(string)),
+		FunctionName: aws.String(functionName),
 		FunctionVersion: aws.String(d.Get("function_version").(string)),
-		Name:   aws.String(aliasName),
-		RoutingConfig:   expandAliasRoutingConfiguration(d.Get("routing_config").([]interface{})),
+		Name:aws.String(aliasName),
+		RoutingConfig:expandAliasRoutingConfiguration(d.Get("routing_config").([]interface{})),
 	}
 
 	aliasConfiguration, err := conn.CreateAliasWithContext(ctx, params)
@@ -178,11 +178,11 @@ func resourceAliasUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	log.Printf("[DEBUG] Updating Lambda alias: %s:%s", d.Get("function_name"), d.Get("name"))
 
 	params := &lambda.UpdateAliasInput{
-		Description:     aws.String(d.Get("description").(string)),
-		FunctionName:    aws.String(d.Get("function_name").(string)),
+		Description:aws.String(d.Get("description").(string)),
+		FunctionName: aws.String(d.Get("function_name").(string)),
 		FunctionVersion: aws.String(d.Get("function_version").(string)),
-		Name:   aws.String(d.Get("name").(string)),
-		RoutingConfig:   expandAliasRoutingConfiguration(d.Get("routing_config").([]interface{})),
+		Name:aws.String(d.Get("name").(string)),
+		RoutingConfig:expandAliasRoutingConfiguration(d.Get("routing_config").([]interface{})),
 	}
 
 	_, err := conn.UpdateAliasWithContext(ctx, params)
@@ -192,7 +192,6 @@ func resourceAliasUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
-
 func expandAliasRoutingConfiguration(l []interface{}) *lambda.AliasRoutingConfiguration {
 	aliasRoutingConfiguration := &lambda.AliasRoutingConfiguration{}
 
@@ -208,7 +207,6 @@ func expandAliasRoutingConfiguration(l []interface{}) *lambda.AliasRoutingConfig
 
 	return aliasRoutingConfiguration
 }
-
 func resourceAliasImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	idParts := strings.Split(d.Id(), "/")
 	if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {

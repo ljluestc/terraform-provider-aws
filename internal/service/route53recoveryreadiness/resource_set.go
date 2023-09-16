@@ -149,7 +149,6 @@ func ResourceResourceSet() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceResourceSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -175,7 +174,6 @@ func resourceResourceSetCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceResourceSetRead(ctx, d, meta)...)
 }
-
 func resourceResourceSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -205,7 +203,6 @@ func resourceResourceSetRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
-
 func resourceResourceSetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -226,7 +223,6 @@ func resourceResourceSetUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceResourceSetRead(ctx, d, meta)...)
 }
-
 func resourceResourceSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -266,7 +262,6 @@ func resourceResourceSetDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	return diags
 }
-
 func expandResourceSetResources(rs []interface{}) []*route53recoveryreadiness.Resource {
 	var resources []*route53recoveryreadiness.Resource
 
@@ -289,7 +284,6 @@ func expandResourceSetResources(rs []interface{}) []*route53recoveryreadiness.Re
 	}
 	return resources
 }
-
 func flattenResourceSetResources(resources []*route53recoveryreadiness.Resource) []map[string]interface{} {
 	rs := make([]map[string]interface{}, 0)
 	for _, resource := range resources {
@@ -310,7 +304,6 @@ func flattenResourceSetResources(resources []*route53recoveryreadiness.Resource)
 	}
 	return rs
 }
-
 func expandResourceSetDNSTargetResource(dtrs []interface{}) *route53recoveryreadiness.DNSTargetResource {
 	dtresource := &route53recoveryreadiness.DNSTargetResource{}
 	for _, dtr := range dtrs {
@@ -333,7 +326,6 @@ func expandResourceSetDNSTargetResource(dtrs []interface{}) *route53recoveryread
 	}
 	return dtresource
 }
-
 func flattenResourceSetDNSTargetResource(dtresource *route53recoveryreadiness.DNSTargetResource) []map[string]interface{} {
 	if dtresource == nil {
 		return nil
@@ -348,7 +340,6 @@ func flattenResourceSetDNSTargetResource(dtresource *route53recoveryreadiness.DN
 	result := []map[string]interface{}{dtr}
 	return result
 }
-
 func expandResourceSetTargetResource(trs []interface{}) *route53recoveryreadiness.TargetResource {
 	if len(trs) == 0 {
 		return nil
@@ -368,7 +359,6 @@ func expandResourceSetTargetResource(trs []interface{}) *route53recoveryreadines
 	}
 	return tresource
 }
-
 func flattenResourceSetTargetResource(tresource *route53recoveryreadiness.TargetResource) []map[string]interface{} {
 	if tresource == nil {
 		return nil
@@ -380,7 +370,6 @@ func flattenResourceSetTargetResource(tresource *route53recoveryreadiness.Target
 	result := []map[string]interface{}{tr}
 	return result
 }
-
 func expandResourceSetNLBResource(nlbrs []interface{}) *route53recoveryreadiness.NLBResource {
 	nlbresource := &route53recoveryreadiness.NLBResource{}
 	for _, nlbr := range nlbrs {
@@ -391,7 +380,6 @@ func expandResourceSetNLBResource(nlbrs []interface{}) *route53recoveryreadiness
 	}
 	return nlbresource
 }
-
 func flattenResourceSetNLBResource(nlbresource *route53recoveryreadiness.NLBResource) []map[string]interface{} {
 	if nlbresource == nil {
 		return nil
@@ -402,7 +390,6 @@ func flattenResourceSetNLBResource(nlbresource *route53recoveryreadiness.NLBReso
 	result := []map[string]interface{}{nlbr}
 	return result
 }
-
 func expandResourceSetR53ResourceRecord(r53rs []interface{}) *route53recoveryreadiness.R53ResourceRecord {
 	r53resource := &route53recoveryreadiness.R53ResourceRecord{}
 	for _, r53r := range r53rs {
@@ -416,7 +403,6 @@ func expandResourceSetR53ResourceRecord(r53rs []interface{}) *route53recoveryrea
 	}
 	return r53resource
 }
-
 func flattenResourceSetR53ResourceRecord(r53resource *route53recoveryreadiness.R53ResourceRecord) []map[string]interface{} {
 	if r53resource == nil {
 		return nil

@@ -33,7 +33,7 @@ func testAccDomainAssociation_basic(t *testing.T) {
 	resourceName := "aws_amplify_domain_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainAssociationDestroy(ctx),
@@ -48,15 +48,15 @@ func testAccDomainAssociation_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "sub_domain.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "sub_domain.*", map[string]string{
 						"branch_name": rName,
-						"prefix":      "",
+						"prefix":  "",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "wait_for_verification", "false"),
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"wait_for_verification"},
 			},
 		},
@@ -76,7 +76,7 @@ func testAccDomainAssociation_disappears(t *testing.T) {
 	resourceName := "aws_amplify_domain_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainAssociationDestroy(ctx),
@@ -106,7 +106,7 @@ func testAccDomainAssociation_update(t *testing.T) {
 	resourceName := "aws_amplify_domain_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainAssociationDestroy(ctx),
@@ -121,15 +121,15 @@ func testAccDomainAssociation_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "sub_domain.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "sub_domain.*", map[string]string{
 						"branch_name": rName,
-						"prefix":      "",
+						"prefix":  "",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "wait_for_verification", "true"),
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"wait_for_verification"},
 			},
 			{
@@ -142,11 +142,11 @@ func testAccDomainAssociation_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "sub_domain.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "sub_domain.*", map[string]string{
 						"branch_name": rName,
-						"prefix":      "",
+						"prefix":  "",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "sub_domain.*", map[string]string{
 						"branch_name": fmt.Sprintf("%s-2", rName),
-						"prefix":      "www",
+						"prefix":  "www",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "wait_for_verification", "true"),
 				),
@@ -225,17 +225,17 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_branch" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 }
 
 resource "aws_amplify_domain_association" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   domain_name = %[2]q
 
   sub_domain {
-    branch_name = aws_amplify_branch.test.branch_name
-    prefix      = ""
+branch_name = aws_amplify_branch.test.branch_name
+prefix  = ""
   }
 
   enable_auto_sub_domain = %[3]t
@@ -251,27 +251,27 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_branch" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = %[1]q
 }
 
 resource "aws_amplify_branch" "test2" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   branch_name = "%[1]s-2"
 }
 
 resource "aws_amplify_domain_association" "test" {
-  app_id      = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   domain_name = %[2]q
 
   sub_domain {
-    branch_name = aws_amplify_branch.test.branch_name
-    prefix      = ""
+branch_name = aws_amplify_branch.test.branch_name
+prefix  = ""
   }
 
   sub_domain {
-    branch_name = aws_amplify_branch.test2.branch_name
-    prefix      = "www"
+branch_name = aws_amplify_branch.test2.branch_name
+prefix  = "www"
   }
 
   enable_auto_sub_domain = %[3]t

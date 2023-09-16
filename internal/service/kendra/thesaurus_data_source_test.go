@@ -1,39 +1,26 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kendra_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package kendra_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/backup"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func TestAccKendraThesaurusDataSource_basic(t *testing.T) {
+)func TestAccKendraThesaurusDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
-	datasourceName := "data.aws_kendra_thesaurus.test"
+	}	datasourceName := "data.aws_kendra_thesaurus.test"
 	resourceName := "aws_kendra_thesaurus.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  
+	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
-Config:      testAccThesaurusDataSourceConfig_nonExistent,
+Config:testAccThesaurusDataSourceConfig_nonExistent,
 ExpectError: regexache.MustCompile(`reading Kendra Thesaurus`),
 	},
 	{
@@ -60,39 +47,28 @@ Check: resource.ComposeTestCheckFunc(
 	},
 },
 	})
-}
-
-const testAccThesaurusDataSourceConfig_nonExistent = `
+}const testAccThesaurusDataSourceConfig_nonExistent = `
 data "aws_kendra_thesaurus" "test" {
-  index_id     = "tf-acc-test-does-not-exist-kendra-id"
-  thesaurus_id = "tf-acc-test-does-not-exist-kendra-thesaurus-id"
+index_id= "tf-acc-test-does-not-exist-kendra-id"
+thesaurus_id = "tf-acc-test-does-not-exist-kendra-thesaurus-id"
 }
-`
-
-
-func testAccThesaurusDataSourceConfig_basic(rName, rName2 string) string {
+`func testAccThesaurusDataSourceConfig_basic(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 testAccThesaurusBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_kendra_thesaurus" "test" {
-  index_id    = aws_kendra_index.test.id
-  name        = %[1]q
-  description = "example description thesaurus"
-  role_arn    = aws_iam_role.test.arn
-
-  source_s3_path {
-    bucket = aws_s3_bucket.test.id
-    key    = aws_s3_object.test.key
-  }
-
-  tags = {
-    "Key1" = "Value1"
-  }
+index_id = aws_kendra_index.test.id
+name= %[1]q
+description = "example description thesaurus"
+role_arn = aws_iam_role.test.arnsource_s3_path {
+ bucket = aws_s3_bucket.test.id
+ key = aws_s3_object.test.key
+}tags = {
+ "Key1" = "Value1"
 }
-
-data "aws_kendra_thesaurus" "test" {
-  index_id     = aws_kendra_index.test.id
-  thesaurus_id = aws_kendra_thesaurus.test.thesaurus_id
+}data "aws_kendra_thesaurus" "test" {
+index_id= aws_kendra_index.test.id
+thesaurus_id = aws_kendra_thesaurus.test.thesaurus_id
 }
 `, rName2))
 }

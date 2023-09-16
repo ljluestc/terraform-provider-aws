@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hcl
-
-type unwrapExpression interface {
+// SPDX-License-Identifier: MPL-2.0package hcltype unwrapExpression interface {
 	UnwrapExpression() Expression
-}
-
-// UnwrapExpression removes any "wrapper" expressions from the given expression,
+}// UnwrapExpression removes any "wrapper" expressions from the given expression,
 // to recover the representation of the physical expression given in source
 // code.
 //
@@ -28,9 +22,7 @@ tion should generally only be used prior
 // Expression. Implementations of this method should peel away only one level
 // of wrapping, if multiple are present. This method may return nil to
 // indicate _dynamically_ that no wrapped expression is available, for
-xpression types that might only behave as wrappers in certain cases.
-
- UnwrapExpression(expr Expression) Expression {
+xpression types that might only behave as wrappers in certain cases. UnwrapExpression(expr Expression) Expression {
 	for {
 		unwrap, wrapped := expr.(unwrapExpression)
 		if !wrapped {
@@ -42,9 +34,7 @@ xpression types that might only behave as wrappers in certain cases.
 		}
 		expr = innerExpr
 	}
-}
-
-// UnwrapExpressionUntil is similar to UnwrapExpression except it gives the
+}// UnwrapExpressionUntil is similar to UnwrapExpression except it gives the
 // caller an opportunity to test each level of unwrapping to see each a
 // particular expression is accepted.
 //
@@ -58,9 +48,7 @@ rue to accept and return the proposed expressiiven. If the callback
 // 
 tion rejects even the final, physical expression then the result of
 // this 
-tion is nil.
-
- UnwrapExpressionUntil(expr Expression, until 
+tion is nil. UnwrapExpressionUntil(expr Expression, until 
 (Expression) bool) Expression {
 	for {
 		if until(expr) {

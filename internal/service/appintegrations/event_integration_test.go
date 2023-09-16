@@ -40,9 +40,9 @@ func TestAccAppIntegrationsEventIntegration_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, appintegrationsservice.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventIntegrationDestroy(ctx),
+		CheckDestroy:    testAccCheckEventIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventIntegrationConfig_basic(rName, originalDescription, sourceName),
@@ -99,9 +99,9 @@ func TestAccAppIntegrationsEventIntegration_updateTags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, appintegrationsservice.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventIntegrationDestroy(ctx),
+		CheckDestroy:    testAccCheckEventIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventIntegrationConfig_basic(rName, description, sourceName),
@@ -179,9 +179,9 @@ func TestAccAppIntegrationsEventIntegration_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, appintegrationsservice.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEventIntegrationDestroy(ctx),
+		CheckDestroy:    testAccCheckEventIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventIntegrationConfig_basic(rName, description, sourceName),
@@ -247,7 +247,7 @@ func testAccCheckEventIntegrationExists(ctx context.Context, name string, eventI
 func testAccEventIntegrationConfig_basic(rName, label, sourceName string) string {
 	return fmt.Sprintf(`
 resource "aws_appintegrations_event_integration" "test" {
-  name            = %[1]q
+  name   = %[1]q
   description     = %[2]q
   eventbridge_bus = "default"
 
@@ -265,7 +265,7 @@ resource "aws_appintegrations_event_integration" "test" {
 func testAccEventIntegrationConfig_tags(rName, label, sourceName string) string {
 	return fmt.Sprintf(`
 resource "aws_appintegrations_event_integration" "test" {
-  name            = %[1]q
+  name   = %[1]q
   description     = %[2]q
   eventbridge_bus = "default"
 
@@ -284,7 +284,7 @@ resource "aws_appintegrations_event_integration" "test" {
 func testAccEventIntegrationConfig_tagsUpdated(rName, label, sourceName string) string {
 	return fmt.Sprintf(`
 resource "aws_appintegrations_event_integration" "test" {
-  name            = %[1]q
+  name   = %[1]q
   description     = %[2]q
   eventbridge_bus = "default"
 

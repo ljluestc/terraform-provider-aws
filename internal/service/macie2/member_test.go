@@ -57,7 +57,7 @@ func testAccMember_basic(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccMemberConfig_basic(acctest.DefaultEmailAddress),
+				Config:   testAccMemberConfig_basic(acctest.DefaultEmailAddress),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -120,7 +120,7 @@ func testAccMember_invitationDisableEmailNotification(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccMemberConfig_inviteInvitationDisableEmailNotification(email, "false", false),
+				Config:   testAccMemberConfig_inviteInvitationDisableEmailNotification(email, "false", false),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -179,7 +179,7 @@ func testAccMember_invite(t *testing.T) {
 			},
 			{
 				Config:     testAccMemberConfig_invite(email, true),
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"invitation_message"},
@@ -234,7 +234,7 @@ func testAccMember_inviteRemoved(t *testing.T) {
 			},
 			{
 				Config:     testAccMemberConfig_invite(email, false),
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"invitation_message"},
@@ -289,7 +289,7 @@ func testAccMember_status(t *testing.T) {
 			},
 			{
 				Config:     testAccMemberConfig_status(email, macie2.MacieStatusPaused, true),
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"invitation_message"},
@@ -445,11 +445,11 @@ resource "aws_macie2_account" "member" {
 }
 
 resource "aws_macie2_member" "member" {
-  account_id         = data.aws_caller_identity.member.account_id
+  account_id= data.aws_caller_identity.member.account_id
   email = %[1]q
   invite= %[2]t
   invitation_message = "This is a message of the invitation"
-  depends_on         = [aws_macie2_account.admin]
+  depends_on= [aws_macie2_account.admin]
 }
 `, email, invite)
 }
@@ -496,12 +496,12 @@ resource "aws_macie2_account" "member" {
 }
 
 resource "aws_macie2_member" "member" {
-  account_id         = data.aws_caller_identity.member.account_id
+  account_id= data.aws_caller_identity.member.account_id
   email = %[1]q
   status= %[2]q
   invite= %[3]t
   invitation_message = "This is a message of the invitation"
-  depends_on         = [aws_macie2_account.admin]
+  depends_on= [aws_macie2_account.admin]
 }
 
 resource "aws_macie2_invitation_accepter" "member" {

@@ -16,7 +16,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_wafv2_ip_set", &resource.Sweeper{
 		Name: "aws_wafv2_ip_set",
@@ -49,7 +48,6 @@ func init() {
 		F:    sweepWebACLs,
 	})
 }
-
 func sweepIPSets(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -98,7 +96,6 @@ func sweepIPSets(region string) error {
 
 	return nil
 }
-
 func sweepRegexPatternSets(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -147,7 +144,6 @@ func sweepRegexPatternSets(region string) error {
 
 	return nil
 }
-
 func sweepRuleGroups(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -196,7 +192,6 @@ func sweepRuleGroups(region string) error {
 
 	return nil
 }
-
 func sweepWebACLs(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

@@ -41,7 +41,7 @@ func ResourceDataLakeSettings() *schema.Resource {
 				Computed: true,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
@@ -50,7 +50,7 @@ func ResourceDataLakeSettings() *schema.Resource {
 				Computed: true,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
@@ -81,12 +81,12 @@ func ResourceDataLakeSettings() *schema.Resource {
 							Optional: true,
 							Computed: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringInSlice(lakeformation.Permission_Values(), false),
 							},
 						},
 						"principal": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validPrincipal,
@@ -106,12 +106,12 @@ func ResourceDataLakeSettings() *schema.Resource {
 							Optional: true,
 							Computed: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringInSlice(lakeformation.Permission_Values(), false),
 							},
 						},
 						"principal": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validPrincipal,
@@ -124,7 +124,7 @@ func ResourceDataLakeSettings() *schema.Resource {
 				Computed: true,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validPrincipal,
 				},
 			},
@@ -133,7 +133,7 @@ func ResourceDataLakeSettings() *schema.Resource {
 				Computed: true,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidAccountID,
 				},
 			},
@@ -271,7 +271,7 @@ func resourceDataLakeSettingsDelete(ctx context.Context, d *schema.ResourceData,
 			CreateTableDefaultPermissions:    make([]*lakeformation.PrincipalPermissions, 0),
 			DataLakeAdmins:      make([]*lakeformation.DataLakePrincipal, 0),
 			ReadOnlyAdmins:      make([]*lakeformation.DataLakePrincipal, 0),
-			TrustedResourceOwners:            make([]*string, 0),
+			TrustedResourceOwners:   make([]*string, 0),
 		},
 	}
 

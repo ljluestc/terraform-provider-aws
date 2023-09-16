@@ -51,30 +51,30 @@ func ResourceApplication() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"cloudwatch_logging_options": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 
 						"log_stream_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: verify.ValidARN,
 						},
 
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
@@ -82,30 +82,30 @@ func ResourceApplication() *schema.Resource {
 			},
 
 			"code": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringLenBetween(0, 102400),
 			},
 
 			"create_timestamp": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 
 			"last_update_timestamp": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -115,31 +115,31 @@ func ResourceApplication() *schema.Resource {
 			},
 
 			"inputs": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 
 						"kinesis_firehose": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"resource_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -147,20 +147,20 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"kinesis_stream": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"resource_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -168,7 +168,7 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"name_prefix": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 32),
@@ -177,16 +177,16 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"parallelism": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							Computed: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"count": {
-										Type:         schema.TypeInt,
-										Optional:     true,
-										Computed:     true,
+										Type:schema.TypeInt,
+										Optional:true,
+										Computed:true,
 										ValidateFunc: validation.IntBetween(1, 64),
 									},
 								},
@@ -194,26 +194,26 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"processing_configuration": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"lambda": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Required: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"resource_arn": {
-													Type:         schema.TypeString,
-													Required:     true,
+													Type:schema.TypeString,
+													Required:true,
 													ValidateFunc: verify.ValidARN,
 												},
 
 												"role_arn": {
-													Type:         schema.TypeString,
-													Required:     true,
+													Type:schema.TypeString,
+													Required:true,
 													ValidateFunc: verify.ValidARN,
 												},
 											},
@@ -224,30 +224,30 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"schema": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"record_columns": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Required: true,
 										MaxItems: 1000,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"mapping": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Optional: true,
 												},
 
 												"name": {
-													Type:         schema.TypeString,
-													Required:     true,
+													Type:schema.TypeString,
+													Required:true,
 													ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[^-\s<>&]+$`), "must not include hyphen, whitespace, angle bracket, or ampersand characters"),
 												},
 
 												"sql_type": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Required: true,
 												},
 											},
@@ -255,35 +255,35 @@ func ResourceApplication() *schema.Resource {
 									},
 
 									"record_encoding": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 									},
 
 									"record_format": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Required: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"mapping_parameters": {
-													Type:     schema.TypeList,
+													Type:schema.TypeList,
 													Optional: true,
 													MaxItems: 1,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"csv": {
-																Type:     schema.TypeList,
+																Type:schema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"record_column_delimiter": {
-																			Type:     schema.TypeString,
+																			Type:schema.TypeString,
 																			Required: true,
 																		},
 
 																		"record_row_delimiter": {
-																			Type:     schema.TypeString,
+																			Type:schema.TypeString,
 																			Required: true,
 																		},
 																	},
@@ -295,13 +295,13 @@ func ResourceApplication() *schema.Resource {
 															},
 
 															"json": {
-																Type:     schema.TypeList,
+																Type:schema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"record_row_path": {
-																			Type:     schema.TypeString,
+																			Type:schema.TypeString,
 																			Required: true,
 																		},
 																	},
@@ -316,7 +316,7 @@ func ResourceApplication() *schema.Resource {
 												},
 
 												"record_format_type": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 											},
@@ -327,15 +327,15 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"starting_position_configuration": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"starting_position": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										Computed:     true,
+										Type:schema.TypeString,
+										Optional:true,
+										Computed:true,
 										ValidateFunc: validation.StringInSlice(kinesisanalytics.InputStartingPosition_Values(), false),
 									},
 								},
@@ -343,40 +343,40 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"stream_names": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 					},
 				},
 			},
 
 			"outputs": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				MaxItems: 3,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 
 						"kinesis_firehose": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"resource_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -384,20 +384,20 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"kinesis_stream": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"resource_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -405,20 +405,20 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"lambda": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"resource_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -426,7 +426,7 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(1, 32),
@@ -435,14 +435,14 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"schema": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"record_format_type": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: validation.StringInSlice(kinesisanalytics.RecordFormatType_Values(), false),
 									},
 								},
@@ -453,36 +453,36 @@ func ResourceApplication() *schema.Resource {
 			},
 
 			"reference_data_sources": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 
 						"s3": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"bucket_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 
 									"file_key": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -490,30 +490,30 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"schema": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"record_columns": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Required: true,
 										MaxItems: 1000,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"mapping": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Optional: true,
 												},
 
 												"name": {
-													Type:         schema.TypeString,
-													Required:     true,
+													Type:schema.TypeString,
+													Required:true,
 													ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[^-\s<>&]+$`), "must not include hyphen, whitespace, angle bracket, or ampersand characters"),
 												},
 
 												"sql_type": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Required: true,
 												},
 											},
@@ -521,35 +521,35 @@ func ResourceApplication() *schema.Resource {
 									},
 
 									"record_encoding": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 									},
 
 									"record_format": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Required: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"mapping_parameters": {
-													Type:     schema.TypeList,
+													Type:schema.TypeList,
 													Optional: true,
 													MaxItems: 1,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"csv": {
-																Type:     schema.TypeList,
+																Type:schema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"record_column_delimiter": {
-																			Type:     schema.TypeString,
+																			Type:schema.TypeString,
 																			Required: true,
 																		},
 
 																		"record_row_delimiter": {
-																			Type:     schema.TypeString,
+																			Type:schema.TypeString,
 																			Required: true,
 																		},
 																	},
@@ -561,13 +561,13 @@ func ResourceApplication() *schema.Resource {
 															},
 
 															"json": {
-																Type:     schema.TypeList,
+																Type:schema.TypeList,
 																Optional: true,
 																MaxItems: 1,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"record_row_path": {
-																			Type:     schema.TypeString,
+																			Type:schema.TypeString,
 																			Required: true,
 																		},
 																	},
@@ -582,7 +582,7 @@ func ResourceApplication() *schema.Resource {
 												},
 
 												"record_format_type": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 											},
@@ -593,8 +593,8 @@ func ResourceApplication() *schema.Resource {
 						},
 
 						"table_name": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringLenBetween(1, 32),
 						},
 					},
@@ -602,39 +602,38 @@ func ResourceApplication() *schema.Resource {
 			},
 
 			"start_application": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 
 			"version": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KinesisAnalyticsConn(ctx)
 
 	applicationName := d.Get("name").(string)
 	input := &kinesisanalytics.CreateApplicationInput{
-		ApplicationCode:          aws.String(d.Get("code").(string)),
+		ApplicationCode:aws.String(d.Get("code").(string)),
 		ApplicationDescription:   aws.String(d.Get("description").(string)),
-		ApplicationName:          aws.String(applicationName),
+		ApplicationName:aws.String(applicationName),
 		CloudWatchLoggingOptions: expandCloudWatchLoggingOptions(d.Get("cloudwatch_logging_options").([]interface{})),
-		Inputs:      expandInputs(d.Get("inputs").([]interface{})),
-		Outputs:     expandOutputs(d.Get("outputs").(*schema.Set).List()),
-		Tags:        getTagsIn(ctx),
+		Inputs: expandInputs(d.Get("inputs").([]interface{})),
+		Outputs:expandOutputs(d.Get("outputs").(*schema.Set).List()),
+		Tags:   getTagsIn(ctx),
 	}
 
 	outputRaw, err := waitIAMPropagation(ctx, func() (interface{}, error) {
@@ -654,7 +653,7 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 		input := &kinesisanalytics.AddApplicationReferenceDataSourceInput{
 			ApplicationName:aws.String(applicationName),
 			CurrentApplicationVersionId: aws.Int64(1), // Newly created application version.
-			ReferenceDataSource:         expandReferenceDataSource(v),
+			ReferenceDataSource:expandReferenceDataSource(v),
 		}
 
 		log.Printf("[DEBUG] Adding Kinesis Analytics Application (%s) reference data source: %s", d.Id(), input)
@@ -700,7 +699,6 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceApplicationRead(ctx, d, meta)...)
 }
-
 func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KinesisAnalyticsConn(ctx)
@@ -745,7 +743,6 @@ func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
-
 func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KinesisAnalyticsConn(ctx)
@@ -771,7 +768,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 					ApplicationName: aws.String(applicationName),
 					CloudWatchLoggingOption: &kinesisanalytics.CloudWatchLoggingOption{
 						LogStreamARN: aws.String(mNewCloudWatchLoggingOption["log_stream_arn"].(string)),
-						RoleARN:      aws.String(mNewCloudWatchLoggingOption["role_arn"].(string)),
+						RoleARN: aws.String(mNewCloudWatchLoggingOption["role_arn"].(string)),
 					},
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
 				}
@@ -824,7 +821,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 				input.ApplicationUpdate.CloudWatchLoggingOptionUpdates = []*kinesisanalytics.CloudWatchLoggingOptionUpdate{
 					{
 						CloudWatchLoggingOptionId: aws.String(mOldCloudWatchLoggingOption["id"].(string)),
-						LogStreamARNUpdate:        aws.String(mNewCloudWatchLoggingOption["log_stream_arn"].(string)),
+						LogStreamARNUpdate:   aws.String(mNewCloudWatchLoggingOption["log_stream_arn"].(string)),
 						RoleARNUpdate:aws.String(mNewCloudWatchLoggingOption["role_arn"].(string)),
 					},
 				}
@@ -847,7 +844,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 				input := &kinesisanalytics.AddApplicationInputInput{
 					ApplicationName:aws.String(applicationName),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-					Input:          expandInput(n.([]interface{})),
+					Input:expandInput(n.([]interface{})),
 				}
 
 				log.Printf("[DEBUG] Adding Kinesis Analytics Application (%s) input: %s", d.Id(), input)
@@ -883,7 +880,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 						input := &kinesisanalytics.AddApplicationInputProcessingConfigurationInput{
 							ApplicationName: aws.String(applicationName),
 							CurrentApplicationVersionId:  aws.Int64(currentApplicationVersionId),
-							InputId:         inputUpdate.InputId,
+							InputId:inputUpdate.InputId,
 							InputProcessingConfiguration: expandInputProcessingConfiguration(n.([]interface{})),
 						}
 
@@ -907,7 +904,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 						input := &kinesisanalytics.DeleteApplicationInputProcessingConfigurationInput{
 							ApplicationName:aws.String(applicationName),
 							CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-							InputId:        inputUpdate.InputId,
+							InputId:   inputUpdate.InputId,
 						}
 
 						log.Printf("[DEBUG] Deleting Kinesis Analytics Application (%s) input processing configuration: %s", d.Id(), input)
@@ -967,7 +964,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 				input := &kinesisanalytics.DeleteApplicationOutputInput{
 					ApplicationName:aws.String(applicationName),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-					OutputId:       aws.String(outputId),
+					OutputId:  aws.String(outputId),
 				}
 
 				log.Printf("[DEBUG] Deleting Kinesis Analytics Application (%s) output: %s", d.Id(), input)
@@ -992,7 +989,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 				input := &kinesisanalytics.AddApplicationOutputInput{
 					ApplicationName:aws.String(applicationName),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-					Output:         expandOutput(vOutput),
+					Output:expandOutput(vOutput),
 				}
 
 				log.Printf("[DEBUG] Adding Kinesis Analytics Application (%s) output: %s", d.Id(), input)
@@ -1021,7 +1018,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 				input := &kinesisanalytics.AddApplicationReferenceDataSourceInput{
 					ApplicationName:aws.String(applicationName),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-					ReferenceDataSource:         expandReferenceDataSource(n.([]interface{})),
+					ReferenceDataSource:expandReferenceDataSource(n.([]interface{})),
 				}
 
 				log.Printf("[DEBUG] Adding Kinesis Analytics Application (%s) reference data source: %s", d.Id(), input)
@@ -1046,7 +1043,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 				input := &kinesisanalytics.DeleteApplicationReferenceDataSourceInput{
 					ApplicationName:aws.String(applicationName),
 					CurrentApplicationVersionId: aws.Int64(currentApplicationVersionId),
-					ReferenceId:    aws.String(mOldReferenceDataSource["id"].(string)),
+					ReferenceId:aws.String(mOldReferenceDataSource["id"].(string)),
 				}
 
 				log.Printf("[DEBUG] Deleting Kinesis Analytics Application (%s) reference data source: %s", d.Id(), input)
@@ -1133,7 +1130,6 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceApplicationRead(ctx, d, meta)...)
 }
-
 func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KinesisAnalyticsConn(ctx)
@@ -1167,7 +1163,6 @@ func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	return diags
 }
-
 func resourceApplicationImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	arn, err := arn.Parse(d.Id())
 	if err != nil {
@@ -1184,7 +1179,6 @@ func resourceApplicationImport(ctx context.Context, d *schema.ResourceData, meta
 
 	return []*schema.ResourceData{d}, nil
 }
-
 func startApplication(ctx context.Context, conn *kinesisanalytics.KinesisAnalytics, application *kinesisanalytics.ApplicationDetail, inputStartingPosition string) error {
 	applicationARN := aws.StringValue(application.ApplicationARN)
 	applicationName := aws.StringValue(application.ApplicationName)
@@ -1202,7 +1196,7 @@ func startApplication(ctx context.Context, conn *kinesisanalytics.KinesisAnalyti
 	input := &kinesisanalytics.StartApplicationInput{
 		ApplicationName: aws.String(applicationName),
 		InputConfigurations: []*kinesisanalytics.InputConfiguration{{
-			Id:       application.InputDescriptions[0].InputId,
+			Id:  application.InputDescriptions[0].InputId,
 			InputStartingPositionConfiguration: &kinesisanalytics.InputStartingPositionConfiguration{},
 		}},
 	}
@@ -1223,7 +1217,6 @@ func startApplication(ctx context.Context, conn *kinesisanalytics.KinesisAnalyti
 
 	return nil
 }
-
 func stopApplication(ctx context.Context, conn *kinesisanalytics.KinesisAnalytics, application *kinesisanalytics.ApplicationDetail) error {
 	applicationARN := aws.StringValue(application.ApplicationARN)
 	applicationName := aws.StringValue(application.ApplicationName)
@@ -1249,7 +1242,6 @@ func stopApplication(ctx context.Context, conn *kinesisanalytics.KinesisAnalytic
 
 	return nil
 }
-
 func expandCloudWatchLoggingOptions(vCloudWatchLoggingOptions []interface{}) []*kinesisanalytics.CloudWatchLoggingOption {
 	if len(vCloudWatchLoggingOptions) == 0 || vCloudWatchLoggingOptions[0] == nil {
 		return nil
@@ -1268,7 +1260,6 @@ func expandCloudWatchLoggingOptions(vCloudWatchLoggingOptions []interface{}) []*
 
 	return []*kinesisanalytics.CloudWatchLoggingOption{cloudWatchLoggingOption}
 }
-
 func expandInputs(vInputs []interface{}) []*kinesisanalytics.Input {
 	if len(vInputs) == 0 || vInputs[0] == nil {
 		return nil
@@ -1276,7 +1267,6 @@ func expandInputs(vInputs []interface{}) []*kinesisanalytics.Input {
 
 	return []*kinesisanalytics.Input{expandInput(vInputs)}
 }
-
 func expandInput(vInput []interface{}) *kinesisanalytics.Input {
 	if len(vInput) == 0 || vInput[0] == nil {
 		return nil
@@ -1342,7 +1332,6 @@ func expandInput(vInput []interface{}) *kinesisanalytics.Input {
 
 	return input
 }
-
 func expandInputProcessingConfiguration(vInputProcessingConfiguration []interface{}) *kinesisanalytics.InputProcessingConfiguration {
 	if len(vInputProcessingConfiguration) == 0 || vInputProcessingConfiguration[0] == nil {
 		return nil
@@ -1369,7 +1358,6 @@ func expandInputProcessingConfiguration(vInputProcessingConfiguration []interfac
 
 	return inputProcessingConfiguration
 }
-
 func expandInputUpdate(vInput []interface{}) *kinesisanalytics.InputUpdate {
 	if len(vInput) == 0 || vInput[0] == nil {
 		return nil
@@ -1474,7 +1462,6 @@ func expandInputUpdate(vInput []interface{}) *kinesisanalytics.InputUpdate {
 
 	return inputUpdate
 }
-
 func expandOutput(vOutput interface{}) *kinesisanalytics.Output {
 	if vOutput == nil {
 		return nil
@@ -1547,7 +1534,6 @@ func expandOutput(vOutput interface{}) *kinesisanalytics.Output {
 
 	return output
 }
-
 func expandOutputs(vOutputs []interface{}) []*kinesisanalytics.Output {
 	if len(vOutputs) == 0 {
 		return nil
@@ -1565,7 +1551,6 @@ func expandOutputs(vOutputs []interface{}) []*kinesisanalytics.Output {
 
 	return outputs
 }
-
 func expandRecordColumns(vRecordColumns []interface{}) []*kinesisanalytics.RecordColumn {
 	recordColumns := []*kinesisanalytics.RecordColumn{}
 
@@ -1589,7 +1574,6 @@ func expandRecordColumns(vRecordColumns []interface{}) []*kinesisanalytics.Recor
 
 	return recordColumns
 }
-
 func expandRecordFormat(vRecordFormat []interface{}) *kinesisanalytics.RecordFormat {
 	if len(vRecordFormat) == 0 || vRecordFormat[0] == nil {
 		return nil
@@ -1640,7 +1624,6 @@ func expandRecordFormat(vRecordFormat []interface{}) *kinesisanalytics.RecordFor
 
 	return recordFormat
 }
-
 func expandReferenceDataSource(vReferenceDataSource []interface{}) *kinesisanalytics.ReferenceDataSource {
 	if len(vReferenceDataSource) == 0 || vReferenceDataSource[0] == nil {
 		return nil
@@ -1678,7 +1661,6 @@ func expandReferenceDataSource(vReferenceDataSource []interface{}) *kinesisanaly
 
 	return referenceDataSource
 }
-
 func expandReferenceDataSourceUpdate(vReferenceDataSource []interface{}) *kinesisanalytics.ReferenceDataSourceUpdate {
 	if len(vReferenceDataSource) == 0 || vReferenceDataSource[0] == nil {
 		return nil
@@ -1720,7 +1702,6 @@ func expandReferenceDataSourceUpdate(vReferenceDataSource []interface{}) *kinesi
 
 	return referenceDataSourceUpdate
 }
-
 func expandSourceSchema(vSourceSchema []interface{}) *kinesisanalytics.SourceSchema {
 	if len(vSourceSchema) == 0 || vSourceSchema[0] == nil {
 		return nil
@@ -1744,7 +1725,6 @@ func expandSourceSchema(vSourceSchema []interface{}) *kinesisanalytics.SourceSch
 
 	return sourceSchema
 }
-
 func flattenCloudWatchLoggingOptionDescriptions(cloudWatchLoggingOptionDescriptions []*kinesisanalytics.CloudWatchLoggingOptionDescription) []interface{} {
 	if len(cloudWatchLoggingOptionDescriptions) == 0 || cloudWatchLoggingOptionDescriptions[0] == nil {
 		return []interface{}{}
@@ -1755,12 +1735,11 @@ func flattenCloudWatchLoggingOptionDescriptions(cloudWatchLoggingOptionDescripti
 	mCloudWatchLoggingOption := map[string]interface{}{
 		"id":aws.StringValue(cloudWatchLoggingOptionDescription.CloudWatchLoggingOptionId),
 		"log_stream_arn": aws.StringValue(cloudWatchLoggingOptionDescription.LogStreamARN),
-		"role_arn":       aws.StringValue(cloudWatchLoggingOptionDescription.RoleARN),
+		"role_arn":  aws.StringValue(cloudWatchLoggingOptionDescription.RoleARN),
 	}
 
 	return []interface{}{mCloudWatchLoggingOption}
 }
-
 func flattenInputDescriptions(inputDescriptions []*kinesisanalytics.InputDescription) []interface{} {
 	if len(inputDescriptions) == 0 || inputDescriptions[0] == nil {
 		return []interface{}{}
@@ -1769,7 +1748,7 @@ func flattenInputDescriptions(inputDescriptions []*kinesisanalytics.InputDescrip
 	inputDescription := inputDescriptions[0]
 
 	mInput := map[string]interface{}{
-		"id":           aws.StringValue(inputDescription.InputId),
+		"id": aws.StringValue(inputDescription.InputId),
 		"name_prefix":  aws.StringValue(inputDescription.NamePrefix),
 		"stream_names": flex.FlattenStringList(inputDescription.InAppStreamNames),
 	}
@@ -1792,7 +1771,7 @@ func flattenInputDescriptions(inputDescriptions []*kinesisanalytics.InputDescrip
 		if inputLambdaProcessorDescription := inputProcessingConfigurationDescription.InputLambdaProcessorDescription; inputLambdaProcessorDescription != nil {
 			mInputLambdaProcessor := map[string]interface{}{
 				"resource_arn": aws.StringValue(inputLambdaProcessorDescription.ResourceARN),
-				"role_arn":     aws.StringValue(inputLambdaProcessorDescription.RoleARN),
+				"role_arn":aws.StringValue(inputLambdaProcessorDescription.RoleARN),
 			}
 
 			mInputProcessingConfiguration["lambda"] = []interface{}{mInputLambdaProcessor}
@@ -1812,7 +1791,7 @@ func flattenInputDescriptions(inputDescriptions []*kinesisanalytics.InputDescrip
 	if kinesisFirehoseInputDescription := inputDescription.KinesisFirehoseInputDescription; kinesisFirehoseInputDescription != nil {
 		mKinesisFirehoseInput := map[string]interface{}{
 			"resource_arn": aws.StringValue(kinesisFirehoseInputDescription.ResourceARN),
-			"role_arn":     aws.StringValue(kinesisFirehoseInputDescription.RoleARN),
+			"role_arn":aws.StringValue(kinesisFirehoseInputDescription.RoleARN),
 		}
 
 		mInput["kinesis_firehose"] = []interface{}{mKinesisFirehoseInput}
@@ -1821,7 +1800,7 @@ func flattenInputDescriptions(inputDescriptions []*kinesisanalytics.InputDescrip
 	if kinesisStreamsInputDescription := inputDescription.KinesisStreamsInputDescription; kinesisStreamsInputDescription != nil {
 		mKinesisStreamsInput := map[string]interface{}{
 			"resource_arn": aws.StringValue(kinesisStreamsInputDescription.ResourceARN),
-			"role_arn":     aws.StringValue(kinesisStreamsInputDescription.RoleARN),
+			"role_arn":aws.StringValue(kinesisStreamsInputDescription.RoleARN),
 		}
 
 		mInput["kinesis_stream"] = []interface{}{mKinesisStreamsInput}
@@ -1829,7 +1808,6 @@ func flattenInputDescriptions(inputDescriptions []*kinesisanalytics.InputDescrip
 
 	return []interface{}{mInput}
 }
-
 func flattenOutputDescriptions(outputDescriptions []*kinesisanalytics.OutputDescription) []interface{} {
 	if len(outputDescriptions) == 0 {
 		return []interface{}{}
@@ -1855,7 +1833,7 @@ func flattenOutputDescriptions(outputDescriptions []*kinesisanalytics.OutputDesc
 			if kinesisFirehoseOutputDescription := outputDescription.KinesisFirehoseOutputDescription; kinesisFirehoseOutputDescription != nil {
 				mKinesisFirehoseOutput := map[string]interface{}{
 					"resource_arn": aws.StringValue(kinesisFirehoseOutputDescription.ResourceARN),
-					"role_arn":     aws.StringValue(kinesisFirehoseOutputDescription.RoleARN),
+					"role_arn":aws.StringValue(kinesisFirehoseOutputDescription.RoleARN),
 				}
 
 				mOutput["kinesis_firehose"] = []interface{}{mKinesisFirehoseOutput}
@@ -1864,7 +1842,7 @@ func flattenOutputDescriptions(outputDescriptions []*kinesisanalytics.OutputDesc
 			if kinesisStreamsOutputDescription := outputDescription.KinesisStreamsOutputDescription; kinesisStreamsOutputDescription != nil {
 				mKinesisStreamsOutput := map[string]interface{}{
 					"resource_arn": aws.StringValue(kinesisStreamsOutputDescription.ResourceARN),
-					"role_arn":     aws.StringValue(kinesisStreamsOutputDescription.RoleARN),
+					"role_arn":aws.StringValue(kinesisStreamsOutputDescription.RoleARN),
 				}
 
 				mOutput["kinesis_stream"] = []interface{}{mKinesisStreamsOutput}
@@ -1873,7 +1851,7 @@ func flattenOutputDescriptions(outputDescriptions []*kinesisanalytics.OutputDesc
 			if lambdaOutputDescription := outputDescription.LambdaOutputDescription; lambdaOutputDescription != nil {
 				mLambdaOutput := map[string]interface{}{
 					"resource_arn": aws.StringValue(lambdaOutputDescription.ResourceARN),
-					"role_arn":     aws.StringValue(lambdaOutputDescription.RoleARN),
+					"role_arn":aws.StringValue(lambdaOutputDescription.RoleARN),
 				}
 
 				mOutput["lambda"] = []interface{}{mLambdaOutput}
@@ -1885,7 +1863,6 @@ func flattenOutputDescriptions(outputDescriptions []*kinesisanalytics.OutputDesc
 
 	return vOutputs
 }
-
 func flattenReferenceDataSourceDescriptions(referenceDataSourceDescriptions []*kinesisanalytics.ReferenceDataSourceDescription) []interface{} {
 	if len(referenceDataSourceDescriptions) == 0 || referenceDataSourceDescriptions[0] == nil {
 		return []interface{}{}
@@ -1894,7 +1871,7 @@ func flattenReferenceDataSourceDescriptions(referenceDataSourceDescriptions []*k
 	referenceDataSourceDescription := referenceDataSourceDescriptions[0]
 
 	mReferenceDataSource := map[string]interface{}{
-		"id":         aws.StringValue(referenceDataSourceDescription.ReferenceId),
+		"id":aws.StringValue(referenceDataSourceDescription.ReferenceId),
 		"table_name": aws.StringValue(referenceDataSourceDescription.TableName),
 	}
 
@@ -1914,7 +1891,6 @@ func flattenReferenceDataSourceDescriptions(referenceDataSourceDescriptions []*k
 
 	return []interface{}{mReferenceDataSource}
 }
-
 func flattenSourceSchema(sourceSchema *kinesisanalytics.SourceSchema) []interface{} {
 	if sourceSchema == nil {
 		return []interface{}{}
@@ -1931,7 +1907,7 @@ func flattenSourceSchema(sourceSchema *kinesisanalytics.SourceSchema) []interfac
 			if recordColumn != nil {
 				mRecordColumn := map[string]interface{}{
 					"mapping":  aws.StringValue(recordColumn.Mapping),
-					"name":     aws.StringValue(recordColumn.Name),
+					"name":aws.StringValue(recordColumn.Name),
 					"sql_type": aws.StringValue(recordColumn.SqlType),
 				}
 
@@ -1953,7 +1929,7 @@ func flattenSourceSchema(sourceSchema *kinesisanalytics.SourceSchema) []interfac
 			if csvMappingParameters := mappingParameters.CSVMappingParameters; csvMappingParameters != nil {
 				mCsvMappingParameters := map[string]interface{}{
 					"record_column_delimiter": aws.StringValue(csvMappingParameters.RecordColumnDelimiter),
-					"record_row_delimiter":    aws.StringValue(csvMappingParameters.RecordRowDelimiter),
+					"record_row_delimiter":aws.StringValue(csvMappingParameters.RecordRowDelimiter),
 				}
 
 				mMappingParameters["csv"] = []interface{}{mCsvMappingParameters}

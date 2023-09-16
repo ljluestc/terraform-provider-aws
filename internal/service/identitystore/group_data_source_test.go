@@ -133,8 +133,8 @@ data "aws_ssoadmin_instances" "test" {}
 
 resource "aws_identitystore_group" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
-  display_name      = %[1]q
-  description       = "Acceptance Test"
+  display_name = %[1]q
+  description  = "Acceptance Test"
 }
 `, name)
 }
@@ -143,8 +143,8 @@ func testAccGroupDataSourceConfig_filterDisplayName(name string) string {
 	return acctest.ConfigCompose(testAccGroupDataSourceConfig_base(name), `
 data "aws_identitystore_group" "test" {
   filter {
-    attribute_path  = "DisplayName"
-    attribute_value = aws_identitystore_group.test.display_name
+attribute_path  = "DisplayName"
+attribute_value = aws_identitystore_group.test.display_name
   }
 
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
@@ -156,10 +156,10 @@ func testAccGroupDataSourceConfig_uniqueAttributeDisplayName(name string) string
 	return acctest.ConfigCompose(testAccGroupDataSourceConfig_base(name), `
 data "aws_identitystore_group" "test" {
   alternate_identifier {
-    unique_attribute {
-      attribute_path  = "DisplayName"
-      attribute_value = aws_identitystore_group.test.display_name
-    }
+unique_attribute {
+ attribute_path  = "DisplayName"
+ attribute_value = aws_identitystore_group.test.display_name
+}
   }
 
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
@@ -171,11 +171,11 @@ func testAccGroupDataSourceConfig_filterDisplayNameAndGroupID(name string) strin
 	return acctest.ConfigCompose(testAccGroupDataSourceConfig_base(name), `
 data "aws_identitystore_group" "test" {
   filter {
-    attribute_path  = "DisplayName"
-    attribute_value = aws_identitystore_group.test.display_name
+attribute_path  = "DisplayName"
+attribute_value = aws_identitystore_group.test.display_name
   }
 
-  group_id          = aws_identitystore_group.test.group_id
+  group_id= aws_identitystore_group.test.group_id
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 }
 `)

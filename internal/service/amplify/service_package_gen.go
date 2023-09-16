@@ -32,7 +32,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceApp,
 			TypeName: "aws_amplify_app",
-			Name:     "App",
+			Name: "App",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -44,7 +44,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceBranch,
 			TypeName: "aws_amplify_branch",
-			Name:     "Branch",
+			Name: "Branch",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

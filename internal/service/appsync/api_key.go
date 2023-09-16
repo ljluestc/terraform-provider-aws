@@ -33,16 +33,16 @@ func ResourceAPIKey() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  "Managed by Terraform",
 			},
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"expires": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					// Ignore unsetting value
@@ -54,14 +54,13 @@ func ResourceAPIKey() *schema.Resource {
 				ValidateFunc: validation.IsRFC3339Time,
 			},
 			"key": {
-				Type:      schema.TypeString,
+				Type: schema.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},
 		},
 	}
 }
-
 func resourceAPIKeyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -69,7 +68,7 @@ func resourceAPIKeyCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	apiID := d.Get("api_id").(string)
 
 	params := &appsync.CreateApiKeyInput{
-		ApiId:       aws.String(apiID),
+		ApiId:  aws.String(apiID),
 		Description: aws.String(d.Get("description").(string)),
 	}
 	if v, ok := d.GetOk("expires"); ok {
@@ -84,7 +83,6 @@ func resourceAPIKeyCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	d.SetId(fmt.Sprintf("%s:%s", apiID, aws.StringValue(resp.ApiKey.Id)))
 	return append(diags, resourceAPIKeyRead(ctx, d, meta)...)
 }
-
 func resourceAPIKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -110,7 +108,6 @@ func resourceAPIKeyRead(ctx context.Context, d *schema.ResourceData, meta interf
 	d.Set("expires", time.Unix(aws.Int64Value(key.Expires), 0).UTC().Format(time.RFC3339))
 	return diags
 }
-
 func resourceAPIKeyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -122,7 +119,7 @@ func resourceAPIKeyUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	params := &appsync.UpdateApiKeyInput{
 		ApiId: aws.String(apiID),
-		Id:    aws.String(keyID),
+		Id:aws.String(keyID),
 	}
 	if d.HasChange("description") {
 		params.Description = aws.String(d.Get("description").(string))
@@ -139,7 +136,6 @@ func resourceAPIKeyUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceAPIKeyRead(ctx, d, meta)...)
 }
-
 func resourceAPIKeyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -151,7 +147,7 @@ func resourceAPIKeyDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	input := &appsync.DeleteApiKeyInput{
 		ApiId: aws.String(apiID),
-		Id:    aws.String(keyID),
+		Id:aws.String(keyID),
 	}
 	_, err = conn.DeleteApiKeyWithContext(ctx, input)
 	if err != nil {
@@ -163,7 +159,6 @@ func resourceAPIKeyDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func DecodeAPIKeyID(id string) (string, string, error) {
 	parts := strings.Split(id, ":")
 	if len(parts) != 2 {
@@ -171,7 +166,6 @@ func DecodeAPIKeyID(id string) (string, string, error) {
 	}
 	return parts[0], parts[1], nil
 }
-
 func GetAPIKey(ctx context.Context, apiID, keyID string, conn *appsync.AppSync) (*appsync.ApiKey, error) {
 	input := &appsync.ListApiKeysInput{
 		ApiId: aws.String(apiID),

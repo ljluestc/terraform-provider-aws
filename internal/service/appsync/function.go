@@ -35,34 +35,34 @@ func ResourceFunction() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"code": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				RequiredWith: []string{"runtime"},
 				ValidateFunc: validation.StringLenBetween(1, 32768),
 			},
 			"data_source": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"function_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"function_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ValidateFunc: validation.StringInSlice([]string{
@@ -70,67 +70,67 @@ func ResourceFunction() *schema.Resource {
 				}, true),
 			},
 			"max_batch_size": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional:true,
 				ValidateFunc: validation.IntBetween(0, 2000),
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[A-Za-z_][0-9A-Za-z_]*`), "must match [A-Za-z_][0-9A-Za-z_]*"),
 			},
 			"request_mapping_template": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"response_mapping_template": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"runtime": {
-				Type:         schema.TypeList,
-				Optional:     true,
-				MaxItems:     1,
+				Type:schema.TypeList,
+				Optional:true,
+				MaxItems:1,
 				RequiredWith: []string{"code"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(appsync.RuntimeName_Values(), false),
 						},
 						"runtime_version": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"sync_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"conflict_detection": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional:true,
 							ValidateFunc: validation.StringInSlice(appsync.ConflictDetectionType_Values(), false),
 						},
 						"conflict_handler": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional:true,
 							ValidateFunc: validation.StringInSlice(appsync.ConflictHandlerType_Values(), false),
 						},
 						"lambda_conflict_handler_config": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"lambda_conflict_handler_arn": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -142,7 +142,6 @@ func ResourceFunction() *schema.Resource {
 		},
 	}
 }
-
 func resourceFunctionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -150,10 +149,10 @@ func resourceFunctionCreate(ctx context.Context, d *schema.ResourceData, meta in
 	apiID := d.Get("api_id").(string)
 
 	input := &appsync.CreateFunctionInput{
-		ApiId:           aws.String(apiID),
+		ApiId: aws.String(apiID),
 		DataSourceName:  aws.String(d.Get("data_source").(string)),
 		FunctionVersion: aws.String(d.Get("function_version").(string)),
-		Name:            aws.String(d.Get("name").(string)),
+		Name:  aws.String(d.Get("name").(string)),
 	}
 
 	if v, ok := d.GetOk("code"); ok {
@@ -194,7 +193,6 @@ func resourceFunctionCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceFunctionRead(ctx, d, meta)...)
 }
-
 func resourceFunctionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -205,7 +203,7 @@ func resourceFunctionRead(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 
 	input := &appsync.GetFunctionInput{
-		ApiId:      aws.String(apiID),
+		ApiId: aws.String(apiID),
 		FunctionId: aws.String(functionID),
 	}
 
@@ -242,7 +240,6 @@ func resourceFunctionRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func resourceFunctionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -253,11 +250,11 @@ func resourceFunctionUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	}
 
 	input := &appsync.UpdateFunctionInput{
-		ApiId:           aws.String(apiID),
+		ApiId: aws.String(apiID),
 		DataSourceName:  aws.String(d.Get("data_source").(string)),
-		FunctionId:      aws.String(functionID),
+		FunctionId: aws.String(functionID),
 		FunctionVersion: aws.String(d.Get("function_version").(string)),
-		Name:            aws.String(d.Get("name").(string)),
+		Name:  aws.String(d.Get("name").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -295,7 +292,6 @@ func resourceFunctionUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceFunctionRead(ctx, d, meta)...)
 }
-
 func resourceFunctionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -306,7 +302,7 @@ func resourceFunctionDelete(ctx context.Context, d *schema.ResourceData, meta in
 	}
 
 	input := &appsync.DeleteFunctionInput{
-		ApiId:      aws.String(apiID),
+		ApiId: aws.String(apiID),
 		FunctionId: aws.String(functionID),
 	}
 
@@ -320,7 +316,6 @@ func resourceFunctionDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func DecodeFunctionID(id string) (string, string, error) {
 	idParts := strings.SplitN(id, "-", 2)
 	if len(idParts) != 2 {
@@ -328,7 +323,6 @@ func DecodeFunctionID(id string) (string, string, error) {
 	}
 	return idParts[0], idParts[1], nil
 }
-
 func expandRuntime(l []interface{}) *appsync.AppSyncRuntime {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -348,20 +342,18 @@ func expandRuntime(l []interface{}) *appsync.AppSyncRuntime {
 
 	return result
 }
-
 func flattenRuntime(config *appsync.AppSyncRuntime) []map[string]interface{} {
 	if config == nil {
 		return nil
 	}
 
 	result := map[string]interface{}{
-		"name":            aws.StringValue(config.Name),
+		"name":  aws.StringValue(config.Name),
 		"runtime_version": aws.StringValue(config.RuntimeVersion),
 	}
 
 	return []map[string]interface{}{result}
 }
-
 func expandSyncConfig(l []interface{}) *appsync.SyncConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -385,7 +377,6 @@ func expandSyncConfig(l []interface{}) *appsync.SyncConfig {
 
 	return result
 }
-
 func flattenSyncConfig(config *appsync.SyncConfig) []map[string]interface{} {
 	if config == nil {
 		return nil
@@ -399,7 +390,6 @@ func flattenSyncConfig(config *appsync.SyncConfig) []map[string]interface{} {
 
 	return []map[string]interface{}{result}
 }
-
 func expandLambdaConflictHandlerConfig(l []interface{}) *appsync.LambdaConflictHandlerConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -415,7 +405,6 @@ func expandLambdaConflictHandlerConfig(l []interface{}) *appsync.LambdaConflictH
 
 	return result
 }
-
 func flattenLambdaConflictHandlerConfig(config *appsync.LambdaConflictHandlerConfig) []map[string]interface{} {
 	if config == nil {
 		return nil

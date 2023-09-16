@@ -40,7 +40,7 @@ func testAccSMSPreferences_defaultSMSType(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSMSPreferencesDestroy(ctx),
+CheckDestroy:    testAccCheckSMSPreferencesDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSMSPreferencesConfig_defType,
@@ -65,7 +65,7 @@ func testAccSMSPreferences_almostAll(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSMSPreferencesDestroy(ctx),
+CheckDestroy:    testAccCheckSMSPreferencesDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSMSPreferencesConfig_almostAll,
@@ -89,7 +89,7 @@ func testAccSMSPreferences_deliveryRole(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSMSPreferencesDestroy(ctx),
+CheckDestroy:    testAccCheckSMSPreferencesDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSMSPreferencesConfig_deliveryRole(rName),
@@ -157,7 +157,7 @@ resource "aws_sns_sms_preferences" "test" {
 func testAccSMSPreferencesConfig_deliveryRole(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_sms_preferences" "test" {
-  delivery_status_iam_role_arn          = aws_iam_role.test.arn
+  delivery_status_iam_role_arn = aws_iam_role.test.arn
   delivery_status_success_sampling_rate = "75"
 }
 

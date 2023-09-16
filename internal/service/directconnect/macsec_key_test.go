@@ -15,7 +15,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDirectConnectMacSecKey_withCkn(t *testing.T) {
 	ctx := acctest.Context(t)
 	// Requires an existing MACsec-capable DX connection set as environmental variable
@@ -29,7 +28,7 @@ func TestAccDirectConnectMacSecKey_withCkn(t *testing.T) {
 	cak := testAccDirecConnectMacSecGenerateHex()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:nil,
@@ -42,8 +41,8 @@ func TestAccDirectConnectMacSecKey_withCkn(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 				// Ignore the "cak" attribute as isn't returned by the API during read/refresh
 				ImportStateVerifyIgnore: []string{"cak"},
@@ -51,7 +50,6 @@ func TestAccDirectConnectMacSecKey_withCkn(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDirectConnectMacSecKey_withSecret(t *testing.T) {
 	ctx := acctest.Context(t)
 	// Requires an existing MACsec-capable DX connection set as environmental variable
@@ -70,7 +68,7 @@ func TestAccDirectConnectMacSecKey_withSecret(t *testing.T) {
 	resourceName := "aws_dx_macsec_key_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:nil,
@@ -83,8 +81,8 @@ func TestAccDirectConnectMacSecKey_withSecret(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
@@ -99,13 +97,12 @@ func testAccDirecConnectMacSecGenerateHex() string {
 	}
 	return hex.EncodeToString(s)
 }
-
 func testAccMacSecConfig_withCkn(ckn, cak, connectionId string) string {
 	return fmt.Sprintf(`
 resource "aws_dx_macsec_key_association" "test" {
   connection_id = %[3]q
-  ckn           = %[1]q
-  cak           = %[2]q
+  ckn %[1]q
+  cak %[2]q
 }
 
 
@@ -121,7 +118,7 @@ data "aws_secretsmanager_secret" "test" {
 
 resource "aws_dx_macsec_key_association" "test" {
   connection_id = %[2]q
-  secret_arn    = data.aws_secretsmanager_secret.test.arn
+  secret_arn = data.aws_secretsmanager_secret.test.arn
 }
 
 

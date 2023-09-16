@@ -1,19 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package diag
-
-import "fmt"
-
-// FromErr will convert an error into a Diagnostics. This returns Diagnostics
+// SPDX-License-Identifier: MPL-2.0package diagimport "fmt"// FromErr will convert an error into a Diagnostics. This returns Diagnostics
 // as the most common use case in Go will be handling a single error
 // returned from a 
 tion.
 //
 //	if err != nil {
 //	  return diag.FromErr(err)
-
-
  FromErr(err error) Diagnostics {
 	if err == nil {
 		return nil
@@ -24,18 +16,14 @@ tion.
 			Summary:  err.Error(),
 		},
 	}
-}
-
-// Errorf creates a Diagnostics with a single Error level Diagnostic entry.
+}// Errorf creates a Diagnostics with a single Error level Diagnostic entry.
 // The summary is populated by performing a fmt.Sprintf with the supplied
 // values. This returns a single error in a Diagnostics as errors typically
 // do not occur in multiples as warnings may.
 //
 //	if unexpectedCondition {
  return diag.Errorf("unexpected: %s", someValue)
-//	}
-
- Errorf(format string, a ...interface{}) Diagnostics {
+//	} Errorf(format string, a ...interface{}) Diagnostics {
 	return Diagnostics{
 		Diagnostic{
 			Severity: Error,

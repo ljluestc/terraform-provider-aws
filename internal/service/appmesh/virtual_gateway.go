@@ -53,20 +53,20 @@ func ResourceVirtualGateway() *schema.Resource {
 				Computed: true,
 			},
 			"mesh_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"mesh_owner": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
@@ -75,7 +75,7 @@ func ResourceVirtualGateway() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
-			"spec":            resourceVirtualGatewaySpecSchema(),
+			"spec":   resourceVirtualGatewaySpecSchema(),
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
@@ -128,12 +128,12 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 																	Elem: &schema.Resource{
 																		Schema: map[string]*schema.Schema{
 																			"certificate_chain": {
-																				Type:         schema.TypeString,
+																				Type:schema.TypeString,
 																				Required:     true,
 																				ValidateFunc: validation.StringLenBetween(1, 255),
 																			},
 																			"private_key": {
-																				Type:         schema.TypeString,
+																				Type:schema.TypeString,
 																				Required:     true,
 																				ValidateFunc: validation.StringLenBetween(1, 255),
 																			},
@@ -174,7 +174,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 														Type:     schema.TypeSet,
 														Optional: true,
 														Elem: &schema.Schema{
-															Type:         schema.TypeInt,
+															Type:schema.TypeInt,
 															ValidateFunc: validation.IsPortNumber,
 														},
 													},
@@ -228,7 +228,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 																							Type:     schema.TypeSet,
 																							Required: true,
 																							Elem: &schema.Schema{
-																								Type:         schema.TypeString,
+																								Type:schema.TypeString,
 																								ValidateFunc: verify.ValidARN,
 																							},
 																						},
@@ -248,7 +248,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 																				Elem: &schema.Resource{
 																					Schema: map[string]*schema.Schema{
 																						"certificate_chain": {
-																							Type:         schema.TypeString,
+																							Type:schema.TypeString,
 																							Required:     true,
 																							ValidateFunc: validation.StringLenBetween(1, 255),
 																						},
@@ -268,7 +268,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 																				Elem: &schema.Resource{
 																					Schema: map[string]*schema.Schema{
 																						"secret_name": {
-																							Type:         schema.TypeString,
+																							Type:schema.TypeString,
 																							Required:     true,
 																							ValidateFunc: validation.StringLenBetween(1, 255),
 																						},
@@ -316,7 +316,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"max_requests": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Required:     true,
 														ValidateFunc: validation.IntAtLeast(1),
 													},
@@ -331,12 +331,12 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"max_connections": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Required:     true,
 														ValidateFunc: validation.IntAtLeast(1),
 													},
 													"max_pending_requests": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Optional:     true,
 														ValidateFunc: validation.IntAtLeast(1),
 													},
@@ -351,7 +351,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"max_requests": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Required:     true,
 														ValidateFunc: validation.IntAtLeast(1),
 													},
@@ -369,12 +369,12 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"healthy_threshold": {
-											Type:         schema.TypeInt,
+											Type:schema.TypeInt,
 											Required:     true,
 											ValidateFunc: validation.IntBetween(2, 10),
 										},
 										"interval_millis": {
-											Type:         schema.TypeInt,
+											Type:schema.TypeInt,
 											Required:     true,
 											ValidateFunc: validation.IntBetween(5000, 300000),
 										},
@@ -383,23 +383,23 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 											Optional: true,
 										},
 										"port": {
-											Type:         schema.TypeInt,
+											Type:schema.TypeInt,
 											Optional:     true,
 											Computed:     true,
 											ValidateFunc: validation.IsPortNumber,
 										},
 										"protocol": {
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											Required:     true,
 											ValidateFunc: validation.StringInSlice(appmesh.VirtualGatewayPortProtocol_Values(), false),
 										},
 										"timeout_millis": {
-											Type:         schema.TypeInt,
+											Type:schema.TypeInt,
 											Required:     true,
 											ValidateFunc: validation.IntBetween(2000, 60000),
 										},
 										"unhealthy_threshold": {
-											Type:         schema.TypeInt,
+											Type:schema.TypeInt,
 											Required:     true,
 											ValidateFunc: validation.IntBetween(2, 10),
 										},
@@ -414,12 +414,12 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"port": {
-											Type:         schema.TypeInt,
+											Type:schema.TypeInt,
 											Required:     true,
 											ValidateFunc: validation.IsPortNumber,
 										},
 										"protocol": {
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											Required:     true,
 											ValidateFunc: validation.StringInSlice(appmesh.VirtualGatewayPortProtocol_Values(), false),
 										},
@@ -448,7 +448,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 														Elem: &schema.Resource{
 															Schema: map[string]*schema.Schema{
 																"certificate_arn": {
-																	Type:         schema.TypeString,
+																	Type:schema.TypeString,
 																	Required:     true,
 																	ValidateFunc: verify.ValidARN,
 																},
@@ -463,12 +463,12 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 														Elem: &schema.Resource{
 															Schema: map[string]*schema.Schema{
 																"certificate_chain": {
-																	Type:         schema.TypeString,
+																	Type:schema.TypeString,
 																	Required:     true,
 																	ValidateFunc: validation.StringLenBetween(1, 255),
 																},
 																"private_key": {
-																	Type:         schema.TypeString,
+																	Type:schema.TypeString,
 																	Required:     true,
 																	ValidateFunc: validation.StringLenBetween(1, 255),
 																},
@@ -493,7 +493,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 											},
 										},
 										"mode": {
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											Required:     true,
 											ValidateFunc: validation.StringInSlice(appmesh.VirtualGatewayListenerTlsMode_Values(), false),
 										},
@@ -544,7 +544,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 																	Elem: &schema.Resource{
 																		Schema: map[string]*schema.Schema{
 																			"certificate_chain": {
-																				Type:         schema.TypeString,
+																				Type:schema.TypeString,
 																				Required:     true,
 																				ValidateFunc: validation.StringLenBetween(1, 255),
 																			},
@@ -559,7 +559,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 																	Elem: &schema.Resource{
 																		Schema: map[string]*schema.Schema{
 																			"secret_name": {
-																				Type:         schema.TypeString,
+																				Type:schema.TypeString,
 																				Required:     true,
 																				ValidateFunc: validation.StringLenBetween(1, 255),
 																			},
@@ -612,12 +612,12 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 																	Elem: &schema.Resource{
 																		Schema: map[string]*schema.Schema{
 																			"key": {
-																				Type:         schema.TypeString,
+																				Type:schema.TypeString,
 																				Required:     true,
 																				ValidateFunc: validation.StringLenBetween(1, 100),
 																			},
 																			"value": {
-																				Type:         schema.TypeString,
+																				Type:schema.TypeString,
 																				Required:     true,
 																				ValidateFunc: validation.StringLenBetween(1, 100),
 																			},
@@ -625,7 +625,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 																	},
 																},
 																"text": {
-																	Type:         schema.TypeString,
+																	Type:schema.TypeString,
 																	Optional:     true,
 																	ValidateFunc: validation.StringLenBetween(1, 1000),
 																},
@@ -633,7 +633,7 @@ func resourceVirtualGatewaySpecSchema() *schema.Schema {
 														},
 													},
 													"path": {
-														Type:         schema.TypeString,
+														Type:schema.TypeString,
 														Required:     true,
 														ValidateFunc: validation.StringLenBetween(1, 255),
 													},
@@ -657,7 +657,7 @@ func resourceVirtualGatewayCreate(ctx context.Context, d *schema.ResourceData, m
 
 	name := d.Get("name").(string)
 	input := &appmesh.CreateVirtualGatewayInput{
-		MeshName:           aws.String(d.Get("mesh_name").(string)),
+		MeshName:  aws.String(d.Get("mesh_name").(string)),
 		Spec:  expandVirtualGatewaySpec(d.Get("spec").([]interface{})),
 		Tags:  getTagsIn(ctx),
 		VirtualGatewayName: aws.String(name),
@@ -719,7 +719,7 @@ func resourceVirtualGatewayUpdate(ctx context.Context, d *schema.ResourceData, m
 
 	if d.HasChange("spec") {
 		input := &appmesh.UpdateVirtualGatewayInput{
-			MeshName:           aws.String(d.Get("mesh_name").(string)),
+			MeshName:  aws.String(d.Get("mesh_name").(string)),
 			Spec:  expandVirtualGatewaySpec(d.Get("spec").([]interface{})),
 			VirtualGatewayName: aws.String(d.Get("name").(string)),
 		}
@@ -744,7 +744,7 @@ func resourceVirtualGatewayDelete(ctx context.Context, d *schema.ResourceData, m
 
 	log.Printf("[DEBUG] Deleting App Mesh Virtual Gateway: %s", d.Id())
 	input := &appmesh.DeleteVirtualGatewayInput{
-		MeshName:           aws.String(d.Get("mesh_name").(string)),
+		MeshName:  aws.String(d.Get("mesh_name").(string)),
 		VirtualGatewayName: aws.String(d.Get("name").(string)),
 	}
 
@@ -791,7 +791,7 @@ func resourceVirtualGatewayImport(ctx context.Context, d *schema.ResourceData, m
 
 func FindVirtualGatewayByThreePartKey(ctx context.Context, conn *appmesh.AppMesh, meshName, meshOwner, name string) (*appmesh.VirtualGatewayData, error) {
 	input := &appmesh.DescribeVirtualGatewayInput{
-		MeshName:           aws.String(meshName),
+		MeshName:  aws.String(meshName),
 		VirtualGatewayName: aws.String(name),
 	}
 	if meshOwner != "" {
@@ -1325,7 +1325,7 @@ func flattenVirtualGatewaySpec(spec *appmesh.VirtualGatewaySpec) []interface{} {
 					"interval_millis":     int(aws.Int64Value(healthCheck.IntervalMillis)),
 					"path":   aws.StringValue(healthCheck.Path),
 					"port":   int(aws.Int64Value(healthCheck.Port)),
-					"protocol":            aws.StringValue(healthCheck.Protocol),
+					"protocol":   aws.StringValue(healthCheck.Protocol),
 					"timeout_millis":      int(aws.Int64Value(healthCheck.TimeoutMillis)),
 					"unhealthy_threshold": int(aws.Int64Value(healthCheck.UnhealthyThreshold)),
 				}

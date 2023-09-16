@@ -26,10 +26,10 @@ func TestAccDataSyncLocationSMB_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationSMBDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationSMBDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationSMBConfig_basic(rName, "/test/"),
@@ -45,8 +45,8 @@ func TestAccDataSyncLocationSMB_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"password", "server_hostname"},
 			},
@@ -74,10 +74,10 @@ func TestAccDataSyncLocationSMB_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationSMBDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationSMBDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationSMBConfig_basic(rName, "/test/"),
@@ -98,10 +98,10 @@ func TestAccDataSyncLocationSMB_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationSMBDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationSMBDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationSMBConfig_tags1(rName, "key1", "value1"),
@@ -112,8 +112,8 @@ func TestAccDataSyncLocationSMB_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"password", "server_hostname"},
 			},
@@ -201,7 +201,7 @@ resource "aws_datasync_location_smb" "test" {
   password        = "ZaphodBeeblebroxPW"
   server_hostname = aws_instance.test.public_ip
   subdirectory    = %[1]q
-  user            = "Guest"
+  user   = "Guest"
 }
 `, dir))
 }
@@ -213,7 +213,7 @@ resource "aws_datasync_location_smb" "test" {
   password        = "ZaphodBeeblebroxPW"
   server_hostname = aws_instance.test.public_ip
   subdirectory    = "/test/"
-  user            = "Guest"
+  user   = "Guest"
 
   tags = {
     %[1]q = %[2]q
@@ -229,7 +229,7 @@ resource "aws_datasync_location_smb" "test" {
   password        = "ZaphodBeeblebroxPW"
   server_hostname = aws_instance.test.public_ip
   subdirectory    = "/test/"
-  user            = "Guest"
+  user   = "Guest"
 
   tags = {
     %[1]q = %[2]q

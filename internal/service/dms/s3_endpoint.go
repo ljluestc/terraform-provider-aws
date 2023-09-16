@@ -32,7 +32,7 @@ import (
 func ResourceS3Endpoint() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceS3EndpointCreate,
-		ReadWithoutTimeout:   resourceS3EndpointRead,
+		ReadWithoutTimeout:resourceS3EndpointRead,
 		UpdateWithoutTimeout: resourceS3EndpointUpdate,
 		DeleteWithoutTimeout: resourceS3EndpointDelete,
 
@@ -47,266 +47,271 @@ func ResourceS3Endpoint() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"certificate_arn": {
-				Type:         schema.TypeString,
-				Computed:     true,
-				Optional:     true,
+				Type:schema.TypeString,
+				Computed:true,
+				Optional:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"endpoint_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"endpoint_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validEndpointID,
 			},
 			"endpoint_type": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(dms.ReplicationEndpointTypeValue_Values(), false),
 			},
 			"engine_display_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"external_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"kms_key_arn": {
-				Type:         schema.TypeString,
-				Computed:     true,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Computed:true,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"ssl_mode": {
-				Type:         schema.TypeString,
-				Computed:     true,
-				Optional:     true,
+				Type:schema.TypeString,
+				Computed:true,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(dms.DmsSslModeValue_Values(), false),
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 
 			/////// S3-Specific Settings
 			"add_column_name": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"add_trailing_padding_character": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 			"bucket_folder": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"bucket_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"canned_acl_for_objects": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(dms.CannedAclForObjectsValue_Values(), true),
-				StateFunc: func(v interface{}) string {
+				StateFunc: 
+func(v interface{}) string {
 					return strings.ToLower(v.(string))
 				},
 			},
 			"cdc_inserts_and_updates": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"cdc_inserts_only": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"cdc_max_batch_interval": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional:true,
 				ValidateFunc: validation.IntAtLeast(0),
 			},
 			"cdc_min_file_size": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional:true,
 				ValidateFunc: validation.IntAtLeast(0),
 			},
 			"cdc_path": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"compression_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(dms.CompressionTypeValue_Values(), true),
-				Default:      strings.ToUpper(dms.CompressionTypeValueNone),
-				StateFunc: func(v interface{}) string {
+				Default:strings.ToUpper(dms.CompressionTypeValueNone),
+				StateFunc: 
+func(v interface{}) string {
 					return strings.ToUpper(v.(string))
 				},
 			},
 			"csv_delimiter": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  ",",
 			},
 			"csv_no_sup_value": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"csv_null_value": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"csv_row_delimiter": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  "\\n",
 			},
 			"data_format": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(dms.DataFormatValue_Values(), false),
 			},
 			"data_page_size": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional:true,
 				ValidateFunc: validation.IntAtLeast(0),
 			},
 			"date_partition_delimiter": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(dms.DatePartitionDelimiterValue_Values(), true),
-				StateFunc: func(v interface{}) string {
+				StateFunc: 
+func(v interface{}) string {
 					return strings.ToUpper(v.(string))
 				},
 			},
 			"date_partition_enabled": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"date_partition_sequence": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(dms.DatePartitionSequenceValue_Values(), true),
-				StateFunc: func(v interface{}) string {
+				StateFunc: 
+func(v interface{}) string {
 					return strings.ToLower(v.(string))
 				},
 			},
 			"date_partition_timezone": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"detach_target_on_lob_lookup_failure_parquet": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 			"dict_page_size_limit": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional:true,
 				ValidateFunc: validation.IntAtLeast(0),
 			},
 			"enable_statistics": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"encoding_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(dms.EncodingTypeValue_Values(), false),
 			},
 			"encryption_mode": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(encryptionMode_Values(), false),
 			},
 			"expected_bucket_owner": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"external_table_definition": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringIsJSON,
-				StateFunc: func(v interface{}) string {
+				StateFunc: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
 			},
 			"ignore_header_rows": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeInt,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: validation.IntInSlice([]int{0, 1}),
 			},
 			"include_op_for_full_load": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"max_file_size": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional:true,
 				ValidateFunc: validation.IntBetween(1, 1048576),
 			},
 			"parquet_timestamp_in_millisecond": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"parquet_version": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(dms.ParquetVersionValue_Values(), false),
 			},
 			"preserve_transactions": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"rfc_4180": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"row_group_length": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional:true,
 				ValidateFunc: validation.IntAtLeast(0),
 			},
 			"server_side_encryption_kms_key_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"service_access_role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"timestamp_column_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"use_csv_no_sup_value": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"use_task_start_time_for_full_load_timestamp": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
@@ -319,15 +324,14 @@ func ResourceS3Endpoint() *schema.Resource {
 const (
 	ResNameS3Endpoint = "S3 Endpoint"
 )
-
 func resourceS3EndpointCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
 
 	input := &dms.CreateEndpointInput{
 		EndpointIdentifier: aws.String(d.Get("endpoint_id").(string)),
-		EndpointType:       aws.String(d.Get("endpoint_type").(string)),
-		EngineName:         aws.String("s3"),
+		EndpointType: aws.String(d.Get("endpoint_type").(string)),
+		EngineName:aws.String("s3"),
 		Tags:  getTagsIn(ctx),
 	}
 
@@ -354,7 +358,8 @@ func resourceS3EndpointCreate(ctx context.Context, d *schema.ResourceData, meta 
 	log.Println("[DEBUG] DMS create endpoint:", input)
 
 	var out *dms.CreateEndpointOutput
-	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutCreate), func() *retry.RetryError {
+	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutCreate), 
+func() *retry.RetryError {
 		var err error
 		out, err = conn.CreateEndpointWithContext(ctx, input)
 
@@ -387,7 +392,6 @@ func resourceS3EndpointCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceS3EndpointRead(ctx, d, meta)...)
 }
-
 func resourceS3EndpointRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
@@ -476,7 +480,6 @@ func resourceS3EndpointRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func resourceS3EndpointUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
@@ -513,7 +516,8 @@ func resourceS3EndpointUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 		log.Println("[DEBUG] DMS update endpoint:", input)
 
-		err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutCreate), func() *retry.RetryError {
+		err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutCreate), 
+func() *retry.RetryError {
 			_, err := conn.ModifyEndpointWithContext(ctx, input)
 
 			if tfawserr.ErrCodeEquals(err, "AccessDeniedFault") {
@@ -538,7 +542,6 @@ func resourceS3EndpointUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceS3EndpointRead(ctx, d, meta)...)
 }
-
 func resourceS3EndpointDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
@@ -562,7 +565,6 @@ func resourceS3EndpointDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
-
 func s3Settings(d *schema.ResourceData, target bool) *dms.S3Settings {
 	s3s := &dms.S3Settings{}
 
@@ -728,7 +730,6 @@ func s3Settings(d *schema.ResourceData, target bool) *dms.S3Settings {
 
 	return s3s
 }
-
 func extraConnectionAnomalies(d *schema.ResourceData) *string {
 	// not all attributes work in the data structures and must be passed via ex conn attr
 
@@ -748,7 +749,6 @@ func extraConnectionAnomalies(d *schema.ResourceData) *string {
 
 	return aws.String(strings.Join(anoms, ";"))
 }
-
 func setDetachTargetOnLobLookupFailureParquet(d *schema.ResourceData, eca string) {
 	if strings.Contains(eca, "detachTargetOnLobLookupFailureParquet=false") {
 		d.Set("detach_target_on_lob_lookup_failure_parquet", false)

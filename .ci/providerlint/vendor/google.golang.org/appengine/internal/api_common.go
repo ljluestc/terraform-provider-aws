@@ -17,8 +17,7 @@ var errNotAppEngineContext = errors.New("not an App Engine context")
 type CallOverrideFunc func(ctx netcontext.Context, service, method string, in, out proto.Message) error
 
 var callOverrideKey = "holds []CallOverrideFunc"
-
-func WithCallOverride(ctx netcontext.Context, f CallOverrideFunc) netcontext.Context {
+ WithCallOverride(ctx netcontext.Context, f CallOverrideFunc) netcontext.Context {
 	// We avoid appending to any existing call override
 	// so we don't risk overwriting a popped stack below.
 	var cofs []CallOverrideFunc
@@ -28,8 +27,7 @@ func WithCallOverride(ctx netcontext.Context, f CallOverrideFunc) netcontext.Con
 	cofs = append(cofs, f)
 	return netcontext.WithValue(ctx, &callOverrideKey, cofs)
 }
-
-func callOverrideFromContext(ctx netcontext.Context) (CallOverrideFunc, netcontext.Context, bool) {
+ callOverrideFromContext(ctx netcontext.Context) (CallOverrideFunc, netcontext.Context, bool) {
 	cofs, _ := ctx.Value(&callOverrideKey).([]CallOverrideFunc)
 	if len(cofs) == 0 {
 		return nil, nil, false
@@ -44,24 +42,20 @@ func callOverrideFromContext(ctx netcontext.Context) (CallOverrideFunc, netconte
 type logOverrideFunc func(level int64, format string, args ...interface{})
 
 var logOverrideKey = "holds a logOverrideFunc"
-
-func WithLogOverride(ctx netcontext.Context, f logOverrideFunc) netcontext.Context {
+ WithLogOverride(ctx netcontext.Context, f logOverrideFunc) netcontext.Context {
 	return netcontext.WithValue(ctx, &logOverrideKey, f)
 }
 
 var appIDOverrideKey = "holds a string, being the full app ID"
-
-func WithAppIDOverride(ctx netcontext.Context, appID string) netcontext.Context {
+ WithAppIDOverride(ctx netcontext.Context, appID string) netcontext.Context {
 	return netcontext.WithValue(ctx, &appIDOverrideKey, appID)
 }
 
 var namespaceKey = "holds the namespace string"
-
-func withNamespace(ctx netcontext.Context, ns string) netcontext.Context {
+ withNamespace(ctx netcontext.Context, ns string) netcontext.Context {
 	return netcontext.WithValue(ctx, &namespaceKey, ns)
 }
-
-func NamespaceFromContext(ctx netcontext.Context) string {
+ NamespaceFromContext(ctx netcontext.Context) string {
 	// If there's no namespace, return the empty string.
 	ns, _ := ctx.Value(&namespaceKey).(string)
 	return ns
@@ -69,15 +63,13 @@ func NamespaceFromContext(ctx netcontext.Context) string {
 
 // FullyQualifiedAppID returns the fully-qualified application ID.
 // This may contain a partition prefix (e.g. "s~" for High Replication apps),
-// or a domain prefix (e.g. "example.com:").
-func FullyQualifiedAppID(ctx netcontext.Context) string {
+// or a domain prefix (e.g. "example.com:"). FullyQualifiedAppID(ctx netcontext.Context) string {
 	if id, ok := ctx.Value(&appIDOverrideKey).(string); ok {
 		return id
 	}
 	return fullyQualifiedAppID(ctx)
 }
-
-func Logf(ctx netcontext.Context, level int64, format string, args ...interface{}) {
+ Logf(ctx netcontext.Context, level int64, format string, args ...interface{}) {
 	if f, ok := ctx.Value(&logOverrideKey).(logOverrideFunc); ok {
 		f(level, format, args...)
 		return
@@ -89,13 +81,11 @@ func Logf(ctx netcontext.Context, level int64, format string, args ...interface{
 	logf(c, level, format, args...)
 }
 
-// NamespacedContext wraps a Context to support namespaces.
-func NamespacedContext(ctx netcontext.Context, namespace string) netcontext.Context {
+// NamespacedContext wraps a Context to support namespaces. NamespacedContext(ctx netcontext.Context, namespace string) netcontext.Context {
 	return withNamespace(ctx, namespace)
 }
 
-// SetTestEnv sets the env variables for testing background ticket in Flex.
-func SetTestEnv() func() {
+// SetTestEnv sets the env variables for testing background ticket in Flex. SetTestEnv() func() {
 	var environ = []struct {
 		key, value string
 	}{

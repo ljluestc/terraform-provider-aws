@@ -21,7 +21,6 @@ import (
 	tfglobalaccelerator "github.com/hashicorp/terraform-provider-aws/internal/service/globalaccelerator"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccGlobalAcceleratorEndpointGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.EndpointGroup
@@ -29,10 +28,10 @@ func TestAccGlobalAcceleratorEndpointGroup_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointGroupConfig_basic(rName),
@@ -52,14 +51,13 @@ func TestAccGlobalAcceleratorEndpointGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorEndpointGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.EndpointGroup
@@ -67,10 +65,10 @@ func TestAccGlobalAcceleratorEndpointGroup_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointGroupConfig_basic(rName),
@@ -83,7 +81,6 @@ func TestAccGlobalAcceleratorEndpointGroup_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorEndpointGroup_ALBEndpoint_clientIP(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.EndpointGroup
@@ -94,10 +91,10 @@ func TestAccGlobalAcceleratorEndpointGroup_ALBEndpoint_clientIP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointGroupConfig_albClientIP(rName, false, 20),
@@ -107,7 +104,7 @@ func TestAccGlobalAcceleratorEndpointGroup_ALBEndpoint_clientIP(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "endpoint_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "endpoint_configuration.*", map[string]string{
 						"client_ip_preservation_enabled": "false",
-						"weight":       "20",
+						"weight":
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "endpoint_configuration.*.endpoint_id", albResourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "endpoint_group_region", acctest.Region()),
@@ -122,8 +119,8 @@ func TestAccGlobalAcceleratorEndpointGroup_ALBEndpoint_clientIP(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -134,7 +131,7 @@ func TestAccGlobalAcceleratorEndpointGroup_ALBEndpoint_clientIP(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "endpoint_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "endpoint_configuration.*", map[string]string{
 						"client_ip_preservation_enabled": "true",
-						"weight":       "0",
+						"weight":
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "endpoint_configuration.*.endpoint_id", albResourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "endpoint_group_region", acctest.Region()),
@@ -148,7 +145,8 @@ func TestAccGlobalAcceleratorEndpointGroup_ALBEndpoint_clientIP(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "traffic_dial_percentage", "100"),
 				),
 			},
-			{ // nosemgrep:ci.test-config-funcs-correct-form
+			{ // nosemgrep:ci.test-config-
+funcs-correct-form
 				Config: acctest.ConfigVPCWithSubnets(rName, 2),
 				Check: resource.ComposeTestCheckFunc(
 					acctest.CheckVPCExists(ctx, vpcResourceName, &vpc),
@@ -158,7 +156,6 @@ func TestAccGlobalAcceleratorEndpointGroup_ALBEndpoint_clientIP(t *testing.T) {
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorEndpointGroup_instanceEndpoint(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.EndpointGroup
@@ -169,10 +166,10 @@ func TestAccGlobalAcceleratorEndpointGroup_instanceEndpoint(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointGroupConfig_instance(rName),
@@ -182,7 +179,7 @@ func TestAccGlobalAcceleratorEndpointGroup_instanceEndpoint(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "endpoint_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "endpoint_configuration.*", map[string]string{
 						"client_ip_preservation_enabled": "true",
-						"weight":       "20",
+						"weight":
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "endpoint_configuration.*.endpoint_id", instanceResourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "endpoint_group_region", acctest.Region()),
@@ -197,11 +194,12 @@ func TestAccGlobalAcceleratorEndpointGroup_instanceEndpoint(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
-			{ // nosemgrep:ci.test-config-funcs-correct-form
+			{ // nosemgrep:ci.test-config-
+funcs-correct-form
 				Config: acctest.ConfigVPCWithSubnets(rName, 1),
 				Check: resource.ComposeTestCheckFunc(
 					acctest.CheckVPCExists(ctx, vpcResourceName, &vpc),
@@ -211,7 +209,6 @@ func TestAccGlobalAcceleratorEndpointGroup_instanceEndpoint(t *testing.T) {
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorEndpointGroup_multiRegion(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.EndpointGroup
@@ -220,10 +217,10 @@ func TestAccGlobalAcceleratorEndpointGroup_multiRegion(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:    testAccCheckEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointGroupConfig_multiRegion(rName),
@@ -233,7 +230,7 @@ func TestAccGlobalAcceleratorEndpointGroup_multiRegion(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "endpoint_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "endpoint_configuration.*", map[string]string{
 						"client_ip_preservation_enabled": "false",
-						"weight":       "20",
+						"weight":
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "endpoint_configuration.*.endpoint_id", eipResourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "endpoint_group_region", acctest.AlternateRegion()),
@@ -248,14 +245,13 @@ func TestAccGlobalAcceleratorEndpointGroup_multiRegion(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorEndpointGroup_portOverrides(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.EndpointGroup
@@ -263,10 +259,10 @@ func TestAccGlobalAcceleratorEndpointGroup_portOverrides(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointGroupConfig_portOverrides(rName),
@@ -315,14 +311,13 @@ func TestAccGlobalAcceleratorEndpointGroup_portOverrides(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorEndpointGroup_tcpHealthCheckProtocol(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.EndpointGroup
@@ -331,10 +326,10 @@ func TestAccGlobalAcceleratorEndpointGroup_tcpHealthCheckProtocol(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointGroupConfig_tcpHealthCheckProtocol(rName),
@@ -344,7 +339,7 @@ func TestAccGlobalAcceleratorEndpointGroup_tcpHealthCheckProtocol(t *testing.T) 
 					resource.TestCheckResourceAttr(resourceName, "endpoint_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "endpoint_configuration.*", map[string]string{
 						"client_ip_preservation_enabled": "false",
-						"weight":       "10",
+						"weight":
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "endpoint_configuration.*.endpoint_id", eipResourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "endpoint_group_region", acctest.Region()),
@@ -359,14 +354,13 @@ func TestAccGlobalAcceleratorEndpointGroup_tcpHealthCheckProtocol(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorEndpointGroup_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.EndpointGroup
@@ -375,10 +369,10 @@ func TestAccGlobalAcceleratorEndpointGroup_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointGroupConfig_basic(rName),
@@ -405,7 +399,7 @@ func TestAccGlobalAcceleratorEndpointGroup_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "endpoint_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "endpoint_configuration.*", map[string]string{
 						"client_ip_preservation_enabled": "false",
-						"weight":       "20",
+						"weight":
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "endpoint_configuration.*.endpoint_id", eipResourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "endpoint_group_region", acctest.Region()),
@@ -420,16 +414,16 @@ func TestAccGlobalAcceleratorEndpointGroup_update(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckEndpointGroupExists(ctx context.Context, name string, v *globalaccelerator.EndpointGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
 		rs, ok := s.RootModule().Resources[name]
@@ -452,9 +446,9 @@ func testAccCheckEndpointGroupExists(ctx context.Context, name string, v *global
 		return nil
 	}
 }
-
 func testAccCheckEndpointGroupDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -481,7 +475,8 @@ func testAccCheckEndpointGroupDestroy(ctx context.Context) resource.TestCheckFun
 // testAccCheckEndpointGroupDeleteSecurityGroup deletes the security group
 // placed into the VPC when Global Accelerator client IP address preservation is enabled.
 func testAccCheckEndpointGroupDeleteSecurityGroup(ctx context.Context, vpc *ec2.Vpc) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		meta := acctest.Provider.Meta()
 		conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -506,22 +501,21 @@ func testAccCheckEndpointGroupDeleteSecurityGroup(ctx context.Context, vpc *ec2.
 		return err
 	}
 }
-
 func testAccEndpointGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
-  name   = %[1]q
+  name= %[1]q
   ip_address_type = "IPV4"
   enabled= false
 }
 
 resource "aws_globalaccelerator_listener" "test" {
   accelerator_arn = aws_globalaccelerator_accelerator.test.id
-  protocol        = "TCP"
+  protocolCP"
 
   port_range {
-    from_port = 80
-    to_port   = 80
+ from_port = 80
+ to_port= 80
   }
 }
 
@@ -530,12 +524,11 @@ resource "aws_globalaccelerator_endpoint_group" "test" {
 }
 `, rName)
 }
-
 func testAccEndpointGroupConfig_albClientIP(rName string, clientIP bool, weight int) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  name   = %[1]q
-  internal        = false
+  name= %[1]q
+  internallse
   security_groups = [aws_security_group.test.id]
   subnets= aws_subnet.test[*].id
 
@@ -543,30 +536,30 @@ resource "aws_lb" "test" {
   enable_deletion_protection = false
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name= %[1]q
   vpc_id = aws_vpc.test.id
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+ from_port= 0
+ to_port= 0
+ protocol = "-1"
+ cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+ from_port= 0
+ to_port= 0
+ protocol = "-1"
+ cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -574,23 +567,23 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_globalaccelerator_accelerator" "test" {
-  name   = %[1]q
+  name= %[1]q
   ip_address_type = "IPV4"
   enabled= false
 }
 
 resource "aws_globalaccelerator_listener" "test" {
   accelerator_arn = aws_globalaccelerator_accelerator.test.id
-  protocol        = "TCP"
+  protocolCP"
 
   port_range {
-    from_port = 80
-    to_port   = 80
+ from_port = 80
+ to_port= 80
   }
 }
 
@@ -598,21 +591,20 @@ resource "aws_globalaccelerator_endpoint_group" "test" {
   listener_arn = aws_globalaccelerator_listener.test.id
 
   endpoint_configuration {
-    endpoint_id     = aws_lb.test.id
-    weight = %[3]d
-    client_ip_preservation_enabled = %[2]t
+ endpoint_id= aws_lb.test.id
+ weight = %[3]d
+ client_ip_preservation_enabled = %[2]t
   }
 
   health_check_interval_seconds = 30
-  health_check_path    = "/"
-  health_check_port    = 80
+  health_check_path = "/"
+  health_check_port = 80
   health_check_protocol= "HTTP"
   threshold_count= 3
-  traffic_dial_percentage       = 100
+  traffic_dial_percentage
 }
 `, rName, clientIP, weight))
 }
-
 func testAccEndpointGroupConfig_instance(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigVPCWithSubnets(rName, 1),
@@ -623,33 +615,33 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_instance" "test" {
   ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
-  subnet_id     = aws_subnet.test[0].id
+  subnet_id= aws_subnet.test[0].id
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_globalaccelerator_accelerator" "test" {
-  name   = %[1]q
+  name= %[1]q
   ip_address_type = "IPV4"
   enabled= false
 }
 
 resource "aws_globalaccelerator_listener" "test" {
   accelerator_arn = aws_globalaccelerator_accelerator.test.id
-  protocol        = "TCP"
+  protocolCP"
 
   port_range {
-    from_port = 80
-    to_port   = 80
+ from_port = 80
+ to_port= 80
   }
 }
 
@@ -657,36 +649,35 @@ resource "aws_globalaccelerator_endpoint_group" "test" {
   listener_arn = aws_globalaccelerator_listener.test.id
 
   endpoint_configuration {
-    endpoint_id     = aws_instance.test.id
-    weight = 20
-    client_ip_preservation_enabled = true
+ endpoint_id= aws_instance.test.id
+ weight = 20
+ client_ip_preservation_enabled = true
   }
 
   health_check_interval_seconds = 30
-  health_check_path    = "/"
-  health_check_port    = 80
+  health_check_path = "/"
+  health_check_port = 80
   health_check_protocol= "HTTP"
   threshold_count= 3
-  traffic_dial_percentage       = 100
+  traffic_dial_percentage
 }
 `, rName))
 }
-
 func testAccEndpointGroupConfig_multiRegion(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
-  name   = %[1]q
+  name= %[1]q
   ip_address_type = "IPV4"
   enabled= false
 }
 
 resource "aws_globalaccelerator_listener" "test" {
   accelerator_arn = aws_globalaccelerator_accelerator.test.id
-  protocol        = "TCP"
+  protocolCP"
 
   port_range {
-    from_port = 80
-    to_port   = 80
+ from_port = 80
+ to_port= 80
   }
 }
 
@@ -696,7 +687,7 @@ resource "aws_eip" "test" {
   domain = "vpc"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -704,36 +695,35 @@ resource "aws_globalaccelerator_endpoint_group" "test" {
   listener_arn = aws_globalaccelerator_listener.test.id
 
   endpoint_configuration {
-    endpoint_id = aws_eip.test.id
-    weight      = 20
+ endpoint_id = aws_eip.test.id
+ weight
   }
 
   endpoint_group_region= %[2]q
   health_check_interval_seconds = 10
-  health_check_path    = "/foo"
-  health_check_port    = 8080
+  health_check_path = "/foo"
+  health_check_port = 8080
   health_check_protocol= "HTTPS"
   threshold_count= 1
-  traffic_dial_percentage       = 0
+  traffic_dial_percentage
 }
 `, rName, acctest.AlternateRegion()))
 }
-
 func testAccEndpointGroupConfig_portOverrides(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
-  name   = %[1]q
+  name= %[1]q
   ip_address_type = "IPV4"
   enabled= false
 }
 
 resource "aws_globalaccelerator_listener" "test" {
   accelerator_arn = aws_globalaccelerator_accelerator.test.id
-  protocol        = "TCP"
+  protocolCP"
 
   port_range {
-    from_port = 80
-    to_port   = 90
+ from_port = 80
+ to_port= 90
   }
 }
 
@@ -743,28 +733,27 @@ resource "aws_globalaccelerator_endpoint_group" "test" {
   health_check_port = 80
 
   port_override {
-    endpoint_port = 8081
-    listener_port = 81
+ endpoint_port = 8081
+ listener_port = 81
   }
 }
 `, rName)
 }
-
 func testAccEndpointGroupConfig_portOverridesUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
-  name   = %[1]q
+  name= %[1]q
   ip_address_type = "IPV4"
   enabled= false
 }
 
 resource "aws_globalaccelerator_listener" "test" {
   accelerator_arn = aws_globalaccelerator_accelerator.test.id
-  protocol        = "TCP"
+  protocolCP"
 
   port_range {
-    from_port = 80
-    to_port   = 90
+ from_port = 80
+ to_port= 90
   }
 }
 
@@ -772,33 +761,32 @@ resource "aws_globalaccelerator_endpoint_group" "test" {
   listener_arn = aws_globalaccelerator_listener.test.id
 
   port_override {
-    endpoint_port = 8081
-    listener_port = 81
+ endpoint_port = 8081
+ listener_port = 81
   }
 
   port_override {
-    endpoint_port = 9090
-    listener_port = 90
+ endpoint_port = 9090
+ listener_port = 90
   }
 }
 `, rName)
 }
-
 func testAccEndpointGroupConfig_tcpHealthCheckProtocol(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
-  name   = %[1]q
+  name= %[1]q
   ip_address_type = "IPV4"
   enabled= false
 }
 
 resource "aws_globalaccelerator_listener" "test" {
   accelerator_arn = aws_globalaccelerator_accelerator.test.id
-  protocol        = "TCP"
+  protocolCP"
 
   port_range {
-    from_port = 80
-    to_port   = 80
+ from_port = 80
+ to_port= 80
   }
 }
 
@@ -806,7 +794,7 @@ resource "aws_eip" "test" {
   domain = "vpc"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -816,35 +804,34 @@ resource "aws_globalaccelerator_endpoint_group" "test" {
   listener_arn = aws_globalaccelerator_listener.test.id
 
   endpoint_configuration {
-    endpoint_id = aws_eip.test.id
-    weight      = 10
+ endpoint_id = aws_eip.test.id
+ weight
   }
 
   endpoint_group_region= data.aws_region.current.name
   health_check_interval_seconds = 30
-  health_check_port    = 1234
+  health_check_port = 1234
   health_check_protocol= "TCP"
   threshold_count= 3
-  traffic_dial_percentage       = 100
+  traffic_dial_percentage
 }
 `, rName)
 }
-
 func testAccEndpointGroupConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
-  name   = %[1]q
+  name= %[1]q
   ip_address_type = "IPV4"
   enabled= false
 }
 
 resource "aws_globalaccelerator_listener" "test" {
   accelerator_arn = aws_globalaccelerator_accelerator.test.id
-  protocol        = "TCP"
+  protocolCP"
 
   port_range {
-    from_port = 80
-    to_port   = 80
+ from_port = 80
+ to_port= 80
   }
 }
 
@@ -852,7 +839,7 @@ resource "aws_eip" "test" {
   domain = "vpc"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -860,16 +847,16 @@ resource "aws_globalaccelerator_endpoint_group" "test" {
   listener_arn = aws_globalaccelerator_listener.test.id
 
   endpoint_configuration {
-    endpoint_id = aws_eip.test.id
-    weight      = 20
+ endpoint_id = aws_eip.test.id
+ weight
   }
 
   health_check_interval_seconds = 10
-  health_check_path    = "/foo"
-  health_check_port    = 8080
+  health_check_path = "/foo"
+  health_check_port = 8080
   health_check_protocol= "HTTPS"
   threshold_count= 1
-  traffic_dial_percentage       = 0
+  traffic_dial_percentage
 }
 `, rName)
 }

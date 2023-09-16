@@ -25,7 +25,7 @@ func testAccRoutingControl_basic(t *testing.T) {
 	resourceName := "aws_route53recoverycontrolconfig_routing_control.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -40,8 +40,8 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"cluster_arn", // not available in DescribeRoutingControlOutput
@@ -58,7 +58,7 @@ func testAccRoutingControl_disappears(t *testing.T) {
 	resourceName := "aws_route53recoverycontrolconfig_routing_control.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -83,7 +83,7 @@ func testAccRoutingControl_nonDefaultControlPanel(t *testing.T) {
 	resourceName := "aws_route53recoverycontrolconfig_routing_control.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -162,7 +162,7 @@ func testAccRoutingControlConfig_inDefaultPanel(rName string) string {
 	return acctest.ConfigCompose(
 		testAccClusterBase(rName), fmt.Sprintf(`
 resource "aws_route53recoverycontrolconfig_routing_control" "test" {
-  name        = %[1]q
+  name   = %[1]q
   cluster_arn = aws_route53recoverycontrolconfig_cluster.test.arn
 }
 `, rName))
@@ -172,7 +172,7 @@ resource "aws_route53recoverycontrolconfig_routing_control" "test" {
 func testAccControlPanelBase(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoverycontrolconfig_control_panel" "test" {
-  name        = %[1]q
+  name   = %[1]q
   cluster_arn = aws_route53recoverycontrolconfig_cluster.test.arn
 }
 `, rName)
@@ -186,7 +186,7 @@ func testAccRoutingControlConfig_inNonDefaultPanel(rName string) string {
 		fmt.Sprintf(`
 resource "aws_route53recoverycontrolconfig_routing_control" "test" {
   name = %[1]q
-  cluster_arn       = aws_route53recoverycontrolconfig_cluster.test.arn
+  cluster_arn  = aws_route53recoverycontrolconfig_cluster.test.arn
   control_panel_arn = aws_route53recoverycontrolconfig_control_panel.test.arn
 }
 `, rName))

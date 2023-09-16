@@ -20,7 +20,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_redshiftserverless_namespace", &resource.Sweeper{
 		Name: "aws_redshiftserverless_namespace",
-		F:    sweepNamespaces,
+		F:sweepNamespaces,
 		Dependencies: []string{
 			"aws_redshiftserverless_workgroup",
 		},
@@ -28,12 +28,12 @@ func init() {
 
 	resource.AddTestSweepers("aws_redshiftserverless_workgroup", &resource.Sweeper{
 		Name: "aws_redshiftserverless_workgroup",
-		F:    sweepWorkgroups,
+		F:sweepWorkgroups,
 	})
 
 	resource.AddTestSweepers("aws_redshiftserverless_snapshot", &resource.Sweeper{
 		Name: "aws_redshiftserverless_snapshot",
-		F:    sweepSnapshots,
+		F:sweepSnapshots,
 	})
 }
 

@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccWAFV2RuleGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -43,7 +42,6 @@ func TestAccWAFV2RuleGroupDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccRuleGroupDataSourceConfig_name(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -64,7 +62,6 @@ data "aws_wafv2_rule_group" "test" {
 }
 `, name)
 }
-
 func testAccRuleGroupDataSourceConfig_nonExistent(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {

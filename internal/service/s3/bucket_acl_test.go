@@ -21,10 +21,10 @@ import (
 )funcarallel()
 
 	testCases := []struct {
-		TestName            string
-		InputID             string
-		ExpectError         bool
-		ExpectedACL         string
+		TestName   string
+		InputID    string
+		ExpectErrorbool
+		ExpectedACLstring
 		ExpectedBucket      string
 		ExpectedBucketOwner string
 	}{
@@ -54,170 +54,170 @@ import (
 			ExpectError: true,
 		},
 		{
-			TestName:            "valid ID with bucket",
-			InputID:             tfs3.BucketACLCreateResourceID("example", "", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket",
+			InputID:    tfs3.BucketACLCreateResourceID("example", "", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "example",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket that has hyphens",
-			InputID:             tfs3.BucketACLCreateResourceID("my-example-bucket", "", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket that has hyphens",
+			InputID:    tfs3.BucketACLCreateResourceID("my-example-bucket", "", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "my-example-bucket",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket that has dot and hyphens",
-			InputID:             tfs3.BucketACLCreateResourceID("my-example.bucket", "", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket that has dot and hyphens",
+			InputID:    tfs3.BucketACLCreateResourceID("my-example.bucket", "", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "my-example.bucket",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket that has dots, hyphen, and numbers",
-			InputID:             tfs3.BucketACLCreateResourceID("my-example.bucket.4000", "", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket that has dots, hyphen, and numbers",
+			InputID:    tfs3.BucketACLCreateResourceID("my-example.bucket.4000", "", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "my-example.bucket.4000",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket and acl",
-			InputID:             tfs3.BucketACLCreateResourceID("example", "", s3.BucketCannedACLPrivate),
-			ExpectedACL:         s3.BucketCannedACLPrivate,
+			TestName:   "valid ID with bucket and acl",
+			InputID:    tfs3.BucketACLCreateResourceID("example", "", s3.BucketCannedACLPrivate),
+			ExpectedACL:s3.BucketCannedACLPrivate,
 			ExpectedBucket:      "example",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket and acl that has hyphens",
-			InputID:             tfs3.BucketACLCreateResourceID("example", "", s3.BucketCannedACLPublicReadWrite),
-			ExpectedACL:         s3.BucketCannedACLPublicReadWrite,
+			TestName:   "valid ID with bucket and acl that has hyphens",
+			InputID:    tfs3.BucketACLCreateResourceID("example", "", s3.BucketCannedACLPublicReadWrite),
+			ExpectedACL:s3.BucketCannedACLPublicReadWrite,
 			ExpectedBucket:      "example",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket that has dot, hyphen, and number and acl that has hyphens",
-			InputID:             tfs3.BucketACLCreateResourceID("my-example.bucket.4000", "", s3.BucketCannedACLPublicReadWrite),
-			ExpectedACL:         s3.BucketCannedACLPublicReadWrite,
+			TestName:   "valid ID with bucket that has dot, hyphen, and number and acl that has hyphens",
+			InputID:    tfs3.BucketACLCreateResourceID("my-example.bucket.4000", "", s3.BucketCannedACLPublicReadWrite),
+			ExpectedACL:s3.BucketCannedACLPublicReadWrite,
 			ExpectedBucket:      "my-example.bucket.4000",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket and bucket owner",
-			InputID:             tfs3.BucketACLCreateResourceID("example", "123456789012", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket and bucket owner",
+			InputID:    tfs3.BucketACLCreateResourceID("example", "123456789012", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "example",
 			ExpectedBucketOwner: "123456789012",
 		},
 		{
-			TestName:            "valid ID with bucket that has dot, hyphen, and number and bucket owner",
-			InputID:             tfs3.BucketACLCreateResourceID("my-example.bucket.4000", "123456789012", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket that has dot, hyphen, and number and bucket owner",
+			InputID:    tfs3.BucketACLCreateResourceID("my-example.bucket.4000", "123456789012", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "my-example.bucket.4000",
 			ExpectedBucketOwner: "123456789012",
 		},
 		{
-			TestName:            "valid ID with bucket, bucket owner, and acl",
-			InputID:             tfs3.BucketACLCreateResourceID("example", "123456789012", s3.BucketCannedACLPrivate),
-			ExpectedACL:         s3.BucketCannedACLPrivate,
+			TestName:   "valid ID with bucket, bucket owner, and acl",
+			InputID:    tfs3.BucketACLCreateResourceID("example", "123456789012", s3.BucketCannedACLPrivate),
+			ExpectedACL:s3.BucketCannedACLPrivate,
 			ExpectedBucket:      "example",
 			ExpectedBucketOwner: "123456789012",
 		},
 		{
-			TestName:            "valid ID with bucket, bucket owner, and acl that has hyphens",
-			InputID:             tfs3.BucketACLCreateResourceID("example", "123456789012", s3.BucketCannedACLPublicReadWrite),
-			ExpectedACL:         s3.BucketCannedACLPublicReadWrite,
+			TestName:   "valid ID with bucket, bucket owner, and acl that has hyphens",
+			InputID:    tfs3.BucketACLCreateResourceID("example", "123456789012", s3.BucketCannedACLPublicReadWrite),
+			ExpectedACL:s3.BucketCannedACLPublicReadWrite,
 			ExpectedBucket:      "example",
 			ExpectedBucketOwner: "123456789012",
 		},
 		{
-			TestName:            "valid ID with bucket that has dot, hyphen, and numbers, bucket owner, and acl that has hyphens",
-			InputID:             tfs3.BucketACLCreateResourceID("my-example.bucket.4000", "123456789012", s3.BucketCannedACLPublicReadWrite),
-			ExpectedACL:         s3.BucketCannedACLPublicReadWrite,
+			TestName:   "valid ID with bucket that has dot, hyphen, and numbers, bucket owner, and acl that has hyphens",
+			InputID:    tfs3.BucketACLCreateResourceID("my-example.bucket.4000", "123456789012", s3.BucketCannedACLPublicReadWrite),
+			ExpectedACL:s3.BucketCannedACLPublicReadWrite,
 			ExpectedBucket:      "my-example.bucket.4000",
 			ExpectedBucketOwner: "123456789012",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1)", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("Example", "", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket (pre-2018, us-east-1)", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("Example", "", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "Example",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1) that has underscores", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("My_Example_Bucket", "", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket (pre-2018, us-east-1) that has underscores", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("My_Example_Bucket", "", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "My_Example_Bucket",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1) that has underscore, dot, and hyphens", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("My_Example-Bucket.local", "", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket (pre-2018, us-east-1) that has underscore, dot, and hyphens", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("My_Example-Bucket.local", "", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "My_Example-Bucket.local",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1) that has underscore, dots, hyphen, and numbers", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("My_Example-Bucket.4000", "", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket (pre-2018, us-east-1) that has underscore, dots, hyphen, and numbers", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("My_Example-Bucket.4000", "", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "My_Example-Bucket.4000",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1) and acl", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("Example", "", s3.BucketCannedACLPrivate),
-			ExpectedACL:         s3.BucketCannedACLPrivate,
+			TestName:   "valid ID with bucket (pre-2018, us-east-1) and acl", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("Example", "", s3.BucketCannedACLPrivate),
+			ExpectedACL:s3.BucketCannedACLPrivate,
 			ExpectedBucket:      "Example",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1) and acl that has underscores", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("My_Example_Bucket", "", s3.BucketCannedACLPublicReadWrite),
-			ExpectedACL:         s3.BucketCannedACLPublicReadWrite,
+			TestName:   "valid ID with bucket (pre-2018, us-east-1) and acl that has underscores", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("My_Example_Bucket", "", s3.BucketCannedACLPublicReadWrite),
+			ExpectedACL:s3.BucketCannedACLPublicReadWrite,
 			ExpectedBucket:      "My_Example_Bucket",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1) that has underscore, dot, hyphen, and number and acl that has hyphens", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("My_Example-Bucket.4000", "", s3.BucketCannedACLPublicReadWrite),
-			ExpectedACL:         s3.BucketCannedACLPublicReadWrite,
+			TestName:   "valid ID with bucket (pre-2018, us-east-1) that has underscore, dot, hyphen, and number and acl that has hyphens", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("My_Example-Bucket.4000", "", s3.BucketCannedACLPublicReadWrite),
+			ExpectedACL:s3.BucketCannedACLPublicReadWrite,
 			ExpectedBucket:      "My_Example-Bucket.4000",
 			ExpectedBucketOwner: "",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1) and bucket owner", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("Example", "123456789012", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket (pre-2018, us-east-1) and bucket owner", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("Example", "123456789012", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "Example",
 			ExpectedBucketOwner: "123456789012",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1) that has underscore, dot, hyphen, and number and bucket owner", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("My_Example-Bucket.4000", "123456789012", ""),
-			ExpectedACL:         "",
+			TestName:   "valid ID with bucket (pre-2018, us-east-1) that has underscore, dot, hyphen, and number and bucket owner", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("My_Example-Bucket.4000", "123456789012", ""),
+			ExpectedACL:"",
 			ExpectedBucket:      "My_Example-Bucket.4000",
 			ExpectedBucketOwner: "123456789012",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1), bucket owner, and acl", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("Example", "123456789012", s3.BucketCannedACLPrivate),
-			ExpectedACL:         s3.BucketCannedACLPrivate,
+			TestName:   "valid ID with bucket (pre-2018, us-east-1), bucket owner, and acl", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("Example", "123456789012", s3.BucketCannedACLPrivate),
+			ExpectedACL:s3.BucketCannedACLPrivate,
 			ExpectedBucket:      "Example",
 			ExpectedBucketOwner: "123456789012",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1), bucket owner, and acl that has hyphens", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("Example", "123456789012", s3.BucketCannedACLPublicReadWrite),
-			ExpectedACL:         s3.BucketCannedACLPublicReadWrite,
+			TestName:   "valid ID with bucket (pre-2018, us-east-1), bucket owner, and acl that has hyphens", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("Example", "123456789012", s3.BucketCannedACLPublicReadWrite),
+			ExpectedACL:s3.BucketCannedACLPublicReadWrite,
 			ExpectedBucket:      "Example",
 			ExpectedBucketOwner: "123456789012",
 		},
 		{
-			TestName:            "valid ID with bucket (pre-2018, us-east-1) that has underscore, dot, hyphen, and numbers, bucket owner, and acl that has hyphens", //lintignore:AWSAT003
-			InputID:             tfs3.BucketACLCreateResourceID("My_Example-bucket.4000", "123456789012", s3.BucketCannedACLPublicReadWrite),
-			ExpectedACL:         s3.BucketCannedACLPublicReadWrite,
+			TestName:   "valid ID with bucket (pre-2018, us-east-1) that has underscore, dot, hyphen, and numbers, bucket owner, and acl that has hyphens", //lintignore:AWSAT003
+			InputID:    tfs3.BucketACLCreateResourceID("My_Example-bucket.4000", "123456789012", s3.BucketCannedACLPublicReadWrite),
+			ExpectedACL:s3.BucketCannedACLPublicReadWrite,
 			ExpectedBucket:      "My_Example-bucket.4000",
 			ExpectedBucketOwner: "123456789012",
 		},
@@ -256,10 +256,10 @@ import (
 	resourceName := "aws_s3_bucket_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketACLConfig_basic(bucketName, s3.BucketCannedACLPrivate),
@@ -287,10 +287,10 @@ import (
 	funcourceName := "aws_s3_bucket_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketACLConfig_basic(bucketName, s3.BucketCannedACLPrivate),
@@ -310,10 +310,10 @@ import (
 	funcourceName := "aws_s3_bucket_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_acl(bucketName, s3.BucketCannedACLPrivate),
@@ -337,10 +337,10 @@ import (
 	bucketResourceName := "aws_s3_bucket.test"
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_acl(bucketName, s3.BucketCannedACLPrivate),
@@ -364,10 +364,10 @@ import (
 	bucketResourceName := "aws_s3_bucket.test"
 	resourceName := "aws_s3_bucket_acl.test"
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketConfig_acl(bucketName, s3.BucketCannedACLPrivate),
@@ -408,9 +408,9 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_s3_bucket_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-	funcrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funcrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketACLConfig_basic(bucketName, s3.BucketCannedACLPrivate),
@@ -439,9 +439,9 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_s3_bucket_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
 	funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketACLConfig_grants(bucketName),
@@ -506,9 +506,9 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_s3_bucket_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
-	funceckDestroy:             testAccCheckBucketDestroy(ctx),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
+	funceckDestroy:    testAccCheckBucketDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketACLConfig_basic(bucketName, s3.BucketCannedACLPrivate),
@@ -539,8 +539,8 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_s3_bucket_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 	funceps: []resource.TestStep{
 			{

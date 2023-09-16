@@ -70,5 +70,5 @@ func (d *dataSourceDefaultTags) Read(ctx context.Context, request datasource.Rea
 
 type dataSourceDefaultTagsData struct {
 	ID   types.String `tfsdk:"id"`
-	Tags types.Map    `tfsdk:"tags"`
+	Tags types.Map`tfsdk:"tags"`
 }

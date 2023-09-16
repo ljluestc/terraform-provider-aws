@@ -28,7 +28,7 @@ func DataSourceWorkspace() *schema.Resource {
 				Computed: true,
 			},
 			"directory_id": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Computed:      true,
 				Optional:      true,
 				RequiredWith:  []string{"user_name"},
@@ -51,7 +51,7 @@ func DataSourceWorkspace() *schema.Resource {
 				Computed: true,
 			},
 			"user_name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Computed:      true,
 				Optional:      true,
 				RequiredWith:  []string{"directory_id"},
@@ -66,7 +66,7 @@ func DataSourceWorkspace() *schema.Resource {
 				Computed: true,
 			},
 			"workspace_id": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Computed:      true,
 				Optional:      true,
 				ConflictsWith: []string{"directory_id", "user_name"},
@@ -103,7 +103,6 @@ func DataSourceWorkspace() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceWorkspaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)

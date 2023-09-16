@@ -35,13 +35,13 @@ Match bool
 	map[string]interface{}{
 "instance_port":     80,
 "instance_protocol": "TCP",
-"lb_port":           80,
+"lb_port":  80,
 "lb_protocol":       "TCP",
 	},
 	map[string]interface{}{
 "instance_port":     80,
 "instance_protocol": "Tcp",
-"lb_port":           80,
+"lb_port":  80,
 "lb_protocol":       "tcP",
 	},
 	true,
@@ -275,7 +275,7 @@ func(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
 "instance_port":     "8000",
 "instance_protocol": "http",
-"lb_port":           "80",
+"lb_port":  "80",
 "lb_protocol":       "http",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -760,7 +760,7 @@ func(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
 "instance_port":     "8000",
 "instance_protocol": "http",
-"lb_port":           "80",
+"lb_port":  "80",
 "lb_protocol":       "http",
 	}),
 ),
@@ -774,13 +774,13 @@ func(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
 "instance_port":     "8000",
 "instance_protocol": "http",
-"lb_port":           "80",
+"lb_port":  "80",
 "lb_protocol":       "http",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
 "instance_port":     "22",
 "instance_protocol": "tcp",
-"lb_port":           "22",
+"lb_port":  "22",
 "lb_protocol":       "tcp",
 	}),
 ),
@@ -794,7 +794,7 @@ func(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
 "instance_port":     "8000",
 "instance_protocol": "http",
-"lb_port":           "80",
+"lb_port":  "80",
 "lb_protocol":       "http",
 	}),
 ),
@@ -808,7 +808,7 @@ func(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
 "instance_port":     "8080",
 "instance_protocol": "http",
-"lb_port":           "80",
+"lb_port":  "80",
 "lb_protocol":       "http",
 	}),
 ),
@@ -834,7 +834,7 @@ func(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
 "instance_port":     "8000",
 "instance_protocol": "http",
-"lb_port":           "80",
+"lb_port":  "80",
 "lb_protocol":       "http",
 	}),
 ),
@@ -851,7 +851,7 @@ Listeners: []*elb.Listener{
 InstancePort:     aws.Int64(22),
 InstanceProtocol: aws.String("tcp"),
 LoadBalancerPort: aws.Int64(22),
-Protocol:         aws.String("tcp"),
+Protocol:aws.String("tcp"),
 	},
 },
 	}
@@ -867,7 +867,7 @@ func(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
 "instance_port":     "8000",
 "instance_protocol": "http",
-"lb_port":           "80",
+"lb_port":  "80",
 "lb_protocol":       "http",
 	}),
 ),
@@ -1157,7 +1157,7 @@ l := elb.Listener{
 	InstancePort:     aws.Int64(8000),
 	InstanceProtocol: aws.String("HTTP"),
 	LoadBalancerPort: aws.Int64(80),
-	Protocol:         aws.String("HTTP"),
+	Protocol:aws.String("HTTP"),
 }
 
 if !reflect.DeepEqual(conf.ListenerDescriptions[0].Listener, &l) {
@@ -1186,7 +1186,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1206,7 +1206,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1230,7 +1230,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1254,7 +1254,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 }
@@ -1310,7 +1310,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1336,7 +1336,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1357,7 +1357,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 }
@@ -1370,7 +1370,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 }
@@ -1384,7 +1384,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 }
@@ -1406,7 +1406,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 }
@@ -1424,7 +1424,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1432,7 +1432,7 @@ resource "aws_elb" "test" {
 }
 
 resource "aws_instance" "test" {
-  ami           = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
 
   tags = {
@@ -1453,7 +1453,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1461,7 +1461,7 @@ resource "aws_elb" "test" {
     healthy_threshold   = 5
     unhealthy_threshold = 5
     target = "HTTP:8000/"
-    interval            = 60
+    interval   = 60
     timeout= 30
   }
 }
@@ -1479,7 +1479,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1487,7 +1487,7 @@ resource "aws_elb" "test" {
     healthy_threshold   = 10
     unhealthy_threshold = 5
     target = "HTTP:8000/"
-    interval            = 60
+    interval   = 60
     timeout= 30
   }
 }
@@ -1505,7 +1505,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8080
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 }
@@ -1523,14 +1523,14 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
   listener {
     instance_port     = 22
     instance_protocol = "tcp"
-    lb_port           = 22
+    lb_port  = 22
     lb_protocol       = "tcp"
   }
 }
@@ -1548,7 +1548,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1568,7 +1568,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1588,11 +1588,11 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
-  connection_draining         = true
+  connection_draining= true
   connection_draining_timeout = 400
 }
 `, rName))
@@ -1609,11 +1609,11 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
-  connection_draining         = true
+  connection_draining= true
   connection_draining_timeout = 600
 }
 `, rName))
@@ -1630,7 +1630,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1650,7 +1650,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1691,7 +1691,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port      = 443
     instance_protocol  = %[4]q
-    lb_port            = 443
+    lb_port   = 443
     lb_protocol        = %[4]q
     ssl_certificate_id = aws_iam_server_certificate.test_cert.arn
   }
@@ -1716,7 +1716,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port      = 443
     instance_protocol  = "https"
-    lb_port            = 443
+    lb_port   = 443
     lb_protocol        = "https"
     ssl_certificate_id = aws_iam_server_certificate.test_cert.arn
   }
@@ -1725,7 +1725,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port      = 8443
     instance_protocol  = "tcp"
-    lb_port            = 8443
+    lb_port   = 8443
     lb_protocol        = "tcp"
     ssl_certificate_id = aws_iam_server_certificate.test_cert.arn
   }
@@ -1737,7 +1737,7 @@ resource "aws_elb" "test" {
 func testAccLoadBalancerConfig_baseSubnets(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block           = "10.1.0.0/16"
+  cidr_block  = "10.1.0.0/16"
   enable_dns_hostnames = true
 
   tags = {
@@ -1801,7 +1801,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 80
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1824,7 +1824,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 80
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1858,7 +1858,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 80
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1878,7 +1878,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -1898,7 +1898,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 }
@@ -1916,7 +1916,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 

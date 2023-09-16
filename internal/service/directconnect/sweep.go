@@ -18,21 +18,20 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_dx_connection", &resource.Sweeper{
 		Name: "aws_dx_connection",
-		F:    sweepConnections,
+		F: sweepConnections,
 	})
 
 	resource.AddTestSweepers("aws_dx_gateway_association_proposal", &resource.Sweeper{
 		Name: "aws_dx_gateway_association_proposal",
-		F:    sweepGatewayAssociationProposals,
+		F: sweepGatewayAssociationProposals,
 	})
 
 	resource.AddTestSweepers("aws_dx_gateway_association", &resource.Sweeper{
 		Name: "aws_dx_gateway_association",
-		F:    sweepGatewayAssociations,
+		F: sweepGatewayAssociations,
 		Dependencies: []string{
 			"aws_dx_gateway_association_proposal",
 		},
@@ -40,25 +39,24 @@ func init() {
 
 	resource.AddTestSweepers("aws_dx_gateway", &resource.Sweeper{
 		Name: "aws_dx_gateway",
-		F:    sweepGateways,
+		F: sweepGateways,
 		Dependencies: []string{
 			"aws_dx_gateway_association",
 		},
 	})
 
 	resource.AddTestSweepers("aws_dx_lag", &resource.Sweeper{
-		Name:         "aws_dx_lag",
-		F:            sweepLags,
+		Name:s_dx_lag",
+		F:
 		Dependencies: []string{"aws_dx_connection"},
 	})
 
 	resource.AddTestSweepers("aws_dx_macsec_key", &resource.Sweeper{
-		Name:         "aws_dx_macsec_key",
-		F:            sweepMacSecKeys,
+		Name:s_dx_macsec_key",
+		F:eys,
 		Dependencies: []string{},
 	})
 }
-
 func sweepConnections(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -113,7 +111,6 @@ func sweepConnections(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepGatewayAssociationProposals(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -170,7 +167,6 @@ func sweepGatewayAssociationProposals(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepGatewayAssociations(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -307,7 +303,6 @@ func sweepGatewayAssociations(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepGateways(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -392,7 +387,6 @@ func sweepGateways(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepLags(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -447,7 +441,6 @@ func sweepLags(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepMacSecKeys(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

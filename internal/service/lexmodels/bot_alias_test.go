@@ -57,8 +57,8 @@ resource.TestCheckResourceAttr(resourceName, "conversation_logs.#", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 },
 },
@@ -93,9 +93,9 @@ resource.TestCheckResourceAttr(resourceName, "bot_version", tflexmodels.BotVersi
 ),
 },
 {
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"created_date"},
 },
 {
@@ -110,9 +110,9 @@ resource.TestCheckResourceAttr(resourceName, "bot_version", "1"),
 ),
 },
 {
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"created_date"},
 },
 },
@@ -151,7 +151,7 @@ resource.TestCheckResourceAttrPair(resourceName, "conversation_logs.0.iam_role_a
 resource.TestCheckResourceAttr(resourceName, "conversation_logs.0.log_settings.#", "1"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "conversation_logs.0.log_settings.*", map[string]string{
 "destination": "CLOUDWATCH_LOGS",
-"log_type":    "TEXT",
+"log_type":"TEXT",
 "kms_key_arn": "",
 }),
 resource.TestCheckTypeSetElemAttrPair(resourceName, "conversation_logs.0.log_settings.*.resource_arn", cloudwatchLogGroupResourceName, "arn"),
@@ -161,8 +161,8 @@ resource.TestMatchTypeSetElemNestedAttrs(resourceName, "conversation_logs.0.log_
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 },
 },
@@ -202,7 +202,7 @@ resource.TestCheckResourceAttrPair(resourceName, "conversation_logs.0.iam_role_a
 resource.TestCheckResourceAttr(resourceName, "conversation_logs.0.log_settings.#", "1"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "conversation_logs.0.log_settings.*", map[string]string{
 "destination": "S3",
-"log_type":    "AUDIO",
+"log_type":"AUDIO",
 }),
 resource.TestCheckTypeSetElemAttrPair(resourceName, "conversation_logs.0.log_settings.*.resource_arn", s3BucketResourceName, "arn"),
 resource.TestCheckTypeSetElemAttrPair(resourceName, "conversation_logs.0.log_settings.*.kms_key_arn", kmsKeyResourceName, "arn"),
@@ -212,8 +212,8 @@ resource.TestMatchTypeSetElemNestedAttrs(resourceName, "conversation_logs.0.log_
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 },
 },
@@ -255,22 +255,22 @@ resource.TestCheckResourceAttr(resourceName, "conversation_logs.0.log_settings.#
 
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "conversation_logs.0.log_settings.*", map[string]string{
 "destination": "CLOUDWATCH_LOGS",
-"log_type":    "TEXT",
+"log_type":"TEXT",
 "kms_key_arn": "",
 }),
 resource.TestCheckTypeSetElemAttrPair(resourceName, "conversation_logs.0.log_settings.*.resource_arn", cloudwatchLogGroupResourceName, "arn"),
 
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "conversation_logs.0.log_settings.*", map[string]string{
 "destination": "S3",
-"log_type":    "AUDIO",
+"log_type":"AUDIO",
 }),
 resource.TestCheckTypeSetElemAttrPair(resourceName, "conversation_logs.0.log_settings.*.resource_arn", s3BucketResourceName, "arn"),
 resource.TestCheckTypeSetElemAttrPair(resourceName, "conversation_logs.0.log_settings.*.kms_key_arn", kmsKeyResourceName, "arn"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 },
 },
@@ -303,8 +303,8 @@ testAccCheckBotAliasExists(ctx, resourceName, &v),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 },
 {
@@ -319,8 +319,8 @@ resource.TestCheckResourceAttr(resourceName, "description", "Testing lex bot ali
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 },
 },
@@ -377,7 +377,7 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)
 
 output, err = conn.GetBotAliasWithContext(ctx, &lexmodelbuildingservice.GetBotAliasInput{
 BotName: aws.String(botName),
-Name:    aws.String(botAliasName),
+Name:aws.String(botAliasName),
 })
 if tfawserr.ErrCodeEquals(err, lexmodelbuildingservice.ErrCodeNotFoundException) {
 return fmt.Errorf("error bot alias '%q' not found", rs.Primary.ID)
@@ -396,7 +396,7 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)
 
 _, err := conn.GetBotAliasWithContext(ctx, &lexmodelbuildingservice.GetBotAliasInput{
 BotName: aws.String(botName),
-Name:    aws.String(botAliasName),
+Name:aws.String(botAliasName),
 })
 
 if err != nil {
@@ -414,10 +414,10 @@ return fmt.Errorf("error bot alias still exists after delete, %s", botAliasName)
 func testAccBotAliasConfig_basic(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot_alias" "test" {
-  bot_name    = aws_lex_bot.test.name
+  bot_name= aws_lex_bot.test.name
   bot_version = aws_lex_bot.test.version
   description = "Testing lex bot alias create."
-  name        = "%s"
+  name= "%s"
 }
 `, rName)
 }
@@ -425,10 +425,10 @@ resource "aws_lex_bot_alias" "test" {
 func testAccBotAliasConfig_botVersionUpdate(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot_alias" "test" {
-  bot_name    = aws_lex_bot.test.name
+  bot_name= aws_lex_bot.test.name
   bot_version = "1"
   description = "Testing lex bot alias create."
-  name        = "%s"
+  name= "%s"
 }
 `, rName)
 }
@@ -436,17 +436,17 @@ resource "aws_lex_bot_alias" "test" {
 func testAccBotAliasConfig_conversationLogsText(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot_alias" "test" {
-  bot_name    = aws_lex_bot.test.name
+  bot_name= aws_lex_bot.test.name
   bot_version = aws_lex_bot.test.version
   description = "Testing lex bot alias create."
-  name        = "%[1]s"
+  name= "%[1]s"
   conversation_logs {
-    iam_role_arn = aws_iam_role.test.arn
-    log_settings {
-      destination  = "CLOUDWATCH_LOGS"
-      log_type     = "TEXT"
-      resource_arn = aws_cloudwatch_log_group.test.arn
-    }
+iam_role_arn = aws_iam_role.test.arn
+log_settings {
+  destination  = "CLOUDWATCH_LOGS"
+  log_type = "TEXT"
+  resource_arn = aws_cloudwatch_log_group.test.arn
+}
   }
 }
 
@@ -461,25 +461,25 @@ resource "aws_iam_role" "test" {
 
 data "aws_iam_policy_document" "lex_assume_role_policy" {
   statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-    principals {
-      type        = "Service"
-      identifiers = ["lex.amazonaws.com"]
-    }
+effect  = "Allow"
+actions = ["sts:AssumeRole"]
+principals {
+  type= "Service"
+  identifiers = ["lex.amazonaws.com"]
+}
   }
 }
 
 data "aws_iam_policy_document" "lex_cloud_watch_logs_policy" {
   statement {
-    effect = "Allow"
-    actions = [
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-    ]
-    resources = [
-      aws_cloudwatch_log_group.test.arn,
-    ]
+effect = "Allow"
+actions = [
+  "logs:CreateLogStream",
+  "logs:PutLogEvents",
+]
+resources = [
+  aws_cloudwatch_log_group.test.arn,
+]
   }
 }
 
@@ -494,18 +494,18 @@ resource "aws_iam_role_policy" "test" {
 func testAccBotAliasConfig_conversationLogsAudio(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot_alias" "test" {
-  bot_name    = aws_lex_bot.test.name
+  bot_name= aws_lex_bot.test.name
   bot_version = aws_lex_bot.test.version
   description = "Testing lex bot alias create."
-  name        = "%[1]s"
+  name= "%[1]s"
   conversation_logs {
-    iam_role_arn = aws_iam_role.test.arn
-    log_settings {
-      destination  = "S3"
-      log_type     = "AUDIO"
-      resource_arn = aws_s3_bucket.test.arn
-      kms_key_arn  = aws_kms_key.test.arn
-    }
+iam_role_arn = aws_iam_role.test.arn
+log_settings {
+  destination  = "S3"
+  log_type = "AUDIO"
+  resource_arn = aws_s3_bucket.test.arn
+  kms_key_arn  = aws_kms_key.test.arn
+}
   }
 }
 
@@ -522,24 +522,24 @@ resource "aws_iam_role" "test" {
 
 data "aws_iam_policy_document" "lex_assume_role_policy" {
   statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-    principals {
-      type        = "Service"
-      identifiers = ["lex.amazonaws.com"]
-    }
+effect  = "Allow"
+actions = ["sts:AssumeRole"]
+principals {
+  type= "Service"
+  identifiers = ["lex.amazonaws.com"]
+}
   }
 }
 
 data "aws_iam_policy_document" "lex_s3_policy" {
   statement {
-    effect = "Allow"
-    actions = [
-      "s3:PutObject",
-    ]
-    resources = [
-      aws_s3_bucket.test.arn,
-    ]
+effect = "Allow"
+actions = [
+  "s3:PutObject",
+]
+resources = [
+  aws_s3_bucket.test.arn,
+]
   }
 }
 
@@ -554,23 +554,23 @@ resource "aws_iam_role_policy" "test" {
 func testAccBotAliasConfig_conversationLogsBoth(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot_alias" "test" {
-  bot_name    = aws_lex_bot.test.name
+  bot_name= aws_lex_bot.test.name
   bot_version = aws_lex_bot.test.version
   description = "Testing lex bot alias create."
-  name        = "%[1]s"
+  name= "%[1]s"
   conversation_logs {
-    iam_role_arn = aws_iam_role.test.arn
-    log_settings {
-      destination  = "CLOUDWATCH_LOGS"
-      log_type     = "TEXT"
-      resource_arn = aws_cloudwatch_log_group.test.arn
-    }
-    log_settings {
-      destination  = "S3"
-      log_type     = "AUDIO"
-      resource_arn = aws_s3_bucket.test.arn
-      kms_key_arn  = aws_kms_key.test.arn
-    }
+iam_role_arn = aws_iam_role.test.arn
+log_settings {
+  destination  = "CLOUDWATCH_LOGS"
+  log_type = "TEXT"
+  resource_arn = aws_cloudwatch_log_group.test.arn
+}
+log_settings {
+  destination  = "S3"
+  log_type = "AUDIO"
+  resource_arn = aws_s3_bucket.test.arn
+  kms_key_arn  = aws_kms_key.test.arn
+}
   }
 }
 
@@ -591,25 +591,25 @@ resource "aws_iam_role" "test" {
 
 data "aws_iam_policy_document" "lex_assume_role_policy" {
   statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-    principals {
-      type        = "Service"
-      identifiers = ["lex.amazonaws.com"]
-    }
+effect  = "Allow"
+actions = ["sts:AssumeRole"]
+principals {
+  type= "Service"
+  identifiers = ["lex.amazonaws.com"]
+}
   }
 }
 
 data "aws_iam_policy_document" "lex_cloud_watch_logs_policy" {
   statement {
-    effect = "Allow"
-    actions = [
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-    ]
-    resources = [
-      aws_cloudwatch_log_group.test.arn,
-    ]
+effect = "Allow"
+actions = [
+  "logs:CreateLogStream",
+  "logs:PutLogEvents",
+]
+resources = [
+  aws_cloudwatch_log_group.test.arn,
+]
   }
 }
 
@@ -621,13 +621,13 @@ resource "aws_iam_role_policy" "lex_cloud_watch_logs_policy" {
 
 data "aws_iam_policy_document" "lex_s3_policy" {
   statement {
-    effect = "Allow"
-    actions = [
-      "s3:PutObject",
-    ]
-    resources = [
-      aws_s3_bucket.test.arn,
-    ]
+effect = "Allow"
+actions = [
+  "s3:PutObject",
+]
+resources = [
+  aws_s3_bucket.test.arn,
+]
   }
 }
 
@@ -642,10 +642,10 @@ resource "aws_iam_role_policy" "lex_s3_policy" {
 func testAccBotAliasConfig_descriptionUpdate(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot_alias" "test" {
-  bot_name    = aws_lex_bot.test.name
+  bot_name= aws_lex_bot.test.name
   bot_version = aws_lex_bot.test.version
   description = "Testing lex bot alias update."
-  name        = "%s"
+  name= "%s"
 }
 `, rName)
 }

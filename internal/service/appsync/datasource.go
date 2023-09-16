@@ -37,59 +37,59 @@ func ResourceDataSource() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"dynamodb_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"delta_sync_config": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"base_table_ttl": {
-										Type:     schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional: true,
 									},
 									"delta_sync_table_name": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 									"delta_sync_table_ttl": {
-										Type:     schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"region": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							Computed: true,
 						},
 						"table_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"use_caller_credentials": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 						},
 						"versioned": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 						},
 					},
@@ -97,17 +97,17 @@ func ResourceDataSource() *schema.Resource {
 				ConflictsWith: []string{"elasticsearch_config", "http_config", "lambda_config", "relational_database_config", "opensearchservice_config"},
 			},
 			"elasticsearch_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"endpoint": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"region": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							Computed: true,
 						},
@@ -116,14 +116,14 @@ func ResourceDataSource() *schema.Resource {
 				ConflictsWith: []string{"dynamodb_config", "http_config", "lambda_config", "opensearchservice_config"},
 			},
 			"event_bridge_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"event_bus_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
@@ -131,35 +131,35 @@ func ResourceDataSource() *schema.Resource {
 				ConflictsWith: []string{"dynamodb_config", "elasticsearch_config", "http_config", "lambda_config", "relational_database_config"},
 			},
 			"http_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"authorization_config": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"authorization_type": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										Default:      appsync.AuthorizationTypeAwsIam,
+										Type:schema.TypeString,
+										Optional:true,
+										Default: appsync.AuthorizationTypeAwsIam,
 										ValidateFunc: validation.StringInSlice(appsync.AuthorizationType_Values(), true),
 									},
 									"aws_iam_config": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"signing_region": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Optional: true,
 												},
 												"signing_service_name": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Optional: true,
 												},
 											},
@@ -169,7 +169,7 @@ func ResourceDataSource() *schema.Resource {
 							},
 						},
 						"endpoint": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
@@ -177,14 +177,14 @@ func ResourceDataSource() *schema.Resource {
 				ConflictsWith: []string{"dynamodb_config", "elasticsearch_config", "opensearchservice_config", "lambda_config", "relational_database_config"},
 			},
 			"lambda_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"function_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
@@ -192,17 +192,17 @@ func ResourceDataSource() *schema.Resource {
 				ConflictsWith: []string{"dynamodb_config", "elasticsearch_config", "opensearchservice_config", "http_config", "relational_database_config"},
 			},
 			"opensearchservice_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"endpoint": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"region": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							Computed: true,
 						},
@@ -211,51 +211,51 @@ func ResourceDataSource() *schema.Resource {
 				ConflictsWith: []string{"dynamodb_config", "http_config", "lambda_config", "elasticsearch_config"},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[A-Za-z_][0-9A-Za-z_]*`), "must match [A-Za-z_][0-9A-Za-z_]*"),
 			},
 			"relational_database_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"http_endpoint_config": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"aws_secret_store_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"database_name": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 									},
 									"db_cluster_identifier": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 									"region": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 										Computed: true,
 									},
 									"schema": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"source_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      appsync.RelationalDatabaseSourceTypeRdsHttpEndpoint,
+							Type:schema.TypeString,
+							Optional:true,
+							Default: appsync.RelationalDatabaseSourceTypeRdsHttpEndpoint,
 							ValidateFunc: validation.StringInSlice(appsync.RelationalDatabaseSourceType_Values(), true),
 						},
 					},
@@ -263,13 +263,13 @@ func ResourceDataSource() *schema.Resource {
 				ConflictsWith: []string{"dynamodb_config", "elasticsearch_config", "opensearchservice_config", "http_config", "lambda_config"},
 			},
 			"service_role_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"type": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(appsync.DataSourceType_Values(), true),
 				StateFunc: func(v interface{}) string {
 					return strings.ToUpper(v.(string))
@@ -278,7 +278,6 @@ func ResourceDataSource() *schema.Resource {
 		},
 	}
 }
-
 func resourceDataSourceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -337,7 +336,6 @@ func resourceDataSourceCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceDataSourceRead(ctx, d, meta)...)
 }
-
 func resourceDataSourceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -390,7 +388,6 @@ func resourceDataSourceRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func resourceDataSourceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -448,7 +445,6 @@ func resourceDataSourceUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceDataSourceRead(ctx, d, meta)...)
 }
-
 func resourceDataSourceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -476,7 +472,6 @@ func resourceDataSourceDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
-
 func FindDataSourceByTwoPartKey(ctx context.Context, conn *appsync.AppSync, apiID, name string) (*appsync.DataSource, error) {
 	input := &appsync.GetDataSourceInput{
 		ApiId: aws.String(apiID),
@@ -502,7 +497,6 @@ func FindDataSourceByTwoPartKey(ctx context.Context, conn *appsync.AppSync, apiI
 
 	return output.DataSource, nil
 }
-
 func DecodeID(id string) (string, string, error) {
 	idParts := strings.SplitN(id, "-", 2)
 	if len(idParts) != 2 {
@@ -510,7 +504,6 @@ func DecodeID(id string) (string, string, error) {
 	}
 	return idParts[0], idParts[1], nil
 }
-
 func expandDynamoDBDataSourceConfig(l []interface{}, currentRegion string) *appsync.DynamodbDataSourceConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -541,7 +534,6 @@ func expandDynamoDBDataSourceConfig(l []interface{}, currentRegion string) *apps
 
 	return result
 }
-
 func expandDynamoDBDataSourceDeltaSyncConfig(l []interface{}) *appsync.DeltaSyncConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -565,14 +557,13 @@ func expandDynamoDBDataSourceDeltaSyncConfig(l []interface{}) *appsync.DeltaSync
 
 	return result
 }
-
 func flattenDynamoDBDataSourceConfig(config *appsync.DynamodbDataSourceConfig) []map[string]interface{} {
 	if config == nil {
 		return nil
 	}
 
 	result := map[string]interface{}{
-		"region":     aws.StringValue(config.AwsRegion),
+		"region":aws.StringValue(config.AwsRegion),
 		"table_name": aws.StringValue(config.TableName),
 	}
 
@@ -590,7 +581,6 @@ func flattenDynamoDBDataSourceConfig(config *appsync.DynamodbDataSourceConfig) [
 
 	return []map[string]interface{}{result}
 }
-
 func flattenDynamoDBDataSourceDeltaSyncConfig(config *appsync.DeltaSyncConfig) []map[string]interface{} {
 	if config == nil {
 		return nil
@@ -612,7 +602,6 @@ func flattenDynamoDBDataSourceDeltaSyncConfig(config *appsync.DeltaSyncConfig) [
 
 	return []map[string]interface{}{result}
 }
-
 func expandElasticsearchDataSourceConfig(l []interface{}, currentRegion string) *appsync.ElasticsearchDataSourceConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -631,7 +620,6 @@ func expandElasticsearchDataSourceConfig(l []interface{}, currentRegion string) 
 
 	return result
 }
-
 func expandOpenSearchServiceDataSourceConfig(l []interface{}, currentRegion string) *appsync.OpenSearchServiceDataSourceConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -650,7 +638,6 @@ func expandOpenSearchServiceDataSourceConfig(l []interface{}, currentRegion stri
 
 	return result
 }
-
 func flattenElasticsearchDataSourceConfig(config *appsync.ElasticsearchDataSourceConfig) []map[string]interface{} {
 	if config == nil {
 		return nil
@@ -663,7 +650,6 @@ func flattenElasticsearchDataSourceConfig(config *appsync.ElasticsearchDataSourc
 
 	return []map[string]interface{}{result}
 }
-
 func flattenOpenSearchServiceDataSourceConfig(config *appsync.OpenSearchServiceDataSourceConfig) []map[string]interface{} {
 	if config == nil {
 		return nil
@@ -676,7 +662,6 @@ func flattenOpenSearchServiceDataSourceConfig(config *appsync.OpenSearchServiceD
 
 	return []map[string]interface{}{result}
 }
-
 func expandHTTPDataSourceConfig(l []interface{}) *appsync.HttpDataSourceConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -694,7 +679,6 @@ func expandHTTPDataSourceConfig(l []interface{}) *appsync.HttpDataSourceConfig {
 
 	return result
 }
-
 func flattenHTTPDataSourceConfig(config *appsync.HttpDataSourceConfig) []map[string]interface{} {
 	if config == nil {
 		return nil
@@ -710,7 +694,6 @@ func flattenHTTPDataSourceConfig(config *appsync.HttpDataSourceConfig) []map[str
 
 	return []map[string]interface{}{result}
 }
-
 func expandHTTPDataSourceAuthorizationConfig(l []interface{}) *appsync.AuthorizationConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -728,7 +711,6 @@ func expandHTTPDataSourceAuthorizationConfig(l []interface{}) *appsync.Authoriza
 
 	return result
 }
-
 func flattenHTTPDataSourceAuthorizationConfig(config *appsync.AuthorizationConfig) []map[string]interface{} {
 	if config == nil {
 		return nil
@@ -744,7 +726,6 @@ func flattenHTTPDataSourceAuthorizationConfig(config *appsync.AuthorizationConfi
 
 	return []map[string]interface{}{result}
 }
-
 func expandHTTPDataSourceIAMConfig(l []interface{}) *appsync.AwsIamConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -764,20 +745,18 @@ func expandHTTPDataSourceIAMConfig(l []interface{}) *appsync.AwsIamConfig {
 
 	return result
 }
-
 func flattenHTTPDataSourceIAMConfig(config *appsync.AwsIamConfig) []map[string]interface{} {
 	if config == nil {
 		return nil
 	}
 
 	result := map[string]interface{}{
-		"signing_region":       aws.StringValue(config.SigningRegion),
+		"signing_region":  aws.StringValue(config.SigningRegion),
 		"signing_service_name": aws.StringValue(config.SigningServiceName),
 	}
 
 	return []map[string]interface{}{result}
 }
-
 func expandLambdaDataSourceConfig(l []interface{}) *appsync.LambdaDataSourceConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -791,7 +770,6 @@ func expandLambdaDataSourceConfig(l []interface{}) *appsync.LambdaDataSourceConf
 
 	return result
 }
-
 func flattenLambdaDataSourceConfig(config *appsync.LambdaDataSourceConfig) []map[string]interface{} {
 	if config == nil {
 		return nil
@@ -803,7 +781,6 @@ func flattenLambdaDataSourceConfig(config *appsync.LambdaDataSourceConfig) []map
 
 	return []map[string]interface{}{result}
 }
-
 func expandRelationalDatabaseDataSourceConfig(l []interface{}, currentRegion string) *appsync.RelationalDatabaseDataSourceConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -813,25 +790,23 @@ func expandRelationalDatabaseDataSourceConfig(l []interface{}, currentRegion str
 
 	result := &appsync.RelationalDatabaseDataSourceConfig{
 		RelationalDatabaseSourceType: aws.String(configured["source_type"].(string)),
-		RdsHttpEndpointConfig:        testAccDataSourceConfig_expandRDSHTTPEndpoint(configured["http_endpoint_config"].([]interface{}), currentRegion),
+		RdsHttpEndpointConfig:   testAccDataSourceConfig_expandRDSHTTPEndpoint(configured["http_endpoint_config"].([]interface{}), currentRegion),
 	}
 
 	return result
 }
-
 func flattenRelationalDatabaseDataSourceConfig(config *appsync.RelationalDatabaseDataSourceConfig) []map[string]interface{} {
 	if config == nil {
 		return nil
 	}
 
 	result := map[string]interface{}{
-		"source_type":          aws.StringValue(config.RelationalDatabaseSourceType),
+		"source_type":aws.StringValue(config.RelationalDatabaseSourceType),
 		"http_endpoint_config": flattenRDSHTTPEndpointConfig(config.RdsHttpEndpointConfig),
 	}
 
 	return []map[string]interface{}{result}
 }
-
 func expandEventBridgeDataSourceConfig(l []interface{}) *appsync.EventBridgeDataSourceConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -845,7 +820,6 @@ func expandEventBridgeDataSourceConfig(l []interface{}) *appsync.EventBridgeData
 
 	return result
 }
-
 func flattenEventBridgeDataSourceConfig(config *appsync.EventBridgeDataSourceConfig) []map[string]interface{} {
 	if config == nil {
 		return nil
@@ -857,7 +831,6 @@ func flattenEventBridgeDataSourceConfig(config *appsync.EventBridgeDataSourceCon
 
 	return []map[string]interface{}{result}
 }
-
 func testAccDataSourceConfig_expandRDSHTTPEndpoint(l []interface{}, currentRegion string) *appsync.RdsHttpEndpointConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -891,7 +864,6 @@ func testAccDataSourceConfig_expandRDSHTTPEndpoint(l []interface{}, currentRegio
 
 	return result
 }
-
 func flattenRDSHTTPEndpointConfig(config *appsync.RdsHttpEndpointConfig) []map[string]interface{} {
 	if config == nil {
 		return nil

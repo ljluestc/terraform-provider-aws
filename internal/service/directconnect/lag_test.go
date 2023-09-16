@@ -18,7 +18,6 @@ import (
 	tfdirectconnect "github.com/hashicorp/terraform-provider-aws/internal/service/directconnect"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccDirectConnectLag_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var lag directconnect.Lag
@@ -27,7 +26,7 @@ func TestAccDirectConnectLag_basic(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLagDestroy(ctx),
@@ -67,15 +66,14 @@ func TestAccDirectConnectLag_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"force_destroy"},
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectLag_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var lag directconnect.Lag
@@ -83,7 +81,7 @@ func TestAccDirectConnectLag_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLagDestroy(ctx),
@@ -99,7 +97,6 @@ func TestAccDirectConnectLag_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDirectConnectLag_connectionID(t *testing.T) {
 	ctx := acctest.Context(t)
 	var lag directconnect.Lag
@@ -108,7 +105,7 @@ func TestAccDirectConnectLag_connectionID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLagDestroy(ctx),
@@ -131,15 +128,14 @@ func TestAccDirectConnectLag_connectionID(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"connection_id", "force_destroy"},
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectLag_providerName(t *testing.T) {
 	ctx := acctest.Context(t)
 	var lag directconnect.Lag
@@ -147,7 +143,7 @@ func TestAccDirectConnectLag_providerName(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLagDestroy(ctx),
@@ -170,15 +166,14 @@ func TestAccDirectConnectLag_providerName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"force_destroy"},
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectLag_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var lag directconnect.Lag
@@ -186,7 +181,7 @@ func TestAccDirectConnectLag_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLagDestroy(ctx),
@@ -201,9 +196,9 @@ func TestAccDirectConnectLag_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"force_destroy"},
 			},
 			{
@@ -228,7 +223,6 @@ func TestAccDirectConnectLag_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckLagDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -254,7 +248,6 @@ func testAccCheckLagDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckLagExists(ctx context.Context, name string, v *directconnect.Lag) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -279,38 +272,35 @@ func testAccCheckLagExists(ctx context.Context, name string, v *directconnect.La
 		return nil
 	}
 }
-
 func testAccLagConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
 
 resource "aws_dx_lag" "test" {
-  name     = %[1]q
+  name= %[1]q
   connections_bandwidth = "1Gbps"
   location = tolist(data.aws_dx_locations.test.location_codes)[0]
 }
 `, rName)
 }
-
 func testAccLagConfig_connectionID(rName string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
 
 resource "aws_dx_lag" "test" {
-  name     = %[1]q
-  connection_id         = aws_dx_connection.test.id
+  name= %[1]q
+  connection_idws_dx_connection.test.id
   connections_bandwidth = aws_dx_connection.test.bandwidth
   location = aws_dx_connection.test.location
 }
 
 resource "aws_dx_connection" "test" {
-  name      = %[1]q
+  nameq
   bandwidth = "1Gbps"
   location  = tolist(data.aws_dx_locations.test.location_codes)[1]
 }
 `, rName)
 }
-
 func testAccLagConfig_providerName(rName string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
@@ -320,7 +310,7 @@ data "aws_dx_location" "test" {
 }
 
 resource "aws_dx_lag" "test" {
-  name     = %[1]q
+  name= %[1]q
   connections_bandwidth = "1Gbps"
   location = data.aws_dx_location.test.location_code
 
@@ -328,37 +318,35 @@ resource "aws_dx_lag" "test" {
 }
 `, rName)
 }
-
 func testAccLagConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
 
 resource "aws_dx_lag" "test" {
-  name     = %[1]q
+  name= %[1]q
   connections_bandwidth = "1Gbps"
   location = tolist(data.aws_dx_locations.test.location_codes)[0]
-  force_destroy         = true
+  force_destroyrue
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccLagConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
 
 resource "aws_dx_lag" "test" {
-  name     = %[1]q
+  name= %[1]q
   connections_bandwidth = "1Gbps"
   location = tolist(data.aws_dx_locations.test.location_codes)[0]
-  force_destroy         = true
+  force_destroyrue
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

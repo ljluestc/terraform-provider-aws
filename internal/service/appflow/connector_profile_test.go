@@ -32,7 +32,7 @@ func TestAccAppFlowConnectorProfile_basic(t *testing.T) {
 	resourceName := "aws_appflow_connector_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectorProfileDestroy(ctx),
@@ -51,9 +51,9 @@ func TestAccAppFlowConnectorProfile_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"connector_profile_config.0.connector_profile_credentials"},
 			},
 		},
@@ -72,7 +72,7 @@ func TestAccAppFlowConnectorProfile_update(t *testing.T) {
 	testPrefix := "test-prefix"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectorProfileDestroy(ctx),
@@ -106,7 +106,7 @@ func TestAccAppFlowConnectorProfile_disappears(t *testing.T) {
 	resourceName := "aws_appflow_connector_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectorProfileDestroy(ctx),
@@ -188,7 +188,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/24"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -196,7 +196,7 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -213,17 +213,17 @@ resource "aws_route" "test" {
 }
 
 resource "aws_subnet" "test" {
-  cidr_block        = aws_vpc.test.cidr_block
+  cidr_block= aws_vpc.test.cidr_block
   availability_zone = data.aws_availability_zones.available.names[0]
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_redshift_subnet_group" "test" {
-  name       = %[1]q
+  name   = %[1]q
   subnet_ids = [aws_subnet.test.id]
 }
 
@@ -237,17 +237,17 @@ resource "aws_iam_role" "test" {
   managed_policy_arns = [data.aws_iam_policy.test.arn]
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "appflow.amazonaws.com"
-        }
-      },
-    ]
+Version = "2012-10-17"
+Statement = [
+  {
+Action = "sts:AssumeRole"
+Effect = "Allow"
+Sid= ""
+Principal = {
+ Service = "appflow.amazonaws.com"
+}
+  },
+]
   })
 }
 
@@ -263,24 +263,24 @@ resource "aws_security_group_rule" "test" {
   security_group_id = aws_security_group.test.id
 
   from_port   = 0
-  to_port     = 65535
-  protocol    = "-1"
+  to_port = 65535
+  protocol= "-1"
   cidr_blocks = ["0.0.0.0/0"]
 }
 
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
 
-  availability_zone         = data.aws_availability_zones.available.names[0]
+  availability_zone= data.aws_availability_zones.available.names[0]
   cluster_subnet_group_name = aws_redshift_subnet_group.test.name
-  vpc_security_group_ids    = [aws_security_group.test.id]
+  vpc_security_group_ids= [aws_security_group.test.id]
 
   master_password = %[2]q
   master_username = %[3]q
 
   publicly_accessible = true
 
-  node_type           = "dc2.large"
+  node_type  = "dc2.large"
   skip_final_snapshot = true
 }
 `, connectorProfileName, redshiftPassword, redshiftUsername))
@@ -294,34 +294,34 @@ func testAccConnectorProfileConfig_basic(connectorProfileName string) string {
 		testAccConnectorProfileConfigBase(connectorProfileName, redshiftPassword, redshiftUsername),
 		fmt.Sprintf(`
 resource "aws_appflow_connector_profile" "test" {
-  name            = %[1]q
+  name   = %[1]q
   connector_type  = "Redshift"
   connection_mode = "Public"
 
   connector_profile_config {
 
-    connector_profile_credentials {
-      redshift {
-        password = aws_redshift_cluster.test.master_password
-        username = aws_redshift_cluster.test.master_username
-      }
-    }
+connector_profile_credentials {
+  redshift {
+password = aws_redshift_cluster.test.master_password
+username = aws_redshift_cluster.test.master_username
+  }
+}
 
-    connector_profile_properties {
-      redshift {
-        bucket_name        = %[1]q
-        cluster_identifier = aws_redshift_cluster.test.cluster_identifier
-        database_name      = "dev"
-        database_url       = "jdbc:redshift://${aws_redshift_cluster.test.endpoint}/dev"
-        data_api_role_arn  = aws_iam_role.test.arn
-        role_arn           = aws_iam_role.test.arn
-      }
-    }
+connector_profile_properties {
+  redshift {
+bucket_name= %[1]q
+cluster_identifier = aws_redshift_cluster.test.cluster_identifier
+database_name  = "dev"
+database_url   = "jdbc:redshift://${aws_redshift_cluster.test.endpoint}/dev"
+data_api_role_arn  = aws_iam_role.test.arn
+role_arn  = aws_iam_role.test.arn
+  }
+}
   }
 
   depends_on = [
-    aws_route.test,
-    aws_security_group_rule.test,
+aws_route.test,
+aws_security_group_rule.test,
   ]
 }
 `, connectorProfileName, redshiftPassword, redshiftUsername),
@@ -336,35 +336,35 @@ func testAccConnectorProfileConfig_update(connectorProfileName string, bucketPre
 		testAccConnectorProfileConfigBase(connectorProfileName, redshiftPassword, redshiftUsername),
 		fmt.Sprintf(`
 resource "aws_appflow_connector_profile" "test" {
-  name            = %[1]q
+  name   = %[1]q
   connector_type  = "Redshift"
   connection_mode = "Public"
 
   connector_profile_config {
 
-    connector_profile_credentials {
-      redshift {
-        password = aws_redshift_cluster.test.master_password
-        username = aws_redshift_cluster.test.master_username
-      }
-    }
+connector_profile_credentials {
+  redshift {
+password = aws_redshift_cluster.test.master_password
+username = aws_redshift_cluster.test.master_username
+  }
+}
 
-    connector_profile_properties {
-      redshift {
-        bucket_name        = %[1]q
-        bucket_prefix      = %[4]q
-        cluster_identifier = aws_redshift_cluster.test.cluster_identifier
-        database_name      = "dev"
-        database_url       = "jdbc:redshift://${aws_redshift_cluster.test.endpoint}/dev"
-        data_api_role_arn  = aws_iam_role.test.arn
-        role_arn           = aws_iam_role.test.arn
-      }
-    }
+connector_profile_properties {
+  redshift {
+bucket_name= %[1]q
+bucket_prefix  = %[4]q
+cluster_identifier = aws_redshift_cluster.test.cluster_identifier
+database_name  = "dev"
+database_url   = "jdbc:redshift://${aws_redshift_cluster.test.endpoint}/dev"
+data_api_role_arn  = aws_iam_role.test.arn
+role_arn  = aws_iam_role.test.arn
+  }
+}
   }
 
   depends_on = [
-    aws_route.test,
-    aws_security_group_rule.test,
+aws_route.test,
+aws_security_group_rule.test,
   ]
 }
 `, connectorProfileName, redshiftPassword, redshiftUsername, bucketPrefix),

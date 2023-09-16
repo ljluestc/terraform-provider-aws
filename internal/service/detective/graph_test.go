@@ -17,7 +17,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfdetective "github.com/hashicorp/terraform-provider-aws/internal/service/detective"
 )
-
 func testAccGraph_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var graphOutput detective.Graph
@@ -26,7 +25,7 @@ func testAccGraph_basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGraphDestroy(ctx),
+CheckDestroy: testAccCheckGraphDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, detective.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -37,14 +36,13 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func testAccGraph_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var graph1, graph2 detective.Graph
@@ -53,7 +51,7 @@ func testAccGraph_tags(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGraphDestroy(ctx),
+CheckDestroy: testAccCheckGraphDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, detective.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -94,14 +92,13 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func testAccGraph_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var graphOutput detective.Graph
@@ -110,7 +107,7 @@ func testAccGraph_disappears(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGraphDestroy(ctx),
+CheckDestroy: testAccCheckGraphDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, detective.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -124,7 +121,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func testAccCheckGraphDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).DetectiveConn(ctx)
@@ -152,7 +148,6 @@ return fmt.Errorf("detective graph %q still exists", rs.Primary.ID)
 return nil
 	}
 }
-
 func testAccCheckGraphExists(ctx context.Context, resourceName string, graph *detective.Graph) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[resourceName]
@@ -176,7 +171,6 @@ if resp == nil {
 return nil
 	}
 }
-
 func testAccCheckGraphNotRecreated(before, after *detective.Graph) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 if before, after := aws.StringValue(before.Arn), aws.StringValue(after.Arn); before != after {
@@ -186,29 +180,26 @@ if before, after := aws.StringValue(before.Arn), aws.StringValue(after.Arn); bef
 return nil
 	}
 }
-
 func testAccGraphConfig_basic() string {
 	return `
 resource "aws_detective_graph" "test" {}
 `
 }
-
 func testAccGraphConfig_tags1(tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_detective_graph" "test" {
   tags = {
-    %[1]q = %[2]q
+ %[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1)
 }
-
 func testAccGraphConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_detective_graph" "test" {
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+ %[1]q = %[2]q
+ %[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2)

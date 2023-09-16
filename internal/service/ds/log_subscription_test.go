@@ -29,7 +29,7 @@ func TestAccDSLogSubscription_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckDirectoryService(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, directoryservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLogSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckLogSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	// test create
 	{
@@ -139,7 +139,7 @@ resource "aws_directory_service_directory" "test" {
 }
 
 resource "aws_cloudwatch_log_group" "test" {
-  name              = %[2]q
+  name     = %[2]q
   retention_in_days = 1
 }
 

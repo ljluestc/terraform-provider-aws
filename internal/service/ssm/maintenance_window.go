@@ -71,7 +71,7 @@ func ResourceMaintenanceWindow() *schema.Resource {
 				Required: true,
 			},
 			"schedule_offset": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(1, 6),
 			},
@@ -98,11 +98,11 @@ func resourceMaintenanceWindowCreate(ctx context.Context, d *schema.ResourceData
 	name := d.Get("name").(string)
 	input := &ssm.CreateMaintenanceWindowInput{
 		AllowUnassociatedTargets: aws.Bool(d.Get("allow_unassociated_targets").(bool)),
-		Cutoff:                   aws.Int64(int64(d.Get("cutoff").(int))),
-		Duration:                 aws.Int64(int64(d.Get("duration").(int))),
-		Name:                     aws.String(name),
-		Schedule:                 aws.String(d.Get("schedule").(string)),
-		Tags:                     getTagsIn(ctx),
+		Cutoff: aws.Int64(int64(d.Get("cutoff").(int))),
+		Duration:        aws.Int64(int64(d.Get("duration").(int))),
+		Name:   aws.String(name),
+		Schedule:        aws.String(d.Get("schedule").(string)),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -189,13 +189,13 @@ func resourceMaintenanceWindowUpdate(ctx context.Context, d *schema.ResourceData
 		// ValidationException: 1 validation error detected: Value ” at 'startDate' failed to satisfy constraint: Member must have length greater than or equal to 1
 		input := &ssm.UpdateMaintenanceWindowInput{
 			AllowUnassociatedTargets: aws.Bool(d.Get("allow_unassociated_targets").(bool)),
-			Cutoff:                   aws.Int64(int64(d.Get("cutoff").(int))),
-			Duration:                 aws.Int64(int64(d.Get("duration").(int))),
-			Enabled:                  aws.Bool(d.Get("enabled").(bool)),
-			Name:                     aws.String(d.Get("name").(string)),
-			Replace:                  aws.Bool(true),
-			Schedule:                 aws.String(d.Get("schedule").(string)),
-			WindowId:                 aws.String(d.Id()),
+			Cutoff: aws.Int64(int64(d.Get("cutoff").(int))),
+			Duration:        aws.Int64(int64(d.Get("duration").(int))),
+			Enabled:aws.Bool(d.Get("enabled").(bool)),
+			Name:   aws.String(d.Get("name").(string)),
+			Replace:aws.Bool(true),
+			Schedule:        aws.String(d.Get("schedule").(string)),
+			WindowId:        aws.String(d.Id()),
 		}
 
 		if v, ok := d.GetOk("description"); ok {

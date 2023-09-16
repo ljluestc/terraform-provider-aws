@@ -32,7 +32,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceEnvironmentEC2,
 			TypeName: "aws_cloud9_environment_ec2",
-			Name:     "Environment EC2",
+			Name:"Environment EC2",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

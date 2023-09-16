@@ -1,10 +1,6 @@
 // Copyright 2020 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package gocommand
-
-import (
+// license that can be found in the LICENSE file.package gocommandimport (
 	"bytes"
 	"context"
 	"fmt"
@@ -12,12 +8,8 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
-	"time"
-
-	"golang.org/x/mod/semver"
-)
-
-// ModuleJSON holds information about a module.
+	"time"	"golang.org/x/mod/semver"
+)// ModuleJSON holds information about a module.
 type ModuleJSON struct {
 	Path      string      // module path
 	Version   string      // module version
@@ -30,22 +22,14 @@ type ModuleJSON struct {
 	Dir       string      // directory holding files for this module, if any
 	GoMod     string      // path to go.mod file used when loading this module, if any
 	GoVersion string      // go version used in module
-}
-
-var modFlagRegexp = regexp.MustCompile(`-mod[ =](\w+)`)
-
-// VendorEnabled reports whether vendoring is enabled. It takes a *Runner to execute Go commands
+}var modFlagRegexp = regexp.MustCompile(`-mod[ =](\w+)`)// VendorEnabled reports whether vendoring is enabled. It takes a *Runner to execute Go commands
 // with the supplied context.Context and Invocation. The Invocation can contain pre-defined fields,
 // of which only Verb and Args are modified to run the appropriate Go command.
-// Inspired by setDefaultBuildMod in modload/init.go
-
- VendorEnabled(ctx context.Context, inv Invocation, r *Runner) (bool, *ModuleJSON, error) {
+// Inspired by setDefaultBuildMod in modload/init.go VendorEnabled(ctx context.Context, inv Invocation, r *Runner) (bool, *ModuleJSON, error) {
 	mainMod, go114, err := getMainModuleAnd114(ctx, inv, r)
 	if err != nil {
 		return false, nil, err
-	}
-
-	// We check the GOFLAGS to see if there is anything overridden or not.
+	}	// We check the GOFLAGS to see if there is anything overridden or not.
 	inv.Verb = "env"
 	inv.Args = []string{"GOFLAGS"}
 	stdout, err := r.Run(ctx, inv)
@@ -76,13 +60,9 @@ var modFlagRegexp = regexp.MustCompile(`-mod[ =](\w+)`)
 		}
 	}
 	return false, nil, nil
-}
-
-// getMainModuleAnd114 gets one of the main modules' information and whether the
+}// getMainModuleAnd114 gets one of the main modules' information and whether the
 // go command in use is 1.14+. This is the information needed to figure out
-f vendoring should be enabled.
-
- getMainModuleAnd114(ctx context.Context, inv Invocation, r *Runner) (*ModuleJSON, bool, error) {
+f vendoring should be enabled. getMainModuleAnd114(ctx context.Context, inv Invocation, r *Runner) (*ModuleJSON, bool, error) {
 	const format = `{{.Path}}
 {{.Dir}}
 {{.GoMod}}
@@ -94,9 +74,7 @@ f vendoring should be enabled.
 	stdout, err := r.Run(ctx, inv)
 	if err != nil {
 		return nil, false, err
-	}
-
-	lines := strings.Split(stdout.String(), "\n")
+	}	lines := strings.Split(stdout.String(), "\n")
 	if len(lines) < 5 {
 		return nil, false, fmt.Errorf("unexpected stdout: %q", stdout.String())
 	}

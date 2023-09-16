@@ -24,10 +24,10 @@ func TestAccSSMDocument_basic(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_basic(rName),
@@ -57,10 +57,10 @@ func TestAccSSMDocument_name(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_basic(rName1),
@@ -91,10 +91,10 @@ func TestAccSSMDocument_Target_type(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_basicTargetType(rName, "/"),
@@ -125,10 +125,10 @@ func TestAccSSMDocument_versionName(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_basicVersionName(rName, "release-1.0.0"),
@@ -159,10 +159,10 @@ func TestAccSSMDocument_update(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_20(rName),
@@ -208,10 +208,10 @@ func TestAccSSMDocument_Permission_public(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_publicPermission(rName),
@@ -237,10 +237,10 @@ func TestAccSSMDocument_Permission_private(t *testing.T) {
 	ids := "123456789012"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_privatePermission(rName, ids),
@@ -265,10 +265,10 @@ func TestAccSSMDocument_Permission_batching(t *testing.T) {
 	ids := "123456789012,123456789013,123456789014,123456789015,123456789016,123456789017,123456789018,123456789019,123456789020,123456789021,123456789022,123456789023,123456789024,123456789025,123456789026,123456789027,123456789028,123456789029,123456789030,123456789031,123456789032"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_privatePermission(rName, ids),
@@ -295,10 +295,10 @@ func TestAccSSMDocument_Permission_change(t *testing.T) {
 	idsAdd := "123456789012,123456789014"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_privatePermission(rName, idsInitial),
@@ -339,10 +339,10 @@ func TestAccSSMDocument_params(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_param(rName),
@@ -371,10 +371,10 @@ func TestAccSSMDocument_automation(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_typeAutomation(rName),
@@ -400,10 +400,10 @@ func TestAccSSMDocument_package(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_typePackage(rName, rInt1),
@@ -413,8 +413,8 @@ func TestAccSSMDocument_package(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"attachments_source"}, // This doesn't work because the API doesn't provide attachments info directly
 			},
@@ -435,10 +435,10 @@ func TestAccSSMDocument_SchemaVersion_1(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_schemaVersion1(rName),
@@ -469,10 +469,10 @@ func TestAccSSMDocument_session(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_typeSession(rName),
@@ -517,10 +517,10 @@ mainSteps:
       - Get-Process
 `
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_formatYAML(rName, content1),
@@ -553,10 +553,10 @@ func TestAccSSMDocument_tags(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_tags1(rName, "key1", "value1"),
@@ -598,10 +598,10 @@ func TestAccSSMDocument_disappears(t *testing.T) {
 	resourceName := "aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDocumentDestroy(ctx),
+		CheckDestroy:    testAccCheckDocumentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDocumentConfig_basic(rName),
@@ -667,7 +667,7 @@ Based on examples from here: https://docs.aws.amazon.com/AWSEC2/latest/WindowsGu
 func testAccDocumentConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -679,10 +679,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -696,7 +696,7 @@ DOC
 func testAccDocumentConfig_basicTargetType(rName, typ string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
   target_type   = %[2]q
 
@@ -711,7 +711,7 @@ resource "aws_ssm_document" "test" {
       "name": "runPowerShellScript",
       "inputs": {
         "runCommand": [
-          "Get-Process"
+ "Get-Process"
         ]
       }
     }
@@ -725,7 +725,7 @@ DOC
 func testAccDocumentConfig_basicVersionName(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
   version_name  = %[2]q
 
@@ -737,15 +737,15 @@ resource "aws_ssm_document" "test" {
 
        },
        "mainSteps": [
-          {
-             "action": "aws:runPowerShellScript",
-             "name": "runPowerShellScript",
-             "inputs": {
+ {
+    "action": "aws:runPowerShellScript",
+    "name": "runPowerShellScript",
+    "inputs": {
  "runCommand": [
     "Get-Process"
  ]
-             }
-          }
+    }
+ }
        ]
     }
 DOC
@@ -756,7 +756,7 @@ DOC
 func testAccDocumentConfig_20(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -770,7 +770,7 @@ resource "aws_ssm_document" "test" {
       "name": "runPowerShellScript",
       "inputs": {
         "runCommand": [
-          "Get-Process"
+ "Get-Process"
         ]
       }
     }
@@ -804,7 +804,7 @@ output "parameter_len" {
 func testAccDocumentConfig_20Updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -824,7 +824,7 @@ resource "aws_ssm_document" "test" {
       "name": "runPowerShellScript",
       "inputs": {
         "runCommand": [
-          "Get-Process {{processOptions}}"
+ "Get-Process {{processOptions}}"
         ]
       }
     }
@@ -858,7 +858,7 @@ output "parameter_len" {
 func testAccDocumentConfig_publicPermission(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   permissions = {
@@ -875,10 +875,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -892,7 +892,7 @@ DOC
 func testAccDocumentConfig_privatePermission(rName, ids string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   permissions = {
@@ -909,10 +909,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -926,7 +926,7 @@ DOC
 func testAccDocumentConfig_param(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -957,10 +957,10 @@ resource "aws_ssm_document" "test" {
     "aws:runPowerShellScript": {
       "properties": [
         {
-          "id": "0.aws:runPowerShellScript",
-          "runCommand": "{{ commands }}",
-          "workingDirectory": "{{ workingDirectory }}",
-          "timeoutSeconds": "{{ executionTimeout }}"
+ "id": "0.aws:runPowerShellScript",
+ "runCommand": "{{ commands }}",
+ "workingDirectory": "{{ workingDirectory }}",
+ "timeoutSeconds": "{{ executionTimeout }}"
         }
       ]
     }
@@ -1002,7 +1002,7 @@ EOF
 }
 
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Automation"
 
   content = <<DOC
@@ -1032,7 +1032,7 @@ resource "aws_ssm_document" "test" {
       "onFailure": "Continue",
       "inputs": {
         "InstanceIds": [
-          "{{ startInstances.InstanceIds }}"
+ "{{ startInstances.InstanceIds }}"
         ],
         "DesiredState": "stopped"
       }
@@ -1044,7 +1044,7 @@ resource "aws_ssm_document" "test" {
       "onFailure": "Continue",
       "inputs": {
         "InstanceIds": [
-          "{{ startInstances.InstanceIds }}"
+ "{{ startInstances.InstanceIds }}"
         ],
         "DesiredState": "terminated"
       }
@@ -1122,13 +1122,13 @@ resource "aws_s3_bucket" "test" {
 
 resource "aws_s3_object" "test" {
   bucket       = aws_s3_bucket.test.bucket
-  key          = "test.zip"
+  key = "test.zip"
   source       = "test-fixtures/ssm-doc-acc-test.zip"
   content_type = "binary/octet-stream"
 }
 
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Package"
 
   attachments_source {
@@ -1153,7 +1153,7 @@ resource "aws_ssm_document" "test" {
     "amazon": {
       "_any": {
         "x86_64": {
-          "file": "${aws_s3_object.test.key}"
+ "file": "${aws_s3_object.test.key}"
         }
       }
     }
@@ -1169,7 +1169,7 @@ DOC
 func testAccDocumentConfig_typeSession(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Session"
 
   content = <<DOC
@@ -1195,7 +1195,7 @@ func testAccDocumentConfig_formatYAML(rName, content string) string {
 resource "aws_ssm_document" "test" {
   document_format = "YAML"
   document_type   = "Command"
-  name            = %[1]q
+  name   = %[1]q
 
   content = <<DOC
 %[2]s
@@ -1207,7 +1207,7 @@ DOC
 func testAccDocumentConfig_schemaVersion1(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Session"
 
   content = <<DOC
@@ -1231,7 +1231,7 @@ DOC
 func testAccDocumentConfig_schemaVersion1Update(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Session"
 
   content = <<DOC
@@ -1256,7 +1256,7 @@ func testAccDocumentConfig_tags1(rName, key1, value1 string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
   document_type = "Command"
-  name          = %[1]q
+  name = %[1]q
 
   content = <<DOC
 {
@@ -1267,10 +1267,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -1289,7 +1289,7 @@ func testAccDocumentConfig_tags2(rName, key1, value1, key2, value2 string) strin
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
   document_type = "Command"
-  name          = %[1]q
+  name = %[1]q
 
   content = <<DOC
 {
@@ -1300,10 +1300,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }

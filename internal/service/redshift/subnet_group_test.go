@@ -25,7 +25,7 @@ func TestAccRedshiftSubnetGroup_basic(t *testing.T) {
 	resourceName := "aws_redshift_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -39,8 +39,8 @@ func TestAccRedshiftSubnetGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -54,7 +54,7 @@ func TestAccRedshiftSubnetGroup_disappears(t *testing.T) {
 	resourceName := "aws_redshift_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -78,7 +78,7 @@ func TestAccRedshiftSubnetGroup_updateDescription(t *testing.T) {
 	resourceName := "aws_redshift_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -91,8 +91,8 @@ func TestAccRedshiftSubnetGroup_updateDescription(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -113,7 +113,7 @@ func TestAccRedshiftSubnetGroup_updateSubnetIDs(t *testing.T) {
 	resourceName := "aws_redshift_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -126,8 +126,8 @@ func TestAccRedshiftSubnetGroup_updateSubnetIDs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -148,7 +148,7 @@ func TestAccRedshiftSubnetGroup_tags(t *testing.T) {
 	resourceName := "aws_redshift_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
@@ -162,8 +162,8 @@ func TestAccRedshiftSubnetGroup_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -241,7 +241,7 @@ func testAccCheckSubnetGroupExists(ctx context.Context, n string, v *redshift.Cl
 func testAccSubnetGroupConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_redshift_subnet_group" "test" {
-  name       = %[1]q
+  name   = %[1]q
   subnet_ids = aws_subnet.test[*].id
 }
 `, rName))
@@ -250,7 +250,7 @@ resource "aws_redshift_subnet_group" "test" {
 func testAccSubnetGroupConfig_updateDescription(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_redshift_subnet_group" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = "test description updated"
   subnet_ids  = aws_subnet.test[*].id
 }
@@ -260,11 +260,11 @@ resource "aws_redshift_subnet_group" "test" {
 func testAccSubnetGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_redshift_subnet_group" "test" {
-  name       = %[1]q
+  name   = %[1]q
   subnet_ids = aws_subnet.test[*].id
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -273,12 +273,12 @@ resource "aws_redshift_subnet_group" "test" {
 func testAccSubnetGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_redshift_subnet_group" "test" {
-  name       = %[1]q
+  name   = %[1]q
   subnet_ids = aws_subnet.test[*].id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -287,7 +287,7 @@ resource "aws_redshift_subnet_group" "test" {
 func testAccSubnetGroupConfig_updateIDs(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 3), fmt.Sprintf(`
 resource "aws_redshift_subnet_group" "test" {
-  name       = %[1]q
+  name   = %[1]q
   subnet_ids = aws_subnet.test[*].id
 }
 `, rName))

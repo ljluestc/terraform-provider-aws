@@ -27,7 +27,7 @@ func testAccAnalyzer_basic(t *testing.T) {
 	resourceName := "aws_accessanalyzer_analyzer.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.AccessAnalyzerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:nalyzerDestroy(ctx),
@@ -43,8 +43,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -59,7 +59,7 @@ func testAccAnalyzer_disappears(t *testing.T) {
 	resourceName := "aws_accessanalyzer_analyzer.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.AccessAnalyzerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:nalyzerDestroy(ctx),
@@ -84,7 +84,7 @@ func testAccAnalyzer_tags(t *testing.T) {
 	resourceName := "aws_accessanalyzer_analyzer.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.AccessAnalyzerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:nalyzerDestroy(ctx),
@@ -98,8 +98,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -148,8 +148,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -210,7 +210,7 @@ return nil
 func testAccAnalyzerConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_accessanalyzer_analyzer" "test" {
-  analyzer_name = %[1]q
+analyzer_name = %[1]q
 }
 `, rName)
 }
@@ -218,11 +218,11 @@ resource "aws_accessanalyzer_analyzer" "test" {
 func testAccAnalyzerConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_accessanalyzer_analyzer" "test" {
-  analyzer_name = %[1]q
+analyzer_name = %[1]q
 
-  tags = {
-    %[2]q = %[3]q
-  }
+tags = {
+%[2]q = %[3]q
+}
 }
 `, rName, tagKey1, tagValue1)
 }
@@ -230,12 +230,12 @@ resource "aws_accessanalyzer_analyzer" "test" {
 func testAccAnalyzerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_accessanalyzer_analyzer" "test" {
-  analyzer_name = %[1]q
+analyzer_name = %[1]q
 
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+tags = {
+%[2]q = %[3]q
+%[4]q = %[5]q
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
@@ -245,14 +245,14 @@ func testAccAnalyzerConfig_typeOrganization(rName string) string {
 data "aws_partition" "current" {}
 
 resource "aws_organizations_organization" "test" {
-  aws_service_access_principals = ["access-analyzer.${data.aws_partition.current.dns_suffix}"]
+aws_service_access_principals = ["access-analyzer.${data.aws_partition.current.dns_suffix}"]
 }
 
 resource "aws_accessanalyzer_analyzer" "test" {
-  depends_on = [aws_organizations_organization.test]
+depends_on = [aws_organizations_organization.test]
 
-  analyzer_name = %[1]q
-  type          = "ORGANIZATION"
+analyzer_name = %[1]q
+type= "ORGANIZATION"
 }
 `, rName)
 }

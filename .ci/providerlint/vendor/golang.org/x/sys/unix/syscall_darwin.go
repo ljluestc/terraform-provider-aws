@@ -1,40 +1,26 @@
 // Copyright 2009,2010 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Darwin system calls.
+// license that can be found in the LICENSE file.// Darwin system calls.
 // This file is compiled as ordinary Go code,
 // but it is also input to mksyscall,
 // which parses the //sys lines and generates system call stubs.
 // Note that sometimes we use a lowercase //sys name and wrap
 // it in our own nicer implementation, either here or in
-// syscall_bsd.go or syscall_unix.go.
-
-package unix
-
-import (
+// syscall_bsd.go or syscall_unix.go.package uniximport (
 	"fmt"
 	"syscall"
 	"unsafe"
-)
-
-//sys	closedir(dir uintptr) (err error)
+)//sys	closedir(dir uintptr) (err error)
 //sys	readdir_r(dir uintptr, entry *Dirent, result **Dirent) (res Errno)
-
-func fdopendir(fd int) (dir uintptr, err error) {
+ fdopendir(fd int) (dir uintptr, err error) {
 	r0, _, e1 := syscall_syscallPtr(libc_fdopendir_trampoline_addr, uintptr(fd), 0, 0)
 	dir = uintptr(r0)
 	if e1 != 0 {
 		err = errnoErr(e1)
 	}
 	return
-}
-
-var libc_fdopendir_trampoline_addr uintptr
-
-//go:cgo_import_dynamic libc_fdopendir fdopendir "/usr/lib/libSystem.B.dylib"
-
-func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
+}var libc_fdopendir_trampoline_addr uintptr//go:cgo_import_dynamic libc_fdopendir fdopendir "/usr/lib/libSystem.B.dylib"
+ Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 	// Simulate Getdirentries using fdopendir/readdir_r/closedir.
 	// We store the number of entries to skip in the seek
 	// offset of fd. See issue #31368.
@@ -45,9 +31,7 @@ func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 	skip, err := Seek(fd, 0, 1 /* SEEK_CUR */)
 	if err != nil {
 		return 0, err
-	}
-
-	// We need to duplicate the incoming file descriptor
+	}	// We need to duplicate the incoming file descriptor
 	// because the caller expects to retain control of it, but
 	// fdopendir expects to take control of its argument.
 	// Just Dup'ing the file descriptor is not enough, as the
@@ -62,9 +46,7 @@ func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 		Close(fd2)
 		return 0, err
 	}
-	defer closedir(d)
-
-	var cnt int64
+	defer closedir(d)	var cnt int64
 	for {
 		var entry Dirent
 		var entryp *Dirent
@@ -79,22 +61,16 @@ func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 			skip--
 			cnt++
 			continue
-		}
-
-		reclen := int(entry.Reclen)
+		}		reclen := int(entry.Reclen)
 		if reclen > len(buf) {
 			// Not enough room. Return for now.
 			// The counter will let us know where we should start up again.
 			// Note: this strategy for suspending in the middle and
 			// restarting is O(n^2) in the length of the directory. Oh well.
 			break
-		}
-
-		// Copy entry into return buffer.
+		}		// Copy entry into return buffer.
 		s := unsafe.Slice((*byte)(unsafe.Pointer(&entry)), reclen)
-		copy(buf, s)
-
-		buf = buf[reclen:]
+		copy(buf, s)		buf = buf[reclen:]
 		n += reclen
 		cnt++
 	}
@@ -103,12 +79,8 @@ func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 	_, err = Seek(fd, cnt, 0 /* SEEK_SET */)
 	if err != nil {
 		return n, err
-	}
-
-	return n, nil
-}
-
-// SockaddrDatalink implements the Sockaddr interface for AF_LINK type sockets.
+	}	return n, nil
+}// SockaddrDatalink implements the Sockaddr interface for AF_LINK type sockets.
 type SockaddrDatalink struct {
 	Len    uint8
 	Family uint8
@@ -119,25 +91,20 @@ type SockaddrDatalink struct {
 	Slen   uint8
 	Data   [12]int8
 	raw    RawSockaddrDatalink
-}
-
-// SockaddrCtl implements the Sockaddr interface for AF_SYSTEM type sockets.
+}// SockaddrCtl implements the Sockaddr interface for AF_SYSTEM type sockets.
 type SockaddrCtl struct {
 	ID   uint32
 	Unit uint32
 	raw  RawSockaddrCtl
 }
-
-func (sa *SockaddrCtl) sockaddr() (unsafe.Pointer, _Socklen, error) {
+ (sa *SockaddrCtl) sockaddr() (unsafe.Pointer, _Socklen, error) {
 	sa.raw.Sc_len = SizeofSockaddrCtl
 	sa.raw.Sc_family = AF_SYSTEM
 	sa.raw.Ss_sysaddr = AF_SYS_CONTROL
 	sa.raw.Sc_id = sa.ID
 	sa.raw.Sc_unit = sa.Unit
 	return unsafe.Pointer(&sa.raw), SizeofSockaddrCtl, nil
-}
-
-// SockaddrVM implements the Sockaddr interface for AF_VSOCK type sockets.
+}// SockaddrVM implements the Sockaddr interface for AF_VSOCK type sockets.
 // SockaddrVM provides access to Darwin VM sockets: a mechanism that enables
 // bidirectional communication between a hypervisor and its guest virtual
 // machines.
@@ -151,17 +118,13 @@ type SockaddrVM struct {
 	Port uint32
 	raw  RawSockaddrVM
 }
-
-func (sa *SockaddrVM) sockaddr() (unsafe.Pointer, _Socklen, error) {
+ (sa *SockaddrVM) sockaddr() (unsafe.Pointer, _Socklen, error) {
 	sa.raw.Len = SizeofSockaddrVM
 	sa.raw.Family = AF_VSOCK
 	sa.raw.Port = sa.Port
-	sa.raw.Cid = sa.CID
-
-	return unsafe.Pointer(&sa.raw), SizeofSockaddrVM, nil
+	sa.raw.Cid = sa.CID	return unsafe.Pointer(&sa.raw), SizeofSockaddrVM, nil
 }
-
-func anyToSockaddrGOOS(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
+ anyToSockaddrGOOS(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 	switch rsa.Addr.Family {
 	case AF_SYSTEM:
 		pp := (*RawSockaddrCtl)(unsafe.Pointer(rsa))
@@ -180,18 +143,11 @@ func anyToSockaddrGOOS(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 		return sa, nil
 	}
 	return nil, EAFNOSUPPORT
-}
-
-// Some external packages rely on SYS___SYSCTL being defined to implement their
+}// Some external packages rely on SYS___SYSCTL being defined to implement their
 // own sysctl wrappers. Provide it here, even though direct syscalls are no
 // longer supported on darwin.
-const SYS___SYSCTL = SYS_SYSCTL
-
-// Translate "kern.hostname" to []_C_int{0,1,2,3}.
-func nametomib(name string) (mib []_C_int, err error) {
-	const siz = unsafe.Sizeof(mib[0])
-
-	// NOTE(rsc): It seems strange to set the buffer to have
+const SYS___SYSCTL = SYS_SYSCTL// Translate "kern.hostname" to []_C_int{0,1,2,3}. nametomib(name string) (mib []_C_int, err error) {
+	const siz = unsafe.Sizeof(mib[0])	// NOTE(rsc): It seems strange to set the buffer to have
 	// size CTL_MAXNAME+2 but use only CTL_MAXNAME
 	// as the size. I don't know why the +2 is here, but the
 	// kernel uses +2 for its own implementation of this function.
@@ -199,41 +155,28 @@ func nametomib(name string) (mib []_C_int, err error) {
 	// will silently write 2 words farther than we specify
 	// and we'll get memory corruption.
 	var buf [CTL_MAXNAME + 2]_C_int
-	n := uintptr(CTL_MAXNAME) * siz
-
-	p := (*byte)(unsafe.Pointer(&buf[0]))
+	n := uintptr(CTL_MAXNAME) * siz	p := (*byte)(unsafe.Pointer(&buf[0]))
 	bytes, err := ByteSliceFromString(name)
 	if err != nil {
 		return nil, err
-	}
-
-	// Magic sysctl: "setting" 0.3 to a string name
+	}	// Magic sysctl: "setting" 0.3 to a string name
 	// lets you read back the array of integers form.
 	if err = sysctl([]_C_int{0, 3}, p, &n, &bytes[0], uintptr(len(name))); err != nil {
 		return nil, err
 	}
 	return buf[0 : n/siz], nil
 }
-
-func direntIno(buf []byte) (uint64, bool) {
+ direntIno(buf []byte) (uint64, bool) {
 	return readInt(buf, unsafe.Offsetof(Dirent{}.Ino), unsafe.Sizeof(Dirent{}.Ino))
 }
-
-func direntReclen(buf []byte) (uint64, bool) {
+ direntReclen(buf []byte) (uint64, bool) {
 	return readInt(buf, unsafe.Offsetof(Dirent{}.Reclen), unsafe.Sizeof(Dirent{}.Reclen))
 }
-
-func direntNamlen(buf []byte) (uint64, bool) {
+ direntNamlen(buf []byte) (uint64, bool) {
 	return readInt(buf, unsafe.Offsetof(Dirent{}.Namlen), unsafe.Sizeof(Dirent{}.Namlen))
 }
-
-func PtraceAttach(pid int) (err error) { return ptrace(PT_ATTACH, pid, 0, 0) }
-func PtraceDetach(pid int) (err error) { return ptrace(PT_DETACH, pid, 0, 0) }
-func PtraceDenyAttach() (err error)    { return ptrace(PT_DENY_ATTACH, 0, 0, 0) }
-
-//sysnb	pipe(p *[2]int32) (err error)
-
-func Pipe(p []int) (err error) {
+ PtraceAttach(pid int) (err error) { return ptrace(PT_ATTACH, pid, 0, 0) } PtraceDetach(pid int) (err error) { return ptrace(PT_DETACH, pid, 0, 0) } PtraceDenyAttach() (err error)    { return ptrace(PT_DENY_ATTACH, 0, 0, 0) }//sysnb	pipe(p *[2]int32) (err error)
+ Pipe(p []int) (err error) {
 	if len(p) != 2 {
 		return EINVAL
 	}
@@ -245,8 +188,7 @@ func Pipe(p []int) (err error) {
 	}
 	return
 }
-
-func Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
+ Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
 	var _p0 unsafe.Pointer
 	var bufsize uintptr
 	if len(buf) > 0 {
@@ -255,8 +197,7 @@ func Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
 	}
 	return getfsstat(_p0, bufsize, flags)
 }
-
-func xattrPointer(dest []byte) *byte {
+ xattrPointer(dest []byte) *byte {
 	// It's only when dest is set to NULL that the OS X implementations of
 	// getxattr() and listxattr() return the current sizes of the named attributes.
 	// An empty byte array is not sufficient. To maintain the same behaviour as the
@@ -267,27 +208,17 @@ func xattrPointer(dest []byte) *byte {
 		destp = &dest[0]
 	}
 	return destp
-}
-
-//sys	getxattr(path string, attr string, dest *byte, size int, position uint32, options int) (sz int, err error)
-
-func Getxattr(path string, attr string, dest []byte) (sz int, err error) {
+}//sys	getxattr(path string, attr string, dest *byte, size int, position uint32, options int) (sz int, err error)
+ Getxattr(path string, attr string, dest []byte) (sz int, err error) {
 	return getxattr(path, attr, xattrPointer(dest), len(dest), 0, 0)
 }
-
-func Lgetxattr(link string, attr string, dest []byte) (sz int, err error) {
+ Lgetxattr(link string, attr string, dest []byte) (sz int, err error) {
 	return getxattr(link, attr, xattrPointer(dest), len(dest), 0, XATTR_NOFOLLOW)
-}
-
-//sys	fgetxattr(fd int, attr string, dest *byte, size int, position uint32, options int) (sz int, err error)
-
-func Fgetxattr(fd int, attr string, dest []byte) (sz int, err error) {
+}//sys	fgetxattr(fd int, attr string, dest *byte, size int, position uint32, options int) (sz int, err error)
+ Fgetxattr(fd int, attr string, dest []byte) (sz int, err error) {
 	return fgetxattr(fd, attr, xattrPointer(dest), len(dest), 0, 0)
-}
-
-//sys	setxattr(path string, attr string, data *byte, size int, position uint32, options int) (err error)
-
-func Setxattr(path string, attr string, data []byte, flags int) (err error) {
+}//sys	setxattr(path string, attr string, data *byte, size int, position uint32, options int) (err error)
+ Setxattr(path string, attr string, data []byte, flags int) (err error) {
 	// The parameters for the OS X implementation vary slightly compared to the
 	// linux system call, specifically the position parameter:
 	//
@@ -316,120 +247,71 @@ func Setxattr(path string, attr string, data []byte, flags int) (err error) {
 	// default to setting it to zero.
 	return setxattr(path, attr, xattrPointer(data), len(data), 0, flags)
 }
-
-func Lsetxattr(link string, attr string, data []byte, flags int) (err error) {
+ Lsetxattr(link string, attr string, data []byte, flags int) (err error) {
 	return setxattr(link, attr, xattrPointer(data), len(data), 0, flags|XATTR_NOFOLLOW)
-}
-
-//sys	fsetxattr(fd int, attr string, data *byte, size int, position uint32, options int) (err error)
-
-func Fsetxattr(fd int, attr string, data []byte, flags int) (err error) {
+}//sys	fsetxattr(fd int, attr string, data *byte, size int, position uint32, options int) (err error)
+ Fsetxattr(fd int, attr string, data []byte, flags int) (err error) {
 	return fsetxattr(fd, attr, xattrPointer(data), len(data), 0, 0)
-}
-
-//sys	removexattr(path string, attr string, options int) (err error)
-
-func Removexattr(path string, attr string) (err error) {
+}//sys	removexattr(path string, attr string, options int) (err error)
+ Removexattr(path string, attr string) (err error) {
 	// We wrap around and explicitly zero out the options provided to the OS X
 	// implementation of removexattr, we do so for interoperability with the
 	// linux variant.
 	return removexattr(path, attr, 0)
 }
-
-func Lremovexattr(link string, attr string) (err error) {
+ Lremovexattr(link string, attr string) (err error) {
 	return removexattr(link, attr, XATTR_NOFOLLOW)
-}
-
-//sys	fremovexattr(fd int, attr string, options int) (err error)
-
-func Fremovexattr(fd int, attr string) (err error) {
+}//sys	fremovexattr(fd int, attr string, options int) (err error)
+ Fremovexattr(fd int, attr string) (err error) {
 	return fremovexattr(fd, attr, 0)
-}
-
-//sys	listxattr(path string, dest *byte, size int, options int) (sz int, err error)
-
-func Listxattr(path string, dest []byte) (sz int, err error) {
+}//sys	listxattr(path string, dest *byte, size int, options int) (sz int, err error)
+ Listxattr(path string, dest []byte) (sz int, err error) {
 	return listxattr(path, xattrPointer(dest), len(dest), 0)
 }
-
-func Llistxattr(link string, dest []byte) (sz int, err error) {
+ Llistxattr(link string, dest []byte) (sz int, err error) {
 	return listxattr(link, xattrPointer(dest), len(dest), XATTR_NOFOLLOW)
-}
-
-//sys	flistxattr(fd int, dest *byte, size int, options int) (sz int, err error)
-
-func Flistxattr(fd int, dest []byte) (sz int, err error) {
+}//sys	flistxattr(fd int, dest *byte, size int, options int) (sz int, err error)
+ Flistxattr(fd int, dest []byte) (sz int, err error) {
 	return flistxattr(fd, xattrPointer(dest), len(dest), 0)
-}
-
-//sys	utimensat(dirfd int, path string, times *[2]Timespec, flags int) (err error)
-
-/*
+}//sys	utimensat(dirfd int, path string, times *[2]Timespec, flags int) (err error)/*
  * Wrapped
- */
-
-//sys	fcntl(fd int, cmd int, arg int) (val int, err error)
-
-//sys	kill(pid int, signum int, posix int) (err error)
-
-func Kill(pid int, signum syscall.Signal) (err error) { return kill(pid, int(signum), 1) }
-
-//sys	ioctl(fd int, req uint, arg uintptr) (err error)
+ *///sys	fcntl(fd int, cmd int, arg int) (val int, err error)//sys	kill(pid int, signum int, posix int) (err error)
+ Kill(pid int, signum syscall.Signal) (err error) { return kill(pid, int(signum), 1) }//sys	ioctl(fd int, req uint, arg uintptr) (err error)
 //sys	ioctlPtr(fd int, req uint, arg unsafe.Pointer) (err error) = SYS_IOCTL
-
-func IoctlCtlInfo(fd int, ctlInfo *CtlInfo) error {
+ IoctlCtlInfo(fd int, ctlInfo *CtlInfo) error {
 	return ioctlPtr(fd, CTLIOCGINFO, unsafe.Pointer(ctlInfo))
-}
-
-// IfreqMTU is struct ifreq used to get or set a network device's MTU.
+}// IfreqMTU is struct ifreq used to get or set a network device's MTU.
 type IfreqMTU struct {
 	Name [IFNAMSIZ]byte
 	MTU  int32
-}
-
-// IoctlGetIfreqMTU performs the SIOCGIFMTU ioctl operation on fd to get the MTU
-// of the network device specified by ifname.
-func IoctlGetIfreqMTU(fd int, ifname string) (*IfreqMTU, error) {
+}// IoctlGetIfreqMTU performs the SIOCGIFMTU ioctl operation on fd to get the MTU
+// of the network device specified by ifname. IoctlGetIfreqMTU(fd int, ifname string) (*IfreqMTU, error) {
 	var ifreq IfreqMTU
 	copy(ifreq.Name[:], ifname)
 	err := ioctlPtr(fd, SIOCGIFMTU, unsafe.Pointer(&ifreq))
 	return &ifreq, err
-}
-
-// IoctlSetIfreqMTU performs the SIOCSIFMTU ioctl operation on fd to set the MTU
-// of the network device specified by ifreq.Name.
-func IoctlSetIfreqMTU(fd int, ifreq *IfreqMTU) error {
+}// IoctlSetIfreqMTU performs the SIOCSIFMTU ioctl operation on fd to set the MTU
+// of the network device specified by ifreq.Name. IoctlSetIfreqMTU(fd int, ifreq *IfreqMTU) error {
 	return ioctlPtr(fd, SIOCSIFMTU, unsafe.Pointer(ifreq))
-}
-
-//sys	sysctl(mib []_C_int, old *byte, oldlen *uintptr, new *byte, newlen uintptr) (err error) = SYS_SYSCTL
-
-func Uname(uname *Utsname) error {
+}//sys	sysctl(mib []_C_int, old *byte, oldlen *uintptr, new *byte, newlen uintptr) (err error) = SYS_SYSCTL
+ Uname(uname *Utsname) error {
 	mib := []_C_int{CTL_KERN, KERN_OSTYPE}
 	n := unsafe.Sizeof(uname.Sysname)
 	if err := sysctl(mib, &uname.Sysname[0], &n, nil, 0); err != nil {
 		return err
-	}
-
-	mib = []_C_int{CTL_KERN, KERN_HOSTNAME}
+	}	mib = []_C_int{CTL_KERN, KERN_HOSTNAME}
 	n = unsafe.Sizeof(uname.Nodename)
 	if err := sysctl(mib, &uname.Nodename[0], &n, nil, 0); err != nil {
 		return err
-	}
-
-	mib = []_C_int{CTL_KERN, KERN_OSRELEASE}
+	}	mib = []_C_int{CTL_KERN, KERN_OSRELEASE}
 	n = unsafe.Sizeof(uname.Release)
 	if err := sysctl(mib, &uname.Release[0], &n, nil, 0); err != nil {
 		return err
-	}
-
-	mib = []_C_int{CTL_KERN, KERN_VERSION}
+	}	mib = []_C_int{CTL_KERN, KERN_VERSION}
 	n = unsafe.Sizeof(uname.Version)
 	if err := sysctl(mib, &uname.Version[0], &n, nil, 0); err != nil {
 		return err
-	}
-
-	// The version might have newlines or tabs in it, convert them to
+	}	// The version might have newlines or tabs in it, convert them to
 	// spaces.
 	for i, b := range uname.Version {
 		if b == '\n' || b == '\t' {
@@ -439,18 +321,13 @@ func Uname(uname *Utsname) error {
 				uname.Version[i] = ' '
 			}
 		}
-	}
-
-	mib = []_C_int{CTL_HW, HW_MACHINE}
+	}	mib = []_C_int{CTL_HW, HW_MACHINE}
 	n = unsafe.Sizeof(uname.Machine)
 	if err := sysctl(mib, &uname.Machine[0], &n, nil, 0); err != nil {
 		return err
-	}
-
-	return nil
+	}	return nil
 }
-
-func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
+ Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
 	if raceenabled {
 		raceReleaseMerge(unsafe.Pointer(&ioSync))
 	}
@@ -459,41 +336,32 @@ func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err e
 	written = int(length)
 	return
 }
-
-func GetsockoptIPMreqn(fd, level, opt int) (*IPMreqn, error) {
+ GetsockoptIPMreqn(fd, level, opt int) (*IPMreqn, error) {
 	var value IPMreqn
 	vallen := _Socklen(SizeofIPMreqn)
 	errno := getsockopt(fd, level, opt, unsafe.Pointer(&value), &vallen)
 	return &value, errno
 }
-
-func SetsockoptIPMreqn(fd, level, opt int, mreq *IPMreqn) (err error) {
+ SetsockoptIPMreqn(fd, level, opt int, mreq *IPMreqn) (err error) {
 	return setsockopt(fd, level, opt, unsafe.Pointer(mreq), unsafe.Sizeof(*mreq))
-}
-
-// GetsockoptXucred is a getsockopt wrapper that returns an Xucred struct.
-// The usual level and opt are SOL_LOCAL and LOCAL_PEERCRED, respectively.
-func GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
+}// GetsockoptXucred is a getsockopt wrapper that returns an Xucred struct.
+// The usual level and opt are SOL_LOCAL and LOCAL_PEERCRED, respectively. GetsockoptXucred(fd, level, opt int) (*Xucred, error) {
 	x := new(Xucred)
 	vallen := _Socklen(SizeofXucred)
 	err := getsockopt(fd, level, opt, unsafe.Pointer(x), &vallen)
 	return x, err
 }
-
-func GetsockoptTCPConnectionInfo(fd, level, opt int) (*TCPConnectionInfo, error) {
+ GetsockoptTCPConnectionInfo(fd, level, opt int) (*TCPConnectionInfo, error) {
 	var value TCPConnectionInfo
 	vallen := _Socklen(SizeofTCPConnectionInfo)
 	err := getsockopt(fd, level, opt, unsafe.Pointer(&value), &vallen)
 	return &value, err
 }
-
-func SysctlKinfoProc(name string, args ...int) (*KinfoProc, error) {
+ SysctlKinfoProc(name string, args ...int) (*KinfoProc, error) {
 	mib, err := sysctlmib(name, args...)
 	if err != nil {
 		return nil, err
-	}
-
-	var kinfo KinfoProc
+	}	var kinfo KinfoProc
 	n := uintptr(SizeofKinfoProc)
 	if err := sysctl(mib, (*byte)(unsafe.Pointer(&kinfo)), &n, nil, 0); err != nil {
 		return nil, err
@@ -503,14 +371,11 @@ func SysctlKinfoProc(name string, args ...int) (*KinfoProc, error) {
 	}
 	return &kinfo, nil
 }
-
-func SysctlKinfoProcSlice(name string, args ...int) ([]KinfoProc, error) {
+ SysctlKinfoProcSlice(name string, args ...int) ([]KinfoProc, error) {
 	mib, err := sysctlmib(name, args...)
 	if err != nil {
 		return nil, err
-	}
-
-	for {
+	}	for {
 		// Find size.
 		n := uintptr(0)
 		if err := sysctl(mib, nil, &n, nil, 0); err != nil {
@@ -521,9 +386,7 @@ func SysctlKinfoProcSlice(name string, args ...int) ([]KinfoProc, error) {
 		}
 		if n%SizeofKinfoProc != 0 {
 			return nil, fmt.Errorf("sysctl() returned a size of %d, which is not a multiple of %d", n, SizeofKinfoProc)
-		}
-
-		// Read into buffer of that size.
+		}		// Read into buffer of that size.
 		buf := make([]KinfoProc, n/SizeofKinfoProc)
 		if err := sysctl(mib, (*byte)(unsafe.Pointer(&buf[0])), &n, nil, 0); err != nil {
 			if err == ENOMEM {
@@ -534,22 +397,14 @@ func SysctlKinfoProcSlice(name string, args ...int) ([]KinfoProc, error) {
 		}
 		if n%SizeofKinfoProc != 0 {
 			return nil, fmt.Errorf("sysctl() returned a size of %d, which is not a multiple of %d", n, SizeofKinfoProc)
-		}
-
-		// The actual call may return less than the original reported required
+		}		// The actual call may return less than the original reported required
 		// size so ensure we deal with that.
 		return buf[:n/SizeofKinfoProc], nil
 	}
-}
-
-//sys	sendfile(infd int, outfd int, offset int64, len *int64, hdtr unsafe.Pointer, flags int) (err error)
-
-//sys	shmat(id int, addr uintptr, flag int) (ret uintptr, err error)
+}//sys	sendfile(infd int, outfd int, offset int64, len *int64, hdtr unsafe.Pointer, flags int) (err error)//sys	shmat(id int, addr uintptr, flag int) (ret uintptr, err error)
 //sys	shmctl(id int, cmd int, buf *SysvShmDesc) (result int, err error)
 //sys	shmdt(addr uintptr) (err error)
-//sys	shmget(key int, size int, flag int) (id int, err error)
-
-/*
+//sys	shmget(key int, size int, flag int) (id int, err error)/*
  * Exposed directly
  */
 //sys	Access(path string, mode uint32) (err error)
@@ -645,9 +500,7 @@ func SysctlKinfoProcSlice(name string, args ...int) ([]KinfoProc, error) {
 //sys	mmap(addr uintptr, length uintptr, prot int, flag int, fd int, pos int64) (ret uintptr, err error)
 //sys	munmap(addr uintptr, length uintptr) (err error)
 //sys	readlen(fd int, buf *byte, nbuf int) (n int, err error) = SYS_READ
-//sys	writelen(fd int, buf *byte, nbuf int) (n int, err error) = SYS_WRITE
-
-/*
+//sys	writelen(fd int, buf *byte, nbuf int) (n int, err error) = SYS_WRITE/*
  * Unimplemented
  */
 // Profil

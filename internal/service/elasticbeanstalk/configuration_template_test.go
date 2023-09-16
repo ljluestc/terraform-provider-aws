@@ -17,7 +17,6 @@ import (
 	tfelasticbeanstalk "github.com/hashicorp/terraform-provider-aws/internal/service/elasticbeanstalk"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccElasticBeanstalkConfigurationTemplate_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var config elasticbeanstalk.ConfigurationSettingsDescription
@@ -39,7 +38,6 @@ func TestAccElasticBeanstalkConfigurationTemplate_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkConfigurationTemplate_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var config elasticbeanstalk.ConfigurationSettingsDescription
@@ -63,7 +61,6 @@ func TestAccElasticBeanstalkConfigurationTemplate_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkConfigurationTemplate_Disappears_application(t *testing.T) {
 	ctx := acctest.Context(t)
 	var config elasticbeanstalk.ConfigurationSettingsDescription
@@ -87,7 +84,6 @@ func TestAccElasticBeanstalkConfigurationTemplate_Disappears_application(t *test
 		},
 	})
 }
-
 func TestAccElasticBeanstalkConfigurationTemplate_vpc(t *testing.T) {
 	ctx := acctest.Context(t)
 	var config elasticbeanstalk.ConfigurationSettingsDescription
@@ -109,7 +105,6 @@ func TestAccElasticBeanstalkConfigurationTemplate_vpc(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkConfigurationTemplate_settings(t *testing.T) {
 	ctx := acctest.Context(t)
 	var config elasticbeanstalk.ConfigurationSettingsDescription
@@ -135,7 +130,6 @@ func TestAccElasticBeanstalkConfigurationTemplate_settings(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckConfigurationTemplateDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -161,7 +155,6 @@ func testAccCheckConfigurationTemplateDestroy(ctx context.Context) resource.Test
 		return nil
 	}
 }
-
 func testAccCheckConfigurationTemplateExists(ctx context.Context, n string, v *elasticbeanstalk.ConfigurationSettingsDescription) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -186,7 +179,6 @@ func testAccCheckConfigurationTemplateExists(ctx context.Context, n string, v *e
 		return nil
 	}
 }
-
 func testAccConfigurationTemplateConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
@@ -196,12 +188,11 @@ resource "aws_elastic_beanstalk_application" "test" {
 
 resource "aws_elastic_beanstalk_configuration_template" "test" {
   name = %[1]q
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   solution_stack_name = "64bit Amazon Linux running Python"
 }
 `, rName)
 }
-
 func testAccConfigurationTemplateConfig_vpc(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {
@@ -229,7 +220,6 @@ resource "aws_elastic_beanstalk_configuration_template" "test" {
 }
 `, rName))
 }
-
 func testAccConfigurationTemplateConfig_setting(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elastic_beanstalk_application" "test" {

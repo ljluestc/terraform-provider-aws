@@ -18,8 +18,6 @@ import (
 	tfservicediscovery "github.com/hashicorp/terraform-provider-aws/internal/service/servicediscovery"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
-
 func TestAccServiceDiscoveryHTTPNamespace_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_http_namespace.test"
@@ -34,7 +32,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckHTTPNamespaceDestroy(ctx),
+CheckDestroy: testAccCheckHTTPNamespaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccHTTPNamespaceConfig_basic(rName),
@@ -50,15 +48,13 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
-
 func TestAccServiceDiscoveryHTTPNamespace_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_http_namespace.test"
@@ -73,7 +69,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckHTTPNamespaceDestroy(ctx),
+CheckDestroy: testAccCheckHTTPNamespaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccHTTPNamespaceConfig_basic(rName),
@@ -87,8 +83,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
-
 func TestAccServiceDiscoveryHTTPNamespace_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_http_namespace.test"
@@ -103,7 +97,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckHTTPNamespaceDestroy(ctx),
+CheckDestroy: testAccCheckHTTPNamespaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccHTTPNamespaceConfig_description(rName, "test"),
@@ -114,15 +108,13 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
-
 func TestAccServiceDiscoveryHTTPNamespace_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_http_namespace.test"
@@ -137,7 +129,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckHTTPNamespaceDestroy(ctx),
+CheckDestroy: testAccCheckHTTPNamespaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccHTTPNamespaceConfig_tags1(rName, "key1", "value1"),
@@ -149,8 +141,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -175,8 +167,6 @@ func(
 },
 	})
 }
-
-
 func testAccCheckHTTPNamespaceDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
@@ -204,8 +194,6 @@ return err
 return nil
 	}
 }
-
-
 func testAccCheckHTTPNamespaceExists(ctx context.Context, n string) resource.TestCheck
 func {
 	return 
@@ -226,8 +214,6 @@ _, err := tfservicediscovery.FindNamespaceByID(ctx, conn, rs.Primary.ID)
 return err
 	}
 }
-
-
 func testAccHTTPNamespaceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_http_namespace" "test" {
@@ -235,39 +221,33 @@ resource "aws_service_discovery_http_namespace" "test" {
 }
 `, rName)
 }
-
-
 func testAccHTTPNamespaceConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_http_namespace" "test" {
   description = %[1]q
-  name        = %[2]q
+  name2]q
 }
 `, description, rName)
 }
-
-
 func testAccHTTPNamespaceConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_http_namespace" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }
-
-
 func testAccHTTPNamespaceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_http_namespace" "test" {
   name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

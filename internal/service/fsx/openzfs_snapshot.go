@@ -45,24 +45,24 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"creation_time": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"name": {
-Type:         schema.TypeString,
-Required:     true,
+Type:schema.TypeString,
+Required: true,
 ValidateFunc: validation.StringLenBetween(1, 203),
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"volume_id": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 ValidateFunc: validation.StringLenBetween(23, 23),
 	},
 },
@@ -81,7 +81,7 @@ func resourceOpenzfsSnapshotCreate(ctx context.Context, d *schema.ResourceData, 
 ClientRequestToken: aws.String(id.UniqueId()),
 Name:aws.String(d.Get("name").(string)),
 Tags:getTagsIn(ctx),
-VolumeId:           aws.String(d.Get("volume_id").(string)),
+VolumeId:  aws.String(d.Get("volume_id").(string)),
 	}
 
 	result, err := conn.CreateSnapshotWithContext(ctx, input)
@@ -132,7 +132,7 @@ func resourceOpenzfsSnapshotUpdate(ctx context.Context, d *schema.ResourceData, 
 	if d.HasChangesExcept("tags_all", "tags") {
 input := &fsx.UpdateSnapshotInput{
 	ClientRequestToken: aws.String(id.UniqueId()),
-	SnapshotId:         aws.String(d.Id()),
+	SnapshotId:aws.String(d.Id()),
 }
 
 if d.HasChange("name") {

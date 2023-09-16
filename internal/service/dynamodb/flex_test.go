@@ -20,7 +20,7 @@ func TestExpandTableItemAttributes(t *testing.T) {
 	t.Parallel()
 
 	cases := map[string]struct {
-		input    string
+		inputstring
 		expected map[string]*dynamodb.AttributeValue
 	}{
 		"B": {
@@ -181,7 +181,7 @@ func TestFlattenTableItemAttributes(t *testing.T) {
 	t.Parallel()
 
 	cases := map[string]struct {
-		attrs    map[string]*dynamodb.AttributeValue
+		attrsmap[string]*dynamodb.AttributeValue
 		expected string
 	}{
 		"B": {

@@ -28,7 +28,7 @@ func testContactDataSource_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -64,7 +64,7 @@ func testAccContactDataSourceConfig_basic(alias string) string {
 resource "aws_ssmcontacts_contact" "contact_one" {
   alias        = %[1]q
   display_name = %[1]q
-  type         = "PERSONAL"
+  type= "PERSONAL"
 
   tags = {
     key1 = "tag1"

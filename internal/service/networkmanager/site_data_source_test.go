@@ -20,8 +20,8 @@ func TestAccNetworkManagerSiteDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -63,7 +63,7 @@ resource "aws_networkmanager_site" "test" {
 
 data "aws_networkmanager_site" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  site_id           = aws_networkmanager_site.test.id
+  site_id  = aws_networkmanager_site.test.id
 }
 `, rName)
 }

@@ -10,7 +10,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccGuardDutyFindingIdsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_guardduty_finding_ids.test"
@@ -35,7 +34,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccFindingIdsDataSourceConfig_basic() string {
 	return `
 data "aws_guardduty_detector" "test" {}

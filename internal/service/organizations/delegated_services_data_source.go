@@ -16,12 +16,13 @@ import (
 )
 
 // @SDKDataSource("aws_organizations_delegated_services")
+
 func DataSourceDelegatedServices() *schema.Resource {
 return &schema.Resource{
 ReadWithoutTimeout: dataSourceDelegatedServicesRead,
 Schema: map[string]*schema.Schema{
 "account_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: verify.ValidAccountID,
 },
@@ -45,6 +46,7 @@ Computed: true,
 }
 }
 
+
 func dataSourceDelegatedServicesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -63,13 +65,15 @@ return diag.Errorf("setting delegated_services: %s", err)
 return nil
 }
 
+
 func findDelegatedServicesByAccountID(ctx context.Context, conn *organizations.Organizations, accountID string) ([]*organizations.DelegatedService, error) {
 input := &organizations.ListDelegatedServicesForAccountInput{
 AccountId: aws.String(accountID),
 }
 var output []*organizations.DelegatedService
 
-err := conn.ListDelegatedServicesForAccountPagesWithContext(ctx, input, func(page *organizations.ListDelegatedServicesForAccountOutput, lastPage bool) bool {
+err := conn.ListDelegatedServicesForAccountPagesWithContext(ctx, input, 
+func(page *organizations.ListDelegatedServicesForAccountOutput, lastPage bool) bool {
 if page == nil {
 return !lastPage
 }
@@ -85,6 +89,7 @@ return nil, err
 
 return output, nil
 }
+
 
 func flattenDelegatedServices(apiObjects []*organizations.DelegatedService) []map[string]interface{} {
 if len(apiObjects) == 0 {

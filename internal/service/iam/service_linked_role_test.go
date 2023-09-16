@@ -20,40 +20,40 @@ import (
 )funcarallel()
 
 	var testCases = []struct {
-		Input        string
+		Inputstring
 		ServiceName  string
-		RoleName     string
+		RoleName string
 		CustomSuffix string
-		ErrCount     int
+		ErrCount int
 	}{
 		{
-			Input:    "not-arn",
+			Input:"not-arn",
 			ErrCount: 1,
 		},
 		{
-			Input:    "arn:aws:iam::123456789012:role/not-service-linked-role", //lintignore:AWSAT005
+			Input:"arn:aws:iam::123456789012:role/not-service-linked-role", //lintignore:AWSAT005
 			ErrCount: 1,
 		},
 		{
-			Input:        "arn:aws:iam::123456789012:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling", //lintignore:AWSAT005
+			Input:"arn:aws:iam::123456789012:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling", //lintignore:AWSAT005
 			ServiceName:  "autoscaling.amazonaws.com",
-			RoleName:     "AWSServiceRoleForAutoScaling",
+			RoleName: "AWSServiceRoleForAutoScaling",
 			CustomSuffix: "",
-			ErrCount:     0,
+			ErrCount: 0,
 		},
 		{
-			Input:        "arn:aws:iam::123456789012:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_custom-suffix", //lintignore:AWSAT005
+			Input:"arn:aws:iam::123456789012:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling_custom-suffix", //lintignore:AWSAT005
 			ServiceName:  "autoscaling.amazonaws.com",
-			RoleName:     "AWSServiceRoleForAutoScaling_custom-suffix",
+			RoleName: "AWSServiceRoleForAutoScaling_custom-suffix",
 			CustomSuffix: "custom-suffix",
-			ErrCount:     0,
+			ErrCount: 0,
 		},
 		{
-			Input:        "arn:aws:iam::123456789012:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable", //lintignore:AWSAT005
+			Input:"arn:aws:iam::123456789012:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable", //lintignore:AWSAT005
 			ServiceName:  "dynamodb.application-autoscaling.amazonaws.com",
-			RoleName:     "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable",
+			RoleName: "AWSServiceRoleForApplicationAutoScaling_DynamoDBTable",
 			CustomSuffix: "DynamoDBTable",
-			ErrCount:     0,
+			ErrCount: 0,
 		},
 	}
 
@@ -83,7 +83,7 @@ import (
 	arnResource := fmt.Sprintf("role%s%s", path, name)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckServiceLinkedRoleDestroy(ctx),
@@ -95,7 +95,7 @@ import (
 					arn := arn.ARN{
 						Partition: client.Partition,
 						Service:   "iam",
-						Region:    client.Region,
+						Region:client.Region,
 						AccountID: client.AccountID,
 						Resource:  arnResource,
 					}.String()
@@ -122,8 +122,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -136,7 +136,7 @@ import (
 	path := fmt.Sprintf("/aws-service-role/%s/", awsServiceName)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckServiceLinkedRoleDestroy(ctx),
@@ -150,8 +150,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -165,7 +165,7 @@ import (
 	name := "AWSServiceRoleForApplicationAutoScaling_CustomResource"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckServiceLinkedRoleDestroy(ctx),
@@ -180,8 +180,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -192,7 +192,7 @@ import (
 	functomSuffix := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckServiceLinkedRoleDestroy(ctx),
@@ -212,8 +212,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -224,7 +224,7 @@ import (
 	awsServiceName := "autoscaling.amazonaws.com"
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckServiceLinkedRoleDestroy(ctx),
@@ -238,8 +238,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -267,7 +267,7 @@ import (
 	awsServiceName := "autoscaling.amazonaws.com"
 	customSuffix := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckServiceLinkedRoleDestroy(ctx),
@@ -339,34 +339,34 @@ resource "aws_iam_service_linked_role" "test" {
 }func testAccServiceLinkedRoleConfig_customSuffix(awsServiceName, customSuffix string) string {
 	return fmt.Sprintf(`
 rfuncs_service_name = %[1]q
-  custom_suffix    = %[2]q
+  custom_suffix= %[2]q
 }
 `, awsServiceName, customSuffix)
 }func testAccServiceLinkedRoleConfig_description(awsServiceName, customSuffix, description string) string {
 	return fmt.Sprintf(`
 rfuncs_service_name = %[1]q
-  custom_suffix    = %[2]q
-  description      = %[3]q
+  custom_suffix= %[2]q
+  description  = %[3]q
 }
 `, awsServiceName, customSuffix, description)
 }func testAccServiceLinkedRoleConfig_tags1(awsServiceName, customSuffix, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 rfuncs_service_name = %[1]q
-  custom_suffix    = %[2]q
+  custom_suffix= %[2]q
 
   tags = {
-    %[3]q = %[4]q
+%[3]q = %[4]q
   }
 }
 `, awsServiceName, customSuffix, tagKey1, tagValue1)
 }funcurn fmt.Sprintf(`
 resource "aws_iam_service_linked_role" "test" {
   aws_service_name = %[1]q
-  custom_suffix    = %[2]q
+  custom_suffix= %[2]q
 
   tags = {
-    %[3]q = %[4]q
-    %[5]q = %[6]q
+%[3]q = %[4]q
+%[5]q = %[6]q
   }
 }
 `, awsServiceName, customSuffix, tagKey1, tagValue1, tagKey2, tagValue2)

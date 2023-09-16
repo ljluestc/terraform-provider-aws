@@ -1,11 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-//go:generate go run ../../generate/tagresource/main.go -IDAttribName=resource_id
-//go:generate go run ../../generate/tags/main.go -GetTag -ListTags -ListTagsOp=DescribeTags -ListTagsInFiltIDName=resource-id -ListTagsInIDElem=Resources -ServiceTagsSlice -TagOp=CreateTags -TagInIDElem=Resources -TagInIDNeedSlice=yes -TagType2=TagDescription -UntagOp=DeleteTags -UntagInNeedTagType -UntagInTagsElem=Tags -UpdateTags
-//go:generate go run ../../generate/tags/main.go -AWSSDKVersion=2 -ServiceTagsSlice -Tags
-func=keyValueTagsV2 -GetTagsIn
-func=setTagsOutV2 -TagOp=CreateTags -TagInIDElem=Resources -TagInIDNeedValueSlice=yes -UntagOp=DeleteTags -UpdateTags
-func:generate go run ../../generate/listpages/main.go -ListOps=DescribeSpotFleetInstances,DescribeSpotFleetRequestHistory,DescribeVpcEndpointServices
-funcNLY generate directives and package declaration! Do not add anything else to this file.
-funcage ec2
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0//go:generate go run ../../generate/tagresource/main.go -IDAttribName=resource_id//go:generate go run ../../generate/tags/main.go -GetTag -ListTags -ListTagsOp=DescribeTags -ListTagsInFiltIDName=resource-id -ListTagsInIDElem=Resources -ServiceTagsSlice -TagOp=CreateTags -TagInIDElem=Resources -TagInIDNeedSlice=yes -TagType2=TagDescription -UntagOp=DeleteTags -UntagInNeedTagType -UntagInTagsElem=Tags -UpdateTags//go:generate go run ../../generate/tags/main.go -AWSSDKVersion=2 -ServiceTagsSlice -Tags=keyValueTagsV2 -GetTagsIn=setTagsOutV2 -TagOp=CreateTags -TagInIDElem=Resources -TagInIDNeedValueSlice=yes -UntagOp=DeleteTags -UpdateTags:generate go run ../../generate/listpages/main.go -ListOps=DescribeSpotFleetInstances,DescribeSpotFleetRequestHistory,DescribeVpcEndpointServicesNLY generate directives and package declaration! Do not add anything else to this file.age ec2

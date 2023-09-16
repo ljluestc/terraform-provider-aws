@@ -31,9 +31,9 @@ func TestAccDSRegion_basic(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-		CheckDestroy:             testAccCheckRegionDestroy(ctx),
+		CheckDestroy:    testAccCheckRegionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegionConfig_basic(rName, domainName),
@@ -66,9 +66,9 @@ func TestAccDSRegion_disappears(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-		CheckDestroy:             testAccCheckRegionDestroy(ctx),
+		CheckDestroy:    testAccCheckRegionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegionConfig_basic(rName, domainName),
@@ -95,9 +95,9 @@ func TestAccDSRegion_tags(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-		CheckDestroy:             testAccCheckRegionDestroy(ctx),
+		CheckDestroy:    testAccCheckRegionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegionConfig_tags1(rName, domainName, "key1", "value1"),
@@ -146,9 +146,9 @@ func TestAccDSRegion_desiredNumberOfDomainControllers(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-		CheckDestroy:             testAccCheckRegionDestroy(ctx),
+		CheckDestroy:    testAccCheckRegionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegionConfig_desiredNumberOfDomainControllers(rName, domainName, 2),
@@ -271,7 +271,7 @@ resource "aws_subnet" "secondary" {
 
   count = 2
 
-  vpc_id            = aws_vpc.secondary.id
+  vpc_id   = aws_vpc.secondary.id
   availability_zone = data.aws_availability_zones.secondary.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.secondary.cidr_block, 8, count.index)
 

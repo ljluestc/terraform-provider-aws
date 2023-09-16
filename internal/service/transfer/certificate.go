@@ -37,54 +37,54 @@ func ResourceCertificate() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"active_date": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"certificate": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				Sensitive:    true,
+				Required: true,
+				ForceNew: true,
+				Sensitive:true,
 				ValidateFunc: validation.StringLenBetween(0, 16384),
 			},
 			"certificate_chain": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Sensitive:    true,
+				Optional: true,
+				ForceNew: true,
+				Sensitive:true,
 				ValidateFunc: validation.StringLenBetween(0, 2097152),
 			},
 			"certificate_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 200),
 			},
 			"inactive_date": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"private_key": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Sensitive:    true,
+				Optional: true,
+				ForceNew: true,
+				Sensitive:true,
 				ValidateFunc: validation.StringLenBetween(0, 16384),
 				//ExactlyOneOf: []string{"certificate_chain", "private_key"},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"usage": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringInSlice(transfer.CertificateUsageType_Values(), false),
 			},
 		},
@@ -99,8 +99,8 @@ func resourceCertificateCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	input := &transfer.ImportCertificateInput{
 		Certificate: aws.String(d.Get("certificate").(string)),
-		Tags:        getTagsIn(ctx),
-		Usage:       aws.String(d.Get("usage").(string)),
+		Tags:getTagsIn(ctx),
+		Usage:   aws.String(d.Get("usage").(string)),
 	}
 
 	if v, ok := d.GetOk("certificate_chain"); ok {

@@ -41,41 +41,41 @@ func ResourceTopicRuleDestination() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"enabled": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"vpc_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Required: true,
+							ForceNew: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"security_groups": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							ForceNew: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 						"subnet_ids": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Required: true,
 							ForceNew: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 						"vpc_id": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 							ForceNew: true,
 						},
@@ -124,7 +124,7 @@ func resourceTopicRuleDestinationCreate(ctx context.Context, d *schema.ResourceD
 
 	if _, ok := d.GetOk("enabled"); !ok {
 		_, err := conn.UpdateTopicRuleDestinationWithContext(ctx, &iot.UpdateTopicRuleDestinationInput{
-			Arn:    aws.String(d.Id()),
+			Arn:aws.String(d.Id()),
 			Status: aws.String(iot.TopicRuleDestinationStatusDisabled),
 		})
 
@@ -173,7 +173,7 @@ func resourceTopicRuleDestinationUpdate(ctx context.Context, d *schema.ResourceD
 
 	if d.HasChange("enabled") {
 		input := &iot.UpdateTopicRuleDestinationInput{
-			Arn:    aws.String(d.Id()),
+			Arn:aws.String(d.Id()),
 			Status: aws.String(iot.TopicRuleDestinationStatusEnabled),
 		}
 		waiter := waitTopicRuleDestinationEnabled

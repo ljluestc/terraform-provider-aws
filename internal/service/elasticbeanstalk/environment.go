@@ -33,7 +33,6 @@ import ( // nosemgrep:ci.semgrep.aws.multiple-service-imports
 	"github.com/hashicorp/terraform-provider-aws/names"
 	"golang.org/x/exp/slices"
 )
-
 func settingSchema() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
@@ -61,7 +60,6 @@ const (
 	environmentTierWebServer = "WebServer"
 	environmentTierWorker    = "Worker"
 )
-
 func environmentTier_Values() []string {
 	return []string{
 		environmentTierWebServer,
@@ -156,14 +154,14 @@ func ResourceEnvironment() *schema.Resource {
 				ForceNew: true,
 			},
 			"platform_arn": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"solution_stack_name", "template_name"},
 			},
 			"poll_interval": {
 				Type:ring,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: sdktypes.ValidateDurationBetween(10*time.Second, 3*time.Minute), //nolint:gomnd
 			},
 			"queues": {
@@ -178,7 +176,7 @@ func ResourceEnvironment() *schema.Resource {
 				Set:      optionSettingValueHash,
 			},
 			"solution_stack_name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"platform_arn", "template_name"},
@@ -186,12 +184,12 @@ func ResourceEnvironment() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"template_name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"solution_stack_name", "platform_arn"},
 			},
 			"tier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      environmentTierWebServer,
@@ -209,14 +207,13 @@ func ResourceEnvironment() *schema.Resource {
 			},
 			"wait_for_ready_timeout": {
 				Type:ring,
-				Optional:         true,
-				Default:          "20m",
+				Optional:true,
+				Default: "20m",
 				ValidateDiagFunc: sdktypes.ValidateDuration,
 			},
 		},
 	}
 }
-
 func resourceEnvironmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -226,7 +223,7 @@ func resourceEnvironmentCreate(ctx context.Context, d *schema.ResourceData, meta
 		ApplicationName: aws.String(d.Get("application").(string)),
 		EnvironmentName: aws.String(name),
 		OptionSettings:  extractOptionSettings(d.Get("setting").(*schema.Set)),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v := d.Get("description"); v.(string) != "" {
@@ -304,7 +301,6 @@ func resourceEnvironmentCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceEnvironmentRead(ctx, d, meta)...)
 }
-
 func resourceEnvironmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -432,7 +428,6 @@ func resourceEnvironmentRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
-
 func resourceEnvironmentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -566,7 +561,6 @@ func resourceEnvironmentUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceEnvironmentRead(ctx, d, meta)...)
 }
-
 func resourceEnvironmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -608,7 +602,6 @@ func resourceEnvironmentDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	return diags
 }
-
 func FindEnvironmentByID(ctx context.Context, conn *elasticbeanstalk.ElasticBeanstalk, id string) (*elasticbeanstalk.EnvironmentDescription, error) {
 	input := &elasticbeanstalk.DescribeEnvironmentsInput{
 		EnvironmentIds: aws.StringSlice([]string{id}),
@@ -646,7 +639,6 @@ func FindEnvironmentByID(ctx context.Context, conn *elasticbeanstalk.ElasticBean
 
 	return environment, nil
 }
-
 func findEnvironmentErrorsByID(ctx context.Context, conn *elasticbeanstalk.ElasticBeanstalk, id string, since time.Time) error {
 	input := &elasticbeanstalk.DescribeEventsInput{
 		EnvironmentId: aws.String(id),
@@ -697,7 +689,6 @@ func findEnvironmentErrorsByID(ctx context.Context, conn *elasticbeanstalk.Elast
 
 	return errors.ErrorOrNil()
 }
-
 func findConfigurationSettingsByTwoPartKey(ctx context.Context, conn *elasticbeanstalk.ElasticBeanstalk, applicationName, environmentName string) (*elasticbeanstalk.ConfigurationSettingsDescription, error) {
 	input := &elasticbeanstalk.DescribeConfigurationSettingsInput{
 		ApplicationName: aws.String(applicationName),
@@ -720,7 +711,6 @@ func findConfigurationSettingsByTwoPartKey(ctx context.Context, conn *elasticbea
 
 	return output.ConfigurationSettings[0], nil
 }
-
 func statusEnvironment(ctx context.Context, conn *elasticbeanstalk.ElasticBeanstalk, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindEnvironmentByID(ctx, conn, id)
@@ -736,7 +726,6 @@ func statusEnvironment(ctx context.Context, conn *elasticbeanstalk.ElasticBeanst
 		return output, aws.StringValue(output.Status), nil
 	}
 }
-
 func waitEnvironmentReady(ctx context.Context, conn *elasticbeanstalk.ElasticBeanstalk, id string, pollInterval, timeout time.Duration) (*elasticbeanstalk.EnvironmentDescription, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending:      []string{elasticbeanstalk.EnvironmentStatusLaunching, elasticbeanstalk.EnvironmentStatusUpdating},
@@ -756,7 +745,6 @@ func waitEnvironmentReady(ctx context.Context, conn *elasticbeanstalk.ElasticBea
 
 	return nil, err
 }
-
 func waitEnvironmentDeleted(ctx context.Context, conn *elasticbeanstalk.ElasticBeanstalk, id string, pollInterval, timeout time.Duration) (*elasticbeanstalk.EnvironmentDescription, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:      []string{elasticbeanstalk.EnvironmentStatusTerminating},
@@ -793,7 +781,6 @@ func optionSettingValueHash(v interface{}) int {
 	log.Printf("[DEBUG] Elastic Beanstalk optionSettingValueHash(%#v): %s: hk=%s,hc=%d", v, optionName, hk, create.StringHashcode(hk))
 	return create.StringHashcode(hk)
 }
-
 func optionSettingKeyHash(v interface{}) int {
 	rd := v.(map[string]interface{})
 	namespace := rd["namespace"].(string)
@@ -806,13 +793,11 @@ func optionSettingKeyHash(v interface{}) int {
 	log.Printf("[DEBUG] Elastic Beanstalk optionSettingKeyHash(%#v): %s: hk=%s,hc=%d", v, optionName, hk, create.StringHashcode(hk))
 	return create.StringHashcode(hk)
 }
-
 func sortValues(v string) string {
 	values := strings.Split(v, ",")
 	sort.Strings(values)
 	return strings.Join(values, ",")
 }
-
 func extractOptionSettings(s *schema.Set) []*elasticbeanstalk.ConfigurationOptionSetting {
 	settings := []*elasticbeanstalk.ConfigurationOptionSetting{}
 
@@ -834,7 +819,6 @@ func extractOptionSettings(s *schema.Set) []*elasticbeanstalk.ConfigurationOptio
 
 	return settings
 }
-
 func dropGeneratedSecurityGroup(ctx context.Context, conn *ec2.EC2, settingValue string) string {
 	input := &ec2.DescribeSecurityGroupsInput{
 		GroupIds: aws.StringSlice(strings.Split(settingValue, ",")),

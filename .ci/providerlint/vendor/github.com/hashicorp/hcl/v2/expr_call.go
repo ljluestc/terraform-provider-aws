@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hcl
-
-// ExprCall tests if the given expression is a 
+// SPDX-License-Identifier: MPL-2.0package hcl// ExprCall tests if the given expression is a 
 tion call and,
 // if so, extracts the 
 tion name and the expressions that represent
@@ -18,20 +14,14 @@ StaticCall. This method should return nil if a static call cannot
 // be extracted.  Alternatively, an implementation can support
 // UnwrapExpression to delegate handling of this 
 tion to a wrapped
-// Expression object.
-
- ExprCall(expr Expression) (*StaticCall, Diagnostics) {
+// Expression object. ExprCall(expr Expression) (*StaticCall, Diagnostics) {
 	type exprCall interface {
 		ExprCall() *StaticCall
-	}
-
-	physExpr := UnwrapExpressionUntil(expr, 
+	}	physExpr := UnwrapExpressionUntil(expr, 
 (expr Expression) bool {
 		_, supported := expr.(exprCall)
 		return supported
-	})
-
-	if exC, supported := physExpr.(exprCall); supported {
+	})	if exC, supported := physExpr.(exprCall); supported {
 		if call := exC.ExprCall(); call != nil {
 			return call, nil
 		}
@@ -45,9 +35,7 @@ tion call is required.",
 			Subject:  expr.StartRange().Ptr(),
 		},
 	}
-}
-
-// StaticCall represents a 
+}// StaticCall represents a 
 tion call that was extracted statically from
 // an expression using ExprCall.
 type StaticCall struct {

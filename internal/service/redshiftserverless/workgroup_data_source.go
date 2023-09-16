@@ -19,57 +19,57 @@ func DataSourceWorkgroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"endpoint": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"address": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"port": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Computed: true,
 						},
 						"vpc_endpoint": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"network_interface": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Computed: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"availability_zone": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 												"network_interface_id": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 												"private_ip_address": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 												"subnet_id": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 											},
 										},
 									},
 									"vpc_endpoint_id": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 									"vpc_id": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 								},
@@ -79,37 +79,37 @@ func DataSourceWorkgroup() *schema.Resource {
 				},
 			},
 			"enhanced_vpc_routing": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"namespace_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"publicly_accessible": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"security_group_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
 			},
 			"subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
 			},
 			"workgroup_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"workgroup_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 		},

@@ -26,7 +26,7 @@ func DataSourceControls() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"target_identifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},

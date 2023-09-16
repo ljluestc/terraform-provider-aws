@@ -129,42 +129,42 @@ func ResourceDirectory() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"device_type_android": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(flattenAccessPropertyEnumValues(types.AccessPropertyValue("").Values()), false),
 						},
 						"device_type_chromeos": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(flattenAccessPropertyEnumValues(types.AccessPropertyValue("").Values()), false),
 						},
 						"device_type_ios": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(flattenAccessPropertyEnumValues(types.AccessPropertyValue("").Values()), false),
 						},
 						"device_type_linux": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(flattenAccessPropertyEnumValues(types.AccessPropertyValue("").Values()), false),
 						},
 						"device_type_osx": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(flattenAccessPropertyEnumValues(types.AccessPropertyValue("").Values()), false),
 						},
 						"device_type_web": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(flattenAccessPropertyEnumValues(types.AccessPropertyValue("").Values()), false),
 						},
 						"device_type_windows": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(flattenAccessPropertyEnumValues(types.AccessPropertyValue("").Values()), false),
 						},
 						"device_type_zeroclient": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(flattenAccessPropertyEnumValues(types.AccessPropertyValue("").Values()), false),
 						},
@@ -213,7 +213,6 @@ func ResourceDirectory() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceDirectoryCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)
@@ -223,7 +222,7 @@ func resourceDirectoryCreate(ctx context.Context, d *schema.ResourceData, meta i
 		DirectoryId:       aws.String(directoryID),
 		EnableSelfService: aws.Bool(false), // this is handled separately below
 		EnableWorkDocs:    aws.Bool(false),
-		Tenancy:           types.TenancyShared,
+		Tenancy:  types.TenancyShared,
 		Tags: getTagsIn(ctx),
 	}
 
@@ -299,7 +298,6 @@ func resourceDirectoryCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return append(diags, resourceDirectoryRead(ctx, d, meta)...)
 }
-
 func resourceDirectoryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)
@@ -349,7 +347,6 @@ func resourceDirectoryRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
-
 func resourceDirectoryUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)
@@ -426,7 +423,6 @@ func resourceDirectoryUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return append(diags, resourceDirectoryRead(ctx, d, meta)...)
 }
-
 func resourceDirectoryDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)
@@ -455,7 +451,6 @@ func resourceDirectoryDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
-
 func ExpandWorkspaceAccessProperties(properties []interface{}) *types.WorkspaceAccessProperties {
 	if len(properties) == 0 || properties[0] == nil {
 		return nil
@@ -499,7 +494,6 @@ func ExpandWorkspaceAccessProperties(properties []interface{}) *types.WorkspaceA
 
 	return result
 }
-
 func ExpandSelfServicePermissions(permissions []interface{}) *types.SelfservicePermissions {
 	if len(permissions) == 0 || permissions[0] == nil {
 		return nil
@@ -541,7 +535,6 @@ func ExpandSelfServicePermissions(permissions []interface{}) *types.SelfserviceP
 
 	return result
 }
-
 func ExpandWorkspaceCreationProperties(properties []interface{}) *types.WorkspaceCreationProperties {
 	if len(properties) == 0 || properties[0] == nil {
 		return nil
@@ -550,8 +543,8 @@ func ExpandWorkspaceCreationProperties(properties []interface{}) *types.Workspac
 	p := properties[0].(map[string]interface{})
 
 	result := &types.WorkspaceCreationProperties{
-		EnableInternetAccess:            aws.Bool(p["enable_internet_access"].(bool)),
-		EnableMaintenanceMode:           aws.Bool(p["enable_maintenance_mode"].(bool)),
+		EnableInternetAccess:   aws.Bool(p["enable_internet_access"].(bool)),
+		EnableMaintenanceMode:  aws.Bool(p["enable_maintenance_mode"].(bool)),
 		UserEnabledAsLocalAdministrator: aws.Bool(p["user_enabled_as_local_administrator"].(bool)),
 	}
 
@@ -565,7 +558,6 @@ func ExpandWorkspaceCreationProperties(properties []interface{}) *types.Workspac
 
 	return result
 }
-
 func FlattenWorkspaceAccessProperties(properties *types.WorkspaceAccessProperties) []interface{} {
 	if properties == nil {
 		return []interface{}{}
@@ -584,7 +576,6 @@ func FlattenWorkspaceAccessProperties(properties *types.WorkspaceAccessPropertie
 		},
 	}
 }
-
 func FlattenSelfServicePermissions(permissions *types.SelfservicePermissions) []interface{} {
 	if permissions == nil {
 		return []interface{}{}
@@ -639,7 +630,6 @@ func FlattenSelfServicePermissions(permissions *types.SelfservicePermissions) []
 
 	return []interface{}{result}
 }
-
 func FlattenWorkspaceCreationProperties(properties *types.DefaultWorkspaceCreationProperties) []interface{} {
 	if properties == nil {
 		return []interface{}{}
@@ -647,7 +637,7 @@ func FlattenWorkspaceCreationProperties(properties *types.DefaultWorkspaceCreati
 
 	return []interface{}{
 		map[string]interface{}{
-			"custom_security_group_id":            aws.ToString(properties.CustomSecurityGroupId),
+			"custom_security_group_id":   aws.ToString(properties.CustomSecurityGroupId),
 			"default_ou":aws.ToString(properties.DefaultOu),
 			"enable_internet_access": aws.ToBool(properties.EnableInternetAccess),
 			"enable_maintenance_mode":aws.ToBool(properties.EnableMaintenanceMode),
@@ -655,7 +645,6 @@ func FlattenWorkspaceCreationProperties(properties *types.DefaultWorkspaceCreati
 		},
 	}
 }
-
 func flattenAccessPropertyEnumValues(t []types.AccessPropertyValue) []string {
 	var out []string
 

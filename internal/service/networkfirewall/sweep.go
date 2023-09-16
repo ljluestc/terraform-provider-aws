@@ -19,7 +19,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_networkfirewall_firewall_policy", &resource.Sweeper{
 		Name: "aws_networkfirewall_firewall_policy",
-		F:    sweepFirewallPolicies,
+		F:sweepFirewallPolicies,
 		Dependencies: []string{
 			"aws_networkfirewall_firewall",
 		},
@@ -27,7 +27,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_networkfirewall_firewall", &resource.Sweeper{
 		Name: "aws_networkfirewall_firewall",
-		F:    sweepFirewalls,
+		F:sweepFirewalls,
 		Dependencies: []string{
 			"aws_networkfirewall_logging_configuration",
 		},
@@ -35,12 +35,12 @@ func init() {
 
 	resource.AddTestSweepers("aws_networkfirewall_logging_configuration", &resource.Sweeper{
 		Name: "aws_networkfirewall_logging_configuration",
-		F:    sweepLoggingConfigurations,
+		F:sweepLoggingConfigurations,
 	})
 
 	resource.AddTestSweepers("aws_networkfirewall_rule_group", &resource.Sweeper{
 		Name: "aws_networkfirewall_rule_group",
-		F:    sweepRuleGroups,
+		F:sweepRuleGroups,
 		Dependencies: []string{
 			"aws_networkfirewall_firewall_policy",
 		},

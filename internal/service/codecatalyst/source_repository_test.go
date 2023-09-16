@@ -35,9 +35,9 @@ func TestAccCodeCatalystSourceRepository_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.CodeCatalyst)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeCatalyst),
+		ErrorCheck:      acctest.ErrorCheck(t, names.CodeCatalyst),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSourceRepositoryDestroy(ctx),
+		CheckDestroy:    testAccCheckSourceRepositoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSourceRepositoryConfig_basic(rName),
@@ -64,9 +64,9 @@ func TestAccCodeCatalystSourceRepository_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.CodeCatalyst)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.CodeCatalyst),
+		ErrorCheck:      acctest.ErrorCheck(t, names.CodeCatalyst),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSourceRepositoryDestroy(ctx),
+		CheckDestroy:    testAccCheckSourceRepositoryDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSourceRepositoryConfig_basic(rName),
@@ -145,7 +145,7 @@ func testAccCheckSourceRepositoryExists(ctx context.Context, name string, source
 func testAccSourceRepositoryConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codecatalyst_source_repository" "test" {
-  name         = %[1]q
+  name= %[1]q
   project_name = "tf-cc"
   space_name   = "tf-cc-aws-provider"
 }

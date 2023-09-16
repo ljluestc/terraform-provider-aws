@@ -14,7 +14,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfelasticbeanstalk "github.com/hashicorp/terraform-provider-aws/internal/service/elasticbeanstalk"
 )
-
 func TestAccElasticBeanstalkHostedZoneDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_elastic_beanstalk_hosted_zone.test"
@@ -33,7 +32,6 @@ func TestAccElasticBeanstalkHostedZoneDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkHostedZoneDataSource_region(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_elastic_beanstalk_hosted_zone.test"
@@ -62,7 +60,6 @@ func TestAccElasticBeanstalkHostedZoneDataSource_region(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckHostedZone(resourceName string, region string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		expectedValue, ok := tfelasticbeanstalk.HostedZoneIDs[region]
@@ -78,7 +75,6 @@ func testAccCheckHostedZone(resourceName string, region string) resource.TestChe
 const testAccHostedZoneDataSourceConfig_currentRegion = `
 data "aws_elastic_beanstalk_hosted_zone" "test" {}
 `
-
 func testAccHostedZoneDataSourceConfig_byRegion(r string) string {
 	return fmt.Sprintf(`
 data "aws_elastic_beanstalk_hosted_zone" "test" {

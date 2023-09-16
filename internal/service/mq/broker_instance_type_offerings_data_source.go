@@ -22,65 +22,64 @@ func DataSourceBrokerInstanceTypeOfferings() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"broker_instance_options": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"availability_zones": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"engine_type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"host_instance_type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"storage_type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"supported_deployment_modes": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"supported_engine_versions": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 					},
 				},
 			},
 			"engine_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:ema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(mq.EngineType_Values(), false),
 			},
 			"host_instance_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"storage_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:ema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(mq.BrokerStorageType_Values(), false),
 			},
 		},
 	}
 }
-
 func dataSourceBrokerInstanceTypeOfferingsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MQConn(ctx)
 
@@ -122,7 +121,6 @@ func dataSourceBrokerInstanceTypeOfferingsRead(ctx context.Context, d *schema.Re
 
 	return nil
 }
-
 func flattenBrokerInstanceOptions(bios []*mq.BrokerInstanceOption) []interface{} {
 	if len(bios) == 0 {
 		return nil
@@ -166,7 +164,6 @@ func flattenBrokerInstanceOptions(bios []*mq.BrokerInstanceOption) []interface{}
 
 	return tfList
 }
-
 func flattenAvailabilityZones(azs []*mq.AvailabilityZone) []interface{} {
 	if len(azs) == 0 {
 		return nil

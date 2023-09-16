@@ -21,7 +21,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
@@ -90,17 +90,17 @@ const (
 	// The actual token expiration (presigned STS urls are valid for 15 minutes after timestamp in x-amz-date).
 	presignedURLExpiration = 15 * time.Minute
 	v1Prefix  = "k8s-aws-v1."
-	maxTokenLenBytes       = 1024 * 4
-	clusterIDHeader        = "x-k8s-aws-id"
+	maxTokenLenBytes  = 1024 * 4
+	clusterIDHeader   = "x-k8s-aws-id"
 	// Format of the X-Amz-Date header used for expiration
 	// https://golang.org/pkg/time/#pkg-constants
 	dateHeaderFormat = "20060102T150405Z"
-	hostRegexp       = `^sts(\.[a-z1-9\-]+)?\.amazonaws\.com(\.cn)?$`
+	hostRegexp  = `^sts(\.[a-z1-9\-]+)?\.amazonaws\.com(\.cn)?$`
 )
 
 // Token is generated and used by Kubernetes client-go to authenticate with a Kubernetes cluster.
 type Token struct {
-	Token      string
+	Token string
 	Expiration time.Time
 }
 
@@ -133,12 +133,12 @@ func NewSTSError(m string) STSError {
 var parameterWhitelist = map[string]bool{
 	"action":  true,
 	"version": true,
-	"x-amz-algorithm":      true,
-	"x-amz-credential":     true,
-	"x-amz-date":           true,
-	"x-amz-expires":        true,
+	"x-amz-algorithm": true,
+	"x-amz-credential":true,
+	"x-amz-date": true,
+	"x-amz-expires":   true,
 	"x-amz-security-token": true,
-	"x-amz-signature":      true,
+	"x-amz-signature": true,
 	"x-amz-signedheaders":  true,
 }
 
@@ -147,7 +147,7 @@ type getCallerIdentityWrapper struct {
 	GetCallerIdentityResponse struct {
 		GetCallerIdentityResult struct {
 			Account string `json:"Account"`
-			Arn     string `json:"Arn"`
+			Arnstring `json:"Arn"`
 			UserID  string `json:"UserId"`
 		} `json:"GetCallerIdentityResult"`
 		ResponseMetadata struct {
@@ -205,14 +205,14 @@ type Verifier interface {
 }
 
 type tokenVerifier struct {
-	client    *http.Client
+	client*http.Client
 	clusterID string
 }
 
 // NewVerifier creates a Verifier that is bound to the clusterID and uses the default http client.
 func NewVerifier(clusterID string) Verifier {
 	return tokenVerifier{
-		client:    http.DefaultClient,
+		client:http.DefaultClient,
 		clusterID: clusterID,
 	}
 }
@@ -339,7 +339,7 @@ func (v tokenVerifier) Verify(token string) (*Identity, error) {
 
 	// parse the response into an Identity
 	id := &Identity{
-		ARN:         callerIdentity.GetCallerIdentityResponse.GetCallerIdentityResult.Arn,
+		ARN:callerIdentity.GetCallerIdentityResponse.GetCallerIdentityResult.Arn,
 		AccountID:   callerIdentity.GetCallerIdentityResponse.GetCallerIdentityResult.Account,
 		AccessKeyID: accessKeyID,
 	}

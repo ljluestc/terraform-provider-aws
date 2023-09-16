@@ -17,7 +17,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func testAccDetector_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_detector.test"
@@ -71,7 +70,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccDetector_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_detector.test"
@@ -115,7 +113,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccDetector_datasources_s3logs(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_detector.test"
@@ -152,7 +149,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccDetector_datasources_kubernetes_audit_logs(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_detector.test"
@@ -189,7 +185,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccDetector_datasources_malware_protection(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_detector.test"
@@ -229,7 +224,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccDetector_datasources_all(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_detector.test"
@@ -300,7 +294,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccCheckDetectorDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
@@ -328,7 +321,6 @@ return err
 return nil
 	}
 }
-
 func testAccCheckDetectorExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
@@ -379,90 +371,84 @@ resource "aws_guardduty_detector" "test" {
   finding_publishing_frequency = "FIFTEEN_MINUTES"
 }
 `
-
 func testAccDetectorConfig_tags1(tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_guardduty_detector" "test" {
   tags = {
-    %[1]q = %[2]q
+ %[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1)
 }
-
 func testAccDetectorConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_guardduty_detector" "test" {
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+ %[1]q = %[2]q
+ %[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccDetectorConfig_datasourcesS3Logs(enable bool) string {
 	return fmt.Sprintf(`
 resource "aws_guardduty_detector" "test" {
   datasources {
-    s3_logs {
+ s3_logs {
 %[1]t
-    }
+ }
   }
 }
 `, enable)
 }
-
 func testAccDetectorConfig_datasourcesKubernetesAuditLogs(enable bool) string {
 	return fmt.Sprintf(`
 resource "aws_guardduty_detector" "test" {
   datasources {
-    kubernetes {
+ kubernetes {
 s {
 = %[1]t
 
-    }
+ }
   }
 }
 `, enable)
 }
-
 func testAccDetectorConfig_datasourcesMalwareProtection(enable bool) string {
 	return fmt.Sprintf(`
 resource "aws_guardduty_detector" "test" {
   datasources {
-    malware_protection {
+ malware_protection {
 instance_with_findings {
 umes {
 
 
 
-    }
+ }
   }
 }
 `, enable)
 }
-
 func testAccDetectorConfig_datasourcesAll(enableK8s, enableS3, enableMalware bool) string {
 	return fmt.Sprintf(`
 resource "aws_guardduty_detector" "test" {
   datasources {
-    kubernetes {
+ kubernetes {
 s {
 = %[1]t
 
-    }
-    s3_logs {
+ }
+ s3_logs {
 %[2]t
-    }
+ }
 
-    malware_protection {
+ malware_protection {
 instance_with_findings {
 umes {
 
 
 
-    }
+ }
   }
 }
 `, enableK8s, enableS3, enableMalware)

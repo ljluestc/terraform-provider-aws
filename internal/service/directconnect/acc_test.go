@@ -15,7 +15,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func testAccCheckVirtualInterfaceExists(ctx context.Context, name string, vif *directconnect.VirtualInterface) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -46,7 +45,6 @@ func testAccCheckVirtualInterfaceExists(ctx context.Context, name string, vif *d
 		return fmt.Errorf("Direct Connect virtual interface (%s) not found", rs.Primary.ID)
 	}
 }
-
 func testAccCheckVirtualInterfaceDestroy(ctx context.Context, s *terraform.State, t string) error { // nosemgrep:ci.semgrep.acctest.naming.destroy-check-signature
 	conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
 

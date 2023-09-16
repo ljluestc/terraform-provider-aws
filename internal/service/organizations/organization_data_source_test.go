@@ -12,13 +12,15 @@ import (
 )
 
 // Creates an new organization so that we are its management account.
+
 func testAccOrganizationDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_organizations_organization.test"
 	dataSourceName := "data.aws_organizations_organization.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckOrganizationsAccount(ctx, t)
 },
@@ -47,12 +49,14 @@ Check: resource.ComposeAggregateTestCheckFunc(
 
 // Runs as a member account in an existing organization.
 // Certain attributes won't be set.
+
 func testAccOrganizationDataSource_memberAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_organizations_organization.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckOrganizationsEnabled(ctx, t)
 	acctest.PreCheckOrganizationMemberAccount(ctx, t)
@@ -82,12 +86,14 @@ Check: resource.ComposeAggregateTestCheckFunc(
 // Runs as a management account in an existing organization.
 // Delegates Organizations management to a member account and runs the data source under that account.
 // All attributes will be set.
+
 func testAccOrganizationDataSource_delegatedAdministrator(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_organizations_organization.test"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckAlternateAccount(t)
 	acctest.PreCheckOrganizationManagementAccount(ctx, t)

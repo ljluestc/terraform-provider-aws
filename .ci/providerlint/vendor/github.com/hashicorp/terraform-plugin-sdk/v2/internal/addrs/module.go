@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package addrs
-
-// Module is an address for a module call within configuration. This is
+// SPDX-License-Identifier: MPL-2.0package addrs// Module is an address for a module call within configuration. This is
 // the static counterpart of ModuleInstance, representing a traversal through
 // the static module call tree in configuration and does not take into account
 // the potentially-multiple instances of a module that might be created by

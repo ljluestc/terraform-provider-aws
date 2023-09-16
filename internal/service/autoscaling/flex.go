@@ -1,22 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package autoscaling
-
-import (
+// SPDX-License-Identifier: MPL-2.0package autoscalingimport (
 	"fmt"
-	"strconv"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"strconv"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
-)
-
-// Takes the result of flatmap.Expand for an array of step adjustments and
+)// Takes the result of flatmap.Expand for an array of step adjustments and
 // returns a []*autoscaling.StepAdjustment.
 func ExpandStepAdjustments(configured []interface{}) ([]*autoscaling.StepAdjustment, error) {
-	var adjustments []*autoscaling.StepAdjustment
-
-	// Loop over our configured step adjustments and create an array
+	var adjustments []*autoscaling.StepAdjustment	// Loop over our configured step adjustments and create an array
 	// of aws-sdk-go compatible objects. We're forced to convert strings
 	// to floats here because there's no way to detect whether or not
 	// an uninitialized, optional schema element is "0.0" deliberately.
@@ -58,12 +48,8 @@ func ExpandStepAdjustments(configured []interface{}) ([]*autoscaling.StepAdjustm
 			}
 		}
 		adjustments = append(adjustments, a)
-	}
-
-	return adjustments, nil
-}
-
-// Flattens step adjustments into a list of map[string]interface.
+	}	return adjustments, nil
+}// Flattens step adjustments into a list of map[string]interface.
 func FlattenStepAdjustments(adjustments []*autoscaling.StepAdjustment) []map[string]interface{} {
 	result := make([]map[string]interface{}, 0, len(adjustments))
 	for _, raw := range adjustments {

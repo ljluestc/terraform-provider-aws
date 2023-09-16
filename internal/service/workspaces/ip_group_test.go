@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfworkspaces "github.com/hashicorp/terraform-provider-aws/internal/service/workspaces"
 )
-
 func testAccIPGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspacesIpGroup
@@ -65,7 +64,6 @@ func testAccIPGroup_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccIPGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspacesIpGroup
@@ -111,7 +109,6 @@ func testAccIPGroup_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccIPGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspacesIpGroup
@@ -136,7 +133,6 @@ func testAccIPGroup_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccIPGroup_MultipleDirectories(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.WorkspacesIpGroup
@@ -171,7 +167,6 @@ func testAccIPGroup_MultipleDirectories(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckIPGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -201,7 +196,6 @@ func testAccCheckIPGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckIPGroupExists(ctx context.Context, n string, v *types.WorkspacesIpGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -229,7 +223,6 @@ func testAccCheckIPGroupExists(ctx context.Context, n string, v *types.Workspace
 		return fmt.Errorf("WorkSpaces IP Group (%s) not found", rs.Primary.ID)
 	}
 }
-
 func testAccIPGroupConfig_a(name, description string) string {
 	return fmt.Sprintf(`
 resource "aws_workspaces_ip_group" "test" {
@@ -247,7 +240,6 @@ resource "aws_workspaces_ip_group" "test" {
 }
 `, name, description)
 }
-
 func testAccIPGroupConfig_b(name, description string) string {
 	return fmt.Sprintf(`
 resource "aws_workspaces_ip_group" "test" {
@@ -261,7 +253,6 @@ resource "aws_workspaces_ip_group" "test" {
 }
 `, name, description)
 }
-
 func testAccIPGroupConfig_tags1(name, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_workspaces_ip_group" "test" {
@@ -282,7 +273,6 @@ resource "aws_workspaces_ip_group" "test" {
 }
 `, name, tagKey1, tagValue1)
 }
-
 func testAccIPGroupConfig_tags2(name, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_workspaces_ip_group" "test" {
@@ -304,7 +294,6 @@ resource "aws_workspaces_ip_group" "test" {
 }
 `, name, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccIPGroupConfig_multipleDirectories(name, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(name, domain),

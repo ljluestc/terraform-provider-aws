@@ -25,7 +25,7 @@ import (
 func ResourceProvisionedConcurrencyConfig() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceProvisionedConcurrencyConfigCreate,
-		ReadWithoutTimeout:   resourceProvisionedConcurrencyConfigRead,
+		ReadWithoutTimeout:resourceProvisionedConcurrencyConfigRead,
 		UpdateWithoutTimeout: resourceProvisionedConcurrencyConfigUpdate,
 		DeleteWithoutTimeout: resourceProvisionedConcurrencyConfigDelete,
 
@@ -41,7 +41,7 @@ func ResourceProvisionedConcurrencyConfig() *schema.Resource {
 		SchemaVersion: 1,
 		StateUpgraders: []schema.StateUpgrader{
 			{
-				Type:    resourceProvisionedConcurrencyConfigV0().CoreConfigSchema().ImpliedType(),
+				Type: resourceProvisionedConcurrencyConfigV0().CoreConfigSchema().ImpliedType(),
 				Upgrade: provisionedConcurrencyConfigStateUpgradeV0,
 				Version: 0,
 			},
@@ -50,23 +50,23 @@ func ResourceProvisionedConcurrencyConfig() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"function_name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"provisioned_concurrent_executions": {
 				Type:schema.TypeInt,
-				Required:     true,
+				Required:true,
 				ValidateFunc: validation.IntAtLeast(1),
 			},
 			"qualifier": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"skip_destroy": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
@@ -77,7 +77,6 @@ func ResourceProvisionedConcurrencyConfig() *schema.Resource {
 const (
 	ProvisionedConcurrencyIDPartCount = 2
 )
-
 func resourceProvisionedConcurrencyConfigCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -87,7 +86,7 @@ func resourceProvisionedConcurrencyConfigCreate(ctx context.Context, d *schema.R
 	input := &lambda.PutProvisionedConcurrencyConfigInput{
 		FunctionName:  aws.String(functionName),
 		ProvisionedConcurrentExecutions: aws.Int64(int64(d.Get("provisioned_concurrent_executions").(int))),
-		Qualifier:     aws.String(qualifier),
+		Qualifier:aws.String(qualifier),
 	}
 
 	_, err := conn.PutProvisionedConcurrencyConfigWithContext(ctx, input)
@@ -109,7 +108,6 @@ func resourceProvisionedConcurrencyConfigCreate(ctx context.Context, d *schema.R
 
 	return append(diags, resourceProvisionedConcurrencyConfigRead(ctx, d, meta)...)
 }
-
 func resourceProvisionedConcurrencyConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -123,7 +121,7 @@ func resourceProvisionedConcurrencyConfigRead(ctx context.Context, d *schema.Res
 
 	input := &lambda.GetProvisionedConcurrencyConfigInput{
 		FunctionName: aws.String(functionName),
-		Qualifier:    aws.String(qualifier),
+		Qualifier: aws.String(qualifier),
 	}
 
 	output, err := conn.GetProvisionedConcurrencyConfigWithContext(ctx, input)
@@ -144,7 +142,6 @@ func resourceProvisionedConcurrencyConfigRead(ctx context.Context, d *schema.Res
 
 	return diags
 }
-
 func resourceProvisionedConcurrencyConfigUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -159,7 +156,7 @@ func resourceProvisionedConcurrencyConfigUpdate(ctx context.Context, d *schema.R
 	input := &lambda.PutProvisionedConcurrencyConfigInput{
 		FunctionName:  aws.String(functionName),
 		ProvisionedConcurrentExecutions: aws.Int64(int64(d.Get("provisioned_concurrent_executions").(int))),
-		Qualifier:     aws.String(qualifier),
+		Qualifier:aws.String(qualifier),
 	}
 
 	_, err = conn.PutProvisionedConcurrencyConfigWithContext(ctx, input)
@@ -174,7 +171,6 @@ func resourceProvisionedConcurrencyConfigUpdate(ctx context.Context, d *schema.R
 
 	return append(diags, resourceProvisionedConcurrencyConfigRead(ctx, d, meta)...)
 }
-
 func resourceProvisionedConcurrencyConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	if v, ok := d.GetOk("skip_destroy"); ok && v.(bool) {
@@ -191,7 +187,7 @@ func resourceProvisionedConcurrencyConfigDelete(ctx context.Context, d *schema.R
 
 	input := &lambda.DeleteProvisionedConcurrencyConfigInput{
 		FunctionName: aws.String(parts[0]),
-		Qualifier:    aws.String(parts[1]),
+		Qualifier: aws.String(parts[1]),
 	}
 
 	_, err = conn.DeleteProvisionedConcurrencyConfigWithContext(ctx, input)
@@ -206,12 +202,11 @@ func resourceProvisionedConcurrencyConfigDelete(ctx context.Context, d *schema.R
 
 	return diags
 }
-
 func refreshProvisionedConcurrencyConfigStatus(ctx context.Context, conn *lambda.Lambda, functionName, qualifier string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		input := &lambda.GetProvisionedConcurrencyConfigInput{
 			FunctionName: aws.String(functionName),
-			Qualifier:    aws.String(qualifier),
+			Qualifier: aws.String(qualifier),
 		}
 
 		output, err := conn.GetProvisionedConcurrencyConfigWithContext(ctx, input)
@@ -229,14 +224,13 @@ func refreshProvisionedConcurrencyConfigStatus(ctx context.Context, conn *lambda
 		return output, status, nil
 	}
 }
-
 func waitForProvisionedConcurrencyConfigStatusReady(ctx context.Context, conn *lambda.Lambda, functionName, qualifier string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{lambda.ProvisionedConcurrencyStatusEnumInProgress},
 		Target:  []string{lambda.ProvisionedConcurrencyStatusEnumReady},
 		Refresh: refreshProvisionedConcurrencyConfigStatus(ctx, conn, functionName, qualifier),
 		Timeout: timeout,
-		Delay:   5 * time.Second,
+		Delay:5 * time.Second,
 	}
 
 	_, err := stateConf.WaitForStateContext(ctx)

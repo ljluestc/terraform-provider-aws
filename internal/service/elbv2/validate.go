@@ -1,15 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elbv2
-
-import (
-	"fmt"
-
-	"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package elbv2import (
+	"fmt"	"github.com/YakDriver/regexache"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/id"
 )
-
 func validName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if len(value) == 0 {
@@ -38,7 +31,6 @@ func validName(v interface{}, k string) (ws []string, errors []error) {
 	}
 	return
 }
-
 func validNamePrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
@@ -60,7 +52,6 @@ func validNamePrefix(v interface{}, k string) (ws []string, errors []error) {
 	}
 	return
 }
-
 func validTargetGroupName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if len(value) > 32 {
@@ -81,7 +72,6 @@ func validTargetGroupName(v interface{}, k string) (ws []string, errors []error)
 	}
 	return
 }
-
 func validTargetGroupNamePrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	prefixMaxLength := 32 - id.UniqueIDSuffixLength

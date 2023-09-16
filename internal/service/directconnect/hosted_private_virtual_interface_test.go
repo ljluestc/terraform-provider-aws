@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDirectConnectHostedPrivateVirtualInterface_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "DX_CONNECTION_ID"
@@ -69,15 +68,14 @@ func TestAccDirectConnectHostedPrivateVirtualInterface_basic(t *testing.T) {
 			},
 			// Test import.
 			{
-				Config:            testAccHostedPrivateVirtualInterfaceConfig_basic(connectionId, rName, bgpAsn, vlan),
-				ResourceName:      resourceName,
-				ImportState:       true,
+				Config:dPrivateVirtualInterfaceConfig_basic(connectionId, rName, bgpAsn, vlan),
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectHostedPrivateVirtualInterface_accepterTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "DX_CONNECTION_ID"
@@ -158,24 +156,21 @@ func TestAccDirectConnectHostedPrivateVirtualInterface_accepterTags(t *testing.T
 		},
 	})
 }
-
 func testAccCheckHostedPrivateVirtualInterfaceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		return testAccCheckVirtualInterfaceDestroy(ctx, s, "aws_dx_hosted_private_virtual_interface")
 	}
 }
-
 func testAccCheckHostedPrivateVirtualInterfaceExists(ctx context.Context, name string, vif *directconnect.VirtualInterface) resource.TestCheckFunc {
 	return testAccCheckVirtualInterfaceExists(ctx, name, vif)
 }
-
 func testAccHostedPrivateVirtualInterfaceConfig_base(cid, rName string, bgpAsn, vlan int) string {
 	return acctest.ConfigAlternateAccountProvider() + fmt.Sprintf(`
 # Creator
 resource "aws_dx_hosted_private_virtual_interface" "test" {
-  address_family   = "ipv4"
-  bgp_asn          = %[3]d
-  connection_id    = %[1]q
+  address_family= "ipv4"
+  bgp_asn%[3]d
+  connection_id = %[1]q
   name= %[2]q
   owner_account_id = data.aws_caller_identity.accepter.account_id
   vlan= %[4]d
@@ -194,52 +189,49 @@ resource "aws_vpn_gateway" "test" {
   provider = "awsalternate"
 
   tags = {
-    Name = %[2]q
+ Name = %[2]q
   }
 }
 `, cid, rName, bgpAsn, vlan)
 }
-
 func testAccHostedPrivateVirtualInterfaceConfig_basic(cid, rName string, bgpAsn, vlan int) string {
 	return testAccHostedPrivateVirtualInterfaceConfig_base(cid, rName, bgpAsn, vlan) + `
 resource "aws_dx_hosted_private_virtual_interface_accepter" "test" {
   provider = "awsalternate"
 
   virtual_interface_id = aws_dx_hosted_private_virtual_interface.test.id
-  vpn_gateway_id       = aws_vpn_gateway.test.id
+  vpn_gateway_id_vpn_gateway.test.id
 }
 `
 }
-
 func testAccHostedPrivateVirtualInterfaceConfig_accepterTags(cid, rName string, bgpAsn, vlan int) string {
 	return testAccHostedPrivateVirtualInterfaceConfig_base(cid, rName, bgpAsn, vlan) + fmt.Sprintf(`
 resource "aws_dx_hosted_private_virtual_interface_accepter" "test" {
   provider = "awsalternate"
 
   virtual_interface_id = aws_dx_hosted_private_virtual_interface.test.id
-  vpn_gateway_id       = aws_vpn_gateway.test.id
+  vpn_gateway_id_vpn_gateway.test.id
 
   tags = {
-    Name = %[1]q
-    Key1 = "Value1"
-    Key2 = "Value2a"
+ Name = %[1]q
+ Key1 = "Value1"
+ Key2 = "Value2a"
   }
 }
 `, rName)
 }
-
 func testAccHostedPrivateVirtualInterfaceConfig_accepterTagsUpdated(cid, rName string, bgpAsn, vlan int) string {
 	return testAccHostedPrivateVirtualInterfaceConfig_base(cid, rName, bgpAsn, vlan) + fmt.Sprintf(`
 resource "aws_dx_hosted_private_virtual_interface_accepter" "test" {
   provider = "awsalternate"
 
   virtual_interface_id = aws_dx_hosted_private_virtual_interface.test.id
-  vpn_gateway_id       = aws_vpn_gateway.test.id
+  vpn_gateway_id_vpn_gateway.test.id
 
   tags = {
-    Name = %[1]q
-    Key2 = "Value2b"
-    Key3 = "Value3"
+ Name = %[1]q
+ Key2 = "Value2b"
+ Key3 = "Value3"
   }
 }
 `, rName)

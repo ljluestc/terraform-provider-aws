@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package events_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package events_testimport (
 	"context"
 	"fmt"
 	"os"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/eventbridge"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -20,16 +14,14 @@ import (
 	tfevents "github.com/hashicorp/terraform-provider-aws/internal/service/events"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccEventsBus_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2, v3 eventbridge.DescribeEventBusOutput
 	busName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	busNameModified := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_bus.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_bus.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBusDestroy(ctx),
@@ -45,8 +37,8 @@ func TestAccEventsBus_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -72,15 +64,13 @@ func TestAccEventsBus_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccEventsBus_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2, v3 eventbridge.DescribeEventBusOutput
 	busName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_bus.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_bus.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBusDestroy(ctx),
@@ -94,8 +84,8 @@ func TestAccEventsBus_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -120,32 +110,28 @@ func TestAccEventsBus_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccEventsBus_default(t *testing.T) {
-	ctx := acctest.Context(t)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	ctx := acctest.Context(t)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccBusConfig_basic("default"),
+				Config:testAccBusConfig_basic("default"),
 				ExpectError: regexache.MustCompile(`cannot be 'default'`),
 			},
 		},
 	})
 }
-
 func TestAccEventsBus_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v eventbridge.DescribeEventBusOutput
 	busName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_cloudwatch_event_bus.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_cloudwatch_event_bus.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBusDestroy(ctx),
@@ -161,20 +147,16 @@ func TestAccEventsBus_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccEventsBus_partnerEventSource(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "EVENT_BRIDGE_PARTNER_EVENT_SOURCE_NAME"
 	busName := os.Getenv(key)
 	if busName == "" {
 		t.Skipf("Environment variable %s is not set", key)
-	}
-
-	var busOutput eventbridge.DescribeEventBusOutput
-	resourceName := "aws_cloudwatch_event_bus.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	}	var busOutput eventbridge.DescribeEventBusOutput
+	resourceName := "aws_cloudwatch_event_bus.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eventbridge.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckBusDestroy(ctx),
@@ -192,76 +174,51 @@ func TestAccEventsBus_partnerEventSource(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckBusDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_cloudwatch_event_bus" {
 				continue
-			}
-
-			_, err := tfevents.FindEventBusByName(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			_, err := tfevents.FindEventBusByName(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("EventBridge Event Bus %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("EventBridge Event Bus %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
-
 func testAccCheckBusExists(ctx context.Context, n string, v *eventbridge.DescribeEventBusOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No EventBridge Event Bus ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)
-
-		output, err := tfevents.FindEventBusByName(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).EventsConn(ctx)		output, err := tfevents.FindEventBusByName(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
 }
-
 func testAccCheckBusRecreated(i, j *eventbridge.DescribeEventBusOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		if aws.StringValue(i.Arn) == aws.StringValue(j.Arn) {
 			return fmt.Errorf("EventBridge event bus not recreated")
 		}
 		return nil
 	}
 }
-
 func testAccCheckBusNotRecreated(i, j *eventbridge.DescribeEventBusOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		if aws.StringValue(i.Arn) != aws.StringValue(j.Arn) {
 			return fmt.Errorf("EventBridge event bus was recreated")
 		}
 		return nil
 	}
 }
-
 func testAccBusConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_bus" "test" {
@@ -269,32 +226,25 @@ resource "aws_cloudwatch_event_bus" "test" {
 }
 `, name)
 }
-
 func testAccBusConfig_tags1(name, key, value string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_bus" "test" {
-  name = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
+  name = %[1]q  tags = {
+ %[2]q = %[3]q
   }
 }
 `, name, key, value)
 }
-
 func testAccBusConfig_tags2(name, key1, value1, key2, value2 string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_bus" "test" {
-  name = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+  name = %[1]q  tags = {
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, name, key1, value1, key2, value2)
 }
-
 func testAccBusConfig_partnerSource(name string) string {
 	return fmt.Sprintf(`
 resource "aws_cloudwatch_event_bus" "test" {

@@ -21,7 +21,7 @@ func TestAccEKSNodeGroupDataSource_basic(t *testing.T) {
 	resourceName := "aws_eks_node_group.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterDestroy(ctx),
@@ -62,7 +62,7 @@ func TestAccEKSNodeGroupDataSource_basic(t *testing.T) {
 func testAccNodeGroupDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccNodeGroupConfig_dataSourceName(rName), fmt.Sprintf(`
 data "aws_eks_node_group" "test" {
-  cluster_name    = aws_eks_cluster.test.name
+  cluster_name= aws_eks_cluster.test.name
   node_group_name = %[1]q
 }
 `, rName))

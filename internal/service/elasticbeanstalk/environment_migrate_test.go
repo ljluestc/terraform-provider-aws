@@ -9,7 +9,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	tfelasticbeanstalk "github.com/hashicorp/terraform-provider-aws/internal/service/elasticbeanstalk"
 )
-
 func TestEnvironmentMigrateState(t *testing.T) {
 	t.Parallel()
 
@@ -17,7 +16,7 @@ func TestEnvironmentMigrateState(t *testing.T) {
 		StateVersion int
 		Attributes   map[string]string
 		Expected     map[string]string
-		Meta         interface{}
+		Metainterface{}
 	}{
 		"v0_1_web": {
 			StateVersion: 0,
@@ -50,7 +49,7 @@ func TestEnvironmentMigrateState(t *testing.T) {
 
 	for tn, tc := range cases {
 		is := &terraform.InstanceState{
-			ID:         "e-abcde12345",
+			ID:"e-abcde12345",
 			Attributes: tc.Attributes,
 		}
 		_, err := tfelasticbeanstalk.EnvironmentMigrateState(

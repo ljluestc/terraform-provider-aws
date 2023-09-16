@@ -21,7 +21,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccWorkSpacesConnectionAlias_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -56,7 +55,6 @@ func TestAccWorkSpacesConnectionAlias_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWorkSpacesConnectionAlias_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -85,7 +83,6 @@ func TestAccWorkSpacesConnectionAlias_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWorkSpacesConnectionAlias_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -136,7 +133,6 @@ func TestAccWorkSpacesConnectionAlias_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckConnectionAliasDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).WorkSpacesClient(ctx)
@@ -162,7 +158,6 @@ func testAccCheckConnectionAliasDestroy(ctx context.Context) resource.TestCheckF
 		return nil
 	}
 }
-
 func testAccCheckConnectionAliasExists(ctx context.Context, name string, connectionalias *awstypes.ConnectionAlias) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -186,7 +181,6 @@ func testAccCheckConnectionAliasExists(ctx context.Context, name string, connect
 		return nil
 	}
 }
-
 func testAccPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).WorkSpacesClient(ctx)
 
@@ -200,7 +194,6 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccConnectionAliasConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_workspaces_connection_alias" "test" {
@@ -208,7 +201,6 @@ resource "aws_workspaces_connection_alias" "test" {
 }
 `, rName)
 }
-
 func testAccConnectionAliasConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_workspaces_connection_alias" "test" {
@@ -220,7 +212,6 @@ resource "aws_workspaces_connection_alias" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccConnectionAliasConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_workspaces_connection_alias" "test" {

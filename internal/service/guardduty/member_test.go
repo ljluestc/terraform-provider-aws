@@ -17,7 +17,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfguardduty "github.com/hashicorp/terraform-provider-aws/internal/service/guardduty"
 )
-
 func testAccMember_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_member.test"
@@ -47,7 +46,6 @@ func testAccMember_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccMember_invite_disassociate(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_member.test"
@@ -87,7 +85,6 @@ func testAccMember_invite_disassociate(t *testing.T) {
 		},
 	})
 }
-
 func testAccMember_invite_onUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_member.test"
@@ -127,7 +124,6 @@ func testAccMember_invite_onUpdate(t *testing.T) {
 		},
 	})
 }
-
 func testAccMember_invitationMessage(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_member.test"
@@ -165,7 +161,6 @@ func testAccMember_invitationMessage(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckMemberDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
@@ -203,7 +198,6 @@ func testAccCheckMemberDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckMemberExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -234,7 +228,6 @@ func testAccCheckMemberExists(ctx context.Context, name string) resource.TestChe
 		return nil
 	}
 }
-
 func testAccMemberConfig_basic(accountID, email string) string {
 	return fmt.Sprintf(`
 %[1]s
@@ -246,7 +239,6 @@ resource "aws_guardduty_member" "test" {
 }
 `, testAccDetectorConfig_basic, accountID, email)
 }
-
 func testAccMemberConfig_invite(accountID, email string, invite bool) string {
 	return fmt.Sprintf(`
 %[1]s
@@ -260,7 +252,6 @@ resource "aws_guardduty_member" "test" {
 }
 `, testAccDetectorConfig_basic, accountID, email, invite)
 }
-
 func testAccMemberConfig_invitationMessage(accountID, email, invitationMessage string) string {
 	return fmt.Sprintf(`
 %[1]s

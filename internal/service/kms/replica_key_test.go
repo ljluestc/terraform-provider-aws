@@ -14,7 +14,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfkms "github.com/hashicorp/terraform-provider-aws/internal/service/kms"
 )
-
 func TestAccKMSReplicaKey_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -56,7 +55,6 @@ func TestAccKMSReplicaKey_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSReplicaKey_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -83,7 +81,6 @@ func TestAccKMSReplicaKey_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSReplicaKey_descriptionAndEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -135,7 +132,6 @@ func TestAccKMSReplicaKey_descriptionAndEnabled(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSReplicaKey_policy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -178,7 +174,6 @@ func TestAccKMSReplicaKey_policy(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSReplicaKey_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -247,7 +242,6 @@ func TestAccKMSReplicaKey_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSReplicaKey_twoReplicas(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -272,7 +266,6 @@ func TestAccKMSReplicaKey_twoReplicas(t *testing.T) {
 		},
 	})
 }
-
 func testAccReplicaKeyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -287,7 +280,6 @@ resource "aws_kms_replica_key" "test" {
 }
 `, rName))
 }
-
 func testAccReplicaKeyConfig_descriptionAndEnabled(rName, description string, enabled bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -308,7 +300,6 @@ resource "aws_kms_replica_key" "test" {
 }
 `, rName, description, enabled))
 }
-
 func testAccReplicaKeyConfig_policy(rName, policy string, bypassLockoutCheck bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -332,7 +323,6 @@ resource "aws_kms_replica_key" "test" {
 }
 `, rName, policy, bypassLockoutCheck))
 }
-
 func testAccReplicaKeyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -360,7 +350,6 @@ resource "aws_kms_replica_key" "test" {
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccReplicaKeyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -389,7 +378,6 @@ resource "aws_kms_replica_key" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
 func testAccReplicaKeyConfig_tags0(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -409,7 +397,6 @@ resource "aws_kms_replica_key" "test" {
 }
 `, rName))
 }
-
 func testAccReplicaKeyConfig_two(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigMultipleRegionProvider(3), fmt.Sprintf(`
 resource "aws_kms_key" "test" {

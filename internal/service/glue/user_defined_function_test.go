@@ -26,10 +26,10 @@ func TestAccGlueUserDefinedFunction_basic(t *testing.T) {
 	resourceName := "aws_glue_user_defined_function.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUDFDestroy(ctx),
+		CheckDestroy:    testAccCheckUDFDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserDefinedFunctionConfig_basic(rName, rName),
@@ -67,10 +67,10 @@ func TestAccGlueUserDefinedFunction_Resource_uri(t *testing.T) {
 	resourceName := "aws_glue_user_defined_function.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUDFDestroy(ctx),
+		CheckDestroy:    testAccCheckUDFDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserDefinedFunctionConfig_resourceURI1(rName),
@@ -108,10 +108,10 @@ func TestAccGlueUserDefinedFunction_disappears(t *testing.T) {
 	resourceName := "aws_glue_user_defined_function.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUDFDestroy(ctx),
+		CheckDestroy:    testAccCheckUDFDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserDefinedFunctionConfig_basic(rName, rName),
@@ -205,7 +205,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_user_defined_function" "test" {
-  name          = %[1]q
+  name = %[1]q
   catalog_id    = aws_glue_catalog_database.test.catalog_id
   database_name = aws_glue_catalog_database.test.name
   class_name    = %[2]q
@@ -222,7 +222,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_user_defined_function" "test" {
-  name          = %[1]q
+  name = %[1]q
   catalog_id    = aws_glue_catalog_database.test.catalog_id
   database_name = aws_glue_catalog_database.test.name
   class_name    = %[1]q
@@ -231,7 +231,7 @@ resource "aws_glue_user_defined_function" "test" {
 
   resource_uris {
     resource_type = "ARCHIVE"
-    uri           = %[1]q
+    uri  = %[1]q
   }
 }
 `, rName)
@@ -244,7 +244,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_user_defined_function" "test" {
-  name          = %[1]q
+  name = %[1]q
   catalog_id    = aws_glue_catalog_database.test.catalog_id
   database_name = aws_glue_catalog_database.test.name
   class_name    = %[1]q
@@ -253,12 +253,12 @@ resource "aws_glue_user_defined_function" "test" {
 
   resource_uris {
     resource_type = "ARCHIVE"
-    uri           = %[1]q
+    uri  = %[1]q
   }
 
   resource_uris {
     resource_type = "JAR"
-    uri           = %[1]q
+    uri  = %[1]q
   }
 }
 `, rName)

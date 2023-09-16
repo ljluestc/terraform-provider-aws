@@ -63,13 +63,13 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "appconfig.${data.aws_partition.current.dns_suffix}"
-      },
-      "Action": "sts:AssumeRole"
-    }
+{
+  "Effect": "Allow",
+  "Principal": {
+"Service": "appconfig.${data.aws_partition.current.dns_suffix}"
+  },
+  "Action": "sts:AssumeRole"
+}
   ]
 }
 EOF
@@ -80,49 +80,49 @@ resource "aws_iam_role_policy" "test" {
 
   policy = <<POLICY
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
+"Version": "2012-10-17",
+"Statement": [
+{
+   "Effect": "Allow",
+   "Action": [
  "cloudwatch:DescribeAlarms"
-            ],
-            "Resource": "*"
-        }
-    ]
+   ],
+   "Resource": "*"
+}
+]
 }
 POLICY
 }
 
 resource "aws_cloudwatch_metric_alarm" "test" {
   alarm_name = "%[1]s"
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = "2"
+  comparison_operator   = "GreaterThanOrEqualToThreshold"
+  evaluation_periods= "2"
   metric_name= "CPUUtilization"
   namespace  = "AWS/EC2"
-  period     = "120"
+  period = "120"
   statistic  = "Average"
   threshold  = "80"
-  alarm_description         = "This metric monitors ec2 cpu utilization"
+  alarm_description= "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []
 
   dimensions = {
-    InstanceId = "i-abc123"
+InstanceId = "i-abc123"
   }
 }
 
 resource "aws_appconfig_environment" "test" {
   application_id = aws_appconfig_application.test.id
-  name           = %[1]q
-  description    = "Example AppConfig Environment"
+  name  = %[1]q
+  description= "Example AppConfig Environment"
 
   monitor {
-    alarm_arn      = aws_cloudwatch_metric_alarm.test.arn
-    alarm_role_arn = aws_iam_role.test.arn
+alarm_arn  = aws_cloudwatch_metric_alarm.test.arn
+alarm_role_arn = aws_iam_role.test.arn
   }
 
   tags = {
-    key1 = "value1"
+key1 = "value1"
   }
 }
 

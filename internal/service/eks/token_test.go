@@ -60,8 +60,8 @@ func assertSTSError(t *testing.T, err error) {
 }
 
 var (
-	now        = time.Now()
-	timeStr    = now.UTC().Format("20060102T150405Z")
+	now   = time.Now()
+	timeStr= now.UTC().Format("20060102T150405Z")
 	validURL   = fmt.Sprintf("https://sts.amazonaws.com/?action=GetCallerIdentity&X-Amz-Credential=ASIABCDEFGHIJKLMNOPQ%%2F20191216%%2Fus-west-2%%2Fs3%%2Faws4_request&x-amz-signedheaders=x-k8s-aws-id&x-amz-expires=60&x-amz-date=%s", timeStr) //lintignore:AWSAT003
 	validToken = toToken(validURL)
 )
@@ -81,7 +81,7 @@ func newVerifier(statusCode int, body string, err error) Verifier {
 				err: err,
 				resp: &http.Response{
 					StatusCode: statusCode,
-					Body:       rc,
+					Body:  rc,
 				},
 			},
 		},
@@ -121,24 +121,24 @@ func TestSTSEndpoints(t *testing.T) {
 	t.Parallel()
 
 	verifier := tokenVerifier{}
-	chinaR := "sts.amazonaws.com.cn"       //lintignore:AWSAT003
-	globalR := "sts.amazonaws.com"         //lintignore:AWSAT003
-	usEast1R := "sts.us-east-1.amazonaws.com"           //lintignore:AWSAT003
-	usEast2R := "sts.us-east-2.amazonaws.com"           //lintignore:AWSAT003
-	usWest1R := "sts.us-west-1.amazonaws.com"           //lintignore:AWSAT003
-	usWest2R := "sts.us-west-2.amazonaws.com"           //lintignore:AWSAT003
-	apSouth1R := "sts.ap-south-1.amazonaws.com"         //lintignore:AWSAT003
+	chinaR := "sts.amazonaws.com.cn"  //lintignore:AWSAT003
+	globalR := "sts.amazonaws.com"//lintignore:AWSAT003
+	usEast1R := "sts.us-east-1.amazonaws.com" //lintignore:AWSAT003
+	usEast2R := "sts.us-east-2.amazonaws.com" //lintignore:AWSAT003
+	usWest1R := "sts.us-west-1.amazonaws.com" //lintignore:AWSAT003
+	usWest2R := "sts.us-west-2.amazonaws.com" //lintignore:AWSAT003
+	apSouth1R := "sts.ap-south-1.amazonaws.com"//lintignore:AWSAT003
 	apNorthEast1R := "sts.ap-northeast-1.amazonaws.com" //lintignore:AWSAT003
 	apNorthEast2R := "sts.ap-northeast-2.amazonaws.com" //lintignore:AWSAT003
 	apSouthEast1R := "sts.ap-southeast-1.amazonaws.com" //lintignore:AWSAT003
 	apSouthEast2R := "sts.ap-southeast-2.amazonaws.com" //lintignore:AWSAT003
-	caCentral1R := "sts.ca-central-1.amazonaws.com"     //lintignore:AWSAT003
-	euCenteral1R := "sts.eu-central-1.amazonaws.com"    //lintignore:AWSAT003
-	euWest1R := "sts.eu-west-1.amazonaws.com"           //lintignore:AWSAT003
-	euWest2R := "sts.eu-west-2.amazonaws.com"           //lintignore:AWSAT003
-	euWest3R := "sts.eu-west-3.amazonaws.com"           //lintignore:AWSAT003
-	euNorth1R := "sts.eu-north-1.amazonaws.com"         //lintignore:AWSAT003
-	saEast1R := "sts.sa-east-1.amazonaws.com"           //lintignore:AWSAT003
+	caCentral1R := "sts.ca-central-1.amazonaws.com"//lintignore:AWSAT003
+	euCenteral1R := "sts.eu-central-1.amazonaws.com"//lintignore:AWSAT003
+	euWest1R := "sts.eu-west-1.amazonaws.com" //lintignore:AWSAT003
+	euWest2R := "sts.eu-west-2.amazonaws.com" //lintignore:AWSAT003
+	euWest3R := "sts.eu-west-3.amazonaws.com" //lintignore:AWSAT003
+	euNorth1R := "sts.eu-north-1.amazonaws.com"//lintignore:AWSAT003
+	saEast1R := "sts.sa-east-1.amazonaws.com" //lintignore:AWSAT003
 
 	hosts := []string{chinaR, globalR, usEast1R, usEast2R, usWest1R, usWest2R, apSouth1R, apNorthEast1R, apNorthEast2R, apSouthEast1R, apSouthEast2R, caCentral1R, euCenteral1R, euWest1R, euWest2R, euWest3R, euNorth1R, saEast1R}
 
@@ -160,7 +160,7 @@ func TestVerifyTokenPreSTSValidations(t *testing.T) {
 	validationErrorTest(t, toToken(":ab:cd.af:/asda"), "missing protocol scheme")
 	validationErrorTest(t, toToken("http://"), "unexpected scheme")
 	validationErrorTest(t, toToken("https://google.com"), fmt.Sprintf("unexpected hostname %q in pre-signed URL", "google.com")) // nosemgrep:ci.domain-names
-	validationErrorTest(t, toToken("https://sts.cn-north-1.amazonaws.com.cn/abc"), "unexpected path in pre-signed URL")          //lintignore:AWSAT003
+	validationErrorTest(t, toToken("https://sts.cn-north-1.amazonaws.com.cn/abc"), "unexpected path in pre-signed URL")//lintignore:AWSAT003
 	validationErrorTest(t, toToken("https://sts.amazonaws.com/abc"), "unexpected path in pre-signed URL")
 	validationErrorTest(t, toToken("https://sts.amazonaws.com/?NoInWhiteList=abc"), "non-whitelisted query parameter")
 	validationErrorTest(t, toToken("https://sts.amazonaws.com/?action=get&action=post"), "query parameter with multiple values not supported")
@@ -169,11 +169,11 @@ func TestVerifyTokenPreSTSValidations(t *testing.T) {
 	validationErrorTest(t, toToken(fmt.Sprintf("https://sts.amazonaws.com/?action=GetCallerIdentity&x-amz-signedheaders=x-k8s-aws-id&x-amz-date=%s&x-amz-expires=9999999", timeStr)), "invalid X-Amz-Expires parameter in pre-signed URL")
 	validationErrorTest(t, toToken("https://sts.amazonaws.com/?action=GetCallerIdentity&x-amz-signedheaders=x-k8s-aws-id&x-amz-date=xxxxxxx&x-amz-expires=60"), "error parsing X-Amz-Date parameter")
 	validationErrorTest(t, toToken("https://sts.amazonaws.com/?action=GetCallerIdentity&x-amz-signedheaders=x-k8s-aws-id&x-amz-date=19900422T010203Z&x-amz-expires=60"), "X-Amz-Date parameter is expired")
-	validationSuccessTest(t, toToken(fmt.Sprintf("https://sts.us-east-2.amazonaws.com/?action=GetCallerIdentity&x-amz-signedheaders=x-k8s-aws-id&x-amz-date=%s&x-amz-expires=60", timeStr)))      //lintignore:AWSAT003
+	validationSuccessTest(t, toToken(fmt.Sprintf("https://sts.us-east-2.amazonaws.com/?action=GetCallerIdentity&x-amz-signedheaders=x-k8s-aws-id&x-amz-date=%s&x-amz-expires=60", timeStr))) //lintignore:AWSAT003
 	validationSuccessTest(t, toToken(fmt.Sprintf("https://sts.ap-northeast-2.amazonaws.com/?action=GetCallerIdentity&x-amz-signedheaders=x-k8s-aws-id&x-amz-date=%s&x-amz-expires=60", timeStr))) //lintignore:AWSAT003
 	validationSuccessTest(t, toToken(fmt.Sprintf("https://sts.ca-central-1.amazonaws.com/?action=GetCallerIdentity&x-amz-signedheaders=x-k8s-aws-id&x-amz-date=%s&x-amz-expires=60", timeStr)))   //lintignore:AWSAT003
-	validationSuccessTest(t, toToken(fmt.Sprintf("https://sts.eu-west-1.amazonaws.com/?action=GetCallerIdentity&x-amz-signedheaders=x-k8s-aws-id&x-amz-date=%s&x-amz-expires=60", timeStr)))      //lintignore:AWSAT003
-	validationSuccessTest(t, toToken(fmt.Sprintf("https://sts.sa-east-1.amazonaws.com/?action=GetCallerIdentity&x-amz-signedheaders=x-k8s-aws-id&x-amz-date=%s&x-amz-expires=60", timeStr)))      //lintignore:AWSAT003
+	validationSuccessTest(t, toToken(fmt.Sprintf("https://sts.eu-west-1.amazonaws.com/?action=GetCallerIdentity&x-amz-signedheaders=x-k8s-aws-id&x-amz-date=%s&x-amz-expires=60", timeStr))) //lintignore:AWSAT003
+	validationSuccessTest(t, toToken(fmt.Sprintf("https://sts.sa-east-1.amazonaws.com/?action=GetCallerIdentity&x-amz-signedheaders=x-k8s-aws-id&x-amz-date=%s&x-amz-expires=60", timeStr))) //lintignore:AWSAT003
 }
 
 func TestVerifyHTTPError(t *testing.T) {
@@ -201,7 +201,7 @@ func TestVerifyBodyReadError(t *testing.T) {
 				err: nil,
 				resp: &http.Response{
 					StatusCode: 200,
-					Body:       errorReadCloser{},
+					Body:  errorReadCloser{},
 				},
 			},
 		},
@@ -284,7 +284,7 @@ func TestVerifyCanonicalARN(t *testing.T) {
 	t.Parallel()
 
 	arn := "arn:aws:sts::123456789012:assumed-role/Alice/extra" //lintignore:AWSAT005
-	canonicalARN := "arn:aws:iam::123456789012:role/Alice"      //lintignore:AWSAT005
+	canonicalARN := "arn:aws:iam::123456789012:role/Alice" //lintignore:AWSAT005
 	account := "123456789012"
 	userID := "Alice"
 	session := "session-name"

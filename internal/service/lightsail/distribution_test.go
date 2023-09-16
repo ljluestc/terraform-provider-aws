@@ -37,17 +37,16 @@ func TestAccLightsailDistribution_serial(t *testing.T) {
 			"basic":Distribution_basic,
 			"disappears":ibution_disappears,
 			"is_enabled":ibution_isEnabled,
-			"cache_behavior":          testAccDistribution_cacheBehavior,
+			"cache_behavior": testAccDistribution_cacheBehavior,
 			"cache_behavior_settings": testAccDistribution_cacheBehaviorSettings,
 			"default_cache_behavior":  testAccDistribution_defaultCacheBehavior,
-			"ip_address_type":         testAccDistribution_ipAddressType,
+			"ip_address_type":testAccDistribution_ipAddressType,
 			"tags":cDistribution_tags,
 		},
 	}
 
 	acctest.RunSerialTests2Levels(t, testCases, 0)
 }
-
 func testAccDistribution_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -114,7 +113,6 @@ func testAccDistribution_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccDistribution_isEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_distribution.test"
@@ -156,7 +154,6 @@ func testAccDistribution_isEnabled(t *testing.T) {
 		},
 	})
 }
-
 func testAccDistribution_cacheBehavior(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_distribution.test"
@@ -217,7 +214,6 @@ func testAccDistribution_cacheBehavior(t *testing.T) {
 		},
 	})
 }
-
 func testAccDistribution_defaultCacheBehavior(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_distribution.test"
@@ -264,7 +260,6 @@ func testAccDistribution_defaultCacheBehavior(t *testing.T) {
 		},
 	})
 }
-
 func testAccDistribution_ipAddressType(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_distribution.test"
@@ -304,7 +299,6 @@ func testAccDistribution_ipAddressType(t *testing.T) {
 		},
 	})
 }
-
 func testAccDistribution_cacheBehaviorSettings(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_distribution.test"
@@ -382,7 +376,6 @@ func testAccDistribution_cacheBehaviorSettings(t *testing.T) {
 		},
 	})
 }
-
 func testAccDistribution_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -433,7 +426,6 @@ func testAccDistribution_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccDistribution_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -462,7 +454,6 @@ func testAccDistribution_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckDistributionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
@@ -488,7 +479,6 @@ func testAccCheckDistributionDestroy(ctx context.Context) resource.TestCheckFunc
 		return nil
 	}
 }
-
 func testAccCheckDistributionExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -514,7 +504,6 @@ func testAccCheckDistributionExists(ctx context.Context, name string) resource.T
 		return nil
 	}
 }
-
 func testAccDistributionConfig_base(bucketName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_bucket" "test" {
@@ -522,7 +511,6 @@ resource "aws_lightsail_bucket" "test" {
   bundle_id = "small_1_0"
 }`, bucketName)
 }
-
 func testAccDistributionConfig_basic(rName, bucketName string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
@@ -540,9 +528,9 @@ resource "aws_lightsail_distribution" "test" {
   cache_behavior_settings {
     allowed_http_methods = "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE"
     cached_http_methods  = "GET,HEAD"
-    default_ttl          = 86400
-    maximum_ttl          = 31536000
-    minimum_ttl          = 0
+    default_ttl = 86400
+    maximum_ttl = 31536000
+    minimum_ttl = 0
     forwarded_cookies {
       option = "none"
     }
@@ -556,7 +544,6 @@ resource "aws_lightsail_distribution" "test" {
 }
 `, rName))
 }
-
 func testAccDistributionConfig_isEnabled(rName, bucketName, isEnabled string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
@@ -575,9 +562,9 @@ resource "aws_lightsail_distribution" "test" {
   cache_behavior_settings {
     allowed_http_methods = "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE"
     cached_http_methods  = "GET,HEAD"
-    default_ttl          = 86400
-    maximum_ttl          = 31536000
-    minimum_ttl          = 0
+    default_ttl = 86400
+    maximum_ttl = 31536000
+    minimum_ttl = 0
     forwarded_cookies {
       option = "none"
     }
@@ -591,7 +578,6 @@ resource "aws_lightsail_distribution" "test" {
 }
 `, rName, isEnabled))
 }
-
 func testAccDistributionConfig_tags1(rName, bucketName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
@@ -608,9 +594,9 @@ func testAccDistributionConfig_tags1(rName, bucketName, tagKey1, tagValue1 strin
   cache_behavior_settings {
     allowed_http_methods = "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE"
     cached_http_methods  = "GET,HEAD"
-    default_ttl          = 86400
-    maximum_ttl          = 31536000
-    minimum_ttl          = 0
+    default_ttl = 86400
+    maximum_ttl = 31536000
+    minimum_ttl = 0
     forwarded_cookies {
       option = "none"
     }
@@ -627,7 +613,6 @@ func testAccDistributionConfig_tags1(rName, bucketName, tagKey1, tagValue1 strin
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccDistributionConfig_tags2(rName, bucketName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
@@ -644,9 +629,9 @@ func testAccDistributionConfig_tags2(rName, bucketName, tagKey1, tagValue1, tagK
   cache_behavior_settings {
     allowed_http_methods = "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE"
     cached_http_methods  = "GET,HEAD"
-    default_ttl          = 86400
-    maximum_ttl          = 31536000
-    minimum_ttl          = 0
+    default_ttl = 86400
+    maximum_ttl = 31536000
+    minimum_ttl = 0
     forwarded_cookies {
       option = "none"
     }
@@ -664,7 +649,6 @@ func testAccDistributionConfig_tags2(rName, bucketName, tagKey1, tagValue1, tagK
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
 func testAccDistributionConfig_cacheBehavior1(rName, bucketName, path1, behavior1 string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
@@ -681,9 +665,9 @@ func testAccDistributionConfig_cacheBehavior1(rName, bucketName, path1, behavior
   cache_behavior_settings {
     allowed_http_methods = "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE"
     cached_http_methods  = "GET,HEAD"
-    default_ttl          = 86400
-    maximum_ttl          = 31536000
-    minimum_ttl          = 0
+    default_ttl = 86400
+    maximum_ttl = 31536000
+    minimum_ttl = 0
     forwarded_cookies {
       option = "none"
     }
@@ -701,7 +685,6 @@ func testAccDistributionConfig_cacheBehavior1(rName, bucketName, path1, behavior
 }
 `, rName, path1, behavior1))
 }
-
 func testAccDistributionConfig_cacheBehavior2(rName, bucketName, path1, behavior1, path2, behavior2 string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
@@ -718,9 +701,9 @@ func testAccDistributionConfig_cacheBehavior2(rName, bucketName, path1, behavior
   cache_behavior_settings {
     allowed_http_methods = "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE"
     cached_http_methods  = "GET,HEAD"
-    default_ttl          = 86400
-    maximum_ttl          = 31536000
-    minimum_ttl          = 0
+    default_ttl = 86400
+    maximum_ttl = 31536000
+    minimum_ttl = 0
     forwarded_cookies {
       option = "none"
     }
@@ -743,7 +726,6 @@ func testAccDistributionConfig_cacheBehavior2(rName, bucketName, path1, behavior
 }
 `, rName, path1, behavior1, path2, behavior2))
 }
-
 func testAccDistributionConfig_cacheBehaviorSettings(rName, bucketName, allow1, allow2, header1, header2 string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
@@ -760,7 +742,7 @@ func testAccDistributionConfig_cacheBehaviorSettings(rName, bucketName, allow1, 
   cache_behavior_settings {
     allowed_http_methods = "GET,HEAD,OPTIONS"
     cached_http_methods  = "GET,HEAD,OPTIONS"
-    default_ttl          = 50000
+    default_ttl = 50000
     forwarded_cookies {
       cookies_allow_list = [%[2]q, %[3]q]
       option"
@@ -779,7 +761,6 @@ func testAccDistributionConfig_cacheBehaviorSettings(rName, bucketName, allow1, 
 }
 `, rName, allow1, allow2, header1, header2))
 }
-
 func testAccDistributionConfig_defaultCacheBehaviorDontCache(rName, instanceName, ipName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
@@ -804,7 +785,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "micro_1_0"
+  bundle_id= "micro_1_0"
 }
 
 resource "aws_lightsail_distribution" "test" {
@@ -812,7 +793,7 @@ resource "aws_lightsail_distribution" "test" {
   depends_on = [aws_lightsail_static_ip_attachment.test]
   bundle_id  = "small_1_0"
   origin {
-    name            = aws_lightsail_instance.test.name
+    name   = aws_lightsail_instance.test.name
     region_name     = data.aws_availability_zones.available.id
     protocol_policy = "http-only"
   }
@@ -824,7 +805,6 @@ resource "aws_lightsail_distribution" "test" {
 }
 `, rName, instanceName, ipName)
 }
-
 func testAccDistributionConfig_defaultCacheBehaviorCache(rName, instanceName, ipName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
@@ -849,7 +829,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "micro_1_0"
+  bundle_id= "micro_1_0"
 }
 
 resource "aws_lightsail_distribution" "test" {
@@ -857,7 +837,7 @@ resource "aws_lightsail_distribution" "test" {
   depends_on = [aws_lightsail_static_ip_attachment.test]
   bundle_id  = "small_1_0"
   origin {
-    name            = aws_lightsail_instance.test.name
+    name   = aws_lightsail_instance.test.name
     region_name     = data.aws_availability_zones.available.id
     protocol_policy = "http-only"
   }
@@ -867,8 +847,8 @@ resource "aws_lightsail_distribution" "test" {
   cache_behavior_settings {
     allowed_http_methods = "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE"
     cached_http_methods  = "GET,HEAD"
-    default_ttl          = 86400
-    maximum_ttl          = 31536000
+    default_ttl = 86400
+    maximum_ttl = 31536000
 
     forwarded_cookies {
       option = "none"
@@ -887,13 +867,12 @@ resource "aws_lightsail_distribution" "test" {
 }
 `, rName, instanceName, ipName)
 }
-
 func testAccDistributionConfig_ipAddressType(rName, bucketName, IpAddressType string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
 		fmt.Sprintf(`
 resource "aws_lightsail_distribution" "test" {
-  name            = %[1]q
+  name   = %[1]q
   bundle_id       = "small_1_0"
   ip_address_type = %[2]q
   origin {
@@ -906,9 +885,9 @@ resource "aws_lightsail_distribution" "test" {
   cache_behavior_settings {
     allowed_http_methods = "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE"
     cached_http_methods  = "GET,HEAD"
-    default_ttl          = 86400
-    maximum_ttl          = 31536000
-    minimum_ttl          = 0
+    default_ttl = 86400
+    maximum_ttl = 31536000
+    minimum_ttl = 0
     forwarded_cookies {
       option = "none"
     }

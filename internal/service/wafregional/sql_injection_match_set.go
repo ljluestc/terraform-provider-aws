@@ -43,7 +43,7 @@ ForceNew: true,
 "sql_injection_match_tuple": {
 Type:     schema.TypeSet,
 Optional: true,
-Set:      resourceSQLInjectionMatchSetTupleHash,
+Set:resourceSQLInjectionMatchSetTupleHash,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "field_to_match": {
@@ -93,7 +93,7 @@ out, err := wr.RetryWithToken(ctx,
 func(token *string) (interface{}, error) {
 params := &waf.CreateSqlInjectionMatchSetInput{
 ChangeToken: token,
-Name:        aws.String(d.Get("name").(string)),
+Name:  aws.String(d.Get("name").(string)),
 }
 
 return conn.CreateSqlInjectionMatchSetWithContext(ctx, params)
@@ -228,7 +228,7 @@ ftm := tuple["field_to_match"].([]interface{})
 updates = append(updates, &waf.SqlInjectionMatchSetUpdate{
 Action: aws.String(waf.ChangeActionDelete),
 SqlInjectionMatchTuple: &waf.SqlInjectionMatchTuple{
-FieldToMatch:       tfwaf.ExpandFieldToMatch(ftm[0].(map[string]interface{})),
+FieldToMatch: tfwaf.ExpandFieldToMatch(ftm[0].(map[string]interface{})),
 TextTransformation: aws.String(tuple["text_transformation"].(string)),
 },
 })
@@ -241,7 +241,7 @@ ftm := tuple["field_to_match"].([]interface{})
 updates = append(updates, &waf.SqlInjectionMatchSetUpdate{
 Action: aws.String(waf.ChangeActionInsert),
 SqlInjectionMatchTuple: &waf.SqlInjectionMatchTuple{
-FieldToMatch:       tfwaf.ExpandFieldToMatch(ftm[0].(map[string]interface{})),
+FieldToMatch: tfwaf.ExpandFieldToMatch(ftm[0].(map[string]interface{})),
 TextTransformation: aws.String(tuple["text_transformation"].(string)),
 },
 })

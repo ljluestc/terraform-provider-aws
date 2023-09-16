@@ -20,7 +20,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
 )
-
 func TestAccLightsailDomain_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	lightsailDomainName := fmt.Sprintf("tf-test-lightsail-%s.com", sdkacctest.RandString(5))
@@ -41,7 +40,6 @@ func TestAccLightsailDomain_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDomain_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	lightsailDomainName := fmt.Sprintf("tf-test-lightsail-%s.com", sdkacctest.RandString(5))
@@ -64,7 +62,6 @@ func TestAccLightsailDomain_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckDomainExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -93,7 +90,6 @@ func testAccCheckDomainExists(ctx context.Context, n string) resource.TestCheckF
 		return nil
 	}
 }
-
 func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -123,7 +119,6 @@ func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccDomainConfig_basic(lightsailDomainName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_domain" "test" {

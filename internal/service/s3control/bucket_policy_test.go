@@ -29,7 +29,7 @@ func TestAccS3ControlBucketPolicy_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckBucketPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketPolicyConfig_basic(rName, "s3-outposts:*"),
@@ -57,7 +57,7 @@ func TestAccS3ControlBucketPolicy_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckBucketPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketPolicyConfig_basic(rName, "s3-outposts:*"),
@@ -80,7 +80,7 @@ func TestAccS3ControlBucketPolicy_policy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckBucketPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketPolicyConfig_basic(rName, "s3-outposts:GetObject"),
@@ -184,7 +184,7 @@ resource "aws_s3control_bucket_policy" "test" {
         Action = %[2]q
         Effect = "Deny"
         Principal = {
-          AWS = "*"
+ AWS = "*"
         }
         Resource = "${aws_s3control_bucket.test.arn}/object/test"
         Sid      = "st1"

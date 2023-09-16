@@ -1,12 +1,6 @@
 // Copyright 2011 Google Inc. All rights reserved.
 // Use of this source code is governed by the Apache 2.0
-// license that can be found in the LICENSE file.
-
-// +build !appengine
-
-package internal
-
-import (
+// license that can be found in the LICENSE file.// +build !appenginepackage internalimport (
 	"io"
 	"log"
 	"net/http"
@@ -15,27 +9,19 @@ import (
 	"path/filepath"
 	"runtime"
 )
-
-func Main() {
+ Main() {
 	MainPath = filepath.Dir(findMainPath())
-	installHealthChecker(http.DefaultServeMux)
-
-	port := "8080"
+	installHealthChecker(http.DefaultServeMux)	port := "8080"
 	if s := os.Getenv("PORT"); s != "" {
 		port = s
-	}
-
-	host := ""
+	}	host := ""
 	if IsDevAppServer() {
 		host = "127.0.0.1"
 	}
 	if err := http.ListenAndServe(host+":"+port, http.HandlerFunc(handleHTTP)); err != nil {
 		log.Fatalf("http.ListenAndServe: %v", err)
 	}
-}
-
-// Find the path to package main by looking at the root Caller.
-func findMainPath() string {
+}// Find the path to package main by looking at the root Caller. findMainPath() string {
 	pc := make([]uintptr, 100)
 	n := runtime.Callers(2, pc)
 	frames := runtime.CallersFrames(pc[:n])
@@ -51,8 +37,7 @@ func findMainPath() string {
 	}
 	return ""
 }
-
-func installHealthChecker(mux *http.ServeMux) {
+ installHealthChecker(mux *http.ServeMux) {
 	// If no health check handler has been installed by this point, add a trivial one.
 	const healthPath = "/_ah/health"
 	hreq := &http.Request{

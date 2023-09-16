@@ -47,61 +47,61 @@ func ResourceFargateProfile() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"cluster_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validClusterName,
 			},
 			"fargate_profile_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"pod_execution_role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"selector": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Required: true,
 				ForceNew: true,
 				MinItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"labels": {
-							Type:     schema.TypeMap,
+							Type:schema.TypeMap,
 							Optional: true,
 							ForceNew: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"namespace": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.NoZeroValues,
 						},
 					},
 				},
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				ForceNew: true,
 				MinItems: 1,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -116,10 +116,10 @@ func resourceFargateProfileCreate(ctx context.Context, d *schema.ResourceData, m
 	profileID := FargateProfileCreateResourceID(clusterName, fargateProfileName)
 	input := &eks.CreateFargateProfileInput{
 		ClientRequestToken:  aws.String(id.UniqueId()),
-		ClusterName:         aws.String(clusterName),
+		ClusterName:aws.String(clusterName),
 		FargateProfileName:  aws.String(fargateProfileName),
 		PodExecutionRoleArn: aws.String(d.Get("pod_execution_role_arn").(string)),
-		Selectors:           expandFargateProfileSelectors(d.Get("selector").(*schema.Set).List()),
+		Selectors: expandFargateProfileSelectors(d.Get("selector").(*schema.Set).List()),
 		Subnets:flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
 		Tags:   getTagsIn(ctx),
 	}
@@ -231,7 +231,7 @@ func resourceFargateProfileDelete(ctx context.Context, d *schema.ResourceData, m
 
 	log.Printf("[DEBUG] Deleting EKS Fargate Profile: %s", d.Id())
 	_, err = conn.DeleteFargateProfileWithContext(ctx, &eks.DeleteFargateProfileInput{
-		ClusterName:        aws.String(clusterName),
+		ClusterName:   aws.String(clusterName),
 		FargateProfileName: aws.String(fargateProfileName),
 	})
 
@@ -291,7 +291,7 @@ func flattenFargateProfileSelectors(fargateProfileSelectors []*eks.FargateProfil
 
 	for _, fargateProfileSelector := range fargateProfileSelectors {
 		m := map[string]interface{}{
-			"labels":    aws.StringValueMap(fargateProfileSelector.Labels),
+			"labels":aws.StringValueMap(fargateProfileSelector.Labels),
 			"namespace": aws.StringValue(fargateProfileSelector.Namespace),
 		}
 

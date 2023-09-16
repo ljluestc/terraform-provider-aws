@@ -108,7 +108,7 @@ func updateTags(ctx context.Context, conn *medialive.Client, identifier string, 
 	if len(updatedTags) > 0 {
 		input := &medialive.CreateTagsInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:(updatedTags),
 		}
 
 		_, err := conn.CreateTags(ctx, input)

@@ -29,7 +29,7 @@ import (
 )
 
 const (
-	policyNameMaxLen       = 128
+	policyNameMaxLen  = 128
 	policyNamePrefixMaxLen = policyNameMaxLen - id.UniqueIDSuffixLength
 )
 
@@ -47,41 +47,41 @@ const (
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew: true,
 				Optional: true,
 			},
 			"name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ConflictsWith: []string{"name_prefix"},
 				ValidateFunc:  validResourceName(policyNameMaxLen),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ConflictsWith: []string{"name"},
 				ValidateFunc:  validResourceName(policyNamePrefixMaxLen),
 			},
 			"path": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  "/",
 				ForceNew: true,
 			},
 			"policy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
-				ValidateFunc:          verify.ValidIAMPolicyJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				ValidateFunc:verify.ValidIAMPolicyJSON,
+				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
@@ -89,10 +89,10 @@ const (
 				},
 			},
 			"policy_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -108,11 +108,11 @@ const (
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &iam.CreatePolicyInput{
-		Description:    aws.String(d.Get("description").(string)),
-		Path:           aws.String(d.Get("path").(string)),
+		Description:aws.String(d.Get("description").(string)),
+		Path: aws.String(d.Get("path").(string)),
 		PolicyDocument: aws.String(policy),
-		PolicyName:     aws.String(name),
-		Tags:           getTagsIn(ctx),
+		PolicyName:aws.String(name),
+		Tags: getTagsIn(ctx),
 	}
 
 	output, err := conn.CreatePolicyWithContext(ctx, input)
@@ -149,7 +149,7 @@ const (
 	funcn := meta.(*conns.AWSClient).IAMConn(ctx)
 
 	type policyWithVersion struct {
-		policy        *iam.Policy
+		policy   *iam.Policy
 		policyVersion *iam.PolicyVersion
 	}
 	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, propagationTimeout, func() (interface{}, error) {
@@ -220,7 +220,7 @@ const (
 		}
 
 		input := &iam.CreatePolicyVersionInput{
-			PolicyArn:      aws.String(d.Id()),
+			PolicyArn: aws.String(d.Id()),
 			PolicyDocument: aws.String(policy),
 			SetAsDefault:   aws.Bool(true),
 		}

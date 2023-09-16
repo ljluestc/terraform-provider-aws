@@ -88,7 +88,7 @@ func resourceXSSMatchSetCreate(ctx context.Context, d *schema.ResourceData, meta
 func(token *string) (interface{}, error) {
 		params := &waf.CreateXssMatchSetInput{
 			ChangeToken: token,
-			Name:        aws.String(d.Get("name").(string)),
+			Name:  aws.String(d.Get("name").(string)),
 		}
 
 		return conn.CreateXssMatchSetWithContext(ctx, params)
@@ -200,7 +200,7 @@ func(token *string) (interface{}, error) {
 		req := &waf.UpdateXssMatchSetInput{
 			ChangeToken:   token,
 			XssMatchSetId: aws.String(id),
-			Updates:       diffXSSMatchSetTuples(oldT, newT),
+			Updates: diffXSSMatchSetTuples(oldT, newT),
 		}
 
 		log.Printf("[INFO] Updating XSS Match Set tuples: %s", req)
@@ -240,7 +240,7 @@ func diffXSSMatchSetTuples(oldT, newT []interface{}) []*waf.XssMatchSetUpdate {
 		updates = append(updates, &waf.XssMatchSetUpdate{
 			Action: aws.String(waf.ChangeActionDelete),
 			XssMatchTuple: &waf.XssMatchTuple{
-				FieldToMatch:       tfwaf.ExpandFieldToMatch(tuple["field_to_match"].([]interface{})[0].(map[string]interface{})),
+				FieldToMatch: tfwaf.ExpandFieldToMatch(tuple["field_to_match"].([]interface{})[0].(map[string]interface{})),
 				TextTransformation: aws.String(tuple["text_transformation"].(string)),
 			},
 		})
@@ -252,7 +252,7 @@ func diffXSSMatchSetTuples(oldT, newT []interface{}) []*waf.XssMatchSetUpdate {
 		updates = append(updates, &waf.XssMatchSetUpdate{
 			Action: aws.String(waf.ChangeActionInsert),
 			XssMatchTuple: &waf.XssMatchTuple{
-				FieldToMatch:       tfwaf.ExpandFieldToMatch(tuple["field_to_match"].([]interface{})[0].(map[string]interface{})),
+				FieldToMatch: tfwaf.ExpandFieldToMatch(tuple["field_to_match"].([]interface{})[0].(map[string]interface{})),
 				TextTransformation: aws.String(tuple["text_transformation"].(string)),
 			},
 		})

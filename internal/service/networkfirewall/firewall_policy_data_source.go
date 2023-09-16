@@ -23,64 +23,64 @@ func DataSourceFirewallPolicy() *schema.Resource {
 		ReadWithoutTimeout: dataSourceFirewallPolicyRead,
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				AtLeastOneOf: []string{"arn", "name"},
-				Optional:     true,
+				Optional:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"firewall_policy": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"stateful_default_actions": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"stateful_engine_options": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"rule_order": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 									"stream_exception_policy": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"stateful_rule_group_reference": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"override": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Optional: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"action": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Optional: true,
 												},
 											},
 										},
 									},
 									"priority": {
-										Type:     schema.TypeInt,
+										Type:schema.TypeInt,
 										Computed: true,
 									},
 									"resource_arn": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 								},
@@ -88,26 +88,26 @@ func DataSourceFirewallPolicy() *schema.Resource {
 						},
 						"stateless_custom_action": customActionSchemaDataSource(),
 						"stateless_default_actions": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"stateless_fragment_default_actions": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"stateless_rule_group_reference": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"priority": {
-										Type:     schema.TypeInt,
+										Type:schema.TypeInt,
 										Computed: true,
 									},
 									"resource_arn": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 								},
@@ -117,14 +117,14 @@ func DataSourceFirewallPolicy() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				AtLeastOneOf: []string{"arn", "name"},
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z-]{1,128}$`), "Must have 1-128 valid characters: a-z, A-Z, 0-9 and -(hyphen)"),
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"update_token": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},

@@ -314,10 +314,10 @@ resource "aws_s3_bucket" "test" {
 
 resource "aws_macie2_custom_data_identifier" "test" {
   regex     = %[2]q
-  description            = %[3]q
+  description   = %[3]q
   maximum_match_distance = 10
   keywords  = ["test"]
-  ignore_words           = ["not testing"]
+  ignore_words  = ["not testing"]
 
   depends_on = [aws_macie2_account.test]
 }
@@ -335,8 +335,8 @@ resource "aws_macie2_classification_job" "test" {
     daily_schedule = true
   }
   sampling_percentage = 100
-  description         = "test"
-  initial_run         = true
+  description= "test"
+  initial_run= true
 }
 `, bucketName, regex, description)
 }
@@ -353,10 +353,10 @@ resource "aws_s3_bucket" "test" {
 
 resource "aws_macie2_custom_data_identifier" "test" {
   regex     = %[2]q
-  description            = "this a description"
+  description   = "this a description"
   maximum_match_distance = 10
   keywords  = ["test"]
-  ignore_words           = ["not testing"]
+  ignore_words  = ["not testing"]
   tags = {
     Key  = "value"
     Key2 = "value2"
@@ -379,8 +379,8 @@ resource "aws_macie2_classification_job" "test" {
     daily_schedule = true
   }
   sampling_percentage = 100
-  description         = "test"
-  initial_run         = true
+  description= "test"
+  initial_run= true
 }
 `, bucketName, regex)
 }

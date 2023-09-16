@@ -27,10 +27,10 @@ func TestAccEMRServerlessApplication_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_basic(rName),
@@ -52,8 +52,8 @@ func TestAccEMRServerlessApplication_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -67,10 +67,10 @@ func TestAccEMRServerlessApplication_arch(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_arch(rName, "ARM64"),
@@ -80,8 +80,8 @@ func TestAccEMRServerlessApplication_arch(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -102,10 +102,10 @@ func TestAccEMRServerlessApplication_releaseLabel(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_releaseLabel(rName, "emr-6.10.0"),
@@ -115,8 +115,8 @@ func TestAccEMRServerlessApplication_releaseLabel(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -137,10 +137,10 @@ func TestAccEMRServerlessApplication_initialCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_initialCapacity(rName, "2 vCPU"),
@@ -156,8 +156,8 @@ func TestAccEMRServerlessApplication_initialCapacity(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -200,10 +200,10 @@ func TestAccEMRServerlessApplication_imageConfiguration(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: firstImageConfig,
@@ -214,8 +214,8 @@ func TestAccEMRServerlessApplication_imageConfiguration(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -237,10 +237,10 @@ func TestAccEMRServerlessApplication_maxCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_maxCapacity(rName, "2 vCPU"),
@@ -252,8 +252,8 @@ func TestAccEMRServerlessApplication_maxCapacity(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -275,10 +275,10 @@ func TestAccEMRServerlessApplication_network(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_network(rName),
@@ -290,8 +290,8 @@ func TestAccEMRServerlessApplication_network(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -305,10 +305,10 @@ func TestAccEMRServerlessApplication_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_basic(rName),
@@ -330,10 +330,10 @@ func TestAccEMRServerlessApplication_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:  acctest.ErrorCheck(t, names.EMRServerlessEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckApplicationDestroy(ctx),
+		CheckDestroy:testAccCheckApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApplicationConfig_tags1(rName, "key1", "value1"),
@@ -344,8 +344,8 @@ func TestAccEMRServerlessApplication_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -446,15 +446,15 @@ resource "aws_emrserverless_application" "test" {
   type = "hive"
 
   initial_capacity {
-    initial_capacity_type = "HiveDriver"
+initial_capacity_type = "HiveDriver"
 
-    initial_capacity_config {
-      worker_count = 1
-      worker_configuration {
-        cpu    = %[2]q
-        memory = "10 GB"
-      }
-    }
+initial_capacity_config {
+  worker_count = 1
+  worker_configuration {
+cpu= %[2]q
+memory = "10 GB"
+  }
+}
   }
 }
 `, rName, cpu)
@@ -468,8 +468,8 @@ resource "aws_emrserverless_application" "test" {
   type = "hive"
 
   maximum_capacity {
-    cpu    = %[2]q
-    memory = "10 GB"
+cpu= %[2]q
+memory = "10 GB"
   }
 }
 `, rName, cpu)
@@ -478,26 +478,26 @@ resource "aws_emrserverless_application" "test" {
 func testAccApplicationConfig_network(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_security_group" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = "Allow all inbound traffic"
-  vpc_id      = aws_vpc.test.id
+  vpc_id  = aws_vpc.test.id
 
   ingress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-    self      = true
+from_port = 0
+to_port   = 0
+protocol  = "-1"
+self  = true
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+from_port   = 0
+to_port = 0
+protocol= "-1"
+cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -507,8 +507,8 @@ resource "aws_emrserverless_application" "test" {
   type = "hive"
 
   network_configuration {
-    security_group_ids = [aws_security_group.test.id]
-    subnet_ids= aws_subnet.test[*].id
+security_group_ids = [aws_security_group.test.id]
+subnet_ids= aws_subnet.test[*].id
   }
 }
 `, rName))
@@ -522,7 +522,7 @@ resource "aws_emrserverless_application" "test" {
   type = "hive"
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -536,8 +536,8 @@ resource "aws_emrserverless_application" "test" {
   type = "hive"
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -585,7 +585,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -593,8 +593,8 @@ resource "aws_default_route_table" "test" {
   default_route_table_id = aws_vpc.test.default_route_table_id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.test.id
+cidr_block = "0.0.0.0/0"
+gateway_id = aws_internet_gateway.test.id
   }
 }
 
@@ -602,17 +602,17 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  cidr_block     = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  cidr_block = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
   map_public_ip_on_launch = true
   vpc_id   = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -620,48 +620,48 @@ resource "aws_default_security_group" "test" {
   vpc_id = aws_vpc.test.id
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+cidr_blocks = ["0.0.0.0/0"]
+from_port   = 0
+protocol= "-1"
+to_port = 0
   }
 
   ingress {
-    from_port = 0
-    protocol  = -1
-    self      = true
-    to_port   = 0
+from_port = 0
+protocol  = -1
+self  = true
+to_port   = 0
   }
 }
 
 resource "aws_iam_role" "test" {
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "ec2.${data.aws_partition.current.dns_suffix}"
-      }
-      Sid = ""
-    }]
+Version = "2012-10-17"
+Statement = [{
+  Action = "sts:AssumeRole"
+  Effect = "Allow"
+  Principal = {
+Service = "ec2.${data.aws_partition.current.dns_suffix}"
+  }
+  Sid = ""
+}]
   })
   name = %[1]q
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonSSMManagedInstanceCore" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  role       = aws_iam_role.test.name
+  role   = aws_iam_role.test.name
 }
 
 resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilder" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/EC2InstanceProfileForImageBuilder"
-  role       = aws_iam_role.test.name
+  role   = aws_iam_role.test.name
 }
 
 resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilderECRContainerBuilds" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/EC2InstanceProfileForImageBuilderECRContainerBuilds"
-  role       = aws_iam_role.test.name
+  role   = aws_iam_role.test.name
 }
 
 resource "aws_iam_instance_profile" "test" {
@@ -669,20 +669,20 @@ resource "aws_iam_instance_profile" "test" {
   role = aws_iam_role.test.name
 
   depends_on = [
-    aws_iam_role_policy_attachment.AmazonSSMManagedInstanceCore,
-    aws_iam_role_policy_attachment.EC2InstanceProfileForImageBuilderECRContainerBuilds
+aws_iam_role_policy_attachment.AmazonSSMManagedInstanceCore,
+aws_iam_role_policy_attachment.EC2InstanceProfileForImageBuilderECRContainerBuilds
   ]
 }
 
 resource "aws_imagebuilder_container_recipe" "test_version1" {
-  name     = "%[1]s_version1"
-  container_type    = "DOCKER"
-  parent_image      = "public.ecr.aws/emr-serverless/hive/emr-6.9.0"
+  name = "%[1]s_version1"
+  container_type= "DOCKER"
+  parent_image  = "public.ecr.aws/emr-serverless/hive/emr-6.9.0"
   version  = %[3]q
   platform_override = "Linux"
 
   component {
-    component_arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:component/hello-world-linux/x.x.x"
+component_arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:component/hello-world-linux/x.x.x"
   }
 
   dockerfile_template_data = <<EOF
@@ -690,20 +690,20 @@ FROM {{{ imagebuilder:parentImage }}}
 EOF
 
   target_repository {
-    repository_name = aws_ecr_repository.test.name
-    service= "ECR"
+repository_name = aws_ecr_repository.test.name
+service= "ECR"
   }
 }
 
 resource "aws_imagebuilder_container_recipe" "test_version2" {
-  name     = "%[1]s_version2"
-  container_type    = "DOCKER"
-  parent_image      = "public.ecr.aws/emr-serverless/hive/emr-6.9.0"
+  name = "%[1]s_version2"
+  container_type= "DOCKER"
+  parent_image  = "public.ecr.aws/emr-serverless/hive/emr-6.9.0"
   version  = %[4]q
   platform_override = "Linux"
 
   component {
-    component_arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:component/hello-world-linux/x.x.x"
+component_arn = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:component/hello-world-linux/x.x.x"
   }
 
   dockerfile_template_data = <<EOF
@@ -711,27 +711,27 @@ FROM {{{ imagebuilder:parentImage }}}
 EOF
 
   target_repository {
-    repository_name = aws_ecr_repository.test.name
-    service= "ECR"
+repository_name = aws_ecr_repository.test.name
+service= "ECR"
   }
 }
 
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
-  security_group_ids    = [aws_default_security_group.test.id]
-  subnet_id    = aws_subnet.test.id
+  security_group_ids= [aws_default_security_group.test.id]
+  subnet_id= aws_subnet.test.id
 
   depends_on = [aws_default_route_table.test]
 }
 
 resource "aws_imagebuilder_image" "test_version1" {
-  container_recipe_arn    = aws_imagebuilder_container_recipe.test_version1.arn
+  container_recipe_arn= aws_imagebuilder_container_recipe.test_version1.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }
 
 resource "aws_imagebuilder_image" "test_version2" {
-  container_recipe_arn    = aws_imagebuilder_container_recipe.test_version2.arn
+  container_recipe_arn= aws_imagebuilder_container_recipe.test_version2.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }
 
@@ -741,7 +741,7 @@ resource "aws_emrserverless_application" "test" {
   type = "hive"
 
   image_configuration {
-    image_uri = "${aws_ecr_repository.test.repository_url}:${replace(aws_imagebuilder_image.%[2]s.version, "/", "-")}"
+image_uri = "${aws_ecr_repository.test.repository_url}:${replace(aws_imagebuilder_image.%[2]s.version, "/", "-")}"
   }
 }
 `, rName, selectedVersionResourceName, firstImageVersion, secondImageVersion), nil

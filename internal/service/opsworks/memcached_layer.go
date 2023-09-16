@@ -19,7 +19,7 @@ func ResourceMemcachedLayer() *schema.Resource {
 		Attributes: map[string]*opsworksLayerTypeAttribute{
 			"allocated_memory": {
 				AttrName: opsworks.LayerAttributesKeysMemcachedMemory,
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Default:  512,
 			},
 		},

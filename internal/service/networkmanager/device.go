@@ -76,13 +76,13 @@ func ResourceDevice() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"subnet_arn": {
-							Type:          schema.TypeString,
+							Type: schema.TypeString,
 							Optional:      true,
 							ValidateFunc:  verify.ValidARN,
 							ConflictsWith: []string{"aws_location.0.zone"},
 						},
 						"zone": {
-							Type:          schema.TypeString,
+							Type: schema.TypeString,
 							Optional:      true,
 							ConflictsWith: []string{"aws_location.0.subnet_arn"},
 						},
@@ -90,7 +90,7 @@ func ResourceDevice() *schema.Resource {
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
@@ -106,17 +106,17 @@ func ResourceDevice() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"address": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 256),
 						},
 						"latitude": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 256),
 						},
 						"longitude": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 256),
 						},
@@ -124,12 +124,12 @@ func ResourceDevice() *schema.Resource {
 				},
 			},
 			"model": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 128),
 			},
 			"serial_number": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 128),
 			},
@@ -140,12 +140,12 @@ func ResourceDevice() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
 			"vendor": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 128),
 			},
@@ -159,7 +159,7 @@ func resourceDeviceCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	globalNetworkID := d.Get("global_network_id").(string)
 	input := &networkmanager.CreateDeviceInput{
 		GlobalNetworkId: aws.String(globalNetworkID),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -263,11 +263,11 @@ func resourceDeviceUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 			Description:     aws.String(d.Get("description").(string)),
 			DeviceId:        aws.String(d.Id()),
 			GlobalNetworkId: aws.String(globalNetworkID),
-			Model:           aws.String(d.Get("model").(string)),
+			Model:  aws.String(d.Get("model").(string)),
 			SerialNumber:    aws.String(d.Get("serial_number").(string)),
-			SiteId:          aws.String(d.Get("site_id").(string)),
-			Type:            aws.String(d.Get("type").(string)),
-			Vendor:          aws.String(d.Get("vendor").(string)),
+			SiteId: aws.String(d.Get("site_id").(string)),
+			Type:   aws.String(d.Get("type").(string)),
+			Vendor: aws.String(d.Get("vendor").(string)),
 		}
 
 		if v, ok := d.GetOk("aws_location"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {

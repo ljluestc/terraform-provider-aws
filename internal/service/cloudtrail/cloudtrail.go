@@ -40,73 +40,73 @@ func ResourceCloudTrail() *schema.Resource { // nosemgrep:ci.cloudtrail-in-func-
 
 		Schema: map[string]*schema.Schema{
 			"advanced_event_selector": {
-				Type:          schema.TypeList,
-				Optional:      true,
+				Type: schema.TypeList,
+				Optional:  true,
 				ConflictsWith: []string{"event_selector"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"field_selector": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Required: true,
 							MinItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"ends_with": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
 									"equals": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
 									"field": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: validation.StringInSlice(field_Values(), false),
 									},
 									"not_ends_with": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
 									"not_equals": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
 									"not_starts_with": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
 									"starts_with": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
@@ -114,140 +114,140 @@ func ResourceCloudTrail() *schema.Resource { // nosemgrep:ci.cloudtrail-in-func-
 							},
 						},
 						"name": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional: true,
 							ValidateFunc: validation.StringLenBetween(0, 1000),
 						},
 					},
 				},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"cloud_watch_logs_group_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"cloud_watch_logs_role_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"enable_log_file_validation": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"enable_logging": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"event_selector": {
-				Type:          schema.TypeList,
-				Optional:      true,
-				MaxItems:      5,
+				Type: schema.TypeList,
+				Optional:  true,
+				MaxItems:  5,
 				ConflictsWith: []string{"advanced_event_selector"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"data_resource": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"type": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: validation.StringInSlice(resourceType_Values(), false),
 									},
 									"values": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Required: true,
 										MaxItems: 250,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem: &schema.Schema{Type: schema.TypeString},
 									},
 								},
 							},
 						},
 						"exclude_management_event_sources": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 						"include_management_events": {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Optional: true,
 							Default:  true,
 						},
 						"read_write_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      cloudtrail.ReadWriteTypeAll,
+							Type:schema.TypeString,
+							Optional: true,
+							Default:  cloudtrail.ReadWriteTypeAll,
 							ValidateFunc: validation.StringInSlice(cloudtrail.ReadWriteType_Values(), false),
 						},
 					},
 				},
 			},
 			"home_region": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"include_global_service_events": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"insight_selector": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"insight_type": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: validation.StringInSlice(cloudtrail.InsightType_Values(), false),
 						},
 					},
 				},
 			},
 			"is_multi_region_trail": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"is_organization_trail": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(3, 128),
 			},
 			"s3_bucket_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 			"s3_key_prefix": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 2000),
 			},
 			"sns_topic_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -260,9 +260,9 @@ func resourceCloudTrailCreate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).CloudTrailConn(ctx)
 
 	input := cloudtrail.CreateTrailInput{
-		Name:         aws.String(d.Get("name").(string)),
+		Name:aws.String(d.Get("name").(string)),
 		S3BucketName: aws.String(d.Get("s3_bucket_name").(string)),
-		TagsList:     getTagsIn(ctx),
+		TagsList: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("cloud_watch_logs_group_arn"); ok {
@@ -607,8 +607,8 @@ func setEventSelectors(ctx context.Context, conn *cloudtrail.CloudTrail, d *sche
 	if len(eventSelectors) == 0 {
 		es := &cloudtrail.EventSelector{
 			IncludeManagementEvents: aws.Bool(true),
-			ReadWriteType:           aws.String(cloudtrail.ReadWriteTypeAll),
-			DataResources:           make([]*cloudtrail.DataResource, 0),
+			ReadWriteType:  aws.String(cloudtrail.ReadWriteTypeAll),
+			DataResources:  make([]*cloudtrail.DataResource, 0),
 		}
 		eventSelectors = append(eventSelectors, es)
 	}
@@ -635,8 +635,8 @@ func expandEventSelector(configured []interface{}) []*cloudtrail.EventSelector {
 
 		es := &cloudtrail.EventSelector{
 			IncludeManagementEvents: aws.Bool(data["include_management_events"].(bool)),
-			ReadWriteType:           aws.String(data["read_write_type"].(string)),
-			DataResources:           dataResources,
+			ReadWriteType:  aws.String(data["read_write_type"].(string)),
+			DataResources:  dataResources,
 		}
 
 		if v, ok := data["exclude_management_event_sources"].(*schema.Set); ok && v.Len() > 0 {
@@ -728,7 +728,7 @@ func expandAdvancedEventSelector(configured []interface{}) []*cloudtrail.Advance
 		fieldSelectors := expandAdvancedEventSelectorFieldSelector(data["field_selector"].(*schema.Set))
 
 		aes := &cloudtrail.AdvancedEventSelector{
-			Name:           aws.String(data["name"].(string)),
+			Name:  aws.String(data["name"].(string)),
 			FieldSelectors: fieldSelectors,
 		}
 

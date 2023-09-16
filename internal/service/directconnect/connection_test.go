@@ -19,7 +19,6 @@ import (
 	tfdirectconnect "github.com/hashicorp/terraform-provider-aws/internal/service/directconnect"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccDirectConnectConnection_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var connection directconnect.Connection
@@ -27,7 +26,7 @@ func TestAccDirectConnectConnection_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectionDestroy(ctx),
@@ -49,15 +48,14 @@ func TestAccDirectConnectConnection_basic(t *testing.T) {
 			},
 			// Test import.
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"request_macsec", "skip_destroy"},
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectConnection_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var connection directconnect.Connection
@@ -65,7 +63,7 @@ func TestAccDirectConnectConnection_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectionDestroy(ctx),
@@ -81,7 +79,6 @@ func TestAccDirectConnectConnection_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDirectConnectConnection_encryptionMode(t *testing.T) {
 	ctx := acctest.Context(t)
 	dxKey := "DX_CONNECTION_ID"
@@ -102,16 +99,16 @@ func TestAccDirectConnectConnection_encryptionMode(t *testing.T) {
 	cak := testAccDirecConnectMacSecGenerateHex()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config:testAccConnectionConfig_encryptionModeShouldEncrypt(connectionName, ckn, cak),
-				ResourceName:       resourceName,
-				ImportState:        true,
-				ImportStateId:      connectionId,
+				ResourceName:rceName,
+				ImportState:,
+				ImportStateId:tionId,
 				ImportStatePersist: true,
 			},
 			{
@@ -139,7 +136,6 @@ func TestAccDirectConnectConnection_encryptionMode(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDirectConnectConnection_macsecRequested(t *testing.T) {
 	ctx := acctest.Context(t)
 	var connection directconnect.Connection
@@ -147,7 +143,7 @@ func TestAccDirectConnectConnection_macsecRequested(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectionDestroy(ctx),
@@ -167,15 +163,14 @@ func TestAccDirectConnectConnection_macsecRequested(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"request_macsec", "skip_destroy"},
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectConnection_providerName(t *testing.T) {
 	ctx := acctest.Context(t)
 	var connection directconnect.Connection
@@ -183,7 +178,7 @@ func TestAccDirectConnectConnection_providerName(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectionDestroy(ctx),
@@ -203,15 +198,14 @@ func TestAccDirectConnectConnection_providerName(t *testing.T) {
 			},
 			// Test import.
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"request_macsec", "skip_destroy"},
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectConnection_skipDestroy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var connection directconnect.Connection
@@ -219,7 +213,7 @@ func TestAccDirectConnectConnection_skipDestroy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectionNoDestroy(ctx),
@@ -234,7 +228,6 @@ func TestAccDirectConnectConnection_skipDestroy(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDirectConnectConnection_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var connection directconnect.Connection
@@ -242,7 +235,7 @@ func TestAccDirectConnectConnection_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckConnectionDestroy(ctx),
@@ -258,9 +251,9 @@ func TestAccDirectConnectConnection_tags(t *testing.T) {
 			},
 			// Test import.
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"request_macsec", "skip_destroy"},
 			},
 			{
@@ -294,15 +287,15 @@ func TestAccDirectConnectConnection_vlanIDMigration501(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:     func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:   acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
 		CheckDestroy: testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				// At v5.0.1 the resource's schema is v0 and vlan_id is TypeString.
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:ws",
 						VersionConstraint: "5.0.1",
 					},
 				},
@@ -314,7 +307,7 @@ func TestAccDirectConnectConnection_vlanIDMigration501(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:      testAccConnectionConfig_basic(rName),
+				Config:cConnectionConfig_basic(rName),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckConnectionExists(ctx, resourceName, &connection),
 					resource.TestCheckResourceAttr(resourceName, "vlan_id", "0"),
@@ -323,7 +316,6 @@ func TestAccDirectConnectConnection_vlanIDMigration501(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDirectConnectConnection_vlanIDMigration510(t *testing.T) {
 	ctx := acctest.Context(t)
 	var connection directconnect.Connection
@@ -331,15 +323,15 @@ func TestAccDirectConnectConnection_vlanIDMigration510(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:     func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:   acctest.ErrorCheck(t, directconnect.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
 		CheckDestroy: testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				// At v5.1.0 the resource's schema is v0 and vlan_id is TypeInt.
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:ws",
 						VersionConstraint: "5.1.0",
 					},
 				},
@@ -351,13 +343,12 @@ func TestAccDirectConnectConnection_vlanIDMigration510(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:      testAccConnectionConfig_basic(rName),
-				PlanOnly:    true,
+				Config:cConnectionConfig_basic(rName),
+				PlanOnly: true,
 			},
 		},
 	})
 }
-
 func testAccCheckConnectionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -383,7 +374,6 @@ func testAccCheckConnectionDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckConnectionExists(ctx context.Context, name string, v *directconnect.Connection) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -408,7 +398,6 @@ func testAccCheckConnectionExists(ctx context.Context, name string, v *directcon
 		return nil
 	}
 }
-
 func testAccCheckConnectionNoDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -426,61 +415,57 @@ func testAccCheckConnectionNoDestroy(ctx context.Context) resource.TestCheckFunc
 		return nil
 	}
 }
-
 func testAccConnectionConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
 
 locals {
   location_codes = tolist(data.aws_dx_locations.test.location_codes)
-  idx            = min(2, length(local.location_codes) - 1)
+  idxgth(local.location_codes) - 1)
 }
 
 resource "aws_dx_connection" "test" {
-  name      = %[1]q
+  nameq
   bandwidth = "1Gbps"
   location  = local.location_codes[local.idx]
 }
 `, rName)
 }
-
 func testAccConnectionConfig_encryptionModeNoEncrypt(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dx_connection" "test" {
-  name            = %[1]q
-  location        = "CSOW"
-  bandwidth       = "100Gbps"
+  name
+  locationSOW"
+  bandwidth0Gbps"
   encryption_mode = "no_encrypt"
-  skip_destroy    = true
+  skip_destroy = true
 }
 `, rName)
 }
-
 func testAccConnectionConfig_encryptionModeShouldEncrypt(rName, ckn, cak string) string {
 	return fmt.Sprintf(`
 resource "aws_dx_connection" "test" {
-  name            = %[1]q
-  location        = "CSOW"
-  bandwidth       = "100Gbps"
+  name
+  locationSOW"
+  bandwidth0Gbps"
   encryption_mode = "should_encrypt"
-  skip_destroy    = true
+  skip_destroy = true
 }
 
 resource "aws_dx_macsec_key_association" "test" {
   connection_id = aws_dx_connection.test.id
-  ckn           = %[2]q
-  cak           = %[3]q
+  ckn %[2]q
+  cak %[3]q
 }
 `, rName, ckn, cak)
 }
-
 func testAccConnectionConfig_macsecEnabled(rName string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
 
 locals {
   location_codes = tolist(data.aws_dx_locations.test.location_codes)
-  idx            = min(2, length(local.location_codes) - 1)
+  idxgth(local.location_codes) - 1)
 }
 
 data "aws_dx_location" "test" {
@@ -488,23 +473,22 @@ data "aws_dx_location" "test" {
 }
 
 resource "aws_dx_connection" "test" {
-  name           = %[1]q
-  bandwidth      = "100Gbps"
-  location       = data.aws_dx_location.test.location_code
+  name %[1]q
+  bandwidthGbps"
+  locationa.aws_dx_location.test.location_code
   request_macsec = true
 
   provider_name = data.aws_dx_location.test.available_providers[0]
 }
 `, rName)
 }
-
 func testAccConnectionConfig_providerName(rName string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
 
 locals {
   location_codes = tolist(data.aws_dx_locations.test.location_codes)
-  idx            = min(2, length(local.location_codes) - 1)
+  idxgth(local.location_codes) - 1)
 }
 
 data "aws_dx_location" "test" {
@@ -512,7 +496,7 @@ data "aws_dx_location" "test" {
 }
 
 resource "aws_dx_connection" "test" {
-  name      = %[1]q
+  nameq
   bandwidth = "1Gbps"
   location  = data.aws_dx_location.test.location_code
 
@@ -520,63 +504,60 @@ resource "aws_dx_connection" "test" {
 }
 `, rName)
 }
-
 func testAccConnectionConfig_skipDestroy(rName string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
 
 locals {
   location_codes = tolist(data.aws_dx_locations.test.location_codes)
-  idx            = min(2, length(local.location_codes) - 1)
+  idxgth(local.location_codes) - 1)
 }
 
 resource "aws_dx_connection" "test" {
-  name         = %[1]q
-  bandwidth    = "1Gbps"
-  location     = local.location_codes[local.idx]
+  name[1]q
+  bandwidth = "1Gbps"
+  location= local.location_codes[local.idx]
   skip_destroy = true
 }
 	`, rName)
 }
-
 func testAccConnectionConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
 
 locals {
   location_codes = tolist(data.aws_dx_locations.test.location_codes)
-  idx            = min(2, length(local.location_codes) - 1)
+  idxgth(local.location_codes) - 1)
 }
 
 resource "aws_dx_connection" "test" {
-  name      = %[1]q
+  nameq
   bandwidth = "1Gbps"
   location  = local.location_codes[local.idx]
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccConnectionConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 data "aws_dx_locations" "test" {}
 
 locals {
   location_codes = tolist(data.aws_dx_locations.test.location_codes)
-  idx            = min(2, length(local.location_codes) - 1)
+  idxgth(local.location_codes) - 1)
 }
 
 resource "aws_dx_connection" "test" {
-  name      = %[1]q
+  nameq
   bandwidth = "1Gbps"
   location  = local.location_codes[local.idx]
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

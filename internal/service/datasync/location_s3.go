@@ -43,7 +43,7 @@ func ResourceLocationS3() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
@@ -52,7 +52,7 @@ func ResourceLocationS3() *schema.Resource {
 				Computed: true,
 			},
 			"s3_bucket_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -65,7 +65,7 @@ func ResourceLocationS3() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"bucket_access_role_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: verify.ValidARN,
@@ -74,7 +74,7 @@ func ResourceLocationS3() *schema.Resource {
 				},
 			},
 			"s3_storage_class": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -115,7 +115,7 @@ func resourceLocationS3Create(ctx context.Context, d *schema.ResourceData, meta 
 		S3BucketArn:  aws.String(d.Get("s3_bucket_arn").(string)),
 		S3Config:     expandS3Config(d.Get("s3_config").([]interface{})),
 		Subdirectory: aws.String(d.Get("subdirectory").(string)),
-		Tags:         getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("agent_arns"); ok {

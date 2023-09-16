@@ -28,10 +28,10 @@ func TestAccGlueSchema_basic(t *testing.T) {
 	registryResourceName := "aws_glue_registry.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSchemaDestroy(ctx),
+		CheckDestroy:    testAccCheckSchemaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSchemaConfig_basic(rName),
@@ -68,10 +68,10 @@ func TestAccGlueSchema_json(t *testing.T) {
 	resourceName := "aws_glue_schema.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSchemaDestroy(ctx),
+		CheckDestroy:    testAccCheckSchemaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSchemaConfig_json(rName),
@@ -98,10 +98,10 @@ func TestAccGlueSchema_protobuf(t *testing.T) {
 	resourceName := "aws_glue_schema.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSchemaDestroy(ctx),
+		CheckDestroy:    testAccCheckSchemaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSchemaConfig_protobuf(rName),
@@ -128,10 +128,10 @@ func TestAccGlueSchema_description(t *testing.T) {
 	resourceName := "aws_glue_schema.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSchemaDestroy(ctx),
+		CheckDestroy:    testAccCheckSchemaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSchemaConfig_description(rName, "First Description"),
@@ -164,10 +164,10 @@ func TestAccGlueSchema_compatibility(t *testing.T) {
 	resourceName := "aws_glue_schema.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSchemaDestroy(ctx),
+		CheckDestroy:    testAccCheckSchemaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSchemaConfig_compatibility(rName, "DISABLED"),
@@ -199,10 +199,10 @@ func TestAccGlueSchema_tags(t *testing.T) {
 	resourceName := "aws_glue_schema.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSchemaDestroy(ctx),
+		CheckDestroy:    testAccCheckSchemaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSchemaConfig_tags1(rName, "key1", "value1"),
@@ -246,10 +246,10 @@ func TestAccGlueSchema_schemaDefUpdated(t *testing.T) {
 	resourceName := "aws_glue_schema.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSchemaDestroy(ctx),
+		CheckDestroy:    testAccCheckSchemaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSchemaConfig_basic(rName),
@@ -286,10 +286,10 @@ func TestAccGlueSchema_disappears(t *testing.T) {
 	resourceName := "aws_glue_schema.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSchemaDestroy(ctx),
+		CheckDestroy:    testAccCheckSchemaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSchemaConfig_basic(rName),
@@ -311,10 +311,10 @@ func TestAccGlueSchema_Disappears_registry(t *testing.T) {
 	resourceName := "aws_glue_schema.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckSchema(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSchemaDestroy(ctx),
+		CheckDestroy:    testAccCheckSchemaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSchemaConfig_basic(rName),

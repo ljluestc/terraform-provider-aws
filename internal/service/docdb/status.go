@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func statusGlobalClusterRefreshFunc(ctx context.Context, conn *docdb.DocDB, globalClusterID string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		globalCluster, err := FindGlobalClusterById(ctx, conn, globalClusterID)
@@ -29,7 +28,6 @@ func statusGlobalClusterRefreshFunc(ctx context.Context, conn *docdb.DocDB, glob
 		return globalCluster, aws.StringValue(globalCluster.Status), nil
 	}
 }
-
 func statusDBClusterRefreshFunc(ctx context.Context, conn *docdb.DocDB, dBClusterID string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		dBCluster, err := FindDBClusterById(ctx, conn, dBClusterID)
@@ -45,7 +43,6 @@ func statusDBClusterRefreshFunc(ctx context.Context, conn *docdb.DocDB, dBCluste
 		return dBCluster, aws.StringValue(dBCluster.Status), nil
 	}
 }
-
 func statusDBClusterSnapshotRefreshFunc(ctx context.Context, conn *docdb.DocDB, dBClusterSnapshotID string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		dBClusterSnapshot, err := FindDBClusterSnapshotById(ctx, conn, dBClusterSnapshotID)
@@ -61,7 +58,6 @@ func statusDBClusterSnapshotRefreshFunc(ctx context.Context, conn *docdb.DocDB, 
 		return dBClusterSnapshot, aws.StringValue(dBClusterSnapshot.Status), nil
 	}
 }
-
 func statusDBInstanceRefreshFunc(ctx context.Context, conn *docdb.DocDB, dBInstanceID string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		dBInstance, err := FindDBInstanceById(ctx, conn, dBInstanceID)
@@ -77,7 +73,6 @@ func statusDBInstanceRefreshFunc(ctx context.Context, conn *docdb.DocDB, dBInsta
 		return dBInstance, aws.StringValue(dBInstance.DBInstanceStatus), nil
 	}
 }
-
 func statusDBSubnetGroupRefreshFunc(ctx context.Context, conn *docdb.DocDB, dBSubnetGroupName string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		dBSubnetGroup, err := FindDBSubnetGroupByName(ctx, conn, dBSubnetGroupName)
@@ -93,7 +88,6 @@ func statusDBSubnetGroupRefreshFunc(ctx context.Context, conn *docdb.DocDB, dBSu
 		return dBSubnetGroup, aws.StringValue(dBSubnetGroup.SubnetGroupStatus), nil
 	}
 }
-
 func statusEventSubscription(ctx context.Context, conn *docdb.DocDB, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindEventSubscriptionByID(ctx, conn, id)

@@ -13,8 +13,10 @@ import (
 )
 
 // CustomizeConn customizes a new AWS SDK for Go v1 client for this service package's AWS API.
+
 func (p *servicePackage) CustomizeConn(ctx context.Context, conn *organizations_sdkv1.Organizations) (*organizations_sdkv1.Organizations, error) {
-	conn.Handlers.Retry.PushBack(func(r *request_sdkv1.Request) {
+	conn.Handlers.Retry.PushBack(
+func(r *request_sdkv1.Request) {
 		// Retry on the following error:
 		// ConcurrentModificationException: AWS Organizations can't complete your request because it conflicts with another attempt to modify the same entity. Try again later.
 		if tfawserr.ErrMessageContains(r.Error, organizations_sdkv1.ErrCodeConcurrentModificationException, "Try again later") {

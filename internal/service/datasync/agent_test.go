@@ -28,10 +28,10 @@ func TestAccDataSyncAgent_basic(t *testing.T) {
 	resourceName := "aws_datasync_agent.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAgentDestroy(ctx),
+		CheckDestroy:    testAccCheckAgentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAgentConfig_basic(rName),
@@ -47,8 +47,8 @@ func TestAccDataSyncAgent_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "ip_address"},
 			},
@@ -63,10 +63,10 @@ func TestAccDataSyncAgent_disappears(t *testing.T) {
 	resourceName := "aws_datasync_agent.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAgentDestroy(ctx),
+		CheckDestroy:    testAccCheckAgentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAgentConfig_basic(rName),
@@ -88,10 +88,10 @@ func TestAccDataSyncAgent_agentName(t *testing.T) {
 	resourceName := "aws_datasync_agent.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAgentDestroy(ctx),
+		CheckDestroy:    testAccCheckAgentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAgentConfig_name(rName1, rName1),
@@ -108,8 +108,8 @@ func TestAccDataSyncAgent_agentName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "ip_address"},
 			},
@@ -124,10 +124,10 @@ func TestAccDataSyncAgent_tags(t *testing.T) {
 	resourceName := "aws_datasync_agent.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAgentDestroy(ctx),
+		CheckDestroy:    testAccCheckAgentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAgentConfig_tags1(rName, "key1", "value1"),
@@ -138,8 +138,8 @@ func TestAccDataSyncAgent_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "ip_address"},
 			},
@@ -176,10 +176,10 @@ func TestAccDataSyncAgent_vpcEndpointID(t *testing.T) {
 	vpcEndpointResourceName := "aws_vpc_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAgentDestroy(ctx),
+		CheckDestroy:    testAccCheckAgentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAgentConfig_vpcEndpointID(rName),
@@ -193,8 +193,8 @@ func TestAccDataSyncAgent_vpcEndpointID(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "ip_address", "private_link_ip"},
 			},
@@ -322,11 +322,11 @@ resource "aws_security_group" "test" {
 resource "aws_instance" "test" {
   depends_on = [aws_internet_gateway.test]
 
-  ami                         = data.aws_ssm_parameter.aws_service_datasync_ami.value
+  ami       = data.aws_ssm_parameter.aws_service_datasync_ami.value
   associate_public_ip_address = true
-  instance_type               = data.aws_ec2_instance_type_offering.available.instance_type
+  instance_type      = data.aws_ec2_instance_type_offering.available.instance_type
   vpc_security_group_ids      = [aws_security_group.test.id]
-  subnet_id                   = aws_subnet.test[0].id
+  subnet_id = aws_subnet.test[0].id
 
   tags = {
     Name = %[1]q
@@ -380,11 +380,11 @@ resource "aws_datasync_agent" "test" {
 func testAccAgentConfig_vpcEndpointID(rName string) string {
 	return acctest.ConfigCompose(testAccAgentAgentConfig_base(rName), fmt.Sprintf(`
 resource "aws_datasync_agent" "test" {
-  name                  = %[1]q
+  name= %[1]q
   security_group_arns   = [aws_security_group.test.arn]
-  subnet_arns           = [aws_subnet.test[0].arn]
+  subnet_arns  = [aws_subnet.test[0].arn]
   vpc_endpoint_id       = aws_vpc_endpoint.test.id
-  ip_address            = aws_instance.test.public_ip
+  ip_address   = aws_instance.test.public_ip
   private_link_endpoint = data.aws_network_interface.test.private_ip
 }
 
@@ -392,9 +392,9 @@ data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
   service_name       = "com.amazonaws.${data.aws_region.current.name}.datasync"
-  vpc_id             = aws_vpc.test.id
+  vpc_id    = aws_vpc.test.id
   security_group_ids = [aws_security_group.test.id]
-  subnet_ids         = [aws_subnet.test[0].id]
+  subnet_ids= [aws_subnet.test[0].id]
   vpc_endpoint_type  = "Interface"
 
   tags = {

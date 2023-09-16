@@ -20,7 +20,6 @@ import (
 	tfkms "github.com/hashicorp/terraform-provider-aws/internal/service/kms"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccKMSKey_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -43,7 +42,7 @@ func TestAccKMSKey_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
@@ -58,7 +57,6 @@ func TestAccKMSKey_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -82,7 +80,6 @@ func TestAccKMSKey_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_multiRegion(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -103,7 +100,7 @@ func TestAccKMSKey_multiRegion(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
@@ -111,7 +108,6 @@ func TestAccKMSKey_multiRegion(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_asymmetricKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -135,7 +131,6 @@ func TestAccKMSKey_asymmetricKey(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_hmacKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -159,7 +154,6 @@ func TestAccKMSKey_hmacKey(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_Policy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -181,7 +175,7 @@ func TestAccKMSKey_Policy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
@@ -195,7 +189,6 @@ func TestAccKMSKey_Policy_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_Policy_bypass(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -220,7 +213,7 @@ func TestAccKMSKey_Policy_bypass(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
@@ -228,7 +221,6 @@ func TestAccKMSKey_Policy_bypass(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_Policy_bypassUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after kms.KeyMetadata
@@ -258,7 +250,6 @@ func TestAccKMSKey_Policy_bypassUpdate(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_Policy_iamRole(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -278,7 +269,7 @@ func TestAccKMSKey_Policy_iamRole(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
@@ -286,7 +277,6 @@ func TestAccKMSKey_Policy_iamRole(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_Policy_iamRoleUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -379,7 +369,7 @@ func TestAccKMSKey_Policy_iamServiceLinkedRole(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
@@ -387,7 +377,6 @@ func TestAccKMSKey_Policy_iamServiceLinkedRole(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_Policy_booleanCondition(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -409,7 +398,6 @@ func TestAccKMSKey_Policy_booleanCondition(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_isEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key1, key2, key3 kms.KeyMetadata
@@ -431,7 +419,7 @@ func TestAccKMSKey_isEnabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
@@ -455,7 +443,6 @@ func TestAccKMSKey_isEnabled(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKey_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var key kms.KeyMetadata
@@ -477,7 +464,7 @@ func TestAccKMSKey_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
@@ -507,7 +494,7 @@ func TestAccKMSKey_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
@@ -592,7 +579,6 @@ func TestAccKMSKey_updateTagsEmptyValue(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckKeyHasPolicy(ctx context.Context, name string, expectedPolicyText string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -628,7 +614,6 @@ func testAccCheckKeyHasPolicy(ctx context.Context, name string, expectedPolicyTe
 		return nil
 	}
 }
-
 func testAccCheckKeyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).KMSConn(ctx)
@@ -654,7 +639,6 @@ func testAccCheckKeyDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckKeyExists(ctx context.Context, name string, key *kms.KeyMetadata) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -681,7 +665,6 @@ func testAccCheckKeyExists(ctx context.Context, name string, key *kms.KeyMetadat
 		return nil
 	}
 }
-
 func testAccCheckKeyAddTag(ctx context.Context, key *kms.KeyMetadata, tagKey, tagValue string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).KMSConn(ctx)
@@ -699,13 +682,11 @@ func testAccCheckKeyAddTag(ctx context.Context, key *kms.KeyMetadata, tagKey, ta
 		return err
 	}
 }
-
 func testAccKeyConfig_basic() string {
 	return `
 resource "aws_kms_key" "test" {}
 `
 }
-
 func testAccKeyConfig_basicDeletionWindow() string {
 	return `
 resource "aws_kms_key" "test" {
@@ -713,7 +694,6 @@ resource "aws_kms_key" "test" {
 }
 `
 }
-
 func testAccKeyConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -722,7 +702,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_multiRegion(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -734,7 +713,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_asymmetric(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -746,7 +724,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_hmac(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -758,7 +735,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_policy(rName string) string {
 	return fmt.Sprintf(`
 
@@ -782,7 +758,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_policyBypass(rName string, bypassFlag bool) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
@@ -820,7 +795,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName, bypassFlag)
 }
-
 func testAccKeyConfig_policyIAMRole(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -881,7 +855,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_policyIAMMultiRole(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -1006,7 +979,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_policyIAMServiceLinkedRole(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -1057,7 +1029,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_policyBooleanCondition(rName string) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
@@ -1109,7 +1080,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_removedPolicy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -1118,7 +1088,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_enabledRotation(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -1128,7 +1097,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_disabled(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -1139,7 +1107,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_enabled(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -1150,7 +1117,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -1163,7 +1129,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccKeyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -1177,7 +1142,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccKeyConfig_tags0(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -1186,7 +1150,6 @@ resource "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyConfig_ignoreTags(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	// lintignore:AT004
 	return fmt.Sprintf(`

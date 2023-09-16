@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/rds"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -18,19 +12,16 @@ import (
 	tfrds "github.com/hashicorp/terraform-provider-aws/internal/service/rds"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
-	}
-
-	var v rds.DBSnapshot
+	}	var v rds.DBSnapshot
 	resourceName := "aws_db_snapshot.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckDBSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -43,28 +34,25 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccRDSSnapshot_share(t *testing.T) {
 	ctx := acctest.Context(t)
 funcip("skipping long-running test in short mode")
-	}
-
-	var v rds.DBSnapshot
+	}	var v rds.DBSnapshot
 	resourceName := "aws_db_snapshot.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:funcs: []resource.TestStep{
+CheckDestroy:
+funcs: []resource.TestStep{
 	{
 Config: testAccSnapshotConfig_share(rName),
 Check: resource.ComposeTestCheckFunc(
@@ -74,8 +62,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -88,7 +76,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccRDSSnapshot_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -96,15 +83,15 @@ t.Skip("skipping long-running test in short mode")
 func
 	var v rds.DBSnapshot
 	resourceName := "aws_db_snapshot.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckDBSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
-	{funcig: testAccSnapshotConfig_tags1(rName, "key1", "value1"),
+	{
+funcig: testAccSnapshotConfig_tags1(rName, "key1", "value1"),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckDBSnapshotExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
@@ -112,8 +99,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -136,25 +123,23 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccRDSSnapshot_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
 	}
-
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_snapshot.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_snapshot.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckDBSnapshotDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSnapshotConfig_basic(rName),
-Check: resourfunctAccCheckDBSnapshotExists(ctx, resourceName, &v),
+Check: resour
+functAccCheckDBSnapshotExists(ctx, resourceName, &v),
 	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrds.ResourceSnapshot(), resourceName),
 ),
 ExpectNonEmptyPlan: true,
@@ -162,119 +147,95 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func testAccCheckDBSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_db_snapshot" {
 continue
 	}
 funcerr := tfrds.FindDBSnapshotByID(ctx, conn, rs.Primary.ID)
 functfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
-	}
-
-	return fmt.Errorf("RDS DB Snapshot %s still exists", rs.Primary.ID)
-}
-
-return nil
+	}	return fmt.Errorf("RDS DB Snapshot %s still exists", rs.Primary.ID)
+}return nil
 	}
 }
-
 func testAccCheckDBSnapshotExists(ctx context.Context, n string, v *rds.DBSnapshot) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No RDS DB Snapshot ID is set")
 }
 func := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 funcut, err := tfrds.FindDBSnapshotByID(ctx, conn, rs.Primary.ID)
 if err != nil {
 	return err
-}
-
-*v = *output
-
-return nil
+}*v = *outputreturn nil
 	}
 }
-
 func testAccSnapshotConfig_base(rName string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "mysql"
+engine = "mysql"
+}data "aws_rds_orderable_db_instance" "test" {
+engine= data.aws_rds_engine_version.default.engine
+engine_version= data.aws_rds_engine_version.default.version
+preferred_instance_classes = ["db.t3.small", "db.t2.small", "db.t2.medium"]
 }
-
-data "aws_rds_orderable_db_instance" "test" {
-  engine        = data.aws_rds_engine_version.default.engine
-  engine_version= data.aws_rds_engine_version.default.version
-  preferred_instance_classes = ["db.t3.small", "db.t2.small", "db.t2.medium"]
-}
-
-funclocated_storage       = 10
-  engine     = data.aws_rds_engine_version.default.engine
-  engine_version          = data.aws_rds_engine_version.default.version
-  instance_class          = data.aws_rds_orderable_db_instance.test.instance_class
-  db_name    = "test"
-  identifier = %[1]q
-  password   = "avoid-plaintext-passwords"
-  username   = "tfacctest"
-  maintenance_window      = "Fri:09:00-Fri:09:30"
-  backup_retention_period = 0
-  parameter_group_name    = "default.${data.aws_rds_engine_version.default.parameter_group_family}"
-  skip_final_snapshot     = true
+funclocated_storage = 10
+engine= data.aws_rds_engine_version.default.engine
+engine_version = data.aws_rds_engine_version.default.version
+instance_class = data.aws_rds_orderable_db_instance.test.instance_class
+db_name = "test"
+identifier = %[1]q
+password= "avoid-plaintext-passwords"
+username= "tfacctest"
+maintenance_window= "Fri:09:00-Fri:09:30"
+backup_retention_period = 0
+parameter_group_name = "default.${data.aws_rds_engine_version.default.parameter_group_family}"
+skip_final_snapshot= true
 }`, rName)
 }
-
 func testAccSnapshotConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccSnapshotConfig_base(rName), fmt.Sprintf(`
 resource "aws_db_snapshot" "test" {
-  db_instance_identifier = aws_db_instance.test.identifier
-  db_snapshot_identifier = %[1]q
+db_instance_identifier = aws_db_instance.test.identifier
+db_snapshot_identifier = %[1]q
 }
 `, rName))
 }
-
 func testAccSnapshotConfig_tags1(rName, tag1Key, tag1Value string) string {
 	return acctest.ConfigCompose(testAccSnapshotConfig_base(rName), fmt.Sprintf(`
 resource "aws_db_snapshot" "test" {
-  db_instance_identifier = aws_db_instance.test.identifier
+db_instance_identifier = aws_db_instance.test.identifier
 func
-  tags = {
-    %[2]q = %[3]q
-  }
+tags = {
+ %[2]q = %[3]q
+}
 }
 `, rName, tag1Key, tag1Value))
 }
-
 func testAccSnapshotConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 funcurce "aws_db_snapshot" "test" {
-  db_instance_identifier = aws_db_instance.test.identifier
-  db_snapshot_identifier = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+db_instance_identifier = aws_db_instance.test.identifier
+db_snapshot_identifier = %[1]qtags = {
+ %[2]q = %[3]q
+ %[4]q = %[5]q
+}
 }
 `, rName, tag1Key, tag1Value, tag2Key, tag2Value))
 }
-
 func testAccSnapshotConfig_share(rName string) string {
 funcurce "aws_db_snapshot" "test" {
-  db_instance_identifier = aws_db_instance.test.identifier
-  db_snapshot_identifier = %[1]q
-  shared_accounts        = ["all"]
+db_instance_identifier = aws_db_instance.test.identifier
+db_snapshot_identifier = %[1]q
+shared_accounts= ["all"]
 }
 `, rName))
 }

@@ -24,7 +24,7 @@ func expandThingTypeProperties(config map[string]interface{}) *iot.ThingTypeProp
 
 func flattenThingTypeProperties(s *iot.ThingTypeProperties) []map[string]interface{} {
 	m := map[string]interface{}{
-		"description":           "",
+		"description":  "",
 		"searchable_attributes": flex.FlattenStringSet(nil),
 	}
 

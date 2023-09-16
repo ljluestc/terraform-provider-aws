@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tflambda "github.com/hashicorp/terraform-provider-aws/internal/service/lambda"
 )
-
 func TestAccLambdaLayerVersionPermission_basic_byARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lambda_layer_version_permission.test"
@@ -28,7 +27,7 @@ func TestAccLambdaLayerVersionPermission_basic_byARN(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckLayerVersionPermissionDestroy(ctx),
+CheckDestroy: testAccCheckLayerVersionPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_basicARN(rName),
@@ -41,15 +40,14 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState: true,
+ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"skip_destroy"},
 	},
 },
 	})
 }
-
 func TestAccLambdaLayerVersionPermission_basic_byName(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lambda_layer_version_permission.test"
@@ -59,7 +57,7 @@ func TestAccLambdaLayerVersionPermission_basic_byName(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckLayerVersionPermissionDestroy(ctx),
+CheckDestroy: testAccCheckLayerVersionPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_basicName(rName),
@@ -72,15 +70,14 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState: true,
+ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"skip_destroy"},
 	},
 },
 	})
 }
-
 func TestAccLambdaLayerVersionPermission_org(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lambda_layer_version_permission.test"
@@ -90,7 +87,7 @@ func TestAccLambdaLayerVersionPermission_org(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckLayerVersionPermissionDestroy(ctx),
+CheckDestroy: testAccCheckLayerVersionPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_org(rName),
@@ -104,15 +101,14 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState: true,
+ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"skip_destroy"},
 	},
 },
 	})
 }
-
 func TestAccLambdaLayerVersionPermission_account(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lambda_layer_version_permission.test"
@@ -122,7 +118,7 @@ func TestAccLambdaLayerVersionPermission_account(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckLayerVersionPermissionDestroy(ctx),
+CheckDestroy: testAccCheckLayerVersionPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_account(rName),
@@ -135,15 +131,14 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState: true,
+ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"skip_destroy"},
 	},
 },
 	})
 }
-
 func TestAccLambdaLayerVersionPermission_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lambda_layer_version_permission.test"
@@ -153,7 +148,7 @@ func TestAccLambdaLayerVersionPermission_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckLayerVersionPermissionDestroy(ctx),
+CheckDestroy: testAccCheckLayerVersionPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_account(rName),
@@ -166,7 +161,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccLambdaLayerVersionPermission_skipDestroy(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lambda_layer_version_permission.test"
@@ -177,7 +171,7 @@ func TestAccLambdaLayerVersionPermission_skipDestroy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    nil, // this purposely leaves dangling resources, since skip_destroy = true
+CheckDestroy: nil, // this purposely leaves dangling resources, since skip_destroy = true
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_skipDestroy(rName),
@@ -198,96 +192,90 @@ Check: resource.ComposeTestCheckFunc(
 }
 
 // Creating Lambda layer and Lambda layer permissions
-
 func testAccLayerVersionPermissionConfig_basicARN(layerName string) string {
 	return fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  filename   = "test-fixtures/lambdatest.zip"
+  filename= "test-fixtures/lambdatest.zip"
   layer_name = %[1]q
 }
 
 resource "aws_lambda_layer_version_permission" "test" {
-  layer_name     = aws_lambda_layer_version.test.layer_arn
+  layer_name= aws_lambda_layer_version.test.layer_arn
   version_number = aws_lambda_layer_version.test.version
   action= "lambda:GetLayerVersion"
-  statement_id   = "xaccount"
-  principal      = "*"
+  statement_id= "xaccount"
+  principal = "*"
 }
 `, layerName)
 }
-
 func testAccLayerVersionPermissionConfig_basicName(layerName string) string {
 	return fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  filename   = "test-fixtures/lambdatest.zip"
+  filename= "test-fixtures/lambdatest.zip"
   layer_name = %[1]q
 }
 
 resource "aws_lambda_layer_version_permission" "test" {
-  layer_name     = aws_lambda_layer_version.test.layer_name
+  layer_name= aws_lambda_layer_version.test.layer_name
   version_number = aws_lambda_layer_version.test.version
   action= "lambda:GetLayerVersion"
-  statement_id   = "xaccount"
-  principal      = "*"
+  statement_id= "xaccount"
+  principal = "*"
 }
 `, layerName)
 }
-
 func testAccLayerVersionPermissionConfig_org(layerName string) string {
 	return fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  filename   = "test-fixtures/lambdatest.zip"
+  filename= "test-fixtures/lambdatest.zip"
   layer_name = "%s"
 }
 
 resource "aws_lambda_layer_version_permission" "test" {
-  layer_name      = aws_lambda_layer_version.test.layer_arn
+  layer_name = aws_lambda_layer_version.test.layer_arn
   version_number  = aws_lambda_layer_version.test.version
   action = "lambda:GetLayerVersion"
-  statement_id    = "xaccount"
-  principal       = "*"
+  statement_id = "xaccount"
+  principal  = "*"
   organization_id = "o-0123456789"
 }
 `, layerName)
 }
-
 func testAccLayerVersionPermissionConfig_account(layerName string) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 
 resource "aws_lambda_layer_version" "test" {
-  filename   = "test-fixtures/lambdatest.zip"
+  filename= "test-fixtures/lambdatest.zip"
   layer_name = "%s"
 }
 
 resource "aws_lambda_layer_version_permission" "test" {
-  layer_name     = aws_lambda_layer_version.test.layer_arn
+  layer_name= aws_lambda_layer_version.test.layer_arn
   version_number = aws_lambda_layer_version.test.version
   action= "lambda:GetLayerVersion"
-  statement_id   = "xaccount"
-  principal      = data.aws_caller_identity.current.account_id
+  statement_id= "xaccount"
+  principal = data.aws_caller_identity.current.account_id
 }
 `, layerName)
 }
-
 func testAccLayerVersionPermissionConfig_skipDestroy(layerName string) string {
 	return fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  filename   = "test-fixtures/lambdatest.zip"
+  filename= "test-fixtures/lambdatest.zip"
   layer_name = %[1]q
 }
 
 resource "aws_lambda_layer_version_permission" "test" {
-  layer_name     = aws_lambda_layer_version.test.layer_name
+  layer_name= aws_lambda_layer_version.test.layer_name
   version_number = aws_lambda_layer_version.test.version
   action= "lambda:GetLayerVersion"
-  statement_id   = "xaccount"
-  principal      = "*"
-  skip_destroy   = true
+  statement_id= "xaccount"
+  principal = "*"
+  skip_destroy= true
 }
 `, layerName)
 }
-
 func testAccCheckLayerVersionPermissionExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
@@ -307,14 +295,13 @@ if err != nil {
 conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaConn(ctx)
 
 _, err = conn.GetLayerVersionPolicyWithContext(ctx, &lambda.GetLayerVersionPolicyInput{
-	LayerName:     aws.String(layerName),
+	LayerName:aws.String(layerName),
 	VersionNumber: aws.Int64(versionNumber),
 })
 
 return err
 	}
 }
-
 func testAccCheckLayerVersionPermissionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaConn(ctx)
@@ -330,7 +317,7 @@ return err
 	}
 
 	_, err = conn.GetLayerVersionPolicyWithContext(ctx, &lambda.GetLayerVersionPolicyInput{
-LayerName:     aws.String(layerName),
+LayerName:aws.String(layerName),
 VersionNumber: aws.Int64(versionNumber),
 	})
 

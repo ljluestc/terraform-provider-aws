@@ -133,7 +133,7 @@ func updateTags(ctx context.Context, conn quicksightiface.QuickSightAPI, identif
 	if len(updatedTags) > 0 {
 		input := &quicksight.TagResourceInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:  Tags(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)

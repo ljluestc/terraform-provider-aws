@@ -18,14 +18,14 @@ func ResourceMySQLLayer() *schema.Resource {
 
 		Attributes: map[string]*opsworksLayerTypeAttribute{
 			"root_password": {
-				AttrName:  opsworks.LayerAttributesKeysMysqlRootPassword,
-				Type:      schema.TypeString,
-				WriteOnly: true,
+AttrName:  opsworks.LayerAttributesKeysMysqlRootPassword,
+Type: schema.TypeString,
+WriteOnly: true,
 			},
 			"root_password_on_all_instances": {
-				AttrName: opsworks.LayerAttributesKeysMysqlRootPasswordUbiquitous,
-				Type:     schema.TypeBool,
-				Default:  true,
+AttrName: opsworks.LayerAttributesKeysMysqlRootPasswordUbiquitous,
+Type:schema.TypeBool,
+Default:  true,
 			},
 		},
 	}

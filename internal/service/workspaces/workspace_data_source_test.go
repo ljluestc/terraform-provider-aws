@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func testAccWorkspaceDataSource_byWorkspaceID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandString(8)
@@ -48,7 +47,6 @@ func testAccWorkspaceDataSource_byWorkspaceID(t *testing.T) {
 		},
 	})
 }
-
 func testAccWorkspaceDataSource_byDirectoryID_userName(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandString(8)
@@ -83,7 +81,6 @@ func testAccWorkspaceDataSource_byDirectoryID_userName(t *testing.T) {
 		},
 	})
 }
-
 func testAccWorkspaceDataSource_workspaceIDAndDirectoryIDConflict(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -99,7 +96,6 @@ func testAccWorkspaceDataSource_workspaceIDAndDirectoryIDConflict(t *testing.T) 
 		},
 	})
 }
-
 func testAccWorkspaceDataSourceConfig_byID(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -127,7 +123,6 @@ data "aws_workspaces_workspace" "test" {
 }
 `)
 }
-
 func testAccWorkspaceDataSourceConfig_byDirectoryIDUserName(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -156,7 +151,6 @@ data "aws_workspaces_workspace" "test" {
 }
 `)
 }
-
 func testAccWorkspaceDataSourceConfig_idAndDirectoryIDConflict() string {
 	return `
 data "aws_workspaces_workspace" "test" {

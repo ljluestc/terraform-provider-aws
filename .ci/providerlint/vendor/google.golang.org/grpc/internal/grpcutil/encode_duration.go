@@ -26,8 +26,7 @@ import (
 const maxTimeoutValue int64 = 100000000 - 1
 
 // div does integer division and round-up the result. Note that this is
-// equivalent to (d+r-1)/r but has less chance to overflow.
-func div(d, r time.Duration) int64 {
+// equivalent to (d+r-1)/r but has less chance to overflow. div(d, r time.Duration) int64 {
 	if d%r > 0 {
 		return int64(d/r + 1)
 	}
@@ -37,8 +36,7 @@ func div(d, r time.Duration) int64 {
 // EncodeDuration encodes the duration to the format grpc-timeout header
 // accepts.
 //
-// https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md#requests
-func EncodeDuration(t time.Duration) string {
+// https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md#requests EncodeDuration(t time.Duration) string {
 	// TODO: This is simplistic and not bandwidth efficient. Improve it.
 	if t <= 0 {
 		return "0n"

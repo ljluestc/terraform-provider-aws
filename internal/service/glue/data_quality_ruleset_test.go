@@ -27,10 +27,10 @@ func TestAccGlueDataQualityRuleset_basic(t *testing.T) {
 	resourceName := "aws_glue_data_quality_ruleset.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityRulesetDestroy(ctx),
+		CheckDestroy:    testAccCheckDataQualityRulesetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityRulesetConfig_basic(rName, ruleset),
@@ -64,10 +64,10 @@ func TestAccGlueDataQualityRuleset_updateRuleset(t *testing.T) {
 	resourceName := "aws_glue_data_quality_ruleset.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityRulesetDestroy(ctx),
+		CheckDestroy:    testAccCheckDataQualityRulesetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityRulesetConfig_basic(rName, originalRuleset),
@@ -102,10 +102,10 @@ func TestAccGlueDataQualityRuleset_updateDescription(t *testing.T) {
 	resourceName := "aws_glue_data_quality_ruleset.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityRulesetDestroy(ctx),
+		CheckDestroy:    testAccCheckDataQualityRulesetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityRulesetConfig_description(rName, ruleset, originalDescription),
@@ -140,10 +140,10 @@ func TestAccGlueDataQualityRuleset_targetTableRequired(t *testing.T) {
 	resourceName := "aws_glue_data_quality_ruleset.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityRulesetDestroy(ctx),
+		CheckDestroy:    testAccCheckDataQualityRulesetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:  testAccDataQualityRulesetConfig_targetTable(rName, rName2, rName3, ruleset),
@@ -175,10 +175,10 @@ func TestAccGlueDataQualityRuleset_targetTableFull(t *testing.T) {
 	resourceName := "aws_glue_data_quality_ruleset.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityRulesetDestroy(ctx),
+		CheckDestroy:    testAccCheckDataQualityRulesetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:  testAccDataQualityRulesetConfig_targetTableFull(rName, rName2, rName3, ruleset),
@@ -208,10 +208,10 @@ func TestAccGlueDataQualityRuleset_tags(t *testing.T) {
 	resourceName := "aws_glue_data_quality_ruleset.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityRulesetDestroy(ctx),
+		CheckDestroy:    testAccCheckDataQualityRulesetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:  testAccDataQualityRulesetConfig_tags1(rName, ruleset, "key1", "value1"),
@@ -258,10 +258,10 @@ func TestAccGlueDataQualityRuleset_disappears(t *testing.T) {
 	resourceName := "aws_glue_data_quality_ruleset.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataQualityRulesetDestroy(ctx),
+		CheckDestroy:    testAccCheckDataQualityRulesetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataQualityRulesetConfig_basic(rName, ruleset),
@@ -359,7 +359,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[2]q
+  name = %[2]q
   database_name = aws_glue_catalog_database.test.name
 }
 `, rName, rName2)

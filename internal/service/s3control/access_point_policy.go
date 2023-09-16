@@ -34,7 +34,7 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"access_point_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: verify.ValidARN,
@@ -45,8 +45,8 @@ Computed: true,
 	},
 	"policy": {
 Type:   schema.TypeString,
-Required:              true,
-ValidateFunc:          validation.StringIsJSON,
+Required:     true,
+ValidateFunc: validation.StringIsJSON,
 DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 StateFunc: func(v interface{}) string {

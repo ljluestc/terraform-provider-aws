@@ -39,7 +39,7 @@ func ResourceLocationAzureBlob() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_tier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      datasync.AzureAccessTierHot,
 				ValidateFunc: validation.StringInSlice(datasync.AzureAccessTier_Values(), false),
@@ -48,7 +48,7 @@ func ResourceLocationAzureBlob() *schema.Resource {
 				Type:     schema.TypeSet,
 				Required: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
@@ -57,12 +57,12 @@ func ResourceLocationAzureBlob() *schema.Resource {
 				Computed: true,
 			},
 			"authentication_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(datasync.AzureBlobAuthenticationType_Values(), false),
 			},
 			"blob_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      datasync.AzureBlobTypeBlock,
 				ValidateFunc: validation.StringInSlice(datasync.AzureBlobType_Values(), false),
@@ -117,10 +117,10 @@ func resourceLocationAzureBlobCreate(ctx context.Context, d *schema.ResourceData
 	conn := meta.(*conns.AWSClient).DataSyncConn(ctx)
 
 	input := &datasync.CreateLocationAzureBlobInput{
-		AgentArns:          flex.ExpandStringSet(d.Get("agent_arns").(*schema.Set)),
+		AgentArns: flex.ExpandStringSet(d.Get("agent_arns").(*schema.Set)),
 		AuthenticationType: aws.String(d.Get("authentication_type").(string)),
 		ContainerUrl:       aws.String(d.Get("container_url").(string)),
-		Tags:               getTagsIn(ctx),
+		Tags:      getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("access_tier"); ok {

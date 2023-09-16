@@ -53,7 +53,7 @@ func testResponsePlan_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -106,7 +106,7 @@ func testResponsePlan_updateRequiredFields(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -123,7 +123,7 @@ func testResponsePlan_updateRequiredFields(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -140,7 +140,7 @@ func testResponsePlan_updateRequiredFields(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -199,7 +199,7 @@ func testResponsePlan_updateTags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -218,7 +218,7 @@ func testResponsePlan_updateTags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -239,7 +239,7 @@ func testResponsePlan_updateTags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -280,7 +280,7 @@ func testResponsePlan_updateEmptyTags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -295,7 +295,7 @@ func testResponsePlan_updateEmptyTags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -309,7 +309,7 @@ func testResponsePlan_updateEmptyTags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -396,7 +396,7 @@ func testResponsePlan_incidentTemplateOptionalFields(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -414,7 +414,7 @@ func testResponsePlan_incidentTemplateOptionalFields(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -452,7 +452,7 @@ func testResponsePlan_displayName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -465,7 +465,7 @@ func testResponsePlan_displayName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -504,7 +504,7 @@ func testResponsePlan_chatChannel(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -518,7 +518,7 @@ func testResponsePlan_chatChannel(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -533,7 +533,7 @@ func testResponsePlan_chatChannel(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -546,7 +546,7 @@ func testResponsePlan_chatChannel(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -589,7 +589,7 @@ func testResponsePlan_engagement(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -603,7 +603,7 @@ func testResponsePlan_engagement(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -618,7 +618,7 @@ func testResponsePlan_engagement(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -631,7 +631,7 @@ func testResponsePlan_engagement(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -715,7 +715,7 @@ func testResponsePlan_action(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -771,7 +771,7 @@ func testResponsePlan_action(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -837,7 +837,7 @@ func testResponsePlan_action(t *testing.T) {
 //				),
 //			},
 //			{
-//				ResourceName:            resourceName,
+//				ResourceName:   resourceName,
 //				ImportState:true,
 //				ImportStateVerify:       true,
 //				ImportStateVerifyIgnore: []string{"replication_set_arn"},
@@ -989,7 +989,7 @@ resource "aws_ssmincidents_response_plan" "test" {
   name = %[1]q
 
   incident_template {
-    title         = %[2]q
+    title= %[2]q
     impact        = "3"
     dedupe_string = %[3]q
     summary       = %[4]q
@@ -1164,7 +1164,7 @@ resource "aws_ssmincidents_response_plan" "test" {
   action {
     ssm_automation {
       document_name    = aws_ssm_document.document1.name
-      role_arn         = aws_iam_role.role1.arn
+      role_arn= aws_iam_role.role1.arn
       document_version = "version1"
       target_account   = "RESPONSE_PLAN_OWNER_ACCOUNT"
       parameter {
@@ -1199,7 +1199,7 @@ resource "aws_ssmincidents_response_plan" "test" {
   action {
     ssm_automation {
       document_name    = aws_ssm_document.document2.name
-      role_arn         = aws_iam_role.role2.arn
+      role_arn= aws_iam_role.role2.arn
       document_version = "version2"
       target_account   = "IMPACTED_ACCOUNT"
       parameter {
@@ -1228,7 +1228,7 @@ resource "aws_iam_role" "role1" {
       "Effect": "Allow",
       "Principal": {
         "Service": [
-          "cloudformation.amazonaws.com"
+ "cloudformation.amazonaws.com"
         ]
       },
       "Action": [
@@ -1251,7 +1251,7 @@ resource "aws_iam_role" "role2" {
       "Effect": "Allow",
       "Principal": {
         "Service": [
-          "cloudformation.amazonaws.com"
+ "cloudformation.amazonaws.com"
         ]
       },
       "Action": [
@@ -1270,7 +1270,7 @@ EOF
 func testAccResponsePlanConfig_baseSSMDocument(name string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "document1" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -1283,10 +1283,10 @@ resource "aws_ssm_document" "document1" {
     "runtimeConfig": {
       "aws:runShellScript": {
         "properties": [
-          {
-            "id": "0.aws:runShellScript",
-            "runCommand": ["ifconfig"]
-          }
+ {
+   "id": "0.aws:runShellScript",
+   "runCommand": ["ifconfig"]
+ }
         ]
       }
     }
@@ -1295,7 +1295,7 @@ DOC
 }
 
 resource "aws_ssm_document" "document2" {
-  name          = %[2]q
+  name = %[2]q
   document_type = "Command"
 
   content = <<DOC
@@ -1308,10 +1308,10 @@ resource "aws_ssm_document" "document2" {
     "runtimeConfig": {
       "aws:runShellScript": {
         "properties": [
-          {
-            "id": "0.aws:runShellScript",
-            "runCommand": ["ifconfig"]
-          }
+ {
+   "id": "0.aws:runShellScript",
+   "runCommand": ["ifconfig"]
+ }
         ]
       }
     }

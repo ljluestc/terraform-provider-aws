@@ -54,7 +54,7 @@ func resourceEmailIdentityFeedbackAttributesCreate(ctx context.Context, d *schem
 conn := meta.(*conns.AWSClient).SESV2Client(ctx)
 
 in := &sesv2.PutEmailIdentityFeedbackAttributesInput{
-EmailIdentity:          aws.String(d.Get("email_identity").(string)),
+EmailIdentity: aws.String(d.Get("email_identity").(string)),
 EmailForwardingEnabled: d.Get("email_forwarding_enabled").(bool),
 }
 

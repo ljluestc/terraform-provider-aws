@@ -44,7 +44,7 @@ func TestAccAppConfigConfigurationProfileDataSource_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(dataSourceName, "type", "AWS.Freeform"),
 					resource.TestCheckTypeSetElemNestedAttrs(dataSourceName, "validator.*", map[string]string{
 						"content": "{\"$schema\":\"http://json-schema.org/draft-05/schema#\",\"description\":\"BasicFeatureToggle-1\",\"title\":\"$id$\"}",
-						"type":    appconfig.ValidatorTypeJsonSchema,
+						"type":appconfig.ValidatorTypeJsonSchema,
 					}),
 				),
 			},
@@ -58,26 +58,26 @@ func testAccConfigurationProfileDataSourceConfig_basic(appName, rName string) st
 		fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test" {
   application_id = aws_appconfig_application.test.id
-  name           = %[1]q
+  name  = %[1]q
   location_uri   = "hosted"
 
   validator {
-    content = jsonencode({
-      "$schema"   = "http://json-schema.org/draft-05/schema#"
-      title       = "$id$"
-      description = "BasicFeatureToggle-1"
-    })
+content = jsonencode({
+  "$schema"   = "http://json-schema.org/draft-05/schema#"
+  title   = "$id$"
+  description = "BasicFeatureToggle-1"
+})
 
-    type = "JSON_SCHEMA"
+type = "JSON_SCHEMA"
   }
 
   tags = {
-    key1 = "value1"
+key1 = "value1"
   }
 }
 
 data "aws_appconfig_configuration_profile" "test" {
-  application_id           = aws_appconfig_application.test.id
+  application_id  = aws_appconfig_application.test.id
   configuration_profile_id = aws_appconfig_configuration_profile.test.configuration_profile_id
 }
 `, rName))

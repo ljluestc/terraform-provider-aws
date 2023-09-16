@@ -26,7 +26,7 @@ import (
 func ResourceHTTPNamespace() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceHTTPNamespaceCreate,
-		ReadWithoutTimeout:   resourceHTTPNamespaceRead,
+		ReadWithoutTimeout:resourceHTTPNamespaceRead,
 		UpdateWithoutTimeout: resourceHTTPNamespaceUpdate,
 		DeleteWithoutTimeout: resourceHTTPNamespaceDelete,
 
@@ -36,40 +36,39 @@ func ResourceHTTPNamespace() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"http_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validNamespaceName,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceHTTPNamespaceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &servicediscovery.CreateHttpNamespaceInput{
 		CreatorRequestId: aws.String(id.UniqueId()),
-		Name:    aws.String(name),
-		Tags:    getTagsIn(ctx),
+		Name: aws.String(name),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -99,7 +98,6 @@ func resourceHTTPNamespaceCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return resourceHTTPNamespaceRead(ctx, d, meta)
 }
-
 func resourceHTTPNamespaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -127,12 +125,10 @@ func resourceHTTPNamespaceRead(ctx context.Context, d *schema.ResourceData, meta
 
 	return nil
 }
-
 func resourceHTTPNamespaceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceHTTPNamespaceRead(ctx, d, meta)
 }
-
 func resourceHTTPNamespaceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 

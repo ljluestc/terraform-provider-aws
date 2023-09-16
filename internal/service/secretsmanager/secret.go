@@ -61,7 +61,7 @@ func ResourceSecret() *schema.Resource {
 				Optional: true,
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -69,7 +69,7 @@ func ResourceSecret() *schema.Resource {
 				ValidateFunc:  validSecretName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -77,10 +77,10 @@ func ResourceSecret() *schema.Resource {
 				ValidateFunc:  validSecretNamePrefix,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Optional:              true,
-				Computed:              true,
-				ValidateFunc:          validation.StringIsJSON,
+				Type:schema.TypeString,
+				Optional:     true,
+				Computed:     true,
+				ValidateFunc: validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
@@ -142,10 +142,10 @@ func resourceSecretCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	secretName := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &secretsmanager.CreateSecretInput{
-		Description:                 aws.String(d.Get("description").(string)),
+		Description:        aws.String(d.Get("description").(string)),
 		ForceOverwriteReplicaSecret: aws.Bool(d.Get("force_overwrite_replica_secret").(bool)),
-		Name:                        aws.String(secretName),
-		Tags:                        getTagsIn(ctx),
+		Name:      aws.String(secretName),
+		Tags:      getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("kms_key_id"); ok {
@@ -455,9 +455,9 @@ func addSecretReplicas(ctx context.Context, conn *secretsmanager.SecretsManager,
 	}
 
 	input := &secretsmanager.ReplicateSecretToRegionsInput{
-		SecretId:                    aws.String(id),
+		SecretId:  aws.String(id),
 		ForceOverwriteReplicaSecret: aws.Bool(forceOverwrite),
-		AddReplicaRegions:           expandSecretReplicas(tfList),
+		AddReplicaRegions:  expandSecretReplicas(tfList),
 	}
 
 	log.Printf("[DEBUG] Removing Secrets Manager Secret Replica: %s", input)

@@ -1,87 +1,51 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package releases
-
-import (
+// SPDX-License-Identifier: MPL-2.0package releasesimport (
 	"context"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
-	"time"
-
-	"github.com/hashicorp/go-version"
+	"time"	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hc-install/internal/pubkey"
 	rjson "github.com/hashicorp/hc-install/internal/releasesjson"
 	isrc "github.com/hashicorp/hc-install/internal/src"
 	"github.com/hashicorp/hc-install/internal/validators"
 	"github.com/hashicorp/hc-install/product"
-)
-
-// ExactVersion installs the given Version of product
+)// ExactVersion installs the given Version of product
 // to OS temp directory, or to InstallDir (if not empty)
 type ExactVersion struct {
 	Product    product.Product
 	Version    *version.Version
 	InstallDir string
-	Timeout    time.Duration
-
-	// Enterprise indicates installation of enterprise version (leave nil for Community editions)
-	Enterprise *EnterpriseOptions
-
-	SkipChecksumVerification bool
-
-	// ArmoredPublicKey is a public PGP key in ASCII/armor format to use
+	Timeout    time.Duration	// Enterprise indicates installation of enterprise version (leave nil for Community editions)
+	Enterprise *EnterpriseOptions	SkipChecksumVerification bool	// ArmoredPublicKey is a public PGP key in ASCII/armor format to use
 	// instead of built-in pubkey to verify signature of downloaded checksums
-	ArmoredPublicKey string
-
-	apiBaseURL    string
+	ArmoredPublicKey string	apiBaseURL    string
 	logger        *log.Logger
 	pathsToRemove []string
 }
-
-
  (*ExactVersion) IsSourceImpl() isrc.InstallSrcSigil {
 	return isrc.InstallSrcSigil{}
 }
-
-
  (ev *ExactVersion) SetLogger(logger *log.Logger) {
-	ev.logger = logger
-
-
-
- (ev *ExactVersion) log() *log.Logger {
+	ev.logger = logger (ev *ExactVersion) log() *log.Logger {
 	if ev.logger == nil {
 		return discardLogger
 	}
 urn ev.logger
 }
-
-
  (ev *ExactVersion) Validate() error {
 	if !validators.IsProductNameValid(ev.Product.Name) {
 		return fmt.Errorf("invalid product name: %q", ev.Product.Name)
-	}
-
-	if !validators.IsBinaryNameValid(ev.Product.BinaryName()) {
+	}	if !validators.IsBinaryNameValid(ev.Product.BinaryName()) {
 		return fmt.Errorf("invalid binary name: %q", ev.Product.BinaryName())
-	}
-
-	if ev.Version == nil {
+	}	if ev.Version == nil {
 		return fmt.Errorf("unknown version")
-	}
-
-	if err := validateEnterpriseOptions(ev.Enterprise); err != nil {
+	}	if err := validateEnterpriseOptions(ev.Enterprise); err != nil {
 		return err
-	}
-
-	return nil
+	}	return nil
 }
-
-
  (ev *Exersion) Install(ctx context.Context) (string, error) {
 	timeout := dltInstallTimeout
 	if ev.Timeout > 0 {
@@ -90,13 +54,9 @@ urn ev.logger
 	ctx, cancel
  := context.WithTimeout(ctx, timeout)
 	defer cancel
-()
-
-	if ev.pathsToRemove == nil {
+()	if ev.pathsToRemove == nil {
 		ev.pathsToRemove = make([]string, 0)
-	}
-
-	dstDir := ev.InstallDir
+	}	dstDir := ev.InstallDir
 	if dstDir == "" {
 		var err error
 		dirName := fmt.Sprintf("%s_*", ev.Product.Name)
@@ -107,9 +67,7 @@ urn ev.logger
 		ev.pathsToRemove = append(ev.pathsToRemove, dstDir)
 		ev.log().Printf("created new temp dir at %s", dstDir)
 	}
-	ev.log().Printf("will install into dir at %s", dstDir)
-
-	rels := rjson.NewReleases()
+	ev.log().Printf("will install into dir at %s", dstDir)	rels := rjson.NewReleases()
 	if ev.apiBaseURL != "" {
 		rels.BaseURL = ev.apiBaseURL
 	}
@@ -121,22 +79,18 @@ urn ev.logger
 	pv, err := rels.GetProductVersion(ctx, ev.Product.Name, installVersion)
 	if err != nil {
 		return "", err
-	}
-
-	d := &rjson.Downloader{
-		Logger:           ev.log(),
+	}	d := &rjson.Downloader{
+		Logger:  ev.log(),
 		VerifyChecksum:   !ev.SkipChecksumVerification,
 		ArmoredPublicKey: pubkey.DefaultPublicKey,
-		BaseURL:          rels.BaseURL,
+		BaseURL: rels.BaseURL,
 	}
 	if ev.ArmoredPublicKey != "" {
 		d.ArmoredPublicKey = ev.ArmoredPublicKey
 	}
 	if ev.apiBaseURL != "" {
 		d.BaseURL = ev.apiBaseURL
-	}
-
-	licenseDir := ""
+	}	licenseDir := ""
 	if ev.Enterprise != nil {
 		licenseDir = ev.Enterprise.LicenseDir
 	}
@@ -146,50 +100,26 @@ urn ev.logger
 	}
 	if err != nil {
 		return "", err
-	}
-
-	execPath := filepath.Join(dstDir, ev.Product.BinaryName())
-
-	ev.pathsToRemove = append(ev.pathsToRemove, execPath)
-
-	ev.log().Printf("changing perms of %s", execPath)
+	}	execPath := filepath.Join(dstDir, ev.Product.BinaryName())	ev.pathsToRemove = append(ev.pathsToRemove, execPath)	ev.log().Printf("changing perms of %s", execPath)
 	err = os.Chmod(execPath, 0o700)
 err != nil {
 		return "", err
-	}
-
-	return execPath, nil
+	}	return execPath, nil
 }
-
-
  (ev *ExactVersion) Remove(ctx context.Context) error {
 	if ev.pathsToRemove != nil {
 		for _, path := range ev.pathsToRemove {
 			err := os.RemoveAll(path)
 			if err != nil {
-				return err
-
-		}
-	}
-
-	return nil
-}
-
-// versionWithMetadata returns a new version by combining the given version with the given metadata
-
- versionWithMetadata(v *version.Version, metadata string) *version.Version {
+				return err		}
+	}	return nil
+}// versionWithMetadata returns a new version by combining the given version with the given metadata versionWithMetadata(v *version.Version, metadata string) *version.Version {
 	if v == nil {
 		return nil
-	}
-
-	if metadata == "" {
+	}	if metadata == "" {
 		return v
-	}
-
-	v2, err := version.NewVersion(fmt.Sprintf("%s+%s", v.Core(), metadata))
+	}	v2, err := version.NewVersion(fmt.Sprintf("%s+%s", v.Core(), metadata))
 	if err != nil {
 		return nil
-	}
-
-	return v2
+	}	return v2
 }

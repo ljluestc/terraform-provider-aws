@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package waf_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package waf_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/waf"
@@ -20,14 +14,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfwaf "github.com/hashicorp/terraform-provider-aws/internal/service/waf"
 )
-
 func TestAccWAFWebACL_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var webACL waf.WebACL
 	rName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -47,22 +38,19 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccWAFWebACL_changeNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var webACL waf.WebACL
 	rName1 := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
 	rName2 := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -93,21 +81,18 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccWAFWebACL_defaultAction(t *testing.T) {
 	ctx := acctest.Context(t)
 	var webACL waf.WebACL
 	rName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -130,21 +115,18 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccWAFWebACL_rules(t *testing.T) {
 	ctx := acctest.Context(t)
 	var webACL waf.WebACL
 	rName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -176,21 +158,18 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	// Test import
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccWAFWebACL_logging(t *testing.T) {
 	ctx := acctest.Context(t)
 	var webACL waf.WebACL
 	rName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
 	testAccPreCheck(ctx, t)
@@ -211,9 +190,9 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	// Test resource import
 	{
-Config:            testAccWebACLConfig_logging(rName),
-ResourceName:      resourceName,
-ImportState:       true,
+Config:LConfig_logging(rName),
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 	// Test logging configuration update
@@ -236,14 +215,11 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccWAFWebACL_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var webACL waf.WebACL
 	rName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -260,14 +236,11 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccWAFWebACL_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var webACL waf.WebACL
 	rName := fmt.Sprintf("wafacl%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_web_acl.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	resourceName := "aws_waf_web_acl.test"	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -314,384 +287,256 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func testAccCheckWebACLDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_waf_web_acl" {
 continue
-	}
-
-	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
+	}	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
 	resp, err := conn.GetWebACLWithContext(ctx, &waf.GetWebACLInput{
 WebACLId: aws.String(rs.Primary.ID),
-	})
-
-	if tfawserr.ErrCodeEquals(err, waf.ErrCodeNonexistentItemException) {
+	})	if tfawserr.ErrCodeEquals(err, waf.ErrCodeNonexistentItemException) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return fmt.Errorf("error reading WAF Web ACL (%s): %w", rs.Primary.ID, err)
-	}
-
-	if resp != nil && resp.WebACL != nil {
+	}	if resp != nil && resp.WebACL != nil {
 return fmt.Errorf("WAF Web ACL (%s) still exists", rs.Primary.ID)
 	}
-}
-
-return nil
+}return nil
 	}
 }
-
 func testAccCheckWebACLExists(ctx context.Context, n string, v *waf.WebACL) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No WebACL ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
 resp, err := conn.GetWebACLWithContext(ctx, &waf.GetWebACLInput{
 	WebACLId: aws.String(rs.Primary.ID),
-})
-
-if err != nil {
+})if err != nil {
 	return err
-}
-
-if *resp.WebACL.WebACLId == rs.Primary.ID {
+}if *resp.WebACL.WebACLId == rs.Primary.ID {
 	*v = *resp.WebACL
 	return nil
-}
-
-return fmt.Errorf("WebACL (%s) not found", rs.Primary.ID)
+}return fmt.Errorf("WebACL (%s) not found", rs.Primary.ID)
 	}
 }
-
 func testAccWebACLConfig_required(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_web_acl" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-
-  default_action {
-    type = "ALLOW"
+  name1]q  default_action {
+ type = "ALLOW"
   }
 }
 `, rName)
 }
-
 func testAccWebACLConfig_defaultAction(rName, defaultAction string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_web_acl" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-
-  default_action {
-    type = %q
+  name1]q  default_action {
+ type = %q
   }
 }
 `, rName, defaultAction)
 }
-
 func testAccWebACLConfig_rulesSingleRule(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_ipset" "test" {
-  name = %[1]q
-
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = %[1]q  ip_set_descriptors {
+ type  = "IPV4"
+ value = "192.0.7.0/24"
   }
-}
-
-resource "aws_waf_rule" "test" {
+}resource "aws_waf_rule" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-
-  predicates {
-    data_id = aws_waf_ipset.test.id
-    negated = false
-    type    = "IPMatch"
+  name1]q  predicates {
+ data_id = aws_waf_ipset.test.id
+ negated = false
+ type = "IPMatch"
   }
-}
-
-resource "aws_waf_web_acl" "test" {
+}resource "aws_waf_web_acl" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  rules {
-    priority = 1
-    rule_id  = aws_waf_rule.test.id
-
-    action {
-      type = "BLOCK"
-    }
+  name1]q  default_action {
+ type = "ALLOW"
+  }  rules {
+ priority = 1
+ rule_id  = aws_waf_rule.test.id action {
+ "BLOCK"
+ }
   }
 }
 `, rName)
 }
-
 func testAccWebACLConfig_rulesSingleRuleGroup(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_rule_group" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-}
-
-resource "aws_waf_web_acl" "test" {
+  name1]q
+}resource "aws_waf_web_acl" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  rules {
-    priority = 1
-    rule_id  = aws_waf_rule_group.test.id
-    type     = "GROUP"
-
-    override_action {
-      type = "NONE"
-    }
+  name1]q  default_action {
+ type = "ALLOW"
+  }  rules {
+ priority = 1
+ rule_id  = aws_waf_rule_group.test.id
+ type= "GROUP" override_action {
+ "NONE"
+ }
   }
 }
 `, rName)
 }
-
 func testAccWebACLConfig_rulesMultiple(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_ipset" "test" {
-  name = %[1]q
-
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = %[1]q  ip_set_descriptors {
+ type  = "IPV4"
+ value = "192.0.7.0/24"
   }
-}
-
-resource "aws_waf_rule" "test" {
+}resource "aws_waf_rule" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-
-  predicates {
-    data_id = aws_waf_ipset.test.id
-    negated = false
-    type    = "IPMatch"
+  name1]q  predicates {
+ data_id = aws_waf_ipset.test.id
+ negated = false
+ type = "IPMatch"
   }
-}
-
-resource "aws_waf_rule_group" "test" {
+}resource "aws_waf_rule_group" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-}
-
-resource "aws_waf_web_acl" "test" {
+  name1]q
+}resource "aws_waf_web_acl" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  rules {
-    priority = 1
-    rule_id  = aws_waf_rule.test.id
-
-    action {
-      type = "BLOCK"
-    }
-  }
-
-  rules {
-    priority = 2
-    rule_id  = aws_waf_rule_group.test.id
-    type     = "GROUP"
-
-    override_action {
-      type = "NONE"
-    }
+  name1]q  default_action {
+ type = "ALLOW"
+  }  rules {
+ priority = 1
+ rule_id  = aws_waf_rule.test.id action {
+ "BLOCK"
+ }
+  }  rules {
+ priority = 2
+ rule_id  = aws_waf_rule_group.test.id
+ type= "GROUP" override_action {
+ "NONE"
+ }
   }
 }
 `, rName)
 }
-
 func testAccWebACLConfig_logging(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_web_acl" "test" {
-  name        = %[1]q
-  metric_name = %[1]q
-
-  default_action {
-    type = "ALLOW"
+  name1]q
+  metric_name = %[1]q  default_action {
+ type = "ALLOW"
+  }  logging_configuration {
+ log_destination = aws_kinesis_firehose_delivery_stream.test.arn redacted_fields {
+to_match {
+ = "URI"
+to_match {
+ = "referer"
+ = "HEADER" }
   }
-
-  logging_configuration {
-    log_destination = aws_kinesis_firehose_delivery_stream.test.arn
-
-    redacted_fields {
-      field_to_match {
-        type = "URI"
-      }
-
-      field_to_match {
-        data = "referer"
-        type = "HEADER"
-      }
-    }
-  }
-}
-
-resource "aws_s3_bucket" "test" {
+}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "firehose.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+ {
+n": "sts:AssumeRole",
+ipal": {
+vice": "firehose.amazonaws.com"t": "Allow",
+ ""
+ }
   ]
 }
 EOF
-}
-
-resource "aws_kinesis_firehose_delivery_stream" "test" {
+}resource "aws_kinesis_firehose_delivery_stream" "test" {
   # the name must begin with aws-waf-logs-
-  name        = "aws-waf-logs-%[1]s"
-  destination = "extended_s3"
-
-  extended_s3_configuration {
-    role_arn   = aws_iam_role.test.arn
-    bucket_arn = aws_s3_bucket.test.arn
+  namews-waf-logs-%[1]s"
+  destination = "extended_s3"  extended_s3_configuration {
+ role_arn= aws_iam_role.test.arn
+ bucket_arn = aws_s3_bucket.test.arn
   }
 }
 `, rName)
 }
-
 func testAccWebACLConfig_loggingRemoved(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_web_acl" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-
-  default_action {
-    type = "ALLOW"
+  name1]q  default_action {
+ type = "ALLOW"
   }
 }
 `, rName)
 }
-
 func testAccWebACLConfig_loggingUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_web_acl" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-
-  default_action {
-    type = "ALLOW"
+  name1]q  default_action {
+ type = "ALLOW"
+  }  logging_configuration {
+ log_destination = aws_kinesis_firehose_delivery_stream.test.arn
   }
-
-  logging_configuration {
-    log_destination = aws_kinesis_firehose_delivery_stream.test.arn
-  }
-}
-
-resource "aws_s3_bucket" "test" {
+}resource "aws_s3_bucket" "test" {
   bucket = %[1]q
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
-
-  assume_role_policy = <<EOF
+}resource "aws_iam_role" "test" {
+  name = %[1]q  assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "firehose.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+ {
+n": "sts:AssumeRole",
+ipal": {
+vice": "firehose.amazonaws.com"t": "Allow",
+ ""
+ }
   ]
 }
-EOF
-
-}
-
-resource "aws_kinesis_firehose_delivery_stream" "test" {
+EOF}resource "aws_kinesis_firehose_delivery_stream" "test" {
   # the name must begin with aws-waf-logs-
-  name        = "aws-waf-logs-%[1]s"
-  destination = "extended_s3"
-
-  extended_s3_configuration {
-    role_arn   = aws_iam_role.test.arn
-    bucket_arn = aws_s3_bucket.test.arn
+  namews-waf-logs-%[1]s"
+  destination = "extended_s3"  extended_s3_configuration {
+ role_arn= aws_iam_role.test.arn
+ bucket_arn = aws_s3_bucket.test.arn
   }
 }
 `, rName)
 }
-
 func testAccWebACLConfig_tags1(rName, tag1Key, tag1Value string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_web_acl" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  tags = {
-    %q = %q
+  name1]q  default_action {
+ type = "ALLOW"
+  }  tags = {
+ %q = %q
   }
 }
 `, rName, tag1Key, tag1Value)
 }
-
 func testAccWebACLConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_web_acl" "test" {
   metric_name = %[1]q
-  name        = %[1]q
-
-  default_action {
-    type = "ALLOW"
-  }
-
-  tags = {
-    %q = %q
-    %q = %q
+  name1]q  default_action {
+ type = "ALLOW"
+  }  tags = {
+ %q = %q
+ %q = %q
   }
 }
 `, rName, tag1Key, tag1Value, tag2Key, tag2Value)

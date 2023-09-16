@@ -6,9 +6,9 @@ package keyspaces
 // Exports for use in tests only.
 var (
 	ResourceKeyspace = resourceKeyspace
-	ResourceTable    = resourceTable
+	ResourceTable= resourceTable
 
-	FindKeyspaceByName    = findKeyspaceByName
+	FindKeyspaceByName= findKeyspaceByName
 	FindTableByTwoPartKey = findTableByTwoPartKey
 
 	TableParseResourceID = tableParseResourceID

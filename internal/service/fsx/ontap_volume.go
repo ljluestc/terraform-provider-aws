@@ -48,93 +48,93 @@ func ResourceOntapVolume() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"file_system_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"flexcache_endpoint_type": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"junction_path": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 203),
 			},
 			"ontap_volume_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringInSlice(fsx.InputOntapVolumeType_Values(), false),
 			},
 			"security_style": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
 				ValidateFunc: validation.StringInSlice(fsx.StorageVirtualMachineRootVolumeSecurityStyle_Values(), false),
 			},
 			"size_in_megabytes": {
-				Type:         schema.TypeInt,
-				Required:     true,
+				Type:schema.TypeInt,
+				Required: true,
 				ValidateFunc: validation.IntBetween(0, 2147483647),
 			},
 			"skip_final_backup": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"storage_efficiency_enabled": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 			},
 			"storage_virtual_machine_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(21, 21),
 			},
 			"tiering_policy": {
 				Type:schema.TypeList,
-				Optional:         true,
+				Optional:true,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-				MaxItems:         1,
+				MaxItems:1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cooling_period": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type:schema.TypeInt,
+							Optional: true,
 							ValidateFunc: validation.IntBetween(2, 183),
 						},
 						"name": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Type:schema.TypeString,
+							Optional: true,
+							Computed: true,
 							ValidateFunc: validation.StringInSlice(fsx.TieringPolicyName_Values(), false),
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"uuid": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"volume_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      fsx.VolumeTypeOntap,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+				Default:  fsx.VolumeTypeOntap,
 				ValidateFunc: validation.StringInSlice(fsx.VolumeType_Values(), false),
 			},
 		},
@@ -150,10 +150,10 @@ func resourceOntapVolumeCreate(ctx context.Context, d *schema.ResourceData, meta
 	input := &fsx.CreateVolumeInput{
 		Name: aws.String(name),
 		OntapConfiguration: &fsx.CreateOntapVolumeConfiguration{
-			SizeInMegabytes:         aws.Int64(int64(d.Get("size_in_megabytes").(int))),
+			SizeInMegabytes:aws.Int64(int64(d.Get("size_in_megabytes").(int))),
 			StorageVirtualMachineId: aws.String(d.Get("storage_virtual_machine_id").(string)),
 		},
-		Tags:       getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 		VolumeType: aws.String(d.Get("volume_type").(string)),
 	}
 
@@ -239,7 +239,7 @@ func resourceOntapVolumeUpdate(ctx context.Context, d *schema.ResourceData, meta
 		input := &fsx.UpdateVolumeInput{
 			ClientRequestToken: aws.String(id.UniqueId()),
 			OntapConfiguration: &fsx.UpdateOntapVolumeConfiguration{},
-			VolumeId:           aws.String(d.Id()),
+			VolumeId:  aws.String(d.Id()),
 		}
 
 		if d.HasChange("junction_path") {

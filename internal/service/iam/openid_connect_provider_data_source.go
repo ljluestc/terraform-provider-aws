@@ -24,30 +24,30 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: verify.ValidARN,
 				ExactlyOneOf: []string{"arn", "url"},
 			},
 			"client_id_list": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"thumbprint_list": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"url": {
 				Type:schema.TypeString,
-				Optional:         true,
-				Computed:         true,
-				ValidateFunc:     validOpenIDURL,
+				Optional:true,
+				Computed:true,
+				ValidateFunc:validOpenIDURL,
 				DiffSuppressFunc: suppressOpenIDURL,
-				ExactlyOneOf:     []string{"arn", "url"},
+				ExactlyOneOf:[]string{"arn", "url"},
 			},
 		},
 	}

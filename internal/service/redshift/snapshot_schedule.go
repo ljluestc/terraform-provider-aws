@@ -39,39 +39,39 @@ func ResourceSnapshotSchedule() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"definitions": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Required: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"force_destroy": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"identifier": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type: schema.TypeString,
+				Optional:  true,
+				Computed:  true,
+				ForceNew:  true,
 				ConflictsWith: []string{"identifier_prefix"},
 			},
 			"identifier_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type: schema.TypeString,
+				Optional:  true,
+				Computed:  true,
+				ForceNew:  true,
 				ConflictsWith: []string{"identifier"},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -124,7 +124,7 @@ func resourceSnapshotScheduleRead(ctx context.Context, d *schema.ResourceData, m
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
 		Service:   "redshift",
-		Region:    meta.(*conns.AWSClient).Region,
+		Region:meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("snapshotschedule:%s", d.Id()),
 	}.String()
@@ -199,7 +199,7 @@ func snapshotScheduleDisassociateAll(ctx context.Context, conn *redshift.Redshif
 	for _, associatedCluster := range snapshotSchedule.AssociatedClusters {
 		clusterIdentifier := aws.StringValue(associatedCluster.ClusterIdentifier)
 		_, err = conn.ModifyClusterSnapshotScheduleWithContext(ctx, &redshift.ModifyClusterSnapshotScheduleInput{
-			ClusterIdentifier:    aws.String(clusterIdentifier),
+			ClusterIdentifier:aws.String(clusterIdentifier),
 			ScheduleIdentifier:   aws.String(id),
 			DisassociateSchedule: aws.Bool(true),
 		})

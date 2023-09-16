@@ -9,7 +9,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/aws/arn"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
-
 func DiffSuppressKey(_, oldValue, newValue string, _ *schema.ResourceData) bool {
 	if oldValue == newValue {
 		return true
@@ -31,7 +30,6 @@ func DiffSuppressKey(_, oldValue, newValue string, _ *schema.ResourceData) bool 
 
 	return false
 }
-
 func DiffSuppressAlias(_, oldValue, newValue string, _ *schema.ResourceData) bool {
 	if oldValue == newValue {
 		return true
@@ -53,7 +51,6 @@ func DiffSuppressAlias(_, oldValue, newValue string, _ *schema.ResourceData) boo
 
 	return false
 }
-
 func DiffSuppressKeyOrAlias(k, oldValue, newValue string, d *schema.ResourceData) bool {
 	if arn.IsARN(newValue) {
 		if isKeyARN(newValue) {
@@ -66,7 +63,6 @@ func DiffSuppressKeyOrAlias(k, oldValue, newValue string, d *schema.ResourceData
 	}
 	return DiffSuppressKey(k, oldValue, newValue, d)
 }
-
 func keyIdFromARN(s string) string {
 	arn, err := arn.Parse(s)
 	if err != nil {
@@ -75,7 +71,6 @@ func keyIdFromARN(s string) string {
 
 	return keyIdFromARNResource(arn.Resource)
 }
-
 func keyIdFromARNResource(s string) string {
 	matches := keyIdResourceRegex.FindStringSubmatch(s)
 	if matches == nil || len(matches) != 2 {
@@ -84,7 +79,6 @@ func keyIdFromARNResource(s string) string {
 
 	return matches[1]
 }
-
 func keyAliasFromARN(s string) string {
 	arn, err := arn.Parse(s)
 	if err != nil {
@@ -93,7 +87,6 @@ func keyAliasFromARN(s string) string {
 
 	return keyAliasNameFromARNResource(arn.Resource)
 }
-
 func keyAliasNameFromARNResource(s string) string {
 	if aliasNameRegex.MatchString(s) {
 		return s
@@ -101,7 +94,6 @@ func keyAliasNameFromARNResource(s string) string {
 
 	return ""
 }
-
 func isKeyARN(s string) bool {
 	parsedARN, err := arn.Parse(s)
 	if err != nil {
@@ -110,11 +102,9 @@ func isKeyARN(s string) bool {
 
 	return keyIdFromARNResource(parsedARN.Resource) != ""
 }
-
 func isAliasName(s string) bool {
 	return strings.HasPrefix(s, "alias/")
 }
-
 func isAliasARN(s string) bool {
 	parsedARN, err := arn.Parse(s)
 	if err != nil {

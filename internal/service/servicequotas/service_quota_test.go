@@ -29,9 +29,9 @@ func TestAccServiceQuotasServiceQuota_basic(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			preCheckServiceQuotaSet(ctx, setQuotaServiceCode, setQuotaQuotaCode, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:    nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceQuotaConfig_sameValue(setQuotaServiceCode, setQuotaQuotaCode),
@@ -69,9 +69,9 @@ func TestAccServiceQuotasServiceQuota_basic_Unset(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			preCheckServiceQuotaUnset(ctx, unsetQuotaServiceCode, unsetQuotaQuotaCode, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:    nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceQuotaConfig_sameValue(unsetQuotaServiceCode, unsetQuotaQuotaCode),
@@ -109,9 +109,9 @@ func TestAccServiceQuotasServiceQuota_basic_hasUsageMetric(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			preCheckServiceQuotaHasUsageMetric(ctx, hasUsageMetricServiceCode, hasUsageMetricQuotaCode, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:    nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceQuotaConfig_sameValue(hasUsageMetricServiceCode, hasUsageMetricQuotaCode),
@@ -165,10 +165,10 @@ func TestAccServiceQuotasServiceQuota_Value_increaseOnCreate(t *testing.T) {
 	resourceName := "aws_servicequotas_service_quota.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:    nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceQuotaConfig_value(serviceCode, quotaCode, value),
@@ -210,10 +210,10 @@ func TestAccServiceQuotasServiceQuota_Value_increaseOnUpdate(t *testing.T) {
 	resourceName := "aws_servicequotas_service_quota.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:    nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceQuotaConfig_sameValue(serviceCode, quotaCode),
@@ -240,10 +240,10 @@ func TestAccServiceQuotasServiceQuota_Value_increaseOnUpdate(t *testing.T) {
 func TestAccServiceQuotasServiceQuota_permissionError(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); acctest.PreCheckAssumeRoleARN(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); acctest.PreCheckAssumeRoleARN(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:    nil,
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccServiceQuotaConfig_permissionError("elasticloadbalancing", "L-53DA6B97"),
@@ -286,14 +286,14 @@ func testAccServiceQuotaConfig_permissionError(serviceCode, quotaCode string) st
     {
   	  "Effect": "Allow",
   	  "Action": [
-  	    "servicequotas:GetServiceQuota"
+  "servicequotas:GetServiceQuota"
   	  ],
   	  "Resource": "*"
     },
     {
   	  "Effect": "Deny",
   	  "Action": [
-  	    "elasticloadbalancing:*"
+  "elasticloadbalancing:*"
   	  ],
   	  "Resource": "*"
     }

@@ -9,22 +9,24 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func TestAccResourceExplorer2_serial(t *testing.T) {
+
+ TestAccResourceExplorer2_serial(t *testing.T) {
 	t.Parallel()
 
-	testCases := map[string]map[string]func(t *testing.T){
+	testCases := map[string]map[string]
+(t *testing.T){
 		"Index": {
-			"basic":      testAccIndex_basic,
+			"basic":  testAccIndex_basic,
 			"disappears": testAccIndex_disappears,
-			"tags":       testAccIndex_tags,
-			"type":       testAccIndex_type,
+			"tags":   testAccIndex_tags,
+			"type":   testAccIndex_type,
 		},
 		"View": {
-			"basic":       testAccView_basic,
+			"basic":   testAccView_basic,
 			"defaultView": testAccView_defaultView,
 			"disappears":  testAccView_disappears,
-			"filter":      testAccView_filter,
-			"tags":        testAccView_tags,
+			"filter":  testAccView_filter,
+			"tags":testAccView_tags,
 		},
 	}
 

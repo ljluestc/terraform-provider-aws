@@ -34,7 +34,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRuleDestroy(ctx),
+CheckDestroy: testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRuleConfig_basic(wafRuleName),
@@ -48,8 +48,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -68,7 +68,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRuleDestroy(ctx),
+CheckDestroy: testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRuleConfig_tags1(wafRuleName, "key1", "value1"),
@@ -80,8 +80,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -120,7 +120,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckIPSetDestroy(ctx),
+CheckDestroy: testAccCheckIPSetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRuleConfig_basic(wafRuleName),
@@ -143,8 +143,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -163,7 +163,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRuleDestroy(ctx),
+CheckDestroy: testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRuleConfig_basic(wafRuleName),
@@ -190,7 +190,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRuleDestroy(ctx),
+CheckDestroy: testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRuleConfig_noPredicates(wafRuleName),
@@ -202,8 +202,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -226,7 +226,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRuleDestroy(ctx),
+CheckDestroy: testAccCheckRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRuleConfig_basic(ruleName),
@@ -264,8 +264,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -305,7 +305,7 @@ _, err := wr.RetryWithToken(ctx,
 func(token *string) (interface{}, error) {
 	req := &waf.UpdateRuleInput{
 ChangeToken: token,
-RuleId:      v.RuleId,
+RuleId:v.RuleId,
 	}
 
 	for _, predicate := range v.Predicates {
@@ -330,7 +330,7 @@ _, err = wr.RetryWithToken(ctx,
 func(token *string) (interface{}, error) {
 	opts := &waf.DeleteRuleInput{
 ChangeToken: token,
-RuleId:      v.RuleId,
+RuleId:v.RuleId,
 	}
 	return conn.DeleteRuleWithContext(ctx, opts)
 })
@@ -419,7 +419,7 @@ resource "aws_wafregional_ipset" "ipset" {
 }
 
 resource "aws_wafregional_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   predicate {
@@ -444,7 +444,7 @@ resource "aws_wafregional_ipset" "ipset" {
 }
 
 resource "aws_wafregional_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   predicate {
@@ -473,7 +473,7 @@ resource "aws_wafregional_ipset" "ipset" {
 }
 
 resource "aws_wafregional_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   predicate {
@@ -503,7 +503,7 @@ resource "aws_wafregional_ipset" "ipset" {
 }
 
 resource "aws_wafregional_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   predicate {
@@ -519,7 +519,7 @@ resource "aws_wafregional_rule" "wafrule" {
 func testAccRuleConfig_noPredicates(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 }
 `, name)
@@ -544,13 +544,13 @@ resource "aws_wafregional_xss_match_set" "xss_match_set" {
     text_transformation = "NONE"
 
     field_to_match {
-      type = "URI"
+type = "URI"
     }
   }
 }
 
 resource "aws_wafregional_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   predicate {

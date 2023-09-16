@@ -19,10 +19,10 @@ func ResourceECSClusterLayer() *schema.Resource {
 
 		Attributes: map[string]*opsworksLayerTypeAttribute{
 			"ecs_cluster_arn": {
-				AttrName:     opsworks.LayerAttributesKeysEcsClusterArn,
+				AttrName:opsworks.LayerAttributesKeysEcsClusterArn,
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				Validate
 func: verify.ValidARN,
 			},

@@ -45,9 +45,9 @@ func TestAccRedshiftEndpointAuthorization_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"force_delete"},
 			},
 		},
@@ -78,9 +78,9 @@ func TestAccRedshiftEndpointAuthorization_vpcs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"force_delete"},
 			},
 			{
@@ -213,22 +213,22 @@ func testAccEndpointAuthorizationConfigBase(rName string) string {
 		acctest.ConfigAlternateAccountProvider(),
 		fmt.Sprintf(`
 resource "aws_redshift_subnet_group" "test" {
-  name       = %[1]q
+  name   = %[1]q
   subnet_ids = aws_subnet.test[*].id
 }
 
 resource "aws_redshift_cluster" "test" {
-  cluster_identifier      = %[1]q
-  availability_zone       = data.aws_availability_zones.available.names[0]
-  database_name           = "mydb"
-  master_username         = "foo_test"
-  master_password         = "Mustbe8characters"
+  cluster_identifier  = %[1]q
+  availability_zone   = data.aws_availability_zones.available.names[0]
+  database_name  = "mydb"
+  master_username= "foo_test"
+  master_password= "Mustbe8characters"
   node_type  = "ra3.xlplus"
   automated_snapshot_retention_period  = 1
   allow_version_upgrade   = false
-  skip_final_snapshot     = true
+  skip_final_snapshot = true
   availability_zone_relocation_enabled = true
-  publicly_accessible     = false
+  publicly_accessible = false
 }
 
 data "aws_caller_identity" "test" {
@@ -240,7 +240,7 @@ data "aws_caller_identity" "test" {
 func testAccEndpointAuthorizationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointAuthorizationConfigBase(rName), `
 resource "aws_redshift_endpoint_authorization" "test" {
-  account            = data.aws_caller_identity.test.account_id
+  account   = data.aws_caller_identity.test.account_id
   cluster_identifier = aws_redshift_cluster.test.cluster_identifier
 }
 `)
@@ -254,14 +254,14 @@ resource "aws_vpc" "test2" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_redshift_endpoint_authorization" "test" {
-  account            = data.aws_caller_identity.test.account_id
+  account   = data.aws_caller_identity.test.account_id
   cluster_identifier = aws_redshift_cluster.test.cluster_identifier
-  vpc_ids            = [aws_vpc.test2.id]
+  vpc_ids   = [aws_vpc.test2.id]
 }
 `, rName))
 }
@@ -274,7 +274,7 @@ resource "aws_vpc" "test2" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -284,14 +284,14 @@ resource "aws_vpc" "test3" {
   cidr_block = "11.0.0.0/16"
 
   tags = {
-    Name = "%[1]s-2"
+Name = "%[1]s-2"
   }
 }
 
 resource "aws_redshift_endpoint_authorization" "test" {
-  account            = data.aws_caller_identity.test.account_id
+  account   = data.aws_caller_identity.test.account_id
   cluster_identifier = aws_redshift_cluster.test.cluster_identifier
-  vpc_ids            = [aws_vpc.test2.id, aws_vpc.test3.id]
+  vpc_ids   = [aws_vpc.test2.id, aws_vpc.test3.id]
 }
 `, rName))
 }

@@ -64,9 +64,9 @@ Schema: map[string]*schema.Schema{
 },
 },
 },
-"legend":                 legendOptionsSchema(),         // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LegendOptions.html
-"tooltip":                tooltipOptionsSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
-"visual_palette":         visualPaletteSchema(),         // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
+"legend":     legendOptionsSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LegendOptions.html
+"tooltip":    tooltipOptionsSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
+"visual_palette":   visualPaletteSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
 "x_axis_display_options": axisDisplayOptionsSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AxisDisplayOptions.html
 "x_axis_label_options":   chartAxisLabelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
 "y_axis_display_options": axisDisplayOptionsSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AxisDisplayOptions.html
@@ -74,9 +74,9 @@ Schema: map[string]*schema.Schema{
 },
 },
 },
-"column_hierarchies": columnHierarchiesSchema(),          // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnHierarchy.html
-"subtitle":           visualSubtitleLabelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualSubtitleLabelOptions.html
-"title":              visualTitleLabelOptionsSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualTitleLabelOptions.html
+"column_hierarchies": columnHierarchiesSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnHierarchy.html
+"subtitle":     visualSubtitleLabelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualSubtitleLabelOptions.html
+"title":  visualTitleLabelOptionsSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualTitleLabelOptions.html
 },
 },
 }

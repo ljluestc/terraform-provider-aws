@@ -33,13 +33,13 @@ func ResourceAccount() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"finding_publishing_frequency": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringInSlice(macie2.FindingPublishingFrequency_Values(), false),
 			},
 			"status": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringInSlice(macie2.MacieStatus_Values(), false),

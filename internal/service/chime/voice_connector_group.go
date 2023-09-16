@@ -36,12 +36,12 @@ MaxItems: 3,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "voice_connector_id": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.StringLenBetween(1, 256),
 },
 "priority": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Required:     true,
 	ValidateFunc: validation.IntBetween(1, 99),
 },
@@ -49,7 +49,7 @@ Elem: &schema.Resource{
 },
 	},
 	"name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringLenBetween(1, 256),
 	},
@@ -157,7 +157,7 @@ func expandVoiceConnectorItems(data []interface{}) []*chime.VoiceConnectorItem {
 item := rItem.(map[string]interface{})
 connectorsItems = append(connectorsItems, &chime.VoiceConnectorItem{
 	VoiceConnectorId: aws.String(item["voice_connector_id"].(string)),
-	Priority:         aws.Int64(int64(item["priority"].(int))),
+	Priority:aws.Int64(int64(item["priority"].(int))),
 })
 	}
 
@@ -169,7 +169,7 @@ func flattenVoiceConnectorItems(connectors []*chime.VoiceConnectorItem) []interf
 
 	for _, c := range connectors {
 rawC := map[string]interface{}{
-	"priority":           aws.Int64Value(c.Priority),
+	"priority":  aws.Int64Value(c.Priority),
 	"voice_connector_id": aws.StringValue(c.VoiceConnectorId),
 }
 rawConnectors = append(rawConnectors, rawC)

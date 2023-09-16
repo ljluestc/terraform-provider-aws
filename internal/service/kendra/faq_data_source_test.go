@@ -1,21 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kendra_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package kendra_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/backup"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
-
-
 func TestAccKendraFaqDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_kendra_faq.test"
@@ -24,17 +15,14 @@ func TestAccKendraFaqDataSource_basic(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
-
+	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, backup.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccFaqDataSourceConfig_nonExistent,
+				Config:testAccFaqDataSourceConfig_nonExistent,
 				ExpectError: regexache.MustCompile(`getting Kendra Faq`),
 			},
 			{
@@ -60,41 +48,30 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 			},
 		},
 	})
-}
-
-const testAccFaqDataSourceConfig_nonExistent = `
+}const testAccFaqDataSourceConfig_nonExistent = `
 data "aws_kendra_faq" "test" {
-  faq_id   = "tf-acc-test-does-not-exist-kendra-faq-id"
-  index_id = "tf-acc-test-does-not-exist-kendra-id"
+faq_id= "tf-acc-test-does-not-exist-kendra-faq-id"
+index_id = "tf-acc-test-does-not-exist-kendra-id"
 }
 `
-
-
-
 func testAccFaqDataSourceConfig_basic(rName, rName2, rName3, rName4, rName5 string) string {
 	return acctest.ConfigCompose(
 		testAccFaqConfigBase(rName, rName2, rName3, rName4),
 		fmt.Sprintf(`
 resource "aws_kendra_faq" "test" {
-  index_id      = aws_kendra_index.test.id
-  name = %[1]q
-  file_format   = "CSV"
-  language_code = "en"
-  role_arn      = aws_iam_role.test_faq.arn
-
-  s3_path {
-    bucket = aws_s3_bucket.test.id
-    key    = aws_s3_object.test.key
-  }
-
-  tags = {
-    "Key1" = "Value1"
-  }
+index_id= aws_kendra_index.test.id
+name = %[1]q
+file_format= "CSV"
+language_code = "en"
+role_arn= aws_iam_role.test_faq.arns3_path {
+ bucket = aws_s3_bucket.test.id
+ key = aws_s3_object.test.key
+}tags = {
+ "Key1" = "Value1"
 }
-
-data "aws_kendra_faq" "test" {
-  faq_id   = aws_kendra_faq.test.faq_id
-  index_id = aws_kendra_index.test.id
+}data "aws_kendra_faq" "test" {
+faq_id= aws_kendra_faq.test.faq_id
+index_id = aws_kendra_index.test.id
 }
 `, rName5))
 }

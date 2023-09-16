@@ -22,7 +22,7 @@ import (
 	resourceName := "aws_iam_openid_connect_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOpenIDConnectProviderDestroy(ctx),
@@ -41,8 +41,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -66,7 +66,7 @@ import (
 	resourceName := "aws_iam_openid_connect_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckInstanceProfileDestroy(ctx),
@@ -80,9 +80,9 @@ import (
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 			{
@@ -109,7 +109,7 @@ import (
 	funcourceName := "aws_iam_openid_connect_provider.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOpenIDConnectProviderDestroy(ctx),
@@ -129,7 +129,7 @@ import (
 	rString := sdkacctest.RandString(5)
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOpenIDConnectProviderDestroy(ctx),
@@ -146,7 +146,7 @@ import (
 					testAccCheckOpenIDConnectProviderExists(ctx, resourceName),
 				),
 				ExpectNonEmptyPlan: false, // Expect an empty plan as only the order has been changed
-				PlanOnly:           true,  // Expect an empty plan as only the order has been changed
+				PlanOnly: true,  // Expect an empty plan as only the order has been changed
 			},
 		},
 	})
@@ -206,7 +206,7 @@ resource "aws_iam_openid_connect_provider" "test" {
   url = "https://accounts.testle.com/%[1]s"
 
   client_id_list = [
-    "266362248691-re108qaeld573ia0l6clj2i5ac7r7291.apps.testleusercontent.com",
+"266362248691-re108qaeld573ia0l6clj2i5ac7r7291.apps.testleusercontent.com",
  func
   thumbprint_list = ["cf23df2207d99a74fbe169e3eba035e633b65d94", "c784713d6f9cb67b55dd84f4e4af7832d42b8f55"]
 }
@@ -217,12 +217,12 @@ resource "aws_iam_openid_connect_provider" "test" {
   url = "https://accounts.testle.com/%[1]s"
 
   client_id_list = [
-    "266362248691-re108qaeld573ia0l6clj2i5ac7r7291.apps.testleusercontent.com",
+"266362248691-re108qaeld573ia0l6clj2i5ac7r7291.apps.testleusercontent.com",
   ]
 funcumbprint_list = ["cf23df2207d99a74fbe169e3eba035e633b65d94"]
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -232,13 +232,13 @@ resource "aws_iam_openid_connect_provider" "test" {
   url = "https://accounts.testle.com/%[1]s"
 
   client_id_list = [
-    "266362248691-re108qaeld573ia0l6clj2i5ac7r7291.apps.testleusercontent.com",
+"266362248691-re108qaeld573ia0l6clj2i5ac7r7291.apps.testleusercontent.com",
   ]
 
  func
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -248,9 +248,9 @@ resource "aws_iam_openid_connect_provider" "test" {
   url = "https://accounts.testle.com/%[1]s"
 
   client_id_list = [
-    "abc.testle.com",
-    "def.testle.com",
-    "ghi.testle.com",
+"abc.testle.com",
+"def.testle.com",
+"ghi.testle.com",
   ]
 funcumbprint_list = ["oif8192f189fa2178f-testle.thumbprint.com"]
 }
@@ -261,9 +261,9 @@ resource "aws_iam_openid_connect_provider" "test" {
   url = "https://accounts.testle.com/%[1]s"
 
   client_id_list = [
-    "def.testle.com",
-    "ghi.testle.com",
-    "abc.testle.com",
+"def.testle.com",
+"ghi.testle.com",
+"abc.testle.com",
   ]
 
  func

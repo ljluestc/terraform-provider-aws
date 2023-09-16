@@ -52,7 +52,7 @@ func ResourceRemediationConfiguration() *schema.Resource {
 				Optional: true,
 			},
 			"config_rule_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
@@ -70,12 +70,12 @@ func ResourceRemediationConfiguration() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"concurrent_execution_rate_percentage": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ValidateFunc: validation.IntBetween(1, 100),
 									},
 									"error_percentage": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ValidateFunc: validation.IntBetween(1, 100),
 									},
@@ -86,7 +86,7 @@ func ResourceRemediationConfiguration() *schema.Resource {
 				},
 			},
 			"maximum_automatic_attempts": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(1, 25),
 			},
@@ -101,7 +101,7 @@ func ResourceRemediationConfiguration() *schema.Resource {
 							Required: true,
 						},
 						"resource_value": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 256),
 						},
@@ -123,17 +123,17 @@ func ResourceRemediationConfiguration() *schema.Resource {
 				Optional: true,
 			},
 			"retry_attempt_seconds": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(1, 2678000),
 			},
 			"target_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 256),
 			},
 			"target_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(configservice.RemediationTargetType_Values(), false),
 			},

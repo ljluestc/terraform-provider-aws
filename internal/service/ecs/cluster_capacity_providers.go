@@ -53,7 +53,7 @@ func ResourceClusterCapacityProviders() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"base": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Default:      0,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(0, 100000),
@@ -63,7 +63,7 @@ func ResourceClusterCapacityProviders() *schema.Resource {
 							Required: true,
 						},
 						"weight": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Default:      0,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(0, 1000),
@@ -81,7 +81,7 @@ func resourceClusterCapacityProvidersPut(ctx context.Context, d *schema.Resource
 	clusterName := d.Get("cluster_name").(string)
 	input := &ecs.PutClusterCapacityProvidersInput{
 		CapacityProviders:  flex.ExpandStringSet(d.Get("capacity_providers").(*schema.Set)),
-		Cluster:            aws.String(clusterName),
+		Cluster:   aws.String(clusterName),
 		DefaultCapacityProviderStrategy: expandCapacityProviderStrategy(d.Get("default_capacity_provider_strategy").(*schema.Set)),
 	}
 
@@ -133,7 +133,7 @@ func resourceClusterCapacityProvidersDelete(ctx context.Context, d *schema.Resou
 
 	input := &ecs.PutClusterCapacityProvidersInput{
 		CapacityProviders:  []*string{},
-		Cluster:            aws.String(d.Id()),
+		Cluster:   aws.String(d.Id()),
 		DefaultCapacityProviderStrategy: []*ecs.CapacityProviderStrategyItem{},
 	}
 

@@ -1,71 +1,39 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hclsyntax
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hclsyntaximport (
 	"fmt"
-	"strings"
-
-	"github.com/hashicorp/hcl/v2"
-)
-
-// AsHCLBlock returns the block data expressed as a *hcl.Block.
-
- (b *Block) AsHCLBlock() *hcl.Block {
+	"strings"	"github.com/hashicorp/hcl/v2"
+)// AsHCLBlock returns the block data expressed as a *hcl.Block. (b *Block) AsHCLBlock() *hcl.Block {
 	if b == nil {
 		return nil
-	}
-
-	return &hcl.Block{
+	}	return &hcl.Block{
 		Type:   b.Type,
 		Labels: b.Labels,
-		Body:   b.Body,
-
-		DefRange:    b.DefRange(),
+		Body:   b.Body,		DefRange:    b.DefRange(),
 		TypeRange:   b.TypeRange,
 		LabelRanges: b.LabelRanges,
 	}
-}
-
-// Body is the implementation of hcl.Body for the HCL native syntax.
+}// Body is the implementation of hcl.Body for the HCL native syntax.
 type Body struct {
 	Attributes Attributes
-	Blocks     Blocks
-
-	// These are used with PartialContent to produce a "remaining items"
+	Blocks     Blocks	// These are used with PartialContent to produce a "remaining items"
 	// body to return. They are nil on all bodies fresh out of the parser.
 	hiddenAttrs  map[string]struct{}
-	hiddenBlocks map[string]struct{}
-
-	SrcRange hcl.Range
+	hiddenBlocks map[string]struct{}	SrcRange hcl.Range
 	EndRange hcl.Range // Final token of the body (zero-length range)
-}
-
-// Assert that *Body implements hcl.Body
+}// Assert that *Body implements hcl.Body
 var assertBodyImplBody hcl.Body = &Body{}
-
-
  (b *Body) walkChildNodes(w internalWalk
 ) {
 	w(b.Attributes)
 .Blocks)
 }
-
-
 *Body) Range() hcl.Range {
 	return b.SrcRange
 }
-
-
  (b *Body) Content(schema *hcl.BodySchema) (*hcl.BodyContent, hcl.Diagnostics) {
-	content, remainHCL, diags := b.PartialContent(schema)
-
-	// No we'll see if anything actually remains, to produce errors about
+	content, remainHCL, diags := b.PartialContent(schema)	// No we'll see if anything actually remains, to produce errors about
 	// extraneous items.
-	remain := remainHCL.(*Body)
-
-	for name, attr := range b.Attributes {
+	remain := remainHCL.(*Body)	for name, attr := range b.Attributes {
 		if _, hidden := remain.hiddenAttrs[name]; !hidden {
 			var suggestions []string
 			for _, attrS := range schema.Attributes {
@@ -85,18 +53,14 @@ var assertBodyImplBody hcl.Body = &Body{}
 						break
 					}
 				}
-			}
-
-			diags = append(diags, &hcl.Diagnostic{
+			}			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
 				Summary:  "Unsupported argument",
 				Detail:   fmt.Sprintf("An argument named %q is not expected here.%s", name, suggestion),
 				Subject:  &attr.NameRange,
 			})
 		}
-	}
-
-	for _, block := range b.Blocks {
+	}	for _, block := range b.Blocks {
 		blockTy := block.Type
 		if _, hidden := remain.hiddenBlocks[blockTy]; !hidden {
 			var suggestions []string
@@ -114,29 +78,21 @@ var assertBodyImplBody hcl.Body = &Body{}
 						break
 					}
 				}
-			}
-
-			diags = append(diags, &hcl.Diagnostic{
+			}			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
 				Summary:  "Unsupported block type",
 				Detail:   fmt.Sprintf("Blocks of type %q are not expected here.%s", blockTy, suggestion),
 				Subject:  &block.TypeRange,
 			})
 		}
-
-
 	return content, diags
 }
-
-
  (b *Body) PartialContent(schema *hcl.BodySchema) (*hcl.BodyContent, hcl.Body, hcl.Diagnostics) {
 	attrs := make(hcl.Attributes)
 	var blocks hcl.Blocks
 	var diags hcl.Diagnostics
 	hiddenAttrs := make(map[string]struct{})
-	hiddenBlocks := make(map[string]struct{})
-
-	if b.hiddenAttrs != nil {
+	hiddenBlocks := make(map[string]struct{})	if b.hiddenAttrs != nil {
 		for k, v := range b.hiddenAttrs {
 			hiddenAttrs[k] = v
 		}
@@ -145,9 +101,7 @@ var assertBodyImplBody hcl.Body = &Body{}
 		for k, v := range b.hiddenBlocks {
 			hiddenBlocks[k] = v
 		}
-	}
-
-	for _, attrS := range schema.Attributes {
+	}	for _, attrS := range schema.Attributes {
 		name := attrS.Name
 		attr, exists := b.Attributes[name]
 		_, hidden := hiddenAttrs[name]
@@ -161,27 +115,19 @@ var assertBodyImplBody hcl.Body = &Body{}
 				})
 			}
 			continue
-		}
-
-		hiddenAttrs[name] = struct{}{}
+		}		hiddenAttrs[name] = struct{}{}
 		attrs[name] = attr.AsHCLAttribute()
-	}
-
-	blocksWanted := make(map[string]hcl.BlockHeaderSchema)
+	}	blocksWanted := make(map[string]hcl.BlockHeaderSchema)
 	for _, blockS := range schema.Blocks {
 		blocksWanted[blockS.Type] = blockS
-	}
-
-	for _, block := range b.Blocks {
+	}	for _, block := range b.Blocks {
 		if _, hidden := hiddenBlocks[block.Type]; hidden {
 			continue
 		}
 		blockS, wanted := blocksWanted[block.Type]
 		if !wanted {
 			continue
-		}
-
-		if len(block.Labels) > len(blockS.LabelNames) {
+		}		if len(block.Labels) > len(blockS.LabelNames) {
 			name := block.Type
 			if len(blockS.LabelNames) == 0 {
 				diags = append(diags, &hcl.Diagnostic{
@@ -206,9 +152,7 @@ var assertBodyImplBody hcl.Body = &Body{}
 				})
 			}
 			continue
-		}
-
-		if len(block.Labels) < len(blockS.LabelNames) {
+		}		if len(block.Labels) < len(blockS.LabelNames) {
 			name := block.Type
 			diags = append(diags, &hcl.Diagnostic{
 				Severity: hcl.DiagError,
@@ -221,42 +165,24 @@ var assertBodyImplBody hcl.Body = &Body{}
 				Context: hcl.RangeBetween(block.TypeRange, block.OpenBraceRange).Ptr(),
 			})
 			continue
-		}
-
-		blocks = append(blocks, block.AsHCLBlock())
-	}
-
-	// We hide blocks only after we've processed all of them, since otherwise
+		}		blocks = append(blocks, block.AsHCLBlock())
+	}	// We hide blocks only after we've processed all of them, since otherwise
 	// we can't process more than one of the same type.
 	for _, blockS := range schema.Blocks {
 		hiddenBlocks[blockS.Type] = struct{}{}
-	}
-
-	remain := &Body{
+	}	remain := &Body{
 		Attributes: b.Attributes,
-		Blocks:     b.Blocks,
-
-		hiddenAttrs:  hiddenAttrs,
-		hiddenBlocks: hiddenBlocks,
-
-		SrcRange: b.SrcRange,
+		Blocks:     b.Blocks,		hiddenAttrs:  hiddenAttrs,
+		hiddenBlocks: hiddenBlocks,		SrcRange: b.SrcRange,
 		EndRange: b.EndRange,
-	}
-
-	return &hcl.BodyContent{
+	}	return &hcl.BodyContent{
 		Attributes: attrs,
-ocks:     blocks,
-
-		MissingItemRange: b.MissingItemRange(),
+ocks:     blocks,		MissingItemRange: b.MissingItemRange(),
 	}, remain, diags
 }
-
-
  (b *Body) JustAttributes() (hcl.Attributes, hcl.Diagnostics) {
 	attrs := make(hcl.Attributes)
-	var diags hcl.Diagnostics
-
-	if len(b.Blocks) > 0 {
+	var diags hcl.Diagnostics	if len(b.Blocks) > 0 {
 		example := b.Blocks[0]
 		diags = append(diags, &hcl.Diagnostic{
 			Severity: hcl.DiagError,
@@ -267,49 +193,31 @@ ocks:     blocks,
 		// we will continue processing anyway, and return the attributes
 		// we are able to find so that certain analyses can still be done
 		// in the face of errors.
-	}
-
-	if b.Attributes == nil {
+	}	if b.Attributes == nil {
 		return attrs, diags
-	}
-
-	for name, attr := range b.Attributes {
+	}	for name, attr := range b.Attributes {
 		if _, hidden := b.hiddenAttrs[name]; hidden {
-			continue
-
-		attrs[name] = attr.AsHCLAttribute()
-	}
-
-	return attrs, diags
+			continue		attrs[name] = attr.AsHCLAttribute()
+	}	return attrs, diags
 }
-
-
  (b *Body) MissingItemRange() hcl.Range {
 	return hcl.Range{
 		Filename: b.SrcRange.Filename,
 art:    b.SrcRange.Start,
 		End:      b.SrcRange.Start,
 	}
-}
-
-// Attributes is the collection of attribute definitions within a body.
+}// Attributes is the collection of attribute definitions within a body.
 type Attributes map[string]*Attribute
-
-
  (a Attributes) walkChildNodes(w internalWalk
 ) {
  _, attr := range a {
 		w(attr)
 	}
-}
-
-// Range returns the range of some arbitrary point within the set of
+}// Range returns the range of some arbitrary point within the set of
 // attributes, or an invalid range if there are no attributes.
 //
 // This is provided only to complete the Node interface, but has no practical
-// use.
-
- (a Attributes) Range() hcl.Range {
+// use. (a Attributes) Range() hcl.Range {
 	// An attributes doesn't really have a useful range to report, since
 	// it's just a grouping construct. So we'll arbitrarily take the
 	// range of one of the attributes, or produce an invalid range if we have
@@ -321,94 +229,58 @@ type Attributes map[string]*Attribute
 	return hcl.Range{
 		Filename: "<unknown>",
 	}
-}
-
-// Attribute represents a single attribute definition within a body.
+}// Attribute represents a single attribute definition within a body.
 type Attribute struct {
 	Name string
-r Expression
-
-	SrcRange    hcl.Range
+r Expression	SrcRange    hcl.Range
 	NameRange   hcl.Range
-	EqualsRange hcl.Range
-
-
-
- (a *Attribute) walkChildNodes(w internalWalk
+	EqualsRange hcl.Range (a *Attribute) walkChildNodes(w internalWalk
 ) {
 	w(a.Expr)
 }
-
-
  (a *Attribute) Range() hcl.Range {
 	return a.SrcRange
-}
-
-// AsHCLAttribute returns the block data expressed as a *hcl.Attribute.
-
- (a *Attribute) AsHCLAttribute() *hcl.Attribute {
+}// AsHCLAttribute returns the block data expressed as a *hcl.Attribute. (a *Attribute) AsHCLAttribute() *hcl.Attribute {
 a == nil {
 		return nil
 	}
 	return &hcl.Attribute{
 		Name: a.Name,
-		Expr: a.Expr,
-
-		Range:     a.SrcRange,
+		Expr: a.Expr,		Range:     a.SrcRange,
 		NameRange: a.NameRange,
 	}
-}
-
-// Blocks is the list of nested blocks within a body.
+}// Blocks is the list of nested blocks within a body.
 type Blocks []*Block
-
-
  (bs Blocks) walkChildNodes(w internalWalk
 ) {
 	for _, block := range bs {
 		w(block)
 	}
-}
-
-// Range returns the range of some arbitrary point within the list of
+}// Range returns the range of some arbitrary point within the list of
 // blocks, or an invalid range if there are no blocks.
 //
 // This is provided only to complete the Node interface, but has no practical
-// use.
-
- (bs Blocks) Range() hcl.Range {
+// use. (bs Blocks) Range() hcl.Range {
 	if len(bs) > 0 {
-		return bs[0].Range()
-
-	return hcl.Range{
+		return bs[0].Range()	return hcl.Range{
 		Filename: "<unknown>",
 	}
-
-
 // Block represents a nested block structure
 type Block struct {
 e   string
 	Labels []string
-	Body   *Body
-
-	TypeRange       hcl.Range
+	Body   *Body	TypeRange       hcl.Range
 	LabelRanges     []hcl.Range
 	OpenBraceRange  hcl.Range
 	CloseBraceRange hcl.Range
 }
-
-
  (b *Block) walkChildNodes(w internalWalk
 ) {
 	w(b.Body)
 }
-
-
  (b *Block) Range() hcl.Range {
 	return hcl.RangeBetween(b.TypeRange, b.CloseBraceRange)
 }
-
-
  (b *Block) DefRange() hcl.Range {
 	lastHeaderRange := b.TypeRange
 	if len(b.LabelRanges) > 0 {

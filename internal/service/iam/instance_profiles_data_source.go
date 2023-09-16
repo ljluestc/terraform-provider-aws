@@ -21,23 +21,23 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"arns": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"names": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"paths": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"role_name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validResourceName(roleNameMaxLen),
 			},
 		},

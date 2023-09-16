@@ -28,9 +28,9 @@ func TestAccChimeVoiceConnectorLogging_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVoiceConnectorDestroy(ctx),
+		CheckDestroy:    testAccCheckVoiceConnectorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVoiceConnectorLoggingConfig_basic(name),
@@ -59,9 +59,9 @@ func TestAccChimeVoiceConnectorLogging_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVoiceConnectorDestroy(ctx),
+		CheckDestroy:    testAccCheckVoiceConnectorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVoiceConnectorLoggingConfig_basic(name),
@@ -85,9 +85,9 @@ func TestAccChimeVoiceConnectorLogging_update(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVoiceConnectorDestroy(ctx),
+		CheckDestroy:    testAccCheckVoiceConnectorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVoiceConnectorLoggingConfig_basic(name),
@@ -121,7 +121,7 @@ resource "aws_chime_voice_connector" "chime" {
 
 resource "aws_chime_voice_connector_logging" "test" {
   voice_connector_id       = aws_chime_voice_connector.chime.id
-  enable_sip_logs          = true
+  enable_sip_logs = true
   enable_media_metric_logs = true
 }
 `, name)
@@ -136,7 +136,7 @@ resource "aws_chime_voice_connector" "chime" {
 
 resource "aws_chime_voice_connector_logging" "test" {
   voice_connector_id       = aws_chime_voice_connector.chime.id
-  enable_sip_logs          = false
+  enable_sip_logs = false
   enable_media_metric_logs = false
 }
 `, name)

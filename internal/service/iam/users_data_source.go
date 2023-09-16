@@ -19,22 +19,22 @@ import (
 		ReadWithoutTimeout: dataSourceUsersRead,
 		Schema: map[string]*schema.Schema{
 			"arns": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"name_regex": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringIsValidRegExp,
 			},
 			"names": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"path_prefix": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 		},

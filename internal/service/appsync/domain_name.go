@@ -34,40 +34,39 @@ func ResourceDomainName() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"appsync_domain_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"certificate_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"domain_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"hosted_zone_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceDomainNameCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
 
 	params := &appsync.CreateDomainNameInput{
 		CertificateArn: aws.String(d.Get("certificate_arn").(string)),
-		Description:    aws.String(d.Get("description").(string)),
-		DomainName:     aws.String(d.Get("domain_name").(string)),
+		Description:aws.String(d.Get("description").(string)),
+		DomainName:aws.String(d.Get("domain_name").(string)),
 	}
 
 	resp, err := conn.CreateDomainNameWithContext(ctx, params)
@@ -79,7 +78,6 @@ func resourceDomainNameCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceDomainNameRead(ctx, d, meta)...)
 }
-
 func resourceDomainNameRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -103,7 +101,6 @@ func resourceDomainNameRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -123,7 +120,6 @@ func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceDomainNameRead(ctx, d, meta)...)
 }
-
 func resourceDomainNameDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)

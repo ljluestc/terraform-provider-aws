@@ -169,16 +169,16 @@ data "aws_ssoadmin_instances" "test" {}
 
 resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
-  display_name      = "Acceptance Test"
-  user_name         = %[1]q
+  display_name = "Acceptance Test"
+  user_name= %[1]q
 
   name {
-    family_name = "Acceptance"
-    given_name  = "Test"
+family_name = "Acceptance"
+given_name  = "Test"
   }
 
   emails {
-    value = %[2]q
+value = %[2]q
   }
 }
 `, name, email)
@@ -190,55 +190,55 @@ data "aws_ssoadmin_instances" "test" {}
 
 resource "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
-  display_name      = %[1]q
-  user_name         = %[1]q
+  display_name = %[1]q
+  user_name= %[1]q
 
   addresses {
-    country        = "US"
-    formatted      = "Formatted Address 1"
-    locality       = "The Locality 1"
-    postal_code    = "AAA BBB 1"
-    primary        = true
-    region         = "The Region 1"
-    street_address = "The Street Address 1"
-    type           = "The Type 1"
+country   = "US"
+formatted = "Formatted Address 1"
+locality  = "The Locality 1"
+postal_code= "AAA BBB 1"
+primary   = true
+region= "The Region 1"
+street_address = "The Street Address 1"
+type = "The Type 1"
   }
 
   emails {
-    primary = true
-    type    = "The Type 1"
-    value   = %[2]q
+primary = true
+type= "The Type 1"
+value   = %[2]q
   }
 
   locale = "The Locale"
 
   name {
-    family_name      = "Acceptance"
-    formatted        = "Acceptance Test"
-    given_name       = "Test"
-    honorific_prefix = "Dr"
-    honorific_suffix = "PhD"
-    middle_name      = "John"
+family_name = "Acceptance"
+formatted   = "Acceptance Test"
+given_name  = "Test"
+honorific_prefix = "Dr"
+honorific_suffix = "PhD"
+middle_name = "John"
   }
 
   nickname = "The Nickname"
 
   phone_numbers {
-    primary = false
-    type    = "The Type 2"
-    value   = "2222222"
+primary = false
+type= "The Type 2"
+value   = "2222222"
   }
 
   preferred_language = "en-US"
-  profile_url        = "http://example.com"
-  timezone           = "UTC"
+  profile_url   = "http://example.com"
+  timezone = "UTC"
   title = "Mr"
-  user_type          = "Member"
+  user_type= "Member"
 }
 
 data "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
-  user_id           = aws_identitystore_user.test.user_id
+  user_id = aws_identitystore_user.test.user_id
 }
 `, name, email)
 }
@@ -249,8 +249,8 @@ data "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   filter {
-    attribute_path  = "UserName"
-    attribute_value = aws_identitystore_user.test.user_name
+attribute_path  = "UserName"
+attribute_value = aws_identitystore_user.test.user_name
   }
 }
 `)
@@ -262,10 +262,10 @@ data "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   alternate_identifier {
-    unique_attribute {
-      attribute_path  = "UserName"
-      attribute_value = aws_identitystore_user.test.user_name
-    }
+unique_attribute {
+ attribute_path  = "UserName"
+ attribute_value = aws_identitystore_user.test.user_name
+}
   }
 }
 `)
@@ -277,10 +277,10 @@ data "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   alternate_identifier {
-    unique_attribute {
-      attribute_path  = "Emails.Value"
-      attribute_value = aws_identitystore_user.test.emails[0].value
-    }
+unique_attribute {
+ attribute_path  = "Emails.Value"
+ attribute_value = aws_identitystore_user.test.emails[0].value
+}
   }
 }
 `)
@@ -292,8 +292,8 @@ data "aws_identitystore_user" "test" {
   identity_store_id = tolist(data.aws_ssoadmin_instances.test.identity_store_ids)[0]
 
   filter {
-    attribute_path  = "UserName"
-    attribute_value = aws_identitystore_user.test.user_name
+attribute_path  = "UserName"
+attribute_value = aws_identitystore_user.test.user_name
   }
 
   user_id = aws_identitystore_user.test.user_id

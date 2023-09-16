@@ -13,18 +13,18 @@ import (
 
 func encryptionConfigurationSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:     schema.TypeList,
+		Type:schema.TypeList,
 		MaxItems: 1,
 		Optional: true,
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"key_id": {
-					Type:     schema.TypeString,
+					Type:schema.TypeString,
 					Optional: true,
 				},
 				"type": {
-					Type:         schema.TypeString,
-					Required:     true,
+					Type:schema.TypeString,
+					Required:true,
 					ValidateFunc: validation.StringInSlice(networkfirewall.EncryptionType_Values(), false),
 				},
 			},
@@ -65,29 +65,29 @@ func flattenEncryptionConfiguration(apiObject *networkfirewall.EncryptionConfigu
 
 func customActionSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:     schema.TypeSet,
+		Type:schema.TypeSet,
 		Optional: true,
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"action_definition": {
-					Type:     schema.TypeList,
+					Type:schema.TypeList,
 					Required: true,
 					MaxItems: 1,
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"publish_metric_action": {
-								Type:     schema.TypeList,
+								Type:schema.TypeList,
 								Required: true,
 								MaxItems: 1,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"dimension": {
-											Type:     schema.TypeSet,
+											Type:schema.TypeSet,
 											Required: true,
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"value": {
-														Type:     schema.TypeString,
+														Type:schema.TypeString,
 														Required: true,
 													},
 												},
@@ -100,9 +100,9 @@ func customActionSchema() *schema.Schema {
 					},
 				},
 				"action_name": {
-					Type:         schema.TypeString,
-					Required:     true,
-					ForceNew:     true,
+					Type:schema.TypeString,
+					Required:true,
+					ForceNew:true,
 					ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z]+$`), "must contain only alphanumeric characters"),
 				},
 			},
@@ -188,7 +188,7 @@ func flattenCustomActions(c []*networkfirewall.CustomAction) []interface{} {
 	for _, elem := range c {
 		m := map[string]interface{}{
 			"action_definition": flattenActionDefinition(elem.ActionDefinition),
-			"action_name":       aws.StringValue(elem.ActionName),
+			"action_name":  aws.StringValue(elem.ActionName),
 		}
 		customActions = append(customActions, m)
 	}
@@ -245,27 +245,27 @@ func forceNewIfNotRuleOrderDefault(key string, d *schema.ResourceDiff) error {
 
 func customActionSchemaDataSource() *schema.Schema {
 	return &schema.Schema{
-		Type:     schema.TypeSet,
+		Type:schema.TypeSet,
 		Computed: true,
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"action_definition": {
-					Type:     schema.TypeList,
+					Type:schema.TypeList,
 					Computed: true,
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"publish_metric_action": {
-								Type:     schema.TypeList,
+								Type:schema.TypeList,
 								Computed: true,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"dimension": {
-											Type:     schema.TypeSet,
+											Type:schema.TypeSet,
 											Computed: true,
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"value": {
-														Type:     schema.TypeString,
+														Type:schema.TypeString,
 														Computed: true,
 													},
 												},
@@ -278,7 +278,7 @@ func customActionSchemaDataSource() *schema.Schema {
 					},
 				},
 				"action_name": {
-					Type:     schema.TypeString,
+					Type:schema.TypeString,
 					Computed: true,
 				},
 			},

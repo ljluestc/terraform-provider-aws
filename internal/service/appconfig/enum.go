@@ -5,7 +5,7 @@ package appconfig
 
 const (
 	configurationProfileTypeFeatureFlags = "AWS.AppConfig.FeatureFlags"
-	configurationProfileTypeFreeform     = "AWS.Freeform"
+	configurationProfileTypeFreeform = "AWS.Freeform"
 )
 
 func ConfigurationProfileType_Values() []string {

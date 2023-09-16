@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"context"
 	"fmt"
 	"os"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/rds"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -18,24 +12,21 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfrds "github.com/hashicorp/terraform-provider-aws/internal/service/rds"
 )
-
 func := acctest.Context(t)
 	key := "RUN_RDS_RESERVED_INSTANCE_TESTS"
 	vifId := os.Getenv(key)
 	if vifId != "true" {
 t.Skipf("Environment variable %s is not set to true", key)
-	}
-
-	var reservation rds.ReservedDBInstance
+	}	var reservation rds.ReservedDBInstance
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_rds_reserved_instance.test"
 	dataSourceName := "data.aws_rds_reserved_instance_offering.test"
-	instanceCount := "1"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ProtoV5ProvidfunckDestroy:nil,
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	instanceCount := "1"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ProtoV5Provid
+funckDestroy:nil,
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 Steps: []resource.TestStep{
 	{
 Config: testAccReservedInstanceConfig_basic(rName, instanceCount),
@@ -62,46 +53,34 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccReservedInstanceExists(ctx context.Context, n string, reservation *rds.ReservedDBInstance) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 func
-rs, ok :funcok {
+rs, ok :
+funcok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No RDS Reserved Instance reservation id is set")
-}
-
-resp, err := tfrds.FindReservedDBInstanceByID(ctx, conn, rs.Primary.ID)
+}resp, err := tfrds.FindReservedDBInstanceByID(ctx, conn, rs.Primary.ID)
 if err != nil {
 	return err
-}
-
-if resp == nil {
+}if resp == nil {
 	return fmt.Errorf("RDS Reserved Instance %q does not exist", rs.Primary.ID)
-}
-
-*reservation = *resp
-
-return nil
+}*reservation = *respreturn nil
 	}
 }
-
 func testAccReservedInstanceConfig_basic(rName string, instanceCount string) string {
 	return fmt.Sprintf(`
 data "aws_rds_reserved_instance_offering" "test" {
-  db_instance_class   = "db.t2.micro"
-funclti_az            = false
-  offering_type       = "All Upfront"
-  product_description = "mysql"
-}
-
-resource "aws_rds_reserved_instance" "test" {
-  offering_id    = data.aws_rds_reserved_instance_offering.test.offering_id
-  reservation_id = %[1]q
-  instance_count = %[2]s
+db_instance_class= "db.t2.micro"
+funclti_az= false
+offering_type = "All Upfront"
+product_description = "mysql"
+}resource "aws_rds_reserved_instance" "test" {
+offering_id = data.aws_rds_reserved_instance_offering.test.offering_id
+reservation_id = %[1]q
+instance_count = %[2]s
 }
 `, rName, instanceCount)
 }

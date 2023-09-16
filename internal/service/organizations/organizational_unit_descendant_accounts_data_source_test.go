@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccOrganizationalUnitDescendantAccountsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -21,7 +22,8 @@ func testAccOrganizationalUnitDescendantAccountsDataSource_basic(t *testing.T) {
 	newOU2DataSourceName := "data.aws_organizations_organizational_unit_descendant_accounts.test1"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckOrganizationManagementAccount(ctx, t)
 },
@@ -39,6 +41,7 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
+
 
 func testAccOrganizationalUnitDescendantAccountsDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`

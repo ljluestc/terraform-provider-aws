@@ -38,18 +38,18 @@ func ResourceTracker() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 1000),
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 2048),
 			},
 			"position_filtering": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      locationservice.PositionFilteringTimeBased,
 				ValidateFunc: validation.StringInSlice(locationservice.PositionFiltering_Values(), false),
@@ -61,7 +61,7 @@ func ResourceTracker() *schema.Resource {
 				Computed: true,
 			},
 			"tracker_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
 			},

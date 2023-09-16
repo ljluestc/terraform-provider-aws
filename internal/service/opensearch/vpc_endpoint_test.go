@@ -18,7 +18,6 @@ import (
 	tfopensearch "github.com/hashicorp/terraform-provider-aws/internal/service/opensearch"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestVPCEndpointErrorsNotFound(t *testing.T) {
 	t.Parallel()
 
@@ -95,7 +94,6 @@ func TestVPCEndpointErrorsNotFound(t *testing.T) {
 		})
 	}
 }
-
 func TestAccOpenSearchVPCEndpoint_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -133,7 +131,6 @@ func TestAccOpenSearchVPCEndpoint_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchVPCEndpoint_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -162,7 +159,6 @@ func TestAccOpenSearchVPCEndpoint_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccOpenSearchVPCEndpoint_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -207,7 +203,6 @@ func TestAccOpenSearchVPCEndpoint_update(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckVPCEndpointExists(ctx context.Context, n string, v *opensearchservice.VpcEndpoint) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -228,7 +223,6 @@ func testAccCheckVPCEndpointExists(ctx context.Context, n string, v *opensearchs
 		return nil
 	}
 }
-
 func testAccCheckVPCEndpointDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -254,7 +248,6 @@ func testAccCheckVPCEndpointDestroy(ctx context.Context) resource.TestCheckFunc 
 		return nil
 	}
 }
-
 func testAccVPCEndpointConfig_base(rName, domainName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_security_group" "test" {
@@ -275,14 +268,14 @@ resource "aws_opensearch_domain" "test" {
   }
 
   cluster_config {
-    instance_count         = 2
+    instance_count= 2
     zone_awareness_enabled = true
-    instance_type          = "t2.small.search"
+    instance_type = "t2.small.search"
   }
 
   vpc_options {
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = aws_subnet.test[*].id
+    subnet_ids= aws_subnet.test[*].id
   }
 }
 
@@ -300,7 +293,7 @@ resource "aws_vpc" "client" {
 resource "aws_subnet" "client" {
   count = 2
 
-  vpc_id            = aws_vpc.client.id
+  vpc_id   = aws_vpc.client.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.client.cidr_block, 8, count.index)
 
@@ -321,7 +314,6 @@ resource "aws_security_group" "client" {
 }
 `, rName, domainName))
 }
-
 func testAccVPCEndpointConfig_basic(rName, domainName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointConfig_base(rName, domainName), `
 resource "aws_opensearch_vpc_endpoint" "test" {
@@ -333,14 +325,13 @@ resource "aws_opensearch_vpc_endpoint" "test" {
 }
 `)
 }
-
 func testAccVPCEndpointConfig_updated(rName, domainName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointConfig_base(rName, domainName), `
 resource "aws_opensearch_vpc_endpoint" "test" {
   domain_arn = aws_opensearch_domain.test.arn
 
   vpc_options {
-    subnet_ids         = aws_subnet.client[*].id
+    subnet_ids= aws_subnet.client[*].id
     security_group_ids = aws_security_group.client[*].id
   }
 }

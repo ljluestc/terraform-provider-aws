@@ -57,7 +57,7 @@ func Tags(tags tftags.KeyValueTags) []*directconnect.Tag {
 
 	for k, v := range tags.Map() {
 		tag := &directconnect.Tag{
-			Key:   aws.String(k),
+			Key:aws.String(k),
 			Value: aws.String(v),
 		}
 
@@ -120,7 +120,7 @@ func updateTags(ctx context.Context, conn directconnectiface.DirectConnectAPI, i
 	if len(removedTags) > 0 {
 		input := &directconnect.UntagResourceInput{
 			ResourceArn: aws.String(identifier),
-			TagKeys:     aws.StringSlice(removedTags.Keys()),
+			TagKeys:aws.StringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagResourceWithContext(ctx, input)
@@ -135,7 +135,7 @@ func updateTags(ctx context.Context, conn directconnectiface.DirectConnectAPI, i
 	if len(updatedTags) > 0 {
 		input := &directconnect.TagResourceInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)

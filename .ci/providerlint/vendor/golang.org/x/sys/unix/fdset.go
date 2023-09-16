@@ -1,29 +1,13 @@
 // Copyright 2019 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build aix || darwin || dragonfly || freebsd || linux || netbsd || openbsd || solaris || zos
-// +build aix darwin dragonfly freebsd linux netbsd openbsd solaris zos
-
-package unix
-
-// Set adds fd to the set fds.
-func (fds *FdSet) Set(fd int) {
+// license that can be found in the LICENSE file.//go:build aix || darwin || dragonfly || freebsd || linux || netbsd || openbsd || solaris || zos
+// +build aix darwin dragonfly freebsd linux netbsd openbsd solaris zospackage unix// Set adds fd to the set fds. (fds *FdSet) Set(fd int) {
 	fds.Bits[fd/NFDBITS] |= (1 << (uintptr(fd) % NFDBITS))
-}
-
-// Clear removes fd from the set fds.
-func (fds *FdSet) Clear(fd int) {
+}// Clear removes fd from the set fds. (fds *FdSet) Clear(fd int) {
 	fds.Bits[fd/NFDBITS] &^= (1 << (uintptr(fd) % NFDBITS))
-}
-
-// IsSet returns whether fd is in the set fds.
-func (fds *FdSet) IsSet(fd int) bool {
+}// IsSet returns whether fd is in the set fds. (fds *FdSet) IsSet(fd int) bool {
 	return fds.Bits[fd/NFDBITS]&(1<<(uintptr(fd)%NFDBITS)) != 0
-}
-
-// Zero clears the set fds.
-func (fds *FdSet) Zero() {
+}// Zero clears the set fds. (fds *FdSet) Zero() {
 	for i := range fds.Bits {
 		fds.Bits[i] = 0
 	}

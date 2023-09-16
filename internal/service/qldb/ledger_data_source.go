@@ -22,19 +22,19 @@ ReadWithoutTimeout: dataSourceLedgerRead,
 
 Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "deletion_protection": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Computed: true,
 },
 "kms_key": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ValidateFunc: validation.All(
 validation.StringLenBetween(1, 32),
@@ -42,7 +42,7 @@ validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_-]+`), "must contain o
 ),
 },
 "permissions_mode": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "tags": tftags.TagsSchemaComputed(),

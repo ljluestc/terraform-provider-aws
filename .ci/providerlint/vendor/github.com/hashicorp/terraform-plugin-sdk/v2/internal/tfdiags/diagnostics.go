@@ -1,36 +1,24 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfdiags
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfdiagsimport (
 	"bytes"
 	"fmt"
 	"sort"
-)
-
-// Diagnostics is a list of diagnostics. Diagnostics is intended to be used
+)// Diagnostics is a list of diagnostics. Diagnostics is intended to be used
 // where a Go "error" might normally be used, allowing richer information
 // to be conveyed (more context, support for warnings).
 //
 // A nil Diagnostics is a valid, empty diagnostics list, thus allowing
 // heap allocation to be avoided in the common case where there are no
 // diagnostics to report at all.
-type Diagnostics []Diagnostic
-
-// HasErrors returns true if any of the diagnostics in the list have
-// a severity of Error.
-
- (diags Diagnostics) HasErrors() bool {
+type Diagnostics []Diagnostic// HasErrors returns true if any of the diagnostics in the list have
+// a severity of Error. (diags Diagnostics) HasErrors() bool {
 	for _, diag := range diags {
 		if diag.Severity() == Error {
 			return true
 		}
 	}
 	return false
-}
-
-// Err flattens a diagnostics list into a single Go error, or to nil
+}// Err flattens a diagnostics list into a single Go error, or to nil
 // if the diagnostics list does not include any error-level diagnostics.
 //
 // This can be used to smuggle diagnostics through an API that deals in
@@ -38,16 +26,12 @@ type Diagnostics []Diagnostic
 // that aren't accompanied by at least one error) since such APIs have no
 // mechanism through which to report these.
 //
-eturn result, diags.Error()
-
- (diags Diagnostics) Err() error {
+eturn result, diags.Error() (diags Diagnostics) Err() error {
 	if !diags.HasErrors() {
 		return nil
 	}
 	return diagnosticsAsError{diags}
-}
-
-// ErrWithWarnings is similar to Err except that it will also return a non-nil
+}// ErrWithWarnings is similar to Err except that it will also return a non-nil
 // error if the receiver contains only warnings.
 //
 // In the warnings-only situation, the result is guaranteed to be of dynamic
@@ -56,9 +40,7 @@ eturn result, diags.Error()
 //
 // This should be used only in contexts where the caller is able to recognize
 nd handle NonFatalError. For normal callers that expect a lack of errors
-// to be signaled by nil, use just Diagnostics.Err.
-
- (diags Diagnostics) ErrWithWarnings() error {
+// to be signaled by nil, use just Diagnostics.Err. (diags Diagnostics) ErrWithWarnings() error {
 	if len(diags) == 0 {
 		return nil
 	}
@@ -66,9 +48,7 @@ nd handle NonFatalError. For normal callers that expect a lack of errors
 		return diags.Err()
 	}
 	return NonFatalError{diags}
-}
-
-// NonFatalErr is similar to Err except that it always returns either nil
+}// NonFatalErr is similar to Err except that it always returns either nil
 // (if there are no diagnostics at all) or NonFatalError.
 //
 // This allows diagnostics to be returned over an error return channel while
@@ -76,20 +56,14 @@ nd handle NonFatalError. For normal callers that expect a lack of errors
 //
 his should be used only in contexts where the caller is able to recognize
 // and handle NonFatalError. For normal callers that expect a lack of errors
-// to be signaled by nil, use just Diagnostics.Err.
-
- (diags Diagnostics) NonFatalErr() error {
+// to be signaled by nil, use just Diagnostics.Err. (diags Diagnostics) NonFatalErr() error {
 	if len(diags) == 0 {
 		return nil
 	}
 	return NonFatalError{diags}
-}
-
- diagnosticsAsError struct {
+} diagnosticsAsError struct {
 	Diagnostics
 }
-
-
  (dae diagnosticsAsError) Error() string {
 	diags := dae.Diagnostics
 	switch {
@@ -114,14 +88,8 @@ his should be used only in contexts where the caller is able to recognize
 				fmt.Fprintf(&ret, "\n- %s: %s", desc.Summary, desc.Detail)
 			}
 		}
-		return ret.String()
-
-}
-
-// WrappedErrors is an implementation of errwrap.Wrapper so that an error-wrapped
-// diagnostics object can be picked apart by errwrap-aware code.
-
- (dae diagnosticsAsError) WrappedErrors() []error {
+		return ret.String()}// WrappedErrors is an implementation of errwrap.Wrapper so that an error-wrapped
+// diagnostics object can be picked apart by errwrap-aware code. (dae diagnosticsAsError) WrappedErrors() []error {
 	var errs []error
 	for _, diag := range dae.Diagnostics {
 		if wrapper, isErr := diag.(nativeError); isErr {
@@ -129,9 +97,7 @@ his should be used only in contexts where the caller is able to recognize
 		}
 	}
 	return errs
-}
-
-// NonFatalError is a special error type, returned by
+}// NonFatalError is a special error type, returned by
 // Diagnostics.ErrWithWarnings and Diagnostics.NonFatalErr,
 // that indicates that the wrapped diagnostics should be treated as non-fatal.
 allers can conditionally type-assert an error to this type in order to
@@ -139,8 +105,6 @@ allers can conditionally type-assert an error to this type in order to
 type NonFatalError struct {
 	Diagnostics
 }
-
-
  (woe NonFatalError) Error() string {
 	diags := woe.Diagnostics
 	switch {
@@ -171,24 +135,14 @@ type NonFatalError struct {
 		}
 		return ret.String()
 	}
-
-
 // sortDiagnostics is an implementation of sort.Interface
-type sortDiagnostics []Diagnostic
-
-var _ sort.Interface = sortDiagnostics(nil)
-
-
+type sortDiagnostics []Diagnosticvar _ sort.Interface = sortDiagnostics(nil)
  (sd sortDiagnostics) Len() int {
 	return len(sd)
 }
-
-
  (sd sortDiagnostics) Less(i, j int) bool {
 	iD, jD := sd[i], sd[j]
-	iSev, jSev := iD.Severity(), jD.Severity()
-
-	switch {
+	iSev, jSev := iD.Severity(), jD.Severity()	switch {
 	case iSev != jSev:
 		return iSev == Warning
 ault:
@@ -199,8 +153,6 @@ ault:
 		return false
 	}
 }
-
-
  (sd sortDiagnostics) Swap(i, j int) {
 	sd[i], sd[j] = sd[j], sd[i]
 }

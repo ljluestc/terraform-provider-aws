@@ -81,7 +81,7 @@ func TestAccSNSTopicSubscription_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_basic(rName),
@@ -124,7 +124,7 @@ func TestAccSNSTopicSubscription_filterPolicy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_filterPolicy(rName, strconv.Quote(filterPolicy1)),
@@ -175,7 +175,7 @@ func TestAccSNSTopicSubscription_filterPolicyScope(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_filterPolicyScope(rName, strconv.Quote("MessageBody")),
@@ -344,7 +344,7 @@ func TestAccSNSTopicSubscription_filterPolicyScope_policyNotSet(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccTopicSubscriptionConfig_filterPolicyScope_policyNotSet(rName),
@@ -364,7 +364,7 @@ func TestAccSNSTopicSubscription_deliveryPolicy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_deliveryPolicy(rName, strconv.Quote(`{"healthyRetryPolicy":{"minDelayTarget":5,"maxDelayTarget":20,"numRetries": 5}}`)),
@@ -426,7 +426,7 @@ func TestAccSNSTopicSubscription_redrivePolicy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_redrivePolicy(rName, dlqName),
@@ -483,7 +483,7 @@ func TestAccSNSTopicSubscription_rawMessageDelivery(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_rawMessageDelivery(rName, true),
@@ -531,7 +531,7 @@ func TestAccSNSTopicSubscription_autoConfirmingEndpoint(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_autoConfirmingEndpoint(rName),
@@ -562,7 +562,7 @@ func TestAccSNSTopicSubscription_autoConfirmingSecuredEndpoint(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckAPIGatewayTypeEDGE(t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_autoConfirmingSecuredEndpoint(rName),
@@ -593,7 +593,7 @@ func TestAccSNSTopicSubscription_email(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_email(rName, acctest.DefaultEmailAddress),
@@ -624,7 +624,7 @@ func TestAccSNSTopicSubscription_firehose(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_firehose(rName),
@@ -654,7 +654,7 @@ func TestAccSNSTopicSubscription_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_basic(rName),
@@ -678,7 +678,7 @@ func TestAccSNSTopicSubscription_Disappears_topic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sns.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTopicSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckTopicSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTopicSubscriptionConfig_basic(rName),
@@ -857,9 +857,9 @@ resource "aws_sqs_queue" "test" {
 }
 
 resource "aws_sns_topic_subscription" "test" {
-  topic_arn           = aws_sns_topic.test.arn
-  protocol            = "sqs"
-  endpoint            = aws_sqs_queue.test.arn
+  topic_arn  = aws_sns_topic.test.arn
+  protocol   = "sqs"
+  endpoint   = aws_sqs_queue.test.arn
   filter_policy       = %[2]s
   filter_policy_scope = %[3]s
 }
@@ -882,9 +882,9 @@ resource "aws_sqs_queue" "test" {
 }
 
 resource "aws_sns_topic_subscription" "test" {
-  topic_arn           = aws_sns_topic.test.arn
-  protocol            = "sqs"
-  endpoint            = aws_sqs_queue.test.arn
+  topic_arn  = aws_sns_topic.test.arn
+  protocol   = "sqs"
+  endpoint   = aws_sqs_queue.test.arn
   filter_policy_scope = "MessageBody"
 }
 `, rName)
@@ -951,10 +951,10 @@ resource "aws_sqs_queue" "test" {
 }
 
 resource "aws_sns_topic_subscription" "test" {
-  endpoint             = aws_sqs_queue.test.arn
-  protocol             = "sqs"
+  endpoint    = aws_sqs_queue.test.arn
+  protocol    = "sqs"
   raw_message_delivery = %[2]t
-  topic_arn            = aws_sns_topic.test.arn
+  topic_arn   = aws_sns_topic.test.arn
 }
 `, rName, rawMessageDelivery)
 }
@@ -989,9 +989,9 @@ resource "aws_api_gateway_method_response" "test" {
 }
 
 resource "aws_api_gateway_integration" "test" {
-  rest_api_id             = aws_api_gateway_rest_api.test.id
-  resource_id             = aws_api_gateway_rest_api.test.root_resource_id
-  http_method             = aws_api_gateway_method.test.http_method
+  rest_api_id    = aws_api_gateway_rest_api.test.id
+  resource_id    = aws_api_gateway_rest_api.test.root_resource_id
+  http_method    = aws_api_gateway_method.test.http_method
   integration_http_method = "POST"
   type     = "AWS"
   uri      = aws_lambda_function.lambda.invoke_arn
@@ -1060,12 +1060,12 @@ resource "aws_lambda_permission" "apigw_lambda" {
 }
 
 resource "aws_lambda_function" "lambda" {
-  filename         = "test-fixtures/lambda_confirm_sns.zip"
+  filename= "test-fixtures/lambda_confirm_sns.zip"
   function_name    = %[1]q
-  role             = aws_iam_role.iam_for_lambda.arn
-  handler          = "main.confirm_subscription"
+  role    = aws_iam_role.iam_for_lambda.arn
+  handler = "main.confirm_subscription"
   source_code_hash = filebase64sha256("test-fixtures/lambda_confirm_sns.zip")
-  runtime          = "python3.7"
+  runtime = "python3.7"
 }
 
 resource "aws_api_gateway_deployment" "test" {
@@ -1075,8 +1075,8 @@ resource "aws_api_gateway_deployment" "test" {
 }
 
 resource "aws_sns_topic_subscription" "test" {
-  depends_on             = [aws_lambda_permission.apigw_lambda]
-  topic_arn              = aws_sns_topic.test.arn
+  depends_on    = [aws_lambda_permission.apigw_lambda]
+  topic_arn     = aws_sns_topic.test.arn
   protocol= "https"
   endpoint= aws_api_gateway_deployment.test.invoke_url
   endpoint_auto_confirms = true
@@ -1115,9 +1115,9 @@ resource "aws_api_gateway_method_response" "test" {
 }
 
 resource "aws_api_gateway_integration" "test" {
-  rest_api_id             = aws_api_gateway_rest_api.test.id
-  resource_id             = aws_api_gateway_rest_api.test.root_resource_id
-  http_method             = aws_api_gateway_method.test.http_method
+  rest_api_id    = aws_api_gateway_rest_api.test.id
+  resource_id    = aws_api_gateway_rest_api.test.root_resource_id
+  http_method    = aws_api_gateway_method.test.http_method
   integration_http_method = "POST"
   type     = "AWS"
   uri      = aws_lambda_function.lambda.invoke_arn
@@ -1186,12 +1186,12 @@ resource "aws_lambda_permission" "apigw_lambda" {
 }
 
 resource "aws_lambda_function" "lambda" {
-  filename         = "test-fixtures/lambda_confirm_sns.zip"
+  filename= "test-fixtures/lambda_confirm_sns.zip"
   function_name    = %[1]q
-  role             = aws_iam_role.iam_for_lambda.arn
-  handler          = "main.confirm_subscription"
+  role    = aws_iam_role.iam_for_lambda.arn
+  handler = "main.confirm_subscription"
   source_code_hash = filebase64sha256("test-fixtures/lambda_confirm_sns.zip")
-  runtime          = "python3.7"
+  runtime = "python3.7"
 }
 
 resource "aws_api_gateway_deployment" "test" {
@@ -1241,18 +1241,18 @@ EOF
 
 resource "aws_api_gateway_authorizer" "test" {
   name    = %[1]q
-  rest_api_id            = aws_api_gateway_rest_api.test.id
-  authorizer_uri         = aws_lambda_function.authorizer.invoke_arn
+  rest_api_id   = aws_api_gateway_rest_api.test.id
+  authorizer_uri= aws_lambda_function.authorizer.invoke_arn
   authorizer_credentials = aws_iam_role.invocation_role.arn
 }
 
 resource "aws_lambda_function" "authorizer" {
-  filename         = "test-fixtures/lambda_basic_authorizer.zip"
+  filename= "test-fixtures/lambda_basic_authorizer.zip"
   source_code_hash = filebase64sha256("test-fixtures/lambda_basic_authorizer.zip")
   function_name    = "%[1]s-2"
-  role             = aws_iam_role.iam_for_lambda.arn
-  handler          = "main.authenticate"
-  runtime          = "nodejs16.x"
+  role    = aws_iam_role.iam_for_lambda.arn
+  handler = "main.authenticate"
+  runtime = "nodejs16.x"
 
   environment {
     variables = {
@@ -1277,8 +1277,8 @@ resource "aws_api_gateway_gateway_response" "test" {
 }
 
 resource "aws_sns_topic_subscription" "test" {
-  depends_on             = [aws_lambda_permission.apigw_lambda]
-  topic_arn              = aws_sns_topic.test.arn
+  depends_on    = [aws_lambda_permission.apigw_lambda]
+  topic_arn     = aws_sns_topic.test.arn
   protocol= "https"
   endpoint= replace(aws_api_gateway_deployment.test.invoke_url, "https://", "https://davematthews:granny@")
   endpoint_auto_confirms = true
@@ -1309,9 +1309,9 @@ resource "aws_sns_topic" "test" {
 }
 
 resource "aws_sns_topic_subscription" "test" {
-  endpoint              = aws_kinesis_firehose_delivery_stream.test_stream.arn
-  protocol              = "firehose"
-  topic_arn             = aws_sns_topic.test.arn
+  endpoint     = aws_kinesis_firehose_delivery_stream.test_stream.arn
+  protocol     = "firehose"
+  topic_arn    = aws_sns_topic.test.arn
   subscription_role_arn = aws_iam_role.firehose_role.arn
 }
 resource "aws_s3_bucket" "bucket" {

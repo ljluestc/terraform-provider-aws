@@ -15,7 +15,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_cloudhsm_v2_cluster", &resource.Sweeper{
 		Name:"aws_cloudhsm_v2_cluster",
@@ -25,10 +24,9 @@ func init() {
 
 	resource.AddTestSweepers("aws_cloudhsm_v2_hsm", &resource.Sweeper{
 		Name: "aws_cloudhsm_v2_hsm",
-		F:    sweepHSMs,
+		F:sweepHSMs,
 	})
 }
-
 func sweepClusters(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -40,7 +38,8 @@ func sweepClusters(region string) error {
 	sweepResources := make([]sweep.Sweepable, 0)
 
 	err = conn.DescribeClustersPagesWithContext(ctx, input,
-		func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
+		
+func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
 			if page == nil {
 				return !lastPage
 			}
@@ -76,7 +75,6 @@ func sweepClusters(region string) error {
 
 	return nil
 }
-
 func sweepHSMs(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -88,7 +86,8 @@ func sweepHSMs(region string) error {
 	sweepResources := make([]sweep.Sweepable, 0)
 
 	err = conn.DescribeClustersPagesWithContext(ctx, input,
-		func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
+		
+func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
 			if page == nil {
 				return !lastPage
 			}

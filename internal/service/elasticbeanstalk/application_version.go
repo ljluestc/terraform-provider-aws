@@ -70,7 +70,6 @@ func ResourceApplicationVersion() *schema.Resource {
 		},
 	}
 }
-
 func resourceApplicationVersionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -90,7 +89,7 @@ func resourceApplicationVersionCreate(ctx context.Context, d *schema.ResourceDat
 		ApplicationName: aws.String(application),
 		Description:     aws.String(description),
 		SourceBundle:    &s3Location,
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 		VersionLabel:    aws.String(name),
 	}
 
@@ -103,7 +102,6 @@ func resourceApplicationVersionCreate(ctx context.Context, d *schema.ResourceDat
 
 	return append(diags, resourceApplicationVersionRead(ctx, d, meta)...)
 }
-
 func resourceApplicationVersionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -133,7 +131,6 @@ func resourceApplicationVersionRead(ctx context.Context, d *schema.ResourceData,
 
 	return diags
 }
-
 func resourceApplicationVersionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -146,7 +143,6 @@ func resourceApplicationVersionUpdate(ctx context.Context, d *schema.ResourceDat
 
 	return append(diags, resourceApplicationVersionRead(ctx, d, meta)...)
 }
-
 func resourceApplicationVersionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -181,7 +177,6 @@ func resourceApplicationVersionDelete(ctx context.Context, d *schema.ResourceDat
 
 	return diags
 }
-
 func resourceApplicationVersionDescriptionUpdate(ctx context.Context, conn *elasticbeanstalk.ElasticBeanstalk, d *schema.ResourceData) error {
 	application := d.Get("application").(string)
 	description := d.Get("description").(string)
@@ -195,12 +190,11 @@ func resourceApplicationVersionDescriptionUpdate(ctx context.Context, conn *elas
 
 	return err
 }
-
 func versionUsedBy(ctx context.Context, applicationName, versionLabel string, conn *elasticbeanstalk.ElasticBeanstalk) ([]string, error) {
 	now := time.Now()
 	resp, err := conn.DescribeEnvironmentsWithContext(ctx, &elasticbeanstalk.DescribeEnvironmentsInput{
 		ApplicationName:       aws.String(applicationName),
-		VersionLabel:          aws.String(versionLabel),
+		VersionLabel: aws.String(versionLabel),
 		IncludeDeleted:        aws.Bool(true),
 		IncludedDeletedBackTo: aws.Time(now.Add(-1 * time.Minute)),
 	})

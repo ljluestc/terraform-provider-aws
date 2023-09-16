@@ -11,9 +11,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func init() {
 	acctest.RegisterServiceErrorCheckFunc(organizations.EndpointsID, testAccErrorCheckSkip)
 }
+
 
 func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
 	return acctest.ErrorCheckSkipMessagesContaining(t,
@@ -21,57 +23,59 @@ func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
 	)
 }
 
+
 func TestAccOrganizations_serial(t *testing.T) {
 	t.Parallel()
 
-	testCases := map[string]map[string]func(t *testing.T){
+	testCases := map[string]map[string]
+func(t *testing.T){
 		"Organization": {
-			"basic":                             testAccOrganization_basic,
-			"disappears":                        testAccOrganization_disappears,
+			"basic":  testAccOrganization_basic,
+			"disappears":      testAccOrganization_disappears,
 			"AwsServiceAccessPrincipals":        testAccOrganization_serviceAccessPrincipals,
-			"EnabledPolicyTypes":                testAccOrganization_EnabledPolicyTypes,
-			"FeatureSet_Basic":                  testAccOrganization_FeatureSet,
-			"FeatureSet_Update":                 testAccOrganization_FeatureSetUpdate,
-			"FeatureSet_ForcesNew":              testAccOrganization_FeatureSetForcesNew,
-			"DataSource_basic":                  testAccOrganizationDataSource_basic,
-			"DataSource_memberAccount":          testAccOrganizationDataSource_memberAccount,
+			"EnabledPolicyTypes":       testAccOrganization_EnabledPolicyTypes,
+			"FeatureSet_Basic":testAccOrganization_FeatureSet,
+			"FeatureSet_Update":        testAccOrganization_FeatureSetUpdate,
+			"FeatureSet_ForcesNew":     testAccOrganization_FeatureSetForcesNew,
+			"DataSource_basic":testAccOrganizationDataSource_basic,
+			"DataSource_memberAccount": testAccOrganizationDataSource_memberAccount,
 			"DataSource_delegatedAdministrator": testAccOrganizationDataSource_delegatedAdministrator,
 		},
 		"Account": {
-			"basic":           testAccAccount_basic,
+			"basic":  testAccAccount_basic,
 			"CloseOnDeletion": testAccAccount_CloseOnDeletion,
 			"ParentId":        testAccAccount_ParentID,
-			"Tags":            testAccAccount_Tags,
+			"Tags":   testAccAccount_Tags,
 			"GovCloud":        testAccAccount_govCloud,
 		},
 		"OrganizationalUnit": {
-			"basic":                        testAccOrganizationalUnit_basic,
-			"disappears":                   testAccOrganizationalUnit_disappears,
-			"update":                       testAccOrganizationalUnit_update,
-			"tags":                         testAccOrganizationalUnit_tags,
+			"basic":      testAccOrganizationalUnit_basic,
+			"disappears": testAccOrganizationalUnit_disappears,
+			"update":     testAccOrganizationalUnit_update,
+			"tags":       testAccOrganizationalUnit_tags,
 			"ChildAccountsDataSource":      testAccOrganizationalUnitChildAccountsDataSource_basic,
 			"DescendantAccountsDataSource": testAccOrganizationalUnitDescendantAccountsDataSource_basic,
-			"PluralDataSource":             testAccOrganizationalUnitsDataSource_basic,
+			"PluralDataSource":    testAccOrganizationalUnitsDataSource_basic,
 		},
 		"Policy": {
-			"basic":                  testAccPolicy_basic,
-			"concurrent":             testAccPolicy_concurrent,
-			"Description":            testAccPolicy_description,
-			"Tags":                   testAccPolicy_tags,
-			"SkipDestroy":            testAccPolicy_skipDestroy,
-			"disappears":             testAccPolicy_disappears,
+			"basic":testAccPolicy_basic,
+			"concurrent":    testAccPolicy_concurrent,
+			"Description":   testAccPolicy_description,
+			"Tags": testAccPolicy_tags,
+			"SkipDestroy":   testAccPolicy_skipDestroy,
+			"disappears":    testAccPolicy_disappears,
 			"Type_AI_OPT_OUT":        testAccPolicy_type_AI_OPT_OUT,
-			"Type_Backup":            testAccPolicy_type_Backup,
-			"Type_SCP":               testAccPolicy_type_SCP,
-			"Type_Tag":               testAccPolicy_type_Tag,
+			"Type_Backup":   testAccPolicy_type_Backup,
+			"Type_SCP":      testAccPolicy_type_SCP,
+			"Type_Tag":      testAccPolicy_type_Tag,
 			"ImportAwsManagedPolicy": testAccPolicy_importManagedPolicy,
 		},
 		"PolicyAttachment": {
-			"Account":            testAccPolicyAttachment_Account,
+			"Account":   testAccPolicyAttachment_Account,
 			"OrganizationalUnit": testAccPolicyAttachment_OrganizationalUnit,
-			"Root":               testAccPolicyAttachment_Root,
+			"Root":      testAccPolicyAttachment_Root,
 			"SkipDestroy":        testAccPolicyAttachment_skipDestroy,
-			"disappears":         testAccPolicyAttachment_disappears,
+			"disappears":testAccPolicyAttachment_disappears,
 		},
 		"PolicyDataSource": {
 			"UnattachedPolicy": testAccPolicyDataSource_UnattachedPolicy,

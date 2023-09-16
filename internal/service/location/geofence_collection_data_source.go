@@ -28,7 +28,7 @@ func DataSourceGeofenceCollection() *schema.Resource {
 				Computed: true,
 			},
 			"collection_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
 			},

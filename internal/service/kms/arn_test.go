@@ -10,7 +10,6 @@ import (
 	"github.com/YakDriver/regexache"
 	tfkms "github.com/hashicorp/terraform-provider-aws/internal/service/kms"
 )
-
 func TestAliasARNToKeyARN(t *testing.T) {
 	t.Parallel()
 
@@ -67,7 +66,6 @@ func TestAliasARNToKeyARN(t *testing.T) {
 		})
 	}
 }
-
 func TestKeyARNOrIDEqual(t *testing.T) {
 	t.Parallel()
 

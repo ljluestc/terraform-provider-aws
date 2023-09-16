@@ -60,7 +60,7 @@ func ResourceSlotType() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      "",
 				ValidateFunc: validation.StringLenBetween(0, 200),
@@ -77,12 +77,12 @@ func ResourceSlotType() *schema.Resource {
 							Optional: true,
 							MinItems: 1,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringLenBetween(1, 140),
 							},
 						},
 						"value": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 140),
 						},
@@ -103,7 +103,7 @@ func ResourceSlotType() *schema.Resource {
 				),
 			},
 			"value_selection_strategy": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      lexmodelbuildingservice.SlotValueSelectionStrategyOriginalValue,
 				ValidateFunc: validation.StringInSlice(lexmodelbuildingservice.SlotValueSelectionStrategy_Values(), false),
@@ -144,8 +144,8 @@ func resourceSlotTypeCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	name := d.Get("name").(string)
 	input := &lexmodelbuildingservice.PutSlotTypeInput{
-		CreateVersion:          aws.Bool(d.Get("create_version").(bool)),
-		Description:            aws.String(d.Get("description").(string)),
+		CreateVersion: aws.Bool(d.Get("create_version").(bool)),
+		Description:   aws.String(d.Get("description").(string)),
 		Name:      aws.String(name),
 		ValueSelectionStrategy: aws.String(d.Get("value_selection_strategy").(string)),
 	}
@@ -219,8 +219,8 @@ func resourceSlotTypeUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	input := &lexmodelbuildingservice.PutSlotTypeInput{
 		Checksum:  aws.String(d.Get("checksum").(string)),
-		CreateVersion:          aws.Bool(d.Get("create_version").(bool)),
-		Description:            aws.String(d.Get("description").(string)),
+		CreateVersion: aws.Bool(d.Get("create_version").(bool)),
+		Description:   aws.String(d.Get("description").(string)),
 		Name:      aws.String(d.Id()),
 		ValueSelectionStrategy: aws.String(d.Get("value_selection_strategy").(string)),
 	}

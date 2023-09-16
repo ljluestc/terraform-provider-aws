@@ -16,19 +16,17 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_codeartifact_domain", &resource.Sweeper{
 		Name: "aws_codeartifact_domain",
-		F:    sweepDomains,
+		F: sweepDomains,
 	})
 
 	resource.AddTestSweepers("aws_codeartifact_repository", &resource.Sweeper{
 		Name: "aws_codeartifact_repository",
-		F:    sweepRepositories,
+		F: sweepRepositories,
 	})
 }
-
 func sweepDomains(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -75,7 +73,6 @@ func sweepDomains(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepRepositories(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -95,7 +92,7 @@ func sweepRepositories(region string) error {
 			repository := aws.StringValue(repositoryPtr.Name)
 			input := &codeartifact.DeleteRepositoryInput{
 				Repository:  repositoryPtr.Name,
-				Domain:      repositoryPtr.DomainName,
+				Domain:toryPtr.DomainName,
 				DomainOwner: repositoryPtr.DomainOwner,
 			}
 

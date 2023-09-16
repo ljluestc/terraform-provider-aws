@@ -1,16 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package waf
-
-import (
+// SPDX-License-Identifier: MPL-2.0package wafimport (
 	"testing"
 )
-
 func TestValidMetricName(t *testing.T) {
-	t.Parallel()
-
-	validNames := []string{
+	t.Parallel()	validNames := []string{
 		"testrule",
 		"testRule",
 		"testRule123",
@@ -20,9 +13,7 @@ func TestValidMetricName(t *testing.T) {
 		if len(errors) != 0 {
 			t.Fatalf("%q should be a valid WAF metric name: %q", v, errors)
 		}
-	}
-
-	invalidNames := []string{
+	}	invalidNames := []string{
 		"!",
 		"/",
 		" ",

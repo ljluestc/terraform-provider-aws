@@ -18,7 +18,6 @@ import (
 	tfappsync "github.com/hashicorp/terraform-provider-aws/internal/service/appsync"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func testAccType_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var typ appsync.Type
@@ -26,7 +25,7 @@ func testAccType_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTypeDestroy(ctx),
@@ -42,14 +41,13 @@ func testAccType_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccType_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var typ appsync.Type
@@ -57,7 +55,7 @@ func testAccType_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTypeDestroy(ctx),
@@ -73,7 +71,6 @@ func testAccType_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckTypeDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
@@ -101,7 +98,6 @@ func testAccCheckTypeDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckTypeExists(ctx context.Context, resourceName string, typ *appsync.Type) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -125,7 +121,6 @@ func testAccCheckTypeExists(ctx context.Context, resourceName string, typ *appsy
 		return nil
 	}
 }
-
 func testAccTypeConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
@@ -134,8 +129,8 @@ resource "aws_appsync_graphql_api" "test" {
 }
 
 resource "aws_appsync_type" "test" {
-  api_id     = aws_appsync_graphql_api.test.id
-  format     = "SDL"
+  api_id= aws_appsync_graphql_api.test.id
+  format= "SDL"
   definition = <<EOF
 type Mutation
 

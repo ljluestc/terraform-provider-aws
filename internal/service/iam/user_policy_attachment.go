@@ -32,12 +32,12 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"user": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew: true,
 				Required: true,
 			},
 			"policy_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},

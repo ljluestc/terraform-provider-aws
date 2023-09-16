@@ -1,20 +1,14 @@
-package tfsdklog
-
-import (
+package tfsdklogimport (
 	"context"
 	"fmt"
 	"io"
 	"os"
 	"strings"
 	"sync"
-	"syscall"
-
-	"github.com/hashicorp/go-hclog"
+	"syscall"	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/terraform-plugin-log/internal/logging"
 	testing "github.com/mitchellh/go-testing-interface"
-)
-
-const (
+)const (
 	// envLog is the environment variable that users can set to control the
 	// least-verbose level of logs that will be output during testing. If
 	// this environment variable is set, it will default to off. This is
@@ -25,39 +19,27 @@ const (
 	// Valid values are TRACE, DEBUG, INFO, WARN, ERROR, and OFF. A special
 	// pseudo-value, JSON, will set the value to TRACE and output the
 	// results in their JSON format.
-	envLog = "TF_LOG"
-
-	// envLogFile is the environment variable that controls where log
+	envLog = "TF_LOG"	// envLogFile is the environment variable that controls where log
 	// output is written during tests. By default, logs will be written to
 	// standard error. Setting this environment variable to another file
 	// path will write logs there instead during tests.
-	envLogFile = "TF_LOG_PATH"
-
-	// envAccLogFile is the environment variable that controls where log
+	envLogFile = "TF_LOG_PATH"	// envAccLogFile is the environment variable that controls where log
 	// output from the provider under test and the Terraform binary (and
 	// other providers) will be written during tests. Setting this
 	// environment variable to a file will combine all log output in that
 	// file. If both this environment variable and TF_LOG_PATH are set,
 	// this environment variable will take precedence.
-	envAccLogFile = "TF_ACC_LOG_PATH"
-
-	// envLogPathMask is the environment variable that controls per-test
+	envAccLogFile = "TF_ACC_LOG_PATH"	// envLogPathMask is the environment variable that controls per-test
 	// logging output. It should be set to a fmt-compatible string, where a
 	// single %s will be replaced with the test name, and the log output
 	// for that test (and only that test) will be written to that file.
 	// Setting this environment variable will override TF_LOG_PATH.
 	// Only the logs for the provider under test are included.
 	envLogPathMask = "TF_LOG_PATH_MASK"
-)
-
-// ValidLevels are the string representations of levels that can be set for
+)// ValidLevels are the string representations of levels that can be set for
 // loggers.
-var ValidLevels = []string{"TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"}
-
-// Only show invalid log level message once across any number of level lookups.
-var invalidLogLevelMessage sync.Once
-
-// RegisterTestSink sets up a logging sink, for use with test frameworks and
+var ValidLevels = []string{"TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"}// Only show invalid log level message once across any number of level lookups.
+var invalidLogLevelMessage sync.Once// RegisterTestSink sets up a logging sink, for use with test frameworks and
 // other cases where plugin logs don't get routed through Terraform. This
 // applies the same filtering and file output behaviors that Terraform does.
 //
@@ -65,56 +47,36 @@ var invalidLogLevelMessage sync.Once
 // should never call it.
 //
 // RegisterTestSink must be called prior to any loggers being setup or
-// instantiated.
-
- RegisterTestSink(ctx context.Context, t testing.T) context.Context {
-	logger, loggerOptions := newSink(t)
-
-	ctx = logging.SetSink(ctx, logger)
-	ctx = logging.SetSinkOptions(ctx, loggerOptions)
-
-	return ctx
+// instantiated. RegisterTestSink(ctx context.Context, t testing.T) context.Context {
+	logger, loggerOptions := newSink(t)	ctx = logging.SetSink(ctx, logger)
+	ctx = logging.SetSinkOptions(ctx, loggerOptions)	return ctx
 }
-
-
  newSink(t testing.T) (hclog.Logger, *hclog.LoggerOptions) {
 	logOutput := io.Writer(os.Stderr)
 	var json bool
 	var logLevel hclog.Level
-	var logFile string
-
-	envLevel := strings.ToUpper(os.Getenv(envLog))
-
-	// if TF_LOG_PATH is set, output logs there
+	var logFile string	envLevel := strings.ToUpper(os.Getenv(envLog))	// if TF_LOG_PATH is set, output logs there
 	if logPath := os.Getenv(envLogFile); logPath != "" {
 		logFile = logPath
-	}
-
-	// if TF_ACC_LOG_PATH is set, output logs there instead
+	}	// if TF_ACC_LOG_PATH is set, output logs there instead
 	if logPath := os.Getenv(envAccLogFile); logPath != "" {
 		logFile = logPath
 		// helper/resource makes this default to TRACE, so we should,
 		// too
 		envLevel = "TRACE"
-	}
-
-	// if TF_LOG_PATH_MASK is set, use a test-name specific logging file,
+	}	// if TF_LOG_PATH_MASK is set, use a test-name specific logging file,
 	// instead
 	if logPathMask := os.Getenv(envLogPathMask); logPathMask != "" {
 		testName := strings.Replace(t.Name(), "/", "__", -1)
 		logFile = fmt.Sprintf(logPathMask, testName)
-	}
-
-	if logFile != "" {
+	}	if logFile != "" {
 		f, err := os.OpenFile(logFile, syscall.O_CREAT|syscall.O_RDWR|syscall.O_APPEND, 0666)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error opening log file: %v\n", err)
 		} else {
 			logOutput = f
 		}
-	}
-
-	// if TF_LOG is set, set the level
+	}	// if TF_LOG is set, set the level
 	if envLevel == "" {
 		logLevel = hclog.Off
 	} else if envLevel == "JSON" {
@@ -132,25 +94,17 @@ var invalidLogLevelMessage sync.Once
 				ValidLevels,
 			)
 		})
-	}
-
-	loggerOptions := &hclog.LoggerOptions{
-		Level:             logLevel,
-		Output:            logOutput,
+	}	loggerOptions := &hclog.LoggerOptions{
+		Level:    logLevel,
+		Output:   logOutput,
 		IndependentLevels: true,
 		JSONFormat:        json,
-	}
-
-urn hclog.New(loggerOptions), loggerOptions
+	}urn hclog.New(loggerOptions), loggerOptions
 }
-
-
  isValidLogLevel(level string) bool {
 	for _, validLevel := range ValidLevels {
 		if level == validLevel {
 			return true
 		}
-	}
-
-	return false
+	}	return false
 }

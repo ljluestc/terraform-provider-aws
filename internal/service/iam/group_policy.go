@@ -38,10 +38,10 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"policy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
-				ValidateFunc:          verify.ValidIAMPolicyJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				ValidateFunc:verify.ValidIAMPolicyJSON,
+				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
 					json, _ := verify.LegacyPolicyNormalize(v)
@@ -49,20 +49,20 @@ import (
 				},
 			},
 			"name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ConflictsWith: []string{"name_prefix"},
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				ConflictsWith: []string{"name"},
 			},
 			"group": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -77,7 +77,7 @@ import (
 	}
 
 	request := &iam.PutGroupPolicyInput{
-		GroupName:      aws.String(d.Get("group").(string)),
+		GroupName: aws.String(d.Get("group").(string)),
 		PolicyDocument: aws.String(policyDoc),
 	}
 

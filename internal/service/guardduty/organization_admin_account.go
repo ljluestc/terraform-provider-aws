@@ -20,7 +20,7 @@ import (
 func ResourceOrganizationAdminAccount() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceOrganizationAdminAccountCreate,
-		ReadWithoutTimeout:   resourceOrganizationAdminAccountRead,
+		ReadWithoutTimeout:resourceOrganizationAdminAccountRead,
 		DeleteWithoutTimeout: resourceOrganizationAdminAccountDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -37,7 +37,6 @@ func ResourceOrganizationAdminAccount() *schema.Resource {
 		},
 	}
 }
-
 func resourceOrganizationAdminAccountCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -62,7 +61,6 @@ func resourceOrganizationAdminAccountCreate(ctx context.Context, d *schema.Resou
 
 	return append(diags, resourceOrganizationAdminAccountRead(ctx, d, meta)...)
 }
-
 func resourceOrganizationAdminAccountRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -83,7 +81,6 @@ func resourceOrganizationAdminAccountRead(ctx context.Context, d *schema.Resourc
 
 	return diags
 }
-
 func resourceOrganizationAdminAccountDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -104,7 +101,6 @@ func resourceOrganizationAdminAccountDelete(ctx context.Context, d *schema.Resou
 
 	return diags
 }
-
 func GetOrganizationAdminAccount(ctx context.Context, conn *guardduty.GuardDuty, adminAccountID string) (*guardduty.AdminAccount, error) {
 	input := &guardduty.ListOrganizationAdminAccountsInput{}
 	var result *guardduty.AdminAccount

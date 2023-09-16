@@ -33,35 +33,34 @@ func ResourceType() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"definition": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"format": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(appsync.TypeDefinitionFormat_Values(), false),
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceTypeCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -69,9 +68,9 @@ func resourceTypeCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	apiID := d.Get("api_id").(string)
 
 	params := &appsync.CreateTypeInput{
-		ApiId:      aws.String(apiID),
+		ApiId: aws.String(apiID),
 		Definition: aws.String(d.Get("definition").(string)),
-		Format:     aws.String(d.Get("format").(string)),
+		Format:aws.String(d.Get("format").(string)),
 	}
 
 	out, err := conn.CreateTypeWithContext(ctx, params)
@@ -83,7 +82,6 @@ func resourceTypeCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return append(diags, resourceTypeRead(ctx, d, meta)...)
 }
-
 func resourceTypeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -113,14 +111,13 @@ func resourceTypeRead(ctx context.Context, d *schema.ResourceData, meta interfac
 
 	return diags
 }
-
 func resourceTypeUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
 
 	params := &appsync.UpdateTypeInput{
-		ApiId:      aws.String(d.Get("api_id").(string)),
-		Format:     aws.String(d.Get("format").(string)),
+		ApiId: aws.String(d.Get("api_id").(string)),
+		Format:aws.String(d.Get("format").(string)),
 		TypeName:   aws.String(d.Get("name").(string)),
 		Definition: aws.String(d.Get("definition").(string)),
 	}
@@ -132,13 +129,12 @@ func resourceTypeUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return append(diags, resourceTypeRead(ctx, d, meta)...)
 }
-
 func resourceTypeDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
 
 	input := &appsync.DeleteTypeInput{
-		ApiId:    aws.String(d.Get("api_id").(string)),
+		ApiId:aws.String(d.Get("api_id").(string)),
 		TypeName: aws.String(d.Get("name").(string)),
 	}
 	_, err := conn.DeleteTypeWithContext(ctx, input)
@@ -151,7 +147,6 @@ func resourceTypeDelete(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
-
 func DecodeTypeID(id string) (string, string, string, error) {
 	parts := strings.Split(id, ":")
 	if len(parts) != 3 {

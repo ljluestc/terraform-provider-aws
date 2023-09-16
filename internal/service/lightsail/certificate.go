@@ -52,7 +52,7 @@ func ResourceCertificate() *schema.Resource {
 				// AWS Provider 3.0.0 aws_route53_zone references no longer contain a
 				// trailing period, no longer requiring a custom StateFunc
 				// to prevent ACM API error
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -132,14 +132,13 @@ func ResourceCertificate() *schema.Resource {
 		),
 	}
 }
-
 func resourceCertificateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
 	req := lightsail.CreateCertificateInput{
 		CertificateName: aws.String(d.Get("name").(string)),
 		DomainName:      aws.String(d.Get("domain_name").(string)),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("subject_alternative_names"); ok {
@@ -163,7 +162,6 @@ func resourceCertificateCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return resourceCertificateRead(ctx, d, meta)
 }
-
 func resourceCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -190,12 +188,10 @@ func resourceCertificateRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return nil
 }
-
 func resourceCertificateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceCertificateRead(ctx, d, meta)
 }
-
 func resourceCertificateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -219,7 +215,6 @@ func resourceCertificateDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	return nil
 }
-
 func domainValidationOptionsHash(v interface{}) int {
 	m, ok := v.(map[string]interface{})
 
@@ -233,14 +228,13 @@ func domainValidationOptionsHash(v interface{}) int {
 
 	return 0
 }
-
 func flattenDomainValidationRecords(domainValidationRecords []types.DomainValidationRecord) []map[string]interface{} {
 	var domainValidationResult []map[string]interface{}
 
 	for _, o := range domainValidationRecords {
 		if o.ResourceRecord != nil {
 			validationOption := map[string]interface{}{
-				"domain_name":           aws.ToString(o.DomainName),
+				"domain_name":  aws.ToString(o.DomainName),
 				"resource_record_name":  aws.ToString(o.ResourceRecord.Name),
 				"resource_record_type":  aws.ToString(o.ResourceRecord.Type),
 				"resource_record_value": aws.ToString(o.ResourceRecord.Value),
@@ -251,7 +245,6 @@ func flattenDomainValidationRecords(domainValidationRecords []types.DomainValida
 
 	return domainValidationResult
 }
-
 func expandSubjectAlternativeNames(sans interface{}) []string {
 	subjectAlternativeNames := make([]string, len(sans.(*schema.Set).List()))
 	for i, sanRaw := range sans.(*schema.Set).List() {
@@ -260,7 +253,6 @@ func expandSubjectAlternativeNames(sans interface{}) []string {
 
 	return subjectAlternativeNames
 }
-
 func FindCertificateById(ctx context.Context, conn *lightsail.Client, name string) (*types.Certificate, error) {
 	in := &lightsail.GetCertificatesInput{
 		CertificateName: aws.String(name),

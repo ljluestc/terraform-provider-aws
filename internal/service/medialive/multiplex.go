@@ -394,10 +394,10 @@ func flattenMultiplexSettings(apiObject *types.MultiplexSettings) []interface{} 
 	}
 
 	m := map[string]interface{}{
-		"transport_stream_bitrate":       apiObject.TransportStreamBitrate,
+		"transport_stream_bitrate":ject.TransportStreamBitrate,
 		"transport_stream_id":   apiObject.TransportStreamId,
 		"maximum_video_buffer_delay_milliseconds": apiObject.MaximumVideoBufferDelayMilliseconds,
-		"transport_stream_reserved_bitrate":       apiObject.TransportStreamReservedBitrate,
+		"transport_stream_reserved_bitrate":ject.TransportStreamReservedBitrate,
 	}
 
 	return []interface{}{m}

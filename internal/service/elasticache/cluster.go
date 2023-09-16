@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elasticache
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elasticacheimport (
 	"context"
 	"errors"
 	"fmt"
@@ -11,9 +7,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"time"
-
-	"github.com/YakDriver/regexache"
+	"time"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/elasticache"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -31,98 +25,84 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/types/nullable"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 	"github.com/hashicorp/terraform-provider-aws/names"
-)
-
-const (
-	defaultRedisPort     = "6379"
+)const (
+	defaultRedisPort= "6379"
 	defaultMemcachedPort = "11211"
-)
-
-const (
+)const (
 	cacheClusterCreatedTimeout = 40 * time.Minute
-)
-
-// @SDKResource("aws_elasticache_cluster", name="Cluster")
-// @Tags(identifierAttribute="arn")
-
-
-func ResourceCluster() *schema.Resource {
+)// @SDKResource("aws_elasticache_cluster", name="Cluster")
+// @Tags(identifierAttribute="arn")func ResourceCluster() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClusterCreate,
-		ReadWithoutTimeout:   resourceClusterRead,
+		ReadWithoutTimeout:resourceClusterRead,
 		UpdateWithoutTimeout: resourceClusterUpdate,
-		DeleteWithoutTimeout: resourceClusterDelete,
-
-		Importer: &schema.ResourceImporter{
+		DeleteWithoutTimeout: resourceClusterDelete,		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
-		},
-
-		Schema: map[string]*schema.Schema{
+		},		Schema: map[string]*schema.Schema{
 			"apply_immediately": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"auto_minor_version_upgrade": {
-				Type:         nullable.TypeNullableBool,
-				Optional:     true,
-				Default:      "true",
+				Type:nullable.TypeNullableBool,
+				Optional:true,
+				Default:"true",
 				ValidateFunc: nullable.ValidateTypeStringNullableBool,
 			},
 			"availability_zone": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"az_mode": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: validation.StringInSlice(elasticache.AZMode_Values(), false),
 			},
 			"cache_nodes": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"address": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"availability_zone": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"outpost_arn": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"port": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"cluster_address": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"cluster_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				StateFunc: 
-
 func(val interface{}) string {
 					// ElastiCache normalizes cluster ids to lowercase,
 					// so we have to do this too or else we can end up
@@ -138,70 +118,69 @@ func(val interface{}) string {
 				),
 			},
 			"configuration_endpoint": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"engine": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
+				ForceNew:true,
 				ExactlyOneOf: []string{"engine", "replication_group_id"},
 				ValidateFunc: validation.StringInSlice(engine_Values(), false),
 			},
 			"engine_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"engine_version_actual": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"final_snapshot_identifier": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"ip_discovery": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: validation.StringInSlice(elasticache.IpDiscovery_Values(), false),
 			},
 			"log_delivery_configuration": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				MaxItems: 2,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"destination": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"destination_type": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(elasticache.DestinationType_Values(), false),
 						},
 						"log_format": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(elasticache.LogFormat_Values(), false),
 						},
 						"log_type": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(elasticache.LogType_Values(), false),
 						},
 					},
 				},
 			},
 			"maintenance_window": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				StateFunc: 
-
 func(val interface{}) string {
 					// ElastiCache always changes the maintenance
 					// to lowercase
@@ -210,45 +189,44 @@ func(val interface{}) string {
 				ValidateFunc: verify.ValidOnceAWeekWindowFormat,
 			},
 			"network_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringInSlice(elasticache.NetworkType_Values(), false),
 			},
 			"node_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"notification_topic_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"num_cache_nodes": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
 			"outpost_mode": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				ForceNew:true,
 				RequiredWith: []string{"preferred_outpost_arn"},
 				ValidateFunc: validation.StringInSlice(elasticache.OutpostMode_Values(), false),
 			},
 			"parameter_group_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"port": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 				DiffSuppressFunc: 
-
 func(k, old, new string, d *schema.ResourceData) bool {
 					// Suppress default memcached/redis ports when not defined
 					if !d.IsNewResource() && new == "0" && (old == defaultRedisPort || old == defaultMemcachedPort) {
@@ -258,22 +236,22 @@ func(k, old, new string, d *schema.ResourceData) bool {
 				},
 			},
 			"preferred_availability_zones": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"preferred_outpost_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"replication_group_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
+				ForceNew:true,
 				ExactlyOneOf: []string{"replication_group_id", "engine"},
 				ValidateFunc: validateReplicationGroupID,
 				ConflictsWith: []string{
@@ -294,13 +272,13 @@ func(k, old, new string, d *schema.ResourceData) bool {
 				},
 			},
 			"security_group_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"snapshot_arns": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				ForceNew: true,
@@ -313,38 +291,36 @@ func(k, old, new string, d *schema.ResourceData) bool {
 				},
 			},
 			"snapshot_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"snapshot_retention_limit": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional:true,
 				ValidateFunc: validation.IntAtMost(35),
 			},
 			"snapshot_window": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: verify.ValidOnceADayWindowFormat,
 			},
 			"subnet_group_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"transit_encryption_enabled": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				ForceNew: true,
 				Optional: true,
-				Default:  false,
+				Default:false,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
-
-		CustomizeDiff: customdiff.Sequence(
+		},		CustomizeDiff: customdiff.Sequence(
 			CustomizeDiffValidateClusterAZMode,
 			CustomizeDiffValidateClusterEngineVersion,
 			customizeDiffEngineVersionForceNewOnDowngrade,
@@ -356,164 +332,90 @@ func(k, old, new string, d *schema.ResourceData) bool {
 		),
 	}
 }
-
-
-
 func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
-
-	clusterID := d.Get("cluster_id").(string)
+	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)	clusterID := d.Get("cluster_id").(string)
 	input := &elasticache.CreateCacheClusterInput{
 		CacheClusterId: aws.String(clusterID),
-		Tags:           getTagsIn(ctx),
-	}
-
-	if v, ok := d.GetOk("replication_group_id"); ok {
+		Tags:getTagsIn(ctx),
+	}	if v, ok := d.GetOk("replication_group_id"); ok {
 		input.ReplicationGroupId = aws.String(v.(string))
 	} else {
 		input.SecurityGroupIds = flex.ExpandStringSet(d.Get("security_group_ids").(*schema.Set))
-	}
-
-	if v, ok := d.GetOk("node_type"); ok {
+	}	if v, ok := d.GetOk("node_type"); ok {
 		input.CacheNodeType = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("num_cache_nodes"); ok {
+	}	if v, ok := d.GetOk("num_cache_nodes"); ok {
 		input.NumCacheNodes = aws.Int64(int64(v.(int)))
-	}
-
-	if v, ok := d.GetOk("outpost_mode"); ok {
+	}	if v, ok := d.GetOk("outpost_mode"); ok {
 		input.OutpostMode = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("preferred_outpost_arn"); ok {
+	}	if v, ok := d.GetOk("preferred_outpost_arn"); ok {
 		input.PreferredOutpostArn = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("engine"); ok {
+	}	if v, ok := d.GetOk("engine"); ok {
 		input.Engine = aws.String(v.(string))
-	}
-
-	version := d.Get("engine_version").(string)
+	}	version := d.Get("engine_version").(string)
 	if version != "" {
 		input.EngineVersion = aws.String(version)
-	}
-
-	if v, ok := d.GetOk("auto_minor_version_upgrade"); ok {
+	}	if v, ok := d.GetOk("auto_minor_version_upgrade"); ok {
 		if v, null, _ := nullable.Bool(v.(string)).Value(); !null {
 			input.AutoMinorVersionUpgrade = aws.Bool(v)
 		}
-	}
-
-	if v, ok := d.GetOk("port"); ok {
+	}	if v, ok := d.GetOk("port"); ok {
 		input.Port = aws.Int64(int64(v.(int)))
-	}
-
-	if v, ok := d.GetOk("subnet_group_name"); ok {
+	}	if v, ok := d.GetOk("subnet_group_name"); ok {
 		input.CacheSubnetGroupName = aws.String(v.(string))
-	}
-
-	// parameter groups are optional and can be defaulted by AWS
+	}	// parameter groups are optional and can be defaulted by AWS
 	if v, ok := d.GetOk("parameter_group_name"); ok {
 		input.CacheParameterGroupName = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("snapshot_retention_limit"); ok {
+	}	if v, ok := d.GetOk("snapshot_retention_limit"); ok {
 		input.SnapshotRetentionLimit = aws.Int64(int64(v.(int)))
-	}
-
-	if v, ok := d.GetOk("snapshot_window"); ok {
+	}	if v, ok := d.GetOk("snapshot_window"); ok {
 		input.SnapshotWindow = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("log_delivery_configuration"); ok {
+	}	if v, ok := d.GetOk("log_delivery_configuration"); ok {
 		input.LogDeliveryConfigurations = []*elasticache.LogDeliveryConfigurationRequest{}
 		v := v.(*schema.Set).List()
 		for _, v := range v {
 			logDeliveryConfigurationRequest := expandLogDeliveryConfigurations(v.(map[string]interface{}))
 			input.LogDeliveryConfigurations = append(input.LogDeliveryConfigurations, &logDeliveryConfigurationRequest)
 		}
-	}
-
-	if v, ok := d.GetOk("maintenance_window"); ok {
+	}	if v, ok := d.GetOk("maintenance_window"); ok {
 		input.PreferredMaintenanceWindow = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("notification_topic_arn"); ok {
+	}	if v, ok := d.GetOk("notification_topic_arn"); ok {
 		input.NotificationTopicArn = aws.String(v.(string))
-	}
-
-	snaps := d.Get("snapshot_arns").([]interface{})
+	}	snaps := d.Get("snapshot_arns").([]interface{})
 	if len(snaps) > 0 {
 		input.SnapshotArns = flex.ExpandStringList(snaps)
 		log.Printf("[DEBUG] Restoring Redis cluster from S3 snapshot: %#v", snaps)
-	}
-
-	if v, ok := d.GetOk("snapshot_name"); ok {
+	}	if v, ok := d.GetOk("snapshot_name"); ok {
 		input.SnapshotName = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("transit_encryption_enabled"); ok {
+	}	if v, ok := d.GetOk("transit_encryption_enabled"); ok {
 		input.TransitEncryptionEnabled = aws.Bool(v.(bool))
-	}
-
-	if v, ok := d.GetOk("az_mode"); ok {
+	}	if v, ok := d.GetOk("az_mode"); ok {
 		input.AZMode = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("availability_zone"); ok {
+	}	if v, ok := d.GetOk("availability_zone"); ok {
 		input.PreferredAvailabilityZone = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("preferred_availability_zones"); ok && len(v.([]interface{})) > 0 {
+	}	if v, ok := d.GetOk("preferred_availability_zones"); ok && len(v.([]interface{})) > 0 {
 		input.PreferredAvailabilityZones = flex.ExpandStringList(v.([]interface{}))
-	}
-
-	if v, ok := d.GetOk("ip_discovery"); ok {
+	}	if v, ok := d.GetOk("ip_discovery"); ok {
 		input.IpDiscovery = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("network_type"); ok {
+	}	if v, ok := d.GetOk("network_type"); ok {
 		input.NetworkType = aws.String(v.(string))
-	}
-
-	id, arn, err := createCacheCluster(ctx, conn, input)
-
-	if err != nil {
+	}	id, arn, err := createCacheCluster(ctx, conn, input)	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating ElastiCache Cache Cluster (%s): %s", clusterID, err)
-	}
-
-	d.SetId(id)
-
-	if _, err := waitCacheClusterAvailable(ctx, conn, d.Id(), cacheClusterCreatedTimeout); err != nil {
+	}	d.SetId(id)	if _, err := waitCacheClusterAvailable(ctx, conn, d.Id(), cacheClusterCreatedTimeout); err != nil {
 		return sdkdiag.AppendErrorf(diags, "waiting for ElastiCache Cache Cluster (%s) create: %s", d.Id(), err)
-	}
-
-	// For partitions not supporting tag-on-create, attempt tag after create.
+	}	// For partitions not supporting tag-on-create, attempt tag after create.
 	if tags := getTagsIn(ctx); input.Tags == nil && len(tags) > 0 {
-		err := createTags(ctx, conn, arn, tags)
-
-		// If default tags only, continue. Otherwise, error.
+		err := createTags(ctx, conn, arn, tags)		// If default tags only, continue. Otherwise, error.
 		if v, ok := d.GetOk(names.AttrTags); (!ok || len(v.(map[string]interface{})) == 0) && errs.IsUnsupportedOperationInPartitionError(conn.PartitionID, err) {
 			return append(diags, resourceClusterRead(ctx, d, meta)...)
-		}
-
-		if err != nil {
+		}		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "setting ElastiCache Cache Cluster (%s) tags: %s", d.Id(), err)
 		}
-	}
-
-	return append(diags, resourceClusterRead(ctx, d, meta)...)
+	}	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
-
-
-
 func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
-
-	c, err := FindCacheClusterWithNodeInfoByID(ctx, conn, d.Id())
+	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)	c, err := FindCacheClusterWithNodeInfoByID(ctx, conn, d.Id())
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] ElastiCache Cache Cluster (%s) not found, removing from state", d.Id())
 		d.SetId("")
@@ -521,31 +423,17 @@ func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta inter
 	}
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading ElastiCache Cache Cluster (%s): %s", d.Id(), err)
-	}
-
-	d.Set("cluster_id", c.CacheClusterId)
-
-	if err := setFromCacheCluster(d, c); err != nil {
+	}	d.Set("cluster_id", c.CacheClusterId)	if err := setFromCacheCluster(d, c); err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading ElastiCache Cache Cluster (%s): %s", d.Id(), err)
-	}
-
-	d.Set("log_delivery_configuration", flattenLogDeliveryConfigurations(c.LogDeliveryConfigurations))
+	}	d.Set("log_delivery_configuration", flattenLogDeliveryConfigurations(c.LogDeliveryConfigurations))
 	d.Set("snapshot_window", c.SnapshotWindow)
-	d.Set("snapshot_retention_limit", c.SnapshotRetentionLimit)
-
-	d.Set("num_cache_nodes", c.NumCacheNodes)
-
-	if c.ConfigurationEndpoint != nil {
+	d.Set("snapshot_retention_limit", c.SnapshotRetentionLimit)	d.Set("num_cache_nodes", c.NumCacheNodes)	if c.ConfigurationEndpoint != nil {
 		d.Set("port", c.ConfigurationEndpoint.Port)
 		d.Set("configuration_endpoint", aws.String(fmt.Sprintf("%s:%d", aws.StringValue(c.ConfigurationEndpoint.Address), aws.Int64Value(c.ConfigurationEndpoint.Port))))
 		d.Set("cluster_address", c.ConfigurationEndpoint.Address)
 	} else if len(c.CacheNodes) > 0 {
 		d.Set("port", c.CacheNodes[0].Endpoint.Port)
-	}
-
-	d.Set("replication_group_id", c.ReplicationGroupId)
-
-	if c.NotificationConfiguration != nil {
+	}	d.Set("replication_group_id", c.ReplicationGroupId)	if c.NotificationConfiguration != nil {
 		if aws.StringValue(c.NotificationConfiguration.TopicStatus) == "active" {
 			d.Set("notification_topic_arn", c.NotificationConfiguration.TopicArn)
 		}
@@ -555,28 +443,15 @@ func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta inter
 		d.Set("az_mode", "cross-az")
 	} else {
 		d.Set("az_mode", "single-az")
-	}
-
-	if err := setCacheNodeData(d, c); err != nil {
+	}	if err := setCacheNodeData(d, c); err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading ElastiCache Cache Cluster (%s): %s", d.Id(), err)
-	}
-
-	d.Set("arn", c.ARN)
-
-	d.Set("ip_discovery", c.IpDiscovery)
+	}	d.Set("arn", c.ARN)	d.Set("ip_discovery", c.IpDiscovery)
 	d.Set("network_type", c.NetworkType)
 	d.Set("preferred_outpost_arn", c.PreferredOutpostArn)
-	d.Set("transit_encryption_enabled", c.TransitEncryptionEnabled)
-
-	return diags
+	d.Set("transit_encryption_enabled", c.TransitEncryptionEnabled)	return diags
 }
-
-
-
 func setFromCacheCluster(d *schema.ResourceData, c *elasticache.CacheCluster) error {
-	d.Set("node_type", c.CacheNodeType)
-
-	d.Set("engine", c.Engine)
+	d.Set("node_type", c.CacheNodeType)	d.Set("engine", c.Engine)
 	if aws.StringValue(c.Engine) == engineRedis {
 		if err := setEngineVersionRedis(d, c.EngineVersion); err != nil {
 			return err // nosemgrep:ci.bare-error-returns
@@ -584,83 +459,50 @@ func setFromCacheCluster(d *schema.ResourceData, c *elasticache.CacheCluster) er
 	} else {
 		setEngineVersionMemcached(d, c.EngineVersion)
 	}
-	d.Set("auto_minor_version_upgrade", strconv.FormatBool(aws.BoolValue(c.AutoMinorVersionUpgrade)))
-
-	d.Set("subnet_group_name", c.CacheSubnetGroupName)
+	d.Set("auto_minor_version_upgrade", strconv.FormatBool(aws.BoolValue(c.AutoMinorVersionUpgrade)))	d.Set("subnet_group_name", c.CacheSubnetGroupName)
 	if err := d.Set("security_group_ids", flattenSecurityGroupIDs(c.SecurityGroups)); err != nil {
 		return fmt.Errorf("setting security_group_ids: %w", err)
-	}
-
-	if c.CacheParameterGroup != nil {
+	}	if c.CacheParameterGroup != nil {
 		d.Set("parameter_group_name", c.CacheParameterGroup.CacheParameterGroupName)
-	}
-
-	d.Set("maintenance_window", c.PreferredMaintenanceWindow)
-
-	return nil
+	}	d.Set("maintenance_window", c.PreferredMaintenanceWindow)	return nil
 }
-
-
-
 func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
-
-	if d.HasChangesExcept("tags", "tags_all") {
+	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)	if d.HasChangesExcept("tags", "tags_all") {
 		input := &elasticache.ModifyCacheClusterInput{
-			CacheClusterId:   aws.String(d.Id()),
+			CacheClusterId:aws.String(d.Id()),
 			ApplyImmediately: aws.Bool(d.Get("apply_immediately").(bool)),
-		}
-
-		requestUpdate := false
+		}		requestUpdate := false
 		if d.HasChange("security_group_ids") {
 			if attr := d.Get("security_group_ids").(*schema.Set); attr.Len() > 0 {
 				input.SecurityGroupIds = flex.ExpandStringSet(attr)
 				requestUpdate = true
 			}
-		}
-
-		if d.HasChange("parameter_group_name") {
+		}		if d.HasChange("parameter_group_name") {
 			input.CacheParameterGroupName = aws.String(d.Get("parameter_group_name").(string))
 			requestUpdate = true
-		}
-
-		if d.HasChange("ip_discovery") {
+		}		if d.HasChange("ip_discovery") {
 			input.IpDiscovery = aws.String(d.Get("ip_discovery").(string))
 			requestUpdate = true
-		}
-
-		if d.HasChange("log_delivery_configuration") {
-			oldLogDeliveryConfig, newLogDeliveryConfig := d.GetChange("log_delivery_configuration")
-
-			input.LogDeliveryConfigurations = []*elasticache.LogDeliveryConfigurationRequest{}
-			logTypesToSubmit := make(map[string]bool)
-
-			currentLogDeliveryConfig := newLogDeliveryConfig.(*schema.Set).List()
+		}		if d.HasChange("log_delivery_configuration") {
+			oldLogDeliveryConfig, newLogDeliveryConfig := d.GetChange("log_delivery_configuration")			input.LogDeliveryConfigurations = []*elasticache.LogDeliveryConfigurationRequest{}
+			logTypesToSubmit := make(map[string]bool)			currentLogDeliveryConfig := newLogDeliveryConfig.(*schema.Set).List()
 			for _, current := range currentLogDeliveryConfig {
 				logDeliveryConfigurationRequest := expandLogDeliveryConfigurations(current.(map[string]interface{}))
 				logTypesToSubmit[*logDeliveryConfigurationRequest.LogType] = true
 				input.LogDeliveryConfigurations = append(input.LogDeliveryConfigurations, &logDeliveryConfigurationRequest)
-			}
-
-			previousLogDeliveryConfig := oldLogDeliveryConfig.(*schema.Set).List()
+			}			previousLogDeliveryConfig := oldLogDeliveryConfig.(*schema.Set).List()
 			for _, previous := range previousLogDeliveryConfig {
 				logDeliveryConfigurationRequest := expandEmptyLogDeliveryConfigurations(previous.(map[string]interface{}))
 				// if something was removed, send an empty request
 				if !logTypesToSubmit[*logDeliveryConfigurationRequest.LogType] {
 					input.LogDeliveryConfigurations = append(input.LogDeliveryConfigurations, &logDeliveryConfigurationRequest)
 				}
-			}
-
-			requestUpdate = true
-		}
-
-		if d.HasChange("maintenance_window") {
+			}			requestUpdate = true
+		}		if d.HasChange("maintenance_window") {
 			input.PreferredMaintenanceWindow = aws.String(d.Get("maintenance_window").(string))
 			requestUpdate = true
-		}
-
-		if d.HasChange("notification_topic_arn") {
+		}		if d.HasChange("notification_topic_arn") {
 			v := d.Get("notification_topic_arn").(string)
 			input.NotificationTopicArn = aws.String(v)
 			if v == "" {
@@ -668,42 +510,28 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 				input.NotificationTopicStatus = &inactive
 			}
 			requestUpdate = true
-		}
-
-		if d.HasChange("engine_version") {
+		}		if d.HasChange("engine_version") {
 			input.EngineVersion = aws.String(d.Get("engine_version").(string))
 			requestUpdate = true
-		}
-
-		if d.HasChange("auto_minor_version_upgrade") {
+		}		if d.HasChange("auto_minor_version_upgrade") {
 			v := d.Get("auto_minor_version_upgrade")
 			if v, null, _ := nullable.Bool(v.(string)).Value(); !null {
 				input.AutoMinorVersionUpgrade = aws.Bool(v)
 			}
 			requestUpdate = true
-		}
-
-		if d.HasChange("snapshot_window") {
+		}		if d.HasChange("snapshot_window") {
 			input.SnapshotWindow = aws.String(d.Get("snapshot_window").(string))
 			requestUpdate = true
-		}
-
-		if d.HasChange("node_type") {
+		}		if d.HasChange("node_type") {
 			input.CacheNodeType = aws.String(d.Get("node_type").(string))
 			requestUpdate = true
-		}
-
-		if d.HasChange("snapshot_retention_limit") {
+		}		if d.HasChange("snapshot_retention_limit") {
 			input.SnapshotRetentionLimit = aws.Int64(int64(d.Get("snapshot_retention_limit").(int)))
 			requestUpdate = true
-		}
-
-		if d.HasChange("az_mode") {
+		}		if d.HasChange("az_mode") {
 			input.AZMode = aws.String(d.Get("az_mode").(string))
 			requestUpdate = true
-		}
-
-		if d.HasChange("num_cache_nodes") {
+		}		if d.HasChange("num_cache_nodes") {
 			oraw, nraw := d.GetChange("num_cache_nodes")
 			o := oraw.(int)
 			n := nraw.(int)
@@ -727,88 +555,50 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 					}
 					input.NewAvailabilityZones = flex.ExpandStringList(v.([]interface{})[o:])
 				}
-			}
-
-			input.NumCacheNodes = aws.Int64(int64(d.Get("num_cache_nodes").(int)))
+			}			input.NumCacheNodes = aws.Int64(int64(d.Get("num_cache_nodes").(int)))
 			requestUpdate = true
-		}
-
-		if requestUpdate {
+		}		if requestUpdate {
 			log.Printf("[DEBUG] Modifying ElastiCache Cluster (%s), opts:\n%s", d.Id(), input)
 			_, err := conn.ModifyCacheClusterWithContext(ctx, input)
 			if err != nil {
 				return sdkdiag.AppendErrorf(diags, "updating ElastiCache cluster (%s), error: %s", d.Id(), err)
-			}
-
-			_, err = waitCacheClusterAvailable(ctx, conn, d.Id(), CacheClusterUpdatedTimeout)
+			}			_, err = waitCacheClusterAvailable(ctx, conn, d.Id(), CacheClusterUpdatedTimeout)
 			if err != nil {
 				return sdkdiag.AppendErrorf(diags, "waiting for ElastiCache Cache Cluster (%s) to update: %s", d.Id(), err)
 			}
 		}
-	}
-
-	return append(diags, resourceClusterRead(ctx, d, meta)...)
+	}	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
-
-
-
 func getCacheNodesToRemove(oldNumberOfNodes int, cacheNodesToRemove int) []*string {
 	nodesIdsToRemove := []*string{}
 	for i := oldNumberOfNodes; i > oldNumberOfNodes-cacheNodesToRemove && i > 0; i-- {
 		s := fmt.Sprintf("%04d", i)
 		nodesIdsToRemove = append(nodesIdsToRemove, &s)
-	}
-
-	return nodesIdsToRemove
+	}	return nodesIdsToRemove
 }
-
-
-
 func setCacheNodeData(d *schema.ResourceData, c *elasticache.CacheCluster) error {
 	sortedCacheNodes := make([]*elasticache.CacheNode, len(c.CacheNodes))
 	copy(sortedCacheNodes, c.CacheNodes)
-	sort.Sort(byCacheNodeId(sortedCacheNodes))
-
-	cacheNodeData := make([]map[string]interface{}, 0, len(sortedCacheNodes))
-
-	for _, node := range sortedCacheNodes {
+	sort.Sort(byCacheNodeId(sortedCacheNodes))	cacheNodeData := make([]map[string]interface{}, 0, len(sortedCacheNodes))	for _, node := range sortedCacheNodes {
 		if node.CacheNodeId == nil || node.Endpoint == nil || node.Endpoint.Address == nil || node.Endpoint.Port == nil || node.CustomerAvailabilityZone == nil {
 			return fmt.Errorf("Unexpected nil pointer in: %s", node)
 		}
 		cacheNodeData = append(cacheNodeData, map[string]interface{}{
-			"id":   aws.StringValue(node.CacheNodeId),
-			"address":           aws.StringValue(node.Endpoint.Address),
+			"id":aws.StringValue(node.CacheNodeId),
+			"address":aws.StringValue(node.Endpoint.Address),
 			"port": aws.Int64Value(node.Endpoint.Port),
 			"availability_zone": aws.StringValue(node.CustomerAvailabilityZone),
-			"outpost_arn":       aws.StringValue(node.CustomerOutpostArn),
+			"outpost_arn": aws.StringValue(node.CustomerOutpostArn),
 		})
-	}
-
-	return d.Set("cache_nodes", cacheNodeData)
-}
-
-type byCacheNodeId []*elasticache.CacheNode
-
-
-
-func (b byCacheNodeId) Len() int      { return len(b) }
-
-
-func (b byCacheNodeId) Swap(i, j int) { b[i], b[j] = b[j], b[i] }
-
-
-func (b byCacheNodeId) Less(i, j int) bool {
+	}	return d.Set("cache_nodes", cacheNodeData)
+}type byCacheNodeId []*elasticache.CacheNode
+func (b byCacheNodeId) Len() int{ return len(b) }func (b byCacheNodeId) Swap(i, j int) { b[i], b[j] = b[j], b[i] }func (b byCacheNodeId) Less(i, j int) bool {
 	return b[i].CacheNodeId != nil && b[j].CacheNodeId != nil &&
 		aws.StringValue(b[i].CacheNodeId) < aws.StringValue(b[j].CacheNodeId)
 }
-
-
-
 func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)
-
-	var finalSnapshotID = d.Get("final_snapshot_identifier").(string)
+	conn := meta.(*conns.AWSClient).ElastiCacheConn(ctx)	var finalSnapshotID = d.Get("final_snapshot_identifier").(string)
 	err := DeleteCacheCluster(ctx, conn, d.Id(), finalSnapshotID)
 	if err != nil {
 		if tfawserr.ErrCodeEquals(err, elasticache.ErrCodeCacheClusterNotFoundFault) {
@@ -819,28 +609,15 @@ func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta int
 	_, err = WaitCacheClusterDeleted(ctx, conn, d.Id(), CacheClusterDeletedTimeout)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "waiting for ElastiCache Cache Cluster (%s) to be deleted: %s", d.Id(), err)
-	}
-
-	return diags
+	}	return diags
 }
-
-
-
 func createCacheCluster(ctx context.Context, conn *elasticache.ElastiCache, input *elasticache.CreateCacheClusterInput) (string, string, error) {
-	output, err := conn.CreateCacheClusterWithContext(ctx, input)
-
-	// Some partitions (e.g. ISO) may not support tag-on-create.
+	output, err := conn.CreateCacheClusterWithContext(ctx, input)	// Some partitions (e.g. ISO) may not support tag-on-create.
 	if input.Tags != nil && errs.IsUnsupportedOperationInPartitionError(conn.PartitionID, err) {
-		input.Tags = nil
-
-		output, err = conn.CreateCacheClusterWithContext(ctx, input)
-	}
-
-	if err != nil {
+		input.Tags = nil		output, err = conn.CreateCacheClusterWithContext(ctx, input)
+	}	if err != nil {
 		return "", "", err
-	}
-
-	if output == nil || output.CacheCluster == nil {
+	}	if output == nil || output.CacheCluster == nil {
 		return "", "", errors.New("missing cluster ID after creation")
 	}
 	// ElastiCache always retains the id in lower case, so we have to
@@ -848,20 +625,14 @@ func createCacheCluster(ctx context.Context, conn *elasticache.ElastiCache, inpu
 	// name contained uppercase characters.
 	return strings.ToLower(aws.StringValue(output.CacheCluster.CacheClusterId)), aws.StringValue(output.CacheCluster.ARN), nil
 }
-
-
-
 func DeleteCacheCluster(ctx context.Context, conn *elasticache.ElastiCache, cacheClusterID string, finalSnapshotID string) error {
 	input := &elasticache.DeleteCacheClusterInput{
 		CacheClusterId: aws.String(cacheClusterID),
 	}
 	if finalSnapshotID != "" {
 		input.FinalSnapshotIdentifier = aws.String(finalSnapshotID)
-	}
-
-	log.Printf("[DEBUG] Deleting ElastiCache Cache Cluster: %s", input)
+	}	log.Printf("[DEBUG] Deleting ElastiCache Cache Cluster: %s", input)
 	err := retry.RetryContext(ctx, 5*time.Minute, 
-
 func() *retry.RetryError {
 		_, err := conn.DeleteCacheClusterWithContext(ctx, input)
 		if err != nil {
@@ -881,7 +652,5 @@ func() *retry.RetryError {
 	})
 	if tfresource.TimedOut(err) {
 		_, err = conn.DeleteCacheClusterWithContext(ctx, input)
-	}
-
-	return err
+	}	return err
 }

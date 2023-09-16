@@ -348,7 +348,7 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_serverlessapplicationrepository_cloudformation_stack" "postgres-rotator" {
-  name           = %[1]q
+  name  = %[1]q
   application_id = %[2]q
 
   capabilities = [
@@ -371,7 +371,7 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_serverlessapplicationrepository_cloudformation_stack" "postgres-rotator" {
-  name           = %[1]q
+  name  = %[1]q
   application_id = %[2]q
 
   capabilities = [
@@ -398,7 +398,7 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_serverlessapplicationrepository_cloudformation_stack" "postgres-rotator" {
-  name           = %[1]q
+  name  = %[1]q
   application_id = %[2]q
 
   capabilities = [
@@ -449,7 +449,7 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_serverlessapplicationrepository_cloudformation_stack" "postgres-rotator" {
-  name           = %[1]q
+  name  = %[1]q
   application_id = %[2]q
 
   capabilities = [
@@ -499,7 +499,7 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_serverlessapplicationrepository_cloudformation_stack" "postgres-rotator" {
-  name           = %[1]q
+  name  = %[1]q
   application_id = %[2]q
 
   capabilities = [
@@ -526,7 +526,7 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_serverlessapplicationrepository_cloudformation_stack" "postgres-rotator" {
-  name           = %[1]q
+  name  = %[1]q
   application_id = %[2]q
 
   capabilities = [

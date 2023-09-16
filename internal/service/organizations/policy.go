@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_organizations_policy", name="Policy")
 // @Tags(identifierAttribute="id")
+
 func ResourcePolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePolicyCreate,
@@ -42,8 +43,8 @@ func ResourcePolicy() *schema.Resource {
 				Computed: true,
 			},
 			"content": {
-				Type:             schema.TypeString,
-				Required:         true,
+				Type:    schema.TypeString,
+				Required:true,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 				ValidateFunc:     validation.StringIsJSON,
 			},
@@ -62,7 +63,7 @@ func ResourcePolicy() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      organizations.PolicyTypeServiceControlPolicy,
@@ -73,6 +74,7 @@ func ResourcePolicy() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourcePolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -86,7 +88,8 @@ func resourcePolicyCreate(ctx context.Context, d *schema.ResourceData, meta inte
 		Tags:        getTagsIn(ctx),
 	}
 
-	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 4*time.Minute, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 4*time.Minute, 
+func() (interface{}, error) {
 		return conn.CreatePolicyWithContext(ctx, input)
 	}, organizations.ErrCodeFinalizingOrganizationException)
 
@@ -98,6 +101,7 @@ func resourcePolicyCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return resourcePolicyRead(ctx, d, meta)
 }
+
 
 func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -134,6 +138,7 @@ func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interf
 	return nil
 }
 
+
 func resourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -164,6 +169,7 @@ func resourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	return resourcePolicyRead(ctx, d, meta)
 }
 
+
 func resourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -188,6 +194,7 @@ func resourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	return nil
 }
 
+
 func resourcePolicyImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
 
@@ -203,6 +210,7 @@ func resourcePolicyImport(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return []*schema.ResourceData{d}, nil
 }
+
 
 func findPolicyByID(ctx context.Context, conn *organizations.Organizations, id string) (*organizations.Policy, error) {
 	input := &organizations.DescribePolicyInput{

@@ -138,7 +138,7 @@ func updateTags(ctx context.Context, conn ssmiface.SSMAPI, identifier, resourceT
 		input := &ssm.AddTagsToResourceInput{
 			ResourceId:   aws.String(identifier),
 			ResourceType: aws.String(resourceType),
-			Tags:         Tags(updatedTags),
+			Tags:Tags(updatedTags),
 		}
 
 		_, err := conn.AddTagsToResourceWithContext(ctx, input)

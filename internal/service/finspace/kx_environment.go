@@ -32,7 +32,7 @@ import (
 func ResourceKxEnvironment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceKxEnvironmentCreate,
-		ReadWithoutTimeout:   resourceKxEnvironmentRead,
+		ReadWithoutTimeout:resourceKxEnvironmentRead,
 		UpdateWithoutTimeout: resourceKxEnvironmentUpdate,
 		DeleteWithoutTimeout: resourceKxEnvironmentDelete,
 
@@ -48,7 +48,7 @@ func ResourceKxEnvironment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"availability_zones": {
@@ -59,22 +59,22 @@ func ResourceKxEnvironment() *schema.Resource {
 				Computed: true,
 			},
 			"created_timestamp": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"custom_dns_configuration": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"custom_dns_server_name": {
 							Type:schema.TypeString,
-							Required:     true,
+							Required:true,
 							ValidateFunc: validation.StringLenBetween(3, 255),
 						},
 						"custom_dns_server_ip": {
 							Type:schema.TypeString,
-							Required:     true,
+							Required:true,
 							ValidateFunc: validation.IsIPAddress,
 						},
 					},
@@ -82,85 +82,85 @@ func ResourceKxEnvironment() *schema.Resource {
 			},
 			"description": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				ValidateFunc: validation.StringLenBetween(1, 1000),
 			},
 			"id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"infrastructure_account_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"kms_key_id": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"last_modified_timestamp": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"transit_gateway_configuration": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"attachment_network_acl_configuration": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 100,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"cidr_block": {
 										Type:schema.TypeString,
-										Required:     true,
+										Required:true,
 										ValidateFunc: validation.IsCIDR,
 									},
 									"icmp_type_code": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"type": {
-													Type:     schema.TypeInt,
+													Type:schema.TypeInt,
 													Required: true,
 												},
 												"code": {
-													Type:     schema.TypeInt,
+													Type:schema.TypeInt,
 													Required: true,
 												},
 											},
 										},
 									},
 									"port_range": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"from": {
 													Type:schema.TypeInt,
-													Required:     true,
+													Required:true,
 													ValidateFunc: validation.IsPortNumber,
 												},
 												"to": {
 													Type:schema.TypeInt,
-													Required:     true,
+													Required:true,
 													ValidateFunc: validation.IsPortNumber,
 												},
 											},
@@ -168,17 +168,17 @@ func ResourceKxEnvironment() *schema.Resource {
 									},
 									"protocol": {
 										Type:schema.TypeString,
-										Required:     true,
+										Required:true,
 										ValidateFunc: validation.StringLenBetween(1, 5),
 									},
 									"rule_action": {
-										Type:    schema.TypeString,
+										Type: schema.TypeString,
 										Required:true,
 										ValidateDiagFunc: enum.Validate[types.RuleAction](),
 									},
 									"rule_number": {
 										Type:schema.TypeInt,
-										Required:     true,
+										Required:true,
 										ValidateFunc: validation.IntBetween(1, 32766),
 									},
 								},
@@ -186,12 +186,12 @@ func ResourceKxEnvironment() *schema.Resource {
 						},
 						"routable_cidr_space": {
 							Type:schema.TypeString,
-							Required:     true,
+							Required:true,
 							ValidateFunc: validation.IsCIDR,
 						},
 						"transit_gateway_id": {
 							Type:schema.TypeString,
-							Required:     true,
+							Required:true,
 							ValidateFunc: validation.StringLenBetween(1, 32),
 						},
 					},
@@ -205,13 +205,12 @@ func ResourceKxEnvironment() *schema.Resource {
 const (
 	ResNameKxEnvironment = "Kx Environment"
 )
-
 func resourceKxEnvironmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
 
 	in := &finspace.CreateKxEnvironmentInput{
-		Name:        aws.String(d.Get("name").(string)),
+		Name:aws.String(d.Get("name").(string)),
 		ClientToken: aws.String(id.UniqueId()),
 	}
 
@@ -250,7 +249,6 @@ func resourceKxEnvironmentCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return append(diags, resourceKxEnvironmentRead(ctx, d, meta)...)
 }
-
 func resourceKxEnvironmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -288,7 +286,6 @@ func resourceKxEnvironmentRead(ctx context.Context, d *schema.ResourceData, meta
 
 	return diags
 }
-
 func resourceKxEnvironmentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -325,7 +322,6 @@ func resourceKxEnvironmentUpdate(ctx context.Context, d *schema.ResourceData, me
 	}
 	return append(diags, resourceKxEnvironmentRead(ctx, d, meta)...)
 }
-
 func resourceKxEnvironmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -357,12 +353,12 @@ func resourceKxEnvironmentDelete(ctx context.Context, d *schema.ResourceData, me
 func updateKxEnvironmentNetwork(ctx context.Context, d *schema.ResourceData, client *finspace.Client) error {
 	transitGatewayConfigIn := &finspace.UpdateKxEnvironmentNetworkInput{
 		EnvironmentId: aws.String(d.Id()),
-		ClientToken:   aws.String(id.UniqueId()),
+		ClientToken:aws.String(id.UniqueId()),
 	}
 
 	customDnsConfigIn := &finspace.UpdateKxEnvironmentNetworkInput{
 		EnvironmentId: aws.String(d.Id()),
-		ClientToken:   aws.String(id.UniqueId()),
+		ClientToken:aws.String(id.UniqueId()),
 	}
 
 	updateTransitGatewayConfig := false
@@ -402,14 +398,13 @@ func updateKxEnvironmentNetwork(ctx context.Context, d *schema.ResourceData, cli
 
 	return nil
 }
-
 func waitKxEnvironmentCreated(ctx context.Context, conn *finspace.Client, id string, timeout time.Duration) (*finspace.GetKxEnvironmentOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.EnvironmentStatusCreateRequested, types.EnvironmentStatusCreating),
 		Target:  enum.Slice(types.EnvironmentStatusCreated),
 		Refresh: statusKxEnvironment(ctx, conn, id),
 		Timeout: timeout,
-		NotFoundChecks:   20,
+		NotFoundChecks:20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -420,7 +415,6 @@ func waitKxEnvironmentCreated(ctx context.Context, conn *finspace.Client, id str
 
 	return nil, err
 }
-
 func waitTransitGatewayConfigurationUpdated(ctx context.Context, conn *finspace.Client, id string, timeout time.Duration) (*finspace.GetKxEnvironmentOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.TgwStatusUpdateRequested, types.TgwStatusUpdating),
@@ -436,7 +430,6 @@ func waitTransitGatewayConfigurationUpdated(ctx context.Context, conn *finspace.
 
 	return nil, err
 }
-
 func waitCustomDNSConfigurationUpdated(ctx context.Context, conn *finspace.Client, id string, timeout time.Duration) (*finspace.GetKxEnvironmentOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.DnsStatusUpdateRequested, types.DnsStatusUpdating),
@@ -452,7 +445,6 @@ func waitCustomDNSConfigurationUpdated(ctx context.Context, conn *finspace.Clien
 
 	return nil, err
 }
-
 func waitKxEnvironmentDeleted(ctx context.Context, conn *finspace.Client, id string, timeout time.Duration) (*finspace.GetKxEnvironmentOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.EnvironmentStatusDeleteRequested, types.EnvironmentStatusDeleting),
@@ -468,7 +460,6 @@ func waitKxEnvironmentDeleted(ctx context.Context, conn *finspace.Client, id str
 
 	return nil, err
 }
-
 func statusKxEnvironment(ctx context.Context, conn *finspace.Client, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		out, err := findKxEnvironmentByID(ctx, conn, id)
@@ -483,7 +474,6 @@ func statusKxEnvironment(ctx context.Context, conn *finspace.Client, id string) 
 		return out, string(out.Status), nil
 	}
 }
-
 func statusTransitGatewayConfiguration(ctx context.Context, conn *finspace.Client, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		out, err := findKxEnvironmentByID(ctx, conn, id)
@@ -498,7 +488,6 @@ func statusTransitGatewayConfiguration(ctx context.Context, conn *finspace.Clien
 		return out, string(out.TgwStatus), nil
 	}
 }
-
 func statusCustomDNSConfiguration(ctx context.Context, conn *finspace.Client, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		out, err := findKxEnvironmentByID(ctx, conn, id)
@@ -513,7 +502,6 @@ func statusCustomDNSConfiguration(ctx context.Context, conn *finspace.Client, id
 		return out, string(out.DnsStatus), nil
 	}
 }
-
 func findKxEnvironmentByID(ctx context.Context, conn *finspace.Client, id string) (*finspace.GetKxEnvironmentOutput, error) {
 	in := &finspace.GetKxEnvironmentInput{
 		EnvironmentId: aws.String(id),
@@ -523,7 +511,7 @@ func findKxEnvironmentByID(ctx context.Context, conn *finspace.Client, id string
 		var nfe *types.ResourceNotFoundException
 		if errors.As(err, &nfe) {
 			return nil, &retry.NotFoundError{
-				LastError:   err,
+				LastError:err,
 				LastRequest: in,
 			}
 		}
@@ -533,7 +521,7 @@ func findKxEnvironmentByID(ctx context.Context, conn *finspace.Client, id string
 	// Treat DELETED status as NotFound
 	if out != nil && out.Status == types.EnvironmentStatusDeleted {
 		return nil, &retry.NotFoundError{
-			LastError:   errors.New("status is deleted"),
+			LastError:errors.New("status is deleted"),
 			LastRequest: in,
 		}
 	}
@@ -544,7 +532,6 @@ func findKxEnvironmentByID(ctx context.Context, conn *finspace.Client, id string
 
 	return out, nil
 }
-
 func expandTransitGatewayConfiguration(tfList []interface{}) *types.TransitGatewayConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -568,7 +555,6 @@ func expandTransitGatewayConfiguration(tfList []interface{}) *types.TransitGatew
 
 	return a
 }
-
 func expandAttachmentNetworkACLConfigurations(tfList []interface{}) []types.NetworkACLEntry {
 	if len(tfList) == 0 {
 		return nil
@@ -590,7 +576,6 @@ func expandAttachmentNetworkACLConfigurations(tfList []interface{}) []types.Netw
 	}
 	return s
 }
-
 func expandAttachmentNetworkACLConfiguration(tfMap map[string]interface{}) *types.NetworkACLEntry {
 	if tfMap == nil {
 		return nil
@@ -618,7 +603,6 @@ func expandAttachmentNetworkACLConfiguration(tfMap map[string]interface{}) *type
 
 	return a
 }
-
 func expandPortRange(tfList []interface{}) *types.PortRange {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -627,10 +611,9 @@ func expandPortRange(tfList []interface{}) *types.PortRange {
 
 	return &types.PortRange{
 		From: int32(tfMap["from"].(int)),
-		To:   int32(tfMap["to"].(int)),
+		To:int32(tfMap["to"].(int)),
 	}
 }
-
 func expandIcmpTypeCode(tfList []interface{}) *types.IcmpTypeCode {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -642,7 +625,6 @@ func expandIcmpTypeCode(tfList []interface{}) *types.IcmpTypeCode {
 		Type: int32(tfMap["type"].(int)),
 	}
 }
-
 func expandCustomDNSConfiguration(tfMap map[string]interface{}) *types.CustomDNSServer {
 	if tfMap == nil {
 		return nil
@@ -660,7 +642,6 @@ func expandCustomDNSConfiguration(tfMap map[string]interface{}) *types.CustomDNS
 
 	return a
 }
-
 func expandCustomDNSConfigurations(tfList []interface{}) []types.CustomDNSServer {
 	if len(tfList) == 0 {
 		return nil
@@ -686,7 +667,6 @@ func expandCustomDNSConfigurations(tfList []interface{}) []types.CustomDNSServer
 
 	return s
 }
-
 func flattenTransitGatewayConfiguration(apiObject *types.TransitGatewayConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -708,7 +688,6 @@ func flattenTransitGatewayConfiguration(apiObject *types.TransitGatewayConfigura
 
 	return []interface{}{m}
 }
-
 func flattenAttachmentNetworkACLConfigurations(apiObjects []types.NetworkACLEntry) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -722,7 +701,6 @@ func flattenAttachmentNetworkACLConfigurations(apiObjects []types.NetworkACLEntr
 
 	return l
 }
-
 func flattenAttachmentNetworkACLConfiguration(apiObject *types.NetworkACLEntry) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -730,7 +708,7 @@ func flattenAttachmentNetworkACLConfiguration(apiObject *types.NetworkACLEntry) 
 
 	m := map[string]interface{}{
 		"cidr_block":  aws.ToString(apiObject.CidrBlock),
-		"protocol":    aws.ToString(apiObject.Protocol),
+		"protocol": aws.ToString(apiObject.Protocol),
 		"rule_action": apiObject.RuleAction,
 		"rule_number": apiObject.RuleNumber,
 	}
@@ -744,7 +722,6 @@ func flattenAttachmentNetworkACLConfiguration(apiObject *types.NetworkACLEntry) 
 
 	return m
 }
-
 func flattenPortRange(apiObject *types.PortRange) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -752,12 +729,11 @@ func flattenPortRange(apiObject *types.PortRange) []interface{} {
 
 	m := map[string]interface{}{
 		"from": apiObject.From,
-		"to":   apiObject.To,
+		"to":apiObject.To,
 	}
 
 	return []interface{}{m}
 }
-
 func flattenIcmpTypeCode(apiObject *types.IcmpTypeCode) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -770,7 +746,6 @@ func flattenIcmpTypeCode(apiObject *types.IcmpTypeCode) []interface{} {
 
 	return []interface{}{m}
 }
-
 func flattenCustomDNSConfiguration(apiObject *types.CustomDNSServer) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -788,7 +763,6 @@ func flattenCustomDNSConfiguration(apiObject *types.CustomDNSServer) map[string]
 
 	return m
 }
-
 func flattenCustomDNSConfigurations(apiObjects []types.CustomDNSServer) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil

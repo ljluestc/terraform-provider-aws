@@ -49,8 +49,7 @@ type intermediateBalancerConfig []map[string]json.RawMessage
 // MarshalJSON implements the json.Marshaler interface.
 //
 // It marshals the balancer and config into a length-1 slice
-// ([]map[string]config).
-func (bc *BalancerConfig) MarshalJSON() ([]byte, error) {
+// ([]map[string]config). (bc *BalancerConfig) MarshalJSON() ([]byte, error) {
 	if bc.Config == nil {
 		// If config is nil, return empty config `{}`.
 		return []byte(fmt.Sprintf(`[{%q: %v}]`, bc.Name, "{}")), nil
@@ -70,8 +69,7 @@ func (bc *BalancerConfig) MarshalJSON() ([]byte, error) {
 //   - If the config for the first supported policy is invalid, the whole service
 //     config is invalid.
 //   - If the list doesn't contain any supported policy, the whole service config
-//     is invalid.
-func (bc *BalancerConfig) UnmarshalJSON(b []byte) error {
+//     is invalid. (bc *BalancerConfig) UnmarshalJSON(b []byte) error {
 	var ir intermediateBalancerConfig
 	err := json.Unmarshal(b, &ir)
 	if err != nil {

@@ -31,7 +31,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  resourceAnalyzer,
 			TypeName: "aws_accessanalyzer_analyzer",
-			Name:     "Analyzer",
+			Name: "Analyzer",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

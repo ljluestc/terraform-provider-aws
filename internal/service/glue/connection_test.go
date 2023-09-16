@@ -31,7 +31,7 @@ func TestAccGlueConnection_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConnectionConfig_required(rName, jdbcConnectionUrl),
@@ -69,7 +69,7 @@ func TestAccGlueConnection_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConnectionConfig_tags1(rName, jdbcConnectionUrl, "key1", "value1"),
@@ -118,7 +118,7 @@ func TestAccGlueConnection_mongoDB(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConnectionConfig_mongoDB(rName, connectionUrl),
@@ -155,7 +155,7 @@ func TestAccGlueConnection_kafka(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConnectionConfig_kafka(rName, bootstrapServers),
@@ -188,7 +188,7 @@ func TestAccGlueConnection_network(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConnectionConfig_network(rName),
@@ -225,7 +225,7 @@ func TestAccGlueConnection_description(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConnectionConfig_description(rName, jdbcConnectionUrl, "First Description"),
@@ -263,7 +263,7 @@ func TestAccGlueConnection_matchCriteria(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConnectionConfig_matchCriteriaFirst(rName, jdbcConnectionUrl),
@@ -314,7 +314,7 @@ func TestAccGlueConnection_physicalConnectionRequirements(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConnectionConfig_physicalRequirements(rName),
@@ -354,7 +354,7 @@ func TestAccGlueConnection_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccConnectionConfig_required(rName, jdbcConnectionUrl),
@@ -436,8 +436,8 @@ resource "aws_glue_connection" "test" {
 
   connection_properties = {
     JDBC_CONNECTION_URL = %[3]q
-    PASSWORD            = "testpassword"
-    USERNAME            = "testusername"
+    PASSWORD   = "testpassword"
+    USERNAME   = "testusername"
   }
 
 }
@@ -453,8 +453,8 @@ resource "aws_glue_connection" "test" {
 
   connection_properties = {
     JDBC_CONNECTION_URL = %[2]q
-    PASSWORD            = "testpassword"
-    USERNAME            = "testusername"
+    PASSWORD   = "testpassword"
+    USERNAME   = "testusername"
   }
 }
 `, rName, jdbcConnectionUrl)
@@ -469,8 +469,8 @@ resource "aws_glue_connection" "test" {
 
   connection_properties = {
     JDBC_CONNECTION_URL = %[2]q
-    PASSWORD            = "testpassword"
-    USERNAME            = "testusername"
+    PASSWORD   = "testpassword"
+    USERNAME   = "testusername"
   }
 }
 `, rName, jdbcConnectionUrl)
@@ -485,8 +485,8 @@ resource "aws_glue_connection" "test" {
 
   connection_properties = {
     JDBC_CONNECTION_URL = %[2]q
-    PASSWORD            = "testpassword"
-    USERNAME            = "testusername"
+    PASSWORD   = "testpassword"
+    USERNAME   = "testusername"
   }
 }
 `, rName, jdbcConnectionUrl)
@@ -528,7 +528,7 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = "10.0.${count.index}.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = "terraform-testacc-glue-connection-base"
@@ -541,29 +541,29 @@ resource "aws_db_subnet_group" "test" {
 }
 
 resource "aws_rds_cluster" "test" {
-  cluster_identifier              = "%[1]s"
+  cluster_identifier     = "%[1]s"
   database_name    = "gluedatabase"
   db_cluster_parameter_group_name = "default.aurora-mysql5.7"
-  db_subnet_group_name            = aws_db_subnet_group.test.name
-  engine           = "aurora-mysql"
+  db_subnet_group_name   = aws_db_subnet_group.test.name
+  engine  = "aurora-mysql"
   master_password  = "gluepassword"
   master_username  = "glueusername"
-  skip_final_snapshot             = true
-  vpc_security_group_ids          = [aws_security_group.test.id]
+  skip_final_snapshot    = true
+  vpc_security_group_ids = [aws_security_group.test.id]
 }
 
 resource "aws_rds_cluster_instance" "test" {
   cluster_identifier = aws_rds_cluster.test.id
-  engine             = "aurora-mysql"
-  identifier         = "%[1]s"
+  engine    = "aurora-mysql"
+  identifier= "%[1]s"
   instance_class     = "db.t2.medium"
 }
 
 resource "aws_glue_connection" "test" {
   connection_properties = {
     JDBC_CONNECTION_URL = "jdbc:mysql://${aws_rds_cluster.test.endpoint}/${aws_rds_cluster.test.database_name}"
-    PASSWORD            = aws_rds_cluster.test.master_password
-    USERNAME            = aws_rds_cluster.test.master_username
+    PASSWORD   = aws_rds_cluster.test.master_password
+    USERNAME   = aws_rds_cluster.test.master_username
   }
 
   name = "%[1]s"
@@ -571,7 +571,7 @@ resource "aws_glue_connection" "test" {
   physical_connection_requirements {
     availability_zone      = aws_subnet.test[0].availability_zone
     security_group_id_list = [aws_security_group.test.id]
-    subnet_id              = aws_subnet.test[0].id
+    subnet_id     = aws_subnet.test[0].id
   }
 }
 `, rName)
@@ -584,8 +584,8 @@ resource "aws_glue_connection" "test" {
 
   connection_properties = {
     JDBC_CONNECTION_URL = %[2]q
-    PASSWORD            = "testpassword"
-    USERNAME            = "testusername"
+    PASSWORD   = "testpassword"
+    USERNAME   = "testusername"
   }
 }
 `, rName, jdbcConnectionUrl)
@@ -598,8 +598,8 @@ resource "aws_glue_connection" "test" {
 
   connection_properties = {
     JDBC_CONNECTION_URL = %[2]q
-    PASSWORD            = "testpassword"
-    USERNAME            = "testusername"
+    PASSWORD   = "testpassword"
+    USERNAME   = "testusername"
   }
 
   tags = {
@@ -616,8 +616,8 @@ resource "aws_glue_connection" "test" {
 
   connection_properties = {
     JDBC_CONNECTION_URL = %[2]q
-    PASSWORD            = "testpassword"
-    USERNAME            = "testusername"
+    PASSWORD   = "testpassword"
+    USERNAME   = "testusername"
   }
 
   tags = {
@@ -678,7 +678,7 @@ resource "aws_vpc" "test" {
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = "terraform-testacc-glue-connection-network"
@@ -699,12 +699,12 @@ resource "aws_security_group" "test" {
 
 resource "aws_glue_connection" "test" {
   connection_type = "NETWORK"
-  name            = "%[1]s"
+  name   = "%[1]s"
 
   physical_connection_requirements {
     availability_zone      = aws_subnet.test.availability_zone
     security_group_id_list = [aws_security_group.test.id]
-    subnet_id              = aws_subnet.test.id
+    subnet_id     = aws_subnet.test.id
   }
 }
 `, rName)

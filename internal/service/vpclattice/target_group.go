@@ -71,19 +71,19 @@ func ResourceTargetGroup() *schema.Resource {
 										Default:  true,
 									},
 									"health_check_interval_seconds": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Default:      30,
 										ValidateFunc: validation.IntBetween(5, 300),
 									},
 									"health_check_timeout_seconds": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Default:      5,
 										ValidateFunc: validation.IntBetween(1, 120),
 									},
 									"healthy_threshold_count": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Default:      5,
 										ValidateFunc: validation.IntBetween(2, 10),
@@ -109,15 +109,15 @@ func ResourceTargetGroup() *schema.Resource {
 										Default:  "/",
 									},
 									"port": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Computed:     true,
 										ValidateFunc: validation.IsPortNumber,
 									},
 									"protocol": {
-										Type:             schema.TypeString,
-										Optional:         true,
-										Computed:         true,
+										Type:    schema.TypeString,
+										Optional:true,
+										Computed:true,
 										ValidateDiagFunc: enum.Validate[types.TargetGroupProtocol](),
 									},
 									"protocol_version": {
@@ -130,7 +130,7 @@ func ResourceTargetGroup() *schema.Resource {
 										ValidateDiagFunc: enum.Validate[types.HealthCheckProtocolVersion](),
 									},
 									"unhealthy_threshold_count": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Default:      2,
 										ValidateFunc: validation.IntBetween(2, 10),
@@ -140,22 +140,22 @@ func ResourceTargetGroup() *schema.Resource {
 							DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 						},
 						"ip_address_type": {
-							Type:             schema.TypeString,
-							Optional:         true,
-							Computed:         true,
-							ForceNew:         true,
+							Type:    schema.TypeString,
+							Optional:true,
+							Computed:true,
+							ForceNew:true,
 							ValidateDiagFunc: enum.Validate[types.IpAddressType](),
 						},
 						"port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IsPortNumber,
 						},
 						"protocol": {
-							Type:             schema.TypeString,
-							Required:         true,
-							ForceNew:         true,
+							Type:    schema.TypeString,
+							Required:true,
+							ForceNew:true,
 							ValidateDiagFunc: enum.Validate[types.TargetGroupProtocol](),
 						},
 						"protocol_version": {
@@ -177,7 +177,7 @@ func ResourceTargetGroup() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(3, 128),
@@ -187,9 +187,9 @@ func ResourceTargetGroup() *schema.Resource {
 				Computed: true,
 			},
 			"type": {
-				Type:             schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Type:    schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateDiagFunc: enum.Validate[types.TargetGroupType](),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
@@ -343,11 +343,11 @@ func resourceTargetGroupDelete(ctx context.Context, d *schema.ResourceData, meta
 
 func waitTargetGroupCreated(ctx context.Context, conn *vpclattice.Client, id string, timeout time.Duration) (*vpclattice.CreateTargetGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.TargetGroupStatusCreateInProgress),
-		Target:                    enum.Slice(types.TargetGroupStatusActive),
-		Refresh:                   statusTargetGroup(ctx, conn, id),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.TargetGroupStatusCreateInProgress),
+		Target:  enum.Slice(types.TargetGroupStatusActive),
+		Refresh: statusTargetGroup(ctx, conn, id),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -361,11 +361,11 @@ func waitTargetGroupCreated(ctx context.Context, conn *vpclattice.Client, id str
 
 func waitTargetGroupUpdated(ctx context.Context, conn *vpclattice.Client, id string, timeout time.Duration) (*vpclattice.UpdateTargetGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.TargetGroupStatusCreateInProgress),
-		Target:                    enum.Slice(types.TargetGroupStatusActive),
-		Refresh:                   statusTargetGroup(ctx, conn, id),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.TargetGroupStatusCreateInProgress),
+		Target:  enum.Slice(types.TargetGroupStatusActive),
+		Refresh: statusTargetGroup(ctx, conn, id),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -439,7 +439,7 @@ func flattenTargetGroupConfig(apiObject *types.TargetGroupConfig) map[string]int
 
 	tfMap := map[string]interface{}{
 		"ip_address_type":  apiObject.IpAddressType,
-		"protocol":         apiObject.Protocol,
+		"protocol":apiObject.Protocol,
 		"protocol_version": apiObject.ProtocolVersion,
 	}
 
@@ -464,7 +464,7 @@ func flattenHealthCheckConfig(apiObject *types.HealthCheckConfig) map[string]int
 	}
 
 	tfMap := map[string]interface{}{
-		"protocol":         apiObject.Protocol,
+		"protocol":apiObject.Protocol,
 		"protocol_version": apiObject.ProtocolVersion,
 	}
 

@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDMSEndpointDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -20,7 +19,8 @@ func TestAccDMSEndpointDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_dms_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEndpointDestroy(ctx),
@@ -40,18 +40,17 @@ func TestAccDMSEndpointDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccEndpointDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dms_endpoint" "test" {
   database_name = "tf-test-dms-db"
-  endpoint_id   = %[1]q
+  endpoint_id= %[1]q
   endpoint_type = "source"
-  engine_name   = "aurora"
-  password      = "tftestpw"
-  port          = 3306
-  server_name   = "tftest"
-  ssl_mode      = "none"
+  engine_name= "aurora"
+  password= "tftestpw"
+  port = 3306
+  server_name= "tftest"
+  ssl_mode= "none"
 
   username = "tftest"
 }

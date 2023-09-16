@@ -1,94 +1,67 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elbv2
-
-import (
-	"testing"
-
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+// SPDX-License-Identifier: MPL-2.0package elbv2import (
+	"testing"	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 )
-
 func TestValidName(t *testing.T) {
-	t.Parallel()
-
-	validNames := []string{
+	t.Parallel()	validNames := []string{
 		"tf-test-elb",
-	}
-
-	for _, s := range validNames {
+	}	for _, s := range validNames {
 		_, errors := validName(s, "name")
 		if len(errors) > 0 {
 			t.Fatalf("%q should be a valid ELB name: %v", s, errors)
 		}
-	}
-
-	invalidNames := []string{
+	}	invalidNames := []string{
 		"tf.test.elb.1",
 		"tf-test-elb-tf-test-elb-tf-test-elb",
 		"-tf-test-elb",
 		"tf-test-elb-",
 		"internal-tf-test-elb",
-	}
-
-	for _, s := range invalidNames {
+	}	for _, s := range invalidNames {
 		_, errors := validName(s, "name")
 		if len(errors) == 0 {
 			t.Fatalf("%q should not be a valid ELB name: %v", s, errors)
 		}
 	}
 }
-
 func TestValidNamePrefix(t *testing.T) {
-	t.Parallel()
-
-	validNamePrefixes := []string{
+	t.Parallel()	validNamePrefixes := []string{
 		"test-",
-	}
-
-	for _, s := range validNamePrefixes {
+	}	for _, s := range validNamePrefixes {
 		_, errors := validNamePrefix(s, "name_prefix")
 		if len(errors) > 0 {
 			t.Fatalf("%q should be a valid ELB name prefix: %v", s, errors)
 		}
-	}
-
-	invalidNamePrefixes := []string{
+	}	invalidNamePrefixes := []string{
 		"tf.test.elb.",
 		"tf-test",
 		"-test",
 		"internal-",
-	}
-
-	for _, s := range invalidNamePrefixes {
+	}	for _, s := range invalidNamePrefixes {
 		_, errors := validNamePrefix(s, "name_prefix")
 		if len(errors) == 0 {
 			t.Fatalf("%q should not be a valid ELB name prefix: %v", s, errors)
 		}
 	}
 }
-
 func TestValidTargetGroupName(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
-		Value    string
+	t.Parallel()	cases := []struct {
+		Value string
 		ErrCount int
 	}{
 		{
-			Value:    "tf.test.elb.target.1",
+			Value: "tf.test.elb.target.1",
 			ErrCount: 1,
 		},
 		{
-			Value:    "-tf-test-target",
+			Value: "-tf-test-target",
 			ErrCount: 1,
 		},
 		{
-			Value:    "tf-test-target-",
+			Value: "tf-test-target-",
 			ErrCount: 1,
 		},
 		{
-			Value:    sdkacctest.RandStringFromCharSet(33, sdkacctest.CharSetAlpha),
+			Value: sdkacctest.RandStringFromCharSet(33, sdkacctest.CharSetAlpha),
 			ErrCount: 1,
 		},
 	}
@@ -99,24 +72,21 @@ func TestValidTargetGroupName(t *testing.T) {
 		}
 	}
 }
-
 func TestValidTargetGroupNamePrefix(t *testing.T) {
-	t.Parallel()
-
-	cases := []struct {
-		Value    string
+	t.Parallel()	cases := []struct {
+		Value string
 		ErrCount int
 	}{
 		{
-			Value:    "tf.lb",
+			Value: "tf.lb",
 			ErrCount: 1,
 		},
 		{
-			Value:    "-tf-lb",
+			Value: "-tf-lb",
 			ErrCount: 1,
 		},
 		{
-			Value:    sdkacctest.RandStringFromCharSet(32, sdkacctest.CharSetAlpha),
+			Value: sdkacctest.RandStringFromCharSet(32, sdkacctest.CharSetAlpha),
 			ErrCount: 1,
 		},
 	}

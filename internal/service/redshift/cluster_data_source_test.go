@@ -20,7 +20,7 @@ func TestAccRedshiftClusterDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -65,7 +65,7 @@ func TestAccRedshiftClusterDataSource_vpc(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -89,7 +89,7 @@ func TestAccRedshiftClusterDataSource_logging(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -112,7 +112,7 @@ func TestAccRedshiftClusterDataSource_availabilityZoneRelocationEnabled(t *testi
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -131,11 +131,11 @@ func testAccClusterDataSourceConfig_basic(rName string) string {
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
 
-  database_name       = "testdb"
-  master_username     = "foo"
-  master_password     = "Password1"
-  node_type           = "dc2.large"
-  cluster_type        = "single-node"
+  database_name   = "testdb"
+  master_username = "foo"
+  master_password = "Password1"
+  node_type  = "dc2.large"
+  cluster_type= "single-node"
   skip_final_snapshot = true
 }
 
@@ -148,7 +148,7 @@ data "aws_redshift_cluster" "test" {
 func testAccClusterDataSourceConfig_vpc(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_redshift_subnet_group" "test" {
-  name       = %[1]q
+  name   = %[1]q
   subnet_ids = aws_subnet.test[*].id
 }
 
@@ -157,7 +157,7 @@ resource "aws_security_group" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -165,15 +165,15 @@ resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
 
   database_name= "testdb"
-  master_username           = "foo"
-  master_password           = "Password1"
-  node_type    = "dc2.large"
+  master_username  = "foo"
+  master_password  = "Password1"
+  node_type= "dc2.large"
   cluster_type = "multi-node"
-  number_of_nodes           = 2
-  publicly_accessible       = false
+  number_of_nodes  = 2
+  publicly_accessible   = false
   cluster_subnet_group_name = aws_redshift_subnet_group.test.name
-  vpc_security_group_ids    = [aws_security_group.test.id]
-  skip_final_snapshot       = true
+  vpc_security_group_ids= [aws_security_group.test.id]
+  skip_final_snapshot   = true
 }
 
 data "aws_redshift_cluster" "test" {
@@ -185,29 +185,29 @@ data "aws_redshift_cluster" "test" {
 func testAccClusterDataSourceConfig_logging(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket= %[1]q
   force_destroy = true
 }
 
 data "aws_iam_policy_document" "test" {
   statement {
-    actions   = ["s3:PutObject"]
-    resources = ["${aws_s3_bucket.test.arn}/*"]
+actions   = ["s3:PutObject"]
+resources = ["${aws_s3_bucket.test.arn}/*"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["redshift.amazonaws.com"]
-    }
+principals {
+  type= "Service"
+  identifiers = ["redshift.amazonaws.com"]
+}
   }
 
   statement {
-    actions   = ["s3:GetBucketAcl"]
-    resources = [aws_s3_bucket.test.arn]
+actions   = ["s3:GetBucketAcl"]
+resources = [aws_s3_bucket.test.arn]
 
-    principals {
-      type        = "Service"
-      identifiers = ["redshift.amazonaws.com"]
-    }
+principals {
+  type= "Service"
+  identifiers = ["redshift.amazonaws.com"]
+}
   }
 }
 
@@ -220,17 +220,17 @@ resource "aws_redshift_cluster" "test" {
   depends_on = [aws_s3_bucket_policy.test]
 
   cluster_identifier  = %[1]q
-  cluster_type        = "single-node"
-  database_name       = "testdb"
-  master_password     = "Password1"
-  master_username     = "foo"
-  node_type           = "dc2.large"
+  cluster_type= "single-node"
+  database_name   = "testdb"
+  master_password = "Password1"
+  master_username = "foo"
+  node_type  = "dc2.large"
   skip_final_snapshot = true
 
   logging {
-    bucket_name   = aws_s3_bucket.test.id
-    enable        = true
-    s3_key_prefix = "cluster-logging/"
+bucket_name   = aws_s3_bucket.test.id
+enable= true
+s3_key_prefix = "cluster-logging/"
   }
 }
 
@@ -245,11 +245,11 @@ func testAccClusterDataSourceConfig_availabilityZoneRelocationEnabled(rName stri
 resource "aws_redshift_cluster" "test" {
   cluster_identifier = %[1]q
 
-  database_name       = "testdb"
-  master_username     = "foo"
-  master_password     = "Password1"
-  node_type           = "ra3.xlplus"
-  cluster_type        = "single-node"
+  database_name   = "testdb"
+  master_username = "foo"
+  master_password = "Password1"
+  node_type  = "ra3.xlplus"
+  cluster_type= "single-node"
   skip_final_snapshot = true
   publicly_accessible = false
 

@@ -31,7 +31,7 @@ import (
 func ResourceCustomRoutingAccelerator() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceCustomRoutingAcceleratorCreate,
-		ReadWithoutTimeout:   resourceCustomRoutingAcceleratorRead,
+		ReadWithoutTimeout:resourceCustomRoutingAcceleratorRead,
 		UpdateWithoutTimeout: resourceCustomRoutingAcceleratorUpdate,
 		DeleteWithoutTimeout: resourceCustomRoutingAcceleratorDelete,
 
@@ -46,74 +46,74 @@ func ResourceCustomRoutingAccelerator() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"attributes": {
-				Type:    schema.TypeList,
+				Type: schema.TypeList,
 				Optional:true,
 				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"flow_logs_enabled": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"flow_logs_s3_bucket": {
 							Type:schema.TypeString,
-							Optional:     true,
+							Optional:true,
 							ValidateFunc: validation.StringLenBetween(0, 255),
 						},
 						"flow_logs_s3_prefix": {
 							Type:schema.TypeString,
-							Optional:     true,
+							Optional:true,
 							ValidateFunc: validation.StringLenBetween(0, 255),
 						},
 					},
 				},
 			},
 			"dns_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"enabled": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"hosted_zone_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"ip_address_type": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      globalaccelerator.IpAddressTypeIpv4,
+				Optional:true,
+				Default:globalaccelerator.IpAddressTypeIpv4,
 				ValidateFunc: validation.StringInSlice(globalaccelerator.IpAddressType_Values(), false),
 			},
 			"ip_addresses": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"ip_sets": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"ip_addresses": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"ip_family": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 255),
@@ -122,24 +122,23 @@ func ResourceCustomRoutingAccelerator() *schema.Resource {
 					validation.StringDoesNotMatch(regexache.MustCompile(`-$`), "cannot end with a hyphen"),
 				),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceCustomRoutingAcceleratorCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &globalaccelerator.CreateCustomRoutingAcceleratorInput{
-		Name:    aws.String(name),
+		Name: aws.String(name),
 		IdempotencyToken: aws.String(id.UniqueId()),
 		Enabled: aws.Bool(d.Get("enabled").(bool)),
-		Tags:    getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("ip_address_type"); ok {
@@ -177,7 +176,6 @@ func resourceCustomRoutingAcceleratorCreate(ctx context.Context, d *schema.Resou
 
 	return append(diags, resourceCustomRoutingAcceleratorRead(ctx, d, meta)...)
 }
-
 func resourceCustomRoutingAcceleratorRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GlobalAcceleratorConn(ctx)
@@ -215,7 +213,6 @@ func resourceCustomRoutingAcceleratorRead(ctx context.Context, d *schema.Resourc
 
 	return diags
 }
-
 func resourceCustomRoutingAcceleratorUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GlobalAcceleratorConn(ctx)
@@ -224,7 +221,7 @@ func resourceCustomRoutingAcceleratorUpdate(ctx context.Context, d *schema.Resou
 		input := &globalaccelerator.UpdateCustomRoutingAcceleratorInput{
 			AcceleratorArn: aws.String(d.Id()),
 			Name:  aws.String(d.Get("name").(string)),
-			Enabled:        aws.Bool(d.Get("enabled").(bool)),
+			Enabled:  aws.Bool(d.Get("enabled").(bool)),
 		}
 
 		if v, ok := d.GetOk("ip_address_type"); ok {
@@ -281,14 +278,13 @@ func resourceCustomRoutingAcceleratorUpdate(ctx context.Context, d *schema.Resou
 
 	return append(diags, resourceCustomRoutingAcceleratorRead(ctx, d, meta)...)
 }
-
 func resourceCustomRoutingAcceleratorDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
 	input := &globalaccelerator.UpdateCustomRoutingAcceleratorInput{
 		AcceleratorArn: aws.String(d.Id()),
-		Enabled:        aws.Bool(false),
+		Enabled:  aws.Bool(false),
 	}
 
 	_, err := conn.UpdateCustomRoutingAcceleratorWithContext(ctx, input)
@@ -320,7 +316,6 @@ func resourceCustomRoutingAcceleratorDelete(ctx context.Context, d *schema.Resou
 
 	return diags
 }
-
 func FindCustomRoutingAcceleratorByARN(ctx context.Context, conn *globalaccelerator.GlobalAccelerator, arn string) (*globalaccelerator.CustomRoutingAccelerator, error) {
 	input := &globalaccelerator.DescribeCustomRoutingAcceleratorInput{
 		AcceleratorArn: aws.String(arn),
@@ -328,13 +323,12 @@ func FindCustomRoutingAcceleratorByARN(ctx context.Context, conn *globalaccelera
 
 	return findCustomRoutingAccelerator(ctx, conn, input)
 }
-
 func findCustomRoutingAccelerator(ctx context.Context, conn *globalaccelerator.GlobalAccelerator, input *globalaccelerator.DescribeCustomRoutingAcceleratorInput) (*globalaccelerator.CustomRoutingAccelerator, error) {
 	output, err := conn.DescribeCustomRoutingAcceleratorWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, globalaccelerator.ErrCodeAcceleratorNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}
@@ -349,7 +343,6 @@ func findCustomRoutingAccelerator(ctx context.Context, conn *globalaccelerator.G
 
 	return output.Accelerator, nil
 }
-
 func FindCustomRoutingAcceleratorAttributesByARN(ctx context.Context, conn *globalaccelerator.GlobalAccelerator, arn string) (*globalaccelerator.CustomRoutingAcceleratorAttributes, error) {
 	input := &globalaccelerator.DescribeCustomRoutingAcceleratorAttributesInput{
 		AcceleratorArn: aws.String(arn),
@@ -357,13 +350,12 @@ func FindCustomRoutingAcceleratorAttributesByARN(ctx context.Context, conn *glob
 
 	return findCustomRoutingAcceleratorAttributes(ctx, conn, input)
 }
-
 func findCustomRoutingAcceleratorAttributes(ctx context.Context, conn *globalaccelerator.GlobalAccelerator, input *globalaccelerator.DescribeCustomRoutingAcceleratorAttributesInput) (*globalaccelerator.CustomRoutingAcceleratorAttributes, error) {
 	output, err := conn.DescribeCustomRoutingAcceleratorAttributesWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, globalaccelerator.ErrCodeAcceleratorNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}
@@ -378,9 +370,9 @@ func findCustomRoutingAcceleratorAttributes(ctx context.Context, conn *globalacc
 
 	return output.AcceleratorAttributes, nil
 }
-
 func statusCustomRoutingAccelerator(ctx context.Context, conn *globalaccelerator.GlobalAccelerator, arn string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 		accelerator, err := FindCustomRoutingAcceleratorByARN(ctx, conn, arn)
 
 		if tfresource.NotFound(err) {
@@ -394,7 +386,6 @@ func statusCustomRoutingAccelerator(ctx context.Context, conn *globalaccelerator
 		return accelerator, aws.StringValue(accelerator.Status), nil
 	}
 }
-
 func waitCustomRoutingAcceleratorDeployed(ctx context.Context, conn *globalaccelerator.GlobalAccelerator, arn string, timeout time.Duration) (*globalaccelerator.CustomRoutingAccelerator, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{globalaccelerator.AcceleratorStatusInProgress},
@@ -411,11 +402,9 @@ func waitCustomRoutingAcceleratorDeployed(ctx context.Context, conn *globalaccel
 
 	return nil, err
 }
-
 func expandUpdateCustomRoutingAcceleratorAttributesInput(tfMap map[string]interface{}) *globalaccelerator.UpdateCustomRoutingAcceleratorAttributesInput {
 	return (*globalaccelerator.UpdateCustomRoutingAcceleratorAttributesInput)(expandUpdateAcceleratorAttributesInput(tfMap))
 }
-
 func flattenCustomRoutingAcceleratorAttributes(apiObject *globalaccelerator.CustomRoutingAcceleratorAttributes) map[string]interface{} {
 	return flattenAcceleratorAttributes((*globalaccelerator.AcceleratorAttributes)(apiObject))
 }

@@ -52,7 +52,7 @@ func TestAccImageBuilderComponent_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
@@ -103,7 +103,7 @@ func TestAccImageBuilderComponent_changeDescription(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
@@ -131,7 +131,7 @@ func TestAccImageBuilderComponent_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
@@ -160,7 +160,7 @@ func TestAccImageBuilderComponent_kmsKeyID(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
@@ -188,7 +188,7 @@ func TestAccImageBuilderComponent_Platform_windows(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
@@ -216,7 +216,7 @@ func TestAccImageBuilderComponent_supportedOsVersions(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
@@ -245,7 +245,7 @@ func TestAccImageBuilderComponent_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy"},
@@ -289,7 +289,7 @@ func TestAccImageBuilderComponent_uri(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"skip_destroy", "uri"},
@@ -363,7 +363,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -387,7 +387,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -416,7 +416,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -441,7 +441,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -465,7 +465,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecutePowerShell"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -489,7 +489,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -514,7 +514,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -542,7 +542,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -576,7 +576,7 @@ resource "aws_s3_object" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"

@@ -1,18 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfaddr
-
-import (
-	"fmt"
-)
-
-type ParserError struct {
-	Summary string
-	Detail  string
-}
-
-
- *ParserError) Error() string {
-	return fmt.Sprintf("%s: %s", pe.Summary, pe.Detail)
-}
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package tfaddrimport (	"fmt")type ParserError struct {	Summary string	Detail  string} *ParserError) Error() string {	return fmt.Sprintf("%s: %s", pe.Summary, pe.Detail)}

@@ -391,13 +391,13 @@ func(token *string) (interface{}, error) {
 				var updates []*waf.WebACLUpdate
 				updateWebACLInput := &waf.UpdateWebACLInput{
 					DefaultAction: getWebACLOutput.WebACL.DefaultAction,
-					Updates:       updates,
-					WebACLId:      webACL.WebACLId,
+					Updates: updates,
+					WebACLId:webACL.WebACLId,
 				}
 
 				for _, rule := range getWebACLOutput.WebACL.Rules {
 					update := &waf.WebACLUpdate{
-						Action:        aws.String(waf.ChangeActionDelete),
+						Action:  aws.String(waf.ChangeActionDelete),
 						ActivatedRule: rule,
 					}
 

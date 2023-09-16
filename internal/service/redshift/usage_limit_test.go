@@ -24,7 +24,7 @@ func TestAccRedshiftUsageLimit_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUsageLimitDestroy(ctx),
@@ -43,8 +43,8 @@ func TestAccRedshiftUsageLimit_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -70,7 +70,7 @@ func TestAccRedshiftUsageLimit_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUsageLimitDestroy(ctx),
@@ -84,8 +84,8 @@ func TestAccRedshiftUsageLimit_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -114,7 +114,7 @@ func TestAccRedshiftUsageLimit_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshift.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUsageLimitDestroy(ctx),
@@ -179,8 +179,8 @@ func testAccUsageLimitConfig_basic(rName string, amount int) string {
 	return acctest.ConfigCompose(testAccClusterConfig_basic(rName), fmt.Sprintf(`
 resource "aws_redshift_usage_limit" "test" {
   cluster_identifier = aws_redshift_cluster.test.id
-  feature_type       = "concurrency-scaling"
-  limit_type         = "time"
+  feature_type   = "concurrency-scaling"
+  limit_type= "time"
   amount= %[1]d
 }
 `, amount))
@@ -190,12 +190,12 @@ func testAccUsageLimitConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_basic(rName), fmt.Sprintf(`
 resource "aws_redshift_usage_limit" "test" {
   cluster_identifier = aws_redshift_cluster.test.id
-  feature_type       = "concurrency-scaling"
-  limit_type         = "time"
+  feature_type   = "concurrency-scaling"
+  limit_type= "time"
   amount= 60
 
   tags = {
-    %[1]q = %[2]q
+%[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
@@ -205,13 +205,13 @@ func testAccUsageLimitConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2
 	return acctest.ConfigCompose(testAccClusterConfig_basic(rName), fmt.Sprintf(`
 resource "aws_redshift_usage_limit" "test" {
   cluster_identifier = aws_redshift_cluster.test.id
-  feature_type       = "concurrency-scaling"
-  limit_type         = "time"
+  feature_type   = "concurrency-scaling"
+  limit_type= "time"
   amount= 60
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+%[1]q = %[2]q
+%[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))

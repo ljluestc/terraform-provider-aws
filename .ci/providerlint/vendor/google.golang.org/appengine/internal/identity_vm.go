@@ -23,24 +23,20 @@ const (
 	hRequestLogId           = "X-AppEngine-Request-Log-Id"
 	hDatacenter             = "X-AppEngine-Datacenter"
 )
-
-func ctxHeaders(ctx netcontext.Context) http.Header {
+ ctxHeaders(ctx netcontext.Context) http.Header {
 	c := fromContext(ctx)
 	if c == nil {
 		return nil
 	}
 	return c.Request().Header
 }
-
-func DefaultVersionHostname(ctx netcontext.Context) string {
+ DefaultVersionHostname(ctx netcontext.Context) string {
 	return ctxHeaders(ctx).Get(hDefaultVersionHostname)
 }
-
-func RequestID(ctx netcontext.Context) string {
+ RequestID(ctx netcontext.Context) string {
 	return ctxHeaders(ctx).Get(hRequestLogId)
 }
-
-func Datacenter(ctx netcontext.Context) string {
+ Datacenter(ctx netcontext.Context) string {
 	if dc := ctxHeaders(ctx).Get(hDatacenter); dc != "" {
 		return dc
 	}
@@ -57,8 +53,7 @@ func Datacenter(ctx netcontext.Context) string {
 	}
 	return parts[len(parts)-1]
 }
-
-func ServerSoftware() string {
+ ServerSoftware() string {
 	// TODO(dsymonds): Remove fallback when we've verified this.
 	if s := os.Getenv("SERVER_SOFTWARE"); s != "" {
 		return s
@@ -70,8 +65,7 @@ func ServerSoftware() string {
 }
 
 // TODO(dsymonds): Remove the metadata fetches.
-
-func ModuleName(_ netcontext.Context) string {
+ ModuleName(_ netcontext.Context) string {
 	if s := os.Getenv("GAE_MODULE_NAME"); s != "" {
 		return s
 	}
@@ -80,8 +74,7 @@ func ModuleName(_ netcontext.Context) string {
 	}
 	return string(mustGetMetadata("instance/attributes/gae_backend_name"))
 }
-
-func VersionID(_ netcontext.Context) string {
+ VersionID(_ netcontext.Context) string {
 	if s1, s2 := os.Getenv("GAE_MODULE_VERSION"), os.Getenv("GAE_MINOR_VERSION"); s1 != "" && s2 != "" {
 		return s1 + "." + s2
 	}
@@ -90,8 +83,7 @@ func VersionID(_ netcontext.Context) string {
 	}
 	return string(mustGetMetadata("instance/attributes/gae_backend_version")) + "." + string(mustGetMetadata("instance/attributes/gae_backend_minor_version"))
 }
-
-func InstanceID() string {
+ InstanceID() string {
 	if s := os.Getenv("GAE_MODULE_INSTANCE"); s != "" {
 		return s
 	}
@@ -100,8 +92,7 @@ func InstanceID() string {
 	}
 	return string(mustGetMetadata("instance/attributes/gae_backend_instance"))
 }
-
-func partitionlessAppID() string {
+ partitionlessAppID() string {
 	// gae_project has everything except the partition prefix.
 	if appID := os.Getenv("GAE_LONG_APP_ID"); appID != "" {
 		return appID
@@ -111,8 +102,7 @@ func partitionlessAppID() string {
 	}
 	return string(mustGetMetadata("instance/attributes/gae_project"))
 }
-
-func fullyQualifiedAppID(_ netcontext.Context) string {
+ fullyQualifiedAppID(_ netcontext.Context) string {
 	if s := os.Getenv("GAE_APPLICATION"); s != "" {
 		return s
 	}
@@ -128,7 +118,6 @@ func fullyQualifiedAppID(_ netcontext.Context) string {
 	}
 	return appID
 }
-
-func IsDevAppServer() bool {
+ IsDevAppServer() bool {
 	return os.Getenv("RUN_WITH_DEVAPPSERVER") != ""
 }

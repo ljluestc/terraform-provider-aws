@@ -42,16 +42,14 @@ type Server struct {
 	updates   map[string]map[healthgrpc.Health_WatchServer]chan healthpb.HealthCheckResponse_ServingStatus
 }
 
-// NewServer returns a new Server.
-func NewServer() *Server {
+// NewServer returns a new Server. NewServer() *Server {
 	return &Server{
 		statusMap: map[string]healthpb.HealthCheckResponse_ServingStatus{"": healthpb.HealthCheckResponse_SERVING},
 		updates:   make(map[string]map[healthgrpc.Health_WatchServer]chan healthpb.HealthCheckResponse_ServingStatus),
 	}
 }
 
-// Check implements `service Health`.
-func (s *Server) Check(ctx context.Context, in *healthpb.HealthCheckRequest) (*healthpb.HealthCheckResponse, error) {
+// Check implements `service Health`. (s *Server) Check(ctx context.Context, in *healthpb.HealthCheckRequest) (*healthpb.HealthCheckResponse, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	if servingStatus, ok := s.statusMap[in.Service]; ok {
@@ -62,8 +60,7 @@ func (s *Server) Check(ctx context.Context, in *healthpb.HealthCheckRequest) (*h
 	return nil, status.Error(codes.NotFound, "unknown service")
 }
 
-// Watch implements `service Health`.
-func (s *Server) Watch(in *healthpb.HealthCheckRequest, stream healthgrpc.Health_WatchServer) error {
+// Watch implements `service Health`. (s *Server) Watch(in *healthpb.HealthCheckRequest, stream healthgrpc.Health_WatchServer) error {
 	service := in.Service
 	// update channel is used for getting service status updates.
 	update := make(chan healthpb.HealthCheckResponse_ServingStatus, 1)
@@ -108,8 +105,7 @@ func (s *Server) Watch(in *healthpb.HealthCheckRequest, stream healthgrpc.Health
 }
 
 // SetServingStatus is called when need to reset the serving status of a service
-// or insert a new service entry into the statusMap.
-func (s *Server) SetServingStatus(service string, servingStatus healthpb.HealthCheckResponse_ServingStatus) {
+// or insert a new service entry into the statusMap. (s *Server) SetServingStatus(service string, servingStatus healthpb.HealthCheckResponse_ServingStatus) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if s.shutdown {
@@ -119,8 +115,7 @@ func (s *Server) SetServingStatus(service string, servingStatus healthpb.HealthC
 
 	s.setServingStatusLocked(service, servingStatus)
 }
-
-func (s *Server) setServingStatusLocked(service string, servingStatus healthpb.HealthCheckResponse_ServingStatus) {
+ (s *Server) setServingStatusLocked(service string, servingStatus healthpb.HealthCheckResponse_ServingStatus) {
 	s.statusMap[service] = servingStatus
 	for _, update := range s.updates[service] {
 		// Clears previous updates, that are not sent to the client, from the channel.
@@ -138,8 +133,7 @@ func (s *Server) setServingStatusLocked(service string, servingStatus healthpb.H
 // ignore all future status changes.
 //
 // This changes serving status for all services. To set status for a particular
-// services, call SetServingStatus().
-func (s *Server) Shutdown() {
+// services, call SetServingStatus(). (s *Server) Shutdown() {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.shutdown = true
@@ -152,8 +146,7 @@ func (s *Server) Shutdown() {
 // accept all future status changes.
 //
 // This changes serving status for all services. To set status for a particular
-// services, call SetServingStatus().
-func (s *Server) Resume() {
+// services, call SetServingStatus(). (s *Server) Resume() {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.shutdown = false

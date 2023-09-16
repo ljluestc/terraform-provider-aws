@@ -19,7 +19,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
 )
-
 func TestAccLightsailStaticIP_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	staticIpName := fmt.Sprintf("tf-test-lightsail-%s", sdkacctest.RandString(5))
@@ -39,7 +38,6 @@ func TestAccLightsailStaticIP_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailStaticIP_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	staticIpName := fmt.Sprintf("tf-test-lightsail-%s", sdkacctest.RandString(5))
@@ -74,7 +72,6 @@ func TestAccLightsailStaticIP_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckStaticIPExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -103,7 +100,6 @@ func testAccCheckStaticIPExists(ctx context.Context, n string) resource.TestChec
 		return nil
 	}
 }
-
 func testAccCheckStaticIPDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -133,7 +129,6 @@ func testAccCheckStaticIPDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccStaticIPConfig_basic(staticIpName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_static_ip" "test" {

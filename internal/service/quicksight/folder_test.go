@@ -53,8 +53,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -120,8 +120,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -144,8 +144,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -188,8 +188,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -246,8 +246,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -293,8 +293,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -369,7 +369,7 @@ func testAccFolderConfig_basic(rId, rName string) string {
 	return fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
-  name      = %[2]q
+  name= %[2]q
 }
 `, rId, rName)
 }
@@ -381,10 +381,10 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_quicksight_user" "test" {
   aws_account_id = data.aws_caller_identity.current.account_id
-  user_name      = %[1]q
+  user_name= %[1]q
   email = %[2]q
   identity_type  = "QUICKSIGHT"
-  user_role      = "AUTHOR"
+  user_role= "AUTHOR"
 
   lifecycle {
     create_before_destroy = true
@@ -400,10 +400,10 @@ testAccFolderConfigUserBase(rName),
 fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
-  name      = %[2]q
+  name= %[2]q
   permissions {
     actions = [
-      "quicksight:DescribeFolder",
+"quicksight:DescribeFolder",
     ]
     principal = aws_quicksight_user.test.arn
   }
@@ -418,17 +418,17 @@ testAccFolderConfigUserBase(rName),
 fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
-  name      = %[2]q
+  name= %[2]q
   permissions {
     actions = [
-      "quicksight:CreateFolder",
-      "quicksight:DescribeFolder",
-      "quicksight:UpdateFolder",
-      "quicksight:DeleteFolder",
-      "quicksight:CreateFolderMembership",
-      "quicksight:DeleteFolderMembership",
-      "quicksight:DescribeFolderPermissions",
-      "quicksight:UpdateFolderPermissions",
+"quicksight:CreateFolder",
+"quicksight:DescribeFolder",
+"quicksight:UpdateFolder",
+"quicksight:DeleteFolder",
+"quicksight:CreateFolderMembership",
+"quicksight:DeleteFolderMembership",
+"quicksight:DescribeFolderPermissions",
+"quicksight:UpdateFolderPermissions",
     ]
     principal = aws_quicksight_user.test.arn
   }
@@ -441,7 +441,7 @@ func testAccFolderConfig_tags1(rId, rName, key1, value1 string) string {
 	return fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
-  name      = %[2]q
+  name= %[2]q
 
   tags = {
     %[3]q = %[4]q
@@ -455,7 +455,7 @@ func testAccFolderConfig_tags2(rId, rName, key1, value1, key2, value2 string) st
 	return fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
   folder_id = %[1]q
-  name      = %[2]q
+  name= %[2]q
 
   tags = {
     %[3]q = %[4]q
@@ -470,7 +470,7 @@ func testAccFolderConfig_parentFolder(rId, rName, parentId, parentName string) s
 	return fmt.Sprintf(`
 resource "aws_quicksight_folder" "parent" {
   folder_id = %[3]q
-  name      = %[4]q
+  name= %[4]q
 }
 
 resource "aws_quicksight_folder" "test" {
@@ -486,7 +486,7 @@ func testAccFolderConfig_parentFolder2(rId, rName, parentId1, parentName1, paren
 	return fmt.Sprintf(`
 resource "aws_quicksight_folder" "parent" {
   folder_id = %[3]q
-  name      = %[4]q
+  name= %[4]q
 }
 
 resource "aws_quicksight_folder" "parent2" {

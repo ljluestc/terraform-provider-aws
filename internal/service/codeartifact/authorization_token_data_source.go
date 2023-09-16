@@ -26,17 +26,17 @@ func DataSourceAuthorizationToken() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"domain": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"domain_owner": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"duration_seconds": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional: true,
 				ValidateFunc: validation.Any(
 					validation.IntBetween(900, 43200),
@@ -44,17 +44,16 @@ func DataSourceAuthorizationToken() *schema.Resource {
 				),
 			},
 			"authorization_token": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"expiration": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func dataSourceAuthorizationTokenRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)

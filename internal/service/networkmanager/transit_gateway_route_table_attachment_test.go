@@ -26,10 +26,10 @@ func TestAccNetworkManagerTransitGatewayRouteTableAttachment_basic(t *testing.T)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayRouteTableAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckTransitGatewayRouteTableAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayRouteTableAttachmentConfig_basic(rName),
@@ -62,10 +62,10 @@ func TestAccNetworkManagerTransitGatewayRouteTableAttachment_disappears(t *testi
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayRouteTableAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckTransitGatewayRouteTableAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayRouteTableAttachmentConfig_basic(rName),
@@ -86,10 +86,10 @@ func TestAccNetworkManagerTransitGatewayRouteTableAttachment_tags(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayRouteTableAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckTransitGatewayRouteTableAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayRouteTableAttachmentConfig_tags1(rName, "key1", "value1"),
@@ -207,7 +207,7 @@ resource "aws_ec2_transit_gateway_policy_table_association" "test" {
 func testAccTransitGatewayRouteTableAttachmentConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTableAttachmentConfig_base(rName), `
 resource "aws_networkmanager_transit_gateway_route_table_attachment" "test" {
-  peering_id                      = aws_networkmanager_transit_gateway_peering.test.id
+  peering_id    = aws_networkmanager_transit_gateway_peering.test.id
   transit_gateway_route_table_arn = aws_ec2_transit_gateway_route_table.test.arn
 
   depends_on = [aws_ec2_transit_gateway_policy_table_association.test]
@@ -223,7 +223,7 @@ resource "aws_networkmanager_attachment_accepter" "test" {
 func testAccTransitGatewayRouteTableAttachmentConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTableAttachmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_networkmanager_transit_gateway_route_table_attachment" "test" {
-  peering_id                      = aws_networkmanager_transit_gateway_peering.test.id
+  peering_id    = aws_networkmanager_transit_gateway_peering.test.id
   transit_gateway_route_table_arn = aws_ec2_transit_gateway_route_table.test.arn
 
   tags = {
@@ -243,7 +243,7 @@ resource "aws_networkmanager_attachment_accepter" "test" {
 func testAccTransitGatewayRouteTableAttachmentConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTableAttachmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_networkmanager_transit_gateway_route_table_attachment" "test" {
-  peering_id                      = aws_networkmanager_transit_gateway_peering.test.id
+  peering_id    = aws_networkmanager_transit_gateway_peering.test.id
   transit_gateway_route_table_arn = aws_ec2_transit_gateway_route_table.test.arn
 
   tags = {

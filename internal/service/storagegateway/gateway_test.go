@@ -55,7 +55,7 @@ func TestAccStorageGatewayGateway_GatewayType_cached(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -98,7 +98,7 @@ func TestAccStorageGatewayGateway_GatewayType_fileFSxSMB(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -141,7 +141,7 @@ func TestAccStorageGatewayGateway_GatewayType_fileS3(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -184,7 +184,7 @@ func TestAccStorageGatewayGateway_GatewayType_stored(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -225,7 +225,7 @@ func TestAccStorageGatewayGateway_GatewayType_vtl(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -256,7 +256,7 @@ func TestAccStorageGatewayGateway_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -310,7 +310,7 @@ func TestAccStorageGatewayGateway_gatewayName(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -340,7 +340,7 @@ func TestAccStorageGatewayGateway_cloudWatchLogs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -376,7 +376,7 @@ func TestAccStorageGatewayGateway_gatewayTimezone(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -406,7 +406,7 @@ func TestAccStorageGatewayGateway_gatewayVPCEndpoint(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -439,7 +439,7 @@ func TestAccStorageGatewayGateway_smbActiveDirectorySettings(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address", "smb_active_directory_settings"},
@@ -471,7 +471,7 @@ func TestAccStorageGatewayGateway_SMBActiveDirectorySettings_timeout(t *testing.
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address", "smb_active_directory_settings"},
@@ -505,7 +505,7 @@ func TestAccStorageGatewayGateway_smbMicrosoftActiveDirectorySettings(t *testing
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address", "smb_active_directory_settings"},
@@ -537,7 +537,7 @@ func TestAccStorageGatewayGateway_SMBMicrosoftActiveDirectorySettings_timeout(t 
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address", "smb_active_directory_settings"},
@@ -573,7 +573,7 @@ func TestAccStorageGatewayGateway_smbGuestPassword(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address", "smb_guest_password"},
@@ -603,7 +603,7 @@ func TestAccStorageGatewayGateway_smbSecurityStrategy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -639,7 +639,7 @@ func TestAccStorageGatewayGateway_smbVisibility(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -706,7 +706,7 @@ func TestAccStorageGatewayGateway_bandwidthUpload(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -749,7 +749,7 @@ func TestAccStorageGatewayGateway_bandwidthDownload(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -793,7 +793,7 @@ func TestAccStorageGatewayGateway_bandwidthAll(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -842,7 +842,7 @@ func TestAccStorageGatewayGateway_maintenanceStartTime(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"activation_key", "gateway_ip_address"},
@@ -922,7 +922,7 @@ resource "aws_vpc" "test" {
 
 resource "aws_subnet" "test" {
   cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
@@ -941,7 +941,7 @@ resource "aws_internet_gateway" "test" {
 resource "aws_route" "test" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id= aws_internet_gateway.test.id
-  route_table_id         = aws_vpc.test.main_route_table_id
+  route_table_id= aws_vpc.test.main_route_table_id
 }
 
 resource "aws_security_group" "test" {
@@ -983,7 +983,7 @@ data "aws_ssm_parameter" "aws_service_storagegateway_ami_FILE_S3_latest" {
 resource "aws_instance" "test" {
   depends_on = [aws_route.test]
 
-  ami          = data.aws_ssm_parameter.aws_service_storagegateway_ami_FILE_S3_latest.value
+  ami = data.aws_ssm_parameter.aws_service_storagegateway_ami_FILE_S3_latest.value
   associate_public_ip_address = true
   instance_type= data.aws_ec2_instance_type_offering.available.instance_type
   vpc_security_group_ids      = [aws_security_group.test.id]
@@ -1011,7 +1011,7 @@ data "aws_ssm_parameter" "aws_service_storagegateway_ami_CACHED_latest" {
 resource "aws_instance" "test" {
   depends_on = [aws_route.test]
 
-  ami          = data.aws_ssm_parameter.aws_service_storagegateway_ami_CACHED_latest.value
+  ami = data.aws_ssm_parameter.aws_service_storagegateway_ami_CACHED_latest.value
   associate_public_ip_address = true
   instance_type= data.aws_ec2_instance_type_offering.available.instance_type
   vpc_security_group_ids      = [aws_security_group.test.id]
@@ -1066,7 +1066,7 @@ resource "aws_cloudwatch_log_group" "test" {
 resource "aws_storagegateway_gateway" "test" {
   gateway_ip_address       = aws_instance.test.public_ip
   gateway_name= %[1]q
-  gateway_timezone         = "GMT"
+  gateway_timezone= "GMT"
   gateway_type= "FILE_S3"
   cloudwatch_log_group_arn = aws_cloudwatch_log_group.test.arn
 }
@@ -1115,7 +1115,7 @@ data "aws_vpc_endpoint_service" "storagegateway" {
 resource "aws_vpc_endpoint" "test" {
   security_group_ids = [aws_security_group.test.id]
   service_name       = data.aws_vpc_endpoint_service.storagegateway.service_name
-  subnet_ids         = [aws_subnet.test.id]
+  subnet_ids= [aws_subnet.test.id]
   vpc_endpoint_type  = data.aws_vpc_endpoint_service.storagegateway.service_type
   vpc_id= aws_vpc.test.id
 
@@ -1126,9 +1126,9 @@ resource "aws_vpc_endpoint" "test" {
 
 resource "aws_storagegateway_gateway" "test" {
   gateway_ip_address   = aws_instance.test.public_ip
-  gateway_name         = %[1]q
+  gateway_name= %[1]q
   gateway_timezone     = "GMT"
-  gateway_type         = "CACHED"
+  gateway_type= "CACHED"
   gateway_vpc_endpoint = aws_vpc_endpoint.test.dns_entry[0].dns_name
 }
 `, rName))
@@ -1195,7 +1195,7 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = "10.0.${count.index}.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -1213,7 +1213,7 @@ resource "aws_internet_gateway" "test" {
 resource "aws_route" "test" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id= aws_internet_gateway.test.id
-  route_table_id         = aws_vpc.test.main_route_table_id
+  route_table_id= aws_vpc.test.main_route_table_id
 }
 
 resource "aws_security_group" "test" {
@@ -1240,7 +1240,7 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_vpc_dhcp_options" "test" {
-  domain_name         = aws_directory_service_directory.test.name
+  domain_name= aws_directory_service_directory.test.name
   domain_name_servers = aws_directory_service_directory.test.dns_ip_addresses
 
   tags = {
@@ -1250,7 +1250,7 @@ resource "aws_vpc_dhcp_options" "test" {
 
 resource "aws_vpc_dhcp_options_association" "test" {
   dhcp_options_id = aws_vpc_dhcp_options.test.id
-  vpc_id          = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 }
 
 # Reference: https://docs.aws.amazon.com/storagegateway/latest/userguide/ec2-gateway-file.html
@@ -1261,7 +1261,7 @@ data "aws_ssm_parameter" "aws_service_storagegateway_ami_FILE_S3_latest" {
 resource "aws_instance" "test" {
   depends_on = [aws_route.test, aws_vpc_dhcp_options_association.test]
 
-  ami          = data.aws_ssm_parameter.aws_service_storagegateway_ami_FILE_S3_latest.value
+  ami = data.aws_ssm_parameter.aws_service_storagegateway_ami_FILE_S3_latest.value
   associate_public_ip_address = true
   instance_type= data.aws_ec2_instance_type_offering.available.instance_type
   vpc_security_group_ids      = [aws_security_group.test.id]
@@ -1307,8 +1307,8 @@ resource "aws_storagegateway_gateway" "test" {
 
   smb_active_directory_settings {
     domain_name        = aws_directory_service_directory.test.name
-    password           = aws_directory_service_directory.test.password
-    username           = "Administrator"
+    password  = aws_directory_service_directory.test.password
+    username  = "Administrator"
     timeout_in_seconds = %[2]d
   }
 }
@@ -1348,8 +1348,8 @@ resource "aws_storagegateway_gateway" "test" {
 
   smb_active_directory_settings {
     domain_name        = aws_directory_service_directory.test.name
-    password           = aws_directory_service_directory.test.password
-    username           = "Admin"
+    password  = aws_directory_service_directory.test.password
+    username  = "Admin"
     timeout_in_seconds = %[2]d
   }
 }
@@ -1372,9 +1372,9 @@ func testAccGatewayConfig_smbSecurityStrategy(rName, strategy string) string {
 	return acctest.ConfigCompose(testAcc_FileGatewayBase(rName), fmt.Sprintf(`
 resource "aws_storagegateway_gateway" "test" {
   gateway_ip_address    = aws_instance.test.public_ip
-  gateway_name          = %[1]q
+  gateway_name = %[1]q
   gateway_timezone      = "GMT"
-  gateway_type          = "FILE_S3"
+  gateway_type = "FILE_S3"
   smb_security_strategy = %[2]q
 }
 `, rName, strategy))
@@ -1385,7 +1385,7 @@ func testAccGatewayConfig_smbVisibility(rName string, visible bool) string {
 resource "aws_storagegateway_gateway" "test" {
   gateway_ip_address        = aws_instance.test.public_ip
   gateway_name = %[1]q
-  gateway_timezone          = "GMT"
+  gateway_timezone = "GMT"
   gateway_type = "FILE_S3"
   smb_file_share_visibility = %[2]t
 }
@@ -1426,9 +1426,9 @@ resource "aws_storagegateway_gateway" "test" {
 func testAccGatewayConfig_bandwidthUpload(rName string, rate int) string {
 	return acctest.ConfigCompose(testAcc_TapeAndVolumeGatewayBase(rName), fmt.Sprintf(`
 resource "aws_storagegateway_gateway" "test" {
-  gateway_ip_address         = aws_instance.test.public_ip
+  gateway_ip_address= aws_instance.test.public_ip
   gateway_name= %[1]q
-  gateway_timezone           = "GMT"
+  gateway_timezone  = "GMT"
   gateway_type= "CACHED"
   average_upload_rate_limit_in_bits_per_sec = %[2]d
 }
@@ -1438,7 +1438,7 @@ resource "aws_storagegateway_gateway" "test" {
 func testAccGatewayConfig_bandwidthDownload(rName string, rate int) string {
 	return acctest.ConfigCompose(testAcc_TapeAndVolumeGatewayBase(rName), fmt.Sprintf(`
 resource "aws_storagegateway_gateway" "test" {
-  gateway_ip_address           = aws_instance.test.public_ip
+  gateway_ip_address  = aws_instance.test.public_ip
   gateway_name  = %[1]q
   gateway_timezone= "GMT"
   gateway_type  = "CACHED"
@@ -1450,7 +1450,7 @@ resource "aws_storagegateway_gateway" "test" {
 func testAccGatewayConfig_bandwidthAll(rName string, rate int) string {
 	return acctest.ConfigCompose(testAcc_TapeAndVolumeGatewayBase(rName), fmt.Sprintf(`
 resource "aws_storagegateway_gateway" "test" {
-  gateway_ip_address           = aws_instance.test.public_ip
+  gateway_ip_address  = aws_instance.test.public_ip
   gateway_name  = %[1]q
   gateway_timezone= "GMT"
   gateway_type  = "CACHED"

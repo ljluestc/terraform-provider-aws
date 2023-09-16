@@ -33,9 +33,9 @@ func TestAccDataSyncLocationFSxLustreFileSystem_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxLustreDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxLustreDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxLustreFileSystemConfig_basic(rName),
@@ -71,9 +71,9 @@ func TestAccDataSyncLocationFSxLustreFileSystem_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxLustreDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxLustreDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxLustreFileSystemConfig_basic(rName),
@@ -99,9 +99,9 @@ func TestAccDataSyncLocationFSxLustreFileSystem_subdirectory(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxLustreDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxLustreDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxLustreFileSystemConfig_subdirectory(rName, "/subdirectory1/"),
@@ -132,9 +132,9 @@ func TestAccDataSyncLocationFSxLustreFileSystem_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxLustreDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxLustreDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxLustreFileSystemConfig_tags1(rName, "key1", "value1"),
@@ -259,7 +259,7 @@ resource "aws_security_group" "test" {
 resource "aws_fsx_lustre_file_system" "test" {
   security_group_ids = [aws_security_group.test.id]
   storage_capacity   = 1200
-  subnet_ids         = aws_subnet.test[*].id
+  subnet_ids= aws_subnet.test[*].id
   deployment_type    = data.aws_partition.current.partition == "aws-us-gov" ? "SCRATCH_2" : null # GovCloud does not support SCRATCH_1
 
   tags = {

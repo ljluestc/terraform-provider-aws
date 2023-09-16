@@ -33,15 +33,15 @@ func ResourceTopicDataProtectionPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
-				ValidateFunc:          validation.StringIsJSON,
+				Type:schema.TypeString,
+				Required:     true,
+				ValidateFunc: validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
@@ -66,7 +66,7 @@ func resourceTopicDataProtectionPolicyUpsert(ctx context.Context, d *schema.Reso
 
 	input := &sns.PutDataProtectionPolicyInput{
 		DataProtectionPolicy: aws.String(policy),
-		ResourceArn:          aws.String(topicArn),
+		ResourceArn: aws.String(topicArn),
 	}
 
 	_, err = conn.PutDataProtectionPolicyWithContext(ctx, input)
@@ -118,7 +118,7 @@ func resourceTopicDataProtectionPolicyDelete(ctx context.Context, d *schema.Reso
 
 	_, err := conn.PutDataProtectionPolicyWithContext(ctx, &sns.PutDataProtectionPolicyInput{
 		DataProtectionPolicy: aws.String(""),
-		ResourceArn:          aws.String(d.Get("arn").(string)),
+		ResourceArn: aws.String(d.Get("arn").(string)),
 	})
 
 	if err != nil {

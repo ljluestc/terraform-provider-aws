@@ -49,20 +49,20 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"association_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"batch_import_meta_data_on_create": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"data_repository_path": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 ForceNew: true,
 Required: true,
 ValidateFunc: validation.All(
@@ -71,12 +71,12 @@ ValidateFunc: validation.All(
 ),
 	},
 	"delete_data_in_filesystem": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"file_system_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 ForceNew: true,
 Required: true,
 ValidateFunc: validation.All(
@@ -85,7 +85,7 @@ ValidateFunc: validation.All(
 ),
 	},
 	"file_system_path": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 ForceNew: true,
 Required: true,
 ValidateFunc: validation.All(
@@ -94,32 +94,32 @@ ValidateFunc: validation.All(
 ),
 	},
 	"imported_file_chunk_size": {
-Type:         schema.TypeInt,
-Optional:     true,
-Computed:     true,
+Type:schema.TypeInt,
+Optional: true,
+Computed: true,
 ValidateFunc: validation.IntBetween(1, 512000),
 	},
 	"s3": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 MaxItems: 1,
 Optional: true,
 Computed: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "auto_export_policy": {
-	Type:     schema.TypeList,
+	Type: schema.TypeList,
 	MaxItems: 1,
 	Optional: true,
 	Computed: true,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"events": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 MaxItems: 3,
 Optional: true,
 Computed: true,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringInSlice(fsx.EventType_Values(), false),
 },
 	},
@@ -127,19 +127,19 @@ Elem: &schema.Schema{
 	},
 },
 "auto_import_policy": {
-	Type:     schema.TypeList,
+	Type: schema.TypeList,
 	MaxItems: 1,
 	Optional: true,
 	Computed: true,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"events": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 MaxItems: 3,
 Optional: true,
 Computed: true,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringInSlice(fsx.EventType_Values(), false),
 },
 	},
@@ -150,7 +150,7 @@ Elem: &schema.Schema{
 },
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },
 
@@ -167,8 +167,8 @@ func resourceDataRepositoryAssociationCreate(ctx context.Context, d *schema.Reso
 	input := &fsx.CreateDataRepositoryAssociationInput{
 ClientRequestToken: aws.String(id.UniqueId()),
 DataRepositoryPath: aws.String(d.Get("data_repository_path").(string)),
-FileSystemId:       aws.String(d.Get("file_system_id").(string)),
-FileSystemPath:     aws.String(d.Get("file_system_path").(string)),
+FileSystemId:   aws.String(d.Get("file_system_id").(string)),
+FileSystemPath: aws.String(d.Get("file_system_path").(string)),
 Tags:getTagsIn(ctx),
 	}
 
@@ -236,7 +236,7 @@ func resourceDataRepositoryAssociationUpdate(ctx context.Context, d *schema.Reso
 
 	if d.HasChangesExcept("tags", "tags_all") {
 input := &fsx.UpdateDataRepositoryAssociationInput{
-	AssociationId:      aws.String(d.Id()),
+	AssociationId:  aws.String(d.Id()),
 	ClientRequestToken: aws.String(id.UniqueId()),
 }
 
@@ -267,8 +267,8 @@ func resourceDataRepositoryAssociationDelete(ctx context.Context, d *schema.Reso
 	conn := meta.(*conns.AWSClient).FSxConn(ctx)
 
 	request := &fsx.DeleteDataRepositoryAssociationInput{
-AssociationId:          aws.String(d.Id()),
-ClientRequestToken:     aws.String(id.UniqueId()),
+AssociationId: aws.String(d.Id()),
+ClientRequestToken: aws.String(id.UniqueId()),
 DeleteDataInFileSystem: aws.Bool(d.Get("delete_data_in_filesystem").(bool)),
 	}
 

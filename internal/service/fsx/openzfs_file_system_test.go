@@ -87,8 +87,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
@@ -117,9 +117,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -187,26 +187,26 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.record_size_kib", "128"),
 	resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.user_and_group_quotas.#", "3"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "10",
+"id": "10",
 "storage_capacity_quota_gib": "128",
-"type":        "USER",
+"type":"USER",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "0",
+"id": "0",
 "storage_capacity_quota_gib": "0",
-"type":        "USER",
+"type":"USER",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "0",
+"id": "0",
 "storage_capacity_quota_gib": "0",
-"type":        "GROUP",
+"type":"GROUP",
 	}),
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -226,19 +226,19 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.record_size_kib", "8"),
 	resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.user_and_group_quotas.#", "3"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "10",
+"id": "10",
 "storage_capacity_quota_gib": "256",
-"type":        "USER",
+"type":"USER",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "0",
+"id": "0",
 "storage_capacity_quota_gib": "0",
-"type":        "USER",
+"type":"USER",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "0",
+"id": "0",
 "storage_capacity_quota_gib": "0",
-"type":        "GROUP",
+"type":"GROUP",
 	}),
 ),
 	},
@@ -265,34 +265,34 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.record_size_kib", "512"),
 	resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.user_and_group_quotas.#", "6"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "10",
+"id": "10",
 "storage_capacity_quota_gib": "128",
-"type":        "USER",
+"type":"USER",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "20",
+"id": "20",
 "storage_capacity_quota_gib": "1024",
-"type":        "GROUP",
+"type":"GROUP",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "5",
+"id": "5",
 "storage_capacity_quota_gib": "1024",
-"type":        "GROUP",
+"type":"GROUP",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "100",
+"id": "100",
 "storage_capacity_quota_gib": "128",
-"type":        "USER",
+"type":"USER",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "0",
+"id": "0",
 "storage_capacity_quota_gib": "0",
-"type":        "USER",
+"type":"USER",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "0",
+"id": "0",
 "storage_capacity_quota_gib": "0",
-"type":        "GROUP",
+"type":"GROUP",
 	}),
 ),
 	},
@@ -307,34 +307,34 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.record_size_kib", "128"),
 	resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.user_and_group_quotas.#", "6"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "10",
+"id": "10",
 "storage_capacity_quota_gib": "128",
-"type":        "USER",
+"type":"USER",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "20",
+"id": "20",
 "storage_capacity_quota_gib": "1024",
-"type":        "GROUP",
+"type":"GROUP",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "5",
+"id": "5",
 "storage_capacity_quota_gib": "1024",
-"type":        "GROUP",
+"type":"GROUP",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "100",
+"id": "100",
 "storage_capacity_quota_gib": "128",
-"type":        "USER",
+"type":"USER",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "0",
+"id": "0",
 "storage_capacity_quota_gib": "0",
-"type":        "USER",
+"type":"USER",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-"id":          "0",
+"id": "0",
 "storage_capacity_quota_gib": "0",
-"type":        "GROUP",
+"type":"GROUP",
 	}),
 ),
 	},
@@ -362,9 +362,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -400,9 +400,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -451,9 +451,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -490,9 +490,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -527,9 +527,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 },
@@ -556,9 +556,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -593,9 +593,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -637,9 +637,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 },
@@ -666,9 +666,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -703,9 +703,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -740,9 +740,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -778,9 +778,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:   resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"security_group_ids"},
 	},
 	{
@@ -855,8 +855,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
@@ -884,8 +884,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -987,9 +987,9 @@ func testAccOpenZFSFileSystemConfig_baseMultiAZ(rName string) string {
 func testAccOpenZFSFileSystemConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), `
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 64
 }
 `)
@@ -998,18 +998,18 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_diskIOPSConfiguration(rName string, iops int) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  storage_type        = "SSD"
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  storage_type= "SSD"
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 64
   disk_iops_configuration {
-    mode = "USER_PROVISIONED"
-    iops = %[2]d
+mode = "USER_PROVISIONED"
+iops = %[2]d
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, iops))
@@ -1022,34 +1022,34 @@ resource "aws_security_group" "test1" {
   vpc_id = aws_vpc.test.id
 
   ingress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = -1
-    to_port     = 0
+cidr_blocks = [aws_vpc.test.cidr_block]
+from_port   = 0
+protocol= -1
+to_port = 0
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+cidr_blocks = ["0.0.0.0/0"]
+from_port   = 0
+protocol= "-1"
+to_port = 0
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_fsx_openzfs_file_system" "test" {
   security_group_ids  = [aws_security_group.test1.id]
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 512
-  storage_type        = "SSD"
+  storage_type= "SSD"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -1062,21 +1062,21 @@ resource "aws_security_group" "test1" {
   vpc_id = aws_vpc.test.id
 
   ingress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = -1
-    to_port     = 0
+cidr_blocks = [aws_vpc.test.cidr_block]
+from_port   = 0
+protocol= -1
+to_port = 0
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+cidr_blocks = ["0.0.0.0/0"]
+from_port   = 0
+protocol= "-1"
+to_port = 0
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -1085,34 +1085,34 @@ resource "aws_security_group" "test2" {
   vpc_id = aws_vpc.test.id
 
   ingress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = -1
-    to_port     = 0
+cidr_blocks = [aws_vpc.test.cidr_block]
+from_port   = 0
+protocol= -1
+to_port = 0
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+cidr_blocks = ["0.0.0.0/0"]
+from_port   = 0
+protocol= "-1"
+to_port = 0
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_fsx_openzfs_file_system" "test" {
   security_group_ids  = [aws_security_group.test1.id, aws_security_group.test2.id]
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 512
-  storage_type        = "SSD"
+  storage_type= "SSD"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -1121,14 +1121,14 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 512
-  storage_type        = "SSD"
+  storage_type= "SSD"
 
   tags = {
-    %[1]q = %[2]q
+%[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
@@ -1137,15 +1137,15 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 512
-  storage_type        = "SSD"
+  storage_type= "SSD"
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+%[1]q = %[2]q
+%[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -1154,16 +1154,16 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_copyTags(rName, tagKey1, tagValue1, copyTags string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity     = 64
-  subnet_ids           = aws_subnet.test[*].id
-  deployment_type      = "SINGLE_AZ_1"
+  storage_capacity = 64
+  subnet_ids  = aws_subnet.test[*].id
+  deployment_type  = "SINGLE_AZ_1"
   throughput_capacity  = 512
-  storage_type         = "SSD"
+  storage_type= "SSD"
   copy_tags_to_backups = %[3]s
   copy_tags_to_volumes = %[3]s
 
   tags = {
-    %[1]q = %[2]q
+%[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1, copyTags))
@@ -1173,14 +1173,14 @@ func testAccOpenZFSFileSystemConfig_weeklyMaintenanceStartTime(rName, weeklyMain
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity = 64
-  subnet_ids     = aws_subnet.test[*].id
+  subnet_ids = aws_subnet.test[*].id
   deployment_type= "SINGLE_AZ_1"
-  throughput_capacity           = 512
+  throughput_capacity  = 512
   storage_type   = "SSD"
   weekly_maintenance_start_time = %[2]q
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, weeklyMaintenanceStartTime))
@@ -1190,15 +1190,15 @@ func testAccOpenZFSFileSystemConfig_dailyAutomaticBackupStartTime(rName, dailyAu
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity   = 64
-  subnet_ids         = aws_subnet.test[*].id
-  deployment_type    = "SINGLE_AZ_1"
+  subnet_ids= aws_subnet.test[*].id
+  deployment_type= "SINGLE_AZ_1"
   throughput_capacity= 512
-  storage_type       = "SSD"
+  storage_type   = "SSD"
   daily_automatic_backup_start_time = %[2]q
   automatic_backup_retention_days   = 1
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, dailyAutomaticBackupStartTime))
@@ -1208,14 +1208,14 @@ func testAccOpenZFSFileSystemConfig_automaticBackupRetentionDays(rName string, r
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity = 64
-  subnet_ids       = aws_subnet.test[*].id
+  subnet_ids   = aws_subnet.test[*].id
   deployment_type  = "SINGLE_AZ_1"
   throughput_capacity= 512
-  storage_type     = "SSD"
+  storage_type = "SSD"
   automatic_backup_retention_days = %[2]d
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, retention))
@@ -1229,15 +1229,15 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 64
-  storage_type        = "SSD"
-  kms_key_id          = aws_kms_key.test.arn
+  storage_type= "SSD"
+  kms_key_id = aws_kms_key.test.arn
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -1246,13 +1246,13 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_throughput(rName string, throughput int) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = %[2]d
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, throughput))
@@ -1261,14 +1261,14 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_storageType(rName, storageType string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
-  storage_type        = %[2]q
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
+  storage_type= %[2]q
   throughput_capacity = 64
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, storageType))
@@ -1277,43 +1277,43 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_rootVolume1(rName, dataCompression, readOnly string, quotaSize int) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 64
 
   root_volume_configuration {
-    copy_tags_to_snapshots = true
-    data_compression_type  = %[2]q
+copy_tags_to_snapshots = true
+data_compression_type  = %[2]q
 
-    nfs_exports {
-      client_configurations {
-        clients = "10.0.1.0/24"
-        options = ["sync", "rw"]
-      }
-    }
+nfs_exports {
+  client_configurations {
+clients = "10.0.1.0/24"
+options = ["sync", "rw"]
+  }
+}
 
-    read_only = %[3]s
+read_only = %[3]s
 
-    user_and_group_quotas {
-      id          = 10
-      storage_capacity_quota_gib = %[4]d
-      type        = "USER"
-    }
-    user_and_group_quotas {
-      id          = 0
-      storage_capacity_quota_gib = 0
-      type        = "USER"
-    }
-    user_and_group_quotas {
-      id          = 0
-      storage_capacity_quota_gib = 0
-      type        = "GROUP"
-    }
+user_and_group_quotas {
+  id = 10
+  storage_capacity_quota_gib = %[4]d
+  type= "USER"
+}
+user_and_group_quotas {
+  id = 0
+  storage_capacity_quota_gib = 0
+  type= "USER"
+}
+user_and_group_quotas {
+  id = 0
+  storage_capacity_quota_gib = 0
+  type= "GROUP"
+}
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, dataCompression, readOnly, quotaSize))
@@ -1322,44 +1322,44 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_rootVolume2(rName, dataCompression, readOnly string, quotaSize, recordSizeKiB int) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 64
 
   root_volume_configuration {
-    copy_tags_to_snapshots = true
-    data_compression_type  = %[2]q
+copy_tags_to_snapshots = true
+data_compression_type  = %[2]q
 
-    nfs_exports {
-      client_configurations {
-        clients = "10.0.1.0/24"
-        options = ["async", "rw"]
-      }
-    }
+nfs_exports {
+  client_configurations {
+clients = "10.0.1.0/24"
+options = ["async", "rw"]
+  }
+}
 
-    read_only       = %[3]s
-    record_size_kib = %[5]d
+read_only   = %[3]s
+record_size_kib = %[5]d
 
-    user_and_group_quotas {
-      id          = 10
-      storage_capacity_quota_gib = %[4]d
-      type        = "USER"
-    }
-    user_and_group_quotas {
-      id          = 0
-      storage_capacity_quota_gib = 0
-      type        = "USER"
-    }
-    user_and_group_quotas {
-      id          = 0
-      storage_capacity_quota_gib = 0
-      type        = "GROUP"
-    }
+user_and_group_quotas {
+  id = 10
+  storage_capacity_quota_gib = %[4]d
+  type= "USER"
+}
+user_and_group_quotas {
+  id = 0
+  storage_capacity_quota_gib = 0
+  type= "USER"
+}
+user_and_group_quotas {
+  id = 0
+  storage_capacity_quota_gib = 0
+  type= "GROUP"
+}
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, dataCompression, readOnly, quotaSize, recordSizeKiB))
@@ -1368,63 +1368,63 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_rootVolume3Client(rName, dataCompression, readOnly string, userQuota, groupQuota, recordSizeKiB int) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 64
 
   root_volume_configuration {
-    copy_tags_to_snapshots = true
-    data_compression_type  = %[2]q
+copy_tags_to_snapshots = true
+data_compression_type  = %[2]q
 
-    nfs_exports {
-      client_configurations {
-        clients = "10.0.1.0/24"
-        options = ["async", "rw"]
-      }
-      client_configurations {
-        clients = "*"
-        options = ["sync", "rw"]
-      }
-    }
+nfs_exports {
+  client_configurations {
+clients = "10.0.1.0/24"
+options = ["async", "rw"]
+  }
+  client_configurations {
+clients = "*"
+options = ["sync", "rw"]
+  }
+}
 
-    read_only       = %[3]s
-    record_size_kib = %[6]d
+read_only   = %[3]s
+record_size_kib = %[6]d
 
-    user_and_group_quotas {
-      id          = 10
-      storage_capacity_quota_gib = %[4]d
-      type        = "USER"
-    }
-    user_and_group_quotas {
-      id          = 20
-      storage_capacity_quota_gib = %[5]d
-      type        = "GROUP"
-    }
-    user_and_group_quotas {
-      id          = 5
-      storage_capacity_quota_gib = %[5]d
-      type        = "GROUP"
-    }
-    user_and_group_quotas {
-      id          = 100
-      storage_capacity_quota_gib = %[4]d
-      type        = "USER"
-    }
-    user_and_group_quotas {
-      id          = 0
-      storage_capacity_quota_gib = 0
-      type        = "USER"
-    }
-    user_and_group_quotas {
-      id          = 0
-      storage_capacity_quota_gib = 0
-      type        = "GROUP"
-    }
+user_and_group_quotas {
+  id = 10
+  storage_capacity_quota_gib = %[4]d
+  type= "USER"
+}
+user_and_group_quotas {
+  id = 20
+  storage_capacity_quota_gib = %[5]d
+  type= "GROUP"
+}
+user_and_group_quotas {
+  id = 5
+  storage_capacity_quota_gib = %[5]d
+  type= "GROUP"
+}
+user_and_group_quotas {
+  id = 100
+  storage_capacity_quota_gib = %[4]d
+  type= "USER"
+}
+user_and_group_quotas {
+  id = 0
+  storage_capacity_quota_gib = 0
+  type= "USER"
+}
+user_and_group_quotas {
+  id = 0
+  storage_capacity_quota_gib = 0
+  type= "GROUP"
+}
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, dataCompression, readOnly, userQuota, groupQuota, recordSizeKiB))
@@ -1433,49 +1433,49 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_rootVolume4(rName, dataCompression, readOnly string, userQuota, groupQuota int) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 64
 
   root_volume_configuration {
-    copy_tags_to_snapshots = true
-    data_compression_type  = %[2]q
+copy_tags_to_snapshots = true
+data_compression_type  = %[2]q
 
-    user_and_group_quotas {
-      id          = 10
-      storage_capacity_quota_gib = %[4]d
-      type        = "USER"
-    }
-    user_and_group_quotas {
-      id          = 20
-      storage_capacity_quota_gib = %[5]d
-      type        = "GROUP"
-    }
-    user_and_group_quotas {
-      id          = 5
-      storage_capacity_quota_gib = %[5]d
-      type        = "GROUP"
-    }
-    user_and_group_quotas {
-      id          = 100
-      storage_capacity_quota_gib = %[4]d
-      type        = "USER"
-    }
-    user_and_group_quotas {
-      id          = 0
-      storage_capacity_quota_gib = 0
-      type        = "USER"
-    }
-    user_and_group_quotas {
-      id          = 0
-      storage_capacity_quota_gib = 0
-      type        = "GROUP"
-    }
+user_and_group_quotas {
+  id = 10
+  storage_capacity_quota_gib = %[4]d
+  type= "USER"
+}
+user_and_group_quotas {
+  id = 20
+  storage_capacity_quota_gib = %[5]d
+  type= "GROUP"
+}
+user_and_group_quotas {
+  id = 5
+  storage_capacity_quota_gib = %[5]d
+  type= "GROUP"
+}
+user_and_group_quotas {
+  id = 100
+  storage_capacity_quota_gib = %[4]d
+  type= "USER"
+}
+user_and_group_quotas {
+  id = 0
+  storage_capacity_quota_gib = 0
+  type= "USER"
+}
+user_and_group_quotas {
+  id = 0
+  storage_capacity_quota_gib = 0
+  type= "GROUP"
+}
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, dataCompression, readOnly, userQuota, groupQuota))
@@ -1484,13 +1484,13 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_throughputCapacity(rName string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 128
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -1499,13 +1499,13 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_storageCapacity(rName string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 75
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 75
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 64
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -1514,13 +1514,13 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_deploymentType(rName, deploymentType string, throughput int) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
-  deployment_type     = %[2]q
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
+  deployment_type = %[2]q
   throughput_capacity = %[3]d
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, deploymentType, throughput))
@@ -1529,14 +1529,14 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_multiAZ(rName string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseMultiAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
   preferred_subnet_id = aws_subnet.test[0].id
-  deployment_type     = "MULTI_AZ_1"
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 160
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -1548,7 +1548,7 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -1558,25 +1558,25 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.test.id
+cidr_block = "0.0.0.0/0"
+gateway_id = aws_internet_gateway.test.id
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
+  storage_capacity= 64
+  subnet_ids = aws_subnet.test[*].id
   preferred_subnet_id = aws_subnet.test[0].id
-  deployment_type     = "MULTI_AZ_1"
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 160
-  route_table_ids     = aws_route_table.test[*].id
+  route_table_ids = aws_route_table.test[*].id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, n))

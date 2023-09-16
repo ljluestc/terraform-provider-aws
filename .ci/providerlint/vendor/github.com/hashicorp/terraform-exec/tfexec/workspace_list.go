@@ -1,39 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfexec
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfexecimport (
 	"context"
 	"strings"
-)
-
-// WorkspaceList represents the workspace list subcommand to the Terraform CLI.
-
- (tf *Terraform) WorkspaceList(ctx context.Context) ([]string, string, error) {
+)// WorkspaceList represents the workspace list subcommand to the Terraform CLI. (tf *Terraform) WorkspaceList(ctx context.Context) ([]string, string, error) {
 	// TODO: [DIR] param option
-	wlCmd := tf.buildTerraformCmd(ctx, nil, "workspace", "list", "-no-color")
-
-	var outBuf strings.Builder
-	wlCmd.Stdout = &outBuf
-
-	err := tf.runTerraformCmd(ctx, wlCmd)
+	wlCmd := tf.buildTerraformCmd(ctx, nil, "workspace", "list", "-no-color")	var outBuf strings.Builder
+	wlCmd.Stdout = &outBuf	err := tf.runTerraformCmd(ctx, wlCmd)
 	if err != nil {
 		return nil, "", err
-	}
-
-	ws, current := parseWorkspaceList(outBuf.String())
-
-	return ws, current, nil
-}
-
-const currentWorkspacePrefix = "* "
-
-
+	}	ws, current := parseWorkspaceList(outBuf.String())	return ws, current, nil
+}const currentWorkspacePrefix = "* "
  parseWorkspaceList(stdout string) ([]string, string) {
-	lines := strings.Split(stdout, "\n")
-
-	current := ""
+	lines := strings.Split(stdout, "\n")	current := ""
 	workspaces := []string{}
 	for _, line := range lines {
 		line = strings.TrimSpace(line)
@@ -45,7 +23,5 @@ const currentWorkspacePrefix = "* "
 			current = line
 		}
 		workspaces = append(workspaces, line)
-	}
-
-	return workspaces, current
+	}	return workspaces, current
 }

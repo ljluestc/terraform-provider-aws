@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package codestarconnections
-
-// Exports for use in tests only.
+// SPDX-License-Identifier: MPL-2.0package codestarconnections// Exports for use in tests only.
 var (
-	FindConnectionByARN = findConnectionByARN
-	FindHostByARN       = findHostByARN
-
-	ResourceConnection = resourceConnection
-	ResourceHost       = resourceHost
+FindConnectionByARN = findConnectionByARN
+FindHostByARN = findHostByARNResourceConnection = resourceConnection
+ResourceHost = resourceHost
 )

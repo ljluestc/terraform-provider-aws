@@ -1,14 +1,9 @@
 // Copyright 2011 Google Inc. All rights reserved.
 // Use of this source code is governed by the Apache 2.0
-// license that can be found in the LICENSE file.
-
-package internal
-
-import (
+// license that can be found in the LICENSE file.package internalimport (
 	"strings"
 )
-
-func parseFullAppID(appid string) (partition, domain, displayID string) {
+ parseFullAppID(appid string) (partition, domain, displayID string) {
 	if i := strings.Index(appid, "~"); i != -1 {
 		partition, appid = appid[:i], appid[i+1:]
 	}
@@ -16,10 +11,7 @@ func parseFullAppID(appid string) (partition, domain, displayID string) {
 		domain, appid = appid[:i], appid[i+1:]
 	}
 	return partition, domain, appid
-}
-
-// appID returns "appid" or "domain.com:appid".
-func appID(fullAppID string) string {
+}// appID returns "appid" or "domain.com:appid". appID(fullAppID string) string {
 	_, dom, dis := parseFullAppID(fullAppID)
 	if dom != "" {
 		return dom + ":" + dis

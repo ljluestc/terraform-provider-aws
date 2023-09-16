@@ -1,25 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package schema
-
-import (
-	"fmt"
-
-	"github.com/hashicorp/go-cty/cty"
-
-	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/configs/configschema"
-)
-
-// SetUnknowns takes a cty.Value, and compares it to the schema setting any null
-// values which are computed to unknown.
-
- SetUnknowns(val cty.Value, schema *configschema.Block) cty.Value {
+// SPDX-License-Identifier: MPL-2.0package schemaimport (
+	"fmt"	"github.com/hashicorp/go-cty/cty"	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/configs/configschema"
+)// SetUnknowns takes a cty.Value, and compares it to the schema setting any null
+// values which are computed to unknown. SetUnknowns(val cty.Value, schema *configschema.Block) cty.Value {
 	if !val.IsKnown() {
 		return val
-	}
-
-	// If the object was null, we still need to handle the top level attributes
+	}	// If the object was null, we still need to handle the top level attributes
 	// which might be computed, but we don't need to expand the blocks.
 	if val.IsNull() {
 		objMap := map[string]cty.Value{}
@@ -32,57 +18,33 @@ import (
 			default:
 				objMap[name] = cty.NullVal(attr.Type)
 			}
-		}
-
-		// If this object has no unknown attributes, then we can leave it null.
+		}		// If this object has no unknown attributes, then we can leave it null.
 		if allNull {
 			return val
-		}
-
-		return cty.ObjectVal(objMap)
-	}
-
-	valMap := val.AsValueMap()
-	newVals := make(map[string]cty.Value)
-
-	for name, attr := range schema.Attributes {
-		v := valMap[name]
-
-		if attr.Computed && v.IsNull() {
+		}		return cty.ObjectVal(objMap)
+	}	valMap := val.AsValueMap()
+	newVals := make(map[string]cty.Value)	for name, attr := range schema.Attributes {
+		v := valMap[name]		if attr.Computed && v.IsNull() {
 			newVals[name] = cty.UnknownVal(attr.Type)
 			continue
-		}
-
-		newVals[name] = v
-	}
-
-	for name, blockS := range schema.BlockTypes {
+		}		newVals[name] = v
+	}	for name, blockS := range schema.BlockTypes {
 		blockVal := valMap[name]
 		if blockVal.IsNull() || !blockVal.IsKnown() {
 			newVals[name] = blockVal
 			continue
-		}
-
-		blockValType := blockVal.Type()
-		blockElementType := blockS.Block.ImpliedType()
-
-		// This switches on the value type here, so we can correctly switch
+		}		blockValType := blockVal.Type()
+		blockElementType := blockS.Block.ImpliedType()		// This switches on the value type here, so we can correctly switch
 		// between Tuples/Lists and Maps/Objects.
 		switch {
 		case blockS.Nesting == configschema.NestingSingle || blockS.Nesting == configschema.NestingGroup:
 			// NestingSingle is the only exception here, where we treat the
 			// block directly as an object
-			newVals[name] = SetUnknowns(blockVal, &blockS.Block)
-
-		case blockValType.IsSetType(), blockValType.IsListType(), blockValType.IsTupleType():
+			newVals[name] = SetUnknowns(blockVal, &blockS.Block)		case blockValType.IsSetType(), blockValType.IsListType(), blockValType.IsTupleType():
 			listVals := blockVal.AsValueSlice()
-			newListVals := make([]cty.Value, 0, len(listVals))
-
-			for _, v := range listVals {
+			newListVals := make([]cty.Value, 0, len(listVals))			for _, v := range listVals {
 				newListVals = append(newListVals, SetUnknowns(v, &blockS.Block))
-			}
-
-			switch {
+			}			switch {
 			case blockValType.IsSetType():
 				switch len(newListVals) {
 				case 0:
@@ -99,17 +61,11 @@ import (
 				}
 			case blockValType.IsTupleType():
 				newVals[name] = cty.TupleVal(newListVals)
-			}
-
-		case blockValType.IsMapType(), blockValType.IsObjectType():
+			}		case blockValType.IsMapType(), blockValType.IsObjectType():
 			mapVals := blockVal.AsValueMap()
-			newMapVals := make(map[string]cty.Value)
-
-			for k, v := range mapVals {
+			newMapVals := make(map[string]cty.Value)			for k, v := range mapVals {
 				newMapVals[k] = SetUnknowns(v, &blockS.Block)
-			}
-
-			switch {
+			}			switch {
 			case blockValType.IsMapType():
 				switch len(newMapVals) {
 				case 0:
@@ -125,12 +81,8 @@ import (
 					}
 				}
 				newVals[name] = cty.ObjectVal(newMapVals)
-			}
-
-		default:
+			}		default:
 			panic(fmt.Sprintf("failed to set unknown values for nested block %q:%#v", name, blockValType))
 		}
-	}
-
-	return cty.ObjectVal(newVals)
+	}	return cty.ObjectVal(newVals)
 }

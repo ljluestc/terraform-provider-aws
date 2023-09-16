@@ -24,10 +24,10 @@ func TestAccNetworkManagerLink_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLinkDestroy(ctx),
+		CheckDestroy:    testAccCheckLinkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLinkConfig_basic(rName),
@@ -59,10 +59,10 @@ func TestAccNetworkManagerLink_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLinkDestroy(ctx),
+		CheckDestroy:    testAccCheckLinkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLinkConfig_basic(rName),
@@ -82,10 +82,10 @@ func TestAccNetworkManagerLink_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLinkDestroy(ctx),
+		CheckDestroy:    testAccCheckLinkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLinkConfig_tags1(rName, "key1", "value1"),
@@ -128,10 +128,10 @@ func TestAccNetworkManagerLink_allAttributes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLinkDestroy(ctx),
+		CheckDestroy:    testAccCheckLinkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLinkConfig_allAttributes(rName),
@@ -230,7 +230,7 @@ resource "aws_networkmanager_site" "test" {
 
 resource "aws_networkmanager_link" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  site_id           = aws_networkmanager_site.test.id
+  site_id  = aws_networkmanager_site.test.id
 
   bandwidth {
     download_speed = 50
@@ -258,7 +258,7 @@ resource "aws_networkmanager_site" "test" {
 
 resource "aws_networkmanager_link" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  site_id           = aws_networkmanager_site.test.id
+  site_id  = aws_networkmanager_site.test.id
 
   bandwidth {
     download_speed = 50
@@ -290,7 +290,7 @@ resource "aws_networkmanager_site" "test" {
 
 resource "aws_networkmanager_link" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  site_id           = aws_networkmanager_site.test.id
+  site_id  = aws_networkmanager_site.test.id
 
   bandwidth {
     download_speed = 50
@@ -323,7 +323,7 @@ resource "aws_networkmanager_site" "test" {
 
 resource "aws_networkmanager_link" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  site_id           = aws_networkmanager_site.test.id
+  site_id  = aws_networkmanager_site.test.id
 
   bandwidth {
     download_speed = 50
@@ -332,7 +332,7 @@ resource "aws_networkmanager_link" "test" {
 
   description   = "description1"
   provider_name = "provider1"
-  type          = "type1"
+  type = "type1"
 
   tags = {
     Name = %[1]q
@@ -359,7 +359,7 @@ resource "aws_networkmanager_site" "test" {
 
 resource "aws_networkmanager_link" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  site_id           = aws_networkmanager_site.test.id
+  site_id  = aws_networkmanager_site.test.id
 
   bandwidth {
     download_speed = 75
@@ -368,7 +368,7 @@ resource "aws_networkmanager_link" "test" {
 
   description   = "description2"
   provider_name = "provider2"
-  type          = "type2"
+  type = "type2"
 
   tags = {
     Name = %[1]q

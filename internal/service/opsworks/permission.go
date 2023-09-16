@@ -30,17 +30,17 @@ func ResourcePermission() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"allow_ssh": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 				Optional: true,
 			},
 			"allow_sudo": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 				Optional: true,
 			},
 			"level": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 				Optional: true,
 				Validate
@@ -53,12 +53,12 @@ func: validation.StringInSlice([]string{
 				}, false),
 			},
 			"stack_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"user_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -78,7 +78,7 @@ func resourceSetPermission(ctx context.Context, d *schema.ResourceData, meta int
 		AllowSudo:  aws.Bool(d.Get("allow_sudo").(bool)),
 		AllowSsh:   aws.Bool(d.Get("allow_ssh").(bool)),
 		IamUserArn: aws.String(iamUserARN),
-		StackId:    aws.String(stackID),
+		StackId:aws.String(stackID),
 	}
 
 	if d.IsNewResource() {
@@ -135,7 +135,7 @@ func resourcePermissionRead(ctx context.Context, d *schema.ResourceData, meta in
 func FindPermissionByTwoPartKey(ctx context.Context, conn *opsworks.OpsWorks, iamUserARN, stackID string) (*opsworks.Permission, error) {
 	input := &opsworks.DescribePermissionsInput{
 		IamUserArn: aws.String(iamUserARN),
-		StackId:    aws.String(stackID),
+		StackId:aws.String(stackID),
 	}
 
 	output, err := conn.DescribePermissionsWithContext(ctx, input)

@@ -51,152 +51,152 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"agent_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 	},
 	"arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"berkshelf_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  defaultBerkshelfVersion,
 	},
 	"color": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 	},
 	"configuration_manager_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  "Chef",
 	},
 	"configuration_manager_version": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  "11.10",
 	},
 	"custom_cookbooks_source": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "password": {
-	Type:      schema.TypeString,
+	Type: schema.TypeString,
 	Optional:  true,
 	Sensitive: true,
 },
 "revision": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Optional: true,
 },
 "ssh_key": {
-	Type:      schema.TypeString,
+	Type: schema.TypeString,
 	Optional:  true,
 	Sensitive: true,
 },
 "type": {
 	Type:schema.TypeString,
-	Required:     true,
+	Required:true,
 	Validate
 func: validation.StringInSlice(opsworks.SourceType_Values(), false),
 },
 "url": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Required: true,
 },
 "username": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Optional: true,
 },
 	},
 },
 	},
 	"custom_json": {
-Type:    schema.TypeString,
+Type:schema.TypeString,
 Optional:true,
 DiffSuppress
 func: verify.SuppressEquivalentJSONDiffs,
 	},
 	"default_availability_zone": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
+Optional: true,
+Computed: true,
 ConflictsWith: []string{"vpc_id"},
 	},
 	"default_instance_profile_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 	},
 	"default_os": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  "Ubuntu 12.04 LTS",
 	},
 	"default_root_device_type": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  "instance-store",
 	},
 	"default_ssh_key_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 	},
 	"default_subnet_id": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 RequiredWith: []string{"vpc_id"},
 	},
 	"hostname_theme": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  "Layer_Dependent",
 	},
 	"manage_berkshelf": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 	},
 	"region": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 ForceNew: true,
 Required: true,
 	},
 	"service_role_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
 	"stack_endpoint": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"use_custom_cookbooks": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"use_opsworks_security_groups": {
-Type:     schema.TypeBool,
+Type:schema.TypeBool,
 Optional: true,
 Default:  true,
 	},
 	"vpc_id": {
 Type: schema.TypeString,
-ForceNew:      true,
-Computed:      true,
-Optional:      true,
+ForceNew: true,
+Computed: true,
+Optional: true,
 ConflictsWith: []string{"default_availability_zone"},
 	},
 },
@@ -217,16 +217,16 @@ ChefConfiguration: &opsworks.ChefConfiguration{
 	ManageBerkshelf: aws.Bool(d.Get("manage_berkshelf").(bool)),
 },
 ConfigurationManager: &opsworks.StackConfigurationManager{
-	Name:    aws.String(d.Get("configuration_manager_name").(string)),
+	Name:aws.String(d.Get("configuration_manager_name").(string)),
 	Version: aws.String(d.Get("configuration_manager_version").(string)),
 },
 DefaultInstanceProfileArn: aws.String(d.Get("default_instance_profile_arn").(string)),
 DefaultOs:  aws.String(d.Get("default_os").(string)),
-HostnameTheme:    aws.String(d.Get("hostname_theme").(string)),
-Name:       aws.String(name),
-Region:     aws.String(region),
+HostnameTheme:aws.String(d.Get("hostname_theme").(string)),
+Name:  aws.String(name),
+Region:aws.String(region),
 ServiceRoleArn:   aws.String(d.Get("service_role_arn").(string)),
-UseCustomCookbooks:        aws.Bool(d.Get("use_custom_cookbooks").(bool)),
+UseCustomCookbooks:   aws.Bool(d.Get("use_custom_cookbooks").(bool)),
 UseOpsworksSecurityGroups: aws.Bool(d.Get("use_opsworks_security_groups").(bool)),
 	}
 
@@ -303,7 +303,7 @@ return sdkdiag.AppendErrorf(diags, "creating OpsWorks Stack (%s): %s", name, err
 	arn := arn.ARN{
 Partition: meta.(*conns.AWSClient).Partition,
 Service:   opsworks.ServiceName,
-Region:    region,
+Region:region,
 AccountID: meta.(*conns.AWSClient).AccountID,
 Resource:  fmt.Sprintf("stack/%s/", d.Id()),
 	}.String()
@@ -472,7 +472,7 @@ opsworks.StackAttributesKeysColor: d.Get("color").(string),
 
 if d.HasChanges("configuration_manager_name", "configuration_manager_version") {
 	input.ConfigurationManager = &opsworks.StackConfigurationManager{
-Name:    aws.String(d.Get("configuration_manager_name").(string)),
+Name:aws.String(d.Get("configuration_manager_name").(string)),
 Version: aws.String(d.Get("configuration_manager_version").(string)),
 	}
 }

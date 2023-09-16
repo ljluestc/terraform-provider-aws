@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
-
 func validClusterIdentifier(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
@@ -32,7 +31,6 @@ func validClusterIdentifier(v interface{}, k string) (ws []string, errors []erro
 	}
 	return
 }
-
 func validClusterSnapshotIdentifier(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
@@ -53,13 +51,11 @@ func validClusterSnapshotIdentifier(v interface{}, k string) (ws []string, error
 	}
 	return
 }
-
 func validEngine() schema.SchemaValidateFunc {
 	return validation.StringInSlice([]string{
 		"docdb",
 	}, false)
 }
-
 func validIdentifier(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
@@ -84,7 +80,6 @@ func validIdentifier(v interface{}, k string) (ws []string, errors []error) {
 	}
 	return
 }
-
 func validIdentifierPrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
@@ -101,7 +96,6 @@ func validIdentifierPrefix(v interface{}, k string) (ws []string, errors []error
 	}
 	return
 }
-
 func validParamGroupName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
@@ -126,7 +120,6 @@ func validParamGroupName(v interface{}, k string) (ws []string, errors []error) 
 	}
 	return
 }
-
 func validGlobalCusterIdentifier(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
@@ -147,7 +140,6 @@ func validGlobalCusterIdentifier(v interface{}, k string) (ws []string, errors [
 	}
 	return
 }
-
 func validParamGroupNamePrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z-]+$`).MatchString(value) {
@@ -168,7 +160,6 @@ func validParamGroupNamePrefix(v interface{}, k string) (ws []string, errors []e
 	}
 	return
 }
-
 func validSubnetGroupName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z_ .-]+$`).MatchString(value) {
@@ -185,7 +176,6 @@ func validSubnetGroupName(v interface{}, k string) (ws []string, errors []error)
 	}
 	return
 }
-
 func validSubnetGroupNamePrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9a-z_ .-]+$`).MatchString(value) {

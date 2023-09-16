@@ -39,7 +39,7 @@ func DataSourceOrderableDBInstance() *schema.Resource {
 			},
 
 			"instance_class": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"preferred_instance_classes"},
@@ -87,9 +87,9 @@ func DataSourceOrderableDBInstance() *schema.Resource {
 			},
 
 			"preferred_instance_classes": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
-				Elem:          &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"instance_class"},
 			},
 

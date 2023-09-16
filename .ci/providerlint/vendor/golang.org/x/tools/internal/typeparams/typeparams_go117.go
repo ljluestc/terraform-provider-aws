@@ -1,234 +1,100 @@
-// Copyright 2021 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build !go1.18
-// +build !go1.18
-
-package typeparams
-
-import (
+//Copyright2021TheGoAuthors.Allrightsreserved.
+//UseofthissourcecodeisgovernedbyaBSD-style
+//licensethatcanbefoundintheLICENSEfile.//go:build!go1.18
+//+build!go1.18packagetypeparamsimport(
 	"go/ast"
 	"go/token"
 	"go/types"
 )
-
-
- unsupported() {
-	panic("type parameters are unsupported at this go version")
-}
-
-// IndexListExpr is a placeholder type, as type parameters are not supported at
-// this Go version. Its methods panic on use.
-type IndexListExpr struct {
+unsupported(){
+	panic("typeparametersareunsupportedatthisgoversion")
+}//IndexListExprisaplaceholdertype,astypeparametersarenotsupportedat
+//thisGoversion.Itsmethodspaniconuse.
+typeIndexListExprstruct{
 	ast.Expr
-	X       ast.Expr   // expression
-	Lbrack  token.Pos  // position of "["
-	Indices []ast.Expr // index expressions
-	Rbrack  token.Pos  // position of "]"
-}
-
-// ForTypeSpec returns an empty field list, as type parameters on not supported
-t this Go version.
-
- ForTypeSpec(*ast.TypeSpec) *ast.FieldList {
-	return nil
-}
-
-or
-Type returns an empty field list, as type parameters are not
-// supported at this Go version.
-
- For
+	Xast.Expr//expression
+	Lbracktoken.Pos//positionof"["
+	Indices[]ast.Expr//indexexpressions
+	Rbracktoken.Pos//positionof"]"
+}//ForTypeSpecreturnsanemptyfieldlist,astypeparametersonnotsupported
+tthisGoversion.ForTypeSpec(*ast.TypeSpec)*ast.FieldList{
+	returnnil
+}or
+Typereturnsanemptyfieldlist,astypeparametersarenot
+//supportedatthisGoversion.For
 Type(*ast.
-Type) *ast.FieldList {
-	return nil
-
-
-ypeParam is a placeholder type, as type parameters are not supported at
-// this Go version. Its methods panic on use.
-type TypeParam struct{ types.Type }
-
-
-ypeParam) Index() int             { unsupported(); return 0 }
-
- (*TypeParam) Constraint() types.Type { unsupported(); return nil }
-
- (*TypeParam) Obj() *types.TypeName   { unsupported(); return nil }
-
-ypeParamList is a placeholder for an empty type parameter list.
- TypeParamList struct{}
-
-
-ypeParamList) Len() int          { return 0 }
-
- (*TypeParamList) At(int) *TypeParam { unsupported(); return nil }
-
-// TypeList is a placeholder for an empty type list.
-type TypeList struct{}
-
-
- (*TypeList) Len() int          { return 0 }
-
- (*TypeList) At(int) types.Type { unsupported(); return nil }
-
-ewTypeParam is unsupported at this Go version, and panics.
-
- NewTypeParam(name *types.TypeName, constraint types.Type) *TypeParam {
+Type)*ast.FieldList{
+	returnnil
+ypeParamisaplaceholdertype,astypeparametersarenotsupportedat
+//thisGoversion.Itsmethodspaniconuse.
+typeTypeParamstruct{types.Type}
+ypeParam)Index()int{unsupported();return0}(*TypeParam)Constraint()types.Type{unsupported();returnnil}(*TypeParam)Obj()*types.TypeName{unsupported();returnnil}ypeParamListisaplaceholderforanemptytypeparameterlist.
+TypeParamListstruct{}
+ypeParamList)Len()int{return0}(*TypeParamList)At(int)*TypeParam{unsupported();returnnil}//TypeListisaplaceholderforanemptytypelist.
+typeTypeListstruct{}
+(*TypeList)Len()int{return0}(*TypeList)At(int)types.Type{unsupported();returnnil}ewTypeParamisunsupportedatthisGoversion,andpanics.NewTypeParam(name*types.TypeName,constrainttypes.Type)*TypeParam{
 	unsupported()
-	return nil
-}
-
-// SetTypeParamConstraint is unsupported at this Go version, and panics.
-
- SetTypeParamConstraint(tparam *TypeParam, constraint types.Type) {
+	returnnil
+}//SetTypeParamConstraintisunsupportedatthisGoversion,andpanics.SetTypeParamConstraint(tparam*TypeParam,constrainttypes.Type){
 	unsupported()
-}
-
-ewSignatureType calls types.NewSignature, panicking if recvTypeParams or
-// typeParams is non-empty.
-
- NewSignatureType(recv *types.Var, recvTypeParams, typeParams []*TypeParam, params, results *types.Tuple, variadic bool) *types.Signature {
-	if len(recvTypeParams) != 0 || len(typeParams) != 0 {
-		panic("signatures cannot have type parameters at this Go version")
-
-	return types.NewSignature(recv, params, results, variadic)
-}
-
-// ForSignature returns an empty slice.
-
-Signature(*types.Signature) *TypeParamList {
-	return nil
-}
-
-// RecvTypeParams returns a nil slice.
-
- RecvTypeParams(sig *types.Signature) *TypeParamList {
-	return nil
-}
-
-// IsComparable returns false, as no interfaces are type-restricted at this Go
-ersion.
-
- IsComparable(*types.Interface) bool {
-	return false
-
-
-// IsMethodSet returns true, as no interfaces are type-restricted at this Go
-// version.
-
-ethodSet(*types.Interface) bool {
-	return true
-}
-
-// IsImplicit returns false, as no interfaces are implicit at this Go version.
-
- IsImplicit(*types.Interface) bool {
-urn false
-}
-
-// MarkImplicit does nothing, because this Go version does not have implicit
-// interfaces.
-
- MarkImplicit(*types.Interface) {}
-
-// ForNamed returns an empty type parameter list, as type parameters are not
-// supported at this Go version.
-
- ForNamed(*types.Named) *TypeParamList {
-	return nil
-}
-
-etForNamed panics if tparams is non-empty.
-
-ForNamed(_ *types.Named, tparams []*TypeParam) {
-	if len(tparams) > 0 {
+}ewSignatureTypecallstypes.NewSignature,panickingifrecvTypeParamsor
+//typeParamsisnon-empty.NewSignatureType(recv*types.Var,recvTypeParams,typeParams[]*TypeParam,params,results*types.Tuple,variadicbool)*types.Signature{
+	iflen(recvTypeParams)!=0||len(typeParams)!=0{
+		panic("signaturescannothavetypeparametersatthisGoversion")	returntypes.NewSignature(recv,params,results,variadic)
+}//ForSignaturereturnsanemptyslice.Signature(*types.Signature)*TypeParamList{
+	returnnil
+}//RecvTypeParamsreturnsanilslice.RecvTypeParams(sig*types.Signature)*TypeParamList{
+	returnnil
+}//IsComparablereturnsfalse,asnointerfacesaretype-restrictedatthisGo
+ersion.IsComparable(*types.Interface)bool{
+	returnfalse
+//IsMethodSetreturnstrue,asnointerfacesaretype-restrictedatthisGo
+//version.ethodSet(*types.Interface)bool{
+	returntrue
+}//IsImplicitreturnsfalse,asnointerfacesareimplicitatthisGoversion.IsImplicit(*types.Interface)bool{
+urnfalse
+}//MarkImplicitdoesnothing,becausethisGoversiondoesnothaveimplicit
+//interfaces.MarkImplicit(*types.Interface){}//ForNamedreturnsanemptytypeparameterlist,astypeparametersarenot
+//supportedatthisGoversion.ForNamed(*types.Named)*TypeParamList{
+	returnnil
+}etForNamedpanicsiftparamsisnon-empty.ForNamed(_*types.Named,tparams[]*TypeParam){
+	iflen(tparams)>0{
 		unsupported()
 	}
+}//NamedTypeArgsreturnsnil.NamedTypeArgs(*types.Named)*TypeList{
+urnnil
+}//NamedTypeOriginistheidentitymethodatthisGoversion.NamedTypeOrigin(named*types.Named)types.Type{
+	returnnamed
+}ermholdsinformationaboutastructuraltyperestriction.
+typeTermstruct{
+	tildebool
+types.Type
 }
-
-// NamedTypeArgs returns nil.
-
- NamedTypeArgs(*types.Named) *TypeList {
-urn nil
-}
-
-// NamedTypeOrigin is the identity method at this Go version.
-
- NamedTypeOrigin(named *types.Named) types.Type {
-	return named
-}
-
-erm holds information about a structural type restriction.
-type Term struct {
-	tilde bool
-   types.Type
-}
-
-
- (m *Term) Tilde() bool      { return m.tilde }
-
-*Term) Type() types.Type { return m.typ }
-
- (m *Term) String() string {
-	pre := ""
-	if m.tilde {
-		pre = "~"
+(m*Term)Tilde()bool{returnm.tilde}*Term)Type()types.Type{returnm.typ}(m*Term)String()string{
+	pre:=""
+	ifm.tilde{
+		pre="~"
 	}
-	return pre + m.typ.String()
-}
-
-// NewTerm is unsupported at this Go version, and panics.
-
- NewTerm(tilde bool, typ types.Type) *Term {
-	return &Term{tilde, typ}
-}
-
-// Union is a placeholder type, as type parameters are not supported at this Go
-// version. Its methods panic on use.
- Union struct{ types.Type }
-
-
- (*Union) Len() int         { return 0 }
-
-nion) Term(i int) *Term { unsupported(); return nil }
-
-// NewUnion is unsupported at this Go version, and panics.
-
- NewUnion(terms []*Term) *Union {
+	returnpre+m.typ.String()
+}//NewTermisunsupportedatthisGoversion,andpanics.NewTerm(tildebool,typtypes.Type)*Term{
+	return&Term{tilde,typ}
+}//Unionisaplaceholdertype,astypeparametersarenotsupportedatthisGo
+//version.Itsmethodspaniconuse.
+Unionstruct{types.Type}
+(*Union)Len()int{return0}nion)Term(iint)*Term{unsupported();returnnil}//NewUnionisunsupportedatthisGoversion,andpanics.NewUnion(terms[]*Term)*Union{
 	unsupported()
-	return nil
-}
-
-// InitInstanceInfo is a noop at this Go version.
-
- InitInstanceInfo(*types.Info) {}
-
-// Instance is a placeholder type, as type parameters are not supported at this
-// Go version.
-type Instance struct {
-	TypeArgs *TypeList
-	Type     types.Type
-}
-
-// GetInstances returns a nil map, as type parameters are not supported at this
-// Go version.
-
- GetInstances(info *types.Info) map[*ast.Ident]Instance { return nil }
-
-// Context is a placeholder type, as type parameters are not supported at
-// this Go version.
-type Context struct{}
-
-// NewContext returns a placeholder Context instance.
-
- NewContext() *Context {
-	return &Context{}
-}
-
-// Instantiate is unsupported on this Go version, and panics.
-
- Instantiate(ctxt *Context, typ types.Type, targs []types.Type, validate bool) (types.Type, error) {
+	returnnil
+}//InitInstanceInfoisanoopatthisGoversion.InitInstanceInfo(*types.Info){}//Instanceisaplaceholdertype,astypeparametersarenotsupportedatthis
+//Goversion.
+typeInstancestruct{
+	TypeArgs*TypeList
+	Typetypes.Type
+}//GetInstancesreturnsanilmap,astypeparametersarenotsupportedatthis
+//Goversion.GetInstances(info*types.Info)map[*ast.Ident]Instance{returnnil}//Contextisaplaceholdertype,astypeparametersarenotsupportedat
+//thisGoversion.
+typeContextstruct{}//NewContextreturnsaplaceholderContextinstance.NewContext()*Context{
+	return&Context{}
+}//InstantiateisunsupportedonthisGoversion,andpanics.Instantiate(ctxt*Context,typtypes.Type,targs[]types.Type,validatebool)(types.Type,error){
 	unsupported()
-	return nil, nil
+	returnnil,nil
 }

@@ -20,8 +20,8 @@ func TestAccNetworkManagerLinkDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -60,7 +60,7 @@ resource "aws_networkmanager_site" "test" {
 
 resource "aws_networkmanager_link" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  site_id           = aws_networkmanager_site.test.id
+  site_id  = aws_networkmanager_site.test.id
 
   bandwidth {
     download_speed = 50
@@ -69,7 +69,7 @@ resource "aws_networkmanager_link" "test" {
 
   description   = "description1"
   provider_name = "provider1"
-  type          = "type1"
+  type = "type1"
 
   tags = {
     Name = %[1]q
@@ -78,7 +78,7 @@ resource "aws_networkmanager_link" "test" {
 
 data "aws_networkmanager_link" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  link_id           = aws_networkmanager_link.test.id
+  link_id  = aws_networkmanager_link.test.id
 }
 `, rName)
 }

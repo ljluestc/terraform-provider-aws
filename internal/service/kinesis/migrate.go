@@ -34,7 +34,7 @@ func resourceStreamResourceV0() *schema.Resource {
 				Type:     schema.TypeSet,
 				Optional: true,
 				Elem:     &schema.Schema{Type: schema.TypeString},
-				Set:      schema.HashString,
+				Set:schema.HashString,
 			},
 
 			"encryption_type": {

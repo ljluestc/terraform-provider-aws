@@ -24,7 +24,7 @@ func TestAccMetaIPRangesDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_ip_ranges.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -45,7 +45,7 @@ func TestAccMetaIPRangesDataSource_none(t *testing.T) {
 	dataSourceName := "data.aws_ip_ranges.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -65,7 +65,7 @@ func TestAccMetaIPRangesDataSource_url(t *testing.T) {
 	dataSourceName := "data.aws_ip_ranges.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -86,7 +86,7 @@ func TestAccMetaIPRangesDataSource_uppercase(t *testing.T) {
 	dataSourceName := "data.aws_ip_ranges.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -109,7 +109,7 @@ func testAccIPRangesCheckAttributes(n string) resource.TestCheckFunc {
 
 		var (
 			createDate time.Time
-			err        error
+			errerror
 			syncToken  int
 		)
 
@@ -126,9 +126,9 @@ func testAccIPRangesCheckAttributes(n string) resource.TestCheckFunc {
 		}
 
 		var (
-			regionMember      = regexache.MustCompile(`regions\.\d+`)
+			regionMember  = regexache.MustCompile(`regions\.\d+`)
 			regions, services int
-			serviceMember     = regexache.MustCompile(`services\.\d+`)
+			serviceMember = regexache.MustCompile(`services\.\d+`)
 		)
 
 		for k, v := range a {
@@ -169,8 +169,8 @@ func testAccIPRangesCheckCIDRBlocksAttribute(name, attribute string) resource.Te
 
 		var (
 			cidrBlockSize int
-			cidrBlocks    sort.StringSlice
-			err           error
+			cidrBlockssort.StringSlice
+			err  error
 		)
 
 		if cidrBlockSize, err = strconv.Atoi(a[fmt.Sprintf("%s.#", attribute)]); err != nil {
@@ -222,7 +222,7 @@ const testAccIPRangesDataSourceConfig_url = `
 data "aws_ip_ranges" "test" {
   regions  = ["eu-west-1", "eu-central-1"]
   services = ["ec2"]
-  url      = "https://ip-ranges.amazonaws.com/ip-ranges.json"
+  url  = "https://ip-ranges.amazonaws.com/ip-ranges.json"
 }
 `
 

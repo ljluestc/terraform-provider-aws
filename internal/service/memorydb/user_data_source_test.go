@@ -20,8 +20,8 @@ func TestAccMemoryDBUserDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_memorydb_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -45,15 +45,15 @@ func testAccUserDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_memorydb_user" "test" {
   access_string = "on ~* &* +@all"
-  user_name     = %[1]q
+  user_name = %[1]q
 
   authentication_mode {
-    type      = "password"
-    passwords = ["aaaaaaaaaaaaaaaa"]
+type  = "password"
+passwords = ["aaaaaaaaaaaaaaaa"]
   }
 
   tags = {
-    Test = "test"
+Test = "test"
   }
 }
 

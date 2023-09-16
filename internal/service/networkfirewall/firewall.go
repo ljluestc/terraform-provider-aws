@@ -48,53 +48,53 @@ func ResourceFirewall() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"delete_protection": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"encryption_configuration": encryptionConfigurationSchema(),
 			"firewall_policy_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"firewall_policy_change_protection": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 			"firewall_status": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"sync_states": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"availability_zone": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 									"attachment": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Computed: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"endpoint_id": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 												"subnet_id": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 											},
@@ -107,40 +107,40 @@ func ResourceFirewall() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"subnet_change_protection": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 			"subnet_mapping": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Required: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"ip_address_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Type:schema.TypeString,
+							Optional:true,
+							Computed:true,
 							ValidateFunc: validation.StringInSlice(networkfirewall.IPAddressType_Values(), false),
 						},
 						"subnet_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"update_token": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -153,9 +153,9 @@ func resourceFirewallCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	name := d.Get("name").(string)
 	input := &networkfirewall.CreateFirewallInput{
-		FirewallName:      aws.String(name),
+		FirewallName: aws.String(name),
 		FirewallPolicyArn: aws.String(d.Get("firewall_policy_arn").(string)),
-		SubnetMappings:    expandSubnetMappings(d.Get("subnet_mapping").(*schema.Set).List()),
+		SubnetMappings:expandSubnetMappings(d.Get("subnet_mapping").(*schema.Set).List()),
 		Tags: getTagsIn(ctx),
 		VpcId:aws.String(d.Get("vpc_id").(string)),
 	}
@@ -242,8 +242,8 @@ func resourceFirewallUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	if d.HasChange("delete_protection") {
 		input := &networkfirewall.UpdateFirewallDeleteProtectionInput{
 			DeleteProtection: aws.Bool(d.Get("delete_protection").(bool)),
-			FirewallArn:      aws.String(d.Id()),
-			UpdateToken:      aws.String(updateToken),
+			FirewallArn: aws.String(d.Id()),
+			UpdateToken: aws.String(updateToken),
 		}
 
 		output, err := conn.UpdateFirewallDeleteProtectionWithContext(ctx, input)
@@ -292,9 +292,9 @@ func resourceFirewallUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	if d.HasChange("firewall_policy_change_protection") {
 		input := &networkfirewall.UpdateFirewallPolicyChangeProtectionInput{
-			FirewallArn:       aws.String(d.Id()),
+			FirewallArn:  aws.String(d.Id()),
 			FirewallPolicyChangeProtection: aws.Bool(d.Get("firewall_policy_change_protection").(bool)),
-			UpdateToken:       aws.String(updateToken),
+			UpdateToken:  aws.String(updateToken),
 		}
 
 		output, err := conn.UpdateFirewallPolicyChangeProtectionWithContext(ctx, input)
@@ -308,9 +308,9 @@ func resourceFirewallUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	if d.HasChange("firewall_policy_arn") {
 		input := &networkfirewall.AssociateFirewallPolicyInput{
-			FirewallArn:       aws.String(d.Id()),
+			FirewallArn:  aws.String(d.Id()),
 			FirewallPolicyArn: aws.String(d.Get("firewall_policy_arn").(string)),
-			UpdateToken:       aws.String(updateToken),
+			UpdateToken:  aws.String(updateToken),
 		}
 
 		output, err := conn.AssociateFirewallPolicyWithContext(ctx, input)
@@ -324,9 +324,9 @@ func resourceFirewallUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	if d.HasChange("subnet_change_protection") {
 		input := &networkfirewall.UpdateSubnetChangeProtectionInput{
-			FirewallArn:            aws.String(d.Id()),
+			FirewallArn:  aws.String(d.Id()),
 			SubnetChangeProtection: aws.Bool(d.Get("subnet_change_protection").(bool)),
-			UpdateToken:            aws.String(updateToken),
+			UpdateToken:  aws.String(updateToken),
 		}
 
 		output, err := conn.UpdateSubnetChangeProtectionWithContext(ctx, input)
@@ -344,9 +344,9 @@ func resourceFirewallUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 		if len(subnetsToAdd) > 0 {
 			input := &networkfirewall.AssociateSubnetsInput{
-				FirewallArn:    aws.String(d.Id()),
+				FirewallArn:aws.String(d.Id()),
 				SubnetMappings: subnetsToAdd,
-				UpdateToken:    aws.String(updateToken),
+				UpdateToken:aws.String(updateToken),
 			}
 
 			_, err := conn.AssociateSubnetsWithContext(ctx, input)
@@ -564,7 +564,7 @@ func flattenSyncStates(s map[string]*networkfirewall.SyncState) []interface{} {
 	for k, v := range s {
 		m := map[string]interface{}{
 			"availability_zone": k,
-			"attachment":        flattenSyncStateAttachment(v.Attachment),
+			"attachment":   flattenSyncStateAttachment(v.Attachment),
 		}
 		syncStates = append(syncStates, m)
 	}
@@ -589,7 +589,7 @@ func flattenSubnetMappings(sm []*networkfirewall.SubnetMapping) []interface{} {
 	mappings := make([]interface{}, 0, len(sm))
 	for _, s := range sm {
 		m := map[string]interface{}{
-			"subnet_id":       aws.StringValue(s.SubnetId),
+			"subnet_id":  aws.StringValue(s.SubnetId),
 			"ip_address_type": aws.StringValue(s.IPAddressType),
 		}
 		mappings = append(mappings, m)

@@ -52,18 +52,18 @@ func resourceService() *schema.Resource {
 				Computed: true,
 			},
 			"auth_type": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Type:    schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateDiagFunc: enum.Validate[types.AuthType](),
 			},
 			"certificate_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"custom_domain_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(3, 255),
@@ -85,7 +85,7 @@ func resourceService() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(3, 40),
@@ -225,11 +225,11 @@ func resourceServiceDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 func waitServiceCreated(ctx context.Context, conn *vpclattice.Client, id string, timeout time.Duration) (*vpclattice.GetServiceOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.ServiceStatusCreateInProgress),
-		Target:                    enum.Slice(types.ServiceStatusActive),
-		Refresh:                   statusService(ctx, conn, id),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.ServiceStatusCreateInProgress),
+		Target:  enum.Slice(types.ServiceStatusActive),
+		Refresh: statusService(ctx, conn, id),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 

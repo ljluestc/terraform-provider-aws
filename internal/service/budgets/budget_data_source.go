@@ -25,82 +25,82 @@ func DataSourceBudget() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"auto_adjust_data": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"auto_adjust_type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"historical_options": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"budget_adjustment_period": {
-										Type:     schema.TypeInt,
+										Type:schema.TypeInt,
 										Computed: true,
 									},
 									"lookback_available_periods": {
-										Type:     schema.TypeInt,
+										Type:schema.TypeInt,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"last_auto_adjust_time": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"budget_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"budget_limit": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"amount": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"unit": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"calculated_spend": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"actual_spend": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"amount": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 									"unit": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 								},
@@ -110,16 +110,16 @@ func DataSourceBudget() *schema.Resource {
 				},
 			},
 			"cost_filter": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"values": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
 							Elem: &schema.Schema{
 								Type: schema.TypeString,
@@ -129,135 +129,135 @@ func DataSourceBudget() *schema.Resource {
 				},
 			},
 			"cost_types": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"include_credit": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"include_discount": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"include_other_subscription": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"include_recurring": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"include_refund": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"include_subscription": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"include_support": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"include_tax": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"include_upfront": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"use_amortized": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 						"use_blended": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"name_prefix": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"notification": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"comparison_operator": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"notification_type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"subscriber_email_addresses": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"subscriber_sns_topic_arns": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Schema{
 								Type: schema.TypeString,
 							},
 						},
 						"threshold": {
-							Type:     schema.TypeFloat,
+							Type:schema.TypeFloat,
 							Computed: true,
 						},
 						"threshold_type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"planned_limit": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"amount": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"start_time": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"unit": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"time_period_end": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"time_period_start": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"time_unit": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"budget_exceeded": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 		},
@@ -267,7 +267,6 @@ func DataSourceBudget() *schema.Resource {
 const (
 	DSNameBudget = "Budget Data Source"
 )
-
 func dataSourceBudgetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).BudgetsConn(ctx)
 
@@ -288,9 +287,9 @@ func dataSourceBudgetRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "budgets",
+		Service:"budgets",
 		AccountID: accountID,
-		Resource:  fmt.Sprintf("budget/%s", budgetName),
+		Resource:fmt.Sprintf("budget/%s", budgetName),
 	}
 	d.Set("arn", arn.String())
 
@@ -329,7 +328,6 @@ func dataSourceBudgetRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
-
 func flattenCalculatedSpend(apiObject *budgets.CalculatedSpend) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -340,7 +338,6 @@ func flattenCalculatedSpend(apiObject *budgets.CalculatedSpend) []interface{} {
 	}
 	return []interface{}{attrs}
 }
-
 func flattenSpend(apiObject *budgets.Spend) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -348,7 +345,7 @@ func flattenSpend(apiObject *budgets.Spend) []interface{} {
 
 	attrs := map[string]interface{}{
 		"amount": aws.StringValue(apiObject.Amount),
-		"unit":   aws.StringValue(apiObject.Unit),
+		"unit":aws.StringValue(apiObject.Unit),
 	}
 
 	return []interface{}{attrs}

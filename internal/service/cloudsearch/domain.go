@@ -42,33 +42,33 @@ func ResourceDomain() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"document_service_endpoint": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"domain_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"endpoint_options": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"enforce_https": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Computed: true,
 						},
 						"tls_security_policy": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Type:    schema.TypeString,
+							Optional:true,
+							Computed:true,
 							ValidateFunc: validation.StringInSlice(cloudsearch.TLSSecurityPolicy_Values(), false),
 						},
 					},
@@ -76,92 +76,92 @@ func ResourceDomain() *schema.Resource {
 			},
 			// The index_field schema is based on the AWS Console screen, not the API model.
 			"index_field": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"analysis_scheme": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"default_value": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"facet": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"highlight": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"name": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:    schema.TypeString,
+							Required:true,
 							ValidateFunc: validateIndexName,
 						},
 						"return": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"search": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"sort": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"source_fields": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:    schema.TypeString,
+							Optional:true,
 							ValidateFunc: validation.StringDoesNotMatch(regexache.MustCompile(`score`), "Cannot be set to reserved field score"),
 						},
 						"type": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:    schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(cloudsearch.IndexFieldType_Values(), false),
 						},
 					},
 				},
 			},
 			"multi_az": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:    schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[a-z]([0-9a-z-]){2,27}$`), "Search domain names must start with a lowercase letter (a-z) and be at least 3 and no more than 28 lower-case letters, digits or hyphens"),
 			},
 			"scaling_parameters": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"desired_instance_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Type:    schema.TypeString,
+							Optional:true,
+							Computed:true,
 							ValidateFunc: validation.StringInSlice(cloudsearch.PartitionInstanceType_Values(), false),
 						},
 						"desired_partition_count": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 							Computed: true,
 						},
 						"desired_replication_count": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 							Computed: true,
 						},
@@ -169,7 +169,7 @@ func ResourceDomain() *schema.Resource {
 				},
 			},
 			"search_service_endpoint": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -196,7 +196,7 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if v, ok := d.GetOk("scaling_parameters"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 		input := &cloudsearch.UpdateScalingParametersInput{
-			DomainName:        aws.String(d.Id()),
+			DomainName:   aws.String(d.Id()),
 			ScalingParameters: expandScalingParameters(v.([]interface{})[0].(map[string]interface{})),
 		}
 
@@ -225,7 +225,7 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	if v, ok := d.GetOk("endpoint_options"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 		input := &cloudsearch.UpdateDomainEndpointOptionsInput{
 			DomainEndpointOptions: expandDomainEndpointOptions(v.([]interface{})[0].(map[string]interface{})),
-			DomainName:            aws.String(d.Id()),
+			DomainName:  aws.String(d.Id()),
 		}
 
 		log.Printf("[DEBUG] Updating CloudSearch Domain endpoint options: %s", input)
@@ -428,7 +428,7 @@ func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 			}
 
 			input := &cloudsearch.DeleteIndexFieldInput{
-				DomainName:     aws.String(d.Id()),
+				DomainName:aws.String(d.Id()),
 				IndexFieldName: aws.String(fieldName),
 			}
 
@@ -1000,7 +1000,7 @@ func expandIndexField(tfMap map[string]interface{}) (*cloudsearch.IndexField, bo
 		options := &cloudsearch.TextOptions{
 			HighlightEnabled: aws.Bool(highlightEnabled),
 			ReturnEnabled:    aws.Bool(returnEnabled),
-			SortEnabled:      aws.Bool(sortEnabled),
+			SortEnabled: aws.Bool(sortEnabled),
 		}
 
 		if analysisScheme != "" {

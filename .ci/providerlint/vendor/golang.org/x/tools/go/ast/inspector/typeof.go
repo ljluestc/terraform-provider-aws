@@ -1,23 +1,13 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package inspector
-
-// This file defines 
+// license that can be found in the LICENSE file.package inspector// This file defines 
  typeOf(ast.Node) uint64.
 //
 // The initial map-based implementation was too slow;
-// see https://go-review.googlesource.com/c/tools/+/135655/1/go/ast/inspector/inspector.go#196
-
-import (
+// see https://go-review.googlesource.com/c/tools/+/135655/1/go/ast/inspector/inspector.go#196import (
 	"go/ast"
-	"math"
-
-	"golang.org/x/tools/internal/typeparams"
-)
-
-const (
+	"math"	"golang.org/x/tools/internal/typeparams"
+)const (
 	nArrayType = iota
 	nAssignStmt
 	nBadDecl
@@ -43,9 +33,7 @@ const (
 	nFieldList
 	nFile
 	ntmt
-	n
-
-	n
+	n	n
 Lit
 	n
 Type
@@ -77,13 +65,11 @@ Type
 	nTypeSwitchStmt
 	nUnaryExpr
 	nValueSpec
-)
-
-// typeOf returns a distinct single-bit value that represents the type of n.
+)// typeOf returns a distinct single-bit value that represents the type of n.
 //
 // Various implementations were benchmarked with BenchmarkNewInspector:
 //
-//	                                                                GOGC=off
+//                                                            GOGC=off
 //	- type switch					4.9-5.5ms	2.1ms
 //	- binary search over a sorted list of types	5.5-5.9ms	2.5ms
 //	- linear scan, frequency-ordered list		5.9-6.1ms	2.7ms
@@ -96,15 +82,11 @@ Type
 s it produces a binary tree in code,
 // with constant conditions and good branch prediction.
 // (Sadly it is the most verbose in source code.)
-// Binary search suffered from poor branch prediction.
-
- typeOf(n ast.Node) uint64 {
+// Binary search suffered from poor branch prediction. typeOf(n ast.Node) uint64 {
 	// Fast path: nearly half of all nodes are identifiers.
 	if _, ok := n.(*ast.Ident); ok {
 		return 1 << nIdent
-	}
-
-	// These cases include all nodes encountered by ast.Inspect.
+	}	// These cases include all nodes encountered by ast.Inspect.
 	switch n.(type) {
 	case *ast.ArrayType:
 		return 1 << nArrayType
@@ -227,8 +209,6 @@ turn 1 << nTypeSpec
 	}
 	return 0
 }
-
-
  maskOf(nodes []ast.Node) uint64 {
 	if nodes == nil {
 		return math.MaxUint64 // match all node types

@@ -1,40 +1,26 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package analysis
-
-import (
+// license that can be found in the LICENSE file.package analysisimport (
 	"flag"
 	"fmt"
 	"go/ast"
 	"go/token"
 	"go/types"
 	"reflect"
-)
-
-// An Analyzer describes an analysis 
+)// An Analyzer describes an analysis 
 tion and its options.
 type Analyzer struct {
 	// The Name of the analyzer must be a valid Go identifier
 	// as it may appear in command-line flags, URLs, and so on.
-	Name string
-
-	// Doc is the documentation for the analyzer.
+	Name string	// Doc is the documentation for the analyzer.
 	// The part before the first "\n\n" is the title
 	// (no capital or period, max ~60 letters).
-	Doc string
-
-	// URL holds an optional link to a web page with additional
+	Doc string	// URL holds an optional link to a web page with additional
 	// documentation for this analyzer.
-	URL string
-
-	// Flags defines any flags accepted by the analyzer.
+	URL string	// Flags defines any flags accepted by the analyzer.
 	// The manner in which these flags are exposed to the user
 	// depends on the driver which runs the analyzer.
-	Flags flag.FlagSet
-
-	// Run applies the analyzer to a package.
+	Flags flag.FlagSet	// Run applies the analyzer to a package.
 	// It returns an error if the analyzer failed.
 	//
 	// On success, the Run 
@@ -48,28 +34,20 @@ tion may return a result
 	// ptially between address spaces), use Facts, which are
 	// serializable.
 	Run 
-(*Pass) (interface{}, error)
-
-	// RunDespiteErrors allows the driver to invoke
+(*Pass) (interface{}, error)	// RunDespiteErrors allows the driver to invoke
 	// the Run method of this analyzer even on a
 	// package that contains parse or type errors.
 	// The Pass.TypeErrors field may consequently be non-empty.
-	RunDespiteErrors bool
-
-	// Requires is a set of analyzers that must run successfully
+	RunDespiteErrors bool	// Requires is a set of analyzers that must run successfully
 	// before this one on a given package. This analyzer may inspect
 	// the outputs produced by each analyzer in Requires.
 	// The graph over analyzers implied by Requires edges must be acyclic.
 	//
 	// Requires establishes a "horizontal" dependency between
 	// analysis passes (different analyzers, same package).
-	Requires []*Analyzer
-
-	// ResultType is the type of the optional result of the Run 
+	Requires []*Analyzer	// ResultType is the type of the optional result of the Run 
 tion.
-	ResultType reflect.Type
-
-	// FactTypes indicates that this analyzer imports and exports
+	ResultType reflect.Type	// FactTypes indicates that this analyzer imports and exports
 	// Facts of the specified concrete types.
 	// An analyzer that uses facts may assume that its import
 	// dependencies have been similarly analyzed before it runs.
@@ -79,11 +57,7 @@ tion.
 analysis passes (same analyzer, different packages).
 	FactTypes []Fact
 }
-
-
- (a *Analyzer) String() string { return a.Name }
-
-// A Pass provides information to the Run 
+ (a *Analyzer) String() string { return a.Name }// A Pass provides information to the Run 
 tion that
 // applies a specific analyzer to a single Go package.
 //
@@ -96,9 +70,7 @@ tion that
 tion should not call any of the Pass 
 tions concurrently.
 type Pass struct {
-	Analyzer *Analyzer // the identity of the current analyzer
-
-	// syntax and type information
+	Analyzer *Analyzer // the identity of the current analyzer	// syntax and type information
 	Fset         *token.FileSet // file position information
 	Files        []*ast.File    // the abstract syntax tree of each file
 	OtherFiles   []string       // names of non-Go files of this package
@@ -107,114 +79,76 @@ type Pass struct {
 	TypesInfo    *types.Info    // type information about the syntax trees
 	TypesSizes   types.Sizes    // 
 tion for computing sizes of types
-	TypeErrors   []types.Error  // type errors (only if Analyzer.RunDespiteErrors)
-
-	// Report reports a Diagnostic, a finding about a specific location
+	TypeErrors   []types.Error  // type errors (only if Analyzer.RunDespiteErrors)	// Report reports a Diagnostic, a finding about a specific location
 	// in the analyzed source code such as a potential mistake.
 	// It may be called by the Run 
 tion.
 	Report 
-(Diagnostic)
-
-	// ResultOf provides the inputs to this analysis pass, which are
+(Diagnostic)	// ResultOf provides the inputs to this analysis pass, which are
 	// the corresponding results of its prerequisite analyzers.
 	// The map keys are the elements of Analysis.Required,
 	// and the type of each corresponding value is the required
 	// analysis's Resype.
-	ResultOf map[*Analyzer]interface{}
-
-	// -- facts --
-
-	// ImportObjectFactrieves a fact associated with obj.
+	ResultOf map[*Analyzer]interface{}	// -- facts --	// ImportObjectFactrieves a fact associated with obj.
 	// Given a value ptr of type *T, where *T satisfies Fact,
 	// ImportObjectFact copies the value to *ptr.
 	//
 	// ImportObjectFact panics if called after the pass is complete.
 	// ImportObjectFact is not concurrency-safe.
 	ImportObjectFact 
-(obj types.Object, fact Fact) bool
-
-	// ImportPackageFact retrieves a fact associated with package pkg,
+(obj types.Object, fact Fact) bool	// ImportPackageFact retrieves a fact associated with package pkg,
 	// which must be this package or one of its dependencies.
 	// See comments for ImportObjectFact.
 	ImportPackageFact 
-(pkg *types.Package, fact Fact) bool
-
-	// ExportObjectFact associates a fact of type *T with the obj,
+(pkg *types.Package, fact Fact) bool	// ExportObjectFact associates a fact of type *T with the obj,
 	// replacing any previous fact of that type.
 	//
 	// ExportObjectFact panics if it is called after the pass is
 	// complete, or if obj does not belong to the package being analyzed.
 	// ExportObjectFact is not concurrency-safe.
 	ExportObjectFact 
-(obj types.Ot, fact Fact)
-
-	// ExportPackageFact associates a fact with the current package.
+(obj types.Ot, fact Fact)	// ExportPackageFact associates a fact with the current package.
 	// See comments for ExportObjectFact.
 	ExportPackageFact 
-(fact Fact)
-
-	// AllPackageFacts returns a new slice containing all package facts of the analysis's FactTypes
+(fact Fact)	// AllPackageFacts returns a new slice containing all package facts of the analysis's FactTypes
 	// in unspecified order.
 	// WARNING: This is an experimental API and may change in the future.
 	AllPackageFacts 
-() []PackageFact
-
-	// AllObjectFacts returns a new slice containing all object facts of the analysis's FactTypes
+() []PackageFact	// AllObjectFacts returns a new slice containing all object facts of the analysis's FactTypes
 	// in unspecified order.
 	// WARNING: This is an experimental API and may change in the future.
 	AllObjectFacts 
-() []ObjectFact
-
-	/* Further fields may dded in future. */
-}
-
-// PackageFact is a package together with an associated fact.
+() []ObjectFact	/* Further fields may dded in future. */
+}// PackageFact is a package together with an associated fact.
 // WARNING: This is an experimental API and may change in the future.
 type PackageFact struct {
 	Package *types.Package
 	Fact    Fact
-}
-
-// ObjectFact is an object together with an associated fact.
+}// ObjectFact is an object together with an associated fact.
 // WARNING: This is an experimental API and may change in the future.
 type ObjectFact struct {
 	Object types.Object
 	Fact   Fact
-}
-
-eportf is a helper 
+}eportf is a helper 
 tion that reports a Diagnostic using the
-// specified position and formatted error message.
-
- (pass *Pass) Reportf(pos token.Pos, format string, args ...interface{}) {
+// specified position and formatted error message. (pass *Pass) Reportf(pos token.Pos, format string, args ...interface{}) {
  := fmt.Sprintf(format, args...)
 	pass.Report(Diagnostic{Pos: pos, Message: msg})
-}
-
-// The Range interface provides a range. It's equivalent to and satisfied by
+}// The Range interface provides a range. It's equivalent to and satisfied by
 // ast.Node.
 type Range interface {
 	Pos() token.Pos // position of first character belonging to the node
 	End() token.Pos // position of first character immediately after the node
-}
-
-// ReportRangef is a helper 
+}// ReportRangef is a helper 
 tion that reports a Diagnostic using the
 // range provided. ast.Node values can be passed in as the range because
-// they satisfy the Range interface.
-
- (pass *Pass) ReportRangef(rng Range, format string, args ...interface{}) {
+// they satisfy the Range interface. (pass *Pass) ReportRangef(rng Range, format string, args ...interface{}) {
 	msg := fmt.Sprintf(format, args...)
 	pass.Report(Diagnostic{Pos: rng.Pos(), End: rng.End(), Message: msg})
 }
-
-
  (pass *Pass) String() string {
 	return fmt.Sprintf("%s@%s", pass.Analyzer.Name, pass.Pkg.Path())
-}
-
-// A Fact is an intermediate fact produced during analysis.
+}// A Fact is an intermediate fact produced during analysis.
 //
 // Each fact is associated with a named declaration (a types.Object) or
 // with a package as a whole. A single object or package may have

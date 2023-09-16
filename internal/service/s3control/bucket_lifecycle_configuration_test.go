@@ -29,7 +29,7 @@ func TestAccS3ControlBucketLifecycleConfiguration_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketLifecycleConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckBucketLifecycleConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketLifecycleConfigurationConfig_ruleID(rName, "test"),
@@ -41,7 +41,7 @@ Check: resource.ComposeTestCheckFunc(
 "expiration.#":      "1",
 "expiration.0.days": "365",
 "id": "test",
-"status":            s3control.ExpirationStatusEnabled,
+"status":   s3control.ExpirationStatusEnabled,
 	}),
 ),
 	},
@@ -63,7 +63,7 @@ func TestAccS3ControlBucketLifecycleConfiguration_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketLifecycleConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckBucketLifecycleConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketLifecycleConfigurationConfig_ruleID(rName, "test"),
@@ -86,7 +86,7 @@ func TestAccS3ControlBucketLifecycleConfiguration_RuleAbortIncompleteMultipartUp
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketLifecycleConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckBucketLifecycleConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketLifecycleConfigurationConfig_ruleAbortIncompleteMultipartUploadDaysAfterInitiation(rName, 1),
@@ -130,7 +130,7 @@ func TestAccS3ControlBucketLifecycleConfiguration_RuleExpiration_date(t *testing
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketLifecycleConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckBucketLifecycleConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketLifecycleConfigurationConfig_ruleExpirationDate(rName, date1),
@@ -172,7 +172,7 @@ func TestAccS3ControlBucketLifecycleConfiguration_RuleExpiration_days(t *testing
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketLifecycleConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckBucketLifecycleConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketLifecycleConfigurationConfig_ruleExpirationDays(rName, 7),
@@ -215,7 +215,7 @@ func TestAccS3ControlBucketLifecycleConfiguration_RuleExpiration_expiredObjectDe
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketLifecycleConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckBucketLifecycleConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketLifecycleConfigurationConfig_ruleExpirationExpiredObjectDeleteMarker(rName, true),
@@ -257,7 +257,7 @@ func TestAccS3ControlBucketLifecycleConfiguration_RuleFilter_prefix(t *testing.T
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketLifecycleConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckBucketLifecycleConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketLifecycleConfigurationConfig_ruleFilterPrefix(rName, "test1/"),
@@ -299,7 +299,7 @@ func TestAccS3ControlBucketLifecycleConfiguration_RuleFilter_tags(t *testing.T) 
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketLifecycleConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckBucketLifecycleConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketLifecycleConfigurationConfig_ruleFilterTags1(rName, "key1", "value1"),
@@ -307,7 +307,7 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckBucketLifecycleConfigurationExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-"filter.#":           "1",
+"filter.#":  "1",
 "filter.0.tags.%":    "1",
 "filter.0.tags.key1": "value1",
 	}),
@@ -327,7 +327,7 @@ ImportStateVerify: true,
 	// testAccCheckBucketLifecycleConfigurationExists(resourceName),
 	// resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 	// resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-	// 	"filter.#":           "1",
+	// 	"filter.#":  "1",
 	// 	"filter.0.tags.%":    "2",
 	// 	"filter.0.tags.key1": "value1updated",
 	// 	"filter.0.tags.key2": "value2",
@@ -340,7 +340,7 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckBucketLifecycleConfigurationExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-"filter.#":           "1",
+"filter.#":  "1",
 "filter.0.tags.%":    "1",
 "filter.0.tags.key2": "value2",
 	}),
@@ -359,7 +359,7 @@ func TestAccS3ControlBucketLifecycleConfiguration_Rule_id(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketLifecycleConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckBucketLifecycleConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketLifecycleConfigurationConfig_ruleID(rName, "test1"),
@@ -399,7 +399,7 @@ func TestAccS3ControlBucketLifecycleConfiguration_Rule_status(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBucketLifecycleConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckBucketLifecycleConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBucketLifecycleConfigurationConfig_ruleStatus(rName, s3control.ExpirationStatusDisabled),
@@ -590,7 +590,7 @@ resource "aws_s3control_bucket_lifecycle_configuration" "test" {
 
   rule {
     expiration {
-      days          = %[2]t ? null : 365
+      days = %[2]t ? null : 365
       expired_object_delete_marker = %[2]t
     }
 
@@ -688,8 +688,8 @@ resource "aws_s3control_bucket_lifecycle_configuration" "test" {
 
 //     filter {
 //       tags = {
-//         %[2]q = %[3]q
-//         %[4]q = %[5]q
+//%[2]q = %[3]q
+//%[4]q = %[5]q
 //       }
 //     }
 

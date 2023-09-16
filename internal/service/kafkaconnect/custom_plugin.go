@@ -37,33 +37,33 @@ func ResourceCustomPlugin() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"content_type": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringInSlice(kafkaconnect.CustomPluginContentType_Values(), false),
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"latest_revision": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"location": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				MaxItems: 1,
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"s3": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							MaxItems: 1,
 							ForceNew: true,
 							Required: true,
@@ -71,17 +71,17 @@ func ResourceCustomPlugin() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"bucket_arn": {
 										Type:schema.TypeString,
-										Required:     true,
-										ForceNew:     true,
+										Required:true,
+										ForceNew:true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"file_key": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 										ForceNew: true,
 									},
 									"object_version": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 										ForceNew: true,
 									},
@@ -92,12 +92,12 @@ func ResourceCustomPlugin() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -110,8 +110,8 @@ func resourceCustomPluginCreate(ctx context.Context, d *schema.ResourceData, met
 	name := d.Get("name").(string)
 	input := &kafkaconnect.CreateCustomPluginInput{
 		ContentType: aws.String(d.Get("content_type").(string)),
-		Location:    expandCustomPluginLocation(d.Get("location").([]interface{})[0].(map[string]interface{})),
-		Name:        aws.String(name),
+		Location:expandCustomPluginLocation(d.Get("location").([]interface{})[0].(map[string]interface{})),
+		Name:   aws.String(name),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

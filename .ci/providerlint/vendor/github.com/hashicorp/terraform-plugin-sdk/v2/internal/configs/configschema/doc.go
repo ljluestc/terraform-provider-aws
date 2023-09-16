@@ -1,7 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-// Package configschema contains types for describing the expected structure
+// SPDX-License-Identifier: MPL-2.0// Package configschema contains types for describing the expected structure
 // of a configuration block whose shape is not known until runtime.
 //
 // For example, this is used to describe the expected contents of a resource

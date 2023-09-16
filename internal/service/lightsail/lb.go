@@ -55,7 +55,7 @@ func ResourceLoadBalancer() *schema.Resource {
 				Default:  "/",
 			},
 			"instance_port": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.IntBetween(0, 65535),
@@ -98,7 +98,6 @@ func ResourceLoadBalancer() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceLoadBalancerCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -129,7 +128,6 @@ func resourceLoadBalancerCreate(ctx context.Context, d *schema.ResourceData, met
 
 	return resourceLoadBalancerRead(ctx, d, meta)
 }
-
 func resourceLoadBalancerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -160,7 +158,6 @@ func resourceLoadBalancerRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	return nil
 }
-
 func resourceLoadBalancerUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	lbName := d.Get("name").(string)
@@ -189,7 +186,6 @@ func resourceLoadBalancerUpdate(ctx context.Context, d *schema.ResourceData, met
 
 	return resourceLoadBalancerRead(ctx, d, meta)
 }
-
 func resourceLoadBalancerDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	lbName := d.Get("name").(string)
@@ -210,7 +206,6 @@ func resourceLoadBalancerDelete(ctx context.Context, d *schema.ResourceData, met
 
 	return nil
 }
-
 func FindLoadBalancerById(ctx context.Context, conn *lightsail.Client, name string) (*types.LoadBalancer, error) {
 	in := &lightsail.GetLoadBalancerInput{LoadBalancerName: aws.String(name)}
 	out, err := conn.GetLoadBalancer(ctx, in)

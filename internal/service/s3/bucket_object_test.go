@@ -36,10 +36,10 @@ import (
 	keyError := regexache.MustCompile(`key must not be empty`)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig:   func() {},
@@ -59,10 +59,10 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {},
@@ -73,11 +73,11 @@ import (
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/test-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/test-key", rName),
 			},
 		},
 	})
@@ -90,10 +90,10 @@ import (
 	defer os.Remove(source)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_source(rName, source),
@@ -103,11 +103,11 @@ import (
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "source", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/test-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/test-key", rName),
 			},
 		},
 	})
@@ -117,10 +117,10 @@ import (
 	funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {},
@@ -131,11 +131,11 @@ import (
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "content", "content_base64", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/test-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/test-key", rName),
 			},
 		},
 	})
@@ -147,10 +147,10 @@ import (
 	defer os.Remove(source)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {},
@@ -162,11 +162,11 @@ import (
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "source", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/test-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/test-key", rName),
 			},
 		},
 	})
@@ -176,10 +176,10 @@ import (
 	resourceName := "aws_s3_bucket_object.object"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {},
@@ -211,10 +211,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {},
@@ -237,11 +237,11 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "content", "content_base64", "force_destroy", "source", "source_hash"},
-				ImportStateId:           fmt.Sprintf("s3://%s/test-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/test-key", rName),
 			},
 		},
 	})
@@ -254,10 +254,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	source := testAccBucketObjectCreateTempFile(t, "{anything will do }")
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_contentCharacteristics(rName, source),
@@ -278,10 +278,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	var originalObj s3.GetObjectOutput
 	resourceName := "aws_s3_bucket_object.object"
 
-	funceCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckAssumeRoleARN(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funceCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckAssumeRoleARN(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_nonVersioned(rName, sourceInitial),
@@ -292,11 +292,11 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "source", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/updateable-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/updateable-key", rName),
 			},
 		},
 	})
@@ -311,10 +311,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	sourceModified := testAccBucketObjectCreateTempFile(t, "modified object")
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_updateable(rName, false, sourceInitial),
@@ -339,11 +339,11 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "source", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/updateable-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/updateable-key", rName),
 			},
 		},
 	})
@@ -367,10 +367,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_updateable(rName, false, filename),
@@ -403,10 +403,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	sourceModified := testAccBucketObjectCreateTempFile(t, "modified versioned object")
 	defer os.Remove(sourceInitial)
 
-	funceCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funceCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_updateable(rName, true, sourceInitial),
@@ -426,11 +426,11 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "source", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/updateable-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/updateable-key", rName),
 			},
 		},
 	})
@@ -446,10 +446,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	sourceModified := testAccBucketObjectCreateTempFile(t, "modified versioned object")
 	defer os.Remove(sourceInitial)
 
-	funceCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funceCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_updateableViaAccessPoint(rName, s3.BucketVersioningStatusEnabled, sourceInitial),
@@ -481,8 +481,8 @@ funcource.ParallelTest(t, resource.TestCase{
 	defer os.Remove(source)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 	funceps: []resource.TestStep{
 			{
@@ -495,11 +495,11 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "source", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/test-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/test-key", rName),
 			},
 		},
 	})
@@ -513,10 +513,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	defer os.Remove(source)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 	func
 				PreConfig: func() {},
 				Config:    testAccBucketObjectConfig_sse(rName, source),
@@ -527,11 +527,11 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "source", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/test-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/test-key", rName),
 			},
 		},
 	})
@@ -542,10 +542,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_acl(rName, "some_bucket_content", s3.BucketCannedACLPrivate, true),
@@ -576,11 +576,11 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "content", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/test-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/test-key", rName),
 			},
 		},
 	})
@@ -591,10 +591,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_s3_bucket_object.object"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_metadata(rName, "key1", "value1", "key2", "value2"),
@@ -621,11 +621,11 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"acl", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/test-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/test-key", rName),
 			},
 		},
 	})
@@ -636,10 +636,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {},
@@ -682,11 +682,11 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"content", "acl", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/test-key", rName),
+				ImportStateId:  fmt.Sprintf("s3://%s/test-key", rName),
 			},
 		},
 	})
@@ -698,10 +698,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	key := "test-key"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {},
@@ -752,11 +752,11 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"content", "acl", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/%s", rName, key),
+				ImportStateId:  fmt.Sprintf("s3://%s/%s", rName, key),
 			},
 		},
 	})
@@ -768,10 +768,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	key := "/test-key"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {},
@@ -822,11 +822,11 @@ funcource.ParallelTest(t, resource.TestCase{
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"content", "acl", "force_destroy"},
-				ImportStateId:           fmt.Sprintf("s3://%s/%s", rName, key),
+				ImportStateId:  fmt.Sprintf("s3://%s/%s", rName, key),
 			},
 		},
 	})
@@ -838,10 +838,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	key := "/////test-key"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {},
@@ -901,10 +901,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	key := "first//second///third//"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {},
@@ -963,10 +963,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_noLockLegalHold(rName, "stuff"),
@@ -1009,10 +1009,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_lockLegalHold(rName, "stuff", "ON"),
@@ -1044,10 +1044,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	retainUntilDate := time.Now().UTC().AddDate(0, 0, 10).Format(time.RFC3339)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_noLockRetention(rName, "stuff"),
@@ -1093,10 +1093,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	retainUntilDate3 := time.Now().UTC().AddDate(0, 0, 10).Format(time.RFC3339)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_lockRetention(rName, "stuff", retainUntilDate1),
@@ -1149,10 +1149,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_objectKeyEnabled(rName, "stuff"),
@@ -1170,10 +1170,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_s3_bucket_object.object"
 	func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_bucketKeyEnabled(rName, "stuff"),
@@ -1191,10 +1191,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_s3_bucket_object.object"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBucketObjectConfig_defaultSSE(rName, "stuff"),
@@ -1212,10 +1212,10 @@ funcource.ParallelTest(t, resource.TestCase{
 	resourceName := "aws_s3_bucket_object.object"
 	key := "test-key"
 
-	funceCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3.EndpointsID),
+	funceCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBucketObjectDestroy(ctx),
+		CheckDestroy:    testAccCheckBucketObjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				PreConfig: func() {},
@@ -1497,7 +1497,7 @@ resource "aws_s3_bucket" "test" {
 }
 funcurce "aws_s3_bucket_object" "object" {
   bucket       = aws_s3_bucket.test.bucket
-  key          = "test-key"
+  key = "test-key"
   source       = %[2]q
   content_type = "binary/octet-stream"
 }
@@ -1509,9 +1509,9 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_s3_bucket_object" "object" {
-  bucket           = aws_s3_bucket.test.bucket
-  key              = "test-key"
-  source           = %[2]q
+  bucket  = aws_s3_bucket.test.bucket
+  key     = "test-key"
+  source  = %[2]q
  funcntent_type     = "binary/octet-stream"
   website_redirect = "http://google.com"
 }
@@ -1533,11 +1533,11 @@ resource "aws_s3_bucket" "test" {
  func
 
 resource "aws_s3_bucket_object" "object" {
-  bucket                 = aws_s3_bucket.test.bucket
-  key                    = "test-key"
+  bucket        = aws_s3_bucket.test.bucket
+  key  = "test-key"
   server_side_encryption = "AES256"
-  source                 = %[2]q
-  etag                   = filemd5(%[2]q)
+  source        = %[2]q
+  etag = filemd5(%[2]q)
 }
 `, rName, source)
 }func testAccBucketObjectConfig_contentBase64(rName string, contentBase64 string) string {
@@ -1546,8 +1546,8 @@ resource "aws_s3_bucket" "test" {
  func
 
 resource "aws_s3_bucket_object" "object" {
-  bucket         = aws_s3_bucket.test.bucket
-  key            = "test-key"
+  bucket= aws_s3_bucket.test.bucket
+  key   = "test-key"
   content_base64 = %[2]q
 }
 `, rName, contentBase64)
@@ -1558,7 +1558,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_s3_bucket_object" "object" {
- funcy         = "test-key"
+ funcy= "test-key"
   source      = %[2]q
   source_hash = filemd5(%[2]q)
 }
@@ -1632,8 +1632,8 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_s3_bucket_object" "object" {
- funcy                    = "test-key"
-  source                 = %[2]q
+ funcy  = "test-key"
+  source        = %[2]q
   server_side_encryption = "AES256"
 }
 `, rName, source)
@@ -1685,7 +1685,7 @@ resource "aws_s3_bucket" "test" {
 
 resource "aws_s3_bucket_object" "object" {
   bucket        = aws_s3_bucket.test.bucket
-  key           = "test-key"
+  key  = "test-key"
   content       = "some_bucket_content"
   storage_class = %[2]q
 }funcName, storage_class)
@@ -1800,7 +1800,7 @@ resource "aws_s3_bucket_object" "object" {
   # Must have bucket versioning enabled first
   depends_on = [aws_s3_bucket_versioning.test]
 
- funcy           = "test-key"
+ funcy  = "test-key"
   content       = %[2]q
   force_destroy = true
 }
@@ -1823,11 +1823,11 @@ resource "aws_s3_bucket_versioning" "test" {
 resource "aws_s3_bucket_object" "object" {
   # Must have bucket versioning enabled first
  func
-  bucket                        = aws_s3_bucket.test.bucket
-  key                           = "test-key"
-  content                       = %[2]q
+  bucket      = aws_s3_bucket.test.bucket
+  key= "test-key"
+  content     = %[2]q
   object_lock_legal_hold_status = %[3]q
-  force_destroy                 = true
+  force_destroy        = true
 }
 `, rName, content, legalHoldStatus)
 }func testAccBucketObjectConfig_noLockRetention(rName string, content string) string {
@@ -1849,7 +1849,7 @@ resource "aws_s3_bucket_object" "object" {
   depends_on = [aws_s3_bucket_versioning.test]
 
   bucket        = aws_s3_bucket.test.bucket
-  key           = "test-key"
+  key  = "test-key"
   content       = %[2]q
   force_destroy = true
 }
@@ -1872,11 +1872,11 @@ resource "aws_s3_bucket_object" "object" {
   # Must have bucket versioning enabled first
   depends_on = [aws_s3_bucket_versioning.test]
 
-  bucket                        = aws_s3_bucket.test.bucket
-  key                           = "test-key"
-  content                       = %[2]q
-  force_destroy                 = true
-  object_lock_mode              = "GOVERNANCE"
+  bucket      = aws_s3_bucket.test.bucket
+  key= "test-key"
+  content     = %[2]q
+  force_destroy        = true
+  object_lock_mode     = "GOVERNANCE"
   object_lock_retain_until_date = %[3]q
 }
 `, rName, content, retainUntilDate)
@@ -1915,7 +1915,7 @@ resource "aws_s3_bucket_object" "object" {
 `, rName, source)
 }func testAccBucketObjectConfig_objectKeyEnabled(rName string, content string) string {
 	funcurce "aws_kms_key" "test" {
-  description             = "Encrypts test objects"
+  description    = "Encrypts test objects"
   deletion_window_in_days = 7
 }
 
@@ -1924,17 +1924,17 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_s3_bucket_object" "object" {
-  bucket             = aws_s3_bucket.test.bucket
-  key                = "test-key"
-  content            = %q
-  kms_key_id         = aws_kms_key.test.arn
+  bucket    = aws_s3_bucket.test.bucket
+  key       = "test-key"
+  content   = %q
+  kms_key_id= aws_kms_key.test.arn
   bucket_key_enabled = true
 }
 `, rName, content)
 }func testAccBucketObjectConfig_bucketKeyEnabled(rName string, content string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = "Encrypts test objects"
+  description    = "Encrypts test objects"
   deletion_window_in_days = 7
 }
 
@@ -1965,7 +1965,7 @@ resource "aws_s3_bucket_object" "object" {
 }func testAccBucketObjectConfig_defaultSSE(rName string, content string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = "Encrypts test objects"
+  description    = "Encrypts test objects"
   deletion_window_in_days = 7
 }
 

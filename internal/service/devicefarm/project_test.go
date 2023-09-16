@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package devicefarm_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package devicefarm_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/devicefarm"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -19,21 +13,20 @@ import (
 	tfdevicefarm "github.com/hashicorp/terraform-provider-aws/internal/service/devicefarm"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func := acctest.Context(t)
 	var proj devicefarm.Project
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix("tf-acc-test-updated")
-	resourceName := "aws_devicefarm_project.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.Pfunccctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
+	resourceName := "aws_devicefarm_project.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() {
+			acctest.P
+funccctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -47,8 +40,8 @@ func := acctest.Context(t)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -62,20 +55,19 @@ func := acctest.Context(t)
 		},
 	})
 }
-
 func TestAccDeviceFarmProject_timeout(t *testing.T) {
 	ctx := acctest.Context(t)
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_devicefarm_project.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+	resourceName := "aws_devicefarm_project.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
-			// Currenfunc/ https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
+			// Curren
+func/ https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -88,8 +80,8 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -103,20 +95,21 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 		},
 	})
 }
-
 func TestAccDeviceFarmProject_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var proj devicefarm.Project
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
-			acctest.Pfunc
-		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
+			acctest.P
+func
+		ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -129,8 +122,8 @@ func
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -153,21 +146,21 @@ func
 		},
 	})
 }
-
 func TestAccDeviceFarmProject_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var proj devicefarm.Project
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_devicefarm_project.test"
-
-funceCheck: func() {
+funceCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheckfuncotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		ErrorCheck
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckProjectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
@@ -182,15 +175,13 @@ funceCheck: func() {
 		},
 	})
 }
-
 func testAccCheckProjectExists(ctx context.Context, n string, v *devicefarm.Project) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 func
 funcnn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
 		resp, err := tfdevicefarm.FindProjectByARN(ctx, conn, rs.Primary.ID)
@@ -199,73 +190,54 @@ funcnn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
 		}
 		if resp == nil {
 			return fmt.Errorf("DeviceFarm Project not found")
-		}
-
-		*v = *resp
-
-		return nil
+		}		*v = *resp		return nil
 	}
 }
-
 func testAccCheckProjectDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_devicefarm_project" {
 				continue
-			}
-
-			// Try to find the resource
+			}			// Try to find the resource
 funcf tfresource.NotFound(err) {
-				contfunc
-
-			if err != nil {
+				cont
+func			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("DeviceFarm Project %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("DeviceFarm Project %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
-
 func testAccProjectConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_devicefarm_project" "test" {
-  name = %[1]q
+name = %[1]q
 }
 `, rName)
 }
-
 func testAccProjectConfig_defaultJobTimeout(rName string, timeout int) string {
 	return fmt.Sprintf(`
 resource "aws_devicefarm_project" "test" {
-  name         = %[1]q
+name= %[1]q
 func
 `, rName, timeout)
 }
-
 func testAccProjectConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_devicefarm_project" "test" {
-  name = %[1]q
+name = %[1]q
 funcgs = {
-    %[2]q = %[3]q
-  }
+ %[2]q = %[3]q
+}
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccProjectConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
-funcme = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+funcme = %[1]qtags = {
+ %[2]q = %[3]q
+ %[4]q = %[5]q
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

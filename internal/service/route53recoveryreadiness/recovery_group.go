@@ -64,7 +64,6 @@ func ResourceRecoveryGroup() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceRecoveryGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -89,7 +88,6 @@ func resourceRecoveryGroupCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return append(diags, resourceRecoveryGroupRead(ctx, d, meta)...)
 }
-
 func resourceRecoveryGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -115,7 +113,6 @@ func resourceRecoveryGroupRead(ctx context.Context, d *schema.ResourceData, meta
 
 	return diags
 }
-
 func resourceRecoveryGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -135,7 +132,6 @@ func resourceRecoveryGroupUpdate(ctx context.Context, d *schema.ResourceData, me
 
 	return append(diags, resourceRecoveryGroupRead(ctx, d, meta)...)
 }
-
 func resourceRecoveryGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)

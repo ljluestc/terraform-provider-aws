@@ -15,13 +15,16 @@ import (
 
 type servicePackage struct{}
 
+
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{}
 }
 
+
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{}
 }
+
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
@@ -67,6 +70,7 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 		},
 	}
 }
+
 
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
@@ -117,16 +121,19 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 	}
 }
 
+
 func (p *servicePackage) ServicePackageName() string {
 	return names.Organizations
 }
 
 // NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
+
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*organizations_sdkv1.Organizations, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return organizations_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
+
 
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}

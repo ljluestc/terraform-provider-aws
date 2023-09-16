@@ -66,7 +66,7 @@ func (r *resourceControl) Schema(ctx context.Context, req resource.SchemaRequest
 			"name": schema.StringAttribute{
 				Required: true,
 			},
-			names.AttrTags:    tftags.TagsAttribute(),
+			names.AttrTags:tftags.TagsAttribute(),
 			names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
 			"testing_information": schema.StringAttribute{
 				Optional: true,
@@ -150,9 +150,9 @@ func (r *resourceControl) Create(ctx context.Context, req resource.CreateRequest
 	}
 
 	in := auditmanager.CreateControlInput{
-		Name:     aws.String(plan.Name.ValueString()),
+		Name:aws.String(plan.Name.ValueString()),
 		ControlMappingSources: cmsInput,
-		Tags:     getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 	if !plan.ActionPlanInstructions.IsNull() {
 		in.ActionPlanInstructions = aws.String(plan.ActionPlanInstructions.ValueString())
@@ -248,7 +248,7 @@ func (r *resourceControl) Update(ctx context.Context, req resource.UpdateRequest
 
 		in := &auditmanager.UpdateControlInput{
 			ControlId:aws.String(plan.ID.ValueString()),
-			Name:     aws.String(plan.Name.ValueString()),
+			Name:aws.String(plan.Name.ValueString()),
 			ControlMappingSources: cmsInput,
 		}
 		if !plan.ActionPlanInstructions.IsNull() {
@@ -368,49 +368,49 @@ func FindControlByID(ctx context.Context, conn *auditmanager.Client, id string) 
 var (
 	controlMappingSourceAttrTypes = map[string]attr.Type{
 		"source_description":   types.StringType,
-		"source_frequency":     types.StringType,
-		"source_id":            types.StringType,
-		"source_keyword":       types.ListType{ElemType: types.ObjectType{AttrTypes: sourceKeywordAttrTypes}},
-		"source_name":          types.StringType,
+		"source_frequency":types.StringType,
+		"source_id":  types.StringType,
+		"source_keyword":  types.ListType{ElemType: types.ObjectType{AttrTypes: sourceKeywordAttrTypes}},
+		"source_name":types.StringType,
 		"source_set_up_option": types.StringType,
-		"source_type":          types.StringType,
+		"source_type":types.StringType,
 		"troubleshooting_text": types.StringType,
 	}
 
 	sourceKeywordAttrTypes = map[string]attr.Type{
 		"keyword_input_type": types.StringType,
-		"keyword_value":      types.StringType,
+		"keyword_value": types.StringType,
 	}
 )
 
 type resourceControlData struct {
 	ActionPlanInstructions types.String `tfsdk:"action_plan_instructions"`
-	ActionPlanTitle        types.String `tfsdk:"action_plan_title"`
-	ARN       types.String `tfsdk:"arn"`
-	ControlMappingSources  types.Set    `tfsdk:"control_mapping_sources"`
-	Description            types.String `tfsdk:"description"`
-	ID        types.String `tfsdk:"id"`
-	Name      types.String `tfsdk:"name"`
-	Tags      types.Map    `tfsdk:"tags"`
-	TagsAll   types.Map    `tfsdk:"tags_all"`
-	TestingInformation     types.String `tfsdk:"testing_information"`
-	Type      types.String `tfsdk:"type"`
+	ActionPlanTitle   types.String `tfsdk:"action_plan_title"`
+	ARN  types.String `tfsdk:"arn"`
+	ControlMappingSources  types.Set`tfsdk:"control_mapping_sources"`
+	Description  types.String `tfsdk:"description"`
+	ID   types.String `tfsdk:"id"`
+	Name types.String `tfsdk:"name"`
+	Tags types.Map`tfsdk:"tags"`
+	TagsAll   types.Map`tfsdk:"tags_all"`
+	TestingInformationtypes.String `tfsdk:"testing_information"`
+	Type types.String `tfsdk:"type"`
 }
 
 type controlMappingSourcesData struct {
 	SourceDescription   types.String `tfsdk:"source_description"`
-	SourceFrequency     types.String `tfsdk:"source_frequency"`
-	SourceID            types.String `tfsdk:"source_id"`
-	SourceKeyword       types.List   `tfsdk:"source_keyword"`
-	SourceName          types.String `tfsdk:"source_name"`
+	SourceFrequencytypes.String `tfsdk:"source_frequency"`
+	SourceID  types.String `tfsdk:"source_id"`
+	SourceKeyword  types.List   `tfsdk:"source_keyword"`
+	SourceNametypes.String `tfsdk:"source_name"`
 	SourceSetUpOption   types.String `tfsdk:"source_set_up_option"`
-	SourceType          types.String `tfsdk:"source_type"`
+	SourceTypetypes.String `tfsdk:"source_type"`
 	TroubleshootingText types.String `tfsdk:"troubleshooting_text"`
 }
 
 type sourceKeywordData struct {
 	KeywordInputType types.String `tfsdk:"keyword_input_type"`
-	KeywordValue     types.String `tfsdk:"keyword_value"`
+	KeywordValuetypes.String `tfsdk:"keyword_value"`
 }
 
 // refreshFromOutput writes state data from an AWS response object
@@ -445,9 +445,9 @@ func expandControlMappingSourcesCreate(ctx context.Context, tfList []controlMapp
 
 	for _, item := range tfList {
 		new := awstypes.CreateControlMappingSource{
-			SourceName:        aws.String(item.SourceName.ValueString()),
+			SourceName:   aws.String(item.SourceName.ValueString()),
 			SourceSetUpOption: awstypes.SourceSetUpOption(item.SourceSetUpOption.ValueString()),
-			SourceType:        awstypes.SourceType(item.SourceType.ValueString()),
+			SourceType:   awstypes.SourceType(item.SourceType.ValueString()),
 		}
 
 		if !item.SourceDescription.IsNull() {
@@ -475,10 +475,10 @@ func expandControlMappingSourcesUpdate(ctx context.Context, tfList []controlMapp
 
 	for _, item := range tfList {
 		new := awstypes.ControlMappingSource{
-			SourceId:          aws.String(item.SourceID.ValueString()),
-			SourceName:        aws.String(item.SourceName.ValueString()),
+			SourceId:aws.String(item.SourceID.ValueString()),
+			SourceName:   aws.String(item.SourceName.ValueString()),
 			SourceSetUpOption: awstypes.SourceSetUpOption(item.SourceSetUpOption.ValueString()),
-			SourceType:        awstypes.SourceType(item.SourceType.ValueString()),
+			SourceType:   awstypes.SourceType(item.SourceType.ValueString()),
 		}
 
 		if !item.SourceDescription.IsNull() {
@@ -507,7 +507,7 @@ func expandSourceKeyword(tfList []sourceKeywordData) *awstypes.SourceKeyword {
 	sk := tfList[0]
 	return &awstypes.SourceKeyword{
 		KeywordInputType: awstypes.KeywordInputType(sk.KeywordInputType.ValueString()),
-		KeywordValue:     aws.String(sk.KeywordValue.ValueString()),
+		KeywordValue:aws.String(sk.KeywordValue.ValueString()),
 	}
 }
 
@@ -522,12 +522,12 @@ func flattenControlMappingSources(ctx context.Context, apiObject []awstypes.Cont
 
 		obj := map[string]attr.Value{
 			"source_description":   flex.StringToFramework(ctx, source.SourceDescription),
-			"source_frequency":     flex.StringValueToFramework(ctx, source.SourceFrequency),
-			"source_id":            types.StringValue(aws.ToString(source.SourceId)),
-			"source_keyword":       sk,
-			"source_name":          types.StringValue(aws.ToString(source.SourceName)),
+			"source_frequency":flex.StringValueToFramework(ctx, source.SourceFrequency),
+			"source_id":  types.StringValue(aws.ToString(source.SourceId)),
+			"source_keyword":  sk,
+			"source_name":types.StringValue(aws.ToString(source.SourceName)),
 			"source_set_up_option": types.StringValue(string(source.SourceSetUpOption)),
-			"source_type":          types.StringValue(string(source.SourceType)),
+			"source_type":types.StringValue(string(source.SourceType)),
 			"troubleshooting_text": flex.StringToFramework(ctx, source.TroubleshootingText),
 		}
 		objVal, d := types.ObjectValue(controlMappingSourceAttrTypes, obj)
@@ -551,7 +551,7 @@ func flattenSourceKeyword(ctx context.Context, apiObject *awstypes.SourceKeyword
 
 	obj := map[string]attr.Value{
 		"keyword_input_type": flex.StringValueToFramework(ctx, apiObject.KeywordInputType),
-		"keyword_value":      types.StringValue(aws.ToString(apiObject.KeywordValue)),
+		"keyword_value": types.StringValue(aws.ToString(apiObject.KeywordValue)),
 	}
 	objVal, d := types.ObjectValue(sourceKeywordAttrTypes, obj)
 	diags.Append(d...)

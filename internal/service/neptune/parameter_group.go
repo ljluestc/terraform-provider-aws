@@ -103,7 +103,7 @@ func resourceParameterGroupCreate(ctx context.Context, d *schema.ResourceData, m
 	createOpts := neptune.CreateDBParameterGroupInput{
 		DBParameterGroupName:   aws.String(d.Get("name").(string)),
 		DBParameterGroupFamily: aws.String(d.Get("family").(string)),
-		Description:            aws.String(d.Get("description").(string)),
+		Description:   aws.String(d.Get("description").(string)),
 		Tags:      getTagsIn(ctx),
 	}
 
@@ -209,7 +209,7 @@ func resourceParameterGroupUpdate(ctx context.Context, d *schema.ResourceData, m
 			}
 			resetOpts := neptune.ResetDBParameterGroupInput{
 				DBParameterGroupName: aws.String(d.Get("name").(string)),
-				Parameters:           paramsToModify,
+				Parameters:  paramsToModify,
 			}
 
 			log.Printf("[DEBUG] Reset Neptune Parameter Group: %s", resetOpts)
@@ -240,7 +240,7 @@ func resourceParameterGroupUpdate(ctx context.Context, d *schema.ResourceData, m
 			}
 			modifyOpts := neptune.ModifyDBParameterGroupInput{
 				DBParameterGroupName: aws.String(d.Get("name").(string)),
-				Parameters:           paramsToModify,
+				Parameters:  paramsToModify,
 			}
 
 			log.Printf("[DEBUG] Modify Neptune Parameter Group: %s", modifyOpts)

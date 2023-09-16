@@ -40,53 +40,53 @@ func ResourceScript() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"storage_location": {
-				Type:         schema.TypeList,
-				Optional:     true,
-				ForceNew:     true,
-				Computed:     true,
-				MaxItems:     1,
+				Type:schema.TypeList,
+				Optional: true,
+				ForceNew: true,
+				Computed: true,
+				MaxItems: 1,
 				ExactlyOneOf: []string{"zip_file", "storage_location"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"bucket": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"key": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"object_version": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"version": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"zip_file": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ExactlyOneOf: []string{"zip_file", "storage_location"},
 			},
 		},
@@ -186,7 +186,7 @@ func resourceScriptUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 		log.Printf("[INFO] Updating GameLift Script: %s", d.Id())
 		input := gamelift.UpdateScriptInput{
 			ScriptId: aws.String(d.Id()),
-			Name:     aws.String(d.Get("name").(string)),
+			Name: aws.String(d.Get("name").(string)),
 		}
 
 		if d.HasChange("version") {
@@ -248,9 +248,9 @@ func flattenStorageLocation(sl *gamelift.S3Location) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"bucket":         aws.StringValue(sl.Bucket),
-		"key":            aws.StringValue(sl.Key),
-		"role_arn":       aws.StringValue(sl.RoleArn),
+		"bucket":aws.StringValue(sl.Bucket),
+		"key":   aws.StringValue(sl.Key),
+		"role_arn":   aws.StringValue(sl.RoleArn),
 		"object_version": aws.StringValue(sl.ObjectVersion),
 	}
 

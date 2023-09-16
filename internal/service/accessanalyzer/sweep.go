@@ -20,7 +20,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_accessanalyzer_analyzer", &resource.Sweeper{
 		Name: "aws_accessanalyzer_analyzer",
-		F:    sweepAnalyzers,
+		F:sweepAnalyzers,
 	})
 }
 

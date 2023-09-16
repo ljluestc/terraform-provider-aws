@@ -20,7 +20,7 @@ import (
 func ResourceInvitationAccepter() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceInvitationAccepterCreate,
-		ReadWithoutTimeout:   resourceInvitationAccepterRead,
+		ReadWithoutTimeout:resourceInvitationAccepterRead,
 		DeleteWithoutTimeout: resourceInvitationAccepterDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -28,14 +28,13 @@ func ResourceInvitationAccepter() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"graph_arn": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 		},
 	}
 }
-
 func resourceInvitationAccepterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DetectiveConn(ctx)
 
@@ -55,7 +54,6 @@ func resourceInvitationAccepterCreate(ctx context.Context, d *schema.ResourceDat
 
 	return resourceInvitationAccepterRead(ctx, d, meta)
 }
-
 func resourceInvitationAccepterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DetectiveConn(ctx)
 
@@ -74,7 +72,6 @@ func resourceInvitationAccepterRead(ctx context.Context, d *schema.ResourceData,
 	d.Set("graph_arn", graphArn)
 	return nil
 }
-
 func resourceInvitationAccepterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DetectiveConn(ctx)
 

@@ -21,7 +21,7 @@ func TestAccNetworkFirewallFirewallPolicyDataSource_arn(t *testing.T) {
 	datasourceName := "data.aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -52,7 +52,7 @@ func TestAccNetworkFirewallFirewallPolicyDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -83,7 +83,7 @@ func TestAccNetworkFirewallFirewallPolicyDataSource_nameAndARN(t *testing.T) {
 	datasourceName := "data.aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -114,7 +114,7 @@ func TestAccNetworkFirewallFirewallPolicyDataSource_withOverriddenManagedRuleGro
 	datasourceName := "data.aws_networkfirewall_firewall_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -144,8 +144,8 @@ func testAccFirewallPolicyDataSourceConfig_basic(rName string) string {
 resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 }
 `, rName)
@@ -188,17 +188,17 @@ resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
 
   firewall_policy {
-    stateless_default_actions          = ["aws:forward_to_sfe"]
-    stateless_fragment_default_actions = ["aws:forward_to_sfe"]
+stateless_default_actions= ["aws:forward_to_sfe"]
+stateless_fragment_default_actions = ["aws:forward_to_sfe"]
 
-    # Managed rule group required for override block.
-    stateful_rule_group_reference {
-      resource_arn = "arn:${data.aws_partition.current.partition}:network-firewall:${data.aws_region.current.name}:aws-managed:stateful-rulegroup/MalwareDomainsActionOrder"
+# Managed rule group required for override block.
+stateful_rule_group_reference {
+ resource_arn = "arn:${data.aws_partition.current.partition}:network-firewall:${data.aws_region.current.name}:aws-managed:stateful-rulegroup/MalwareDomainsActionOrder"
 
-      override {
-        action = "DROP_TO_ALERT"
-      }
-    }
+ override {
+   action = "DROP_TO_ALERT"
+ }
+}
   }
 }
 

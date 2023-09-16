@@ -14,14 +14,14 @@ func TestAccMediaLive_serial(t *testing.T) {
 
 	testCases := map[string]map[string]func(t *testing.T){
 		"Multiplex": {
-			"basic":      testAccMultiplex_basic,
+			"basic":cMultiplex_basic,
 			"disappears": testAccMultiplex_disappears,
 			"update":     testAccMultiplex_update,
 			"updateTags": testAccMultiplex_updateTags,
-			"start":      testAccMultiplex_start,
+			"start":cMultiplex_start,
 		},
 		"MultiplexProgram": {
-			"basic":      testAccMultiplexProgram_basic,
+			"basic":cMultiplexProgram_basic,
 			"update":     testAccMultiplexProgram_update,
 			"disappears": testAccMultiplexProgram_disappears,
 		},

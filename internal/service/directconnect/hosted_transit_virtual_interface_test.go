@@ -18,18 +18,16 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDirectConnectHostedTransitVirtualInterface_serial(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]func(t *testing.T){
-		"basic":        testAccHostedTransitVirtualInterface_basic,
+		"basic":AccHostedTransitVirtualInterface_basic,
 		"accepterTags": testAccHostedTransitVirtualInterface_accepterTags,
 	}
 
 	acctest.RunSerialTests1Level(t, testCases, 0)
 }
-
 func testAccHostedTransitVirtualInterface_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "DX_CONNECTION_ID"
@@ -81,15 +79,14 @@ func testAccHostedTransitVirtualInterface_basic(t *testing.T) {
 			},
 			// Test import.
 			{
-				Config:            testAccHostedTransitVirtualInterfaceConfig_basic(connectionId, rName, amzAsn, bgpAsn, vlan),
-				ResourceName:      resourceName,
-				ImportState:       true,
+				Config:dTransitVirtualInterfaceConfig_basic(connectionId, rName, amzAsn, bgpAsn, vlan),
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccHostedTransitVirtualInterface_accepterTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "DX_CONNECTION_ID"
@@ -171,24 +168,21 @@ func testAccHostedTransitVirtualInterface_accepterTags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckHostedTransitVirtualInterfaceExists(ctx context.Context, name string, vif *directconnect.VirtualInterface) resource.TestCheckFunc {
 	return testAccCheckVirtualInterfaceExists(ctx, name, vif)
 }
-
 func testAccCheckHostedTransitVirtualInterfaceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		return testAccCheckVirtualInterfaceDestroy(ctx, s, "aws_dx_hosted_transit_virtual_interface")
 	}
 }
-
 func testAccHostedTransitVirtualInterfaceConfig_base(cid, rName string, amzAsn, bgpAsn, vlan int) string {
 	return acctest.ConfigAlternateAccountProvider() + fmt.Sprintf(`
 # Creator
 resource "aws_dx_hosted_transit_virtual_interface" "test" {
-  address_family   = "ipv4"
-  bgp_asn          = %[4]d
-  connection_id    = %[1]q
+  address_family= "ipv4"
+  bgp_asn%[4]d
+  connection_id = %[1]q
   name= %[2]q
   owner_account_id = data.aws_caller_identity.accepter.account_id
   vlan= %[5]d
@@ -207,51 +201,48 @@ resource "aws_dx_gateway" "test" {
   provider = "awsalternate"
 
   amazon_side_asn = %[3]d
-  name            = %[2]q
+  name
 }
 `, cid, rName, amzAsn, bgpAsn, vlan)
 }
-
 func testAccHostedTransitVirtualInterfaceConfig_basic(cid, rName string, amzAsn, bgpAsn, vlan int) string {
 	return testAccHostedTransitVirtualInterfaceConfig_base(cid, rName, amzAsn, bgpAsn, vlan) + `
 resource "aws_dx_hosted_transit_virtual_interface_accepter" "test" {
   provider = "awsalternate"
 
-  dx_gateway_id        = aws_dx_gateway.test.id
+  dx_gateway_ids_dx_gateway.test.id
   virtual_interface_id = aws_dx_hosted_transit_virtual_interface.test.id
 }
 `
 }
-
 func testAccHostedTransitVirtualInterfaceConfig_accepterTags(cid, rName string, amzAsn, bgpAsn, vlan int) string {
 	return testAccHostedTransitVirtualInterfaceConfig_base(cid, rName, amzAsn, bgpAsn, vlan) + fmt.Sprintf(`
 resource "aws_dx_hosted_transit_virtual_interface_accepter" "test" {
   provider = "awsalternate"
 
-  dx_gateway_id        = aws_dx_gateway.test.id
+  dx_gateway_ids_dx_gateway.test.id
   virtual_interface_id = aws_dx_hosted_transit_virtual_interface.test.id
 
   tags = {
-    Name = %[1]q
-    Key1 = "Value1"
-    Key2 = "Value2a"
+ Name = %[1]q
+ Key1 = "Value1"
+ Key2 = "Value2a"
   }
 }
 `, rName)
 }
-
 func testAccHostedTransitVirtualInterfaceConfig_accepterTagsUpdated(cid, rName string, amzAsn, bgpAsn, vlan int) string {
 	return testAccHostedTransitVirtualInterfaceConfig_base(cid, rName, amzAsn, bgpAsn, vlan) + fmt.Sprintf(`
 resource "aws_dx_hosted_transit_virtual_interface_accepter" "test" {
   provider = "awsalternate"
 
-  dx_gateway_id        = aws_dx_gateway.test.id
+  dx_gateway_ids_dx_gateway.test.id
   virtual_interface_id = aws_dx_hosted_transit_virtual_interface.test.id
 
   tags = {
-    Name = %[1]q
-    Key2 = "Value2b"
-    Key3 = "Value3"
+ Name = %[1]q
+ Key2 = "Value2b"
+ Key3 = "Value3"
   }
 }
 `, rName)

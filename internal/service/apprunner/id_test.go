@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package apprunner_testimport ("fmt""testing"tfapprunner "github.com/hashicorp/terraform-provider-aws/internal/service/apprunner")funcfunc
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageapprunner_testimport("fmt""testing"tfapprunner"github.com/hashicorp/terraform-provider-aws/internal/service/apprunner")

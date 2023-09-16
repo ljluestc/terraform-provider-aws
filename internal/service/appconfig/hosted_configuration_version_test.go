@@ -26,7 +26,7 @@ func TestAccAppConfigHostedConfigurationVersion_basic(t *testing.T) {
 	resourceName := "aws_appconfig_hosted_configuration_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckHostedConfigurationVersionDestroy(ctx),
@@ -45,8 +45,8 @@ func TestAccAppConfigHostedConfigurationVersion_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -59,7 +59,7 @@ func TestAccAppConfigHostedConfigurationVersion_disappears(t *testing.T) {
 	resourceName := "aws_appconfig_hosted_configuration_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckHostedConfigurationVersionDestroy(ctx),
@@ -92,9 +92,9 @@ func testAccCheckHostedConfigurationVersionDestroy(ctx context.Context) resource
 			}
 
 			input := &appconfig.GetHostedConfigurationVersionInput{
-				ApplicationId:          aws.String(appID),
+				ApplicationId: aws.String(appID),
 				ConfigurationProfileId: aws.String(confProfID),
-				VersionNumber:          aws.Int64(int64(versionNumber)),
+				VersionNumber: aws.Int64(int64(versionNumber)),
 			}
 
 			output, err := conn.GetHostedConfigurationVersionWithContext(ctx, input)
@@ -136,9 +136,9 @@ func testAccCheckHostedConfigurationVersionExists(ctx context.Context, resourceN
 		conn := acctest.Provider.Meta().(*conns.AWSClient).AppConfigConn(ctx)
 
 		output, err := conn.GetHostedConfigurationVersionWithContext(ctx, &appconfig.GetHostedConfigurationVersionInput{
-			ApplicationId:          aws.String(appID),
+			ApplicationId: aws.String(appID),
 			ConfigurationProfileId: aws.String(confProfID),
-			VersionNumber:          aws.Int64(int64(versionNumber)),
+			VersionNumber: aws.Int64(int64(versionNumber)),
 		})
 
 		if err != nil {
@@ -158,12 +158,12 @@ func testAccHostedConfigurationVersionConfig_basic(rName string) string {
 		testAccConfigurationProfileConfig_name(rName),
 		fmt.Sprintf(`
 resource "aws_appconfig_hosted_configuration_version" "test" {
-  application_id           = aws_appconfig_application.test.id
+  application_id  = aws_appconfig_application.test.id
   configuration_profile_id = aws_appconfig_configuration_profile.test.configuration_profile_id
   content_type= "application/json"
 
   content = jsonencode({
-    foo = "bar"
+foo = "bar"
   })
 
   description = %q

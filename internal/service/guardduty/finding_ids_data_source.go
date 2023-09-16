@@ -31,11 +31,9 @@ const (
 type dataSourceFindingIds struct {
 	framework.DataSourceWithConfigure
 }
-
 func (d *dataSourceFindingIds) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) { // nosemgrep:ci.meta-in-func-name
 	resp.TypeName = "aws_guardduty_finding_ids"
 }
-
 func (d *dataSourceFindingIds) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
@@ -46,14 +44,13 @@ func (d *dataSourceFindingIds) Schema(ctx context.Context, req datasource.Schema
 				Computed: true,
 			},
 			"finding_ids": schema.ListAttribute{
-				Computed:    true,
+				Computed: true,
 				ElementType: types.StringType,
 			},
 			"id": framework.IDAttribute(),
 		},
 	}
 }
-
 func (d *dataSourceFindingIds) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
 	conn := d.Meta().GuardDutyConn(ctx)
 
@@ -78,7 +75,6 @@ func (d *dataSourceFindingIds) Read(ctx context.Context, req datasource.ReadRequ
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
 }
-
 func findFindingIds(ctx context.Context, conn *guardduty.GuardDuty, id string) ([]*string, error) {
 	in := &guardduty.ListFindingsInput{
 		DetectorId: aws.String(id),
@@ -92,7 +88,7 @@ func findFindingIds(ctx context.Context, conn *guardduty.GuardDuty, id string) (
 
 	if tfawserr.ErrMessageContains(err, guardduty.ErrCodeBadRequestException, "The request is rejected because the input detectorId is not owned by the current account.") {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: in,
 		}
 	}
@@ -106,7 +102,7 @@ func findFindingIds(ctx context.Context, conn *guardduty.GuardDuty, id string) (
 
 type dataSourceFindingIdsData struct {
 	DetectorID  types.String `tfsdk:"detector_id"`
-	HasFindings types.Bool   `tfsdk:"has_findings"`
-	FindingIDs  types.List   `tfsdk:"finding_ids"`
+	HasFindings types.Bool`tfsdk:"has_findings"`
+	FindingIDs  types.List`tfsdk:"finding_ids"`
 	ID"id"`
 }

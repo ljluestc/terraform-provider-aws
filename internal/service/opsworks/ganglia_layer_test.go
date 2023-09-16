@@ -26,7 +26,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckGangliaLayerDestroy(ctx),
+CheckDestroy:testAccCheckGangliaLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGangliaLayerConfig_basic(rName),

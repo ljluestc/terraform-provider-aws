@@ -323,7 +323,7 @@ func TestAccCodePipeline_MultiRegion_basic(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccCodePipelineConfig_multiregion(name),
+				Config:   testAccCodePipelineConfig_multiregion(name),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -379,7 +379,7 @@ func TestAccCodePipeline_MultiRegion_update(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccCodePipelineConfig_multiregionUpdated(name),
+				Config:   testAccCodePipelineConfig_multiregionUpdated(name),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -445,7 +445,7 @@ func TestAccCodePipeline_MultiRegion_convertSingleRegion(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccCodePipelineConfig_backToBasic(name),
+				Config:   testAccCodePipelineConfig_backToBasic(name),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -833,10 +833,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "AWS"
-      provider         = "CodeStarSourceConnection"
-      version          = "1"
+      category= "Source"
+      owner   = "AWS"
+      provider= "CodeStarSourceConnection"
+      version = "1"
       output_artifacts = ["test"]
 
       configuration = {
@@ -851,12 +851,12 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      name            = "Build"
+      name   = "Build"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "test"
@@ -866,7 +866,7 @@ resource "aws_codepipeline" "test" {
 }
 
 resource "aws_codestarconnections_connection" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_type = "GitHub"
 }
 `, rName))
@@ -897,10 +897,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "AWS"
-      provider         = "CodeStarSourceConnection"
-      version          = "1"
+      category= "Source"
+      owner   = "AWS"
+      provider= "CodeStarSourceConnection"
+      version = "1"
       output_artifacts = ["artifacts"]
 
       configuration = {
@@ -915,12 +915,12 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      name            = "Build"
+      name   = "Build"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["artifacts"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "test"
@@ -930,7 +930,7 @@ resource "aws_codepipeline" "test" {
 }
 
 resource "aws_codestarconnections_connection" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_type = "GitHub"
 }
 `, rName))
@@ -955,10 +955,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "AWS"
-      provider         = "CodeStarSourceConnection"
-      version          = "1"
+      category= "Source"
+      owner   = "AWS"
+      provider= "CodeStarSourceConnection"
+      version = "1"
       output_artifacts = ["test"]
 
       configuration = {
@@ -974,12 +974,12 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Build"
-      category         = "Build"
-      owner            = "AWS"
-      provider         = "CodeBuild"
+      category= "Build"
+      owner   = "AWS"
+      provider= "CodeBuild"
       input_artifacts  = ["test", ""]
       output_artifacts = [""]
-      version          = "1"
+      version = "1"
 
       configuration = {
         ProjectName = "test"
@@ -989,7 +989,7 @@ resource "aws_codepipeline" "test" {
 }
 
 resource "aws_codestarconnections_connection" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_type = "GitHub"
 }
 `, rName))
@@ -1071,10 +1071,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "AWS"
-      provider         = "CodeStarSourceConnection"
-      version          = "1"
+      category= "Source"
+      owner   = "AWS"
+      provider= "CodeStarSourceConnection"
+      version = "1"
       output_artifacts = ["artifacts"]
 
       configuration = {
@@ -1090,12 +1090,12 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Build"
-      category         = "Build"
-      owner            = "AWS"
-      provider         = "CodeBuild"
+      category= "Build"
+      owner   = "AWS"
+      provider= "CodeBuild"
       input_artifacts  = ["artifacts"]
       output_artifacts = ["artifacts2"]
-      version          = "1"
+      version = "1"
 
       configuration = {
         ProjectName = "test"
@@ -1107,13 +1107,13 @@ resource "aws_codepipeline" "test" {
     name = "Deploy"
 
     action {
-      name            = "CreateChangeSet"
+      name   = "CreateChangeSet"
       category        = "Deploy"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CloudFormation"
       input_artifacts = ["artifacts2"]
       role_arn        = aws_iam_role.codepipeline_action_role.arn
-      version         = "1"
+      version= "1"
 
       configuration = {
         ActionMode    = "CHANGE_SET_REPLACE"
@@ -1126,7 +1126,7 @@ resource "aws_codepipeline" "test" {
 }
 
 resource "aws_codestarconnections_connection" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_type = "GitHub"
 }
 `, rName))
@@ -1156,10 +1156,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "AWS"
-      provider         = "CodeStarSourceConnection"
-      version          = "1"
+      category= "Source"
+      owner   = "AWS"
+      provider= "CodeStarSourceConnection"
+      version = "1"
       output_artifacts = ["test"]
 
       configuration = {
@@ -1174,12 +1174,12 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      name            = "Build"
+      name   = "Build"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "test"
@@ -1195,7 +1195,7 @@ resource "aws_codepipeline" "test" {
 }
 
 resource "aws_codestarconnections_connection" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_type = "GitHub"
 }
 `, rName, tag1, tag2))
@@ -1241,10 +1241,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "AWS"
-      provider         = "CodeStarSourceConnection"
-      version          = "1"
+      category= "Source"
+      owner   = "AWS"
+      provider= "CodeStarSourceConnection"
+      version = "1"
       output_artifacts = ["test"]
 
       configuration = {
@@ -1259,13 +1259,13 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      region          = "%[2]s"
-      name            = "Build"
+      region = "%[2]s"
+      name   = "Build"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "Test"
@@ -1273,13 +1273,13 @@ resource "aws_codepipeline" "test" {
     }
 
     action {
-      region          = "%[3]s"
-      name            = "%[3]s-Build"
+      region = "%[3]s"
+      name   = "%[3]s-Build"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "%[3]s-Test"
@@ -1289,7 +1289,7 @@ resource "aws_codepipeline" "test" {
 }
 
 resource "aws_codestarconnections_connection" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_type = "GitHub"
 }
 `, rName, acctest.Region(), acctest.AlternateRegion()))
@@ -1335,10 +1335,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "AWS"
-      provider         = "CodeStarSourceConnection"
-      version          = "1"
+      category= "Source"
+      owner   = "AWS"
+      provider= "CodeStarSourceConnection"
+      version = "1"
       output_artifacts = ["test"]
 
       configuration = {
@@ -1353,13 +1353,13 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      region          = "%[2]s"
-      name            = "BuildUpdated"
+      region = "%[2]s"
+      name   = "BuildUpdated"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "Test"
@@ -1367,13 +1367,13 @@ resource "aws_codepipeline" "test" {
     }
 
     action {
-      region          = "%[3]s"
-      name            = "%[3]s-BuildUpdated"
+      region = "%[3]s"
+      name   = "%[3]s-BuildUpdated"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "%[3]s-Test"
@@ -1383,7 +1383,7 @@ resource "aws_codepipeline" "test" {
 }
 
 resource "aws_codestarconnections_connection" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_type = "GitHub"
 }
 `, rName, acctest.Region(), acctest.AlternateRegion()))
@@ -1441,10 +1441,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "AWS"
-      provider         = "CodeStarSourceConnection"
-      version          = "1"
+      category= "Source"
+      owner   = "AWS"
+      provider= "CodeStarSourceConnection"
+      version = "1"
       output_artifacts = ["test"]
       namespace        = "SourceVariables"
 
@@ -1460,12 +1460,12 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      name            = "Build"
+      name   = "Build"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "test"
@@ -1475,7 +1475,7 @@ resource "aws_codepipeline" "test" {
 }
 
 resource "aws_codestarconnections_connection" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_type = "GitHub"
 }
 
@@ -1509,10 +1509,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
-      version          = "1"
+      category= "Source"
+      owner   = "ThirdParty"
+      provider= "GitHub"
+      version = "1"
       output_artifacts = ["test"]
 
       configuration = {
@@ -1528,12 +1528,12 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      name            = "Build"
+      name   = "Build"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "test"
@@ -1568,10 +1568,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
-      version          = "1"
+      category= "Source"
+      owner   = "ThirdParty"
+      provider= "GitHub"
+      version = "1"
       output_artifacts = ["artifacts"]
 
       configuration = {
@@ -1587,12 +1587,12 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      name            = "Build"
+      name   = "Build"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["artifacts"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "test"
@@ -1627,10 +1627,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "AWS"
-      provider         = "ECR"
-      version          = "1"
+      category= "Source"
+      owner   = "AWS"
+      provider= "ECR"
+      version = "1"
       output_artifacts = ["test"]
 
       configuration = {
@@ -1644,12 +1644,12 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      name            = "Build"
+      name   = "Build"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "test"

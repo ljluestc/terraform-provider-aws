@@ -55,7 +55,7 @@ func ResourceEnabler() *schema.Resource {
 				MinItems: 1,
 				Required: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidAccountID,
 				},
 			},
@@ -64,7 +64,7 @@ func ResourceEnabler() *schema.Resource {
 				MinItems: 1,
 				Required: true,
 				Elem: &schema.Schema{
-					Type:             schema.TypeString,
+					Type:    schema.TypeString,
 					ValidateDiagFunc: enum.Validate[types.ResourceScanType](),
 				},
 			},
@@ -504,7 +504,7 @@ func statusEnablerAccount(ctx context.Context, conn *inspector2.Client, accountI
 }
 
 type AccountResourceStatus struct {
-	Status           types.Status
+	Status  types.Status
 	ResourceStatuses map[types.ResourceScanType]types.Status
 }
 
@@ -529,7 +529,7 @@ func AccountStatuses(ctx context.Context, conn *inspector2.Client, accountIDs []
 			continue
 		}
 		status := AccountResourceStatus{
-			Status:           a.State.Status,
+			Status:  a.State.Status,
 			ResourceStatuses: make(map[types.ResourceScanType]types.Status, len(enum.Values[types.ResourceScanType]())),
 		}
 		var m map[string]*types.State

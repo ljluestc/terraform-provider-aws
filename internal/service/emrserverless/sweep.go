@@ -20,7 +20,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_emrserverless_application", &resource.Sweeper{
 		Name: "aws_emrserverless_application",
-		F:    sweepApplications,
+		F:sweepApplications,
 	})
 }
 

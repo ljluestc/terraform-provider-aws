@@ -53,10 +53,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 		},
@@ -131,10 +131,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName + "-0",
+				ImportStateVerify: true,
+				ImportStateId:     rName + "-0",
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 		},
@@ -154,7 +154,7 @@ func() { acctest.PreCheck(ctx, t) },
 		CheckDestroy:testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccStreamConfig_encryptionAndNoKMSKey(rName),
+				Config:testAccStreamConfig_encryptionAndNoKMSKey(rName),
 				ExpectError: regexache.MustCompile("KMS Key Id required when setting encryption_type is not set as NONE"),
 			},
 		},
@@ -184,10 +184,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 			{
@@ -247,10 +247,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 			{
@@ -289,10 +289,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 			{
@@ -340,10 +340,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 			{
@@ -397,10 +397,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 		},
@@ -431,10 +431,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 			{
@@ -518,10 +518,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 		},
@@ -552,10 +552,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 			{
@@ -568,10 +568,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 			{
@@ -584,10 +584,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 			{
@@ -600,10 +600,10 @@ func(
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
-				ImportStateId:           rName,
+				ImportStateVerify: true,
+				ImportStateId:     rName,
 				ImportStateVerifyIgnore: []string{"enforce_consumer_deletion"},
 			},
 		},
@@ -626,12 +626,12 @@ func() { acctest.PreCheck(ctx, t) },
 		Steps: []resource.TestStep{
 			// Check that we can't create an invalid combination
 			{
-				Config:      testAccStreamConfig_failOnBadCountAndModeCombinationNothingSet(rName),
+				Config:testAccStreamConfig_failOnBadCountAndModeCombinationNothingSet(rName),
 				ExpectError: regexache.MustCompile(`shard_count must be at least 1 when stream_mode is PROVISIONED`),
 			},
 			// Check that we can't create an invalid combination
 			{
-				Config:      testAccStreamConfig_failOnBadCountAndModeCombinationShardCountWhenOnDemand(rName),
+				Config:testAccStreamConfig_failOnBadCountAndModeCombinationShardCountWhenOnDemand(rName),
 				ExpectError: regexache.MustCompile(`shard_count must not be set when stream_mode is ON_DEMAND`),
 			},
 			// Prepare for updates...
@@ -646,12 +646,12 @@ func(
 			},
 			// Check that we can't update to an invalid combination
 			{
-				Config:      testAccStreamConfig_failOnBadCountAndModeCombinationNothingSet(rName),
+				Config:testAccStreamConfig_failOnBadCountAndModeCombinationNothingSet(rName),
 				ExpectError: regexache.MustCompile(`shard_count must be at least 1 when stream_mode is PROVISIONED`),
 			},
 			// Check that we can't update to an invalid combination
 			{
-				Config:      testAccStreamConfig_failOnBadCountAndModeCombinationShardCountWhenOnDemand(rName),
+				Config:testAccStreamConfig_failOnBadCountAndModeCombinationShardCountWhenOnDemand(rName),
 				ExpectError: regexache.MustCompile(`shard_count must not be set when stream_mode is ON_DEMAND`),
 			},
 		},
@@ -737,7 +737,7 @@ func(s *terraform.State) error {
 func testAccStreamConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+  name  = %[1]q
   shard_count = 2
 }
 `, rName)
@@ -747,8 +747,8 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_concurrent(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  count       = 20
-  name        = "%[1]s-${count.index}"
+  count = 20
+  name  = "%[1]s-${count.index}"
   shard_count = 2
 }
 `, rName)
@@ -758,7 +758,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_encryptionAndNoKMSKey(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name            = %[1]q
+  name= %[1]q
   shard_count     = 2
   encryption_type = "KMS"
 }
@@ -769,10 +769,10 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_encryption(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name            = %[1]q
+  name= %[1]q
   shard_count     = 2
   encryption_type = "KMS"
-  kms_key_id      = aws_kms_key.test.id
+  kms_key_id= aws_kms_key.test.id
 }
 
 resource "aws_kms_key" "test" {
@@ -785,13 +785,13 @@ resource "aws_kms_key" "test" {
   "Id": "kms-tf-1",
   "Statement": [
     {
-      "Sid": "Enable IAM User Permissions",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": "kms:*",
-      "Resource": "*"
+"Sid": "Enable IAM User Permissions",
+"Effect": "Allow",
+"Principal": {
+  "AWS": "*"
+},
+"Action": "kms:*",
+"Resource": "*"
     }
   ]
 }
@@ -804,7 +804,7 @@ POLICY
 func testAccStreamConfig_shardCount(rName string, shardCount int) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+  name  = %[1]q
   shard_count = %[2]d
 }
 `, rName, shardCount)
@@ -815,7 +815,7 @@ func testAccStreamConfig_updateRetentionPeriod(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
   name= %[1]q
-  shard_count      = 2
+  shard_count= 2
   retention_period = 8760
 }
 `, rName)
@@ -826,7 +826,7 @@ func testAccStreamConfig_decreaseRetentionPeriod(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
   name= %[1]q
-  shard_count      = 2
+  shard_count= 2
   retention_period = 28
 }
 `, rName)
@@ -836,7 +836,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_allShardLevelMetrics(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+  name  = %[1]q
   shard_count = 2
 
   shard_level_metrics = [
@@ -856,7 +856,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_singleShardLevelMetric(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+  name  = %[1]q
   shard_count = 2
 
   shard_level_metrics = [
@@ -870,7 +870,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+  name  = %[1]q
   shard_count = 2
 
   tags = {
@@ -884,7 +884,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+  name  = %[1]q
   shard_count = 2
 
   tags = {
@@ -899,7 +899,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_enforceConsumerDeletion(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name         = %[1]q
+  name   = %[1]q
   shard_count  = 2
   enforce_consumer_deletion = true
 }
@@ -917,10 +917,10 @@ resource "aws_kms_key" "key" {
 }
 
 resource "aws_kinesis_stream" "test" {
-  name            = %[1]q
+  name= %[1]q
   shard_count     = 1
   encryption_type = "KMS"
-  kms_key_id      = aws_kms_key.key[%[2]d].id
+  kms_key_id= aws_kms_key.key[%[2]d].id
 }
 `, rName, keyIdx)
 }
@@ -942,7 +942,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_changeProvisionedToOnDemand1(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+  name  = %[1]q
   shard_count = 1
 }
 `, rName)
@@ -965,7 +965,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_changeProvisionedToOnDemand3(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+  name  = %[1]q
   shard_count = 2
 
   stream_mode_details {
@@ -988,7 +988,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_failOnBadCountAndModeCombinationShardCountWhenOnDemand(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+  name  = %[1]q
   shard_count = 1
 
   stream_mode_details {
@@ -1002,7 +1002,7 @@ resource "aws_kinesis_stream" "test" {
 func testAccStreamConfig_failOnBadCountAndModeCombination(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %[1]q
+  name  = %[1]q
   shard_count = 1
 }
 `, rName)

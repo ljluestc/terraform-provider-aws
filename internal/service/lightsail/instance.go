@@ -47,17 +47,17 @@ func ResourceInstance() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(flattenAddOnTypeValues(types.AddOnType("").Values()), false),
 						},
 						"snapshot_time": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringMatch(regexache.MustCompile(`^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$`), "must be in HH:00 format, and in Coordinated Universal Time (UTC)."),
 						},
 						"status": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice([]string{"Enabled", "Disabled"}, false),
 						},
@@ -170,7 +170,6 @@ func ResourceInstance() *schema.Resource {
 		),
 	}
 }
-
 func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -179,7 +178,7 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 	in := lightsail.CreateInstancesInput{
 		AvailabilityZone: aws.String(d.Get("availability_zone").(string)),
 		BlueprintId:      aws.String(d.Get("blueprint_id").(string)),
-		BundleId:         aws.String(d.Get("bundle_id").(string)),
+		BundleId:aws.String(d.Get("bundle_id").(string)),
 		InstanceNames:    []string{iName},
 		Tags:),
 	}
@@ -231,7 +230,6 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return resourceInstanceRead(ctx, d, meta)
 }
-
 func resourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -271,7 +269,6 @@ func resourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
-
 func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	out, err := conn.DeleteInstance(ctx, &lightsail.DeleteInstanceInput{
@@ -295,7 +292,6 @@ func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	return nil
 }
-
 func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -327,7 +323,6 @@ func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return resourceInstanceRead(ctx, d, meta)
 }
-
 func expandAddOnRequest(addOnListRaw []interface{}) *types.AddOnRequest {
 	if len(addOnListRaw) == 0 {
 		return &types.AddOnRequest{}
@@ -345,7 +340,6 @@ func expandAddOnRequest(addOnListRaw []interface{}) *types.AddOnRequest {
 
 	return addOnRequest
 }
-
 func expandAddOnEnabled(addOnListRaw []interface{}) bool {
 	if len(addOnListRaw) == 0 {
 		return false
@@ -359,13 +353,12 @@ func expandAddOnEnabled(addOnListRaw []interface{}) bool {
 
 	return enabled
 }
-
 func flattenAddOns(addOns []types.AddOn) []interface{} {
 	var rawAddOns []interface{}
 
 	for _, addOn := range addOns {
 		rawAddOn := map[string]interface{}{
-			"type":          aws.ToString(addOn.Name),
+			"type": aws.ToString(addOn.Name),
 			"snapshot_time": aws.ToString(addOn.SnapshotTimeOfDay),
 			"status":        aws.ToString(addOn.Status),
 		}
@@ -374,7 +367,6 @@ func flattenAddOns(addOns []types.AddOn) []interface{} {
 
 	return rawAddOns
 }
-
 func updateAddOn(ctx context.Context, conn *lightsail.Client, name string, oldAddOnsRaw interface{}, newAddOnsRaw interface{}) diag.Diagnostics {
 	oldAddOns := expandAddOnRequest(oldAddOnsRaw.([]interface{}))
 	newAddOns := expandAddOnRequest(newAddOnsRaw.([]interface{}))
@@ -421,7 +413,6 @@ func updateAddOn(ctx context.Context, conn *lightsail.Client, name string, oldAd
 
 	return nil
 }
-
 func flattenAddOnTypeValues(t []types.AddOnType) []string {
 	var out []string
 
@@ -431,7 +422,6 @@ func flattenAddOnTypeValues(t []types.AddOnType) []string {
 
 	return out
 }
-
 func FindInstanceById(ctx context.Context, conn *lightsail.Client, id string) (*types.Instance, error) {
 	in := &lightsail.GetInstanceInput{InstanceName: aws.String(id)}
 	out, err := conn.GetInstance(ctx, in)

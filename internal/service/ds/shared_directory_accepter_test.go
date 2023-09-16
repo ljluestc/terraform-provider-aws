@@ -32,7 +32,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, directoryservice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             acctest.CheckDestroyNoop,
+CheckDestroy:    acctest.CheckDestroyNoop,
 Steps: []resource.TestStep{
 	{
 Config: testAccSharedDirectoryAccepterConfig_basic(rName, domainName),

@@ -26,8 +26,8 @@ func TestAccS3ControlAccountPublicAccessBlock_serial(t *testing.T) {
 	testCases := map[string]map[string]func(t *testing.T){
 "PublicAccessBlock": {
 	"basic":  testAccAccountPublicAccessBlock_basic,
-	"disappears":            testAccAccountPublicAccessBlock_disappears,
-	"AccountId":             testAccAccountPublicAccessBlock_AccountID,
+	"disappears":   testAccAccountPublicAccessBlock_disappears,
+	"AccountId":    testAccAccountPublicAccessBlock_AccountID,
 	"BlockPublicAcls":       testAccAccountPublicAccessBlock_BlockPublicACLs,
 	"BlockPublicPolicy":     testAccAccountPublicAccessBlock_BlockPublicPolicy,
 	"IgnorePublicAcls":      testAccAccountPublicAccessBlock_IgnorePublicACLs,
@@ -48,7 +48,7 @@ func testAccAccountPublicAccessBlock_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_basic(),
@@ -79,7 +79,7 @@ func testAccAccountPublicAccessBlock_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_basic(),
@@ -102,7 +102,7 @@ func testAccAccountPublicAccessBlock_AccountID(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_id(),
@@ -129,7 +129,7 @@ func testAccAccountPublicAccessBlock_BlockPublicACLs(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_acls(true),
@@ -170,7 +170,7 @@ func testAccAccountPublicAccessBlock_BlockPublicPolicy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_policy(true),
@@ -211,7 +211,7 @@ func testAccAccountPublicAccessBlock_IgnorePublicACLs(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_ignoreACLs(true),
@@ -252,7 +252,7 @@ func testAccAccountPublicAccessBlock_RestrictPublicBuckets(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccountPublicAccessBlockDestroy(ctx),
+CheckDestroy:    testAccCheckAccountPublicAccessBlockDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccountPublicAccessBlockConfig_restrictBuckets(true),

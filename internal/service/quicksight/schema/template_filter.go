@@ -24,13 +24,13 @@ MaxItems: 20,
 Required: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
-"category_filter":categoryFilterSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CategoryFilter.html
+"category_filter":categoryFilterSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CategoryFilter.html
 "numeric_equality_filter": numericEqualityFilterSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericEqualityFilter.html
 "numeric_range_filter":    numericRangeFilterSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericRangeFilter.html
 "relative_dates_filter":   relativeDatesFilterSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_RelativeDatesFilter.html
 "time_equality_filter":    timeEqualityFilterSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TimeEqualityFilter.html
-"time_range_filter":       timeRangeFilterSchema(),       // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TimeRangeFilter.html
-"top_bottom_filter":       topBottomFilterSchema(),       // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TopBottomFilter.html
+"time_range_filter": timeRangeFilterSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TimeRangeFilter.html
+"top_bottom_filter": topBottomFilterSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TopBottomFilter.html
 	},
 },
 	}
@@ -148,13 +148,13 @@ Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "column":columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 "filter_id":   idSchema(),
-"match_operator":       stringSchema(true, validation.StringInSlice(quicksight.CategoryFilterMatchOperator_Values(), false)),
+"match_operator": stringSchema(true, validation.StringInSlice(quicksight.CategoryFilterMatchOperator_Values(), false)),
 "null_option": stringSchema(true, validation.StringInSlice(quicksight.FilterNullOption_Values(), false)),
 "aggregation_
 function": aggregation
 functionSchema(false), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation
 function.html
-"parameter_name":       parameterNameSchema(false),
+"parameter_name": parameterNameSchema(false),
 "select_all_options":   stringSchema(false, validation.StringInSlice(quicksight.NumericFilterSelectAllOptions_Values(), false)),
 "value": {
 	Type:     schema.TypeFloat,
@@ -189,8 +189,8 @@ function.html
 	Type:     schema.TypeBool,
 	Optional: true,
 },
-"range_maximum":      numericRangeFilterValueSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericRangeFilterValue.html
-"range_minimum":      numericRangeFilterValueSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericRangeFilterValue.html
+"range_maximum":numericRangeFilterValueSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericRangeFilterValue.html
+"range_minimum":numericRangeFilterValueSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericRangeFilterValue.html
 "select_all_options": stringSchema(false, validation.StringInSlice(quicksight.NumericFilterSelectAllOptions_Values(), false)),
 	},
 },
@@ -218,7 +218,7 @@ Schema: map[string]*schema.Schema{
 },
 	},
 },
-"column":        columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+"column":  columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 "filter_id":     idSchema(),
 "null_option":   stringSchema(true, validation.StringInSlice(quicksight.FilterNullOption_Values(), false)),
 "relative_date_type":  stringSchema(true, validation.StringInSlice(quicksight.RelativeDateType_Values(), false)),
@@ -245,7 +245,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "column":  columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
-"filter_id":        idSchema(),
+"filter_id":  idSchema(),
 "time_granularity": stringSchema(true, validation.StringInSlice(quicksight.TimeGranularity_Values(), false)),
 "parameter_name":   parameterNameSchema(false),
 "value": {
@@ -268,7 +268,7 @@ MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
-"column":        columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+"column":  columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 "filter_id":     idSchema(),
 "null_option":   stringSchema(true, validation.StringInSlice(quicksight.FilterNullOption_Values(), false)),
 "exclude_period_configuration": excludePeriodConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ExcludePeriodConfiguration.html
@@ -309,7 +309,7 @@ function": aggregation
 functionSchema(true), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation
 function.html
 	"column":columnSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
-	"sort_direction":       stringSchema(true, validation.StringInSlice(quicksight.SortDirection_Values(), false)),
+	"sort_direction": stringSchema(true, validation.StringInSlice(quicksight.SortDirection_Values(), false)),
 },
 	},
 },
@@ -340,7 +340,7 @@ Elem: &schema.Resource{
 	Required: true,
 },
 "granularity": stringSchema(true, validation.StringInSlice(quicksight.TimeGranularity_Values(), false)),
-"status":      stringSchema(false, validation.StringInSlice(quicksight.Status_Values(), false)),
+"status":stringSchema(false, validation.StringInSlice(quicksight.Status_Values(), false)),
 	},
 },
 	}

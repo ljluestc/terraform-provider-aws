@@ -37,7 +37,7 @@ import (
 
 const (
 	FunctionVersionLatest = "$LATEST"
-	mutexKey     = `aws_lambda_function`
+	mutexKey= `aws_lambda_function`
 	listVersionsMaxItems  = 10000
 )
 
@@ -46,7 +46,7 @@ const (
 func ResourceFunction() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFunctionCreate,
-		ReadWithoutTimeout:   resourceFunctionRead,
+		ReadWithoutTimeout:resourceFunctionRead,
 		UpdateWithoutTimeout: resourceFunctionUpdate,
 		DeleteWithoutTimeout: resourceFunctionDelete,
 
@@ -65,26 +65,26 @@ func ResourceFunction() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"architectures": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Schema{
-					Type:    schema.TypeString,
+					Type: schema.TypeString,
 					ValidateDiagFunc: enum.Validate[types.Architecture](),
 				},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"code_signing_config_arn": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"dead_letter_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MinItems: 0,
 				MaxItems: 1,
@@ -92,26 +92,26 @@ func ResourceFunction() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"target_arn": {
 							Type:schema.TypeString,
-							Required:     true,
+							Required:true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"environment": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"variables": {
-							Type:     schema.TypeMap,
+							Type:schema.TypeMap,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 					},
 				},
@@ -128,7 +128,7 @@ func ResourceFunction() *schema.Resource {
 				},
 			},
 			"ephemeral_storage": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Computed: true,
@@ -136,15 +136,15 @@ func ResourceFunction() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"size": {
 							Type:schema.TypeInt,
-							Optional:     true,
-							Computed:     true,
+							Optional:true,
+							Computed:true,
 							ValidateFunc: validation.IntBetween(512, 10240),
 						},
 					},
 				},
 			},
 			"file_system_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MinItems: 0,
 				// Lambda file system supports 1 EFS file system per lambda function. This might increase in future.
@@ -154,13 +154,13 @@ func ResourceFunction() *schema.Resource {
 						// EFS access point arn
 						"arn": {
 							Type:schema.TypeString,
-							Required:     true,
+							Required:true,
 							ValidateFunc: verify.ValidARN,
 						},
 						// Local mount path inside a lambda function. Must start with "/mnt/".
 						"local_mount_path": {
 							Type:schema.TypeString,
-							Required:     true,
+							Required:true,
 							ValidateFunc: validation.StringMatch(regexache.MustCompile(`^/mnt/[0-9A-Za-z_.-]+$`), "must start with '/mnt/'"),
 						},
 					},
@@ -168,38 +168,38 @@ func ResourceFunction() *schema.Resource {
 			},
 			"filename": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				ExactlyOneOf: []string{"filename", "image_uri", "s3_bucket"},
 			},
 			"function_name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validFunctionName(),
 			},
 			"handler": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"image_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"command": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"entry_point": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"working_directory": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 					},
@@ -207,24 +207,24 @@ func ResourceFunction() *schema.Resource {
 			},
 			"image_uri": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				ExactlyOneOf: []string{"filename", "image_uri", "s3_bucket"},
 			},
 			"invoke_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"kms_key_arn": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"last_modified": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"layers": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 5,
 				Elem: &schema.Schema{
@@ -234,133 +234,133 @@ func ResourceFunction() *schema.Resource {
 			},
 			"memory_size": {
 				Type:schema.TypeInt,
-				Optional:     true,
-				Default:      128,
+				Optional:true,
+				Default: 128,
 				ValidateFunc: validation.IntBetween(128, 10240),
 			},
 			"package_type": {
-				Type:    schema.TypeString,
+				Type: schema.TypeString,
 				Optional:true,
 				ForceNew:true,
 				Default: types.PackageTypeZip,
 				ValidateDiagFunc: enum.Validate[types.PackageType](),
 			},
 			"publish": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"qualified_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"qualified_invoke_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"replace_security_groups_on_destroy": {
 				Deprecated: "AWS no longer supports this operation. This attribute now has " +
 					"no effect and will be removed in a future major version.",
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 			"replacement_security_group_ids": {
 				Deprecated: "AWS no longer supports this operation. This attribute now has " +
 					"no effect and will be removed in a future major version.",
 				Type:schema.TypeSet,
-				Optional:     true,
+				Optional:true,
 				Elem:&schema.Schema{Type: schema.TypeString},
 				RequiredWith: []string{"replace_security_groups_on_destroy"},
 			},
 			"reserved_concurrent_executions": {
 				Type:schema.TypeInt,
-				Optional:     true,
-				Default:      -1,
+				Optional:true,
+				Default: -1,
 				ValidateFunc: validation.IntAtLeast(-1),
 			},
 			"role": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"runtime": {
-				Type:    schema.TypeString,
+				Type: schema.TypeString,
 				Optional:true,
 				ValidateDiagFunc: enum.Validate[types.Runtime](),
 			},
 			"s3_bucket": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				ExactlyOneOf: []string{"filename", "image_uri", "s3_bucket"},
 				RequiredWith: []string{"s3_key"},
 			},
 			"s3_key": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				RequiredWith: []string{"s3_bucket"},
 			},
 			"s3_object_version": {
 				Type: schema.TypeString,
-				Optional:      true,
+				Optional: true,
 				ConflictsWith: []string{"filename", "image_uri"},
 			},
 			"signing_job_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"signing_profile_version_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"skip_destroy": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"snap_start": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"apply_on": {
-							Type:    schema.TypeString,
+							Type: schema.TypeString,
 							Required:true,
 							ValidateDiagFunc: enum.Validate[types.SnapStartApplyOn](),
 						},
 						"optimization_status": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"source_code_hash": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"source_code_size": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"timeout": {
 				Type:schema.TypeInt,
-				Optional:     true,
-				Default:      3,
+				Optional:true,
+				Default: 3,
 				ValidateFunc: validation.IntBetween(1, 900),
 			},
 			"tracing_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"mode": {
-							Type:    schema.TypeString,
+							Type: schema.TypeString,
 							Required:true,
 							ValidateDiagFunc: enum.Validate[types.TracingMode](),
 						},
@@ -368,27 +368,27 @@ func ResourceFunction() *schema.Resource {
 				},
 			},
 			"version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"vpc_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"security_group_ids": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"subnet_ids": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"vpc_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
@@ -426,7 +426,6 @@ func ResourceFunction() *schema.Resource {
 const (
 	functionExtraThrottlingTimeout = 9 * time.Minute
 )
-
 func resourceFunctionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaClient(ctx)
@@ -437,12 +436,12 @@ func resourceFunctionCreate(ctx context.Context, d *schema.ResourceData, meta in
 		Code:&types.FunctionCode{},
 		Description:  aws.String(d.Get("description").(string)),
 		FunctionName: aws.String(functionName),
-		MemorySize:   aws.Int32(int32(d.Get("memory_size").(int))),
+		MemorySize:aws.Int32(int32(d.Get("memory_size").(int))),
 		PackageType:  packageType,
-		Publish:      d.Get("publish").(bool),
+		Publish: d.Get("publish").(bool),
 		Role:aws.String(d.Get("role").(string)),
 		Tags:getTagsIn(ctx),
-		Timeout:      aws.Int32(int32(d.Get("timeout").(int))),
+		Timeout: aws.Int32(int32(d.Get("timeout").(int))),
 	}
 
 	if v, ok := d.GetOk("filename"); ok {
@@ -535,7 +534,7 @@ func resourceFunctionCreate(ctx context.Context, d *schema.ResourceData, meta in
 		tfMap := v.([]interface{})[0].(map[string]interface{})
 		input.VpcConfig = &types.VpcConfig{
 			SecurityGroupIds: flex.ExpandStringValueSet(tfMap["security_group_ids"].(*schema.Set)),
-			SubnetIds:        flex.ExpandStringValueSet(tfMap["subnet_ids"].(*schema.Set)),
+			SubnetIds:flex.ExpandStringValueSet(tfMap["subnet_ids"].(*schema.Set)),
 		}
 	}
 
@@ -563,7 +562,7 @@ func resourceFunctionCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	if v, ok := d.Get("reserved_concurrent_executions").(int); ok && v >= 0 {
 		_, err := conn.PutFunctionConcurrency(ctx, &lambda.PutFunctionConcurrencyInput{
-			FunctionName:        aws.String(d.Id()),
+			FunctionName:aws.String(d.Id()),
 			ReservedConcurrentExecutions: aws.Int32(int32(v)),
 		})
 
@@ -574,7 +573,6 @@ func resourceFunctionCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceFunctionRead(ctx, d, meta)...)
 }
-
 func resourceFunctionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaClient(ctx)
@@ -720,7 +718,6 @@ func resourceFunctionRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func resourceFunctionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaClient(ctx)
@@ -855,12 +852,12 @@ func resourceFunctionUpdate(ctx context.Context, d *schema.ResourceData, meta in
 				tfMap := v.([]interface{})[0].(map[string]interface{})
 				input.VpcConfig = &types.VpcConfig{
 					SecurityGroupIds: flex.ExpandStringValueSet(tfMap["security_group_ids"].(*schema.Set)),
-					SubnetIds:        flex.ExpandStringValueSet(tfMap["subnet_ids"].(*schema.Set)),
+					SubnetIds:flex.ExpandStringValueSet(tfMap["subnet_ids"].(*schema.Set)),
 				}
 			} else {
 				input.VpcConfig = &types.VpcConfig{
 					SecurityGroupIds: []string{},
-					SubnetIds:        []string{},
+					SubnetIds:[]string{},
 				}
 			}
 		}
@@ -940,7 +937,7 @@ func resourceFunctionUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	if d.HasChange("reserved_concurrent_executions") {
 		if v, ok := d.Get("reserved_concurrent_executions").(int); ok && v >= 0 {
 			_, err := conn.PutFunctionConcurrency(ctx, &lambda.PutFunctionConcurrencyInput{
-				FunctionName:        aws.String(d.Id()),
+				FunctionName:aws.String(d.Id()),
 				ReservedConcurrentExecutions: aws.Int32(int32(v)),
 			})
 
@@ -984,7 +981,7 @@ func resourceFunctionUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 		err = lambda.NewFunctionUpdatedWaiter(conn).Wait(ctx, &lambda.GetFunctionConfigurationInput{
 			FunctionName: output.FunctionArn,
-			Qualifier:    output.Version,
+			Qualifier: output.Version,
 		}, d.Timeout(schema.TimeoutUpdate))
 
 		if err != nil {
@@ -994,7 +991,6 @@ func resourceFunctionUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceFunctionRead(ctx, d, meta)...)
 }
-
 func resourceFunctionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaClient(ctx)
@@ -1021,7 +1017,6 @@ func resourceFunctionDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func FindFunctionByName(ctx context.Context, conn *lambda.Client, name string) (*lambda.GetFunctionOutput, error) {
 	input := &lambda.GetFunctionInput{
 		FunctionName: aws.String(name),
@@ -1029,13 +1024,12 @@ func FindFunctionByName(ctx context.Context, conn *lambda.Client, name string) (
 
 	return findFunction(ctx, conn, input)
 }
-
 func findFunction(ctx context.Context, conn *lambda.Client, input *lambda.GetFunctionInput) (*lambda.GetFunctionOutput, error) {
 	output, err := conn.GetFunction(ctx, input)
 
 	if errs.IsA[*types.ResourceNotFoundException](err) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}
@@ -1050,11 +1044,10 @@ func findFunction(ctx context.Context, conn *lambda.Client, input *lambda.GetFun
 
 	return output, nil
 }
-
 func findLatestFunctionVersionByName(ctx context.Context, conn *lambda.Client, name string) (*types.FunctionConfiguration, error) {
 	input := &lambda.ListVersionsByFunctionInput{
 		FunctionName: aws.String(name),
-		MaxItems:     aws.Int32(listVersionsMaxItems),
+		MaxItems:aws.Int32(listVersionsMaxItems),
 	}
 	var output *types.FunctionConfiguration
 
@@ -1076,7 +1069,6 @@ func findLatestFunctionVersionByName(ctx context.Context, conn *lambda.Client, n
 
 	return output, nil
 }
-
 func statusFunctionLastUpdateStatus(ctx context.Context, conn *lambda.Client, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindFunctionByName(ctx, conn, name)
@@ -1092,7 +1084,6 @@ func statusFunctionLastUpdateStatus(ctx context.Context, conn *lambda.Client, na
 		return output.Configuration, string(output.Configuration.LastUpdateStatus), nil
 	}
 }
-
 func statusFunctionState(ctx context.Context, conn *lambda.Client, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindFunctionByName(ctx, conn, name)
@@ -1108,14 +1099,13 @@ func statusFunctionState(ctx context.Context, conn *lambda.Client, name string) 
 		return output.Configuration, string(output.Configuration.State), nil
 	}
 }
-
 func waitFunctionCreated(ctx context.Context, conn *lambda.Client, name string, timeout time.Duration) (*types.FunctionConfiguration, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.StatePending),
 		Target:  enum.Slice(types.StateActive),
 		Refresh: statusFunctionState(ctx, conn, name),
 		Timeout: timeout,
-		Delay:   5 * time.Second,
+		Delay:5 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -1128,14 +1118,13 @@ func waitFunctionCreated(ctx context.Context, conn *lambda.Client, name string, 
 
 	return nil, err
 }
-
 func waitFunctionUpdated(ctx context.Context, conn *lambda.Client, functionName string, timeout time.Duration) (*types.FunctionConfiguration, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.LastUpdateStatusInProgress),
 		Target:  enum.Slice(types.LastUpdateStatusSuccessful),
 		Refresh: statusFunctionLastUpdateStatus(ctx, conn, functionName),
 		Timeout: timeout,
-		Delay:   5 * time.Second,
+		Delay:5 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -1199,7 +1188,6 @@ func retryFunctionOp(ctx context.Context, f func() (interface{}, error)) (interf
 
 	return output, err
 }
-
 func checkHandlerRuntimeForZipFunction(_ context.Context, d *schema.ResourceDiff, meta interface{}) error {
 	packageType := d.Get("package_type").(string)
 	_, handlerOk := d.GetOk("handler")
@@ -1210,7 +1198,6 @@ func checkHandlerRuntimeForZipFunction(_ context.Context, d *schema.ResourceDiff
 	}
 	return nil
 }
-
 func updateComputedAttributesOnPublish(_ context.Context, d *schema.ResourceDiff, meta interface{}) error {
 	configChanged := needsFunctionConfigUpdate(d)
 	codeChanged := needsFunctionCodeUpdate(d)
@@ -1227,7 +1214,6 @@ func updateComputedAttributesOnPublish(_ context.Context, d *schema.ResourceDiff
 	}
 	return nil
 }
-
 func needsFunctionCodeUpdate(d verify.ResourceDiffer) bool {
 	return d.HasChange("filename") ||
 		d.HasChange("source_code_hash") ||
@@ -1237,7 +1223,6 @@ func needsFunctionCodeUpdate(d verify.ResourceDiffer) bool {
 		d.HasChange("image_uri") ||
 		d.HasChange("architectures")
 }
-
 func needsFunctionConfigUpdate(d verify.ResourceDiffer) bool {
 	return d.HasChange("description") ||
 		d.HasChange("handler") ||
@@ -1257,7 +1242,6 @@ func needsFunctionConfigUpdate(d verify.ResourceDiffer) bool {
 		d.HasChange("environment") ||
 		d.HasChange("ephemeral_storage")
 }
-
 func readFileContents(v string) ([]byte, error) {
 	filename, err := homedir.Expand(v)
 	if err != nil {
@@ -1269,12 +1253,11 @@ func readFileContents(v string) ([]byte, error) {
 	}
 	return fileContent, nil
 }
-
 func functionInvokeARN(functionARN string, meta interface{}) string {
 	return arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "apigateway",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"apigateway",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: "lambda",
 		Resource:  fmt.Sprintf("path/2015-03-31/functions/%s/invocations", functionARN),
 	}.String()
@@ -1285,32 +1268,31 @@ func functionInvokeARN(functionARN string, meta interface{}) string {
 // See https://docs.aws.amazon.com/general/latest/gr/signer.html#signer_lambda_region.
 func SignerServiceIsAvailable(region string) bool {
 	availableRegions := map[string]struct{}{
-		endpoints.UsEast2RegionID:      {},
-		endpoints.UsEast1RegionID:      {},
-		endpoints.UsWest1RegionID:      {},
-		endpoints.UsWest2RegionID:      {},
-		endpoints.AfSouth1RegionID:     {},
-		endpoints.ApEast1RegionID:      {},
-		endpoints.ApSouth1RegionID:     {},
+		endpoints.UsEast2RegionID: {},
+		endpoints.UsEast1RegionID: {},
+		endpoints.UsWest1RegionID: {},
+		endpoints.UsWest2RegionID: {},
+		endpoints.AfSouth1RegionID:{},
+		endpoints.ApEast1RegionID: {},
+		endpoints.ApSouth1RegionID:{},
 		endpoints.ApNortheast2RegionID: {},
 		endpoints.ApSoutheast1RegionID: {},
 		endpoints.ApSoutheast2RegionID: {},
 		endpoints.ApNortheast1RegionID: {},
-		endpoints.CaCentral1RegionID:   {},
-		endpoints.EuCentral1RegionID:   {},
-		endpoints.EuWest1RegionID:      {},
-		endpoints.EuWest2RegionID:      {},
-		endpoints.EuSouth1RegionID:     {},
-		endpoints.EuWest3RegionID:      {},
-		endpoints.EuNorth1RegionID:     {},
-		endpoints.MeSouth1RegionID:     {},
-		endpoints.SaEast1RegionID:      {},
+		endpoints.CaCentral1RegionID:{},
+		endpoints.EuCentral1RegionID:{},
+		endpoints.EuWest1RegionID: {},
+		endpoints.EuWest2RegionID: {},
+		endpoints.EuSouth1RegionID:{},
+		endpoints.EuWest3RegionID: {},
+		endpoints.EuNorth1RegionID:{},
+		endpoints.MeSouth1RegionID:{},
+		endpoints.SaEast1RegionID: {},
 	}
 	_, ok := availableRegions[region]
 
 	return ok
 }
-
 func flattenEnvironment(apiObject *types.EnvironmentResponse) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1324,7 +1306,6 @@ func flattenEnvironment(apiObject *types.EnvironmentResponse) []interface{} {
 
 	return []interface{}{tfMap}
 }
-
 func flattenFileSystemConfigs(fscList []types.FileSystemConfig) []map[string]interface{} {
 	results := make([]map[string]interface{}, 0, len(fscList))
 	for _, fsc := range fscList {
@@ -1336,19 +1317,17 @@ func flattenFileSystemConfigs(fscList []types.FileSystemConfig) []map[string]int
 	}
 	return results
 }
-
 func expandFileSystemConfigs(fscMaps []interface{}) []types.FileSystemConfig {
 	fileSystemConfigs := make([]types.FileSystemConfig, 0, len(fscMaps))
 	for _, fsc := range fscMaps {
 		fscMap := fsc.(map[string]interface{})
 		fileSystemConfigs = append(fileSystemConfigs, types.FileSystemConfig{
-			Arn:   aws.String(fscMap["arn"].(string)),
+			Arn:aws.String(fscMap["arn"].(string)),
 			LocalMountPath: aws.String(fscMap["local_mount_path"].(string)),
 		})
 	}
 	return fileSystemConfigs
 }
-
 func FlattenImageConfig(response *types.ImageConfigResponse) []map[string]interface{} {
 	settings := make(map[string]interface{})
 
@@ -1362,7 +1341,6 @@ func FlattenImageConfig(response *types.ImageConfigResponse) []map[string]interf
 
 	return []map[string]interface{}{settings}
 }
-
 func expandImageConfigs(imageConfigMaps []interface{}) *types.ImageConfig {
 	imageConfig := &types.ImageConfig{}
 	// only one image_config block is allowed
@@ -1378,7 +1356,6 @@ func expandImageConfigs(imageConfigMaps []interface{}) *types.ImageConfig {
 	}
 	return imageConfig
 }
-
 func flattenEphemeralStorage(response *types.EphemeralStorage) []map[string]interface{} {
 	if response == nil {
 		return nil
@@ -1389,7 +1366,6 @@ func flattenEphemeralStorage(response *types.EphemeralStorage) []map[string]inte
 
 	return []map[string]interface{}{m}
 }
-
 func expandSnapStart(tfList []interface{}) *types.SnapStart {
 	snapStart := &types.SnapStart{ApplyOn: types.SnapStartApplyOnNone}
 	if len(tfList) == 1 && tfList[0] != nil {
@@ -1398,7 +1374,6 @@ func expandSnapStart(tfList []interface{}) *types.SnapStart {
 	}
 	return snapStart
 }
-
 func flattenSnapStart(apiObject *types.SnapStartResponse) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1407,13 +1382,12 @@ func flattenSnapStart(apiObject *types.SnapStartResponse) []interface{} {
 		return nil
 	}
 	m := map[string]interface{}{
-		"apply_on":   string(apiObject.ApplyOn),
+		"apply_on":string(apiObject.ApplyOn),
 		"optimization_status": string(apiObject.OptimizationStatus),
 	}
 
 	return []interface{}{m}
 }
-
 func expandArchitectures(tfList []interface{}) []types.Architecture {
 	vs := make([]types.Architecture, 0, len(tfList))
 	for _, v := range tfList {
@@ -1421,7 +1395,6 @@ func expandArchitectures(tfList []interface{}) []types.Architecture {
 	}
 	return vs
 }
-
 func flattenArchitectures(apiObject []types.Architecture) []interface{} {
 	vs := make([]interface{}, 0, len(apiObject))
 	for _, v := range apiObject {

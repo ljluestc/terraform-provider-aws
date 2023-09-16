@@ -39,49 +39,49 @@ func ResourceUser() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"addresses": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"country": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"formatted": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"locality": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"postal_code": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"primary": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"region": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"street_address": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"type": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 					},
@@ -89,93 +89,93 @@ func ResourceUser() *schema.Resource {
 			},
 			"display_name": {
 				Type:schema.TypeString,
-				Required:         true,
+				Required:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
 			"emails": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"primary": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"type": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"value": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 					},
 				},
 			},
 			"external_ids": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"issuer": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"identity_store_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"locale": {
 				Type:schema.TypeString,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
 			"name": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"family_name": {
 							Type:schema.TypeString,
-							Required:         true,
+							Required:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"formatted": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"given_name": {
 							Type:schema.TypeString,
-							Required:         true,
+							Required:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"honorific_prefix": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"honorific_suffix": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"middle_name": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 					},
@@ -183,28 +183,28 @@ func ResourceUser() *schema.Resource {
 			},
 			"nickname": {
 				Type:schema.TypeString,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
 			"phone_numbers": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"primary": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"type": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 						"value": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 						},
 					},
@@ -212,37 +212,37 @@ func ResourceUser() *schema.Resource {
 			},
 			"preferred_language": {
 				Type:schema.TypeString,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
 			"profile_url": {
 				Type:schema.TypeString,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
 			"timezone": {
 				Type:schema.TypeString,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
 			"title": {
 				Type:schema.TypeString,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
 			"user_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"user_name": {
 				Type:schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Required:true,
+				ForceNew:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 128)),
 			},
 			"user_type": {
 				Type:schema.TypeString,
-				Optional:         true,
+				Optional:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(1, 1024)),
 			},
 		},
@@ -257,9 +257,9 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	conn := meta.(*conns.AWSClient).IdentityStoreClient(ctx)
 
 	in := &identitystore.CreateUserInput{
-		DisplayName:     aws.String(d.Get("display_name").(string)),
+		DisplayName:aws.String(d.Get("display_name").(string)),
 		IdentityStoreId: aws.String(d.Get("identity_store_id").(string)),
-		UserName:        aws.String(d.Get("user_name").(string)),
+		UserName:   aws.String(d.Get("user_name").(string)),
 	}
 
 	if v, ok := d.GetOk("addresses"); ok && len(v.([]interface{})) > 0 {
@@ -381,8 +381,8 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	in := &identitystore.UpdateUserInput{
 		IdentityStoreId: aws.String(d.Get("identity_store_id").(string)),
-		UserId:          aws.String(d.Get("user_id").(string)),
-		Operations:      nil,
+		UserId:aws.String(d.Get("user_id").(string)),
+		Operations: nil,
 	}
 
 	// IMPLEMENTATION NOTE.
@@ -414,63 +414,63 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	}{
 		{
 			Attribute: "display_name",
-			Field:     "displayName",
+			Field:"displayName",
 		},
 		{
 			Attribute: "locale",
-			Field:     "locale",
+			Field:"locale",
 		},
 		{
 			Attribute: "name.0.family_name",
-			Field:     "name.familyName",
+			Field:"name.familyName",
 		},
 		{
 			Attribute: "name.0.formatted",
-			Field:     "name.formatted",
+			Field:"name.formatted",
 		},
 		{
 			Attribute: "name.0.given_name",
-			Field:     "name.givenName",
+			Field:"name.givenName",
 		},
 		{
 			Attribute: "name.0.honorific_prefix",
-			Field:     "name.honorificPrefix",
+			Field:"name.honorificPrefix",
 		},
 		{
 			Attribute: "name.0.honorific_suffix",
-			Field:     "name.honorificSuffix",
+			Field:"name.honorificSuffix",
 		},
 		{
 			Attribute: "name.0.middle_name",
-			Field:     "name.middleName",
+			Field:"name.middleName",
 		},
 		{
 			Attribute: "nickname",
-			Field:     "nickName",
+			Field:"nickName",
 		},
 		{
 			Attribute: "preferred_language",
-			Field:     "preferredLanguage",
+			Field:"preferredLanguage",
 		},
 		{
 			Attribute: "profile_url",
-			Field:     "profileUrl",
+			Field:"profileUrl",
 		},
 		{
 			Attribute: "timezone",
-			Field:     "timezone",
+			Field:"timezone",
 		},
 		{
 			Attribute: "title",
-			Field:     "title",
+			Field:"title",
 		},
 		{
 			Attribute: "user_type",
-			Field:     "userType",
+			Field:"userType",
 		},
 		{
 			Attribute: "addresses",
-			Field:     "addresses",
+			Field:"addresses",
 			Expand: func(value interface{}) interface{} {
 				addresses := expandAddresses(value.([]interface{}))
 
@@ -519,7 +519,7 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 		},
 		{
 			Attribute: "emails",
-			Field:     "emails",
+			Field:"emails",
 			Expand: func(value interface{}) interface{} {
 				emails := expandEmails(value.([]interface{}))
 
@@ -548,7 +548,7 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 		},
 		{
 			Attribute: "phone_numbers",
-			Field:     "phoneNumbers",
+			Field:"phoneNumbers",
 			Expand: func(value interface{}) interface{} {
 				emails := expandPhoneNumbers(value.([]interface{}))
 
@@ -616,7 +616,7 @@ func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interf
 
 	_, err := conn.DeleteUser(ctx, &identitystore.DeleteUserInput{
 		IdentityStoreId: aws.String(d.Get("identity_store_id").(string)),
-		UserId:          aws.String(d.Get("user_id").(string)),
+		UserId:aws.String(d.Get("user_id").(string)),
 	})
 
 	if err != nil {
@@ -634,7 +634,7 @@ func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interf
 func FindUserByTwoPartKey(ctx context.Context, conn *identitystore.Client, identityStoreID, userID string) (*identitystore.DescribeUserOutput, error) {
 	in := &identitystore.DescribeUserInput{
 		IdentityStoreId: aws.String(identityStoreID),
-		UserId:          aws.String(userID),
+		UserId:aws.String(userID),
 	}
 
 	out, err := conn.DescribeUser(ctx, in)

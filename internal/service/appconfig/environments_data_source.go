@@ -23,14 +23,14 @@ func DataSourceEnvironments() *schema.Resource {
 		ReadWithoutTimeout: dataSourceEnvironmentsRead,
 		Schema: map[string]*schema.Schema{
 			"application_id": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[a-z\d]{4,7}`), ""),
 			},
 			"environment_ids": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}

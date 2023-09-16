@@ -46,7 +46,7 @@ func ResourceConformancePack() *schema.Resource {
 				),
 			},
 			"delivery_s3_key_prefix": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
@@ -77,8 +77,8 @@ func ResourceConformancePack() *schema.Resource {
 					validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z-]+$`), "must contain only alphanumeric and hyphen characters")),
 			},
 			"template_body": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:    schema.TypeString,
+				Optional:true,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONOrYAMLDiffs,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 51200),

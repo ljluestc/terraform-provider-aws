@@ -17,7 +17,6 @@ import (
 	tfbatch "github.com/hashicorp/terraform-provider-aws/internal/service/batch"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccBatchSchedulingPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var schedulingPolicy1 batch.SchedulingPolicyDetail
@@ -25,7 +24,7 @@ func TestAccBatchSchedulingPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSchedulingPolicyDestroy(ctx),
@@ -44,8 +43,8 @@ func TestAccBatchSchedulingPolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -65,7 +64,6 @@ func TestAccBatchSchedulingPolicy_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccBatchSchedulingPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var schedulingPolicy1 batch.SchedulingPolicyDetail
@@ -73,7 +71,7 @@ func TestAccBatchSchedulingPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSchedulingPolicyDestroy(ctx),
@@ -89,7 +87,6 @@ func TestAccBatchSchedulingPolicy_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckSchedulingPolicyExists(ctx context.Context, n string, v *batch.SchedulingPolicyDetail) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -114,7 +111,6 @@ func testAccCheckSchedulingPolicyExists(ctx context.Context, n string, v *batch.
 		return nil
 	}
 }
-
 func testAccCheckSchedulingPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -138,51 +134,49 @@ func testAccCheckSchedulingPolicyDestroy(ctx context.Context) resource.TestCheck
 		return nil
 	}
 }
-
 func testAccSchedulingPolicyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_batch_scheduling_policy" "test" {
   name = %[1]q
 
   fair_share_policy {
-    compute_reservation = 1
-    share_decay_seconds = 3600
+ compute_reservation = 1
+ share_decay_seconds = 3600
 
-    share_distribution {
-      share_identifier = "A1*"
-      weight_factor    = 0.1
-    }
+ share_distribution {
+ share_identifier = "A1*"
+ weight_factor = 0.1
+ }
   }
 
   tags = {
-    "Name" = "Test Batch Scheduling Policy"
+ "Name" = "Test Batch Scheduling Policy"
   }
 }
 `, rName)
 }
-
 func testAccSchedulingPolicyConfig_basic2(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_batch_scheduling_policy" "test" {
   name = %[1]q
 
   fair_share_policy {
-    compute_reservation = 1
-    share_decay_seconds = 3600
+ compute_reservation = 1
+ share_decay_seconds = 3600
 
-    share_distribution {
-      share_identifier = "A1*"
-      weight_factor    = 0.1
-    }
+ share_distribution {
+ share_identifier = "A1*"
+ weight_factor = 0.1
+ }
 
-    share_distribution {
-      share_identifier = "A2"
-      weight_factor    = 0.2
-    }
+ share_distribution {
+ share_identifier = "A2"
+ weight_factor = 0.2
+ }
   }
 
   tags = {
-    "Name" = "Test Batch Scheduling Policy"
+ "Name" = "Test Batch Scheduling Policy"
   }
 }
 `, rName)

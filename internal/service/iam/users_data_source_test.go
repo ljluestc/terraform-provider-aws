@@ -91,7 +91,7 @@ resource "aws_iam_user" "test" {
   count = %[1]s
  func
   tags = {
-    Seed = %[2]q
+Seed = %[2]q
   }
 }
 

@@ -139,13 +139,13 @@ func ResourceDatabase() *schema.Resource {
 				),
 			},
 			"preferred_backup_window": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: verify.ValidOnceADayWindowFormat,
 			},
 			"preferred_maintenance_window": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: verify.ValidOnceAWeekWindowFormat,
@@ -187,13 +187,12 @@ func ResourceDatabase() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceDatabaseCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
 	relationalDatabaseName := d.Get("relational_database_name").(string)
 	input := &lightsail.CreateRelationalDatabaseInput{
-		MasterDatabaseName:            aws.String(d.Get("master_database_name").(string)),
+		MasterDatabaseName:   aws.String(d.Get("master_database_name").(string)),
 		MasterUsername:(d.Get("master_username").(string)),
 		RelationalDatabaseBlueprintId: aws.String(d.Get("blueprint_id").(string)),
 		RelationalDatabaseBundleId:    aws.String(d.Get("bundle_id").(string)),
@@ -268,7 +267,6 @@ func resourceDatabaseCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return resourceDatabaseRead(ctx, d, meta)
 }
-
 func resourceDatabaseRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -315,7 +313,6 @@ func resourceDatabaseRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
-
 func resourceDatabaseUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -385,7 +382,6 @@ func resourceDatabaseUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return resourceDatabaseRead(ctx, d, meta)
 }
-
 func resourceDatabaseDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -423,7 +419,6 @@ func resourceDatabaseDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	return nil
 }
-
 func resourceDatabaseImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	// Neither skip_final_snapshot nor final_snapshot_identifier can be fetched
 	// from any API call, so we need to default skip_final_snapshot to true so

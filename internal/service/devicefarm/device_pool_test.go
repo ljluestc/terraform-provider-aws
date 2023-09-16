@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package devicefarm_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package devicefarm_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws/endpoints"
 	"github.com/aws/aws-sdk-go/service/devicefarm"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -19,21 +13,20 @@ import (
 	tfdevicefarm "github.com/hashicorp/terraform-provider-aws/internal/service/devicefarm"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func := acctest.Context(t)
 	var pool devicefarm.DevicePool
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	rNameUpdated := sdkacctest.RandomWithPrefix("tf-acc-test-updated")
-	resourceName := "aws_devicefarm_device_pool.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.Pfunccctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
+	resourceName := "aws_devicefarm_device_pool.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() {
+			acctest.P
+funccctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDevicePoolDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -49,8 +42,8 @@ func := acctest.Context(t)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -64,20 +57,19 @@ func := acctest.Context(t)
 		},
 	})
 }
-
 func TestAccDeviceFarmDevicePool_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_devicefarm_device_pool.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+	resourceName := "aws_devicefarm_device_pool.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
-			// Currenfunc/ https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
+			// Curren
+func/ https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDevicePoolDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -90,8 +82,8 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 			{
@@ -114,20 +106,21 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 		},
 	})
 }
-
 func TestAccDeviceFarmDevicePool_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pool devicefarm.DevicePool
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
-			acctest.Pfunc
-		ErrorCheck:  acctest.ErrorCheck(t, devicefarm.EndpointsID),
+			acctest.P
+func
+		ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDevicePoolDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -143,21 +136,21 @@ func
 		},
 	})
 }
-
 func TestAccDeviceFarmDevicePool_disappears_project(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pool devicefarm.DevicePool
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_devicefarm_device_pool.test"
-
-funceCheck: func() {
+funceCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
 			// Currently, DeviceFarm is only supported in us-west-2
 			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
 			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
 		},
-		ErrorCheckfuncotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		ErrorCheck
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDevicePoolDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
@@ -172,15 +165,13 @@ funceCheck: func() {
 		},
 	})
 }
-
 func testAccCheckDevicePoolExists(ctx context.Context, n string, v *devicefarm.DevicePool) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 func
 funcnn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
 		resp, err := tfdevicefarm.FindDevicePoolByARN(ctx, conn, rs.Primary.ID)
@@ -189,80 +180,65 @@ funcnn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
 		}
 		if resp == nil {
 			return fmt.Errorf("DeviceFarm Device Pool not found")
-		}
-
-		*v = *resp
-
-		return nil
+		}		*v = *resp		return nil
 	}
 }
-
 func testAccCheckDevicePoolDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+		conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_devicefarm_device_pool" {
 				continue
-			}
-
-			// Try to find the resource
+			}			// Try to find the resource
 funcf tfresource.NotFound(err) {
-				contfunc
-
-			if err != nil {
+				cont
+func			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("DeviceFarm Device Pool %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("DeviceFarm Device Pool %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
-
 func testAccDevicePoolConfig_basic(rName string) string {
 	return testAccProjectConfig_basic(rName) + fmt.Sprintf(`
 resource "aws_devicefarm_device_pool" "test" {
-  name        = %[1]q
-  project_arn = aws_devicefarm_project.test.arn
-  rule {
-    attribute = "OS_VERSION"
-    operator  = "EQUALS"
-    value     = "\"AVAILABLE\""
-  }
+name= %[1]q
+project_arn = aws_devicefarm_project.test.arn
+rule {
+ attribute = "OS_VERSION"
+ operator= "EQUALS"
+ value= "\"AVAILABLE\""
+}
 }
 `, rName)
 func
 func testAccDevicePoolConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return testAccProjectConfig_basic(rName) + fmt.Sprintf(`
 resource "aws_devicefarm_device_pool" "test" {
-  name        = %[1]q
-  project_arn = aws_devicefarm_project.test.arn
-  rule {
-    attribute = "AVAILABILITY"
-    operator  = "EQUALS"
-    value     = "\"AVAILABLE\""
-  }
-  tags = {
-    %[2]q = %[3]q
-  }
+name= %[1]q
+project_arn = aws_devicefarm_project.test.arn
+rule {
+ attribute = "AVAILABILITY"
+ operator= "EQUALS"
+ value= "\"AVAILABLE\""
+}
+tags = {
+ %[2]q = %[3]q
+}
 funcName, tagKey1, tagValue1)
 }
-
 func testAccDevicePoolConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return testAccProjectConfig_basic(rName) + fmt.Sprintf(`
 resource "aws_devicefarm_device_pool" "test" {
-  name        = %[1]q
-  project_arn = aws_devicefarm_project.test.arn
-  rule {
-    attribute = "AVAILABILITY"
-    operator  = "EQUALS"
-    value     = "\"AVAILABLE\""
-  }
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+name= %[1]q
+project_arn = aws_devicefarm_project.test.arn
+rule {
+ attribute = "AVAILABILITY"
+ operator= "EQUALS"
+ value= "\"AVAILABLE\""
+}
+tags = {
+ %[2]q = %[3]q
+ %[4]q = %[5]q
+}
 funcName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

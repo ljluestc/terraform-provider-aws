@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func testAccOrganizationConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	detectorResourceName := "aws_guardduty_detector.test"
@@ -52,7 +51,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccOrganizationConfiguration_autoEnableOrganizationMembers(t *testing.T) {
 	ctx := acctest.Context(t)
 	detectorResourceName := "aws_guardduty_detector.test"
@@ -150,7 +148,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func testAccOrganizationConfiguration_s3logs(t *testing.T) {
 	ctx := acctest.Context(t)
 	detectorResourceName := "aws_guardduty_detector.test"
@@ -193,7 +190,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccOrganizationConfiguration_kubernetes(t *testing.T) {
 	ctx := acctest.Context(t)
 	detectorResourceName := "aws_guardduty_detector.test"
@@ -238,7 +234,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccOrganizationConfiguration_malwareprotection(t *testing.T) {
 	ctx := acctest.Context(t)
 	detectorResourceName := "aws_guardduty_detector.test"
@@ -293,8 +288,8 @@ data "aws_partition" "current" {}
 
 resource "aws_organizations_organization" "test" {
   aws_service_access_principals = [
-    "guardduty.${data.aws_partition.current.dns_suffix}",
-    "malware-protection.guardduty.${data.aws_partition.current.dns_suffix}",
+ "guardduty.${data.aws_partition.current.dns_suffix}",
+ "malware-protection.guardduty.${data.aws_partition.current.dns_suffix}",
   ]
 
   feature_set = "ALL"
@@ -308,7 +303,6 @@ resource "aws_guardduty_organization_admin_account" "test" {
   admin_account_id = data.aws_caller_identity.current.account_id
 }
 `
-
 func testAccOrganizationConfigurationConfig_autoEnable(autoEnable bool) string {
 	return acctest.ConfigCompose(
 testAccOrganizationConfigurationConfigBase,
@@ -321,7 +315,6 @@ resource "aws_guardduty_organization_configuration" "test" {
 }
 `, autoEnable))
 }
-
 func testAccOrganizationConfigurationConfig_autoEnableOrganizationMembers(value string) string {
 	return acctest.ConfigCompose(
 testAccOrganizationConfigurationConfigBase,
@@ -334,7 +327,6 @@ resource "aws_guardduty_organization_configuration" "test" {
 }
 `, value))
 }
-
 func testAccOrganizationConfigurationConfig_s3Logs(autoEnable bool) string {
 	return acctest.ConfigCompose(
 testAccOrganizationConfigurationConfigBase,
@@ -346,14 +338,13 @@ resource "aws_guardduty_organization_configuration" "test" {
   detector_id = aws_guardduty_detector.test.id
 
   datasources {
-    s3_logs {
+ s3_logs {
 le = %[1]t
-    }
+ }
   }
 }
 `, autoEnable))
 }
-
 func testAccOrganizationConfigurationConfig_kubernetes(autoEnable bool) string {
 	return acctest.ConfigCompose(
 testAccOrganizationConfigurationConfigBase,
@@ -365,16 +356,15 @@ resource "aws_guardduty_organization_configuration" "test" {
   detector_id = aws_guardduty_detector.test.id
 
   datasources {
-    kubernetes {
+ kubernetes {
 s {
 = %[1]t
 
-    }
+ }
   }
 }
 `, autoEnable))
 }
-
 func testAccOrganizationConfigurationConfig_malwareprotection(autoEnable bool) string {
 	return acctest.ConfigCompose(
 testAccOrganizationConfigurationConfigBase,
@@ -386,13 +376,13 @@ resource "aws_guardduty_organization_configuration" "test" {
   detector_id = aws_guardduty_detector.test.id
 
   datasources {
-    malware_protection {
+ malware_protection {
 instance_with_findings {
 umes {
 
 
 
-    }
+ }
   }
 }
 `, autoEnable))

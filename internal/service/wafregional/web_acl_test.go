@@ -51,8 +51,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -83,8 +83,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -137,8 +137,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -172,8 +172,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -220,8 +220,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -268,8 +268,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -329,8 +329,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -381,8 +381,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -433,8 +433,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -454,7 +454,7 @@ actionMap := map[string]interface{}{
 m := map[string]interface{}{
 	"rule_id":**ruleId,
 	"type":   ruleType,
-	"priority":        priority,
+	"priority":  priority,
 	"action": []interface{}{actionMap},
 	"override_action": []interface{}{},
 }
@@ -584,12 +584,12 @@ return fmt.Errorf("WebACL (%s) not found", rs.Primary.ID)
 func testAccWebACLConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 }
 
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   default_action {
@@ -598,7 +598,7 @@ resource "aws_wafregional_web_acl" "test" {
 
   rule {
     action {
-      type = "BLOCK"
+type = "BLOCK"
     }
 
     priority = 1
@@ -612,12 +612,12 @@ resource "aws_wafregional_web_acl" "test" {
 func testAccWebACLConfig_tags1(name, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 }
 
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   default_action {
@@ -626,7 +626,7 @@ resource "aws_wafregional_web_acl" "test" {
 
   rule {
     action {
-      type = "BLOCK"
+type = "BLOCK"
     }
 
     priority = 1
@@ -644,12 +644,12 @@ resource "aws_wafregional_web_acl" "test" {
 func testAccWebACLConfig_tags2(name, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 }
 
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   default_action {
@@ -658,7 +658,7 @@ resource "aws_wafregional_web_acl" "test" {
 
   rule {
     action {
-      type = "BLOCK"
+type = "BLOCK"
     }
 
     priority = 1
@@ -677,7 +677,7 @@ resource "aws_wafregional_web_acl" "test" {
 func testAccWebACLConfig_rateBased(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rate_based_rule" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   rate_key   = "IP"
@@ -685,7 +685,7 @@ resource "aws_wafregional_rate_based_rule" "test" {
 }
 
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   default_action {
@@ -694,7 +694,7 @@ resource "aws_wafregional_web_acl" "test" {
 
   rule {
     action {
-      type = "BLOCK"
+type = "BLOCK"
     }
 
     priority = 1
@@ -709,12 +709,12 @@ resource "aws_wafregional_web_acl" "test" {
 func testAccWebACLConfig_group(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule_group" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 }
 
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   default_action {
@@ -723,7 +723,7 @@ resource "aws_wafregional_web_acl" "test" {
 
   rule {
     override_action {
-      type = "NONE"
+type = "NONE"
     }
 
     priority = 1
@@ -738,12 +738,12 @@ resource "aws_wafregional_web_acl" "test" {
 func testAccWebACLConfig_changeName(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 }
 
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   default_action {
@@ -752,7 +752,7 @@ resource "aws_wafregional_web_acl" "test" {
 
   rule {
     action {
-      type = "BLOCK"
+type = "BLOCK"
     }
 
     priority = 1
@@ -766,12 +766,12 @@ resource "aws_wafregional_web_acl" "test" {
 func testAccWebACLConfig_changeDefaultAction(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 }
 
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   default_action {
@@ -780,7 +780,7 @@ resource "aws_wafregional_web_acl" "test" {
 
   rule {
     action {
-      type = "BLOCK"
+type = "BLOCK"
     }
 
     priority = 1
@@ -794,7 +794,7 @@ resource "aws_wafregional_web_acl" "test" {
 func testAccRuleConfig_webACLNos(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   default_action {
@@ -808,12 +808,12 @@ resource "aws_wafregional_web_acl" "test" {
 func testAccWebACLConfig_changeRules(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 }
 
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   default_action {
@@ -822,7 +822,7 @@ resource "aws_wafregional_web_acl" "test" {
 
   rule {
     action {
-      type = "ALLOW"
+type = "ALLOW"
     }
 
     priority = 3
@@ -831,7 +831,7 @@ resource "aws_wafregional_web_acl" "test" {
 
   rule {
     action {
-      type = "BLOCK"
+type = "BLOCK"
     }
 
     priority = 99
@@ -845,7 +845,7 @@ resource "aws_wafregional_web_acl" "test" {
 func testAccWebACLConfig_loggingConfiguration(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   default_action {
@@ -856,14 +856,14 @@ resource "aws_wafregional_web_acl" "test" {
     log_destination = aws_kinesis_firehose_delivery_stream.test.arn
 
     redacted_fields {
-      field_to_match {
-        type = "URI"
-      }
+field_to_match {
+  type = "URI"
+}
 
-      field_to_match {
-        data = "referer"
-        type = "HEADER"
-      }
+field_to_match {
+  data = "referer"
+  type = "HEADER"
+}
     }
   }
 }
@@ -880,12 +880,12 @@ resource "aws_iam_role" "test" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "firehose.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
+"Action": "sts:AssumeRole",
+"Principal": {
+  "Service": "firehose.amazonaws.com"
+},
+"Effect": "Allow",
+"Sid": ""
     }
   ]
 }
@@ -895,7 +895,7 @@ EOF
 
 resource "aws_kinesis_firehose_delivery_stream" "test" {
   # the name must begin with aws-waf-logs-
-  name        = "aws-waf-logs-%[1]s"
+  name  = "aws-waf-logs-%[1]s"
   destination = "extended_s3"
 
   extended_s3_configuration {
@@ -910,7 +910,7 @@ resource "aws_kinesis_firehose_delivery_stream" "test" {
 func testAccWebACLConfig_loggingConfigurationUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 
   default_action {
@@ -934,12 +934,12 @@ resource "aws_iam_role" "test" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "firehose.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
+"Action": "sts:AssumeRole",
+"Principal": {
+  "Service": "firehose.amazonaws.com"
+},
+"Effect": "Allow",
+"Sid": ""
     }
   ]
 }
@@ -949,7 +949,7 @@ EOF
 
 resource "aws_kinesis_firehose_delivery_stream" "test" {
   # the name must begin with aws-waf-logs-
-  name        = "aws-waf-logs-%[1]s"
+  name  = "aws-waf-logs-%[1]s"
   destination = "extended_s3"
 
   extended_s3_configuration {

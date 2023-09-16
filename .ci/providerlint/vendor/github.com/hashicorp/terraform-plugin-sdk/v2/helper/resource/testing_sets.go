@@ -1,23 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-// These test helpers were developed by the AWS provider team at HashiCorp.
-
-package resource
-
-import (
+// SPDX-License-Identifier: MPL-2.0// These test helpers were developed by the AWS provider team at HashiCorp.package resourceimport (
 	"fmt"
 	"regexp"
-	"strings"
-
-	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
-)
-
-const (
+	"strings"	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
+)const (
 	sentinelIndex = "*"
-)
-
-// TestCheckTypeSetElemNestedAttrs ensures a subset map of values is stored in
+)// TestCheckTypeSetElemNestedAttrs ensures a subset map of values is stored in
 // state for the given name and key combination of attributes nested under a
 // list or set block. Use this TestCheck
  in preference over non-set
@@ -57,18 +45,14 @@ const (
 //
 // If the values map is not granular enough, it is possible to match an element
 // you were not intending to in the set. Provide the most complete mapping of
-ttributes possible to be sure the unique element exists.
-
- TestCheckTypeSetElemNestedAttrs(name, attr string, values map[string]string) TestCheck
+ttributes possible to be sure the unique element exists. TestCheckTypeSetElemNestedAttrs(name, attr string, values map[string]string) TestCheck
  {
 	return 
 (s *terraform.State) error {
 		is, err := primaryInstanceState(s, name)
 		if err != nil {
 			return err
-		}
-
-		attrParts := strings.Split(attr, ".")
+		}		attrParts := strings.Split(attr, ".")
 		if attrParts[len(attrParts)-1] != sentinelIndex {
 			return fmt.Errorf("%q does not end with the special value %q", attr, sentinelIndex)
 		}
@@ -83,16 +67,12 @@ ttributes possible to be sure the unique element exists.
 		}
 		if matchCount == 0 {
 			return fmt.Errorf("%#v has no non-empty values", values)
-		}
-
-		if testCheckTypeSetElemNestedAttrsInState(is, attrParts, matchCount, values) {
+		}		if testCheckTypeSetElemNestedAttrsInState(is, attrParts, matchCount, values) {
 			return nil
 		}
 		return fmt.Errorf("%q no TypeSet element %q, with nested attrs %#v in state: %#v", name, attr, values, is.Attributes)
 	}
-}
-
-// TestMatchTypeSetElemNestedAttrs ensures a subset map of values, compared by
+}// TestMatchTypeSetElemNestedAttrs ensures a subset map of values, compared by
 // regular expressions, is stored in state for the given name and key
 // combination of attributes nested under a list or set block. Use this
 // TestCheck
@@ -128,23 +108,17 @@ ttributes possible to be sure the unique element exists.
 //
 //	map[string]*regexp.Regexp{
 //	  "key1": regexp.MustCompile(`^value`),
-//	  "key2": regexp.MustCompile(`^$`),
-
-//
+//	  "key2": regexp.MustCompile(`^$`),//
 // If the values map is not granular enough, it is possible to match an element
 // you were not intending to in the set. Provide the most complete mapping of
-// attributes possible to be sure the unique element exists.
-
- TestMatchTypeSetElemNestedAttrs(name, attr string, values map[string]*regexp.Regexp) TestCheck
+// attributes possible to be sure the unique element exists. TestMatchTypeSetElemNestedAttrs(name, attr string, values map[string]*regexp.Regexp) TestCheck
  {
 	return 
 (s *terraform.State) error {
 		is, err := primaryInstanceState(s, name)
 		if err != nil {
 			return err
-		}
-
-		attrParts := strings.Split(attr, ".")
+		}		attrParts := strings.Split(attr, ".")
 		if attrParts[len(attrParts)-1] != sentinelIndex {
 			return fmt.Errorf("%q does not end with the special value %q", attr, sentinelIndex)
 		}
@@ -159,16 +133,12 @@ ttributes possible to be sure the unique element exists.
 		}
 		if matchCount == 0 {
 			return fmt.Errorf("%#v has no non-empty values", values)
-		}
-
-		if testCheckTypeSetElemNestedAttrsInState(is, attrParts, matchCount, values) {
+		}		if testCheckTypeSetElemNestedAttrsInState(is, attrParts, matchCount, values) {
 			return nil
 		}
 		return fmt.Errorf("%q no TypeSet element %q, with the regex provided, match in state: %#v", name, attr, is.Attributes)
 	}
-}
-
-// TestCheckTypeSetElemAttr is a TestCheck
+}// TestCheckTypeSetElemAttr is a TestCheck
  that accepts a resource
 // name, an attribute path, which should use the sentinel value '*' for indexing
 // into a TypeSet. The 
@@ -178,12 +148,8 @@ tion verifies that an element matches the provided
 // Use this 
 tion over SDK provided TestCheck
 tions when validating a
-// TypeSet where its elements are a simple value
-
-// TestCheckTypeSetElemAttr ensures a specific value is stored in state for the
-// given name and key combination under a list or set. Use this TestCheck
-
-// in preference over non-set variants to simplify testing code and ensure
+// TypeSet where its elements are a simple value// TestCheckTypeSetElemAttr ensures a specific value is stored in state for the
+// given name and key combination under a list or set. Use this TestCheck// in preference over non-set variants to simplify testing code and ensure
 // compatibility with indicies, which can easily change with schema changes.
 // State value checking is only recommended for testing Computed attributes and
 // attribute defaults.
@@ -199,9 +165,7 @@ tions when validating a
 // name for the below example configuration would be
 // "data.myprovider_thing.example".
 //
-//	data "myprovider_thing" "example" { ... }
-
-// The karameter is an attribute path in Terraform CLI 0.11 and earlier
+//	data "myprovider_thing" "example" { ... }// The karameter is an attribute path in Terraform CLI 0.11 and earlier
 // "flatmap" syntax. Keys start with the attribute name of a top-level
 // attribute. Use the sentinel value '*' to replace the element indexing into
 // a list or set. The sentinel value can be used for each list or set index, if
@@ -212,27 +176,19 @@ tions when validating a
 //
 //   - Boolean: "false" or "true".
 //   - Float/Integer: Stringified number, such as "1.2" or "123".
-//   - String: No conversion necessary.
-
- TestCheckTypeSetElemAttr(name, attr, value string) TestCheck
+//   - String: No conversion necessary. TestCheckTypeSetElemAttr(name, attr, value string) TestCheck
  {
 	return 
 (s *terraform.State) error {
 		is, err := primaryInstanceState(s, name)
 		if err != nil {
 			return err
-		}
-
-		err = testCheckTypeSetElem(is, attr, value)
+		}		err = testCheckTypeSetElem(is, attr, value)
 		if err != nil {
 			return fmt.Errorf("%q error: %s", name, err)
-		}
-
-		return nil
+		}		return nil
 	}
-}
-
-// TestCheckTypeSetElemAttrPair ensures value equality in state between the
+}// TestCheckTypeSetElemAttrPair ensures value equality in state between the
 // first given name and key combination and the second name and key
 // combination. State value checking is only recommended for testing Computed
 // attributes and attribute defaults.
@@ -241,9 +197,7 @@ tions when validating a
 // type, a period (.), and the name label. The name for the below example
 // configuration would be "myprovider_thing.example".
 //
-//	resource "myprovider_thing" "example" { ... }
-
-// For dsources, the name parameter is a combination of the keyword "data",
+//	resource "myprovider_thing" "example" { ... }// For dsources, the name parameter is a combination of the keyword "data",
 // a period (.), the data source type, a period (.), and the name label. The
 // name for the below example configuration would be
 // "data.myprovider_thing.example".
@@ -257,38 +211,26 @@ tions when validating a
 // "flatmap" syntax. Keys start with the attribute name of a top-level
 // attribute. Use the sentinel value '*' to replace the element indexing into
 // a list or set. The sentinel value can be used for each list or set index, if
-// there are multiple lists or sets in the attribute path.
-
- TestCheckTypeSetElemAttrPair(nameFirst, keyFirst, nameSecond, keySecond string) TestCheck
+// there are multiple lists or sets in the attribute path. TestCheckTypeSetElemAttrPair(nameFirst, keyFirst, nameSecond, keySecond string) TestCheck
  {
 	return 
 (s *terraform.State) error {
 First, err := primaryInstanceState(s, nameFirst)
 		if err != nil {
 			return err
-		}
-
-		isSecond, err := primaryInstanceState(s, nameSecond)
+		}		isSecond, err := primaryInstanceState(s, nameSecond)
 		if err != nil {
 			return err
-		}
-
-		vSecond, okSecond := isSecond.Attributes[keySecond]
+		}		vSecond, okSecond := isSecond.Attributes[keySecond]
 		if !okSecond {
 			return fmt.Errorf("%s: Attribute %q not set, cannot be checked against TypeSet", nameSecond, keySecond)
-		}
-
-		return testCheckTypeSetElemPair(isFirst, keyFirst, vSecond)
+		}		return testCheckTypeSetElemPair(isFirst, keyFirst, vSecond)
 	}
 }
-
-
  testCheckTypeSetElem(is *terraform.InstanceState, attr, value string) error {
 	attrParts := strings.Split(attr, ".")
 	if attrParts[len(attrParts)-1] != sentinelIndex {
-		return fmt.Errorf("%q does not end with the special value %q", attr, sentinelIndex)
-
-	for stateKey, stateValue := range is.Attributes {
+		return fmt.Errorf("%q does not end with the special value %q", attr, sentinelIndex)	for stateKey, stateValue := range is.Attributes {
 		if stateValue == value {
 			stateKeyParts := strings.Split(stateKey, ".")
 			if len(stateKeyParts) == len(attrParts) {
@@ -302,12 +244,8 @@ First, err := primaryInstanceState(s, nameFirst)
 				}
 			}
 		}
-	}
-
-	return fmt.Errorf("no TypeSet element %q, with value %q in state: %#v", attr, value, is.Attributes)
+	}	return fmt.Errorf("no TypeSet element %q, with value %q in state: %#v", attr, value, is.Attributes)
 }
-
-
  testCheckTypeSetElemPair(is *terraform.InstanceSt attr, value string) error {
 	attrParts := strings.Split(attr, ".")
 	for stateKey, stateValue := range is.Atttes {
@@ -324,23 +262,15 @@ f len(stateKeyParts) == len(attrParts) {
 				}
 			}
 		}
-	}
-
-	return fmt.Errorf("no TypeSet element %q, with value %q in state: %#v", attr, value, is.Attributes)
-}
-
-// testCheckTypeSetElemNestedAttrsInState is a helper 
+	}	return fmt.Errorf("no TypeSet element %q, with value %q in state: %#v", attr, value, is.Attributes)
+}// testCheckTypeSetElemNestedAttrsInState is a helper 
 tion
 // to determine if nested attributes and their values are equal to those
 // in the instance state. Currently, the 
 tion accepts a "values" param of type
 // map[string]string or map[string]*regexp.Regexp.
-// Returns true if all attributes match, else false.
-
- testCheckTypeSetElemNestedAttrsInState(is *terraform.InstanceState, attrParts []string, matchCount int, values interface{}) bool {
-	matches := make(map[string]int)
-
-	for stateKey, stateValue := range is.Attributes {
+// Returns true if all attributes match, else false. testCheckTypeSetElemNestedAttrsInState(is *terraform.InstanceState, attrParts []string, matchCount int, values interface{}) bool {
+	matches := make(map[string]int)	for stateKey, stateValue := range is.Attributes {
 		stateKeyParts := strings.Split(stateKey, ".")
 		// a Set/List item with nested attrs would have a flatmap address of
 		// at least length 3
@@ -361,9 +291,7 @@ tion accepts a "values" param of type
 			continue
 		}
 		id := stateKeyParts[len(attrParts)-1]
-		nestedAttr := strings.Join(stateKeyParts[len(attrParts):], ".")
-
-		var match bool
+		nestedAttr := strings.Join(stateKeyParts[len(attrParts):], ".")		var match bool
 		switch t := values.(type) {
 		case map[string]string:
 			if v, keyExists := t[nestedAttr]; keyExists && v == stateValue {

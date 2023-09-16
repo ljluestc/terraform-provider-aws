@@ -7,7 +7,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dax"
 )
-
 func expandEncryptAtRestOptions(m map[string]interface{}) *dax.SSESpecification {
 	options := dax.SSESpecification{}
 
@@ -17,7 +16,6 @@ func expandEncryptAtRestOptions(m map[string]interface{}) *dax.SSESpecification 
 
 	return &options
 }
-
 func expandParameterGroupParameterNameValue(config []interface{}) []*dax.ParameterNameValue {
 	if len(config) == 0 {
 		return nil
@@ -33,7 +31,6 @@ func expandParameterGroupParameterNameValue(config []interface{}) []*dax.Paramet
 	}
 	return results
 }
-
 func flattenEncryptAtRestOptions(options *dax.SSEDescription) []map[string]interface{} {
 	m := map[string]interface{}{
 		"enabled": false,
@@ -47,7 +44,6 @@ func flattenEncryptAtRestOptions(options *dax.SSEDescription) []map[string]inter
 
 	return []map[string]interface{}{m}
 }
-
 func flattenParameterGroupParameters(params []*dax.Parameter) []map[string]interface{} {
 	if len(params) == 0 {
 		return nil
@@ -62,7 +58,6 @@ func flattenParameterGroupParameters(params []*dax.Parameter) []map[string]inter
 	}
 	return results
 }
-
 func flattenSecurityGroupIDs(securityGroups []*dax.SecurityGroupMembership) []string {
 	result := make([]string, 0, len(securityGroups))
 	for _, sg := range securityGroups {

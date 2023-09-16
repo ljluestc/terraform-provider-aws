@@ -38,21 +38,21 @@ func ResourceAuthorizer() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"authorizer_function_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"enable_caching_for_http": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 128),
@@ -60,18 +60,18 @@ func ResourceAuthorizer() *schema.Resource {
 				),
 			},
 			"signing_disabled": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"status": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      iot.AuthorizerStatusActive,
+				Type:schema.TypeString,
+				Optional: true,
+				Default:  iot.AuthorizerStatusActive,
 				ValidateFunc: validation.StringInSlice(iot.AuthorizerStatus_Values(), false),
 			},
 			"token_key_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 128),
@@ -79,9 +79,9 @@ func ResourceAuthorizer() *schema.Resource {
 				),
 			},
 			"token_signing_public_keys": {
-				Type:      schema.TypeMap,
+				Type:  schema.TypeMap,
 				Optional:  true,
-				Elem:      &schema.Schema{Type: schema.TypeString},
+				Elem:  &schema.Schema{Type: schema.TypeString},
 				Sensitive: true,
 			},
 		},
@@ -95,9 +95,9 @@ func resourceAuthorizerCreate(ctx context.Context, d *schema.ResourceData, meta 
 	name := d.Get("name").(string)
 	input := &iot.CreateAuthorizerInput{
 		AuthorizerFunctionArn: aws.String(d.Get("authorizer_function_arn").(string)),
-		AuthorizerName:        aws.String(name),
+		AuthorizerName:aws.String(name),
 		EnableCachingForHttp:  aws.Bool(d.Get("enable_caching_for_http").(bool)),
-		SigningDisabled:       aws.Bool(d.Get("signing_disabled").(bool)),
+		SigningDisabled:   aws.Bool(d.Get("signing_disabled").(bool)),
 		Status:   aws.String(d.Get("status").(string)),
 	}
 
@@ -196,7 +196,7 @@ func resourceAuthorizerDelete(ctx context.Context, d *schema.ResourceData, meta 
 		log.Printf("[INFO] Deactivating IoT Authorizer: %s", d.Id())
 		_, err := conn.UpdateAuthorizerWithContext(ctx, &iot.UpdateAuthorizerInput{
 			AuthorizerName: aws.String(d.Id()),
-			Status:         aws.String(iot.AuthorizerStatusInactive),
+			Status:aws.String(iot.AuthorizerStatusInactive),
 		})
 
 		if err != nil {

@@ -41,8 +41,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -76,8 +76,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -211,11 +211,11 @@ resource "aws_quicksight_group" "test" {
 
 resource "aws_quicksight_user" "test" {
   aws_account_id = data.aws_caller_identity.current.account_id
-  user_name      = %[1]q
+  user_name= %[1]q
   email = %[2]q
-  namespace      = aws_quicksight_namespace.test.namespace
+  namespace= aws_quicksight_namespace.test.namespace
   identity_type  = "QUICKSIGHT"
-  user_role      = "READER"
+  user_role= "READER"
 }
 
 resource "aws_quicksight_group_membership" "test" {

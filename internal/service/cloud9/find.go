@@ -76,7 +76,7 @@ func FindEnvironmentByID(ctx context.Context, conn *cloud9.Cloud9, id string) (*
 func FindEnvironmentMembershipByID(ctx context.Context, conn *cloud9.Cloud9, envId, userArn string) (*cloud9.EnvironmentMember, error) {
 	input := &cloud9.DescribeEnvironmentMembershipsInput{
 		EnvironmentId: aws.String(envId),
-		UserArn:       aws.String(userArn),
+		UserArn:  aws.String(userArn),
 	}
 	out, err := conn.DescribeEnvironmentMembershipsWithContext(ctx, input)
 

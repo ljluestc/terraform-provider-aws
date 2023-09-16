@@ -7,7 +7,6 @@ import (
 	"strings"
 	"testing"
 )
-
 func TestValidName(t *testing.T) {
 	t.Parallel()
 
@@ -32,7 +31,6 @@ func TestValidName(t *testing.T) {
 		}
 	}
 }
-
 func TestValidPrefix(t *testing.T) {
 	t.Parallel()
 
@@ -57,14 +55,13 @@ func TestValidPrefix(t *testing.T) {
 		}
 	}
 }
-
 func TestValidShareIdentifier(t *testing.T) {
 	t.Parallel()
 
 	validShareIdentifiers := []string{
 		"sample*",
 		"sample1",
-		strings.Repeat("W", 255),       // <= 255,
+		strings.Repeat("W", 255),  // <= 255,
 		strings.Repeat("W", 254) + "*", // optional asterisk
 	}
 	for _, v := range validShareIdentifiers {

@@ -1,381 +1,244 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package rdsimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// @SDKDataSource("aws_rds_orderable_db_instance")
+)// @SDKDataSource("aws_rds_orderable_db_instance")
 funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceOrderableInstanceRead,
 		Schema: map[string]*schema.Schema{
 			"availability_zone_group": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
-			},
-
-			"availability_zones": {
-				Type:     schema.TypeList,
+			},			"availability_zones": {
+				Type:schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-			},
-
-			"engine": {
-				Type:     schema.TypeString,
+				Elem:&schema.Schema{Type: schema.TypeString},
+			},			"engine": {
+				Type:schema.TypeString,
 				Required: true,
-			},
-
-			"engine_version": {
-				Type:     schema.TypeString,
+			},			"engine_version": {
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
-			},
-
-			"instance_class": {
-				Type:     schema.TypeString,
+			},			"instance_class": {
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
-			},
-
-			"license_model": {
-				Type:     schema.TypeString,
+			},			"license_model": {
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
-			},
-
-			"max_iops_per_db_instance": {
-				Type:     schema.TypeInt,
+			},			"max_iops_per_db_instance": {
+				Type:schema.TypeInt,
 				Computed: true,
-			},
-
-			"max_iops_per_gib": {
-				Type:     schema.TypeFloat,
+			},			"max_iops_per_gib": {
+				Type:schema.TypeFloat,
 				Computed: true,
-			},
-
-			"max_storage_size": {
-				Type:     schema.TypeInt,
+			},			"max_storage_size": {
+				Type:schema.TypeInt,
 				Computed: true,
-			},
-
-			"min_iops_per_db_instance": {
-				Type:     schema.TypeInt,
+			},			"min_iops_per_db_instance": {
+				Type:schema.TypeInt,
 				Computed: true,
-			},
-
-			"min_iops_per_gib": {
-				Type:     schema.TypeFloat,
+			},			"min_iops_per_gib": {
+				Type:schema.TypeFloat,
 				Computed: true,
-			},
-
-			"min_storage_size": {
-				Type:     schema.TypeInt,
+			},			"min_storage_size": {
+				Type:schema.TypeInt,
 				Computed: true,
-			},
-
-			"multi_az_capable": {
-				Type:     schema.TypeBool,
+			},			"multi_az_capable": {
+				Type:schema.TypeBool,
 				Computed: true,
-			},
-
-			"outpost_capable": {
-				Type:     schema.TypeBool,
+			},			"outpost_capable": {
+				Type:schema.TypeBool,
 				Computed: true,
-			},
-
-			"preferred_instance_classes": {
-				Type:     schema.TypeList,
+			},			"preferred_instance_classes": {
+				Type:schema.TypeList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-			},
-
-			"preferred_engine_versions": {
-				Type:     schema.TypeList,
+				Elem:&schema.Schema{Type: schema.TypeString},
+			},			"preferred_engine_versions": {
+				Type:schema.TypeList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-			},
-
-			"read_replica_capable": {
-				Type:     schema.TypeBool,
+				Elem:&schema.Schema{Type: schema.TypeString},
+			},			"read_replica_capable": {
+				Type:schema.TypeBool,
 				Computed: true,
-			},
-
-			"storage_type": {
-				Type:     schema.TypeString,
+			},			"storage_type": {
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
-			},
-
-			"supported_engine_modes": {
-				Type:     schema.TypeList,
+			},			"supported_engine_modes": {
+				Type:schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-			},
-
-			"supported_network_types": {
-				Type:     schema.TypeList,
+				Elem:&schema.Schema{Type: schema.TypeString},
+			},			"supported_network_types": {
+				Type:schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-			},
-
-			"supports_enhanced_monitoring": {
-				Type:     schema.TypeBool,
+				Elem:&schema.Schema{Type: schema.TypeString},
+			},			"supports_enhanced_monitoring": {
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
-			},
-
-			"supports_global_databases": {
-				Type:     schema.TypeBool,
+			},			"supports_global_databases": {
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
-			},
-
-			"supports_iam_database_authentication": {
-				Type:     schema.TypeBool,
+			},			"supports_iam_database_authentication": {
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
-			},
-
-			"supports_iops": {
-				Type:     schema.TypeBool,
+			},			"supports_iops": {
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
-			},
-
-			"supports_kerberos_authentication": {
-				Type:     schema.TypeBool,
+			},			"supports_kerberos_authentication": {
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
-			},
-
-			"supports_performance_insights": {
-				Type:     schema.TypeBool,
+			},			"supports_performance_insights": {
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
-			},
-
-			"supports_storage_autoscaling": {
-				Type:     schema.TypeBool,
+			},			"supports_storage_autoscaling": {
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
-			},
-
-			"supports_storage_encryption": {
-				Type:     schema.TypeBool,
+			},			"supports_storage_encryption": {
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
-			},
-
-			"vpc": {
-				Type:     schema.TypeBool,
+			},			"vpc": {
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func dataSourceOrderableInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-funcn := meta.(*conns.AWSClient).RDSConn(ctx)
-
-	input := &rds.DescribeOrderableDBInstanceOptionsInput{}
-
-	if v, ok := d.GetOk("availability_zone_group"); ok {
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)	input := &rds.DescribeOrderableDBInstanceOptionsInput{}	if v, ok := d.GetOk("availability_zone_group"); ok {
 		input.AvailabilityZoneGroup = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("instance_class"); ok {
+	}	if v, ok := d.GetOk("instance_class"); ok {
 		input.DBInstanceClass = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("engine"); ok {
+	}	if v, ok := d.GetOk("engine"); ok {
 		input.Engine = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("engine_version"); ok {
+	}	if v, ok := d.GetOk("engine_version"); ok {
 		input.EngineVersion = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("license_model"); ok {
+	}	if v, ok := d.GetOk("license_model"); ok {
 		input.LicenseModel = aws.String(v.(string))
-	}
-
-	if v, ok := d.GetOk("vpc"); ok {
+	}	if v, ok := d.GetOk("vpc"); ok {
 		input.Vpc = aws.Bool(v.(bool))
-	}
-
-	var instanceClassResults []*rds.OrderableDBInstanceOption
-
-	err := conn.DescribeOrderableDBInstanceOptionsPagesWithContext(ctx, input, func(resp *rds.DescribeOrderableDBInstanceOptionsOutput, lastPage bool) bool {
+	}	var instanceClassResults []*rds.OrderableDBInstanceOption	err := conn.DescribeOrderableDBInstanceOptionsPagesWithContext(ctx, input, 
+func(resp *rds.DescribeOrderableDBInstanceOptionsOutput, lastPage bool) bool {
 		for _, instanceOption := range resp.OrderableDBInstanceOptions {
-			if instanceOption == nil {funccontinue
-			}
-
-			if v, ok := d.GetOk("storage_type"); ok {
+			if instanceOption == nil {
+funccontinue
+			}			if v, ok := d.GetOk("storage_type"); ok {
 				if aws.StringValue(instanceOption.StorageType) != v.(string) {
 					continue
 				}
-			}
-
-			if v, ok := d.GetOk("supports_enhanced_monitoring"); ok {
+			}			if v, ok := d.GetOk("supports_enhanced_monitoring"); ok {
 				if aws.BoolValue(instanceOption.SupportsEnhancedMonitoring) != v.(bool) {
 					continue
 				}
-			}
-
-			if v, ok := d.GetOk("supports_global_databases"); ok {
+			}			if v, ok := d.GetOk("supports_global_databases"); ok {
 				if aws.BoolValue(instanceOption.SupportsGlobalDatabases) != v.(bool) {
 					continue
 				}
-			}
-
-			if v, ok := d.GetOk("supports_iam_database_authentication"); ok {
+			}			if v, ok := d.GetOk("supports_iam_database_authentication"); ok {
 				if aws.BoolValue(instanceOption.SupportsIAMDatabaseAuthentication) != v.(bool) {
 					continue
 				}
-			}
-
-			if v, ok := d.GetOk("supports_iops"); ok {
+			}			if v, ok := d.GetOk("supports_iops"); ok {
 				if aws.BoolValue(instanceOption.SupportsIops) != v.(bool) {
 					continue
 				}
-			}
-
-			if v, ok := d.GetOk("supports_kerberos_authentication"); ok {
+			}			if v, ok := d.GetOk("supports_kerberos_authentication"); ok {
 				if aws.BoolValue(instanceOption.SupportsKerberosAuthentication) != v.(bool) {
 					continue
 				}
-			}
-
-			if v, ok := d.GetOk("supports_performance_insights"); ok {
+			}			if v, ok := d.GetOk("supports_performance_insights"); ok {
 				if aws.BoolValue(instanceOption.SupportsPerformanceInsights) != v.(bool) {
 					continue
 				}
-			}
-
-			if v, ok := d.GetOk("supports_storage_autoscaling"); ok {
+			}			if v, ok := d.GetOk("supports_storage_autoscaling"); ok {
 				if aws.BoolValue(instanceOption.SupportsStorageAutoscaling) != v.(bool) {
 					continue
 				}
-			}
-
-			if v, ok := d.GetOk("supports_storage_encryption"); ok {
+			}			if v, ok := d.GetOk("supports_storage_encryption"); ok {
 				if aws.BoolValue(instanceOption.SupportsStorageEncryption) != v.(bool) {
 					continue
 				}
-			}
-
-			instanceClassResults = append(instanceClassResults, instanceOption)
+			}			instanceClassResults = append(instanceClassResults, instanceOption)
 		}
 		return !lastPage
 	})
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading RDS Orderable DB Instance Options: %s", err)
-	}
-
-	if len(instanceClassResults) == 0 {
+	}	if len(instanceClassResults) == 0 {
 		return sdkdiag.AppendErrorf(diags, "no RDS Orderable DB Instance Options found matching criteria; try different search")
-	}
-
-	// preferred classes/versions
+	}	// preferred classes/versions
 	var found *rds.OrderableDBInstanceOption
 	l := d.Get("preferred_instance_classes").([]interface{})
 	v := d.Get("preferred_engine_versions").([]interface{})
 	if len(l) > 0 && len(v) > 0 {
 		for _, elem := range l {
-			preferredInstanceClass, ok := elem.(string)
-
-			if !ok {
+			preferredInstanceClass, ok := elem.(string)			if !ok {
 				continue
-			}
-
-			for _, ver := range v {
-				preferredEngineVersion, ok := ver.(string)
-
-				if !ok {
+			}			for _, ver := range v {
+				preferredEngineVersion, ok := ver.(string)				if !ok {
 					continue
-				}
-
-				for _, instanceClassResult := range instanceClassResults {
+				}				for _, instanceClassResult := range instanceClassResults {
 					if preferredInstanceClass == aws.StringValue(instanceClassResult.DBInstanceClass) &&
 						preferredEngineVersion == aws.StringValue(instanceClassResult.EngineVersion) {
 						found = instanceClassResult
 						break
 					}
-				}
-
-				if found != nil {
+				}				if found != nil {
 					break
 				}
-			}
-
-			if found != nil {
+			}			if found != nil {
 				break
 			}
 		}
 	} else if len(l) > 0 {
 		for _, elem := range l {
-			preferredInstanceClass, ok := elem.(string)
-
-			if !ok {
+			preferredInstanceClass, ok := elem.(string)			if !ok {
 				continue
-			}
-
-			for _, instanceClassResult := range instanceClassResults {
+			}			for _, instanceClassResult := range instanceClassResults {
 				if preferredInstanceClass == aws.StringValue(instanceClassResult.DBInstanceClass) {
 					found = instanceClassResult
 					break
 				}
-			}
-
-			if found != nil {
+			}			if found != nil {
 				break
 			}
 		}
 	} else if len(v) > 0 {
 		for _, ver := range v {
-			preferredEngineVersion, ok := ver.(string)
-
-			if !ok {
+			preferredEngineVersion, ok := ver.(string)			if !ok {
 				continue
-			}
-
-			for _, instanceClassResult := range instanceClassResults {
+			}			for _, instanceClassResult := range instanceClassResults {
 				if preferredEngineVersion == aws.StringValue(instanceClassResult.EngineVersion) {
 					found = instanceClassResult
 					break
 				}
-			}
-
-			if found != nil {
+			}			if found != nil {
 				break
 			}
 		}
-	}
-
-	if found == nil && len(instanceClassResults) > 1 {
+	}	if found == nil && len(instanceClassResults) > 1 {
 		return sdkdiag.AppendErrorf(diags, "multiple RDS DB Instance Classes (%v) match the criteria; try a different search", instanceClassResults)
-	}
-
-	if found == nil && len(instanceClassResults) == 1 {
+	}	if found == nil && len(instanceClassResults) == 1 {
 		found = instanceClassResults[0]
-	}
-
-	if found == nil {
+	}	if found == nil {
 		return sdkdiag.AppendErrorf(diags, "no RDS DB Instance Classes match the criteria; try a different search")
-	}
-
-	d.SetId(aws.StringValue(found.DBInstanceClass))
+	}	d.SetId(aws.StringValue(found.DBInstanceClass))
 	d.Set("availability_zone_group", found.AvailabilityZoneGroup)
 	var availabilityZones []string
 	for _, v := range found.AvailabilityZones {
@@ -406,7 +269,5 @@ funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 	d.Set("supports_performance_insights", found.SupportsPerformanceInsights)
 	d.Set("supports_storage_autoscaling", found.SupportsStorageAutoscaling)
 	d.Set("supports_storage_encryption", found.SupportsStorageEncryption)
-	d.Set("vpc", found.Vpc)
-
-	return diags
+	d.Set("vpc", found.Vpc)	return diags
 }

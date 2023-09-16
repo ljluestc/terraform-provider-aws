@@ -24,7 +24,6 @@ import (
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccLightsailDatabase_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_database.test"
@@ -76,7 +75,6 @@ func TestAccLightsailDatabase_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_relationalDatabaseName(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_database.test"
@@ -138,7 +136,6 @@ func TestAccLightsailDatabase_relationalDatabaseName(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_masterDatabaseName(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -204,7 +201,6 @@ func TestAccLightsailDatabase_masterDatabaseName(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_masterUsername(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -275,7 +271,6 @@ func TestAccLightsailDatabase_masterUsername(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_masterPassword(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -324,7 +319,6 @@ func TestAccLightsailDatabase_masterPassword(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_preferredBackupWindow(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -378,7 +372,6 @@ func TestAccLightsailDatabase_preferredBackupWindow(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_preferredMaintenanceWindow(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -437,7 +430,6 @@ func TestAccLightsailDatabase_preferredMaintenanceWindow(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_publiclyAccessible(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -481,7 +473,6 @@ func TestAccLightsailDatabase_publiclyAccessible(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_backupRetentionEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -525,7 +516,6 @@ func TestAccLightsailDatabase_backupRetentionEnabled(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_finalSnapshotName(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -582,7 +572,6 @@ func TestAccLightsailDatabase_finalSnapshotName(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -637,7 +626,6 @@ func TestAccLightsailDatabase_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_ha(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_database.test"
@@ -676,7 +664,6 @@ func TestAccLightsailDatabase_ha(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDatabase_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -721,7 +708,6 @@ func TestAccLightsailDatabase_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckDatabaseExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -752,7 +738,6 @@ func testAccCheckDatabaseExists(ctx context.Context, n string) resource.TestChec
 		return nil
 	}
 }
-
 func testAccCheckDatabaseDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
@@ -784,7 +769,6 @@ func testAccCheckDatabaseDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckDatabaseSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
@@ -828,11 +812,9 @@ func testAccCheckDatabaseSnapshotDestroy(ctx context.Context) resource.TestCheck
 		return nil
 	}
 }
-
 func testAccDatabaseConfig_base() string {
 	return acctest.ConfigAvailableAZsNoOptIn()
 }
-
 func testAccDatabaseConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
@@ -840,15 +822,14 @@ func testAccDatabaseConfig_basic(rName string) string {
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
-  master_password          = "testdatabasepassword"
-  master_username          = "test"
+  master_password = "testdatabasepassword"
+  master_username = "test"
   blueprint_id
   bundle_id_0"
   skip_final_snapshot      = true
 }
 `, rName))
 }
-
 func testAccDatabaseConfig_masterDatabaseName(rName string, masterDatabaseName string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
@@ -856,15 +837,14 @@ func testAccDatabaseConfig_masterDatabaseName(rName string, masterDatabaseName s
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = %[2]q
-  master_password          = "testdatabasepassword"
-  master_username          = "test"
+  master_password = "testdatabasepassword"
+  master_username = "test"
   blueprint_id
   bundle_id_0"
   skip_final_snapshot      = true
 }
 `, rName, masterDatabaseName))
 }
-
 func testAccDatabaseConfig_masterUsername(rName string, masterUsername string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
@@ -872,15 +852,14 @@ func testAccDatabaseConfig_masterUsername(rName string, masterUsername string) s
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
-  master_password          = "testdatabasepassword"
-  master_username          = %[2]q
+  master_password = "testdatabasepassword"
+  master_username = %[2]q
   blueprint_id
   bundle_id_0"
   skip_final_snapshot      = true
 }
 `, rName, masterUsername))
 }
-
 func testAccDatabaseConfig_masterPassword(rName string, masterPassword string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
@@ -888,15 +867,14 @@ func testAccDatabaseConfig_masterPassword(rName string, masterPassword string) s
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
-  master_password          = %[2]q
-  master_username          = "testusername"
+  master_password = %[2]q
+  master_username = "testusername"
   blueprint_id
   bundle_id_0"
   skip_final_snapshot      = true
 }
 `, rName, masterPassword))
 }
-
 func testAccDatabaseConfig_preferredBackupWindow(rName string, preferredBackupWindow string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
@@ -904,8 +882,8 @@ func testAccDatabaseConfig_preferredBackupWindow(rName string, preferredBackupWi
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
-  master_password          = "testdatabasepassword"
-  master_username          = "test"
+  master_password = "testdatabasepassword"
+  master_username = "test"
   blueprint_id
   bundle_id_0"
   preferred_backup_window  = %[2]q
@@ -914,25 +892,23 @@ func testAccDatabaseConfig_preferredBackupWindow(rName string, preferredBackupWi
 }
 `, rName, preferredBackupWindow))
 }
-
 func testAccDatabaseConfig_preferredMaintenanceWindow(rName string, preferredMaintenanceWindow string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
 		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name     = %[1]q
-  availability_zone            = data.aws_availability_zones.available.names[0]
-  master_database_name         = "testdatabasename"
+  availability_zone   = data.aws_availability_zones.available.names[0]
+  master_database_name= "testdatabasename"
   master_passwordasepassword"
   master_username
   blueprint_id8_0"
   bundle_idro_1_0"
   preferred_maintenance_window = %[2]q
-  apply_immediately            = true
-  skip_final_snapshot          = true
+  apply_immediately   = true
+  skip_final_snapshot = true
 }
 `, rName, preferredMaintenanceWindow))
 }
-
 func testAccDatabaseConfig_publiclyAccessible(rName string, publiclyAccessible bool) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
@@ -940,8 +916,8 @@ func testAccDatabaseConfig_publiclyAccessible(rName string, publiclyAccessible b
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
-  master_password          = "testdatabasepassword"
-  master_username          = "test"
+  master_password = "testdatabasepassword"
+  master_username = "test"
   blueprint_id
   bundle_id_0"
   publicly_accessible      = %[2]t
@@ -950,7 +926,6 @@ func testAccDatabaseConfig_publiclyAccessible(rName string, publiclyAccessible b
 }
 `, rName, publiclyAccessible))
 }
-
 func testAccDatabaseConfig_backupRetentionEnabled(rName string, backupRetentionEnabled bool) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
@@ -958,8 +933,8 @@ func testAccDatabaseConfig_backupRetentionEnabled(rName string, backupRetentionE
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "test"
-  master_password          = "testdatabasepassword"
-  master_username          = "test"
+  master_password = "testdatabasepassword"
+  master_username = "test"
   blueprint_id
   bundle_id_0"
   backup_retention_enabled = %[2]t
@@ -968,7 +943,6 @@ func testAccDatabaseConfig_backupRetentionEnabled(rName string, backupRetentionE
 }
 `, rName, backupRetentionEnabled))
 }
-
 func testAccDatabaseConfig_finalSnapshotName(rName string, sName string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
@@ -976,15 +950,14 @@ func testAccDatabaseConfig_finalSnapshotName(rName string, sName string) string 
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "test"
-  master_password          = "testdatabasepassword"
-  master_username          = "test"
+  master_password = "testdatabasepassword"
+  master_username = "test"
   blueprint_id
   bundle_id_0"
   final_snapshot_name      = %[2]q
 }
 `, rName, sName))
 }
-
 func testAccDatabaseConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
@@ -992,8 +965,8 @@ func testAccDatabaseConfig_tags1(rName string, tagKey1, tagValue1 string) string
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
-  master_password          = "testdatabasepassword"
-  master_username          = "test"
+  master_password = "testdatabasepassword"
+  master_username = "test"
   blueprint_id
   bundle_id_0"
   skip_final_snapshot      = true
@@ -1003,7 +976,6 @@ func testAccDatabaseConfig_tags1(rName string, tagKey1, tagValue1 string) string
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccDatabaseConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
@@ -1011,8 +983,8 @@ func testAccDatabaseConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 s
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
-  master_password          = "testdatabasepassword"
-  master_username          = "test"
+  master_password = "testdatabasepassword"
+  master_username = "test"
   blueprint_id
   bundle_id_0"
   skip_final_snapshot      = true
@@ -1023,15 +995,14 @@ func testAccDatabaseConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 s
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
 func testAccDatabaseConfig_ha(rName string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
 		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   master_database_name     = "testdatabasename"
-  master_password          = "testdatabasepassword"
-  master_username          = "test"
+  master_password = "testdatabasepassword"
+  master_username = "test"
   blueprint_id
   bundle_ida_1_0"
   skip_final_snapshot      = true

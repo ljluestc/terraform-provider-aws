@@ -22,9 +22,9 @@ func TestAccNetworkManagerConnection_serial(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]func(t *testing.T){
-		"basic":               testAccConnection_basic,
-		"disappears":          testAccConnection_disappears,
-		"tags":                testAccConnection_tags,
+		"basic":      testAccConnection_basic,
+		"disappears": testAccConnection_disappears,
+		"tags":       testAccConnection_tags,
 		"descriptionAndLinks": testAccConnection_descriptionAndLinks,
 	}
 
@@ -37,10 +37,10 @@ func testAccConnection_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_basic(rName),
@@ -69,10 +69,10 @@ func testAccConnection_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_basic(rName),
@@ -92,10 +92,10 @@ func testAccConnection_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_tags1(rName, "key1", "value1"),
@@ -140,10 +140,10 @@ func testAccConnection_descriptionAndLinks(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+		CheckDestroy:    testAccCheckConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectionConfig_descriptionAndLinks(rName),
@@ -271,7 +271,7 @@ func testAccConnectionConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccConnectionBaseConfig(rName), `
 resource "aws_networkmanager_connection" "test" {
   global_network_id   = aws_networkmanager_global_network.test.id
-  device_id           = aws_networkmanager_device.test1.id
+  device_id  = aws_networkmanager_device.test1.id
   connected_device_id = aws_networkmanager_device.test2.id
 }
 `)
@@ -281,7 +281,7 @@ func testAccConnectionConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccConnectionBaseConfig(rName), fmt.Sprintf(`
 resource "aws_networkmanager_connection" "test" {
   global_network_id   = aws_networkmanager_global_network.test.id
-  device_id           = aws_networkmanager_device.test1.id
+  device_id  = aws_networkmanager_device.test1.id
   connected_device_id = aws_networkmanager_device.test2.id
 
   tags = {
@@ -295,7 +295,7 @@ func testAccConnectionConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2
 	return acctest.ConfigCompose(testAccConnectionBaseConfig(rName), fmt.Sprintf(`
 resource "aws_networkmanager_connection" "test" {
   global_network_id   = aws_networkmanager_global_network.test.id
-  device_id           = aws_networkmanager_device.test1.id
+  device_id  = aws_networkmanager_device.test1.id
   connected_device_id = aws_networkmanager_device.test2.id
 
   tags = {
@@ -310,7 +310,7 @@ func testAccConnectionDescriptionAndLinksBaseConfig(rName string) string {
 	return acctest.ConfigCompose(testAccConnectionBaseConfig(rName), fmt.Sprintf(`
 resource "aws_networkmanager_link" "test1" {
   global_network_id = aws_networkmanager_global_network.test.id
-  site_id           = aws_networkmanager_site.test.id
+  site_id  = aws_networkmanager_site.test.id
 
   description = "%[1]s-1"
 
@@ -326,7 +326,7 @@ resource "aws_networkmanager_link" "test1" {
 
 resource "aws_networkmanager_link" "test2" {
   global_network_id = aws_networkmanager_global_network.test.id
-  site_id           = aws_networkmanager_site.test.id
+  site_id  = aws_networkmanager_site.test.id
 
   description = "%[1]s-2"
 
@@ -345,14 +345,14 @@ resource "aws_networkmanager_link" "test2" {
 
 resource "aws_networkmanager_link_association" "test1" {
   global_network_id = aws_networkmanager_global_network.test.id
-  link_id           = aws_networkmanager_link.test1.id
-  device_id         = aws_networkmanager_device.test1.id
+  link_id  = aws_networkmanager_link.test1.id
+  device_id= aws_networkmanager_device.test1.id
 }
 
 resource "aws_networkmanager_link_association" "test2" {
   global_network_id = aws_networkmanager_global_network.test.id
-  link_id           = aws_networkmanager_link.test2.id
-  device_id         = aws_networkmanager_device.test2.id
+  link_id  = aws_networkmanager_link.test2.id
+  device_id= aws_networkmanager_device.test2.id
 }
 `, rName))
 }
@@ -361,7 +361,7 @@ func testAccConnectionConfig_descriptionAndLinks(rName string) string {
 	return acctest.ConfigCompose(testAccConnectionDescriptionAndLinksBaseConfig(rName), fmt.Sprintf(`
 resource "aws_networkmanager_connection" "test" {
   global_network_id   = aws_networkmanager_global_network.test.id
-  device_id           = aws_networkmanager_device.test1.id
+  device_id  = aws_networkmanager_device.test1.id
   connected_device_id = aws_networkmanager_device.test2.id
 
   description = "description1"
@@ -381,12 +381,12 @@ func testAccConnectionConfig_descriptionAndLinksUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccConnectionDescriptionAndLinksBaseConfig(rName), fmt.Sprintf(`
 resource "aws_networkmanager_connection" "test" {
   global_network_id   = aws_networkmanager_global_network.test.id
-  device_id           = aws_networkmanager_device.test1.id
+  device_id  = aws_networkmanager_device.test1.id
   connected_device_id = aws_networkmanager_device.test2.id
 
   description = "description2"
 
-  link_id           = aws_networkmanager_link.test1.id
+  link_id  = aws_networkmanager_link.test1.id
   connected_link_id = aws_networkmanager_link.test2.id
 
   tags = {

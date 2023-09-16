@@ -31,7 +31,7 @@ func ResourceVoiceConnectorStreaming() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"data_retention": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				ValidateFunc: validation.IntAtLeast(0),
 			},
@@ -47,7 +47,7 @@ func ResourceVoiceConnectorStreaming() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"configuration_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: verify.ValidARN,
 						},
@@ -65,7 +65,7 @@ func ResourceVoiceConnectorStreaming() *schema.Resource {
 				MaxItems: 3,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(chimesdkvoice.NotificationTarget_Values(), false),
 				},
 			},
@@ -88,7 +88,7 @@ func resourceVoiceConnectorStreamingCreate(ctx context.Context, d *schema.Resour
 
 	config := &chimesdkvoice.StreamingConfiguration{
 		DataRetentionInHours: aws.Int64(int64(d.Get("data_retention").(int))),
-		Disabled:             aws.Bool(d.Get("disabled").(bool)),
+		Disabled:    aws.Bool(d.Get("disabled").(bool)),
 	}
 
 	if v, ok := d.GetOk("streaming_notification_targets"); ok && v.(*schema.Set).Len() > 0 {
@@ -159,7 +159,7 @@ func resourceVoiceConnectorStreamingUpdate(ctx context.Context, d *schema.Resour
 
 		config := &chimesdkvoice.StreamingConfiguration{
 			DataRetentionInHours: aws.Int64(int64(d.Get("data_retention").(int))),
-			Disabled:             aws.Bool(d.Get("disabled").(bool)),
+			Disabled:    aws.Bool(d.Get("disabled").(bool)),
 		}
 
 		if v, ok := d.GetOk("streaming_notification_targets"); ok && v.(*schema.Set).Len() > 0 {
@@ -244,7 +244,7 @@ func flattenMediaInsightsConfiguration(mediaInsightsConfiguration *chimesdkvoice
 	}
 
 	tfMap := map[string]interface{}{
-		"disabled":          mediaInsightsConfiguration.Disabled,
+		"disabled": mediaInsightsConfiguration.Disabled,
 		"configuration_arn": mediaInsightsConfiguration.ConfigurationArn,
 	}
 

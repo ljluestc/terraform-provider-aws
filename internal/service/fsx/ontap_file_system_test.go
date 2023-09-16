@@ -27,7 +27,7 @@ func TestAccFSxOntapFileSystem_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -66,9 +66,9 @@ func TestAccFSxOntapFileSystem_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 		},
@@ -82,7 +82,7 @@ func TestAccFSxOntapFileSystem_fsxSingleAz(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -96,9 +96,9 @@ func TestAccFSxOntapFileSystem_fsxSingleAz(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 		},
@@ -114,7 +114,7 @@ func TestAccFSxOntapFileSystem_fsxAdminPassword(t *testing.T) {
 	pass2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -127,9 +127,9 @@ func TestAccFSxOntapFileSystem_fsxAdminPassword(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids", "fsx_admin_password"},
 			},
 			{
@@ -151,7 +151,7 @@ func TestAccFSxOntapFileSystem_endpointIPAddressRange(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -164,9 +164,9 @@ func TestAccFSxOntapFileSystem_endpointIPAddressRange(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 		},
@@ -180,7 +180,7 @@ func TestAccFSxOntapFileSystem_diskIops(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -195,9 +195,9 @@ func TestAccFSxOntapFileSystem_diskIops(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 			{
@@ -220,7 +220,7 @@ func TestAccFSxOntapFileSystem_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -244,7 +244,7 @@ func TestAccFSxOntapFileSystem_securityGroupIDs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -257,9 +257,9 @@ func TestAccFSxOntapFileSystem_securityGroupIDs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 			{
@@ -281,7 +281,7 @@ func TestAccFSxOntapFileSystem_routeTableIDs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -295,9 +295,9 @@ func TestAccFSxOntapFileSystem_routeTableIDs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 			{
@@ -328,7 +328,7 @@ func TestAccFSxOntapFileSystem_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -342,9 +342,9 @@ func TestAccFSxOntapFileSystem_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 			{
@@ -377,7 +377,7 @@ func TestAccFSxOntapFileSystem_weeklyMaintenanceStartTime(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -390,9 +390,9 @@ func TestAccFSxOntapFileSystem_weeklyMaintenanceStartTime(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 			{
@@ -414,7 +414,7 @@ func TestAccFSxOntapFileSystem_automaticBackupRetentionDays(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -427,9 +427,9 @@ func TestAccFSxOntapFileSystem_automaticBackupRetentionDays(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 			{
@@ -458,7 +458,7 @@ func TestAccFSxOntapFileSystem_kmsKeyID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -471,9 +471,9 @@ func TestAccFSxOntapFileSystem_kmsKeyID(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 		},
@@ -487,7 +487,7 @@ func TestAccFSxOntapFileSystem_dailyAutomaticBackupStartTime(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckLustreFileSystemDestroy(ctx),
@@ -500,9 +500,9 @@ func TestAccFSxOntapFileSystem_dailyAutomaticBackupStartTime(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 			{
@@ -524,7 +524,7 @@ func TestAccFSxOntapFileSystem_throughputCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -537,9 +537,9 @@ func TestAccFSxOntapFileSystem_throughputCapacity(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 			{
@@ -561,7 +561,7 @@ func TestAccFSxOntapFileSystem_storageCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOntapFileSystemDestroy(ctx),
@@ -574,9 +574,9 @@ func TestAccFSxOntapFileSystem_storageCapacity(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"security_group_ids"},
 			},
 			{
@@ -665,27 +665,27 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.1.0/24"
+  vpc_id   = aws_vpc.test.id
+  cidr_block= "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test2" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.2.0/24"
+  vpc_id   = aws_vpc.test.id
+  cidr_block= "10.0.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -694,9 +694,9 @@ resource "aws_subnet" "test2" {
 func testAccONTAPFileSystemConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), `
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 128
   preferred_subnet_id = aws_subnet.test1.id
 }
@@ -706,9 +706,9 @@ resource "aws_fsx_ontap_file_system" "test" {
 func testAccONTAPFileSystemConfig_singleAz(rName string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), `
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id]
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id]
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 128
   preferred_subnet_id = aws_subnet.test1.id
 }
@@ -718,15 +718,15 @@ resource "aws_fsx_ontap_file_system" "test" {
 func testAccONTAPFileSystemConfig_adminPassword(rName, pass string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 128
   preferred_subnet_id = aws_subnet.test1.id
   fsx_admin_password  = %[2]q
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, pass))
@@ -735,15 +735,15 @@ resource "aws_fsx_ontap_file_system" "test" {
 func testAccONTAPFileSystemConfig_endpointIPAddressRange(rName string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity          = 1024
+  storage_capacity = 1024
   subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type           = "MULTI_AZ_1"
-  throughput_capacity       = 128
-  preferred_subnet_id       = aws_subnet.test1.id
+  deployment_type  = "MULTI_AZ_1"
+  throughput_capacity   = 128
+  preferred_subnet_id   = aws_subnet.test1.id
   endpoint_ip_address_range = "198.19.255.0/24"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -752,19 +752,19 @@ resource "aws_fsx_ontap_file_system" "test" {
 func testAccONTAPFileSystemConfig_diskIOPSConfiguration(rName string, iops int) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 128
   preferred_subnet_id = aws_subnet.test1.id
 
   disk_iops_configuration {
-    mode = "USER_PROVISIONED"
-    iops = %[2]d
+mode = "USER_PROVISIONED"
+iops = %[2]d
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, iops))
@@ -776,7 +776,7 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -786,25 +786,25 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.test.id
+cidr_block = "0.0.0.0/0"
+gateway_id = aws_internet_gateway.test.id
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 128
   preferred_subnet_id = aws_subnet.test1.id
-  route_table_ids     = aws_route_table.test[*].id
+  route_table_ids = aws_route_table.test[*].id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, cnt))
@@ -814,37 +814,37 @@ func testAccONTAPFileSystemConfig_securityGroupIDs1(rName string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_security_group" "test1" {
   description = "security group for FSx testing"
-  vpc_id      = aws_vpc.test.id
+  vpc_id  = aws_vpc.test.id
 
   ingress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = -1
-    to_port     = 0
+cidr_blocks = [aws_vpc.test.cidr_block]
+from_port   = 0
+protocol= -1
+to_port = 0
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+cidr_blocks = ["0.0.0.0/0"]
+from_port   = 0
+protocol= "-1"
+to_port = 0
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_fsx_ontap_file_system" "test" {
   security_group_ids  = [aws_security_group.test1.id]
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 128
   preferred_subnet_id = aws_subnet.test1.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -854,60 +854,60 @@ func testAccONTAPFileSystemConfig_securityGroupIDs2(rName string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_security_group" "test1" {
   description = "security group for FSx testing"
-  vpc_id      = aws_vpc.test.id
+  vpc_id  = aws_vpc.test.id
 
   ingress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = -1
-    to_port     = 0
+cidr_blocks = [aws_vpc.test.cidr_block]
+from_port   = 0
+protocol= -1
+to_port = 0
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+cidr_blocks = ["0.0.0.0/0"]
+from_port   = 0
+protocol= "-1"
+to_port = 0
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_security_group" "test2" {
   description = "security group for FSx testing"
-  vpc_id      = aws_vpc.test.id
+  vpc_id  = aws_vpc.test.id
 
   ingress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = -1
-    to_port     = 0
+cidr_blocks = [aws_vpc.test.cidr_block]
+from_port   = 0
+protocol= -1
+to_port = 0
   }
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+cidr_blocks = ["0.0.0.0/0"]
+from_port   = 0
+protocol= "-1"
+to_port = 0
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_fsx_ontap_file_system" "test" {
   security_group_ids  = [aws_security_group.test1.id, aws_security_group.test2.id]
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 128
   preferred_subnet_id = aws_subnet.test1.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -916,14 +916,14 @@ resource "aws_fsx_ontap_file_system" "test" {
 func testAccONTAPFileSystemConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 128
   preferred_subnet_id = aws_subnet.test1.id
 
   tags = {
-    %[1]q = %[2]q
+%[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
@@ -932,15 +932,15 @@ resource "aws_fsx_ontap_file_system" "test" {
 func testAccONTAPFileSystemConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 128
   preferred_subnet_id = aws_subnet.test1.id
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+%[1]q = %[2]q
+%[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -950,14 +950,14 @@ func testAccONTAPFileSystemConfig_weeklyMaintenanceStartTime(rName, weeklyMainte
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_file_system" "test" {
   storage_capacity = 1024
-  subnet_ids     = [aws_subnet.test1.id, aws_subnet.test2.id]
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
   deployment_type= "MULTI_AZ_1"
-  throughput_capacity           = 128
-  preferred_subnet_id           = aws_subnet.test1.id
+  throughput_capacity  = 128
+  preferred_subnet_id  = aws_subnet.test1.id
   weekly_maintenance_start_time = %[2]q
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, weeklyMaintenanceStartTime))
@@ -967,15 +967,15 @@ func testAccONTAPFileSystemConfig_dailyAutomaticBackupStartTime(rName, dailyAuto
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_file_system" "test" {
   storage_capacity   = 1024
-  subnet_ids         = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type    = "MULTI_AZ_1"
+  subnet_ids= [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type= "MULTI_AZ_1"
   throughput_capacity= 128
   preferred_subnet_id= aws_subnet.test1.id
   daily_automatic_backup_start_time = %[2]q
   automatic_backup_retention_days   = 1
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, dailyAutomaticBackupStartTime))
@@ -985,14 +985,14 @@ func testAccONTAPFileSystemConfig_automaticBackupRetentionDays(rName string, ret
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_ontap_file_system" "test" {
   storage_capacity = 1024
-  subnet_ids       = [aws_subnet.test1.id, aws_subnet.test2.id]
+  subnet_ids   = [aws_subnet.test1.id, aws_subnet.test2.id]
   deployment_type  = "MULTI_AZ_1"
   throughput_capacity= 128
   preferred_subnet_id= aws_subnet.test1.id
   automatic_backup_retention_days = %[2]d
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, retention))
@@ -1006,15 +1006,15 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 128
   preferred_subnet_id = aws_subnet.test1.id
-  kms_key_id          = aws_kms_key.test.arn
+  kms_key_id = aws_kms_key.test.arn
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -1023,9 +1023,9 @@ resource "aws_fsx_ontap_file_system" "test" {
 func testAccONTAPFileSystemConfig_throughputCapacity(rName string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), `
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 1024
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 1024
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 256
   preferred_subnet_id = aws_subnet.test1.id
 }
@@ -1035,9 +1035,9 @@ resource "aws_fsx_ontap_file_system" "test" {
 func testAccONTAPFileSystemConfig_storageCapacity(rName string) string {
 	return acctest.ConfigCompose(testAccOntapFileSystemBaseConfig(rName), `
 resource "aws_fsx_ontap_file_system" "test" {
-  storage_capacity    = 2048
-  subnet_ids          = [aws_subnet.test1.id, aws_subnet.test2.id]
-  deployment_type     = "MULTI_AZ_1"
+  storage_capacity= 2048
+  subnet_ids = [aws_subnet.test1.id, aws_subnet.test2.id]
+  deployment_type = "MULTI_AZ_1"
   throughput_capacity = 128
   preferred_subnet_id = aws_subnet.test1.id
 }

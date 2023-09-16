@@ -47,7 +47,7 @@ func ResourceSubnetGroup() *schema.Resource {
 				Default:  "Managed by Terraform",
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -55,7 +55,7 @@ func ResourceSubnetGroup() *schema.Resource {
 				ValidateFunc:  validSubnetGroupName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,

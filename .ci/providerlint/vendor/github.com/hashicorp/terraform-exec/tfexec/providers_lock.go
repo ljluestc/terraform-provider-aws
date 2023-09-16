@@ -1,91 +1,47 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfexec
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfexecimport (
 	"context"
 	"fmt"
 	"os/exec"
-)
-
-type providersLockConfig struct {
+)type providersLockConfig struct {
 	fsMirror  string
 	netMirror string
 	platforms []string
 	providers []string
-}
-
-var defaultProvidersLockOptions = providersLockConfig{}
-
-type ProvidersLockOption interface {
+}var defaultProvidersLockOptions = providersLockConfig{}type ProvidersLockOption interface {
 	configureProvidersLock(*providersLockConfig)
 }
-
-
  (opt *FSMirrorOption) configureProvidersLock(conf *providersLockConfig) {
 	conf.fsMirror = opt.fsMirror
 }
-
-
  (opt *NetMirrorOption) configureProvidersLock(conf *providersLockConfig) {
-	conf.netMirror = opt.netMirror
-
-
-
- (opt *PlatformOption) configureProvidersLock(conf *providersLockConfig) {
+	conf.netMirror = opt.netMirror (opt *PlatformOption) configureProvidersLock(conf *providersLockConfig) {
 f.platforms = append(conf.platforms, opt.platform)
 }
-
-
  (opt *ProviderOption) configureProvidersLock(conf *providersLockConfig) {
 f.providers = append(conf.providers, opt.provider)
-}
-
-// ProvidersLock represents the `terraform providers lock` command
-
- (tf *Terraform) ProvidersLock(ctx context.Context, opts ...ProvidersLockOption) error {
+}// ProvidersLock represents the `terraform providers lock` command (tf *Terraform) ProvidersLock(ctx context.Context, opts ...ProvidersLockOption) error {
 	err := tf.compatible(ctx, tf0_14_0, nil)
 	if err != nil {
 		return fmt.Errorf("terraform providers lock was added in 0.14.0: %w", err)
-	}
-
-	lockCmd := tf.providersLockCmd(ctx, opts...)
-
-	err = tf.runTerraformCmd(ctx, lockCmd)
+	}	lockCmd := tf.providersLockCmd(ctx, opts...)	err = tf.runTerraformCmd(ctx, lockCmd)
 	if err != nil {
 		return err
-
-
 	return err
 }
-
-
  (tf *Terraform) providersLockCmd(ctx context.Context, opts ...ProvidersLockOption) *exec.Cmd {
-	c := defaultProvidersLockOptions
-
-	for _, o := range opts {
+	c := defaultProvidersLockOptions	for _, o := range opts {
 		o.configureProvidersLock(&c)
 	}
-	args := []string{"providers", "lock"}
-
-	// string options, only pass if set
+	args := []string{"providers", "lock"}	// string options, only pass if set
 	if c.fsMirror != "" {
 		args = append(args, "-fs-mirror="+c.fsMirror)
-	}
-
-	if c.netMirror != "" {
+	}	if c.netMirror != "" {
 		args = append(args, "-net-mirror="+c.netMirror)
-	}
-
-	for _, p := range c.platforms {
+	}	for _, p := range c.platforms {
 		args = append(args, "-platform="+p)
-	}
-
-	// positional providers argument
+	}	// positional providers argument
 	for _, p := range c.providers {
 		args = append(args, p)
-	}
-
-	return tf.buildTerraformCmd(ctx, nil, args...)
+	}	return tf.buildTerraformCmd(ctx, nil, args...)
 }

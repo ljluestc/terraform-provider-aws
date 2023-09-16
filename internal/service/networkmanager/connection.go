@@ -79,7 +79,7 @@ func ResourceConnection() *schema.Resource {
 				Optional: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
@@ -109,9 +109,9 @@ func resourceConnectionCreate(ctx context.Context, d *schema.ResourceData, meta 
 	globalNetworkID := d.Get("global_network_id").(string)
 	input := &networkmanager.CreateConnectionInput{
 		ConnectedDeviceId: aws.String(d.Get("connected_device_id").(string)),
-		DeviceId:          aws.String(d.Get("device_id").(string)),
+		DeviceId: aws.String(d.Get("device_id").(string)),
 		GlobalNetworkId:   aws.String(globalNetworkID),
-		Tags:              getTagsIn(ctx),
+		Tags:     getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("connected_link_id"); ok {
@@ -181,7 +181,7 @@ func resourceConnectionUpdate(ctx context.Context, d *schema.ResourceData, meta 
 			ConnectionId:    aws.String(d.Id()),
 			Description:     aws.String(d.Get("description").(string)),
 			GlobalNetworkId: aws.String(globalNetworkID),
-			LinkId:          aws.String(d.Get("link_id").(string)),
+			LinkId: aws.String(d.Get("link_id").(string)),
 		}
 
 		log.Printf("[DEBUG] Updating Network Manager Connection: %s", input)

@@ -25,7 +25,7 @@ func testAccCluster_basic(t *testing.T) {
 	resourceName := "aws_route53recoverycontrolconfig_cluster.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -41,9 +41,9 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"cluster_endpoints"},
 			},
 		},
@@ -57,7 +57,7 @@ func testAccCluster_disappears(t *testing.T) {
 	resourceName := "aws_route53recoverycontrolconfig_cluster.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,

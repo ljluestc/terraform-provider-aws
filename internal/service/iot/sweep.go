@@ -21,7 +21,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_iot_certificate", &resource.Sweeper{
 		Name: "aws_iot_certificate",
-		F:    sweepCertifcates,
+		F:sweepCertifcates,
 		Dependencies: []string{
 			"aws_iot_policy_attachment",
 			"aws_iot_thing_principal_attachment",
@@ -30,12 +30,12 @@ func init() {
 
 	resource.AddTestSweepers("aws_iot_policy_attachment", &resource.Sweeper{
 		Name: "aws_iot_policy_attachment",
-		F:    sweepPolicyAttachments,
+		F:sweepPolicyAttachments,
 	})
 
 	resource.AddTestSweepers("aws_iot_policy", &resource.Sweeper{
 		Name: "aws_iot_policy",
-		F:    sweepPolicies,
+		F:sweepPolicies,
 		Dependencies: []string{
 			"aws_iot_policy_attachment",
 		},
@@ -43,40 +43,40 @@ func init() {
 
 	resource.AddTestSweepers("aws_iot_role_alias", &resource.Sweeper{
 		Name: "aws_iot_role_alias",
-		F:    sweepRoleAliases,
+		F:sweepRoleAliases,
 	})
 
 	resource.AddTestSweepers("aws_iot_thing_principal_attachment", &resource.Sweeper{
 		Name: "aws_iot_thing_principal_attachment",
-		F:    sweepThingPrincipalAttachments,
+		F:sweepThingPrincipalAttachments,
 	})
 
 	resource.AddTestSweepers("aws_iot_thing", &resource.Sweeper{
-		Name:         "aws_iot_thing",
-		F:            sweepThings,
+		Name:"aws_iot_thing",
+		F:   sweepThings,
 		Dependencies: []string{"aws_iot_thing_principal_attachment"},
 	})
 
 	resource.AddTestSweepers("aws_iot_thing_group", &resource.Sweeper{
 		Name: "aws_iot_policy_attachment",
-		F:    sweepThingGroups,
+		F:sweepThingGroups,
 	})
 
 	resource.AddTestSweepers("aws_iot_thing_type", &resource.Sweeper{
-		Name:         "aws_iot_thing_type",
-		F:            sweepThingTypes,
+		Name:"aws_iot_thing_type",
+		F:   sweepThingTypes,
 		Dependencies: []string{"aws_iot_thing"},
 	})
 
 	resource.AddTestSweepers("aws_iot_topic_rule", &resource.Sweeper{
-		Name:         "aws_iot_topic_rule",
-		F:            sweepTopicRules,
+		Name:"aws_iot_topic_rule",
+		F:   sweepTopicRules,
 		Dependencies: []string{"aws_iot_topic_rule_destination"},
 	})
 
 	resource.AddTestSweepers("aws_iot_topic_rule_destination", &resource.Sweeper{
 		Name: "aws_iot_topic_rule_destination",
-		F:    sweepTopicRuleDestinations,
+		F:sweepTopicRuleDestinations,
 	})
 }
 

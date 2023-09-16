@@ -19,20 +19,20 @@ func DataSourceAddonVersion() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"addon_name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"kubernetes_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"most_recent": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 			"version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},

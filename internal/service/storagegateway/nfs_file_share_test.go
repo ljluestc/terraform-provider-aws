@@ -877,10 +877,10 @@ resource "aws_storagegateway_nfs_file_share" "test" {
 func testAccNFSFileShareConfig_defaultStorageClass(rName, defaultStorageClass string) string {
 	return testAcc_S3FileShareBase(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_nfs_file_share" "test" {
-  client_list           = ["0.0.0.0/0"]
+  client_list  = ["0.0.0.0/0"]
   default_storage_class = %q
-  gateway_arn           = aws_storagegateway_gateway.test.arn
-  location_arn          = aws_s3_bucket.test.arn
+  gateway_arn  = aws_storagegateway_gateway.test.arn
+  location_arn = aws_s3_bucket.test.arn
   role_arn = aws_iam_role.test.arn
 }
 `, defaultStorageClass)
@@ -892,7 +892,7 @@ resource "aws_storagegateway_nfs_file_share" "test" {
   client_list= ["0.0.0.0/0"]
   gateway_arn= aws_storagegateway_gateway.test.arn
   guess_mime_type_enabled = %t
-  location_arn            = aws_s3_bucket.test.arn
+  location_arn   = aws_s3_bucket.test.arn
   role_arn = aws_iam_role.test.arn
 }
 `, guessMimeTypeEnabled)
@@ -1034,10 +1034,10 @@ resource "aws_storagegateway_nfs_file_share" "test" {
 func testAccNFSFileShareConfig_notificationPolicy(rName string) string {
 	return testAcc_S3FileShareBase(rName) + `
 resource "aws_storagegateway_nfs_file_share" "test" {
-  client_list         = ["0.0.0.0/0"]
-  gateway_arn         = aws_storagegateway_gateway.test.arn
+  client_list= ["0.0.0.0/0"]
+  gateway_arn= aws_storagegateway_gateway.test.arn
   location_arn        = aws_s3_bucket.test.arn
-  role_arn            = aws_iam_role.test.arn
+  role_arn   = aws_iam_role.test.arn
   notification_policy = "{\"Upload\": {\"SettlingTimeInSeconds\": 60}}"
 }
 `
@@ -1050,9 +1050,9 @@ resource "aws_cloudwatch_log_group" "test" {
 }
 
 resource "aws_storagegateway_nfs_file_share" "test" {
-  client_list           = ["0.0.0.0/0"]
-  gateway_arn           = aws_storagegateway_gateway.test.arn
-  location_arn          = aws_s3_bucket.test.arn
+  client_list  = ["0.0.0.0/0"]
+  gateway_arn  = aws_storagegateway_gateway.test.arn
+  location_arn = aws_s3_bucket.test.arn
   role_arn = aws_iam_role.test.arn
   audit_destination_arn = aws_cloudwatch_log_group.test.arn
 }
@@ -1070,9 +1070,9 @@ resource "aws_cloudwatch_log_group" "test2" {
 }
 
 resource "aws_storagegateway_nfs_file_share" "test" {
-  client_list           = ["0.0.0.0/0"]
-  gateway_arn           = aws_storagegateway_gateway.test.arn
-  location_arn          = aws_s3_bucket.test.arn
+  client_list  = ["0.0.0.0/0"]
+  gateway_arn  = aws_storagegateway_gateway.test.arn
+  location_arn = aws_s3_bucket.test.arn
   role_arn = aws_iam_role.test.arn
   audit_destination_arn = aws_cloudwatch_log_group.test2.arn
 }

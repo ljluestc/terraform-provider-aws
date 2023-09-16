@@ -20,8 +20,8 @@ func TestAccNetworkManagerDeviceDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -56,9 +56,9 @@ resource "aws_networkmanager_device" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
 
   description   = "description1"
-  model         = "model1"
+  model= "model1"
   serial_number = "sn1"
-  type          = "type1"
+  type = "type1"
   vendor        = "vendor1"
 
   location {
@@ -74,7 +74,7 @@ resource "aws_networkmanager_device" "test" {
 
 data "aws_networkmanager_device" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  device_id         = aws_networkmanager_device.test.id
+  device_id= aws_networkmanager_device.test.id
 }
 `, rName)
 }

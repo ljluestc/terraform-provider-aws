@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/rds"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -18,15 +12,14 @@ import (
 	tfrds "github.com/hashicorp/terraform-provider-aws/internal/service/rds"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func := acctest.Context(t)
 	var dbClusterSnapshot rds.DBClusterSnapshot
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_cluster_snapshot.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	resourceName := "aws_db_cluster_snapshot.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
@@ -50,24 +43,23 @@ func := acctest.Context(t)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccRDSClusterSnapshot_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_cluster_snapshot.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_cluster_snapshot.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:funceps: []resource.TestStep{
+		CheckDestroy:
+funceps: []resource.TestStep{
 			{
 				Config: testAccClusterSnapshotConfig_tags1(rName, "key1", "value1"),
 				Check: resource.ComposeTestCheckFunc(
@@ -77,8 +69,8 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{
 					"apply_immediately",
@@ -108,102 +100,73 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 		},
 	})
 }
-
 func testAccCheckClusterSnapshotDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
 funcf rs.Type != "aws_db_cluster_snapshot" {
-				contfunc
-
-			_, err := tfrds.FindDBClusterSnapshotByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+				cont
+func			_, err := tfrds.FindDBClusterSnapshotByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("RDS Cluster Snapshot %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("RDS Cluster Snapshot %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
-
 func testAccCheckClusterSnapshotExists(ctx context.Context, n string, v *rds.DBClusterSnapshot) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
 		}
 func rs.Primary.ID == "" {
-			returfunc
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-		output, err := tfrds.FindDBClusterSnapshotByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+			retur
+func		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)		output, err := tfrds.FindDBClusterSnapshotByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
 }
-
 func testAccClusterSnapshotConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_db_subnet_group" "test" {
-  name       = %[1]q
-  subnet_ids = aws_subnet.test[*].id
-}
-
-resource "aws_rds_cluster" "test" {
-func_subnet_group_name            = aws_db_subnet_group.test.name
-  database_name      = "test"
-  engine= "aurora-mysql"
-  master_username    = "tfacctest"
-  master_password    = "avoid-plaintext-passwords"
-  db_cluster_parameter_group_name = "default.aurora-mysql5.7"
-  skip_final_snapshot= true
+name = %[1]q
+subnet_ids = aws_subnet.test[*].id
+}resource "aws_rds_cluster" "test" {
+func_subnet_group_name= aws_db_subnet_group.test.name
+database_name= "test"
+engine= "aurora-mysql"
+master_username = "tfacctest"
+master_password = "avoid-plaintext-passwords"
+db_cluster_parameter_group_name = "default.aurora-mysql5.7"
+skip_final_snapshot= true
 }
 `, rName))
 }
-
 func testAccClusterSnapshotConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccClusterSnapshotConfig_base(rName), fmt.Sprintf(`
 resource "aws_db_cluster_snapshot" "test" {
-  db_cluster_identifier          = aws_rds_cluster.test.id
-  db_cluster_snapshot_identifier = %[1]q
+db_cluster_identifier = aws_rds_cluster.test.id
+db_cluster_snapshot_identifier = %[1]q
 }
 `, rName))
 }
-
 funcurn acctest.ConfigCompose(testAccClusterSnapshotConfig_base(rName), fmt.Sprintf(`
 resource "aws_db_cluster_snapshot" "test" {
-  db_cluster_identifier          = aws_rds_cluster.test.id
-  db_cluster_snapshot_identifier = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
-  }
+db_cluster_identifier = aws_rds_cluster.test.id
+db_cluster_snapshot_identifier = %[1]qtags = {
+ %[2]q = %[3]q
+}
 }
 func
-
 func testAccClusterSnapshotConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccClusterSnapshotConfig_base(rName), fmt.Sprintf(`
 resource "aws_db_cluster_snapshot" "test" {
-  db_cluster_identifier          = aws_rds_cluster.test.id
-  db_cluster_snapshot_identifier = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+db_cluster_identifier = aws_rds_cluster.test.id
+db_cluster_snapshot_identifier = %[1]qtags = {
+ %[2]q = %[3]q
+ %[4]q = %[5]q
+}
 }
 func

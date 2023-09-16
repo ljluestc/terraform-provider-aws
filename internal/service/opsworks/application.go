@@ -36,194 +36,194 @@ func ResourceApplication() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:     schema.TypeString,
-				Required: true,
+Type:schema.TypeString,
+Required: true,
 			},
 			"short_name": {
-				Type:     schema.TypeString,
-				Computed: true,
-				Optional: true,
-				ForceNew: true,
+Type:schema.TypeString,
+Computed: true,
+Optional: true,
+ForceNew: true,
 			},
 			"type": {
-				Type:schema.TypeString,
-				Required:     true,
-				Validate
+Type:schema.TypeString,
+Required:true,
+Validate
 func: validation.StringInSlice(opsworks.AppType_Values(), false),
 			},
 			"stack_id": {
-				Type:     schema.TypeString,
-				Required: true,
+Type:schema.TypeString,
+Required: true,
 			},
 			// TODO: the following 4 vals are really part of the Attributes array. We should validate that only ones relevant to the chosen type are set, perhaps. (what is the default type? how do they map?)
 			"document_root": {
-				Type:     schema.TypeString,
-				Optional: true,
-				//Default:  "public",
+Type:schema.TypeString,
+Optional: true,
+//Default:  "public",
 			},
 			"rails_env": {
-				Type:     schema.TypeString,
-				Optional: true,
-				//Default:  "production",
+Type:schema.TypeString,
+Optional: true,
+//Default:  "production",
 			},
 			"auto_bundle_on_deploy": {
-				Type:     schema.TypeString,
-				Optional: true,
-				//Default:  true,
+Type:schema.TypeString,
+Optional: true,
+//Default:  true,
 			},
 			"aws_flow_ruby_settings": {
-				Type:     schema.TypeString,
-				Optional: true,
+Type:schema.TypeString,
+Optional: true,
 			},
 			"app_source": {
-				Type:     schema.TypeList,
-				Optional: true,
-				Computed: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"type": {
-							Type:schema.TypeString,
-							Required:     true,
-							Validate
+Type:schema.TypeList,
+Optional: true,
+Computed: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+		"type": {
+			Type:schema.TypeString,
+			Required:true,
+			Validate
 func: validation.StringInSlice(append(opsworks.SourceType_Values(), "other"), false),
-						},
+		},
 
-						"url": {
-							Type:     schema.TypeString,
-							Optional: true,
-						},
+		"url": {
+			Type:schema.TypeString,
+			Optional: true,
+		},
 
-						"username": {
-							Type:     schema.TypeString,
-							Optional: true,
-						},
+		"username": {
+			Type:schema.TypeString,
+			Optional: true,
+		},
 
-						"password": {
-							Type:      schema.TypeString,
-							Optional:  true,
-							Sensitive: true,
-						},
+		"password": {
+			Type: schema.TypeString,
+			Optional:  true,
+			Sensitive: true,
+		},
 
-						"revision": {
-							Type:     schema.TypeString,
-							Optional: true,
-						},
+		"revision": {
+			Type:schema.TypeString,
+			Optional: true,
+		},
 
-						"ssh_key": {
-							Type:      schema.TypeString,
-							Optional:  true,
-							Sensitive: true,
-						},
-					},
-				},
+		"ssh_key": {
+			Type: schema.TypeString,
+			Optional:  true,
+			Sensitive: true,
+		},
+	},
+},
 			},
 			"data_source_type": {
-				Type:     schema.TypeString,
-				Optional: true,
-				Validate
+Type:schema.TypeString,
+Optional: true,
+Validate
 func: validation.StringInSlice([]string{
-					"AutoSelectOpsworksMysqlInstance",
-					"OpsworksMysqlInstance",
-					"RdsDbInstance",
-					"None",
-				}, false),
+	"AutoSelectOpsworksMysqlInstance",
+	"OpsworksMysqlInstance",
+	"RdsDbInstance",
+	"None",
+}, false),
 			},
 			"data_source_database_name": {
-				Type:     schema.TypeString,
-				Optional: true,
+Type:schema.TypeString,
+Optional: true,
 			},
 			"data_source_arn": {
-				Type:schema.TypeString,
-				Optional:     true,
-				Validate
+Type:schema.TypeString,
+Optional:true,
+Validate
 func: verify.ValidARN,
 			},
 			"description": {
-				Type:     schema.TypeString,
-				Optional: true,
+Type:schema.TypeString,
+Optional: true,
 			},
 			"domains": {
-				Type:     schema.TypeList,
-				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+Type:schema.TypeList,
+Optional: true,
+Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"environment": {
-				Type:     schema.TypeSet,
-				Optional: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"key": {
-							Type:     schema.TypeString,
-							Required: true,
-						},
-						"value": {
-							Type:     schema.TypeString,
-							Required: true,
-						},
-						"secure": {
-							Type:     schema.TypeBool,
-							Optional: true,
-							Default:  true,
-						},
-					},
-				},
+Type:schema.TypeSet,
+Optional: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+		"key": {
+			Type:schema.TypeString,
+			Required: true,
+		},
+		"value": {
+			Type:schema.TypeString,
+			Required: true,
+		},
+		"secure": {
+			Type:schema.TypeBool,
+			Optional: true,
+			Default:  true,
+		},
+	},
+},
 			},
 			"enable_ssl": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Default:  false,
+Type:schema.TypeBool,
+Optional: true,
+Default:  false,
 			},
 			"ssl_configuration": {
-				Type:     schema.TypeList,
-				Optional: true,
-				//Computed: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"certificate": {
-							Type:     schema.TypeString,
-							Required: true,
-							State
+Type:schema.TypeList,
+Optional: true,
+//Computed: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+		"certificate": {
+			Type:schema.TypeString,
+			Required: true,
+			State
 func: 
 func(v interface{}) string {
-								switch v := v.(type) {
-								case string:
-									return strings.TrimSpace(v)
-								default:
-									return ""
-								}
-							},
-						},
-						"private_key": {
-							Type:      schema.TypeString,
-							Required:  true,
-							Sensitive: true,
-							State
+switch v := v.(type) {
+case string:
+	return strings.TrimSpace(v)
+default:
+	return ""
+}
+			},
+		},
+		"private_key": {
+			Type: schema.TypeString,
+			Required:  true,
+			Sensitive: true,
+			State
 func: 
 func(v interface{}) string {
-								switch v := v.(type) {
-								case string:
-									return strings.TrimSpace(v)
-								default:
-									return ""
-								}
-							},
-						},
-						"chain": {
-							Type:     schema.TypeString,
-							Optional: true,
-							State
+switch v := v.(type) {
+case string:
+	return strings.TrimSpace(v)
+default:
+	return ""
+}
+			},
+		},
+		"chain": {
+			Type:schema.TypeString,
+			Optional: true,
+			State
 func: 
 func(v interface{}) string {
-								switch v := v.(type) {
-								case string:
-									return strings.TrimSpace(v)
-								default:
-									return ""
-								}
-							},
-						},
-					},
-				},
+switch v := v.(type) {
+case string:
+	return strings.TrimSpace(v)
+default:
+	return ""
+}
+			},
+		},
+	},
+},
 			},
 		},
 	}
@@ -332,18 +332,18 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 	}
 
 	req := &opsworks.CreateAppInput{
-		Name:    aws.String(d.Get("name").(string)),
-		Shortname:        aws.String(d.Get("short_name").(string)),
+		Name:aws.String(d.Get("name").(string)),
+		Shortname:   aws.String(d.Get("short_name").(string)),
 		StackId: aws.String(d.Get("stack_id").(string)),
-		Type:    aws.String(d.Get("type").(string)),
-		Description:      aws.String(d.Get("description").(string)),
+		Type:aws.String(d.Get("type").(string)),
+		Description: aws.String(d.Get("description").(string)),
 		Domains: flex.ExpandStringList(d.Get("domains").([]interface{})),
-		EnableSsl:        aws.Bool(d.Get("enable_ssl").(bool)),
+		EnableSsl:   aws.Bool(d.Get("enable_ssl").(bool)),
 		SslConfiguration: resourceApplicationSSL(d),
-		AppSource:        resourceApplicationSource(d),
-		DataSources:      resourceApplicationsDataSource(d),
-		Environment:      resourceApplicationEnvironmentVariable(d),
-		Attributes:       resourceApplicationAttributes(d),
+		AppSource:   resourceApplicationSource(d),
+		DataSources: resourceApplicationsDataSource(d),
+		Environment: resourceApplicationEnvironmentVariable(d),
+		Attributes:  resourceApplicationAttributes(d),
 	}
 
 	resp, err := conn.CreateAppWithContext(ctx, req)
@@ -368,16 +368,16 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 	req := &opsworks.UpdateAppInput{
 		AppId:   aws.String(d.Id()),
-		Name:    aws.String(d.Get("name").(string)),
-		Type:    aws.String(d.Get("type").(string)),
-		Description:      aws.String(d.Get("description").(string)),
+		Name:aws.String(d.Get("name").(string)),
+		Type:aws.String(d.Get("type").(string)),
+		Description: aws.String(d.Get("description").(string)),
 		Domains: flex.ExpandStringList(d.Get("domains").([]interface{})),
-		EnableSsl:        aws.Bool(d.Get("enable_ssl").(bool)),
+		EnableSsl:   aws.Bool(d.Get("enable_ssl").(bool)),
 		SslConfiguration: resourceApplicationSSL(d),
-		AppSource:        resourceApplicationSource(d),
-		DataSources:      resourceApplicationsDataSource(d),
-		Environment:      resourceApplicationEnvironmentVariable(d),
-		Attributes:       resourceApplicationAttributes(d),
+		AppSource:   resourceApplicationSource(d),
+		DataSources: resourceApplicationsDataSource(d),
+		Environment: resourceApplicationEnvironmentVariable(d),
+		Attributes:  resourceApplicationAttributes(d),
 	}
 
 	log.Printf("[DEBUG] Updating OpsWorks Application: %s", d.Id())
@@ -437,10 +437,10 @@ func resourceSetApplicationEnvironmentVariable(d *schema.ResourceData, vs []*ops
 		value := values[i].(map[string]interface{})
 		if v := resourceFindEnvironmentVariable(value["key"].(string), vs); v != nil {
 			if !aws.BoolValue(v.Secure) {
-				value["secure"] = aws.BoolValue(v.Secure)
-				value["key"] = aws.StringValue(v.Key)
-				value["value"] = aws.StringValue(v.Value)
-				values[i] = value
+value["secure"] = aws.BoolValue(v.Secure)
+value["key"] = aws.StringValue(v.Key)
+value["value"] = aws.StringValue(v.Value)
+values[i] = value
 			}
 		} else {
 			// delete if not found in API response
@@ -460,7 +460,7 @@ func resourceApplicationEnvironmentVariable(d *schema.ResourceData) []*opsworks.
 		env := environmentVariables[i].(map[string]interface{})
 
 		result[i] = &opsworks.EnvironmentVariable{
-			Key:    aws.String(env["key"].(string)),
+			Key:aws.String(env["key"].(string)),
 			Value:  aws.String(env["value"].(string)),
 			Secure: aws.Bool(env["secure"].(bool)),
 		}
@@ -476,8 +476,8 @@ func resourceApplicationSource(d *schema.ResourceData) *opsworks.Source {
 	}
 
 	return &opsworks.Source{
-		Type:     aws.String(d.Get("app_source.0.type").(string)),
-		Url:      aws.String(d.Get("app_source.0.url").(string)),
+		Type:aws.String(d.Get("app_source.0.type").(string)),
+		Url: aws.String(d.Get("app_source.0.url").(string)),
 		Username: aws.String(d.Get("app_source.0.username").(string)),
 		Password: aws.String(d.Get("app_source.0.password").(string)),
 		Revision: aws.String(d.Get("app_source.0.revision").(string)),
@@ -558,7 +558,7 @@ func resourceApplicationSSL(d *schema.ResourceData) *opsworks.SslConfiguration {
 	return &opsworks.SslConfiguration{
 		PrivateKey:  aws.String(d.Get("ssl_configuration.0.private_key").(string)),
 		Certificate: aws.String(d.Get("ssl_configuration.0.certificate").(string)),
-		Chain:       aws.String(d.Get("ssl_configuration.0.chain").(string)),
+		Chain:  aws.String(d.Get("ssl_configuration.0.chain").(string)),
 	}
 }
 

@@ -30,7 +30,7 @@ import (
 func ResourceClusterInstance() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClusterInstanceCreate,
-		ReadWithoutTimeout:   resourceClusterInstanceRead,
+		ReadWithoutTimeout:resourceClusterInstanceRead,
 		UpdateWithoutTimeout: resourceClusterInstanceUpdate,
 		DeleteWithoutTimeout: resourceClusterInstanceDelete,
 		Importer: &schema.ResourceImporter{
@@ -47,101 +47,101 @@ func ResourceClusterInstance() *schema.Resource {
 			// apply_immediately is used to determine when the update modifications take place.
 			// See http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html
 			"apply_immediately": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"auto_minor_version_upgrade": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"availability_zone": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 				Computed: true,
 			},
 			"ca_cert_identifier": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"cluster_identifier": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"db_subnet_group_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"dbi_resource_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"enable_performance_insights": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 			"endpoint": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"engine": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      "docdb",
+				Type:ema.TypeString,
+				Optional:true,
+				ForceNew:true,
+				Default:",
 				ValidateFunc: validEngine(),
 			},
 			"engine_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"identifier": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"identifier_prefix"},
 				ValidateFunc:  validIdentifier,
 			},
 			"identifier_prefix": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				Computed:true,
+				ForceNew:true,
 				ValidateFunc: validIdentifierPrefix,
 			},
 			"instance_class": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"kms_key_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"performance_insights_kms_key_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"port": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"preferred_backup_window": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"preferred_maintenance_window": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				StateFunc: func(v interface{}) string {
@@ -154,23 +154,23 @@ func ResourceClusterInstance() *schema.Resource {
 				ValidateFunc: verify.ValidOnceAWeekWindowFormat,
 			},
 			"promotion_tier": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				Default:      0,
+				Type:ema.TypeInt,
+				Optional:true,
+				Default:
 				ValidateFunc: validation.IntBetween(0, 15),
 			},
 			"publicly_accessible": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"storage_encrypted": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"writer": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 		},
@@ -178,18 +178,17 @@ func ResourceClusterInstance() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceClusterInstanceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
 
 	input := &docdb.CreateDBInstanceInput{
-		DBInstanceClass:         aws.String(d.Get("instance_class").(string)),
-		DBClusterIdentifier:     aws.String(d.Get("cluster_identifier").(string)),
-		Engine:     aws.String(d.Get("engine").(string)),
-		PromotionTier:           aws.Int64(int64(d.Get("promotion_tier").(int))),
+		DBInstanceClass:.String(d.Get("instance_class").(string)),
+		DBClusterIdentifier:aws.String(d.Get("cluster_identifier").(string)),
+		Engine:aws.String(d.Get("engine").(string)),
+		PromotionTier:ws.Int64(int64(d.Get("promotion_tier").(int))),
 		AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
-		Tags:       getTagsIn(ctx),
+		Tags:gsIn(ctx),
 	}
 
 	if attr, ok := d.GetOk("availability_zone"); ok {
@@ -241,12 +240,12 @@ func resourceClusterInstanceCreate(ctx context.Context, d *schema.ResourceData, 
 
 	// reuse db_instance refresh func
 	stateConf := &retry.StateChangeConf{
-		Pending:    resourceClusterInstanceCreateUpdatePendingStates,
-		Target:     []string{"available"},
-		Refresh:    resourceInstanceStateRefreshFunc(ctx, conn, d.Id()),
-		Timeout:    d.Timeout(schema.TimeoutCreate),
+		Pending: resourceClusterInstanceCreateUpdatePendingStates,
+		Target:[]string{"available"},
+		Refresh: resourceInstanceStateRefreshFunc(ctx, conn, d.Id()),
+		Timeout: d.Timeout(schema.TimeoutCreate),
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+		Delay:ime.Second,
 	}
 
 	// Wait, catching any errors
@@ -257,7 +256,6 @@ func resourceClusterInstanceCreate(ctx context.Context, d *schema.ResourceData, 
 
 	return append(diags, resourceClusterInstanceRead(ctx, d, meta)...)
 }
-
 func resourceClusterInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -333,14 +331,13 @@ func resourceClusterInstanceRead(ctx context.Context, d *schema.ResourceData, me
 
 	return diags
 }
-
 func resourceClusterInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
 	requestUpdate := false
 
 	req := &docdb.ModifyDBInstanceInput{
-		ApplyImmediately:     aws.Bool(d.Get("apply_immediately").(bool)),
+		ApplyImmediately:aws.Bool(d.Get("apply_immediately").(bool)),
 		DBInstanceIdentifier: aws.String(d.Id()),
 	}
 
@@ -399,12 +396,12 @@ func resourceClusterInstanceUpdate(ctx context.Context, d *schema.ResourceData, 
 
 		// reuse db_instance refresh func
 		stateConf := &retry.StateChangeConf{
-			Pending:    resourceClusterInstanceCreateUpdatePendingStates,
-			Target:     []string{"available"},
-			Refresh:    resourceInstanceStateRefreshFunc(ctx, conn, d.Id()),
-			Timeout:    d.Timeout(schema.TimeoutUpdate),
+			Pending: resourceClusterInstanceCreateUpdatePendingStates,
+			Target:[]string{"available"},
+			Refresh: resourceInstanceStateRefreshFunc(ctx, conn, d.Id()),
+			Timeout: d.Timeout(schema.TimeoutUpdate),
 			MinTimeout: 10 * time.Second,
-			Delay:      30 * time.Second, // Wait 30 secs before starting
+			Delay:ime.Second, // Wait 30 secs before starting
 		}
 
 		// Wait, catching any errors
@@ -416,7 +413,6 @@ func resourceClusterInstanceUpdate(ctx context.Context, d *schema.ResourceData, 
 
 	return append(diags, resourceClusterInstanceRead(ctx, d, meta)...)
 }
-
 func resourceClusterInstanceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -430,12 +426,12 @@ func resourceClusterInstanceDelete(ctx context.Context, d *schema.ResourceData, 
 	// re-uses db_instance refresh func
 	log.Println("[INFO] Waiting for DocumentDB Cluster Instance to be destroyed")
 	stateConf := &retry.StateChangeConf{
-		Pending:    resourceClusterInstanceDeletePendingStates,
-		Target:     []string{},
-		Refresh:    resourceInstanceStateRefreshFunc(ctx, conn, d.Id()),
-		Timeout:    d.Timeout(schema.TimeoutDelete),
+		Pending: resourceClusterInstanceDeletePendingStates,
+		Target:[]string{},
+		Refresh: resourceInstanceStateRefreshFunc(ctx, conn, d.Id()),
+		Timeout: d.Timeout(schema.TimeoutDelete),
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second, // Wait 30 secs before starting
+		Delay:ime.Second, // Wait 30 secs before starting
 	}
 
 	if _, err := stateConf.WaitForStateContext(ctx); err != nil {
@@ -444,7 +440,6 @@ func resourceClusterInstanceDelete(ctx context.Context, d *schema.ResourceData, 
 
 	return diags
 }
-
 func resourceInstanceStateRefreshFunc(ctx context.Context, conn *docdb.DocDB, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		v, err := resourceInstanceRetrieve(ctx, conn, id)
@@ -471,7 +466,7 @@ func resourceInstanceRetrieve(ctx context.Context, conn *docdb.DocDB, id string)
 	out, err := conn.DescribeDBInstancesWithContext(ctx, &input)
 	if tfawserr.ErrCodeEquals(err, docdb.ErrCodeDBInstanceNotFoundFault) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}

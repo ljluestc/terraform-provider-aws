@@ -24,10 +24,10 @@ func TestAccS3ControlObjectLambdaAccessPointPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectLambdaAccessPointPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectLambdaAccessPointPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectLambdaAccessPointPolicyConfig_basic(rName),
@@ -54,10 +54,10 @@ func TestAccS3ControlObjectLambdaAccessPointPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectLambdaAccessPointPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectLambdaAccessPointPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectLambdaAccessPointPolicyConfig_basic(rName),
@@ -78,10 +78,10 @@ func TestAccS3ControlObjectLambdaAccessPointPolicy_Disappears_accessPoint(t *tes
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectLambdaAccessPointPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectLambdaAccessPointPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectLambdaAccessPointPolicyConfig_basic(rName),
@@ -101,10 +101,10 @@ func TestAccS3ControlObjectLambdaAccessPointPolicy_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectLambdaAccessPointPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckObjectLambdaAccessPointPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccObjectLambdaAccessPointPolicyConfig_basic(rName),
@@ -216,7 +216,7 @@ resource "aws_s3control_object_lambda_access_point" "test" {
 
       content_transformation {
         aws_lambda {
-          function_arn = aws_lambda_function.test.arn
+ function_arn = aws_lambda_function.test.arn
         }
       }
     }
@@ -265,7 +265,7 @@ resource "aws_s3control_object_lambda_access_point" "test" {
 
       content_transformation {
         aws_lambda {
-          function_arn = aws_lambda_function.test.arn
+ function_arn = aws_lambda_function.test.arn
         }
       }
     }

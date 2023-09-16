@@ -11,13 +11,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccSESDomainIdentityDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	domain := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainIdentityDestroy(ctx),
@@ -32,7 +32,6 @@ func TestAccSESDomainIdentityDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccDomainIdentityDataSourceConfig_basic(domain string) string {
 	return fmt.Sprintf(`
 resource "aws_ses_domain_identity" "test" {
@@ -41,7 +40,7 @@ resource "aws_ses_domain_identity" "test" {
 
 data "aws_ses_domain_identity" "test" {
   depends_on = [aws_ses_domain_identity.test]
-  domain     = "%s"
+  domain= "%s"
 }
 `, domain, domain)
 }

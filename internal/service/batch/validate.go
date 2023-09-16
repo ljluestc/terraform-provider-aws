@@ -8,7 +8,6 @@ import (
 
 	"github.com/YakDriver/regexache"
 )
-
 func validName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z]{1}[0-9A-Za-z_-]{0,127}$`).MatchString(value) {
@@ -16,7 +15,6 @@ func validName(v interface{}, k string) (ws []string, errors []error) {
 	}
 	return
 }
-
 func validPrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z]{1}[0-9A-Za-z_-]{0,101}$`).MatchString(value) {
@@ -24,7 +22,6 @@ func validPrefix(v interface{}, k string) (ws []string, errors []error) {
 	}
 	return
 }
-
 func validShareIdentifier(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`^[0-9A-Za-z]{0,254}[0-9A-Za-z*]?$`).MatchString(value) {

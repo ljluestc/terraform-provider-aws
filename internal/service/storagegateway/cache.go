@@ -36,7 +36,7 @@ func ResourceCache() *schema.Resource {
 				ForceNew: true,
 			},
 			"gateway_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,

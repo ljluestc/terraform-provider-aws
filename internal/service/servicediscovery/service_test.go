@@ -18,7 +18,6 @@ import (
 	tfservicediscovery "github.com/hashicorp/terraform-provider-aws/internal/service/servicediscovery"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccServiceDiscoveryService_private(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_service.test"
@@ -32,7 +31,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy: testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_private(rName, 5),
@@ -54,9 +53,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState: true,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
 	{
@@ -82,7 +81,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func TestAccServiceDiscoveryService_public(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -96,7 +94,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy: testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_public(rName, 5, "/path"),
@@ -115,9 +113,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState: true,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
 	{
@@ -150,7 +148,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func TestAccServiceDiscoveryService_private_http(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -160,7 +157,7 @@ func TestAccServiceDiscoveryService_private_http(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy: testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_private_http(rName),
@@ -173,15 +170,14 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState: true,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
 },
 	})
 }
-
 func TestAccServiceDiscoveryService_http(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -191,7 +187,7 @@ func TestAccServiceDiscoveryService_http(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy: testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_http(rName),
@@ -203,15 +199,14 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState: true,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
 },
 	})
 }
-
 func TestAccServiceDiscoveryService_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -221,7 +216,7 @@ func TestAccServiceDiscoveryService_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy: testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_http(rName),
@@ -234,7 +229,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccServiceDiscoveryService_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -244,7 +238,7 @@ func TestAccServiceDiscoveryService_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckServiceDestroy(ctx),
+CheckDestroy: testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_tags1(rName, "key1", "value1"),
@@ -255,9 +249,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:   resourceName,
-ImportState:    true,
-ImportStateVerify:       true,
+ResourceName:resourceName,
+ImportState: true,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
 	{
@@ -280,7 +274,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccCheckServiceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceDiscoveryConn(ctx)
@@ -306,7 +299,6 @@ return err
 return nil
 	}
 }
-
 func testAccCheckServiceExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
@@ -325,14 +317,13 @@ _, err := tfservicediscovery.FindServiceByID(ctx, conn, rs.Primary.ID)
 return err
 	}
 }
-
 func testAccServiceConfig_private(rName string, th int) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -345,28 +336,27 @@ resource "aws_service_discovery_service" "test" {
   name = %[1]q
 
   dns_config {
-    namespace_id = aws_service_discovery_private_dns_namespace.test.id
+ namespace_id = aws_service_discovery_private_dns_namespace.test.id
 
-    dns_records {
-      ttl  = 5
-      type = "A"
-    }
+ dns_records {
+ 5
+ "A"
+ }
   }
 
   health_check_custom_config {
-    failure_threshold = %[2]d
+ failure_threshold = %[2]d
   }
 }
 `, rName, th)
 }
-
 func testAccServiceConfig_privateUpdate(rName string, th int) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -381,35 +371,34 @@ resource "aws_service_discovery_service" "test" {
   description = "test"
 
   dns_config {
-    namespace_id = aws_service_discovery_private_dns_namespace.test.id
+ namespace_id = aws_service_discovery_private_dns_namespace.test.id
 
-    dns_records {
-      ttl  = 10
-      type = "A"
-    }
+ dns_records {
+ 10
+ "A"
+ }
 
-    dns_records {
-      ttl  = 5
-      type = "AAAA"
-    }
+ dns_records {
+ 5
+ "AAAA"
+ }
 
-    routing_policy = "MULTIVALUE"
+ routing_policy = "MULTIVALUE"
   }
 
   health_check_custom_config {
-    failure_threshold = %[2]d
+ failure_threshold = %[2]d
   }
 }
 `, rName, th)
 }
-
 func testAccServiceConfig_private_http(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -427,7 +416,6 @@ resource "aws_service_discovery_service" "test" {
 }
 `, rName)
 }
-
 func testAccServiceConfig_public(rName string, th int, path string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_public_dns_namespace" "test" {
@@ -440,25 +428,24 @@ resource "aws_service_discovery_service" "test" {
   description = "test"
 
   dns_config {
-    namespace_id = aws_service_discovery_public_dns_namespace.test.id
+ namespace_id = aws_service_discovery_public_dns_namespace.test.id
 
-    dns_records {
-      ttl  = 5
-      type = "A"
-    }
+ dns_records {
+ 5
+ "A"
+ }
 
-    routing_policy = "WEIGHTED"
+ routing_policy = "WEIGHTED"
   }
 
   health_check_config {
-    failure_threshold = %[2]d
-    resource_path     = %[3]q
-    type     = "HTTP"
+ failure_threshold = %[2]d
+ resource_path= %[3]q
+ type= "HTTP"
   }
 }
 `, rName, th, path)
 }
-
 func testAccServiceConfig_publicUpdateNoHealthCheck(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_public_dns_namespace" "test" {
@@ -469,19 +456,18 @@ resource "aws_service_discovery_service" "test" {
   name = %[1]q
 
   dns_config {
-    namespace_id = aws_service_discovery_public_dns_namespace.test.id
+ namespace_id = aws_service_discovery_public_dns_namespace.test.id
 
-    dns_records {
-      ttl  = 5
-      type = "A"
-    }
+ dns_records {
+ 5
+ "A"
+ }
 
-    routing_policy = "WEIGHTED"
+ routing_policy = "WEIGHTED"
   }
 }
 `, rName)
 }
-
 func testAccServiceConfig_http(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_http_namespace" "test" {
@@ -494,7 +480,6 @@ resource "aws_service_discovery_service" "test" {
 }
 `, rName)
 }
-
 func testAccServiceConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_http_namespace" "test" {
@@ -506,12 +491,11 @@ resource "aws_service_discovery_service" "test" {
   namespace_id = aws_service_discovery_http_namespace.test.id
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccServiceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_http_namespace" "test" {
@@ -523,8 +507,8 @@ resource "aws_service_discovery_service" "test" {
   namespace_id = aws_service_discovery_http_namespace.test.id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

@@ -29,7 +29,7 @@ func testAccUser_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_basic(rName),
@@ -43,8 +43,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
@@ -61,7 +61,7 @@ func testAccUser_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_basic(rName),
@@ -85,7 +85,7 @@ func testAccUser_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_tags1(rName, "key1", "value1"),
@@ -96,8 +96,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -131,7 +131,7 @@ func testAccUser_posix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_posix(rName),
@@ -143,8 +143,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -172,7 +172,7 @@ func testAccUser_modifyWithOptions(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_options(rName1),
@@ -210,31 +210,31 @@ func testAccUser_UserName_Validation(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
-Config:      testAccUserConfig_nameValidation(rName, "!@#$%^"),
+Config:  testAccUserConfig_nameValidation(rName, "!@#$%^"),
 ExpectError: regexache.MustCompile(`Invalid "user_name": `),
 	},
 	{
-Config:      testAccUserConfig_nameValidation(rName, sdkacctest.RandString(2)),
+Config:  testAccUserConfig_nameValidation(rName, sdkacctest.RandString(2)),
 ExpectError: regexache.MustCompile(`Invalid "user_name": `),
 	},
 	{
-Config:    testAccUserConfig_nameValidation(rName, sdkacctest.RandString(33)),
+Config:testAccUserConfig_nameValidation(rName, sdkacctest.RandString(33)),
 ExpectNonEmptyPlan: true,
 PlanOnly:  true,
 	},
 	{
-Config:      testAccUserConfig_nameValidation(rName, sdkacctest.RandString(101)),
+Config:  testAccUserConfig_nameValidation(rName, sdkacctest.RandString(101)),
 ExpectError: regexache.MustCompile(`Invalid "user_name": `),
 	},
 	{
-Config:      testAccUserConfig_nameValidation(rName, "-abcdef"),
+Config:  testAccUserConfig_nameValidation(rName, "-abcdef"),
 ExpectError: regexache.MustCompile(`Invalid "user_name": `),
 	},
 	{
-Config:    testAccUserConfig_nameValidation(rName, "valid_username"),
+Config:testAccUserConfig_nameValidation(rName, "valid_username"),
 ExpectNonEmptyPlan: true,
 PlanOnly:  true,
 	},
@@ -256,7 +256,7 @@ func testAccUser_homeDirectoryMappings(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserDestroy(ctx),
+CheckDestroy:testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_homeDirectoryMappings(rName, entry1, target1),
@@ -281,8 +281,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -367,13 +367,13 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "transfer.${data.aws_partition.current.dns_suffix}"
-      },
-      "Action": "sts:AssumeRole"
-    }
+{
+  "Effect": "Allow",
+  "Principal": {
+"Service": "transfer.${data.aws_partition.current.dns_suffix}"
+  },
+  "Action": "sts:AssumeRole"
+}
   ]
 }
 EOF
@@ -387,14 +387,14 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Sid": "AllowFullAccesstoS3",
-      "Effect": "Allow",
-      "Action": [
-        "s3:*"
-      ],
-      "Resource": "*"
-    }
+{
+  "Sid": "AllowFullAccesstoS3",
+  "Effect": "Allow",
+  "Action": [
+"s3:*"
+  ],
+  "Resource": "*"
+}
   ]
 }
 POLICY
@@ -408,7 +408,7 @@ resource "aws_transfer_server" "test" {
   identity_provider_type = "SERVICE_MANAGED"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -421,7 +421,7 @@ func testAccUserConfig_basic(rName string) string {
 resource "aws_transfer_user" "test" {
   server_id = aws_transfer_server.test.id
   user_name = "tftestuser"
-  role      = aws_iam_role.test.arn
+  role  = aws_iam_role.test.arn
 }
 `)
 }
@@ -431,10 +431,10 @@ func testAccUserConfig_tags1(rName, tagKey1, tagValue1 string) string {
 resource "aws_transfer_user" "test" {
   server_id = aws_transfer_server.test.id
   user_name = "tftestuser"
-  role      = aws_iam_role.test.arn
+  role  = aws_iam_role.test.arn
 
   tags = {
-    %[1]q = %[2]q
+%[1]q = %[2]q
   }
 }
 `, tagKey1, tagValue1))
@@ -445,11 +445,11 @@ func testAccUserConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 strin
 resource "aws_transfer_user" "test" {
   server_id = aws_transfer_server.test.id
   user_name = "tftestuser"
-  role      = aws_iam_role.test.arn
+  role  = aws_iam_role.test.arn
 
   tags = {
-    %[1]q = %[2]q
-    %[3]q = %[4]q
+%[1]q = %[2]q
+%[3]q = %[4]q
   }
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -460,7 +460,7 @@ func testAccUserConfig_nameValidation(rName, username string) string {
 resource "aws_transfer_user" "test" {
   server_id = aws_transfer_server.test.id
   user_name = %[1]q
-  role      = aws_iam_role.test.arn
+  role  = aws_iam_role.test.arn
 }
 `, username))
 }
@@ -469,56 +469,56 @@ func testAccUserConfig_options(rName string) string {
 	return acctest.ConfigCompose(testAccUserConfig_base(rName), fmt.Sprintf(`
 data "aws_iam_policy_document" "test" {
   statement {
-    sid = "ListHomeDir"
+sid = "ListHomeDir"
 
-    actions = [
-      "s3:ListBucket",
-    ]
+actions = [
+  "s3:ListBucket",
+]
 
-    resources = [
-      "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeBucket}",
-    ]
+resources = [
+  "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeBucket}",
+]
   }
 
   statement {
-    sid = "AWSTransferRequirements"
+sid = "AWSTransferRequirements"
 
-    actions = [
-      "s3:ListAllMyBuckets",
-      "s3:GetBucketLocation",
-    ]
+actions = [
+  "s3:ListAllMyBuckets",
+  "s3:GetBucketLocation",
+]
 
-    resources = [
-      "*",
-    ]
+resources = [
+  "*",
+]
   }
 
   statement {
-    sid = "HomeDirObjectAccess"
+sid = "HomeDirObjectAccess"
 
-    actions = [
-      "s3:PutObject",
-      "s3:GetObject",
-      "s3:DeleteObjectVersion",
-      "s3:DeleteObject",
-      "s3:GetObjectVersion",
-    ]
+actions = [
+  "s3:PutObject",
+  "s3:GetObject",
+  "s3:DeleteObjectVersion",
+  "s3:DeleteObject",
+  "s3:GetObjectVersion",
+]
 
-    resources = [
-      "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeDirectory}*",
-    ]
+resources = [
+  "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeDirectory}*",
+]
   }
 }
 
 resource "aws_transfer_user" "test" {
-  server_id      = aws_transfer_server.test.id
-  user_name      = "tftestuser"
+  server_id  = aws_transfer_server.test.id
+  user_name  = "tftestuser"
   role  = aws_iam_role.test.arn
   policy= data.aws_iam_policy_document.test.json
   home_directory = "/home/tftestuser"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -528,54 +528,54 @@ func testAccUserConfig_modify(rName string) string {
 	return acctest.ConfigCompose(testAccUserConfig_base(rName), fmt.Sprintf(`
 data "aws_iam_policy_document" "test" {
   statement {
-    sid = "ListHomeDir"
+sid = "ListHomeDir"
 
-    actions = [
-      "s3:ListBucket",
-    ]
+actions = [
+  "s3:ListBucket",
+]
 
-    resources = [
-      "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeBucket}",
-    ]
+resources = [
+  "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeBucket}",
+]
   }
 
   statement {
-    sid = "AWSTransferRequirements"
+sid = "AWSTransferRequirements"
 
-    actions = [
-      "s3:ListAllMyBuckets",
-      "s3:GetBucketLocation",
-    ]
+actions = [
+  "s3:ListAllMyBuckets",
+  "s3:GetBucketLocation",
+]
 
-    resources = [
-      "*",
-    ]
+resources = [
+  "*",
+]
   }
 
   statement {
-    sid = "HomeDirObjectAccess"
+sid = "HomeDirObjectAccess"
 
-    actions = [
-      "s3:PutObject",
-      "s3:GetObject",
-      "s3:GetObjectVersion",
-    ]
+actions = [
+  "s3:PutObject",
+  "s3:GetObject",
+  "s3:GetObjectVersion",
+]
 
-    resources = [
-      "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeDirectory}*",
-    ]
+resources = [
+  "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeDirectory}*",
+]
   }
 }
 
 resource "aws_transfer_user" "test" {
-  server_id      = aws_transfer_server.test.id
-  user_name      = "tftestuser"
+  server_id  = aws_transfer_server.test.id
+  user_name  = "tftestuser"
   role  = aws_iam_role.test.arn
   policy= data.aws_iam_policy_document.test.json
   home_directory = "/test"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -585,56 +585,56 @@ func testAccUserConfig_forceNew(rName string) string {
 	return acctest.ConfigCompose(testAccUserConfig_base(rName), fmt.Sprintf(`
 data "aws_iam_policy_document" "test" {
   statement {
-    sid = "ListHomeDir"
+sid = "ListHomeDir"
 
-    actions = [
-      "s3:ListBucket",
-    ]
+actions = [
+  "s3:ListBucket",
+]
 
-    resources = [
-      "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeBucket}",
-    ]
+resources = [
+  "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeBucket}",
+]
   }
 
   statement {
-    sid = "AWSTransferRequirements"
+sid = "AWSTransferRequirements"
 
-    actions = [
-      "s3:ListAllMyBuckets",
-      "s3:GetBucketLocation",
-    ]
+actions = [
+  "s3:ListAllMyBuckets",
+  "s3:GetBucketLocation",
+]
 
-    resources = [
-      "*",
-    ]
+resources = [
+  "*",
+]
   }
 
   statement {
-    sid = "HomeDirObjectAccess"
+sid = "HomeDirObjectAccess"
 
-    actions = [
-      "s3:PutObject",
-      "s3:GetObject",
-      "s3:DeleteObjectVersion",
-      "s3:DeleteObject",
-      "s3:GetObjectVersion",
-    ]
+actions = [
+  "s3:PutObject",
+  "s3:GetObject",
+  "s3:DeleteObjectVersion",
+  "s3:DeleteObject",
+  "s3:GetObjectVersion",
+]
 
-    resources = [
-      "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeDirectory}*",
-    ]
+resources = [
+  "arn:${data.aws_partition.current.partition}:s3:::&{transfer:HomeDirectory}*",
+]
   }
 }
 
 resource "aws_transfer_user" "test" {
-  server_id      = aws_transfer_server.test.id
-  user_name      = "tftestuser2"
+  server_id  = aws_transfer_server.test.id
+  user_name  = "tftestuser2"
   role  = aws_iam_role.test.arn
   policy= data.aws_iam_policy_document.test.json
   home_directory = "/home/tftestuser2"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -649,12 +649,12 @@ resource "aws_transfer_user" "test" {
   user_name  = "tftestuser"
 
   home_directory_mappings {
-    entry  = %[2]q
-    target = %[3]q
+entry  = %[2]q
+target = %[3]q
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, entry, target))
@@ -669,17 +669,17 @@ resource "aws_transfer_user" "test" {
   user_name  = "tftestuser"
 
   home_directory_mappings {
-    entry  = %[2]q
-    target = %[3]q
+entry  = %[2]q
+target = %[3]q
   }
 
   home_directory_mappings {
-    entry  = %[4]q
-    target = %[5]q
+entry  = %[4]q
+target = %[5]q
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, entry1, target1, entry2, target2))
@@ -688,12 +688,12 @@ resource "aws_transfer_user" "test" {
 func testAccUserConfig_homeDirectoryMappingsRemove(rName string) string {
 	return acctest.ConfigCompose(testAccUserConfig_base(rName), fmt.Sprintf(`
 resource "aws_transfer_user" "test" {
-  role      = aws_iam_role.test.arn
+  role  = aws_iam_role.test.arn
   server_id = aws_transfer_server.test.id
   user_name = "tftestuser"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -705,7 +705,7 @@ resource "aws_transfer_server" "test" {
   domain = "EFS"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -714,15 +714,15 @@ data "aws_partition" "current" {}
 resource "aws_transfer_user" "test" {
   server_id = aws_transfer_server.test.id
   user_name = "tftestuser"
-  role      = aws_iam_role.test.arn
+  role  = aws_iam_role.test.arn
 
   posix_profile {
-    gid = 1000
-    uid = 1000
+gid = 1000
+uid = 1000
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -734,7 +734,7 @@ resource "aws_transfer_server" "test" {
   domain = "EFS"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -743,16 +743,16 @@ data "aws_partition" "current" {}
 resource "aws_transfer_user" "test" {
   server_id = aws_transfer_server.test.id
   user_name = "tftestuser"
-  role      = aws_iam_role.test.arn
+  role  = aws_iam_role.test.arn
 
   posix_profile {
-    gid   = 1001
-    uid   = 1001
-    secondary_gids = [1000, 1002]
+gid   = 1001
+uid   = 1001
+secondary_gids = [1000, 1002]
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))

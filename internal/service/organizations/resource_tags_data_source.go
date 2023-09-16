@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_organizations_resource_tags")
+
 func DataSourceResourceTags() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceResourceTagsRead,
@@ -30,6 +31,7 @@ func DataSourceResourceTags() *schema.Resource {
 	}
 }
 
+
 func dataSourceResourceTagsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -43,7 +45,8 @@ func dataSourceResourceTagsRead(ctx context.Context, d *schema.ResourceData, met
 	var tags []*organizations.Tag
 
 	err := conn.ListTagsForResourcePagesWithContext(ctx, params,
-		func(page *organizations.ListTagsForResourceOutput, lastPage bool) bool {
+		
+func(page *organizations.ListTagsForResourceOutput, lastPage bool) bool {
 			tags = append(tags, page.Tags...)
 
 			return !lastPage

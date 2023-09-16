@@ -1,23 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/rds"
+	"testing"	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func := acctest.Context(t)
-	dataSourceName := "data.aws_db_event_categories.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	dataSourceName := "data.aws_db_event_categories.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEventCategoriesDataSourceConfig_basic(),
@@ -41,15 +34,16 @@ func := acctest.Context(t)
 		},
 	})
 }
-
 func TestAccRDSEventCategoriesDataSource_sourceType(t *testing.T) {
 	ctx := acctest.Context(t)
 func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resofunc
+		Steps: []reso
+func
 				Config: testAccEventCategoriesDataSourceConfig_sourceType("db-snapshot"),
 				Check: resource.ComposeAggregateTestCheckFunc(
 					// These checks are not meant to be exhaustive, as regions have different support.
@@ -63,7 +57,6 @@ func
 		},
 	})
 }
-
 func testAccEventCategoriesDataSourceConfig_basic() string {
 	return `
 data "aws_db_event_categories" "test" {}
@@ -72,6 +65,6 @@ func
 func testAccEventCategoriesDataSourceConfig_sourceType(sourceType string) string {
 	return fmt.Sprintf(`
 data "aws_db_event_categories" "test" {
-  source_type = %[1]q
+source_type = %[1]q
 }
 func

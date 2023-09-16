@@ -84,7 +84,7 @@ func ResourceDirectory() *schema.Resource {
 							Required: true,
 							ForceNew: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.IsIPAddress,
 							},
 						},
@@ -113,7 +113,7 @@ func ResourceDirectory() *schema.Resource {
 				ForceNew: true,
 			},
 			"desired_number_of_domain_controllers": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.IntAtLeast(2),
@@ -124,7 +124,7 @@ func ResourceDirectory() *schema.Resource {
 				Computed: true,
 			},
 			"edition": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -136,7 +136,7 @@ func ResourceDirectory() *schema.Resource {
 				Default:  false,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: domainValidator,
@@ -158,7 +158,7 @@ func ResourceDirectory() *schema.Resource {
 				ForceNew: true,
 			},
 			"size": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -167,7 +167,7 @@ func ResourceDirectory() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      directoryservice.DirectoryTypeSimpleAd,
 				ForceNew:     true,

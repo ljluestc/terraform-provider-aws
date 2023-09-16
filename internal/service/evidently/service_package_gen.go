@@ -32,7 +32,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceFeature,
 			TypeName: "aws_evidently_feature",
-			Name:     "Feature",
+			Name: "Feature",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -40,7 +40,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceLaunch,
 			TypeName: "aws_evidently_launch",
-			Name:     "Launch",
+			Name: "Launch",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -48,7 +48,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceProject,
 			TypeName: "aws_evidently_project",
-			Name:     "Project",
+			Name: "Project",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -56,7 +56,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceSegment,
 			TypeName: "aws_evidently_segment",
-			Name:     "Segment",
+			Name: "Segment",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

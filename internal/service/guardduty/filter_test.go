@@ -19,7 +19,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfguardduty "github.com/hashicorp/terraform-provider-aws/internal/service/guardduty"
 )
-
 func testAccFilter_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 guardduty.GetFilterOutput
@@ -49,7 +48,7 @@ func testAccFilter_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "finding_criteria.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "finding_criteria.0.criterion.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "finding_criteria.0.criterion.*", map[string]string{
-						"field":    "region",
+						"field": "region",
 						"equals.#": "1",
 						"equals.0": acctest.Region(),
 					}),
@@ -87,7 +86,6 @@ func testAccFilter_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccFilter_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 guardduty.GetFilterOutput
@@ -117,7 +115,7 @@ func testAccFilter_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "finding_criteria.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "finding_criteria.0.criterion.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "finding_criteria.0.criterion.*", map[string]string{
-						"field":    "region",
+						"field": "region",
 						"equals.#": "1",
 						"equals.0": acctest.Region(),
 					}),
@@ -132,7 +130,6 @@ func testAccFilter_update(t *testing.T) {
 		},
 	})
 }
-
 func testAccFilter_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2, v3 guardduty.GetFilterOutput
@@ -174,7 +171,6 @@ func testAccFilter_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccFilter_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v guardduty.GetFilterOutput
@@ -200,7 +196,6 @@ func testAccFilter_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckFilterDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
@@ -234,7 +229,6 @@ func testAccCheckFilterDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckFilterExists(ctx context.Context, name string, filter *guardduty.GetFilterOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -261,7 +255,6 @@ func testAccCheckFilterExists(ctx context.Context, name string, filter *guarddut
 		return err
 	}
 }
-
 func testAccFilterConfig_full(startDate, endDate string) string {
 	return fmt.Sprintf(`
 data "aws_region" "current" {}
@@ -273,21 +266,21 @@ resource "aws_guardduty_filter" "test" {
   rank1
 
   finding_criteria {
-    criterion {
+ criterion {
 d  = "region"
 ls = [data.aws_region.current.name]
-    }
+ }
 
-    criterion {
+ criterion {
 d = "se.additionalInfo.threatListName"
 equals = ["some-threat", "another-threat"]
-    }
+ }
 
-    criterion {
+ criterion {
 d  = "updatedAt"
 ter_than_or_equal = %[1]q
-_than   = 
-    }
+_than= 
+ }
   }
 }
 
@@ -296,7 +289,6 @@ resource "aws_guardduty_detector" "test" {
 }
 `, startDate, endDate)
 }
-
 func testAccFilterConfig_noopfull(startDate, endDate string) string {
 	return fmt.Sprintf(`
 data "aws_region" "current" {}
@@ -309,21 +301,21 @@ resource "aws_guardduty_filter" "test" {
   rank1
 
   finding_criteria {
-    criterion {
+ criterion {
 d  = "region"
 ls = [data.aws_region.current.name]
-    }
+ }
 
-    criterion {
+ criterion {
 d = "se.additionalInfo.threatListName"
 equals = ["some-threat", "another-threat"]
-    }
+ }
 
-    criterion {
+ criterion {
 d  = "updatedAt"
 ter_than_or_equal = %[1]q
-_than   = 
-    }
+_than= 
+ }
   }
 }
 
@@ -332,7 +324,6 @@ resource "aws_guardduty_detector" "test" {
 }
 `, startDate, endDate)
 }
-
 func testAccFilterConfig_multipleTags() string {
 	return `
 data "aws_region" "current" {}
@@ -344,15 +335,15 @@ resource "aws_guardduty_filter" "test" {
   rank1
 
   finding_criteria {
-    criterion {
+ criterion {
 d  = "region"
 ls = [data.aws_region.current.name]
-    }
+ }
   }
 
   tags = {
-    Name = "test-filter"
-    Key  = "Value"
+ Name = "test-filter"
+ Key  = "Value"
   }
 }
 
@@ -361,7 +352,6 @@ resource "aws_guardduty_detector" "test" {
 }
 `
 }
-
 func testAccFilterConfig_update() string {
 	return `
 data "aws_region" "current" {}
@@ -373,15 +363,15 @@ resource "aws_guardduty_filter" "test" {
   rank1
 
   finding_criteria {
-    criterion {
+ criterion {
 d  = "region"
 ls = [data.aws_region.current.name]
-    }
+ }
 
-    criterion {
+ criterion {
 d = "se.additionalInfo.threatListName"
 equals = ["some-threat", "yet-another-threat"]
-    }
+ }
   }
 }
 
@@ -390,7 +380,6 @@ resource "aws_guardduty_detector" "test" {
 }
 `
 }
-
 func testAccFilterConfig_updateTags() string {
 	return `
 data "aws_region" "current" {}
@@ -402,14 +391,14 @@ resource "aws_guardduty_filter" "test" {
   rank1
 
   finding_criteria {
-    criterion {
+ criterion {
 d  = "region"
 ls = [data.aws_region.current.name]
-    }
+ }
   }
 
   tags = {
-    Key = "Updated"
+ Key = "Updated"
   }
 }
 
@@ -418,7 +407,6 @@ resource "aws_guardduty_detector" "test" {
 }
 `
 }
-
 func testAccCheckACMPCACertificateAuthorityDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ACMPCAConn(ctx)

@@ -27,7 +27,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckECSClusterLayerDestroy(ctx),
+CheckDestroy:testAccCheckECSClusterLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccECSClusterLayerConfig_basic(stackName),
@@ -61,7 +61,7 @@ resource "aws_ecs_cluster" "test" {
 }
 
 resource "aws_opsworks_ecs_cluster_layer" "test" {
-  stack_id        = aws_opsworks_stack.test.id
+  stack_id   = aws_opsworks_stack.test.id
   ecs_cluster_arn = aws_ecs_cluster.test.arn
 
   custom_security_group_ids = aws_security_group.test[*].id

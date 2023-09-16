@@ -73,7 +73,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 func testAccDocumentDataSourceConfig_basic(rName, documentFormat string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_document" "test" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -85,10 +85,10 @@ resource "aws_ssm_document" "test" {
     "aws:runShellScript": {
       "properties": [
         {
-          "id": "0.aws:runShellScript",
-          "runCommand": [
-            "ifconfig"
-          ]
+ "id": "0.aws:runShellScript",
+ "runCommand": [
+   "ifconfig"
+ ]
         }
       ]
     }
@@ -98,7 +98,7 @@ DOC
 }
 
 data "aws_ssm_document" "test" {
-  name            = aws_ssm_document.test.name
+  name   = aws_ssm_document.test.name
   document_format = %[2]q
 }
 `, rName, documentFormat)

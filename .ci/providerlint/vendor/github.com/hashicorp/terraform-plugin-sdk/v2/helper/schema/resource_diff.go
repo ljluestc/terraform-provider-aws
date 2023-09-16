@@ -1,89 +1,49 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package schema
-
-import (
+// SPDX-License-Identifier: MPL-2.0package schemaimport (
 	"errors"
 	"fmt"
 	"reflect"
 	"strings"
-	"sync"
-
-	"github.com/hashicorp/go-cty/cty"
+	"sync"	"github.com/hashicorp/go-cty/cty"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
-)
-
-// newValueWriter is a minor re-implementation of MapFieldWriter to include
+)// newValueWriter is a minor re-implementation of MapFieldWriter to include
 // keys that should be marked as computed, to represent the new part of a
 // pseudo-diff.
 type newValueWriter struct {
-	*MapFieldWriter
-
-	// A list of keys that should be marked as computed.
-	computedKeys map[string]bool
-
-	// A lock to prevent races on writes. The underlying writer will have one as
+	*MapFieldWriter	// A list of keys that should be marked as computed.
+	computedKeys map[string]bool	// A lock to prevent races on writes. The underlying writer will have one as
 	// well - this is for computed keys.
-	lock sync.Mutex
-
-	// To be used with init.
+	lock sync.Mutex	// To be used with init.
 	once sync.Once
-}
-
-// init performs any initialization tasks for the newValueWriter.
-
- (w *newValueWriter) init() {
+}// init performs any initialization tasks for the newValueWriter. (w *newValueWriter) init() {
 	if w.computedKeys == nil {
 		w.computedKeys = make(map[string]bool)
 	}
-}
-
-// WriteField overrides MapValueWriter's WriteField, adding the ability to flag
-he address as computed.
-
- (w *newValueWriter) WriteField(address []string, value interface{}, computed bool) error {
+}// WriteField overrides MapValueWriter's WriteField, adding the ability to flag
+he address as computed. (w *newValueWriter) WriteField(address []string, value interface{}, computed bool) error {
 	// Fail the write if we have a non-nil value and computed is true.
 	// NewComputed values should not have a value when written.
 	if value != nil && computed {
 		return errors.New("Non-nil value with computed set")
-	}
-
-	if err := w.MapFieldWriter.WriteField(address, value); err != nil {
+	}	if err := w.MapFieldWriter.WriteField(address, value); err != nil {
 		return err
-	}
-
-	w.once.Do(w.init)
-
-	w.lock.Lock()
+	}	w.once.Do(w.init)	w.lock.Lock()
 	defer w.lock.Unlock()
 	if computed {
 		w.computedKeys[strings.Join(address, ".")] = true
 	}
 	return nil
-}
-
-// ComputedKeysMap returns the underlying computed keys map.
-
- (w *newValueWriter) ComputedKeysMap() map[string]bool {
+}// ComputedKeysMap returns the underlying computed keys map. (w *newValueWriter) ComputedKeysMap() map[string]bool {
 	w.once.Do(w.init)
 	return w.computedKeys
-}
-
-// newValueReader is a minor re-implementation of MapFieldReader and is the
+}// newValueReader is a minor re-implementation of MapFieldReader and is the
 // read counterpart to MapValueWriter, allowing the read of keys flagged as
 // computed to accommodate the diff override logic in ResourceDiff.
 type newValueReader struct {
-	*MapFieldReader
-
-	// The list of computed keys from a newValueWriter.
+	*MapFieldReader	// The list of computed keys from a newValueWriter.
 	computedKeys map[string]bool
-}
-
-// ReadField reads the values from the underlying writer, returning the
-// computed value if it is found as well.
-
- (r *newValueReader) ReadField(address []string) (FieldReadResult, error) {
+}// ReadField reads the values from the underlying writer, returning the
+// computed value if it is found as well. (r *newValueReader) ReadField(address []string) (FieldReadResult, error) {
 	addrKey := strings.Join(address, ".")
 	v, err := r.MapFieldReader.ReadField(address)
 	if err != nil {
@@ -100,12 +60,8 @@ type newValueReader struct {
 			}
 			v.Computed = true
 		}
-	}
-
-	return v, nil
-}
-
-// ResourceDif used to query and make custom changes to an in-flight diff.
+	}	return v, nil
+}// ResourceDif used to query and make custom changes to an in-flight diff.
 // It can be used to veto particular changes in the diff, customize the diff
 // that has been created, or diff values not colled by config.
 //
@@ -121,48 +77,28 @@ tions in ResourceDiff, save for ForceNew, can only be used on
 // computed fields.
 type ResourceDiff struct {
 	// The schema for the resource being worked on.
-	schema map[string]*Schema
-
-	// The current config for this resource.
-	config *terraform.ResourceConfig
-
-	// The state for this resource as it exists post-refresh, after the initial
+	schema map[string]*Schema	// The current config for this resource.
+	config *terraform.ResourceConfig	// The state for this resource as it exists post-refresh, after the initial
 	// diff.
-	state *terraform.InstanceState
-
-	// The diff created by Terraform. This diff is used, along with state,
+	state *terraform.InstanceState	// The diff created by Terraform. This diff is used, along with state,
 	// config, and custom-set diff data, to provide a multi-level reader
 	// experience similar to ResourceData.
-	diff *terraform.InstanceDiff
-
-	// The internal reader structure that contains the state, config, the default
+	diff *terraform.InstanceDiff	// The internal reader structure that contains the state, config, the default
 	// diff, and the new diff.
-	multiReader *MultiLevelFieldReader
-
-	// A writer that writes overridden new fields.
-	newWriter *newValueWriter
-
-	// Tracks which keys have been updated by ResourceDiff to ensure that the
+	multiReader *MultiLevelFieldReader	// A writer that writes overridden new fields.
+	newWriter *newValueWriter	// Tracks which keys have been updated by ResourceDiff to ensure that the
 	// diff does not get re-run on keys that were not touched, or diffs that were
 	// just removed (re-running on the latter would just roll back the removal).
-	updatedKeys map[string]bool
-
-	// Tracks which keys were flagged as forceNew. These keys are not saved in
+	updatedKeys map[string]bool	// Tracks which keys were flagged as forceNew. These keys are not saved in
 	// newWriter, but we need to track them so that they can be re-diffed later.
 	forcedNewKeys map[string]bool
-}
-
-// newResourceDiff creates a new ResourceDiff instance.
-
- newResourceDiff(schema map[string]*Schema, config *terraform.ResourceConfig, state *terraform.InstanceState, diff *terraform.InstanceDiff) *ResourceDiff {
+}// newResourceDiff creates a new ResourceDiff instance. newResourceDiff(schema map[string]*Schema, config *terraform.ResourceConfig, state *terraform.InstanceState, diff *terraform.InstanceDiff) *ResourceDiff {
 	d := &ResourceDiff{
 		config: config,
 		state:  state,
 		diff:   diff,
 		schema: schema,
-	}
-
-	d.newWriter = &newValueWriter{
+	}	d.newWriter = &newValueWriter{
 		MapFieldWriter: &MapFieldWriter{Schema: d.schema},
 	}
 	readers := make(map[string]FieldReader)
@@ -203,25 +139,15 @@ type ResourceDiff struct {
 			"config",
 			"diff",
 			"newDiff",
-		},
-
-		Readers: readers,
-	}
-
-	d.updatedKeys = make(map[string]bool)
-	d.forcedNewKeys = make(map[string]bool)
-
-	return d
-
-
+		},		Readers: readers,
+	}	d.updatedKeys = make(map[string]bool)
+	d.forcedNewKeys = make(map[string]bool)	return d
 // UpdatedKeys returns the keys that were updated by this ResourceDiff run.
 // These are the only keys that a diff should be re-calculated for.
 //
 // This is the combined result of both keys for which diff values were updated
 // for or cleared, and also keys that were flagged to be re-diffed as a result
-// of ForceNew.
-
- (d *ResourceDiff) UpdatedKeys() []string {
+// of ForceNew. (d *ResourceDiff) UpdatedKeys() []string {
 	var s []string
 	for k := range d.updatedKeys {
 		s = append(s, k)
@@ -235,46 +161,32 @@ type ResourceDiff struct {
 		s = append(s, k)
 	}
 urn s
-}
-
-// Clear wipes the diff for a particular key. It is called by ResourceDiff's
+}// Clear wipes the diff for a particular key. It is called by ResourceDiff's
 // 
 tionality to remove any possibility of conflicts, but can be called on
 // its own to just remove a specific key from the diff completely.
 //
 ote that this does not wipe an override. This 
 tion is only allowed on
-// computed keys.
-
- (d *ResourceDiff) Clear(key string) error {
+// computed keys. (d *ResourceDiff) Clear(key string) error {
 	if err := d.checkKey(key, "Clear", true); err != nil {
 		return err
-	}
-
-	return d.clear(key)
+	}	return d.clear(key)
 }
-
-
  (d *ResourceDiff) clear(key string) error {
 	// Check the schema to make sure that this key exists first.
 	schemaL := addrToSchema(strings.Split(key, "."), d.schema)
 	if len(schemaL) == 0 {
 		return fmt.Errorf("%s is not a valid key", key)
-
-
 	for k := range d.diff.Attributes {
 		if k == key || childAddrOf(k, key) {
 			delete(d.diff.Attributes, k)
 		}
 	}
 	return nil
-}
-
-// GetChangedKeysPrefix helps to implement Resource.CustomizeDiff where we need to act
+}// GetChangedKeysPrefix helps to implement Resource.CustomizeDiff where we need to act
 // on all nested fields without calling out each one separately.
-n empty prefix is supported, returning all changed keys.
-
- (d *ResourceDiff) GetChangedKeysPrefix(prefix string) []string {
+n empty prefix is supported, returning all changed keys. (d *ResourceDiff) GetChangedKeysPrefix(prefix string) []string {
 	keys := make([]string, 0)
 	for k := range d.diff.Attributes {
 		if k == prefix || childAddrOf(k, prefix) || prefix == "" {
@@ -282,71 +194,39 @@ n empty prefix is supported, returning all changed keys.
 		}
 	}
 	return keys
-}
-
-// diffChange helps to implement resourceDiffer and derives its change values
-// from ResourceDiff's own change data, in addition to existing diff, config, and state.
-
- (d *ResourceDiff) diffChange(key string) (interface{}, interface{}, bool, bool, bool) {
-	oldValue, newValue, customized := d.getChange(key)
-
-!oldValue.Exists {
+}// diffChange helps to implement resourceDiffer and derives its change values
+// from ResourceDiff's own change data, in addition to existing diff, config, and state. (d *ResourceDiff) diffChange(key string) (interface{}, interface{}, bool, bool, bool) {
+	oldValue, newValue, customized := d.getChange(key)!oldValue.Exists {
 		oldValue.Value = nil
 	}
 	if !newValue.Exists || d.removed(key) {
 		newValue.Value = nil
-	}
-
-	return oldValue.Value, newValue.Value, !reflect.DeepEqual(oldValue.Value, newValue.Value), newValue.Computed, customized
-}
-
-// SetNew is used to set a new diff value for the mentioned key. The value must
+	}	return oldValue.Value, newValue.Value, !reflect.DeepEqual(oldValue.Value, newValue.Value), newValue.Computed, customized
+}// SetNew is used to set a new diff value for the mentioned key. The value must
 // be cot for the attribute's schema (mostly relevant for maps, lists, and
 ets). The original value from the state is used as the old value.
 //
 // This 
-tion is only allowed on computed attributes.
-
- (d *ResourceDiff) SetNew(key string, value interface{}) error {
+tion is only allowed on computed attributes. (d *ResourceDiff) SetNew(key string, value interface{}) error {
 	if err := d.checkKey(key, "SetNew", false); err != nil {
 		return err
-	}
-
-	return d.setDiff(key, value, false)
-}
-
-// SetNewComputed 
+	}	return d.setDiff(key, value, false)
+}// SetNewComputed 
 tions like SetNew, except that it blanks out a new value
 // and marks it as computed.
 //
 // This 
-tion is only allowed on computed attributes.
-
- (d *ResourceDiff) SetNewComputed(key string) error {
+tion is only allowed on computed attributes. (d *ResourceDiff) SetNewComputed(key string) error {
 	if err := d.checkKey(key, "SetNewComputed", false); err != nil {
 		return err
-	}
-
-	return d.setDiff(key, nil, true)
-}
-
-// setDiff performs common dsetting behaviour.
-
- (d *ResourceDiff) setDiff(key string, newValue interface{}, computed bool) error {
+	}	return d.setDiff(key, nil, true)
+}// setDiff performs common dsetting behaviour. (d *ResourceDiff) setDiff(key string, newValue interface{}, computed bool) error {
 	if err := d.clear(key); err != nil {
 		return err
-	}
-
-	if err := d.newWriter.WriteField(strings.Split(key, "."), newValue, computed); err != nil {
+	}	if err := d.newWriter.WriteField(strings.Split(key, "."), newValue, computed); err != nil {
 		return fmt.Errorf("Cannot set new diff value for key %s: %s", key, err)
-	}
-
-	d.updatedKeys[key] = true
-
-	return nil
-}
-
-// ForceNew force-flags ForceNew in the schema for a specific key, and
+	}	d.updatedKeys[key] = true	return nil
+}// ForceNew force-flags ForceNew in the schema for a specific key, and
 // re-calculates its diff, effectively causing this attribute to force a new
 // resource.
 //
@@ -362,75 +242,47 @@ tion (with a new ResourceDiff) once the current
 tion is a no-op/error if there is no diff.
 //
 // Note that the change to schema is permanent for the lifecycle of this
-// specific ResourceDiff instance.
-
- (d *ResourceDiff) ForceNew(key string) error {
+// specific ResourceDiff instance. (d *ResourceDiff) ForceNew(key string) error {
 !d.HasChange(key) {
 		return fmt.Errorf("ForceNew: No changes for %s", key)
-	}
-
-	keyParts := strings.Split(key, ".")
+	}	keyParts := strings.Split(key, ".")
 	var schema *Schema
 	schemaL := addrToSchema(keyParts, d.schema)
 	if len(schemaL) > 0 {
 		schema = schemaL[len(schemaL)-1]
 	} else {
 		return fmt.Errorf("ForceNew: %s is not a valid key", key)
-
-
-	schema.ForceNew = true
-
-	// Flag this for a re-diff. Don't save any values to guarantee that existing
+	schema.ForceNew = true	// Flag this for a re-diff. Don't save any values to guarantee that existing
 	// diffsn't messed with, as this gets messy when dealing with complex
 	// structures, zero values, etc.
-	d.forcedNewKeys[keyParts[0]] = true
-
-	return nil
-}
-
-// Get hands off to ResourceData.Get.
-
- (d *ResourceDiff) Get(key string) interface{} {
+	d.forcedNewKeys[keyParts[0]] = true	return nil
+}// Get hands off to ResourceData.Get. (d *ResourceDiff) Get(key string) interface{} {
 	r, _ := d.GetOk(key)
 	return r
-}
-
-// GetChange gets the change between the state and diff, checking first to see
+}// GetChange gets the change between the state and diff, checking first to see
 // if an overridden diff exists.
 //
 // This implementation differs from ResourceData's in the way that we first get
 // results from the exact levels for the new diff, then from state and diff as
-// per normal.
-
- (d *Resourff) GetChange(key string) (interface{}, interface{}) {
+// per normal. (d *Resourff) GetChange(key string) (interface{}, interface{}) {
 	oldValue, newValue, _ := d.getChange(key)
 	return oldValue.Value, newValue.Value
-}
-
-// GetOk 
+}// GetOk 
 tions the same way as ResourceData.GetOk, but it also checks the
 // new diff levels to provide data consistent with the current state of the
-ustomized diff.
-
- (d *ResourceDiff) GetOk(key string) (interface{}, bool) {
+ustomized diff. (d *ResourceDiff) GetOk(key string) (interface{}, bool) {
 	r := d.get(strings.Split(key, "."), "newDiff")
 	exists := r.Exists && !r.Computed
 	if exists {
 		// If it exists, we also want to verify it is not the zero-value.
 		value := r.Value
-		zero := r.Schema.Type.Zero()
-
- eq, ok := value.(Equal); ok {
+		zero := r.Schema.Type.Zero() eq, ok := value.(Equal); ok {
 			exists = !eq.Equal(zero)
 		} else {
 			exists = !reflect.DeepEqual(value, zero)
 		}
-	}
-
-	return r.Value, exists
-}
-
-// GetOkExists 
+	}	return r.Value, exists
+}// GetOkExists 
 tions the same way as GetOkExists within ResourceData, but
 // it also checks the new diff levels to provide data consistent with the
 // current state of the customized diff.
@@ -439,75 +291,45 @@ tions the same way as GetOkExists within ResourceData, but
 tion as GetOk, yet it does not check
 or the zero value of the attribute's type. This allows for attributes
 // without a default, to fully check for a literal assignment, regardless
-// of the zero-value for that type.
-
- (d *ResourceDiff) GetOkExists(key string) (interface{}, bool) {
+// of the zero-value for that type. (d *ResourceDiff) GetOkExists(key string) (interface{}, bool) {
 	r := d.get(strings.Split(key, "."), "newDiff")
 	exists := r.Exists && !r.Computed
 	return r.Value, exists
-}
-
-// NewValueKnown returns true if the new value for the given key is available
+}// NewValueKnown returns true if the new value for the given key is available
 // as its final value at diff time. If the return value is false, this means
 // either the value is based of interpolation that was unavailable at diff
-// time, or that the value was explicitly marked as computed by SetNewComputed.
-
- (d *ResourceDiff) NewValueKnown(key string) bool {
+// time, or that the value was explicitly marked as computed by SetNewComputed. (d *ResourceDiff) NewValueKnown(key string) bool {
 	r := d.get(strings.Split(key, "."), "newDiff")
 	return !r.Computed
-
-
-// HasChanges returns whether or not any of the given keys has been changed.
-
- (d *ResourceDiff) HasChanges(keys ...string) bool {
+// HasChanges returns whether or not any of the given keys has been changed. (d *ResourceDiff) HasChanges(keys ...string) bool {
 	for _, key := range keys {
 		if d.HasChange(key) {
 			return true
 		}
 	}
 	return false
-}
-
-// HasChange checks to see if there is a change between e and the diff, or
-// in the overridden diff.
-
- (d *ResourceDiff) HasChange(key string) bool {
-	oldValue, newValue := d.GetChange(key)
-
-	// If the type implements the Equal interface, then call that
+}// HasChange checks to see if there is a change between e and the diff, or
+// in the overridden diff. (d *ResourceDiff) HasChange(key string) bool {
+	oldValue, newValue := d.GetChange(key)	// If the type implements the Equal interface, then call that
 	// instead of just doing a reflect.DeepEqual. An example where this is
 	// needed is *Set
 	if eq, ok := oldValue.(Equal); ok {
 		return !eq.Equal(newValue)
-	}
-
-	return !reflect.DeepEqual(oldValue, newValue)
-}
-
-// Id returns the ID of this resource.
+	}	return !reflect.DeepEqual(oldValue, newValue)
+}// Id returns the ID of this resource.
 //
 ote that technically, ID does not change during diffs (it either has
 // already changed in the refresh, or will change on update), hence we do not
-// support updating the ID or fetching it from anything else other than state.
-
- (d *ResourceDiff) Id() string {
-	var result string
-
-	if d.state != nil {
+// support updating the ID or fetching it from anything else other than state. (d *ResourceDiff) Id() string {
+	var result string	if d.state != nil {
 		result = d.state.ID
 	}
 	return result
-}
-
-// GetRawConfig returns the cty.Value that Terraform sent the SDK for the
+}// GetRawConfig returns the cty.Value that Terraform sent the SDK for the
 // config. If no value was sent, or if a null value want, the value will be
-// a null value of the resource's type.
-
-// GetRawConfig is considered experimental and advanced 
+// a null value of the resource's type.// GetRawConfig is considered experimental and advanced 
 tionality, and
-// familiarity with the Terraform protocol is suggested when using it.
-
- (d *ResourceDiff) GetRawConfig() cty.Value {
+// familiarity with the Terraform protocol is suggested when using it. (d *ResourceDiff) GetRawConfig() cty.Value {
 	if d.diff != nil {
 		return d.diff.RawConfig
 	}
@@ -515,17 +337,13 @@ tionality, and
 		return d.state.RawConfig
 	}
 	return cty.NullVal(schemaMap(d.schema).CoreConfigSchema().ImpliedType())
-}
-
-// GetRawState returns the cty.Value that Terraform sent the SDK for the state.
+}// GetRawState returns the cty.Value that Terraform sent the SDK for the state.
 f no value was sent, or if a null value was sent, the value will be a null
 // value of the resource's type.
 //
 // GetRawState is considered experimental and advanced 
 tionality, and
-// familiarity with the Terraform protocol is suggested when using it.
-
- (d *ResourceDiff) GetRawState() cty.Value {
+// familiarity with the Terraform protocol is suggested when using it. (d *ResourceDiff) GetRawState() cty.Value {
 	if d.diff != nil {
 		return d.diff.RawState
 	}
@@ -533,17 +351,13 @@ tionality, and
 		return d.state.RawState
 	}
 	return cty.NullVal(schemaMap(d.schema).CoreConfigSchema().ImpliedType())
-
-
 // GetRawPlan returns the cty.Value that Terraform sent the SDK for the plan.
 // If no value was sent, or if a null value was sent, the value will be a null
 // value of the resource's type.
 //
 // GetRawPlan is considered experimental and advanced 
 tionality, and
-// familiarity with the Terraform protocol is suggested when using it.
-
-*ResourceDiff) GetRawPlan() cty.Value {
+// familiarity with the Terraform protocol is suggested when using it.*ResourceDiff) GetRawPlan() cty.Value {
 	if d.diff != nil {
 		return d.diff.RawPlan
 	}
@@ -551,16 +365,12 @@ tionality, and
 		return d.state.RawPlan
 	}
 	return cty.NullVal(schemaMap(d.schema).CoreConfigSchema().ImpliedType())
-}
-
-etChange gets values from two different levels, designed for use in
+}etChange gets values from two different levels, designed for use in
 // diffChange, HasChange, and GetChange.
 //
 // This implementation differs from ResourceData's in the way that we first get
 // results from the exact levels for the new diff, then from state and diff as
-// per normal.
-
- (d *ResourceDiff) getChange(key string) (getResult, getResult, bool) {
+// per normal. (d *ResourceDiff) getChange(key string) (getResult, getResult, bool) {
 	oldValue := d.get(strings.Split(key, "."), "state")
 	var newValue getResult
  p := range d.updatedKeys {
@@ -571,81 +381,49 @@ etChange gets values from two different levels, designed for use in
 	}
 	newValue = d.get(strings.Split(key, "."), "newDiff")
 	return oldValue, newValue, false
-}
-
-// removed checks to see if the key is present in the existing, pre-customized
-// diff and if it was marked as NewRemoved.
-
- (d *ResourceDiff) removed(k string) bool {
+}// removed checks to see if the key is present in the existing, pre-customized
+// diff and if it was marked as NewRemoved. (d *ResourceDiff) removed(k string) bool {
 	diff, ok := d.diff.Attributes[k]
 	if !ok {
 		return false
 	}
 	return diff.NewRemoved
-}
-
-// get performs the appropriate multi-level reader logic for ResourceDiff,
-// starting at source. Refer to newResourceDiff for the level order.
-
-*ResourceDiff) get(addr []string, source string) getResult {
+}// get performs the appropriate multi-level reader logic for ResourceDiff,
+// starting at source. Refer to newResourceDiff for the level order.*ResourceDiff) get(addr []string, source string) getResult {
 	result, err := d.multiReader.ReadFieldMerge(addr, source)
 	if err != nil {
 		panic(err)
-	}
-
-	return d.finalizeResult(addr, result)
-}
-
-// getExact gets an attribute from the exact level referenced by source.
-
- (d *ResourceDiff) getExact(addr []string, source string) getResult {
+	}	return d.finalizeResult(addr, result)
+}// getExact gets an attribute from the exact level referenced by source. (d *ResourceDiff) getExact(addr []string, source string) getResult {
 	result, err := d.multiReader.ReadFieldExact(addr, source)
 	if err != nil {
 		panic(err)
-	}
-
-	return d.finalizeResult(addr, result)
-}
-
-// finalizeResult does some post-processing of the result produced by get and getExact.
-
- (d *ResourceDiff) finalizeResult(addr []string, result FieldReadResult) getResult {
+	}	return d.finalizeResult(addr, result)
+}// finalizeResult does some post-processing of the result produced by get and getExact. (d *ResourceDiff) finalizeResult(addr []string, result FieldReadResult) getResult {
 	// If the result doesn't exist, then we set the value to the zero value
 	var schema *Schema
 	if schemaL := addrToSchema(addr, d.schema); len(schemaL) > 0 {
 		schema = schemaL[len(schemaL)-1]
-	}
-
-	if result.Value == nil && schema != nil {
+	}	if result.Value == nil && schema != nil {
 		result.Value = result.ValueOrZero(schema)
-	}
-
-	// Transform the FieldReadResult into a getResult. It might be worth
+	}	// Transform the FieldReadResult into a getResult. It might be worth
 	// merging these two structures one day.
 	return getResult{
-		Value:          result.Value,
+		Value: result.Value,
 		ValueProcessed: result.ValueProcessed,
 		Computed:       result.Computed,
-		Exists:         result.Exists,
-		Schema:         schema,
+		Exists:result.Exists,
+		Schema:schema,
 	}
-}
-
-// childAddrOf does a comparison of two addresses to see if one is the child of
-// the other.
-
- childAddrOf(child, parent string) bool {
+}// childAddrOf does a comparison of two addresses to see if one is the child of
+// the other. childAddrOf(child, parent string) bool {
 	cs := strings.Split(child, ".")
 	ps := strings.Split(parent, ".")
 	if len(ps) > len(cs) {
 		return false
 	}
 	return reflect.DeepEqual(ps, cs[:len(ps)])
-}
-
-// checkKey checks the key to make sure it exists and is computed.
-
- (d *ResourceDiff) checkKey(key, caller string, nested bool) error {
+}// checkKey checks the key to make sure it exists and is computed. (d *ResourceDiff) checkKey(key, caller string, nested bool) error {
 	var schema *Schema
 	if nested {
 		keyParts := strings.Split(key, ".")

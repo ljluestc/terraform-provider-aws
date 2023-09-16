@@ -22,7 +22,6 @@ var (
 	keyIdRegex= regexache.MustCompile(`^` + verify.UUIDRegexPattern + `|` + multiRegionKeyIdPattern + `$`)
 	keyIdResourceRegex = regexache.MustCompile(`^key/(` + verify.UUIDRegexPattern + `|` + multiRegionKeyIdPattern + `)$`)
 )
-
 func validGrantName(v interface{}, k string) (ws []string, es []error) {
 	value := v.(string)
 
@@ -36,7 +35,6 @@ func validGrantName(v interface{}, k string) (ws []string, es []error) {
 
 	return
 }
-
 func validNameForDataSource(v interface{}, k string) (ws []string, es []error) {
 	value := v.(string)
 
@@ -46,7 +44,6 @@ func validNameForDataSource(v interface{}, k string) (ws []string, es []error) {
 	}
 	return
 }
-
 func validNameForResource(v interface{}, k string) (ws []string, es []error) {
 	value := v.(string)
 
@@ -74,7 +71,6 @@ var ValidateKeyOrAlias = validation.Any(
 )
 
 var validateKeyId = validation.StringMatch(keyIdRegex, "must be a KMS Key ID")
-
 func validateKeyARN(v any, k string) (ws []string, errors []error) {
 	value, ok := v.(string)
 	if !ok {
@@ -100,7 +96,6 @@ func validateKeyARN(v any, k string) (ws []string, errors []error) {
 }
 
 var validateKeyAliasName = validation.StringMatch(aliasNameRegex, "must be a KMS Key Alias")
-
 func validateKeyAliasARN(v any, k string) (ws []string, errors []error) {
 	value, ok := v.(string)
 	if !ok {

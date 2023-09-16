@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-
 func testAccDataSourceCluster_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_cloudhsm_v2_cluster.test"
@@ -42,7 +41,6 @@ func(
 	})
 }
 
-
 func testAccClusterDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_base(rName), fmt.Sprintf(`
 resource "aws_cloudhsm_v2_cluster" "test" {
@@ -50,7 +48,7 @@ resource "aws_cloudhsm_v2_cluster" "test" {
   subnet_ids = aws_subnet.test[*].id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 

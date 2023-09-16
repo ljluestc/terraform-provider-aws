@@ -26,10 +26,10 @@ func TestAccSecretsManagerSecret_basic(t *testing.T) {
 	resourceName := "aws_secretsmanager_secret.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecretDestroy(ctx),
+		CheckDestroy:    testAccCheckSecretDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecretConfig_name(rName),
@@ -46,8 +46,8 @@ func TestAccSecretsManagerSecret_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"recovery_window_in_days", "force_overwrite_replica_secret"},
 			},
@@ -61,10 +61,10 @@ func TestAccSecretsManagerSecret_withNamePrefix(t *testing.T) {
 	resourceName := "aws_secretsmanager_secret.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecretDestroy(ctx),
+		CheckDestroy:    testAccCheckSecretDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecretConfig_namePrefix("tf-acc-test-prefix-"),
@@ -75,8 +75,8 @@ func TestAccSecretsManagerSecret_withNamePrefix(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"recovery_window_in_days", "force_overwrite_replica_secret"},
 			},
@@ -91,10 +91,10 @@ func TestAccSecretsManagerSecret_description(t *testing.T) {
 	resourceName := "aws_secretsmanager_secret.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecretDestroy(ctx),
+		CheckDestroy:    testAccCheckSecretDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecretConfig_description(rName, "description1"),
@@ -111,8 +111,8 @@ func TestAccSecretsManagerSecret_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"recovery_window_in_days", "force_overwrite_replica_secret"},
 			},
@@ -127,10 +127,10 @@ func TestAccSecretsManagerSecret_basicReplica(t *testing.T) {
 	resourceName := "aws_secretsmanager_secret.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-		CheckDestroy:             testAccCheckSecretDestroy(ctx),
+		CheckDestroy:    testAccCheckSecretDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecretConfig_basicReplica(rName),
@@ -151,10 +151,10 @@ func TestAccSecretsManagerSecret_overwriteReplica(t *testing.T) {
 	resourceName := "aws_secretsmanager_secret.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 3) },
-		ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 3) },
+		ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:             testAccCheckSecretDestroy(ctx),
+		CheckDestroy:    testAccCheckSecretDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecretConfig_overwriteReplica(rName, true),
@@ -188,10 +188,10 @@ func TestAccSecretsManagerSecret_kmsKeyID(t *testing.T) {
 	resourceName := "aws_secretsmanager_secret.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecretDestroy(ctx),
+		CheckDestroy:    testAccCheckSecretDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecretConfig_kmsKeyID(rName),
@@ -208,8 +208,8 @@ func TestAccSecretsManagerSecret_kmsKeyID(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"recovery_window_in_days", "force_overwrite_replica_secret"},
 			},
@@ -224,10 +224,10 @@ func TestAccSecretsManagerSecret_RecoveryWindowInDays_recreate(t *testing.T) {
 	resourceName := "aws_secretsmanager_secret.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecretDestroy(ctx),
+		CheckDestroy:    testAccCheckSecretDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecretConfig_recoveryWindowInDays(rName, 0),
@@ -245,8 +245,8 @@ func TestAccSecretsManagerSecret_RecoveryWindowInDays_recreate(t *testing.T) {
 				Taint: []string{resourceName},
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"recovery_window_in_days", "force_overwrite_replica_secret"},
 			},
@@ -261,10 +261,10 @@ func TestAccSecretsManagerSecret_tags(t *testing.T) {
 	resourceName := "aws_secretsmanager_secret.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecretDestroy(ctx),
+		CheckDestroy:    testAccCheckSecretDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecretConfig_tags1(rName, "key1", "value1"),
@@ -275,8 +275,8 @@ func TestAccSecretsManagerSecret_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"recovery_window_in_days", "force_overwrite_replica_secret"},
 			},
@@ -308,10 +308,10 @@ func TestAccSecretsManagerSecret_policy(t *testing.T) {
 	resourceName := "aws_secretsmanager_secret.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecretDestroy(ctx),
+		CheckDestroy:    testAccCheckSecretDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecretConfig_policy(rName),
@@ -437,12 +437,12 @@ resource "aws_secretsmanager_secret" "test" {
 func testAccSecretConfig_overwriteReplica(rName string, force_overwrite_replica_secret bool) string {
 	return acctest.ConfigCompose(acctest.ConfigMultipleRegionProvider(3), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  provider                = awsalternate
+  provider       = awsalternate
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key" "test2" {
-  provider                = awsthird
+  provider       = awsthird
   deletion_window_in_days = 7
 }
 
@@ -451,7 +451,7 @@ data "aws_region" "alternate" {
 }
 
 resource "aws_secretsmanager_secret" "test" {
-  name                           = %[1]q
+  name= %[1]q
   force_overwrite_replica_secret = %[2]t
 
   replica {
@@ -465,12 +465,12 @@ resource "aws_secretsmanager_secret" "test" {
 func testAccSecretConfig_overwriteReplicaUpdate(rName string, force_overwrite_replica_secret bool) string {
 	return acctest.ConfigCompose(acctest.ConfigMultipleRegionProvider(3), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  provider                = awsalternate
+  provider       = awsalternate
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key" "test2" {
-  provider                = awsthird
+  provider       = awsthird
   deletion_window_in_days = 7
 }
 
@@ -479,7 +479,7 @@ data "aws_region" "third" {
 }
 
 resource "aws_secretsmanager_secret" "test" {
-  name                           = %[1]q
+  name= %[1]q
   force_overwrite_replica_secret = %[2]t
 
   replica {
@@ -543,7 +543,7 @@ resource "aws_secretsmanager_secret" "test" {
 func testAccSecretConfig_recoveryWindowInDays(rName string, recoveryWindowInDays int) string {
 	return fmt.Sprintf(`
 resource "aws_secretsmanager_secret" "test" {
-  name                    = %[1]q
+  name  = %[1]q
   recovery_window_in_days = %[2]d
 }
 `, rName, recoveryWindowInDays)

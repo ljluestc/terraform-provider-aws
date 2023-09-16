@@ -45,81 +45,81 @@ func ResourceEventDataStore() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"advanced_event_selector": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"field_selector": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Computed: true,
 							MinItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"ends_with": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										Computed: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
 									"equals": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										Computed: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
 									"field": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										Computed:     true,
+										Type:schema.TypeString,
+										Optional: true,
+										Computed: true,
 										ValidateFunc: validation.StringInSlice(field_Values(), false),
 									},
 									"not_ends_with": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										Computed: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
 									"not_equals": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										Computed: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
 									"not_starts_with": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										Computed: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
 									"starts_with": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										Computed: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 2048),
 										},
 									},
@@ -127,51 +127,51 @@ func ResourceEventDataStore() *schema.Resource {
 							},
 						},
 						"name": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Type:schema.TypeString,
+							Optional: true,
+							Computed: true,
 							ValidateFunc: validation.StringLenBetween(0, 1000),
 						},
 					},
 				},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"kms_key_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"multi_region_enabled": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(3, 128),
 			},
 			"organization_enabled": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"retention_period": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional: true,
 				Default:  2555,
 				ValidateFunc: validation.All(
 					validation.IntBetween(7, 2555),
 				),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"termination_protection_enabled": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
@@ -184,12 +184,12 @@ func resourceEventDataStoreCreate(ctx context.Context, d *schema.ResourceData, m
 
 	name := d.Get("name").(string)
 	input := &cloudtrail.CreateEventDataStoreInput{
-		Name:            aws.String(name),
-		OrganizationEnabled:          aws.Bool(d.Get("organization_enabled").(bool)),
-		MultiRegionEnabled:           aws.Bool(d.Get("multi_region_enabled").(bool)),
+		Name:   aws.String(name),
+		OrganizationEnabled: aws.Bool(d.Get("organization_enabled").(bool)),
+		MultiRegionEnabled:  aws.Bool(d.Get("multi_region_enabled").(bool)),
 		TerminationProtectionEnabled: aws.Bool(d.Get("termination_protection_enabled").(bool)),
 		RetentionPeriod: aws.Int64(int64(d.Get("retention_period").(int))),
-		TagsList:        getTagsIn(ctx),
+		TagsList:getTagsIn(ctx),
 	}
 
 	if _, ok := d.GetOk("advanced_event_selector"); ok {
@@ -333,7 +333,7 @@ func FindEventDataStoreByARN(ctx context.Context, conn *cloudtrail.CloudTrail, a
 
 	if status := aws.StringValue(output.Status); status == cloudtrail.EventDataStoreStatusPendingDeletion {
 		return nil, &retry.NotFoundError{
-			Message:     status,
+			Message: status,
 			LastRequest: input,
 		}
 	}

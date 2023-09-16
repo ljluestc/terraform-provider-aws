@@ -80,7 +80,7 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"app_name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringLenBetween(0, 100),
 	},
@@ -89,7 +89,7 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"deployment_group_name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringLenBetween(0, 100),
 	},
@@ -99,20 +99,20 @@ Computed: true,
 	},
 
 	"deployment_style": {
-Type:             schema.TypeList,
-Optional:         true,
+Type:    schema.TypeList,
+Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-MaxItems:         1,
+MaxItems:1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "deployment_option": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Default:      codedeploy.DeploymentOptionWithoutTrafficControl,
 	ValidateFunc: validation.StringInSlice(codedeploy.DeploymentOption_Values(), false),
 },
 "deployment_type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Default:      codedeploy.DeploymentTypeInPlace,
 	ValidateFunc: validation.StringInSlice(codedeploy.DeploymentType_Values(), false),
@@ -135,7 +135,7 @@ Elem: &schema.Resource{
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"action_on_timeout": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringInSlice(codedeploy.DeploymentReadyAction_Values(), false),
 	},
@@ -155,7 +155,7 @@ Optional: true,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"action": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringInSlice(codedeploy.GreenFleetProvisioningAction_Values(), false),
 	},
@@ -170,12 +170,12 @@ ValidateFunc: validation.StringInSlice(codedeploy.GreenFleetProvisioningAction_V
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"action": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringInSlice(codedeploy.InstanceAction_Values(), false),
 	},
 	"termination_wait_time_in_minutes": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 ValidateFunc: validation.IntAtMost(2880),
 	},
@@ -187,7 +187,7 @@ ValidateFunc: validation.IntAtMost(2880),
 	},
 
 	"service_role_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: verify.ValidARN,
 	},
@@ -271,7 +271,7 @@ Elem: &schema.Resource{
 	Type:     schema.TypeSet,
 	Required: true,
 	Elem: &schema.Schema{
-Type:         schema.TypeString,
+Type:schema.TypeString,
 ValidateFunc: verify.ValidARN,
 	},
 },
@@ -286,7 +286,7 @@ MaxItems: 2,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "name": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.NoZeroValues,
 },
@@ -303,7 +303,7 @@ Elem: &schema.Resource{
 	Type:     schema.TypeSet,
 	Required: true,
 	Elem: &schema.Schema{
-Type:         schema.TypeString,
+Type:schema.TypeString,
 ValidateFunc: verify.ValidARN,
 	},
 },
@@ -346,7 +346,7 @@ Set:      schema.HashString,
 	},
 
 	"deployment_config_name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      "CodeDeployDefault.OneAtATime",
 ValidateFunc: validation.StringLenBetween(0, 100),
@@ -368,7 +368,7 @@ Optional: true,
 	},
 
 	"type": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validTagFilters,
 	},
@@ -397,7 +397,7 @@ Elem: &schema.Resource{
 },
 
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	ValidateFunc: validTagFilters,
 },
@@ -418,12 +418,12 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "cluster_name": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.NoZeroValues,
 },
 "service_name": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.NoZeroValues,
 },
@@ -442,7 +442,7 @@ Elem: &schema.Resource{
 },
 
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	ValidateFunc: validTagFilters,
 },
@@ -466,7 +466,7 @@ Elem: &schema.Resource{
 	Required: true,
 	Set:      schema.HashString,
 	Elem: &schema.Schema{
-Type:         schema.TypeString,
+Type:schema.TypeString,
 ValidateFunc: validation.StringInSlice(codedeploy.TriggerEventType_Values(), false),
 	},
 },
@@ -477,7 +477,7 @@ ValidateFunc: validation.StringInSlice(codedeploy.TriggerEventType_Values(), fal
 },
 
 "trigger_target_arn": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: verify.ValidARN,
 },

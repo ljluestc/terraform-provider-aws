@@ -17,7 +17,6 @@ import (
 	tfwafv2 "github.com/hashicorp/terraform-provider-aws/internal/service/wafv2"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccWAFV2WebACLLoggingConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
@@ -49,7 +48,6 @@ func TestAccWAFV2WebACLLoggingConfiguration_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2WebACLLoggingConfiguration_updateSingleHeaderRedactedField(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
@@ -307,7 +305,6 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateMultipleRedactedFields(t *test
 		},
 	})
 }
-
 func TestAccWAFV2WebACLLoggingConfiguration_changeResourceARNForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after wafv2.LoggingConfiguration
@@ -350,7 +347,6 @@ func TestAccWAFV2WebACLLoggingConfiguration_changeResourceARNForceNew(t *testing
 		},
 	})
 }
-
 func TestAccWAFV2WebACLLoggingConfiguration_changeLogDestinationsForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after wafv2.LoggingConfiguration
@@ -394,7 +390,6 @@ func TestAccWAFV2WebACLLoggingConfiguration_changeLogDestinationsForceNew(t *tes
 		},
 	})
 }
-
 func TestAccWAFV2WebACLLoggingConfiguration_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
@@ -418,7 +413,6 @@ func TestAccWAFV2WebACLLoggingConfiguration_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2WebACLLoggingConfiguration_emptyRedactedFields(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
@@ -449,7 +443,6 @@ func TestAccWAFV2WebACLLoggingConfiguration_emptyRedactedFields(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2WebACLLoggingConfiguration_updateEmptyRedactedFields(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
@@ -492,7 +485,6 @@ func TestAccWAFV2WebACLLoggingConfiguration_updateEmptyRedactedFields(t *testing
 		},
 	})
 }
-
 func TestAccWAFV2WebACLLoggingConfiguration_Disappears_webACL(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
@@ -517,7 +509,6 @@ func TestAccWAFV2WebACLLoggingConfiguration_Disappears_webACL(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2WebACLLoggingConfiguration_loggingFilter(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.LoggingConfiguration
@@ -579,7 +570,7 @@ func TestAccWAFV2WebACLLoggingConfiguration_loggingFilter(t *testing.T) {
 						"action_condition.0.action": wafv2.ActionValueBlock,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "logging_filter.0.filter.*.condition.*", map[string]string{
-						"label_name_condition.#":            "1",
+						"label_name_condition.#":   "1",
 						"label_name_condition.0.label_name": fmt.Sprintf("prefix:test:%s", rName),
 					}),
 				),
@@ -617,7 +608,6 @@ func TestAccWAFV2WebACLLoggingConfiguration_loggingFilter(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckWebACLLoggingConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -643,7 +633,6 @@ func testAccCheckWebACLLoggingConfigurationDestroy(ctx context.Context) resource
 		return nil
 	}
 }
-
 func testAccCheckWebACLLoggingConfigurationExists(ctx context.Context, n string, v *wafv2.LoggingConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -668,7 +657,6 @@ func testAccCheckWebACLLoggingConfigurationExists(ctx context.Context, n string,
 		return nil
 	}
 }
-
 func testAccWebACLLoggingConfigurationConfig_base(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -691,7 +679,7 @@ resource "aws_iam_role" "firehose" {
       "Action": "sts:AssumeRole",
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "${data.aws_caller_identity.current.account_id}"
+ "sts:ExternalId": "${data.aws_caller_identity.current.account_id}"
         }
       }
     }
@@ -735,7 +723,7 @@ resource "aws_iam_role_policy" "test" {
       "Resource": "arn:${data.aws_partition.current.partition}:iam::*:role/aws-service-role/wafv2.${data.aws_partition.current.dns_suffix}/AWSServiceRoleForWAFV2Logging",
       "Condition": {
         "StringLike": {
-          "iam:AWSServiceName": "wafv2.${data.aws_partition.current.dns_suffix}"
+ "iam:AWSServiceName": "wafv2.${data.aws_partition.current.dns_suffix}"
         }
       }
     }
@@ -762,7 +750,6 @@ resource "aws_wafv2_web_acl" "test" {
 }
 `, rName)
 }
-
 func testAccWebACLLoggingConfigurationConfig_baseKinesis(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_firehose_delivery_stream" "test" {
@@ -780,14 +767,14 @@ resource "aws_kinesis_firehose_delivery_stream" "test" {
 
 const testAccWebACLLoggingConfigurationResourceConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
-  resource_arn            = aws_wafv2_web_acl.test.arn
+  resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
 }
 `
 
 const testAccWebACLLoggingConfigurationResource_emptyRedactedFieldsConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
-  resource_arn            = aws_wafv2_web_acl.test.arn
+  resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
   redacted_fields {}
 }
@@ -795,7 +782,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
 
 const testAccWebACLLoggingConfigurationResource_updateTwoSingleHeaderRedactedFieldsConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
-  resource_arn            = aws_wafv2_web_acl.test.arn
+  resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
 
   redacted_fields {
@@ -814,7 +801,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
 
 const testAccWebACLLoggingConfigurationResource_updateSingleHeaderRedactedFieldConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
-  resource_arn            = aws_wafv2_web_acl.test.arn
+  resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
 
   redacted_fields {
@@ -824,7 +811,6 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
   }
 }
 `
-
 func testAccWebACLLoggingConfigurationResource_updateRedactedFieldConfig(field string) string {
 	var redactedField string
 	switch field {
@@ -837,7 +823,7 @@ func testAccWebACLLoggingConfigurationResource_updateRedactedFieldConfig(field s
 	}
 	return fmt.Sprintf(`
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
-  resource_arn            = aws_wafv2_web_acl.test.arn
+  resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
 
   redacted_fields {
@@ -849,7 +835,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
 
 const testAccWebACLLoggingConfigurationResource_updateTwoRedactedFieldsConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
-  resource_arn            = aws_wafv2_web_acl.test.arn
+  resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
 
   redacted_fields {
@@ -864,7 +850,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
 
 const testAccWebACLLoggingConfigurationResource_updateThreeRedactedFieldsConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
-  resource_arn            = aws_wafv2_web_acl.test.arn
+  resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
 
   redacted_fields {
@@ -885,7 +871,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
 
 const testAccWebACLLoggingConfigurationResource_loggingFilterConfig = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
-  resource_arn            = aws_wafv2_web_acl.test.arn
+  resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
 
   logging_filter {
@@ -895,7 +881,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
       behavior = "KEEP"
       condition {
         action_condition {
-          action = "ALLOW"
+ action = "ALLOW"
         }
       }
       requirement = "MEETS_ALL"
@@ -906,7 +892,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
 
 const testAccWebACLLoggingConfigurationResource_loggingFilterConfig_twoFilters = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
-  resource_arn            = aws_wafv2_web_acl.test.arn
+  resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
 
   logging_filter {
@@ -916,7 +902,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
       behavior = "KEEP"
       condition {
         action_condition {
-          action = "ALLOW"
+ action = "ALLOW"
         }
       }
       requirement = "MEETS_ALL"
@@ -926,12 +912,12 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
       behavior = "DROP"
       condition {
         action_condition {
-          action = "BLOCK"
+ action = "BLOCK"
         }
       }
       condition {
         label_name_condition {
-          label_name = "prefix:test:${aws_wafv2_web_acl.test.name}"
+ label_name = "prefix:test:${aws_wafv2_web_acl.test.name}"
         }
       }
       requirement = "MEETS_ANY"
@@ -942,7 +928,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
 
 const testAccWebACLLoggingConfigurationResource_loggingFilterConfig_oneFilter = `
 resource "aws_wafv2_web_acl_logging_configuration" "test" {
-  resource_arn            = aws_wafv2_web_acl.test.arn
+  resource_arn   = aws_wafv2_web_acl.test.arn
   log_destination_configs = [aws_kinesis_firehose_delivery_stream.test.arn]
 
   logging_filter {
@@ -952,7 +938,7 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
       behavior = "KEEP"
       condition {
         action_condition {
-          action = "COUNT"
+ action = "COUNT"
         }
       }
       requirement = "MEETS_ALL"
@@ -960,77 +946,66 @@ resource "aws_wafv2_web_acl_logging_configuration" "test" {
   }
 }
 `
-
 func testAccWebACLLoggingConfigurationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccWebACLLoggingConfigurationConfig_base(rName),
 		testAccWebACLLoggingConfigurationConfig_baseKinesis(rName),
 		testAccWebACLLoggingConfigurationResourceConfig)
 }
-
 func testAccWebACLLoggingConfigurationConfig_updateLogDestination(rName, rNameNew string) string {
 	return acctest.ConfigCompose(
 		testAccWebACLLoggingConfigurationConfig_base(rName),
 		testAccWebACLLoggingConfigurationConfig_baseKinesis(rNameNew),
 		testAccWebACLLoggingConfigurationResourceConfig)
 }
-
 func testAccWebACLLoggingConfigurationConfig_updateTwoSingleHeaderRedactedFields(rName string) string {
 	return acctest.ConfigCompose(
 		testAccWebACLLoggingConfigurationConfig_base(rName),
 		testAccWebACLLoggingConfigurationConfig_baseKinesis(rName),
 		testAccWebACLLoggingConfigurationResource_updateTwoSingleHeaderRedactedFieldsConfig)
 }
-
 func testAccWebACLLoggingConfigurationConfig_updateSingleHeaderRedactedField(rName string) string {
 	return acctest.ConfigCompose(
 		testAccWebACLLoggingConfigurationConfig_base(rName),
 		testAccWebACLLoggingConfigurationConfig_baseKinesis(rName),
 		testAccWebACLLoggingConfigurationResource_updateSingleHeaderRedactedFieldConfig)
 }
-
 func testAccWebACLLoggingConfigurationConfig_updateRedactedField(rName, field string) string {
 	return acctest.ConfigCompose(
 		testAccWebACLLoggingConfigurationConfig_base(rName),
 		testAccWebACLLoggingConfigurationConfig_baseKinesis(rName),
 		testAccWebACLLoggingConfigurationResource_updateRedactedFieldConfig(field))
 }
-
 func testAccWebACLLoggingConfigurationConfig_updateTwoRedactedFields(rName string) string {
 	return acctest.ConfigCompose(
 		testAccWebACLLoggingConfigurationConfig_base(rName),
 		testAccWebACLLoggingConfigurationConfig_baseKinesis(rName),
 		testAccWebACLLoggingConfigurationResource_updateTwoRedactedFieldsConfig)
 }
-
 func testAccWebACLLoggingConfigurationConfig_updateThreeRedactedFields(rName string) string {
 	return acctest.ConfigCompose(
 		testAccWebACLLoggingConfigurationConfig_base(rName),
 		testAccWebACLLoggingConfigurationConfig_baseKinesis(rName),
 		testAccWebACLLoggingConfigurationResource_updateThreeRedactedFieldsConfig)
 }
-
 func testAccWebACLLoggingConfigurationConfig_emptyRedactedField(rName string) string {
 	return acctest.ConfigCompose(
 		testAccWebACLLoggingConfigurationConfig_base(rName),
 		testAccWebACLLoggingConfigurationConfig_baseKinesis(rName),
 		testAccWebACLLoggingConfigurationResource_emptyRedactedFieldsConfig)
 }
-
 func testAccWebACLLoggingConfigurationConfig_filter(rName string) string {
 	return acctest.ConfigCompose(
 		testAccWebACLLoggingConfigurationConfig_base(rName),
 		testAccWebACLLoggingConfigurationConfig_baseKinesis(rName),
 		testAccWebACLLoggingConfigurationResource_loggingFilterConfig)
 }
-
 func testAccWebACLLoggingConfigurationConfig_updateFilterTwoFilters(rName string) string {
 	return acctest.ConfigCompose(
 		testAccWebACLLoggingConfigurationConfig_base(rName),
 		testAccWebACLLoggingConfigurationConfig_baseKinesis(rName),
 		testAccWebACLLoggingConfigurationResource_loggingFilterConfig_twoFilters)
 }
-
 func testAccWebACLLoggingConfigurationConfig_updateFilterOneFilter(rName string) string {
 	return acctest.ConfigCompose(
 		testAccWebACLLoggingConfigurationConfig_base(rName),

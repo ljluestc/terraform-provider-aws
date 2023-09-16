@@ -18,7 +18,7 @@ func FindEndpointByID(ctx context.Context, conn *neptune.Neptune, id string) (*n
 		return nil, err
 	}
 	input := &neptune.DescribeDBClusterEndpointsInput{
-		DBClusterIdentifier:         aws.String(clusterId),
+		DBClusterIdentifier:aws.String(clusterId),
 		DBClusterEndpointIdentifier: aws.String(endpointId),
 	}
 

@@ -25,7 +25,7 @@ func testAccSafetyRule_assertionRule(t *testing.T) {
 	resourceName := "aws_route53recoverycontrolconfig_safety_rule.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -43,8 +43,8 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -58,7 +58,7 @@ func testAccSafetyRule_disappears(t *testing.T) {
 	resourceName := "aws_route53recoverycontrolconfig_safety_rule.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -83,7 +83,7 @@ func testAccSafetyRule_gatingRule(t *testing.T) {
 	resourceName := "aws_route53recoverycontrolconfig_safety_rule.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -102,8 +102,8 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -165,26 +165,26 @@ resource "aws_route53recoverycontrolconfig_cluster" "test" {
 }
 
 resource "aws_route53recoverycontrolconfig_control_panel" "test" {
-  name        = %[1]q
+  name   = %[1]q
   cluster_arn = aws_route53recoverycontrolconfig_cluster.test.arn
 }
 
 resource "aws_route53recoverycontrolconfig_routing_control" "test" {
   name = %[1]q
-  cluster_arn       = aws_route53recoverycontrolconfig_cluster.test.arn
+  cluster_arn  = aws_route53recoverycontrolconfig_cluster.test.arn
   control_panel_arn = aws_route53recoverycontrolconfig_control_panel.test.arn
 }
 
 resource "aws_route53recoverycontrolconfig_safety_rule" "test" {
   name = %[1]q
   control_panel_arn = aws_route53recoverycontrolconfig_control_panel.test.arn
-  wait_period_ms    = 5000
+  wait_period_ms= 5000
   asserted_controls = [aws_route53recoverycontrolconfig_routing_control.test.arn]
 
   rule_config {
-    inverted  = false
-    threshold = 0
-    type      = "AND"
+inverted  = false
+threshold = 0
+type = "AND"
   }
 }
 `, rName)
@@ -198,27 +198,27 @@ resource "aws_route53recoverycontrolconfig_cluster" "test" {
 }
 
 resource "aws_route53recoverycontrolconfig_control_panel" "test" {
-  name        = %[1]q
+  name   = %[1]q
   cluster_arn = aws_route53recoverycontrolconfig_cluster.test.arn
 }
 
 resource "aws_route53recoverycontrolconfig_routing_control" "test" {
   name = %[1]q
-  cluster_arn       = aws_route53recoverycontrolconfig_cluster.test.arn
+  cluster_arn  = aws_route53recoverycontrolconfig_cluster.test.arn
   control_panel_arn = aws_route53recoverycontrolconfig_control_panel.test.arn
 }
 
 resource "aws_route53recoverycontrolconfig_safety_rule" "test" {
   name = %[1]q
   control_panel_arn = aws_route53recoverycontrolconfig_control_panel.test.arn
-  wait_period_ms    = 5000
+  wait_period_ms= 5000
   gating_controls   = [aws_route53recoverycontrolconfig_routing_control.test.arn]
   target_controls   = [aws_route53recoverycontrolconfig_routing_control.test.arn]
 
   rule_config {
-    inverted  = false
-    threshold = 0
-    type      = "AND"
+inverted  = false
+threshold = 0
+type = "AND"
   }
 }
 `, rName)

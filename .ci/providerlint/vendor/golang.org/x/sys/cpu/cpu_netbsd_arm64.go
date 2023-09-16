@@ -1,26 +1,13 @@
 // Copyright 2020 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package cpu
-
-import (
+// license that can be found in the LICENSE file.package cpuimport (
 	"syscall"
 	"unsafe"
-)
-
-// Minimal copy of functionality from x/sys/unix so the cpu package can call
-// sysctl without depending on x/sys/unix.
-
-const (
-	_CTL_QUERY = -2
-
-	_SYSCTL_VERS_1 = 0x1000000
-)
-
-var _zero uintptr
-
-func sysctl(mib []int32, old *byte, oldlen *uintptr, new *byte, newlen uintptr) (err error) {
+)// Minimal copy of functionality from x/sys/unix so the cpu package can call
+// sysctl without depending on x/sys/unix.const (
+	_CTL_QUERY = -2	_SYSCTL_VERS_1 = 0x1000000
+)var _zero uintptr
+ sysctl(mib []int32, old *byte, oldlen *uintptr, new *byte, newlen uintptr) (err error) {
 	var _p0 unsafe.Pointer
 	if len(mib) > 0 {
 		_p0 = unsafe.Pointer(&mib[0])
@@ -39,9 +26,7 @@ func sysctl(mib []int32, old *byte, oldlen *uintptr, new *byte, newlen uintptr) 
 		return errno
 	}
 	return nil
-}
-
-type sysctlNode struct {
+}type sysctlNode struct {
 	Flags          uint32
 	Num            int32
 	Name           [32]int8
@@ -53,11 +38,8 @@ type sysctlNode struct {
 	_sysctl_parent [8]byte
 	_sysctl_desc   [8]byte
 }
-
-func sysctlNodes(mib []int32) ([]sysctlNode, error) {
-	var olen uintptr
-
-	// Get a list of all sysctl nodes below the given MIB by performing
+ sysctlNodes(mib []int32) ([]sysctlNode, error) {
+	var olen uintptr	// Get a list of all sysctl nodes below the given MIB by performing
 	// a sysctl for the given MIB with CTL_QUERY appended.
 	mib = append(mib, _CTL_QUERY)
 	qnode := sysctlNode{Flags: _SYSCTL_VERS_1}
@@ -65,19 +47,14 @@ func sysctlNodes(mib []int32) ([]sysctlNode, error) {
 	sz := unsafe.Sizeof(qnode)
 	if err := sysctl(mib, nil, &olen, qp, sz); err != nil {
 		return nil, err
-	}
-
-	// Now that we know the size, get the actual nodes.
+	}	// Now that we know the size, get the actual nodes.
 	nodes := make([]sysctlNode, olen/sz)
 	np := (*byte)(unsafe.Pointer(&nodes[0]))
 	if err := sysctl(mib, np, &olen, qp, sz); err != nil {
 		return nil, err
-	}
-
-	return nodes, nil
+	}	return nodes, nil
 }
-
-func nametomib(name string) ([]int32, error) {
+ nametomib(name string) ([]int32, error) {
 	// Split name into components.
 	var parts []string
 	last := 0
@@ -87,9 +64,7 @@ func nametomib(name string) ([]int32, error) {
 			last = i + 1
 		}
 	}
-	parts = append(parts, name[last:])
-
-	mib := []int32{}
+	parts = append(parts, name[last:])	mib := []int32{}
 	// Discover the nodes and construct the MIB OID.
 	for partno, part := range parts {
 		nodes, err := sysctlNodes(mib)
@@ -111,12 +86,8 @@ func nametomib(name string) ([]int32, error) {
 		if len(mib) != partno+1 {
 			return nil, err
 		}
-	}
-
-	return mib, nil
-}
-
-// aarch64SysctlCPUID is struct aarch64_sysctl_cpu_id from NetBSD's <aarch64/armreg.h>
+	}	return mib, nil
+}// aarch64SysctlCPUID is struct aarch64_sysctl_cpu_id from NetBSD's <aarch64/armreg.h>
 type aarch64SysctlCPUID struct {
 	midr      uint64 /* Main ID Register */
 	revidr    uint64 /* Revision ID Register */
@@ -138,14 +109,11 @@ type aarch64SysctlCPUID struct {
 	clidr     uint64 /* Cache Level ID Register */
 	ctr       uint64 /* Cache Type Register */
 }
-
-func sysctlCPUID(name string) (*aarch64SysctlCPUID, error) {
+ sysctlCPUID(name string) (*aarch64SysctlCPUID, error) {
 	mib, err := nametomib(name)
 	if err != nil {
 		return nil, err
-	}
-
-	out := aarch64SysctlCPUID{}
+	}	out := aarch64SysctlCPUID{}
 	n := unsafe.Sizeof(out)
 	_, _, errno := syscall.Syscall6(
 		syscall.SYS___SYSCTL,
@@ -160,14 +128,11 @@ func sysctlCPUID(name string) (*aarch64SysctlCPUID, error) {
 	}
 	return &out, nil
 }
-
-func doinit() {
+ doinit() {
 	cpuid, err := sysctlCPUID("machdep.cpu0.cpu_id")
 	if err != nil {
 		setMinimalFeatures()
 		return
 	}
-	parseARM64SystemRegisters(cpuid.aa64isar0, cpuid.aa64isar1, cpuid.aa64pfr0)
-
-	Initialized = true
+	parseARM64SystemRegisters(cpuid.aa64isar0, cpuid.aa64isar1, cpuid.aa64pfr0)	Initialized = true
 }

@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ce_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ce_testimport (
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/costexplorer"
+	"testing"	"github.com/aws/aws-sdk-go/service/costexplorer"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
@@ -21,70 +15,61 @@ import (
 func := acctest.Context(t)
 	var output costexplorer.CostAllocationTag
 	resourceName := "aws_ce_cost_allocation_tag.test"
-	rName := "Tag01"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:nil,
-		ErrorCheck:  acctest.ErrorCheck(t, costexplorer.EndpointsID),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCostAllocationTagConfig_basic(rName, "Active"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCostAllocationTagExists(ctx, resourceName, &output),
-					resource.TestCheckResourceAttr(resourceName, "tag_key", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", "Active"),
-					resource.TestCheckResourceAttr(resourceName, "type", "UserDefined"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccCostAllocationTagConfig_basic(rName, "Inactive"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCostAllocationTagExists(ctx, resourceName, &output),
-					resource.TestCheckResourceAttr(resourceName, "tag_key", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", "Inactive"),
-					resource.TestCheckResourceAttr(resourceName, "type", "UserDefined"),
-				),
-			}, {
-				Config: testAccCostAllocationTagConfig_basic(rName, "Active"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCostAllocationTagExists(ctx, resourceName, &output),
-					resource.TestCheckResourceAttr(resourceName, "tag_key", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", "Active"),
-					resource.TestCheckResourceAttr(resourceName, "type", "UserDefined"),
-				),
-			},
-		},
+	rName := "Tag01"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:nil,
+ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
+Steps: []resource.TestStep{
+	{
+Config: testAccCostAllocationTagConfig_basic(rName, "Active"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCostAllocationTagExists(ctx, resourceName, &output),
+	resource.TestCheckResourceAttr(resourceName, "tag_key", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", "Active"),
+	resource.TestCheckResourceAttr(resourceName, "type", "UserDefined"),
+),
+	},
+	{
+ResourceName:resourceName,
+ImportState: true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccCostAllocationTagConfig_basic(rName, "Inactive"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCostAllocationTagExists(ctx, resourceName, &output),
+	resource.TestCheckResourceAttr(resourceName, "tag_key", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", "Inactive"),
+	resource.TestCheckResourceAttr(resourceName, "type", "UserDefined"),
+),
+	}, {
+Config: testAccCostAllocationTagConfig_basic(rName, "Active"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCostAllocationTagExists(ctx, resourceName, &output),
+	resource.TestCheckResourceAttr(resourceName, "tag_key", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", "Active"),
+	resource.TestCheckResourceAttr(resourceName, "type", "UserDefined"),
+),
+	},
+},
 	})
 }
 func testAccCheckCostAllocationTagExists(ctx context.Context, resourceName string, output *costexplorer.CostAllocationTag) resource.TestCheckFunc {
 func, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return create.Error(names.CE, create.ErrActionCheckingExistence, tfce.ResNameCostAllocationTag, resourceName, errors.New("not found in state"))
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CEConn(ctx)
-		costAllocTag, err := tfce.FindCostAllocationTagByKey(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
-			return err
-		}
-
-		*output = *costAllocTag
-
-		return nil
+if !ok {
+	return create.Error(names.CE, create.ErrActionCheckingExistence, tfce.ResNameCostAllocationTag, resourceName, errors.New("not found in state"))
+}conn := acctest.Provider.Meta().(*conns.AWSClient).CEConn(ctx)
+costAllocTag, err := tfce.FindCostAllocationTagByKey(ctx, conn, rs.Primary.ID)if err != nil {
+	return err
+}*output = *costAllocTagreturn nil
 	}
 }
 func testAccCostAllocationTagConfig_basic(rName, status string) string {
 	return fmt.Sprintf(`
 funcg_key = %[1]q
-  status  = %[2]q
+status= %[2]q
 }
 `, rName, status)
 }

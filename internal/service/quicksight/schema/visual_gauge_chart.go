@@ -36,7 +36,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "target_values": measureFieldSchema(measureFieldsMaxItems200), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
-"values":        measureFieldSchema(measureFieldsMaxItems200), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
+"values":  measureFieldSchema(measureFieldsMaxItems200), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
 	},
 },
 	},
@@ -94,13 +94,13 @@ Optional: true,
 },
 	},
 },
-"comparison":        comparisonConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ComparisonConfiguration.html
-"primary_value_display_type":       stringSchema(false, validation.StringInSlice(quicksight.PrimaryValueDisplayType_Values(), false)),
+"comparison":  comparisonConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ComparisonConfiguration.html
+"primary_value_display_type": stringSchema(false, validation.StringInSlice(quicksight.PrimaryValueDisplayType_Values(), false)),
 "primary_value_font_configuration": fontConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FontConfiguration.html
 	},
 },
 	},
-	"tooltip":        tooltipOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
+	"tooltip":  tooltipOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
 	"visual_palette": visualPaletteSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
 },
 	},
@@ -137,7 +137,7 @@ Schema: map[string]*schema.Schema{
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"icon":       conditionalFormattingIconSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ConditionalFormattingIcon.html
+	"icon": conditionalFormattingIconSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ConditionalFormattingIcon.html
 	"text_color": conditionalFormattingColorSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ConditionalFormattingColor.html
 },
 	},

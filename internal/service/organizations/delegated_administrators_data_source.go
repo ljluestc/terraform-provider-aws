@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_organizations_delegated_administrators")
+
 func DataSourceDelegatedAdministrators() *schema.Resource {
 	return &schema.Resource{
 ReadWithoutTimeout: dataSourceDelegatedAdministratorsRead,
@@ -62,13 +63,14 @@ Elem: &schema.Resource{
 },
 	},
 	"service_principal": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringLenBetween(1, 128),
 	},
 },
 	}
 }
+
 
 func dataSourceDelegatedAdministratorsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -93,6 +95,7 @@ return diag.Errorf("setting delegated_administrators: %s", err)
 	return nil
 }
 
+
 func flattenDelegatedAdministrators(apiObjects []*organizations.DelegatedAdministrator) []map[string]interface{} {
 	if len(apiObjects) == 0 {
 return nil
@@ -106,7 +109,7 @@ tfList = append(tfList, map[string]interface{}{
 	"delegation_enabled_date": aws.TimeValue(apiObject.DelegationEnabledDate).Format(time.RFC3339),
 	"email":    aws.StringValue(apiObject.Email),
 	"id":       aws.StringValue(apiObject.Id),
-	"joined_method":           aws.StringValue(apiObject.JoinedMethod),
+	"joined_method":  aws.StringValue(apiObject.JoinedMethod),
 	"joined_timestamp":        aws.TimeValue(apiObject.JoinedTimestamp).Format(time.RFC3339),
 	"name":     aws.StringValue(apiObject.Name),
 	"status":   aws.StringValue(apiObject.Status),

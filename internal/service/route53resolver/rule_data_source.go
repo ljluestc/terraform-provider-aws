@@ -23,51 +23,51 @@ ReadWithoutTimeout: dataSourceRuleRead,
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"domain_name": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
+Optional: true,
+Computed: true,
 Validate
 func:  validation.StringLenBetween(1, 256),
 ConflictsWith: []string{"resolver_rule_id"},
 	},
 	"name": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
+Optional: true,
+Computed: true,
 Validate
 func:  validResolverName,
 ConflictsWith: []string{"resolver_rule_id"},
 	},
 	"owner_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"resolver_endpoint_id": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
+Optional: true,
+Computed: true,
 ConflictsWith: []string{"resolver_rule_id"},
 	},
 	"resolver_rule_id": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
+Optional: true,
+Computed: true,
 ConflictsWith: []string{"domain_name", "name", "resolver_endpoint_id", "rule_type"},
 	},
 	"rule_type": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
+Optional: true,
+Computed: true,
 Validate
 func:  validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
 ConflictsWith: []string{"resolver_rule_id"},
 	},
 	"share_status": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"tags": tftags.TagsSchemaComputed(),

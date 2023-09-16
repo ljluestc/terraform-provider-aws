@@ -18,7 +18,7 @@ import (
 )funcarallel()
 
 	testCases := map[string]func(t *testing.T){
-		"basic":      testAccAccountPasswordPolicy_basic,
+		"basic": testAccAccountPasswordPolicy_basic,
 		"disappears": testAccAccountPasswordPolicy_disappears,
 	}
 
@@ -28,7 +28,7 @@ import (
 	resourceName := "aws_iam_account_password_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAccountPasswordPolicyDestroy(ctx),
@@ -41,8 +41,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -59,7 +59,7 @@ import (
 	funcourceName := "aws_iam_account_password_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAccountPasswordPolicyDestroy(ctx),
@@ -124,7 +124,7 @@ funcr _, rs := range s.RootModule().Resources {
 const testAccAccountPasswordPolicyConfig_basic = `
 resource "aws_iam_account_password_policy" "test" {
   allow_users_to_change_password = true
-  minimum_password_length        = 8
+  minimum_password_length   = 8
   require_numbers = true
 }
 `
@@ -132,7 +132,7 @@ resource "aws_iam_account_password_policy" "test" {
 const testAccAccountPasswordPolicyConfig_modified = `
 resource "aws_iam_account_password_policy" "test" {
   allow_users_to_change_password = true
-  minimum_password_length        = 7
+  minimum_password_length   = 7
   require_numbers = false
   require_symbols = true
   require_uppercase_characters   = true

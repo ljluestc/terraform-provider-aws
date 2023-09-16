@@ -33,9 +33,9 @@ func TestAccDataSyncLocationFSxOpenZFSFileSystem_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxOpenZFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxOpenZFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxOpenZFSFileSystemConfig_basic(rName),
@@ -71,9 +71,9 @@ func TestAccDataSyncLocationFSxOpenZFSFileSystem_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxOpenZFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxOpenZFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxOpenZFSFileSystemConfig_basic(rName),
@@ -99,9 +99,9 @@ func TestAccDataSyncLocationFSxOpenZFSFileSystem_subdirectory(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxOpenZFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxOpenZFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxOpenZFSFileSystemConfig_subdirectory(rName, "/fsx/subdirectory1/"),
@@ -132,9 +132,9 @@ func TestAccDataSyncLocationFSxOpenZFSFileSystem_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationFSxOpenZFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationFSxOpenZFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationFSxOpenZFSFileSystemConfig_tags1(rName, "key1", "value1"),
@@ -256,7 +256,7 @@ resource "aws_security_group" "test" {
 
 resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity    = 64
-  subnet_ids          = aws_subnet.test[*].id
+  subnet_ids = aws_subnet.test[*].id
   deployment_type     = "SINGLE_AZ_1"
   throughput_capacity = 64
 

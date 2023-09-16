@@ -9,7 +9,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 )
-
 func flattenAliasRoutingConfiguration(arc *lambda.AliasRoutingConfiguration) []interface{} {
 	if arc == nil {
 		return []interface{}{}
@@ -21,7 +20,6 @@ func flattenAliasRoutingConfiguration(arc *lambda.AliasRoutingConfiguration) []i
 
 	return []interface{}{m}
 }
-
 func flattenLayers(layers []types.Layer) []interface{} {
 	arns := make([]*string, len(layers))
 	for i, layer := range layers {
@@ -29,7 +27,6 @@ func flattenLayers(layers []types.Layer) []interface{} {
 	}
 	return flex.FlattenStringList(arns)
 }
-
 func flattenVPCConfigResponse(s *types.VpcConfigResponse) []map[string]interface{} {
 	settings := make(map[string]interface{})
 

@@ -19,33 +19,33 @@ func ResourceHAProxyLayer() *schema.Resource {
 		Attributes: map[string]*opsworksLayerTypeAttribute{
 			"healthcheck_method": {
 				AttrName: opsworks.LayerAttributesKeysHaproxyHealthCheckMethod,
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Default:  "OPTIONS",
 			},
 			"healthcheck_url": {
 				AttrName: opsworks.LayerAttributesKeysHaproxyHealthCheckUrl,
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Default:  "/",
 			},
 			"stats_enabled": {
 				AttrName: opsworks.LayerAttributesKeysEnableHaproxyStats,
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Default:  true,
 			},
 			"stats_password": {
 				AttrName:  opsworks.LayerAttributesKeysHaproxyStatsPassword,
-				Type:      schema.TypeString,
+				Type: schema.TypeString,
 				WriteOnly: true,
 				Required:  true,
 			},
 			"stats_url": {
 				AttrName: opsworks.LayerAttributesKeysHaproxyStatsUrl,
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Default:  "/haproxy?stats",
 			},
 			"stats_user": {
 				AttrName: opsworks.LayerAttributesKeysHaproxyStatsUser,
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Default:  "opsworks",
 			},
 		},

@@ -27,16 +27,14 @@ var (
 	}
 )
 
-// TODO(dsymonds): Do we need to support default values, like Python?
-func mustGetMetadata(key string) []byte {
+// TODO(dsymonds): Do we need to support default values, like Python? mustGetMetadata(key string) []byte {
 	b, err := getMetadata(key)
 	if err != nil {
 		panic(fmt.Sprintf("Metadata fetch failed for '%s': %v", key, err))
 	}
 	return b
 }
-
-func getMetadata(key string) ([]byte, error) {
+ getMetadata(key string) ([]byte, error) {
 	// TODO(dsymonds): May need to use url.Parse to support keys with query args.
 	req := &http.Request{
 		Method: "GET",

@@ -61,31 +61,25 @@ var (
 		"SERVICE_UNKNOWN": 3,
 	}
 )
-
-func (x HealthCheckResponse_ServingStatus) Enum() *HealthCheckResponse_ServingStatus {
+ (x HealthCheckResponse_ServingStatus) Enum() *HealthCheckResponse_ServingStatus {
 	p := new(HealthCheckResponse_ServingStatus)
 	*p = x
 	return p
 }
-
-func (x HealthCheckResponse_ServingStatus) String() string {
+ (x HealthCheckResponse_ServingStatus) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
-
-func (HealthCheckResponse_ServingStatus) Descriptor() protoreflect.EnumDescriptor {
+ (HealthCheckResponse_ServingStatus) Descriptor() protoreflect.EnumDescriptor {
 	return file_grpc_health_v1_health_proto_enumTypes[0].Descriptor()
 }
-
-func (HealthCheckResponse_ServingStatus) Type() protoreflect.EnumType {
+ (HealthCheckResponse_ServingStatus) Type() protoreflect.EnumType {
 	return &file_grpc_health_v1_health_proto_enumTypes[0]
 }
-
-func (x HealthCheckResponse_ServingStatus) Number() protoreflect.EnumNumber {
+ (x HealthCheckResponse_ServingStatus) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use HealthCheckResponse_ServingStatus.Descriptor instead.
-func (HealthCheckResponse_ServingStatus) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use HealthCheckResponse_ServingStatus.Descriptor instead. (HealthCheckResponse_ServingStatus) EnumDescriptor() ([]byte, []int) {
 	return file_grpc_health_v1_health_proto_rawDescGZIP(), []int{1, 0}
 }
 
@@ -96,8 +90,7 @@ type HealthCheckRequest struct {
 
 	Service string `protobuf:"bytes,1,opt,name=service,proto3" json:"service,omitempty"`
 }
-
-func (x *HealthCheckRequest) Reset() {
+ (x *HealthCheckRequest) Reset() {
 	*x = HealthCheckRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_grpc_health_v1_health_proto_msgTypes[0]
@@ -105,14 +98,11 @@ func (x *HealthCheckRequest) Reset() {
 		ms.StoreMessageInfo(mi)
 	}
 }
-
-func (x *HealthCheckRequest) String() string {
+ (x *HealthCheckRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
-
-func (*HealthCheckRequest) ProtoMessage() {}
-
-func (x *HealthCheckRequest) ProtoReflect() protoreflect.Message {
+ (*HealthCheckRequest) ProtoMessage() {}
+ (x *HealthCheckRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_grpc_health_v1_health_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -124,12 +114,10 @@ func (x *HealthCheckRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use HealthCheckRequest.ProtoReflect.Descriptor instead.
-func (*HealthCheckRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use HealthCheckRequest.ProtoReflect.Descriptor instead. (*HealthCheckRequest) Descriptor() ([]byte, []int) {
 	return file_grpc_health_v1_health_proto_rawDescGZIP(), []int{0}
 }
-
-func (x *HealthCheckRequest) GetService() string {
+ (x *HealthCheckRequest) GetService() string {
 	if x != nil {
 		return x.Service
 	}
@@ -143,8 +131,7 @@ type HealthCheckResponse struct {
 
 	Status HealthCheckResponse_ServingStatus `protobuf:"varint,1,opt,name=status,proto3,enum=grpc.health.v1.HealthCheckResponse_ServingStatus" json:"status,omitempty"`
 }
-
-func (x *HealthCheckResponse) Reset() {
+ (x *HealthCheckResponse) Reset() {
 	*x = HealthCheckResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_grpc_health_v1_health_proto_msgTypes[1]
@@ -152,14 +139,11 @@ func (x *HealthCheckResponse) Reset() {
 		ms.StoreMessageInfo(mi)
 	}
 }
-
-func (x *HealthCheckResponse) String() string {
+ (x *HealthCheckResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
-
-func (*HealthCheckResponse) ProtoMessage() {}
-
-func (x *HealthCheckResponse) ProtoReflect() protoreflect.Message {
+ (*HealthCheckResponse) ProtoMessage() {}
+ (x *HealthCheckResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_grpc_health_v1_health_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -171,12 +155,10 @@ func (x *HealthCheckResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use HealthCheckResponse.ProtoReflect.Descriptor instead.
-func (*HealthCheckResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use HealthCheckResponse.ProtoReflect.Descriptor instead. (*HealthCheckResponse) Descriptor() ([]byte, []int) {
 	return file_grpc_health_v1_health_proto_rawDescGZIP(), []int{1}
 }
-
-func (x *HealthCheckResponse) GetStatus() HealthCheckResponse_ServingStatus {
+ (x *HealthCheckResponse) GetStatus() HealthCheckResponse_ServingStatus {
 	if x != nil {
 		return x.Status
 	}
@@ -227,8 +209,7 @@ var (
 	file_grpc_health_v1_health_proto_rawDescOnce sync.Once
 	file_grpc_health_v1_health_proto_rawDescData = file_grpc_health_v1_health_proto_rawDesc
 )
-
-func file_grpc_health_v1_health_proto_rawDescGZIP() []byte {
+ file_grpc_health_v1_health_proto_rawDescGZIP() []byte {
 	file_grpc_health_v1_health_proto_rawDescOnce.Do(func() {
 		file_grpc_health_v1_health_proto_rawDescData = protoimpl.X.CompressGZIP(file_grpc_health_v1_health_proto_rawDescData)
 	})
@@ -254,9 +235,7 @@ var file_grpc_health_v1_health_proto_depIdxs = []int32{
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
 }
-
-func init() { file_grpc_health_v1_health_proto_init() }
-func file_grpc_health_v1_health_proto_init() {
+ init() { file_grpc_health_v1_health_proto_init() } file_grpc_health_v1_health_proto_init() {
 	if File_grpc_health_v1_health_proto != nil {
 		return
 	}

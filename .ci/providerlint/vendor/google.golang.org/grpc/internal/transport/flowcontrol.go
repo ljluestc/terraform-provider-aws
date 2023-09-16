@@ -39,8 +39,7 @@ type writeQuota struct {
 	// by tests.
 	replenish func(n int)
 }
-
-func newWriteQuota(sz int32, done <-chan struct{}) *writeQuota {
+ newWriteQuota(sz int32, done <-chan struct{}) *writeQuota {
 	w := &writeQuota{
 		quota: sz,
 		ch:    make(chan struct{}, 1),
@@ -49,8 +48,7 @@ func newWriteQuota(sz int32, done <-chan struct{}) *writeQuota {
 	w.replenish = w.realReplenish
 	return w
 }
-
-func (w *writeQuota) get(sz int32) error {
+ (w *writeQuota) get(sz int32) error {
 	for {
 		if atomic.LoadInt32(&w.quota) > 0 {
 			atomic.AddInt32(&w.quota, -sz)
@@ -64,8 +62,7 @@ func (w *writeQuota) get(sz int32) error {
 		}
 	}
 }
-
-func (w *writeQuota) realReplenish(n int) {
+ (w *writeQuota) realReplenish(n int) {
 	sz := int32(n)
 	a := atomic.AddInt32(&w.quota, sz)
 	b := a - sz
@@ -82,15 +79,13 @@ type trInFlow struct {
 	unacked             uint32
 	effectiveWindowSize uint32
 }
-
-func (f *trInFlow) newLimit(n uint32) uint32 {
+ (f *trInFlow) newLimit(n uint32) uint32 {
 	d := n - f.limit
 	f.limit = n
 	f.updateEffectiveWindowSize()
 	return d
 }
-
-func (f *trInFlow) onData(n uint32) uint32 {
+ (f *trInFlow) onData(n uint32) uint32 {
 	f.unacked += n
 	if f.unacked >= f.limit/4 {
 		w := f.unacked
@@ -101,19 +96,16 @@ func (f *trInFlow) onData(n uint32) uint32 {
 	f.updateEffectiveWindowSize()
 	return 0
 }
-
-func (f *trInFlow) reset() uint32 {
+ (f *trInFlow) reset() uint32 {
 	w := f.unacked
 	f.unacked = 0
 	f.updateEffectiveWindowSize()
 	return w
 }
-
-func (f *trInFlow) updateEffectiveWindowSize() {
+ (f *trInFlow) updateEffectiveWindowSize() {
 	atomic.StoreUint32(&f.effectiveWindowSize, f.limit-f.unacked)
 }
-
-func (f *trInFlow) getSize() uint32 {
+ (f *trInFlow) getSize() uint32 {
 	return atomic.LoadUint32(&f.effectiveWindowSize)
 }
 
@@ -135,14 +127,12 @@ type inFlow struct {
 }
 
 // newLimit updates the inflow window to a new value n.
-// It assumes that n is always greater than the old limit.
-func (f *inFlow) newLimit(n uint32) {
+// It assumes that n is always greater than the old limit. (f *inFlow) newLimit(n uint32) {
 	f.mu.Lock()
 	f.limit = n
 	f.mu.Unlock()
 }
-
-func (f *inFlow) maybeAdjust(n uint32) uint32 {
+ (f *inFlow) maybeAdjust(n uint32) uint32 {
 	if n > uint32(math.MaxInt32) {
 		n = uint32(math.MaxInt32)
 	}
@@ -173,8 +163,7 @@ func (f *inFlow) maybeAdjust(n uint32) uint32 {
 	return 0
 }
 
-// onData is invoked when some data frame is received. It updates pendingData.
-func (f *inFlow) onData(n uint32) error {
+// onData is invoked when some data frame is received. It updates pendingData. (f *inFlow) onData(n uint32) error {
 	f.mu.Lock()
 	f.pendingData += n
 	if f.pendingData+f.pendingUpdate > f.limit+f.delta {
@@ -188,8 +177,7 @@ func (f *inFlow) onData(n uint32) error {
 }
 
 // onRead is invoked when the application reads the data. It returns the window size
-// to be sent to the peer.
-func (f *inFlow) onRead(n uint32) uint32 {
+// to be sent to the peer. (f *inFlow) onRead(n uint32) uint32 {
 	f.mu.Lock()
 	if f.pendingData == 0 {
 		f.mu.Unlock()

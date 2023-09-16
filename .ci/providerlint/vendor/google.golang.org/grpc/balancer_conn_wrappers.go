@@ -77,8 +77,7 @@ type ccBalancerWrapper struct {
 }
 
 // newCCBalancerWrapper creates a new balancer wrapper. The underlying balancer
-// is not created until the switchTo() method is invoked.
-func newCCBalancerWrapper(cc *ClientConn, bopts balancer.BuildOptions) *ccBalancerWrapper {
+// is not created until the switchTo() method is invoked. newCCBalancerWrapper(cc *ClientConn, bopts balancer.BuildOptions) *ccBalancerWrapper {
 	ctx, cancel := context.WithCancel(context.Background())
 	ccb := &ccBalancerWrapper{
 		cc:               cc,
@@ -91,8 +90,7 @@ func newCCBalancerWrapper(cc *ClientConn, bopts balancer.BuildOptions) *ccBalanc
 }
 
 // updateClientConnState is invoked by grpc to push a ClientConnState update to
-// the underlying balancer.
-func (ccb *ccBalancerWrapper) updateClientConnState(ccs *balancer.ClientConnState) error {
+// the underlying balancer. (ccb *ccBalancerWrapper) updateClientConnState(ccs *balancer.ClientConnState) error {
 	ccb.mu.Lock()
 	errCh := make(chan error, 1)
 	// Here and everywhere else where Schedule() is called, it is done with the
@@ -135,16 +133,14 @@ func (ccb *ccBalancerWrapper) updateClientConnState(ccs *balancer.ClientConnStat
 }
 
 // updateSubConnState is invoked by grpc to push a subConn state update to the
-// underlying balancer.
-func (ccb *ccBalancerWrapper) updateSubConnState(sc balancer.SubConn, s connectivity.State, err error) {
+// underlying balancer. (ccb *ccBalancerWrapper) updateSubConnState(sc balancer.SubConn, s connectivity.State, err error) {
 	ccb.mu.Lock()
 	ccb.serializer.Schedule(func(_ context.Context) {
 		ccb.balancer.UpdateSubConnState(sc, balancer.SubConnState{ConnectivityState: s, ConnectionError: err})
 	})
 	ccb.mu.Unlock()
 }
-
-func (ccb *ccBalancerWrapper) resolverError(err error) {
+ (ccb *ccBalancerWrapper) resolverError(err error) {
 	ccb.mu.Lock()
 	ccb.serializer.Schedule(func(_ context.Context) {
 		ccb.balancer.ResolverError(err)
@@ -161,8 +157,7 @@ func (ccb *ccBalancerWrapper) resolverError(err error) {
 // from the name resolver, it invokes this method.
 //
 // the ccBalancerWrapper keeps track of the current LB policy name, and skips
-// the graceful balancer switching process if the name does not change.
-func (ccb *ccBalancerWrapper) switchTo(name string) {
+// the graceful balancer switching process if the name does not change. (ccb *ccBalancerWrapper) switchTo(name string) {
 	ccb.mu.Lock()
 	ccb.serializer.Schedule(func(_ context.Context) {
 		// TODO: Other languages use case-sensitive balancer registries. We should
@@ -182,8 +177,7 @@ func (ccb *ccBalancerWrapper) switchTo(name string) {
 //     will actually build the new balancer.
 //   - update the `curBalancerName` field
 //
-// Must be called from a serializer callback.
-func (ccb *ccBalancerWrapper) buildLoadBalancingPolicy(name string) {
+// Must be called from a serializer callback. (ccb *ccBalancerWrapper) buildLoadBalancingPolicy(name string) {
 	builder := balancer.Get(name)
 	if builder == nil {
 		channelz.Warningf(logger, ccb.cc.channelzID, "Channel switches to new LB policy %q, since the specified LB policy %q was not registered", PickFirstBalancerName, name)
@@ -198,22 +192,19 @@ func (ccb *ccBalancerWrapper) buildLoadBalancingPolicy(name string) {
 	}
 	ccb.curBalancerName = builder.Name()
 }
-
-func (ccb *ccBalancerWrapper) close() {
+ (ccb *ccBalancerWrapper) close() {
 	channelz.Info(logger, ccb.cc.channelzID, "ccBalancerWrapper: closing")
 	ccb.closeBalancer(ccbModeClosed)
 }
 
 // enterIdleMode is invoked by grpc when the channel enters idle mode upon
-// expiry of idle_timeout. This call blocks until the balancer is closed.
-func (ccb *ccBalancerWrapper) enterIdleMode() {
+// expiry of idle_timeout. This call blocks until the balancer is closed. (ccb *ccBalancerWrapper) enterIdleMode() {
 	channelz.Info(logger, ccb.cc.channelzID, "ccBalancerWrapper: entering idle mode")
 	ccb.closeBalancer(ccbModeIdle)
 }
 
 // closeBalancer is invoked when the channel is being closed or when it enters
-// idle mode upon expiry of idle_timeout.
-func (ccb *ccBalancerWrapper) closeBalancer(m ccbMode) {
+// idle mode upon expiry of idle_timeout. (ccb *ccBalancerWrapper) closeBalancer(m ccbMode) {
 	ccb.mu.Lock()
 	if ccb.mode == ccbModeClosed || ccb.mode == ccbModeIdle {
 		ccb.mu.Unlock()
@@ -252,8 +243,7 @@ func (ccb *ccBalancerWrapper) closeBalancer(m ccbMode) {
 // If the channel is not in idle mode, we know for a fact that we are here as a
 // result of the user calling the Connect() method on the ClientConn. In this
 // case, we can simply forward the call to the underlying balancer, instructing
-// it to reconnect to the backends.
-func (ccb *ccBalancerWrapper) exitIdleMode() {
+// it to reconnect to the backends. (ccb *ccBalancerWrapper) exitIdleMode() {
 	ccb.mu.Lock()
 	if ccb.mode == ccbModeClosed {
 		// Request to exit idle is a no-op when wrapper is already closed.
@@ -294,14 +284,12 @@ func (ccb *ccBalancerWrapper) exitIdleMode() {
 
 	<-done
 }
-
-func (ccb *ccBalancerWrapper) isIdleOrClosed() bool {
+ (ccb *ccBalancerWrapper) isIdleOrClosed() bool {
 	ccb.mu.Lock()
 	defer ccb.mu.Unlock()
 	return ccb.mode == ccbModeIdle || ccb.mode == ccbModeClosed
 }
-
-func (ccb *ccBalancerWrapper) NewSubConn(addrs []resolver.Address, opts balancer.NewSubConnOptions) (balancer.SubConn, error) {
+ (ccb *ccBalancerWrapper) NewSubConn(addrs []resolver.Address, opts balancer.NewSubConnOptions) (balancer.SubConn, error) {
 	if ccb.isIdleOrClosed() {
 		return nil, fmt.Errorf("grpc: cannot create SubConn when balancer is closed or idle")
 	}
@@ -318,8 +306,7 @@ func (ccb *ccBalancerWrapper) NewSubConn(addrs []resolver.Address, opts balancer
 	ac.acbw = acbw
 	return acbw, nil
 }
-
-func (ccb *ccBalancerWrapper) RemoveSubConn(sc balancer.SubConn) {
+ (ccb *ccBalancerWrapper) RemoveSubConn(sc balancer.SubConn) {
 	if ccb.isIdleOrClosed() {
 		// It it safe to ignore this call when the balancer is closed or in idle
 		// because the ClientConn takes care of closing the connections.
@@ -338,8 +325,7 @@ func (ccb *ccBalancerWrapper) RemoveSubConn(sc balancer.SubConn) {
 	}
 	ccb.cc.removeAddrConn(acbw.ac, errConnDrain)
 }
-
-func (ccb *ccBalancerWrapper) UpdateAddresses(sc balancer.SubConn, addrs []resolver.Address) {
+ (ccb *ccBalancerWrapper) UpdateAddresses(sc balancer.SubConn, addrs []resolver.Address) {
 	if ccb.isIdleOrClosed() {
 		return
 	}
@@ -350,8 +336,7 @@ func (ccb *ccBalancerWrapper) UpdateAddresses(sc balancer.SubConn, addrs []resol
 	}
 	acbw.UpdateAddresses(addrs)
 }
-
-func (ccb *ccBalancerWrapper) UpdateState(s balancer.State) {
+ (ccb *ccBalancerWrapper) UpdateState(s balancer.State) {
 	if ccb.isIdleOrClosed() {
 		return
 	}
@@ -364,16 +349,14 @@ func (ccb *ccBalancerWrapper) UpdateState(s balancer.State) {
 	ccb.cc.blockingpicker.updatePicker(s.Picker)
 	ccb.cc.csMgr.updateState(s.ConnectivityState)
 }
-
-func (ccb *ccBalancerWrapper) ResolveNow(o resolver.ResolveNowOptions) {
+ (ccb *ccBalancerWrapper) ResolveNow(o resolver.ResolveNowOptions) {
 	if ccb.isIdleOrClosed() {
 		return
 	}
 
 	ccb.cc.resolveNow(o)
 }
-
-func (ccb *ccBalancerWrapper) Target() string {
+ (ccb *ccBalancerWrapper) Target() string {
 	return ccb.cc.target
 }
 
@@ -385,23 +368,19 @@ type acBalancerWrapper struct {
 	mu        sync.Mutex
 	producers map[balancer.ProducerBuilder]*refCountedProducer
 }
-
-func (acbw *acBalancerWrapper) String() string {
+ (acbw *acBalancerWrapper) String() string {
 	return fmt.Sprintf("SubConn(id:%d)", acbw.ac.channelzID.Int())
 }
-
-func (acbw *acBalancerWrapper) UpdateAddresses(addrs []resolver.Address) {
+ (acbw *acBalancerWrapper) UpdateAddresses(addrs []resolver.Address) {
 	acbw.ac.updateAddrs(addrs)
 }
-
-func (acbw *acBalancerWrapper) Connect() {
+ (acbw *acBalancerWrapper) Connect() {
 	go acbw.ac.connect()
 }
 
 // NewStream begins a streaming RPC on the addrConn.  If the addrConn is not
 // ready, blocks until it is or ctx expires.  Returns an error when the context
-// expires or the addrConn is shut down.
-func (acbw *acBalancerWrapper) NewStream(ctx context.Context, desc *StreamDesc, method string, opts ...CallOption) (ClientStream, error) {
+// expires or the addrConn is shut down. (acbw *acBalancerWrapper) NewStream(ctx context.Context, desc *StreamDesc, method string, opts ...CallOption) (ClientStream, error) {
 	transport, err := acbw.ac.getTransport(ctx)
 	if err != nil {
 		return nil, err
@@ -410,8 +389,7 @@ func (acbw *acBalancerWrapper) NewStream(ctx context.Context, desc *StreamDesc, 
 }
 
 // Invoke performs a unary RPC.  If the addrConn is not ready, returns
-// errSubConnNotReady.
-func (acbw *acBalancerWrapper) Invoke(ctx context.Context, method string, args interface{}, reply interface{}, opts ...CallOption) error {
+// errSubConnNotReady. (acbw *acBalancerWrapper) Invoke(ctx context.Context, method string, args interface{}, reply interface{}, opts ...CallOption) error {
 	cs, err := acbw.NewStream(ctx, unaryStreamDesc, method, opts...)
 	if err != nil {
 		return err
@@ -427,8 +405,7 @@ type refCountedProducer struct {
 	refs     int    // number of current refs to the producer
 	close    func() // underlying producer's close function
 }
-
-func (acbw *acBalancerWrapper) GetOrBuildProducer(pb balancer.ProducerBuilder) (balancer.Producer, func()) {
+ (acbw *acBalancerWrapper) GetOrBuildProducer(pb balancer.ProducerBuilder) (balancer.Producer, func()) {
 	acbw.mu.Lock()
 	defer acbw.mu.Unlock()
 

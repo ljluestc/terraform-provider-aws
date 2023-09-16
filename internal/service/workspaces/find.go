@@ -11,7 +11,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/workspaces/types"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 )
-
 func FindDirectoryByID(ctx context.Context, conn *workspaces.Client, id string) (*types.WorkspaceDirectory, error) {
 	input := &workspaces.DescribeWorkspaceDirectoriesInput{
 		DirectoryIds: []string{id},

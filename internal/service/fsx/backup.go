@@ -42,30 +42,30 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"file_system_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 ForceNew: true,
 	},
 	"kms_key_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"owner_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"type": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"volume_id": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 ForceNew: true,
 	},

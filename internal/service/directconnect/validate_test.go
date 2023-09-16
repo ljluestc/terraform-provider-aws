@@ -6,7 +6,6 @@ package directconnect
 import (
 	"testing"
 )
-
 func TestValidConnectionBandWidth(t *testing.T) {
 	t.Parallel()
 

@@ -25,7 +25,7 @@ func TestAccAuditManagerOrganizationAdminAccountRegistration_serial(t *testing.T
 	t.Parallel()
 
 	testCases := map[string]func(t *testing.T){
-		"basic":      testAccOrganizationAdminAccountRegistration_basic,
+		"basic": testAccOrganizationAdminAccountRegistration_basic,
 		"disappears": testAccOrganizationAdminAccountRegistration_disappears,
 	}
 
@@ -57,8 +57,8 @@ func testAccOrganizationAdminAccountRegistration_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},

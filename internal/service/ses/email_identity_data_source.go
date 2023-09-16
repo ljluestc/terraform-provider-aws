@@ -23,20 +23,20 @@ func DataSourceEmailIdentity() *schema.Resource {
 		ReadWithoutTimeout: dataSourceEmailIdentityRead,
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"email": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
-				StateFunc: func(v interface{}) string {
+				StateFunc: 
+func(v interface{}) string {
 					return strings.TrimSuffix(v.(string), ".")
 				},
 			},
 		},
 	}
 }
-
 func dataSourceEmailIdentityRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -66,9 +66,9 @@ func dataSourceEmailIdentityRead(ctx context.Context, d *schema.ResourceData, me
 	arn := arn.ARN{
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
+		Region: meta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("identity/%s", email),
-		Service:   "ses",
+		Service:"ses",
 	}.String()
 	d.Set("arn", arn)
 	return diags

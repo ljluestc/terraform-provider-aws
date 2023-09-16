@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package ec2import (	"fmt"	"log"	"strconv"	"strings"	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"	"github.com/hashicorp/terraform-provider-aws/internal/create")funcfuncfuncfunc
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageec2import("fmt""log""strconv""strings""github.com/hashicorp/terraform-plugin-sdk/v2/terraform""github.com/hashicorp/terraform-provider-aws/internal/create")

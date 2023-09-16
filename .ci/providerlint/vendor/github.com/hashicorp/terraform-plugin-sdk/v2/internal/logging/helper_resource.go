@@ -1,39 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package logging
-
-import (
-	"context"
-
-	"github.com/hashicorp/terraform-plugin-log/tfsdklog"
-)
-
-const (
+// SPDX-License-Identifier: MPL-2.0package loggingimport (
+	"context"	"github.com/hashicorp/terraform-plugin-log/tfsdklog"
+)const (
 	// SubsystemHelperResource is the tfsdklog subsystem name for helper/resource.
 	SubsystemHelperResource = "helper_resource"
-)
-
-// HelperResourceTrace emits a helper/resource subsystem log at TRACE level.
-
- HelperResourceTrace(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
+)// HelperResourceTrace emits a helper/resource subsystem log at TRACE level. HelperResourceTrace(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
 	tfsdklog.SubsystemTrace(ctx, SubsystemHelperResource, msg, additionalFields...)
-}
-
-elperResourceDebug emits a helper/resource subsystem log at DEBUG level.
-
- HelperResourceDebug(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
+}elperResourceDebug emits a helper/resource subsystem log at DEBUG level. HelperResourceDebug(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
 	tfsdklog.SubsystemDebug(ctx, SubsystemHelperResource, msg, additionalFields...)
-}
-
-// HelperResourceWarn emits a helper/resource subsystem log at WARN level.
-
- HelperResourceWarn(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
+}// HelperResourceWarn emits a helper/resource subsystem log at WARN level. HelperResourceWarn(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
 	tfsdklog.SubsystemWarn(ctx, SubsystemHelperResource, msg, additionalFields...)
-
-
-// HelperResourceError emits a helper/resource subsystem log at ERROR level.
-
- HelperResourceError(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
+// HelperResourceError emits a helper/resource subsystem log at ERROR level. HelperResourceError(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
 	tfsdklog.SubsystemError(ctx, SubsystemHelperResource, msg, additionalFields...)
 }

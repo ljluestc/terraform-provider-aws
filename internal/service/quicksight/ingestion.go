@@ -251,10 +251,10 @@ func createIngestionID(awsAccountID, dataSetID, ingestionID string) string {
 }
 
 type resourceIngestionData struct {
-	ARN             types.String `tfsdk:"arn"`
+	ARN types.String `tfsdk:"arn"`
 	AWSAccountID    types.String `tfsdk:"aws_account_id"`
-	DataSetID       types.String `tfsdk:"data_set_id"`
-	ID              types.String `tfsdk:"id"`
+	DataSetID types.String `tfsdk:"data_set_id"`
+	ID  types.String `tfsdk:"id"`
 	IngestionID     types.String `tfsdk:"ingestion_id"`
 	IngestionStatus types.String `tfsdk:"ingestion_status"`
 	IngestionType   types.String `tfsdk:"ingestion_type"`

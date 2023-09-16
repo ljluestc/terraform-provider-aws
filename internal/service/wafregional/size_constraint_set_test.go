@@ -56,8 +56,8 @@ resourceName, "size_constraints.#", "1"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -102,8 +102,8 @@ resourceName, "size_constraints.#", "1"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -194,8 +194,8 @@ resourceName, "size_constraints.#", "1"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -228,8 +228,8 @@ resourceName, "size_constraints.#", "0"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -256,7 +256,7 @@ SizeConstraintSetId: constraints.SizeConstraintSetId,
 sizeConstraintUpdate := &waf.SizeConstraintSetUpdate{
 	Action: aws.String("DELETE"),
 	SizeConstraint: &waf.SizeConstraint{
-FieldToMatch:       sizeConstraint.FieldToMatch,
+FieldToMatch: sizeConstraint.FieldToMatch,
 ComparisonOperator: sizeConstraint.ComparisonOperator,
 Size:sizeConstraint.Size,
 TextTransformation: sizeConstraint.TextTransformation,
@@ -360,7 +360,7 @@ resource "aws_wafregional_size_constraint_set" "size_constraint_set" {
     size = "4096"
 
     field_to_match {
-      type = "BODY"
+type = "BODY"
     }
   }
 }
@@ -379,7 +379,7 @@ resource "aws_wafregional_size_constraint_set" "size_constraint_set" {
     size = "4096"
 
     field_to_match {
-      type = "BODY"
+type = "BODY"
     }
   }
 }
@@ -398,7 +398,7 @@ resource "aws_wafregional_size_constraint_set" "size_constraint_set" {
     size = "1024"
 
     field_to_match {
-      type = "BODY"
+type = "BODY"
     }
   }
 }

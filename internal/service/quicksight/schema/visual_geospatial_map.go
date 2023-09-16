@@ -51,7 +51,7 @@ Schema: map[string]*schema.Schema{
 },
 },
 },
-"legend":            legendOptionsSchema(),             // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LegendOptions.html
+"legend":legendOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LegendOptions.html
 "map_style_options": geospatialMapStyleOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GeospatialMapStyleOptions.html
 "point_style_options": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GeospatialPointStyleOptions.html
 Type:     schema.TypeList,
@@ -95,15 +95,15 @@ Schema: map[string]*schema.Schema{
 },
 },
 },
-"tooltip":        tooltipOptionsSchema(),          // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
-"visual_palette": visualPaletteSchema(),           // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
+"tooltip":  tooltipOptionsSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
+"visual_palette": visualPaletteSchema(),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
 "window_options": geospatialWindowOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GeospatialWindowOptions.html
 },
 },
 },
-"column_hierarchies": columnHierarchiesSchema(),          // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnHierarchy.html
-"subtitle":           visualSubtitleLabelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualSubtitleLabelOptions.html
-"title":              visualTitleLabelOptionsSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualTitleLabelOptions.html
+"column_hierarchies": columnHierarchiesSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnHierarchy.html
+"subtitle":     visualSubtitleLabelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualSubtitleLabelOptions.html
+"title":  visualTitleLabelOptionsSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualTitleLabelOptions.html
 },
 },
 }

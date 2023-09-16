@@ -35,31 +35,31 @@ func ResourceAlias() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"routing_strategy": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"fleet_id": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"message": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.StringInSlice([]string{
 								gamelift.RoutingStrategyTypeSimple,
@@ -70,10 +70,10 @@ func ResourceAlias() *schema.Resource {
 				},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -87,9 +87,9 @@ func resourceAliasCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	rs := expandRoutingStrategy(d.Get("routing_strategy").([]interface{}))
 	input := gamelift.CreateAliasInput{
-		Name:            aws.String(d.Get("name").(string)),
+		Name:   aws.String(d.Get("name").(string)),
 		RoutingStrategy: rs,
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 	if v, ok := d.GetOk("description"); ok {
 		input.Description = aws.String(v.(string))
@@ -136,9 +136,9 @@ func resourceAliasUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	log.Printf("[INFO] Updating GameLift Alias: %s", d.Id())
 	_, err := conn.UpdateAliasWithContext(ctx, &gamelift.UpdateAliasInput{
-		AliasId:         aws.String(d.Id()),
-		Name:            aws.String(d.Get("name").(string)),
-		Description:     aws.String(d.Get("description").(string)),
+		AliasId:aws.String(d.Id()),
+		Name:   aws.String(d.Get("name").(string)),
+		Description: aws.String(d.Get("description").(string)),
 		RoutingStrategy: expandRoutingStrategy(d.Get("routing_strategy").([]interface{})),
 	})
 	if err != nil {

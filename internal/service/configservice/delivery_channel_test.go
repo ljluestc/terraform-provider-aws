@@ -25,10 +25,10 @@ func testAccDeliveryChannel_basic(t *testing.T) {
 	expectedBucketName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeliveryChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckDeliveryChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeliveryChannelConfig_basic(rInt),
@@ -52,10 +52,10 @@ func testAccDeliveryChannel_allParams(t *testing.T) {
 	expectedBucketName := fmt.Sprintf("tf-acc-test-awsconfig-%d", rInt)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeliveryChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckDeliveryChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeliveryChannelConfig_allParams(rInt),
@@ -80,10 +80,10 @@ func testAccDeliveryChannel_importBasic(t *testing.T) {
 	rInt := sdkacctest.RandInt()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDeliveryChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckDeliveryChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDeliveryChannelConfig_basic(rInt),
@@ -221,7 +221,7 @@ resource "aws_s3_bucket" "b" {
 }
 
 resource "aws_config_delivery_channel" "foo" {
-  name           = "tf-acc-test-awsconfig-%d"
+  name  = "tf-acc-test-awsconfig-%d"
   s3_bucket_name = aws_s3_bucket.b.bucket
   depends_on     = [aws_config_configuration_recorder.foo]
 }
@@ -276,10 +276,10 @@ resource "aws_iam_role_policy" "p" {
     {
         "Effect": "Allow",
         "Action": [
-            "kms:Decrypt",
-            "kms:GenerateDataKey"
-            ],
-            "Resource": "${aws_kms_key.k.arn}"
+   "kms:Decrypt",
+   "kms:GenerateDataKey"
+   ],
+   "Resource": "${aws_kms_key.k.arn}"
     }
   ]
 }
@@ -296,7 +296,7 @@ resource "aws_sns_topic" "t" {
 }
 
 resource "aws_kms_key" "k" {
-  description             = "tf-acc-test-awsconfig-%d"
+  description    = "tf-acc-test-awsconfig-%d"
   deletion_window_in_days = 7
 
   policy = <<POLICY
@@ -319,7 +319,7 @@ POLICY
 }
 
 resource "aws_config_delivery_channel" "foo" {
-  name           = "tf-acc-test-awsconfig-%d"
+  name  = "tf-acc-test-awsconfig-%d"
   s3_bucket_name = aws_s3_bucket.b.bucket
   s3_key_prefix  = "one/two/three"
   s3_kms_key_arn = aws_kms_key.k.arn

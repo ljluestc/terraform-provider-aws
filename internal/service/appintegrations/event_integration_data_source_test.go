@@ -23,38 +23,38 @@ func TestAccAppIntegrationsEventIntegrationDataSource_name(t *testing.T) {
 	key := "EVENT_BRIDGE_PARTNER_EVENT_SOURCE_NAME"
 	sourceName := os.Getenv(key)
 	if sourceName == "" {
-		sourceName = "aws.partner/examplepartner.com"
+sourceName = "aws.partner/examplepartner.com"
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, appintegrationsservice.EndpointsID)
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEventIntegrationDataSourceConfig_Name(rName, sourceName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "event_filter.#", resourceName, "event_filter.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "event_filter.0.source", resourceName, "event_filter.0.source"),
-					resource.TestCheckResourceAttrPair(datasourceName, "eventbridge_bus", resourceName, "eventbridge_bus"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.Key1", resourceName, "tags.Key1"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, appintegrationsservice.EndpointsID)
+},
+ErrorCheck:      acctest.ErrorCheck(t, appintegrationsservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEventIntegrationDataSourceConfig_Name(rName, sourceName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "event_filter.#", resourceName, "event_filter.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "event_filter.0.source", resourceName, "event_filter.0.source"),
+	resource.TestCheckResourceAttrPair(datasourceName, "eventbridge_bus", resourceName, "eventbridge_bus"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.Key1", resourceName, "tags.Key1"),
+),
+	},
+},
 	})
 }
 
 func testAccEventIntegrationDataSourceConfig_base(rName, sourceName string) string {
 	return fmt.Sprintf(`
 resource "aws_appintegrations_event_integration" "test" {
-  name            = %[1]q
+  name   = %[1]q
   description     = "example description"
   eventbridge_bus = "default"
 

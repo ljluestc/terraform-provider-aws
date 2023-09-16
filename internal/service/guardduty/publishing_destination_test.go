@@ -17,7 +17,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfguardduty "github.com/hashicorp/terraform-provider-aws/internal/service/guardduty"
 )
-
 func testAccPublishingDestination_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_publishing_destination.test"
@@ -49,7 +48,6 @@ func testAccPublishingDestination_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccPublishingDestination_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_publishing_destination.test"
@@ -72,7 +70,6 @@ func testAccPublishingDestination_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccPublishingDestinationConfig_basic(bucketName string) string {
 	return fmt.Sprintf(`
 
@@ -84,70 +81,70 @@ data "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "bucket_pol" {
   statement {
-    sid = "Allow PutObject"
-    actions = [
+ sid = "Allow PutObject"
+ actions = [
 ject"
-    ]
+ ]
 
-    resources = [
+ resources = [
 _bucket.gd_bucket.arn}/*"
-    ]
+ ]
 
-    principals {
+ principals {
 ice"
 rs = ["guardduty.${data.aws_partition.current.dns_suffix}"]
-    }
+ }
   }
 
   statement {
-    sid = "Allow GetBucketLocation"
-    actions = [
+ sid = "Allow GetBucketLocation"
+ actions = [
 cketLocation"
-    ]
+ ]
 
-    resources = [
+ resources = [
 cket.gd_bucket.arn
-    ]
+ ]
 
-    principals {
+ principals {
 ice"
 rs = ["guardduty.${data.aws_partition.current.dns_suffix}"]
-    }
+ }
   }
 }
 
 data "aws_iam_policy_document" "kms_pol" {
 
   statement {
-    sid = "Allow GuardDuty to encrypt findings"
-    actions = [
+ sid = "Allow GuardDuty to encrypt findings"
+ actions = [
 rateDataKey"
-    ]
+ ]
 
-    resources = [
+ resources = [
 ta.aws_partition.current.partition}:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:key/*"
-    ]
+ ]
 
-    principals {
+ principals {
 ice"
 rs = ["guardduty.${data.aws_partition.current.dns_suffix}"]
-    }
+ }
   }
 
   statement {
-    sid = "Allow all users to modify/delete key (test only)"
-    actions = [
+ sid = "Allow all users to modify/delete key (test only)"
+ actions = [
 
-    ]
+ ]
 
-    resources = [
+ resources = [
 ta.aws_partition.current.partition}:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:key/*"
-    ]
+ ]
 
-    principals {
+ principals {
 
 rs = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
-    }
+ }
   }
 
 }
@@ -169,7 +166,7 @@ resource "aws_s3_bucket_policy" "gd_bucket_policy" {
 resource "aws_kms_key" "gd_key" {
   descriptionfor AccTest of TF"
   deletion_window_in_days = 7
-  policy   = data.aws_iam_policy_document.kms_pol.json
+  policy= data.aws_iam_policy_document.kms_pol.json
 }
 
 resource "aws_guardduty_publishing_destination" "test" {
@@ -178,11 +175,10 @@ resource "aws_guardduty_publishing_destination" "test" {
   kms_key_arnkey.gd_key.arn
 
   depends_on = [
-    aws_s3_bucket_policy.gd_bucket_policy,
+ aws_s3_bucket_policy.gd_bucket_policy,
   ]
 }`, bucketName)
 }
-
 func testAccCheckPublishingDestinationExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -197,7 +193,7 @@ func testAccCheckPublishingDestinationExists(ctx context.Context, name string) r
 		}
 
 		input := &guardduty.DescribePublishingDestinationInput{
-			DetectorId:    aws.String(detector_id),
+			DetectorId: aws.String(detector_id),
 			DestinationId: aws.String(destination_id),
 		}
 
@@ -206,7 +202,6 @@ func testAccCheckPublishingDestinationExists(ctx context.Context, name string) r
 		return err
 	}
 }
-
 func testAccCheckPublishingDestinationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
@@ -223,7 +218,7 @@ func testAccCheckPublishingDestinationDestroy(ctx context.Context) resource.Test
 			}
 
 			input := &guardduty.DescribePublishingDestinationInput{
-				DetectorId:    aws.String(detector_id),
+				DetectorId: aws.String(detector_id),
 				DestinationId: aws.String(destination_id),
 			}
 

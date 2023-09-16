@@ -33,7 +33,7 @@ func FindAddonByClusterNameAndAddonName(ctx context.Context, conn *eks.EKS, clus
 
 	if output == nil || output.Addon == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message:"Empty result",
 			LastRequest: input,
 		}
 	}
@@ -44,7 +44,7 @@ func FindAddonByClusterNameAndAddonName(ctx context.Context, conn *eks.EKS, clus
 func FindAddonUpdateByClusterNameAddonNameAndID(ctx context.Context, conn *eks.EKS, clusterName, addonName, id string) (*eks.Update, error) {
 	input := &eks.DescribeUpdateInput{
 		AddonName: aws.String(addonName),
-		Name:      aws.String(clusterName),
+		Name: aws.String(clusterName),
 		UpdateId:  aws.String(id),
 	}
 
@@ -63,7 +63,7 @@ func FindAddonUpdateByClusterNameAddonNameAndID(ctx context.Context, conn *eks.E
 
 	if output == nil || output.Update == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message:"Empty result",
 			LastRequest: input,
 		}
 	}
@@ -73,7 +73,7 @@ func FindAddonUpdateByClusterNameAddonNameAndID(ctx context.Context, conn *eks.E
 
 func FindAddonVersionByAddonNameAndKubernetesVersion(ctx context.Context, conn *eks.EKS, addonName, kubernetesVersion string, mostRecent bool) (*eks.AddonVersionInfo, error) {
 	input := &eks.DescribeAddonVersionsInput{
-		AddonName:         aws.String(addonName),
+		AddonName:aws.String(addonName),
 		KubernetesVersion: aws.String(kubernetesVersion),
 	}
 	var version *eks.AddonVersionInfo
@@ -113,7 +113,7 @@ func FindAddonVersionByAddonNameAndKubernetesVersion(ctx context.Context, conn *
 
 	if version == nil || version.AddonVersion == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message:"Empty result",
 			LastRequest: input,
 		}
 	}
@@ -123,7 +123,7 @@ func FindAddonVersionByAddonNameAndKubernetesVersion(ctx context.Context, conn *
 
 func FindFargateProfileByClusterNameAndFargateProfileName(ctx context.Context, conn *eks.EKS, clusterName, fargateProfileName string) (*eks.FargateProfile, error) {
 	input := &eks.DescribeFargateProfileInput{
-		ClusterName:        aws.String(clusterName),
+		ClusterName:   aws.String(clusterName),
 		FargateProfileName: aws.String(fargateProfileName),
 	}
 
@@ -142,7 +142,7 @@ func FindFargateProfileByClusterNameAndFargateProfileName(ctx context.Context, c
 
 	if output == nil || output.FargateProfile == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message:"Empty result",
 			LastRequest: input,
 		}
 	}
@@ -171,7 +171,7 @@ func FindNodegroupByClusterNameAndNodegroupName(ctx context.Context, conn *eks.E
 
 	if output == nil || output.Nodegroup == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message:"Empty result",
 			LastRequest: input,
 		}
 	}
@@ -181,9 +181,9 @@ func FindNodegroupByClusterNameAndNodegroupName(ctx context.Context, conn *eks.E
 
 func FindNodegroupUpdateByClusterNameNodegroupNameAndID(ctx context.Context, conn *eks.EKS, clusterName, nodeGroupName, id string) (*eks.Update, error) {
 	input := &eks.DescribeUpdateInput{
-		Name:          aws.String(clusterName),
+		Name:aws.String(clusterName),
 		NodegroupName: aws.String(nodeGroupName),
-		UpdateId:      aws.String(id),
+		UpdateId: aws.String(id),
 	}
 
 	output, err := conn.DescribeUpdateWithContext(ctx, input)
@@ -201,7 +201,7 @@ func FindNodegroupUpdateByClusterNameNodegroupNameAndID(ctx context.Context, con
 
 	if output == nil || output.Update == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message:"Empty result",
 			LastRequest: input,
 		}
 	}
@@ -233,7 +233,7 @@ func FindOIDCIdentityProviderConfigByClusterNameAndConfigName(ctx context.Contex
 
 	if output == nil || output.IdentityProviderConfig == nil || output.IdentityProviderConfig.Oidc == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message:"Empty result",
 			LastRequest: input,
 		}
 	}

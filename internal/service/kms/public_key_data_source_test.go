@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccKMSPublicKeyDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_key.test"
@@ -40,7 +39,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccKMSPublicKeyDataSource_encrypt(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_key.test"
@@ -67,7 +65,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccPublicKeyCheckDataSource(name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 _, ok := s.RootModule().Resources[name]
@@ -78,7 +75,6 @@ if !ok {
 return nil
 	}
 }
-
 func testAccPublicKeyDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -93,7 +89,6 @@ data "aws_kms_public_key" "test" {
 }
 `, rName)
 }
-
 func testAccPublicKeyDataSourceConfig_encrypt(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {

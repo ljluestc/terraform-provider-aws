@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
 )
-
 func testAccLoadBalancerStickinessPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_lb_stickiness_policy.test"
@@ -48,7 +47,6 @@ func testAccLoadBalancerStickinessPolicy_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancerStickinessPolicy_cookieDuration(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_lb_stickiness_policy.test"
@@ -89,7 +87,6 @@ func testAccLoadBalancerStickinessPolicy_cookieDuration(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancerStickinessPolicy_enabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_lb_stickiness_policy.test"
@@ -130,7 +127,6 @@ func testAccLoadBalancerStickinessPolicy_enabled(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancerStickinessPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_lb_stickiness_policy.test"
@@ -159,7 +155,6 @@ func testAccLoadBalancerStickinessPolicy_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckLoadBalancerStickinessPolicyExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -186,7 +181,6 @@ func testAccCheckLoadBalancerStickinessPolicyExists(ctx context.Context, n strin
 		return nil
 	}
 }
-
 func testAccLoadBalancerStickinessPolicyConfig_basic(rName string, enabled string, cookieDuration string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
@@ -195,9 +189,9 @@ resource "aws_lightsail_lb" "test" {
   instance_port     = "80"
 }
 resource "aws_lightsail_lb_stickiness_policy" "test" {
-  enabled         = %[2]s
+  enabled= %[2]s
   cookie_duration = %[3]s
-  lb_name         = aws_lightsail_lb.test.name
+  lb_name= aws_lightsail_lb.test.name
 }
 `, rName, enabled, cookieDuration)
 }

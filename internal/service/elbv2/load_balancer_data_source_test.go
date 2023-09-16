@@ -1,29 +1,21 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elbv2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elbv2_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/elbv2"
+	"testing"	"github.com/aws/aws-sdk-go/service/elbv2"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccELBV2LoadBalancerDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_lb.alb_test_with_arn"
 	dataSourceName2 := "data.aws_lb.alb_test_with_name"
 	dataSourceName3 := "data.aws_lb.alb_test_with_tags"
-	resourceName := "aws_lb.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
+	resourceName := "aws_lb.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -85,16 +77,14 @@ func TestAccELBV2LoadBalancerDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccELBV2LoadBalancerDataSource_outpost(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_lb.alb_test_with_arn"
-	resourceName := "aws_lb.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
+	resourceName := "aws_lb.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:  
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -121,18 +111,16 @@ func TestAccELBV2LoadBalancerDataSource_outpost(t *testing.T) {
 		},
 	})
 }
-
 func TestAccELBV2LoadBalancerDataSource_backwardsCompatibility(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName1 := "data.aws_alb.alb_test_with_arn"
 	dataSourceName2 := "data.aws_alb.alb_test_with_name"
 	dataSourceName3 := "data.aws_alb.alb_test_with_tags"
-	resourceName := "aws_alb.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
+	resourceName := "aws_alb.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -203,184 +191,117 @@ func TestAccELBV2LoadBalancerDataSource_backwardsCompatibility(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancerDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  name   = %[1]q
-  internal        = true
+  name= %[1]q
+  internal  = true
   security_groups = [aws_security_group.test.id]
-  subnets= aws_subnet.test[*].id
-
-  idle_timeout= 30
-  enable_deletion_protection = false
-
-  desync_mitigation_mode = "defensive"
-
-  tags = {
-    Name   = %[1]q
-    Config = "Basic"
+  subnets= aws_subnet.test[*].id  idle_timeout= 30
+  enable_deletion_protection = false  desync_mitigation_mode = "defensive"  tags = {
+ Name= %[1]q
+ Config = "Basic"
   }
-}
-
-resource "aws_security_group" "test" {
-  name   = %[1]q
-  vpc_id = aws_vpc.test.id
-
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+}resource "aws_security_group" "test" {
+  name= %[1]q
+  vpc_id = aws_vpc.test.id  ingress {
+ from_port= 0
+ to_port= 0
+ protocol = "-1"
+ cidr_blocks = ["0.0.0.0/0"]
+  }  egress {
+ from_port= 0
+ to_port= 0
+ protocol = "-1"
+ cidr_blocks = ["0.0.0.0/0"]
+  }  tags = {
+ Name = %[1]q
   }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = %[1]q
-  }
-}
-
-data "aws_lb" "alb_test_with_arn" {
+}data "aws_lb" "alb_test_with_arn" {
   arn = aws_lb.test.arn
-}
-
-data "aws_lb" "alb_test_with_name" {
+}data "aws_lb" "alb_test_with_name" {
   name = aws_lb.test.name
-}
-
-data "aws_lb" "alb_test_with_tags" {
+}data "aws_lb" "alb_test_with_tags" {
   tags = aws_lb.test.tags
 }
 `, rName))
 }
-
 func testAccLoadBalancerDataSourceConfig_outpost(rName string) string {
 	return fmt.Sprintf(`
-data "aws_outposts_outposts" "test" {}
-
-data "aws_outposts_outpost" "test" {
+data "aws_outposts_outposts" "test" {}data "aws_outposts_outpost" "test" {
   id = tolist(data.aws_outposts_outposts.test.ids)[0]
-}
-
-resource "aws_lb" "test" {
-  name   = %[1]q
-  internal        = true
+}resource "aws_lb" "test" {
+  name= %[1]q
+  internal  = true
   security_groups = [aws_security_group.test.id]
-  subnets= [aws_subnet.test.id]
-
-  idle_timeout= 30
-  enable_deletion_protection = false
-
-  tags = {
-    Name   = %[1]q
-    Config = "Outposts"
+  subnets= [aws_subnet.test.id]  idle_timeout= 30
+  enable_deletion_protection = false  tags = {
+ Name= %[1]q
+ Config = "Outposts"
   }
-}
-
-resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
-  tags = {
-    Name = %[1]q
+}resource "aws_vpc" "test" {
+  cidr_block = "10.0.0.0/16"  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_subnet" "test" {
-  vpc_id   = aws_vpc.test.id
-  cidr_block        = "10.0.0.0/24"
+}resource "aws_subnet" "test" {
+  vpc_id= aws_vpc.test.id
+  cidr_block  = "10.0.0.0/24"
   availability_zone = data.aws_outposts_outpost.test.availability_zone
-  outpost_arn       = data.aws_outposts_outpost.test.arn
-
-  tags = {
-    Name = %[1]q
+  outpost_arn = data.aws_outposts_outpost.test.arn  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test" {
-  name        = %[1]q
+}resource "aws_security_group" "test" {
+  name  = %[1]q
   description = "Used for ALB Testing"
-  vpc_id      = aws_vpc.test.id
-
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+  vpc_id= aws_vpc.test.id  ingress {
+ from_port= 0
+ to_port= 0
+ protocol = "-1"
+ cidr_blocks = ["0.0.0.0/0"]
+  }  egress {
+ from_port= 0
+ to_port= 0
+ protocol = "-1"
+ cidr_blocks = ["0.0.0.0/0"]
+  }  tags = {
+ Name = %[1]q
   }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = %[1]q
-  }
-}
-
-data "aws_lb" "alb_test_with_arn" {
+}data "aws_lb" "alb_test_with_arn" {
   arn = aws_lb.test.arn
 }
 `, rName)
 }
-
 func testAccLoadBalancerDataSourceConfig_backwardsCompatibility(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_alb" "test" {
-  name   = %[1]q
-  internal        = true
+  name= %[1]q
+  internal  = true
   security_groups = [aws_security_group.test.id]
-  subnets= aws_subnet.test[*].id
-
-  idle_timeout= 30
-  enable_deletion_protection = false
-
-  tags = {
-    Name   = %[1]q
-    Config = "BackwardsCompatibility"
+  subnets= aws_subnet.test[*].id  idle_timeout= 30
+  enable_deletion_protection = false  tags = {
+ Name= %[1]q
+ Config = "BackwardsCompatibility"
   }
-}
-
-resource "aws_security_group" "test" {
-  name   = %[1]q
-  vpc_id = aws_vpc.test.id
-
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+}resource "aws_security_group" "test" {
+  name= %[1]q
+  vpc_id = aws_vpc.test.id  ingress {
+ from_port= 0
+ to_port= 0
+ protocol = "-1"
+ cidr_blocks = ["0.0.0.0/0"]
+  }  egress {
+ from_port= 0
+ to_port= 0
+ protocol = "-1"
+ cidr_blocks = ["0.0.0.0/0"]
+  }  tags = {
+ Name = %[1]q
   }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = %[1]q
-  }
-}
-
-data "aws_alb" "alb_test_with_arn" {
+}data "aws_alb" "alb_test_with_arn" {
   arn = aws_alb.test.arn
-}
-
-data "aws_alb" "alb_test_with_name" {
+}data "aws_alb" "alb_test_with_name" {
   name = aws_alb.test.name
-}
-
-data "aws_alb" "alb_test_with_tags" {
+}data "aws_alb" "alb_test_with_tags" {
   tags = aws_alb.test.tags
 }
 `, rName))

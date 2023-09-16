@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccWAFV2RegexPatternSetDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -44,7 +43,6 @@ func TestAccWAFV2RegexPatternSetDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccRegexPatternSetDataSourceConfig_name(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
@@ -62,7 +60,6 @@ data "aws_wafv2_regex_pattern_set" "test" {
 }
 `, name)
 }
-
 func testAccRegexPatternSetDataSourceConfig_nonExistent(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {

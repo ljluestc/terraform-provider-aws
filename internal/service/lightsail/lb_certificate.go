@@ -49,7 +49,7 @@ func ResourceLoadBalancerCertificate() *schema.Resource {
 				// AWS Provider 3.0.0 aws_route53_zone references no longer contain a
 				// trailing period, no longer requiring a custom StateFunc
 				// to prevent ACM API error
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -142,7 +142,6 @@ func ResourceLoadBalancerCertificate() *schema.Resource {
 		),
 	}
 }
-
 func resourceLoadBalancerCertificateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	certName := d.Get("name").(string)
@@ -178,7 +177,6 @@ func resourceLoadBalancerCertificateCreate(ctx context.Context, d *schema.Resour
 
 	return resourceLoadBalancerCertificateRead(ctx, d, meta)
 }
-
 func resourceLoadBalancerCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -205,7 +203,6 @@ func resourceLoadBalancerCertificateRead(ctx context.Context, d *schema.Resource
 
 	return nil
 }
-
 func resourceLoadBalancerCertificateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -230,13 +227,12 @@ func resourceLoadBalancerCertificateDelete(ctx context.Context, d *schema.Resour
 
 	return nil
 }
-
 func flattenLoadBalancerDomainValidationRecords(domainValidationRecords []types.LoadBalancerTlsCertificateDomainValidationRecord) []map[string]interface{} {
 	var domainValidationResult []map[string]interface{}
 
 	for _, o := range domainValidationRecords {
 		validationOption := map[string]interface{}{
-			"domain_name":           aws.ToString(o.DomainName),
+			"domain_name":  aws.ToString(o.DomainName),
 			"resource_record_name":  aws.ToString(o.Name),
 			"resource_record_type":  aws.ToString(o.Type),
 			"resource_record_value": aws.ToString(o.Value),
@@ -246,7 +242,6 @@ func flattenLoadBalancerDomainValidationRecords(domainValidationRecords []types.
 
 	return domainValidationResult
 }
-
 func FindLoadBalancerCertificateById(ctx context.Context, conn *lightsail.Client, id string) (*types.LoadBalancerTlsCertificate, error) {
 	id_parts := strings.SplitN(id, ",", -1)
 	if len(id_parts) != 2 {

@@ -31,51 +31,51 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"allow_users_to_change_password": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  true,
 			},
 			"expire_passwords": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Computed: true,
 			},
 			"hard_expiry": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 			"max_password_age": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
 			"minimum_password_length": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional: true,
 				Default:  6,
 			},
 			"password_reuse_prevention": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
 			"require_lowercase_characters": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 			"require_numbers": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 			"require_symbols": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 			"require_uppercase_characters": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},

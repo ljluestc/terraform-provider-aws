@@ -1,16 +1,7 @@
 // Copyright 2009 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build aix || darwin || dragonfly || freebsd || linux || netbsd || openbsd || solaris || zos
-// +build aix darwin dragonfly freebsd linux netbsd openbsd solaris zos
-
-package unix
-
-import "unsafe"
-
-// readInt returns the size-bytes unsigned integer in native byte order at offset off.
-func readInt(b []byte, off, size uintptr) (u uint64, ok bool) {
+// license that can be found in the LICENSE file.//go:build aix || darwin || dragonfly || freebsd || linux || netbsd || openbsd || solaris || zos
+// +build aix darwin dragonfly freebsd linux netbsd openbsd solaris zospackage uniximport "unsafe"// readInt returns the size-bytes unsigned integer in native byte order at offset off. readInt(b []byte, off, size uintptr) (u uint64, ok bool) {
 	if len(b) < int(off+size) {
 		return 0, false
 	}
@@ -19,8 +10,7 @@ func readInt(b []byte, off, size uintptr) (u uint64, ok bool) {
 	}
 	return readIntLE(b[off:], size), true
 }
-
-func readIntBE(b []byte, size uintptr) uint64 {
+ readIntBE(b []byte, size uintptr) uint64 {
 	switch size {
 	case 1:
 		return uint64(b[0])
@@ -38,8 +28,7 @@ func readIntBE(b []byte, size uintptr) uint64 {
 		panic("syscall: readInt with unsupported size")
 	}
 }
-
-func readIntLE(b []byte, size uintptr) uint64 {
+ readIntLE(b []byte, size uintptr) uint64 {
 	switch size {
 	case 1:
 		return uint64(b[0])
@@ -56,13 +45,10 @@ func readIntLE(b []byte, size uintptr) uint64 {
 	default:
 		panic("syscall: readInt with unsupported size")
 	}
-}
-
-// ParseDirent parses up to max directory entries in buf,
+}// ParseDirent parses up to max directory entries in buf,
 // appending the names to names. It returns the number of
 // bytes consumed from buf, the number of entries added
-// to names, and the new names slice.
-func ParseDirent(buf []byte, max int, names []string) (consumed int, count int, newnames []string) {
+// to names, and the new names slice. ParseDirent(buf []byte, max int, names []string) (consumed int, count int, newnames []string) {
 	origlen := len(buf)
 	count = 0
 	for max != 0 && len(buf) > 0 {

@@ -52,7 +52,6 @@ func ResourceLoadBalancerAttachment() *schema.Resource {
 		},
 	}
 }
-
 func resourceLoadBalancerAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	lbName := d.Get("lb_name").(string)
@@ -83,7 +82,6 @@ func resourceLoadBalancerAttachmentCreate(ctx context.Context, d *schema.Resourc
 
 	return resourceLoadBalancerAttachmentRead(ctx, d, meta)
 }
-
 func resourceLoadBalancerAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -104,7 +102,6 @@ func resourceLoadBalancerAttachmentRead(ctx context.Context, d *schema.ResourceD
 
 	return nil
 }
-
 func resourceLoadBalancerAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -135,14 +132,12 @@ func resourceLoadBalancerAttachmentDelete(ctx context.Context, d *schema.Resourc
 
 	return nil
 }
-
 func expandLoadBalancerNameFromId(id string) string {
 	id_parts := strings.SplitN(id, ",", -1)
 	lbName := id_parts[0]
 
 	return lbName
 }
-
 func FindLoadBalancerAttachmentById(ctx context.Context, conn *lightsail.Client, id string) (*string, error) {
 	id_parts := strings.SplitN(id, ",", -1)
 	if len(id_parts) != 2 {

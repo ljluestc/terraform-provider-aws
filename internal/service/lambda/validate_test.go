@@ -7,13 +7,12 @@ import (
 	"strings"
 	"testing"
 )
-
 func TestValidFunctionName(t *testing.T) {
 	t.Parallel()
 
 	validNames := []string{
-		"arn:aws:lambda:us-west-2:123456789012:function:ThumbNail",   //lintignore:AWSAT003,AWSAT005
-		"arn:aws-us-gov:lambda:us-west-2:123456789012:function:ThumbNail",     //lintignore:AWSAT003,AWSAT005
+		"arn:aws:lambda:us-west-2:123456789012:function:ThumbNail",//lintignore:AWSAT003,AWSAT005
+		"arn:aws-us-gov:lambda:us-west-2:123456789012:function:ThumbNail",//lintignore:AWSAT003,AWSAT005
 		"arn:aws-us-gov:lambda:us-gov-west-1:123456789012:function:ThumbNail", //lintignore:AWSAT003,AWSAT005
 		"FunctionName",
 		"function-name",
@@ -40,7 +39,6 @@ func TestValidFunctionName(t *testing.T) {
 		}
 	}
 }
-
 func TestValidPermissionAction(t *testing.T) {
 	t.Parallel()
 
@@ -69,7 +67,6 @@ func TestValidPermissionAction(t *testing.T) {
 		}
 	}
 }
-
 func TestValidPermissionEventSourceToken(t *testing.T) {
 	t.Parallel()
 
@@ -97,7 +94,6 @@ func TestValidPermissionEventSourceToken(t *testing.T) {
 		}
 	}
 }
-
 func TestValidQualifier(t *testing.T) {
 	t.Parallel()
 
@@ -132,7 +128,6 @@ func TestValidQualifier(t *testing.T) {
 		}
 	}
 }
-
 func TestValidPolicyStatementID(t *testing.T) {
 	t.Parallel()
 

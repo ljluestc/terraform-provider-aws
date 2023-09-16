@@ -56,7 +56,7 @@ func TestAccChimeSDKMediaPipelinesMediaInsightsPipelineConfiguration_basic(t *te
 			},
 			{
 				Config:testAccMediaInsightsPipelineConfigurationConfig_basic(rName, roleName, streamName),
-				PlanOnly:           true,
+				PlanOnly:  true,
 				ExpectNonEmptyPlan: false,
 			},
 			{
@@ -397,19 +397,19 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
       content_redaction_type  = "PII"
       enable_partial_results_stabilization = true
       filter_partial_results  = true
-      language_code           = "en-US"
+      language_code  = "en-US"
       language_model_name     = "MyLanguageModel"
-      partial_results_stability            = "high"
+      partial_results_stability   = "high"
       pii_entity_types        = "ADDRESS,BANK_ACCOUNT_NUMBER"
       post_call_analytics_settings {
         content_redaction_output     = "redacted"
-        data_access_role_arn         = aws_iam_role.test.arn
+        data_access_role_arn= aws_iam_role.test.arn
         output_encryption_kms_key_id = "MyKmsKeyId "
         output_location = "s3://MyBucket"
       }
       vocabulary_filter_method = "mask"
       vocabulary_filter_name   = "MyVocabularyFilter"
-      vocabulary_name          = "MyVocabulary"
+      vocabulary_name = "MyVocabulary"
     }
   }
 
@@ -462,17 +462,17 @@ resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "tes
   elements {
     type = "AmazonTranscribeProcessor"
     amazon_transcribe_processor_configuration {
-      content_identification_type          = "PII"
+      content_identification_type = "PII"
       enable_partial_results_stabilization = true
       filter_partial_results  = true
-      language_code           = "en-US"
+      language_code  = "en-US"
       language_model_name     = "MyLanguageModel"
-      partial_results_stability            = "high"
+      partial_results_stability   = "high"
       pii_entity_types        = "ADDRESS,BANK_ACCOUNT_NUMBER"
       show_speaker_label      = true
       vocabulary_filter_method= "mask"
       vocabulary_filter_name  = "MyVocabularyFilter"
-      vocabulary_name         = "MyVocabulary"
+      vocabulary_name= "MyVocabulary"
     }
   }
 

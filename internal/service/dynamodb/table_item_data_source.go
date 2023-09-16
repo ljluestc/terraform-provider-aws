@@ -25,25 +25,25 @@ func DataSourceTableItem() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"expression_attribute_names": {
-				Type:     schema.TypeMap,
+				Type: schema.TypeMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"item": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"key": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validateTableItem,
 			},
 			"projection_expression": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"table_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 		},
@@ -67,8 +67,8 @@ func dataSourceTableItemRead(ctx context.Context, d *schema.ResourceData, meta i
 	id := buildTableItemDataSourceID(tableName, key)
 	in := &dynamodb.GetItemInput{
 		ConsistentRead: aws.Bool(true),
-		Key:            key,
-		TableName:      aws.String(tableName),
+		Key:   key,
+		TableName:  aws.String(tableName),
 	}
 
 	if v, ok := d.GetOk("expression_attribute_names"); ok && len(v.(map[string]interface{})) > 0 {

@@ -32,7 +32,7 @@ const clusterParameterGroupMaxParamsBulkEdit = 20
 func ResourceClusterParameterGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClusterParameterGroupCreate,
-		ReadWithoutTimeout:   resourceClusterParameterGroupRead,
+		ReadWithoutTimeout:resourceClusterParameterGroupRead,
 		UpdateWithoutTimeout: resourceClusterParameterGroupUpdate,
 		DeleteWithoutTimeout: resourceClusterParameterGroupDelete,
 		Importer: &schema.ResourceImporter{
@@ -41,51 +41,51 @@ func ResourceClusterParameterGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"name_prefix"},
 				ValidateFunc:  validParamGroupName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"name"},
 				ValidateFunc:  validParamGroupNamePrefix,
 			},
 			"family": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 				Default:  "Managed by Terraform",
 			},
 			"parameter": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"value": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"apply_method": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							Default:  docdb.ApplyMethodPendingReboot,
 							ValidateFunc: validation.StringInSlice([]string{
@@ -96,14 +96,13 @@ func ResourceClusterParameterGroup() *schema.Resource {
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceClusterParameterGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -119,9 +118,9 @@ func resourceClusterParameterGroupCreate(ctx context.Context, d *schema.Resource
 
 	input := docdb.CreateDBClusterParameterGroupInput{
 		DBClusterParameterGroupName: aws.String(groupName),
-		DBParameterGroupFamily:      aws.String(d.Get("family").(string)),
-		Description:    aws.String(d.Get("description").(string)),
-		Tags:           getTagsIn(ctx),
+		DBParameterGroupFamily:ring(d.Get("family").(string)),
+		Description: aws.String(d.Get("description").(string)),
+		Tags:etTagsIn(ctx),
 	}
 
 	resp, err := conn.CreateDBClusterParameterGroupWithContext(ctx, &input)
@@ -135,7 +134,6 @@ func resourceClusterParameterGroupCreate(ctx context.Context, d *schema.Resource
 
 	return append(diags, resourceClusterParameterGroupUpdate(ctx, d, meta)...)
 }
-
 func resourceClusterParameterGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -180,7 +178,6 @@ func resourceClusterParameterGroupRead(ctx context.Context, d *schema.ResourceDa
 
 	return diags
 }
-
 func resourceClusterParameterGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -211,7 +208,7 @@ func resourceClusterParameterGroupUpdate(ctx context.Context, d *schema.Resource
 				parameterGroupName := d.Id()
 				modifyOpts := docdb.ModifyDBClusterParameterGroupInput{
 					DBClusterParameterGroupName: aws.String(parameterGroupName),
-					Parameters:     paramsToModify,
+					Parameters:paramsToModify,
 				}
 
 				_, err := conn.ModifyDBClusterParameterGroupWithContext(ctx, &modifyOpts)
@@ -224,7 +221,6 @@ func resourceClusterParameterGroupUpdate(ctx context.Context, d *schema.Resource
 
 	return append(diags, resourceClusterParameterGroupRead(ctx, d, meta)...)
 }
-
 func resourceClusterParameterGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -246,7 +242,6 @@ func resourceClusterParameterGroupDelete(ctx context.Context, d *schema.Resource
 	}
 	return diags
 }
-
 func WaitForClusterParameterGroupDeletion(ctx context.Context, conn *docdb.DocDB, name string) error {
 	params := &docdb.DescribeDBClusterParameterGroupsInput{
 		DBClusterParameterGroupName: aws.String(name),

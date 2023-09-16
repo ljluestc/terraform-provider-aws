@@ -10,7 +10,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/kinesisanalyticsv2/kinesisanalyticsv2iface"
 )
 
-func listApplicationsPages(ctx context.Context, conn kinesisanalyticsv2iface.KinesisAnalyticsV2API, input *kinesisanalyticsv2.ListApplicationsInput, fn func(*kinesisanalyticsv2.ListApplicationsOutput, bool) bool) error {
+
+ listApplicationsPages(ctx context.Context, conn kinesisanalyticsv2iface.KinesisAnalyticsV2API, input *kinesisanalyticsv2.ListApplicationsInput, fn 
+(*kinesisanalyticsv2.ListApplicationsOutput, bool) bool) error {
 	for {
 		output, err := conn.ListApplicationsWithContext(ctx, input)
 		if err != nil {

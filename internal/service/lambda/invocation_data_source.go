@@ -24,30 +24,29 @@ func DataSourceInvocation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"function_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 
 			"qualifier": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  FunctionVersionLatest,
 			},
 
 			"input": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				ValidateFunc: validation.StringIsJSON,
 			},
 
 			"result": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func dataSourceInvocationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -57,10 +56,10 @@ func dataSourceInvocationRead(ctx context.Context, d *schema.ResourceData, meta 
 	input := []byte(d.Get("input").(string))
 
 	res, err := conn.InvokeWithContext(ctx, &lambda.InvokeInput{
-		FunctionName:   aws.String(functionName),
+		FunctionName:aws.String(functionName),
 		InvocationType: aws.String(lambda.InvocationTypeRequestResponse),
-		Payload:        input,
-		Qualifier:      aws.String(qualifier),
+		Payload:input,
+		Qualifier: aws.String(qualifier),
 	})
 
 	if err != nil {

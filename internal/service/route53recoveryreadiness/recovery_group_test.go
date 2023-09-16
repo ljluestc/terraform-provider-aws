@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfroute53recoveryreadiness "github.com/hashicorp/terraform-provider-aws/internal/service/route53recoveryreadiness"
 )
-
 func TestAccRoute53RecoveryReadinessRecoveryGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -47,7 +46,6 @@ func TestAccRoute53RecoveryReadinessRecoveryGroup_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccRoute53RecoveryReadinessRecoveryGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -70,7 +68,6 @@ func TestAccRoute53RecoveryReadinessRecoveryGroup_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccRoute53RecoveryReadinessRecoveryGroup_nestedCell(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -98,7 +95,6 @@ func TestAccRoute53RecoveryReadinessRecoveryGroup_nestedCell(t *testing.T) {
 		},
 	})
 }
-
 func TestAccRoute53RecoveryReadinessRecoveryGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -142,7 +138,6 @@ func TestAccRoute53RecoveryReadinessRecoveryGroup_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccRoute53RecoveryReadinessRecoveryGroup_timeout(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -170,7 +165,6 @@ func TestAccRoute53RecoveryReadinessRecoveryGroup_timeout(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckRecoveryGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -193,7 +187,6 @@ func testAccCheckRecoveryGroupDestroy(ctx context.Context) resource.TestCheckFun
 		return nil
 	}
 }
-
 func testAccCheckRecoveryGroupExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -212,7 +205,6 @@ func testAccCheckRecoveryGroupExists(ctx context.Context, name string) resource.
 		return err
 	}
 }
-
 func testAccRecoveryGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_recovery_group" "test" {
@@ -220,7 +212,6 @@ resource "aws_route53recoveryreadiness_recovery_group" "test" {
 }
 `, rName)
 }
-
 func testAccRecoveryGroupConfig_andCell(rName, rNameCell string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_cell" "test" {
@@ -233,7 +224,6 @@ resource "aws_route53recoveryreadiness_recovery_group" "test" {
 }
 `, rName, rNameCell)
 }
-
 func testAccRecoveryGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_recovery_group" "test" {
@@ -244,7 +234,6 @@ resource "aws_route53recoveryreadiness_recovery_group" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccRecoveryGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_recovery_group" "test" {
@@ -256,7 +245,6 @@ resource "aws_route53recoveryreadiness_recovery_group" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccRecoveryGroupConfig_timeout(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_recovery_group" "test" {

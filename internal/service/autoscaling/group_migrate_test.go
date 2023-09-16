@@ -1,21 +1,12 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package autoscaling_test
-
-import (
-	"testing"
-
-	"github.com/google/go-cmp/cmp"
+// SPDX-License-Identifier: MPL-2.0package autoscaling_testimport (
+	"testing"	"github.com/google/go-cmp/cmp"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfautoscaling "github.com/hashicorp/terraform-provider-aws/internal/service/autoscaling"
 )
-
 func TestGroupStateUpgradeV0(t *testing.T) {
 	ctx := acctest.Context(t)
-	t.Parallel()
-
-	testCases := []struct {
+	t.Parallel()	testCases := []struct {
 		testName string
 		rawState map[string]interface{}
 		wantap[string]interface{}
@@ -56,16 +47,11 @@ func TestGroupStateUpgradeV0(t *testing.T) {
 				"max_instance_lifetime":000",
 			},
 		},
-	}
-
-	for _, testCase := range testCases {
+	}	for _, testCase := range testCases {
 		testCase := testCase
-		t.Run(testCase.testName, func(t *testing.T) {
-			t.Parallel()
-
-			got, err := tfautoscaling.GroupStateUpgradeV0(ctx, testCase.rawState, nil)
-
-			if err != nil {
+		t.Run(testCase.testName, 
+func(t *testing.T) {
+			t.Parallel()			got, err := tfautoscaling.GroupStateUpgradeV0(ctx, testCase.rawState, nil)			if err != nil {
 				t.Errorf("err = %q", err)
 			} else if diff := cmp.Diff(got, testCase.want); diff != "" {
 				t.Errorf("unexpected diff (+wanted, -got): %s", diff)

@@ -52,20 +52,20 @@ func ResourceVirtualService() *schema.Resource {
 				Computed: true,
 			},
 			"mesh_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"mesh_owner": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
@@ -74,7 +74,7 @@ func ResourceVirtualService() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
-			"spec":            resourceVirtualServiceSpecSchema(),
+			"spec":   resourceVirtualServiceSpecSchema(),
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
@@ -99,7 +99,7 @@ func resourceVirtualServiceSpecSchema() *schema.Schema {
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"virtual_node": {
-								Type:          schema.TypeList,
+								Type: schema.TypeList,
 								Optional:      true,
 								MinItems:      0,
 								MaxItems:      1,
@@ -107,7 +107,7 @@ func resourceVirtualServiceSpecSchema() *schema.Schema {
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"virtual_node_name": {
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											Required:     true,
 											ValidateFunc: validation.StringLenBetween(1, 255),
 										},
@@ -115,7 +115,7 @@ func resourceVirtualServiceSpecSchema() *schema.Schema {
 								},
 							},
 							"virtual_router": {
-								Type:          schema.TypeList,
+								Type: schema.TypeList,
 								Optional:      true,
 								MinItems:      0,
 								MaxItems:      1,
@@ -123,7 +123,7 @@ func resourceVirtualServiceSpecSchema() *schema.Schema {
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"virtual_router_name": {
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											Required:     true,
 											ValidateFunc: validation.StringLenBetween(1, 255),
 										},
@@ -144,7 +144,7 @@ func resourceVirtualServiceCreate(ctx context.Context, d *schema.ResourceData, m
 
 	name := d.Get("name").(string)
 	input := &appmesh.CreateVirtualServiceInput{
-		MeshName:           aws.String(d.Get("mesh_name").(string)),
+		MeshName:  aws.String(d.Get("mesh_name").(string)),
 		Spec:  expandVirtualServiceSpec(d.Get("spec").([]interface{})),
 		Tags:  getTagsIn(ctx),
 		VirtualServiceName: aws.String(name),
@@ -206,7 +206,7 @@ func resourceVirtualServiceUpdate(ctx context.Context, d *schema.ResourceData, m
 
 	if d.HasChange("spec") {
 		input := &appmesh.UpdateVirtualServiceInput{
-			MeshName:           aws.String(d.Get("mesh_name").(string)),
+			MeshName:  aws.String(d.Get("mesh_name").(string)),
 			Spec:  expandVirtualServiceSpec(d.Get("spec").([]interface{})),
 			VirtualServiceName: aws.String(d.Get("name").(string)),
 		}
@@ -231,7 +231,7 @@ func resourceVirtualServiceDelete(ctx context.Context, d *schema.ResourceData, m
 
 	log.Printf("[DEBUG] Deleting App Mesh Virtual Service: %s", d.Id())
 	input := &appmesh.DeleteVirtualServiceInput{
-		MeshName:           aws.String(d.Get("mesh_name").(string)),
+		MeshName:  aws.String(d.Get("mesh_name").(string)),
 		VirtualServiceName: aws.String(d.Get("name").(string)),
 	}
 
@@ -277,7 +277,7 @@ func resourceVirtualServiceImport(ctx context.Context, d *schema.ResourceData, m
 
 func FindVirtualServiceByThreePartKey(ctx context.Context, conn *appmesh.AppMesh, meshName, meshOwner, name string) (*appmesh.VirtualServiceData, error) {
 	input := &appmesh.DescribeVirtualServiceInput{
-		MeshName:           aws.String(meshName),
+		MeshName:  aws.String(meshName),
 		VirtualServiceName: aws.String(name),
 	}
 	if meshOwner != "" {

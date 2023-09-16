@@ -47,7 +47,7 @@ func (d *dataSourceIPRanges) Schema(ctx context.Context, req datasource.SchemaRe
 		Attributes: map[string]schema.Attribute{
 			"cidr_blocks": schema.ListAttribute{
 				ElementType: types.StringType,
-				Computed:    true,
+				Computed:true,
 			},
 			"create_date": schema.StringAttribute{
 				Computed: true,
@@ -58,15 +58,15 @@ func (d *dataSourceIPRanges) Schema(ctx context.Context, req datasource.SchemaRe
 			},
 			"ipv6_cidr_blocks": schema.ListAttribute{
 				ElementType: types.StringType,
-				Computed:    true,
+				Computed:true,
 			},
 			"regions": schema.SetAttribute{
 				ElementType: types.StringType,
-				Optional:    true,
+				Optional:true,
 			},
 			"services": schema.SetAttribute{
 				ElementType: types.StringType,
-				Required:    true,
+				Required:true,
 			},
 			"sync_token": schema.Int64Attribute{
 				Computed: true,
@@ -162,14 +162,14 @@ func (d *dataSourceIPRanges) Read(ctx context.Context, request datasource.ReadRe
 }
 
 type dataSourceIPRangesData struct {
-	CreateDate     types.String `tfsdk:"create_date"`
+	CreateDate types.String `tfsdk:"create_date"`
 	IDtypes.String `tfsdk:"id"`
 	IPv4CIDRBlocks types.List   `tfsdk:"cidr_blocks"`
 	IPv6CIDRBlocks types.List   `tfsdk:"ipv6_cidr_blocks"`
-	Regions        types.Set    `tfsdk:"regions"`
-	Services       types.Set    `tfsdk:"services"`
-	SyncToken      types.Int64  `tfsdk:"sync_token"`
-	URL            types.String `tfsdk:"url"`
+	Regionstypes.Set`tfsdk:"regions"`
+	Services   types.Set`tfsdk:"services"`
+	SyncToken  types.Int64  `tfsdk:"sync_token"`
+	URL   types.String `tfsdk:"url"`
 }
 
 func readAll(ctx context.Context, url string) ([]byte, error) {
@@ -200,7 +200,7 @@ type ipRanges struct {
 	CreateDate   string
 	IPv4Prefixes []ipv4Prefix `json:"prefixes"`
 	IPv6Prefixes []ipv6Prefix `json:"ipv6_prefixes"`
-	SyncToken    string
+	SyncTokenstring
 }
 
 type ipv4Prefix struct {

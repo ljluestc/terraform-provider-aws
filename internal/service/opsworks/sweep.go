@@ -28,7 +28,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_opsworks_stack", &resource.Sweeper{
 		Name: "aws_opsworks_stack",
-		F:    sweepStacks,
+		F:sweepStacks,
 		Dependencies: []string{
 			"aws_opsworks_application",
 			"aws_opsworks_layer",
@@ -39,18 +39,18 @@ func init() {
 
 	resource.AddTestSweepers("aws_opsworks_application", &resource.Sweeper{
 		Name: "aws_opsworks_application",
-		F:    sweepApplication,
+		F:sweepApplication,
 	})
 
 	resource.AddTestSweepers("aws_opsworks_instance", &resource.Sweeper{
 		Name: "aws_opsworks_instance",
-		F:    sweepInstance,
+		F:sweepInstance,
 	})
 
 	// This sweep all the custom, ecs, ganglia, etc. layers
 	resource.AddTestSweepers("aws_opsworks_layer", &resource.Sweeper{
 		Name: "aws_opsworks_layer",
-		F:    sweepLayers,
+		F:sweepLayers,
 		Dependencies: []string{
 			"aws_opsworks_instance",
 			"aws_opsworks_rds_db_instance",
@@ -59,7 +59,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_opsworks_rds_db_instance", &resource.Sweeper{
 		Name: "aws_opsworks_rds_db_instance",
-		F:    sweepRDSDBInstance,
+		F:sweepRDSDBInstance,
 		Dependencies: []string{
 			"aws_db_instance",
 		},
@@ -67,7 +67,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_opsworks_user_profile", &resource.Sweeper{
 		Name: "aws_opsworks_user_profile",
-		F:    sweepUserProfiles,
+		F:sweepUserProfiles,
 	})
 }
 
@@ -110,7 +110,7 @@ func sweepApplication(region string) error {
 
 		for _, app := range appOutput.Apps {
 			if app == nil {
-				continue
+continue
 			}
 
 			r := ResourceApplication()
@@ -163,7 +163,7 @@ func sweepInstance(region string) error {
 
 		for _, instance := range instanceOutput.Instances {
 			if instance == nil {
-				continue
+continue
 			}
 
 			r := ResourceInstance()
@@ -217,7 +217,7 @@ func sweepRDSDBInstance(region string) error {
 
 		for _, dbInstance := range dbInstOutput.RdsDbInstances {
 			if dbInstance == nil {
-				continue
+continue
 			}
 
 			r := ResourceRDSDBInstance()
@@ -315,7 +315,7 @@ func sweepLayers(region string) error {
 
 		for _, layer := range layerOutput.Layers {
 			if layer == nil {
-				continue
+continue
 			}
 
 			l := &opsworksLayerType{}
@@ -324,12 +324,12 @@ func sweepLayers(region string) error {
 			d.SetId(aws.StringValue(layer.LayerId))
 
 			if layer.Attributes != nil {
-				if v, ok := layer.Attributes[opsworks.LayerAttributesKeysEcsClusterArn]; ok && aws.StringValue(v) != "" {
-					r = ResourceECSClusterLayer()
-					d = r.Data(nil)
-					d.SetId(aws.StringValue(layer.LayerId))
-					d.Set("ecs_cluster_arn", v)
-				}
+if v, ok := layer.Attributes[opsworks.LayerAttributesKeysEcsClusterArn]; ok && aws.StringValue(v) != "" {
+	r = ResourceECSClusterLayer()
+	d = r.Data(nil)
+	d.SetId(aws.StringValue(layer.LayerId))
+	d.Set("ecs_cluster_arn", v)
+}
 			}
 
 			sweepResources = append(sweepResources, sdk.NewSweepResource(r, d, client))

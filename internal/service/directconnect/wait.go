@@ -15,13 +15,12 @@ import (
 )
 
 const (
-	connectionConfirmedTimeout     = 10 * time.Minute
-	connectionDeletedTimeout       = 10 * time.Minute
+	connectionConfirmedTimeout= 10 * time.Minute
+	connectionDeletedTimeout* time.Minute
 	connectionDisassociatedTimeout = 1 * time.Minute
 	hostedConnectionDeletedTimeout = 10 * time.Minute
 	lagDeletedTimeout = 10 * time.Minute
 )
-
 func waitConnectionConfirmed(ctx context.Context, conn *directconnect.DirectConnect, id string) (*directconnect.Connection, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{directconnect.ConnectionStatePending, directconnect.ConnectionStateOrdering, directconnect.ConnectionStateRequested},
@@ -38,7 +37,6 @@ func waitConnectionConfirmed(ctx context.Context, conn *directconnect.DirectConn
 
 	return nil, err
 }
-
 func waitConnectionDeleted(ctx context.Context, conn *directconnect.DirectConnect, id string) (*directconnect.Connection, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{directconnect.ConnectionStatePending, directconnect.ConnectionStateOrdering, directconnect.ConnectionStateAvailable, directconnect.ConnectionStateRequested, directconnect.ConnectionStateDeleting},
@@ -55,7 +53,6 @@ func waitConnectionDeleted(ctx context.Context, conn *directconnect.DirectConnec
 
 	return nil, err
 }
-
 func waitGatewayCreated(ctx context.Context, conn *directconnect.DirectConnect, id string, timeout time.Duration) (*directconnect.Gateway, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{directconnect.GatewayStatePending},
@@ -74,7 +71,6 @@ func waitGatewayCreated(ctx context.Context, conn *directconnect.DirectConnect, 
 
 	return nil, err
 }
-
 func waitGatewayDeleted(ctx context.Context, conn *directconnect.DirectConnect, id string, timeout time.Duration) (*directconnect.Gateway, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{directconnect.GatewayStatePending, directconnect.GatewayStateAvailable, directconnect.GatewayStateDeleting},
@@ -93,7 +89,6 @@ func waitGatewayDeleted(ctx context.Context, conn *directconnect.DirectConnect, 
 
 	return nil, err
 }
-
 func waitGatewayAssociationCreated(ctx context.Context, conn *directconnect.DirectConnect, id string, timeout time.Duration) (*directconnect.GatewayAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{directconnect.GatewayAssociationStateAssociating},
@@ -112,7 +107,6 @@ func waitGatewayAssociationCreated(ctx context.Context, conn *directconnect.Dire
 
 	return nil, err
 }
-
 func waitGatewayAssociationUpdated(ctx context.Context, conn *directconnect.DirectConnect, id string, timeout time.Duration) (*directconnect.GatewayAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{directconnect.GatewayAssociationStateUpdating},
@@ -131,7 +125,6 @@ func waitGatewayAssociationUpdated(ctx context.Context, conn *directconnect.Dire
 
 	return nil, err
 }
-
 func waitGatewayAssociationDeleted(ctx context.Context, conn *directconnect.DirectConnect, id string, timeout time.Duration) (*directconnect.GatewayAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{directconnect.GatewayAssociationStateDisassociating},
@@ -150,7 +143,6 @@ func waitGatewayAssociationDeleted(ctx context.Context, conn *directconnect.Dire
 
 	return nil, err
 }
-
 func waitHostedConnectionDeleted(ctx context.Context, conn *directconnect.DirectConnect, id string) (*directconnect.Connection, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{directconnect.ConnectionStatePending, directconnect.ConnectionStateOrdering, directconnect.ConnectionStateAvailable, directconnect.ConnectionStateRequested, directconnect.ConnectionStateDeleting},
@@ -167,7 +159,6 @@ func waitHostedConnectionDeleted(ctx context.Context, conn *directconnect.Direct
 
 	return nil, err
 }
-
 func waitLagDeleted(ctx context.Context, conn *directconnect.DirectConnect, id string) (*directconnect.Lag, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{directconnect.LagStateAvailable, directconnect.LagStateRequested, directconnect.LagStatePending, directconnect.LagStateDeleting},

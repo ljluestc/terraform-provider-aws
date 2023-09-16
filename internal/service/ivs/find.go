@@ -1,9 +1,9 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
+//Copyright(c)HashiCorp,Inc.
+//SPDX-License-Identifier:MPL-2.0
 
-package ivs
+packageivs
 
-import (
+import(
 	"context"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -12,118 +12,113 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
-func FindPlaybackKeyPairByID(ctx context.Context, conn *ivs.IVS, id string) (*ivs.PlaybackKeyPair, error) {
-	in := &ivs.GetPlaybackKeyPairInput{
-		Arn: aws.String(id),
+funcFindPlaybackKeyPairByID(ctxcontext.Context,conn*ivs.IVS,idstring)(*ivs.PlaybackKeyPair,error){
+	in:=&ivs.GetPlaybackKeyPairInput{
+		Arn:aws.String(id),
 	}
-	out, err := conn.GetPlaybackKeyPairWithContext(ctx, in)
-	if tfawserr.ErrCodeEquals(err, ivs.ErrCodeResourceNotFoundException) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: in,
+	out,err:=conn.GetPlaybackKeyPairWithContext(ctx,in)
+	iftfawserr.ErrCodeEquals(err,ivs.ErrCodeResourceNotFoundException){
+		returnnil,&retry.NotFoundError{
+			LastError:err,
+			LastRequest:in,
 		}
 	}
 
-	if err != nil {
-		return nil, err
+	iferr!=nil{
+		returnnil,err
 	}
 
-	if out == nil || out.KeyPair == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+	ifout==nil||out.KeyPair==nil{
+		returnnil,tfresource.NewEmptyResultError(in)
 	}
 
-	return out.KeyPair, nil
+	returnout.KeyPair,nil
 }
-
-func FindRecordingConfigurationByID(ctx context.Context, conn *ivs.IVS, id string) (*ivs.RecordingConfiguration, error) {
-	in := &ivs.GetRecordingConfigurationInput{
-		Arn: aws.String(id),
+funcFindRecordingConfigurationByID(ctxcontext.Context,conn*ivs.IVS,idstring)(*ivs.RecordingConfiguration,error){
+	in:=&ivs.GetRecordingConfigurationInput{
+		Arn:aws.String(id),
 	}
-	out, err := conn.GetRecordingConfigurationWithContext(ctx, in)
-	if tfawserr.ErrCodeEquals(err, ivs.ErrCodeResourceNotFoundException) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: in,
+	out,err:=conn.GetRecordingConfigurationWithContext(ctx,in)
+	iftfawserr.ErrCodeEquals(err,ivs.ErrCodeResourceNotFoundException){
+		returnnil,&retry.NotFoundError{
+			LastError:err,
+			LastRequest:in,
 		}
 	}
 
-	if err != nil {
-		return nil, err
+	iferr!=nil{
+		returnnil,err
 	}
 
-	if out == nil || out.RecordingConfiguration == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+	ifout==nil||out.RecordingConfiguration==nil{
+		returnnil,tfresource.NewEmptyResultError(in)
 	}
 
-	return out.RecordingConfiguration, nil
+	returnout.RecordingConfiguration,nil
 }
-
-func FindChannelByID(ctx context.Context, conn *ivs.IVS, arn string) (*ivs.Channel, error) {
-	in := &ivs.GetChannelInput{
-		Arn: aws.String(arn),
+funcFindChannelByID(ctxcontext.Context,conn*ivs.IVS,arnstring)(*ivs.Channel,error){
+	in:=&ivs.GetChannelInput{
+		Arn:aws.String(arn),
 	}
-	out, err := conn.GetChannelWithContext(ctx, in)
-	if err != nil {
-		if tfawserr.ErrCodeEquals(err, ivs.ErrCodeResourceNotFoundException) {
-			return nil, &retry.NotFoundError{
-				LastError:   err,
-				LastRequest: in,
+	out,err:=conn.GetChannelWithContext(ctx,in)
+	iferr!=nil{
+		iftfawserr.ErrCodeEquals(err,ivs.ErrCodeResourceNotFoundException){
+			returnnil,&retry.NotFoundError{
+				LastError:err,
+				LastRequest:in,
 			}
 		}
 
-		return nil, err
+		returnnil,err
 	}
 
-	if out == nil || out.Channel == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+	ifout==nil||out.Channel==nil{
+		returnnil,tfresource.NewEmptyResultError(in)
 	}
 
-	return out.Channel, nil
+	returnout.Channel,nil
 }
-
-func FindStreamKeyByChannelID(ctx context.Context, conn *ivs.IVS, channelArn string) (*ivs.StreamKey, error) {
-	in := &ivs.ListStreamKeysInput{
-		ChannelArn: aws.String(channelArn),
+funcFindStreamKeyByChannelID(ctxcontext.Context,conn*ivs.IVS,channelArnstring)(*ivs.StreamKey,error){
+	in:=&ivs.ListStreamKeysInput{
+		ChannelArn:aws.String(channelArn),
 	}
-	out, err := conn.ListStreamKeysWithContext(ctx, in)
-	if tfawserr.ErrCodeEquals(err, ivs.ErrCodeResourceNotFoundException) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: in,
+	out,err:=conn.ListStreamKeysWithContext(ctx,in)
+	iftfawserr.ErrCodeEquals(err,ivs.ErrCodeResourceNotFoundException){
+		returnnil,&retry.NotFoundError{
+			LastError:err,
+			LastRequest:in,
 		}
 	}
 
-	if err != nil {
-		return nil, err
+	iferr!=nil{
+		returnnil,err
 	}
 
-	if len(out.StreamKeys) < 1 {
-		return nil, &retry.NotFoundError{
-			LastRequest: in,
+	iflen(out.StreamKeys)<1{
+		returnnil,&retry.NotFoundError{
+			LastRequest:in,
 		}
 	}
 
-	streamKeyArn := out.StreamKeys[0].Arn
+	streamKeyArn:=out.StreamKeys[0].Arn
 
-	return findStreamKeyByID(ctx, conn, *streamKeyArn)
+	returnfindStreamKeyByID(ctx,conn,*streamKeyArn)
 }
-
-func findStreamKeyByID(ctx context.Context, conn *ivs.IVS, id string) (*ivs.StreamKey, error) {
-	in := &ivs.GetStreamKeyInput{
-		Arn: aws.String(id),
+funcfindStreamKeyByID(ctxcontext.Context,conn*ivs.IVS,idstring)(*ivs.StreamKey,error){
+	in:=&ivs.GetStreamKeyInput{
+		Arn:aws.String(id),
 	}
-	out, err := conn.GetStreamKeyWithContext(ctx, in)
-	if tfawserr.ErrCodeEquals(err, ivs.ErrCodeResourceNotFoundException) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: in,
+	out,err:=conn.GetStreamKeyWithContext(ctx,in)
+	iftfawserr.ErrCodeEquals(err,ivs.ErrCodeResourceNotFoundException){
+		returnnil,&retry.NotFoundError{
+			LastError:err,
+			LastRequest:in,
 		}
 	}
 
-	if err != nil {
-		return nil, err
+	iferr!=nil{
+		returnnil,err
 	}
 
-	return out.StreamKey, nil
+	returnout.StreamKey,nil
 }

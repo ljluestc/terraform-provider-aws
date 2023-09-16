@@ -34,7 +34,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
+CheckDestroy: testAccCheckRefreshScheduleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRefreshScheduleConfigBasic(rId, rName, sId),
@@ -53,8 +53,8 @@ fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -75,7 +75,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
+CheckDestroy: testAccCheckRefreshScheduleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRefreshScheduleConfigBasic(rId, rName, sId),
@@ -104,7 +104,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
+CheckDestroy: testAccCheckRefreshScheduleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRefreshScheduleConfigWeeklyRefresh(rId, rName, sId),
@@ -122,8 +122,8 @@ fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -144,7 +144,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
+CheckDestroy: testAccCheckRefreshScheduleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRefreshScheduleConfigMonthlyRefresh(rId, rName, sId),
@@ -162,8 +162,8 @@ fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -227,14 +227,14 @@ testAccBaseDataSourceConfig(rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_source" "test" {
   data_source_id = %[1]q
-  name           = %[2]q
+  name     = %[2]q
 
   parameters {
     s3 {
-      manifest_file_location {
-        bucket = aws_s3_bucket.test.bucket
-        key    = aws_s3_object.test.key
-      }
+manifest_file_location {
+  bucket = aws_s3_bucket.test.bucket
+  key    = aws_s3_object.test.key
+}
     }
   }
 
@@ -243,20 +243,20 @@ resource "aws_quicksight_data_source" "test" {
 
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      upload_settings {
-        format = "JSON"
-      }
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+upload_settings {
+  format = "JSON"
+}
     }
   }
 }
@@ -274,9 +274,9 @@ resource "aws_quicksight_refresh_schedule" "test" {
   schedule {
     refresh_type = "FULL_REFRESH"
     schedule_frequency {
-      interval        = "DAILY"
-      time_of_the_day = "12:00"
-      timezone        = "Europe/London"
+interval  = "DAILY"
+time_of_the_day = "12:00"
+timezone  = "Europe/London"
     }
   }
 }
@@ -294,10 +294,10 @@ resource "aws_quicksight_refresh_schedule" "test" {
   schedule {
     refresh_type = "FULL_REFRESH"
     schedule_frequency {
-      interval = "WEEKLY"
-      refresh_on_day {
-        day_of_week = "MONDAY"
-      }
+interval = "WEEKLY"
+refresh_on_day {
+  day_of_week = "MONDAY"
+}
     }
   }
 }
@@ -315,10 +315,10 @@ resource "aws_quicksight_refresh_schedule" "test" {
   schedule {
     refresh_type = "FULL_REFRESH"
     schedule_frequency {
-      interval = "MONTHLY"
-      refresh_on_day {
-        day_of_month = "1"
-      }
+interval = "MONTHLY"
+refresh_on_day {
+  day_of_month = "1"
+}
     }
   }
 }

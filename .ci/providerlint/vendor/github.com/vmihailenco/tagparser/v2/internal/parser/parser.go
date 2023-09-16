@@ -1,11 +1,1 @@
-package parserimport (	"bytes"	"github.com/vmihailenco/tagparser/v2/internal")type Parser struct {	b []byte	i int}
-(b []byte) *Parser {	return &Parser{		b: b,	}}
-String(s string) *Parser {	return New(internal.StringToBytes(s))}
-*Parser) Bytes() []byte {	return p.b[p.i:]}
-*Parser) Valid() bool {	return p.i < len(p.b)}
-*Parser) Read() byte {	if p.Valid() {		c := p.b[p.i]		p.Advance()		return c	}	return 0}
-*Parser) Peek() byte {	if p.Valid() {		return p.b[p.i]	}	return 0}
-*Parser) Advance() {	p.i++}
-*Parser) Skip(skip byte) bool {	if p.Peek() == skip {		p.Advance()		return true	}	return false}
-*Parser) SkipBytes(skip []byte) bool {	if len(skip) > len(p.b[p.i:]) {		return false	}	if !bytes.Equal(p.b[p.i:p.i+len(skip)], skip) {		return false	}	p.i += len(skip)	return true}
-*Parser) ReadSep(sep byte) ([]byte, bool) {	ind := bytes.IndexByte(p.b[p.i:], sep)	if ind == -1 {		b := p.b[p.i:]		p.i = len(p.b)		return b, false	}	b := p.b[p.i : p.i+ind]	p.i += ind + 1	return b, true}
+package parserimport (	"bytes"	"github.com/vmihailenco/tagparser/v2/internal")type Parser struct {	b []byte	i int}(b []byte) *Parser {	return &Parser{		b: b,	}}String(s string) *Parser {	return New(internal.StringToBytes(s))}*Parser) Bytes() []byte {	return p.b[p.i:]}*Parser) Valid() bool {	return p.i < len(p.b)}*Parser) Read() byte {	if p.Valid() {		c := p.b[p.i]		p.Advance()		return c	}	return 0}*Parser) Peek() byte {	if p.Valid() {		return p.b[p.i]	}	return 0}*Parser) Advance() {	p.i++}*Parser) Skip(skip byte) bool {	if p.Peek() == skip {		p.Advance()		return true	}	return false}*Parser) SkipBytes(skip []byte) bool {	if len(skip) > len(p.b[p.i:]) {		return false	}	if !bytes.Equal(p.b[p.i:p.i+len(skip)], skip) {		return false	}	p.i += len(skip)	return true}*Parser) ReadSep(sep byte) ([]byte, bool) {	ind := bytes.IndexByte(p.b[p.i:], sep)	if ind == -1 {		b := p.b[p.i:]		p.i = len(p.b)		return b, false	}	b := p.b[p.i : p.i+ind]	p.i += ind + 1	return b, true}

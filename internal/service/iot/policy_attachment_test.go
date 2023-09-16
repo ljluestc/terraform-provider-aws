@@ -25,7 +25,7 @@ func TestAccIoTPolicyAttachment_basic(t *testing.T) {
 	policyName2 := sdkacctest.RandomWithPrefix("PolicyName2-")
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPolicyAttchmentDestroy(ctx),
@@ -79,7 +79,7 @@ func testAccCheckPolicyAttchmentDestroy(ctx context.Context) resource.TestCheckF
 			input := &iot.ListAttachedPoliciesInput{
 				PageSize:  aws.Int64(250),
 				Recursive: aws.Bool(false),
-				Target:    aws.String(target),
+				Target:aws.String(target),
 			}
 
 			var policy *iot.Policy
@@ -190,7 +190,7 @@ func testAccCheckPolicyAttachmentCertStatus(ctx context.Context, n string, polic
 func testAccPolicyAttachmentConfig_basic(policyName string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_certificate" "cert" {
-  csr    = file("test-fixtures/iot-csr.pem")
+  csr= file("test-fixtures/iot-csr.pem")
   active = true
 }
 
@@ -201,15 +201,15 @@ resource "aws_iot_policy" "policy" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iot:*"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
+{
+  "Effect": "Allow",
+  "Action": [
+"iot:*"
+  ],
+  "Resource": [
+"*"
+  ]
+}
   ]
 }
 EOF
@@ -226,7 +226,7 @@ resource "aws_iot_policy_attachment" "att" {
 func testAccPolicyAttachmentConfig_update1(policyName, policyName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_certificate" "cert" {
-  csr    = file("test-fixtures/iot-csr.pem")
+  csr= file("test-fixtures/iot-csr.pem")
   active = true
 }
 
@@ -237,15 +237,15 @@ resource "aws_iot_policy" "policy" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iot:*"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
+{
+  "Effect": "Allow",
+  "Action": [
+"iot:*"
+  ],
+  "Resource": [
+"*"
+  ]
+}
   ]
 }
 EOF
@@ -259,15 +259,15 @@ resource "aws_iot_policy" "policy2" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iot:*"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
+{
+  "Effect": "Allow",
+  "Action": [
+"iot:*"
+  ],
+  "Resource": [
+"*"
+  ]
+}
   ]
 }
 EOF
@@ -289,7 +289,7 @@ resource "aws_iot_policy_attachment" "att2" {
 func testAccPolicyAttachmentConfig_update2(policyName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_certificate" "cert" {
-  csr    = file("test-fixtures/iot-csr.pem")
+  csr= file("test-fixtures/iot-csr.pem")
   active = true
 }
 
@@ -300,15 +300,15 @@ resource "aws_iot_policy" "policy2" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iot:*"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
+{
+  "Effect": "Allow",
+  "Action": [
+"iot:*"
+  ],
+  "Resource": [
+"*"
+  ]
+}
   ]
 }
 EOF
@@ -325,12 +325,12 @@ resource "aws_iot_policy_attachment" "att2" {
 func testAccPolicyAttachmentConfig_update3(policyName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_certificate" "cert" {
-  csr    = file("test-fixtures/iot-csr.pem")
+  csr= file("test-fixtures/iot-csr.pem")
   active = true
 }
 
 resource "aws_iot_certificate" "cert2" {
-  csr    = file("test-fixtures/iot-csr.pem")
+  csr= file("test-fixtures/iot-csr.pem")
   active = true
 }
 
@@ -341,15 +341,15 @@ resource "aws_iot_policy" "policy2" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iot:*"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
+{
+  "Effect": "Allow",
+  "Action": [
+"iot:*"
+  ],
+  "Resource": [
+"*"
+  ]
+}
   ]
 }
 EOF

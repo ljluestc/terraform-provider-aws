@@ -21,7 +21,6 @@ import (
 	tffinspace "github.com/hashicorp/terraform-provider-aws/internal/service/finspace"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccFinSpaceKxDatabase_basic(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
@@ -37,9 +36,9 @@ func TestAccFinSpaceKxDatabase_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck: acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckKxDatabaseDestroy(ctx),
+		CheckDestroy: testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxDatabaseConfig_basic(rName),
@@ -49,14 +48,13 @@ func TestAccFinSpaceKxDatabase_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccFinSpaceKxDatabase_disappears(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
@@ -72,9 +70,9 @@ func TestAccFinSpaceKxDatabase_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck: acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckKxDatabaseDestroy(ctx),
+		CheckDestroy: testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxDatabaseConfig_basic(rName),
@@ -87,7 +85,6 @@ func TestAccFinSpaceKxDatabase_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccFinSpaceKxDatabase_description(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
@@ -103,9 +100,9 @@ func TestAccFinSpaceKxDatabase_description(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck: acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckKxDatabaseDestroy(ctx),
+		CheckDestroy: testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxDatabaseConfig_description(rName, "description 1"),
@@ -124,7 +121,6 @@ func TestAccFinSpaceKxDatabase_description(t *testing.T) {
 		},
 	})
 }
-
 func TestAccFinSpaceKxDatabase_tags(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
@@ -140,9 +136,9 @@ func TestAccFinSpaceKxDatabase_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck: acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckKxDatabaseDestroy(ctx),
+		CheckDestroy: testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxDatabaseConfig_tags1(rName, "key1", "value1"),
@@ -172,7 +168,6 @@ func TestAccFinSpaceKxDatabase_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckKxDatabaseDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).FinSpaceClient(ctx)
@@ -201,7 +196,6 @@ func testAccCheckKxDatabaseDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckKxDatabaseExists(ctx context.Context, name string, kxdatabase *finspace.GetKxDatabaseOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -228,7 +222,6 @@ func testAccCheckKxDatabaseExists(ctx context.Context, name string, kxdatabase *
 		return nil
 	}
 }
-
 func testAccKxDatabaseConfigBase(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -236,12 +229,11 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_finspace_kx_environment" "test" {
-  name       = %[1]q
+  name  = %[1]q
   kms_key_id = aws_kms_key.test.arn
 }
 `, rName)
 }
-
 func testAccKxDatabaseConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccKxDatabaseConfigBase(rName),
@@ -252,7 +244,6 @@ resource "aws_finspace_kx_database" "test" {
 }
 `, rName))
 }
-
 func testAccKxDatabaseConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(
 		testAccKxDatabaseConfigBase(rName),
@@ -260,11 +251,10 @@ func testAccKxDatabaseConfig_description(rName, description string) string {
 resource "aws_finspace_kx_database" "test" {
   name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
-  description    = %[2]q
+  description = %[2]q
 }
 `, rName, description))
 }
-
 func testAccKxDatabaseConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
 		testAccKxDatabaseConfigBase(rName),
@@ -274,12 +264,11 @@ resource "aws_finspace_kx_database" "test" {
   environment_id = aws_finspace_kx_environment.test.id
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccKxDatabaseConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccKxDatabaseConfigBase(rName),
@@ -289,8 +278,8 @@ resource "aws_finspace_kx_database" "test" {
   environment_id = aws_finspace_kx_environment.test.id
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

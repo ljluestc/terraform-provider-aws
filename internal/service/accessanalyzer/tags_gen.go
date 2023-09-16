@@ -93,7 +93,7 @@ func updateTags(ctx context.Context, conn *accessanalyzer.Client, identifier str
 	if len(removedTags) > 0 {
 		input := &accessanalyzer.UntagResourceInput{
 			ResourceArn: aws.String(identifier),
-			TagKeys:     removedTags.Keys(),
+			TagKeys: removedTags.Keys(),
 		}
 
 		_, err := conn.UntagResource(ctx, input)
@@ -108,7 +108,7 @@ func updateTags(ctx context.Context, conn *accessanalyzer.Client, identifier str
 	if len(updatedTags) > 0 {
 		input := &accessanalyzer.TagResourceInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:Tags(updatedTags),
 		}
 
 		_, err := conn.TagResource(ctx, input)

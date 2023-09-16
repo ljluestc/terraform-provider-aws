@@ -1,12 +1,6 @@
 // Copyright 2016 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Bluetooth sockets and messages
-
-package unix
-
-// Bluetooth Protocols
+// license that can be found in the LICENSE file.// Bluetooth sockets and messagespackage unix// Bluetooth Protocols
 const (
 	BTPROTO_L2CAP  = 0
 	BTPROTO_HCI    = 1
@@ -16,17 +10,13 @@ const (
 	BTPROTO_CMTP   = 5
 	BTPROTO_HIDP   = 6
 	BTPROTO_AVDTP  = 7
-)
-
-const (
+)const (
 	HCI_CHANNEL_RAW     = 0
 	HCI_CHANNEL_USER    = 1
 	HCI_CHANNEL_MONITOR = 2
 	HCI_CHANNEL_CONTROL = 3
 	HCI_CHANNEL_LOGGING = 4
-)
-
-// Socketoption Level
+)// Socketoption Level
 const (
 	SOL_BLUETOOTH = 0x112
 	SOL_HCI       = 0x0

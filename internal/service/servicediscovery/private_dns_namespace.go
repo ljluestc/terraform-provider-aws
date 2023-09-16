@@ -23,11 +23,10 @@ import (
 
 // @SDKResource("aws_service_discovery_private_dns_namespace", name="Private DNS Namespace")
 // @Tags(identifierAttribute="arn")
-
 func ResourcePrivateDNSNamespace() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePrivateDNSNamespaceCreate,
-		ReadWithoutTimeout:   resourcePrivateDNSNamespaceRead,
+		ReadWithoutTimeout:resourcePrivateDNSNamespaceRead,
 		UpdateWithoutTimeout: resourcePrivateDNSNamespaceUpdate,
 		DeleteWithoutTimeout: resourcePrivateDNSNamespaceDelete,
 
@@ -46,28 +45,28 @@ func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.R
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"hosted_zone": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				Validate
 func: validNamespaceName,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -76,17 +75,15 @@ func: validNamespaceName,
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
-
 func resourcePrivateDNSNamespaceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &servicediscovery.CreatePrivateDnsNamespaceInput{
 		CreatorRequestId: aws.String(id.UniqueId()),
-		Name:    aws.String(name),
-		Tags:    getTagsIn(ctx),
-		Vpc:     aws.String(d.Get("vpc").(string)),
+		Name: aws.String(name),
+		Tags: getTagsIn(ctx),
+		Vpc:aws.String(d.Get("vpc").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -115,8 +112,6 @@ func resourcePrivateDNSNamespaceCreate(ctx context.Context, d *schema.ResourceDa
 
 	return resourcePrivateDNSNamespaceRead(ctx, d, meta)
 }
-
-
 func resourcePrivateDNSNamespaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -144,8 +139,6 @@ func resourcePrivateDNSNamespaceRead(ctx context.Context, d *schema.ResourceData
 
 	return nil
 }
-
-
 func resourcePrivateDNSNamespaceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -173,8 +166,6 @@ func resourcePrivateDNSNamespaceUpdate(ctx context.Context, d *schema.ResourceDa
 
 	return resourcePrivateDNSNamespaceRead(ctx, d, meta)
 }
-
-
 func resourcePrivateDNSNamespaceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 

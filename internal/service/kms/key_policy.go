@@ -36,7 +36,7 @@ func ResourceKeyPolicy() *schema.Resource {
 				Default:  false,
 			},
 			"key_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 2048),
 			},
@@ -45,7 +45,7 @@ func ResourceKeyPolicy() *schema.Resource {
 				Required: true,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				ValidateFunc:          validation.StringIsJSON,
+				ValidateFunc: validation.StringIsJSON,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
@@ -54,7 +54,6 @@ func ResourceKeyPolicy() *schema.Resource {
 		},
 	}
 }
-
 func resourceKeyPolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -69,7 +68,6 @@ func resourceKeyPolicyCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return append(diags, resourceKeyPolicyRead(ctx, d, meta)...)
 }
-
 func resourceKeyPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -96,7 +94,6 @@ func resourceKeyPolicyRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
-
 func resourceKeyPolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -109,7 +106,6 @@ func resourceKeyPolicyUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return append(diags, resourceKeyPolicyRead(ctx, d, meta)...)
 }
-
 func resourceKeyPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)

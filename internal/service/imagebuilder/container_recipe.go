@@ -47,7 +47,7 @@ func ResourceContainerRecipe() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"component_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: verify.ValidARN,
@@ -59,7 +59,7 @@ func ResourceContainerRecipe() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(1, 256),
 									},
@@ -74,7 +74,7 @@ func ResourceContainerRecipe() *schema.Resource {
 				},
 			},
 			"container_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice([]string{"DOCKER"}, false),
@@ -84,13 +84,13 @@ func ResourceContainerRecipe() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"dockerfile_template_data": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -98,7 +98,7 @@ func ResourceContainerRecipe() *schema.Resource {
 				ValidateFunc: validation.StringLenBetween(1, 16000),
 			},
 			"dockerfile_template_uri": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ExactlyOneOf: []string{"dockerfile_template_data", "dockerfile_template_uri"},
@@ -122,7 +122,7 @@ func ResourceContainerRecipe() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"device_name": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringLenBetween(1, 1024),
@@ -136,50 +136,50 @@ func ResourceContainerRecipe() *schema.Resource {
 											Schema: map[string]*schema.Schema{
 												"delete_on_termination": {
 													Type:NullableBool,
-													Optional:         true,
-													ForceNew:         true,
+													Optional:true,
+													ForceNew:true,
 													DiffSuppressFunc: nullable.DiffSuppressNullableBool,
 													ValidateFunc:     nullable.ValidateTypeStringNullableBool,
 												},
 												"encrypted": {
 													Type:NullableBool,
-													Optional:         true,
-													ForceNew:         true,
+													Optional:true,
+													ForceNew:true,
 													DiffSuppressFunc: nullable.DiffSuppressNullableBool,
 													ValidateFunc:     nullable.ValidateTypeStringNullableBool,
 												},
 												"iops": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													ForceNew:     true,
 													ValidateFunc: validation.IntBetween(100, 64000),
 												},
 												"kms_key_id": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ForceNew:     true,
 													ValidateFunc: validation.StringLenBetween(1, 1024),
 												},
 												"snapshot_id": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ForceNew:     true,
 													ValidateFunc: validation.StringLenBetween(1, 1024),
 												},
 												"throughput": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													ForceNew:     true,
 													ValidateFunc: validation.IntBetween(125, 1000),
 												},
 												"volume_size": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													ForceNew:     true,
 													ValidateFunc: validation.IntBetween(1, 16000),
 												},
 												"volume_type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ForceNew:     true,
 													ValidateFunc: validation.StringInSlice(imagebuilder.EbsVolumeType_Values(), false),
@@ -196,7 +196,7 @@ func ResourceContainerRecipe() *schema.Resource {
 										ForceNew: true,
 									},
 									"virtual_name": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringLenBetween(1, 1024),
@@ -205,7 +205,7 @@ func ResourceContainerRecipe() *schema.Resource {
 							},
 						},
 						"image": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 1024),
@@ -214,13 +214,13 @@ func ResourceContainerRecipe() *schema.Resource {
 				},
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
@@ -230,7 +230,7 @@ func ResourceContainerRecipe() *schema.Resource {
 				Computed: true,
 			},
 			"parent_image": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
@@ -240,7 +240,7 @@ func ResourceContainerRecipe() *schema.Resource {
 				Computed: true,
 			},
 			"platform_override": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice([]string{"Linux", "Windows"}, false),
@@ -255,12 +255,12 @@ func ResourceContainerRecipe() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"repository_name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 1024),
 						},
 						"service": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice([]string{"ECR"}, false),
 						},
@@ -273,7 +273,7 @@ func ResourceContainerRecipe() *schema.Resource {
 				ForceNew: true,
 			},
 			"working_directory": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),

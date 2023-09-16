@@ -79,14 +79,14 @@ DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
-"category_items_limit": itemsLimitConfigurationSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
-"category_sort":        fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html,
+"category_items_limit": itemsLimitConfigurationSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
+"category_sort":  fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html,
 	},
 },
 	},
-	"tooltip":    tooltipOptionsSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
+	"tooltip":    tooltipOptionsSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
 	"value_label_options": chartAxisLabelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
-	"visual_palette":      visualPaletteSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
+	"visual_palette":visualPaletteSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
 },
 	},
 },

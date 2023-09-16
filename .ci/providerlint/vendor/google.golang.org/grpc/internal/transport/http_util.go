@@ -89,8 +89,7 @@ var (
 
 // isReservedHeader checks whether hdr belongs to HTTP2 headers
 // reserved by gRPC protocol. Any other headers are classified as the
-// user-specified metadata.
-func isReservedHeader(hdr string) bool {
+// user-specified metadata. isReservedHeader(hdr string) bool {
 	if hdr != "" && hdr[0] == ':' {
 		return true
 	}
@@ -114,8 +113,7 @@ func isReservedHeader(hdr string) bool {
 }
 
 // isWhitelistedHeader checks whether hdr should be propagated into metadata
-// visible to users, even though it is classified as "reserved", above.
-func isWhitelistedHeader(hdr string) bool {
+// visible to users, even though it is classified as "reserved", above. isWhitelistedHeader(hdr string) bool {
 	switch hdr {
 	case ":authority", "user-agent":
 		return true
@@ -125,35 +123,30 @@ func isWhitelistedHeader(hdr string) bool {
 }
 
 const binHdrSuffix = "-bin"
-
-func encodeBinHeader(v []byte) string {
+ encodeBinHeader(v []byte) string {
 	return base64.RawStdEncoding.EncodeToString(v)
 }
-
-func decodeBinHeader(v string) ([]byte, error) {
+ decodeBinHeader(v string) ([]byte, error) {
 	if len(v)%4 == 0 {
 		// Input was padded, or padding was not necessary.
 		return base64.StdEncoding.DecodeString(v)
 	}
 	return base64.RawStdEncoding.DecodeString(v)
 }
-
-func encodeMetadataHeader(k, v string) string {
+ encodeMetadataHeader(k, v string) string {
 	if strings.HasSuffix(k, binHdrSuffix) {
 		return encodeBinHeader(([]byte)(v))
 	}
 	return v
 }
-
-func decodeMetadataHeader(k, v string) (string, error) {
+ decodeMetadataHeader(k, v string) (string, error) {
 	if strings.HasSuffix(k, binHdrSuffix) {
 		b, err := decodeBinHeader(v)
 		return string(b), err
 	}
 	return v, nil
 }
-
-func decodeGRPCStatusDetails(rawDetails string) (*status.Status, error) {
+ decodeGRPCStatusDetails(rawDetails string) (*status.Status, error) {
 	v, err := decodeBinHeader(rawDetails)
 	if err != nil {
 		return nil, err
@@ -175,8 +168,7 @@ const (
 	microsecond timeoutUnit = 'u'
 	nanosecond  timeoutUnit = 'n'
 )
-
-func timeoutUnitToDuration(u timeoutUnit) (d time.Duration, ok bool) {
+ timeoutUnitToDuration(u timeoutUnit) (d time.Duration, ok bool) {
 	switch u {
 	case hour:
 		return time.Hour, true
@@ -194,8 +186,7 @@ func timeoutUnitToDuration(u timeoutUnit) (d time.Duration, ok bool) {
 	}
 	return
 }
-
-func decodeTimeout(s string) (time.Duration, error) {
+ decodeTimeout(s string) (time.Duration, error) {
 	size := len(s)
 	if size < 2 {
 		return 0, fmt.Errorf("transport: timeout string is too short: %q", s)
@@ -233,8 +224,7 @@ const (
 //
 // It checks to see if each individual byte in msg is an allowable byte, and
 // then either percent encoding or passing it through. When percent encoding,
-// the byte is converted into hexadecimal notation with a '%' prepended.
-func encodeGrpcMessage(msg string) string {
+// the byte is converted into hexadecimal notation with a '%' prepended. encodeGrpcMessage(msg string) string {
 	if msg == "" {
 		return ""
 	}
@@ -247,8 +237,7 @@ func encodeGrpcMessage(msg string) string {
 	}
 	return msg
 }
-
-func encodeGrpcMessageUnchecked(msg string) string {
+ encodeGrpcMessageUnchecked(msg string) string {
 	var sb strings.Builder
 	for len(msg) > 0 {
 		r, size := utf8.DecodeRuneInString(msg)
@@ -274,8 +263,7 @@ func encodeGrpcMessageUnchecked(msg string) string {
 	return sb.String()
 }
 
-// decodeGrpcMessage decodes the msg encoded by encodeGrpcMessage.
-func decodeGrpcMessage(msg string) string {
+// decodeGrpcMessage decodes the msg encoded by encodeGrpcMessage. decodeGrpcMessage(msg string) string {
 	if msg == "" {
 		return ""
 	}
@@ -287,8 +275,7 @@ func decodeGrpcMessage(msg string) string {
 	}
 	return msg
 }
-
-func decodeGrpcMessageUnchecked(msg string) string {
+ decodeGrpcMessageUnchecked(msg string) string {
 	var sb strings.Builder
 	lenMsg := len(msg)
 	for i := 0; i < lenMsg; i++ {
@@ -315,16 +302,14 @@ type bufWriter struct {
 	conn      net.Conn
 	err       error
 }
-
-func newBufWriter(conn net.Conn, batchSize int) *bufWriter {
+ newBufWriter(conn net.Conn, batchSize int) *bufWriter {
 	return &bufWriter{
 		buf:       make([]byte, batchSize*2),
 		batchSize: batchSize,
 		conn:      conn,
 	}
 }
-
-func (w *bufWriter) Write(b []byte) (n int, err error) {
+ (w *bufWriter) Write(b []byte) (n int, err error) {
 	if w.err != nil {
 		return 0, w.err
 	}
@@ -343,8 +328,7 @@ func (w *bufWriter) Write(b []byte) (n int, err error) {
 	}
 	return n, err
 }
-
-func (w *bufWriter) Flush() error {
+ (w *bufWriter) Flush() error {
 	if w.err != nil {
 		return w.err
 	}
@@ -360,16 +344,13 @@ func (w *bufWriter) Flush() error {
 type ioError struct {
 	error
 }
-
-func (i ioError) Unwrap() error {
+ (i ioError) Unwrap() error {
 	return i.error
 }
-
-func isIOError(err error) bool {
+ isIOError(err error) bool {
 	return errors.As(err, &ioError{})
 }
-
-func toIOError(err error) error {
+ toIOError(err error) error {
 	if err == nil {
 		return nil
 	}
@@ -380,8 +361,7 @@ type framer struct {
 	writer *bufWriter
 	fr     *http2.Framer
 }
-
-func newFramer(conn net.Conn, writeBufferSize, readBufferSize int, maxHeaderListSize uint32) *framer {
+ newFramer(conn net.Conn, writeBufferSize, readBufferSize int, maxHeaderListSize uint32) *framer {
 	if writeBufferSize < 0 {
 		writeBufferSize = 0
 	}
@@ -403,8 +383,7 @@ func newFramer(conn net.Conn, writeBufferSize, readBufferSize int, maxHeaderList
 	return f
 }
 
-// parseDialTarget returns the network and address to pass to dialer.
-func parseDialTarget(target string) (string, string) {
+// parseDialTarget returns the network and address to pass to dialer. parseDialTarget(target string) (string, string) {
 	net := "tcp"
 	m1 := strings.Index(target, ":")
 	m2 := strings.Index(target, ":/")

@@ -97,7 +97,7 @@ func TestAccKinesisStreamConsumerDataSource_arn(t *testing.T) {
 func testAccStreamConsumerBaseDataSourceConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %q
+  name  = %q
   shard_count = 2
 }
 `, rName)
@@ -112,7 +112,7 @@ data "aws_kinesis_stream_consumer" "test" {
 }
 
 resource "aws_kinesis_stream_consumer" "test" {
-  name       = %q
+  name = %q
   stream_arn = aws_kinesis_stream.test.arn
 }
 `, rName))
@@ -123,12 +123,12 @@ func testAccStreamConsumerDataSourceConfig_name(rName string) string {
 		testAccStreamConsumerBaseDataSourceConfig(rName),
 		fmt.Sprintf(`
 data "aws_kinesis_stream_consumer" "test" {
-  name       = aws_kinesis_stream_consumer.test.name
+  name = aws_kinesis_stream_consumer.test.name
   stream_arn = aws_kinesis_stream_consumer.test.stream_arn
 }
 
 resource "aws_kinesis_stream_consumer" "test" {
-  name       = %q
+  name = %q
   stream_arn = aws_kinesis_stream.test.arn
 }
 `, rName))
@@ -139,12 +139,12 @@ func testAccStreamConsumerDataSourceConfig_arn(rName string) string {
 		testAccStreamConsumerBaseDataSourceConfig(rName),
 		fmt.Sprintf(`
 data "aws_kinesis_stream_consumer" "test" {
-  arn        = aws_kinesis_stream_consumer.test.arn
+  arn  = aws_kinesis_stream_consumer.test.arn
   stream_arn = aws_kinesis_stream_consumer.test.stream_arn
 }
 
 resource "aws_kinesis_stream_consumer" "test" {
-  name       = %q
+  name = %q
   stream_arn = aws_kinesis_stream.test.arn
 }
 `, rName))

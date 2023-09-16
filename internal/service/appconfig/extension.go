@@ -39,40 +39,40 @@ func ResourceExtension() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"action_point": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Required: true,
 				MinItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"point": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: validation.StringInSlice(appconfig.ActionPoint_Values(), false),
 						},
 						"action": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Required: true,
 							MinItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"description": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"role_arn": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"uri": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
@@ -82,40 +82,40 @@ func ResourceExtension() *schema.Resource {
 				},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"parameter": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"description": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"required": {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"version": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 		},
@@ -128,8 +128,8 @@ func resourceExtensionCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	in := appconfig.CreateExtensionInput{
 		Actions: expandExtensionActionPoints(d.Get("action_point").(*schema.Set).List()),
-		Name:    aws.String(d.Get("name").(string)),
-		Tags:    getTagsIn(ctx),
+		Name:aws.String(d.Get("name").(string)),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -243,9 +243,9 @@ func expandExtensionActions(actionsListRaw interface{}) []*appconfig.Action {
 
 		action := &appconfig.Action{
 			Description: aws.String(actionMap["description"].(string)),
-			Name:        aws.String(actionMap["name"].(string)),
-			RoleArn:     aws.String(actionMap["role_arn"].(string)),
-			Uri:         aws.String(actionMap["uri"].(string)),
+			Name:aws.String(actionMap["name"].(string)),
+			RoleArn: aws.String(actionMap["role_arn"].(string)),
+			Uri:aws.String(actionMap["uri"].(string)),
 		}
 
 		actions = append(actions, action)
@@ -284,7 +284,7 @@ func expandExtensionParameters(rawParameters []interface{}) map[string]*appconfi
 
 		parameter := &appconfig.Parameter{
 			Description: aws.String(parameterMap["description"].(string)),
-			Required:    aws.Bool(parameterMap["required"].(bool)),
+			Required:aws.Bool(parameterMap["required"].(bool)),
 		}
 		parameters[parameterMap["name"].(string)] = parameter
 	}
@@ -296,10 +296,10 @@ func flattenExtensionActions(actions []*appconfig.Action) []interface{} {
 	var rawActions []interface{}
 	for _, action := range actions {
 		rawAction := map[string]interface{}{
-			"name":        aws.StringValue(action.Name),
+			"name":aws.StringValue(action.Name),
 			"description": aws.StringValue(action.Description),
-			"role_arn":    aws.StringValue(action.RoleArn),
-			"uri":         aws.StringValue(action.Uri),
+			"role_arn":aws.StringValue(action.RoleArn),
+			"uri":aws.StringValue(action.Uri),
 		}
 		rawActions = append(rawActions, rawAction)
 	}
@@ -331,9 +331,9 @@ func flattenExtensionParameters(parameters map[string]*appconfig.Parameter) []in
 	var rawParameters []interface{}
 	for key, parameter := range parameters {
 		rawParameter := map[string]interface{}{
-			"name":        key,
+			"name":key,
 			"description": aws.StringValue(parameter.Description),
-			"required":    aws.BoolValue(parameter.Required),
+			"required":aws.BoolValue(parameter.Required),
 		}
 
 		rawParameters = append(rawParameters, rawParameter)

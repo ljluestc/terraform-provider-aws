@@ -33,7 +33,7 @@ const (
 )
 
 var (
-	errConvertingElement           = errors.New("unable to convert element")
+	errConvertingElement  = errors.New("unable to convert element")
 	errConvertingRuleConfiguration = errors.New("unable to convert rule configuration")
 )
 
@@ -70,14 +70,14 @@ func ResourceMediaInsightsPipelineConfiguration() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.MediaInsightsPipelineConfigurationElementType_Values(), false),
 						},
 						"amazon_transcribe_call_analytics_processor_configuration": AmazonTranscribeCallAnalyticsProcessorConfigurationSchema(),
 						"amazon_transcribe_processor_configuration":   AmazonTranscribeProcessorConfigurationSchema(),
 						"kinesis_data_stream_sink_configuration":      BasicSinkConfigurationSchema(),
-						"lambda_function_sink_configuration":          BasicSinkConfigurationSchema(),
+						"lambda_function_sink_configuration": BasicSinkConfigurationSchema(),
 						"sns_topic_sink_configuration":   BasicSinkConfigurationSchema(),
 						"sqs_queue_sink_configuration":   BasicSinkConfigurationSchema(),
 						"s3_recording_sink_configuration":S3RecordingSinkConfigurationSchema(),
@@ -94,7 +94,7 @@ func ResourceMediaInsightsPipelineConfiguration() *schema.Resource {
 				Required: true,
 			},
 			"resource_access_role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -128,12 +128,12 @@ func AmazonTranscribeCallAnalyticsProcessorConfigurationSchema() *schema.Schema 
 					},
 				},
 				"content_identification_type": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.ContentType_Values(), false),
 				},
 				"content_redaction_type": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.ContentType_Values(), false),
 				},
@@ -146,7 +146,7 @@ func AmazonTranscribeCallAnalyticsProcessorConfigurationSchema() *schema.Schema 
 					Optional: true,
 				},
 				"language_code": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.CallAnalyticsLanguageCode_Values(), false),
 				},
@@ -159,7 +159,7 @@ func AmazonTranscribeCallAnalyticsProcessorConfigurationSchema() *schema.Schema 
 					),
 				},
 				"partial_results_stability": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.PartialResultsStability_Values(), false),
 				},
@@ -174,7 +174,7 @@ func AmazonTranscribeCallAnalyticsProcessorConfigurationSchema() *schema.Schema 
 				},
 				"post_call_analytics_settings": PostCallAnalyticsSettingsSchema(),
 				"vocabulary_filter_method": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.VocabularyFilterMethod_Values(), false),
 				},
@@ -207,22 +207,22 @@ func PostCallAnalyticsSettingsSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"content_redaction_output": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.ContentRedactionOutput__Values(), false),
 				},
 				"data_access_role_arn": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: verify.ValidARN,
 				},
 				"output_encryption_kms_key_id": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringLenBetween(1, 4096),
 				},
 				"output_location": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringMatch(regexache.MustCompile(`s3://+`), "Must begin with the prefix 's3://'"),
 				},
@@ -239,12 +239,12 @@ func AmazonTranscribeProcessorConfigurationSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"content_identification_type": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.ContentType_Values(), false),
 				},
 				"content_redaction_type": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.ContentType_Values(), false),
 				},
@@ -257,7 +257,7 @@ func AmazonTranscribeProcessorConfigurationSchema() *schema.Schema {
 					Optional: true,
 				},
 				"language_code": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.CallAnalyticsLanguageCode_Values(), false),
 				},
@@ -270,7 +270,7 @@ func AmazonTranscribeProcessorConfigurationSchema() *schema.Schema {
 					),
 				},
 				"partial_results_stability": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.PartialResultsStability_Values(), false),
 				},
@@ -288,7 +288,7 @@ func AmazonTranscribeProcessorConfigurationSchema() *schema.Schema {
 					Optional: true,
 				},
 				"vocabulary_filter_method": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.VocabularyFilterMethod_Values(), false),
 				},
@@ -321,7 +321,7 @@ func BasicSinkConfigurationSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"insights_target": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: verify.ValidARN,
 				},
@@ -338,7 +338,7 @@ func S3RecordingSinkConfigurationSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"destination": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: verify.ValidARN,
 				},
@@ -355,12 +355,12 @@ func VoiceAnalyticsProcessorConfigurationSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"speaker_search_status": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.VoiceAnalyticsConfigurationStatus_Values(), false),
 				},
 				"voice_tone_analysis_status": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.VoiceAnalyticsConfigurationStatus_Values(), false),
 				},
@@ -395,7 +395,7 @@ func RealTimeAlertConfigurationSchema() *schema.Schema {
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"rule_name": {
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											Required:     true,
 											ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+`), "Must match the expression: ^[0-9A-Za-z_.-]+"),
 										},
@@ -414,7 +414,7 @@ func RealTimeAlertConfigurationSchema() *schema.Schema {
 											MinItems: 1,
 											MaxItems: 100,
 											Elem: &schema.Schema{
-												Type:         schema.TypeString,
+												Type:schema.TypeString,
 												ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z\s'-]+`), "Must match the expression: ^[0-9A-Za-z\\s'-]+"),
 											},
 										},
@@ -424,7 +424,7 @@ func RealTimeAlertConfigurationSchema() *schema.Schema {
 											Computed: true,
 										},
 										"rule_name": {
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											Required:     true,
 											ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+`), "Must match the expression: ^[0-9A-Za-z_.-]+"),
 										},
@@ -438,17 +438,17 @@ func RealTimeAlertConfigurationSchema() *schema.Schema {
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"rule_name": {
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											Required:     true,
 											ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+`), "Must match the expression: ^[0-9A-Za-z_.-]+"),
 										},
 										"sentiment_type": {
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											Required:     true,
 											ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.SentimentType_Values(), false),
 										},
 										"time_period": {
-											Type:         schema.TypeInt,
+											Type:schema.TypeInt,
 											Required:     true,
 											ValidateFunc: validation.IntBetween(60, 1800),
 										},
@@ -456,7 +456,7 @@ func RealTimeAlertConfigurationSchema() *schema.Schema {
 								},
 							},
 							"type": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringInSlice(chimesdkmediapipelines.RealTimeAlertRuleType_Values(), false),
 							},
@@ -481,7 +481,7 @@ func resourceMediaInsightsPipelineConfigurationCreate(ctx context.Context, d *sc
 		MediaInsightsPipelineConfigurationName: aws.String(d.Get("name").(string)),
 		ResourceAccessRoleArn:     aws.String(d.Get("resource_access_role_arn").(string)),
 		Elements:     elements,
-		Tags:         getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if realTimeAlertConfiguration, ok := d.GetOk("real_time_alert_configuration"); ok && len(realTimeAlertConfiguration.([]interface{})) > 0 {
@@ -562,7 +562,7 @@ func resourceMediaInsightsPipelineConfigurationUpdate(ctx context.Context, d *sc
 		}
 
 		in := &chimesdkmediapipelines.UpdateMediaInsightsPipelineConfigurationInput{
-			Identifier:            aws.String(d.Id()),
+			Identifier:   aws.String(d.Id()),
 			ResourceAccessRoleArn: aws.String(d.Get("resource_access_role_arn").(string)),
 			Elements: elements,
 		}

@@ -26,7 +26,7 @@ func TestAccIoTPolicy_basic(t *testing.T) {
 	resourceName := "aws_iot_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPolicyDestroy_basic(ctx),
@@ -42,8 +42,8 @@ func TestAccIoTPolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -57,7 +57,7 @@ func TestAccIoTPolicy_disappears(t *testing.T) {
 	resourceName := "aws_iot_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckPolicyDestroy_basic(ctx),
@@ -142,15 +142,15 @@ resource "aws_iot_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iot:*"
-      ],
-      "Resource": [
-        "*"
-      ]
-    }
+{
+  "Effect": "Allow",
+  "Action": [
+"iot:*"
+  ],
+  "Resource": [
+"*"
+  ]
+}
   ]
 }
 EOF

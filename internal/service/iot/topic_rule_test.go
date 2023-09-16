@@ -34,7 +34,7 @@ func TestAccIoTTopicRule_basic(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -73,8 +73,8 @@ func TestAccIoTTopicRule_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -87,7 +87,7 @@ func TestAccIoTTopicRule_disappears(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -110,7 +110,7 @@ func TestAccIoTTopicRule_tags(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -124,8 +124,8 @@ func TestAccIoTTopicRule_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -155,7 +155,7 @@ func TestAccIoTTopicRule_cloudWatchAlarm(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -193,8 +193,8 @@ func TestAccIoTTopicRule_cloudWatchAlarm(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -207,7 +207,7 @@ func TestAccIoTTopicRule_cloudWatchLogs(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -246,8 +246,8 @@ func TestAccIoTTopicRule_cloudWatchLogs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -260,7 +260,7 @@ func TestAccIoTTopicRule_cloudWatchMetric(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -273,10 +273,10 @@ func TestAccIoTTopicRule_cloudWatchMetric(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "cloudwatch_logs.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "cloudwatch_metric.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "cloudwatch_metric.*", map[string]string{
-						"metric_name":      "TestName",
+						"metric_name":  "TestName",
 						"metric_namespace": "TestNS",
-						"metric_unit":      "s",
-						"metric_value":     "10",
+						"metric_unit":  "s",
+						"metric_value": "10",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "dynamodb.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "dynamodbv2.#", "0"),
@@ -298,8 +298,8 @@ func TestAccIoTTopicRule_cloudWatchMetric(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -312,7 +312,7 @@ func TestAccIoTTopicRule_dynamoDB(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -330,7 +330,7 @@ func TestAccIoTTopicRule_dynamoDB(t *testing.T) {
 						"hash_key_field": "hkf",
 						"hash_key_value": "hkv",
 						"payload_field":  "pf",
-						"table_name":     "tn",
+						"table_name": "tn",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "dynamodbv2.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "elasticsearch.#", "0"),
@@ -351,8 +351,8 @@ func TestAccIoTTopicRule_dynamoDB(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -367,12 +367,12 @@ func TestAccIoTTopicRule_dynamoDB(t *testing.T) {
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "dynamodb.*", map[string]string{
 						"hash_key_field":  "hkf",
 						"hash_key_value":  "hkv",
-						"operation":       "INSERT",
+						"operation":   "INSERT",
 						"payload_field":   "pf",
 						"range_key_field": "rkf",
 						"range_key_type":  "STRING",
 						"range_key_value": "rkv",
-						"table_name":      "tn",
+						"table_name":  "tn",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "dynamodbv2.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "elasticsearch.#", "0"),
@@ -402,7 +402,7 @@ func TestAccIoTTopicRule_dynamoDBv2(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -417,7 +417,7 @@ func TestAccIoTTopicRule_dynamoDBv2(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "dynamodb.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "dynamodbv2.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "dynamodbv2.*", map[string]string{
-						"put_item.#":            "1",
+						"put_item.#":   "1",
 						"put_item.0.table_name": "test",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "elasticsearch.#", "0"),
@@ -447,7 +447,7 @@ func TestAccIoTTopicRule_elasticSearch(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -463,7 +463,7 @@ func TestAccIoTTopicRule_elasticSearch(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "dynamodbv2.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "elasticsearch.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "elasticsearch.*", map[string]string{
-						"id":    "myIdentifier",
+						"id":"myIdentifier",
 						"index": "myindex",
 						"type":  "mydocument",
 					}),
@@ -484,8 +484,8 @@ func TestAccIoTTopicRule_elasticSearch(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -498,7 +498,7 @@ func TestAccIoTTopicRule_firehose(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -539,8 +539,8 @@ func TestAccIoTTopicRule_firehose(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -553,7 +553,7 @@ func TestAccIoTTopicRule_Firehose_separator(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -572,7 +572,7 @@ func TestAccIoTTopicRule_Firehose_separator(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "firehose.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firehose.*", map[string]string{
 						"delivery_stream_name": "mystream",
-						"separator":            "\n",
+						"separator":   "\n",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "http.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "iot_analytics.#", "0"),
@@ -589,8 +589,8 @@ func TestAccIoTTopicRule_Firehose_separator(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -607,7 +607,7 @@ func TestAccIoTTopicRule_Firehose_separator(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "firehose.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firehose.*", map[string]string{
 						"delivery_stream_name": "mystream",
-						"separator":            ",",
+						"separator":   ",",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "http.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "iot_analytics.#", "0"),
@@ -633,7 +633,7 @@ func TestAccIoTTopicRule_Firehose_batch_mode(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -652,7 +652,7 @@ func TestAccIoTTopicRule_Firehose_batch_mode(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "firehose.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firehose.*", map[string]string{
 						"delivery_stream_name": "mystream",
-						"batch_mode":           "false",
+						"batch_mode":  "false",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "http.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "iot_analytics.#", "0"),
@@ -669,8 +669,8 @@ func TestAccIoTTopicRule_Firehose_batch_mode(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -687,7 +687,7 @@ func TestAccIoTTopicRule_Firehose_batch_mode(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "firehose.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "firehose.*", map[string]string{
 						"delivery_stream_name": "mystream",
-						"batch_mode":           "true",
+						"batch_mode":  "true",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "http.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "iot_analytics.#", "0"),
@@ -713,7 +713,7 @@ func TestAccIoTTopicRule_http(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -733,7 +733,7 @@ func TestAccIoTTopicRule_http(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "http.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "http.*", map[string]string{
 						"confirmation_url": "",
-						"http_header.#":    "0",
+						"http_header.#":"0",
 						"url": "https://example.com/ingress",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "iot_analytics.#", "0"),
@@ -750,8 +750,8 @@ func TestAccIoTTopicRule_http(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -769,7 +769,7 @@ func TestAccIoTTopicRule_http(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "http.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "http.*", map[string]string{
 						"confirmation_url": "https://example.com/",
-						"http_header.#":    "0",
+						"http_header.#":"0",
 						"url": "https://example.com/ingress",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "iot_analytics.#", "0"),
@@ -799,13 +799,13 @@ func TestAccIoTTopicRule_http(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "firehose.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "http.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "http.*", map[string]string{
-						"confirmation_url":    "",
-						"http_header.#":       "2",
+						"confirmation_url":"",
+						"http_header.#":   "2",
 						"http_header.0.key":   "X-Header-1",
 						"http_header.0.value": "v1",
 						"http_header.1.key":   "X-Header-2",
 						"http_header.1.value": "v2",
-						"url":    "https://example.com/ingress",
+						"url":"https://example.com/ingress",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "iot_analytics.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "iot_events.#", "0"),
@@ -855,7 +855,7 @@ func TestAccIoTTopicRule_http(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "http.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "http.*", map[string]string{
 						"confirmation_url": "",
-						"http_header.#":    "0",
+						"http_header.#":"0",
 						"url": "https://example.com/ingress",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "iot_analytics.#", "0"),
@@ -881,7 +881,7 @@ func TestAccIoTTopicRule_IoT_analytics(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -925,7 +925,7 @@ func TestAccIoTTopicRule_IoT_analytics_batch_mode(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1000,7 +1000,7 @@ func TestAccIoTTopicRule_IoT_events(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1045,7 +1045,7 @@ func TestAccIoTTopicRule_IoT_events_batch_mode(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1126,7 +1126,7 @@ func TestAccIoTTopicRule_kafka(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1148,15 +1148,15 @@ func TestAccIoTTopicRule_kafka(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "http.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "kafka.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "kafka.*", map[string]string{
-						"client_properties.%":        "8",
-						"client_properties.acks":     "1",
-						"client_properties.bootstrap.servers":     "b-1.localhost:9094",
-						"client_properties.compression.type":      "none",
-						"client_properties.key.serializer":        "org.apache.kafka.common.serialization.StringSerializer",
-						"client_properties.security.protocol":     "SSL",
+						"client_properties.%":"8",
+						"client_properties.acks": "1",
+						"client_properties.bootstrap.servers": "b-1.localhost:9094",
+						"client_properties.compression.type":  "none",
+						"client_properties.key.serializer":"org.apache.kafka.common.serialization.StringSerializer",
+						"client_properties.security.protocol": "SSL",
 						"client_properties.ssl.keystore.password": "password",
-						"client_properties.value.serializer":      "org.apache.kafka.common.serialization.ByteBufferSerializer",
-						"topic":         "fake_topic",
+						"client_properties.value.serializer":  "org.apache.kafka.common.serialization.ByteBufferSerializer",
+						"topic":"fake_topic",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "kinesis.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "lambda.#", "0"),
@@ -1169,8 +1169,8 @@ func TestAccIoTTopicRule_kafka(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			// Delete everything but the IAM Role assumed by the IoT service.
@@ -1187,7 +1187,7 @@ func TestAccIoTTopicRule_kinesis(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1222,8 +1222,8 @@ func TestAccIoTTopicRule_kinesis(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1236,7 +1236,7 @@ func TestAccIoTTopicRule_lambda(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1268,8 +1268,8 @@ func TestAccIoTTopicRule_lambda(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1282,7 +1282,7 @@ func TestAccIoTTopicRule_republish(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1318,8 +1318,8 @@ func TestAccIoTTopicRule_republish(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1332,7 +1332,7 @@ func TestAccIoTTopicRule_republishWithQos(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1368,8 +1368,8 @@ func TestAccIoTTopicRule_republishWithQos(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1382,7 +1382,7 @@ func TestAccIoTTopicRule_s3(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1410,7 +1410,7 @@ func TestAccIoTTopicRule_s3(t *testing.T) {
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "s3.*", map[string]string{
 						"bucket_name": "mybucket",
 						"canned_acl":  "private",
-						"key":         "mykey",
+						"key":"mykey",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "sns.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "sqs.#", "0"),
@@ -1419,8 +1419,8 @@ func TestAccIoTTopicRule_s3(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1433,7 +1433,7 @@ func TestAccIoTTopicRule_sns(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1465,8 +1465,8 @@ func TestAccIoTTopicRule_sns(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1479,7 +1479,7 @@ func TestAccIoTTopicRule_sqs(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1515,8 +1515,8 @@ func TestAccIoTTopicRule_sqs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1529,7 +1529,7 @@ func TestAccIoTTopicRule_Step_functions(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1559,14 +1559,14 @@ func TestAccIoTTopicRule_Step_functions(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "step_functions.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "step_functions.*", map[string]string{
 						"execution_name_prefix": "myprefix",
-						"state_machine_name":    "mystatemachine",
+						"state_machine_name":"mystatemachine",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "timestream.#", "0"),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1579,7 +1579,7 @@ func TestAccIoTTopicRule_Timestream(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1609,10 +1609,10 @@ func TestAccIoTTopicRule_Timestream(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "step_functions.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "timestream.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "timestream.*", map[string]string{
-						"database_name":     "TestDB",
-						"dimension.#":       "1",
-						"table_name":        "test_table",
-						"timestamp.#":       "1",
+						"database_name": "TestDB",
+						"dimension.#":   "1",
+						"table_name":"test_table",
+						"timestamp.#":   "1",
 						"timestamp.0.unit":  "MILLISECONDS",
 						"timestamp.0.value": "${time}",
 					}),
@@ -1623,8 +1623,8 @@ func TestAccIoTTopicRule_Timestream(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1637,7 +1637,7 @@ func TestAccIoTTopicRule_errorAction(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1692,8 +1692,8 @@ func TestAccIoTTopicRule_errorAction(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1707,7 +1707,7 @@ func TestAccIoTTopicRule_updateKinesisErrorAction(t *testing.T) {
 	resourceName := "aws_iot_topic_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTopicRuleDestroy(ctx),
@@ -1791,8 +1791,8 @@ func TestAccIoTTopicRule_updateKinesisErrorAction(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1859,36 +1859,36 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "iot.${data.aws_partition.current.dns_suffix}"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+  "Service": "iot.${data.aws_partition.current.dns_suffix}"
+},
+"Action": "sts:AssumeRole"
   }]
 }
 EOF
 }
 
 resource "aws_iam_policy" "test" {
-  name        = %[1]q
-  path        = "/"
+  name= %[1]q
+  path= "/"
   description = "IoT Topic Rule test policy"
 
   policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }]
 }
 EOF
 }
 
 resource "aws_iam_policy_attachment" "test" {
-  name       = %[1]q
-  roles      = [aws_iam_role.test.name]
+  name   = %[1]q
+  roles  = [aws_iam_role.test.name]
   policy_arn = aws_iam_policy.test.arn
 }
 `, rName)
@@ -1897,9 +1897,9 @@ resource "aws_iam_policy_attachment" "test" {
 func testAccTopicRuleConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 }
 `, rName)
@@ -1908,13 +1908,13 @@ resource "aws_iot_topic_rule" "test" {
 func testAccTopicRuleConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -1923,14 +1923,14 @@ resource "aws_iot_topic_rule" "test" {
 func testAccTopicRuleConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -1941,17 +1941,17 @@ func testAccTopicRuleConfig_cloudWatchAlarm(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = "Example rule"
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   cloudwatch_alarm {
-    alarm_name   = "myalarm"
-    role_arn     = aws_iam_role.test.arn
-    state_reason = "test"
-    state_value  = "OK"
+alarm_name   = "myalarm"
+role_arn = aws_iam_role.test.arn
+state_reason = "test"
+state_value  = "OK"
   }
 }
 `, rName))
@@ -1962,19 +1962,19 @@ func testAccTopicRuleConfig_cloudWatchLogs(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = false
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = false
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   cloudwatch_logs {
-    log_group_name = "mylogs1"
-    role_arn       = aws_iam_role.test.arn
+log_group_name = "mylogs1"
+role_arn   = aws_iam_role.test.arn
   }
 
   cloudwatch_logs {
-    log_group_name = "mylogs2"
-    role_arn       = aws_iam_role.test.arn
+log_group_name = "mylogs2"
+role_arn   = aws_iam_role.test.arn
   }
 }
 `, rName))
@@ -1985,17 +1985,17 @@ func testAccTopicRuleConfig_cloudWatchMetric(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   cloudwatch_metric {
-    metric_name      = "TestName"
-    metric_namespace = "TestNS"
-    metric_value     = "10"
-    metric_unit      = "s"
-    role_arn         = aws_iam_role.test.arn
+metric_name  = "TestName"
+metric_namespace = "TestNS"
+metric_value = "10"
+metric_unit  = "s"
+role_arn= aws_iam_role.test.arn
   }
 }
 `, rName))
@@ -2006,18 +2006,18 @@ func testAccTopicRuleConfig_dynamoDB(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = "Description1"
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   dynamodb {
-    hash_key_field = "hkf"
-    hash_key_value = "hkv"
-    payload_field  = "pf"
-    role_arn       = aws_iam_role.test.arn
-    table_name     = "tn"
+hash_key_field = "hkf"
+hash_key_value = "hkv"
+payload_field  = "pf"
+role_arn   = aws_iam_role.test.arn
+table_name = "tn"
   }
 }
 `, rName))
@@ -2028,22 +2028,22 @@ func testAccTopicRuleConfig_dynamoDBRangeKey(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = "Description2"
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   dynamodb {
-    hash_key_field  = "hkf"
-    hash_key_value  = "hkv"
-    payload_field   = "pf"
-    range_key_field = "rkf"
-    range_key_value = "rkv"
-    range_key_type  = "STRING"
-    role_arn        = aws_iam_role.test.arn
-    table_name      = "tn"
-    operation       = "INSERT"
+hash_key_field  = "hkf"
+hash_key_value  = "hkv"
+payload_field   = "pf"
+range_key_field = "rkf"
+range_key_value = "rkv"
+range_key_type  = "STRING"
+role_arn= aws_iam_role.test.arn
+table_name  = "tn"
+operation   = "INSERT"
   }
 }
 `, rName))
@@ -2054,17 +2054,17 @@ func testAccTopicRuleConfig_dynamoDBv2(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT field as column_name FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT field as column_name FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   dynamodbv2 {
-    put_item {
-      table_name = "test"
-    }
+put_item {
+  table_name = "test"
+}
 
-    role_arn = aws_iam_role.test.arn
+role_arn = aws_iam_role.test.arn
   }
 }
 `, rName))
@@ -2077,17 +2077,17 @@ func testAccTopicRuleConfig_elasticSearch(rName string) string {
 data "aws_region" "current" {}
 
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   elasticsearch {
-    endpoint = "https://domain.${data.aws_region.current.name}.es.${data.aws_partition.current.dns_suffix}"
-    id       = "myIdentifier"
-    index    = "myindex"
-    type     = "mydocument"
-    role_arn = aws_iam_role.test.arn
+endpoint = "https://domain.${data.aws_region.current.name}.es.${data.aws_partition.current.dns_suffix}"
+id   = "myIdentifier"
+index= "myindex"
+type = "mydocument"
+role_arn = aws_iam_role.test.arn
   }
 }
 `, rName))
@@ -2098,24 +2098,24 @@ func testAccTopicRuleConfig_firehose(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   firehose {
-    delivery_stream_name = "mystream1"
-    role_arn= aws_iam_role.test.arn
+delivery_stream_name = "mystream1"
+role_arn= aws_iam_role.test.arn
   }
 
   firehose {
-    delivery_stream_name = "mystream2"
-    role_arn= aws_iam_role.test.arn
+delivery_stream_name = "mystream2"
+role_arn= aws_iam_role.test.arn
   }
 
   firehose {
-    delivery_stream_name = "mystream3"
-    role_arn= aws_iam_role.test.arn
+delivery_stream_name = "mystream3"
+role_arn= aws_iam_role.test.arn
   }
 }
 `, rName))
@@ -2126,16 +2126,16 @@ func testAccTopicRuleConfig_firehoseSeparator(rName, separator string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = "Example rule"
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   firehose {
-    delivery_stream_name = "mystream"
-    role_arn= aws_iam_role.test.arn
-    separator            = %[2]q
+delivery_stream_name = "mystream"
+role_arn= aws_iam_role.test.arn
+separator   = %[2]q
   }
 }
 `, rName, separator))
@@ -2146,16 +2146,16 @@ func testAccTopicRuleConfig_firehoseBatchMode(rName string, batchMode bool) stri
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = "Example rule"
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   firehose {
-    delivery_stream_name = "mystream"
-    role_arn= aws_iam_role.test.arn
-    batch_mode           = %[2]t
+delivery_stream_name = "mystream"
+role_arn= aws_iam_role.test.arn
+batch_mode  = %[2]t
   }
 }
 `, rName, batchMode))
@@ -2164,13 +2164,13 @@ resource "aws_iot_topic_rule" "test" {
 func testAccTopicRuleConfig_http(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   http {
-    url = "https://example.com/ingress"
+url = "https://example.com/ingress"
   }
 }
 `, rName)
@@ -2179,14 +2179,14 @@ resource "aws_iot_topic_rule" "test" {
 func testAccTopicRuleConfig_httpConfirmationURL(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   http {
-    url = "https://example.com/ingress"
-    confirmation_url = "https://example.com/"
+url = "https://example.com/ingress"
+confirmation_url = "https://example.com/"
   }
 }
 `, rName)
@@ -2195,23 +2195,23 @@ resource "aws_iot_topic_rule" "test" {
 func testAccTopicRuleConfig_httpHeaders(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   http {
-    url = "https://example.com/ingress"
+url = "https://example.com/ingress"
 
-    http_header {
-      key   = "X-Header-1"
-      value = "v1"
-    }
+http_header {
+  key   = "X-Header-1"
+  value = "v1"
+}
 
-    http_header {
-      key   = "X-Header-2"
-      value = "v2"
-    }
+http_header {
+  key   = "X-Header-2"
+  value = "v2"
+}
   }
 }
 `, rName)
@@ -2220,19 +2220,19 @@ resource "aws_iot_topic_rule" "test" {
 func testAccTopicRuleConfig_httpErrorAction(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   http {
-    url = "https://example.com/ingress"
+url = "https://example.com/ingress"
   }
 
   error_action {
-    http {
-      url = "https://example.com/error-ingress"
-    }
+http {
+  url = "https://example.com/error-ingress"
+}
   }
 }
 `, rName)
@@ -2243,14 +2243,14 @@ func testAccTopicRuleConfig_analytics(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   iot_analytics {
-    channel_name = "fakedata"
-    role_arn     = aws_iam_role.test.arn
+channel_name = "fakedata"
+role_arn = aws_iam_role.test.arn
   }
 }
 `, rName))
@@ -2261,15 +2261,15 @@ func testAccTopicRuleConfig_analyticsBatchMode(rName string, batchMode bool) str
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   iot_analytics {
-    channel_name = "fakedata"
-    role_arn     = aws_iam_role.test.arn
-    batch_mode   = %[2]t
+channel_name = "fakedata"
+role_arn = aws_iam_role.test.arn
+batch_mode   = %[2]t
   }
 }
 `, rName, batchMode))
@@ -2280,15 +2280,15 @@ func testAccTopicRuleConfig_events(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   iot_events {
-    input_name = "fake_input_name"
-    role_arn   = aws_iam_role.test.arn
-    message_id = "fake_message_id"
+input_name = "fake_input_name"
+role_arn   = aws_iam_role.test.arn
+message_id = "fake_message_id"
   }
 }
 `, rName))
@@ -2299,16 +2299,16 @@ func testAccTopicRuleConfig_eventsBatchMode(rName string, batchMode bool) string
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   iot_events {
-    input_name = "fake_input_name"
-    role_arn   = aws_iam_role.test.arn
-    message_id = "fake_message_id"
-    batch_mode = %[2]t
+input_name = "fake_input_name"
+role_arn   = aws_iam_role.test.arn
+message_id = "fake_message_id"
+batch_mode = %[2]t
   }
 }
 `, rName, batchMode))
@@ -2321,25 +2321,25 @@ func testAccTopicRuleConfig_kafka(rName string) string {
 data "aws_region" "current" {}
 
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   kafka {
-    destination_arn = aws_iot_topic_rule_destination.test.arn
-    topic           = "fake_topic"
+destination_arn = aws_iot_topic_rule_destination.test.arn
+topic  = "fake_topic"
 
-    client_properties = {
-      "acks"     = "1"
-      "bootstrap.servers"     = "b-1.localhost:9094"
-      "compression.type"      = "none"
-      "key.serializer"        = "org.apache.kafka.common.serialization.StringSerializer"
-      "security.protocol"     = "SSL"
-      "ssl.keystore"          = "$${get_secret('secret_name', 'SecretBinary', '', '${aws_iam_role.test.arn}')}"
-      "ssl.keystore.password" = "password"
-      "value.serializer"      = "org.apache.kafka.common.serialization.ByteBufferSerializer"
-    }
+client_properties = {
+  "acks" = "1"
+  "bootstrap.servers" = "b-1.localhost:9094"
+  "compression.type"  = "none"
+  "key.serializer"= "org.apache.kafka.common.serialization.StringSerializer"
+  "security.protocol" = "SSL"
+  "ssl.keystore" = "$${get_secret('secret_name', 'SecretBinary', '', '${aws_iam_role.test.arn}')}"
+  "ssl.keystore.password" = "password"
+  "value.serializer"  = "org.apache.kafka.common.serialization.ByteBufferSerializer"
+}
   }
 }
 `, rName))
@@ -2350,14 +2350,14 @@ func testAccTopicRuleConfig_kinesis(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   kinesis {
-    stream_name = "mystream"
-    role_arn    = aws_iam_role.test.arn
+stream_name = "mystream"
+role_arn= aws_iam_role.test.arn
   }
 }
 `, rName))
@@ -2370,13 +2370,13 @@ data "aws_region" "current" {}
 data "aws_partition" "current" {}
 
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   lambda {
-    function_arn = "arn:${data.aws_partition.current.partition}:lambda:${data.aws_region.current.name}:123456789012:function:ProcessKinesisRecords"
+function_arn = "arn:${data.aws_partition.current.partition}:lambda:${data.aws_region.current.name}:123456789012:function:ProcessKinesisRecords"
   }
 }
 `, rName)
@@ -2387,14 +2387,14 @@ func testAccTopicRuleConfig_republish(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   republish {
-    role_arn = aws_iam_role.test.arn
-    topic    = "mytopic"
+role_arn = aws_iam_role.test.arn
+topic= "mytopic"
   }
 }
 `, rName))
@@ -2405,15 +2405,15 @@ func testAccTopicRuleConfig_republishQoS(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   republish {
-    role_arn = aws_iam_role.test.arn
-    topic    = "mytopic"
-    qos      = 1
+role_arn = aws_iam_role.test.arn
+topic= "mytopic"
+qos  = 1
   }
 }
 `, rName))
@@ -2424,16 +2424,16 @@ func testAccTopicRuleConfig_s3(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   s3 {
-    bucket_name = "mybucket"
-    canned_acl  = "private"
-    key         = "mykey"
-    role_arn    = aws_iam_role.test.arn
+bucket_name = "mybucket"
+canned_acl  = "private"
+key= "mykey"
+role_arn= aws_iam_role.test.arn
   }
 }
 `, rName))
@@ -2446,14 +2446,14 @@ func testAccTopicRuleConfig_sns(rName string) string {
 data "aws_region" "current" {}
 
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   sns {
-    role_arn   = aws_iam_role.test.arn
-    target_arn = "arn:${data.aws_partition.current.partition}:sns:${data.aws_region.current.name}:123456789012:my_corporate_topic"
+role_arn   = aws_iam_role.test.arn
+target_arn = "arn:${data.aws_partition.current.partition}:sns:${data.aws_region.current.name}:123456789012:my_corporate_topic"
   }
 }
 `, rName))
@@ -2464,15 +2464,15 @@ func testAccTopicRuleConfig_sqs(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   sqs {
-    queue_url  = "fakedata"
-    role_arn   = aws_iam_role.test.arn
-    use_base64 = false
+queue_url  = "fakedata"
+role_arn   = aws_iam_role.test.arn
+use_base64 = false
   }
 }
 `, rName))
@@ -2483,15 +2483,15 @@ func testAccTopicRuleConfig_stepFunctions(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   step_functions {
-    execution_name_prefix = "myprefix"
-    state_machine_name    = "mystatemachine"
-    role_arn = aws_iam_role.test.arn
+execution_name_prefix = "myprefix"
+state_machine_name= "mystatemachine"
+role_arn = aws_iam_role.test.arn
   }
 }
 `, rName))
@@ -2502,25 +2502,25 @@ func testAccTopicRuleConfig_timestream(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   timestream {
-    database_name = "TestDB"
-    role_arn      = aws_iam_role.test.arn
-    table_name    = "test_table"
+database_name = "TestDB"
+role_arn  = aws_iam_role.test.arn
+table_name= "test_table"
 
-    dimension {
-      name  = "dim"
-      value = "$${dim}"
-    }
+dimension {
+  name  = "dim"
+  value = "$${dim}"
+}
 
-    timestamp {
-      unit  = "MILLISECONDS"
-      value = "$${time}"
-    }
+timestamp {
+  unit  = "MILLISECONDS"
+  value = "$${time}"
+}
   }
 }
 `, rName))
@@ -2531,21 +2531,21 @@ func testAccTopicRuleConfig_errorAction(rName string) string {
 		testAccTopicRuleConfig_destinationRole(rName),
 		fmt.Sprintf(`
 resource "aws_iot_topic_rule" "test" {
-  name        = %[1]q
-  enabled     = true
-  sql         = "SELECT * FROM 'topic/test'"
+  name= %[1]q
+  enabled = true
+  sql= "SELECT * FROM 'topic/test'"
   sql_version = "2015-10-08"
 
   kinesis {
-    stream_name = "mystream1"
-    role_arn    = aws_iam_role.test.arn
+stream_name = "mystream1"
+role_arn= aws_iam_role.test.arn
   }
 
   error_action {
-    kinesis {
-      stream_name = "mystream2"
-      role_arn    = aws_iam_role.test.arn
-    }
+kinesis {
+  stream_name = "mystream2"
+  role_arn= aws_iam_role.test.arn
+}
   }
 }
 `, rName))

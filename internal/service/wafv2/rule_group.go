@@ -65,14 +65,14 @@ func ResourceRuleGroup() *schema.Resource {
 					Computed: true,
 				},
 				"capacity": {
-					Type:         schema.TypeInt,
+					Type:schema.TypeInt,
 					Required:     true,
 					ForceNew:     true,
 					ValidateFunc: validation.IntAtLeast(1),
 				},
 				"custom_response_body": customResponseBodySchema(),
 				"description": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringLenBetween(1, 256),
 				},
@@ -81,7 +81,7 @@ func ResourceRuleGroup() *schema.Resource {
 					Computed: true,
 				},
 				"name": {
-					Type:          schema.TypeString,
+					Type: schema.TypeString,
 					Optional:      true,
 					Computed:      true,
 					ForceNew:      true,
@@ -92,7 +92,7 @@ func ResourceRuleGroup() *schema.Resource {
 					),
 				},
 				"name_prefix": {
-					Type:          schema.TypeString,
+					Type: schema.TypeString,
 					Optional:      true,
 					Computed:      true,
 					ForceNew:      true,
@@ -123,7 +123,7 @@ func ResourceRuleGroup() *schema.Resource {
 							},
 							"captcha_config": outerCaptchaConfigSchema(),
 							"name": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringLenBetween(1, 128),
 							},
@@ -132,13 +132,13 @@ func ResourceRuleGroup() *schema.Resource {
 								Required: true,
 							},
 							"rule_label":        ruleLabelsSchema(),
-							"statement":         ruleGroupRootStatementSchema(ruleGroupRootStatementSchemaLevel),
+							"statement":ruleGroupRootStatementSchema(ruleGroupRootStatementSchemaLevel),
 							"visibility_config": visibilityConfigSchema(),
 						},
 					},
 				},
 				"scope": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ForceNew:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.Scope_Values(), false),
@@ -152,16 +152,15 @@ func ResourceRuleGroup() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceRuleGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &wafv2.CreateRuleGroupInput{
-		Capacity:         aws.Int64(int64(d.Get("capacity").(int))),
+		Capacity:aws.Int64(int64(d.Get("capacity").(int))),
 		Name:aws.String(name),
-		Rules:            expandRules(d.Get("rule").(*schema.Set).List()),
-		Scope:            aws.String(d.Get("scope").(string)),
+		Rules:   expandRules(d.Get("rule").(*schema.Set).List()),
+		Scope:   aws.String(d.Get("scope").(string)),
 		Tags:getTagsIn(ctx),
 		VisibilityConfig: expandVisibilityConfig(d.Get("visibility_config").([]interface{})),
 	}
@@ -187,7 +186,6 @@ func resourceRuleGroupCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return resourceRuleGroupRead(ctx, d, meta)
 }
-
 func resourceRuleGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -222,7 +220,6 @@ func resourceRuleGroupRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	return nil
 }
-
 func resourceRuleGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -231,8 +228,8 @@ func resourceRuleGroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 			Id:  aws.String(d.Id()),
 			LockToken:        aws.String(d.Get("lock_token").(string)),
 			Name:aws.String(d.Get("name").(string)),
-			Rules:            expandRules(d.Get("rule").(*schema.Set).List()),
-			Scope:            aws.String(d.Get("scope").(string)),
+			Rules:   expandRules(d.Get("rule").(*schema.Set).List()),
+			Scope:   aws.String(d.Get("scope").(string)),
 			VisibilityConfig: expandVisibilityConfig(d.Get("visibility_config").([]interface{})),
 		}
 
@@ -255,7 +252,6 @@ func resourceRuleGroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return resourceRuleGroupRead(ctx, d, meta)
 }
-
 func resourceRuleGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -281,7 +277,6 @@ func resourceRuleGroupDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 	return nil
 }
-
 func FindRuleGroupByThreePartKey(ctx context.Context, conn *wafv2.WAFV2, id, name, scope string) (*wafv2.GetRuleGroupOutput, error) {
 	input := &wafv2.GetRuleGroupInput{
 		Id:    aws.String(id),

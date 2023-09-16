@@ -51,7 +51,7 @@ func DataSourceGatewayRoute() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
-			"spec":         dataSourcePropertyFromResourceProperty(resourceGatewayRouteSpecSchema()),
+			"spec":dataSourcePropertyFromResourceProperty(resourceGatewayRouteSpecSchema()),
 			names.AttrTags: tftags.TagsSchemaComputed(),
 			"virtual_gateway_name": {
 				Type:     schema.TypeString,

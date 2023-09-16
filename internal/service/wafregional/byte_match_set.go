@@ -90,7 +90,7 @@ func resourceByteMatchSetCreate(ctx context.Context, d *schema.ResourceData, met
 		func(token *string) (interface{}, error) {
 			params := &waf.CreateByteMatchSetInput{
 				ChangeToken: token,
-				Name:        aws.String(d.Get("name").(string)),
+				Name:  aws.String(d.Get("name").(string)),
 			}
 			return conn.CreateByteMatchSetWithContext(ctx, params)
 		})
@@ -152,7 +152,7 @@ func flattenByteMatchTuplesWR(in []*waf.ByteMatchTuple) []interface{} {
 		}
 
 		m := map[string]interface{}{
-			"field_to_match":        []map[string]interface{}{fieldToMatchMap},
+			"field_to_match":  []map[string]interface{}{fieldToMatchMap},
 			"positional_constraint": aws.StringValue(tuple.PositionalConstraint),
 			"target_string":string(tuple.TargetString),
 			"text_transformation":   aws.StringValue(tuple.TextTransformation),
@@ -222,7 +222,7 @@ func updateByteMatchSetResourceWR(ctx context.Context, d *schema.ResourceData, o
 			req := &waf.UpdateByteMatchSetInput{
 				ChangeToken:    token,
 				ByteMatchSetId: aws.String(d.Id()),
-				Updates:        diffByteMatchSetTuple(oldT, newT),
+				Updates:  diffByteMatchSetTuple(oldT, newT),
 			}
 
 			return conn.UpdateByteMatchSetWithContext(ctx, req)

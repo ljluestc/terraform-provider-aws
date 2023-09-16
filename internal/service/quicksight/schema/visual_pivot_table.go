@@ -111,7 +111,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "overflow_column_header_visibility": stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
-"vertical_overflow_visibility":      stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
+"vertical_overflow_visibility":stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 	},
 },
 	},
@@ -192,7 +192,7 @@ Elem: &schema.Resource{
 "column_subtotal_options": subtotalOptionsSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SubtotalOptions.html
 "column_total_options":    pivotTotalOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PivotTotalOptions.html
 "row_subtotal_options":    subtotalOptionsSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SubtotalOptions.html
-"row_total_options":       pivotTotalOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PivotTotalOptions.html
+"row_total_options": pivotTotalOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PivotTotalOptions.html
 	},
 },
 	},
@@ -303,7 +303,7 @@ Elem: &schema.Resource{
 },
 	},
 },
-"font_configuration":        fontConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FontConfiguration.html
+"font_configuration":  fontConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FontConfiguration.html
 "height":     intSchema(false, validation.IntBetween(8, 500)),
 "horizontal_text_alignment": stringSchema(false, validation.StringInSlice(quicksight.HorizontalTextAlignment_Values(), false)),
 "text_wrap":  stringSchema(false, validation.StringInSlice(quicksight.TextWrap_Values(), false)),
@@ -341,7 +341,7 @@ Schema: map[string]*schema.Schema{
 },
 "metric_header_cell_style": tableCellStyleSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TableCellStyle.html
 "total_cell_style":tableCellStyleSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TableCellStyle.html
-"totals_visibility":        stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
+"totals_visibility":  stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 "value_cell_style":tableCellStyleSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TableCellStyle.html
 	},
 },
@@ -365,7 +365,7 @@ Elem: &schema.Resource{
 "placement": stringSchema(false, validation.StringInSlice(quicksight.TableTotalsPlacement_Values(), false)),
 "scroll_status":   stringSchema(false, validation.StringInSlice(quicksight.TableTotalsScrollStatus_Values(), false)),
 "total_cell_style":tableCellStyleSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TableCellStyle.html
-"totals_visibility":        stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
+"totals_visibility":  stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 "value_cell_style":tableCellStyleSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TableCellStyle.html
 	},
 },
@@ -406,7 +406,7 @@ Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "background_color": conditionalFormattingColorSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ConditionalFormattingColor.html
 "icon":    conditionalFormattingIconSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ConditionalFormattingIcon.html
-"text_color":       conditionalFormattingColorSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ConditionalFormattingColor.html
+"text_color": conditionalFormattingColorSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ConditionalFormattingColor.html
 	},
 },
 	}

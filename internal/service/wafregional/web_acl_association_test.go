@@ -39,8 +39,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -91,8 +91,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -124,8 +124,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -227,12 +227,12 @@ return err
 
 const testAccWebACLAssociationConfig_basic = `
 resource "aws_wafregional_rule" "foo" {
-  name        = "foo"
+  name  = "foo"
   metric_name = "foo"
 }
 
 resource "aws_wafregional_web_acl" "foo" {
-  name        = "foo"
+  name  = "foo"
   metric_name = "foo"
 
   default_action {
@@ -241,7 +241,7 @@ resource "aws_wafregional_web_acl" "foo" {
 
   rule {
     action {
-      type = "COUNT"
+type = "COUNT"
     }
 
     priority = 100
@@ -264,13 +264,13 @@ data "aws_availability_zones" "available" {
 
 resource "aws_subnet" "foo" {
   vpc_id   = aws_vpc.foo.id
-  cidr_block        = "10.1.1.0/24"
+  cidr_block  = "10.1.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 }
 
 resource "aws_subnet" "bar" {
   vpc_id   = aws_vpc.foo.id
-  cidr_block        = "10.1.2.0/24"
+  cidr_block  = "10.1.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 }
 
@@ -330,7 +330,7 @@ resource "aws_api_gateway_integration" "test" {
   resource_id    = aws_api_gateway_resource.test.id
   rest_api_id    = aws_api_gateway_rest_api.test.id
   type     = "HTTP"
-  uri      = "http://www.example.com"
+  uri= "http://www.example.com"
 }
 
 resource "aws_api_gateway_integration_response" "test" {
@@ -353,7 +353,7 @@ resource "aws_api_gateway_stage" "test" {
 }
 
 resource "aws_wafregional_web_acl" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = "test"
 
   default_action {

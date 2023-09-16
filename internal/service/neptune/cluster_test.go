@@ -749,7 +749,7 @@ resource "aws_neptune_cluster" "test" {
 func testAccClusterConfig_namePrefix(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
-  cluster_identifier_prefix            = %[1]q
+  cluster_identifier_prefix   = %[1]q
   engine
   neptune_cluster_parameter_group_name = "default.neptune1.2"
   skip_final_snapshot
@@ -760,7 +760,7 @@ resource "aws_neptune_cluster" "test" {
 func testAccClusterConfig_serverlessConfiguration(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
-  cluster_identifier_prefix            = %[1]q
+  cluster_identifier_prefix   = %[1]q
   engine
   engine_version1.2.0.1"
   neptune_cluster_parameter_group_name = "default.neptune1.2"
@@ -780,7 +780,7 @@ resource "aws_neptune_cluster" "test" {
   cluster_identifier
   availability_zones.availability_zone_names
   neptune_cluster_parameter_group_name = "default.neptune1.2"
-  final_snapshot_identifier            = %[1]q
+  final_snapshot_identifier   = %[1]q
 }
 `, rName))
 }
@@ -985,7 +985,7 @@ resource "aws_neptune_cluster" "test" {
   cluster_identifier  = %[1]q
   availability_zones  = local.availability_zone_names
   skip_final_snapshot = true
-  iam_roles           = [aws_iam_role.test.arn, aws_iam_role.test-2.arn]
+  iam_roles  = [aws_iam_role.test.arn, aws_iam_role.test-2.arn]
 
   neptune_cluster_parameter_group_name = "default.neptune1.2"
 
@@ -1037,7 +1037,7 @@ resource "aws_neptune_cluster" "test" {
   cluster_identifier  = %[1]q
   availability_zones  = local.availability_zone_names
   skip_final_snapshot = true
-  iam_roles           = [aws_iam_role.test.arn]
+  iam_roles  = [aws_iam_role.test.arn]
 
   neptune_cluster_parameter_group_name = "default.neptune1.2"
 
@@ -1098,12 +1098,12 @@ resource "aws_neptune_cluster" "test" {
 func testAccClusterConfig_backups(rName string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_base(), fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
-  cluster_identifier           = %[1]q
-  availability_zones           = local.availability_zone_names
+  cluster_identifier  = %[1]q
+  availability_zones  = local.availability_zone_names
   backup_retention_period      = 5
   preferred_backup_window      = "07:00-09:00"
   preferred_maintenance_window = "tue:04:00-tue:04:30"
-  skip_final_snapshot          = true
+  skip_final_snapshot = true
 
   neptune_cluster_parameter_group_name = "default.neptune1.2"
 }
@@ -1113,13 +1113,13 @@ resource "aws_neptune_cluster" "test" {
 func testAccClusterConfig_backupsUpdate(rName string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_base(), fmt.Sprintf(`
 resource "aws_neptune_cluster" "test" {
-  cluster_identifier           = %[1]q
-  availability_zones           = local.availability_zone_names
+  cluster_identifier  = %[1]q
+  availability_zones  = local.availability_zone_names
   backup_retention_period      = 10
   preferred_backup_window      = "03:00-09:00"
   preferred_maintenance_window = "wed:01:00-wed:01:30"
-  apply_immediately            = true
-  skip_final_snapshot          = true
+  apply_immediately   = true
+  skip_final_snapshot = true
 
   neptune_cluster_parameter_group_name = "default.neptune1.2"
 }
@@ -1144,7 +1144,7 @@ func testAccClusterConfig_cloudWatchLogsExports(rName string) string {
 resource "aws_neptune_cluster" "test" {
   cluster_identifier
   availability_zonesability_zone_names
-  skip_final_snapshot            = true
+  skip_final_snapshot   = true
   enable_cloudwatch_logs_exports = ["audit"]
 
   neptune_cluster_parameter_group_name = "default.neptune1.2"
@@ -1155,7 +1155,7 @@ resource "aws_neptune_cluster" "test" {
 func testAccClusterConfig_engineVersionBase(rName string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_base(), fmt.Sprintf(`
 data "aws_neptune_orderable_db_instance" "test" {
-  engine         = "neptune"
+  engine= "neptune"
   engine_version = aws_neptune_cluster.test.engine_version
   license_model  = "amazon-license"
 
@@ -1164,8 +1164,8 @@ data "aws_neptune_orderable_db_instance" "test" {
 
 resource "aws_neptune_cluster_instance" "test" {
   identifier
-  cluster_identifier           = aws_neptune_cluster.test.id
-  apply_immediately            = true
+  cluster_identifier  = aws_neptune_cluster.test.id
+  apply_immediately   = true
   instance_classneptune_orderable_db_instance.test.instance_class
   neptune_parameter_group_name = aws_neptune_cluster.test.neptune_cluster_parameter_group_name
   promotion_tier
@@ -1195,7 +1195,7 @@ resource "aws_neptune_cluster" "test" {
   engine_version[2]q
   neptune_cluster_parameter_group_name = %[3]q
   skip_final_snapshot
-  allow_major_version_upgrade          = true
+  allow_major_version_upgrade = true
 }
 `, rName, engineVersion, clusterParameterGroupName))
 }
@@ -1217,13 +1217,13 @@ data "aws_availability_zones" "alternate" {
 resource "aws_neptune_global_cluster" "test" {
   global_cluster_identifier = %[1]q
   enginetune"
-  engine_version            = "1.2.0.0"
+  engine_version   = "1.2.0.0"
 }
 
 resource "aws_neptune_cluster" "primary" {
   cluster_identifier
   skip_final_snapshot
-  global_cluster_identifier            = aws_neptune_global_cluster.test.id
+  global_cluster_identifier   = aws_neptune_global_cluster.test.id
   enginecluster.test.engine
   engine_versionws_neptune_global_cluster.test.engine_version
   neptune_cluster_parameter_group_name = "default.neptune1.2"
@@ -1231,7 +1231,7 @@ resource "aws_neptune_cluster" "primary" {
 
 resource "aws_neptune_cluster_instance" "primary" {
   identifier
-  cluster_identifier           = aws_neptune_cluster.primary.id
+  cluster_identifier  = aws_neptune_cluster.primary.id
   instance_classrge"
   neptune_parameter_group_name = "default.neptune1.2"
   engine_versionne_global_cluster.test.engine_version
@@ -1247,9 +1247,9 @@ resource "aws_vpc" "alternate" {
 }
 
 resource "aws_subnet" "alternate" {
-  provider          = "awsalternate"
+  provider = "awsalternate"
   count
-  vpc_id            = aws_vpc.alternate.id
+  vpc_id   = aws_vpc.alternate.id
   availability_zone = data.aws_availability_zones.alternate.names[count.index]
   cidr_block        = "10.0.${count.index}.0/24"
 
@@ -1269,8 +1269,8 @@ resource "aws_neptune_cluster" "secondary" {
   provider
   cluster_identifier
   skip_final_snapshot
-  neptune_subnet_group_name            = aws_neptune_subnet_group.alternate.name
-  global_cluster_identifier            = aws_neptune_global_cluster.test.id
+  neptune_subnet_group_name   = aws_neptune_subnet_group.alternate.name
+  global_cluster_identifier   = aws_neptune_global_cluster.test.id
   enginecluster.test.engine
   engine_versionws_neptune_global_cluster.test.engine_version
   neptune_cluster_parameter_group_name = "default.neptune1.2"
@@ -1285,7 +1285,7 @@ resource "aws_neptune_cluster" "secondary" {
 resource "aws_neptune_cluster_instance" "secondary" {
   providersalternate"
   identifier
-  cluster_identifier           = aws_neptune_cluster.secondary.id
+  cluster_identifier  = aws_neptune_cluster.secondary.id
   neptune_parameter_group_name = "default.neptune1.2"
   engine_versionne_global_cluster.test.engine_version
   instance_classrge"
@@ -1315,7 +1315,7 @@ resource "aws_neptune_cluster" "source" {
 }
 
 resource "aws_neptune_cluster_snapshot" "test" {
-  db_cluster_identifier          = aws_neptune_cluster.source.id
+  db_cluster_identifier = aws_neptune_cluster.source.id
   db_cluster_snapshot_identifier = %[1]q
 }
 

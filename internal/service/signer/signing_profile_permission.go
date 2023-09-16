@@ -37,7 +37,7 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"profile_name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringLenBetween(2, 64),
@@ -58,14 +58,14 @@ Required: true,
 ForceNew: true,
 	},
 	"profile_version": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringLenBetween(10, 10),
 	},
 	"statement_id": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 Computed:      true,
 ForceNew:      true,
@@ -73,7 +73,7 @@ ConflictsWith: []string{"statement_id_prefix"},
 ValidateFunc:  validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_-]{0,64}$`), "must be alphanumeric with max length of 64 characters"),
 	},
 	"statement_id_prefix": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 ForceNew:      true,
 ConflictsWith: []string{"statement_id"},

@@ -34,13 +34,13 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"bucket": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 63),
 			},
 			"expected_bucket_owner": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,
@@ -73,7 +73,7 @@ import (
 										Optional: true,
 									},
 									"type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringInSlice(s3.Type_Values(), false),
 									},
@@ -85,7 +85,7 @@ import (
 							},
 						},
 						"permission": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(s3.BucketLogsPermission_Values(), false),
 						},
@@ -213,7 +213,7 @@ funcket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	}
 
 	input := &s3.PutBucketLoggingInput{
-		Bucket:              aws.String(bucket),
+		Bucket:     aws.String(bucket),
 		BucketLoggingStatus: &s3.BucketLoggingStatus{},
 	}
 

@@ -26,10 +26,10 @@ func TestAccGlueClassifier_csvClassifier(t *testing.T) {
 	resourceName := "aws_glue_classifier.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassifierDestroy(ctx),
+		CheckDestroy:    testAccCheckClassifierDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassifierConfig_csv(rName, false, "PRESENT", "|", false),
@@ -82,10 +82,10 @@ func TestAccGlueClassifier_CSVClassifier_quoteSymbol(t *testing.T) {
 	resourceName := "aws_glue_classifier.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassifierDestroy(ctx),
+		CheckDestroy:    testAccCheckClassifierDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassifierConfig_csvQuoteSymbol(rName, "\""),
@@ -120,10 +120,10 @@ func TestAccGlueClassifier_CSVClassifier_custom(t *testing.T) {
 	resourceName := "aws_glue_classifier.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassifierDestroy(ctx),
+		CheckDestroy:    testAccCheckClassifierDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassifierConfig_csvCustom(rName, "BINARY"),
@@ -162,10 +162,10 @@ func TestAccGlueClassifier_grokClassifier(t *testing.T) {
 	resourceName := "aws_glue_classifier.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassifierDestroy(ctx),
+		CheckDestroy:    testAccCheckClassifierDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassifierConfig_grok(rName, "classification1", "pattern1"),
@@ -212,10 +212,10 @@ func TestAccGlueClassifier_GrokClassifier_customPatterns(t *testing.T) {
 	resourceName := "aws_glue_classifier.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassifierDestroy(ctx),
+		CheckDestroy:    testAccCheckClassifierDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassifierConfig_grokCustomPatterns(rName, "custompattern1"),
@@ -262,10 +262,10 @@ func TestAccGlueClassifier_jsonClassifier(t *testing.T) {
 	resourceName := "aws_glue_classifier.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassifierDestroy(ctx),
+		CheckDestroy:    testAccCheckClassifierDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassifierConfig_json(rName, "jsonpath1"),
@@ -308,10 +308,10 @@ func TestAccGlueClassifier_typeChange(t *testing.T) {
 	resourceName := "aws_glue_classifier.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassifierDestroy(ctx),
+		CheckDestroy:    testAccCheckClassifierDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassifierConfig_grok(rName, "classification1", "pattern1"),
@@ -378,10 +378,10 @@ func TestAccGlueClassifier_xmlClassifier(t *testing.T) {
 	resourceName := "aws_glue_classifier.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassifierDestroy(ctx),
+		CheckDestroy:    testAccCheckClassifierDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassifierConfig_xml(rName, "classification1", "rowtag1"),
@@ -426,10 +426,10 @@ func TestAccGlueClassifier_disappears(t *testing.T) {
 	resourceName := "aws_glue_classifier.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClassifierDestroy(ctx),
+		CheckDestroy:    testAccCheckClassifierDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClassifierConfig_csv(rName, false, "PRESENT", "|", false),
@@ -501,7 +501,7 @@ resource "aws_glue_classifier" "test" {
   csv_classifier {
     allow_single_column    = "%t"
     contains_header        = "%s"
-    delimiter              = "%s"
+    delimiter     = "%s"
     disable_value_trimming = "%t"
     header  = ["header_column1", "header_column2"]
   }
@@ -517,8 +517,8 @@ resource "aws_glue_classifier" "test" {
   csv_classifier {
     allow_single_column = false
     contains_header     = "PRESENT"
-    delimiter           = ","
-    header              = ["header_column1", "header_column2"]
+    delimiter  = ","
+    header     = ["header_column1", "header_column2"]
     quote_symbol        = %[2]q
   }
 }
@@ -532,11 +532,11 @@ resource "aws_glue_classifier" "test" {
 
   csv_classifier {
     allow_single_column        = false
-    contains_header            = "PRESENT"
+    contains_header   = "PRESENT"
     delimiter   = ","
     header      = ["header_column1", "header_column2"]
     custom_datatype_configured = true
-    custom_datatypes           = ["%[2]s", "SHORT"]
+    custom_datatypes  = ["%[2]s", "SHORT"]
   }
 }
 `, rName, customType)

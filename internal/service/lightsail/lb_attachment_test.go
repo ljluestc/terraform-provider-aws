@@ -21,7 +21,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func testAccLoadBalancerAttachment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_lb_attachment.test"
@@ -49,7 +48,6 @@ func testAccLoadBalancerAttachment_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancerAttachment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_lb_attachment.test"
@@ -77,7 +75,6 @@ func testAccLoadBalancerAttachment_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckLoadBalancerAttachmentExists(ctx context.Context, n string, liName *string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -106,7 +103,6 @@ func testAccCheckLoadBalancerAttachmentExists(ctx context.Context, n string, liN
 		return nil
 	}
 }
-
 func testAccCheckLoadBalancerAttachmentDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -132,7 +128,6 @@ func testAccCheckLoadBalancerAttachmentDestroy(ctx context.Context) resource.Tes
 		return nil
 	}
 }
-
 func testAccLoadBalancerAttachmentConfig_basic(lbName string, liName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
@@ -152,7 +147,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
 }
 resource "aws_lightsail_lb_attachment" "test" {
   lb_name       = aws_lightsail_lb.test.name

@@ -45,56 +45,56 @@ func ResourceIdentityProviderConfig() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"cluster_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 
 			"oidc": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"client_id": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.NoZeroValues,
 						},
 						"groups_claim": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Optional:true,
+							ForceNew:true,
 							ValidateFunc: validation.NoZeroValues,
 						},
 						"groups_prefix": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Optional:true,
+							ForceNew:true,
 							ValidateFunc: validation.NoZeroValues,
 						},
 						"identity_provider_config_name": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.NoZeroValues,
 						},
 						"issuer_url": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.IsURLWithHTTPS,
 						},
 						"required_claims": {
-							Type:     schema.TypeMap,
+							Type:schema.TypeMap,
 							Optional: true,
 							ForceNew: true,
 							ValidateDiagFunc: validation.AllDiag(
@@ -104,15 +104,15 @@ func ResourceIdentityProviderConfig() *schema.Resource {
 							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 						"username_claim": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Optional:true,
+							ForceNew:true,
 							ValidateFunc: validation.NoZeroValues,
 						},
 						"username_prefix": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Optional:true,
+							ForceNew:true,
 							ValidateFunc: validation.NoZeroValues,
 						},
 					},
@@ -120,11 +120,11 @@ func ResourceIdentityProviderConfig() *schema.Resource {
 			},
 
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -138,7 +138,7 @@ func resourceIdentityProviderConfigCreate(ctx context.Context, d *schema.Resourc
 	idpID := IdentityProviderConfigCreateResourceID(clusterName, configName)
 	input := &eks.AssociateIdentityProviderConfigInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
-		ClusterName:        aws.String(clusterName),
+		ClusterName:   aws.String(clusterName),
 		Oidc:  oidc,
 		Tags:  getTagsIn(ctx),
 	}

@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	tfopensearch "github.com/hashicorp/terraform-provider-aws/internal/service/opensearch"
 )
-
 func TestAccOpenSearchOutboundConnection_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
@@ -43,7 +42,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccOpenSearchOutboundConnection_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var domain opensearchservice.DomainStatus
@@ -69,7 +67,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func testAccOutboundConnectionConfig(name string) string {
 	// Satisfy the pw requirements
 	pw := fmt.Sprintf("Aa1-%s", sdkacctest.RandString(10))
@@ -91,7 +88,7 @@ resource "aws_opensearch_domain" "domain_1" {
   }
 
   advanced_security_options {
-    enabled         = true
+    enabled= true
     internal_user_database_enabled = true
 
     master_user_options {
@@ -127,7 +124,7 @@ resource "aws_opensearch_domain" "domain_2" {
   }
 
   advanced_security_options {
-    enabled         = true
+    enabled= true
     internal_user_database_enabled = true
 
     master_user_options {

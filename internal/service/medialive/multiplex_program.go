@@ -478,7 +478,7 @@ func (sms statmuxSettingsObject) expand(_ context.Context) *mltypes.MultiplexSta
 	return &mltypes.MultiplexStatmuxVideoSettings{
 		MaximumBitrate: int32(sms[0].MaximumBitrate.ValueInt64()),
 		MinimumBitrate: int32(sms[0].MinimumBitrate.ValueInt64()),
-		Priority:       int32(sms[0].Priority.ValueInt64()),
+		Priority:(sms[0].Priority.ValueInt64()),
 	}
 }
 
@@ -486,7 +486,7 @@ var (
 	statmuxAttrs = map[string]attr.Type{
 		"minimum_bitrate": types.Int64Type,
 		"maximum_bitrate": types.Int64Type,
-		"priority":        types.Int64Type,
+		"priority":s.Int64Type,
 	}
 
 	videoSettingsAttrs = map[string]attr.Type{
@@ -598,7 +598,7 @@ type resourceMultiplexProgramData struct {
 type multiplexProgramSettings struct {
 	ProgramNumber   types.Int64  `tfsdk:"program_number"`
 	PreferredChannelPipeline types.String `tfsdk:"preferred_channel_pipeline"`
-	ServiceDescriptor        types.List   `tfsdk:"service_descriptor"`
+	ServiceDescriptors.List   `tfsdk:"service_descriptor"`
 	VideoSettings   types.List   `tfsdk:"video_settings"`
 }
 
@@ -615,5 +615,5 @@ type videoSettings struct {
 type statmuxSettings struct {
 	MaximumBitrate types.Int64 `tfsdk:"maximum_bitrate"`
 	MinimumBitrate types.Int64 `tfsdk:"minimum_bitrate"`
-	Priority       types.Int64 `tfsdk:"priority"`
+	Priority.Int64 `tfsdk:"priority"`
 }

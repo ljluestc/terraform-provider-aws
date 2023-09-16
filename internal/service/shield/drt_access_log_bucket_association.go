@@ -56,7 +56,7 @@ func (r *resourceDRTAccessLogBucketAssociation) Schema(ctx context.Context, req 
 			"id": schema.StringAttribute{ // required by hashicorps terraform plugin testing framework
 				DeprecationMessage:  "id is only for framework compatibility and not used by the provider",
 				MarkdownDescription: "The ID of the directory.",
-				Computed:            true,
+				Computed:   true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -268,11 +268,11 @@ const (
 
 func waitDRTAccessLogBucketAssociationCreated(ctx context.Context, conn *shield.Shield, bucket string, timeout time.Duration) (*shield.DescribeDRTAccessOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    []string{statusNormal},
-		Refresh:                   statusDRTAccessLogBucketAssociation(ctx, conn, bucket),
-		Timeout:                   timeout,
-		NotFoundChecks:            2,
+		Pending: []string{},
+		Target:  []string{statusNormal},
+		Refresh: statusDRTAccessLogBucketAssociation(ctx, conn, bucket),
+		Timeout: timeout,
+		NotFoundChecks:   2,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -286,11 +286,11 @@ func waitDRTAccessLogBucketAssociationCreated(ctx context.Context, conn *shield.
 
 func waitDRTAccessLogBucketAssociationUpdated(ctx context.Context, conn *shield.Shield, bucket string, timeout time.Duration) (*shield.DescribeDRTAccessOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{statusChangePending},
-		Target:                    []string{statusUpdated},
-		Refresh:                   statusDRTAccessLogBucketAssociation(ctx, conn, bucket),
-		Timeout:                   timeout,
-		NotFoundChecks:            2,
+		Pending: []string{statusChangePending},
+		Target:  []string{statusUpdated},
+		Refresh: statusDRTAccessLogBucketAssociation(ctx, conn, bucket),
+		Timeout: timeout,
+		NotFoundChecks:   2,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -372,8 +372,8 @@ func describeDRTAccessLogBucketAssociation(ctx context.Context, conn *shield.Shi
 }
 
 type resourceDRTAccessLogBucketAssociationData struct {
-	ID                   types.String   `tfsdk:"id"`
+	ID types.String   `tfsdk:"id"`
 	RoleArnAssociationID types.String   `tfsdk:"role_arn_association_id"`
-	LogBucket            types.String   `tfsdk:"log_bucket"`
-	Timeouts             timeouts.Value `tfsdk:"timeouts"`
+	LogBucket   types.String   `tfsdk:"log_bucket"`
+	Timeouts    timeouts.Value `tfsdk:"timeouts"`
 }

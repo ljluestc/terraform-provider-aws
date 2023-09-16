@@ -30,7 +30,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserProfileDestroy(ctx),
+CheckDestroy:testAccCheckUserProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserProfileConfig_create(rName1),
@@ -67,7 +67,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckUserProfileDestroy(ctx),
+CheckDestroy:testAccCheckUserProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserProfileConfig_create(rName),
@@ -137,7 +137,7 @@ return nil
 func testAccUserProfileConfig_create(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opsworks_user_profile" "test" {
-  user_arn     = aws_iam_user.test1.arn
+  user_arn= aws_iam_user.test1.arn
   ssh_username = aws_iam_user.test1.name
 }
 
@@ -152,7 +152,7 @@ resource "aws_iam_user" "test1" {
 func testAccUserProfileConfig_update(rName1, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_opsworks_user_profile" "test" {
-  user_arn     = aws_iam_user.test2.arn
+  user_arn= aws_iam_user.test2.arn
   ssh_username = aws_iam_user.test2.name
 }
 

@@ -21,7 +21,8 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-func TestAccRBinRule_basic(t *testing.T) {
+
+ TestAccRBinRule_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rule rbin.GetRuleOutput
 	description := "my test description"
@@ -29,7 +30,8 @@ func TestAccRBinRule_basic(t *testing.T) {
 	resourceName := "aws_rbin_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, rbin.ServiceID)
 		},
@@ -82,7 +84,8 @@ func TestAccRBinRule_basic(t *testing.T) {
 	})
 }
 
-func TestAccRBinRule_disappears(t *testing.T) {
+
+ TestAccRBinRule_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rbinrule rbin.GetRuleOutput
 	description := "my test description"
@@ -90,7 +93,8 @@ func TestAccRBinRule_disappears(t *testing.T) {
 	resourceName := "aws_rbin_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, rbin.ServiceID)
 		},
@@ -110,14 +114,16 @@ func TestAccRBinRule_disappears(t *testing.T) {
 	})
 }
 
-func TestAccRBinRule_tags(t *testing.T) {
+
+ TestAccRBinRule_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rule rbin.GetRuleOutput
 	resourceType := "EBS_SNAPSHOT"
 	resourceName := "aws_rbin_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.RBin)
 		},
@@ -159,14 +165,16 @@ func TestAccRBinRule_tags(t *testing.T) {
 	})
 }
 
-func TestAccRBinRule_lock_config(t *testing.T) {
+
+ TestAccRBinRule_lock_config(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rule rbin.GetRuleOutput
 	resourceType := "EBS_SNAPSHOT"
 	resourceName := "aws_rbin_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, rbin.ServiceID)
 		},
@@ -188,8 +196,10 @@ func TestAccRBinRule_lock_config(t *testing.T) {
 	})
 }
 
-func testAccCheckRuleDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ testAccCheckRuleDestroy(ctx context.Context) resource.TestCheckFunc {
+	return 
+(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).RBinClient(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -215,8 +225,10 @@ func testAccCheckRuleDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
-func testAccCheckRuleExists(ctx context.Context, name string, rbinrule *rbin.GetRuleOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+ testAccCheckRuleExists(ctx context.Context, name string, rbinrule *rbin.GetRuleOutput) resource.TestCheckFunc {
+	return 
+(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.RBin, create.ErrActionCheckingExistence, tfrbin.ResNameRule, name, errors.New("not found"))
@@ -242,7 +254,8 @@ func testAccCheckRuleExists(ctx context.Context, name string, rbinrule *rbin.Get
 	}
 }
 
-func testAccRuleConfig_basic1(description, resourceType string) string {
+
+ testAccRuleConfig_basic1(description, resourceType string) string {
 	return fmt.Sprintf(`
 resource "aws_rbin_rule" "test" {
   description   = %[1]q
@@ -261,7 +274,8 @@ resource "aws_rbin_rule" "test" {
 `, description, resourceType)
 }
 
-func testAccRuleConfig_basic2(description, resourceType string) string {
+
+ testAccRuleConfig_basic2(description, resourceType string) string {
 	return fmt.Sprintf(`
 resource "aws_rbin_rule" "test" {
   description   = %[1]q
@@ -285,7 +299,8 @@ resource "aws_rbin_rule" "test" {
 `, description, resourceType)
 }
 
-func testAccRuleConfig_lockConfig(resourceType, delay_unit1, delay_value1 string) string {
+
+ testAccRuleConfig_lockConfig(resourceType, delay_unit1, delay_value1 string) string {
 	return fmt.Sprintf(`
 resource "aws_rbin_rule" "test" {
   resource_type = %[1]q
@@ -305,7 +320,8 @@ resource "aws_rbin_rule" "test" {
 `, resourceType, delay_unit1, delay_value1)
 }
 
-func testAccRuleConfigTags1(resourceType, tag1Key, tag1Value string) string {
+
+ testAccRuleConfigTags1(resourceType, tag1Key, tag1Value string) string {
 	return fmt.Sprintf(`
 resource "aws_rbin_rule" "test" {
   resource_type = %[1]q
@@ -327,7 +343,8 @@ resource "aws_rbin_rule" "test" {
 `, resourceType, tag1Key, tag1Value)
 }
 
-func testAccRuleConfigTags2(resourceType, tag1Key, tag1Value, tag2Key, tag2Value string) string {
+
+ testAccRuleConfigTags2(resourceType, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return fmt.Sprintf(`
 resource "aws_rbin_rule" "test" {
   resource_type = %[1]q

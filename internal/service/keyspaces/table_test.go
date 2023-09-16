@@ -29,7 +29,7 @@ func TestAccKeyspacesTable_basic(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -68,8 +68,8 @@ func TestAccKeyspacesTable_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -84,7 +84,7 @@ func TestAccKeyspacesTable_disappears(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -109,7 +109,7 @@ func TestAccKeyspacesTable_tags(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -123,8 +123,8 @@ func TestAccKeyspacesTable_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -156,7 +156,7 @@ func TestAccKeyspacesTable_clientSideTimestamps(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -170,8 +170,8 @@ func TestAccKeyspacesTable_clientSideTimestamps(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -186,7 +186,7 @@ func TestAccKeyspacesTable_multipleColumns(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -198,11 +198,11 @@ func TestAccKeyspacesTable_multipleColumns(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "schema_definition.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "schema_definition.0.clustering_key.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema_definition.0.clustering_key.*", map[string]string{
-						"name":     "division",
+						"name": "division",
 						"order_by": "ASC",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema_definition.0.clustering_key.*", map[string]string{
-						"name":     "region",
+						"name": "region",
 						"order_by": "DESC",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "schema_definition.0.column.#", "11"),
@@ -264,8 +264,8 @@ func TestAccKeyspacesTable_multipleColumns(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -281,7 +281,7 @@ func TestAccKeyspacesTable_update(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -312,8 +312,8 @@ func TestAccKeyspacesTable_update(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -354,7 +354,7 @@ func TestAccKeyspacesTable_addColumns(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -378,8 +378,8 @@ func TestAccKeyspacesTable_addColumns(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -421,7 +421,7 @@ func TestAccKeyspacesTable_delColumns(t *testing.T) {
 	resourceName := "aws_keyspaces_table.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, names.KeyspacesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTableDestroy(ctx),
@@ -453,8 +453,8 @@ func TestAccKeyspacesTable_delColumns(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -571,17 +571,17 @@ resource "aws_keyspaces_keyspace" "test" {
 
 resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name    = %[2]q
+  table_name= %[2]q
 
   schema_definition {
-    column {
-      name = "message"
-      type = "ascii"
-    }
+column {
+  name = "message"
+  type = "ascii"
+}
 
-    partition_key {
-      name = "message"
-    }
+partition_key {
+  name = "message"
+}
   }
 }
 `, rName1, rName2)
@@ -595,21 +595,21 @@ resource "aws_keyspaces_keyspace" "test" {
 
 resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name    = %[2]q
+  table_name= %[2]q
 
   schema_definition {
-    column {
-      name = "message"
-      type = "ascii"
-    }
+column {
+  name = "message"
+  type = "ascii"
+}
 
-    partition_key {
-      name = "message"
-    }
+partition_key {
+  name = "message"
+}
   }
 
   tags = {
-    %[3]q = %[4]q
+%[3]q = %[4]q
   }
 }
 `, rName1, rName2, tagKey1, tagValue1)
@@ -623,22 +623,22 @@ resource "aws_keyspaces_keyspace" "test" {
 
 resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name    = %[2]q
+  table_name= %[2]q
 
   schema_definition {
-    column {
-      name = "message"
-      type = "ascii"
-    }
+column {
+  name = "message"
+  type = "ascii"
+}
 
-    partition_key {
-      name = "message"
-    }
+partition_key {
+  name = "message"
+}
   }
 
   tags = {
-    %[3]q = %[4]q
-    %[5]q = %[6]q
+%[3]q = %[4]q
+%[5]q = %[6]q
   }
 }
 `, rName1, rName2, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -652,21 +652,21 @@ resource "aws_keyspaces_keyspace" "test" {
 
 resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name    = %[2]q
+  table_name= %[2]q
 
   schema_definition {
-    column {
-      name = "message"
-      type = "ascii"
-    }
+column {
+  name = "message"
+  type = "ascii"
+}
 
-    partition_key {
-      name = "message"
-    }
+partition_key {
+  name = "message"
+}
   }
 
   client_side_timestamps {
-    status = "ENABLED"
+status = "ENABLED"
   }
 }
 `, rName1, rName2)
@@ -680,85 +680,85 @@ resource "aws_keyspaces_keyspace" "test" {
 
 resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name    = %[2]q
+  table_name= %[2]q
 
   schema_definition {
-    column {
-      name = "id"
-      type = "text"
-    }
+column {
+  name = "id"
+  type = "text"
+}
 
-    column {
-      name = "n"
-      type = "text"
-    }
+column {
+  name = "n"
+  type = "text"
+}
 
-    column {
-      name = "region"
-      type = "text"
-    }
+column {
+  name = "region"
+  type = "text"
+}
 
-    column {
-      name = "division"
-      type = "text"
-    }
+column {
+  name = "division"
+  type = "text"
+}
 
-    column {
-      name = "project"
-      type = "text"
-    }
+column {
+  name = "project"
+  type = "text"
+}
 
-    column {
-      name = "role"
-      type = "text"
-    }
+column {
+  name = "role"
+  type = "text"
+}
 
-    column {
-      name = "pay_scale0"
-      type = "int"
-    }
+column {
+  name = "pay_scale0"
+  type = "int"
+}
 
-    column {
-      name = "vacation_hrs"
-      type = "float"
-    }
+column {
+  name = "vacation_hrs"
+  type = "float"
+}
 
-    column {
-      name = "manager_id"
-      type = "text"
-    }
+column {
+  name = "manager_id"
+  type = "text"
+}
 
-    column {
-      name = "nicknames"
-      type = "list<text>"
-    }
+column {
+  name = "nicknames"
+  type = "list<text>"
+}
 
-    column {
-      name = "tags"
-      type = "map<text, text>"
-    }
+column {
+  name = "tags"
+  type = "map<text, text>"
+}
 
-    partition_key {
-      name = "id"
-    }
+partition_key {
+  name = "id"
+}
 
-    clustering_key {
-      name     = "division"
-      order_by = "ASC"
-    }
+clustering_key {
+  name = "division"
+  order_by = "ASC"
+}
 
-    clustering_key {
-      name     = "region"
-      order_by = "DESC"
-    }
+clustering_key {
+  name = "region"
+  order_by = "DESC"
+}
 
-    static_column {
-      name = "role"
-    }
+static_column {
+  name = "role"
+}
 
-    static_column {
-      name = "pay_scale0"
-    }
+static_column {
+  name = "pay_scale0"
+}
   }
 }
 `, rName1, rName2)
@@ -776,42 +776,42 @@ resource "aws_keyspaces_keyspace" "test" {
 
 resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name    = %[2]q
+  table_name= %[2]q
 
   schema_definition {
-    column {
-      name = "message"
-      type = "ascii"
-    }
+column {
+  name = "message"
+  type = "ascii"
+}
 
-    partition_key {
-      name = "message"
-    }
+partition_key {
+  name = "message"
+}
   }
 
   capacity_specification {
-    read_capacity_units  = 200
-    throughput_mode      = "PROVISIONED"
-    write_capacity_units = 100
+read_capacity_units  = 200
+throughput_mode  = "PROVISIONED"
+write_capacity_units = 100
   }
 
   comment {
-    message = "TESTING"
+message = "TESTING"
   }
 
   default_time_to_live = 500000
 
   encryption_specification {
-    kms_key_identifier = aws_kms_key.test.arn
-    type  = "CUSTOMER_MANAGED_KMS_KEY"
+kms_key_identifier = aws_kms_key.test.arn
+type  = "CUSTOMER_MANAGED_KMS_KEY"
   }
 
   point_in_time_recovery {
-    status = "ENABLED"
+status = "ENABLED"
   }
 
   ttl {
-    status = "ENABLED"
+status = "ENABLED"
   }
 }
 `, rName1, rName2)
@@ -829,39 +829,39 @@ resource "aws_keyspaces_keyspace" "test" {
 
 resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name    = %[2]q
+  table_name= %[2]q
 
   schema_definition {
-    column {
-      name = "message"
-      type = "ascii"
-    }
+column {
+  name = "message"
+  type = "ascii"
+}
 
-    partition_key {
-      name = "message"
-    }
+partition_key {
+  name = "message"
+}
   }
 
   capacity_specification {
-    throughput_mode = "PAY_PER_REQUEST"
+throughput_mode = "PAY_PER_REQUEST"
   }
 
   comment {
-    message = "TESTING"
+message = "TESTING"
   }
 
   default_time_to_live = 1500000
 
   encryption_specification {
-    type = "AWS_OWNED_KMS_KEY"
+type = "AWS_OWNED_KMS_KEY"
   }
 
   point_in_time_recovery {
-    status = "DISABLED"
+status = "DISABLED"
   }
 
   ttl {
-    status = "ENABLED"
+status = "ENABLED"
   }
 }
 `, rName1, rName2)
@@ -875,27 +875,27 @@ resource "aws_keyspaces_keyspace" "test" {
 
 resource "aws_keyspaces_table" "test" {
   keyspace_name = aws_keyspaces_keyspace.test.name
-  table_name    = %[2]q
+  table_name= %[2]q
 
   schema_definition {
-    column {
-      name = "message"
-      type = "ascii"
-    }
+column {
+  name = "message"
+  type = "ascii"
+}
 
-    column {
-      name = "ts"
-      type = "timestamp"
-    }
+column {
+  name = "ts"
+  type = "timestamp"
+}
 
-    column {
-      name = "amount"
-      type = "decimal"
-    }
+column {
+  name = "amount"
+  type = "decimal"
+}
 
-    partition_key {
-      name = "message"
-    }
+partition_key {
+  name = "message"
+}
   }
 }
 `, rName1, rName2)

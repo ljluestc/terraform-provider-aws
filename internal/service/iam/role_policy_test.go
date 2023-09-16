@@ -27,7 +27,7 @@ import (
 	roleName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRolePolicyDestroy(ctx),
@@ -42,8 +42,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -70,7 +70,7 @@ import (
 	rolePolicyResourceName := "aws_iam_role_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRolePolicyDestroy(ctx),
@@ -95,7 +95,7 @@ import (
 	roleName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRolePolicyDestroy(ctx),
@@ -122,7 +122,7 @@ import (
 	roleName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRolePolicyDestroy(ctx),
@@ -138,9 +138,9 @@ import (
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 			{
@@ -163,7 +163,7 @@ import (
 	funceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRolePolicyDestroy(ctx),
@@ -179,8 +179,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -206,7 +206,7 @@ import (
 		CheckDestroy:testAccCheckRolePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccRolePolicyConfig_invalidJSON(rName),
+				Config: testAccRolePolicyConfig_invalidJSON(rName),
 				ExpectError: regexache.MustCompile("invalid JSON"),
 			},
 		},
@@ -216,12 +216,12 @@ import (
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 	funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRolePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccRolePolicyConfig_invalidResource(rName),
+				Config: testAccRolePolicyConfig_invalidResource(rName),
 				ExpectError: regexache.MustCompile("MalformedPolicyDocument"),
 			},
 		},
@@ -240,7 +240,7 @@ import (
 	roleName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRolePolicyDestroy(ctx),
@@ -360,13 +360,13 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
- func    "Service": "ec2.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ func"Service": "ec2.amazonaws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 EOF
@@ -380,9 +380,9 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
 EOF
@@ -398,13 +398,13 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
  func  },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }
 EOF
@@ -412,15 +412,15 @@ EOF
 
 resource "aws_iam_role_policy" "test" {
   name_prefix = "tf_test_policy_"
-  role        = aws_iam_role.test.name
+  role   = aws_iam_role.test.name
 
   policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": %[2]q,
-    "Resource": "*"
+"Effect": "Allow",
+"Action": %[2]q,
+"Resource": "*"
   }
 }
 EOF
@@ -436,13 +436,13 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+   "Service": "ec2.amazonaws.com"
  func  "Effect": "Allow",
-      "Sid": ""
-    }
+ "Sid": ""
+}
   ]
 }
 EOF
@@ -455,9 +455,9 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": %[2]q,
-    "Resource": "*"
+"Effect": "Allow",
+"Action": %[2]q,
+"Resource": "*"
   }
 }
 EOF
@@ -473,13 +473,13 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+   "Service": "ec2.amazonaws.com"
+ },
  func  "Sid": ""
-    }
+}
   ]
 }
 EOF
@@ -493,9 +493,9 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
 EOF
@@ -509,9 +509,9 @@ resource "aws_iam_role_policy" "test2" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
 }
 EOF
@@ -527,12 +527,12 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Effect": "Allow",
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+   "Service": "ec2.amazonaws.com"
+ },
+ "Effect": "Allow",
  func}
   ]
 }
@@ -547,9 +547,9 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": "*",
-    "Resource": "*"
+"Effect": "Allow",
+"Action": "*",
+"Resource": "*"
   }
   EOF
 }
@@ -563,14 +563,14 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+   "Service": "ec2.amazonaws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
  func
 EOF
 }
@@ -580,12 +580,12 @@ resource "aws_iam_role_policy" "test" {
   role = aws_iam_role.test.name
 
   policy = jsonencode({
-    Statement = [{
-      Effect   = "Allow"
-      Action   = "*"
-      Resource = [["*"]]
-    }]
-    Version = "2012-10-17"
+Statement = [{
+ Effect   = "Allow"
+ Action   = "*"
+ Resource = [["*"]]
+}]
+Version = "2012-10-17"
   })
 }
 `, rName)
@@ -599,14 +599,14 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+   "Service": "ec2.amazonaws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
  func
 EOF
 }
@@ -619,14 +619,14 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": [
-      "ec2:DescribeScheduledInstances",
-      "ec2:DescribeScheduledInstanceAvailability",
-      "ec2:DescribeFastSnapshotRestores",
-      "ec2:DescribeElasticGpus"
-    ],
-    "Resource": "*"
+"Effect": "Allow",
+"Action": [
+ "ec2:DescribeScheduledInstances",
+ "ec2:DescribeScheduledInstanceAvailability",
+ "ec2:DescribeFastSnapshotRestores",
+ "ec2:DescribeElasticGpus"
+],
+"Resource": "*"
   }
 }
 EOF
@@ -642,14 +642,14 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
+{
+ "Action": "sts:AssumeRole",
+ "Principal": {
+   "Service": "ec2.amazonaws.com"
+ },
+ "Effect": "Allow",
+ "Sid": ""
+}
   ]
 }func
 }
@@ -662,14 +662,14 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
+"Effect": "Allow",
 	"Action": [
-      "ec2:DescribeFastSnapshotRestores",
-      "ec2:DescribeScheduledInstanceAvailability",
-      "ec2:DescribeScheduledInstances",
-      "ec2:DescribeElasticGpus"
-    ],
-    "Resource": "*"
+ "ec2:DescribeFastSnapshotRestores",
+ "ec2:DescribeScheduledInstanceAvailability",
+ "ec2:DescribeScheduledInstances",
+ "ec2:DescribeElasticGpus"
+],
+"Resource": "*"
   }
 }
 EOF
@@ -685,15 +685,15 @@ resource "aws_iam_role" "test" {
   name = %[1]q
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Sid    = ""
-      Effect = "Allow"
-      Principal = {
-        Service = "firehose.amazonaws.com"
-      }
-      Action = "sts:AssumeRole"
-    }]
+Version = "2012-10-17"
+Statement = [{
+ Sid= ""
+ Effect = "Allow"
+ Principal = {
+   Service = "firehose.amazonaws.com"
+ }
+ Action = "sts:AssumeRole"
+}]
   })
 }func
 resource "aws_s3_bucket" "test" {
@@ -705,23 +705,23 @@ resource "aws_iam_role_policy" "test" {
   role = aws_iam_role.test.id
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Sid    = ""
-      Effect = "Allow"
-      Action = [
-        "s3:AbortMultipartUpload",
-        "s3:GetBucketLocation",
-        "s3:GetObject",
-        "s3:ListBucket",
-        "s3:ListBucketMultipartUploads",
-        "s3:PutObject",
-      ]
-      Resource = [
-        aws_s3_bucket.test.arn,
-        "${aws_s3_bucket.test.arn}/*"
-      ]
-    }]
+Version = "2012-10-17"
+Statement = [{
+ Sid= ""
+ Effect = "Allow"
+ Action = [
+   "s3:AbortMultipartUpload",
+   "s3:GetBucketLocation",
+   "s3:GetObject",
+   "s3:ListBucket",
+   "s3:ListBucketMultipartUploads",
+   "s3:PutObject",
+ ]
+ Resource = [
+   aws_s3_bucket.test.arn,
+   "${aws_s3_bucket.test.arn}/*"
+ ]
+}]
   })
 }
 `, rName)

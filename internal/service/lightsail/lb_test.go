@@ -55,9 +55,9 @@ func TestAccLightsailLoadBalancer_serial(t *testing.T) {
 			"basic": testAccLoadBalancerHTTPSRedirectionPolicy_basic,
 		},
 		"lb_stickiness_policy": {
-			"basic":           testAccLoadBalancerStickinessPolicy_basic,
+			"basic":  testAccLoadBalancerStickinessPolicy_basic,
 			"cookie_duration": testAccLoadBalancerStickinessPolicy_cookieDuration,
-			"enabled":         testAccLoadBalancerStickinessPolicy_enabled,
+			"enabled":testAccLoadBalancerStickinessPolicy_enabled,
 			"disappears":      testAccLoadBalancerStickinessPolicy_disappears,
 		},
 	}
@@ -96,7 +96,6 @@ func testAccLoadBalancer_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancer_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -142,7 +141,6 @@ func testAccLoadBalancer_name(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancer_healthCheckPath(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -180,7 +178,6 @@ func testAccLoadBalancer_healthCheckPath(t *testing.T) {
 		},
 	})
 }
-
 func testAccLoadBalancer_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -229,7 +226,6 @@ func testAccLoadBalancer_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckLoadBalancerExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -256,7 +252,6 @@ func testAccCheckLoadBalancerExists(ctx context.Context, n string) resource.Test
 		return nil
 	}
 }
-
 func testAccLoadBalancer_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -300,7 +295,6 @@ func testAccLoadBalancer_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckLoadBalancerDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -326,7 +320,6 @@ func testAccCheckLoadBalancerDestroy(ctx context.Context) resource.TestCheckFunc
 		return nil
 	}
 }
-
 func testAccLoadBalancerConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
@@ -336,7 +329,6 @@ resource "aws_lightsail_lb" "test" {
 }
 `, rName)
 }
-
 func testAccLoadBalancerConfig_healthCheckPath(rName string, rPath string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
@@ -346,7 +338,6 @@ resource "aws_lightsail_lb" "test" {
 }
 `, rName, rPath)
 }
-
 func testAccLoadBalancerConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {
@@ -359,7 +350,6 @@ resource "aws_lightsail_lb" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccLoadBalancerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_lb" "test" {

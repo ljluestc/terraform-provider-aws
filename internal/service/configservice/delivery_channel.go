@@ -37,7 +37,7 @@ func ResourceDeliveryChannel() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      "default",
@@ -52,12 +52,12 @@ func ResourceDeliveryChannel() *schema.Resource {
 				Optional: true,
 			},
 			"s3_kms_key_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"sns_topic_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -68,7 +68,7 @@ func ResourceDeliveryChannel() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"delivery_frequency": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validExecutionFrequency(),
 						},
@@ -85,7 +85,7 @@ func resourceDeliveryChannelPut(ctx context.Context, d *schema.ResourceData, met
 
 	name := d.Get("name").(string)
 	channel := configservice.DeliveryChannel{
-		Name:         aws.String(name),
+		Name:aws.String(name),
 		S3BucketName: aws.String(d.Get("s3_bucket_name").(string)),
 	}
 

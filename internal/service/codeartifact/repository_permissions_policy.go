@@ -26,7 +26,7 @@ func ResourceRepositoryPermissionsPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRepositoryPermissionsPolicyPut,
 		UpdateWithoutTimeout: resourceRepositoryPermissionsPolicyPut,
-		ReadWithoutTimeout:   resourceRepositoryPermissionsPolicyRead,
+		ReadWithoutTimeout:resourceRepositoryPermissionsPolicyRead,
 		DeleteWithoutTimeout: resourceRepositoryPermissionsPolicyDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -34,26 +34,26 @@ func ResourceRepositoryPermissionsPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"domain": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"repository": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"domain_owner": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"policy_document": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				ValidateFunc:lidation.StringIsJSON,
+				DiffSuppressFunc:.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
@@ -61,18 +61,17 @@ func ResourceRepositoryPermissionsPolicy() *schema.Resource {
 				},
 			},
 			"policy_revision": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"resource_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceRepositoryPermissionsPolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -85,8 +84,8 @@ func resourceRepositoryPermissionsPolicyPut(ctx context.Context, d *schema.Resou
 	}
 
 	params := &codeartifact.PutRepositoryPermissionsPolicyInput{
-		Domain:         aws.String(d.Get("domain").(string)),
-		Repository:     aws.String(d.Get("repository").(string)),
+		Domain:.String(d.Get("domain").(string)),
+		Repository:aws.String(d.Get("repository").(string)),
 		PolicyDocument: aws.String(policy),
 	}
 
@@ -107,7 +106,6 @@ func resourceRepositoryPermissionsPolicyPut(ctx context.Context, d *schema.Resou
 
 	return append(diags, resourceRepositoryPermissionsPolicyRead(ctx, d, meta)...)
 }
-
 func resourceRepositoryPermissionsPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -119,7 +117,7 @@ func resourceRepositoryPermissionsPolicyRead(ctx context.Context, d *schema.Reso
 	}
 
 	dm, err := conn.GetRepositoryPermissionsPolicyWithContext(ctx, &codeartifact.GetRepositoryPermissionsPolicyInput{
-		Domain:      aws.String(domainName),
+		Domain:ring(domainName),
 		DomainOwner: aws.String(domainOwner),
 		Repository:  aws.String(repoName),
 	})
@@ -155,7 +153,6 @@ func resourceRepositoryPermissionsPolicyRead(ctx context.Context, d *schema.Reso
 
 	return diags
 }
-
 func resourceRepositoryPermissionsPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -167,7 +164,7 @@ func resourceRepositoryPermissionsPolicyDelete(ctx context.Context, d *schema.Re
 	}
 
 	input := &codeartifact.DeleteRepositoryPermissionsPolicyInput{
-		Domain:      aws.String(domainName),
+		Domain:ring(domainName),
 		DomainOwner: aws.String(domainOwner),
 		Repository:  aws.String(repoName),
 	}

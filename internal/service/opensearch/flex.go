@@ -9,7 +9,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/flex"
 )
-
 func expandCognitoOptions(c []interface{}) *opensearchservice.CognitoOptions {
 	options := &opensearchservice.CognitoOptions{
 		Enabled: aws.Bool(false),
@@ -38,7 +37,6 @@ func expandCognitoOptions(c []interface{}) *opensearchservice.CognitoOptions {
 
 	return options
 }
-
 func expandDomainEndpointOptions(l []interface{}) *opensearchservice.DomainEndpointOptions {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -71,7 +69,6 @@ func expandDomainEndpointOptions(l []interface{}) *opensearchservice.DomainEndpo
 
 	return domainEndpointOptions
 }
-
 func expandEBSOptions(m map[string]interface{}) *opensearchservice.EBSOptions {
 	options := opensearchservice.EBSOptions{}
 
@@ -99,7 +96,6 @@ func expandEBSOptions(m map[string]interface{}) *opensearchservice.EBSOptions {
 
 	return &options
 }
-
 func expandEncryptAtRestOptions(m map[string]interface{}) *opensearchservice.EncryptionAtRestOptions {
 	options := opensearchservice.EncryptionAtRestOptions{}
 
@@ -112,7 +108,6 @@ func expandEncryptAtRestOptions(m map[string]interface{}) *opensearchservice.Enc
 
 	return &options
 }
-
 func flattenCognitoOptions(c *opensearchservice.CognitoOptions) []map[string]interface{} {
 	m := map[string]interface{}{}
 
@@ -126,14 +121,13 @@ func flattenCognitoOptions(c *opensearchservice.CognitoOptions) []map[string]int
 
 	return []map[string]interface{}{m}
 }
-
 func flattenDomainEndpointOptions(domainEndpointOptions *opensearchservice.DomainEndpointOptions) []interface{} {
 	if domainEndpointOptions == nil {
 		return nil
 	}
 
 	m := map[string]interface{}{
-		"enforce_https":           aws.BoolValue(domainEndpointOptions.EnforceHTTPS),
+		"enforce_https":  aws.BoolValue(domainEndpointOptions.EnforceHTTPS),
 		"tls_security_policy":     aws.StringValue(domainEndpointOptions.TLSSecurityPolicy),
 		"custom_endpoint_enabled": aws.BoolValue(domainEndpointOptions.CustomEndpointEnabled),
 	}
@@ -148,7 +142,6 @@ func flattenDomainEndpointOptions(domainEndpointOptions *opensearchservice.Domai
 
 	return []interface{}{m}
 }
-
 func flattenEBSOptions(o *opensearchservice.EBSOptions) []map[string]interface{} {
 	m := map[string]interface{}{}
 
@@ -173,7 +166,6 @@ func flattenEBSOptions(o *opensearchservice.EBSOptions) []map[string]interface{}
 
 	return []map[string]interface{}{m}
 }
-
 func flattenEncryptAtRestOptions(o *opensearchservice.EncryptionAtRestOptions) []map[string]interface{} {
 	if o == nil {
 		return []map[string]interface{}{}
@@ -190,7 +182,6 @@ func flattenEncryptAtRestOptions(o *opensearchservice.EncryptionAtRestOptions) [
 
 	return []map[string]interface{}{m}
 }
-
 func flattenSnapshotOptions(snapshotOptions *opensearchservice.SnapshotOptions) []map[string]interface{} {
 	if snapshotOptions == nil {
 		return []map[string]interface{}{}
@@ -202,7 +193,6 @@ func flattenSnapshotOptions(snapshotOptions *opensearchservice.SnapshotOptions) 
 
 	return []map[string]interface{}{m}
 }
-
 func expandSoftwareUpdateOptions(in []interface{}) *opensearchservice.SoftwareUpdateOptions {
 	if len(in) == 0 {
 		return nil
@@ -217,7 +207,6 @@ func expandSoftwareUpdateOptions(in []interface{}) *opensearchservice.SoftwareUp
 
 	return &out
 }
-
 func flattenSoftwareUpdateOptions(softwareUpdateOptions *opensearchservice.SoftwareUpdateOptions) []interface{} {
 	if softwareUpdateOptions == nil {
 		return nil
@@ -229,7 +218,6 @@ func flattenSoftwareUpdateOptions(softwareUpdateOptions *opensearchservice.Softw
 
 	return []interface{}{m}
 }
-
 func expandVPCOptions(tfMap map[string]interface{}) *opensearchservice.VPCOptions {
 	if tfMap == nil {
 		return nil
@@ -247,7 +235,6 @@ func expandVPCOptions(tfMap map[string]interface{}) *opensearchservice.VPCOption
 
 	return apiObject
 }
-
 func flattenVPCDerivedInfo(apiObject *opensearchservice.VPCDerivedInfo) map[string]interface{} {
 	if apiObject == nil {
 		return nil

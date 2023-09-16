@@ -20,7 +20,6 @@ import (
 	tfbatch "github.com/hashicorp/terraform-provider-aws/internal/service/batch"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestExpandEC2ConfigurationsUpdate(t *testing.T) {
 	t.Parallel()
 
@@ -65,13 +64,13 @@ func TestExpandEC2ConfigurationsUpdate(t *testing.T) {
 			flattened: []interface{}{
 				map[string]interface{}{
 					"image_id_override": "ami-deadbeef",
-					"image_type":        "ECS_AL1",
+					"image_type":"ECS_AL1",
 				},
 			},
 			expected: []*batch.Ec2Configuration{
 				{
 					ImageIdOverride: aws.String("ami-deadbeef"),
-					ImageType:       aws.String("ECS_AL1"),
+					ImageType:  aws.String("ECS_AL1"),
 				},
 			},
 		},
@@ -84,7 +83,6 @@ func TestExpandEC2ConfigurationsUpdate(t *testing.T) {
 		}
 	}
 }
-
 func TestExpandLaunchTemplateSpecificationUpdate(t *testing.T) {
 	t.Parallel()
 
@@ -106,7 +104,7 @@ func TestExpandLaunchTemplateSpecificationUpdate(t *testing.T) {
 			},
 			expected: &batch.LaunchTemplateSpecification{
 				LaunchTemplateId: aws.String("lt-123456"),
-				Version:          aws.String(""),
+				Version:aws.String(""),
 			},
 		},
 		{
@@ -117,19 +115,19 @@ func TestExpandLaunchTemplateSpecificationUpdate(t *testing.T) {
 			},
 			expected: &batch.LaunchTemplateSpecification{
 				LaunchTemplateName: aws.String("my-launch-template"),
-				Version:            aws.String(""),
+				Version:  aws.String(""),
 			},
 		},
 		{
 			flattened: []interface{}{
 				map[string]interface{}{
 					"launch_template_id": "lt-123456",
-					"version":            "$LATEST",
+					"version":  "$LATEST",
 				},
 			},
 			expected: &batch.LaunchTemplateSpecification{
 				LaunchTemplateId: aws.String("lt-123456"),
-				Version:          aws.String("$LATEST"),
+				Version:aws.String("$LATEST"),
 			},
 		},
 		{
@@ -141,7 +139,7 @@ func TestExpandLaunchTemplateSpecificationUpdate(t *testing.T) {
 			},
 			expected: &batch.LaunchTemplateSpecification{
 				LaunchTemplateName: aws.String("my-launch-template"),
-				Version:            aws.String("$LATEST"),
+				Version:  aws.String("$LATEST"),
 			},
 		},
 	}
@@ -153,7 +151,6 @@ func TestExpandLaunchTemplateSpecificationUpdate(t *testing.T) {
 		}
 	}
 }
-
 func TestAccBatchComputeEnvironment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -162,7 +159,7 @@ func TestAccBatchComputeEnvironment_basic(t *testing.T) {
 	serviceRoleResourceName := "aws_iam_role.batch_service"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -188,7 +185,6 @@ func TestAccBatchComputeEnvironment_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -196,7 +192,7 @@ func TestAccBatchComputeEnvironment_disappears(t *testing.T) {
 	resourceName := "aws_batch_compute_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -212,7 +208,6 @@ func TestAccBatchComputeEnvironment_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_nameGenerated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -220,7 +215,7 @@ func TestAccBatchComputeEnvironment_nameGenerated(t *testing.T) {
 	resourceName := "aws_batch_compute_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -234,14 +229,13 @@ func TestAccBatchComputeEnvironment_nameGenerated(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -249,7 +243,7 @@ func TestAccBatchComputeEnvironment_namePrefix(t *testing.T) {
 	resourceName := "aws_batch_compute_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -263,14 +257,13 @@ func TestAccBatchComputeEnvironment_namePrefix(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_eksConfiguration(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -279,12 +272,12 @@ func TestAccBatchComputeEnvironment_eksConfiguration(t *testing.T) {
 	eksClusterResourceName := "aws_eks_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		ExternalProviders: map[string]resource.ExternalProvider{
 			"kubernetes": {
-				Source:            "hashicorp/kubernetes",
+				Source:  "hashicorp/kubernetes",
 				VersionConstraint: "~> 2.15",
 			},
 		},
@@ -302,7 +295,6 @@ func TestAccBatchComputeEnvironment_eksConfiguration(t *testing.T) {
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_createEC2(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -314,7 +306,7 @@ func TestAccBatchComputeEnvironment_createEC2(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -358,14 +350,13 @@ func TestAccBatchComputeEnvironment_createEC2(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_CreateEC2DesiredVCPUsEC2KeyPairImageID_computeResourcesTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -384,7 +375,7 @@ func TestAccBatchComputeEnvironment_CreateEC2DesiredVCPUsEC2KeyPairImageID_compu
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -426,14 +417,13 @@ func TestAccBatchComputeEnvironment_CreateEC2DesiredVCPUsEC2KeyPairImageID_compu
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_createSpot(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -446,7 +436,7 @@ func TestAccBatchComputeEnvironment_createSpot(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -487,14 +477,13 @@ func TestAccBatchComputeEnvironment_createSpot(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_CreateSpotAllocationStrategy_bidPercentage(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -507,7 +496,7 @@ func TestAccBatchComputeEnvironment_CreateSpotAllocationStrategy_bidPercentage(t
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -548,14 +537,13 @@ func TestAccBatchComputeEnvironment_CreateSpotAllocationStrategy_bidPercentage(t
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_createFargate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -566,7 +554,7 @@ func TestAccBatchComputeEnvironment_createFargate(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -606,14 +594,13 @@ func TestAccBatchComputeEnvironment_createFargate(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_createFargateSpot(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -624,7 +611,7 @@ func TestAccBatchComputeEnvironment_createFargateSpot(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -664,14 +651,13 @@ func TestAccBatchComputeEnvironment_createFargateSpot(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_updateState(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -680,7 +666,7 @@ func TestAccBatchComputeEnvironment_updateState(t *testing.T) {
 	serviceRoleResourceName := "aws_iam_role.batch_service"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -720,14 +706,13 @@ func TestAccBatchComputeEnvironment_updateState(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_updateServiceRole(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -739,7 +724,7 @@ func TestAccBatchComputeEnvironment_updateServiceRole(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -813,14 +798,13 @@ func TestAccBatchComputeEnvironment_updateServiceRole(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_defaultServiceRole(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -874,14 +858,13 @@ func TestAccBatchComputeEnvironment_defaultServiceRole(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_ComputeResources_minVCPUs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -893,7 +876,7 @@ func TestAccBatchComputeEnvironment_ComputeResources_minVCPUs(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -1004,14 +987,13 @@ func TestAccBatchComputeEnvironment_ComputeResources_minVCPUs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_ComputeResources_maxVCPUs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -1023,7 +1005,7 @@ func TestAccBatchComputeEnvironment_ComputeResources_maxVCPUs(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -1134,14 +1116,13 @@ func TestAccBatchComputeEnvironment_ComputeResources_maxVCPUs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_ec2Configuration(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -1154,7 +1135,7 @@ func TestAccBatchComputeEnvironment_ec2Configuration(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -1199,14 +1180,13 @@ func TestAccBatchComputeEnvironment_ec2Configuration(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_ec2ConfigurationPlacementGroup(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -1219,7 +1199,7 @@ func TestAccBatchComputeEnvironment_ec2ConfigurationPlacementGroup(t *testing.T)
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -1265,14 +1245,13 @@ func TestAccBatchComputeEnvironment_ec2ConfigurationPlacementGroup(t *testing.T)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_launchTemplate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -1285,7 +1264,7 @@ func TestAccBatchComputeEnvironment_launchTemplate(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -1328,14 +1307,13 @@ func TestAccBatchComputeEnvironment_launchTemplate(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_updateLaunchTemplate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -1349,7 +1327,7 @@ func TestAccBatchComputeEnvironment_updateLaunchTemplate(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -1431,14 +1409,13 @@ func TestAccBatchComputeEnvironment_updateLaunchTemplate(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_UpdateSecurityGroupsAndSubnets_fargate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -1452,7 +1429,7 @@ func TestAccBatchComputeEnvironment_UpdateSecurityGroupsAndSubnets_fargate(t *te
 	subnetResourceName2 := "aws_subnet.test_2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -1527,14 +1504,13 @@ func TestAccBatchComputeEnvironment_UpdateSecurityGroupsAndSubnets_fargate(t *te
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -1542,7 +1518,7 @@ func TestAccBatchComputeEnvironment_tags(t *testing.T) {
 	resourceName := "aws_batch_compute_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -1556,8 +1532,8 @@ func TestAccBatchComputeEnvironment_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -1580,25 +1556,23 @@ func TestAccBatchComputeEnvironment_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_createUnmanagedWithComputeResources(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccComputeEnvironmentConfig_unmanagedResources(rName),
+				Config: testAccComputeEnvironmentConfig_unmanagedResources(rName),
 				ExpectError: regexache.MustCompile("no `compute_resources` can be specified when `type` is \"UNMANAGED\""),
 			},
 		},
 	})
 }
-
 func TestAccBatchComputeEnvironment_updateEC2(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ce batch.ComputeEnvironmentDetail
@@ -1619,7 +1593,7 @@ func TestAccBatchComputeEnvironment_updateEC2(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
@@ -1737,8 +1711,8 @@ func TestAccBatchComputeEnvironment_updateEC2(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -1746,25 +1720,23 @@ func TestAccBatchComputeEnvironment_updateEC2(t *testing.T) {
 }
 
 // Test plan time errors...
-
 func TestAccBatchComputeEnvironment_createEC2WithoutComputeResources(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, batch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckComputeEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccComputeEnvironmentConfig_ec2NoResources(rName),
+				Config: testAccComputeEnvironmentConfig_ec2NoResources(rName),
 				ExpectError: regexache.MustCompile(`computeResources must be provided for a MANAGED compute environment`),
 			},
 		},
 	})
 }
-
 func testAccCheckComputeEnvironmentDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).BatchConn(ctx)
@@ -1789,7 +1761,6 @@ func testAccCheckComputeEnvironmentDestroy(ctx context.Context) resource.TestChe
 		return nil
 	}
 }
-
 func testAccCheckComputeEnvironmentExists(ctx context.Context, n string, v *batch.ComputeEnvironmentDetail) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -1814,7 +1785,6 @@ func testAccCheckComputeEnvironmentExists(ctx context.Context, n string, v *batc
 		return nil
 	}
 }
-
 func testAccPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).BatchConn(ctx)
 
@@ -1830,7 +1800,6 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccComputeEnvironmentConfig_base(rName string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -1842,18 +1811,18 @@ resource "aws_iam_role" "ecs_instance" {
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Action": "sts:AssumeRole",
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "ec2.${data.aws_partition.current.dns_suffix}"
-    }
+ "Action": "sts:AssumeRole",
+ "Effect": "Allow",
+ "Principal": {
+ "Service": "ec2.${data.aws_partition.current.dns_suffix}"
+ }
   }]
 }
 EOF
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_instance" {
-  role       = aws_iam_role.ecs_instance.name
+  role  = aws_iam_role.ecs_instance.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
 }
 
@@ -1869,18 +1838,18 @@ resource "aws_iam_role" "batch_service" {
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Action": "sts:AssumeRole",
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "batch.${data.aws_partition.current.dns_suffix}"
-    }
+ "Action": "sts:AssumeRole",
+ "Effect": "Allow",
+ "Principal": {
+ "Service": "batch.${data.aws_partition.current.dns_suffix}"
+ }
   }]
 }
 EOF
 }
 
 resource "aws_iam_role_policy_attachment" "batch_service" {
-  role       = aws_iam_role.batch_service.name
+  role  = aws_iam_role.batch_service.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSBatchServiceRole"
 }
 
@@ -1891,27 +1860,27 @@ resource "aws_iam_role" "ec2_spot_fleet" {
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Action": "sts:AssumeRole",
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "spotfleet.${data.aws_partition.current.dns_suffix}"
-    }
+ "Action": "sts:AssumeRole",
+ "Effect": "Allow",
+ "Principal": {
+ "Service": "spotfleet.${data.aws_partition.current.dns_suffix}"
+ }
   }]
 }
 EOF
 }
 
 resource "aws_iam_role_policy_attachment" "ec2_spot_fleet" {
-  role       = aws_iam_role.ec2_spot_fleet.name
+  role  = aws_iam_role.ec2_spot_fleet.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole"
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name= %[1]q
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -1919,55 +1888,51 @@ resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  vpc_id     = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
   cidr_block = "10.1.1.0/24"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 `, rName)
 }
-
 func testAccComputeEnvironmentConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "UNMANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "UNMANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_nameGenerated(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), `
 resource "aws_batch_compute_environment" "test" {
   service_role = aws_iam_role.batch_service.arn
-  type         = "UNMANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "UNMANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `)
 }
-
 func testAccComputeEnvironmentConfig_namePrefix(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name_prefix = %[1]q
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "UNMANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "UNMANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_eksConfiguration(rName string) string {
 	//lintignore:AT004
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -1979,53 +1944,53 @@ resource "aws_iam_role" "cluster" {
   name = "%[1]s-cluster"
 
   assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = [
-          "eks.${data.aws_partition.current.dns_suffix}",
-          "eks-nodegroup.${data.aws_partition.current.dns_suffix}",
-        ]
-      }
-    }]
-    Version = "2012-10-17"
+ Statement = [{
+ Action = "sts:AssumeRole"
+ Effect = "Allow"
+ Principal = {
+Service = [
+"eks.${data.aws_partition.current.dns_suffix}",
+"eks-nodegroup.${data.aws_partition.current.dns_suffix}",
+]
+ }
+ }]
+ Version = "2012-10-17"
   })
 }
 
 resource "aws_iam_role_policy_attachment" "cluster-AmazonEKSClusterPolicy" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.cluster.name
+  role  = aws_iam_role.cluster.name
 }
 
 resource "aws_iam_role" "node" {
   name = "%[1]s-node"
 
   assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "ec2.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
-    Version = "2012-10-17"
+ Statement = [{
+ Action = "sts:AssumeRole"
+ Effect = "Allow"
+ Principal = {
+Service = "ec2.${data.aws_partition.current.dns_suffix}"
+ }
+ }]
+ Version = "2012-10-17"
   })
 }
 
 resource "aws_iam_role_policy_attachment" "node-AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.node.name
+  role  = aws_iam_role.node.name
 }
 
 resource "aws_iam_role_policy_attachment" "node-AmazonEKS_CNI_Policy" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.node.name
+  role  = aws_iam_role.node.name
 }
 
 resource "aws_iam_role_policy_attachment" "node-AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.node.name
+  role  = aws_iam_role.node.name
 }
 
 resource "aws_iam_instance_profile" "node" {
@@ -2034,13 +1999,13 @@ resource "aws_iam_instance_profile" "node" {
 }
 
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block = "10.0.0.0/16"
   enable_dns_hostnames = true
-  enable_dns_support   = true
+  enable_dns_support= true
 
   tags = {
-    Name= %[1]q
-    "kubernetes.io/cluster/%[1]s" = "shared"
+ Name= %[1]q
+ "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
 
@@ -2048,7 +2013,7 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -2056,68 +2021,68 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.test.id
+ cidr_block = "0.0.0.0/0"
+ gateway_id = aws_internet_gateway.test.id
   }
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_main_route_table_association" "test" {
   route_table_id = aws_route_table.test.id
-  vpc_id         = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
 }
 
 resource "aws_security_group" "test" {
-  name   = %[1]q
+  name= %[1]q
   vpc_id = aws_vpc.test.id
 
   egress {
-    cidr_blocks = ["0.0.0.0/0"]
-    from_port   = 0
-    protocol    = -1
-    to_port     = 0
+ cidr_blocks = ["0.0.0.0/0"]
+ from_port= 0
+ protocol = -1
+ to_port= 0
   }
 
   ingress {
-    cidr_blocks = [aws_vpc.test.cidr_block]
-    from_port   = 0
-    protocol    = -1
-    to_port     = 0
+ cidr_blocks = [aws_vpc.test.cidr_block]
+ from_port= 0
+ protocol = -1
+ to_port= 0
   }
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   count = 2
 
-  availability_zone       = data.aws_availability_zones.available.names[count.index]
+  availability_zone  = data.aws_availability_zones.available.names[count.index]
   cidr_block = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
   map_public_ip_on_launch = true
-  vpc_id     = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
 
   tags = {
-    Name= %[1]q
-    "kubernetes.io/cluster/%[1]s" = "shared"
+ Name= %[1]q
+ "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
 
 resource "aws_eks_cluster" "test" {
-  name     = %[1]q
+  name= %[1]q
   role_arn = aws_iam_role.cluster.arn
 
   vpc_config {
-    subnet_ids = aws_subnet.test[*].id
+ subnet_ids = aws_subnet.test[*].id
   }
 
   depends_on = [
-    "aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy",
-    "aws_main_route_table_association.test",
+ "aws_iam_role_policy_attachment.cluster-AmazonEKSClusterPolicy",
+ "aws_main_route_table_association.test",
   ]
 }
 
@@ -2126,117 +2091,117 @@ data "aws_eks_cluster_auth" "cluster" {
 }
 
 provider "kubernetes" {
-  host      = aws_eks_cluster.test.endpoint
+  host = aws_eks_cluster.test.endpoint
   cluster_ca_certificate = base64decode(aws_eks_cluster.test.certificate_authority[0].data)
-  token     = data.aws_eks_cluster_auth.cluster.token
+  token= data.aws_eks_cluster_auth.cluster.token
 }
 
 resource "kubernetes_namespace" "test" {
   metadata {
-    name = "test"
+ name = "test"
   }
 }
 
 resource "kubernetes_cluster_role" "test" {
   metadata {
-    name = "aws-batch-cluster-role"
+ name = "aws-batch-cluster-role"
   }
 
   rule {
-    api_groups = [""]
-    resources  = ["namespaces"]
-    verbs      = ["get"]
+ api_groups = [""]
+ resources  = ["namespaces"]
+ verbs = ["get"]
   }
 
   rule {
-    api_groups = [""]
-    resources  = ["nodes", "pods", "configmaps"]
-    verbs      = ["get", "list", "watch"]
+ api_groups = [""]
+ resources  = ["nodes", "pods", "configmaps"]
+ verbs = ["get", "list", "watch"]
   }
 
   rule {
-    api_groups = ["apps"]
-    resources  = ["daemonsets", "deployments", "statefulsets", "replicasets"]
-    verbs      = ["get", "list", "watch"]
+ api_groups = ["apps"]
+ resources  = ["daemonsets", "deployments", "statefulsets", "replicasets"]
+ verbs = ["get", "list", "watch"]
   }
 
   rule {
-    api_groups = ["rbac.authorization.k8s.io"]
-    resources  = ["clusterroles", "clusterrolebindings"]
-    verbs      = ["get", "list"]
+ api_groups = ["rbac.authorization.k8s.io"]
+ resources  = ["clusterroles", "clusterrolebindings"]
+ verbs = ["get", "list"]
   }
 }
 
 resource "kubernetes_cluster_role_binding" "test" {
   metadata {
-    name = "aws-batch-cluster-role-binding"
+ name = "aws-batch-cluster-role-binding"
   }
 
   role_ref {
-    api_group = "rbac.authorization.k8s.io"
-    kind      = "ClusterRole"
-    name      = kubernetes_cluster_role.test.metadata[0].name
+ api_group = "rbac.authorization.k8s.io"
+ kind = "ClusterRole"
+ name = kubernetes_cluster_role.test.metadata[0].name
   }
 
   subject {
-    kind      = "User"
-    name      = "aws-batch"
-    api_group = "rbac.authorization.k8s.io"
+ kind = "User"
+ name = "aws-batch"
+ api_group = "rbac.authorization.k8s.io"
   }
 }
 
 resource "kubernetes_role" "test" {
   metadata {
-    name      = "aws-batch-compute-environment-role"
-    namespace = kubernetes_namespace.test.metadata[0].name
+ name = "aws-batch-compute-environment-role"
+ namespace = kubernetes_namespace.test.metadata[0].name
   }
 
   rule {
-    api_groups = [""]
-    resources  = ["pods"]
-    verbs      = ["create", "get", "list", "watch", "delete", "patch"]
+ api_groups = [""]
+ resources  = ["pods"]
+ verbs = ["create", "get", "list", "watch", "delete", "patch"]
   }
 
   rule {
-    api_groups = [""]
-    resources  = ["serviceaccounts"]
-    verbs      = ["get", "list"]
+ api_groups = [""]
+ resources  = ["serviceaccounts"]
+ verbs = ["get", "list"]
   }
 
   rule {
-    api_groups = ["rbac.authorization.k8s.io"]
-    resources  = ["roles", "rolebindings"]
-    verbs      = ["get", "list"]
+ api_groups = ["rbac.authorization.k8s.io"]
+ resources  = ["roles", "rolebindings"]
+ verbs = ["get", "list"]
   }
 }
 
 resource "kubernetes_role_binding" "test" {
   metadata {
-    name      = "aws-batch-compute-environment-role-binding"
-    namespace = kubernetes_namespace.test.metadata[0].name
+ name = "aws-batch-compute-environment-role-binding"
+ namespace = kubernetes_namespace.test.metadata[0].name
   }
 
   role_ref {
-    api_group = "rbac.authorization.k8s.io"
-    kind      = "Role"
-    name      = kubernetes_role.test.metadata[0].name
+ api_group = "rbac.authorization.k8s.io"
+ kind = "Role"
+ name = kubernetes_role.test.metadata[0].name
   }
 
   subject {
-    kind      = "User"
-    name      = "aws-batch"
-    api_group = "rbac.authorization.k8s.io"
+ kind = "User"
+ name = "aws-batch"
+ api_group = "rbac.authorization.k8s.io"
   }
 }
 
 resource "kubernetes_config_map" "aws_auth" {
   metadata {
-    name      = "aws-auth"
-    namespace = "kube-system"
+ name = "aws-auth"
+ namespace = "kube-system"
   }
 
   data = {
-    mapRoles = <<EOF
+ mapRoles = <<EOF
 - rolearn: arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/AWSServiceRoleForBatch
   username: ${kubernetes_role_binding.test.subject[0].name}
 EOF
@@ -2247,169 +2212,164 @@ resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   eks_configuration {
-    eks_cluster_arn      = aws_eks_cluster.test.arn
-    kubernetes_namespace = kubernetes_namespace.test.metadata[0].name
+ eks_cluster_arn = aws_eks_cluster.test.arn
+ kubernetes_namespace = kubernetes_namespace.test.metadata[0].name
   }
 
   type = "MANAGED"
 
   compute_resources {
-    type   = "EC2"
-    allocation_strategy = "BEST_FIT_PROGRESSIVE"
-    min_vcpus           = 0
-    max_vcpus           = 128
+ type= "EC2"
+ allocation_strategy = "BEST_FIT_PROGRESSIVE"
+ min_vcpus = 0
+ max_vcpus = 128
 
-    instance_type = ["m5.large"]
+ instance_type = ["m5.large"]
 
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    subnets = aws_subnet.test[*].id
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ subnets = aws_subnet.test[*].id
 
-    instance_role = aws_iam_instance_profile.node.arn
+ instance_role = aws_iam_instance_profile.node.arn
   }
 
   depends_on = [
-    kubernetes_config_map.aws_auth,
-    aws_iam_role_policy_attachment.node-AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.node-AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
+ kubernetes_config_map.aws_auth,
+ aws_iam_role_policy_attachment.node-AmazonEKSWorkerNodePolicy,
+ aws_iam_role_policy_attachment.node-AmazonEKS_CNI_Policy,
+ aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly,
   ]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_ec2(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    instance_role = aws_iam_instance_profile.ecs_instance.arn
-    instance_type = [
-      "c4.large",
-    ]
-    max_vcpus = 16
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "EC2"
+ instance_role = aws_iam_instance_profile.ecs_instance.arn
+ instance_type = [
+ "c4.large",
+ ]
+ max_vcpus = 16
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "EC2"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_ec2DesiredVCPUsEC2KeyPairImageIDAndResourcesTags(rName, publicKey string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    instance_role = aws_iam_instance_profile.ecs_instance.arn
-    instance_type = [
-      "c4.large",
-    ]
-    max_vcpus     = 16
-    min_vcpus     = 4
-    desired_vcpus = 8
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "EC2"
+ instance_role = aws_iam_instance_profile.ecs_instance.arn
+ instance_type = [
+ "c4.large",
+ ]
+ max_vcpus= 16
+ min_vcpus= 4
+ desired_vcpus = 8
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "EC2"
 
-    tags = {
-      key1 = "value1"
-    }
+ tags = {
+ key1 = "value1"
+ }
 
-    ec2_key_pair = aws_key_pair.test.id
-    image_id     = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+ ec2_key_pair = aws_key_pair.test.id
+ image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 
 resource "aws_key_pair" "test" {
-  key_name   = %[1]q
+  key_name= %[1]q
   public_key = %[2]q
 }
 `, rName, publicKey))
 }
-
 func testAccComputeEnvironmentConfig_fargate(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    max_vcpus = 16
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "FARGATE"
+ max_vcpus = 16
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "FARGATE"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_fargateDefaultServiceRole(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    max_vcpus = 16
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "FARGATE"
+ max_vcpus = 16
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "FARGATE"
   }
 
   type = "MANAGED"
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_fargateUpdatedServiceRole(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    max_vcpus = 16
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "FARGATE"
+ max_vcpus = 16
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "FARGATE"
   }
 
   service_role = aws_iam_role.batch_service_2.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service_2]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service_2]
 }
 
 resource "aws_iam_role" "batch_service_2" {
@@ -2419,243 +2379,234 @@ resource "aws_iam_role" "batch_service_2" {
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Action": "sts:AssumeRole",
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "batch.${data.aws_partition.current.dns_suffix}"
-    }
+ "Action": "sts:AssumeRole",
+ "Effect": "Allow",
+ "Principal": {
+ "Service": "batch.${data.aws_partition.current.dns_suffix}"
+ }
   }]
 }
 EOF
 }
 
 resource "aws_iam_role_policy_attachment" "batch_service_2" {
-  role       = aws_iam_role.batch_service_2.name
+  role  = aws_iam_role.batch_service_2.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSBatchServiceRole"
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_fargateSpot(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    max_vcpus = 16
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "FARGATE_SPOT"
+ max_vcpus = 16
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "FARGATE_SPOT"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "managed"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "managed"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_spot(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    instance_role = aws_iam_instance_profile.ecs_instance.arn
-    instance_type = [
-      "c4.large",
-    ]
-    max_vcpus = 16
-    min_vcpus = 2
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "spot"
+ instance_role = aws_iam_instance_profile.ecs_instance.arn
+ instance_type = [
+ "c4.large",
+ ]
+ max_vcpus = 16
+ min_vcpus = 2
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "spot"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_spotAllocationStrategyAndBidPercentage(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    allocation_strategy = "Best_Fit"
-    bid_percentage      = 60
-    instance_role       = aws_iam_instance_profile.ecs_instance.arn
-    instance_type = [
-      "c4.large",
-    ]
-    max_vcpus = 16
-    min_vcpus = 0
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "SPOT"
+ allocation_strategy = "Best_Fit"
+ bid_percentage = 60
+ instance_role  = aws_iam_instance_profile.ecs_instance.arn
+ instance_type = [
+ "c4.large",
+ ]
+ max_vcpus = 16
+ min_vcpus = 0
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "SPOT"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_state(rName string, state string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "UNMANAGED"
-  state        = %[2]q
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "UNMANAGED"
+  state= %[2]q
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName, state))
 }
-
 func testAccComputeEnvironmentConfig_resourcesMaxVCPUsMinVCPUs(rName string, maxVcpus int, minVcpus int) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    instance_role = aws_iam_instance_profile.ecs_instance.arn
-    instance_type = ["optimal"]
-    max_vcpus     = %[2]d
-    min_vcpus     = %[3]d
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "EC2"
+ instance_role = aws_iam_instance_profile.ecs_instance.arn
+ instance_type = ["optimal"]
+ max_vcpus= %[2]d
+ min_vcpus= %[3]d
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "EC2"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName, maxVcpus, minVcpus))
 }
-
 func testAccComputeEnvironmentConfig_fargateUpdatedSecurityGroupsAndSubnets(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    max_vcpus = 16
-    security_group_ids = [
-      aws_security_group.test_2.id,
-      aws_security_group.test_3.id,
-    ]
-    subnets = [
-      aws_subnet.test_2.id
-    ]
-    type = "FARGATE"
+ max_vcpus = 16
+ security_group_ids = [
+ aws_security_group.test_2.id,
+ aws_security_group.test_3.id,
+ ]
+ subnets = [
+ aws_subnet.test_2.id
+ ]
+ type = "FARGATE"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 
 resource "aws_security_group" "test_2" {
-  name   = "%[1]s_2"
+  name= "%[1]s_2"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = "%[1]s_2"
+ Name = "%[1]s_2"
   }
 }
 
 resource "aws_security_group" "test_3" {
-  name   = "%[1]s_3"
+  name= "%[1]s_3"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = "%[1]s_3"
+ Name = "%[1]s_3"
   }
 }
 
 resource "aws_subnet" "test_2" {
-  vpc_id     = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
   cidr_block = "10.1.2.0/24"
 
   tags = {
-    Name = "%[1]s_2"
+ Name = "%[1]s_2"
   }
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_ec2NoResources(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_unmanagedResources(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    instance_role = aws_iam_instance_profile.ecs_instance.arn
-    instance_type = [
-      "c4.large",
-    ]
-    max_vcpus = 16
-    min_vcpus = 0
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "EC2"
+ instance_role = aws_iam_instance_profile.ecs_instance.arn
+ instance_type = [
+ "c4.large",
+ ]
+ max_vcpus = 16
+ min_vcpus = 0
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "EC2"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "UNMANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "UNMANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_launchTemplate(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_launch_template" "test" {
   name = %[1]q
 
   vpc_security_group_ids = [
-    aws_security_group.test.id
+ aws_security_group.test.id
   ]
 }
 
@@ -2663,31 +2614,30 @@ resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    instance_role = aws_iam_instance_profile.ecs_instance.arn
-    instance_type = [
-      "c4.large",
-    ]
+ instance_role = aws_iam_instance_profile.ecs_instance.arn
+ instance_type = [
+ "c4.large",
+ ]
 
-    launch_template {
-      launch_template_name = aws_launch_template.test.name
-    }
+ launch_template {
+ launch_template_name = aws_launch_template.test.name
+ }
 
-    max_vcpus           = 16
-    min_vcpus           = 0
-    spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "SPOT"
+ max_vcpus = 16
+ min_vcpus = 0
+ spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "SPOT"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_updateLaunchTemplateInExisting(rName string, version string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_launch_template" "test" {
@@ -2698,35 +2648,34 @@ resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    instance_role = aws_iam_instance_profile.ecs_instance.arn
-    instance_type = [
-      "c4.large",
-    ]
+ instance_role = aws_iam_instance_profile.ecs_instance.arn
+ instance_type = [
+ "c4.large",
+ ]
 
-    launch_template {
-      launch_template_id = aws_launch_template.test.id
-      version            = %[2]q
-    }
+ launch_template {
+ launch_template_id = aws_launch_template.test.id
+ version  = %[2]q
+ }
 
-    max_vcpus = 16
-    min_vcpus = 0
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "SPOT"
+ max_vcpus = 16
+ min_vcpus = 0
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "SPOT"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName, version))
 }
-
 func testAccComputeEnvironmentConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
@@ -2734,15 +2683,14 @@ resource "aws_batch_compute_environment" "test" {
 
   compute_environment_name = %[1]q
   service_role= aws_iam_role.batch_service.arn
-  type        = "UNMANAGED"
+  type= "UNMANAGED"
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccComputeEnvironmentConfig_tags2(rName string, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
@@ -2750,59 +2698,57 @@ resource "aws_batch_compute_environment" "test" {
 
   compute_environment_name = %[1]q
   service_role= aws_iam_role.batch_service.arn
-  type        = "UNMANAGED"
+  type= "UNMANAGED"
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
 func testAccComputeEnvironmentConfig_ec2Configuration(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    instance_role = aws_iam_instance_profile.ecs_instance.arn
-    instance_type = ["optimal"]
+ instance_role = aws_iam_instance_profile.ecs_instance.arn
+ instance_type = ["optimal"]
 
-    ec2_configuration {
-      image_id_override = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-      image_type        = "ECS_AL2"
-    }
+ ec2_configuration {
+ image_id_override = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+ image_type= "ECS_AL2"
+ }
 
-    ec2_configuration {
-      image_id_override = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-      image_type        = "ECS_AL2_NVIDIA"
-    }
+ ec2_configuration {
+ image_id_override = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+ image_type= "ECS_AL2_NVIDIA"
+ }
 
-    max_vcpus = 16
-    min_vcpus = 0
+ max_vcpus = 16
+ min_vcpus = 0
 
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "SPOT"
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "SPOT"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_ec2ConfigurationPlacementGroup(rName string) string {
 	return acctest.ConfigCompose(testAccComputeEnvironmentConfig_base(rName), acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_placement_group" "test" {
-  name     = %[1]q
+  name= %[1]q
   strategy = "cluster"
 }
 
@@ -2810,41 +2756,40 @@ resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    instance_role = aws_iam_instance_profile.ecs_instance.arn
-    instance_type = ["optimal"]
+ instance_role = aws_iam_instance_profile.ecs_instance.arn
+ instance_type = ["optimal"]
 
-    ec2_configuration {
-      image_id_override = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-      image_type        = "ECS_AL2"
-    }
+ ec2_configuration {
+ image_id_override = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+ image_type= "ECS_AL2"
+ }
 
-    ec2_configuration {
-      image_id_override = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-      image_type        = "ECS_AL2_NVIDIA"
-    }
+ ec2_configuration {
+ image_id_override = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+ image_type= "ECS_AL2_NVIDIA"
+ }
 
-    max_vcpus = 16
-    min_vcpus = 0
+ max_vcpus = 16
+ min_vcpus = 0
 
-    placement_group = aws_placement_group.test.name
+ placement_group = aws_placement_group.test.name
 
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "SPOT"
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "SPOT"
   }
 
   service_role = aws_iam_role.batch_service.arn
-  type         = "MANAGED"
-  depends_on   = [aws_iam_role_policy_attachment.batch_service]
+  type = "MANAGED"
+  depends_on= [aws_iam_role_policy_attachment.batch_service]
 }
 `, rName))
 }
-
 func testAccComputeEnvironmentConfig_baseForUpdates(rName string, publicKey string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "ecs_instance_2" {
@@ -2854,18 +2799,18 @@ resource "aws_iam_role" "ecs_instance_2" {
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Action": "sts:AssumeRole",
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "ec2.${data.aws_partition.current.dns_suffix}"
-    }
+ "Action": "sts:AssumeRole",
+ "Effect": "Allow",
+ "Principal": {
+ "Service": "ec2.${data.aws_partition.current.dns_suffix}"
+ }
   }]
 }
 EOF
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_instance_2" {
-  role       = aws_iam_role.ecs_instance_2.name
+  role  = aws_iam_role.ecs_instance_2.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
 }
 
@@ -2875,25 +2820,25 @@ resource "aws_iam_instance_profile" "ecs_instance_2" {
 }
 
 resource "aws_security_group" "test_2" {
-  name   = "%[1]s_2"
+  name= "%[1]s_2"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = "%[1]s_2"
+ Name = "%[1]s_2"
   }
 }
 
 resource "aws_subnet" "test_2" {
-  vpc_id     = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
   cidr_block = "10.1.2.0/24"
 
   tags = {
-    Name = "%[1]s_2"
+ Name = "%[1]s_2"
   }
 }
 
 resource "aws_key_pair" "test" {
-  key_name   = %[1]q
+  key_name= %[1]q
   public_key = %[2]q
 }
 
@@ -2902,7 +2847,6 @@ resource "aws_launch_template" "test" {
 }
 `, rName, publicKey)
 }
-
 func testAccComputeenvironmentConfig_ec2PreUpdate(rName string, publicKey string) string {
 	return acctest.ConfigCompose(
 		testAccComputeEnvironmentConfig_base(rName),
@@ -2912,27 +2856,26 @@ resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    allocation_strategy = "BEST_FIT_PROGRESSIVE"
-    instance_role       = aws_iam_instance_profile.ecs_instance.arn
-    instance_type = [
-      "optimal",
-    ]
-    max_vcpus = 16
-    security_group_ids = [
-      aws_security_group.test.id
-    ]
-    spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
-    subnets = [
-      aws_subnet.test.id
-    ]
-    type = "EC2"
+ allocation_strategy = "BEST_FIT_PROGRESSIVE"
+ instance_role  = aws_iam_instance_profile.ecs_instance.arn
+ instance_type = [
+ "optimal",
+ ]
+ max_vcpus = 16
+ security_group_ids = [
+ aws_security_group.test.id
+ ]
+ spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
+ subnets = [
+ aws_subnet.test.id
+ ]
+ type = "EC2"
   }
 
   type = "MANAGED"
 }
 `, rName))
 }
-
 func testAccComputeenvironmentConfig_ec2Update(rName string, publicKey string) string {
 	return acctest.ConfigCompose(
 		testAccComputeEnvironmentConfig_base(rName),
@@ -2943,33 +2886,33 @@ resource "aws_batch_compute_environment" "test" {
   compute_environment_name = %[1]q
 
   compute_resources {
-    allocation_strategy = "SPOT_CAPACITY_OPTIMIZED"
-    bid_percentage      = 100
-    ec2_key_pair        = aws_key_pair.test.id
-    instance_role       = aws_iam_instance_profile.ecs_instance_2.arn
-    ec2_configuration {
-      image_id_override = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
-      image_type        = "ECS_AL2"
-    }
-    launch_template {
-      launch_template_id = aws_launch_template.test.id
-      version            = "$Latest"
-    }
-    instance_type = [
-      "c4.large",
-    ]
-    max_vcpus = 16
-    security_group_ids = [
-      aws_security_group.test_2.id
-    ]
-    spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
-    subnets = [
-      aws_subnet.test_2.id
-    ]
-    type = "SPOT"
-    tags = {
-      updated = "yes"
-    }
+ allocation_strategy = "SPOT_CAPACITY_OPTIMIZED"
+ bid_percentage = 100
+ ec2_key_pair= aws_key_pair.test.id
+ instance_role  = aws_iam_instance_profile.ecs_instance_2.arn
+ ec2_configuration {
+ image_id_override = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+ image_type= "ECS_AL2"
+ }
+ launch_template {
+ launch_template_id = aws_launch_template.test.id
+ version  = "$Latest"
+ }
+ instance_type = [
+ "c4.large",
+ ]
+ max_vcpus = 16
+ security_group_ids = [
+ aws_security_group.test_2.id
+ ]
+ spot_iam_fleet_role = aws_iam_role.ec2_spot_fleet.arn
+ subnets = [
+ aws_subnet.test_2.id
+ ]
+ type = "SPOT"
+ tags = {
+ updated = "yes"
+ }
   }
 
   type = "MANAGED"

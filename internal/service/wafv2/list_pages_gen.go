@@ -9,7 +9,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/wafv2"
 	"github.com/aws/aws-sdk-go/service/wafv2/wafv2iface"
 )
-
 func listIPSetsPages(ctx context.Context, conn wafv2iface.WAFV2API, input *wafv2.ListIPSetsInput, fn func(*wafv2.ListIPSetsOutput, bool) bool) error {
 	for {
 		output, err := conn.ListIPSetsWithContext(ctx, input)

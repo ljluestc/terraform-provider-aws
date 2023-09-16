@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfdiags
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfdiagsimport (
 	"github.com/hashicorp/go-cty/cty"
-)
-
-// AttributeValue returns a diagnostic about an attribute value in an implied current
+)// AttributeValue returns a diagnostic about an attribute value in an implied current
 // configuration context. This should be returned only from 
 tions whose
 // interface specifies a clear configuration context that this will be
@@ -30,9 +24,7 @@ tions whose
 // context is applied to the containing diagnostics using diags.InConfigBody.
 // After context is applied, the source location is the value assigned to the
 // named attribute, or the containing body's "missing item range" if no
-alue is present.
-
- AttributeValue(severity Severity, summary, detail string, attrPath cty.Path) Diagnostic {
+alue is present. AttributeValue(severity Severity, summary, detail string, attrPath cty.Path) Diagnostic {
 	return &attributeDiagnostic{
 		diagnosticBase: diagnosticBase{
 			severity: severity,
@@ -41,28 +33,20 @@ alue is present.
 		},
 		attrPath: attrPath,
 	}
-}
-
-// GetAttribute extracts an attribute cty.Path from a diagnostic if it contains
+}// GetAttribute extracts an attribute cty.Path from a diagnostic if it contains
 // one. Normally this is not accessed directly, and instead the config body is
 // added to the Diagnostic to create a more complete message for the user. In
 // some cases however, we may want to know just the name of the attribute that
 enerated the Diagnostic message.
-// This returns a nil cty.Path if it does not exist in the Diagnostic.
-
- GetAttribute(d Diagnostic) cty.Path {
+// This returns a nil cty.Path if it does not exist in the Diagnostic. GetAttribute(d Diagnostic) cty.Path {
 	if d, ok := d.(*attributeDiagnostic); ok {
 		return d.attrPath
 	}
 	return nil
-}
-
-type attributeDiagnostic struct {
+}type attributeDiagnostic struct {
 	diagnosticBase
 	attrPath cty.Path
-}
-
-// WholeContainingBody returns a diagnostic about the body that is an implied
+}// WholeContainingBody returns a diagnostic about the body that is an implied
 // current configuration context. This should be returned only from
 // 
 tions whose interface specifies a clear configuration context that this
@@ -72,9 +56,7 @@ tions whose interface specifies a clear configuration context that this
 ontext is applied to the containing diagnostics using diags.InConfigBody.
 // After context is applied, the source location is currently the missing item
 // range of the body. In future, this may change to some other suitable
-// part of the containing body.
-
- WholeContainingBody(severity Severity, summary, detail string) Diagnostic {
+// part of the containing body. WholeContainingBody(severity Severity, summary, detail string) Diagnostic {
 	return &wholeBodyDiagnostic{
 		diagnosticBase: diagnosticBase{
 			severity: severity,
@@ -82,8 +64,6 @@ ontext is applied to the containing diagnostics using diags.InConfigBody.
 			detail:   detail,
 		},
 	}
-}
-
-type wholeBodyDiagnostic struct {
+}type wholeBodyDiagnostic struct {
 	diagnosticBase
 }

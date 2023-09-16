@@ -23,7 +23,7 @@ import (
 func ResourceDomainIdentity() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDomainIdentityCreate,
-		ReadWithoutTimeout:   resourceDomainIdentityRead,
+		ReadWithoutTimeout:resourceDomainIdentityRead,
 		DeleteWithoutTimeout: resourceDomainIdentityDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -31,23 +31,22 @@ func ResourceDomainIdentity() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"domain": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringDoesNotMatch(regexache.MustCompile(`\.$`), "cannot end with a period"),
 			},
 			"verification_token": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceDomainIdentityCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -67,7 +66,6 @@ func resourceDomainIdentityCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceDomainIdentityRead(ctx, d, meta)...)
 }
-
 func resourceDomainIdentityRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -95,8 +93,8 @@ func resourceDomainIdentityRead(ctx context.Context, d *schema.ResourceData, met
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "ses",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"ses",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("identity/%s", d.Id()),
 	}.String()
@@ -104,7 +102,6 @@ func resourceDomainIdentityRead(ctx context.Context, d *schema.ResourceData, met
 	d.Set("verification_token", verificationAttrs.VerificationToken)
 	return diags
 }
-
 func resourceDomainIdentityDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)

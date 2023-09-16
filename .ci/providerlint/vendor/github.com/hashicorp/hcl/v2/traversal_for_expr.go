@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hcl
-
-// AbsTraversalForExpr attempts to interpret the given expression as
+// SPDX-License-Identifier: MPL-2.0package hcl// AbsTraversalForExpr attempts to interpret the given expression as
 // an absolute traversal, or returns error diagnostic(s) if that is
 // not possible for the given expression.
 //
@@ -22,20 +18,14 @@ tion to a wrapped
 // attributndexes itself, for example to allow users to give references
 o the variables themselves rather than to their values. An implementer
 // of this 
-tion should at least support attribute and index steps.
-
- AbsTraversalForExpr(expr Expression) (Traversal, Diagnostics) {
+tion should at least support attribute and index steps. AbsTraversalForExpr(expr Expression) (Traversal, Diagnostics) {
 	type asTraversal interface {
 		AsTraversal() Traversal
-	}
-
-	physExpr := UnwrapExpressionUntil(expr, 
+	}	physExpr := UnwrapExpressionUntil(expr, 
 (expr Expression) bool {
 		_, supported := expr.(asTraversal)
 		return supported
-	})
-
-	if asT, supported := physExpr.(asTraversal); supported {
+	})	if asT, supported := physExpr.(asTraversal); supported {
 		if traversal := asT.AsTraversal(); traversal != nil {
 			return traversal, nil
 		}
@@ -49,17 +39,13 @@ tion calls, template expressions, etc are allowed here.",
 			Subject:  expr.Range().Ptr(),
 		},
 	}
-}
-
-// RelTraversalForExpr is similar to AbsTraversalForExpr but it returns
+}// RelTraversalForExpr is similar to AbsTraversalForExpr but it returns
  relative traversal instead. Due to the nature of HCL expressions, the
 // first element of the returned traversal is always a TraverseAttr, and
 // then it will be followed by zero or more other expressions.
 //
 // Any expression accepted by AbsTraversalForExpr is also accepted by
-// RelTraversalForExpr.
-
- RelTraversalForExpr(expr Expression) (Traversal, Diagnostics) {
+// RelTraversalForExpr. RelTraversalForExpr(expr Expression) (Traversal, Diagnostics) {
 	traversal, diags := AbsTraversalForExpr(expr)
 	if len(traversal) > 0 {
 		ret := make(Traversal, len(traversal))
@@ -72,9 +58,7 @@ tion calls, template expressions, etc are allowed here.",
 		return ret, diags
 	}
 	return traversal, diags
-}
-
-// ExprAsKeyword attempts to interpret the given expression as a static keyword,
+}// ExprAsKeyword attempts to interpret the given expression as a static keyword,
 // returning the keyword string if possible, and the empty string if not.
 //
 // A static keyword, for the sake of this 
@@ -96,13 +80,13 @@ tion is intended to be used with the following idiom, to recognize
 //
 //     switch hcl.ExprAsKeyword(expr) {
 //     case "allow":
-//         // (take suitable action for keyword "allow")
+//// (take suitable action for keyword "allow")
 //     case "deny":
-//         // (take suitable action for keyword "deny")
+//// (take suitable action for keyword "deny")
 //     default:
-//         diags = append(diags, &hcl.Diagnostic{
-//             // ... "invalid keyword" diagnostic message ...
-//         })
+//diags = append(diags, &hcl.Diagnostic{
+//    // ... "invalid keyword" diagnostic message ...
+//})
 //     }
 //
 // The above approach will generate the same message for both the use of an
@@ -118,20 +102,14 @@ tion.
 // Since interpreting an expression as a keyword bypasses usual expression
 // evaluation, it should be used sparingly for situations where e.g. one of
 // a fixed set of keywords is used in a structural way in a special attribute
-// to affect the further processing of a block.
-
- ExprAsKeyword(expr Expression) string {
+// to affect the further processing of a block. ExprAsKeyword(expr Expression) string {
 	type asTraversal interface {
 		AsTraversal() Traversal
-	}
-
-	physExpr := UnwrapExpressionUntil(expr, 
+	}	physExpr := UnwrapExpressionUntil(expr, 
 (expr Expression) bool {
 		_, supported := expr.(asTraversal)
 		return supported
-	})
-
-	if asT, supported := physExpr.(asTraversal); supported {
+	})	if asT, supported := physExpr.(asTraversal); supported {
 		if traversal := asT.AsTraversal(); len(traversal) == 1 {
 			return traversal.RootName()
 		}

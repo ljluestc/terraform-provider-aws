@@ -12,72 +12,70 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
-
 func resourceGatewayAssociationResourceV0() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"allowed_prefixes": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 
 			"associated_gateway_id": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"associated_gateway_owner_account_id", "proposal_id", "vpn_gateway_id"},
 			},
 
 			"associated_gateway_owner_account_id": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ValidateFunc:  verify.ValidAccountID,
 				ConflictsWith: []string{"associated_gateway_id", "vpn_gateway_id"},
 			},
 
 			"associated_gateway_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"dx_gateway_association_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"dx_gateway_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"dx_gateway_owner_account_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"proposal_id": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				ForceNew:
 				ConflictsWith: []string{"associated_gateway_id", "vpn_gateway_id"},
 			},
 
 			"vpn_gateway_id": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				ForceNew:
 				ConflictsWith: []string{"associated_gateway_id", "associated_gateway_owner_account_id", "proposal_id"},
 			},
 		},
 	}
 }
-
 func GatewayAssociationStateUpgradeV0(ctx context.Context, rawState map[string]interface{}, meta interface{}) (map[string]interface{}, error) {
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 

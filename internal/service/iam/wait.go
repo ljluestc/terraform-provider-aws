@@ -23,18 +23,18 @@ const (
 	propagationTimeout = 2 * time.Minute
 
 	RoleStatusARNIsUniqueID = "uniqueid"
-	RoleStatusARNIsARN      = "arn"
-	RoleStatusNotFound      = "notfound"
+	RoleStatusARNIsARN = "arn"
+	RoleStatusNotFound = "notfound"
 )funcarn.IsARN(aws.StringValue(role.Arn)) {
 		return role, nil
 	}
 
 	stateConf := &retry.StateChangeConf{
-		Pending:      []string{RoleStatusARNIsUniqueID, RoleStatusNotFound},
-		Target:       []string{RoleStatusARNIsARN},
-		Refresh:      statusRoleCreate(ctx, conn, id),
-		Timeout:      propagationTimeout,
-		NotFoundChecks:            10,
+		Pending: []string{RoleStatusARNIsUniqueID, RoleStatusNotFound},
+		Target:  []string{RoleStatusARNIsARN},
+		Refresh: statusRoleCreate(ctx, conn, id),
+		Timeout: propagationTimeout,
+		NotFoundChecks:  10,
 		ContinuousTargetOccurence: 5,
 	}
 

@@ -34,7 +34,7 @@ func ResourcePermissions() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"catalog_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Optional:     true,
 				ValidateFunc: verify.ValidAccountID,
@@ -72,13 +72,13 @@ func ResourcePermissions() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							ForceNew:     true,
 							Required:     true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Computed:     true,
 							ForceNew:     true,
 							Optional:     true,
@@ -105,7 +105,7 @@ func ResourcePermissions() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Computed:     true,
 							ForceNew:     true,
 							Optional:     true,
@@ -143,7 +143,7 @@ func ResourcePermissions() *schema.Resource {
 							Computed: true,
 						},
 						"key": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 128),
@@ -154,7 +154,7 @@ func ResourcePermissions() *schema.Resource {
 							ForceNew: true,
 							MinItems: 1,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validateLFTagValues(),
 							},
 						},
@@ -179,7 +179,7 @@ func ResourcePermissions() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: verify.ValidAccountID,
@@ -191,7 +191,7 @@ func ResourcePermissions() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"key": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringLenBetween(1, 128),
@@ -202,7 +202,7 @@ func ResourcePermissions() *schema.Resource {
 										ForceNew: true,
 										MinItems: 1,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validateLFTagValues(),
 										},
 									},
@@ -210,7 +210,7 @@ func ResourcePermissions() *schema.Resource {
 							},
 						},
 						"resource_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice(lakeformation.ResourceType_Values(), false),
@@ -224,7 +224,7 @@ func ResourcePermissions() *schema.Resource {
 				MinItems: 1,
 				Required: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(lakeformation.Permission_Values(), false),
 				},
 			},
@@ -234,12 +234,12 @@ func ResourcePermissions() *schema.Resource {
 				ForceNew: true,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(lakeformation.Permission_Values(), false),
 				},
 			},
 			"principal": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
 				ValidateFunc: validPrincipal,
@@ -262,7 +262,7 @@ func ResourcePermissions() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Computed:     true,
 							ForceNew:     true,
 							Optional:     true,
@@ -314,7 +314,7 @@ func ResourcePermissions() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Computed:     true,
 							ForceNew:     true,
 							Optional:     true,
@@ -325,7 +325,7 @@ func ResourcePermissions() *schema.Resource {
 							ForceNew: true,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.NoZeroValues,
 							},
 							AtLeastOneOf: []string{
@@ -343,7 +343,7 @@ func ResourcePermissions() *schema.Resource {
 							ForceNew: true,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.NoZeroValues,
 							},
 						},

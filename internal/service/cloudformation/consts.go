@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package cloudformation
-
-import (
+// SPDX-License-Identifier: MPL-2.0package cloudformationimport (
 	"time"
-)
-
-const (
+)const (
 	propagationTimeout = 2 * time.Minute
 )

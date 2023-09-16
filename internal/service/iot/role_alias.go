@@ -28,22 +28,22 @@ func ResourceRoleAlias() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"alias": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"role_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 			"credential_duration": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				Default:      3600,
+				Type:schema.TypeInt,
+				Optional: true,
+				Default:  3600,
 				ValidateFunc: validation.IntBetween(900, 43200),
 			},
 		},
@@ -59,8 +59,8 @@ func resourceRoleAliasCreate(ctx context.Context, d *schema.ResourceData, meta i
 	credentialDuration := d.Get("credential_duration").(int)
 
 	_, err := conn.CreateRoleAliasWithContext(ctx, &iot.CreateRoleAliasInput{
-		RoleAlias:    aws.String(roleAlias),
-		RoleArn:      aws.String(roleArn),
+		RoleAlias:aws.String(roleAlias),
+		RoleArn:  aws.String(roleArn),
 		CredentialDurationSeconds: aws.Int64(int64(credentialDuration)),
 	})
 
@@ -137,7 +137,7 @@ func resourceRoleAliasUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 	if d.HasChange("credential_duration") {
 		roleAliasInput := &iot.UpdateRoleAliasInput{
-			RoleAlias:    aws.String(d.Id()),
+			RoleAlias:aws.String(d.Id()),
 			CredentialDurationSeconds: aws.Int64(int64(d.Get("credential_duration").(int))),
 		}
 		_, err := conn.UpdateRoleAliasWithContext(ctx, roleAliasInput)

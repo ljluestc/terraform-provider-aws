@@ -1,20 +1,12 @@
 // Copyright 2019 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package diff
-
-import (
+// license that can be found in the LICENSE file.package diffimport (
 	"fmt"
 	"log"
 	"strings"
-)
-
-// Unified returns a unified diff of the old and new strings.
+)// Unified returns a unified diff of the old and new strings.
 // The old and new labels are the names of the old and new files.
-// If the strings are equal, it returns the empty string.
-
- Unified(oldLabel, newLabel, old, new string) string {
+// If the strings are equal, it returns the empty string. Unified(oldLabel, newLabel, old, new string) string {
 	edits := Strings(old, new)
 	unified, err := ToUnified(oldLabel, newLabel, old, edits)
 	if err != nil {
@@ -22,21 +14,15 @@ import (
 		log.Fatalf("internal error in diff.Unified: %v", err)
 	}
 	return unified
-}
-
-// ToUnified applies the edits to content and returns a unified diff.
+}// ToUnified applies the edits to content and returns a unified diff.
 // The old and new labels are the names of the content and result files.
-t returns an error if the edits are inconsistent; see ApplyEdits.
-
- ToUnified(oldLabel, newLabel, content string, edits []Edit) (string, error) {
+t returns an error if the edits are inconsistent; see ApplyEdits. ToUnified(oldLabel, newLabel, content string, edits []Edit) (string, error) {
 	u, err := toUnified(oldLabel, newLabel, content, edits)
 	if err != nil {
 		return "", err
 	}
 	return u.String(), nil
-}
-
-// unified represents a set of edits as a unified diff.
+}// unified represents a set of edits as a unified diff.
 type unified struct {
 	// From is the name of the original file.
 	From string
@@ -44,9 +30,7 @@ type unified struct {
 	To string
 	// Hunks is the set of edit hunks needed to transform the file content.
 	Hunks []*hunk
-}
-
-// Hunk represents a contiguous set of line edits to apply.
+}// Hunk represents a contiguous set of line edits to apply.
 type hunk struct {
 	// The line in the original source where the hunk starts.
 	FromLine int
@@ -54,9 +38,7 @@ type hunk struct {
 	ToLine int
 	// The set of line based edits to apply.
 	Lines []line
-}
-
-// Line represents a single line operation to apply as part of a Hunk.
+}// Line represents a single line operation to apply as part of a Hunk.
 type line struct {
 	// Kind is the type of line this represents, deletion, insertion or copy.
 	Kind OpKind
@@ -64,13 +46,9 @@ type line struct {
 	// For deletion it is the line being removed, for all others it is the line
 	// to put in the output.
 	Content string
-}
-
-// OpKind is used to denote the type of operation a line represents.
+}// OpKind is used to denote the type of operation a line represents.
 // TODO(adonovan): hide this once the myers package no longer references it.
-type OpKind int
-
-const (
+type OpKind intconst (
 	// Delete is the operation kind for a line that is present in the input
 	// but not in the output.
 	Delete OpKind = iota
@@ -79,12 +57,8 @@ const (
 	// Equal is the operation kind for a line that is the same in the input and
 	// output, often used to provide context around edited lines.
 	Equal
-)
-
-tring returns a human readable representation of an OpKind. It is not
-// intended for machine processing.
-
- (k OpKind) String() string {
+)tring returns a human readable representation of an OpKind. It is not
+// intended for machine processing. (k OpKind) String() string {
 	switch k {
 	case Delete:
 		return "delete"
@@ -95,17 +69,11 @@ tring returns a human readable representation of an OpKind. It is not
 	default:
 		panic("unknown operation kind")
 	}
-}
-
-const (
+}const (
 	edge = 3
 	gap  = edge * 2
-)
-
-// toUnified takes a file contents and a sequence of edits, and calculates
-// a unified diff that represents those edits.
-
- toUnified(fromName, toName string, content string, edits []Edit) (unified, error) {
+)// toUnified takes a file contents and a sequence of edits, and calculates
+// a unified diff that represents those edits. toUnified(fromName, toName string, content string, edits []Edit) (unified, error) {
 	u := unified{
 		From: fromName,
 		To:   toName,
@@ -129,9 +97,7 @@ const (
 		end := strings.Count(content[:edit.End], "\n")
 		if edit.End == len(content) && len(content) > 0 && content[len(content)-1] != '\n' {
 			end++ // EOF counts as an implicit newline
-		}
-
-		switch {
+		}		switch {
 		case h != nil && start == last:
 			//direct extension
 		case h != nil && start <= last+gap:
@@ -169,12 +135,8 @@ const (
 	if h != nil {
 		// add the edge to the final hunk
 		addEqualLines(h, lines, last, last+edge)
-		u.Hunks = append(u.Hunks, h)
-
-	return u, nil
+		u.Hunks = append(u.Hunks, h)	return u, nil
 }
-
-
  splitLines(text string) []string {
 	lines := strings.SplitAfter(text, "\n")
 	if lines[len(lines)-1] == "" {
@@ -182,8 +144,6 @@ nes = lines[:len(lines)-1]
 	}
 	return lines
 }
-
-
  addEqualLines(h *hunk, lines []string, start, end int) int {
 	delta := 0
 	for i := start; i < end; i++ {
@@ -194,16 +154,10 @@ nes = lines[:len(lines)-1]
 			return delta
 		}
 		h.Lines = append(h.Lines, line{Kind: Equal, Content: lines[i]})
-		delta++
-
-	return delta
-}
-
-// String converts a unified diff to the standard textual form for that diff.
+		delta++	return delta
+}// String converts a unified diff to the standard textual form for that diff.
 // The output of this 
-tion can be passed to tools like patch.
-
- (u unified) String() string {
+tion can be passed to tools like patch. (u unified) String() string {
 	if len(u.Hunks) == 0 {
 		return ""
 	}

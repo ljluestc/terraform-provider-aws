@@ -40,35 +40,35 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"firewall_rule_group_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
 	"mutation_protection": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional:true,
+Computed:true,
 Validate
 func: validation.StringInSlice(route53resolver.MutationProtectionStatus_Values(), false),
 	},
 	"name": {
 Type:schema.TypeString,
-Required:     true,
+Required:true,
 Validate
 func: validResolverName,
 	},
 	"priority": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Required: true,
 	},
 	names.AttrTags:    tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"vpc_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
@@ -146,7 +146,7 @@ func resourceFirewallRuleGroupAssociationUpdate(ctx context.Context, d *schema.R
 input := &route53resolver.UpdateFirewallRuleGroupAssociationInput{
 	FirewallRuleGroupAssociationId: aws.String(d.Id()),
 	Name:   aws.String(d.Get("name").(string)),
-	Priority:        aws.Int64(int64(d.Get("priority").(int))),
+	Priority:   aws.Int64(int64(d.Get("priority").(int))),
 }
 
 if v, ok := d.GetOk("mutation_protection"); ok {

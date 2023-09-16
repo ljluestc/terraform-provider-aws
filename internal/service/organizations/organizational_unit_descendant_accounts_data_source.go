@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_organizations_organizational_unit_descendant_accounts")
+
 func DataSourceOrganizationalUnitDescendantAccounts() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceOrganizationalUnitDescendantAccountsRead,
@@ -56,6 +57,7 @@ func DataSourceOrganizationalUnitDescendantAccounts() *schema.Resource {
 	}
 }
 
+
 func dataSourceOrganizationalUnitDescendantAccountsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -77,6 +79,7 @@ func dataSourceOrganizationalUnitDescendantAccountsRead(ctx context.Context, d *
 }
 
 // findAllAccountsForParent recurses down an OU tree, returning all accounts at the specified parent and below.
+
 func findAllAccountsForParentAndBelow(ctx context.Context, conn *organizations.Organizations, id string) ([]*organizations.Account, error) {
 	var output []*organizations.Account
 

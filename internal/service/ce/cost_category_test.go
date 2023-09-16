@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ce_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package ce_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/costexplorer"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -21,10 +15,9 @@ import (
 func := acctest.Context(t)
 	var output costexplorer.CostCategory
 	resourceName := "aws_ce_cost_category.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:
+func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
@@ -39,8 +32,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -49,10 +42,9 @@ ImportStateVerify: true,
 func TestAccCECostCategory_effectiveStart(t *testing.T) {
 func output costexplorer.CostCategory
 	resourceName := "aws_ce_cost_category.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:
+func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
@@ -66,8 +58,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -84,10 +76,9 @@ Check: resource.ComposeTestCheckFunc(
 func TestAccCECostCategory_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 funcourceName := "aws_ce_cost_category.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:
+func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
@@ -106,10 +97,9 @@ ExpectNonEmptyPlan: true,
 func TestAccCECostCategory_complete(t *testing.T) {
 	ctx := acctest.Context(t)
 	var output costexplorer.CostCategory
-funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:
+func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
@@ -129,8 +119,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -142,7 +132,8 @@ func TestAccCECostCategory_splitCharge(t *testing.T) {
 	resourceName := "aws_ce_cost_category.test"
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:
+func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
@@ -162,8 +153,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -175,7 +166,8 @@ func TestAccCECostCategory_tags(t *testing.T) {
 	resourceName := "aws_ce_cost_category.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 funcource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+PreCheck:
+func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckCostCategoryDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
@@ -189,8 +181,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -214,325 +206,253 @@ Check: resource.ComposeTestCheckFunc(
 	})
 }
 func testAccCheckCostCategoryExists(ctx context.Context, n string, v *costexplorer.CostCategory) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
 }
 funcs.Primary.ID == "" {
 	return fmt.Errorf("No CE Cost Category ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).CEConn(ctx)
-
-output, err := tfce.FindCostCategoryByARN(ctx, conn, rs.Primary.ID)
-
-if err != nil {
+}conn := acctest.Provider.Meta().(*conns.AWSClient).CEConn(ctx)output, err := tfce.FindCostCategoryByARN(ctx, conn, rs.Primary.ID)if err != nil {
 	return err
-}
-
-*v = *output
-
-return nil
+}*v = *outputreturn nil
 	}
 }
 func testAccCheckCostCategoryDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).CEConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).CEConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_ce_cost_category" {
 continue
 func
-	_, err := tfce.FindCostCategoryByARN(ctx, conn, rs.Primary.ID)
-
-	if tfresource.NotFound(err) {
+	_, err := tfce.FindCostCategoryByARN(ctx, conn, rs.Primary.ID)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 return err
-	}
-
-	return fmt.Errorf("CE Cost Category %s still exists", rs.Primary.ID)
-}
-
-return nil
+	}	return fmt.Errorf("CE Cost Category %s still exists", rs.Primary.ID)
+}return nil
 	}
 }
 func testAccCostCategoryConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test" {
-  name         = %[1]q
-  rule_version = "CostCategoryExpression.v1"
-  rule {
-    value = "production"
-    rule {
-func    key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-prod"]
-        match_options = ["ENDS_WITH"]
-      }
-    }
-    type = "REGULAR"
-  }
-  rule {
-    value = "staging"
-    rule {
-      dimension {
-        key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-stg"]
-        match_options = ["ENDS_WITH"]
-      }
-    }
-    type = "REGULAR"
-  }
-  rule {
-    value = "testing"
-    rule {
-      dimension {
-        key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-dev"]
-        match_options = ["ENDS_WITH"]
-      }
-    }
-    type = "REGULAR"
-  }
+name= %[1]q
+rule_version = "CostCategoryExpression.v1"
+rule {
+ value = "production"
+ rule {
+func key= "LINKED_ACCOUNT_NAME"
+values= ["-prod"]
+match_options = ["ENDS_WITH"]
+}
+ }
+ type = "REGULAR"
+}
+rule {
+ value = "staging"
+ rule {
+dimension {
+key= "LINKED_ACCOUNT_NAME"
+values= ["-stg"]
+match_options = ["ENDS_WITH"]
+}
+ }
+ type = "REGULAR"
+}
+rule {
+ value = "testing"
+ rule {
+dimension {
+key= "LINKED_ACCOUNT_NAME"
+values= ["-dev"]
+match_options = ["ENDS_WITH"]
+}
+ }
+ type = "REGULAR"
+}
 }
 `, rName)
 }
 func testAccCostCategoryConfig_operandAnd(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test" {
-  name         = %[1]q
-  rule_version = "CostCategoryExpression.v1"
-  rule {
-    value = "production"
-    rule {
-      and {
-func      key           = "LINKED_ACCOUNT_NAME"
-          values        = ["-prod"]
-          match_options = ["ENDS_WITH"]
-        }
-      }
-      and {
-        dimension {
-          key           = "LINKED_ACCOUNT_NAME"
-          values        = ["-stg"]
-          match_options = ["ENDS_WITH"]
-        }
-      }
-      and {
-        dimension {
-          key           = "LINKED_ACCOUNT_NAME"
-          values        = ["-dev"]
-          match_options = ["ENDS_WITH"]
-        }
-      }
-    }
-    type = "REGULAR"
-  }
+name= %[1]q
+rule_version = "CostCategoryExpression.v1"
+rule {
+ value = "production"
+ rule {
+and {
+funckey= "LINKED_ACCOUNT_NAME"
+ values= ["-prod"]
+ match_options = ["ENDS_WITH"]
+}
+}
+and {
+dimension {
+ key= "LINKED_ACCOUNT_NAME"
+ values= ["-stg"]
+ match_options = ["ENDS_WITH"]
+}
+}
+and {
+dimension {
+ key= "LINKED_ACCOUNT_NAME"
+ values= ["-dev"]
+ match_options = ["ENDS_WITH"]
+}
+}
+ }
+ type = "REGULAR"
+}
 }
 `, rName)
 }
 func testAccCostCategoryConfig_splitCharges(rName, method string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test1" {
-  name         = "%[1]s-1"
-  rule_version = "CostCategoryExpression.v1"
-
-  rule {
-    value = "production"
-
-    rule {
-func    key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-prod"]
-        match_options = ["ENDS_WITH"]
-      }
-    }
-
-    type = "REGULAR"
-  }
-
-  rule {
-    value = "staging"
-
-    rule {
-      dimension {
-        key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-stg"]
-        match_options = ["ENDS_WITH"]
-      }
-    }
-
-    type = "REGULAR"
-  }
-
-  rule {
-    value = "testing"
-
-    rule {
-      dimension {
-        key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-dev"]
-        match_options = ["ENDS_WITH"]
-      }
-    }
-
-    type = "REGULAR"
-  }
+name= "%[1]s-1"
+rule_version = "CostCategoryExpression.v1"rule {
+ value = "production" rule {
+func key= "LINKED_ACCOUNT_NAME"
+values= ["-prod"]
+match_options = ["ENDS_WITH"]
 }
-
-resource "aws_ce_cost_category" "test2" {
-  name         = "%[1]s-2"
-  rule_version = "CostCategoryExpression.v1"
-
-  rule {
-    value = "production"
-
-    rule {
-      and {
-        dimension {
-          key           = "LINKED_ACCOUNT_NAME"
-          values        = ["-prod"]
-          match_options = ["ENDS_WITH"]
-        }
-      }
-
-      and {
-        dimension {
-          key           = "LINKED_ACCOUNT_NAME"
-          values        = ["-stg"]
-          match_options = ["ENDS_WITH"]
-        }
-      }
-
-      and {
-        dimension {
-          key           = "LINKED_ACCOUNT_NAME"
-          values        = ["-dev"]
-          match_options = ["ENDS_WITH"]
-        }
-      }
-    }
-
-    type = "REGULAR"
-  }
+ } type = "REGULAR"
+}rule {
+ value = "staging" rule {
+dimension {
+key= "LINKED_ACCOUNT_NAME"
+values= ["-stg"]
+match_options = ["ENDS_WITH"]
 }
-
-resource "aws_ce_cost_category" "test" {
-  name         = %[1]q
-  rule_version = "CostCategoryExpression.v1"
-
-  rule {
-    value = "production"
-    rule {
-      dimension {
-        key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-prod"]
-        match_options = ["ENDS_WITH"]
-      }
-    }
-
-    type = "REGULAR"
-  }
-
-  split_charge_rule {
-    method  = %[2]q
-    source  = aws_ce_cost_category.test1.id
-    targets = [aws_ce_cost_category.test2.id]
-  }
+ } type = "REGULAR"
+}rule {
+ value = "testing" rule {
+dimension {
+key= "LINKED_ACCOUNT_NAME"
+values= ["-dev"]
+match_options = ["ENDS_WITH"]
+}
+ } type = "REGULAR"
+}
+}resource "aws_ce_cost_category" "test2" {
+name= "%[1]s-2"
+rule_version = "CostCategoryExpression.v1"rule {
+ value = "production" rule {
+and {
+dimension {
+ key= "LINKED_ACCOUNT_NAME"
+ values= ["-prod"]
+ match_options = ["ENDS_WITH"]
+}
+}and {
+dimension {
+ key= "LINKED_ACCOUNT_NAME"
+ values= ["-stg"]
+ match_options = ["ENDS_WITH"]
+}
+}and {
+dimension {
+ key= "LINKED_ACCOUNT_NAME"
+ values= ["-dev"]
+ match_options = ["ENDS_WITH"]
+}
+}
+ } type = "REGULAR"
+}
+}resource "aws_ce_cost_category" "test" {
+name= %[1]q
+rule_version = "CostCategoryExpression.v1"rule {
+ value = "production"
+ rule {
+dimension {
+key= "LINKED_ACCOUNT_NAME"
+values= ["-prod"]
+match_options = ["ENDS_WITH"]
+}
+ } type = "REGULAR"
+}split_charge_rule {
+ method= %[2]q
+ source= aws_ce_cost_category.test1.id
+ targets = [aws_ce_cost_category.test2.id]
+}
 }
 `, rName, method)
 }
 func testAccCostCategoryConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test" {
-  name         = %[1]q
-  rule_version = "CostCategoryExpression.v1"
-
-  rule {
-    value = "production"
-
-    rule {
-      dimension {
-func    values        = ["-prod"]
-        match_options = ["ENDS_WITH"]
-      }
-    }
-
-    type = "REGULAR"
-  }
-
-  tags = {
-    %[2]q = %[3]q
-  }
+name= %[1]q
+rule_version = "CostCategoryExpression.v1"rule {
+ value = "production" rule {
+dimension {
+func values= ["-prod"]
+match_options = ["ENDS_WITH"]
+}
+ } type = "REGULAR"
+}tags = {
+ %[2]q = %[3]q
+}
 }
 `, rName, tagKey1, tagValue1)
 }
 func testAccCostCategoryConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test" {
-  name         = %[1]q
-  rule_version = "CostCategoryExpression.v1"
-
-  rule {
-    value = "production"
-
-    rule {
-      dimension {
-        key           = "LINKED_ACCOUNT_NAME"
-func    match_options = ["ENDS_WITH"]
-      }
-    }
-
-    type = "REGULAR"
-  }
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+name= %[1]q
+rule_version = "CostCategoryExpression.v1"rule {
+ value = "production" rule {
+dimension {
+key= "LINKED_ACCOUNT_NAME"
+func match_options = ["ENDS_WITH"]
+}
+ } type = "REGULAR"
+}tags = {
+ %[2]q = %[3]q
+ %[4]q = %[5]q
+}
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
 func testAccCostCategoryConfig_effectiveStart(rName, date string) string {
 	return fmt.Sprintf(`
 resource "aws_ce_cost_category" "test" {
-  name            = %[1]q
-  rule_version    = "CostCategoryExpression.v1"
-  effective_start = %[2]q
-  rule {
-    value = "production"
-    rule {
-      dimension {
-        key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-prod"]
-        match_options = ["ENDS_WITH"]
+name= %[1]q
+rule_version = "CostCategoryExpression.v1"
+effective_start = %[2]q
+rule {
+ value = "production"
+ rule {
+dimension {
+key= "LINKED_ACCOUNT_NAME"
+values= ["-prod"]
+match_options = ["ENDS_WITH"]
 func}
-    type = "REGULAR"
-  }
-  rule {
-    value = "staging"
-    rule {
-      dimension {
-        key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-stg"]
-        match_options = ["ENDS_WITH"]
-      }
-    }
-    type = "REGULAR"
-  }
-  rule {
-    value = "testing"
-    rule {
-      dimension {
-        key           = "LINKED_ACCOUNT_NAME"
-        values        = ["-dev"]
-        match_options = ["ENDS_WITH"]
-      }
-    }
-    type = "REGULAR"
-  }
+ type = "REGULAR"
+}
+rule {
+ value = "staging"
+ rule {
+dimension {
+key= "LINKED_ACCOUNT_NAME"
+values= ["-stg"]
+match_options = ["ENDS_WITH"]
+}
+ }
+ type = "REGULAR"
+}
+rule {
+ value = "testing"
+ rule {
+dimension {
+key= "LINKED_ACCOUNT_NAME"
+values= ["-dev"]
+match_options = ["ENDS_WITH"]
+}
+ }
+ type = "REGULAR"
+}
 }
 `, rName, date)
 }

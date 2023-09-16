@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/id"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
@@ -19,15 +13,14 @@ import (
 	tfrds "github.com/hashicorp/terraform-provider-aws/internal/service/rds"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func := acctest.Context(t)
 	var v rds.DBSubnetGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_subnet_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	resourceName := "aws_db_subnet_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:
+funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -46,24 +39,23 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccRDSSubnetGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_subnet_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_subnet_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:funcs: []resource.TestStep{
+CheckDestroy:
+funcs: []resource.TestStep{
 	{
 Config: testAccSubnetGroupConfig_basic(rName),
 Check: resource.ComposeTestCheckFunc(
@@ -75,19 +67,20 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccRDSSubnetGroup_nameGenerated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.DBSubnetGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 func
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 Steps: []resource.TestStep{
-	{funcig: testAccSubnetGroupConfig_nameGenerated(rName),
+	{
+funcig: testAccSubnetGroupConfig_nameGenerated(rName),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
 	acctest.CheckResourceAttrNameGenerated(resourceName, "name"),
@@ -95,48 +88,44 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccRDSSubnetGroup_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.DBSubnetGroup
-	resourceName := "aws_db_subnet_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-funcrCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_subnet_group.test"	resource.ParallelTest(t, resource.TestCase{
+funcrCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSubnetGroupConfig_namePrefix("tf-acc-test-prefix-"),
-Check: resourfunctAccCheckSubnetGroupExists(ctx, resourceName, &v),
+Check: resour
+functAccCheckSubnetGroupExists(ctx, resourceName, &v),
 	acctest.CheckResourceAttrNameFromPrefix(resourceName, "name", "tf-acc-test-prefix-"),
 	resource.TestCheckResourceAttr(resourceName, "name_prefix", "tf-acc-test-prefix-"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccRDSSubnetGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.DBSubnetGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_subnet_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_db_subnet_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 funcoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 Steps: []resource.TestStep{
@@ -144,12 +133,13 @@ Steps: []resource.TestStep{
 Config: testAccSubnetGroupConfig_tags1(rName, "key1", "value1"),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-	resource.Tesfuncource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+	resource.Tes
+funcource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -172,17 +162,13 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccRDSSubnetGroup_dualStack(t *testing.T) {
 	ctx := acctest.Context(t)
-	var v rds.DBSubnetGroup
-
-	resourceName := "aws_db_subnet_group.test"
-	rName := fmt.Sprintf("tf-test-%d", sdkacctest.RandInt())
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	var v rds.DBSubnetGroup	resourceName := "aws_db_subnet_group.test"
+	rName := fmt.Sprintf("tf-test-%d", sdkacctest.RandInt())	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 funckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -191,21 +177,20 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "supported_network_types.#", "2"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "supported_network_types.*", "IPV4"),
-	resource.Tesfunc
+	resource.Tes
+func
 	},
 },
 	})
 }
-
 func TestAccRDSSubnetGroup_updateDescription(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.DBSubnetGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_subnet_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_subnet_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 Steps: []resource.TestStep{
@@ -216,8 +201,9 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "2"),
 ),
 	},
-	{funcurceName:      resourceName,
-ImportState:       true,
+	{
+funcurceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -231,16 +217,14 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccRDSSubnetGroup_updateSubnets(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.DBSubnetGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_subnet_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:    func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_subnet_group.test"	resource.ParallelTest(t, resource.TestCase{
+PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:testAccCheckSubnetGroupDestroy(ctx),
 Steps: []resource.TestStep{
@@ -252,8 +236,9 @@ functAccCheckSubnetGroupExists(ctx, resourceName, &v),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState: funcrtStateVerify: true,
+ResourceName:resourceName,
+ImportState: 
+funcrtStateVerify: true,
 	},
 	{
 Config: testAccDBSubnetGroupConfig_updatedSubnets(rName),
@@ -266,123 +251,97 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccCheckSubnetGroupDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-for _, rs := range s.RootModule().Resources {
+	return 
+func(s *terraform.State) error {
+conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_db_subnet_group" {
 continue
-	}
-
-	_, err := tfrds.FindDBSubnetGroupByName(ctx, conn, rs.Primary.ID)
-
-	if tfresource.NotFound(err) {
+	}	_, err := tfrds.FindDBSubnetGroupByName(ctx, conn, rs.Primary.ID)	if tfresource.NotFound(err) {
 continue
-	}
-
-	if err != nil {
+	}	if err != nil {
 func
 funcurn fmt.Errorf("RDS DB Subnet Group %s still exists", rs.Primary.ID)
-}
-
-return nil
+}return nil
 	}
 }
-
 func testAccCheckSubnetGroupExists(ctx context.Context, n string, v *rds.DBSubnetGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
 if !ok {
 	return fmt.Errorf("Not found: %s", n)
-}
-
-if rs.Primary.ID == "" {
+}if rs.Primary.ID == "" {
 	return fmt.Errorf("No RDS DB Subnet Group ID is set")
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-output, err := tfrds.FindDBSubnetGroupByName(ctx, conn, rs.Primary.ID)
+}conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)output, err := tfrds.FindDBSubnetGroupByName(ctx, conn, rs.Primary.ID)
 if err != nil {
 	return err
 }
-
 func
-return nfunc
+return n
+func
 }
-
 func testAccSubnetGroupConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_db_subnet_group" "test" {
-  name       = %[1]q
-  subnet_ids = aws_subnet.test[*].id
+name = %[1]q
+subnet_ids = aws_subnet.test[*].id
 }
 `, rName))
 }
-
 func testAccSubnetGroupConfig_nameGenerated(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), `
 resource "aws_db_subnet_group" "test" {
-  subnet_ids = aws_subnet.test[*].id
+subnet_ids = aws_subnet.test[*].id
 }`)
 }
-
 func testAccSubnetGroupConfig_namePrefix(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_db_subnet_group" "test" {
-  name_prefix = %[1]q
+name_prefix = %[1]q
 funcrName))
 }
-
 func testAccSubnetGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_db_subnet_group" "test" {
-  name       = %[1]q
-  subnet_ids = aws_subnet.test[*].id
-
+name = %[1]q
+subnet_ids = aws_subnet.test[*].id
 func%[2]q = %[3]q
-  }
+}
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccSubnetGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 funcurce "aws_db_subnet_group" "test" {
-  name       = %[1]q
-  subnet_ids = aws_subnet.test[*].id
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
+name = %[1]q
+subnet_ids = aws_subnet.test[*].idtags = {
+ %[2]q = %[3]q
+ %[4]q = %[5]q
+}
 funcName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
 func testAccSubnetGroupConfig_dualStack(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnetsIPv6(rName, 2), fmt.Sprintf(`
 resource "aws_db_subnet_group" "test" {
-  name       = %[1]q
-  subnet_ids = aws_subnet.test[*].id
+name = %[1]q
+subnet_ids = aws_subnet.test[*].id
 }
 `, rName))
 }
-
 func testAccDBSubnetGroupConfig_updatedDescription(rName string) string {
 funcurce "aws_db_subnet_group" "test" {
-  name        = %[1]q
-  subnet_ids  = aws_subnet.test[*].id
-  description = "test description updated"
+name= %[1]q
+subnet_ids= aws_subnet.test[*].id
+description = "test description updated"
 }
 `, rName))
 }
-
 func testAccDBSubnetGroupConfig_updatedSubnets(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 3), fmt.Sprintf(`
 resource "aws_db_subnet_group" "test" {
-  name       = %[1]q
-  subnet_ids = aws_subnet.test[*].id
+name = %[1]q
+subnet_ids = aws_subnet.test[*].id
 }
 func
-funcfunc
+func
+func

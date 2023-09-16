@@ -25,77 +25,77 @@ func DataSourceFirewall() *schema.Resource {
 		ReadWithoutTimeout: dataSourceFirewallResourceRead,
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: verify.ValidARN,
 				AtLeastOneOf: []string{"arn", "name"},
 			},
 			"delete_protection": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"encryption_configuration": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"key_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"firewall_policy_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"firewall_policy_change_protection": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"firewall_status": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"capacity_usage_summary": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"cidrs": {
-										Type:     schema.TypeSet,
+										Type:schema.TypeSet,
 										Computed: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"available_cidr_count": {
-													Type:     schema.TypeInt,
+													Type:schema.TypeInt,
 													Computed: true,
 												},
 												"ip_set_references": {
-													Type:     schema.TypeSet,
+													Type:schema.TypeSet,
 													Computed: true,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"resolved_cidr_count": {
-																Type:     schema.TypeInt,
+																Type:schema.TypeInt,
 																Computed: true,
 															},
 														},
 													},
 												},
 												"utilized_cidr_count": {
-													Type:     schema.TypeInt,
+													Type:schema.TypeInt,
 													Computed: true,
 												},
 											},
@@ -105,37 +105,37 @@ func DataSourceFirewall() *schema.Resource {
 							},
 						},
 						"configuration_sync_state_summary": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"status": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"sync_states": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"availability_zone": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 									"attachment": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Computed: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"endpoint_id": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 												"status": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 												"subnet_id": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 											},
@@ -148,23 +148,23 @@ func DataSourceFirewall() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Computed:true,
 				AtLeastOneOf: []string{"arn", "name"},
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z-]{1,128}$`), "Must have 1-128 valid characters: a-z, A-Z, 0-9 and -(hyphen)"),
 			},
 			"subnet_change_protection": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"subnet_mapping": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"subnet_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
@@ -172,11 +172,11 @@ func DataSourceFirewall() *schema.Resource {
 			},
 			"tags": tftags.TagsSchema(),
 			"update_token": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -283,7 +283,7 @@ func flattenDataSourceCIDRSummary(state *networkfirewall.CIDRSummary) []interfac
 
 	m := map[string]interface{}{
 		"available_cidr_count": int(aws.Int64Value(state.AvailableCIDRCount)),
-		"ip_set_references":    flattenDataSourceIPSetReferences(state.IPSetReferences),
+		"ip_set_references":flattenDataSourceIPSetReferences(state.IPSetReferences),
 		"utilized_cidr_count":  int(aws.Int64Value(state.UtilizedCIDRCount)),
 	}
 
@@ -315,7 +315,7 @@ func flattenDataSourceSyncStates(state map[string]*networkfirewall.SyncState) []
 	for k, v := range state {
 		m := map[string]interface{}{
 			"availability_zone": k,
-			"attachment":        flattenDataSourceSyncStateAttachment(v.Attachment),
+			"attachment":   flattenDataSourceSyncStateAttachment(v.Attachment),
 		}
 		syncStates = append(syncStates, m)
 	}
@@ -330,7 +330,7 @@ func flattenDataSourceSyncStateAttachment(attach *networkfirewall.Attachment) []
 
 	m := map[string]interface{}{
 		"endpoint_id": aws.StringValue(attach.EndpointId),
-		"status":      aws.StringValue(attach.Status),
+		"status": aws.StringValue(attach.Status),
 		"subnet_id":   aws.StringValue(attach.SubnetId),
 	}
 

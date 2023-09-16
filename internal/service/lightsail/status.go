@@ -14,7 +14,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func statusContainerService(ctx context.Context, conn *lightsail.Client, serviceName string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		containerService, err := FindContainerServiceByName(ctx, conn, serviceName)
@@ -30,7 +29,6 @@ func statusContainerService(ctx context.Context, conn *lightsail.Client, service
 		return containerService, string(containerService.State), nil
 	}
 }
-
 func statusContainerServiceDeploymentVersion(ctx context.Context, conn *lightsail.Client, serviceName string, version int) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		deployment, err := FindContainerServiceDeploymentByVersion(ctx, conn, serviceName, version)
@@ -120,7 +118,6 @@ func statusDatabaseBackupRetention(ctx context.Context, conn *lightsail.Client, 
 		return output, strconv.FormatBool(aws.ToBool(output.RelationalDatabase.BackupRetentionEnabled)), nil
 	}
 }
-
 func statusDatabasePubliclyAccessible(ctx context.Context, conn *lightsail.Client, db *string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		input := &lightsail.GetRelationalDatabaseInput{
@@ -143,7 +140,6 @@ func statusDatabasePubliclyAccessible(ctx context.Context, conn *lightsail.Clien
 		return output, strconv.FormatBool(aws.ToBool(output.RelationalDatabase.PubliclyAccessible)), nil
 	}
 }
-
 func statusInstance(ctx context.Context, conn *lightsail.Client, iName *string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		in := &lightsail.GetInstanceStateInput{

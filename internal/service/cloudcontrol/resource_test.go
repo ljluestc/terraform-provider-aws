@@ -37,7 +37,7 @@ func TestAccCloudControlResource_basic(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -59,7 +59,7 @@ func TestAccCloudControlResource_disappears(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -81,7 +81,7 @@ func TestAccCloudControlResource_DesiredState_booleanValueAdded(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -108,7 +108,7 @@ func TestAccCloudControlResource_DesiredState_booleanValueRemoved(t *testing.T) 
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -135,7 +135,7 @@ func TestAccCloudControlResource_DesiredState_booleanValueUpdate(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -163,7 +163,7 @@ func TestAccCloudControlResource_DesiredState_createOnly(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -190,7 +190,7 @@ func TestAccCloudControlResource_DesiredState_integerValueAdded(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -217,7 +217,7 @@ func TestAccCloudControlResource_DesiredState_integerValueRemoved(t *testing.T) 
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -244,7 +244,7 @@ func TestAccCloudControlResource_DesiredState_integerValueUpdate(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -270,13 +270,13 @@ func TestAccCloudControlResource_DesiredState_invalidPropertyName(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccResourceConfig_desiredStateInvalidPropertyName(rName),
+				Config:  testAccResourceConfig_desiredStateInvalidPropertyName(rName),
 				ExpectError: regexache.MustCompile(`\(root\): Additional property InvalidName is not allowed`),
 			},
 		},
@@ -288,13 +288,13 @@ func TestAccCloudControlResource_DesiredState_invalidPropertyValue(t *testing.T)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccResourceConfig_desiredStateInvalidPropertyValue(rName),
+				Config:  testAccResourceConfig_desiredStateInvalidPropertyValue(rName),
 				ExpectError: regexache.MustCompile(`Model validation failed`),
 			},
 		},
@@ -307,7 +307,7 @@ func TestAccCloudControlResource_DesiredState_objectValueAdded(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -334,7 +334,7 @@ func TestAccCloudControlResource_DesiredState_objectValueRemoved(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -361,7 +361,7 @@ func TestAccCloudControlResource_DesiredState_objectValueUpdate(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -394,7 +394,7 @@ func TestAccCloudControlResource_DesiredState_stringValueAdded(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -421,7 +421,7 @@ func TestAccCloudControlResource_DesiredState_stringValueRemoved(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -448,7 +448,7 @@ func TestAccCloudControlResource_DesiredState_stringValueUpdate(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -475,7 +475,7 @@ func TestAccCloudControlResource_resourceSchema(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID, cloudformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -497,7 +497,7 @@ func TestAccCloudControlResource_lambdaFunction(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckResourceDestroy(ctx),
@@ -552,7 +552,7 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::Logs::LogGroup"
 
   desired_state = jsonencode({
-    LogGroupName = %[1]q
+LogGroupName = %[1]q
   })
 }
 `, rName)
@@ -564,9 +564,9 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::ApiGateway::ApiKey"
 
   desired_state = jsonencode({
-    Enabled = %[2]t
-    Name    = %[1]q
-    Value   = %[1]q
+Enabled = %[2]t
+Name= %[1]q
+Value   = %[1]q
   })
 }
 `, rName, booleanValue)
@@ -578,8 +578,8 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::ApiGateway::ApiKey"
 
   desired_state = jsonencode({
-    Name  = %[1]q
-    Value = %[1]q
+Name  = %[1]q
+Value = %[1]q
   })
 }
 `, rName)
@@ -591,7 +591,7 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::Logs::LogGroup"
 
   desired_state = jsonencode({
-    LogGroupName = %[1]q
+LogGroupName = %[1]q
   })
 }
 `, rName)
@@ -603,8 +603,8 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::Logs::LogGroup"
 
   desired_state = jsonencode({
-    LogGroupName    = %[1]q
-    RetentionInDays = %[2]d
+LogGroupName= %[1]q
+RetentionInDays = %[2]d
   })
 }
 `, rName, integerValue)
@@ -616,7 +616,7 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::Logs::LogGroup"
 
   desired_state = jsonencode({
-    LogGroupName = %[1]q
+LogGroupName = %[1]q
   })
 }
 `, rName)
@@ -628,7 +628,7 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::Logs::LogGroup"
 
   desired_state = jsonencode({
-    InvalidName = %[1]q
+InvalidName = %[1]q
   })
 }
 `, rName)
@@ -640,7 +640,7 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::Logs::LogGroup"
 
   desired_state = jsonencode({
-    LogGroupName = "%[1]s!exclamation-not-valid"
+LogGroupName = "%[1]s!exclamation-not-valid"
   })
 }
 `, rName)
@@ -652,13 +652,13 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::ECS::Cluster"
 
   desired_state = jsonencode({
-    ClusterName = %[1]q
-    Tags = [
-      {
-        Key   = %[2]q
-        Value = %[3]q
-      }
-    ]
+ClusterName = %[1]q
+Tags = [
+  {
+Key   = %[2]q
+Value = %[3]q
+  }
+]
   })
 }
 `, rName, key1, value1)
@@ -670,7 +670,7 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::ECS::Cluster"
 
   desired_state = jsonencode({
-    ClusterName = %[1]q
+ClusterName = %[1]q
   })
 }
 `, rName)
@@ -682,8 +682,8 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::Athena::WorkGroup"
 
   desired_state = jsonencode({
-    Description = %[2]q
-    Name        = %[1]q
+Description = %[2]q
+Name= %[1]q
   })
 }
 `, rName, stringValue)
@@ -695,7 +695,7 @@ resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::Athena::WorkGroup"
 
   desired_state = jsonencode({
-    Name = %[1]q
+Name = %[1]q
   })
 }
 `, rName)
@@ -704,16 +704,16 @@ resource "aws_cloudcontrolapi_resource" "test" {
 func testAccResourceConfig_schema(rName string) string {
 	return fmt.Sprintf(`
 data "aws_cloudformation_type" "test" {
-  type      = "RESOURCE"
+  type  = "RESOURCE"
   type_name = "AWS::Logs::LogGroup"
 }
 
 resource "aws_cloudcontrolapi_resource" "test" {
-  schema    = data.aws_cloudformation_type.test.schema
+  schema= data.aws_cloudformation_type.test.schema
   type_name = data.aws_cloudformation_type.test.type_name
 
   desired_state = jsonencode({
-    LogGroupName = %[1]q
+LogGroupName = %[1]q
   })
 }
 `, rName)
@@ -728,18 +728,18 @@ resource "aws_iam_role" "test" {
   managed_policy_arns = ["arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = "AllowLambda"
-        Principal = {
-          Service = "lambda.amazonaws.com"
-        }
-        Action = "sts:AssumeRole"
-      }
-    ]
+Version = "2012-10-17"
+Statement = [
+  {
+Action = "sts:AssumeRole"
+Effect = "Allow"
+Sid= "AllowLambda"
+Principal = {
+ Service = "lambda.amazonaws.com"
+}
+Action = "sts:AssumeRole"
+  }
+]
   })
 }
 `, rName)
@@ -750,11 +750,11 @@ func testAccResourceConfig_lambdaFunction(rName string) string {
 resource "aws_cloudcontrolapi_resource" "test" {
   type_name = "AWS::Lambda::Function"
   desired_state = jsonencode({
-    Role    = aws_iam_role.test.arn
-    Handler = "index.main"
-    Runtime = "python3.7"
-    Timeout = 300
-    Code    = { ZipFile = "def main(event, context): pass" }
+Role= aws_iam_role.test.arn
+Handler = "index.main"
+Runtime = "python3.7"
+Timeout = 300
+Code= { ZipFile = "def main(event, context): pass" }
   })
 }
 `)

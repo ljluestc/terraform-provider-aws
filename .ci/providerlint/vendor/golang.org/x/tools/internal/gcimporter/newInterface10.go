@@ -1,15 +1,7 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build !go1.11
-// +build !go1.11
-
-package gcimporter
-
-import "go/types"
-
-
+// license that can be found in the LICENSE file.//go:build !go1.11
+// +build !go1.11package gcimporterimport "go/types"
  newInterface(methods []*types.
 , embeddeds []types.Type) *types.Interface {
 	named := make([]*types.Named, len(embeddeds))

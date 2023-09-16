@@ -50,33 +50,33 @@ func ResourceBotAlias() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"bot_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validBotName,
 			},
 			"bot_version": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validBotVersion,
 			},
 			"checksum": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"conversation_logs": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MinItems: 1,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"iam_role_arn": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.All(
 								validation.StringLenBetween(20, 2048),
@@ -86,31 +86,31 @@ func ResourceBotAlias() *schema.Resource {
 						// Currently the API docs do not list a min and max for this list.
 						// https://docs.aws.amazon.com/lex/latest/dg/API_PutBotAlias.html#lex-PutBotAlias-request-conversationLogs
 						"log_settings": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
-							Elem:     logSettings,
+							Elem: logSettings,
 						},
 					},
 				},
 			},
 			"created_date": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      "",
+				Type:schema.TypeString,
+				Optional: true,
+				Default:  "",
 				ValidateFunc: validation.StringLenBetween(0, 200),
 			},
 			"last_updated_date": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validBotAliasName,
 			},
 		},
@@ -131,10 +131,10 @@ func resourceBotAliasCreate(ctx context.Context, d *schema.ResourceData, meta in
 	id := fmt.Sprintf("%s:%s", botName, botAliasName)
 
 	input := &lexmodelbuildingservice.PutBotAliasInput{
-		BotName:     aws.String(botName),
+		BotName: aws.String(botName),
 		BotVersion:  aws.String(d.Get("bot_version").(string)),
 		Description: aws.String(d.Get("description").(string)),
-		Name:        aws.String(botAliasName),
+		Name:aws.String(botAliasName),
 	}
 
 	if v, ok := d.GetOk("conversation_logs"); ok {
@@ -181,7 +181,7 @@ func resourceBotAliasRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	resp, err := conn.GetBotAliasWithContext(ctx, &lexmodelbuildingservice.GetBotAliasInput{
 		BotName: aws.String(d.Get("bot_name").(string)),
-		Name:    aws.String(d.Get("name").(string)),
+		Name:aws.String(d.Get("name").(string)),
 	})
 	if tfawserr.ErrCodeEquals(err, lexmodelbuildingservice.ErrCodeNotFoundException) {
 		log.Printf("[WARN] Bot alias (%s) not found, removing from state", d.Id())
@@ -194,7 +194,7 @@ func resourceBotAliasRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
+		Region:meta.(*conns.AWSClient).Region,
 		Service:   "lex",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("bot:%s", d.Id()),
@@ -221,10 +221,10 @@ func resourceBotAliasUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).LexModelsConn(ctx)
 
 	input := &lexmodelbuildingservice.PutBotAliasInput{
-		BotName:    aws.String(d.Get("bot_name").(string)),
+		BotName:aws.String(d.Get("bot_name").(string)),
 		BotVersion: aws.String(d.Get("bot_version").(string)),
 		Checksum:   aws.String(d.Get("checksum").(string)),
-		Name:       aws.String(d.Get("name").(string)),
+		Name:   aws.String(d.Get("name").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -276,7 +276,7 @@ func resourceBotAliasDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	input := &lexmodelbuildingservice.DeleteBotAliasInput{
 		BotName: aws.String(botName),
-		Name:    aws.String(botAliasName),
+		Name:aws.String(botAliasName),
 	}
 
 	err := retry.RetryContext(ctx, d.Timeout(schema.TimeoutDelete), func() *retry.RetryError {
@@ -321,12 +321,12 @@ func resourceBotAliasImport(ctx context.Context, d *schema.ResourceData, _ inter
 var logSettings = &schema.Resource{
 	Schema: map[string]*schema.Schema{
 		"destination": {
-			Type:         schema.TypeString,
-			Required:     true,
+			Type:schema.TypeString,
+			Required: true,
 			ValidateFunc: validation.StringInSlice(lexmodelbuildingservice.Destination_Values(), false),
 		},
 		"kms_key_arn": {
-			Type:     schema.TypeString,
+			Type: schema.TypeString,
 			Optional: true,
 			ValidateFunc: validation.All(
 				validation.StringLenBetween(20, 2048),
@@ -334,12 +334,12 @@ var logSettings = &schema.Resource{
 			),
 		},
 		"log_type": {
-			Type:         schema.TypeString,
-			Required:     true,
+			Type:schema.TypeString,
+			Required: true,
 			ValidateFunc: validation.StringInSlice(lexmodelbuildingservice.LogType_Values(), false),
 		},
 		"resource_arn": {
-			Type:     schema.TypeString,
+			Type: schema.TypeString,
 			Required: true,
 			ValidateFunc: validation.All(
 				validation.StringLenBetween(1, 2048),
@@ -347,7 +347,7 @@ var logSettings = &schema.Resource{
 			),
 		},
 		"resource_prefix": {
-			Type:     schema.TypeString,
+			Type: schema.TypeString,
 			Computed: true,
 		},
 	},
@@ -378,10 +378,10 @@ func expandConversationLogs(rawObject interface{}) (*lexmodelbuildingservice.Con
 func flattenLogSettings(responses []*lexmodelbuildingservice.LogSettingsResponse) (flattened []map[string]interface{}) {
 	for _, response := range responses {
 		flattened = append(flattened, map[string]interface{}{
-			"destination":     response.Destination,
-			"kms_key_arn":     response.KmsKeyArn,
-			"log_type":        response.LogType,
-			"resource_arn":    response.ResourceArn,
+			"destination": response.Destination,
+			"kms_key_arn": response.KmsKeyArn,
+			"log_type":response.LogType,
+			"resource_arn":response.ResourceArn,
 			"resource_prefix": response.ResourcePrefix,
 		})
 	}
@@ -399,7 +399,7 @@ func expandLogSettings(rawValues []interface{}) ([]*lexmodelbuildingservice.LogS
 		destination := value["destination"].(string)
 		request := &lexmodelbuildingservice.LogSettingsRequest{
 			Destination: aws.String(destination),
-			LogType:     aws.String(value["log_type"].(string)),
+			LogType: aws.String(value["log_type"].(string)),
 			ResourceArn: aws.String(value["resource_arn"].(string)),
 		}
 

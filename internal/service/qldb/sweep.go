@@ -21,7 +21,7 @@ multierror "github.com/hashicorp/go-multierror"
 func init() {
 resource.AddTestSweepers("aws_qldb_ledger", &resource.Sweeper{
 Name: "aws_qldb_ledger",
-F:    sweepLedgers,
+F:sweepLedgers,
 Dependencies: []string{
 "aws_qldb_stream",
 },
@@ -29,7 +29,7 @@ Dependencies: []string{
 
 resource.AddTestSweepers("aws_qldb_stream", &resource.Sweeper{
 Name: "aws_qldb_stream",
-F:    sweepStreams,
+F:sweepStreams,
 })
 
 }

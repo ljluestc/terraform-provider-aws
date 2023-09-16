@@ -53,7 +53,6 @@ func ResourceLoadBalancerCertificateAttachment() *schema.Resource {
 		},
 	}
 }
-
 func resourceLoadBalancerCertificateAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	certName := d.Get("certificate_name").(string)
@@ -84,7 +83,6 @@ func resourceLoadBalancerCertificateAttachmentCreate(ctx context.Context, d *sch
 
 	return resourceLoadBalancerCertificateAttachmentRead(ctx, d, meta)
 }
-
 func resourceLoadBalancerCertificateAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -105,12 +103,10 @@ func resourceLoadBalancerCertificateAttachmentRead(ctx context.Context, d *schem
 
 	return nil
 }
-
 func resourceLoadBalancerCertificateAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	log.Printf("[WARN] Cannot destroy Lightsail Load Balancer Certificate Attachment. Terraform will remove this resource from the state file, however resources may remain.")
 	return nil
 }
-
 func FindLoadBalancerCertificateAttachmentById(ctx context.Context, conn *lightsail.Client, id string) (*string, error) {
 	id_parts := strings.SplitN(id, ",", -1)
 	if len(id_parts) != 2 {

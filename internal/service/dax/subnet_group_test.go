@@ -17,17 +17,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccDAXSubnetGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_dax_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, dax.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, dax.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy: testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_basic(rName),
@@ -47,14 +46,13 @@ func TestAccDAXSubnetGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckSubnetGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DAXConn(ctx)
@@ -77,7 +75,6 @@ func testAccCheckSubnetGroupDestroy(ctx context.Context) resource.TestCheckFunc 
 		return nil
 	}
 }
-
 func testAccCheckSubnetGroupExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -94,7 +91,6 @@ func testAccCheckSubnetGroupExists(ctx context.Context, name string) resource.Te
 		return err
 	}
 }
-
 func testAccSubnetGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
@@ -103,25 +99,24 @@ resource "aws_vpc" "test" {
 
 resource "aws_subnet" "test1" {
   cidr_block = "10.0.1.0/24"
-  vpc_id     = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
 }
 
 resource "aws_subnet" "test2" {
   cidr_block = "10.0.2.0/24"
-  vpc_id     = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
 }
 
 resource "aws_dax_subnet_group" "test" {
   name = "%s"
 
   subnet_ids = [
-    aws_subnet.test1.id,
-    aws_subnet.test2.id,
+ aws_subnet.test1.id,
+ aws_subnet.test2.id,
   ]
 }
 `, rName)
 }
-
 func testAccSubnetGroupConfig_update(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
@@ -130,27 +125,27 @@ resource "aws_vpc" "test" {
 
 resource "aws_subnet" "test1" {
   cidr_block = "10.0.1.0/24"
-  vpc_id     = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
 }
 
 resource "aws_subnet" "test2" {
   cidr_block = "10.0.2.0/24"
-  vpc_id     = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
 }
 
 resource "aws_subnet" "test3" {
   cidr_block = "10.0.3.0/24"
-  vpc_id     = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
 }
 
 resource "aws_dax_subnet_group" "test" {
-  name        = "%s"
+  names"
   description = "update"
 
   subnet_ids = [
-    aws_subnet.test1.id,
-    aws_subnet.test2.id,
-    aws_subnet.test3.id,
+ aws_subnet.test1.id,
+ aws_subnet.test2.id,
+ aws_subnet.test3.id,
   ]
 }
 `, rName)

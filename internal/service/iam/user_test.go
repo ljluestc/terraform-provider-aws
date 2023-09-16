@@ -42,8 +42,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"force_destroy"},
@@ -99,8 +99,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"force_destroy"},
@@ -127,8 +127,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"force_destroy"},
@@ -155,8 +155,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"force_destroy"},
@@ -183,9 +183,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:  resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
 },
@@ -210,9 +210,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
+ResourceName:  resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
 },
@@ -237,8 +237,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"force_destroy"},
@@ -266,8 +266,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"force_destroy"},
@@ -301,8 +301,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"force_destroy"},
@@ -340,8 +340,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"force_destroy"},
@@ -357,9 +357,9 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	// Test import
 	{
-ResourceName:            resourceName,
+ResourceName:  resourceName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:  true,
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
 	// Test removal
@@ -413,8 +413,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{
 	"force_destroy"},
@@ -554,8 +554,8 @@ if err != nil {
 enableVirtualMFADeviceInput := &iam.EnableMFADeviceInput{
 	AuthenticationCode1: aws.String(authenticationCode1),
 	AuthenticationCode2: aws.String(authenticationCode2),
-	SerialNumber:        createVirtualMFADeviceOutput.VirtualMFADevice.SerialNumber,
-	UserName:            user.UserName,
+	SerialNumber:   createVirtualMFADeviceOutput.VirtualMFADevice.SerialNumber,
+	UserName:  user.UserName,
 }
 
 if _, err := conn.EnableMFADeviceWithContext(ctx, enableVirtualMFADeviceInput); err != nil {
@@ -576,7 +576,7 @@ if err != nil {
 conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
 
 input := &iam.UploadSSHPublicKeyInput{
-	UserName:         user.UserName,
+	UserName:user.UserName,
 	SSHPublicKeyBody: aws.String(publicKey),
 }
 
@@ -594,7 +594,7 @@ return nil
 conn := acctest.Provider.Meta().(*conns.AWSClient).IAMConn(ctx)
 
 input := &iam.CreateServiceSpecificCredentialInput{
-	UserName:    user.UserName,
+	UserName:user.UserName,
 	ServiceName: aws.String("codecommit.amazonaws.com"),
 }
 
@@ -614,7 +614,7 @@ certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "example.com")
 
 input := &iam.UploadSigningCertificateInput{
 	CertificateBody: aws.String(certificate),
-	UserName:        user.UserName,
+	UserName:   user.UserName,
 }
 
 if _, err := conn.UploadSigningCertificateWithContext(ctx, input); err != nil {
@@ -640,7 +640,7 @@ resource "aws_iam_user" "user" {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "test" {
   force_destroy = true
-  name          = %q
+  name= %q
 }
 `funcc testAccUserConfig_tags(rName string) string {
 	return fmt.Sprintf(`
@@ -648,7 +648,7 @@ resource "aws_iam_user" "test" {
   name = %q
 
   tags = {
-    Name = "test-Name"
+Name = "test-Name"
  func
 }
 `, rName)
@@ -657,7 +657,7 @@ resource "aws_iam_user" "test" {
 resource "aws_iam_user" "test" {
   name = %q
 funcgs = {
-    tag2 = "test-tagUpdate"
+tag2 = "test-tagUpdate"
   }
 }
 `, rName)

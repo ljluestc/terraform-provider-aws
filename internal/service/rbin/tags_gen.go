@@ -19,7 +19,8 @@ import (
 // listTags lists rbin service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
-func listTags(ctx context.Context, conn *rbin.Client, identifier string) (tftags.KeyValueTags, error) {
+
+ listTags(ctx context.Context, conn *rbin.Client, identifier string) (tftags.KeyValueTags, error) {
 	input := &rbin.ListTagsForResourceInput{
 		ResourceArn: aws.String(identifier),
 	}
@@ -35,7 +36,8 @@ func listTags(ctx context.Context, conn *rbin.Client, identifier string) (tftags
 
 // ListTags lists rbin service tags and set them in Context.
 // It is called from outside this package.
-func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
+
+ (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).RBinClient(ctx), identifier)
 
 	if err != nil {
@@ -52,7 +54,8 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // []*SERVICE.Tag handling
 
 // Tags returns rbin service tags.
-func Tags(tags tftags.KeyValueTags) []awstypes.Tag {
+
+ Tags(tags tftags.KeyValueTags) []awstypes.Tag {
 	result := make([]awstypes.Tag, 0, len(tags))
 
 	for k, v := range tags.Map() {
@@ -68,7 +71,8 @@ func Tags(tags tftags.KeyValueTags) []awstypes.Tag {
 }
 
 // KeyValueTags creates tftags.KeyValueTags from rbin service tags.
-func KeyValueTags(ctx context.Context, tags []awstypes.Tag) tftags.KeyValueTags {
+
+ KeyValueTags(ctx context.Context, tags []awstypes.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
 	for _, tag := range tags {
@@ -80,7 +84,8 @@ func KeyValueTags(ctx context.Context, tags []awstypes.Tag) tftags.KeyValueTags 
 
 // getTagsIn returns rbin service tags from Context.
 // nil is returned if there are no input tags.
-func getTagsIn(ctx context.Context) []awstypes.Tag {
+
+ getTagsIn(ctx context.Context) []awstypes.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
 			return tags
@@ -91,7 +96,8 @@ func getTagsIn(ctx context.Context) []awstypes.Tag {
 }
 
 // setTagsOut sets rbin service tags in Context.
-func setTagsOut(ctx context.Context, tags []awstypes.Tag) {
+
+ setTagsOut(ctx context.Context, tags []awstypes.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
@@ -100,7 +106,8 @@ func setTagsOut(ctx context.Context, tags []awstypes.Tag) {
 // updateTags updates rbin service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
-func updateTags(ctx context.Context, conn *rbin.Client, identifier string, oldTagsMap, newTagsMap any) error {
+
+ updateTags(ctx context.Context, conn *rbin.Client, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
 
@@ -141,6 +148,7 @@ func updateTags(ctx context.Context, conn *rbin.Client, identifier string, oldTa
 
 // UpdateTags updates rbin service tags.
 // It is called from outside this package.
-func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
+
+ (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).RBinClient(ctx), identifier, oldTags, newTags)
 }

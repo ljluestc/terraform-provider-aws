@@ -19,12 +19,12 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_mskconnect_connector", &resource.Sweeper{
 		Name: "aws_mskconnect_connector",
-		F:    sweepConnectors,
+		F:sweepConnectors,
 	})
 
 	resource.AddTestSweepers("aws_mskconnect_custom_plugin", &resource.Sweeper{
 		Name: "aws_mskconnect_custom_plugin",
-		F:    sweepCustomPlugins,
+		F:sweepCustomPlugins,
 		Dependencies: []string{
 			"aws_mskconnect_connector",
 		},

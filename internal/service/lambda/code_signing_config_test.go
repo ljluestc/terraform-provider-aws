@@ -16,7 +16,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccLambdaCodeSigningConfig_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lambda_code_signing_config.code_signing_config"
@@ -28,7 +27,7 @@ func TestAccLambdaCodeSigningConfig_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckCodeSigningConfigDestroy(ctx),
+CheckDestroy: testAccCheckCodeSigningConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCodeSigningConfigConfig_basic(),
@@ -42,14 +41,13 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccLambdaCodeSigningConfig_updatePolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lambda_code_signing_config.code_signing_config"
@@ -59,7 +57,7 @@ func TestAccLambdaCodeSigningConfig_updatePolicy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckCodeSigningConfigDestroy(ctx),
+CheckDestroy: testAccCheckCodeSigningConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCodeSigningConfigConfig_basic(),
@@ -77,14 +75,13 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccLambdaCodeSigningConfig_updatePublishers(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lambda_code_signing_config.code_signing_config"
@@ -96,7 +93,7 @@ func TestAccLambdaCodeSigningConfig_updatePublishers(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckCodeSigningConfigDestroy(ctx),
+CheckDestroy: testAccCheckCodeSigningConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCodeSigningConfigConfig_basic(),
@@ -117,14 +114,13 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func testAccCodeSigningConfigConfig_updatePublishers() string {
 	return `
 resource "aws_signer_signing_profile" "test1" {
@@ -137,13 +133,12 @@ resource "aws_signer_signing_profile" "test2" {
 
 resource "aws_lambda_code_signing_config" "code_signing_config" {
   allowed_publishers {
-    signing_profile_version_arns = [
-      aws_signer_signing_profile.test1.version_arn
-    ]
+ signing_profile_version_arns = [
+ aws_signer_signing_profile.test1.version_arn
+ ]
   }
 }`
 }
-
 func testAccCodeSigningConfigConfig_updatePolicy() string {
 	return `
 resource "aws_signer_signing_profile" "test1" {
@@ -156,18 +151,17 @@ resource "aws_signer_signing_profile" "test2" {
 
 resource "aws_lambda_code_signing_config" "code_signing_config" {
   allowed_publishers {
-    signing_profile_version_arns = [
-      aws_signer_signing_profile.test1.version_arn,
-      aws_signer_signing_profile.test2.version_arn
-    ]
+ signing_profile_version_arns = [
+ aws_signer_signing_profile.test1.version_arn,
+ aws_signer_signing_profile.test2.version_arn
+ ]
   }
 
   policies {
-    untrusted_artifact_on_deployment = "Enforce"
+ untrusted_artifact_on_deployment = "Enforce"
   }
 }`
 }
-
 func testAccCodeSigningConfigConfig_basic() string {
 	return `
 resource "aws_signer_signing_profile" "test1" {
@@ -180,20 +174,19 @@ resource "aws_signer_signing_profile" "test2" {
 
 resource "aws_lambda_code_signing_config" "code_signing_config" {
   allowed_publishers {
-    signing_profile_version_arns = [
-      aws_signer_signing_profile.test1.version_arn,
-      aws_signer_signing_profile.test2.version_arn
-    ]
+ signing_profile_version_arns = [
+ aws_signer_signing_profile.test1.version_arn,
+ aws_signer_signing_profile.test2.version_arn
+ ]
   }
 
   policies {
-    untrusted_artifact_on_deployment = "Warn"
+ untrusted_artifact_on_deployment = "Warn"
   }
 
   description = "Code Signing Config for test account"
 }`
 }
-
 func testAccCheckCodeSigningExistsConfig(ctx context.Context, n string, mapping *lambda.GetCodeSigningConfigOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
@@ -221,7 +214,6 @@ if err != nil {
 return nil
 	}
 }
-
 func testAccCheckCodeSigningConfigDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaConn(ctx)

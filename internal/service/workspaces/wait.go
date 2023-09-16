@@ -35,7 +35,6 @@ const (
 	// Maximum amount of time to wait for a WorkSpace to return Terminated
 	WorkspaceTerminatedTimeout = 10 * time.Minute
 )
-
 func WaitDirectoryRegistered(ctx context.Context, conn *workspaces.Client, directoryID string) (*types.WorkspaceDirectory, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.WorkspaceDirectoryStateRegistering),
@@ -52,7 +51,6 @@ func WaitDirectoryRegistered(ctx context.Context, conn *workspaces.Client, direc
 
 	return nil, err
 }
-
 func WaitDirectoryDeregistered(ctx context.Context, conn *workspaces.Client, directoryID string) (*types.WorkspaceDirectory, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(
@@ -73,7 +71,6 @@ func WaitDirectoryDeregistered(ctx context.Context, conn *workspaces.Client, dir
 
 	return nil, err
 }
-
 func WaitWorkspaceAvailable(ctx context.Context, conn *workspaces.Client, workspaceID string, timeout time.Duration) (*types.Workspace, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(
@@ -93,7 +90,6 @@ func WaitWorkspaceAvailable(ctx context.Context, conn *workspaces.Client, worksp
 
 	return nil, err
 }
-
 func WaitWorkspaceTerminated(ctx context.Context, conn *workspaces.Client, workspaceID string, timeout time.Duration) (*types.Workspace, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(
@@ -127,7 +123,6 @@ func WaitWorkspaceTerminated(ctx context.Context, conn *workspaces.Client, works
 
 	return nil, err
 }
-
 func WaitWorkspaceUpdated(ctx context.Context, conn *workspaces.Client, workspaceID string, timeout time.Duration) (*types.Workspace, error) {
 	// OperationInProgressException: The properties of this WorkSpace are currently under modification. Please try again in a moment.
 	// AWS Workspaces service doesn't change instance status to "Updating" during property modification. Respective AWS Support feature request has been created. Meanwhile, artificial delay is placed here as a workaround.

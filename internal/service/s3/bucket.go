@@ -63,14 +63,14 @@ const (
 
 		Schema: map[string]*schema.Schema{
 			"acceleration_status": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				Deprecated:   "Use the aws_s3_bucket_accelerate_configuration resource instead",
 				ValidateFunc: validation.StringInSlice(s3.BucketAccelerateStatus_Values(), false),
 			},
 			"acl": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"grant"},
@@ -82,7 +82,7 @@ const (
 				Computed: true,
 			},
 			"bucket": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -94,7 +94,7 @@ const (
 				Computed: true,
 			},
 			"bucket_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -145,7 +145,7 @@ const (
 				Default:  false,
 			},
 			"grant": {
-				Type:          schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"acl"},
@@ -161,7 +161,7 @@ const (
 							Required: true,
 							Set:      schema.HashString,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringInSlice(s3.Permission_Values(), false),
 							},
 						},
@@ -207,12 +207,12 @@ const (
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"date": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validBucketLifecycleTimestamp,
 									},
 									"days": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ValidateFunc: validation.IntAtLeast(0),
 									},
@@ -224,7 +224,7 @@ const (
 							},
 						},
 						"id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.StringLenBetween(0, 255),
@@ -236,7 +236,7 @@ const (
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"days": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ValidateFunc: validation.IntAtLeast(1),
 									},
@@ -249,12 +249,12 @@ const (
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"days": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ValidateFunc: validation.IntAtLeast(0),
 									},
 									"storage_class": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringInSlice(s3.TransitionStorageClass_Values(), false),
 									},
@@ -272,17 +272,17 @@ const (
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"date": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validBucketLifecycleTimestamp,
 									},
 									"days": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ValidateFunc: validation.IntAtLeast(0),
 									},
 									"storage_class": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringInSlice(s3.TransitionStorageClass_Values(), false),
 									},
@@ -320,7 +320,7 @@ const (
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"object_lock_enabled": {
-							Type:          schema.TypeString,
+							Type: schema.TypeString,
 							Optional:      true,
 							ForceNew:      true,
 							ConflictsWith: []string{"object_lock_enabled"},
@@ -342,17 +342,17 @@ const (
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"days": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													ValidateFunc: validation.IntAtLeast(1),
 												},
 												"mode": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(s3.ObjectLockRetentionMode_Values(), false),
 												},
 												"years": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													ValidateFunc: validation.IntAtLeast(1),
 												},
@@ -366,18 +366,18 @@ const (
 				},
 			},
 			"object_lock_enabled": {
-				Type:          schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional:      true,
 				Computed:      true, // Can be removed when object_lock_configuration.0.object_lock_enabled is removed
 				ForceNew:      true,
 				ConflictsWith: []string{"object_lock_configuration"},
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Optional:              true,
-				Computed:              true,
-				Deprecated:            "Use the aws_s3_bucket_policy resource instead",
-				ValidateFunc:          validation.StringIsJSON,
+				Type:schema.TypeString,
+				Optional:     true,
+				Computed:     true,
+				Deprecated:   "Use the aws_s3_bucket_policy resource instead",
+				ValidateFunc: validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
@@ -407,7 +407,7 @@ const (
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"delete_marker_replication_status": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringInSlice([]string{s3.DeleteMarkerReplicationStatusEnabled}, false),
 									},
@@ -426,7 +426,7 @@ const (
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"owner": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: validation.StringInSlice(s3.OwnerOverride_Values(), false),
 															},
@@ -434,12 +434,12 @@ const (
 													},
 												},
 												"account_id": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: verify.ValidAccountID,
 												},
 												"bucket": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: verify.ValidARN,
 												},
@@ -450,13 +450,13 @@ const (
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"minutes": {
-																Type:         schema.TypeInt,
+																Type:schema.TypeInt,
 																Optional:     true,
 																Default:      15,
 																ValidateFunc: validation.IntBetween(10, 15),
 															},
 															"status": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Optional:     true,
 																Default:      s3.MetricsStatusEnabled,
 																ValidateFunc: validation.StringInSlice(s3.MetricsStatus_Values(), false),
@@ -475,13 +475,13 @@ const (
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"minutes": {
-																Type:         schema.TypeInt,
+																Type:schema.TypeInt,
 																Optional:     true,
 																Default:      15,
 																ValidateFunc: validation.IntBetween(15, 15),
 															},
 															"status": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Optional:     true,
 																Default:      s3.ReplicationTimeStatusEnabled,
 																ValidateFunc: validation.StringInSlice(s3.ReplicationTimeStatus_Values(), false),
@@ -490,7 +490,7 @@ const (
 													},
 												},
 												"storage_class": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: validation.StringInSlice(s3.StorageClass_Values(), false),
 												},
@@ -505,7 +505,7 @@ const (
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"prefix": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: validation.StringLenBetween(0, 1024),
 												},
@@ -514,12 +514,12 @@ const (
 										},
 									},
 									"id": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(0, 255),
 									},
 									"prefix": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(0, 1024),
 									},
@@ -552,7 +552,7 @@ const (
 										},
 									},
 									"status": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringInSlice(s3.ReplicationRuleStatus_Values(), false),
 									},
@@ -563,7 +563,7 @@ const (
 				},
 			},
 			"request_payer": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				Deprecated:   "Use the aws_s3_bucket_request_payment_configuration resource instead",
@@ -594,7 +594,7 @@ const (
 													Optional: true,
 												},
 												"sse_algorithm": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(s3.ServerSideEncryption_Values(), false),
 												},
@@ -667,7 +667,7 @@ const (
 							},
 						},
 						"routing_rules": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringIsJSON,
 							StateFunc: func(v interface{}) string {
@@ -1805,7 +1805,7 @@ funcerr := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutUpd
 	func
 
 	input := &s3.PutBucketLoggingInput{
-		Bucket:              aws.String(d.Id()),
+		Bucket:     aws.String(d.Id()),
 		BucketLoggingStatus: loggingStatus,
 	}
 
@@ -1817,7 +1817,7 @@ funcerr := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutUpd
 }func resourceBucketInternalObjectLockConfigurationUpdate(ctx context.Context, conn *s3.S3, d *schema.ResourceData) error {
 	// S3 Object Lock configuration cannot be deleted, only updated.
 	req := &s3.PutObjectLockConfigurationInput{
-		Bucket:                  aws.String(d.Id()),
+		Bucket:aws.String(d.Id()),
 		ObjectLockConfiguration: expandObjectLockConfiguration(d.Get("object_lock_configuration").([]interface{})),
 	}
 
@@ -1896,7 +1896,7 @@ funcerr := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutUpd
 	}
 
 	input := &s3.PutBucketReplicationInput{
-		Bucket:                   aws.String(d.Id()),
+		Bucket: aws.String(d.Id()),
 		ReplicationConfiguration: expandBucketReplicationConfiguration(ctx, replicationConfiguration),
 	}
 
@@ -1977,7 +1977,7 @@ funcules := c["rule"].([]interface{})
 	rc.Rules = rules
 
 	input := &s3.PutBucketEncryptionInput{
-		Bucket:                            aws.String(d.Id()),
+		Bucket: aws.String(d.Id()),
 		ServerSideEncryptionConfiguration: rc,
 	}
 
@@ -1992,7 +1992,7 @@ funcules := c["rule"].([]interface{})
 	return err
 }func resourceBucketInternalVersioningUpdate(ctx context.Context, conn *s3.S3, bucket string, versioningConfig *s3.VersioningConfiguration, timeout time.Duration) error {
 	input := &s3.PutBucketVersioningInput{
-		Bucket:                  aws.String(bucket),
+		Bucket:aws.String(bucket),
 		VersioningConfiguration: versioningConfig,
 	}
 
@@ -2027,7 +2027,7 @@ funcules := c["rule"].([]interface{})
 	}
 
 	input := &s3.PutBucketWebsiteInput{
-		Bucket:               aws.String(d.Id()),
+		Bucket:      aws.String(d.Id()),
 		WebsiteConfiguration: websiteConfig,
 	}
 

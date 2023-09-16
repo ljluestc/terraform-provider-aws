@@ -1,26 +1,16 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elbv2
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elbv2import (
 	"fmt"
 	"strings"
-)
-
-const listenerCertificateIDSeparator = "_"
-
+)const listenerCertificateIDSeparator = "_"
 func listenerCertificateParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, listenerCertificateIDSeparator, 2)
 	if len(parts) == 2 && parts[0] != "" && parts[1] != "" {
 		return parts[0], parts[1], nil
-	}
-
-	return "", "",
+	}	return "", "",
 		fmt.Errorf("unexpected format for ID (%q), expected listener-arn"+listenerCertificateIDSeparator+
 			"certificate-arn", id)
 }
-
 func listenerCertificateCreateID(listenerArn, certificateArn string) string {
 	return strings.Join([]string{listenerArn, listenerCertificateIDSeparator, certificateArn}, "")
 }

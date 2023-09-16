@@ -40,7 +40,7 @@ func ResourceDomainPolicy() *schema.Resource {
 			},
 			"access_policies": {
 				Type:ring,
-				Required:         true,
+				Required:true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				StateFunc: func(v interface{}) string {
@@ -51,7 +51,6 @@ func ResourceDomainPolicy() *schema.Resource {
 		},
 	}
 }
-
 func resourceDomainPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
@@ -78,7 +77,6 @@ func resourceDomainPolicyRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
-
 func resourceDomainPolicyUpsert(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
@@ -106,7 +104,6 @@ func resourceDomainPolicyUpsert(ctx context.Context, d *schema.ResourceData, met
 
 	return append(diags, resourceDomainPolicyRead(ctx, d, meta)...)
 }
-
 func resourceDomainPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)

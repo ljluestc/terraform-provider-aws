@@ -26,7 +26,7 @@ import (
 )
 
 const (
-	ErrCodeNotFound           = 404
+	ErrCodeNotFound  = 404
 	ResNameExperimentTemplate = "Experiment Template"
 )
 
@@ -66,12 +66,12 @@ func ResourceExperimentTemplate() *schema.Resource {
 							),
 						},
 						"description": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 512),
 						},
 						"name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(0, 64),
 						},
@@ -81,12 +81,12 @@ func ResourceExperimentTemplate() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"key": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(0, 64),
 									},
 									"value": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(0, 1024),
 									},
@@ -98,7 +98,7 @@ func ResourceExperimentTemplate() *schema.Resource {
 							Optional: true,
 							Set:      schema.HashString,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringLenBetween(0, 64),
 							},
 						},
@@ -109,12 +109,12 @@ func ResourceExperimentTemplate() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"key": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validExperimentTemplateActionTargetKey(),
 									},
 									"value": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(0, 64),
 									},
@@ -125,7 +125,7 @@ func ResourceExperimentTemplate() *schema.Resource {
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(0, 512),
 			},
@@ -173,7 +173,7 @@ func ResourceExperimentTemplate() *schema.Resource {
 				},
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -183,12 +183,12 @@ func ResourceExperimentTemplate() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"source": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validExperimentTemplateStopConditionSource(),
 						},
 						"value": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: verify.ValidARN,
 						},
@@ -206,7 +206,7 @@ func ResourceExperimentTemplate() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"path": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(0, 256),
 									},
@@ -215,7 +215,7 @@ func ResourceExperimentTemplate() *schema.Resource {
 										Required: true,
 										Set:      schema.HashString,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(0, 128),
 										},
 									},
@@ -223,7 +223,7 @@ func ResourceExperimentTemplate() *schema.Resource {
 							},
 						},
 						"name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(0, 64),
 						},
@@ -238,7 +238,7 @@ func ResourceExperimentTemplate() *schema.Resource {
 							MaxItems: 5,
 							Set:      schema.HashString,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: verify.ValidARN,
 							},
 						},
@@ -249,12 +249,12 @@ func ResourceExperimentTemplate() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"key": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(0, 128),
 									},
 									"value": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(0, 256),
 									},
@@ -262,7 +262,7 @@ func ResourceExperimentTemplate() *schema.Resource {
 							},
 						},
 						"resource_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(0, 64),
 						},
@@ -287,13 +287,13 @@ func resourceExperimentTemplateCreate(ctx context.Context, d *schema.ResourceDat
 	conn := meta.(*conns.AWSClient).FISClient(ctx)
 
 	input := &fis.CreateExperimentTemplateInput{
-		Actions:          expandExperimentTemplateActions(d.Get("action").(*schema.Set)),
+		Actions: expandExperimentTemplateActions(d.Get("action").(*schema.Set)),
 		ClientToken:      aws.String(id.UniqueId()),
 		Description:      aws.String(d.Get("description").(string)),
 		LogConfiguration: expandExperimentTemplateLogConfiguration(d.Get("log_configuration").([]interface{})),
-		RoleArn:          aws.String(d.Get("role_arn").(string)),
+		RoleArn: aws.String(d.Get("role_arn").(string)),
 		StopConditions:   expandExperimentTemplateStopConditions(d.Get("stop_condition").(*schema.Set)),
-		Tags:             getTagsIn(ctx),
+		Tags:    getTagsIn(ctx),
 	}
 
 	targets, err := expandExperimentTemplateTargets(d.Get("target").(*schema.Set))

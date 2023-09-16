@@ -23,17 +23,17 @@ func DataSourceBundle() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"bundle_id": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"owner", "name"},
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"bundle_id"},
 			},
 			"owner": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"bundle_id"},
 			},
@@ -80,7 +80,6 @@ func DataSourceBundle() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceWorkspaceBundleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WorkSpacesClient(ctx)

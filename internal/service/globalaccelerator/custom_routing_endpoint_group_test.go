@@ -17,7 +17,6 @@ import (
 	tfglobalaccelerator "github.com/hashicorp/terraform-provider-aws/internal/service/globalaccelerator"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.CustomRoutingEndpointGroup
@@ -25,10 +24,10 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomRoutingEndpointGroupConfig_basic(rName),
@@ -45,14 +44,13 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.CustomRoutingEndpointGroup
@@ -60,10 +58,10 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_disappears(t *testing.T)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomRoutingEndpointGroupConfig_basic(rName),
@@ -76,7 +74,6 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_disappears(t *testing.T)
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_endpointConfiguration(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.CustomRoutingEndpointGroup
@@ -84,10 +81,10 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_endpointConfiguration(t 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomRoutingEndpointGroupConfig_endpointConfiguration(rName),
@@ -105,14 +102,13 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_endpointConfiguration(t 
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_endpointGroupRegion(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v globalaccelerator.CustomRoutingEndpointGroup
@@ -120,10 +116,10 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_endpointGroupRegion(t *t
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
+		CheckDestroy: testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomRoutingEndpointGroupConfig_endpointGroupRegion(rName),
@@ -140,16 +136,16 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_endpointGroupRegion(t *t
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckCustomRoutingEndpointGroupExists(ctx context.Context, n string, v *globalaccelerator.CustomRoutingEndpointGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
 		rs, ok := s.RootModule().Resources[n]
@@ -172,9 +168,9 @@ func testAccCheckCustomRoutingEndpointGroupExists(ctx context.Context, n string,
 		return nil
 	}
 }
-
 func testAccCheckCustomRoutingEndpointGroupDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -197,7 +193,6 @@ func testAccCheckCustomRoutingEndpointGroupDestroy(ctx context.Context) resource
 		return nil
 	}
 }
-
 func testAccCustomRoutingEndpointGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_custom_routing_accelerator" "test" {
@@ -208,8 +203,8 @@ resource "aws_globalaccelerator_custom_routing_listener" "test" {
   accelerator_arn = aws_globalaccelerator_custom_routing_accelerator.test.id
 
   port_range {
-    from_port = 443
-    to_port   = 443
+ from_port = 443
+ to_port= 443
   }
 }
 
@@ -217,14 +212,13 @@ resource "aws_globalaccelerator_custom_routing_endpoint_group" "test" {
   listener_arn = aws_globalaccelerator_custom_routing_listener.test.id
 
   destination_configuration {
-    from_port = 443
-    to_port   = 8443
-    protocols = ["TCP"]
+ from_port = 443
+ to_port= 8443
+ protocols = ["TCP"]
   }
 }
 `, rName)
 }
-
 func testAccCustomRoutingEndpointGroupConfig_endpointConfiguration(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_globalaccelerator_custom_routing_accelerator" "test" {
@@ -235,8 +229,8 @@ resource "aws_globalaccelerator_custom_routing_listener" "test" {
   accelerator_arn = aws_globalaccelerator_custom_routing_accelerator.test.id
 
   port_range {
-    from_port = 1
-    to_port   = 65534
+ from_port = 1
+ to_port= 65534
   }
 }
 
@@ -244,13 +238,13 @@ resource "aws_globalaccelerator_custom_routing_endpoint_group" "test" {
   listener_arn = aws_globalaccelerator_custom_routing_listener.test.id
 
   destination_configuration {
-    from_port = 8080
-    to_port   = 8081
-    protocols = ["TCP"]
+ from_port = 8080
+ to_port= 8081
+ protocols = ["TCP"]
   }
 
   endpoint_configuration {
-    endpoint_id = aws_subnet.test.id
+ endpoint_id = aws_subnet.test.id
   }
 
   depends_on = [aws_internet_gateway.test]
@@ -260,17 +254,17 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
-  vpc_id   = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.0.0.0/28"
+  cidr_block0.0.0.0/28"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -278,12 +272,11 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 `, rName))
 }
-
 func testAccCustomRoutingEndpointGroupConfig_endpointGroupRegion(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_custom_routing_accelerator" "test" {
@@ -294,8 +287,8 @@ resource "aws_globalaccelerator_custom_routing_listener" "test" {
   accelerator_arn = aws_globalaccelerator_custom_routing_accelerator.test.id
 
   port_range {
-    from_port = 443
-    to_port   = 443
+ from_port = 443
+ to_port= 443
   }
 }
 
@@ -303,9 +296,9 @@ resource "aws_globalaccelerator_custom_routing_endpoint_group" "test" {
   listener_arn = aws_globalaccelerator_custom_routing_listener.test.id
 
   destination_configuration {
-    from_port = 443
-    to_port   = 8443
-    protocols = ["TCP"]
+ from_port = 443
+ to_port= 8443
+ protocols = ["TCP"]
   }
 
   endpoint_group_region = %[2]q

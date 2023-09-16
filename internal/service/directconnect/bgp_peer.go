@@ -24,54 +24,54 @@ import (
 func ResourceBGPPeer() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBGPPeerCreate,
-		ReadWithoutTimeout:   resourceBGPPeerRead,
+		ReadWithoutTimeout:resourceBGPPeerRead,
 		DeleteWithoutTimeout: resourceBGPPeerDelete,
 
 		Schema: map[string]*schema.Schema{
 			"address_family": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringInSlice([]string{directconnect.AddressFamilyIpv4, directconnect.AddressFamilyIpv6}, false),
 			},
 			"bgp_asn": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Required: true,
 				ForceNew: true,
 			},
 			"virtual_interface_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"amazon_address": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"bgp_auth_key": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"customer_address": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"bgp_status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"bgp_peer_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"aws_device": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -82,7 +82,6 @@ func ResourceBGPPeer() *schema.Resource {
 		},
 	}
 }
-
 func resourceBGPPeerCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -95,7 +94,7 @@ func resourceBGPPeerCreate(ctx context.Context, d *schema.ResourceData, meta int
 		VirtualInterfaceId: aws.String(vifId),
 		NewBGPPeer: &directconnect.NewBGPPeer{
 			AddressFamily: aws.String(addrFamily),
-			Asn:           aws.Int64(asn),
+			Asn:ws.Int64(asn),
 		},
 	}
 	if v, ok := d.GetOk("amazon_address"); ok {
@@ -124,9 +123,9 @@ func resourceBGPPeerCreate(ctx context.Context, d *schema.ResourceData, meta int
 			directconnect.BGPPeerStateAvailable,
 			directconnect.BGPPeerStateVerifying,
 		},
-		Refresh:    bgpPeerStateRefresh(ctx, conn, vifId, addrFamily, asn),
-		Timeout:    d.Timeout(schema.TimeoutDelete),
-		Delay:      10 * time.Second,
+		Refresh: bgpPeerStateRefresh(ctx, conn, vifId, addrFamily, asn),
+		Timeout: d.Timeout(schema.TimeoutDelete),
+		Delay:ime.Second,
 		MinTimeout: 5 * time.Second,
 	}
 	_, err = stateConf.WaitForStateContext(ctx)
@@ -136,7 +135,6 @@ func resourceBGPPeerCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceBGPPeerRead(ctx, d, meta)...)
 }
-
 func resourceBGPPeerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -165,7 +163,6 @@ func resourceBGPPeerRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
-
 func resourceBGPPeerDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -176,8 +173,8 @@ func resourceBGPPeerDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 	log.Printf("[DEBUG] Deleting Direct Connect BGP peer: %s", d.Id())
 	_, err := conn.DeleteBGPPeerWithContext(ctx, &directconnect.DeleteBGPPeerInput{
-		Asn:   aws.Int64(asn),
-		CustomerAddress:    aws.String(d.Get("customer_address").(string)),
+		Asn:aws.Int64(asn),
+		CustomerAddress: aws.String(d.Get("customer_address").(string)),
 		VirtualInterfaceId: aws.String(vifId),
 	})
 	if err != nil {
@@ -198,9 +195,9 @@ func resourceBGPPeerDelete(ctx context.Context, d *schema.ResourceData, meta int
 		Target: []string{
 			directconnect.BGPPeerStateDeleted,
 		},
-		Refresh:    bgpPeerStateRefresh(ctx, conn, vifId, addrFamily, asn),
-		Timeout:    d.Timeout(schema.TimeoutDelete),
-		Delay:      10 * time.Second,
+		Refresh: bgpPeerStateRefresh(ctx, conn, vifId, addrFamily, asn),
+		Timeout: d.Timeout(schema.TimeoutDelete),
+		Delay:ime.Second,
 		MinTimeout: 5 * time.Second,
 	}
 	_, err = stateConf.WaitForStateContext(ctx)
@@ -210,7 +207,6 @@ func resourceBGPPeerDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
-
 func bgpPeerStateRefresh(ctx context.Context, conn *directconnect.DirectConnect, vifId, addrFamily string, asn int64) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		vif, err := virtualInterfaceRead(ctx, vifId, conn)

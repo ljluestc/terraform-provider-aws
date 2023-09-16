@@ -76,9 +76,9 @@ func TestAccAuditManagerFrameworkShare_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
 		},
@@ -141,9 +141,9 @@ func TestAccAuditManagerFrameworkShare_optional(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
 			{
@@ -225,9 +225,9 @@ resource "aws_auditmanager_control" "test" {
   name = %[1]q
 
   control_mapping_sources {
-    source_name          = %[1]q
-    source_set_up_option = "Procedural_Controls_Mapping"
-    source_type          = "MANUAL"
+source_name= %[1]q
+source_set_up_option = "Procedural_Controls_Mapping"
+source_type= "MANUAL"
   }
 }
 
@@ -235,10 +235,10 @@ resource "aws_auditmanager_framework" "test" {
   name = %[1]q
 
   control_sets {
-    name = %[1]q
-    controls {
-      id = aws_auditmanager_control.test.id
-    }
+name = %[1]q
+controls {
+ id = aws_auditmanager_control.test.id
+}
   }
 }
 `, rName)
@@ -251,7 +251,7 @@ func testAccFrameworkShareConfig_basic(rName, destinationRegion string) string {
 resource "aws_auditmanager_framework_share" "test" {
   destination_account = data.aws_caller_identity.current.account_id
   destination_region  = %[1]q
-  framework_id        = aws_auditmanager_framework.test.id
+  framework_id   = aws_auditmanager_framework.test.id
 }
 `, destinationRegion))
 }
@@ -263,7 +263,7 @@ func testAccFrameworkShareConfig_optional(rName, destinationRegion, comment stri
 resource "aws_auditmanager_framework_share" "test" {
   destination_account = data.aws_caller_identity.current.account_id
   destination_region  = %[1]q
-  framework_id        = aws_auditmanager_framework.test.id
+  framework_id   = aws_auditmanager_framework.test.id
 
   comment = %[2]q
 }

@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDMSReplicationInstanceDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	replicationInstanceClass := "dms.c4.large"
@@ -20,7 +19,8 @@ func TestAccDMSReplicationInstanceDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_dms_replication_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckReplicationInstanceDestroy(ctx),
@@ -40,7 +40,6 @@ func TestAccDMSReplicationInstanceDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccReplicationInstanceDataSourceConfig_basic(rName, replicationInstanceClass string) string {
 	return acctest.ConfigCompose(testAccReplicationInstanceConfig_replicationInstanceClass(rName, replicationInstanceClass), `
 data "aws_dms_replication_instance" "test" {

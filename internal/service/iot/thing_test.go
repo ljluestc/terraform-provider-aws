@@ -26,7 +26,7 @@ func TestAccIoTThing_basic(t *testing.T) {
 	resourceName := "aws_iot_thing.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckThingDestroy(ctx),
@@ -44,8 +44,8 @@ func TestAccIoTThing_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -61,7 +61,7 @@ func TestAccIoTThing_full(t *testing.T) {
 	resourceName := "aws_iot_thing.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckThingDestroy(ctx),
@@ -82,8 +82,8 @@ func TestAccIoTThing_full(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{ // Update attribute
@@ -182,9 +182,9 @@ resource "aws_iot_thing" "test" {
   name = "%s"
 
   attributes = {
-    One    = "11111"
-    Two    = "TwoTwo"
-    Answer = "%s"
+One= "11111"
+Two= "TwoTwo"
+Answer = "%s"
   }
 
   thing_type_name = aws_iot_thing_type.test.name

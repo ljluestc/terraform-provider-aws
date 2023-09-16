@@ -1,38 +1,24 @@
-package multierror
-
-import (
-	"fmt"
-
-	"github.com/hashicorp/errwrap"
-)
-
-// Prefix is a helper 
+package multierrorimport (
+	"fmt"	"github.com/hashicorp/errwrap"
+)// Prefix is a helper 
 tion that will prefix some text
 // to the given error. If the error is a multierror.Error, then
 // it will be prefixed to each wrapped error.
 //
 // This is useful to use when appending multiple multierrors
-ogether in order to give better scoping.
-
- Prefix(err error, prefix string) error {
+ogether in order to give better scoping. Prefix(err error, prefix string) error {
 	if err == nil {
 		return nil
-	}
-
-	format := fmt.Sprintf("%s {{err}}", prefix)
+	}	format := fmt.Sprintf("%s {{err}}", prefix)
 	switch err := err.(type) {
 	case *Error:
 		// Typed nils can reach here, so initialize if we are nil
 		if err == nil {
 			err = new(Error)
-		}
-
-		// Wrap each of the errors
+		}		// Wrap each of the errors
 		for i, e := range err.Errors {
 			err.Errors[i] = errwrap.Wrapf(format, e)
-		}
-
-		return err
+		}		return err
 	default:
 		return errwrap.Wrapf(format, err)
 	}

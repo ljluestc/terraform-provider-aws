@@ -26,9 +26,9 @@ func TestAccVPCLatticeResourcePolicyDataSource_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckResourcePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourcePolicyDataSourceConfig_basic(rName),

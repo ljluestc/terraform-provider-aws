@@ -32,12 +32,12 @@ func ResourceLoggingConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"firewall_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"logging_configuration": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
@@ -45,24 +45,24 @@ func ResourceLoggingConfiguration() *schema.Resource {
 						"log_destination_config": {
 							// At most 2 configurations can exist,
 							// with 1 destination for FLOW logs and 1 for ALERT logs
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
 							MaxItems: 2,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"log_destination": {
-										Type:     schema.TypeMap,
+										Type:schema.TypeMap,
 										Required: true,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem:&schema.Schema{Type: schema.TypeString},
 									},
 									"log_destination_type": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: validation.StringInSlice(networkfirewall.LogDestinationType_Values(), false),
 									},
 									"log_type": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: validation.StringInSlice(networkfirewall.LogType_Values(), false),
 									},
 								},
@@ -178,7 +178,7 @@ func putLoggingConfiguration(ctx context.Context, conn *networkfirewall.NetworkF
 	var errors *multierror.Error
 	for _, config := range l {
 		input := &networkfirewall.UpdateLoggingConfigurationInput{
-			FirewallArn:          aws.String(arn),
+			FirewallArn:aws.String(arn),
 			LoggingConfiguration: config,
 		}
 		_, err := conn.UpdateLoggingConfigurationWithContext(ctx, input)
@@ -320,7 +320,7 @@ func flattenLoggingConfigurationLogDestinationConfigs(configs []*networkfirewall
 	l := make([]interface{}, 0, len(configs))
 	for _, config := range configs {
 		m := map[string]interface{}{
-			"log_destination":      aws.StringValueMap(config.LogDestination),
+			"log_destination": aws.StringValueMap(config.LogDestination),
 			"log_destination_type": aws.StringValue(config.LogDestinationType),
 			"log_type":aws.StringValue(config.LogType),
 		}

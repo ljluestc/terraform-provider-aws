@@ -197,7 +197,7 @@ func resourceResponsePlanCreate(ctx context.Context, d *schema.ResourceData, met
 	client := meta.(*conns.AWSClient).SSMIncidentsClient(ctx)
 
 	input := &ssmincidents.CreateResponsePlanInput{
-		Actions:          expandAction(d.Get("action").([]interface{})),
+		Actions: expandAction(d.Get("action").([]interface{})),
 		ChatChannel:      expandChatChannel(d.Get("chat_channel").(*schema.Set)),
 		DisplayName:      aws.String(d.Get("display_name").(string)),
 		Engagements:      flex.ExpandStringValueSet(d.Get("engagements").(*schema.Set)),

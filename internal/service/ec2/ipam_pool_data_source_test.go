@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package ec2_testimport (	"testing"	"github.com/aws/aws-sdk-go/service/ec2"	"github.com/hashicorp/terraform-plugin-testing/helper/resource"	"github.com/hashicorp/terraform-provider-aws/internal/acctest")funcfuncfunc
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageec2_testimport("testing""github.com/aws/aws-sdk-go/service/ec2""github.com/hashicorp/terraform-plugin-testing/helper/resource""github.com/hashicorp/terraform-provider-aws/internal/acctest")

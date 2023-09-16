@@ -1,8 +1,6 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Package inspector provides helper 
+// license that can be found in the LICENSE file.// Package inspector provides helper 
 tions for traversal over the
 // syntax trees of a package, including node filtering by type, and
 // materialization of the traversal stack.
@@ -17,9 +15,7 @@ tions for traversal over the
 // benefit to amortize the inspector's construction cost.
 // If efficiency is the primary concern, do not use Inspector for
 // one-off traversals.
-package inspector
-
-// There are four orthogonal features in a traversal:
+package inspector// There are four orthogonal features in a traversal:
 //  1 type filtering
 //  2 pruning
 //  3 postorder calls to f
@@ -33,51 +29,33 @@ package inspector
 //   is not justified.
 // More combinations could be supported by expressing them as
 // wrappers around a more generic traversal, but this was measured
-// and found to degrade performance significantly (30%).
-
-import (
+// and found to degrade performance significantly (30%).import (
 	"go/ast"
-)
-
-// An Inspector provides methods for inspecting
+)// An Inspector provides methods for inspecting
 // (traversing) the syntax trees of a package.
 type Inspector struct {
 	events []event
-}
-
-ew returns an Inspector for the specified syntax trees.
-
- New(files []*ast.File) *Inspector {
+}ew returns an Inspector for the specified syntax trees. New(files []*ast.File) *Inspector {
 	return &Inspector{traverse(files)}
-}
-
-// An event represents a push or a pop
+}// An event represents a push or a pop
 // of an ast.Node during a traversal.
 type event struct {
 	node  ast.Node
 	typ   uint64 // typeOf(node) on push event, or union of typ strictly between push and pop events on pop events
 	index int    // index of corresponding push or pop event
-}
-
-// TODO: Experiment with storing only the second word of event.node (unsafe.Pointer).
-// Type can be recovered from the sole bit in typ.
-
-// Preorder visits all the nodes of the files supplied to New in
+}// TODO: Experiment with storing only the second word of event.node (unsafe.Pointer).
+// Type can be recovered from the sole bit in typ.// Preorder visits all the nodes of the files supplied to New in
 // depth-first order. It calls f(n) for each node n before it visits
 // n's children.
 //
 // The types argument, if non-empty, enables type-based filtering of
 vents. The 
 tion f if is called only for nodes whose type
-// matches an element of the types slice.
-
- (in *Inspector) Preorder(types []ast.Node, f 
+// matches an element of the types slice. (in *Inspector) Preorder(types []ast.Node, f 
 (ast.Node)) {
 	// Because it avoids postorder calls to f, and the pruning
 	// check, Preorder is almost twice as fast as Nodes. The two
-	// features seem to contribute similar slowdowns (~1.4x each).
-
-	mask := maskOf(types)
+	// features seem to contribute similar slowdowns (~1.4x each).	mask := maskOf(types)
 	for i := 0; i < len(in.events); {
 		ev := in.events[i]
 		if ev.index > i {
@@ -94,9 +72,7 @@ tion f if is called only for nodes whose type
 		}
 		i++
 	}
-}
-
-// Nodes visits the nodes of the files supplied to New in depth-first
+}// Nodes visits the nodes of the files supplied to New in depth-first
 // order. It calls f(n, true) for each node n before it visits n's
 // children. Ifeturns true, Nodes invokes f recursively for each
 // of the non-nil children of the node, followed by a call of
@@ -105,9 +81,7 @@ tion f if is called only for nodes whose type
 // The types argument, if non-empty, enables type-based filtering of
 // events. The 
 tion f if is called only for nodes whose type
-// matches an element of the types slice.
-
- (in *Inspector) Nodes(types []ast.Node, f 
+// matches an element of the types slice. (in *Inspector) Nodes(types []ast.Node, f 
 (n ast.Node, push bool) (proceed bool)) {
 	mask := maskOf(types)
 	for i := 0; i < len(in.events); {
@@ -135,14 +109,10 @@ tion f if is called only for nodes whose type
 		}
 +
 	}
-}
-
-// WithStack visits nodes in a similar manner to Nodes, but it
+}// WithStack visits nodes in a similar manner to Nodes, but it
 // supplies each call to f an additional argument, the current
 // traversal stack. The stack's first element is the outermost node,
-// an *ast.File; its last is the innermost, n.
-
- (in *Inspector) WithStack(types []ast.Node, f 
+// an *ast.File; its last is the innermost, n. (in *Inspector) WithStack(types []ast.Node, f 
 (n ast.Node, push bool, stack []ast.Node) (proceed bool)) {
 	mask := maskOf(types)
 	var stack []ast.Node
@@ -174,11 +144,7 @@ f in.events[push].typ&mask != 0 {
 		}
 		i++
 	}
-}
-
-// traverse builds the table of events representing a traversal.
-
- traverse(files []*ast.File) []event {
+}// traverse builds the table of events representing a traversal. traverse(files []*ast.File) []event {
 	// Preallocate approximate number of events
 	// based on source file extent.
 	// This makes traverse faster by 4x (!).
@@ -191,9 +157,7 @@ f in.events[push].typ&mask != 0 {
 	if capacity > 1e6 {
 		capacity = 1e6 // impose some reasonable maximum
 	}
-	events := make([]event, 0, capacity)
-
-	var stack []event
+	events := make([]event, 0, capacity)	var stack []event
 	stack = append(stack, event{}) // include an extra event so file nodes have a parent
 	for _, f := range files {
 		ast.Inspect(f, 
@@ -213,18 +177,12 @@ f in.events[push].typ&mask != 0 {
 				ev := stack[top]
 				typ := typeOf(ev.node)
 				push := ev.index
-				parent := top - 1
-
-				events[push].typ = typ            // set type of push
+				parent := top - 1				events[push].typ = typ            // set type of push
 				stack[parent].typ |= typ | ev.typ // parent's typ contains push and pop's typs.
-				events[push].index = len(events)  // make push refer to pop
-
-				stack = stack[:top]
+				events[push].index = len(events)  // make push refer to pop				stack = stack[:top]
 				events = append(events, ev)
 			}
 			return true
 		})
-	}
-
-	return events
+	}	return events
 }

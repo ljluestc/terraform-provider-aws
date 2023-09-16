@@ -21,36 +21,36 @@ func DataSourceUser() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_string": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"authentication_mode": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"password_count": {
-							Type:     schema.TypeInt,
+							Type: schema.TypeInt,
 							Computed: true,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"minimum_engine_version": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"user_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 		},

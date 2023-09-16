@@ -16,14 +16,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/awsv2"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_internetmonitor_monitor", &resource.Sweeper{
 		Name: "aws_internetmonitor_monitor",
-		F:    sweepMonitors,
+		F: sweepMonitors,
 	})
 }
-
 func sweepMonitors(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

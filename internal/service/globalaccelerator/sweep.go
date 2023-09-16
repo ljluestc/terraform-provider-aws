@@ -16,11 +16,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_globalaccelerator_accelerator", &resource.Sweeper{
 		Name: "aws_globalaccelerator_accelerator",
-		F:    sweepAccelerators,
+		F: sweepAccelerators,
 		Dependencies: []string{
 			"aws_globalaccelerator_listener",
 		},
@@ -28,7 +27,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_globalaccelerator_listener", &resource.Sweeper{
 		Name: "aws_globalaccelerator_listener",
-		F:    sweepListeners,
+		F: sweepListeners,
 		Dependencies: []string{
 			"aws_globalaccelerator_endpoint_group",
 		},
@@ -36,12 +35,12 @@ func init() {
 
 	resource.AddTestSweepers("aws_globalaccelerator_endpoint_group", &resource.Sweeper{
 		Name: "aws_globalaccelerator_endpoint_group",
-		F:    sweepEndpointGroups,
+		F: sweepEndpointGroups,
 	})
 
 	resource.AddTestSweepers("aws_globalaccelerator_custom_routing_accelerator", &resource.Sweeper{
 		Name: "aws_globalaccelerator_custom_routing_accelerator",
-		F:    sweepCustomRoutingAccelerators,
+		F: sweepCustomRoutingAccelerators,
 		Dependencies: []string{
 			"aws_globalaccelerator_custom_routing_listener",
 		},
@@ -49,7 +48,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_globalaccelerator_custom_routing_listener", &resource.Sweeper{
 		Name: "aws_globalaccelerator_custom_routing_listener",
-		F:    sweepCustomRoutingListeners,
+		F: sweepCustomRoutingListeners,
 		Dependencies: []string{
 			"aws_globalaccelerator_custom_routing_endpoint_group",
 		},
@@ -57,10 +56,9 @@ func init() {
 
 	resource.AddTestSweepers("aws_globalaccelerator_custom_routing_endpoint_group", &resource.Sweeper{
 		Name: "aws_globalaccelerator_custom_routing_endpoint_group",
-		F:    sweepCustomRoutingEndpointGroups,
+		F: sweepCustomRoutingEndpointGroups,
 	})
 }
-
 func sweepAccelerators(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -71,7 +69,8 @@ func sweepAccelerators(region string) error {
 	input := &globalaccelerator.ListAcceleratorsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListAcceleratorsPagesWithContext(ctx, input, func(page *globalaccelerator.ListAcceleratorsOutput, lastPage bool) bool {
+	err = conn.ListAcceleratorsPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListAcceleratorsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -104,7 +103,6 @@ func sweepAccelerators(region string) error {
 
 	return nil
 }
-
 func sweepEndpointGroups(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -116,7 +114,8 @@ func sweepEndpointGroups(region string) error {
 	var sweeperErrs *multierror.Error
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListAcceleratorsPagesWithContext(ctx, input, func(page *globalaccelerator.ListAcceleratorsOutput, lastPage bool) bool {
+	err = conn.ListAcceleratorsPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListAcceleratorsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -126,7 +125,8 @@ func sweepEndpointGroups(region string) error {
 				AcceleratorArn: v.AcceleratorArn,
 			}
 
-			err := conn.ListListenersPagesWithContext(ctx, input, func(page *globalaccelerator.ListListenersOutput, lastPage bool) bool {
+			err := conn.ListListenersPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListListenersOutput, lastPage bool) bool {
 				if page == nil {
 					return !lastPage
 				}
@@ -136,7 +136,8 @@ func sweepEndpointGroups(region string) error {
 						ListenerArn: v.ListenerArn,
 					}
 
-					err := conn.ListEndpointGroupsPagesWithContext(ctx, input, func(page *globalaccelerator.ListEndpointGroupsOutput, lastPage bool) bool {
+					err := conn.ListEndpointGroupsPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListEndpointGroupsOutput, lastPage bool) bool {
 						if page == nil {
 							return !lastPage
 						}
@@ -193,7 +194,6 @@ func sweepEndpointGroups(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepListeners(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -205,7 +205,8 @@ func sweepListeners(region string) error {
 	var sweeperErrs *multierror.Error
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListAcceleratorsPagesWithContext(ctx, input, func(page *globalaccelerator.ListAcceleratorsOutput, lastPage bool) bool {
+	err = conn.ListAcceleratorsPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListAcceleratorsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -215,7 +216,8 @@ func sweepListeners(region string) error {
 				AcceleratorArn: v.AcceleratorArn,
 			}
 
-			err := conn.ListListenersPagesWithContext(ctx, input, func(page *globalaccelerator.ListListenersOutput, lastPage bool) bool {
+			err := conn.ListListenersPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListListenersOutput, lastPage bool) bool {
 				if page == nil {
 					return !lastPage
 				}
@@ -260,7 +262,6 @@ func sweepListeners(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepCustomRoutingAccelerators(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -271,7 +272,8 @@ func sweepCustomRoutingAccelerators(region string) error {
 	input := &globalaccelerator.ListCustomRoutingAcceleratorsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListCustomRoutingAcceleratorsPagesWithContext(ctx, input, func(page *globalaccelerator.ListCustomRoutingAcceleratorsOutput, lastPage bool) bool {
+	err = conn.ListCustomRoutingAcceleratorsPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListCustomRoutingAcceleratorsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -304,7 +306,6 @@ func sweepCustomRoutingAccelerators(region string) error {
 
 	return nil
 }
-
 func sweepCustomRoutingEndpointGroups(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -316,7 +317,8 @@ func sweepCustomRoutingEndpointGroups(region string) error {
 	var sweeperErrs *multierror.Error
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListCustomRoutingAcceleratorsPagesWithContext(ctx, input, func(page *globalaccelerator.ListCustomRoutingAcceleratorsOutput, lastPage bool) bool {
+	err = conn.ListCustomRoutingAcceleratorsPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListCustomRoutingAcceleratorsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -326,7 +328,8 @@ func sweepCustomRoutingEndpointGroups(region string) error {
 				AcceleratorArn: v.AcceleratorArn,
 			}
 
-			err := conn.ListCustomRoutingListenersPagesWithContext(ctx, input, func(page *globalaccelerator.ListCustomRoutingListenersOutput, lastPage bool) bool {
+			err := conn.ListCustomRoutingListenersPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListCustomRoutingListenersOutput, lastPage bool) bool {
 				if page == nil {
 					return !lastPage
 				}
@@ -336,7 +339,8 @@ func sweepCustomRoutingEndpointGroups(region string) error {
 						ListenerArn: v.ListenerArn,
 					}
 
-					err := conn.ListCustomRoutingEndpointGroupsPagesWithContext(ctx, input, func(page *globalaccelerator.ListCustomRoutingEndpointGroupsOutput, lastPage bool) bool {
+					err := conn.ListCustomRoutingEndpointGroupsPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListCustomRoutingEndpointGroupsOutput, lastPage bool) bool {
 						if page == nil {
 							return !lastPage
 						}
@@ -393,7 +397,6 @@ func sweepCustomRoutingEndpointGroups(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepCustomRoutingListeners(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -405,7 +408,8 @@ func sweepCustomRoutingListeners(region string) error {
 	var sweeperErrs *multierror.Error
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListCustomRoutingAcceleratorsPagesWithContext(ctx, input, func(page *globalaccelerator.ListCustomRoutingAcceleratorsOutput, lastPage bool) bool {
+	err = conn.ListCustomRoutingAcceleratorsPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListCustomRoutingAcceleratorsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -415,7 +419,8 @@ func sweepCustomRoutingListeners(region string) error {
 				AcceleratorArn: v.AcceleratorArn,
 			}
 
-			err := conn.ListCustomRoutingListenersPagesWithContext(ctx, input, func(page *globalaccelerator.ListCustomRoutingListenersOutput, lastPage bool) bool {
+			err := conn.ListCustomRoutingListenersPagesWithContext(ctx, input, 
+func(page *globalaccelerator.ListCustomRoutingListenersOutput, lastPage bool) bool {
 				if page == nil {
 					return !lastPage
 				}

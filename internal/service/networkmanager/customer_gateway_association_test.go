@@ -23,8 +23,8 @@ func TestAccNetworkManagerCustomerGatewayAssociation_serial(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]func(t *testing.T){
-		"basic":                      testAccCustomerGatewayAssociation_basic,
-		"disappears":                 testAccCustomerGatewayAssociation_disappears,
+		"basic":    testAccCustomerGatewayAssociation_basic,
+		"disappears":        testAccCustomerGatewayAssociation_disappears,
 		"disappears_CustomerGateway": testAccCustomerGatewayAssociation_Disappears_customerGateway,
 	}
 
@@ -37,10 +37,10 @@ func testAccCustomerGatewayAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomerGatewayAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckCustomerGatewayAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomerGatewayAssociationConfig_basic(rName),
@@ -63,10 +63,10 @@ func testAccCustomerGatewayAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomerGatewayAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckCustomerGatewayAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomerGatewayAssociationConfig_basic(rName),
@@ -88,10 +88,10 @@ func testAccCustomerGatewayAssociation_Disappears_customerGateway(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomerGatewayAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckCustomerGatewayAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomerGatewayAssociationConfig_basic(rName),
@@ -181,7 +181,7 @@ resource "aws_networkmanager_site" "test" {
 
 resource "aws_networkmanager_device" "test" {
   global_network_id = aws_networkmanager_global_network.test.id
-  site_id           = aws_networkmanager_site.test.id
+  site_id  = aws_networkmanager_site.test.id
 
   tags = {
     Name = %[1]q
@@ -207,7 +207,7 @@ resource "aws_ec2_transit_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   customer_gateway_id = aws_customer_gateway.test.id
   transit_gateway_id  = aws_ec2_transit_gateway.test.id
-  type                = aws_customer_gateway.test.type
+  type       = aws_customer_gateway.test.type
   static_routes_only  = true
 
   tags = {
@@ -225,7 +225,7 @@ resource "aws_networkmanager_transit_gateway_registration" "test" {
 resource "aws_networkmanager_customer_gateway_association" "test" {
   global_network_id    = aws_networkmanager_global_network.test.id
   customer_gateway_arn = aws_customer_gateway.test.arn
-  device_id            = aws_networkmanager_device.test.id
+  device_id   = aws_networkmanager_device.test.id
 
   depends_on = [aws_networkmanager_transit_gateway_registration.test]
 }

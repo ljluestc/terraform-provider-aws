@@ -471,7 +471,7 @@ func TestAccImageBuilderImagePipeline_Schedule_pipelineExecutionStartCondition(t
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"date_next_run"},
@@ -508,7 +508,7 @@ func TestAccImageBuilderImagePipeline_Schedule_scheduleExpression(t *testing.T) 
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"date_next_run"},
@@ -546,7 +546,7 @@ func TestAccImageBuilderImagePipeline_Schedule_timezone(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"date_next_run"},
@@ -731,7 +731,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -749,7 +749,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -770,7 +770,7 @@ resource "aws_imagebuilder_container_recipe" "test" {
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 
   dockerfile_template_data = <<EOF
@@ -783,7 +783,7 @@ resource "aws_imagebuilder_container_recipe" "test" {
   name
   parent_image      = "amazonlinux:latest"
   working_directory = "/tmp"
-  version           = "1.0.0"
+  version  = "1.0.0"
 }
 
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
@@ -876,7 +876,7 @@ resource "aws_imagebuilder_image_recipe" "test2" {
     component_arn = aws_imagebuilder_component.test.arn
   }
 
-  name         = "%[1]s-2"
+  name= "%[1]s-2"
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -912,14 +912,14 @@ FROM {{{ imagebuilder:parentImage }}}
 {{{ imagebuilder:components }}}
 EOF
 
-  name           = "%[1]s-2"
+  name  = "%[1]s-2"
   container_type = "DOCKER"
   parent_image   = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-x86-latest/x.x.x"
   version        = "1.0.0"
 
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 }
 
@@ -1060,7 +1060,7 @@ resource "aws_imagebuilder_image_pipeline" "test" {
 
   schedule {
     schedule_expression = %[2]q
-    timezone            = %[3]q
+    timezone   = %[3]q
   }
 }
 `, rName, scheduleExpression, timezone))
@@ -1071,7 +1071,7 @@ resource "aws_imagebuilder_image_pipeline" "test" {
   image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
   name
-  status            = %[2]q
+  status   = %[2]q
 }
 `, rName, status))
 }

@@ -1,25 +1,18 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"context"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func := acctest.Context(t)
-	dataSourceName := "data.aws_rds_certificate.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccCertificatePreCheck(ctx, t) },
-		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	dataSourceName := "data.aws_rds_certificate.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccCertificatePreCheck(ctx, t) },
+		ErrorCheck:
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:nil,
 		Steps: []resource.TestStep{
 			{
@@ -31,15 +24,16 @@ func := acctest.Context(t)
 		},
 	})
 }
-
 func TestAccRDSCertificateDataSource_latestValidTill(t *testing.T) {
 	ctx := acctest.Context(t)
 func
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccCertificatePreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccCertificatePreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:funceps: []resource.TestStep{
+		CheckDestroy:
+funceps: []resource.TestStep{
 			{
 				Config: testAccCertificateDataSourceConfig_latestValidTill(),
 				Check: resource.ComposeTestCheckFunc(
@@ -56,37 +50,28 @@ func
 		},
 	})
 }
-
 func testAccCertificatePreCheck(ctx context.Context, t *testing.T) {
-	conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-	input := &rds.DescribeCertificatesInput{}
-funcerr := conn.DescribeCertificatesWithContext(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+	conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)	input := &rds.DescribeCertificatesInput{}
+funcerr := conn.DescribeCertificatesWithContext(ctx, input)	if acctest.PreCheckSkipError(err) {
 		t.Skipf("skipping acceptance testing: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccCertificateDataSourceConfig_id() string {
 	return `
 data "aws_rds_certificate" "latest" {
-  latest_valid_till = true
+latest_valid_till = true
 }
 func "aws_rds_certificate" "test" {
-  id = data.aws_rds_certificate.latest.id
+id = data.aws_rds_certificate.latest.id
 }
 `
 }
-
 func testAccCertificateDataSourceConfig_latestValidTill() string {
 	return `
 data "aws_rds_certificate" "test" {
-  latest_valid_till = true
+latest_valid_till = true
 }
 `
 func

@@ -34,9 +34,9 @@ func TestAccSignerSigningProfile_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, signer.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, signer.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSigningProfileDestroy(ctx),
+		CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSigningProfileConfig_providedName(profileName),
@@ -48,8 +48,8 @@ func TestAccSignerSigningProfile_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
@@ -69,9 +69,9 @@ func TestAccSignerSigningProfile_generateNameWithNamePrefix(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, signer.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, signer.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSigningProfileDestroy(ctx),
+		CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSigningProfileConfig_basic(namePrefix),
@@ -95,9 +95,9 @@ func TestAccSignerSigningProfile_generateName(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, signer.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, signer.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSigningProfileDestroy(ctx),
+		CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSigningProfileConfig_generateName(),
@@ -122,9 +122,9 @@ func TestAccSignerSigningProfile_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, signer.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, signer.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSigningProfileDestroy(ctx),
+		CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSigningProfileConfig_tags(namePrefix),
@@ -157,9 +157,9 @@ func TestAccSignerSigningProfile_signatureValidityPeriod(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, signer.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, signer.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSigningProfileDestroy(ctx),
+		CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSigningProfileConfig_svp(namePrefix),

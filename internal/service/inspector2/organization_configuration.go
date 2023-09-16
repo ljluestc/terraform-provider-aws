@@ -69,7 +69,7 @@ func ResourceOrganizationConfiguration() *schema.Resource {
 
 const (
 	ResNameOrganizationConfiguration = "Organization Configuration"
-	orgConfigMutex                   = "f14b54d7-2b10-58c2-9c1b-c48260a4825d"
+	orgConfigMutex = "f14b54d7-2b10-58c2-9c1b-c48260a4825d"
 )
 
 func resourceOrganizationConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
@@ -182,13 +182,13 @@ func waitOrganizationConfigurationUpdated(ctx context.Context, conn *inspector2.
 	}
 
 	stateConf := &retry.StateChangeConf{
-		Pending:                   all,
-		Target:                    []string{needle},
-		Refresh:                   statusOrganizationConfiguration(ctx, conn),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: all,
+		Target:  []string{needle},
+		Refresh: statusOrganizationConfiguration(ctx, conn),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
-		MinTimeout:                time.Second * 5,
+		MinTimeout:       time.Second * 5,
 	}
 
 	_, err := stateConf.WaitForStateContext(ctx)

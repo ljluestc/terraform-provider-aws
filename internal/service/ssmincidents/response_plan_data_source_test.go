@@ -211,7 +211,7 @@ resource "aws_iam_role" "role" {
       "Effect": "Allow",
       "Principal": {
         "Service": [
-          "cloudformation.amazonaws.com"
+ "cloudformation.amazonaws.com"
         ]
       },
       "Action": [
@@ -226,7 +226,7 @@ EOF
 }
 
 resource "aws_ssm_document" "document" {
-  name          = %[1]q
+  name = %[1]q
   document_type = "Command"
 
   content = <<DOC
@@ -239,10 +239,10 @@ resource "aws_ssm_document" "document" {
     "runtimeConfig": {
       "aws:runShellScript": {
         "properties": [
-          {
-            "id": "0.aws:runShellScript",
-            "runCommand": ["ifconfig"]
-          }
+ {
+   "id": "0.aws:runShellScript",
+   "runCommand": ["ifconfig"]
+ }
         ]
       }
     }
@@ -254,7 +254,7 @@ resource "aws_ssmincidents_response_plan" "test" {
   name = %[2]q
 
   incident_template {
-    title         = %[3]q
+    title= %[3]q
     impact        = "3"
     dedupe_string = "dedupe"
     summary       = "summary"
@@ -281,7 +281,7 @@ resource "aws_ssmincidents_response_plan" "test" {
   action {
     ssm_automation {
       document_name    = aws_ssm_document.document.name
-      role_arn         = aws_iam_role.role.arn
+      role_arn= aws_iam_role.role.arn
       document_version = "version1"
       target_account   = "RESPONSE_PLAN_OWNER_ACCOUNT"
       parameter {

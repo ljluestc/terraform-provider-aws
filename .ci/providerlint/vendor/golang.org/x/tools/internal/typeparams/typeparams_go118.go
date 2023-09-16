@@ -1,176 +1,70 @@
-// Copyright 2021 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-//go:build go1.18
-// +build go1.18
-
-package typeparams
-
-import (
+//Copyright2021TheGoAuthors.Allrightsreserved.
+//UseofthissourcecodeisgovernedbyaBSD-style
+//licensethatcanbefoundintheLICENSEfile.//go:buildgo1.18
+//+buildgo1.18packagetypeparamsimport(
 	"go/ast"
 	"go/types"
-)
-
-// IndexListExpr is an alias for ast.IndexListExpr.
-type IndexListExpr = ast.IndexListExpr
-
-// ForTypeSpec returns n.TypeParams.
-
- ForTypeSpec(n *ast.TypeSpec) *ast.FieldList {
-	if n == nil {
-		return nil
+)//IndexListExprisanaliasforast.IndexListExpr.
+typeIndexListExpr=ast.IndexListExpr//ForTypeSpecreturnsn.TypeParams.ForTypeSpec(n*ast.TypeSpec)*ast.FieldList{
+	ifn==nil{
+		returnnil
 	}
-	return n.TypeParams
-}
-
-or
-Type returns n.TypeParams.
-
- For
-Type(n *ast.
-Type) *ast.FieldList {
-	if n == nil {
-		return nil
+	returnn.TypeParams
+}or
+Typereturnsn.TypeParams.For
+Type(n*ast.
+Type)*ast.FieldList{
+	ifn==nil{
+		returnnil
 	}
-	return n.TypeParams
-}
-
-// TypeParam is an alias for types.TypeParam
-type TypeParam = types.TypeParam
-
-// TypeParamList is an alias for types.TypeParamList
-type TypeParamList = types.TypeParamList
-
-// TypeList is an alias for types.TypeList
-type TypeList = types.TypeList
-
-// NewTypeParam calls types.NewTypeParam.
-
- NewTypeParam(name *types.TypeName, constraint types.Type) *TypeParam {
-	return types.NewTypeParam(name, constraint)
-}
-
-etTypeParamConstraint calls tparam.SetConstraint(constraint).
-
- SetTypeParamConstraint(tparam *TypeParam, constraint types.Type) {
+	returnn.TypeParams
+}//TypeParamisanaliasfortypes.TypeParam
+typeTypeParam=types.TypeParam//TypeParamListisanaliasfortypes.TypeParamList
+typeTypeParamList=types.TypeParamList//TypeListisanaliasfortypes.TypeList
+typeTypeList=types.TypeList//NewTypeParamcallstypes.NewTypeParam.NewTypeParam(name*types.TypeName,constrainttypes.Type)*TypeParam{
+	returntypes.NewTypeParam(name,constraint)
+}etTypeParamConstraintcallstparam.SetConstraint(constraint).SetTypeParamConstraint(tparam*TypeParam,constrainttypes.Type){
 	tparam.SetConstraint(constraint)
-}
-
-// NewSignatureType calls types.NewSignatureType.
-
- NewSignatureType(recv *types.Var, recvTypeParams, typeParams []*TypeParam, params, results *types.Tuple, variadic bool) *types.Signature {
-	return types.NewSignatureType(recv, recvTypeParams, typeParams, params, results, variadic)
-
-
-// ForSignature returns sig.TypeParams()
-
- ForSignature(sig *types.Signature) *TypeParamList {
-urn sig.TypeParams()
-}
-
-// RecvTypeParams returns sig.RecvTypeParams().
-
-vTypeParams(sig *types.Signature) *TypeParamList {
-	return sig.RecvTypeParams()
-}
-
-// IsComparable calls iface.IsComparable().
-
- IsComparable(iface *types.Interface) bool {
-	return iface.IsComparable()
-}
-
-sMethodSet calls iface.IsMethodSet().
-
- IsMethodSet(iface *types.Interface) bool {
-	return iface.IsMethodSet()
-}
-
-sImplicit calls iface.IsImplicit().
-
- IsImplicit(iface *types.Interface) bool {
-	return iface.IsImplicit()
-}
-
-arkImplicit calls iface.MarkImplicit().
-
- MarkImplicit(iface *types.Interface) {
+}//NewSignatureTypecallstypes.NewSignatureType.NewSignatureType(recv*types.Var,recvTypeParams,typeParams[]*TypeParam,params,results*types.Tuple,variadicbool)*types.Signature{
+	returntypes.NewSignatureType(recv,recvTypeParams,typeParams,params,results,variadic)
+//ForSignaturereturnssig.TypeParams()ForSignature(sig*types.Signature)*TypeParamList{
+urnsig.TypeParams()
+}//RecvTypeParamsreturnssig.RecvTypeParams().vTypeParams(sig*types.Signature)*TypeParamList{
+	returnsig.RecvTypeParams()
+}//IsComparablecallsiface.IsComparable().IsComparable(iface*types.Interface)bool{
+	returniface.IsComparable()
+}sMethodSetcallsiface.IsMethodSet().IsMethodSet(iface*types.Interface)bool{
+	returniface.IsMethodSet()
+}sImplicitcallsiface.IsImplicit().IsImplicit(iface*types.Interface)bool{
+	returniface.IsImplicit()
+}arkImplicitcallsiface.MarkImplicit().MarkImplicit(iface*types.Interface){
 	iface.MarkImplicit()
-}
-
-// ForNamed extracts the (possibly empty) type parameter object list from
-// named.
-
- ForNamed(named *types.Named) *TypeParamList {
-urn named.TypeParams()
-}
-
-// SetForNamed sets the type params tparams on n. Each tparam must be of
-// dynamic type *types.TypeParam.
-
- SetForNamed(n *types.Named, tparams []*TypeParam) {
+}//ForNamedextractsthe(possiblyempty)typeparameterobjectlistfrom
+//named.ForNamed(named*types.Named)*TypeParamList{
+urnnamed.TypeParams()
+}//SetForNamedsetsthetypeparamstparamsonn.Eachtparammustbeof
+//dynamictype*types.TypeParam.SetForNamed(n*types.Named,tparams[]*TypeParam){
 	n.SetTypeParams(tparams)
-
-
-// NamedTypeArgs returns named.TypeArgs().
-
- NamedTypeArgs(named *types.Named) *TypeList {
-	return named.TypeArgs()
-}
-
-amedTypeOrigin returns named.Orig().
-
- NamedTypeOrigin(named *types.Named) types.Type {
-	return named.Origin()
-}
-
-erm is an alias for types.Term.
-type Term = types.Term
-
-// NewTerm calls types.NewTerm.
-
- NewTerm(tilde bool, typ types.Type) *Term {
-	return types.NewTerm(tilde, typ)
-}
-
-// Union is an alias for types.Union
-type Union = types.Union
-
-// NewUnion calls types.NewUnion.
-
- NewUnion(terms []*Term) *Union {
-	return types.NewUnion(terms)
-
-
-// InitInstanceInfo initializes info to record information about type and
-// 
-tion instances.
-
- InitInstanceInfo(info *types.Info) {
-	info.Instances = make(map[*ast.Ident]types.Instance)
-}
-
-// Instance is an alias for types.Instance.
-type Instance = types.Instance
-
-// GetInstances returns info.Instances.
-
- GetInstances(info *types.Info) map[*ast.Ident]Instance {
-	return info.Instances
-}
-
-// Context is an alias for types.Context.
-type Context = types.Context
-
-// NewContext calls types.NewContext.
-
- NewContext() *Context {
-	return types.NewContext()
-}
-
-// Instantiate calls types.Instantiate.
-
- Instantiate(ctxt *Context, typ types.Type, targs []types.Type, validate bool) (types.Type, error) {
-	return types.Instantiate(ctxt, typ, targs, validate)
+//NamedTypeArgsreturnsnamed.TypeArgs().NamedTypeArgs(named*types.Named)*TypeList{
+	returnnamed.TypeArgs()
+}amedTypeOriginreturnsnamed.Orig().NamedTypeOrigin(named*types.Named)types.Type{
+	returnnamed.Origin()
+}ermisanaliasfortypes.Term.
+typeTerm=types.Term//NewTermcallstypes.NewTerm.NewTerm(tildebool,typtypes.Type)*Term{
+	returntypes.NewTerm(tilde,typ)
+}//Unionisanaliasfortypes.Union
+typeUnion=types.Union//NewUnioncallstypes.NewUnion.NewUnion(terms[]*Term)*Union{
+	returntypes.NewUnion(terms)
+//InitInstanceInfoinitializesinfotorecordinformationabouttypeand
+//
+tioninstances.InitInstanceInfo(info*types.Info){
+	info.Instances=make(map[*ast.Ident]types.Instance)
+}//Instanceisanaliasfortypes.Instance.
+typeInstance=types.Instance//GetInstancesreturnsinfo.Instances.GetInstances(info*types.Info)map[*ast.Ident]Instance{
+	returninfo.Instances
+}//Contextisanaliasfortypes.Context.
+typeContext=types.Context//NewContextcallstypes.NewContext.NewContext()*Context{
+	returntypes.NewContext()
+}//Instantiatecallstypes.Instantiate.Instantiate(ctxt*Context,typtypes.Type,targs[]types.Type,validatebool)(types.Type,error){
+	returntypes.Instantiate(ctxt,typ,targs,validate)
 }

@@ -51,8 +51,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -119,8 +119,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -171,8 +171,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -213,7 +213,7 @@ func(
 	{
 ResourceName:   resourceName,
 ImportState:    true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"source_entity"},
 	},
 },
@@ -251,8 +251,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -320,7 +320,7 @@ func(
 	{
 ResourceName:   resourceName,
 ImportState:    true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"source_entity"},
 	},
 
@@ -416,41 +416,41 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      input_columns {
-        name = "Column2"
-        type = "STRING"
-      }
-      upload_settings {}
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+input_columns {
+  name = "Column2"
+  type = "STRING"
+}
+upload_settings {}
     }
   }
   logical_table_map {
     logical_table_map_id = %[1]q
     alias = "Group1"
     source {
-      physical_table_id = %[1]q
+physical_table_id = %[1]q
     }
     data_transforms {
-      cast_column_type_operation {
-        column_name     = "Column2"
-        new_column_type = "INTEGER"
-      }
+cast_column_type_operation {
+  column_name     = "Column2"
+  new_column_type = "INTEGER"
+}
     }
   }
 
   lifecycle {
     ignore_changes = [
-      physical_table_map
+physical_table_map
     ]
   }
 }
@@ -468,23 +468,23 @@ resource "aws_quicksight_template" "test" {
   version_description = "test"
   definition {
     data_set_configuration {
-      data_set_schema {
-        column_schema_list {
- name      = "Column1"
+data_set_schema {
+  column_schema_list {
+ name= "Column1"
  data_type = "STRING"
-        }
-        column_schema_list {
- name      = "Column2"
+  }
+  column_schema_list {
+ name= "Column2"
  data_type = "INTEGER"
-        }
-      }
-      placeholder = "1"
+  }
+}
+placeholder = "1"
     }
     sheets {
-      title    = "Test"
-      sheet_id = "Test1"
-      visuals {
-        custom_content_visual {
+title    = "Test"
+sheet_id = "Test1"
+visuals {
+  custom_content_visual {
  data_set_identifier = "1"
  title {
    format_text {
@@ -492,10 +492,10 @@ resource "aws_quicksight_template" "test" {
    }
  }
  visual_id = "Test1"
-        }
-      }
-      visuals {
-        line_chart_visual {
+  }
+}
+visuals {
+  line_chart_visual {
  visual_id = "LineChart"
  title {
    format_text {
@@ -509,8 +509,8 @@ resource "aws_quicksight_template" "test" {
    categorical_dimension_field {
      field_id = "1"
      column {
-       data_set_identifier = "1"
-       column_name= "Column1"
+ data_set_identifier = "1"
+ column_name= "Column1"
      }
    }
  }
@@ -518,8 +518,8 @@ resource "aws_quicksight_template" "test" {
    categorical_measure_field {
      field_id = "2"
      column {
-       data_set_identifier = "1"
-       column_name= "Column1"
+ data_set_identifier = "1"
+ column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
@@ -529,8 +529,8 @@ function = "COUNT"
    }
  }
 
-        }
-      }
+  }
+}
     }
   }
 }
@@ -548,23 +548,23 @@ resource "aws_quicksight_template" "test" {
   version_description = "test"
   definition {
     data_set_configuration {
-      data_set_schema {
-        column_schema_list {
- name      = "Column1"
+data_set_schema {
+  column_schema_list {
+ name= "Column1"
  data_type = "STRING"
-        }
-        column_schema_list {
- name      = "Column2"
+  }
+  column_schema_list {
+ name= "Column2"
  data_type = "INTEGER"
-        }
-      }
-      placeholder = "1"
+  }
+}
+placeholder = "1"
     }
     sheets {
-      title    = "Test"
-      sheet_id = "Test1"
-      visuals {
-        bar_chart_visual {
+title    = "Test"
+sheet_id = "Test1"
+visuals {
+  bar_chart_visual {
  visual_id = "BarChart"
  chart_configuration {
    field_wells {
@@ -573,8 +573,8 @@ resource "aws_quicksight_template" "test" {
    categorical_dimension_field {
      field_id = "1"
      column {
-       column_name= "Column1"
-       data_set_identifier = "1"
+ column_name= "Column1"
+ data_set_identifier = "1"
      }
    }
  }
@@ -582,20 +582,20 @@ resource "aws_quicksight_template" "test" {
    numerical_measure_field {
      field_id = "2"
      column {
-       column_name= "Column2"
-       data_set_identifier = "1"
+ column_name= "Column2"
+ data_set_identifier = "1"
      }
      aggregation_
 function {
-       simple_numerical_aggregation = "SUM"
+ simple_numerical_aggregation = "SUM"
      }
    }
  }
      }
    }
  }
-        }
-      }
+  }
+}
     }
   }
 }
@@ -613,23 +613,23 @@ resource "aws_quicksight_template" "test" {
   version_description = "test"
   definition {
     data_set_configuration {
-      data_set_schema {
-        column_schema_list {
- name      = "Column1"
+data_set_schema {
+  column_schema_list {
+ name= "Column1"
  data_type = "STRING"
-        }
-        column_schema_list {
- name      = "Column2"
+  }
+  column_schema_list {
+ name= "Column2"
  data_type = "INTEGER"
-        }
-      }
-      placeholder = "1"
+  }
+}
+placeholder = "1"
     }
     sheets {
-      title    = "Test"
-      sheet_id = "Test1"
-      visuals {
-        table_visual {
+title    = "Test"
+sheet_id = "Test1"
+visuals {
+  table_visual {
  visual_id = "Table"
  chart_configuration {
    field_wells {
@@ -671,13 +671,13 @@ resource "aws_quicksight_template" "test" {
      }
    }
    total_options {
-     custom_label      = "Total"
+     custom_label= "Total"
      placement= %[4]q
      totals_visibility = "VISIBLE"
    }
  }
-        }
-      }
+  }
+}
     }
   }
 }
@@ -695,7 +695,7 @@ resource "aws_quicksight_template" "copy" {
   version_description = "test"
   source_entity {
     source_template {
-      arn = aws_quicksight_template.test.arn
+arn = aws_quicksight_template.test.arn
     }
   }
 }
@@ -713,23 +713,23 @@ resource "aws_quicksight_template" "test" {
   version_description = "test"
   definition {
     data_set_configuration {
-      data_set_schema {
-        column_schema_list {
- name      = "Column1"
+data_set_schema {
+  column_schema_list {
+ name= "Column1"
  data_type = "STRING"
-        }
-        column_schema_list {
- name      = "Column2"
+  }
+  column_schema_list {
+ name= "Column2"
  data_type = "INTEGER"
-        }
-      }
-      placeholder = "1"
+  }
+}
+placeholder = "1"
     }
     sheets {
-      title    = "Test"
-      sheet_id = "Test1"
-      visuals {
-        bar_chart_visual {
+title    = "Test"
+sheet_id = "Test1"
+visuals {
+  bar_chart_visual {
  visual_id = "BarChart"
  chart_configuration {
    field_wells {
@@ -738,8 +738,8 @@ resource "aws_quicksight_template" "test" {
    categorical_dimension_field {
      field_id = "1"
      column {
-       column_name= "Column1"
-       data_set_identifier = "1"
+ column_name= "Column1"
+ data_set_identifier = "1"
      }
    }
  }
@@ -747,20 +747,20 @@ resource "aws_quicksight_template" "test" {
    numerical_measure_field {
      field_id = "2"
      column {
-       column_name= "Column2"
-       data_set_identifier = "1"
+ column_name= "Column2"
+ data_set_identifier = "1"
      }
      aggregation_
 function {
-       simple_numerical_aggregation = "SUM"
+ simple_numerical_aggregation = "SUM"
      }
    }
  }
      }
    }
  }
-        }
-      }
+  }
+}
     }
   }
 
@@ -782,23 +782,23 @@ resource "aws_quicksight_template" "test" {
   version_description = "test"
   definition {
     data_set_configuration {
-      data_set_schema {
-        column_schema_list {
- name      = "Column1"
+data_set_schema {
+  column_schema_list {
+ name= "Column1"
  data_type = "STRING"
-        }
-        column_schema_list {
- name      = "Column2"
+  }
+  column_schema_list {
+ name= "Column2"
  data_type = "INTEGER"
-        }
-      }
-      placeholder = "1"
+  }
+}
+placeholder = "1"
     }
     sheets {
-      title    = "Test"
-      sheet_id = "Test1"
-      visuals {
-        bar_chart_visual {
+title    = "Test"
+sheet_id = "Test1"
+visuals {
+  bar_chart_visual {
  visual_id = "BarChart"
  chart_configuration {
    field_wells {
@@ -807,8 +807,8 @@ resource "aws_quicksight_template" "test" {
    categorical_dimension_field {
      field_id = "1"
      column {
-       column_name= "Column1"
-       data_set_identifier = "1"
+ column_name= "Column1"
+ data_set_identifier = "1"
      }
    }
  }
@@ -816,20 +816,20 @@ resource "aws_quicksight_template" "test" {
    numerical_measure_field {
      field_id = "2"
      column {
-       column_name= "Column2"
-       data_set_identifier = "1"
+ column_name= "Column2"
+ data_set_identifier = "1"
      }
      aggregation_
 function {
-       simple_numerical_aggregation = "SUM"
+ simple_numerical_aggregation = "SUM"
      }
    }
  }
      }
    }
  }
-        }
-      }
+  }
+}
     }
   }
 

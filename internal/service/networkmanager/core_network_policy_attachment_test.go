@@ -26,10 +26,10 @@ func TestAccNetworkManagerCoreNetworkPolicyAttachment_basic(t *testing.T) {
 	updatedSegmentValue := "segmentValue2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCoreNetworkPolicyAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkPolicyAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCoreNetworkPolicyAttachmentConfig_basic(originalSegmentValue),
@@ -67,10 +67,10 @@ func TestAccNetworkManagerCoreNetworkPolicyAttachment_vpcAttachment(t *testing.T
 	segmentValue := "segmentValue"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCoreNetworkPolicyAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkPolicyAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCoreNetworkPolicyAttachmentConfig_vpcAttachmentCreate(),
@@ -111,9 +111,9 @@ func TestAccNetworkManagerCoreNetworkPolicyAttachment_vpcAttachmentMultiRegion(t
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
-		CheckDestroy:             testAccCheckCoreNetworkPolicyAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkPolicyAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCoreNetworkPolicyAttachmentConfig_vpcAttachmentMultiRegionCreate(),
@@ -128,7 +128,7 @@ func TestAccNetworkManagerCoreNetworkPolicyAttachment_vpcAttachmentMultiRegion(t
 				),
 			},
 			{
-				Config:            testAccCoreNetworkPolicyAttachmentConfig_vpcAttachmentMultiRegionCreate(),
+				Config:   testAccCoreNetworkPolicyAttachmentConfig_vpcAttachmentMultiRegionCreate(),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
@@ -141,10 +141,10 @@ func TestAccNetworkManagerCoreNetworkPolicyAttachment_expectPolicyErrorInvalidAS
 	ctx := acctest.Context(t)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCoreNetworkPolicyAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckCoreNetworkPolicyAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccCoreNetworkPolicyAttachmentConfig_expectPolicyErrorInvalidASNRange(),
@@ -224,7 +224,7 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = "tf-acc-test-networkmanager-core-network-policy-attachment"
@@ -271,7 +271,7 @@ resource "aws_networkmanager_core_network_policy_attachment" "test" {
 resource "aws_networkmanager_vpc_attachment" "test" {
   core_network_id = aws_networkmanager_core_network.test.id
   subnet_arns     = aws_subnet.test[*].arn
-  vpc_arn         = aws_vpc.test.arn
+  vpc_arn= aws_vpc.test.arn
 }
 `, acctest.Region()))
 }
@@ -294,7 +294,7 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = "tf-acc-test-networkmanager-core-network-policy-attachment"
@@ -361,7 +361,7 @@ resource "aws_networkmanager_core_network_policy_attachment" "test" {
 resource "aws_networkmanager_vpc_attachment" "test" {
   core_network_id = aws_networkmanager_core_network.test.id
   subnet_arns     = aws_subnet.test[*].arn
-  vpc_arn         = aws_vpc.test.arn
+  vpc_arn= aws_vpc.test.arn
 }
 
 # Alternate region
@@ -393,7 +393,7 @@ resource "aws_subnet" "alternate_region" {
 
   availability_zone = data.aws_availability_zones.alternate_region_available.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.alternate_region.cidr_block, 8, count.index)
-  vpc_id            = aws_vpc.alternate_region.id
+  vpc_id   = aws_vpc.alternate_region.id
 
   tags = {
     Name = "tf-acc-test-networkmanager-core-network-policy-attachment"
@@ -405,7 +405,7 @@ resource "aws_networkmanager_vpc_attachment" "alternate_region" {
 
   core_network_id = aws_networkmanager_core_network.test.id
   subnet_arns     = aws_subnet.alternate_region[*].arn
-  vpc_arn         = aws_vpc.alternate_region.arn
+  vpc_arn= aws_vpc.alternate_region.arn
 }
 `, acctest.Region(), acctest.AlternateRegion()))
 }

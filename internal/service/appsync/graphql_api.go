@@ -45,80 +45,80 @@ func ResourceGraphQLAPI() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"additional_authentication_provider": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"authentication_type": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(appsync.AuthenticationType_Values(), false),
 						},
 						"lambda_authorizer_config": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"authorizer_result_ttl_in_seconds": {
-										Type:         schema.TypeInt,
-										Optional:     true,
-										Default:      DefaultAuthorizerResultTTLInSeconds,
+										Type:schema.TypeInt,
+										Optional:true,
+										Default: DefaultAuthorizerResultTTLInSeconds,
 										ValidateFunc: validateAuthorizerResultTTLInSeconds,
 									},
 									"authorizer_uri": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 									"identity_validation_expression": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 									},
 								},
 							},
 						},
 						"openid_connect_config": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"auth_ttl": {
-										Type:     schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional: true,
 									},
 									"client_id": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 									},
 									"iat_ttl": {
-										Type:     schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional: true,
 									},
 									"issuer": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 								},
 							},
 						},
 						"user_pool_config": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"app_id_client_regex": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 									},
 									"aws_region": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 										Computed: true,
 									},
 									"user_pool_id": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 									},
 								},
@@ -128,63 +128,63 @@ func ResourceGraphQLAPI() *schema.Resource {
 				},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"authentication_type": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(appsync.AuthenticationType_Values(), false),
 			},
 			"lambda_authorizer_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"authorizer_result_ttl_in_seconds": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							Default:      DefaultAuthorizerResultTTLInSeconds,
+							Type:schema.TypeInt,
+							Optional:true,
+							Default: DefaultAuthorizerResultTTLInSeconds,
 							ValidateFunc: validateAuthorizerResultTTLInSeconds,
 						},
 						"authorizer_uri": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"identity_validation_expression": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"log_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cloudwatch_logs_role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"exclude_verbose_content": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"field_log_level": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(appsync.FieldLogLevel_Values(), false),
 						},
 					},
 				},
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ValidateFunc: func(v interface{}, k string) (ws []string, errors []error) {
 					value := v.(string)
@@ -195,77 +195,77 @@ func ResourceGraphQLAPI() *schema.Resource {
 				},
 			},
 			"openid_connect_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"auth_ttl": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 						},
 						"client_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"iat_ttl": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 						},
 						"issuer": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"schema": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"uris": {
-				Type:     schema.TypeMap,
+				Type:schema.TypeMap,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"user_pool_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"app_id_client_regex": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"aws_region": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							Computed: true,
 						},
 						"default_action": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required:true,
 							ValidateFunc: validation.StringInSlice(appsync.DefaultAction_Values(), false),
 						},
 						"user_pool_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"visibility": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      appsync.GraphQLApiVisibilityGlobal,
+				Type:schema.TypeString,
+				Optional:true,
+				ForceNew:true,
+				Default: appsync.GraphQLApiVisibilityGlobal,
 				ValidateFunc: validation.StringInSlice(appsync.GraphQLApiVisibility_Values(), false),
 			},
 			"xray_enabled": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 		},
@@ -273,7 +273,6 @@ func ResourceGraphQLAPI() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceGraphQLAPICreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -329,7 +328,6 @@ func resourceGraphQLAPICreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceGraphQLAPIRead(ctx, d, meta)...)
 }
-
 func resourceGraphQLAPIRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -374,7 +372,6 @@ func resourceGraphQLAPIRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func resourceGraphQLAPIUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -427,7 +424,6 @@ func resourceGraphQLAPIUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceGraphQLAPIRead(ctx, d, meta)...)
 }
-
 func resourceGraphQLAPIDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -447,10 +443,9 @@ func resourceGraphQLAPIDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
-
 func putSchema(ctx context.Context, conn *appsync.AppSync, apiID, definition string, timeout time.Duration) error {
 	input := &appsync.StartSchemaCreationInput{
-		ApiId:      aws.String(apiID),
+		ApiId: aws.String(apiID),
 		Definition: ([]byte)(definition),
 	}
 
@@ -466,7 +461,6 @@ func putSchema(ctx context.Context, conn *appsync.AppSync, apiID, definition str
 
 	return nil
 }
-
 func FindGraphQLAPIByID(ctx context.Context, conn *appsync.AppSync, id string) (*appsync.GraphqlApi, error) {
 	input := &appsync.GetGraphqlApiInput{
 		ApiId: aws.String(id),
@@ -491,7 +485,6 @@ func FindGraphQLAPIByID(ctx context.Context, conn *appsync.AppSync, id string) (
 
 	return output.GraphqlApi, nil
 }
-
 func findSchemaCreationStatusByID(ctx context.Context, conn *appsync.AppSync, id string) (*appsync.GetSchemaCreationStatusOutput, error) {
 	input := &appsync.GetSchemaCreationStatusInput{
 		ApiId: aws.String(id),
@@ -516,7 +509,6 @@ func findSchemaCreationStatusByID(ctx context.Context, conn *appsync.AppSync, id
 
 	return output, nil
 }
-
 func statusSchemaCreation(ctx context.Context, conn *appsync.AppSync, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := findSchemaCreationStatusByID(ctx, conn, id)
@@ -532,7 +524,6 @@ func statusSchemaCreation(ctx context.Context, conn *appsync.AppSync, id string)
 		return output, aws.StringValue(output.Status), nil
 	}
 }
-
 func waitSchemaCreated(ctx context.Context, conn *appsync.AppSync, id string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{appsync.SchemaStatusProcessing},
@@ -549,7 +540,6 @@ func waitSchemaCreated(ctx context.Context, conn *appsync.AppSync, id string, ti
 
 	return err
 }
-
 func expandGraphQLAPILogConfig(l []interface{}) *appsync.LogConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
@@ -559,13 +549,12 @@ func expandGraphQLAPILogConfig(l []interface{}) *appsync.LogConfig {
 
 	logConfig := &appsync.LogConfig{
 		CloudWatchLogsRoleArn: aws.String(m["cloudwatch_logs_role_arn"].(string)),
-		FieldLogLevel:         aws.String(m["field_log_level"].(string)),
+		FieldLogLevel:aws.String(m["field_log_level"].(string)),
 		ExcludeVerboseContent: aws.Bool(m["exclude_verbose_content"].(bool)),
 	}
 
 	return logConfig
 }
-
 func expandGraphQLAPIOpenIDConnectConfig(l []interface{}) *appsync.OpenIDConnectConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
@@ -591,7 +580,6 @@ func expandGraphQLAPIOpenIDConnectConfig(l []interface{}) *appsync.OpenIDConnect
 
 	return openIDConnectConfig
 }
-
 func expandGraphQLAPIUserPoolConfig(l []interface{}, currentRegion string) *appsync.UserPoolConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
@@ -600,9 +588,9 @@ func expandGraphQLAPIUserPoolConfig(l []interface{}, currentRegion string) *apps
 	m := l[0].(map[string]interface{})
 
 	userPoolConfig := &appsync.UserPoolConfig{
-		AwsRegion:     aws.String(currentRegion),
+		AwsRegion:aws.String(currentRegion),
 		DefaultAction: aws.String(m["default_action"].(string)),
-		UserPoolId:    aws.String(m["user_pool_id"].(string)),
+		UserPoolId:aws.String(m["user_pool_id"].(string)),
 	}
 
 	if v, ok := m["app_id_client_regex"].(string); ok && v != "" {
@@ -615,7 +603,6 @@ func expandGraphQLAPIUserPoolConfig(l []interface{}, currentRegion string) *apps
 
 	return userPoolConfig
 }
-
 func expandGraphQLAPILambdaAuthorizerConfig(l []interface{}) *appsync.LambdaAuthorizerConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
@@ -634,7 +621,6 @@ func expandGraphQLAPILambdaAuthorizerConfig(l []interface{}) *appsync.LambdaAuth
 
 	return lambdaAuthorizerConfig
 }
-
 func expandGraphQLAPIAdditionalAuthProviders(items []interface{}, currentRegion string) []*appsync.AdditionalAuthenticationProvider {
 	if len(items) < 1 {
 		return nil
@@ -668,7 +654,6 @@ func expandGraphQLAPIAdditionalAuthProviders(items []interface{}, currentRegion 
 
 	return additionalAuthProviders
 }
-
 func expandGraphQLAPICognitoUserPoolConfig(l []interface{}, currentRegion string) *appsync.CognitoUserPoolConfig {
 	if len(l) < 1 || l[0] == nil {
 		return nil
@@ -691,7 +676,6 @@ func expandGraphQLAPICognitoUserPoolConfig(l []interface{}, currentRegion string
 
 	return userPoolConfig
 }
-
 func flattenGraphQLAPILogConfig(logConfig *appsync.LogConfig) []interface{} {
 	if logConfig == nil {
 		return []interface{}{}
@@ -699,13 +683,12 @@ func flattenGraphQLAPILogConfig(logConfig *appsync.LogConfig) []interface{} {
 
 	m := map[string]interface{}{
 		"cloudwatch_logs_role_arn": aws.StringValue(logConfig.CloudWatchLogsRoleArn),
-		"field_log_level":          aws.StringValue(logConfig.FieldLogLevel),
+		"field_log_level":aws.StringValue(logConfig.FieldLogLevel),
 		"exclude_verbose_content":  aws.BoolValue(logConfig.ExcludeVerboseContent),
 	}
 
 	return []interface{}{m}
 }
-
 func flattenGraphQLAPIOpenIDConnectConfig(openIDConnectConfig *appsync.OpenIDConnectConfig) []interface{} {
 	if openIDConnectConfig == nil {
 		return []interface{}{}
@@ -715,19 +698,18 @@ func flattenGraphQLAPIOpenIDConnectConfig(openIDConnectConfig *appsync.OpenIDCon
 		"auth_ttl":  aws.Int64Value(openIDConnectConfig.AuthTTL),
 		"client_id": aws.StringValue(openIDConnectConfig.ClientId),
 		"iat_ttl":   aws.Int64Value(openIDConnectConfig.IatTTL),
-		"issuer":    aws.StringValue(openIDConnectConfig.Issuer),
+		"issuer":aws.StringValue(openIDConnectConfig.Issuer),
 	}
 
 	return []interface{}{m}
 }
-
 func flattenGraphQLAPIUserPoolConfig(userPoolConfig *appsync.UserPoolConfig) []interface{} {
 	if userPoolConfig == nil {
 		return []interface{}{}
 	}
 
 	m := map[string]interface{}{
-		"aws_region":     aws.StringValue(userPoolConfig.AwsRegion),
+		"aws_region":aws.StringValue(userPoolConfig.AwsRegion),
 		"default_action": aws.StringValue(userPoolConfig.DefaultAction),
 		"user_pool_id":   aws.StringValue(userPoolConfig.UserPoolId),
 	}
@@ -738,7 +720,6 @@ func flattenGraphQLAPIUserPoolConfig(userPoolConfig *appsync.UserPoolConfig) []i
 
 	return []interface{}{m}
 }
-
 func flattenGraphQLAPILambdaAuthorizerConfig(lambdaAuthorizerConfig *appsync.LambdaAuthorizerConfig) []interface{} {
 	if lambdaAuthorizerConfig == nil {
 		return []interface{}{}
@@ -760,7 +741,6 @@ func flattenGraphQLAPILambdaAuthorizerConfig(lambdaAuthorizerConfig *appsync.Lam
 
 	return []interface{}{m}
 }
-
 func flattenGraphQLAPIAdditionalAuthenticationProviders(additionalAuthenticationProviders []*appsync.AdditionalAuthenticationProvider) []interface{} {
 	if len(additionalAuthenticationProviders) == 0 {
 		return []interface{}{}
@@ -769,16 +749,15 @@ func flattenGraphQLAPIAdditionalAuthenticationProviders(additionalAuthentication
 	result := make([]interface{}, len(additionalAuthenticationProviders))
 	for i, provider := range additionalAuthenticationProviders {
 		result[i] = map[string]interface{}{
-			"authentication_type":      aws.StringValue(provider.AuthenticationType),
+			"authentication_type": aws.StringValue(provider.AuthenticationType),
 			"lambda_authorizer_config": flattenGraphQLAPILambdaAuthorizerConfig(provider.LambdaAuthorizerConfig),
-			"openid_connect_config":    flattenGraphQLAPIOpenIDConnectConfig(provider.OpenIDConnectConfig),
-			"user_pool_config":         flattenGraphQLAPICognitoUserPoolConfig(provider.UserPoolConfig),
+			"openid_connect_config":flattenGraphQLAPIOpenIDConnectConfig(provider.OpenIDConnectConfig),
+			"user_pool_config":flattenGraphQLAPICognitoUserPoolConfig(provider.UserPoolConfig),
 		}
 	}
 
 	return result
 }
-
 func flattenGraphQLAPICognitoUserPoolConfig(userPoolConfig *appsync.CognitoUserPoolConfig) []interface{} {
 	if userPoolConfig == nil {
 		return []interface{}{}

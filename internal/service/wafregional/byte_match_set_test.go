@@ -44,7 +44,7 @@ resourceName, "name", byteMatchSet),
 	resource.TestCheckResourceAttr(
 resourceName, "byte_match_tuples.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "byte_match_tuples.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "referer",
 "field_to_match.0.type": "HEADER",
 "positional_constraint": "CONTAINS",
@@ -52,7 +52,7 @@ resourceName, "byte_match_tuples.#", "2"),
 "text_transformation":   "NONE",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "byte_match_tuples.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "referer",
 "field_to_match.0.type": "HEADER",
 "positional_constraint": "CONTAINS",
@@ -62,8 +62,8 @@ resourceName, "byte_match_tuples.#", "2"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -95,7 +95,7 @@ resourceName, "name", byteMatchSet),
 	resource.TestCheckResourceAttr(
 resourceName, "byte_match_tuples.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "byte_match_tuples.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "referer",
 "field_to_match.0.type": "HEADER",
 "positional_constraint": "CONTAINS",
@@ -103,7 +103,7 @@ resourceName, "byte_match_tuples.#", "2"),
 "text_transformation":   "NONE",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "byte_match_tuples.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "referer",
 "field_to_match.0.type": "HEADER",
 "positional_constraint": "CONTAINS",
@@ -122,7 +122,7 @@ resourceName, "name", byteMatchSetNewName),
 	resource.TestCheckResourceAttr(
 resourceName, "byte_match_tuples.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "byte_match_tuples.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "referer",
 "field_to_match.0.type": "HEADER",
 "positional_constraint": "CONTAINS",
@@ -130,7 +130,7 @@ resourceName, "byte_match_tuples.#", "2"),
 "text_transformation":   "NONE",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "byte_match_tuples.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "referer",
 "field_to_match.0.type": "HEADER",
 "positional_constraint": "CONTAINS",
@@ -140,8 +140,8 @@ resourceName, "byte_match_tuples.#", "2"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -197,7 +197,7 @@ resourceName, "name", byteMatchSetName),
 	resource.TestCheckResourceAttr(
 resourceName, "byte_match_tuples.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "byte_match_tuples.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "",
 "field_to_match.0.type": "METHOD",
 "positional_constraint": "EXACTLY",
@@ -205,7 +205,7 @@ resourceName, "byte_match_tuples.#", "2"),
 "text_transformation":   "NONE",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "byte_match_tuples.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "",
 "field_to_match.0.type": "URI",
 "positional_constraint": "ENDS_WITH",
@@ -215,8 +215,8 @@ resourceName, "byte_match_tuples.#", "2"),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -247,8 +247,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -409,8 +409,8 @@ resource "aws_wafregional_byte_match_set" "byte_set" {
     positional_constraint = "CONTAINS"
 
     field_to_match {
-      type = "HEADER"
-      data = "referer"
+type = "HEADER"
+data = "referer"
     }
   }
 
@@ -420,8 +420,8 @@ resource "aws_wafregional_byte_match_set" "byte_set" {
     positional_constraint = "CONTAINS"
 
     field_to_match {
-      type = "HEADER"
-      data = "referer"
+type = "HEADER"
+data = "referer"
     }
   }
 }
@@ -440,8 +440,8 @@ resource "aws_wafregional_byte_match_set" "byte_set" {
     positional_constraint = "CONTAINS"
 
     field_to_match {
-      type = "HEADER"
-      data = "referer"
+type = "HEADER"
+data = "referer"
     }
   }
 
@@ -451,8 +451,8 @@ resource "aws_wafregional_byte_match_set" "byte_set" {
     positional_constraint = "CONTAINS"
 
     field_to_match {
-      type = "HEADER"
-      data = "referer"
+type = "HEADER"
+data = "referer"
     }
   }
 }
@@ -480,7 +480,7 @@ resource "aws_wafregional_byte_match_set" "byte_set" {
     positional_constraint = "EXACTLY"
 
     field_to_match {
-      type = "METHOD"
+type = "METHOD"
     }
   }
 
@@ -490,7 +490,7 @@ resource "aws_wafregional_byte_match_set" "byte_set" {
     positional_constraint = "ENDS_WITH"
 
     field_to_match {
-      type = "URI"
+type = "URI"
     }
   }
 }

@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package plugin
-
-import (
+// SPDX-License-Identifier: MPL-2.0package pluginimport (
 	"context"
 	"crypto/tls"
 	"crypto/x509"
@@ -18,20 +14,14 @@ import (
 	"runtime"
 	"sort"
 	"strconv"
-	"strings"
-
-	hclog "github.com/hashicorp/go-hclog"
+	"strings"	hclog "github.com/hashicorp/go-hclog"
 	"google.golang.org/grpc"
-)
-
-// CoreProtocolVersion is the ProtocolVersion of the plugin system itself.
+)// CoreProtocolVersion is the ProtocolVersion of the plugin system itself.
 // We will increment this whenever we change any protocol behavior. This
 // will invalidate any prior plugins but will at least allow us to iterate
 // on the core in a safe way. We will do our best to do this very
 // infrequently.
-const CoreProtocolVersion = 1
-
-// HandshakeConfig is the configuration used by client and servers to
+const CoreProtocolVersion = 1// HandshakeConfig is the configuration used by client and servers to
 // handshake before starting a plugin connection. This is embedded by
 // both ServeConfig and ClientConfig.
 //
@@ -43,40 +33,26 @@ type HandshakeConfig struct {
 	// set on ClientConfig when using a plugin.
 	// This field is not required if VersionedPlugins are being used in the
 	// Client or Server configurations.
-	ProtocolVersion uint
-
-	// MagicCookieKey and value are used as a very basic verification
+	ProtocolVersion uint	// MagicCookieKey and value are used as a very basic verification
 	// that a plugin is intended to be launched. This is not a security
 	// measure, just a UX feature. If the magic cookie doesn't match,
 	// we show human-friendly output.
 	MagicCookieKey   string
 	MagicCookieValue string
-}
-
-// PluginSet is a set of plugins provided to be registered in the plugin
+}// PluginSet is a set of plugins provided to be registered in the plugin
 // server.
-type PluginSet map[string]Plugin
-
-// ServeConfig configures what sorts of plugins are served.
+type PluginSet map[string]Plugin// ServeConfig configures what sorts of plugins are served.
 type ServeConfig struct {
 	// HandshakeConfig is the configuration that must match clients.
-	HandshakeConfig
-
-	// TLSProvider is a 
+	HandshakeConfig	// TLSProvider is a 
 tion thaturns a configured tls.Config.
 	TLSProvider 
-() (*tls.Config, error)
-
-	// Plugins are the plugins that are served.
+() (*tls.Config, error)	// Plugins are the plugins that are served.
 	// The implied version of this PluginSet is the Handshake.ProtocolVersion.
-	Plugins PluginSet
-
-	// VersionedPlugins is a map of PluginSets for specific protocol versions.
+	Plugins PluginSet	// VersionedPlugins is a map of PluginSets for specific protocol versions.
 	// These can be used to negotiate a compatible version between client and
 	// server. If this is set, Handshake.ProtocolVersion is not required.
-	VersionedPlugins map[int]PluginSet
-
-	// GRPCServer should be non-nil to enable serving the plugins over
+	VersionedPlugins map[int]PluginSet	// GRPCServer should be non-nil to enable serving the plugins over
 	// gRPC. This is a 
 tion to create the server when needed with the
 	// given server options. The server options populated by go-plugin will
@@ -86,13 +62,9 @@ tion to create the server when needed with the
 	// the gRPC health checking service. This is not optional since go-plugin
 	// relies on this to implement Ping().
 	GRPCServer 
-([]grpc.ServerOption) *grpc.Server
-
-	// Logger is used to pass a logger into the server. If none is provided the
+([]grpc.ServerOption) *grpc.Server	// Logger is used to pass a logger into the server. If none is provided the
 	// server will create a default logger.
-	Logger hclog.Logger
-
-	// Test, if non-nil, will put plugin serving into "test mode". This is
+	Logger hclog.Logger	// Test, if non-nil, will put plugin serving into "test mode". This is
 	// meant to be used as part of `go test` within a plugin's codebase to
 	// launch the plugin in-process and output a ReattachConfig.
 	//
@@ -104,9 +76,7 @@ tion to create the server when needed with the
 	//   * Connection information will not be sent to stdout
 	//
 	Test *ServeTestConfig
-}
-
-// ServeTestConfig configures plugin serving for test mode. See ServeConfig.Test.
+}// ServeTestConfig configures plugin serving for test mode. See ServeConfig.Test.
 type ServeTestConfig struct {
 	// Context, if set, will force the plugin serving to end when cancelled.
 	// This is only a test configuration because the non-test configuration
@@ -116,21 +86,15 @@ type ServeTestConfig struct {
 	//
 	// If you want to wait for the plugin process to close before moving on,
 	// you can wait on CloseCh.
-	Context context.Context
-
-	// If this channel is non-nil, we will send the ReattachConfig via
+	Context context.Context	// If this channel is non-nil, we will send the ReattachConfig via
 	// this channel. This can be encoded (via JSON recommended) to the
 	// plugin client to attach to this plugin.
-	ReattachConfigCh chan<- *ReattachConfig
-
-	// CloseCh, if non-nil, will be closed when serving exits. This can be
+	ReattachConfigCh chan<- *ReattachConfig	// CloseCh, if non-nil, will be closed when serving exits. This can be
 	// used along with Context to determine when the server is fully shut down.
 	// If this is not set, you can still use Context on its own, but note there
 	// may be a period of time between canceling the context and the plugin
 	// er being shut down.
-	CloseCh chan<- struct{}
-
-	// SyncStdio, if true, will enable the client side "SyncStdout/Stderr"
+	CloseCh chan<- struct{}	// SyncStdio, if true, will enable the client side "SyncStdout/Stderr"
 	// 
 tionality to work. This defaults to false because the implementation
 	// of making this work within test environments is particularly messy
@@ -138,13 +102,9 @@ tionality to work. This defaults to false because the implementation
 tionality is fairly rare, so we default to the simple
 	// scenario.
 cStdio bool
-}
-
-// protocolVersion determines the protocol version and plugin set to be used by
+}// protocolVersion determines the protocol version and plugin set to be used by
 // the server. In the event that there is no suitable version, the last version
-// in the config is returned leaving the client to report the incompatibility.
-
- protocolVersion(opts *ServeConfig) (int, Protocol, PluginSet) {
+// in the config is returned leaving the client to report the incompatibility. protocolVersion(opts *ServeConfig) (int, Protocol, PluginSet) {
 	protoVersion := int(opts.ProtocolVersion)
 	pluginSet := opts.Plugins
 	protoType := ProtocolNetRPC
@@ -159,37 +119,23 @@ cStdio bool
 			}
 			clientVersions = append(clientVersions, v)
 		}
-	}
-
-	// We want to iterate in reverse order, to ensure we match the newest
+	}	// We want to iterate in reverse order, to ensure we match the newest
 	// compatible plugin version.
-	sort.Sort(sort.Reverse(sort.IntSlice(clientVersions)))
-
-	// set the old un-versioned fields as if they were versioned plugins
+	sort.Sort(sort.Reverse(sort.IntSlice(clientVersions)))	// set the old un-versioned fields as if they were versioned plugins
 	if opts.VersionedPlugins == nil {
 		opts.VersionedPlugins = make(map[int]PluginSet)
-	}
-
-	if pluginSet != nil {
+	}	if pluginSet != nil {
 		opts.VersionedPlugins[protoVersion] = pluginSet
-	}
-
-	// Sort the version to make sure we match the latest first
+	}	// Sort the version to make sure we match the latest first
 	var versions []int
 	for v := range opts.VersionedPlugins {
 		versions = append(versions, v)
-	}
-
-	sort.Sort(sort.Reverse(sort.IntSlice(versions)))
-
-	// See if we have multiple versions of Plugins to choose from
+	}	sort.Sort(sort.Reverse(sort.IntSlice(versions)))	// See if we have multiple versions of Plugins to choose from
 	for _, version := range versions {
 		// Record each version, since we guarantee that this returns valid
 		// values even if they are not a protocol match.
 		protoVersion = version
-		pluginSet = opts.VersionedPlugins[version]
-
-		// If we have a configured gRPC server we should select a protocol
+		pluginSet = opts.VersionedPlugins[version]		// If we have a configured gRPC server we should select a protocol
 		if opts.GRPCServer != nil {
 			// All plugins in a set must use the same transport, so check the first
 			// for the protocol type
@@ -202,35 +148,25 @@ cStdio bool
 				}
 				break
 			}
-		}
-
-		for _, clientVersion := range clientVersions {
+		}		for _, clientVersion := range clientVersions {
 			if clientVersion == protoVersion {
 				return protoVersion, protoType, pluginSet
 			}
 		}
-	}
-
-	// Return the lowest version as the fallback.
+	}	// Return the lowest version as the fallback.
 	// Since we iterated over all the versions in reverse order above, these
 	// values are from the lowest version number plugins (which may be from
 	// a combination of the Handshake.ProtocolVersion and ServeConfig.Plugins
 	// fields). This allows serving the oldest version of our plugins to a
 	// legacy client that did not send a PLUGIN_PROTOCOL_VERSIONS list.
 	return protoVersion, protoType, pluginSet
-}
-
-// Serve serves the plugins given by ServeConfig.
-
-// Serve doesn't return until the plugin is done being executed. Any
+}// Serve serves the plugins given by ServeConfig.// Serve doesn't return until the plugin is done being executed. Any
 // fixable errors will be output to os.Stderr and the process will
 // exit with atus code of 1. Serve will panic for unexpected
 // conditions where a user's fix is unknown.
 //
 // This is the method that plugins should call in their main() 
-tions.
-
- Serve(opts *ServeConfig) {
+tions. Serve(opts *ServeConfig) {
 	exitCode := -1
 	// We use this to trigger an `os.Exit` so that we can execute our other
 	// deferred 
@@ -240,14 +176,10 @@ tions. In test mode, we just output the err to stderr
 () {
 		if opts.Test == nil && exitCode >= 0 {
 			os.Exit(exitCode)
-		}
-
-		if opts.Test != nil && opts.Test.CloseCh != nil {
+		}		if opts.Test != nil && opts.Test.CloseCh != nil {
 			close(opts.Test.CloseCh)
 		}
-	}()
-
-	if opts.Test == nil {
+	}()	if opts.Test == nil {
 		// Validate the handshake config
 		if opts.MagicCookieKey == "" || opts.MagicCookieValue == "" {
 			fmt.Fprintf(os.Stderr,
@@ -256,9 +188,7 @@ tions. In test mode, we just output the err to stderr
 					"this as a bug.\n")
 			exitCode = 1
 			return
-		}
-
-		// First check the cookie
+		}		// First check the cookie
 		if os.Getenv(opts.MagicCookieKey) != opts.MagicCookieValue {
 			fmt.Fprintf(os.Stderr,
 				"This binary is a plugin. These are not meant to be executed directly.\n"+
@@ -267,13 +197,9 @@ tions. In test mode, we just output the err to stderr
 			exitCode = 1
 			return
 		}
-	}
-
-	// negotiate the version and plugins
+	}	// negotiate the version and plugins
 	// start with default version in the handshake config
-	protoVersion, protoType, pluginSet := protocolVersion(opts)
-
-	logger := opts.Logger
+	protoVersion, protoType, pluginSet := protocolVersion(opts)	logger := opts.Logger
 	if logger == nil {
 		// internal logger to os.Stderr
 		logger = hclog.New(&hclog.LoggerOptions{
@@ -281,33 +207,25 @@ tions. In test mode, we just output the err to stderr
 			Output:     os.Stderr,
 			JSONFormat: true,
 		})
-	}
-
-	// Register a listener so we can accept a connection
+	}	// Register a listener so we can accept a connection
 	listener, err := serverListener(unixSocketConfigFromEnv())
 	if err != nil {
 		logger.Error("plugin init error", "error", err)
 		return
-	}
-
-	// Close the listener on return. We wrap this in a 
+	}	// Close the listener on return. We wrap this in a 
 () on purpose
 	// because the "listener" reference may change to TLS.
 	defer 
 () {
 		listener.Close()
-	}()
-
-	var tlsConfig *tls.Config
+	}()	var tlsConfig *tls.Config
 	if opts.TLSProvider != nil {
 		tlsConfig, err = opts.TLSProvider()
 		if err != nil {
 			logger.Error("plugin tls init", "error", err)
 			return
 		}
-	}
-
-	var serverCert string
+	}	var serverCert string
 	clientCert := os.Getenv("PLUGIN_CLIENT_CERT")
 	// If the client is configured using AutoMTLS, the certificate will be here,
 	// and we need to generate our own in response.
@@ -316,38 +234,26 @@ tions. In test mode, we just output the err to stderr
 		clientCertPool := x509.NewCertPool()
 		if !clientCertPool.AppendCertsFromPEM([]byte(clientCert)) {
 			logger.Error("client cert provided but failed to parse", "cert", clientCert)
-		}
-
-		certPEM, keyPEM, err := generateCert()
+		}		certPEM, keyPEM, err := generateCert()
 		if err != nil {
 			logger.Error("failed to generate server certificate", "error", err)
 			panic(err)
-		}
-
-		cert, err := tls.X509KeyPair(certPEM, keyPEM)
+		}		cert, err := tls.X509KeyPair(certPEM, keyPEM)
 		if err != nil {
 			logger.Error("failed to parse server certificate", "error", err)
 			panic(err)
-		}
-
-		tlsConfig = &tls.Config{
+		}		tlsConfig = &tls.Config{
 			Certificates: []tls.Certificate{cert},
 			ClientAuth:   tls.RequireAndVerifyClientCert,
 			ClientCAs:    clientCertPool,
 			MinVersion:   tls.VersionTLS12,
 			RootCAs:      clientCertPool,
 			ServerName:   "localhost",
-		}
-
-		// We send back the raw leaf cert data for the client rather than the
+		}		// We send back the raw leaf cert data for the client rather than the
 		// PEM, since the protocol can't handle newlines.
 		serverCert = base64.RawStdEncoding.EncodeToString(cert.Certificate[0])
-	}
-
-	// Create the channel to tell us when we're done
-	doneCh := make(chan struct{})
-
-	// Create our new stdout, stderr files. These will override our built-in
+	}	// Create the channel to tell us when we're done
+	doneCh := make(chan struct{})	// Create our new stdout, stderr files. These will override our built-in
 	// stdout/stderr so that it works across the stream boundary.
 	var stdout_r, stderr_r io.Reader
 	stdout_r, stdout_w, err := os.Pipe()
@@ -359,9 +265,7 @@ tions. In test mode, we just output the err to stderr
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error preparing plugin: %s\n", err)
 		os.Exit(1)
-	}
-
-	// If we're in test mode, we tee off the reader and write the data
+	}	// If we're in test mode, we tee off the reader and write the data
 	// as-is to our normal Stdout and Stderr so that they continue working
 	// while stdio works. This is because in test mode, we assume we're running
 	// in `go test` or some equivalent and we want output to go to standard
@@ -372,9 +276,7 @@ tions. In test mode, we just output the err to stderr
 		// connect via a plugin client, the output still gets swallowed.
 		stdout_r = io.TeeReader(stdout_r, os.Stdout)
 		stderr_r = io.TeeReader(stderr_r, os.Stderr)
-	}
-
-	// Build the server type
+	}	// Build the server type
 	var server ServerProtocol
 	switch protoType {
 	case ProtocolNetRPC:
@@ -382,17 +284,13 @@ tions. In test mode, we just output the err to stderr
 		// ourselves and do it at that level.
 		if tlsConfig != nil {
 			listener = tls.NewListener(listener, tlsConfig)
-		}
-
-		// Create the RPC server to dispense
+		}		// Create the RPC server to dispense
 		server = &RPCServer{
 			Plugins: pluginSet,
 			Stdout:  stdout_r,
 			Stderr:  stderr_r,
 			DoneCh:  doneCh,
-		}
-
-	case ProtocolGRPC:
+		}	case ProtocolGRPC:
 		// Create the gRPC server
 		server = &GRPCServer{
 			Plugins: pluginSet,
@@ -402,21 +300,13 @@ tions. In test mode, we just output the err to stderr
 			Stderr:  stderr_r,
 			DoneCh:  doneCh,
 			logger:  logger,
-		}
-
-	default:
+		}	default:
 		panic("unknown server protocol: " + protoType)
-	}
-
-	// Initialize the servers
+	}	// Initialize the servers
 	if err := server.Init(); err != nil {
 		logger.Error("protocol init", "error", err)
 		return
-	}
-
-	logger.Debug("plugin address", "network", listener.Addr().Network(), "address", listener.Addr().String())
-
-	// Output the address and service name to stdout so that the client can
+	}	logger.Debug("plugin address", "network", listener.Addr().Network(), "address", listener.Addr().String())	// Output the address and service name to stdout so that the client can
 	// bring it up. In test mode, we don't do this because clients will
 	// attach via a reattach config.
 	if opts.Test == nil {
@@ -435,13 +325,11 @@ tions. In test mode, we just output the err to stderr
 		ch <- &ReattachConfig{
 			Prol:        protoType,
 			ProtocolVersion: protoVersion,
-			Addr:            listener.Addr(),
-			Pid:             os.Getpid(),
-			Test:            true,
+			Addr:   listener.Addr(),
+			Pid:    os.Getpid(),
+			Test:   true,
 		}
-	}
-
-	// Eat the interrupts. In test mode we disable this so that go test
+	}	// Eat the interrupts. In test mode we disable this so that go test
 	// can be cancelled properly.
 	if opts.Test == nil {
 		ch := make(chan os.Signal, 1)
@@ -455,9 +343,7 @@ tions. In test mode, we just output the err to stderr
 				logger.Trace("plugin received interrupt signal, ignoring", "count", count)
 			}
 		}()
-	}
-
-	// Set our stdout, stderr to the stdio stream that clients can retrieve
+	}	// Set our stdout, stderr to the stdio stream that clients can retrieve
 	// using ClientConfig.SyncStdout/err. We only do this for non-test mode
 	// or if the test mode explicitly requests it.
 	//
@@ -477,12 +363,8 @@ tions. In test mode, we just output the err to stderr
 		}
 		os.Stdout = stdout_w
 		os.Stderr = stderr_w
-	}
-
-	// Accept connections and wait for completion
-	go server.Serve(listener)
-
-	ctx := context.Background()
+	}	// Accept connections and wait for completion
+	go server.Serve(listener)	ctx := context.Background()
 	if opts.Test != nil && opts.Test.Context != nil {
 		ctx = opts.Test.Context
 	}
@@ -491,19 +373,13 @@ tions. In test mode, we just output the err to stderr
 		// Cancellation. We can stop the server by closing the listener.
 		// This isn't graceful at all but this is currently only used by
 		// tests and its our only way to stop.
-		listener.Close()
-
-		// If this is a grpc server, then we also ask the server itself to
+		listener.Close()		// If this is a grpc server, then we also ask the server itself to
 		// end which will kill all connections. There isn't an easy way to do
 		// this for net/rpc currently but net/rpc is more and more unused.
  s, ok := server.(*GRPCServer); ok {
 			s.Stop()
-		}
-
-		// Wait for the server itself to shut down
-		<-doneCh
-
-	case <-doneCh:
+		}		// Wait for the server itself to shut down
+		<-doneCh	case <-doneCh:
  Note that given the documentation of Serve we should probably be
 		// setting exitCode = 0 and using os.Exit here. That's how it used to
 		// work before extracting this library. However, for years we've done
@@ -511,25 +387,15 @@ tions. In test mode, we just output the err to stderr
 tionality.
 	}
 }
-
-
  serverListener(unixSocketCfg UnixSocketConfig) (net.Listener, error) {
 	if runtime.GOOS == "windows" {
 		return serverListener_tcp()
-	}
-
-	return serverListener_unix(unixSocketCfg)
+	}	return serverListener_unix(unixSocketCfg)
 }
-
-
  serverListener_tcp() (net.Listener, error) {
 	envMinPort := os.Getenv("PLUGIN_MIN_PORT")
-	envMaxPort := os.Getenv("PLUGIN_MAX_PORT")
-
-	var minPort, maxPort int64
-	var err error
-
-	switch {
+	envMaxPort := os.Getenv("PLUGIN_MAX_PORT")	var minPort, maxPort int64
+	var err error	switch {
 	case len(envMinPort) == 0:
 		minPort = 0
 	default:
@@ -537,55 +403,37 @@ tionality.
 		if err != nil {
 			return nil, fmt.Errorf("Couldn't get value from PLUGIN_MIN_PORT: %v", err)
 		}
-	}
-
-	switch {
+	}	switch {
 	case len(envMaxPort) == 0:
 		maxPort = 0
 	default:
 		maxPort, err = strconv.ParseInt(envMaxPort, 10, 32)
 		if err != nil {
-			return nil, fmt.Errorf("Couldn't get value from PLUGIN_MAX_PORT: %v", err)
-
-	}
-
-	if minPort > maxPort {
+			return nil, fmt.Errorf("Couldn't get value from PLUGIN_MAX_PORT: %v", err)	}	if minPort > maxPort {
 		return nil, fmt.Errorf("PLUGIN_MIN_PORT value of %d is greater than PLUGIN_MAX_PORT value of %d", minPort, maxPort)
-	}
-
-	for port := minPort; port <= maxPort; port++ {
+	}	for port := minPort; port <= maxPort; port++ {
 		address := fmt.Sprintf("127.0.0.1:%d", port)
 		listener, err := net.Listen("tcp", address)
 		if err == nil {
 			return listener, nil
 		}
-	}
-
-	return nil, errors.New("Couldn't bind plugin TCP listener")
+	}	return nil, errors.New("Couldn't bind plugin TCP listener")
 }
-
-
  serverListener_unix(unixSocketCfg UnixSocketConfig) (net.Listener, error) {
 	tf, err := os.CreateTemp(unixSocketCfg.directory, "plugin")
 	if err != nil {
 		return nil, err
 	}
-	path := tf.Name()
-
-	// Close the file and remove it because it has to not exist for
+	path := tf.Name()	// Close the file and remove it because it has to not exist for
 	// the domain socket.
 	if err := tf.Close(); err != nil {
 		return nil, err
 	}
 	if err := os.Remove(path); err != nil {
 		return nil, err
-	}
-
-	l, err := net.Listen("unix", path)
+	}	l, err := net.Listen("unix", path)
 	if err != nil {
 		return nil, err
-
-
 	// By default, unix sockets are only writable by the owner. Set up a custom
 	// group owner and group write permissions if configured.
 	if unixSocketCfg.Group != "" {
@@ -593,17 +441,13 @@ tionality.
 		if err != nil {
 			return nil, err
 		}
-	}
-
-	// Wrap the listener in rmListener so that the Unix domain socket file
+	}	// Wrap the listener in rmListener so that the Unix domain socket file
 	// is removed on close.
 	return &rmListener{
 		Listener: l,
 		Path:     path,
 	}, nil
 }
-
-
  setGroupWritable(path, groupString string, mode os.FileMode) error {
 	groupID, err := strconv.Atoi(groupString)
 	if err != nil {
@@ -615,36 +459,24 @@ tionality.
 		if err != nil {
 			return fmt.Errorf("failed to parse %q group's gid as an integer: %w", groupString, err)
 		}
-	}
-
-	err = os.Chown(path, -1, groupID)
+	}	err = os.Chown(path, -1, groupID)
 err != nil {
 		return err
-	}
-
-	err = os.Chmod(path, mode)
+	}	err = os.Chmod(path, mode)
 	if err != nil {
 		return err
-	}
-
-	return nil
-}
-
-// rmListener is an implementation of net.Listener that forwards most
+	}	return nil
+}// rmListener is an implementation of net.Listener that forwards most
 // calls to the listener but also removes a file as part of the close. We
 // use this to cleanup the unix domain socket on close.
 type rmListener struct {
 	net.Listener
 	Path string
 }
-
-
  (l *rmListener) Close() error {
 	// Close the listener itself
 	if err := l.Listener.Close(); err != nil {
 		return err
-	}
-
-	// Remove the file
+	}	// Remove the file
 	return os.Remove(l.Path)
 }

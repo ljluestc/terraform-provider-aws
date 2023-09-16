@@ -21,7 +21,6 @@ import (
 	tfwafv2 "github.com/hashicorp/terraform-provider-aws/internal/service/wafv2"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccWAFV2RuleGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -60,7 +59,6 @@ func TestAccWAFV2RuleGroup_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_nameGenerated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -89,7 +87,6 @@ func TestAccWAFV2RuleGroup_nameGenerated(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -118,7 +115,6 @@ func TestAccWAFV2RuleGroup_namePrefix(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_updateRule(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -172,7 +168,7 @@ func TestAccWAFV2RuleGroup_updateRule(t *testing.T) {
 						"action.0.count.#":     "1",
 						"action.0.captcha.#":   "0",
 						"action.0.challenge.#": "0",
-						"statement.#":          "1",
+						"statement.#": "1",
 						"statement.0.geo_match_statement.#": "1",
 						"statement.0.geo_match_statement.0.country_codes.#": "2",
 					}),
@@ -187,7 +183,6 @@ func TestAccWAFV2RuleGroup_updateRule(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -286,7 +281,7 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 						"statement.0.size_constraint_statement.0.field_to_match.#":   "1",
 						"statement.0.size_constraint_statement.0.field_to_match.0.query_string.#": "1",
 						"statement.0.size_constraint_statement.0.size":  "50",
-						"statement.0.size_constraint_statement.0.text_transformation.#":           "2",
+						"statement.0.size_constraint_statement.0.text_transformation.#":  "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*.statement.0.size_constraint_statement.0.text_transformation.*", map[string]string{
 						"priority": "2",
@@ -350,7 +345,7 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 						"statement.0.size_constraint_statement.0.field_to_match.#":   "1",
 						"statement.0.size_constraint_statement.0.field_to_match.0.query_string.#": "1",
 						"statement.0.size_constraint_statement.0.size":  "50",
-						"statement.0.size_constraint_statement.0.text_transformation.#":           "2",
+						"statement.0.size_constraint_statement.0.text_transformation.#":  "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*.statement.0.size_constraint_statement.0.text_transformation.*", map[string]string{
 						"priority": "2",
@@ -371,7 +366,6 @@ func TestAccWAFV2RuleGroup_updateRuleProperties(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_byteMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -391,10 +385,10 @@ func TestAccWAFV2RuleGroup_byteMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":           "1",
+						"statement.#":  "1",
 						"statement.0.byte_match_statement.#": "1",
 						"statement.0.byte_match_statement.0.positional_constraint": "CONTAINS",
-						"statement.0.byte_match_statement.0.search_string":         "word",
+						"statement.0.byte_match_statement.0.search_string":"word",
 						"statement.0.byte_match_statement.0.text_transformation.#": "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*.statement.0.byte_match_statement.0.text_transformation.*", map[string]string{
@@ -414,10 +408,10 @@ func TestAccWAFV2RuleGroup_byteMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":           "1",
+						"statement.#":  "1",
 						"statement.0.byte_match_statement.#": "1",
 						"statement.0.byte_match_statement.0.positional_constraint": "EXACTLY",
-						"statement.0.byte_match_statement.0.search_string":         "sentence",
+						"statement.0.byte_match_statement.0.search_string":"sentence",
 						"statement.0.byte_match_statement.0.text_transformation.#": "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*.statement.0.byte_match_statement.0.text_transformation.*", map[string]string{
@@ -435,7 +429,6 @@ func TestAccWAFV2RuleGroup_byteMatchStatement(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -464,8 +457,8 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
 						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#": "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":"0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "0",
 					}),
@@ -487,8 +480,8 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
 						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#": "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":"0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "0",
 					}),
@@ -504,21 +497,21 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.#":  "1",
 						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.body.#":"0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":          "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.match_scope":           "ALL",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#": "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.match_scope":  "ALL",
 						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.oversize_handling":     "NO_MATCH",
 						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.match_pattern.#":       "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.match_pattern.0.included_cookies.0": "test",
 						"statement.0.byte_match_statement.0.field_to_match.0.cookies.0.match_pattern.0.included_cookies.1": "cookie_test",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":          "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":        "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":     "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":    "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":         "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":"0",
 					}),
 				),
 			},
@@ -530,10 +523,10 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#":        "1",
-						"statement.0.byte_match_statement.#":           "1",
+						"statement.0.byte_match_statement.#":  "1",
 						"statement.0.byte_match_statement.0.field_to_match.#":       "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":        "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.match_scope":         "VALUE",
+						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.match_scope":"VALUE",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.invalid_fallback_behavior":        "MATCH",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.oversize_handling":   "CONTINUE",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.0.match_pattern.#":     "1",
@@ -553,22 +546,22 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.#":  "1",
 						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.body.#":"0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":          "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":          "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#": "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.oversize_handling":     "MATCH",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":           "ALL",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":  "ALL",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.#":       "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.all.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.included_headers.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.excluded_headers.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":        "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":     "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":    "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":         "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":"0",
 					}),
 				),
 			},
@@ -582,12 +575,12 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.#":  "1",
 						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.body.#":"0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":          "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":          "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#": "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.oversize_handling":     "MATCH",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":           "ALL",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":  "ALL",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.#":       "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.all.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.included_headers.#": "2",
@@ -595,11 +588,11 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.included_headers.1": "session-id",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.excluded_headers.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":        "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":     "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":    "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":         "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":"0",
 					}),
 				),
 			},
@@ -613,12 +606,12 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.#":  "1",
 						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.body.#":"0",
-						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":          "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":          "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#": "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.oversize_handling":     "MATCH",
-						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":           "ALL",
+						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_scope":  "ALL",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.#":       "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.all.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.excluded_headers.#": "2",
@@ -626,11 +619,11 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.excluded_headers.1": "session-id",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.0.match_pattern.0.included_headers.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":        "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.method.#":           "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.method.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":     "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":    "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":         "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#":"0",
+						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#":"0",
 					}),
 				),
 			},
@@ -654,8 +647,8 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
 						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#": "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":"0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "0",
 					}),
@@ -677,8 +670,8 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
 						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "1",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#": "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":"0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "0",
 					}),
@@ -700,8 +693,8 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
 						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "1",
+						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#": "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":"1",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_header.0.name":    "a-forty-character-long-header-name-40-40",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "0",
@@ -719,7 +712,7 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.0.byte_match_statement.#":     "1",
 						"statement.0.byte_match_statement.0.field_to_match.#": "1",
 						"statement.0.byte_match_statement.0.field_to_match.0.all_query_arguments.#":        "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.body.#":          "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.body.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.cookies.#":       "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":       "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":     "0",
@@ -748,8 +741,8 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 						"statement.0.byte_match_statement.0.field_to_match.0.headers.#":  "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.json_body.#":"0",
 						"statement.0.byte_match_statement.0.field_to_match.0.method.#":   "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#":          "0",
-						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":         "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.query_string.#": "0",
+						"statement.0.byte_match_statement.0.field_to_match.0.single_header.#":"0",
 						"statement.0.byte_match_statement.0.field_to_match.0.single_query_argument.#": "0",
 						"statement.0.byte_match_statement.0.field_to_match.0.uri_path.#": "1",
 					}),
@@ -764,7 +757,6 @@ func TestAccWAFV2RuleGroup_ByteMatchStatement_fieldToMatch(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_changeNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after wafv2.RuleGroup
@@ -813,7 +805,6 @@ func TestAccWAFV2RuleGroup_changeNameForceNew(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_changeCapacityForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after wafv2.RuleGroup
@@ -861,7 +852,6 @@ func TestAccWAFV2RuleGroup_changeCapacityForceNew(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_changeMetricNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after wafv2.RuleGroup
@@ -909,7 +899,6 @@ func TestAccWAFV2RuleGroup_changeMetricNameForceNew(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -933,7 +922,6 @@ func TestAccWAFV2RuleGroup_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_RuleLabels(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -979,7 +967,6 @@ func TestAccWAFV2RuleGroup_RuleLabels(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_geoMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1000,7 +987,7 @@ func TestAccWAFV2RuleGroup_geoMatchStatement(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#":      "1",
-						"statement.0.geo_match_statement.#":          "1",
+						"statement.0.geo_match_statement.#": "1",
 						"statement.0.geo_match_statement.0.country_codes.#":       "2",
 						"statement.0.geo_match_statement.0.country_codes.0":       "US",
 						"statement.0.geo_match_statement.0.country_codes.1":       "NL",
@@ -1016,7 +1003,7 @@ func TestAccWAFV2RuleGroup_geoMatchStatement(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#":      "1",
-						"statement.0.geo_match_statement.#":          "1",
+						"statement.0.geo_match_statement.#": "1",
 						"statement.0.geo_match_statement.0.country_codes.#":       "3",
 						"statement.0.geo_match_statement.0.country_codes.0":       "ZM",
 						"statement.0.geo_match_statement.0.country_codes.1":       "EE",
@@ -1034,7 +1021,6 @@ func TestAccWAFV2RuleGroup_geoMatchStatement(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_GeoMatchStatement_forwardedIP(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1054,11 +1040,11 @@ func TestAccWAFV2RuleGroup_GeoMatchStatement_forwardedIP(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":           "1",
+						"statement.#":  "1",
 						"statement.0.geo_match_statement.#":  "1",
-						"statement.0.geo_match_statement.0.country_codes.#":            "2",
-						"statement.0.geo_match_statement.0.country_codes.0":            "US",
-						"statement.0.geo_match_statement.0.country_codes.1":            "NL",
+						"statement.0.geo_match_statement.0.country_codes.#":   "2",
+						"statement.0.geo_match_statement.0.country_codes.0":   "US",
+						"statement.0.geo_match_statement.0.country_codes.1":   "NL",
 						"statement.0.geo_match_statement.0.forwarded_ip_config.#":      "1",
 						"statement.0.geo_match_statement.0.forwarded_ip_config.0.fallback_behavior": "MATCH",
 						"statement.0.geo_match_statement.0.forwarded_ip_config.0.header_name":       "X-Forwarded-For",
@@ -1072,11 +1058,11 @@ func TestAccWAFV2RuleGroup_GeoMatchStatement_forwardedIP(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":           "1",
+						"statement.#":  "1",
 						"statement.0.geo_match_statement.#":  "1",
-						"statement.0.geo_match_statement.0.country_codes.#":            "2",
-						"statement.0.geo_match_statement.0.country_codes.0":            "US",
-						"statement.0.geo_match_statement.0.country_codes.1":            "NL",
+						"statement.0.geo_match_statement.0.country_codes.#":   "2",
+						"statement.0.geo_match_statement.0.country_codes.0":   "US",
+						"statement.0.geo_match_statement.0.country_codes.1":   "NL",
 						"statement.0.geo_match_statement.0.forwarded_ip_config.#":      "1",
 						"statement.0.geo_match_statement.0.forwarded_ip_config.0.fallback_behavior": "NO_MATCH",
 						"statement.0.geo_match_statement.0.forwarded_ip_config.0.header_name":       "Updated",
@@ -1092,7 +1078,6 @@ func TestAccWAFV2RuleGroup_GeoMatchStatement_forwardedIP(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_LabelMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1142,7 +1127,6 @@ func TestAccWAFV2RuleGroup_LabelMatchStatement(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_ipSetReferenceStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1180,7 +1164,6 @@ func TestAccWAFV2RuleGroup_ipSetReferenceStatement(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_IPSetReferenceStatement_ipsetForwardedIP(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1210,7 +1193,7 @@ func TestAccWAFV2RuleGroup_IPSetReferenceStatement_ipsetForwardedIP(t *testing.T
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.#":      "1",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.fallback_behavior": "MATCH",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.header_name":       "X-Forwarded-For",
-						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.position":          "FIRST",
+						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.position": "FIRST",
 					}),
 				),
 			},
@@ -1231,7 +1214,7 @@ func TestAccWAFV2RuleGroup_IPSetReferenceStatement_ipsetForwardedIP(t *testing.T
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.#":      "1",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.fallback_behavior": "NO_MATCH",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.header_name":       "X-Forwarded-For",
-						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.position":          "LAST",
+						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.position": "LAST",
 					}),
 				),
 			},
@@ -1252,7 +1235,7 @@ func TestAccWAFV2RuleGroup_IPSetReferenceStatement_ipsetForwardedIP(t *testing.T
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.#":      "1",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.fallback_behavior": "MATCH",
 						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.header_name":       "Updated",
-						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.position":          "ANY",
+						"statement.0.ip_set_reference_statement.0.ip_set_forwarded_ip_config.0.position": "ANY",
 					}),
 				),
 			},
@@ -1281,7 +1264,6 @@ func TestAccWAFV2RuleGroup_IPSetReferenceStatement_ipsetForwardedIP(t *testing.T
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_logicalRuleStatements(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1339,8 +1321,8 @@ func TestAccWAFV2RuleGroup_logicalRuleStatements(t *testing.T) {
 						"statement.0.or_statement.0.statement.0.not_statement.#":"1",
 						"statement.0.or_statement.0.statement.0.not_statement.0.statement.#": "1",
 						"statement.0.or_statement.0.statement.0.not_statement.0.statement.0.geo_match_statement.#": "1",
-						"statement.0.or_statement.0.statement.1.and_statement.#":         "1",
-						"statement.0.or_statement.0.statement.1.and_statement.0.statement.#":          "2",
+						"statement.0.or_statement.0.statement.1.and_statement.#":"1",
+						"statement.0.or_statement.0.statement.1.and_statement.0.statement.#": "2",
 						"statement.0.or_statement.0.statement.1.and_statement.0.statement.0.geo_match_statement.#": "1",
 						"statement.0.or_statement.0.statement.1.and_statement.0.statement.1.geo_match_statement.#": "1",
 					}),
@@ -1355,7 +1337,6 @@ func TestAccWAFV2RuleGroup_logicalRuleStatements(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_minimal(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1387,7 +1368,6 @@ func TestAccWAFV2RuleGroup_minimal(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_regexMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1408,8 +1388,8 @@ func TestAccWAFV2RuleGroup_regexMatchStatement(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#":        "1",
-						"statement.0.regex_match_statement.#":          "1",
-						"statement.0.regex_match_statement.0.regex_string":          "[a-z]([a-z0-9_-]*[a-z0-9])?",
+						"statement.0.regex_match_statement.#": "1",
+						"statement.0.regex_match_statement.0.regex_string": "[a-z]([a-z0-9_-]*[a-z0-9])?",
 						"statement.0.regex_match_statement.0.field_to_match.#":      "1",
 						"statement.0.regex_match_statement.0.text_transformation.#": "1",
 					}),
@@ -1424,7 +1404,6 @@ func TestAccWAFV2RuleGroup_regexMatchStatement(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_regexPatternSetReferenceStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1445,7 +1424,7 @@ func TestAccWAFV2RuleGroup_regexPatternSetReferenceStatement(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#": "1",
-						"statement.0.regex_pattern_set_reference_statement.#":          "1",
+						"statement.0.regex_pattern_set_reference_statement.#": "1",
 						"statement.0.regex_pattern_set_reference_statement.0.field_to_match.#":      "1",
 						"statement.0.regex_pattern_set_reference_statement.0.text_transformation.#": "1",
 					}),
@@ -1463,7 +1442,6 @@ func TestAccWAFV2RuleGroup_regexPatternSetReferenceStatement(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_ruleAction(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1488,13 +1466,13 @@ func TestAccWAFV2RuleGroup_ruleAction(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"action.#":         "1",
+						"action.#":"1",
 						"action.0.allow.#": "1",
 						"action.0.allow.0.custom_request_handling.#": "0",
 						"action.0.block.#": "0",
 						"action.0.count.#": "0",
-						"action.0.captcha.#":            "0",
-						"action.0.challenge.#":          "0",
+						"action.0.captcha.#":   "0",
+						"action.0.challenge.#": "0",
 					}),
 				),
 			},
@@ -1532,13 +1510,13 @@ func TestAccWAFV2RuleGroup_ruleAction(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"action.#":         "1",
+						"action.#":"1",
 						"action.0.allow.#": "0",
 						"action.0.block.#": "0",
 						"action.0.count.#": "1",
 						"action.0.count.0.custom_request_handling.#": "0",
-						"action.0.captcha.#":            "0",
-						"action.0.challenge.#":          "0",
+						"action.0.captcha.#":   "0",
+						"action.0.challenge.#": "0",
 					}),
 				),
 			},
@@ -1551,7 +1529,6 @@ func TestAccWAFV2RuleGroup_ruleAction(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_RuleAction_customRequestHandling(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1576,9 +1553,9 @@ func TestAccWAFV2RuleGroup_RuleAction_customRequestHandling(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"action.#":         "1",
+						"action.#":"1",
 						"action.0.allow.#": "1",
-						"action.0.allow.0.custom_request_handling.#":          "1",
+						"action.0.allow.0.custom_request_handling.#": "1",
 						"action.0.allow.0.custom_request_handling.0.insert_header.#":       "2",
 						"action.0.allow.0.custom_request_handling.0.insert_header.0.name":  "x-hdr1",
 						"action.0.allow.0.custom_request_handling.0.insert_header.0.value": "test-val1",
@@ -1603,11 +1580,11 @@ func TestAccWAFV2RuleGroup_RuleAction_customRequestHandling(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"action.#":         "1",
+						"action.#":"1",
 						"action.0.allow.#": "0",
 						"action.0.block.#": "0",
 						"action.0.count.#": "1",
-						"action.0.count.0.custom_request_handling.#":          "1",
+						"action.0.count.0.custom_request_handling.#": "1",
 						"action.0.count.0.custom_request_handling.0.insert_header.#":       "2",
 						"action.0.count.0.custom_request_handling.0.insert_header.0.name":  "x-hdr1",
 						"action.0.count.0.custom_request_handling.0.insert_header.0.value": "test-val1",
@@ -1627,7 +1604,6 @@ func TestAccWAFV2RuleGroup_RuleAction_customRequestHandling(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1656,7 +1632,7 @@ func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 						"action.0.allow.#":      "0",
 						"action.0.block.#":      "1",
 						"action.0.block.0.custom_response.#": "1",
-						"action.0.block.0.custom_response.0.response_code":           "429",
+						"action.0.block.0.custom_response.0.response_code":  "429",
 						"action.0.block.0.custom_response.0.response_header.#":       "2",
 						"action.0.block.0.custom_response.0.response_header.0.name":  "x-hdr1",
 						"action.0.block.0.custom_response.0.response_header.0.value": "test-val1",
@@ -1679,12 +1655,12 @@ func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "scope", wafv2.ScopeRegional),
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "custom_response_body.*", map[string]string{
-						"key":          "test_body_1",
+						"key": "test_body_1",
 						"content":      "test response 1",
 						"content_type": "TEXT_PLAIN",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "custom_response_body.*", map[string]string{
-						"key":          "test_body_2",
+						"key": "test_body_2",
 						"content":      "<html><body>test response 2</body></html>",
 						"content_type": "TEXT_HTML",
 					}),
@@ -1694,7 +1670,7 @@ func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 						"action.0.allow.#":      "0",
 						"action.0.block.#":      "1",
 						"action.0.block.0.custom_response.#": "1",
-						"action.0.block.0.custom_response.0.response_code":            "429",
+						"action.0.block.0.custom_response.0.response_code":   "429",
 						"action.0.block.0.custom_response.0.custom_response_body_key": "test_body_1",
 						"action.0.count.#":     "0",
 						"action.0.captcha.#":   "0",
@@ -1714,12 +1690,12 @@ func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "visibility_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "custom_response_body.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "custom_response_body.*", map[string]string{
-						"key":          "test_body_1",
+						"key": "test_body_1",
 						"content":      "test response 1",
 						"content_type": "TEXT_PLAIN",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "custom_response_body.*", map[string]string{
-						"key":          "test_body_2",
+						"key": "test_body_2",
 						"content":      "<html><body>test response 2</body></html>",
 						"content_type": "TEXT_HTML",
 					}),
@@ -1729,7 +1705,7 @@ func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 						"action.0.allow.#":      "0",
 						"action.0.block.#":      "1",
 						"action.0.block.0.custom_response.#": "1",
-						"action.0.block.0.custom_response.0.response_code":            "429",
+						"action.0.block.0.custom_response.0.response_code":   "429",
 						"action.0.block.0.custom_response.0.custom_response_body_key": "test_body_2",
 						"action.0.count.#":     "0",
 						"action.0.captcha.#":   "0",
@@ -1746,7 +1722,6 @@ func TestAccWAFV2RuleGroup_RuleAction_customResponse(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_sizeConstraintStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1769,8 +1744,8 @@ func TestAccWAFV2RuleGroup_sizeConstraintStatement(t *testing.T) {
 						"statement.#": "1",
 						"statement.0.size_constraint_statement.#": "1",
 						"statement.0.size_constraint_statement.0.comparison_operator":       "GT",
-						"statement.0.size_constraint_statement.0.size":         "100",
-						"statement.0.size_constraint_statement.0.field_to_match.#":          "1",
+						"statement.0.size_constraint_statement.0.size":"100",
+						"statement.0.size_constraint_statement.0.field_to_match.#": "1",
 						"statement.0.size_constraint_statement.0.field_to_match.0.method.#": "1",
 						"statement.0.size_constraint_statement.0.text_transformation.#":     "1",
 					}),
@@ -1789,7 +1764,7 @@ func TestAccWAFV2RuleGroup_sizeConstraintStatement(t *testing.T) {
 						"statement.0.size_constraint_statement.0.size":  "50",
 						"statement.0.size_constraint_statement.0.field_to_match.#":   "1",
 						"statement.0.size_constraint_statement.0.field_to_match.0.query_string.#": "1",
-						"statement.0.size_constraint_statement.0.text_transformation.#":           "2",
+						"statement.0.size_constraint_statement.0.text_transformation.#":  "2",
 					}),
 				),
 			},
@@ -1802,7 +1777,6 @@ func TestAccWAFV2RuleGroup_sizeConstraintStatement(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_sqliMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1845,8 +1819,8 @@ func TestAccWAFV2RuleGroup_sqliMatchStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":         "1",
-						"statement.0.sqli_match_statement.#":            "1",
+						"statement.#":"1",
+						"statement.0.sqli_match_statement.#":   "1",
 						"statement.0.sqli_match_statement.0.field_to_match.#":        "1",
 						"statement.0.sqli_match_statement.0.field_to_match.0.body.#": "1",
 						"statement.0.sqli_match_statement.0.text_transformation.#":   "3",
@@ -1874,7 +1848,6 @@ func TestAccWAFV2RuleGroup_sqliMatchStatement(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1921,7 +1894,6 @@ func TestAccWAFV2RuleGroup_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_xssMatchStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -1942,7 +1914,7 @@ func TestAccWAFV2RuleGroup_xssMatchStatement(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#":        "1",
-						"statement.0.xss_match_statement.#":            "1",
+						"statement.0.xss_match_statement.#":   "1",
 						"statement.0.xss_match_statement.0.field_to_match.#":        "1",
 						"statement.0.xss_match_statement.0.field_to_match.0.body.#": "1",
 						"statement.0.xss_match_statement.0.text_transformation.#":   "1",
@@ -1961,7 +1933,7 @@ func TestAccWAFV2RuleGroup_xssMatchStatement(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
 						"statement.#":        "1",
-						"statement.0.xss_match_statement.#":            "1",
+						"statement.0.xss_match_statement.#":   "1",
 						"statement.0.xss_match_statement.0.field_to_match.#":        "1",
 						"statement.0.xss_match_statement.0.field_to_match.0.body.#": "1",
 						"statement.0.xss_match_statement.0.text_transformation.#":   "1",
@@ -1981,7 +1953,6 @@ func TestAccWAFV2RuleGroup_xssMatchStatement(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_rateBasedStatement(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -2016,13 +1987,13 @@ func TestAccWAFV2RuleGroup_rateBasedStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":           "1",
+						"statement.#":  "1",
 						"statement.0.rate_based_statement.#": "1",
-						"statement.0.rate_based_statement.0.aggregate_key_type":         "FORWARDED_IP",
+						"statement.0.rate_based_statement.0.aggregate_key_type":"FORWARDED_IP",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.#":      "1",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.0.fallback_behavior": "MATCH",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.0.header_name":       "X-Forwarded-For",
-						"statement.0.rate_based_statement.0.limit":         "50000",
+						"statement.0.rate_based_statement.0.limit":"50000",
 						"statement.0.rate_based_statement.0.scope_down_statement.#":     "0",
 					}),
 				),
@@ -2034,13 +2005,13 @@ func TestAccWAFV2RuleGroup_rateBasedStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":           "1",
+						"statement.#":  "1",
 						"statement.0.rate_based_statement.#": "1",
-						"statement.0.rate_based_statement.0.aggregate_key_type":         "FORWARDED_IP",
+						"statement.0.rate_based_statement.0.aggregate_key_type":"FORWARDED_IP",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.#":      "1",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.0.fallback_behavior": "NO_MATCH",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.0.header_name":       "Updated",
-						"statement.0.rate_based_statement.0.limit":         "50000",
+						"statement.0.rate_based_statement.0.limit":"50000",
 						"statement.0.rate_based_statement.0.scope_down_statement.#":     "0",
 					}),
 				),
@@ -2052,7 +2023,7 @@ func TestAccWAFV2RuleGroup_rateBasedStatement(t *testing.T) {
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "wafv2", regexache.MustCompile(`regional/rulegroup/.+$`)),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":           "1",
+						"statement.#":  "1",
 						"statement.0.rate_based_statement.#": "1",
 						"statement.0.rate_based_statement.0.aggregate_key_type":    "IP",
 						"statement.0.rate_based_statement.0.forwarded_ip_config.#": "0",
@@ -2074,7 +2045,6 @@ func TestAccWAFV2RuleGroup_rateBasedStatement(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_RateBased_maxNested(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -2095,7 +2065,7 @@ func TestAccWAFV2RuleGroup_RateBased_maxNested(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "name", ruleGroupName),
 					resource.TestCheckResourceAttr(resourceName, "rule.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule.*", map[string]string{
-						"statement.#":           "1",
+						"statement.#":  "1",
 						"statement.0.rate_based_statement.#": "1",
 						"statement.0.rate_based_statement.0.limit":        "300",
 						"statement.0.rate_based_statement.0.aggregate_key_type":        "IP",
@@ -2106,7 +2076,7 @@ func TestAccWAFV2RuleGroup_RateBased_maxNested(t *testing.T) {
 						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.0.statement.#": "3",
 						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.0.statement.0.regex_pattern_set_reference_statement.#": "1",
 						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.0.statement.1.regex_match_statement.#":    "1",
-						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.0.statement.2.ip_set_reference_statement.#":            "1",
+						"statement.0.rate_based_statement.0.scope_down_statement.0.not_statement.0.statement.0.or_statement.0.statement.2.ip_set_reference_statement.#":   "1",
 					}),
 				),
 			},
@@ -2119,7 +2089,6 @@ func TestAccWAFV2RuleGroup_RateBased_maxNested(t *testing.T) {
 		},
 	})
 }
-
 func TestAccWAFV2RuleGroup_Operators_maxNested(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v wafv2.RuleGroup
@@ -2149,8 +2118,8 @@ func TestAccWAFV2RuleGroup_Operators_maxNested(t *testing.T) {
 						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.0.statement.#": "3",
 						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.0.statement.0.regex_pattern_set_reference_statement.#": "1",
 						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.0.statement.1.regex_match_statement.#":    "1",
-						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.0.statement.2.ip_set_reference_statement.#":            "1",
-						"statement.0.and_statement.0.statement.1.geo_match_statement.#":         "1",
+						"statement.0.and_statement.0.statement.0.not_statement.0.statement.0.or_statement.0.statement.2.ip_set_reference_statement.#":   "1",
+						"statement.0.and_statement.0.statement.1.geo_match_statement.#":"1",
 						"statement.0.and_statement.0.statement.1.geo_match_statement.0.country_codes.0":      "NL",
 					}),
 				),
@@ -2164,7 +2133,6 @@ func TestAccWAFV2RuleGroup_Operators_maxNested(t *testing.T) {
 		},
 	})
 }
-
 func testAccPreCheckScopeRegional(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -2182,7 +2150,6 @@ func testAccPreCheckScopeRegional(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccCheckRuleGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -2208,7 +2175,6 @@ func testAccCheckRuleGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckRuleGroupExists(ctx context.Context, n string, v *wafv2.RuleGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -2229,7 +2195,6 @@ func testAccCheckRuleGroupExists(ctx context.Context, n string, v *wafv2.RuleGro
 		return nil
 	}
 }
-
 func testAccRuleGroupImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -2240,7 +2205,6 @@ func testAccRuleGroupImportStateIdFunc(resourceName string) resource.ImportState
 		return fmt.Sprintf("%s/%s/%s", rs.Primary.ID, rs.Primary.Attributes["name"], rs.Primary.Attributes["scope"]), nil
 	}
 }
-
 func testAccRuleGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2257,7 +2221,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_namePrefix(namePrefix string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2274,7 +2237,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, namePrefix)
 }
-
 func testAccRuleGroupConfig_nameGenerated() string {
 	return `
 resource "aws_wafv2_rule_group" "test" {
@@ -2290,7 +2252,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `
 }
-
 func testAccRuleGroupConfig_basicUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2328,7 +2289,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_updateMultiples(rName string, ruleName1, ruleName2 string, priority1, priority2 int) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2372,17 +2332,17 @@ resource "aws_wafv2_rule_group" "test" {
         size   = 50
 
         field_to_match {
-          query_string {}
+ query_string {}
         }
 
         text_transformation {
-          priority = 5
-          type     = "NONE"
+ priority = 5
+ type     = "NONE"
         }
 
         text_transformation {
-          priority = 2
-          type     = "CMD_LINE"
+ priority = 2
+ type     = "CMD_LINE"
         }
       }
     }
@@ -2402,7 +2362,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName, ruleName1, priority1, ruleName2, priority2)
 }
-
 func testAccRuleGroupConfig_updateCapacity(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2419,7 +2378,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_updateMetricName(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2436,7 +2394,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_minimal(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2452,7 +2409,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_actionAllow(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2489,7 +2445,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_actionAllowCustomRequestHandling(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2504,15 +2459,15 @@ resource "aws_wafv2_rule_group" "test" {
     action {
       allow {
         custom_request_handling {
-          insert_header {
-            name  = "x-hdr1"
-            value = "test-val1"
-          }
+ insert_header {
+   name  = "x-hdr1"
+   value = "test-val1"
+ }
 
-          insert_header {
-            name  = "x-hdr2"
-            value = "test-val2"
-          }
+ insert_header {
+   name  = "x-hdr2"
+   value = "test-val2"
+ }
         }
       }
     }
@@ -2538,7 +2493,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_actionBlock(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2575,7 +2529,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_actionBlockCustomResponse(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2590,16 +2543,16 @@ resource "aws_wafv2_rule_group" "test" {
     action {
       block {
         custom_response {
-          response_code = 429
-          response_header {
-            name  = "x-hdr1"
-            value = "test-val1"
-          }
+ response_code = 429
+ response_header {
+   name  = "x-hdr1"
+   value = "test-val1"
+ }
 
-          response_header {
-            name  = "x-hdr2"
-            value = "test-val2"
-          }
+ response_header {
+   name  = "x-hdr2"
+   value = "test-val2"
+ }
         }
       }
     }
@@ -2625,7 +2578,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_actionBlockCustomResponseBody(rName string, customBodyKey string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2633,12 +2585,12 @@ resource "aws_wafv2_rule_group" "test" {
   name     = %[1]q
   scope    = "REGIONAL"
   custom_response_body {
-    key          = "test_body_1"
+    key = "test_body_1"
     content      = "test response 1"
     content_type = "TEXT_PLAIN"
   }
   custom_response_body {
-    key          = "test_body_2"
+    key = "test_body_2"
     content      = "<html><body>test response 2</body></html>"
     content_type = "TEXT_HTML"
   }
@@ -2648,8 +2600,8 @@ resource "aws_wafv2_rule_group" "test" {
     action {
       block {
         custom_response {
-          response_code            = 429
-          custom_response_body_key = %[2]q
+ response_code   = 429
+ custom_response_body_key = %[2]q
         }
       }
     }
@@ -2672,7 +2624,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName, customBodyKey)
 }
-
 func testAccRuleGroupConfig_actionCount(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2709,7 +2660,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_actionCountCustomRequestHandling(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2724,15 +2674,15 @@ resource "aws_wafv2_rule_group" "test" {
     action {
       count {
         custom_request_handling {
-          insert_header {
-            name  = "x-hdr1"
-            value = "test-val1"
-          }
+ insert_header {
+   name  = "x-hdr1"
+   value = "test-val1"
+ }
 
-          insert_header {
-            name  = "x-hdr2"
-            value = "test-val2"
-          }
+ insert_header {
+   name  = "x-hdr2"
+   value = "test-val2"
+ }
         }
       }
     }
@@ -2758,7 +2708,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatement(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2777,20 +2726,20 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          all_query_arguments {}
+ all_query_arguments {}
         }
 
         text_transformation {
-          priority = 5
-          type     = "NONE"
+ priority = 5
+ type     = "NONE"
         }
 
         text_transformation {
-          priority = 2
-          type     = "LOWERCASE"
+ priority = 2
+ type     = "LOWERCASE"
         }
       }
     }
@@ -2810,7 +2759,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2829,15 +2777,15 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "EXACTLY"
-        search_string         = "sentence"
+        search_string= "sentence"
 
         field_to_match {
-          all_query_arguments {}
+ all_query_arguments {}
         }
 
         text_transformation {
-          priority = 3
-          type     = "CMD_LINE"
+ priority = 3
+ type     = "CMD_LINE"
         }
       }
     }
@@ -2857,7 +2805,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchAllQueryArguments(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2876,15 +2823,15 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          all_query_arguments {}
+ all_query_arguments {}
         }
 
         text_transformation {
-          priority = 5
-          type     = "NONE"
+ priority = 5
+ type     = "NONE"
         }
       }
     }
@@ -2904,7 +2851,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchBody(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2923,15 +2869,15 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          body {}
+ body {}
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -2951,7 +2897,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchJSONBody(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -2970,22 +2915,22 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "Clifford"
+        search_string= "Clifford"
 
         field_to_match {
-          json_body {
-            match_scope  = "VALUE"
-            invalid_fallback_behavior = "MATCH"
-            oversize_handling         = "CONTINUE"
-            match_pattern {
+ json_body {
+   match_scope  = "VALUE"
+   invalid_fallback_behavior = "MATCH"
+   oversize_handling= "CONTINUE"
+   match_pattern {
  included_paths = ["/dogs/0/name", "/dogs/1/name"]
-            }
-          }
+   }
+ }
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -3005,7 +2950,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchHeadersInvalidConfiguration(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3024,20 +2968,20 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          headers {
-            match_scope = "ALL"
-            match_pattern {
+ headers {
+   match_scope = "ALL"
+   match_pattern {
  all {}
-            }
-          }
+   }
+ }
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -3057,7 +3001,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchHeadersMatchPatternAll(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3076,21 +3019,21 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          headers {
-            match_scope = "ALL"
-            match_pattern {
+ headers {
+   match_scope = "ALL"
+   match_pattern {
  all {}
-            }
-            oversize_handling = "MATCH"
-          }
+   }
+   oversize_handling = "MATCH"
+ }
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -3110,7 +3053,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchHeadersMatchPatternIncludedHeaders(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3129,21 +3071,21 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          headers {
-            match_scope = "ALL"
-            match_pattern {
+ headers {
+   match_scope = "ALL"
+   match_pattern {
  included_headers = ["session", "session-id"]
-            }
-            oversize_handling = "MATCH"
-          }
+   }
+   oversize_handling = "MATCH"
+ }
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -3163,7 +3105,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchHeadersMatchPatternExcludedHeaders(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3182,21 +3123,21 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          headers {
-            match_scope = "ALL"
-            match_pattern {
+ headers {
+   match_scope = "ALL"
+   match_pattern {
  excluded_headers = ["session", "session-id"]
-            }
-            oversize_handling = "MATCH"
-          }
+   }
+   oversize_handling = "MATCH"
+ }
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -3216,7 +3157,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchMethod(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3235,15 +3175,15 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          method {}
+ method {}
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -3263,7 +3203,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchQueryString(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3282,15 +3221,15 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          query_string {}
+ query_string {}
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -3310,7 +3249,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchCookies(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3329,21 +3267,21 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          cookies {
-            match_pattern {
+ cookies {
+   match_pattern {
  included_cookies = ["test", "cookie_test"]
-            }
-            match_scope       = "ALL"
-            oversize_handling = "NO_MATCH"
-          }
+   }
+   match_scope       = "ALL"
+   oversize_handling = "NO_MATCH"
+ }
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -3363,7 +3301,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchSingleHeader(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3382,17 +3319,17 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          single_header {
-            name = "a-forty-character-long-header-name-40-40"
-          }
+ single_header {
+   name = "a-forty-character-long-header-name-40-40"
+ }
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -3412,7 +3349,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchSingleQueryArgument(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3431,17 +3367,17 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          single_query_argument {
-            name = "a-max-30-characters-long-name-"
-          }
+ single_query_argument {
+   name = "a-max-30-characters-long-name-"
+ }
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -3461,7 +3397,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_byteMatchStatementFieldToMatchURIPath(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3480,15 +3415,15 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       byte_match_statement {
         positional_constraint = "CONTAINS"
-        search_string         = "word"
+        search_string= "word"
 
         field_to_match {
-          uri_path {}
+ uri_path {}
         }
 
         text_transformation {
-          priority = 1
-          type     = "NONE"
+ priority = 1
+ type     = "NONE"
         }
       }
     }
@@ -3508,14 +3443,13 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_ipsetReferenceStatement(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "test" {
   name  = "ip-set-%[1]s"
   scope = "REGIONAL"
   ip_address_version = "IPV4"
-  addresses          = ["1.1.1.1/32", "2.2.2.2/32"]
+  addresses = ["1.1.1.1/32", "2.2.2.2/32"]
 }
 
 resource "aws_wafv2_rule_group" "test" {
@@ -3552,14 +3486,13 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_ipsetReferenceStatementIPSetForwardedIP(rName, fallbackBehavior, headerName, position string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "test" {
   name  = "ip-set-%[1]s"
   scope = "REGIONAL"
   ip_address_version = "IPV4"
-  addresses          = ["1.1.1.1/32", "2.2.2.2/32"]
+  addresses = ["1.1.1.1/32", "2.2.2.2/32"]
 }
 
 resource "aws_wafv2_rule_group" "test" {
@@ -3579,9 +3512,9 @@ resource "aws_wafv2_rule_group" "test" {
       ip_set_reference_statement {
         arn = aws_wafv2_ip_set.test.arn
         ip_set_forwarded_ip_config {
-          fallback_behavior = %[2]q
-          header_name       = %[3]q
-          position          = %[4]q
+ fallback_behavior = %[2]q
+ header_name       = %[3]q
+ position = %[4]q
         }
       }
     }
@@ -3601,7 +3534,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName, fallbackBehavior, headerName, position)
 }
-
 func testAccRuleGroupConfig_geoMatchStatement(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3638,7 +3570,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_geoMatchStatementForwardedIP(rName, fallbackBehavior, headerName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3658,8 +3589,8 @@ resource "aws_wafv2_rule_group" "test" {
       geo_match_statement {
         country_codes = ["US", "NL"]
         forwarded_ip_config {
-          fallback_behavior = %[2]q
-          header_name       = %[3]q
+ fallback_behavior = %[2]q
+ header_name       = %[3]q
         }
       }
     }
@@ -3679,7 +3610,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName, fallbackBehavior, headerName)
 }
-
 func testAccRuleGroupConfig_geoMatchStatementUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3716,7 +3646,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_labelMatchStatement(rName string, scope string, key string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3749,7 +3678,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName, scope, key)
 }
-
 func testAccRuleGroupConfig_labels(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3787,7 +3715,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_noLabels(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3819,7 +3746,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_logicalStatementAnd(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3838,15 +3764,15 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       and_statement {
         statement {
-          geo_match_statement {
-            country_codes = ["US"]
-          }
+ geo_match_statement {
+   country_codes = ["US"]
+ }
         }
 
         statement {
-          geo_match_statement {
-            country_codes = ["NL"]
-          }
+ geo_match_statement {
+   country_codes = ["NL"]
+ }
         }
       }
     }
@@ -3866,7 +3792,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_logicalStatementNotAnd(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3885,19 +3810,19 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       not_statement {
         statement {
-          and_statement {
-            statement {
+ and_statement {
+   statement {
  geo_match_statement {
    country_codes = ["US"]
  }
-            }
+   }
 
-            statement {
+   statement {
  geo_match_statement {
    country_codes = ["NL"]
  }
-            }
-          }
+   }
+ }
         }
       }
     }
@@ -3917,7 +3842,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_logicalStatementOrNotAnd(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3936,29 +3860,29 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       or_statement {
         statement {
-          not_statement {
-            statement {
+ not_statement {
+   statement {
  geo_match_statement {
    country_codes = ["DE"]
  }
-            }
-          }
+   }
+ }
         }
 
         statement {
-          and_statement {
-            statement {
+ and_statement {
+   statement {
  geo_match_statement {
    country_codes = ["US"]
  }
-            }
+   }
 
-            statement {
+   statement {
  geo_match_statement {
    country_codes = ["NL"]
  }
-            }
-          }
+   }
+ }
         }
       }
     }
@@ -3978,7 +3902,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_regexMatchStatement(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -3999,12 +3922,12 @@ resource "aws_wafv2_rule_group" "test" {
         regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
 
         field_to_match {
-          body {}
+ body {}
         }
 
         text_transformation {
-          priority = 2
-          type     = "NONE"
+ priority = 2
+ type     = "NONE"
         }
       }
     }
@@ -4024,7 +3947,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_regexPatternSetReferenceStatement(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
@@ -4054,12 +3976,12 @@ resource "aws_wafv2_rule_group" "test" {
         arn = aws_wafv2_regex_pattern_set.test.arn
 
         field_to_match {
-          body {}
+ body {}
         }
 
         text_transformation {
-          priority = 2
-          type     = "NONE"
+ priority = 2
+ type     = "NONE"
         }
       }
     }
@@ -4079,7 +4001,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_sizeConstraintStatement(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -4101,12 +4022,12 @@ resource "aws_wafv2_rule_group" "test" {
         size   = 100
 
         field_to_match {
-          method {}
+ method {}
         }
 
         text_transformation {
-          priority = 5
-          type     = "NONE"
+ priority = 5
+ type     = "NONE"
         }
       }
     }
@@ -4126,7 +4047,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_sizeConstraintStatementUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -4148,17 +4068,17 @@ resource "aws_wafv2_rule_group" "test" {
         size   = 50
 
         field_to_match {
-          query_string {}
+ query_string {}
         }
 
         text_transformation {
-          priority = 5
-          type     = "NONE"
+ priority = 5
+ type     = "NONE"
         }
 
         text_transformation {
-          priority = 2
-          type     = "CMD_LINE"
+ priority = 2
+ type     = "CMD_LINE"
         }
       }
     }
@@ -4178,7 +4098,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_sqliMatchStatement(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -4197,17 +4116,17 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       sqli_match_statement {
         field_to_match {
-          all_query_arguments {}
+ all_query_arguments {}
         }
 
         text_transformation {
-          priority = 5
-          type     = "URL_DECODE"
+ priority = 5
+ type     = "URL_DECODE"
         }
 
         text_transformation {
-          priority = 2
-          type     = "LOWERCASE"
+ priority = 2
+ type     = "LOWERCASE"
         }
       }
     }
@@ -4227,7 +4146,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_sqliMatchStatementUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -4246,22 +4164,22 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       sqli_match_statement {
         field_to_match {
-          body {}
+ body {}
         }
 
         text_transformation {
-          priority = 5
-          type     = "URL_DECODE"
+ priority = 5
+ type     = "URL_DECODE"
         }
 
         text_transformation {
-          priority = 4
-          type     = "HTML_ENTITY_DECODE"
+ priority = 4
+ type     = "HTML_ENTITY_DECODE"
         }
 
         text_transformation {
-          priority = 3
-          type     = "COMPRESS_WHITE_SPACE"
+ priority = 3
+ type     = "COMPRESS_WHITE_SPACE"
         }
       }
     }
@@ -4281,7 +4199,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_xssMatchStatement(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -4300,12 +4217,12 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       xss_match_statement {
         field_to_match {
-          body {}
+ body {}
         }
 
         text_transformation {
-          priority = 2
-          type     = "NONE"
+ priority = 2
+ type     = "NONE"
         }
       }
     }
@@ -4325,7 +4242,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_xssMatchStatementUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -4344,12 +4260,12 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       xss_match_statement {
         field_to_match {
-          body {}
+ body {}
         }
 
         text_transformation {
-          priority = 2
-          type     = "URL_DECODE"
+ priority = 2
+ type     = "URL_DECODE"
         }
       }
     }
@@ -4369,7 +4285,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_rateBasedStatement(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -4406,7 +4321,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_rateBasedStatement_forwardedIPConfig(rName, fallbackBehavior, headerName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -4426,8 +4340,8 @@ resource "aws_wafv2_rule_group" "test" {
       rate_based_statement {
         aggregate_key_type = "FORWARDED_IP"
         forwarded_ip_config {
-          fallback_behavior = %[2]q
-          header_name       = %[3]q
+ fallback_behavior = %[2]q
+ header_name       = %[3]q
         }
         limit = 50000
       }
@@ -4448,7 +4362,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName, fallbackBehavior, headerName)
 }
-
 func testAccRuleGroupConfig_rateBasedStatement_update(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -4470,9 +4383,9 @@ resource "aws_wafv2_rule_group" "test" {
         aggregate_key_type = "IP"
 
         scope_down_statement {
-          geo_match_statement {
-            country_codes = ["US", "NL"]
-          }
+ geo_match_statement {
+   country_codes = ["US", "NL"]
+ }
         }
       }
     }
@@ -4492,7 +4405,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -4513,7 +4425,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccRuleGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_rule_group" "test" {
@@ -4535,7 +4446,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccRuleGroupConfig_multipleNestedRateBasedStatements(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
@@ -4551,7 +4461,7 @@ resource "aws_wafv2_ip_set" "test" {
   name  = %[1]q
   scope = "REGIONAL"
   ip_address_version = "IPV4"
-  addresses          = ["1.2.3.4/32", "5.6.7.8/32"]
+  addresses = ["1.2.3.4/32", "5.6.7.8/32"]
 }
 
 resource "aws_wafv2_rule_group" "test" {
@@ -4574,20 +4484,20 @@ resource "aws_wafv2_rule_group" "test" {
         aggregate_key_type = "IP"
 
         scope_down_statement {
-          not_statement {
-            statement {
+ not_statement {
+   statement {
  or_statement {
    statement {
      regex_pattern_set_reference_statement {
        arn = aws_wafv2_regex_pattern_set.test.arn
 
        field_to_match {
-         uri_path {}
+uri_path {}
        }
 
        text_transformation {
-         type     = "LOWERCASE"
-         priority = 1
+type     = "LOWERCASE"
+priority = 1
        }
      }
    }
@@ -4597,12 +4507,12 @@ resource "aws_wafv2_rule_group" "test" {
        regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
 
        field_to_match {
-         uri_path {}
+uri_path {}
        }
 
        text_transformation {
-         type     = "LOWERCASE"
-         priority = 1
+type     = "LOWERCASE"
+priority = 1
        }
      }
    }
@@ -4613,8 +4523,8 @@ resource "aws_wafv2_rule_group" "test" {
      }
    }
  }
-            }
-          }
+   }
+ }
         }
       }
     }
@@ -4634,7 +4544,6 @@ resource "aws_wafv2_rule_group" "test" {
 }
 `, rName)
 }
-
 func testAccRuleGroupConfig_multipleNestedOperatorStatements(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_regex_pattern_set" "test" {
@@ -4650,7 +4559,7 @@ resource "aws_wafv2_ip_set" "test" {
   name  = %[1]q
   scope = "REGIONAL"
   ip_address_version = "IPV4"
-  addresses          = ["1.2.3.4/32", "5.6.7.8/32"]
+  addresses = ["1.2.3.4/32", "5.6.7.8/32"]
 }
 
 resource "aws_wafv2_rule_group" "test" {
@@ -4670,20 +4579,20 @@ resource "aws_wafv2_rule_group" "test" {
     statement {
       and_statement {
         statement {
-          not_statement {
-            statement {
+ not_statement {
+   statement {
  or_statement {
    statement {
      regex_pattern_set_reference_statement {
        arn = aws_wafv2_regex_pattern_set.test.arn
 
        field_to_match {
-         uri_path {}
+uri_path {}
        }
 
        text_transformation {
-         type     = "LOWERCASE"
-         priority = 1
+type     = "LOWERCASE"
+priority = 1
        }
      }
    }
@@ -4693,12 +4602,12 @@ resource "aws_wafv2_rule_group" "test" {
        regex_string = "[a-z]([a-z0-9_-]*[a-z0-9])?"
 
        field_to_match {
-         uri_path {}
+uri_path {}
        }
 
        text_transformation {
-         type     = "LOWERCASE"
-         priority = 1
+type     = "LOWERCASE"
+priority = 1
        }
      }
    }
@@ -4709,14 +4618,14 @@ resource "aws_wafv2_rule_group" "test" {
      }
    }
  }
-            }
-          }
+   }
+ }
         }
 
         statement {
-          geo_match_statement {
-            country_codes = ["NL"]
-          }
+ geo_match_statement {
+   country_codes = ["NL"]
+ }
         }
       }
     }

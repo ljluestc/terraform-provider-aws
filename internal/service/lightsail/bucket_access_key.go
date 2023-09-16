@@ -43,7 +43,7 @@ func ResourceBucketAccessKey() *schema.Resource {
 				Computed: true,
 			},
 			"bucket_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9a-z][0-9a-z-]{1,52}[0-9a-z]$`), "Invalid Bucket name. Must match regex: ^[0-9a-z][0-9a-z-]{1,52}[0-9a-z]$"),
@@ -63,7 +63,6 @@ func ResourceBucketAccessKey() *schema.Resource {
 		},
 	}
 }
-
 func resourceBucketAccessKeyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -95,7 +94,6 @@ func resourceBucketAccessKeyCreate(ctx context.Context, d *schema.ResourceData, 
 
 	return resourceBucketAccessKeyRead(ctx, d, meta)
 }
-
 func resourceBucketAccessKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -118,7 +116,6 @@ func resourceBucketAccessKeyRead(ctx context.Context, d *schema.ResourceData, me
 
 	return nil
 }
-
 func resourceBucketAccessKeyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	parts, err := flex.ExpandResourceId(d.Id(), BucketAccessKeyIdPartsCount, false)
@@ -148,7 +145,6 @@ func resourceBucketAccessKeyDelete(ctx context.Context, d *schema.ResourceData, 
 
 	return nil
 }
-
 func FindBucketAccessKeyById(ctx context.Context, conn *lightsail.Client, id string) (*types.AccessKey, error) {
 	parts, err := flex.ExpandResourceId(id, BucketAccessKeyIdPartsCount, false)
 

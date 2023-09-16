@@ -56,8 +56,8 @@ func TestAccEvidentlyProject_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -108,8 +108,8 @@ func TestAccEvidentlyProject_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -122,8 +122,8 @@ func TestAccEvidentlyProject_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -169,8 +169,8 @@ func TestAccEvidentlyProject_updateDataDeliveryCloudWatchLogGroup(t *testing.T) 
 					resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.cloudwatch_logs.0.log_group", "aws_cloudwatch_log_group.test", "name")),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -217,8 +217,8 @@ func TestAccEvidentlyProject_updateDataDeliveryS3Bucket(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -268,8 +268,8 @@ func TestAccEvidentlyProject_updateDataDeliveryS3Prefix(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -316,8 +316,8 @@ func TestAccEvidentlyProject_updateDataDeliveryCloudWatchToS3(t *testing.T) {
 					resource.TestCheckResourceAttrPair(resourceName, "data_delivery.0.cloudwatch_logs.0.log_group", "aws_cloudwatch_log_group.test", "name")),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -343,7 +343,7 @@ func TestAccEvidentlyProject_disappears(t *testing.T) {
 	resourceName := "aws_evidently_project.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckProjectDestroy(ctx),
@@ -414,11 +414,11 @@ func testAccCheckProjectExists(ctx context.Context, n string, v *cloudwatchevide
 func testAccProjectConfig_basic(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_project" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = %[2]q
 
   tags = {
-    "Key1" = "Test Project"
+"Key1" = "Test Project"
   }
 }
 `, rName, description)
@@ -427,12 +427,12 @@ resource "aws_evidently_project" "test" {
 func testAccProjectConfig_tags1(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_project" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = %[2]q
 
   tags = {
-    "Key1" = "Test Project"
-    "Key2" = "Value2a"
+"Key1" = "Test Project"
+"Key2" = "Value2a"
   }
 }
 `, rName, description)
@@ -441,13 +441,13 @@ resource "aws_evidently_project" "test" {
 func testAccProjectConfig_tags2(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_project" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = %[2]q
 
   tags = {
-    "Key1" = "Test Project"
-    "Key2" = "Value2b"
-    "Key3" = "Value3"
+"Key1" = "Test Project"
+"Key2" = "Value2b"
+"Key3" = "Value3"
   }
 }
 `, rName, description)
@@ -456,12 +456,12 @@ resource "aws_evidently_project" "test" {
 func testAccProjectBaseConfig(rName, rName2, rName3, rName4 string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket= %[1]q
   force_destroy = true
 }
 
 resource "aws_s3_bucket" "test2" {
-  bucket        = %[2]q
+  bucket= %[2]q
   force_destroy = true
 }
 
@@ -487,9 +487,9 @@ resource "aws_evidently_project" "test" {
   name = %[1]q
 
   data_delivery {
-    cloudwatch_logs {
-      log_group = local.select_log_group == "first" ? aws_cloudwatch_log_group.test.name : aws_cloudwatch_log_group.test2.name
-    }
+cloudwatch_logs {
+  log_group = local.select_log_group == "first" ? aws_cloudwatch_log_group.test.name : aws_cloudwatch_log_group.test2.name
+}
   }
 }
 `, rName5, selectLogGroup))
@@ -507,10 +507,10 @@ resource "aws_evidently_project" "test" {
   name = %[1]q
 
   data_delivery {
-    s3_destination {
-      bucket = local.select_bucket == "first" ? aws_s3_bucket.test.id : aws_s3_bucket.test2.id
-      prefix = %[2]q
-    }
+s3_destination {
+  bucket = local.select_bucket == "first" ? aws_s3_bucket.test.id : aws_s3_bucket.test2.id
+  prefix = %[2]q
+}
   }
 }
 `, rName5, prefix, selectBucket))

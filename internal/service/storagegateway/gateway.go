@@ -51,7 +51,7 @@ func ResourceGateway() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"activation_key": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -62,17 +62,17 @@ func ResourceGateway() *schema.Resource {
 				Computed: true,
 			},
 			"average_download_rate_limit_in_bits_per_sec": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntAtLeast(102400),
 			},
 			"average_upload_rate_limit_in_bits_per_sec": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntAtLeast(51200),
 			},
 			"cloudwatch_log_group_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -89,7 +89,7 @@ func ResourceGateway() *schema.Resource {
 				Computed: true,
 			},
 			"gateway_ip_address": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -125,7 +125,7 @@ func ResourceGateway() *schema.Resource {
 				),
 			},
 			"gateway_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      gatewayTypeStored,
@@ -148,22 +148,22 @@ func ResourceGateway() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"day_of_week": {
-							Type:         nullable.TypeNullableInt,
+							Type:nullable.TypeNullableInt,
 							Optional:     true,
 							ValidateFunc: nullable.ValidateTypeStringNullableIntBetween(0, 6),
 						},
 						"day_of_month": {
-							Type:         nullable.TypeNullableInt,
+							Type:nullable.TypeNullableInt,
 							Optional:     true,
 							ValidateFunc: nullable.ValidateTypeStringNullableIntBetween(1, 28),
 						},
 						"hour_of_day": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IntBetween(0, 23),
 						},
 						"minute_of_hour": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(0, 59),
 						},
@@ -171,7 +171,7 @@ func ResourceGateway() *schema.Resource {
 				},
 			},
 			"medium_changer_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(mediumChangerType_Values(), false),
@@ -206,7 +206,7 @@ func ResourceGateway() *schema.Resource {
 							),
 						},
 						"organizational_unit": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(1, 1024),
 						},
@@ -220,7 +220,7 @@ func ResourceGateway() *schema.Resource {
 							),
 						},
 						"timeout_in_seconds": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      20,
 							ValidateFunc: validation.IntBetween(0, 3600),
@@ -250,7 +250,7 @@ func ResourceGateway() *schema.Resource {
 				),
 			},
 			"smb_security_strategy": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringInSlice(storagegateway.SMBSecurityStrategy_Values(), false),
@@ -258,7 +258,7 @@ func ResourceGateway() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"tape_drive_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(tapeDriveType_Values(), false),
@@ -356,7 +356,7 @@ func resourceGatewayCreate(ctx context.Context, d *schema.ResourceData, meta int
 		GatewayName:     aws.String(d.Get("gateway_name").(string)),
 		GatewayTimezone: aws.String(d.Get("gateway_timezone").(string)),
 		GatewayType:     aws.String(d.Get("gateway_type").(string)),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("medium_changer_type"); ok {
@@ -384,7 +384,7 @@ func resourceGatewayCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	if v, ok := d.GetOk("cloudwatch_log_group_arn"); ok && v.(string) != "" {
 		input := &storagegateway.UpdateGatewayInformationInput{
-			GatewayARN:            aws.String(d.Id()),
+			GatewayARN:   aws.String(d.Id()),
 			CloudWatchLogGroupARN: aws.String(v.(string)),
 		}
 
@@ -435,7 +435,7 @@ func resourceGatewayCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	if v, ok := d.GetOk("smb_security_strategy"); ok {
 		input := &storagegateway.UpdateSMBSecurityStrategyInput{
-			GatewayARN:          aws.String(d.Id()),
+			GatewayARN: aws.String(d.Id()),
 			SMBSecurityStrategy: aws.String(v.(string)),
 		}
 
@@ -651,8 +651,8 @@ func resourceGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	if d.HasChanges("gateway_name", "gateway_timezone", "cloudwatch_log_group_arn") {
 		input := &storagegateway.UpdateGatewayInformationInput{
 			CloudWatchLogGroupARN: aws.String(d.Get("cloudwatch_log_group_arn").(string)),
-			GatewayARN:            aws.String(d.Id()),
-			GatewayName:           aws.String(d.Get("gateway_name").(string)),
+			GatewayARN:   aws.String(d.Id()),
+			GatewayName:  aws.String(d.Get("gateway_name").(string)),
 			GatewayTimezone:       aws.String(d.Get("gateway_timezone").(string)),
 		}
 
@@ -708,7 +708,7 @@ func resourceGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	if d.HasChange("smb_security_strategy") {
 		input := &storagegateway.UpdateSMBSecurityStrategyInput{
-			GatewayARN:          aws.String(d.Id()),
+			GatewayARN: aws.String(d.Id()),
 			SMBSecurityStrategy: aws.String(d.Get("smb_security_strategy").(string)),
 		}
 
@@ -819,8 +819,8 @@ func expandGatewayDomain(l []interface{}, gatewayArn string) *storagegateway.Joi
 	domain := &storagegateway.JoinDomainInput{
 		DomainName:       aws.String(tfMap["domain_name"].(string)),
 		GatewayARN:       aws.String(gatewayArn),
-		Password:         aws.String(tfMap["password"].(string)),
-		UserName:         aws.String(tfMap["username"].(string)),
+		Password:aws.String(tfMap["password"].(string)),
+		UserName:aws.String(tfMap["username"].(string)),
 		TimeoutInSeconds: aws.Int64(int64(tfMap["timeout_in_seconds"].(int))),
 	}
 

@@ -1,17 +1,1 @@
-package set
-
-type Iterator[T any] struct {
-	vals []T
-	idx  int
-}
-
-
- *Iterator[T]) Value() T {
-	return it.vals[it.idx]
-}
-
-
- *Iterator[T]) Next() bool {
-	it.idx++
-	return it.idx < len(it.vals)
-}
+package settype Iterator[T any] struct {	vals []T	idx  int} *Iterator[T]) Value() T {	return it.vals[it.idx]} *Iterator[T]) Next() bool {	it.idx++	return it.idx < len(it.vals)}

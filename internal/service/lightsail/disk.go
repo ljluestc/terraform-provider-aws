@@ -75,15 +75,14 @@ func ResourceDisk() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceDiskCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
 	id := d.Get("name").(string)
 	in := lightsail.CreateDiskInput{
 		AvailabilityZone: aws.String(d.Get("availability_zone").(string)),
-		SizeInGb:         aws.Int32(int32(d.Get("size_in_gb").(int))),
-		DiskName:         aws.String(id),
+		SizeInGb:aws.Int32(int32(d.Get("size_in_gb").(int))),
+		DiskName:aws.String(id),
 		Tags:),
 	}
 
@@ -103,7 +102,6 @@ func resourceDiskCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return resourceDiskRead(ctx, d, meta)
 }
-
 func resourceDiskRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -130,12 +128,10 @@ func resourceDiskRead(ctx context.Context, d *schema.ResourceData, meta interfac
 
 	return nil
 }
-
 func resourceDiskUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceDiskRead(ctx, d, meta)
 }
-
 func resourceDiskDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -159,7 +155,6 @@ func resourceDiskDelete(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return nil
 }
-
 func FindDiskById(ctx context.Context, conn *lightsail.Client, id string) (*types.Disk, error) {
 	in := &lightsail.GetDiskInput{
 		DiskName: aws.String(id),

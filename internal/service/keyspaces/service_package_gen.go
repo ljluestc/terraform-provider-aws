@@ -31,7 +31,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  resourceKeyspace,
 			TypeName: "aws_keyspaces_keyspace",
-			Name:     "Keyspace",
+			Name: "Keyspace",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -39,7 +39,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  resourceTable,
 			TypeName: "aws_keyspaces_table",
-			Name:     "Table",
+			Name: "Table",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

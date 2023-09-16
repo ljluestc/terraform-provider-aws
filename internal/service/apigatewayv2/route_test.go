@@ -593,7 +593,7 @@ func testAccRouteConfig_basicWebSocket(rName string) string {
 		testAccRouteConfig_apiWebSocket(rName),
 		`
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "$default"
 }
 `)
@@ -604,7 +604,7 @@ func testAccRouteConfig_authorizer(rName string) string {
 		testAccAuthorizerConfig_basic(rName),
 		`
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "$connect"
 
   authorization_type = "CUSTOM"
@@ -618,7 +618,7 @@ func testAccRouteConfig_authorizerUpdated(rName string) string {
 		testAccAuthorizerConfig_basic(rName),
 		`
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "$connect"
 
   authorization_type = "AWS_IAM"
@@ -631,7 +631,7 @@ func testAccRouteConfig_jwtAuthorization(rName string) string {
 		testAccAuthorizerConfig_jwt(rName),
 		`
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "GET /test"
 
   authorization_type = "JWT"
@@ -647,7 +647,7 @@ func testAccRouteConfig_jwtAuthorizationUpdated(rName string) string {
 		testAccAuthorizerConfig_jwt(rName),
 		`
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "GET /test"
 
   authorization_type = "JWT"
@@ -665,9 +665,9 @@ func testAccRouteConfig_model(rName string) string {
   "title": "ExampleModel",
   "type": "object",
   "properties": {
-    "id": {
+"id": {
 string"
-    }
+}
   }
 }
 `
@@ -676,13 +676,13 @@ string"
 		testAccModelConfig_basic(rName, schema),
 		`
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "$default"
 
   model_selection_expression = "action"
 
   request_models = {
-    "test" = aws_apigatewayv2_model.test.name
+"test" = aws_apigatewayv2_model.test.name
   }
 }
 `)
@@ -693,7 +693,7 @@ func testAccRouteConfig_noRequestParameters(rName string) string {
 		testAccRouteConfig_apiWebSocket(rName),
 		`
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "$connect"
 }
 `)
@@ -704,12 +704,12 @@ func testAccRouteConfig_requestParameters(rName string) string {
 		testAccRouteConfig_apiWebSocket(rName),
 		`
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "$connect"
 
   request_parameter {
-    request_parameter_key = "route.request.header.authorization"
-    required
+request_parameter_key = "route.request.header.authorization"
+required
   }
 }
 `)
@@ -720,17 +720,17 @@ func testAccRouteConfig_requestParametersUpdated(rName string) string {
 		testAccRouteConfig_apiWebSocket(rName),
 		`
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "$connect"
 
   request_parameter {
-    request_parameter_key = "route.request.header.authorization"
-    required
+request_parameter_key = "route.request.header.authorization"
+required
   }
 
   request_parameter {
-    request_parameter_key = "route.request.querystring.authToken"
-    required
+request_parameter_key = "route.request.querystring.authToken"
+required
   }
 }
 `)
@@ -741,7 +741,7 @@ func testAccRouteConfig_key(rName, routeKey string) string {
 		testAccRouteConfig_apiHTTP(rName),
 		fmt.Sprintf(`
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = %[1]q
 }
 `, routeKey))
@@ -751,7 +751,7 @@ resource "aws_apigatewayv2_route" "test" {
 func testAccRouteConfig_simpleAttributes(rName string) string {
 	return testAccRouteConfig_apiWebSocket(rName) + `
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "$default"
 
   api_key_required
@@ -764,7 +764,7 @@ resource "aws_apigatewayv2_route" "test" {
 func testAccRouteConfig_target(rName string) string {
 	return testAccIntegrationConfig_basic(rName) + `
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "$default"
 
   target = "integrations/${aws_apigatewayv2_integration.test.id}"

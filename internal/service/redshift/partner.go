@@ -33,32 +33,32 @@ func ResourcePartner() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"cluster_identifier": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"database_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"partner_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"status_message": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -72,10 +72,10 @@ func resourcePartnerCreate(ctx context.Context, d *schema.ResourceData, meta int
 	account := d.Get("account_id").(string)
 	clusterId := d.Get("cluster_identifier").(string)
 	input := redshift.AddPartnerInput{
-		AccountId:         aws.String(account),
+		AccountId:aws.String(account),
 		ClusterIdentifier: aws.String(clusterId),
-		DatabaseName:      aws.String(d.Get("database_name").(string)),
-		PartnerName:       aws.String(d.Get("partner_name").(string)),
+		DatabaseName:  aws.String(d.Get("database_name").(string)),
+		PartnerName:   aws.String(d.Get("partner_name").(string)),
 	}
 
 	out, err := conn.AddPartnerWithContext(ctx, &input)
@@ -124,10 +124,10 @@ func resourcePartnerDelete(ctx context.Context, d *schema.ResourceData, meta int
 	}
 
 	deleteInput := redshift.DeletePartnerInput{
-		AccountId:         aws.String(account),
+		AccountId:aws.String(account),
 		ClusterIdentifier: aws.String(clusterId),
-		DatabaseName:      aws.String(dbName),
-		PartnerName:       aws.String(partnerName),
+		DatabaseName:  aws.String(dbName),
+		PartnerName:   aws.String(partnerName),
 	}
 
 	_, err = conn.DeletePartnerWithContext(ctx, &deleteInput)

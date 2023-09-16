@@ -27,7 +27,7 @@ import (
 func ResourceFunctionURL() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFunctionURLCreate,
-		ReadWithoutTimeout:   resourceFunctionURLRead,
+		ReadWithoutTimeout:resourceFunctionURLRead,
 		UpdateWithoutTimeout: resourceFunctionURLUpdate,
 		DeleteWithoutTimeout: resourceFunctionURLDelete,
 
@@ -42,53 +42,53 @@ func ResourceFunctionURL() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"authorization_type": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(lambda.FunctionUrlAuthType_Values(), false),
 			},
 			"cors": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"allow_credentials": {
-							Type:     schema.TypeBool,
+							Type:schema.TypeBool,
 							Optional: true,
 						},
 						"allow_headers": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"allow_methods": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"allow_origins": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"expose_headers": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"max_age": {
 							Type:schema.TypeInt,
-							Optional:     true,
+							Optional:true,
 							ValidateFunc: validation.IntAtMost(86400),
 						},
 					},
 				},
 			},
 			"function_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"function_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
@@ -100,28 +100,27 @@ func ResourceFunctionURL() *schema.Resource {
 				},
 			},
 			"function_url": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"invoke_mode": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      lambda.InvokeModeBuffered,
+				Optional:true,
+				Default: lambda.InvokeModeBuffered,
 				ValidateFunc: validation.StringInSlice(lambda.InvokeMode_Values(), false),
 			},
 			"qualifier": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew: true,
 				Optional: true,
 			},
 			"url_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceFunctionURLCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
 
@@ -129,9 +128,9 @@ func resourceFunctionURLCreate(ctx context.Context, d *schema.ResourceData, meta
 	qualifier := d.Get("qualifier").(string)
 	id := FunctionURLCreateResourceID(name, qualifier)
 	input := &lambda.CreateFunctionUrlConfigInput{
-		AuthType:     aws.String(d.Get("authorization_type").(string)),
+		AuthType:aws.String(d.Get("authorization_type").(string)),
 		FunctionName: aws.String(name),
-		InvokeMode:   aws.String(d.Get("invoke_mode").(string)),
+		InvokeMode:aws.String(d.Get("invoke_mode").(string)),
 	}
 
 	if qualifier != "" {
@@ -153,8 +152,8 @@ func resourceFunctionURLCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	if v := d.Get("authorization_type").(string); v == lambda.FunctionUrlAuthTypeNone {
 		input := &lambda.AddPermissionInput{
-			Action:     aws.String("lambda:InvokeFunctionUrl"),
-			FunctionName:        aws.String(name),
+			Action:aws.String("lambda:InvokeFunctionUrl"),
+			FunctionName:aws.String(name),
 			FunctionUrlAuthType: aws.String(v),
 			Principal:  aws.String("*"),
 			StatementId:aws.String("FunctionURLAllowPublicAccess"),
@@ -178,7 +177,6 @@ func resourceFunctionURLCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return resourceFunctionURLRead(ctx, d, meta)
 }
-
 func resourceFunctionURLRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
 
@@ -228,7 +226,6 @@ func resourceFunctionURLRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return nil
 }
-
 func resourceFunctionURLUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
 
@@ -271,7 +268,6 @@ func resourceFunctionURLUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 	return resourceFunctionURLRead(ctx, d, meta)
 }
-
 func resourceFunctionURLDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
 
@@ -302,7 +298,6 @@ func resourceFunctionURLDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	return nil
 }
-
 func FindFunctionURLByNameAndQualifier(ctx context.Context, conn *lambda.Lambda, name, qualifier string) (*lambda.GetFunctionUrlConfigOutput, error) {
 	input := &lambda.GetFunctionUrlConfigInput{
 		FunctionName: aws.String(name),
@@ -316,7 +311,7 @@ func FindFunctionURLByNameAndQualifier(ctx context.Context, conn *lambda.Lambda,
 
 	if tfawserr.ErrCodeEquals(err, lambda.ErrCodeResourceNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}
@@ -333,7 +328,6 @@ func FindFunctionURLByNameAndQualifier(ctx context.Context, conn *lambda.Lambda,
 }
 
 const functionURLResourceIDSeparator = "/"
-
 func FunctionURLCreateResourceID(functionName, qualifier string) string {
 	if qualifier == "" {
 		return functionName
@@ -344,7 +338,6 @@ func FunctionURLCreateResourceID(functionName, qualifier string) string {
 
 	return id
 }
-
 func FunctionURLParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, functionURLResourceIDSeparator)
 
@@ -357,7 +350,6 @@ func FunctionURLParseResourceID(id string) (string, string, error) {
 
 	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected FUNCTION-NAME%[2]qQUALIFIER or FUNCTION-NAME", id, functionURLResourceIDSeparator)
 }
-
 func expandCors(tfMap map[string]interface{}) *lambda.Cors {
 	if tfMap == nil {
 		return nil
@@ -391,7 +383,6 @@ func expandCors(tfMap map[string]interface{}) *lambda.Cors {
 
 	return apiObject
 }
-
 func flattenCors(apiObject *lambda.Cors) map[string]interface{} {
 	if apiObject == nil {
 		return nil

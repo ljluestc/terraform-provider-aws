@@ -14,15 +14,12 @@ import (
 )
 
 type servicePackage struct{}
-
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{}
 }
-
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{}
 }
-
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
 		{
@@ -47,7 +44,6 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 		},
 	}
 }
-
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
@@ -57,7 +53,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceConnection,
 			TypeName: "aws_dx_connection",
-			Name:     "Connection",
+			Name:"Connection",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -93,7 +89,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceHostedPrivateVirtualInterfaceAccepter,
 			TypeName: "aws_dx_hosted_private_virtual_interface_accepter",
-			Name:     "Hosted Private Virtual Interface",
+			Name:"Hosted Private Virtual Interface",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -105,7 +101,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceHostedPublicVirtualInterfaceAccepter,
 			TypeName: "aws_dx_hosted_public_virtual_interface_accepter",
-			Name:     "Hosted Public Virtual Interface",
+			Name:"Hosted Public Virtual Interface",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -117,7 +113,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceHostedTransitVirtualInterfaceAccepter,
 			TypeName: "aws_dx_hosted_transit_virtual_interface_accepter",
-			Name:     "Hosted Transit Virtual Interface",
+			Name:"Hosted Transit Virtual Interface",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -125,7 +121,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceLag,
 			TypeName: "aws_dx_lag",
-			Name:     "LAG",
+			Name:"LAG",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -137,7 +133,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourcePrivateVirtualInterface,
 			TypeName: "aws_dx_private_virtual_interface",
-			Name:     "Private Virtual Interface",
+			Name:"Private Virtual Interface",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -145,7 +141,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourcePublicVirtualInterface,
 			TypeName: "aws_dx_public_virtual_interface",
-			Name:     "Public Virtual Interface",
+			Name:"Public Virtual Interface",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -153,14 +149,13 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceTransitVirtualInterface,
 			TypeName: "aws_dx_transit_virtual_interface",
-			Name:     "Transit Virtual Interface",
+			Name:"Transit Virtual Interface",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
 		},
 	}
 }
-
 func (p *servicePackage) ServicePackageName() string {
 	return names.DirectConnect
 }
@@ -171,7 +166,6 @@ func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*d
 
 	return directconnect_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }

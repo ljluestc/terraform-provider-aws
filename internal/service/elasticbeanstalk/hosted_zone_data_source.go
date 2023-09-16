@@ -56,7 +56,6 @@ func DataSourceHostedZone() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceHostedZoneRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	region := meta.(*conns.AWSClient).Region

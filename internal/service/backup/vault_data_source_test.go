@@ -1,26 +1,15 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package backup_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package backup_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/backup"
+	"testing"	"github.com/aws/aws-sdk-go/service/backup"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func TestAccBackupVaultDataSource_basic(t *testing.T) {
+)func TestAccBackupVaultDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_backup_vault.test"
 	resourceName := "aws_backup_vault.test"
-	rInt := sdkacctest.RandInt()
-
-	resource.ParallelTest(t, resource.TestCase{
+	rInt := sdkacctest.RandInt()	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
@@ -39,21 +28,14 @@ func(
 	},
 },
 	})
-}
-
-
-func testAccVaultDataSourceConfig_basic(rInt int) string {
+}func testAccVaultDataSourceConfig_basic(rInt int) string {
 	return fmt.Sprintf(`
 resource "aws_backup_vault" "test" {
-  name = "tf_acc_test_backup_vault_%d"
-
-  tags = {
-    up   = "down"
-    left = "right"
+  name = "tf_acc_test_backup_vault_%d"  tags = {
+ up= "down"
+ left = "right"
   }
-}
-
-data "aws_backup_vault" "test" {
+}data "aws_backup_vault" "test" {
   name = aws_backup_vault.test.name
 }
 `, rInt)

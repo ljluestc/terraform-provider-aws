@@ -1,36 +1,26 @@
-package version
-
-import (
+package versionimport (
 	"bytes"
 	"fmt"
 	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
-)
-
-// The compiled regular expression used to test the validity of a version.
+)// The compiled regular expression used to test the validity of a version.
 var (
 	versionRegexp *regexp.Regexp
 	semverRegexp  *regexp.Regexp
-)
-
-// The raw regular expression string used for testing the validity
+)// The raw regular expression string used for testing the validity
 // of a version.
 const (
 	VersionRegexpRaw string = `v?([0-9]+(\.[0-9]+)*?)` +
 		`(-([0-9]+[0-9A-Za-z\-~]*(\.[0-9A-Za-z\-~]+)*)|(-?([A-Za-z\-~]+[0-9A-Za-z\-~]*(\.[0-9A-Za-z\-~]+)*)))?` +
 		`(\+([0-9A-Za-z\-~]+(\.[0-9A-Za-z\-~]+)*))?` +
-		`?`
-
-	// SemverRegexpRaw requires a separator between version and prerelease
+		`?`	// SemverRegexpRaw requires a separator between version and prerelease
 	SemverRegexpRaw string = `v?([0-9]+(\.[0-9]+)*?)` +
 		`(-([0-9]+[0-9A-Za-z\-~]*(\.[0-9A-Za-z\-~]+)*)|(-([A-Za-z\-~]+[0-9A-Za-z\-~]*(\.[0-9A-Za-z\-~]+)*)))?` +
 		`(\+([0-9A-Za-z\-~]+(\.[0-9A-Za-z\-~]+)*))?` +
 		`?`
-)
-
-// Version represents a single version.
+)// Version represents a single version.
 type Version struct {
 	metadata string
 	pre      string
@@ -38,29 +28,17 @@ type Version struct {
 	si       int
 	original string
 }
-
-
  init() {
 	versionRegexp = regexp.MustCompile("^" + VersionRegexpRaw + "$")
 	semverRegexp = regexp.MustCompile("^" + SemverRegexpRaw + "$")
-}
-
-// NewVersion parses the given version and returns a new
-ersion.
-
- NewVersion(v string) (*Version, error) {
+}// NewVersion parses the given version and returns a new
+ersion. NewVersion(v string) (*Version, error) {
 	return newVersion(v, versionRegexp)
-}
-
-// NewSemver parses the given version and returns a new
+}// NewSemver parses the given version and returns a new
 ersion that adheres strictly to SemVer specs
-// https://semver.org/
-
- NewSemver(v string) (*Version, error) {
+// https://semver.org/ NewSemver(v string) (*Version, error) {
 urn newVersion(v, semverRegexp)
 }
-
-
  newVersion(v string, pattern *regexp.Regexp) (*Version, error) {
 	matches := pattern.FindStringSubmatch(v)
 	if matches == nil {
@@ -73,61 +51,39 @@ urn newVersion(v, semverRegexp)
 		if err != nil {
 			return nil, fmt.Errorf(
 				"Error parsing version: %s", err)
-		}
-
-		segments[i] = val
-	}
-
-	// Even though we could support more than three segments, if we
+		}		segments[i] = val
+	}	// Even though we could support more than three segments, if we
 	// got less than three, pad it with 0s. This is to cover the basic
 	// default usecase of semver, which is MAJOR.MINOR.PATCH at the minimum
 	for i := len(segments); i < 3; i++ {
 		segments = append(segments, 0)
-	}
-
-	pre := matches[7]
+	}	pre := matches[7]
 	if pre == "" {
 		pre = matches[4]
-	}
-
-	return &Version{
+	}	return &Version{
 		metadata: matches[10],
 		pre:      pre,
 		segments: segments,
 		si:       len(segmentsStr),
 		original: v,
 	}, nil
-
-
 // Must is a helper that wraps a call to a 
 tion returning (*Version, error)
-// and panics if error is non-nil.
-
- Must(v *Version, err error) *Version {
+// and panics if error is non-nil. Must(v *Version, err error) *Version {
 	if err != nil {
 		panic(err)
-	}
-
-	return v
-}
-
-ompare compares this version to another version. This
+	}	return v
+}ompare compares this version to another version. This
 // returns -1, 0, or 1 if this version is smaller, equal,
 // or larger than the other version, respectively.
 //
 // If you want boolean results, use the LessThan, Equal,
-// GreaterThan, GreaterThanOrEqual or LessThanOrEqual methods.
-
- (v *Version) Compare(other *Version) int {
+// GreaterThan, GreaterThanOrEqual or LessThanOrEqual methods. (v *Version) Compare(other *Version) int {
 	// A quick, efficient equality check
 	if v.String() == other.String() {
 		return 0
-	}
-
-	segmentsSelf := v.Segments64()
-	segmentsOther := other.Segments64()
-
-	// If the segments are the same, we must compare on prerelease info
+	}	segmentsSelf := v.Segments64()
+	segmentsOther := other.Segments64()	// If the segments are the same, we must compare on prerelease info
 	if reflect.DeepEqual(segmentsSelf, segmentsOther) {
 		preSelf := v.Prerelease()
 		preOther := other.Prerelease()
@@ -139,12 +95,8 @@ ompare compares this version to another version. This
 		}
 		if preOther == "" {
 			return -1
-		}
-
-		return comparePrereleases(preSelf, preOther)
-	}
-
-	// Get the highest specificity (hS), or if they're equal, just use segmentSelf length
+		}		return comparePrereleases(preSelf, preOther)
+	}	// Get the highest specificity (hS), or if they're equal, just use segmentSelf length
 	lenSelf := len(segmentsSelf)
 	lenOther := len(segmentsOther)
 	hS := lenSelf
@@ -181,13 +133,9 @@ ompare compares this version to another version. This
 		}
 		// Otherwis, rhs was > lhs, they're not equal
 turn 1
-	}
-
-	// if we got this far, they're equal
+	}	// if we got this far, they're equal
 	return 0
 }
-
-
  allZero(segs []int64) bool {
  _, s := range segs {
 		if s != 0 {
@@ -196,43 +144,31 @@ turn 1
 	}
 	return true
 }
-
-
  comparePart(preSelf string, preOther string) int {
 	if preSelf == preOther {
 		return 0
-	}
-
-	var selfInt int64
+	}	var selfInt int64
 	selfNumeric := true
 	selfInt, err := strconv.ParseInt(preSelf, 10, 64)
 	if err != nil {
 		selfNumeric = false
-	}
-
-	var otherInt int64
+	}	var otherInt int64
 	otherNumeric := true
 	otherInt, err = strconv.ParseInt(preOther, 10, 64)
 	if err != nil {
 		otherNumeric = false
-	}
-
-	// if a part is empty, we use the other to decide
+	}	// if a part is empty, we use the other to decide
 	if preSelf == "" {
 		if otherNumeric {
 			return -1
 		}
 		return 1
-	}
-
-	if preOther == "" {
+	}	if preOther == "" {
 		if selfNumeric {
 			return 1
 		}
 		return -1
-	}
-
-	if selfNumeric && !otherNumeric {
+	}	if selfNumeric && !otherNumeric {
 		return -1
 	} else if !selfNumeric && otherNumeric {
 		return 1
@@ -240,152 +176,88 @@ lse if !selfNumeric && !otherNumeric && preSelf > preOther {
 		return 1
 	} else if selfInt > otherInt {
 		return 1
-	}
-
-	return -1
+	}	return -1
 }
-
-
  comparePrereleases(v string, other string) int {
 	// the same pre release!
 	if v == other {
 		return 0
-	}
-
-	// split both pre releases for analyse their parts
+	}	// split both pre releases for analyse their parts
 	selfPreReleaseMeta := strings.Split(v, ".")
-	otherPreReleaseMeta := strings.Split(other, ".")
-
-	selfPreReleaseLen := len(selfPreReleaseMeta)
-	otherPreReleaseLen := len(otherPreReleaseMeta)
-
-	biggestLen := otherPreReleaseLen
+	otherPreReleaseMeta := strings.Split(other, ".")	selfPreReleaseLen := len(selfPreReleaseMeta)
+	otherPreReleaseLen := len(otherPreReleaseMeta)	biggestLen := otherPreReleaseLen
 	if selfPreReleaseLen > otherPreReleaseLen {
 		biggestLen = selfPreReleaseLen
-	}
-
-	// loop for parts to find the first difference
+	}	// loop for parts to find the first difference
 	for i := 0; i < biggestLen; i = i + 1 {
 		partSelfPre := ""
 		if i < selfPreReleaseLen {
 			partSelfPre = selfPreReleaseMeta[i]
-		}
-
-		partOtherPre := ""
+		}		partOtherPre := ""
 		if i < otherPreReleaseLen {
 			partOtherPre = otherPreReleaseMeta[i]
-		}
-
-		compare := comparePart(partSelfPre, partOtherPre)
+		}		compare := comparePart(partSelfPre, partOtherPre)
 		// if parts are equals, continue the loop
  compare != 0 {
 			return compare
 		}
-	}
-
-	return 0
-}
-
-// Core returns a new version constructed from only the MAJOR.MINOR.PATCH
-// segments of the version, without prerelease or metadata.
-
- (v *Version) Core() *Version {
+	}	return 0
+}// Core returns a new version constructed from only the MAJOR.MINOR.PATCH
+// segments of the version, without prerelease or metadata. (v *Version) Core() *Version {
 	segments := v.Segments64()
 	segmentsOnly := fmt.Sprintf("%d.%d.%d", segments[0], segments[1], segments[2])
 	return Must(NewVersion(segmentsOnly))
-}
-
-// Equal tests if two versions are equal.
-
- (v *Version) Equal(o *Version) bool {
+}// Equal tests if two versions are equal. (v *Version) Equal(o *Version) bool {
 	if v == nil || o == nil {
 turn v == o
-	}
-
-	return v.Compare(o) == 0
-}
-
-// GreaterThan tests if this version is greater than another version.
-
- (v *Version) GreaterThan(o *Version) bool {
+	}	return v.Compare(o) == 0
+}// GreaterThan tests if this version is greater than another version. (v *Version) GreaterThan(o *Version) bool {
 	return v.Compare(o) > 0
-
-
-// GreaterThanOrEqual tests if this version is greater than or equal to another version.
-
- (v *Version) GreaterThanOrEqual(o *Version) bool {
+// GreaterThanOrEqual tests if this version is greater than or equal to another version. (v *Version) GreaterThanOrEqual(o *Version) bool {
 	return v.Compare(o) >= 0
-}
-
-// LessThan tests if this version is less than another version.
-
- (v *Version) LessThan(o *Version) bool {
+}// LessThan tests if this version is less than another version. (v *Version) LessThan(o *Version) bool {
 	return v.Compare(o) < 0
-}
-
-// LessThanOrEqual tests if this version is less than or equal to another version.
-
- (v *Version) LessThanOrEqual(o *Version) bool {
+}// LessThanOrEqual tests if this version is less than or equal to another version. (v *Version) LessThanOrEqual(o *Version) bool {
 	return v.Compare(o) <= 0
-}
-
-// Metadata returns any metadata that was part of the version
+}// Metadata returns any metadata that was part of the version
 // string.
 //
 // Metadata is anything that comes after the "+" in the version.
-// For example, with "1.2.3+beta", the metadata is "beta".
-
- (v *Version) Metadata() string {
+// For example, with "1.2.3+beta", the metadata is "beta". (v *Version) Metadata() string {
 	return v.metadata
-
-
 // Prerelease returns any prerelease data that is part of the version,
 // or blank if there is no prerelease data.
 //
 // Prerelease information is anything that comes after the "-" in the
 // version (but before any metadata). For example, with "1.2.3-beta",
-// the prerelease information is "beta".
-
- (v *Version) Prerelease() string {
+// the prerelease information is "beta". (v *Version) Prerelease() string {
 	return v.pre
-}
-
-egments returns the numeric segments of the version as a slice of ints.
+}egments returns the numeric segments of the version as a slice of ints.
 //
 // This excludes any metadata or pre-release information. For example,
 // for a version "1.2.3-beta", segments will return a slice of
-// 1, 2, 3.
-
- (v *Version) Segments() []int {
+// 1, 2, 3. (v *Version) Segments() []int {
 	segmentSlice := make([]int, len(v.segments))
 	for i, v := range v.segments {
 		segmentSlice[i] = int(v)
 	}
 	return segmentSlice
-}
-
-egments64 returns the numeric segments of the version as a slice of int64s.
+}egments64 returns the numeric segments of the version as a slice of int64s.
 //
 // This excludes any metadata or pre-release information. For example,
 // for a version "1.2.3-beta", segments will return a slice of
-// 1, 2, 3.
-
- (v *Version) Segments64() []int64 {
+// 1, 2, 3. (v *Version) Segments64() []int64 {
 	result := make([]int64, len(v.segments))
 	copy(result, v.segments)
 	return result
-}
-
-// String returns the full version string included pre-release
+}// String returns the full version string included pre-release
 // and metadata information.
 //
 // This value is rebuilt according to the parsed segments and other
 // information. Therefore, ambiguities in the version string such as
 // prefixed zeroes (1.04.0 => 1.4.0), `v` prefix (v1.0.0 => 1.0.0), and
 // missing parts (1.0 => 1.0.0) will be made into a canonicalized form
-// as shown in the parenthesized examples.
-
-*Version) String() string {
+// as shown in the parenthesized examples.*Version) String() string {
 	var buf bytes.Buffer
 	fmtParts := make([]string, len(v.segments))
 	for i, s := range v.segments {
@@ -399,33 +271,15 @@ r := strconv.FormatInt(s, 10)
 	}
 	if v.metadata != "" {
 		fmt.Fprintf(&buf, "+%s", v.metadata)
-	}
-
-	return buf.String()
-
-
+	}	return buf.String()
 // Original returns the original parsed version as-is, including any
-// potential whitespace, `v` prefix, etc.
-
- (v *Version) Original() string {
+// potential whitespace, `v` prefix, etc. (v *Version) Original() string {
 	return v.original
-}
-
-// UnmarshalText implements encoding.TextUnmarshaler interface.
-
- (v *Version) UnmarshalText(b []byte) error {
+}// UnmarshalText implements encoding.TextUnmarshaler interface. (v *Version) UnmarshalText(b []byte) error {
 	temp, err := NewVersion(string(b))
 	if err != nil {
 		return err
-	}
-
-	*v = *temp
-
-	return nil
-}
-
-// MarshalText implements encoding.TextMarshaler interface.
-
- (v *Version) MarshalText() ([]byte, error) {
+	}	*v = *temp	return nil
+}// MarshalText implements encoding.TextMarshaler interface. (v *Version) MarshalText() ([]byte, error) {
 	return []byte(v.String()), nil
 }

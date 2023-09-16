@@ -72,7 +72,6 @@ func ResourceCell() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceCellCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -97,7 +96,6 @@ func resourceCellCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return append(diags, resourceCellRead(ctx, d, meta)...)
 }
-
 func resourceCellRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -125,7 +123,6 @@ func resourceCellRead(ctx context.Context, d *schema.ResourceData, meta interfac
 
 	return diags
 }
-
 func resourceCellUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -145,7 +142,6 @@ func resourceCellUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return append(diags, resourceCellRead(ctx, d, meta)...)
 }
-
 func resourceCellDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)

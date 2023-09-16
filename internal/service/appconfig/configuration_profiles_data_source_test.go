@@ -47,19 +47,19 @@ testAccApplicationConfig_name(appName),
 fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test_1" {
   application_id = aws_appconfig_application.test.id
-  name           = %[1]q
+  name  = %[1]q
   location_uri   = "hosted"
 }
 
 resource "aws_appconfig_configuration_profile" "test_2" {
   application_id = aws_appconfig_application.test.id
-  name           = %[2]q
+  name  = %[2]q
   location_uri   = "hosted"
 }
 
 data "aws_appconfig_configuration_profiles" "test" {
   application_id = aws_appconfig_application.test.id
-  depends_on     = [aws_appconfig_configuration_profile.test_1, aws_appconfig_configuration_profile.test_2]
+  depends_on = [aws_appconfig_configuration_profile.test_1, aws_appconfig_configuration_profile.test_2]
 }
 `, rName1, rName2))
 }

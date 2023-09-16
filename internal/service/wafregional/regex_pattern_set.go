@@ -57,7 +57,7 @@ func resourceRegexPatternSetCreate(ctx context.Context, d *schema.ResourceData, 
 		func(token *string) (interface{}, error) {
 			params := &waf.CreateRegexPatternSetInput{
 				ChangeToken: token,
-				Name:        aws.String(d.Get("name").(string)),
+				Name:  aws.String(d.Get("name").(string)),
 			}
 			return conn.CreateRegexPatternSetWithContext(ctx, params)
 		})
@@ -137,7 +137,7 @@ func resourceRegexPatternSetDelete(ctx context.Context, d *schema.ResourceData, 
 	_, err := wr.RetryWithToken(ctx,
 		func(token *string) (interface{}, error) {
 			req := &waf.DeleteRegexPatternSetInput{
-				ChangeToken:       token,
+				ChangeToken: token,
 				RegexPatternSetId: aws.String(d.Id()),
 			}
 			return conn.DeleteRegexPatternSetWithContext(ctx, req)
@@ -154,7 +154,7 @@ func updateRegexPatternSetPatternStringsWR(ctx context.Context, id string, oldPa
 	_, err := wr.RetryWithToken(ctx,
 		func(token *string) (interface{}, error) {
 			req := &waf.UpdateRegexPatternSetInput{
-				ChangeToken:       token,
+				ChangeToken: token,
 				RegexPatternSetId: aws.String(id),
 				Updates:  tfwaf.DiffRegexPatternSetPatternStrings(oldPatterns, newPatterns),
 			}

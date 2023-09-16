@@ -27,10 +27,10 @@ func TestAccElasticTranscoderPreset_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPresetDestroy(ctx),
+		CheckDestroy:    testAccCheckPresetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPresetConfig_basic(rName),
@@ -55,10 +55,10 @@ func TestAccElasticTranscoderPreset_video_noCodec(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPresetDestroy(ctx),
+		CheckDestroy:    testAccCheckPresetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPresetConfig_videoNoCodec(rName),
@@ -83,10 +83,10 @@ func TestAccElasticTranscoderPreset_audio_noBitRate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPresetDestroy(ctx),
+		CheckDestroy:    testAccCheckPresetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPresetConfig_noBitRate(rName),
@@ -110,10 +110,10 @@ func TestAccElasticTranscoderPreset_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPresetDestroy(ctx),
+		CheckDestroy:    testAccCheckPresetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPresetConfig_basic(rName),
@@ -135,10 +135,10 @@ func TestAccElasticTranscoderPreset_AudioCodecOptions_empty(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPresetDestroy(ctx),
+		CheckDestroy:    testAccCheckPresetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPresetConfig_audioCodecOptionsEmpty(rName),
@@ -147,8 +147,8 @@ func TestAccElasticTranscoderPreset_AudioCodecOptions_empty(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"audio_codec_options"}, // Due to incorrect schema (should be nested under audio)
 			},
@@ -163,10 +163,10 @@ func TestAccElasticTranscoderPreset_description(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPresetDestroy(ctx),
+		CheckDestroy:    testAccCheckPresetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPresetConfig_description(rName, "description1"),
@@ -192,10 +192,10 @@ func TestAccElasticTranscoderPreset_full(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPresetDestroy(ctx),
+		CheckDestroy:    testAccCheckPresetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPresetConfig_full1(rName),
@@ -243,10 +243,10 @@ func TestAccElasticTranscoderPreset_Video_frameRate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPresetDestroy(ctx),
+		CheckDestroy:    testAccCheckPresetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPresetConfig_videoFrameRate(rName, "29.97"),
@@ -325,9 +325,9 @@ resource "aws_elastictranscoder_preset" "test" {
 
   audio {
     audio_packing_mode = "SingleTrack"
-    bit_rate           = 320
-    channels           = 2
-    codec              = "mp3"
+    bit_rate  = 320
+    channels  = 2
+    codec     = "mp3"
     sample_rate        = 44100
   }
 }
@@ -342,9 +342,9 @@ resource "aws_elastictranscoder_preset" "test" {
 
   audio {
     audio_packing_mode = "SingleTrack"
-    bit_rate           = 320
-    channels           = 2
-    codec              = "mp3"
+    bit_rate  = 320
+    channels  = 2
+    codec     = "mp3"
     sample_rate        = 44100
   }
 
@@ -362,9 +362,9 @@ resource "aws_elastictranscoder_preset" "test" {
 
   audio {
     audio_packing_mode = "SingleTrack"
-    bit_rate           = 320
-    channels           = 2
-    codec              = "mp3"
+    bit_rate  = 320
+    channels  = 2
+    codec     = "mp3"
     sample_rate        = 44100
   }
 }
@@ -379,9 +379,9 @@ resource "aws_elastictranscoder_preset" "test" {
 
   audio {
     audio_packing_mode = "SingleTrack"
-    bit_rate           = 128
-    channels           = 2
-    codec              = "AAC"
+    bit_rate  = 128
+    channels  = 2
+    codec     = "AAC"
     sample_rate        = 48000
   }
 
@@ -390,28 +390,28 @@ resource "aws_elastictranscoder_preset" "test" {
   }
 
   video {
-    bit_rate             = "auto"
-    codec                = "H.264"
+    bit_rate    = "auto"
+    codec       = "H.264"
     display_aspect_ratio = "16:9"
-    fixed_gop            = "true"
-    frame_rate           = "auto"
+    fixed_gop   = "true"
+    frame_rate  = "auto"
     keyframes_max_dist   = 90
-    max_height           = 1080
-    max_width            = 1920
+    max_height  = 1080
+    max_width   = 1920
     padding_policy       = "Pad"
     sizing_policy        = "Fit"
   }
 
   video_codec_options = {
-    Profile                  = "main"
-    Level                    = "4.1"
+    Profile= "main"
+    Level  = "4.1"
     MaxReferenceFrames       = 4
-    InterlacedMode           = "Auto"
+    InterlacedMode  = "Auto"
     ColorSpaceConversionMode = "None"
   }
 
   thumbnails {
-    format         = "jpg"
+    format= "jpg"
     interval       = 5
     max_width      = 960
     max_height     = 540
@@ -430,9 +430,9 @@ resource "aws_elastictranscoder_preset" "test" {
 
   audio {
     audio_packing_mode = "SingleTrack"
-    bit_rate           = 96
-    channels           = 2
-    codec              = "AAC"
+    bit_rate  = 96
+    channels  = 2
+    codec     = "AAC"
     sample_rate        = 44100
   }
 
@@ -441,42 +441,42 @@ resource "aws_elastictranscoder_preset" "test" {
   }
 
   video {
-    bit_rate             = "1600"
-    codec                = "H.264"
+    bit_rate    = "1600"
+    codec       = "H.264"
     display_aspect_ratio = "16:9"
-    fixed_gop            = "false"
-    frame_rate           = "auto"
+    fixed_gop   = "false"
+    frame_rate  = "auto"
     max_frame_rate       = "60"
     keyframes_max_dist   = 240
-    max_height           = "auto"
-    max_width            = "auto"
+    max_height  = "auto"
+    max_width   = "auto"
     padding_policy       = "Pad"
     sizing_policy        = "Fit"
   }
 
   video_codec_options = {
-    Profile                  = "main"
-    Level                    = "2.2"
+    Profile= "main"
+    Level  = "2.2"
     MaxReferenceFrames       = 3
-    InterlacedMode           = "Progressive"
+    InterlacedMode  = "Progressive"
     ColorSpaceConversionMode = "None"
   }
 
   video_watermarks {
-    id                = "Terraform Test"
-    max_width         = "20%%"
+    id       = "Terraform Test"
+    max_width= "20%%"
     max_height        = "20%%"
     sizing_policy     = "ShrinkToFit"
     horizontal_align  = "Right"
     horizontal_offset = "10px"
     vertical_align    = "Bottom"
     vertical_offset   = "10px"
-    opacity           = "55.5"
-    target            = "Content"
+    opacity  = "55.5"
+    target   = "Content"
   }
 
   thumbnails {
-    format         = "png"
+    format= "png"
     interval       = 120
     max_width      = "auto"
     max_height     = "auto"
@@ -494,7 +494,7 @@ resource "aws_elastictranscoder_preset" "test" {
   name      = %[1]q
 
   thumbnails {
-    format         = "png"
+    format= "png"
     interval       = 120
     max_width      = "auto"
     max_height     = "auto"
@@ -503,23 +503,23 @@ resource "aws_elastictranscoder_preset" "test" {
   }
 
   video {
-    bit_rate             = "auto"
-    codec                = "H.264"
+    bit_rate    = "auto"
+    codec       = "H.264"
     display_aspect_ratio = "16:9"
-    fixed_gop            = "true"
-    frame_rate           = %[2]q
+    fixed_gop   = "true"
+    frame_rate  = %[2]q
     keyframes_max_dist   = 90
-    max_height           = 1080
-    max_width            = 1920
+    max_height  = 1080
+    max_width   = 1920
     padding_policy       = "Pad"
     sizing_policy        = "Fit"
   }
 
   video_codec_options = {
-    Profile                  = "main"
-    Level                    = "4.1"
+    Profile= "main"
+    Level  = "4.1"
     MaxReferenceFrames       = 4
-    InterlacedMode           = "Auto"
+    InterlacedMode  = "Auto"
     ColorSpaceConversionMode = "None"
   }
 }
@@ -534,15 +534,15 @@ resource "aws_elastictranscoder_preset" "test" {
   name      = %[1]q
 
   audio {
-    codec              = "vorbis"
+    codec     = "vorbis"
     sample_rate        = 44100
-    bit_rate           = 128
-    channels           = 2
+    bit_rate  = 128
+    channels  = 2
     audio_packing_mode = "SingleTrack"
   }
 
   thumbnails {
-    format         = "png"
+    format= "png"
     interval       = 300
     max_width      = 640
     max_height     = 360
@@ -551,13 +551,13 @@ resource "aws_elastictranscoder_preset" "test" {
   }
 
   video {
-    codec                = "vp9"
+    codec       = "vp9"
     keyframes_max_dist   = 90
-    fixed_gop            = false
-    bit_rate             = 600
-    frame_rate           = 30
-    max_width            = 640
-    max_height           = 360
+    fixed_gop   = false
+    bit_rate    = 600
+    frame_rate  = 30
+    max_width   = 640
+    max_height  = 360
     display_aspect_ratio = "auto"
     sizing_policy        = "Fit"
     padding_policy       = "NoPad"
@@ -573,8 +573,8 @@ resource "aws_elastictranscoder_preset" "test" {
   name      = %[1]q
   audio {
     audio_packing_mode = "SingleTrack"
-    channels           = 2
-    codec              = "pcm"
+    channels  = 2
+    codec     = "pcm"
     sample_rate        = 44100
   }
 }

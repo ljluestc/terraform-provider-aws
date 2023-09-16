@@ -30,7 +30,7 @@ Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"color_scale": colorScaleSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColorScale.html
 	"column_label_options": chartAxisLabelOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
-	"data_labels": dataLabelOptionsSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataLabelOptions.html
+	"data_labels": dataLabelOptionsSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataLabelOptions.html
 	"field_wells": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_HeatMapFieldWells.html
 Type:     schema.TypeList,
 Optional: true,
@@ -65,9 +65,9 @@ DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
-"heat_map_column_items_limit_configuration": itemsLimitConfigurationSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
-"heat_map_column_sort":       fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html,
-"heat_map_row_items_limit_configuration":    itemsLimitConfigurationSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
+"heat_map_column_items_limit_configuration": itemsLimitConfigurationSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
+"heat_map_column_sort": fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html,
+"heat_map_row_items_limit_configuration":    itemsLimitConfigurationSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
 "heat_map_row_sort": fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html
 	},
 },

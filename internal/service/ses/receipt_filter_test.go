@@ -17,14 +17,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfses "github.com/hashicorp/terraform-provider-aws/internal/service/ses"
 )
-
 func TestAccSESReceiptFilter_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ses_receipt_filter.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckReceiptFilterDestroy(ctx),
@@ -40,21 +40,21 @@ func TestAccSESReceiptFilter_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccSESReceiptFilter_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ses_receipt_filter.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccPreCheckReceiptRule(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckReceiptFilterDestroy(ctx),
@@ -70,9 +70,9 @@ func TestAccSESReceiptFilter_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckReceiptFilterDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SESConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -95,9 +95,9 @@ func testAccCheckReceiptFilterDestroy(ctx context.Context) resource.TestCheckFun
 		return nil
 	}
 }
-
 func testAccCheckReceiptFilterExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("SES receipt filter not found: %s", n)
@@ -123,12 +123,11 @@ func testAccCheckReceiptFilterExists(ctx context.Context, n string) resource.Tes
 		return fmt.Errorf("The receipt filter was not created")
 	}
 }
-
 func testAccReceiptFilterConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ses_receipt_filter" "test" {
-  cidr   = "10.10.10.10"
-  name   = %q
+  cidr= "10.10.10.10"
+  name= %q
   policy = "Block"
 }
 `, rName)

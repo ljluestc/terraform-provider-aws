@@ -33,7 +33,7 @@ import (
 func ResourceKxCluster() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceKxClusterCreate,
-		ReadWithoutTimeout:   resourceKxClusterRead,
+		ReadWithoutTimeout:resourceKxClusterRead,
 		UpdateWithoutTimeout: resourceKxClusterUpdate,
 		DeleteWithoutTimeout: resourceKxClusterDelete,
 
@@ -49,18 +49,18 @@ func ResourceKxCluster() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"auto_scaling_configuration": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"auto_scaling_metric": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ForceNew: true,
 							ValidateFunc: validation.StringInSlice(
@@ -68,71 +68,71 @@ func ResourceKxCluster() *schema.Resource {
 						},
 						"max_node_count": {
 							Type:schema.TypeInt,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.IntBetween(1, 5),
 						},
 						"metric_target": {
 							Type:schema.TypeFloat,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.FloatBetween(0, 100),
 						},
 						"min_node_count": {
 							Type:schema.TypeInt,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.IntBetween(1, 5),
 						},
 						"scale_in_cooldown_seconds": {
 							Type:schema.TypeFloat,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.FloatBetween(0, 100000),
 						},
 						"scale_out_cooldown_seconds": {
 							Type:schema.TypeFloat,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.FloatBetween(0, 100000),
 						},
 					},
 				},
 			},
 			"availability_zone_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"az_mode": {
-				Type:    schema.TypeString,
+				Type: schema.TypeString,
 				Required:true,
 				ForceNew:true,
 				ValidateDiagFunc: enum.Validate[types.KxAzMode](),
 			},
 			"cache_storage_configurations": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"size": {
 							Type:schema.TypeInt,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.IntBetween(1200, 33600),
 						},
 						"type": {
 							Type:schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.StringLenBetween(8, 10),
 						},
 					},
 				},
 			},
 			"capacity_configuration": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 1,
@@ -140,21 +140,21 @@ func ResourceKxCluster() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"node_count": {
 							Type:schema.TypeInt,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.IntBetween(1, 5),
 						},
 						"node_type": {
 							Type:schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.StringLenBetween(1, 32),
 						},
 					},
 				},
 			},
 			"code": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 1,
@@ -162,29 +162,29 @@ func ResourceKxCluster() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"s3_bucket": {
 							Type:schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.StringLenBetween(3, 255),
 						},
 						"s3_key": {
 							Type:schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.StringLenBetween(3, 1024),
 						},
 						"s3_object_version": {
 							Type:schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Optional:true,
+							ForceNew:true,
 							ValidateFunc: validation.StringLenBetween(3, 63),
 						},
 					},
 				},
 			},
 			"command_line_arguments": {
-				Type:     schema.TypeMap,
+				Type:schema.TypeMap,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 				ForceNew: true,
 				ValidateDiagFunc: validation.AllDiag(
 					validation.MapKeyLenBetween(1, 50),
@@ -192,23 +192,23 @@ func ResourceKxCluster() *schema.Resource {
 				),
 			},
 			"created_timestamp": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"database": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cache_configurations": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							ForceNew: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"cache_type": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Required: true,
 										ForceNew: true,
 										ValidateFunc: validation.StringInSlice([]string{
@@ -228,14 +228,14 @@ func ResourceKxCluster() *schema.Resource {
 						},
 						"changeset_id": {
 							Type:schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Optional:true,
+							ForceNew:true,
 							ValidateFunc: validation.StringLenBetween(1, 26),
 						},
 						"database_name": {
 							Type:schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.StringLenBetween(3, 63),
 						},
 					},
@@ -243,57 +243,57 @@ func ResourceKxCluster() *schema.Resource {
 			},
 			"description": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 1000),
 			},
 			"environment_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 32),
 			},
 			"execution_role": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"initialization_script": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"last_modified_timestamp": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(3, 63),
 			},
 			"release_label": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 16),
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"savedown_storage_configuration": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ForceNew: true,
 							ValidateFunc: validation.StringInSlice(
@@ -301,27 +301,27 @@ func ResourceKxCluster() *schema.Resource {
 						},
 						"size": {
 							Type:schema.TypeInt,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.IntBetween(10, 16000),
 						},
 					},
 				},
 			},
 			"status_reason": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:    schema.TypeString,
+				Type: schema.TypeString,
 				Required:true,
 				ForceNew:true,
 				ValidateDiagFunc: enum.Validate[types.KxClusterType](),
 			},
 			"vpc_configuration": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 1,
@@ -329,12 +329,12 @@ func ResourceKxCluster() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"ip_address_type": {
 							Type:schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.StringInSlice(enum.Slice(types.IPAddressTypeIpV4), true),
 						},
 						"security_group_ids": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
 							ForceNew: true,
 							Elem: &schema.Schema{
@@ -343,7 +343,7 @@ func ResourceKxCluster() *schema.Resource {
 							},
 						},
 						"subnet_ids": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
 							ForceNew: true,
 							Elem: &schema.Schema{
@@ -353,8 +353,8 @@ func ResourceKxCluster() *schema.Resource {
 						},
 						"vpc_id": {
 							Type:schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: validation.StringLenBetween(1, 1024),
 						},
 					},
@@ -371,7 +371,6 @@ const (
 
 	kxClusterIDPartCount = 2
 )
-
 func resourceKxClusterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -393,7 +392,7 @@ func resourceKxClusterCreate(ctx context.Context, d *schema.ResourceData, meta i
 		ClusterName:  aws.String(clusterName),
 		ClusterType:  types.KxClusterType(d.Get("type").(string)),
 		ReleaseLabel: aws.String(d.Get("release_label").(string)),
-		AzMode:       types.KxAzMode(d.Get("az_mode").(string)),
+		AzMode:  types.KxAzMode(d.Get("az_mode").(string)),
 		CapacityConfiguration: expandCapacityConfiguration(d.Get("capacity_configuration").([]interface{})),
 		ClientToken:  aws.String(id.UniqueId()),
 		Tags:getTagsIn(ctx),
@@ -458,7 +457,6 @@ func resourceKxClusterCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return append(diags, resourceKxClusterRead(ctx, d, meta)...)
 }
-
 func resourceKxClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
@@ -538,20 +536,18 @@ func resourceKxClusterRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
-
 func resourceKxClusterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	// Tags only.
 	return append(diags, resourceKxClusterRead(ctx, d, meta)...)
 }
-
 func resourceKxClusterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).FinSpaceClient(ctx)
 
 	log.Printf("[INFO] Deleting FinSpace KxCluster %s", d.Id())
 	_, err := conn.DeleteKxCluster(ctx, &finspace.DeleteKxClusterInput{
-		ClusterName:   aws.String(d.Get("name").(string)),
+		ClusterName:aws.String(d.Get("name").(string)),
 		EnvironmentId: aws.String(d.Get("environment_id").(string)),
 	})
 	if err != nil {
@@ -570,14 +566,13 @@ func resourceKxClusterDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
-
 func waitKxClusterCreated(ctx context.Context, conn *finspace.Client, id string, timeout time.Duration) (*finspace.GetKxClusterOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.KxClusterStatusPending, types.KxClusterStatusCreating),
 		Target:  enum.Slice(types.KxClusterStatusRunning),
 		Refresh: statusKxCluster(ctx, conn, id),
 		Timeout: timeout,
-		NotFoundChecks:   20,
+		NotFoundChecks:20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -588,7 +583,6 @@ func waitKxClusterCreated(ctx context.Context, conn *finspace.Client, id string,
 
 	return nil, err
 }
-
 func waitKxClusterDeleted(ctx context.Context, conn *finspace.Client, id string, timeout time.Duration) (*finspace.GetKxClusterOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(types.KxClusterStatusDeleting),
@@ -604,7 +598,6 @@ func waitKxClusterDeleted(ctx context.Context, conn *finspace.Client, id string,
 
 	return nil, err
 }
-
 func statusKxCluster(ctx context.Context, conn *finspace.Client, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		out, err := findKxClusterByID(ctx, conn, id)
@@ -619,7 +612,6 @@ func statusKxCluster(ctx context.Context, conn *finspace.Client, id string) retr
 		return out, string(out.Status), nil
 	}
 }
-
 func findKxClusterByID(ctx context.Context, conn *finspace.Client, id string) (*finspace.GetKxClusterOutput, error) {
 	parts, err := flex.ExpandResourceId(id, kxUserIDPartCount, false)
 	if err != nil {
@@ -627,7 +619,7 @@ func findKxClusterByID(ctx context.Context, conn *finspace.Client, id string) (*
 	}
 	in := &finspace.GetKxClusterInput{
 		EnvironmentId: aws.String(parts[0]),
-		ClusterName:   aws.String(parts[1]),
+		ClusterName:aws.String(parts[1]),
 	}
 
 	out, err := conn.GetKxCluster(ctx, in)
@@ -635,7 +627,7 @@ func findKxClusterByID(ctx context.Context, conn *finspace.Client, id string) (*
 		var nfe *types.ResourceNotFoundException
 		if errors.As(err, &nfe) {
 			return nil, &retry.NotFoundError{
-				LastError:   err,
+				LastError:err,
 				LastRequest: in,
 			}
 		}
@@ -649,7 +641,6 @@ func findKxClusterByID(ctx context.Context, conn *finspace.Client, id string) (*
 
 	return out, nil
 }
-
 func expandCapacityConfiguration(tfList []interface{}) *types.CapacityConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -669,7 +660,6 @@ func expandCapacityConfiguration(tfList []interface{}) *types.CapacityConfigurat
 
 	return a
 }
-
 func expandAutoScalingConfiguration(tfList []interface{}) *types.AutoScalingConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -705,7 +695,6 @@ func expandAutoScalingConfiguration(tfList []interface{}) *types.AutoScalingConf
 
 	return a
 }
-
 func expandSavedownStorageConfiguration(tfList []interface{}) *types.KxSavedownStorageConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -725,7 +714,6 @@ func expandSavedownStorageConfiguration(tfList []interface{}) *types.KxSavedownS
 
 	return a
 }
-
 func expandVPCConfiguration(tfList []interface{}) *types.VpcConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -753,7 +741,6 @@ func expandVPCConfiguration(tfList []interface{}) *types.VpcConfiguration {
 
 	return a
 }
-
 func expandCacheStorageConfiguration(tfMap map[string]interface{}) *types.KxCacheStorageConfiguration {
 	if tfMap == nil {
 		return nil
@@ -771,7 +758,6 @@ func expandCacheStorageConfiguration(tfMap map[string]interface{}) *types.KxCach
 
 	return a
 }
-
 func expandCacheStorageConfigurations(tfList []interface{}) []types.KxCacheStorageConfiguration {
 	if len(tfList) == 0 {
 		return nil
@@ -797,7 +783,6 @@ func expandCacheStorageConfigurations(tfList []interface{}) []types.KxCacheStora
 
 	return s
 }
-
 func expandDatabases(tfList []interface{}) []types.KxDatabaseConfiguration {
 	if len(tfList) == 0 {
 		return nil
@@ -823,7 +808,6 @@ func expandDatabases(tfList []interface{}) []types.KxDatabaseConfiguration {
 
 	return s
 }
-
 func expandDatabase(tfMap map[string]interface{}) *types.KxDatabaseConfiguration {
 	if tfMap == nil {
 		return nil
@@ -845,7 +829,6 @@ func expandDatabase(tfMap map[string]interface{}) *types.KxDatabaseConfiguration
 
 	return a
 }
-
 func expandCacheConfigurations(tfList []interface{}) []types.KxDatabaseCacheConfiguration {
 	if len(tfList) == 0 {
 		return nil
@@ -871,7 +854,6 @@ func expandCacheConfigurations(tfList []interface{}) []types.KxDatabaseCacheConf
 
 	return s
 }
-
 func expandCacheConfiguration(tfMap map[string]interface{}) *types.KxDatabaseCacheConfiguration {
 	if tfMap == nil {
 		return nil
@@ -889,7 +871,6 @@ func expandCacheConfiguration(tfMap map[string]interface{}) *types.KxDatabaseCac
 
 	return a
 }
-
 func expandCode(tfList []interface{}) *types.CodeConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -913,19 +894,17 @@ func expandCode(tfList []interface{}) *types.CodeConfiguration {
 
 	return a
 }
-
 func expandCommandLineArgument(k string, v string) *types.KxCommandLineArgument {
 	if k == "" || v == "" {
 		return nil
 	}
 
 	a := &types.KxCommandLineArgument{
-		Key:   aws.String(k),
+		Key:aws.String(k),
 		Value: aws.String(v),
 	}
 	return a
 }
-
 func expandCommandLineArguments(tfMap map[string]interface{}) []types.KxCommandLineArgument {
 	if tfMap == nil {
 		return nil
@@ -945,7 +924,6 @@ func expandCommandLineArguments(tfMap map[string]interface{}) []types.KxCommandL
 
 	return s
 }
-
 func flattenCapacityConfiguration(apiObject *types.CapacityConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -963,7 +941,6 @@ func flattenCapacityConfiguration(apiObject *types.CapacityConfiguration) []inte
 
 	return []interface{}{m}
 }
-
 func flattenAutoScalingConfiguration(apiObject *types.AutoScalingConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -997,7 +974,6 @@ func flattenAutoScalingConfiguration(apiObject *types.AutoScalingConfiguration) 
 
 	return []interface{}{m}
 }
-
 func flattenSavedownStorageConfiguration(apiObject *types.KxSavedownStorageConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1015,7 +991,6 @@ func flattenSavedownStorageConfiguration(apiObject *types.KxSavedownStorageConfi
 
 	return []interface{}{m}
 }
-
 func flattenVPCConfiguration(apiObject *types.VpcConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1041,7 +1016,6 @@ func flattenVPCConfiguration(apiObject *types.VpcConfiguration) []interface{} {
 
 	return []interface{}{m}
 }
-
 func flattenCode(apiObject *types.CodeConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1063,7 +1037,6 @@ func flattenCode(apiObject *types.CodeConfiguration) []interface{} {
 
 	return []interface{}{m}
 }
-
 func flattenCacheStorageConfiguration(apiObject *types.KxCacheStorageConfiguration) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1081,7 +1054,6 @@ func flattenCacheStorageConfiguration(apiObject *types.KxCacheStorageConfigurati
 
 	return m
 }
-
 func flattenCacheStorageConfigurations(apiObjects []types.KxCacheStorageConfiguration) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -1095,7 +1067,6 @@ func flattenCacheStorageConfigurations(apiObjects []types.KxCacheStorageConfigur
 
 	return l
 }
-
 func flattenCacheConfiguration(apiObject *types.KxDatabaseCacheConfiguration) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1113,7 +1084,6 @@ func flattenCacheConfiguration(apiObject *types.KxDatabaseCacheConfiguration) ma
 
 	return m
 }
-
 func flattenCacheConfigurations(apiObjects []types.KxDatabaseCacheConfiguration) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -1127,7 +1097,6 @@ func flattenCacheConfigurations(apiObjects []types.KxDatabaseCacheConfiguration)
 
 	return l
 }
-
 func flattenDatabase(apiObject *types.KxDatabaseConfiguration) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1149,7 +1118,6 @@ func flattenDatabase(apiObject *types.KxDatabaseConfiguration) map[string]interf
 
 	return m
 }
-
 func flattenDatabases(apiObjects []types.KxDatabaseConfiguration) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -1163,7 +1131,6 @@ func flattenDatabases(apiObjects []types.KxDatabaseConfiguration) []interface{} 
 
 	return l
 }
-
 func flattenCommandLineArguments(apiObjects []types.KxCommandLineArgument) map[string]string {
 	if len(apiObjects) == 0 {
 		return nil

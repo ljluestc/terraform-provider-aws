@@ -38,15 +38,15 @@ func ResourceConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"kafka_versions": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
@@ -54,28 +54,27 @@ func ResourceConfiguration() *schema.Resource {
 				},
 			},
 			"latest_revision": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"server_properties": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 		},
 	}
 }
-
 func resourceConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KafkaConn(ctx)
 
 	input := &kafka.CreateConfigurationInput{
-		Name:    aws.String(d.Get("name").(string)),
+		Name:aws.String(d.Get("name").(string)),
 		ServerProperties: []byte(d.Get("server_properties").(string)),
 	}
 
@@ -97,7 +96,6 @@ func resourceConfigurationCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return append(diags, resourceConfigurationRead(ctx, d, meta)...)
 }
-
 func resourceConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KafkaConn(ctx)
@@ -128,7 +126,7 @@ func resourceConfigurationRead(ctx context.Context, d *schema.ResourceData, meta
 
 	revision := configurationOutput.LatestRevision.Revision
 	revisionInput := &kafka.DescribeConfigurationRevisionInput{
-		Arn:      aws.String(d.Id()),
+		Arn: aws.String(d.Id()),
 		Revision: revision,
 	}
 
@@ -155,13 +153,12 @@ func resourceConfigurationRead(ctx context.Context, d *schema.ResourceData, meta
 
 	return diags
 }
-
 func resourceConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KafkaConn(ctx)
 
 	input := &kafka.UpdateConfigurationInput{
-		Arn:     aws.String(d.Id()),
+		Arn:aws.String(d.Id()),
 		ServerProperties: []byte(d.Get("server_properties").(string)),
 	}
 
@@ -177,7 +174,6 @@ func resourceConfigurationUpdate(ctx context.Context, d *schema.ResourceData, me
 
 	return append(diags, resourceConfigurationRead(ctx, d, meta)...)
 }
-
 func resourceConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KafkaConn(ctx)

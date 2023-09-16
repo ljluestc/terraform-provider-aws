@@ -1,31 +1,17 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package schema
-
-import (
+// SPDX-License-Identifier: MPL-2.0package schemaimport (
 	"fmt"
 	"log"
-	"time"
-
-	"github.com/mitchellh/copystructure"
-
-	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/configs/hcl2shim"
+	"time"	"github.com/mitchellh/copystructure"	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/configs/hcl2shim"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
-)
-
-const TimeoutKey = "e2bfb730-ecaa-11e6-8f88-34363bc7c4c0"
-const TimeoutsConfigKey = "timeouts"
-
-const (
+)const TimeoutKey = "e2bfb730-ecaa-11e6-8f88-34363bc7c4c0"
+const TimeoutsConfigKey = "timeouts"const (
 	TimeoutCreate  = "create"
 	TimeoutRead    = "read"
 	TimeoutUpdate  = "update"
 	TimeoutDelete  = "delete"
 	TimeoutDefault = "default"
 )
-
-
  timeoutKeys() []string {
 	return []string{
 		TimeoutCreate,
@@ -34,11 +20,7 @@ const (
 		TimeoutDelete,
 		TimeoutDefault,
 	}
-}
-
-ould be time.Duration, int64 or float64
-
- DefaultTimeout(tx interface{}) *time.Duration {
+}ould be time.Duration, int64 or float64 DefaultTimeout(tx interface{}) *time.Duration {
 	var td time.Duration
 	switch raw := tx.(type) {
 	case time.Duration:
@@ -51,25 +33,17 @@ ould be time.Duration, int64 or float64
 		log.Printf("[WARN] Unknown type in DefaultTimeout: %#v", tx)
 	}
 	return &td
-}
-
-type ResourceTimeout struct {
+}type ResourceTimeout struct {
 	Create, Read, Update, Delete, Default *time.Duration
-}
-
-onfigDecode takes a schema and the configuration (available in Diff) and
-// validates, parses the timeouts into `t`
-
- (t *ResourceTimeout) ConfigDecode(s *Resource, c *terraform.ResourceConfig) error {
+}onfigDecode takes a schema and the configuration (available in Diff) and
+// validates, parses the timeouts into `t` (t *ResourceTimeout) ConfigDecode(s *Resource, c *terraform.ResourceConfig) error {
 	if s.Timeouts != nil {
 		raw, err := copystructure.Copy(s.Timeouts)
 		if err != nil {
 			log.Printf("[DEBUG] Error with deep copy: %s", err)
 		}
 		*t = *raw.(*ResourceTimeout)
-	}
-
-	if raw, ok := c.Config[TimeoutsConfigKey]; ok {
+	}	if raw, ok := c.Config[TimeoutsConfigKey]; ok {
 		var rawTimeouts []map[string]interface{}
 		switch raw := raw.(type) {
 		case map[string]interface{}:
@@ -98,9 +72,7 @@ onfigDecode takes a schema and the configuration (available in Diff) and
 		default:
 			log.Printf("[ERROR] Invalid timeout structure: %#v", raw)
 			return fmt.Errorf("Invalid Timeout structure found")
-		}
-
-		for _, timeoutValues := range rawTimeouts {
+		}		for _, timeoutValues := range rawTimeouts {
 			for timeKey, timeValue := range timeoutValues {
 				// validate that we're dealing with the normal CRUD actions
 				var found bool
@@ -109,19 +81,13 @@ onfigDecode takes a schema and the configuration (available in Diff) and
 						found = true
 						break
 					}
-				}
-
-				if !found {
+				}				if !found {
 					return fmt.Errorf("Unsupported Timeout configuration key found (%s)", timeKey)
-				}
-
-				// Get timeout
+				}				// Get timeout
 				rt, err := time.ParseDuration(timeValue.(string))
 				if err != nil {
 					return fmt.Errorf("Error parsing %q timeout: %s", timeKey, err)
-				}
-
-				var timeout *time.Duration
+				}				var timeout *time.Duration
 				switch timeKey {
 				case TimeoutCreate:
 					timeout = t.Create
@@ -133,18 +99,12 @@ onfigDecode takes a schema and the configuration (available in Diff) and
 					timeout = t.Delete
 				case TimeoutDefault:
 					timeout = t.Default
-				}
-
-				// If the resource has not delcared this in the definition, then error
+				}				// If the resource has not delcared this in the definition, then error
 				// with an unsupported message
 				if timeout == nil {
 					return unsupportedTimeoutKeyError(timeKey)
-				}
-
-				*timeout = rt
-			}
-
-			// This early return, which makes this 
+				}				*timeout = rt
+			}			// This early return, which makes this 
 tion handle a single
 			// timeout configuration block, should likely not be here but the
 			// SDK has never raised an error for multiple blocks nor made any
@@ -152,41 +112,25 @@ tion handle a single
 			// It is left here for compatibility reasons.
 			return nil //nolint:staticcheck
 		}
-	}
-
-	return nil
+	}	return nil
 }
-
-
  unsupportedTimeoutKeyError(key string) error {
 	return fmt.Errorf("Timeout Key (%s) is not supported", key)
-}
-
-// DiffEncode, StateEncode, and MetaDecode are analogous to the Go stdlib JSONEncoder
+}// DiffEncode, StateEncode, and MetaDecode are analogous to the Go stdlib JSONEncoder
 nterface: they encode/decode a timeouts struct from an instance diff, which is
 // where the timeout data is stored after a diff to pass into Apply.
 //
 // StateEncode encodes the timeout into the ResourceData's InstanceState for
-aving to state
-
- (t *ResourceTimeout) DiffEncode(id *terraform.InstanceDiff) error {
+aving to state (t *ResourceTimeout) DiffEncode(id *terraform.InstanceDiff) error {
 	return t.metaEncode(id)
 }
-
-
  (t *ResourceTimeout) StateEncode(is *terraform.InstanceState) error {
 urn t.metaEncode(is)
-}
-
-// metaEncode encodes the ResourceTimeout into a map[string]interface{} format
+}// metaEncode encodes the ResourceTimeout into a map[string]interface{} format
 // and stores it in the Meta field of the interface it's given.
 // Assumes the interface is either *terraform.InstanceState or
-// *terraform.InstanceDiff, returns an error otherwise
-
- (t *ResourceTimeout) metaEncode(ids interface{}) error {
-	m := make(map[string]interface{})
-
-	if t.Create != nil {
+// *terraform.InstanceDiff, returns an error otherwise (t *ResourceTimeout) metaEncode(ids interface{}) error {
+	m := make(map[string]interface{})	if t.Create != nil {
 		m[TimeoutCreate] = t.Create.Nanoseconds()
 	}
 	if t.Read != nil {
@@ -207,9 +151,7 @@ urn t.metaEncode(is)
 				m[k] = t.Default.Nanoseconds()
 			}
 		}
-	}
-
-	// only add the Timeout to the Meta if we have values
+	}	// only add the Timeout to the Meta if we have values
 	if len(m) > 0 {
 		switch instance := ids.(type) {
 		case *terraform.InstanceDiff:
@@ -225,21 +167,13 @@ urn t.metaEncode(is)
 fault:
 			return fmt.Errorf("Error matching type for Diff Encode")
 		}
-
-
 	return nil
 }
-
-
  (t *ResourceTimeout) StateDecode(id *terraform.InstanceState) error {
 	return t.metaDecode(id)
-}
-
- (t *ResourceTimeout) DiffDecode(is *terraform.InstanceDiff) error {
+} (t *ResourceTimeout) DiffDecode(is *terraform.InstanceDiff) error {
 	return t.metaDecode(is)
 }
-
-
  (t *ResourceTimeout) metaDecode(ids interface{}) error {
 	var rawMeta interface{}
 	var ok bool
@@ -256,14 +190,10 @@ fault:
 		}
 	default:
 		return fmt.Errorf("Unknown or unsupported type in metaDecode: %#v", ids)
-	}
-
-	times := rawMeta.(map[string]interface{})
+	}	times := rawMeta.(map[string]interface{})
 	if len(times) == 0 {
 		return nil
-	}
-
-	if v, ok := times[TimeoutCreate]; ok {
+	}	if v, ok := times[TimeoutCreate]; ok {
 		t.Create = DefaultTimeout(v)
 	}
 	if v, ok := times[TimeoutRead]; ok {
@@ -277,7 +207,5 @@ fault:
 	}
 	if v, ok := times[TimeoutDefault]; ok {
 		t.Default = DefaultTimeout(v)
-	}
-
-	return nil
+	}	return nil
 }

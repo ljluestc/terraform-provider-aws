@@ -60,7 +60,7 @@ MaxItems: 20,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "key": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.StringInSlice(ssm.AttachmentsSourceKey_Values(), false),
 },
@@ -77,7 +77,7 @@ validation.StringLenBetween(3, 128),
 	MinItems: 1,
 	Required: true,
 	Elem: &schema.Schema{
-Type:         schema.TypeString,
+Type:schema.TypeString,
 ValidateFunc: validation.StringLenBetween(1, 1024),
 	},
 },
@@ -101,13 +101,13 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"document_format": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      ssm.DocumentFormatJson,
 ValidateFunc: validation.StringInSlice(ssm.DocumentFormat_Values(), false),
 	},
 	"document_type": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringInSlice(ssm.DocumentType_Values(), false),
 	},
@@ -258,8 +258,8 @@ func resourceDocumentCreate(ctx context.Context, d *schema.ResourceData, meta in
 Content:        aws.String(d.Get("content").(string)),
 DocumentFormat: aws.String(d.Get("document_format").(string)),
 DocumentType:   aws.String(d.Get("document_type").(string)),
-Name:           aws.String(name),
-Tags:           getTagsIn(ctx),
+Name:  aws.String(name),
+Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("attachments_source"); ok && len(v.([]interface{})) > 0 {
@@ -291,7 +291,7 @@ if v, ok := tfMap["account_ids"]; ok && v != "" {
 	for _, chunk := range chunks {
 input := &ssm.ModifyDocumentPermissionInput{
 	AccountIdsToAdd: aws.StringSlice(chunk),
-	Name:            aws.String(d.Id()),
+	Name:   aws.String(d.Id()),
 	PermissionType:  aws.String(ssm.DocumentPermissionTypeShare),
 }
 
@@ -359,7 +359,7 @@ return sdkdiag.AppendErrorf(diags, "setting parameter: %s", err)
 input := &ssm.GetDocumentInput{
 	DocumentFormat:  aws.String(d.Get("document_format").(string)),
 	DocumentVersion: aws.String("$LATEST"),
-	Name:            aws.String(d.Id()),
+	Name:   aws.String(d.Id()),
 }
 
 output, err := conn.GetDocumentWithContext(ctx, input)
@@ -373,7 +373,7 @@ d.Set("content", output.Content)
 
 	{
 input := &ssm.DescribeDocumentPermissionInput{
-	Name:           aws.String(d.Id()),
+	Name:  aws.String(d.Id()),
 	PermissionType: aws.String(ssm.DocumentPermissionTypeShare),
 }
 
@@ -425,7 +425,7 @@ newAccountIDs = strings.Split(v, ",")
 for _, chunk := range slices.Chunks(newAccountIDs.Difference(oldAccountIDs), documentPermissionsBatchLimit) {
 	input := &ssm.ModifyDocumentPermissionInput{
 AccountIdsToAdd: aws.StringSlice(chunk),
-Name:            aws.String(d.Id()),
+Name:   aws.String(d.Id()),
 PermissionType:  aws.String(ssm.DocumentPermissionTypeShare),
 	}
 
@@ -457,10 +457,10 @@ isSchemaVersion1, _ := regexp.MatchString(`^1[.][0-9]$`, d.Get("schema_version")
 
 if d.HasChange("content") || !isSchemaVersion1 {
 	input := &ssm.UpdateDocumentInput{
-Content:         aws.String(d.Get("content").(string)),
+Content:aws.String(d.Get("content").(string)),
 DocumentFormat:  aws.String(d.Get("document_format").(string)),
 DocumentVersion: aws.String(d.Get("default_version").(string)),
-Name:            aws.String(d.Id()),
+Name:   aws.String(d.Id()),
 	}
 
 	if v, ok := d.GetOk("attachments_source"); ok && len(v.([]interface{})) > 0 {
@@ -489,7 +489,7 @@ defaultVersion = aws.StringValue(output.DocumentDescription.DocumentVersion)
 
 	_, err = conn.UpdateDocumentDefaultVersionWithContext(ctx, &ssm.UpdateDocumentDefaultVersionInput{
 DocumentVersion: aws.String(defaultVersion),
-Name:            aws.String(d.Id()),
+Name:   aws.String(d.Id()),
 	})
 
 	if err != nil {

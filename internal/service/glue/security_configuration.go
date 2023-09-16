@@ -115,7 +115,7 @@ ValidateFunc: validation.StringInSlice([]string{
 },
 	},
 	"name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validation.NoZeroValues,
@@ -237,7 +237,7 @@ return nil
 	encryptionConfiguration := &glue.EncryptionConfiguration{
 CloudWatchEncryption:   expandCloudWatchEncryption(m["cloudwatch_encryption"].([]interface{})),
 JobBookmarksEncryption: expandJobBookmarksEncryption(m["job_bookmarks_encryption"].([]interface{})),
-S3Encryption:           expandS3Encryptions(m["s3_encryption"].([]interface{})),
+S3Encryption:  expandS3Encryptions(m["s3_encryption"].([]interface{})),
 	}
 
 	return encryptionConfiguration
@@ -307,7 +307,7 @@ return []interface{}{}
 	m := map[string]interface{}{
 "cloudwatch_encryption":    flattenCloudWatchEncryption(encryptionConfiguration.CloudWatchEncryption),
 "job_bookmarks_encryption": flattenJobBookmarksEncryption(encryptionConfiguration.JobBookmarksEncryption),
-"s3_encryption":            flattenS3Encryptions(encryptionConfiguration.S3Encryption),
+"s3_encryption":   flattenS3Encryptions(encryptionConfiguration.S3Encryption),
 	}
 
 	return []interface{}{m}

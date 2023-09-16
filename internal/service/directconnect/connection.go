@@ -31,83 +31,83 @@ func ResourceConnection() *schema.Resource {
 	resourceV0 := &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"aws_device": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"bandwidth": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validConnectionBandWidth(),
 			},
 			// The MAC Security (MACsec) connection encryption mode.
 			"encryption_mode": {
-				Type:         schema.TypeString,
-				Computed:     true,
-				Optional:     true,
+				Type:ema.TypeString,
+				Computed:true,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice([]string{"no_encrypt", "should_encrypt", "must_encrypt"}, false),
 			},
 			"has_logical_redundancy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"jumbo_frame_capable": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"location": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			// Indicates whether the connection supports MAC Security (MACsec).
 			"macsec_capable": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			// Enable or disable MAC Security (MACsec) on this connection.
 			"request_macsec": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 				ForceNew: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"owner_account_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"partner_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"port_encryption_status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"provider_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"skip_destroy": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Default:  false,
 				Optional: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vlan_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -115,7 +115,7 @@ func ResourceConnection() *schema.Resource {
 
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceConnectionCreate,
-		ReadWithoutTimeout:   resourceConnectionRead,
+		ReadWithoutTimeout:resourceConnectionRead,
 		UpdateWithoutTimeout: resourceConnectionUpdate,
 		DeleteWithoutTimeout: resourceConnectionDelete,
 
@@ -151,83 +151,83 @@ func ResourceConnection() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"aws_device": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"bandwidth": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validConnectionBandWidth(),
 			},
 			// The MAC Security (MACsec) connection encryption mode.
 			"encryption_mode": {
-				Type:         schema.TypeString,
-				Computed:     true,
-				Optional:     true,
+				Type:ema.TypeString,
+				Computed:true,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice([]string{"no_encrypt", "should_encrypt", "must_encrypt"}, false),
 			},
 			"has_logical_redundancy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"jumbo_frame_capable": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"location": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			// Indicates whether the connection supports MAC Security (MACsec).
 			"macsec_capable": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			// Enable or disable MAC Security (MACsec) on this connection.
 			"request_macsec": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 				ForceNew: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"owner_account_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"partner_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"port_encryption_status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"provider_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"skip_destroy": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Default:  false,
 				Optional: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vlan_id": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 		},
@@ -235,18 +235,17 @@ func ResourceConnection() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceConnectionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &directconnect.CreateConnectionInput{
-		Bandwidth:      aws.String(d.Get("bandwidth").(string)),
+		Bandwidth:ring(d.Get("bandwidth").(string)),
 		ConnectionName: aws.String(name),
-		Location:       aws.String(d.Get("location").(string)),
+		Location:tring(d.Get("location").(string)),
 		RequestMACSec:  aws.Bool(d.Get("request_macsec").(bool)),
-		Tags:           getTagsIn(ctx),
+		Tags:etTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("provider_name"); ok {
@@ -263,7 +262,6 @@ func resourceConnectionCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceConnectionRead(ctx, d, meta)...)
 }
-
 func resourceConnectionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -282,8 +280,8 @@ func resourceConnectionRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    aws.StringValue(connection.Region),
-		Service:   "directconnect",
+		Region: aws.StringValue(connection.Region),
+		Service:"directconnect",
 		AccountID: aws.StringValue(connection.OwnerAccount),
 		Resource:  fmt.Sprintf("dxcon/%s", d.Id()),
 	}.String()
@@ -310,14 +308,13 @@ func resourceConnectionRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func resourceConnectionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
 	if d.HasChange("encryption_mode") {
 		input := &directconnect.UpdateConnectionInput{
-			ConnectionId:   aws.String(d.Id()),
+			ConnectionId:aws.String(d.Id()),
 			EncryptionMode: aws.String(d.Get("encryption_mode").(string)),
 		}
 
@@ -334,7 +331,6 @@ func resourceConnectionUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceConnectionRead(ctx, d, meta)...)
 }
-
 func resourceConnectionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -349,7 +345,6 @@ func resourceConnectionDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
-
 func deleteConnection(ctx context.Context, conn *directconnect.DirectConnect, connectionID string, waiter func(context.Context, *directconnect.DirectConnect, string) (*directconnect.Connection, error)) error {
 	log.Printf("[DEBUG] Deleting Direct Connect Connection: %s", connectionID)
 	_, err := conn.DeleteConnectionWithContext(ctx, &directconnect.DeleteConnectionInput{

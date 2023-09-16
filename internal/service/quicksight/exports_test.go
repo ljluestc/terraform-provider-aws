@@ -7,9 +7,9 @@ package quicksight
 var (
 	ResourceFolderMembership    = newResourceFolderMembership
 	ResourceIAMPolicyAssignment = newResourceIAMPolicyAssignment
-	ResourceIngestion           = newResourceIngestion
-	ResourceNamespace           = newResourceNamespace
+	ResourceIngestion     = newResourceIngestion
+	ResourceNamespace     = newResourceNamespace
 	ResourceRefreshSchedule     = newResourceRefreshSchedule
-	ResourceTemplateAlias       = newResourceTemplateAlias
-	ResourceVPCConnection       = newResourceVPCConnection
+	ResourceTemplateAlias = newResourceTemplateAlias
+	ResourceVPCConnection = newResourceVPCConnection
 )

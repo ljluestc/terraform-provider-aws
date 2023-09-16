@@ -43,7 +43,7 @@ func ResourceChannel() *schema.Resource {
 				Computed: true,
 			},
 			"channel_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[\w-]+$`), "must only contain alphanumeric characters, dashes or underscores"),
@@ -95,7 +95,7 @@ func resourceChannelCreate(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).MediaPackageClient(ctx)
 
 	input := &mediapackage.CreateChannelInput{
-		Id:          aws.String(d.Get("channel_id").(string)),
+		Id: aws.String(d.Get("channel_id").(string)),
 		Description: aws.String(d.Get("description").(string)),
 		Tags:        getTagsIn(ctx),
 	}
@@ -144,7 +144,7 @@ func resourceChannelUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).MediaPackageClient(ctx)
 
 	input := &mediapackage.UpdateChannelInput{
-		Id:          aws.String(d.Id()),
+		Id: aws.String(d.Id()),
 		Description: aws.String(d.Get("description").(string)),
 	}
 

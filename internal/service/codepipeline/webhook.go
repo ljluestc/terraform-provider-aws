@@ -41,7 +41,7 @@ func ResourceWebhook() *schema.Resource {
 				Computed: true,
 			},
 			"authentication": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(codepipeline.WebhookAuthenticationType_Values(), false),
@@ -55,14 +55,14 @@ func ResourceWebhook() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"secret_token": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							Sensitive:    true,
 							ValidateFunc: validation.StringLenBetween(1, 100),
 						},
 						"allowed_ip_range": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IsCIDRNetwork(0, 32),
@@ -78,13 +78,13 @@ func ResourceWebhook() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"json_path": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 150),
 						},
 
 						"match_equals": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 150),
 						},
@@ -136,7 +136,7 @@ func resourceWebhookCreate(ctx context.Context, d *schema.ResourceData, meta int
 		Webhook: &codepipeline.WebhookDefinition{
 			Authentication: aws.String(authType),
 			Filters:        extractWebhookRules(d.Get("filter").(*schema.Set)),
-			Name:           aws.String(d.Get("name").(string)),
+			Name:  aws.String(d.Get("name").(string)),
 			TargetAction:   aws.String(d.Get("target_action").(string)),
 			TargetPipeline: aws.String(d.Get("target_pipeline").(string)),
 			AuthenticationConfiguration: extractWebhookAuthConfig(authType, authConfig),
@@ -214,7 +214,7 @@ func resourceWebhookUpdate(ctx context.Context, d *schema.ResourceData, meta int
 			Webhook: &codepipeline.WebhookDefinition{
 				Authentication: aws.String(authType),
 				Filters:        extractWebhookRules(d.Get("filter").(*schema.Set)),
-				Name:           aws.String(d.Get("name").(string)),
+				Name:  aws.String(d.Get("name").(string)),
 				TargetAction:   aws.String(d.Get("target_action").(string)),
 				TargetPipeline: aws.String(d.Get("target_pipeline").(string)),
 				AuthenticationConfiguration: extractWebhookAuthConfig(authType, authConfig),

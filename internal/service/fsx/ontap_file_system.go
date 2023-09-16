@@ -45,17 +45,17 @@ func ResourceOntapFileSystem() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"automatic_backup_retention_days": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				Default:      0,
+				Type:schema.TypeInt,
+				Optional: true,
+				Default:  0,
 				ValidateFunc: validation.IntBetween(0, 90),
 			},
 			"daily_automatic_backup_start_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ValidateFunc: validation.All(
@@ -64,72 +64,72 @@ func ResourceOntapFileSystem() *schema.Resource {
 				),
 			},
 			"deployment_type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringInSlice(fsx.OntapDeploymentType_Values(), false),
 			},
 			"disk_iops_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"iops": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							Computed:     true,
+							Type:schema.TypeInt,
+							Optional: true,
+							Computed: true,
 							ValidateFunc: validation.IntBetween(0, 160000),
 						},
 						"mode": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      fsx.DiskIopsConfigurationModeAutomatic,
+							Type:schema.TypeString,
+							Optional: true,
+							Default:  fsx.DiskIopsConfigurationModeAutomatic,
 							ValidateFunc: validation.StringInSlice(fsx.DiskIopsConfigurationMode_Values(), false),
 						},
 					},
 				},
 			},
 			"dns_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"endpoints": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"intercluster": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"dns_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"ip_addresses": {
-										Type:     schema.TypeSet,
+										Type: schema.TypeSet,
 										Computed: true,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem: &schema.Schema{Type: schema.TypeString},
 									},
 								},
 							},
 						},
 						"management": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"dns_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"ip_addresses": {
-										Type:     schema.TypeSet,
+										Type: schema.TypeSet,
 										Computed: true,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem: &schema.Schema{Type: schema.TypeString},
 									},
 								},
 							},
@@ -138,88 +138,88 @@ func ResourceOntapFileSystem() *schema.Resource {
 				},
 			},
 			"endpoint_ip_address_range": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ValidateFunc: verify.ValidIPv4CIDRNetworkAddress,
 			},
 			"fsx_admin_password": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Sensitive:    true,
+				Type:schema.TypeString,
+				Optional: true,
+				Sensitive:true,
 				ValidateFunc: validation.StringLenBetween(8, 50),
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"network_interface_ids": {
 				// As explained in https://docs.aws.amazon.com/fsx/latest/OntapGuide/mounting-on-premises.html, the first
 				// network_interface_id is the primary one, so ordering matters. Use TypeList instead of TypeSet to preserve it.
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"preferred_subnet_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"security_group_ids": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 50,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"route_table_ids": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				MaxItems: 50,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"storage_capacity": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional: true,
 				ValidateFunc: validation.IntBetween(1024, 192*1024),
 			},
 			"storage_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      fsx.StorageTypeSsd,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+				Default:  fsx.StorageTypeSsd,
 				ValidateFunc: validation.StringInSlice(fsx.StorageType_Values(), false),
 			},
 			"subnet_ids": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Required: true,
 				ForceNew: true,
 				MinItems: 1,
 				MaxItems: 2,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"throughput_capacity": {
-				Type:         schema.TypeInt,
-				Required:     true,
+				Type:schema.TypeInt,
+				Required: true,
 				ValidateFunc: validation.IntInSlice([]int{128, 256, 512, 1024, 2048, 4096}),
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"weekly_maintenance_start_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ValidateFunc: validation.All(
@@ -239,15 +239,15 @@ func resourceOntapFileSystemCreate(ctx context.Context, d *schema.ResourceData, 
 
 	input := &fsx.CreateFileSystemInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
-		FileSystemType:     aws.String(fsx.FileSystemTypeOntap),
-		StorageCapacity:    aws.Int64(int64(d.Get("storage_capacity").(int))),
-		StorageType:        aws.String(d.Get("storage_type").(string)),
-		SubnetIds:          flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
+		FileSystemType: aws.String(fsx.FileSystemTypeOntap),
+		StorageCapacity:aws.Int64(int64(d.Get("storage_capacity").(int))),
+		StorageType:aws.String(d.Get("storage_type").(string)),
+		SubnetIds: flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
 		OntapConfiguration: &fsx.CreateFileSystemOntapConfiguration{
 			DeploymentType:  aws.String(d.Get("deployment_type").(string)),
 			AutomaticBackupRetentionDays: aws.Int64(int64(d.Get("automatic_backup_retention_days").(int))),
-			ThroughputCapacity:           aws.Int64(int64(d.Get("throughput_capacity").(int))),
-			PreferredSubnetId:            aws.String(d.Get("preferred_subnet_id").(string)),
+			ThroughputCapacity:  aws.Int64(int64(d.Get("throughput_capacity").(int))),
+			PreferredSubnetId:   aws.String(d.Get("preferred_subnet_id").(string)),
 		},
 		Tags: getTagsIn(ctx),
 	}
@@ -368,7 +368,7 @@ func resourceOntapFileSystemUpdate(ctx context.Context, d *schema.ResourceData, 
 	if d.HasChangesExcept("tags_all", "tags") {
 		input := &fsx.UpdateFileSystemInput{
 			ClientRequestToken: aws.String(id.UniqueId()),
-			FileSystemId:       aws.String(d.Id()),
+			FileSystemId:   aws.String(d.Id()),
 			OntapConfiguration: &fsx.UpdateFileSystemOntapConfiguration{},
 		}
 

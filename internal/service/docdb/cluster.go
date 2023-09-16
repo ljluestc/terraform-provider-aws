@@ -33,7 +33,7 @@ import (
 func ResourceCluster() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClusterCreate,
-		ReadWithoutTimeout:   resourceClusterRead,
+		ReadWithoutTimeout:resourceClusterRead,
 		UpdateWithoutTimeout: resourceClusterUpdate,
 		DeleteWithoutTimeout: resourceClusterDelete,
 		Importer: &schema.ResourceImporter{
@@ -48,100 +48,100 @@ func ResourceCluster() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"availability_zones": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:schema.TypeSet,
+				Elem:&schema.Schema{Type: schema.TypeString},
 				Optional: true,
 				ForceNew: true,
 				Computed: true,
-				Set:      schema.HashString,
+				Set:.HashString,
 			},
 
 			"cluster_identifier": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"cluster_identifier_prefix"},
 				ValidateFunc:  validIdentifier,
 			},
 			"cluster_identifier_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"cluster_identifier"},
 				ValidateFunc:  validIdentifierPrefix,
 			},
 
 			"cluster_members": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:schema.TypeSet,
+				Elem:&schema.Schema{Type: schema.TypeString},
 				Optional: true,
 				Computed: true,
-				Set:      schema.HashString,
+				Set:.HashString,
 			},
 
 			"db_subnet_group_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 				Computed: true,
 			},
 
 			"db_cluster_parameter_group_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"endpoint": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"global_cluster_identifier": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:ema.TypeString,
+				Optional:true,
 				ValidateFunc: validGlobalCusterIdentifier,
 			},
 
 			"reader_endpoint": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"hosted_zone_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"engine": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      "docdb",
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				Default:",
+				ForceNew:true,
 				ValidateFunc: validEngine(),
 			},
 
 			"engine_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"storage_encrypted": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 			},
 
 			"final_snapshot_identifier": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ValidateFunc: func(v interface{}, k string) (ws []string, es []error) {
 					value := v.(string)
@@ -160,26 +160,26 @@ func ResourceCluster() *schema.Resource {
 			},
 
 			"skip_final_snapshot": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 
 			"master_username": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 				Optional: true,
 				ForceNew: true,
 			},
 
 			"master_password": {
-				Type:      schema.TypeString,
+				Type:.TypeString,
 				Optional:  true,
 				Sensitive: true,
 			},
 
 			"snapshot_identifier": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
@@ -189,36 +189,36 @@ func ResourceCluster() *schema.Resource {
 			},
 
 			"port": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				Default:      27017,
-				ForceNew:     true,
+				Type:ema.TypeInt,
+				Optional:true,
+				Default:
+				ForceNew:true,
 				ValidateFunc: validation.IntBetween(1150, 65535),
 			},
 
 			"apply_immediately": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 
 			"vpc_security_group_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-				Set:      schema.HashString,
+				Elem:&schema.Schema{Type: schema.TypeString},
+				Set:.HashString,
 			},
 
 			"preferred_backup_window": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: verify.ValidOnceADayWindowFormat,
 			},
 
 			"preferred_maintenance_window": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				StateFunc: func(val interface{}) string {
@@ -231,27 +231,27 @@ func ResourceCluster() *schema.Resource {
 			},
 
 			"backup_retention_period": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				Default:      1,
+				Type:ema.TypeInt,
+				Optional:true,
+				Default:
 				ValidateFunc: validation.IntAtMost(35),
 			},
 
 			"kms_key_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				Computed:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 
 			"cluster_resource_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"enabled_cloudwatch_logs_exports": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
@@ -263,18 +263,17 @@ func ResourceCluster() *schema.Resource {
 			},
 
 			"deletion_protection": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceClusterImport(ctx context.Context,
 	d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	// Neither skip_final_snapshot nor final_snapshot_identifier can be fetched
@@ -283,7 +282,6 @@ func resourceClusterImport(ctx context.Context,
 	d.Set("skip_final_snapshot", true)
 	return []*schema.ResourceData{d}, nil
 }
-
 func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -313,7 +311,7 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 			Engine: aws.String(d.Get("engine").(string)),
 			SnapshotIdentifier:  aws.String(d.Get("snapshot_identifier").(string)),
 			DeletionProtection:  aws.Bool(d.Get("deletion_protection").(bool)),
-			Tags:   getTagsIn(ctx),
+			Tags:getTagsIn(ctx),
 		}
 
 		if attr := d.Get("availability_zones").(*schema.Set); attr.Len() > 0 {
@@ -399,9 +397,9 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 			DBClusterIdentifier: aws.String(identifier),
 			Engine: aws.String(d.Get("engine").(string)),
 			MasterUserPassword:  aws.String(d.Get("master_password").(string)),
-			MasterUsername:      aws.String(d.Get("master_username").(string)),
+			MasterUsername:ring(d.Get("master_username").(string)),
 			DeletionProtection:  aws.Bool(d.Get("deletion_protection").(bool)),
-			Tags:   getTagsIn(ctx),
+			Tags:getTagsIn(ctx),
 		}
 
 		if attr, ok := d.GetOk("global_cluster_identifier"); ok {
@@ -483,12 +481,12 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 		"[INFO] Waiting for DocumentDB Cluster to be available")
 
 	stateConf := &retry.StateChangeConf{
-		Pending:    resourceClusterCreatePendingStates,
-		Target:     []string{"available"},
-		Refresh:    resourceClusterStateRefreshFunc(ctx, conn, d.Id()),
-		Timeout:    d.Timeout(schema.TimeoutCreate),
+		Pending: resourceClusterCreatePendingStates,
+		Target:[]string{"available"},
+		Refresh: resourceClusterStateRefreshFunc(ctx, conn, d.Id()),
+		Timeout: d.Timeout(schema.TimeoutCreate),
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+		Delay:ime.Second,
 	}
 
 	// Wait, catching any errors
@@ -515,7 +513,6 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
-
 func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -616,14 +613,13 @@ func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
-
 func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
 	requestUpdate := false
 
 	req := &docdb.ModifyDBClusterInput{
-		ApplyImmediately:    aws.Bool(d.Get("apply_immediately").(bool)),
+		ApplyImmediately: aws.Bool(d.Get("apply_immediately").(bool)),
 		DBClusterIdentifier: aws.String(d.Id()),
 	}
 
@@ -690,7 +686,7 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 		}
 
 		input := &docdb.RemoveFromGlobalClusterInput{
-			DbClusterIdentifier:     aws.String(d.Get("arn").(string)),
+			DbClusterIdentifier:aws.String(d.Get("arn").(string)),
 			GlobalClusterIdentifier: aws.String(o),
 		}
 
@@ -737,7 +733,6 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
-
 func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -747,7 +742,7 @@ func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta int
 	// InvalidDBClusterStateFault: This cluster is a part of a global cluster, please remove it from globalcluster first
 	if d.Get("global_cluster_identifier").(string) != "" {
 		input := &docdb.RemoveFromGlobalClusterInput{
-			DbClusterIdentifier:     aws.String(d.Get("arn").(string)),
+			DbClusterIdentifier:aws.String(d.Get("arn").(string)),
 			GlobalClusterIdentifier: aws.String(d.Get("global_cluster_identifier").(string)),
 		}
 
@@ -797,12 +792,12 @@ func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta int
 	}
 
 	stateConf := &retry.StateChangeConf{
-		Pending:    resourceClusterDeletePendingStates,
-		Target:     []string{"destroyed"},
-		Refresh:    resourceClusterStateRefreshFunc(ctx, conn, d.Id()),
-		Timeout:    d.Timeout(schema.TimeoutDelete),
+		Pending: resourceClusterDeletePendingStates,
+		Target:[]string{"destroyed"},
+		Refresh: resourceClusterStateRefreshFunc(ctx, conn, d.Id()),
+		Timeout: d.Timeout(schema.TimeoutDelete),
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+		Delay:ime.Second,
 	}
 
 	// Wait, catching any errors
@@ -813,7 +808,6 @@ func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
-
 func resourceClusterStateRefreshFunc(ctx context.Context, conn *docdb.DocDB, dbClusterIdentifier string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		resp, err := conn.DescribeDBClustersWithContext(ctx, &docdb.DescribeDBClustersInput{
@@ -870,20 +864,18 @@ var resourceClusterUpdatePendingStates = []string{
 	"resetting-master-credentials",
 	"upgrading",
 }
-
 func waitForClusterUpdate(ctx context.Context, conn *docdb.DocDB, id string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:    resourceClusterUpdatePendingStates,
-		Target:     []string{"available"},
-		Refresh:    resourceClusterStateRefreshFunc(ctx, conn, id),
-		Timeout:    timeout,
+		Pending: resourceClusterUpdatePendingStates,
+		Target:[]string{"available"},
+		Refresh: resourceClusterStateRefreshFunc(ctx, conn, id),
+		Timeout: timeout,
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second, // Wait 30 secs before starting
+		Delay:ime.Second, // Wait 30 secs before starting
 	}
 	_, err := stateConf.WaitForStateContext(ctx)
 	return err
 }
-
 func buildCloudWatchLogsExportConfiguration(d *schema.ResourceData) *docdb.CloudwatchLogsExportConfiguration {
 	oraw, nraw := d.GetChange("enabled_cloudwatch_logs_exports")
 	o := oraw.([]interface{})
@@ -896,7 +888,6 @@ func buildCloudWatchLogsExportConfiguration(d *schema.ResourceData) *docdb.Cloud
 		DisableLogTypes: flex.ExpandStringList(disable),
 	}
 }
-
 func diffCloudWatchLogsExportConfiguration(old, new []interface{}) ([]interface{}, []interface{}) {
 	add := make([]interface{}, 0)
 	disable := make([]interface{}, 0)

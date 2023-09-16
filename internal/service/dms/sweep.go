@@ -15,16 +15,15 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_dms_endpoint", &resource.Sweeper{
 		Name: "aws_dms_endpoint",
-		F:    sweepEndpoints,
+		F: sweepEndpoints,
 	})
 
 	resource.AddTestSweepers("aws_dms_replication_instance", &resource.Sweeper{
 		Name: "aws_dms_replication_instance",
-		F:    sweepReplicationInstances,
+		F: sweepReplicationInstances,
 		Dependencies: []string{
 			"aws_dms_replication_subnet_group",
 			"aws_dms_replication_task",
@@ -33,15 +32,14 @@ func init() {
 
 	resource.AddTestSweepers("aws_dms_replication_subnet_group", &resource.Sweeper{
 		Name: "aws_dms_replication_subnet_group",
-		F:    sweepReplicationSubnetGroups,
+		F: sweepReplicationSubnetGroups,
 	})
 
 	resource.AddTestSweepers("aws_dms_replication_task", &resource.Sweeper{
 		Name: "aws_dms_replication_task",
-		F:    sweepReplicationTasks,
+		F: sweepReplicationTasks,
 	})
 }
-
 func sweepEndpoints(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -52,7 +50,8 @@ func sweepEndpoints(region string) error {
 	input := &dms.DescribeEndpointsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeEndpointsPagesWithContext(ctx, input, func(page *dms.DescribeEndpointsOutput, lastPage bool) bool {
+	err = conn.DescribeEndpointsPagesWithContext(ctx, input, 
+func(page *dms.DescribeEndpointsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -86,7 +85,6 @@ func sweepEndpoints(region string) error {
 
 	return nil
 }
-
 func sweepReplicationInstances(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -97,7 +95,8 @@ func sweepReplicationInstances(region string) error {
 	input := &dms.DescribeReplicationInstancesInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeReplicationInstancesPagesWithContext(ctx, input, func(page *dms.DescribeReplicationInstancesOutput, lastPage bool) bool {
+	err = conn.DescribeReplicationInstancesPagesWithContext(ctx, input, 
+func(page *dms.DescribeReplicationInstancesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -131,7 +130,6 @@ func sweepReplicationInstances(region string) error {
 
 	return nil
 }
-
 func sweepReplicationSubnetGroups(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -142,7 +140,8 @@ func sweepReplicationSubnetGroups(region string) error {
 	input := &dms.DescribeReplicationSubnetGroupsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeReplicationSubnetGroupsPagesWithContext(ctx, input, func(page *dms.DescribeReplicationSubnetGroupsOutput, lastPage bool) bool {
+	err = conn.DescribeReplicationSubnetGroupsPagesWithContext(ctx, input, 
+func(page *dms.DescribeReplicationSubnetGroupsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -175,7 +174,6 @@ func sweepReplicationSubnetGroups(region string) error {
 
 	return nil
 }
-
 func sweepReplicationTasks(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -188,7 +186,8 @@ func sweepReplicationTasks(region string) error {
 	}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeReplicationTasksPagesWithContext(ctx, input, func(page *dms.DescribeReplicationTasksOutput, lastPage bool) bool {
+	err = conn.DescribeReplicationTasksPagesWithContext(ctx, input, 
+func(page *dms.DescribeReplicationTasksOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

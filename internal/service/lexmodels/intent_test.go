@@ -63,9 +63,9 @@ resource.TestCheckResourceAttr(rName, "version", tflexmodels.IntentVersionLatest
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -95,9 +95,9 @@ testAccCheckIntentNotExists(ctx, testIntentID, "1"),
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 {
@@ -109,9 +109,9 @@ resource.TestCheckResourceAttr(rName, "version", "1"),
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -146,9 +146,9 @@ resource.TestCheckResourceAttr(rName, "conclusion_statement.0.response_card", "Y
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 {
@@ -166,9 +166,9 @@ resource.TestCheckResourceAttr(rName, "conclusion_statement.0.response_card", "Y
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -208,9 +208,9 @@ resource.TestCheckResourceAttr(rName, "rejection_statement.0.response_card", "Ok
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 {
@@ -233,9 +233,9 @@ resource.TestCheckResourceAttr(rName, "rejection_statement.0.response_card", "Ok
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -270,9 +270,9 @@ resource.TestCheckResourceAttrSet(rName, "dialog_code_hook.0.uri"),
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -316,9 +316,9 @@ resource.TestCheckResourceAttr(rName, "follow_up_prompt.0.rejection_statement.0.
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 {
@@ -343,9 +343,9 @@ resource.TestCheckResourceAttr(rName, "follow_up_prompt.0.rejection_statement.0.
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -382,9 +382,9 @@ resource.TestCheckResourceAttr(rName, "fulfillment_activity.0.type", "CodeHook")
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -415,9 +415,9 @@ resource.TestCheckResourceAttr(rName, "sample_utterances.0", "I would like to pi
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 {
@@ -428,9 +428,9 @@ resource.TestCheckResourceAttr(rName, "sample_utterances.#", "2"),
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -472,9 +472,9 @@ resource.TestCheckResourceAttr(rName, "slot.0.value_elicitation_prompt.0.message
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 {
@@ -485,9 +485,9 @@ resource.TestCheckResourceAttr(rName, "slot.#", "2"),
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -533,9 +533,9 @@ resource.TestCheckResourceAttr(rName, "slot.0.value_elicitation_prompt.0.respons
 ),
 },
 {
-ResourceName:            rName,
+ResourceName:   rName,
 ImportState:true,
-ImportStateVerify:       true,
+ImportStateVerify:   true,
 ImportStateVerifyIgnore: []string{"create_version"},
 },
 },
@@ -585,9 +585,9 @@ return fmt.Errorf("intent not found: %s", resourceName)
 }
 
 input := &lexmodelbuildingservice.PutIntentInput{
-Checksum:    aws.String(resourceState.Primary.Attributes["checksum"]),
+Checksum:aws.String(resourceState.Primary.Attributes["checksum"]),
 Description: aws.String("Updated externally without Terraform"),
-Name:        aws.String(resourceState.Primary.ID),
+Name:aws.String(resourceState.Primary.ID),
 FulfillmentActivity: &lexmodelbuildingservice.FulfillmentActivity{
 Type: aws.String("ReturnIntent"),
 },
@@ -709,7 +709,7 @@ var err error
 conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)
 
 output, err = conn.GetIntentWithContext(ctx, &lexmodelbuildingservice.GetIntentInput{
-Name:    aws.String(rs.Primary.ID),
+Name:aws.String(rs.Primary.ID),
 Version: aws.String(intentVersion),
 })
 if tfawserr.ErrCodeEquals(err, lexmodelbuildingservice.ErrCodeNotFoundException) {
@@ -732,7 +732,7 @@ return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).LexModelsConn(ctx)
 
 _, err := conn.GetIntentWithContext(ctx, &lexmodelbuildingservice.GetIntentInput{
-Name:    aws.String(intentName),
+Name:aws.String(intentName),
 Version: aws.String(intentVersion),
 })
 if tfawserr.ErrCodeEquals(err, lexmodelbuildingservice.ErrCodeNotFoundException) {
@@ -780,11 +780,11 @@ func testAccIntentConfig_lambda(rName string) string {
 return fmt.Sprintf(`
 data "aws_iam_policy_document" "lambda_assume_role" {
   statement {
-    actions = ["sts:AssumeRole"]
-    principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
+actions = ["sts:AssumeRole"]
+principals {
+  type= "Service"
+  identifiers = ["lambda.amazonaws.com"]
+}
   }
 }
 
@@ -794,17 +794,17 @@ resource "aws_iam_role" "test" {
 }
 
 resource "aws_lambda_permission" "lex" {
-  action        = "lambda:InvokeFunction"
+  action= "lambda:InvokeFunction"
   function_name = aws_lambda_function.test.function_name
-  principal     = "lex.amazonaws.com"
+  principal = "lex.amazonaws.com"
 }
 
 resource "aws_lambda_function" "test" {
-  filename      = "test-fixtures/lambdatest.zip"
+  filename  = "test-fixtures/lambdatest.zip"
   function_name = "%[1]s"
-  handler       = "lambdatest.handler"
-  role          = aws_iam_role.test.arn
-  runtime       = "nodejs16.x"
+  handler   = "lambdatest.handler"
+  role = aws_iam_role.test.arn
+  runtime   = "nodejs16.x"
 }
 `, rName)
 }
@@ -814,7 +814,7 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
 }
 `, rName)
@@ -824,9 +824,9 @@ func testAccIntentConfig_createVersion(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   create_version = true
-  name           = "%s"
+  name  = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
 }
 `, rName)
@@ -837,14 +837,14 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   conclusion_statement {
-    message {
-      content      = "Your order for {FlowerType} has been placed and will be ready by {PickupTime} on {PickupDate}"
-      content_type = "PlainText"
-    }
-    response_card = "Your order for {FlowerType} has been placed and will be ready by {PickupTime} on {PickupDate}"
+message {
+  content  = "Your order for {FlowerType} has been placed and will be ready by {PickupTime} on {PickupDate}"
+  content_type = "PlainText"
+}
+response_card = "Your order for {FlowerType} has been placed and will be ready by {PickupTime} on {PickupDate}"
   }
 }
 `, rName)
@@ -855,20 +855,20 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   conclusion_statement {
-    message {
-      content      = "Your order for {FlowerType} has been placed and will be ready by {PickupTime} on {PickupDate}"
-      content_type = "PlainText"
-      group_number = 1
-    }
-    message {
-      content      = "Your order for {FlowerType} has been placed"
-      content_type = "PlainText"
-      group_number = 1
-    }
-    response_card = "Your order for {FlowerType} has been placed"
+message {
+  content  = "Your order for {FlowerType} has been placed and will be ready by {PickupTime} on {PickupDate}"
+  content_type = "PlainText"
+  group_number = 1
+}
+message {
+  content  = "Your order for {FlowerType} has been placed"
+  content_type = "PlainText"
+  group_number = 1
+}
+response_card = "Your order for {FlowerType} has been placed"
   }
 }
 `, rName)
@@ -879,22 +879,22 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   confirmation_prompt {
-    max_attempts = 1
-    message {
-      content      = "Okay, your {FlowerType} will be ready for pickup by {PickupTime} on {PickupDate}. Does this sound okay?"
-      content_type = "PlainText"
-    }
-    response_card = "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"Okay, your {FlowerType} will be ready for pickup by {PickupTime} on {PickupDate}. Does this sound okay?\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"yes\"},{\"text\":\"No\",\"value\":\"no\"}]}]}"
+max_attempts = 1
+message {
+  content  = "Okay, your {FlowerType} will be ready for pickup by {PickupTime} on {PickupDate}. Does this sound okay?"
+  content_type = "PlainText"
+}
+response_card = "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"Okay, your {FlowerType} will be ready for pickup by {PickupTime} on {PickupDate}. Does this sound okay?\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"yes\"},{\"text\":\"No\",\"value\":\"no\"}]}]}"
   }
   rejection_statement {
-    message {
-      content      = "Okay, I will not place your order."
-      content_type = "PlainText"
-    }
-    response_card = "Okay, I will not place your order."
+message {
+  content  = "Okay, I will not place your order."
+  content_type = "PlainText"
+}
+response_card = "Okay, I will not place your order."
   }
 }
 `, rName)
@@ -905,30 +905,30 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   confirmation_prompt {
-    max_attempts = 2
-    message {
-      content      = "Okay, your {FlowerType} will be ready for pickup by {PickupTime} on {PickupDate}. Does this sound okay?"
-      content_type = "PlainText"
-    }
-    message {
-      content      = "Okay, your {FlowerType} will be ready for pickup on {PickupDate}. Does this sound okay?"
-      content_type = "PlainText"
-    }
-    response_card = "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"Okay, your {FlowerType} will be ready for pickup on {PickupDate}. Does this sound okay?\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"yes\"},{\"text\":\"No\",\"value\":\"no\"}]}]}"
+max_attempts = 2
+message {
+  content  = "Okay, your {FlowerType} will be ready for pickup by {PickupTime} on {PickupDate}. Does this sound okay?"
+  content_type = "PlainText"
+}
+message {
+  content  = "Okay, your {FlowerType} will be ready for pickup on {PickupDate}. Does this sound okay?"
+  content_type = "PlainText"
+}
+response_card = "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"Okay, your {FlowerType} will be ready for pickup on {PickupDate}. Does this sound okay?\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"yes\"},{\"text\":\"No\",\"value\":\"no\"}]}]}"
   }
   rejection_statement {
-    message {
-      content      = "Okay, I will not place your order."
-      content_type = "PlainText"
-    }
-    message {
-      content      = "Okay, your order has been cancelled."
-      content_type = "PlainText"
-    }
-    response_card = "Okay, your order has been cancelled."
+message {
+  content  = "Okay, I will not place your order."
+  content_type = "PlainText"
+}
+message {
+  content  = "Okay, your order has been cancelled."
+  content_type = "PlainText"
+}
+response_card = "Okay, your order has been cancelled."
   }
 }
 `, rName)
@@ -939,11 +939,11 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   dialog_code_hook {
-    message_version = "1"
-    uri= aws_lambda_function.test.arn
+message_version = "1"
+uri= aws_lambda_function.test.arn
   }
 }
 `, rName)
@@ -954,24 +954,24 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   follow_up_prompt {
-    prompt {
-      max_attempts = 1
-      message {
-        content      = "Would you like to order more flowers?"
-        content_type = "PlainText"
-      }
-      response_card = "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"Would you like to order more flowers?\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"yes\"},{\"text\":\"No\",\"value\":\"no\"}]}]}"
-    }
-    rejection_statement {
-      message {
-        content      = "Okay, no additional flowers will be ordered."
-        content_type = "PlainText"
-      }
-      response_card = "Okay, no additional flowers will be ordered."
-    }
+prompt {
+  max_attempts = 1
+  message {
+content  = "Would you like to order more flowers?"
+content_type = "PlainText"
+  }
+  response_card = "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"Would you like to order more flowers?\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"yes\"},{\"text\":\"No\",\"value\":\"no\"}]}]}"
+}
+rejection_statement {
+  message {
+content  = "Okay, no additional flowers will be ordered."
+content_type = "PlainText"
+  }
+  response_card = "Okay, no additional flowers will be ordered."
+}
   }
 }
 `, rName)
@@ -982,32 +982,32 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   follow_up_prompt {
-    prompt {
-      max_attempts = 2
-      message {
-        content      = "Would you like to order more flowers?"
-        content_type = "PlainText"
-      }
-      message {
-        content      = "Would you like to start another order?"
-        content_type = "PlainText"
-      }
-      response_card = "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"Would you like to start another order?\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"yes\"},{\"text\":\"No\",\"value\":\"no\"}]}]}"
-    }
-    rejection_statement {
-      message {
-        content      = "Okay, no additional flowers will be ordered."
-        content_type = "PlainText"
-      }
-      message {
-        content      = "Okay, additional flowers will be ordered."
-        content_type = "PlainText"
-      }
-      response_card = "Okay, additional flowers will be ordered."
-    }
+prompt {
+  max_attempts = 2
+  message {
+content  = "Would you like to order more flowers?"
+content_type = "PlainText"
+  }
+  message {
+content  = "Would you like to start another order?"
+content_type = "PlainText"
+  }
+  response_card = "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"Would you like to start another order?\",\"buttons\":[{\"text\":\"Yes\",\"value\":\"yes\"},{\"text\":\"No\",\"value\":\"no\"}]}]}"
+}
+rejection_statement {
+  message {
+content  = "Okay, no additional flowers will be ordered."
+content_type = "PlainText"
+  }
+  message {
+content  = "Okay, additional flowers will be ordered."
+content_type = "PlainText"
+  }
+  response_card = "Okay, additional flowers will be ordered."
+}
   }
 }
 `, rName)
@@ -1018,11 +1018,11 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    code_hook {
-      message_version = "1"
-      uri= aws_lambda_function.test.arn
-    }
-    type = "CodeHook"
+code_hook {
+  message_version = "1"
+  uri= aws_lambda_function.test.arn
+}
+type = "CodeHook"
   }
 }
 `, rName)
@@ -1033,10 +1033,10 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   sample_utterances = [
-    "I would like to pick up flowers",
+"I would like to pick up flowers",
   ]
 }
 `, rName)
@@ -1047,11 +1047,11 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   sample_utterances = [
-    "I would like to pick up flowers",
-    "I would like to order some flowers",
+"I would like to pick up flowers",
+"I would like to order some flowers",
   ]
 }
 `, rName)
@@ -1062,24 +1062,24 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   slot {
-    description = "The date to pick up the flowers"
-    name        = "PickupDate"
-    priority    = 1
-    sample_utterances = [
-      "I would like to order {FlowerType}",
-    ]
-    slot_constraint = "Required"
-    slot_type       = "AMAZON.DATE"
-    value_elicitation_prompt {
-      max_attempts = 1
-      message {
-        content      = "What day do you want the {FlowerType} to be picked up?"
-        content_type = "PlainText"
-      }
-    }
+description = "The date to pick up the flowers"
+name= "PickupDate"
+priority= 1
+sample_utterances = [
+  "I would like to order {FlowerType}",
+]
+slot_constraint = "Required"
+slot_type   = "AMAZON.DATE"
+value_elicitation_prompt {
+  max_attempts = 1
+  message {
+content  = "What day do you want the {FlowerType} to be picked up?"
+content_type = "PlainText"
+  }
+}
   }
 }
 `, rName)
@@ -1090,41 +1090,41 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   slot {
-    description = "The date to pick up the flowers"
-    name        = "PickupDate"
-    priority    = 2
-    sample_utterances = [
-      "I would like to order {FlowerType}",
-    ]
-    slot_constraint = "Required"
-    slot_type       = "AMAZON.DATE"
-    value_elicitation_prompt {
-      max_attempts = 2
-      message {
-        content      = "What day do you want the {FlowerType} to be picked up?"
-        content_type = "PlainText"
-      }
-    }
+description = "The date to pick up the flowers"
+name= "PickupDate"
+priority= 2
+sample_utterances = [
+  "I would like to order {FlowerType}",
+]
+slot_constraint = "Required"
+slot_type   = "AMAZON.DATE"
+value_elicitation_prompt {
+  max_attempts = 2
+  message {
+content  = "What day do you want the {FlowerType} to be picked up?"
+content_type = "PlainText"
+  }
+}
   }
   slot {
-    description = "The time to pick up the flowers"
-    name        = "PickupTime"
-    priority    = 1
-    sample_utterances = [
-      "I would like to order {FlowerType}",
-    ]
-    slot_constraint = "Required"
-    slot_type       = "AMAZON.TIME"
-    value_elicitation_prompt {
-      max_attempts = 2
-      message {
-        content      = "Pick up the {FlowerType} at what time on {PickupDate}?"
-        content_type = "PlainText"
-      }
-    }
+description = "The time to pick up the flowers"
+name= "PickupTime"
+priority= 1
+sample_utterances = [
+  "I would like to order {FlowerType}",
+]
+slot_constraint = "Required"
+slot_type   = "AMAZON.TIME"
+value_elicitation_prompt {
+  max_attempts = 2
+  message {
+content  = "Pick up the {FlowerType} at what time on {PickupDate}?"
+content_type = "PlainText"
+  }
+}
   }
 }
 `, rName)
@@ -1135,26 +1135,26 @@ return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   name = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   slot {
-    description = "Types of flowers to pick up"
-    name        = "FlowerType"
-    priority    = 1
-    sample_utterances = [
-      "I would like to order {FlowerType}",
-    ]
-    slot_constraint   = "Required"
-    slot_type         = aws_lex_slot_type.test.name
-    slot_type_version = "$LATEST"
-    value_elicitation_prompt {
-      max_attempts = 2
-      message {
-        content      = "What type of flowers would you like to order?"
-        content_type = "PlainText"
-      }
-      response_card = "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"What type of flowers?\",\"buttons\":[{\"text\":\"Tulips\",\"value\":\"tulips\"},{\"text\":\"Lilies\",\"value\":\"lilies\"},{\"text\":\"Roses\",\"value\":\"roses\"}]}]}"
-    }
+description = "Types of flowers to pick up"
+name= "FlowerType"
+priority= 1
+sample_utterances = [
+  "I would like to order {FlowerType}",
+]
+slot_constraint   = "Required"
+slot_type= aws_lex_slot_type.test.name
+slot_type_version = "$LATEST"
+value_elicitation_prompt {
+  max_attempts = 2
+  message {
+content  = "What type of flowers would you like to order?"
+content_type = "PlainText"
+  }
+  response_card = "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"title\":\"What type of flowers?\",\"buttons\":[{\"text\":\"Tulips\",\"value\":\"tulips\"},{\"text\":\"Lilies\",\"value\":\"lilies\"},{\"text\":\"Roses\",\"value\":\"roses\"}]}]}"
+}
   }
 }
 `, rName)
@@ -1164,12 +1164,12 @@ func testAccIntentConfig_sampleUtterancesWithVersion(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   create_version = true
-  name           = "%s"
+  name  = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   sample_utterances = [
-    "I would not like to pick up flowers",
+"I would not like to pick up flowers",
   ]
 }
 `, rName)
@@ -1179,20 +1179,20 @@ func testAccIntentConfig_slotsWithVersion(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   create_version = true
-  name           = "%s"
+  name  = "%s"
   fulfillment_activity {
-    type = "ReturnIntent"
+type = "ReturnIntent"
   }
   slot {
-    description = "Types of flowers to pick up"
-    name        = "FlowerType"
-    priority    = 1
-    sample_utterances = [
-      "I would like to order {FlowerType}",
-    ]
-    slot_constraint   = "Required"
-    slot_type         = aws_lex_slot_type.test.name
-    slot_type_version = aws_lex_slot_type.test.version
+description = "Types of flowers to pick up"
+name= "FlowerType"
+priority= 1
+sample_utterances = [
+  "I would like to order {FlowerType}",
+]
+slot_constraint   = "Required"
+slot_type= aws_lex_slot_type.test.name
+slot_type_version = aws_lex_slot_type.test.version
   }
 }
 `, rName)

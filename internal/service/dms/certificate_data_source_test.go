@@ -12,14 +12,14 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDMSCertificateDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_dms_certificate.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckCertificateDestroy(ctx),
@@ -34,7 +34,6 @@ func TestAccDMSCertificateDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccCertificateDataSourceConfig_basic(certId string) string {
 	return fmt.Sprintf(`
 resource "aws_dms_certificate" "test" {

@@ -101,7 +101,7 @@ func DataSourceCatalogTable() *schema.Resource {
 				},
 			},
 			"query_as_of_time": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"transaction_id"},
 				ValidateFunc:  validation.IsRFC3339Time,
@@ -302,7 +302,7 @@ func DataSourceCatalogTable() *schema.Resource {
 				},
 			},
 			"transaction_id": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				ConflictsWith: []string{"query_as_of_time"},
 			},
@@ -330,7 +330,7 @@ func dataSourceCatalogTableRead(ctx context.Context, d *schema.ResourceData, met
 	input := &glue.GetTableInput{
 		CatalogId:    aws.String(catalogID),
 		DatabaseName: aws.String(dbName),
-		Name:         aws.String(name),
+		Name:aws.String(name),
 	}
 
 	if v, ok := d.GetOk("query_as_of_time"); ok {

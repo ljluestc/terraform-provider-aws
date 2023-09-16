@@ -31,36 +31,36 @@ func ResourceBackendEnvironment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"app_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 
 			"deployment_artifacts": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z-]{1,100}$`), "should be not be more than 100 alphanumeric or hyphen characters"),
 			},
 
 			"environment_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[a-z]{2,10}$`), "should be between 2 and 10 characters (only lowercase alphabetic)"),
 			},
 
 			"stack_name": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z-]{1,100}$`), "should be not be more than 100 alphanumeric or hyphen characters"),
 			},
 		},
@@ -76,7 +76,7 @@ func resourceBackendEnvironmentCreate(ctx context.Context, d *schema.ResourceDat
 	id := BackendEnvironmentCreateResourceID(appID, environmentName)
 
 	input := &amplify.CreateBackendEnvironmentInput{
-		AppId:           aws.String(appID),
+		AppId:  aws.String(appID),
 		EnvironmentName: aws.String(environmentName),
 	}
 
@@ -143,7 +143,7 @@ func resourceBackendEnvironmentDelete(ctx context.Context, d *schema.ResourceDat
 
 	log.Printf("[DEBUG] Deleting Amplify Backend Environment: %s", d.Id())
 	_, err = conn.DeleteBackendEnvironmentWithContext(ctx, &amplify.DeleteBackendEnvironmentInput{
-		AppId:           aws.String(appID),
+		AppId:  aws.String(appID),
 		EnvironmentName: aws.String(environmentName),
 	})
 

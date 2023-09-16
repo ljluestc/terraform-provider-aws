@@ -37,7 +37,7 @@ func TestAccGlueCatalogTable_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_basic(rName),
@@ -72,7 +72,7 @@ func TestAccGlueCatalogTable_columnParameters(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_columnParameters(rName),
@@ -104,7 +104,7 @@ func TestAccGlueCatalogTable_full(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_full(rName, description),
@@ -169,7 +169,7 @@ func TestAccGlueCatalogTable_Update_addValues(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_basic(rName),
@@ -243,7 +243,7 @@ func TestAccGlueCatalogTable_Update_replaceValues(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_full(rName, description),
@@ -358,7 +358,7 @@ func TestAccGlueCatalogTable_StorageDescriptor_emptyBlock(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCatalogTableConfig_storageDescriptorEmptyConfigurationBlock(rName),
@@ -380,7 +380,7 @@ func TestAccGlueCatalogTable_StorageDescriptorSerDeInfo_emptyBlock(t *testing.T)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCatalogTableConfig_storageDescriptorSerDeInfoEmptyConfigurationBlock(rName),
@@ -403,7 +403,7 @@ func TestAccGlueCatalogTable_StorageDescriptorSerDeInfo_updateValues(t *testing.
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_storageDescriptorSerDeInfo(rName),
@@ -445,7 +445,7 @@ func TestAccGlueCatalogTable_StorageDescriptorSkewedInfo_emptyBlock(t *testing.T
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCatalogTableConfig_storageDescriptorSkewedInfoEmptyConfigurationBlock(rName),
@@ -468,7 +468,7 @@ func TestAccGlueCatalogTable_StorageDescriptor_schemaReference(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCatalogTableConfig_storageDescriptorSchemaReference(rName),
@@ -511,7 +511,7 @@ func TestAccGlueCatalogTable_StorageDescriptor_schemaReferenceARN(t *testing.T) 
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCatalogTableConfig_storageDescriptorSchemaReferenceARN(rName),
@@ -542,7 +542,7 @@ func TestAccGlueCatalogTable_partitionIndexesSingle(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_partitionIndexesSingle(rName),
@@ -574,7 +574,7 @@ func TestAccGlueCatalogTable_partitionIndexesMultiple(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_partitionIndexesMultiple(rName),
@@ -609,7 +609,7 @@ func TestAccGlueCatalogTable_Disappears_database(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_basic(rName),
@@ -634,7 +634,7 @@ func TestAccGlueCatalogTable_targetTable(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_target(rName),
@@ -665,7 +665,7 @@ func TestAccGlueCatalogTable_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_basic(rName),
@@ -690,7 +690,7 @@ func TestAccGlueCatalogTable_openTableFormat(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTableDestroy(ctx),
+CheckDestroy:    testAccCheckTableDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccCatalogTableConfig_openTableFormat(rName, "comment1"),
@@ -704,8 +704,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"open_table_format_input"},
 	},
@@ -731,7 +731,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 }
 `, rName)
@@ -747,19 +747,19 @@ resource "aws_glue_catalog_table" "test" {
   name= %[1]q
   database_name      = aws_glue_catalog_database.test.name
   description        = %[2]q
-  owner              = "my_owner"
-  retention          = 1
-  table_type         = "VIRTUAL_VIEW"
+  owner     = "my_owner"
+  retention = 1
+  table_type= "VIRTUAL_VIEW"
   view_expanded_text = "view_expanded_text_1"
   view_original_text = "view_original_text_1"
 
   storage_descriptor {
-    bucket_columns            = ["bucket_column_1"]
+    bucket_columns   = ["bucket_column_1"]
     compressed = false
-    input_format              = "SequenceFileInputFormat"
+    input_format     = "SequenceFileInputFormat"
     location   = "my_location"
-    number_of_buckets         = 1
-    output_format             = "SequenceFileInputFormat"
+    number_of_buckets= 1
+    output_format    = "SequenceFileInputFormat"
     stored_as_sub_directories = false
 
     parameters = {
@@ -837,9 +837,9 @@ resource "aws_glue_catalog_table" "test" {
   name= %[1]q
   database_name      = aws_glue_catalog_database.test.name
   description        = "A test table from terraform2"
-  owner              = "my_owner2"
-  retention          = 2
-  table_type         = "EXTERNAL_TABLE"
+  owner     = "my_owner2"
+  retention = 2
+  table_type= "EXTERNAL_TABLE"
   view_expanded_text = "view_expanded_text_12"
   view_original_text = "view_original_text_12"
 
@@ -850,10 +850,10 @@ resource "aws_glue_catalog_table" "test" {
     ]
 
     compressed = true
-    input_format              = "TextInputFormat"
+    input_format     = "TextInputFormat"
     location   = "my_location2"
-    number_of_buckets         = 12
-    output_format             = "TextInputFormat"
+    number_of_buckets= 12
+    output_format    = "TextInputFormat"
     stored_as_sub_directories = true
 
     parameters = {
@@ -930,7 +930,7 @@ resource "aws_glue_catalog_database" "test" {
 
 resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
-  name          = %[1]q
+  name = %[1]q
 
   storage_descriptor {}
 }
@@ -945,7 +945,7 @@ resource "aws_glue_catalog_database" "test" {
 
 resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
-  name          = %[1]q
+  name = %[1]q
 
   storage_descriptor {
     ser_de_info {}
@@ -962,7 +962,7 @@ resource "aws_glue_catalog_database" "test" {
 
 resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
-  name          = %[1]q
+  name = %[1]q
 
   storage_descriptor {
     ser_de_info {
@@ -981,7 +981,7 @@ resource "aws_glue_catalog_database" "test" {
 
 resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
-  name          = %[1]q
+  name = %[1]q
 
   storage_descriptor {
     ser_de_info {
@@ -1003,14 +1003,14 @@ resource "aws_glue_catalog_database" "test" {
 
 resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
-  name          = %[1]q
+  name = %[1]q
 
   storage_descriptor {
     skewed_info {
       skewed_column_names = []
 
       skewed_column_value_location_maps = {}
-      skewed_column_values              = []
+      skewed_column_values     = []
     }
   }
 }
@@ -1037,7 +1037,7 @@ resource "aws_glue_schema" "test" {
 
 resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
-  name          = %[1]q
+  name = %[1]q
 
   storage_descriptor {
     schema_reference {
@@ -1073,7 +1073,7 @@ resource "aws_glue_schema" "test" {
 
 resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
-  name          = %[1]q
+  name = %[1]q
 
   storage_descriptor {
     schema_reference {
@@ -1097,19 +1097,19 @@ resource "aws_glue_catalog_database" "test" {
 resource "aws_glue_catalog_table" "test" {
   name= %[1]q
   database_name      = aws_glue_catalog_database.test.name
-  owner              = "my_owner"
-  retention          = 1
-  table_type         = "VIRTUAL_VIEW"
+  owner     = "my_owner"
+  retention = 1
+  table_type= "VIRTUAL_VIEW"
   view_expanded_text = "view_expanded_text_1"
   view_original_text = "view_original_text_1"
 
   storage_descriptor {
-    bucket_columns            = ["bucket_column_1"]
+    bucket_columns   = ["bucket_column_1"]
     compressed = false
-    input_format              = "SequenceFileInputFormat"
+    input_format     = "SequenceFileInputFormat"
     location   = "my_location"
-    number_of_buckets         = 1
-    output_format             = "SequenceFileInputFormat"
+    number_of_buckets= 1
+    output_format    = "SequenceFileInputFormat"
     stored_as_sub_directories = false
 
     parameters = {
@@ -1229,19 +1229,19 @@ resource "aws_glue_catalog_database" "test" {
 resource "aws_glue_catalog_table" "test" {
   name= %[1]q
   database_name      = aws_glue_catalog_database.test.name
-  owner              = "my_owner"
-  retention          = 1
-  table_type         = "VIRTUAL_VIEW"
+  owner     = "my_owner"
+  retention = 1
+  table_type= "VIRTUAL_VIEW"
   view_expanded_text = "view_expanded_text_1"
   view_original_text = "view_original_text_1"
 
   storage_descriptor {
-    bucket_columns            = ["bucket_column_1"]
+    bucket_columns   = ["bucket_column_1"]
     compressed = false
-    input_format              = "SequenceFileInputFormat"
+    input_format     = "SequenceFileInputFormat"
     location   = "my_location"
-    number_of_buckets         = 1
-    output_format             = "SequenceFileInputFormat"
+    number_of_buckets= 1
+    output_format    = "SequenceFileInputFormat"
     stored_as_sub_directories = false
 
     parameters = {
@@ -1323,19 +1323,19 @@ resource "aws_glue_catalog_database" "test" {
 resource "aws_glue_catalog_table" "test" {
   name= %[1]q
   database_name      = aws_glue_catalog_database.test.name
-  owner              = "my_owner"
-  retention          = 1
-  table_type         = "VIRTUAL_VIEW"
+  owner     = "my_owner"
+  retention = 1
+  table_type= "VIRTUAL_VIEW"
   view_expanded_text = "view_expanded_text_1"
   view_original_text = "view_original_text_1"
 
   storage_descriptor {
-    bucket_columns            = ["bucket_column_1"]
+    bucket_columns   = ["bucket_column_1"]
     compressed = false
-    input_format              = "SequenceFileInputFormat"
+    input_format     = "SequenceFileInputFormat"
     location   = "my_location"
-    number_of_buckets         = 1
-    output_format             = "SequenceFileInputFormat"
+    number_of_buckets= 1
+    output_format    = "SequenceFileInputFormat"
     stored_as_sub_directories = false
 
     parameters = {
@@ -1420,13 +1420,13 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   target_table {
     catalog_id    = aws_glue_catalog_table.test2.catalog_id
     database_name = aws_glue_catalog_table.test2.database_name
-    name          = aws_glue_catalog_table.test2.name
+    name = aws_glue_catalog_table.test2.name
   }
 }
 
@@ -1435,7 +1435,7 @@ resource "aws_glue_catalog_database" "test2" {
 }
 
 resource "aws_glue_catalog_table" "test2" {
-  name          = "%[1]s-2"
+  name = "%[1]s-2"
   database_name = aws_glue_catalog_database.test2.name
 }
 `, rName)
@@ -1454,13 +1454,13 @@ resource "aws_s3_bucket" "bucket" {
 
 resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
-  name          = %[1]q
+  name = %[1]q
   table_type    = "EXTERNAL_TABLE"
 
   open_table_format_input {
     iceberg_input {
       metadata_operation = "CREATE"
-      version            = 2
+      version   = 2
     }
   }
 

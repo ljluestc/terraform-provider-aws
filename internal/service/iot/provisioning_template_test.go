@@ -25,7 +25,7 @@ func TestAccIoTProvisioningTemplate_basic(t *testing.T) {
 	resourceName := "aws_iot_provisioning_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckProvisioningTemplateDestroy(ctx),
@@ -46,8 +46,8 @@ func TestAccIoTProvisioningTemplate_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -60,7 +60,7 @@ func TestAccIoTProvisioningTemplate_disappears(t *testing.T) {
 	resourceName := "aws_iot_provisioning_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckProvisioningTemplateDestroy(ctx),
@@ -83,7 +83,7 @@ func TestAccIoTProvisioningTemplate_tags(t *testing.T) {
 	resourceName := "aws_iot_provisioning_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckProvisioningTemplateDestroy(ctx),
@@ -98,8 +98,8 @@ func TestAccIoTProvisioningTemplate_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -131,7 +131,7 @@ func TestAccIoTProvisioningTemplate_update(t *testing.T) {
 	resourceName := "aws_iot_provisioning_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckProvisioningTemplateDestroy(ctx),
@@ -152,8 +152,8 @@ func TestAccIoTProvisioningTemplate_update(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -252,12 +252,12 @@ func testAccProvisioningTemplateBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 data "aws_iam_policy_document" "assume_role" {
   statement {
-    actions = ["sts:AssumeRole"]
+actions = ["sts:AssumeRole"]
 
-    principals {
-      type        = "Service"
-      identifiers = ["iot.amazonaws.com"]
-    }
+principals {
+  type= "Service"
+  identifiers = ["iot.amazonaws.com"]
+}
   }
 }
 
@@ -270,14 +270,14 @@ resource "aws_iam_role" "test" {
 data "aws_partition" "current" {}
 
 resource "aws_iam_role_policy_attachment" "test" {
-  role       = aws_iam_role.test.name
+  role   = aws_iam_role.test.name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/service-role/AWSIoTThingsRegistration"
 }
 
 data "aws_iam_policy_document" "device" {
   statement {
-    actions   = ["iot:Subscribe"]
-    resources = ["*"]
+actions   = ["iot:Subscribe"]
+resources = ["*"]
   }
 }
 
@@ -291,30 +291,30 @@ resource "aws_iot_policy" "test" {
 func testAccProvisioningTemplateConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccProvisioningTemplateBaseConfig(rName), fmt.Sprintf(`
 resource "aws_iot_provisioning_template" "test" {
-  name     = %[1]q
+  name = %[1]q
   provisioning_role_arn = aws_iam_role.test.arn
 
   template_body = jsonencode({
-    Parameters = {
-      SerialNumber = { Type = "String" }
-    }
+Parameters = {
+  SerialNumber = { Type = "String" }
+}
 
-    Resources = {
-      certificate = {
-        Properties = {
-          CertificateId = { Ref = "AWS::IoT::Certificate::Id" }
-          Status        = "Active"
-        }
-        Type = "AWS::IoT::Certificate"
-      }
+Resources = {
+  certificate = {
+Properties = {
+ CertificateId = { Ref = "AWS::IoT::Certificate::Id" }
+ Status= "Active"
+}
+Type = "AWS::IoT::Certificate"
+  }
 
-      policy = {
-        Properties = {
-          PolicyName = aws_iot_policy.test.name
-        }
-        Type = "AWS::IoT::Policy"
-      }
-    }
+  policy = {
+Properties = {
+ PolicyName = aws_iot_policy.test.name
+}
+Type = "AWS::IoT::Policy"
+  }
+}
   })
 }
 `, rName))
@@ -323,34 +323,34 @@ resource "aws_iot_provisioning_template" "test" {
 func testAccProvisioningTemplateConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccProvisioningTemplateBaseConfig(rName), fmt.Sprintf(`
 resource "aws_iot_provisioning_template" "test" {
-  name     = %[1]q
+  name = %[1]q
   provisioning_role_arn = aws_iam_role.test.arn
 
   template_body = jsonencode({
-    Parameters = {
-      SerialNumber = { Type = "String" }
-    }
+Parameters = {
+  SerialNumber = { Type = "String" }
+}
 
-    Resources = {
-      certificate = {
-        Properties = {
-          CertificateId = { Ref = "AWS::IoT::Certificate::Id" }
-          Status        = "Active"
-        }
-        Type = "AWS::IoT::Certificate"
-      }
+Resources = {
+  certificate = {
+Properties = {
+ CertificateId = { Ref = "AWS::IoT::Certificate::Id" }
+ Status= "Active"
+}
+Type = "AWS::IoT::Certificate"
+  }
 
-      policy = {
-        Properties = {
-          PolicyName = aws_iot_policy.test.name
-        }
-        Type = "AWS::IoT::Policy"
-      }
-    }
+  policy = {
+Properties = {
+ PolicyName = aws_iot_policy.test.name
+}
+Type = "AWS::IoT::Policy"
+  }
+}
   })
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -359,35 +359,35 @@ resource "aws_iot_provisioning_template" "test" {
 func testAccProvisioningTemplateConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccProvisioningTemplateBaseConfig(rName), fmt.Sprintf(`
 resource "aws_iot_provisioning_template" "test" {
-  name     = %[1]q
+  name = %[1]q
   provisioning_role_arn = aws_iam_role.test.arn
 
   template_body = jsonencode({
-    Parameters = {
-      SerialNumber = { Type = "String" }
-    }
+Parameters = {
+  SerialNumber = { Type = "String" }
+}
 
-    Resources = {
-      certificate = {
-        Properties = {
-          CertificateId = { Ref = "AWS::IoT::Certificate::Id" }
-          Status        = "Active"
-        }
-        Type = "AWS::IoT::Certificate"
-      }
+Resources = {
+  certificate = {
+Properties = {
+ CertificateId = { Ref = "AWS::IoT::Certificate::Id" }
+ Status= "Active"
+}
+Type = "AWS::IoT::Certificate"
+  }
 
-      policy = {
-        Properties = {
-          PolicyName = aws_iot_policy.test.name
-        }
-        Type = "AWS::IoT::Policy"
-      }
-    }
+  policy = {
+Properties = {
+ PolicyName = aws_iot_policy.test.name
+}
+Type = "AWS::IoT::Policy"
+  }
+}
   })
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -396,32 +396,32 @@ resource "aws_iot_provisioning_template" "test" {
 func testAccProvisioningTemplateConfig_updated(rName string) string {
 	return acctest.ConfigCompose(testAccProvisioningTemplateBaseConfig(rName), fmt.Sprintf(`
 resource "aws_iot_provisioning_template" "test" {
-  name     = %[1]q
+  name = %[1]q
   provisioning_role_arn = aws_iam_role.test.arn
-  description           = "For testing"
+  description  = "For testing"
   enabled  = true
 
   template_body = jsonencode({
-    Parameters = {
-      SerialNumber = { Type = "String" }
-    }
+Parameters = {
+  SerialNumber = { Type = "String" }
+}
 
-    Resources = {
-      certificate = {
-        Properties = {
-          CertificateId = { Ref = "AWS::IoT::Certificate::Id" }
-          Status        = "Inactive"
-        }
-        Type = "AWS::IoT::Certificate"
-      }
+Resources = {
+  certificate = {
+Properties = {
+ CertificateId = { Ref = "AWS::IoT::Certificate::Id" }
+ Status= "Inactive"
+}
+Type = "AWS::IoT::Certificate"
+  }
 
-      policy = {
-        Properties = {
-          PolicyName = aws_iot_policy.test.name
-        }
-        Type = "AWS::IoT::Policy"
-      }
-    }
+  policy = {
+Properties = {
+ PolicyName = aws_iot_policy.test.name
+}
+Type = "AWS::IoT::Policy"
+  }
+}
   })
 }
 `, rName))

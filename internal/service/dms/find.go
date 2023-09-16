@@ -12,12 +12,11 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func FindReplicationTaskByID(ctx context.Context, conn *dms.DatabaseMigrationService, id string) (*dms.ReplicationTask, error) {
 	input := &dms.DescribeReplicationTasksInput{
 		Filters: []*dms.Filter{
 			{
-				Name:   aws.String("replication-task-id"),
+				Name:aws.String("replication-task-id"),
 				Values: []*string{aws.String(id)}, // Must use d.Id() to work with import.
 			},
 		},
@@ -25,7 +24,8 @@ func FindReplicationTaskByID(ctx context.Context, conn *dms.DatabaseMigrationSer
 
 	var results []*dms.ReplicationTask
 
-	err := conn.DescribeReplicationTasksPagesWithContext(ctx, input, func(page *dms.DescribeReplicationTasksOutput, lastPage bool) bool {
+	err := conn.DescribeReplicationTasksPagesWithContext(ctx, input, 
+func(page *dms.DescribeReplicationTasksOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -42,7 +42,7 @@ func FindReplicationTaskByID(ctx context.Context, conn *dms.DatabaseMigrationSer
 
 	if tfawserr.ErrCodeEquals(err, dms.ErrCodeResourceNotFoundFault) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}

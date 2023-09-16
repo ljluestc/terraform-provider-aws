@@ -111,8 +111,8 @@ func (r *resourceAssessmentDelegation) Create(ctx context.Context, req resource.
 	}
 
 	delegationIn := awstypes.CreateDelegationRequest{
-		RoleArn:      aws.String(plan.RoleARN.ValueString()),
-		RoleType:     awstypes.RoleType(plan.RoleType.ValueString()),
+		RoleArn: aws.String(plan.RoleARN.ValueString()),
+		RoleType:awstypes.RoleType(plan.RoleType.ValueString()),
 		ControlSetId: aws.String(plan.ControlSetID.ValueString()),
 	}
 	if !plan.Comment.IsNull() {
@@ -297,13 +297,13 @@ func toID(assessmentID, roleARN, controlSetID string) string {
 
 type resourceAssessmentDelegationData struct {
 	AssessmentID types.String `tfsdk:"assessment_id"`
-	Comment      types.String `tfsdk:"comment"`
+	Comment types.String `tfsdk:"comment"`
 	ControlSetID types.String `tfsdk:"control_set_id"`
 	DelegationID types.String `tfsdk:"delegation_id"`
-	ID           types.String `tfsdk:"id"`
-	RoleARN      types.String `tfsdk:"role_arn"`
-	RoleType     types.String `tfsdk:"role_type"`
-	Status       types.String `tfsdk:"status"`
+	ID types.String `tfsdk:"id"`
+	RoleARN types.String `tfsdk:"role_arn"`
+	RoleTypetypes.String `tfsdk:"role_type"`
+	Status  types.String `tfsdk:"status"`
 }
 
 // refreshFromOutput writes state data from an AWS response object

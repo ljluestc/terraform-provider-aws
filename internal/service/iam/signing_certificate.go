@@ -34,22 +34,22 @@ import ( // nosemgrep:ci.semgrep.aws.multiple-service-imports
 		Schema: map[string]*schema.Schema{
 			"certificate_body": {
 				Type:schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Required:true,
+				ForceNew:true,
 				DiffSuppressFunc: suppressNormalizeCertRemoval,
 			},
 			"certificate_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"status": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      iam.StatusTypeActive,
+				Type:schema.TypeString,
+				Optional: true,
+				Default:  iam.StatusTypeActive,
 				ValidateFunc: validation.StringInSlice(iam.StatusType_Values(), false),
 			},
 			"user_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -60,7 +60,7 @@ import ( // nosemgrep:ci.semgrep.aws.multiple-service-imports
 
 	createOpts := &iam.UploadSigningCertificateInput{
 		CertificateBody: aws.String(d.Get("certificate_body").(string)),
-		UserName:        aws.String(d.Get("user_name").(string)),
+		UserName:aws.String(d.Get("user_name").(string)),
 	}
 
 	log.Printf("[DEBUG] Creating IAM Signing Certificate with opts: %s", createOpts)
@@ -76,8 +76,8 @@ import ( // nosemgrep:ci.semgrep.aws.multiple-service-imports
 	if v, ok := d.GetOk("status"); ok && v.(string) != iam.StatusTypeActive {
 		updateInput := &iam.UpdateSigningCertificateInput{
 			CertificateId: certId,
-			UserName:      aws.String(d.Get("user_name").(string)),
-			Status:        aws.String(v.(string)),
+			UserName:  aws.String(d.Get("user_name").(string)),
+			Status:aws.String(v.(string)),
 		}
 
 		_, err := conn.UpdateSigningCertificateWithContext(ctx, updateInput)
@@ -127,8 +127,8 @@ import ( // nosemgrep:ci.semgrep.aws.multiple-service-imports
 
 	updateInput := &iam.UpdateSigningCertificateInput{
 		CertificateId: aws.String(certId),
-		UserName:      aws.String(userName),
-		Status:        aws.String(d.Get("status").(string)),
+		UserName:  aws.String(userName),
+		Status:aws.String(d.Get("status").(string)),
 	}
 
 	_, err = conn.UpdateSigningCertificateWithContext(ctx, updateInput)
@@ -148,7 +148,7 @@ import ( // nosemgrep:ci.semgrep.aws.multiple-service-imports
 
 	input := &iam.DeleteSigningCertificateInput{
 		CertificateId: aws.String(certId),
-		UserName:      aws.String(userName),
+		UserName:  aws.String(userName),
 	}
 
 	if _, err := conn.DeleteSigningCertificateWithContext(ctx, input); err != nil {

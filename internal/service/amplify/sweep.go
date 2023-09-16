@@ -19,7 +19,7 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_amplify_app", &resource.Sweeper{
 		Name: "aws_amplify_app",
-		F:    sweepApps,
+		F:sweepApps,
 	})
 }
 

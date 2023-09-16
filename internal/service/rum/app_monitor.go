@@ -66,7 +66,7 @@ func ResourceAppMonitor() *schema.Resource {
 							Elem:     &schema.Schema{Type: schema.TypeString},
 						},
 						"guest_role_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: verify.ValidARN,
 						},
@@ -81,7 +81,7 @@ func ResourceAppMonitor() *schema.Resource {
 							Elem:     &schema.Schema{Type: schema.TypeString},
 						},
 						"session_sample_rate": {
-							Type:         schema.TypeFloat,
+							Type:schema.TypeFloat,
 							Optional:     true,
 							Default:      0.1,
 							ValidateFunc: validation.FloatBetween(0, 1),
@@ -90,7 +90,7 @@ func ResourceAppMonitor() *schema.Resource {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringInSlice(cloudwatchrum.Telemetry_Values(), false),
 							},
 						},
@@ -113,7 +113,7 @@ func ResourceAppMonitor() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"status": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      cloudwatchrum.CustomEventsStatusDisabled,
 							ValidateFunc: validation.StringInSlice(cloudwatchrum.CustomEventsStatus_Values(), false),
@@ -131,12 +131,12 @@ func ResourceAppMonitor() *schema.Resource {
 				Computed: true,
 			},
 			"domain": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 253),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
@@ -153,10 +153,10 @@ func resourceAppMonitorCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	name := d.Get("name").(string)
 	input := &cloudwatchrum.CreateAppMonitorInput{
-		Name:         aws.String(name),
+		Name:aws.String(name),
 		CwLogEnabled: aws.Bool(d.Get("cw_log_enabled").(bool)),
 		Domain:       aws.String(d.Get("domain").(string)),
-		Tags:         getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("app_monitor_configuration"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {

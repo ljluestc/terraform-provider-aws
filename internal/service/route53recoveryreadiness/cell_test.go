@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfroute53recoveryreadiness "github.com/hashicorp/terraform-provider-aws/internal/service/route53recoveryreadiness"
 )
-
 func TestAccRoute53RecoveryReadinessCell_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -48,7 +47,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccRoute53RecoveryReadinessCell_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -71,7 +69,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccRoute53RecoveryReadinessCell_nestedCell(t *testing.T) {
 	ctx := acctest.Context(t)
 	rNameParent := sdkacctest.RandomWithPrefix("tf-acc-test-parent")
@@ -123,7 +120,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccRoute53RecoveryReadinessCell_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -168,7 +164,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccRoute53RecoveryReadinessCell_timeout(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -198,7 +193,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func testAccCheckCellDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -221,7 +215,6 @@ return fmt.Errorf("Route53RecoveryReadiness Channel (%s) not deleted", rs.Primar
 return nil
 	}
 }
-
 func testAccCheckCellExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
@@ -241,7 +234,6 @@ _, err := conn.GetCellWithContext(ctx, input)
 return err
 	}
 }
-
 func testAccPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
 
@@ -257,7 +249,6 @@ t.Skipf("skipping acceptance testing: %s", err)
 t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccCellConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_cell" "test" {
@@ -265,7 +256,6 @@ resource "aws_route53recoveryreadiness_cell" "test" {
 }
 `, rName)
 }
-
 func testAccCellConfig_child(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_cell" "test_child" {
@@ -273,7 +263,6 @@ resource "aws_route53recoveryreadiness_cell" "test_child" {
 }
 `, rName)
 }
-
 func testAccCellConfig_parent(rName, rName2 string) string {
 	return acctest.ConfigCompose(testAccCellConfig_child(rName), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_cell" "test_parent" {
@@ -282,7 +271,6 @@ resource "aws_route53recoveryreadiness_cell" "test_parent" {
 }
 `, rName2))
 }
-
 func testAccCellConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_cell" "test" {
@@ -294,7 +282,6 @@ resource "aws_route53recoveryreadiness_cell" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccCellConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_cell" "test" {
@@ -307,7 +294,6 @@ resource "aws_route53recoveryreadiness_cell" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccCellConfig_timeout(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_cell" "test" {

@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccSESIdentityNotificationTopic_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	domain := acctest.RandomDomainName()
@@ -26,7 +25,8 @@ func TestAccSESIdentityNotificationTopic_basic(t *testing.T) {
 	resourceName := "aws_ses_identity_notification_topic.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
@@ -53,16 +53,16 @@ func TestAccSESIdentityNotificationTopic_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckIdentityNotificationTopicDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SESConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -90,9 +90,9 @@ func testAccCheckIdentityNotificationTopicDestroy(ctx context.Context) resource.
 		return nil
 	}
 }
-
 func testAccCheckIdentityNotificationTopicExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("SES Identity Notification Topic not found: %s", n)
@@ -143,7 +143,7 @@ func testAccCheckIdentityNotificationTopicExists(ctx context.Context, n string) 
 
 const testAccIdentityNotificationTopicConfig_basic = `
 resource "aws_ses_identity_notification_topic" "test" {
-  identity          = aws_ses_domain_identity.test.arn
+  identity = aws_ses_domain_identity.test.arn
   notification_type = "Complaint"
 }
 
@@ -154,8 +154,8 @@ resource "aws_ses_domain_identity" "test" {
 
 const testAccIdentityNotificationTopicConfig_update = `
 resource "aws_ses_identity_notification_topic" "test" {
-  topic_arn         = aws_sns_topic.test.arn
-  identity          = aws_ses_domain_identity.test.arn
+  topic_arn= aws_sns_topic.test.arn
+  identity = aws_ses_domain_identity.test.arn
   notification_type = "Complaint"
 }
 
@@ -170,9 +170,9 @@ resource "aws_sns_topic" "test" {
 
 const testAccIdentityNotificationTopicConfig_headers = `
 resource "aws_ses_identity_notification_topic" "test" {
-  topic_arn   = aws_sns_topic.test.arn
-  identity    = aws_ses_domain_identity.test.arn
-  notification_type        = "Complaint"
+  topic_arn= aws_sns_topic.test.arn
+  identity = aws_ses_domain_identity.test.arn
+  notification_type  = "Complaint"
   include_original_headers = true
 }
 

@@ -24,7 +24,7 @@ func TestAccSSMMaintenanceWindowsDataSource_filter(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckMaintenanceWindowDestroy(ctx),
+CheckDestroy:    testAccCheckMaintenanceWindowDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMaintenanceWindowsDataSourceConfig_filterName(rName1, rName2, rName3),

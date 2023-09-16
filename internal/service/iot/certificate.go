@@ -24,36 +24,36 @@ func ResourceCertificate() *schema.Resource {
 		DeleteWithoutTimeout: resourceCertificateDelete,
 		Schema: map[string]*schema.Schema{
 			"csr": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"active": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Required: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"certificate_pem": {
-				Type:      schema.TypeString,
+				Type:  schema.TypeString,
 				Optional:  true,
 				Computed:  true,
 				Sensitive: true,
 			},
 			"ca_pem": {
-				Type:      schema.TypeString,
+				Type:  schema.TypeString,
 				Optional:  true,
 				Sensitive: true,
 			},
 			"public_key": {
-				Type:      schema.TypeString,
+				Type:  schema.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},
 			"private_key": {
-				Type:      schema.TypeString,
+				Type:  schema.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},
@@ -90,7 +90,7 @@ func resourceCertificateCreate(ctx context.Context, d *schema.ResourceData, meta
 		out, err := conn.RegisterCertificateWithContext(ctx, &iot.RegisterCertificateInput{
 			CaCertificatePem: aws.String(d.Get("ca_pem").(string)),
 			CertificatePem:   aws.String(d.Get("certificate_pem").(string)),
-			Status:           aws.String(cert_status),
+			Status:  aws.String(cert_status),
 		})
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "registering certificate with CA: %v", err)
@@ -102,7 +102,7 @@ func resourceCertificateCreate(ctx context.Context, d *schema.ResourceData, meta
 		log.Printf("[DEBUG] Registering certificate without CA")
 		out, err := conn.RegisterCertificateWithoutCAWithContext(ctx, &iot.RegisterCertificateWithoutCAInput{
 			CertificatePem: aws.String(d.Get("certificate_pem").(string)),
-			Status:         aws.String(cert_status),
+			Status:aws.String(cert_status),
 		})
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "registering certificate without CA: %v", err)
@@ -158,7 +158,7 @@ func resourceCertificateUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 		_, err := conn.UpdateCertificateWithContext(ctx, &iot.UpdateCertificateInput{
 			CertificateId: aws.String(d.Id()),
-			NewStatus:     aws.String(status),
+			NewStatus: aws.String(status),
 		})
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating certificate: %v", err)
@@ -174,7 +174,7 @@ func resourceCertificateDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	_, err := conn.UpdateCertificateWithContext(ctx, &iot.UpdateCertificateInput{
 		CertificateId: aws.String(d.Id()),
-		NewStatus:     aws.String("INACTIVE"),
+		NewStatus: aws.String("INACTIVE"),
 	})
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "inactivating certificate: %v", err)

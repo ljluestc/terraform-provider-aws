@@ -44,7 +44,7 @@ func ResourceResourceLFTags() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"catalog_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Computed:     true,
 				ForceNew:     true,
 				Optional:     true,
@@ -64,7 +64,7 @@ func ResourceResourceLFTags() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Computed:     true,
 							ForceNew:     true,
 							Optional:     true,
@@ -91,13 +91,13 @@ func ResourceResourceLFTags() *schema.Resource {
 							Computed: true,
 						},
 						"key": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 128),
 						},
 						"value": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validateLFTagValues(),
@@ -120,7 +120,7 @@ func ResourceResourceLFTags() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Computed:     true,
 							ForceNew:     true,
 							Optional:     true,
@@ -168,7 +168,7 @@ func ResourceResourceLFTags() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"catalog_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Computed:     true,
 							ForceNew:     true,
 							Optional:     true,
@@ -180,7 +180,7 @@ func ResourceResourceLFTags() *schema.Resource {
 							Optional: true,
 							Set:      schema.HashString,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.NoZeroValues,
 							},
 							AtLeastOneOf: []string{
@@ -199,7 +199,7 @@ func ResourceResourceLFTags() *schema.Resource {
 							Optional: true,
 							Set:      schema.HashString,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.NoZeroValues,
 							},
 						},

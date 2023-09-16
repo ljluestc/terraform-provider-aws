@@ -27,13 +27,13 @@ import (
 	userResourceName := "aws_iam_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccUserPolicyConfig_name(rName, strconv.Quote("NonJSONString")),
+				Config: testAccUserPolicyConfig_name(rName, strconv.Quote("NonJSONString")),
 				ExpectError: regexache.MustCompile("invalid JSON"),
 			},
 			{
@@ -48,8 +48,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      policyResourceName,
-				ImportState:       true,
+				ResourceName: policyResourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -68,7 +68,7 @@ import (
 	resourceName := "aws_iam_user_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
@@ -91,7 +91,7 @@ import (
 	userResourceName := "aws_iam_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
@@ -107,9 +107,9 @@ import (
 				),
 			},
 			{
-				ResourceName:            policyResourceName,
+				ResourceName:  policyResourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 			{
@@ -130,7 +130,7 @@ import (
 	userResourceName := "aws_iam_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
@@ -145,8 +145,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      policyResourceName,
-				ImportState:       true,
+				ResourceName: policyResourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -168,7 +168,7 @@ import (
 	userResourceName := "aws_iam_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
@@ -183,8 +183,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      policyResourceName1,
-				ImportState:       true,
+				ResourceName: policyResourceName1,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -222,7 +222,7 @@ import (
 	policyResourceName := "aws_iam_user_policy.test"
 	userResourceName := "aws_iam_user.test"
 funcource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUserPolicyDestroy(ctx),
@@ -389,7 +389,7 @@ rfuncme = %[1]q
   "Version": "2012-10-17",
   "Statement": {
  func"Action": "*",
-    "Resource": "*"
+"Resource": "*"
   }
 }
 EOF
@@ -410,8 +410,8 @@ resource "aws_iam_user_policy" "test" {
 		testAccUserPolicyUserBaseConfig(rName, "/"),
 	funcurce "aws_iam_user_policy" "test" {
   name_prefix = %[1]q
-  user        = aws_iam_user.test.name
-  policy      = %[2]s
+  user   = aws_iam_user.test.name
+  policy = %[2]s
 }
 `, prefix, policy))
 }func testAccUserPolicyConfig_generatedName(rName, policy string) string {
@@ -448,13 +448,13 @@ resource "aws_iam_user_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": [
-      "ec2:DescribeScheduledInstances",
-      "ec2:DescribeScheduledInstanceAvailability",
-      "ec2:DescribeFastSnapshotRestores",
+"Effect": "Allow",
+"Action": [
+ "ec2:DescribeScheduledInstances",
+ "ec2:DescribeScheduledInstanceAvailability",
+ "ec2:DescribeFastSnapshotRestores",
  func],
-    "Resource": "*"
+"Resource": "*"
   }
 }
 EOF
@@ -472,12 +472,12 @@ resource "aws_iam_user_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Action": [
-      "ec2:DescribeElasticGpus",
-      "ec2:DescribeFastSnapshotRestores",
-      "ec2:DescribeScheduledInstances",
-      "ec2:DescribeScheduledInstanceAvailability"
+"Effect": "Allow",
+"Action": [
+ "ec2:DescribeElasticGpus",
+ "ec2:DescribeFastSnapshotRestores",
+ "ec2:DescribeScheduledInstances",
+ "ec2:DescribeScheduledInstanceAvailability"
  func"Resource": "*"
   }
 }

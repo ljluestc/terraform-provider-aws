@@ -25,49 +25,49 @@ func TestAccSSMPatchBaseline_basic(t *testing.T) {
 	name := sdkacctest.RandString(10)
 	resourceName := "aws_ssm_patch_baseline.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccPatchBaselineConfig_basic(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &before),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ssm", regexache.MustCompile(`patchbaseline/pb-.+`)),
-					resource.TestCheckResourceAttr(resourceName, "approved_patches.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "approved_patches.*", "KB123456"),
-					resource.TestCheckResourceAttr(resourceName, "name", fmt.Sprintf("patch-baseline-%s", name)),
-					resource.TestCheckResourceAttr(resourceName, "approved_patches_compliance_level", ssm.PatchComplianceLevelCritical),
-					resource.TestCheckResourceAttr(resourceName, "description", "Baseline containing all updates approved for production systems"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "approved_patches_enable_non_security", "false"),
-				),
+Config: testAccPatchBaselineConfig_basic(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &before),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ssm", regexache.MustCompile(`patchbaseline/pb-.+`)),
+	resource.TestCheckResourceAttr(resourceName, "approved_patches.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "approved_patches.*", "KB123456"),
+	resource.TestCheckResourceAttr(resourceName, "name", fmt.Sprintf("patch-baseline-%s", name)),
+	resource.TestCheckResourceAttr(resourceName, "approved_patches_compliance_level", ssm.PatchComplianceLevelCritical),
+	resource.TestCheckResourceAttr(resourceName, "description", "Baseline containing all updates approved for production systems"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "approved_patches_enable_non_security", "false"),
+),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 			{
-				Config: testAccPatchBaselineConfig_basicUpdated(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &after),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ssm", regexache.MustCompile(`patchbaseline/pb-.+`)),
-					resource.TestCheckResourceAttr(resourceName, "approved_patches.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "approved_patches.*", "KB123456"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "approved_patches.*", "KB456789"),
-					resource.TestCheckResourceAttr(resourceName, "name", fmt.Sprintf("updated-patch-baseline-%s", name)),
-					resource.TestCheckResourceAttr(resourceName, "approved_patches_compliance_level", ssm.PatchComplianceLevelHigh),
-					resource.TestCheckResourceAttr(resourceName, "description", "Baseline containing all updates approved for production systems - August 2017"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					func(*terraform.State) error {
-						if aws.StringValue(before.BaselineId) != aws.StringValue(after.BaselineId) {
-							t.Fatal("Baseline IDs changed unexpectedly")
-						}
-						return nil
-					},
-				),
+Config: testAccPatchBaselineConfig_basicUpdated(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &after),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ssm", regexache.MustCompile(`patchbaseline/pb-.+`)),
+	resource.TestCheckResourceAttr(resourceName, "approved_patches.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "approved_patches.*", "KB123456"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "approved_patches.*", "KB456789"),
+	resource.TestCheckResourceAttr(resourceName, "name", fmt.Sprintf("updated-patch-baseline-%s", name)),
+	resource.TestCheckResourceAttr(resourceName, "approved_patches_compliance_level", ssm.PatchComplianceLevelHigh),
+	resource.TestCheckResourceAttr(resourceName, "description", "Baseline containing all updates approved for production systems - August 2017"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	func(*terraform.State) error {
+		if aws.StringValue(before.BaselineId) != aws.StringValue(after.BaselineId) {
+			t.Fatal("Baseline IDs changed unexpectedly")
+		}
+		return nil
+	},
+),
 			},
 		},
 	})
@@ -79,40 +79,40 @@ func TestAccSSMPatchBaseline_tags(t *testing.T) {
 	name := sdkacctest.RandString(10)
 	resourceName := "aws_ssm_patch_baseline.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccPatchBaselineConfig_basicTags1(name, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &patch),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
+Config: testAccPatchBaselineConfig_basicTags1(name, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &patch),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 			{
-				Config: testAccPatchBaselineConfig_basicTags2(name, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &patch),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
+Config: testAccPatchBaselineConfig_basicTags2(name, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &patch),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
 			},
 			{
-				Config: testAccPatchBaselineConfig_basicTags1(name, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &patch),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
+Config: testAccPatchBaselineConfig_basicTags1(name, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &patch),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
 			},
 		},
 	})
@@ -125,18 +125,18 @@ func TestAccSSMPatchBaseline_disappears(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccPatchBaselineConfig_basic(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &identity),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssm.ResourcePatchBaseline(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
+Config: testAccPatchBaselineConfig_basic(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &identity),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssm.ResourcePatchBaseline(), resourceName),
+),
+ExpectNonEmptyPlan: true,
 			},
 		},
 	})
@@ -148,39 +148,39 @@ func TestAccSSMPatchBaseline_operatingSystem(t *testing.T) {
 	name := sdkacctest.RandString(10)
 	resourceName := "aws_ssm_patch_baseline.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccPatchBaselineConfig_operatingSystem(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.approve_after_days", "7"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.patch_filter.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.compliance_level", ssm.PatchComplianceLevelCritical),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.enable_non_security", "true"),
-					resource.TestCheckResourceAttr(resourceName, "operating_system", "AMAZON_LINUX"),
-				),
+Config: testAccPatchBaselineConfig_operatingSystem(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.approve_after_days", "7"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.patch_filter.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.compliance_level", ssm.PatchComplianceLevelCritical),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.enable_non_security", "true"),
+	resource.TestCheckResourceAttr(resourceName, "operating_system", "AMAZON_LINUX"),
+),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 			{
-				Config: testAccPatchBaselineConfig_operatingSystemUpdated(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.approve_after_days", "7"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.patch_filter.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.compliance_level", ssm.PatchComplianceLevelInformational),
-					resource.TestCheckResourceAttr(resourceName, "operating_system", ssm.OperatingSystemWindows),
-					testAccCheckPatchBaselineRecreated(t, &before, &after),
-				),
+Config: testAccPatchBaselineConfig_operatingSystemUpdated(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.approve_after_days", "7"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.patch_filter.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.compliance_level", ssm.PatchComplianceLevelInformational),
+	resource.TestCheckResourceAttr(resourceName, "operating_system", ssm.OperatingSystemWindows),
+	testAccCheckPatchBaselineRecreated(t, &before, &after),
+),
 			},
 		},
 	})
@@ -193,44 +193,44 @@ func TestAccSSMPatchBaseline_approveUntilDateParam(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccPatchBaselineConfig_approveUntilDate(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.approve_until_date", "2020-01-01"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.patch_filter.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.compliance_level", ssm.PatchComplianceLevelCritical),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.enable_non_security", "true"),
-					resource.TestCheckResourceAttr(resourceName, "operating_system", "AMAZON_LINUX"),
-				),
+Config: testAccPatchBaselineConfig_approveUntilDate(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.approve_until_date", "2020-01-01"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.patch_filter.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.compliance_level", ssm.PatchComplianceLevelCritical),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.enable_non_security", "true"),
+	resource.TestCheckResourceAttr(resourceName, "operating_system", "AMAZON_LINUX"),
+),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 			{
-				Config: testAccPatchBaselineConfig_approveUntilDateUpdated(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.approve_until_date", "2020-02-02"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.patch_filter.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "approval_rule.0.compliance_level", ssm.PatchComplianceLevelCritical),
-					resource.TestCheckResourceAttr(resourceName, "operating_system", "AMAZON_LINUX"),
-					func(*terraform.State) error {
-						if aws.StringValue(before.BaselineId) != aws.StringValue(after.BaselineId) {
-							t.Fatal("Baseline IDs changed unexpectedly")
-						}
-						return nil
-					},
-				),
+Config: testAccPatchBaselineConfig_approveUntilDateUpdated(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.approve_until_date", "2020-02-02"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.patch_filter.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "approval_rule.0.compliance_level", ssm.PatchComplianceLevelCritical),
+	resource.TestCheckResourceAttr(resourceName, "operating_system", "AMAZON_LINUX"),
+	func(*terraform.State) error {
+		if aws.StringValue(before.BaselineId) != aws.StringValue(after.BaselineId) {
+			t.Fatal("Baseline IDs changed unexpectedly")
+		}
+		return nil
+	},
+),
 			},
 		},
 	})
@@ -243,47 +243,47 @@ func TestAccSSMPatchBaseline_sources(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccPatchBaselineConfig_source(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "source.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "source.0.name", "My-AL2017.09"),
-					resource.TestCheckResourceAttr(resourceName, "source.0.configuration", "[amzn-main] \nname=amzn-main-Base\nmirrorlist=http://repo./$awsregion./$awsdomain//$releasever/main/mirror.list //nmirrorlist_expire=300//nmetadata_expire=300 \npriority=10 \nfailovermethod=priority \nfastestmirror_enabled=0 \ngpgcheck=1 \ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-ga \nenabled=1 \nretries=3 \ntimeout=5\nreport_instanceid=yes"),
-					resource.TestCheckResourceAttr(resourceName, "source.0.products.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "source.0.products.0", "AmazonLinux2017.09"),
-				),
+Config: testAccPatchBaselineConfig_source(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "source.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "source.0.name", "My-AL2017.09"),
+	resource.TestCheckResourceAttr(resourceName, "source.0.configuration", "[amzn-main] \nname=amzn-main-Base\nmirrorlist=http://repo./$awsregion./$awsdomain//$releasever/main/mirror.list //nmirrorlist_expire=300//nmetadata_expire=300 \npriority=10 \nfailovermethod=priority \nfastestmirror_enabled=0 \ngpgcheck=1 \ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-ga \nenabled=1 \nretries=3 \ntimeout=5\nreport_instanceid=yes"),
+	resource.TestCheckResourceAttr(resourceName, "source.0.products.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "source.0.products.0", "AmazonLinux2017.09"),
+),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 			{
-				Config: testAccPatchBaselineConfig_sourceUpdated(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "source.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "source.0.name", "My-AL2017.09"),
-					resource.TestCheckResourceAttr(resourceName, "source.0.configuration", "[amzn-main] \nname=amzn-main-Base\nmirrorlist=http://repo./$awsregion./$awsdomain//$releasever/main/mirror.list //nmirrorlist_expire=300//nmetadata_expire=300 \npriority=10 \nfailovermethod=priority \nfastestmirror_enabled=0 \ngpgcheck=1 \ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-ga \nenabled=1 \nretries=3 \ntimeout=5\nreport_instanceid=yes"),
-					resource.TestCheckResourceAttr(resourceName, "source.0.products.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "source.0.products.0", "AmazonLinux2017.09"),
-					resource.TestCheckResourceAttr(resourceName, "source.1.name", "My-AL2018.03"),
-					resource.TestCheckResourceAttr(resourceName, "source.1.configuration", "[amzn-main] \nname=amzn-main-Base\nmirrorlist=http://repo./$awsregion./$awsdomain//$releasever/main/mirror.list //nmirrorlist_expire=300//nmetadata_expire=300 \npriority=10 \nfailovermethod=priority \nfastestmirror_enabled=0 \ngpgcheck=1 \ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-ga \nenabled=1 \nretries=3 \ntimeout=5\nreport_instanceid=yes"),
-					resource.TestCheckResourceAttr(resourceName, "source.1.products.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "source.1.products.0", "AmazonLinux2018.03"),
-					func(*terraform.State) error {
-						if aws.StringValue(before.BaselineId) != aws.StringValue(after.BaselineId) {
-							t.Fatal("Baseline IDs changed unexpectedly")
-						}
-						return nil
-					},
-				),
+Config: testAccPatchBaselineConfig_sourceUpdated(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "source.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "source.0.name", "My-AL2017.09"),
+	resource.TestCheckResourceAttr(resourceName, "source.0.configuration", "[amzn-main] \nname=amzn-main-Base\nmirrorlist=http://repo./$awsregion./$awsdomain//$releasever/main/mirror.list //nmirrorlist_expire=300//nmetadata_expire=300 \npriority=10 \nfailovermethod=priority \nfastestmirror_enabled=0 \ngpgcheck=1 \ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-ga \nenabled=1 \nretries=3 \ntimeout=5\nreport_instanceid=yes"),
+	resource.TestCheckResourceAttr(resourceName, "source.0.products.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "source.0.products.0", "AmazonLinux2017.09"),
+	resource.TestCheckResourceAttr(resourceName, "source.1.name", "My-AL2018.03"),
+	resource.TestCheckResourceAttr(resourceName, "source.1.configuration", "[amzn-main] \nname=amzn-main-Base\nmirrorlist=http://repo./$awsregion./$awsdomain//$releasever/main/mirror.list //nmirrorlist_expire=300//nmetadata_expire=300 \npriority=10 \nfailovermethod=priority \nfastestmirror_enabled=0 \ngpgcheck=1 \ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-ga \nenabled=1 \nretries=3 \ntimeout=5\nreport_instanceid=yes"),
+	resource.TestCheckResourceAttr(resourceName, "source.1.products.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "source.1.products.0", "AmazonLinux2018.03"),
+	func(*terraform.State) error {
+		if aws.StringValue(before.BaselineId) != aws.StringValue(after.BaselineId) {
+			t.Fatal("Baseline IDs changed unexpectedly")
+		}
+		return nil
+	},
+),
 			},
 		},
 	})
@@ -296,22 +296,22 @@ func TestAccSSMPatchBaseline_approvedPatchesNonSec(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccPatchBaselineConfig_basicApprovedPatchesNonSec(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &ssmPatch),
-					resource.TestCheckResourceAttr(resourceName, "approved_patches_enable_non_security", "true"),
-				),
+Config: testAccPatchBaselineConfig_basicApprovedPatchesNonSec(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &ssmPatch),
+	resource.TestCheckResourceAttr(resourceName, "approved_patches_enable_non_security", "true"),
+),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 		},
 	})
@@ -324,22 +324,22 @@ func TestAccSSMPatchBaseline_rejectPatchesAction(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccPatchBaselineConfig_basicRejectPatchesAction(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &ssmPatch),
-					resource.TestCheckResourceAttr(resourceName, "rejected_patches_action", "ALLOW_AS_DEPENDENCY"),
-				),
+Config: testAccPatchBaselineConfig_basicRejectPatchesAction(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &ssmPatch),
+	resource.TestCheckResourceAttr(resourceName, "rejected_patches_action", "ALLOW_AS_DEPENDENCY"),
+),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 		},
 	})
@@ -354,29 +354,29 @@ func testAccSSMPatchBaseline_deleteDefault(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccPatchBaselineConfig_basic(name),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckPatchBaselineExists(ctx, resourceName, &ssmPatch),
-				),
+Config: testAccPatchBaselineConfig_basic(name),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckPatchBaselineExists(ctx, resourceName, &ssmPatch),
+),
 			},
 			{
-				PreConfig: func() {
-					conn := acctest.Provider.Meta().(*conns.AWSClient).SSMConn(ctx)
+PreConfig: func() {
+	conn := acctest.Provider.Meta().(*conns.AWSClient).SSMConn(ctx)
 
-					input := &ssm.RegisterDefaultPatchBaselineInput{
-						BaselineId: ssmPatch.BaselineId,
-					}
-					if _, err := conn.RegisterDefaultPatchBaselineWithContext(ctx, input); err != nil {
-						t.Fatalf("registering Default Patch Baseline (%s): %s", aws.StringValue(ssmPatch.BaselineId), err)
-					}
-				},
-				Config: "# Empty config", // Deletes the patch baseline
+	input := &ssm.RegisterDefaultPatchBaselineInput{
+		BaselineId: ssmPatch.BaselineId,
+	}
+	if _, err := conn.RegisterDefaultPatchBaselineWithContext(ctx, input); err != nil {
+		t.Fatalf("registering Default Patch Baseline (%s): %s", aws.StringValue(ssmPatch.BaselineId), err)
+	}
+},
+Config: "# Empty config", // Deletes the patch baseline
 			},
 		},
 	})
@@ -407,17 +407,17 @@ func testAccCheckPatchBaselineExists(ctx context.Context, n string, patch *ssm.P
 
 		resp, err := conn.DescribePatchBaselinesWithContext(ctx, &ssm.DescribePatchBaselinesInput{
 			Filters: []*ssm.PatchOrchestratorFilter{
-				{
-					Key:    aws.String("NAME_PREFIX"),
-					Values: []*string{aws.String(rs.Primary.Attributes["name"])},
-				},
+{
+	Key:    aws.String("NAME_PREFIX"),
+	Values: []*string{aws.String(rs.Primary.Attributes["name"])},
+},
 			},
 		})
 
 		for _, i := range resp.BaselineIdentities {
 			if *i.BaselineId == rs.Primary.ID {
-				*patch = *i
-				return nil
+*patch = *i
+return nil
 			}
 		}
 		if err != nil {
@@ -434,24 +434,24 @@ func testAccCheckPatchBaselineDestroy(ctx context.Context) resource.TestCheckFun
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_ssm_patch_baseline" {
-				continue
+continue
 			}
 
 			out, err := conn.DescribePatchBaselinesWithContext(ctx, &ssm.DescribePatchBaselinesInput{
-				Filters: []*ssm.PatchOrchestratorFilter{
-					{
-						Key:    aws.String("NAME_PREFIX"),
-						Values: []*string{aws.String(rs.Primary.Attributes["name"])},
-					},
-				},
+Filters: []*ssm.PatchOrchestratorFilter{
+	{
+		Key:    aws.String("NAME_PREFIX"),
+		Values: []*string{aws.String(rs.Primary.Attributes["name"])},
+	},
+},
 			})
 
 			if err != nil {
-				return err
+return err
 			}
 
 			if len(out.BaselineIdentities) > 0 {
-				return fmt.Errorf("Expected AWS SSM Patch Baseline to be gone, but was still found")
+return fmt.Errorf("Expected AWS SSM Patch Baseline to be gone, but was still found")
 			}
 
 			return nil
@@ -517,7 +517,7 @@ resource "aws_ssm_patch_baseline" "test" {
 func testAccPatchBaselineConfig_operatingSystem(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name             = "patch-baseline-%s"
+  name    = "patch-baseline-%s"
   operating_system = "AMAZON_LINUX"
   description      = "Baseline containing all updates approved for production systems"
 
@@ -547,7 +547,7 @@ resource "aws_ssm_patch_baseline" "test" {
 func testAccPatchBaselineConfig_operatingSystemUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name             = "patch-baseline-%s"
+  name    = "patch-baseline-%s"
   operating_system = "WINDOWS"
   description      = "Baseline containing all updates approved for production systems"
 
@@ -576,7 +576,7 @@ resource "aws_ssm_patch_baseline" "test" {
 func testAccPatchBaselineConfig_approveUntilDate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name             = %[1]q
+  name    = %[1]q
   operating_system = "AMAZON_LINUX"
   description      = "Baseline containing all updates approved for production systems"
 
@@ -606,7 +606,7 @@ resource "aws_ssm_patch_baseline" "test" {
 func testAccPatchBaselineConfig_approveUntilDateUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name             = %[1]q
+  name    = %[1]q
   operating_system = "AMAZON_LINUX"
   description      = "Baseline containing all updates approved for production systems"
 
@@ -643,7 +643,7 @@ resource "aws_ssm_patch_baseline" "test" {
   operating_system   = "AMAZON_LINUX"
 
   source {
-    name          = "My-AL2017.09"
+    name = "My-AL2017.09"
     configuration = "[amzn-main] \nname=amzn-main-Base\nmirrorlist=http://repo./$awsregion./$awsdomain//$releasever/main/mirror.list //nmirrorlist_expire=300//nmetadata_expire=300 \npriority=10 \nfailovermethod=priority \nfastestmirror_enabled=0 \ngpgcheck=1 \ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-ga \nenabled=1 \nretries=3 \ntimeout=5\nreport_instanceid=yes"
     products      = ["AmazonLinux2017.09"]
   }
@@ -661,13 +661,13 @@ resource "aws_ssm_patch_baseline" "test" {
   operating_system   = "AMAZON_LINUX"
 
   source {
-    name          = "My-AL2017.09"
+    name = "My-AL2017.09"
     configuration = "[amzn-main] \nname=amzn-main-Base\nmirrorlist=http://repo./$awsregion./$awsdomain//$releasever/main/mirror.list //nmirrorlist_expire=300//nmetadata_expire=300 \npriority=10 \nfailovermethod=priority \nfastestmirror_enabled=0 \ngpgcheck=1 \ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-ga \nenabled=1 \nretries=3 \ntimeout=5\nreport_instanceid=yes"
     products      = ["AmazonLinux2017.09"]
   }
 
   source {
-    name          = "My-AL2018.03"
+    name = "My-AL2018.03"
     configuration = "[amzn-main] \nname=amzn-main-Base\nmirrorlist=http://repo./$awsregion./$awsdomain//$releasever/main/mirror.list //nmirrorlist_expire=300//nmetadata_expire=300 \npriority=10 \nfailovermethod=priority \nfastestmirror_enabled=0 \ngpgcheck=1 \ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-amazon-ga \nenabled=1 \nretries=3 \ntimeout=5\nreport_instanceid=yes"
     products      = ["AmazonLinux2018.03"]
   }
@@ -680,7 +680,7 @@ func testAccPatchBaselineConfig_basicApprovedPatchesNonSec(rName string) string 
 resource "aws_ssm_patch_baseline" "test" {
   name   = %q
   operating_system      = "AMAZON_LINUX"
-  description           = "Baseline containing all updates approved for production systems"
+  description  = "Baseline containing all updates approved for production systems"
   approved_patches      = ["KB123456"]
   approved_patches_compliance_level    = "CRITICAL"
   approved_patches_enable_non_security = true
@@ -695,7 +695,7 @@ resource "aws_ssm_patch_baseline" "test" {
   description        = "Baseline containing all updates approved for production systems"
   approved_patches   = ["KB123456"]
   approved_patches_compliance_level = "CRITICAL"
-  rejected_patches_action           = "ALLOW_AS_DEPENDENCY"
+  rejected_patches_action  = "ALLOW_AS_DEPENDENCY"
 }
 `, rName)
 }

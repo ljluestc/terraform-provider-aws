@@ -32,7 +32,7 @@ func DataSourceTaskExecution() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"base": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(0, 100000),
 						},
@@ -41,7 +41,7 @@ func DataSourceTaskExecution() *schema.Resource {
 							Required: true,
 						},
 						"weight": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(0, 1000),
 						},
@@ -53,7 +53,7 @@ func DataSourceTaskExecution() *schema.Resource {
 				Required: true,
 			},
 			"desired_count": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(0, 10),
 			},
@@ -70,7 +70,7 @@ func DataSourceTaskExecution() *schema.Resource {
 				Optional: true,
 			},
 			"launch_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(ecs.LaunchType_Values(), false),
 			},
@@ -154,7 +154,7 @@ func DataSourceTaskExecution() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(ecs.ResourceType_Values(), false),
 												},
@@ -214,7 +214,7 @@ func DataSourceTaskExecution() *schema.Resource {
 							Optional: true,
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(ecs.PlacementConstraintType_Values(), false),
 						},
@@ -243,7 +243,7 @@ func DataSourceTaskExecution() *schema.Resource {
 				Optional: true,
 			},
 			"propagate_tags": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(ecs.PropagateTags_Values(), false),
 			},

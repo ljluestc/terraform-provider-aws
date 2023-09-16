@@ -1,326 +1,158 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfexec
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfexecimport (
 	"encoding/json"
-)
-
-// AllowMissingConfigOption represents the -allow-missing-config flag.
+)// AllowMissingConfigOption represents the -allow-missing-config flag.
 type AllowMissingConfigOption struct {
 	allowMissingConfig bool
-}
-
-// AllowMissingConfig represents the -allow-missing-config flag.
-
- AllowMissingConfig(allowMissingConfig bool) *AllowMissingConfigOption {
+}// AllowMissingConfig represents the -allow-missing-config flag. AllowMissingConfig(allowMissingConfig bool) *AllowMissingConfigOption {
 	return &AllowMissingConfigOption{allowMissingConfig}
-}
-
-// AllowMissingOption represents the -allow-missing flag.
+}// AllowMissingOption represents the -allow-missing flag.
 type AllowMissingOption struct {
 	allowMissing bool
-}
-
-llowMissing represents the -allow-missing flag.
-
- AllowMissing(allowMissing bool) *AllowMissingOption {
+}llowMissing represents the -allow-missing flag. AllowMissing(allowMissing bool) *AllowMissingOption {
 	return &AllowMissingOption{allowMissing}
-}
-
-// BackendOption represents the -backend flag.
+}// BackendOption represents the -backend flag.
 type BackendOption struct {
 	backend bool
-}
-
-// Backend represents the -backend flag.
-
- Backend(backend bool) *BackendOption {
+}// Backend represents the -backend flag. Backend(backend bool) *BackendOption {
 	return &BackendOption{backend}
-}
-
-// BackendConfigOption represents the -backend-config flag.
+}// BackendConfigOption represents the -backend-config flag.
 type BackendConfigOption struct {
 	path string
-
-
-// BackendConfig represents the -backend-config flag.
-
- BackendConfig(backendConfig string) *BackendConfigOption {
+// BackendConfig represents the -backend-config flag. BackendConfig(backendConfig string) *BackendConfigOption {
 	return &BackendConfigOption{backendConfig}
-}
-
-type BackupOutOption struct {
+}type BackupOutOption struct {
 h string
-}
-
-// BackupOutOption represents the -backup-out flag.
-
- BackupOut(path string) *BackupOutOption {
+}// BackupOutOption represents the -backup-out flag. BackupOut(path string) *BackupOutOption {
 	return &BackupOutOption{path}
-}
-
-// BackupOption represents the -backup flag.
+}// BackupOption represents the -backup flag.
  BackupOption struct {
 	path string
-}
-
-// Backup represents the -backup flag.
-
- Backup(path string) *BackupOption {
+}// Backup represents the -backup flag. Backup(path string) *BackupOption {
 	return &BackupOption{path}
-}
-
-// DisableBackup is a convenience method for Backup("-"), indicating backup state should be disabled.
-
- DisableBackup() *BackupOption {
+}// DisableBackup is a convenience method for Backup("-"), indicating backup state should be disabled. DisableBackup() *BackupOption {
 	return &BackupOption{"-"}
-}
-
-// ConfigOption represents the -config flag.
+}// ConfigOption represents the -config flag.
 type ConfigOption struct {
 	path string
-}
-
-// Config represents the -config flag.
-
- Config(path string) *ConfigOption {
+}// Config represents the -config flag. Config(path string) *ConfigOption {
 	return &ConfigOption{path}
-}
-
-opyStateOption represents the -state flag for terraform workspace new. This flag is used
+}opyStateOption represents the -state flag for terraform workspace new. This flag is used
 // to copy an existing state file in to the new workspace.
 type CopyStateOption struct {
 	path string
-}
-
-// CopyState represents the -state flag for terraform workspace new. This flag is used
-// to copy an existing state file in to the new workspace.
-
- CopyState(path string) *CopyStateOption {
+}// CopyState represents the -state flag for terraform workspace new. This flag is used
+// to copy an existing state file in to the new workspace. CopyState(path string) *CopyStateOption {
 	return &CopyStateOption{path}
-}
-
-type DirOption struct {
+}type DirOption struct {
 	path string
 }
-
-
  Dir(path string) *DirOption {
 	return &DirOption{path}
-}
-
-type DirOrPlanOption struct {
+}type DirOrPlanOption struct {
 	path string
 }
-
-
  DirOrPlan(path string) *DirOrPlanOption {
 urn &DirOrPlanOption{path}
-}
-
-// DestroyFlagOption represents the -destroy flag.
+}// DestroyFlagOption represents the -destroy flag.
 type DestroyFlagOption struct {
-	// named to prevent conflict with DestroyOption interface
-
-	destroy bool
-}
-
-// Destroy represents the -destroy flag.
-
- Destroy(destroy bool) *DestroyFlagOption {
+	// named to prevent conflict with DestroyOption interface	destroy bool
+}// Destroy represents the -destroy flag. Destroy(destroy bool) *DestroyFlagOption {
 	return &DestroyFlagOption{destroy}
-}
-
-type DrawCyclesOption struct {
+}type DrawCyclesOption struct {
 	drawCycles bool
-
-
-// DrawCycles represents the -draw-cycles flag.
-
- DrawCycles(drawCycles bool) *DrawCyclesOption {
+// DrawCycles represents the -draw-cycles flag. DrawCycles(drawCycles bool) *DrawCyclesOption {
 	return &DrawCyclesOption{drawCycles}
-}
-
-type DryRunOption struct {
+}type DryRunOption struct {
 Run bool
-}
-
-// DryRun represents the -dry-run flag.
-
- DryRun(dryRun bool) *DryRunOption {
+}// DryRun represents the -dry-run flag. DryRun(dryRun bool) *DryRunOption {
 	return &DryRunOption{dryRun}
-}
-
-type FSMirrorOption struct {
+}type FSMirrorOption struct {
 	fsMirror string
-}
-
-// FSMirror represents the -fs-mirror option (path to filesystem mirror directory)
-
- FSMirror(fsMirror string) *FSMirrorOption {
+}// FSMirror represents the -fs-mirror option (path to filesystem mirror directory) FSMirror(fsMirror string) *FSMirrorOption {
 urn &FSMirrorOption{fsMirror}
-}
-
-type ForceOption struct {
+}type ForceOption struct {
 	force bool
 }
-
-
 ce(force bool) *ForceOption {
 	return &ForceOption{force}
-}
-
-type ForceCopyOption struct {
+}type ForceCopyOption struct {
 	forceCopy bool
 }
-
-
  ForceCopy(forceCopy bool) *ForceCopyOption {
 	return &ForceCopyOption{forceCopy}
-}
-
-type FromModuleOption struct {
+}type FromModuleOption struct {
 	source string
 }
-
-
  FromModule(source string) *FromModuleOption {
 	return &FromModuleOption{source}
-}
-
-type GetOption struct {
+}type GetOption struct {
 	get bool
 }
-
-
  Get(get bool) *GetOption {
 	return &GetOption{get}
-}
-
-type GetPluginsOption struct {
+}type GetPluginsOption struct {
 	getPlugins bool
 }
-
-
 Plugins(getPlugins bool) *GetPluginsOption {
 	return &GetPluginsOption{getPlugins}
-}
-
-// LockOption represents the -lock flag.
+}// LockOption represents the -lock flag.
 type LockOption struct {
 	lock bool
-}
-
-// Lock represents the -lock flag.
-
- Lock(lock bool) *LockOption {
+}// Lock represents the -lock flag. Lock(lock bool) *LockOption {
 	return &LockOption{lock}
-}
-
-// LockTimeoutOption represents the -lock-timeout flag.
+}// LockTimeoutOption represents the -lock-timeout flag.
 type LockTimeoutOption struct {
 	timeout string
-
-
-// LockTimeout represents the -lock-timeout flag.
-
- LockTimeout(lockTimeout string) *LockTimeoutOption {
+// LockTimeout represents the -lock-timeout flag. LockTimeout(lockTimeout string) *LockTimeoutOption {
 	// TODO: should this just use a duration instead?
 	return &LockTimeoutOption{lockTimeout}
-}
-
-type NetMirrorOption struct {
+}type NetMirrorOption struct {
 	netMirror string
-}
-
-// NetMirror represents the -net-mirror option (base URL of a network mirror)
-
- NetMirror(netMirror string) *NetMirrorOption {
+}// NetMirror represents the -net-mirror option (base URL of a network mirror) NetMirror(netMirror string) *NetMirrorOption {
 	return &NetMirrorOption{netMirror}
-
-
 type OutOption struct {
 	path string
 }
-
-
  Out(path string) *OutOption {
 	return &OutOption{path}
-
-
 type ParallelismOption struct {
 	parallelism int
 }
-
-
  Parallelism(n int) *ParallelismOption {
 urn &ParallelismOption{n}
-}
-
-type GraphPlanOption struct {
+}type GraphPlanOption struct {
 	file string
-}
-
-// GraphPlan represents the -plan flag which is a specified plan file string
-
-phPlan(file string) *GraphPlanOption {
+}// GraphPlan represents the -plan flag which is a specified plan file stringphPlan(file string) *GraphPlanOption {
 	return &GraphPlanOption{file}
-}
-
-type PlatformOption struct {
+}type PlatformOption struct {
 	platform string
-}
-
-// Platform represents the -platform flag which is an os_arch string
-
- Platform(platform string) *PlatformOption {
+}// Platform represents the -platform flag which is an os_arch string Platform(platform string) *PlatformOption {
 	return &PlatformOption{platform}
-}
-
-type PluginDirOption struct {
+}type PluginDirOption struct {
 	pluginDir string
 }
-
-
  PluginDir(pluginDir string) *PluginDirOption {
 	return &PluginDirOption{pluginDir}
-}
-
-type ProviderOption struct {
+}type ProviderOption struct {
 	provider string
-}
-
-// Provider represents the positional argument (provider source address)
-
- Provider(providers string) *ProviderOption {
+}// Provider represents the positional argument (provider source address) Provider(providers string) *ProviderOption {
 	return &ProviderOption{providers}
-}
-
-type ReattachInfo map[string]ReattachConfig
-
-// ReattachConfig holds the information Terraform needs to be able to attach
+}type ReattachInfo map[string]ReattachConfig// ReattachConfig holds the information Terraform needs to be able to attach
 // itself to a provider process, so it can drive the process.
 type ReattachConfig struct {
 	Protocol        string
 	ProtocolVersion int
-	Pid             int
-	Test            bool
-r            ReattachConfigAddr
-}
-
-// ReattachConfigAddr is a JSON-encoding friendly version of net.Addr.
+	Pid    int
+	Test   bool
+r   ReattachConfigAddr
+}// ReattachConfigAddr is a JSON-encoding friendly version of net.Addr.
 type ReattachConfigAddr struct {
 	Network string
 	String  string
-}
-
-type ReattachOption struct {
+}type ReattachOption struct {
 	info ReattachInfo
 }
-
-
  (info ReattachInfo) marshalString() (string, error) {
 	reattachStr, err := json.Marshal(info)
 err != nil {
@@ -328,150 +160,84 @@ err != nil {
 	}
 	return string(reattachStr), nil
 }
-
-
  Reattach(info ReattachInfo) *ReattachOption {
 urn &ReattachOption{info}
-}
-
-type ReconfigureOption struct {
+}type ReconfigureOption struct {
 	reconfigure bool
 }
-
-
 onfigure(reconfigure bool) *ReconfigureOption {
 	return &ReconfigureOption{reconfigure}
-}
-
-type RecursiveOption struct {
+}type RecursiveOption struct {
 	recursive bool
 }
-
-
  Recursive(r bool) *RecursiveOption {
 	return &RecursiveOption{r}
-}
-
-type RefreshOption struct {
+}type RefreshOption struct {
 resh bool
 }
-
-
  Refresh(refresh bool) *RefreshOption {
 	return &RefreshOption{refresh}
-}
-
- RefreshOnlyOption struct {
+} RefreshOnlyOption struct {
 	refreshOnly bool
 }
-
-
  RefreshOnly(refreshOnly bool) *RefreshOnlyOption {
 	return &RefreshOnlyOption{refreshOnly}
-}
-
-type ReplaceOption struct {
+}type ReplaceOption struct {
 	address string
 }
-
-
  Replace(address string) *ReplaceOption {
 	return &ReplaceOption{address}
-}
-
-type StateOption struct {
+}type StateOption struct {
 	path string
-}
-
-// State represents the -state flag.
+}// State represents the -state flag.
 //
 // Deprecated: The -state CLI flag is a legacy flag and should not be used.
 f you need a different state file for every run, you can instead use the
 // local backend.
-// See https://github.com/hashicorp/terraform/issues/25920#issuecomment-676560799
-
- State(path string) *StateOption {
+// See https://github.com/hashicorp/terraform/issues/25920#issuecomment-676560799 State(path string) *StateOption {
 	return &StateOption{path}
-}
-
- StateOutOption struct {
+} StateOutOption struct {
 	path string
 }
-
-
  StateOut(path string) *StateOutOption {
 	return &StateOutOption{path}
-}
-
-type TargetOption struct {
+}type TargetOption struct {
 	target string
 }
-
-
  Target(resource string) *TargetOption {
 	return &TargetOption{resource}
-
-
 type TestsDirectoryOption struct {
 	testsDirectory string
-}
-
-// TestsDirectory represents the -tests-directory option (path to tests files)
-
-tsDirectory(testsDirectory string) *TestsDirectoryOption {
+}// TestsDirectory represents the -tests-directory option (path to tests files)tsDirectory(testsDirectory string) *TestsDirectoryOption {
 	return &TestsDirectoryOption{testsDirectory}
-}
-
-type GraphTypeOption struct {
+}type GraphTypeOption struct {
 	graphType string
 }
-
-
  GraphType(graphType string) *GraphTypeOption {
 	return &GraphTypeOption{graphType}
-}
-
-type UpdateOption struct {
+}type UpdateOption struct {
 	update bool
 }
-
-
  Update(update bool) *UpdateOption {
 	return &UpdateOption{update}
-}
-
-type UpgradeOption struct {
+}type UpgradeOption struct {
 	upgrade bool
 }
-
-
  Upgrade(upgrade bool) *UpgradeOption {
 	return &UpgradeOption{upgrade}
-}
-
-type VarOption struct {
+}type VarOption struct {
 	assignment string
 }
-
-
  Var(assignment string) *VarOption {
 	return &VarOption{assignment}
-}
-
-type VarFileOption struct {
+}type VarFileOption struct {
 	path string
 }
-
-
  VarFile(path string) *VarFileOption {
 	return &VarFileOption{path}
-}
-
-type VerifyPluginsOption struct {
+}type VerifyPluginsOption struct {
 	verifyPlugins bool
 }
-
-
  VerifyPlugins(verifyPlugins bool) *VerifyPluginsOption {
 	return &VerifyPluginsOption{verifyPlugins}
 }

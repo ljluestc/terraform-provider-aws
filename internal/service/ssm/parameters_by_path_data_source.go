@@ -65,7 +65,7 @@ func dataSourceParametersReadByPath(ctx context.Context, d *schema.ResourceData,
 
 	path := d.Get("path").(string)
 	input := &ssm.GetParametersByPathInput{
-		Path:           aws.String(path),
+		Path:  aws.String(path),
 		Recursive:      aws.Bool(d.Get("recursive").(bool)),
 		WithDecryption: aws.Bool(d.Get("with_decryption").(bool)),
 	}

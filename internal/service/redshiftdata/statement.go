@@ -40,34 +40,34 @@ func resourceStatement() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"cluster_identifier": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"database": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"db_user": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"parameters": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MinItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ForceNew: true,
 						},
 						"value": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ForceNew: true,
 						},
@@ -75,28 +75,28 @@ func resourceStatement() *schema.Resource {
 				},
 			},
 			"secret_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"sql": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"statement_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"with_event": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 			},
 			"workgroup_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
@@ -110,7 +110,7 @@ func resourceStatementCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	input := &redshiftdata.ExecuteStatementInput{
 		Database:  aws.String(d.Get("database").(string)),
-		Sql:       aws.String(d.Get("sql").(string)),
+		Sql:  aws.String(d.Get("sql").(string)),
 		WithEvent: aws.Bool(d.Get("with_event").(bool)),
 	}
 
@@ -200,7 +200,7 @@ func FindStatementByID(ctx context.Context, conn *redshiftdata.Client, id string
 
 	if errs.IsAErrorMessageContains[*types.ValidationException](err, "expired") {
 		return &redshiftdata.DescribeStatementOutput{
-			Id:     aws.String(id),
+			Id:aws.String(id),
 			Status: types.StatusString("EXPIRED"),
 		}, nil
 	}
@@ -239,11 +239,11 @@ func waitStatementFinished(ctx context.Context, conn *redshiftdata.Client, id st
 			types.StatusStringStarted,
 			types.StatusStringSubmitted,
 		),
-		Target:     enum.Slice(types.StatusStringFinished),
-		Refresh:    statusStatement(ctx, conn, id),
-		Timeout:    timeout,
+		Target:enum.Slice(types.StatusStringFinished),
+		Refresh:statusStatement(ctx, conn, id),
+		Timeout:timeout,
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+		Delay: 30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)

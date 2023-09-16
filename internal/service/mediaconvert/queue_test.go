@@ -30,7 +30,7 @@ func TestAccMediaConvertQueue_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediaconvert.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_basic(rName),
@@ -64,7 +64,7 @@ func TestAccMediaConvertQueue_reservationPlanSettings(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediaconvert.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_reserved(rName, mediaconvert.CommitmentOneYear, mediaconvert.RenewalTypeAutoRenew, 1),
@@ -107,7 +107,7 @@ func TestAccMediaConvertQueue_withStatus(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediaconvert.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_status(rName, mediaconvert.QueueStatusPaused),
@@ -142,7 +142,7 @@ func TestAccMediaConvertQueue_withTags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediaconvert.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_tags(rName, "foo", "bar", "fizz", "buzz"),
@@ -188,7 +188,7 @@ func TestAccMediaConvertQueue_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediaconvert.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_basic(rName),
@@ -214,7 +214,7 @@ func TestAccMediaConvertQueue_withDescription(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediaconvert.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_description(rName, description1),
@@ -359,7 +359,7 @@ resource "aws_media_convert_queue" "test" {
 func testAccQueueConfig_reserved(rName, commitment, renewalType string, reservedSlots int) string {
 	return fmt.Sprintf(`
 resource "aws_media_convert_queue" "test" {
-  name         = %[1]q
+  name= %[1]q
   pricing_plan = %[2]q
 
   reservation_plan_settings {

@@ -109,14 +109,14 @@ func ResourceVPCAttachment() *schema.Resource {
 				Type:     schema.TypeSet,
 				Required: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -133,7 +133,7 @@ func resourceVPCAttachmentCreate(ctx context.Context, d *schema.ResourceData, me
 	input := &networkmanager.CreateVpcAttachmentInput{
 		CoreNetworkId: aws.String(coreNetworkID),
 		SubnetArns:    flex.ExpandStringSet(d.Get("subnet_arns").(*schema.Set)),
-		Tags:          getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 		VpcArn:        aws.String(vpcARN),
 	}
 
@@ -354,7 +354,7 @@ func waitVPCAttachmentCreated(ctx context.Context, conn *networkmanager.NetworkM
 func waitVPCAttachmentDeleted(ctx context.Context, conn *networkmanager.NetworkManager, id string, timeout time.Duration) (*networkmanager.VpcAttachment, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:        []string{networkmanager.AttachmentStateDeleting},
-		Target:         []string{},
+		Target:[]string{},
 		Timeout:        timeout,
 		Refresh:        StatusVPCAttachmentState(ctx, conn, id),
 		NotFoundChecks: 1,

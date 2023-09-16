@@ -61,7 +61,6 @@ func ResourceConfigurationTemplate() *schema.Resource {
 		},
 	}
 }
-
 func resourceConfigurationTemplateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -95,7 +94,6 @@ func resourceConfigurationTemplateCreate(ctx context.Context, d *schema.Resource
 
 	return append(diags, resourceConfigurationTemplateRead(ctx, d, meta)...)
 }
-
 func resourceConfigurationTemplateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -119,7 +117,6 @@ func resourceConfigurationTemplateRead(ctx context.Context, d *schema.ResourceDa
 
 	return diags
 }
-
 func resourceConfigurationTemplateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -194,7 +191,6 @@ func resourceConfigurationTemplateUpdate(ctx context.Context, d *schema.Resource
 
 	return append(diags, resourceConfigurationTemplateRead(ctx, d, meta)...)
 }
-
 func resourceConfigurationTemplateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -215,7 +211,6 @@ func resourceConfigurationTemplateDelete(ctx context.Context, d *schema.Resource
 const (
 	errCodeInvalidParameterValue = "InvalidParameterValue"
 )
-
 func FindConfigurationSettingsByTwoPartKey(ctx context.Context, conn *elasticbeanstalk.ElasticBeanstalk, applicationName, templateName string) (*elasticbeanstalk.ConfigurationSettingsDescription, error) {
 	input := &elasticbeanstalk.DescribeConfigurationSettingsInput{
 		ApplicationName: aws.String(applicationName),
@@ -245,7 +240,6 @@ func FindConfigurationSettingsByTwoPartKey(ctx context.Context, conn *elasticbea
 
 	return output.ConfigurationSettings[0], nil
 }
-
 func gatherOptionSettings(d *schema.ResourceData) []*elasticbeanstalk.ConfigurationOptionSetting {
 	optionSettingsSet, ok := d.Get("setting").(*schema.Set)
 	if !ok || optionSettingsSet == nil {

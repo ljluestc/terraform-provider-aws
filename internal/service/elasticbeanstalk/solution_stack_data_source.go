@@ -24,7 +24,7 @@ func DataSourceSolutionStack() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name_regex": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringIsValidRegExp,
 			},

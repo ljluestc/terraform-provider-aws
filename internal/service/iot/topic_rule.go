@@ -36,109 +36,109 @@ func ResourceTopicRule() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"cloudwatch_alarm": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"alarm_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"state_reason": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"state_value": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: validTopicRuleCloudWatchAlarmStateValue,
 						},
 					},
 				},
 			},
 			"cloudwatch_logs": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"log_group_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"cloudwatch_metric": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"metric_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"metric_namespace": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"metric_timestamp": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional: true,
 							ValidateFunc: verify.ValidUTCTimestamp,
 						},
 						"metric_unit": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"metric_value": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"dynamodb": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"hash_key_field": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"hash_key_value": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"hash_key_type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"operation": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 							ValidateFunc: validation.StringInSlice([]string{
 								"DELETE",
@@ -147,121 +147,121 @@ func ResourceTopicRule() *schema.Resource {
 							}, false),
 						},
 						"payload_field": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"range_key_field": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"range_key_value": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"range_key_type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"table_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"dynamodbv2": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"put_item": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"table_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
 							},
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"elasticsearch": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"endpoint": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: validTopicRuleElasticsearchEndpoint,
 						},
 						"id": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"index": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"type": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"enabled": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Required: true,
 			},
 			"error_action": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cloudwatch_alarm": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"alarm_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"state_reason": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"state_value": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: validTopicRuleCloudWatchAlarmStateValue,
 									},
 								},
@@ -269,18 +269,18 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"cloudwatch_logs": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"log_group_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -288,35 +288,35 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"cloudwatch_metric": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"metric_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"metric_namespace": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"metric_timestamp": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional: true,
 										ValidateFunc: verify.ValidUTCTimestamp,
 									},
 									"metric_unit": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"metric_value": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -324,25 +324,25 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"dynamodb": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"hash_key_field": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"hash_key_value": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"hash_key_type": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"operation": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 										ValidateFunc: validation.StringInSlice([]string{
 											"DELETE",
@@ -351,28 +351,28 @@ func ResourceTopicRule() *schema.Resource {
 										}, false),
 									},
 									"payload_field": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"range_key_field": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"range_key_value": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"range_key_type": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"table_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
@@ -380,27 +380,27 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"dynamodbv2": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"put_item": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"table_name": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 												},
 											},
 										},
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -408,31 +408,31 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"elasticsearch": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"endpoint": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: validTopicRuleElasticsearchEndpoint,
 									},
 									"id": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"index": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"type": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
@@ -440,28 +440,28 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"firehose": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"batch_mode": {
-										Type:     schema.TypeBool,
+										Type: schema.TypeBool,
 										Optional: true,
 										Default:  false,
 									},
 									"delivery_stream_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"separator": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional: true,
 										ValidateFunc: validTopicRuleFirehoseSeparator,
 									},
 								},
@@ -469,35 +469,35 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"http": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"confirmation_url": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional: true,
 										ValidateFunc: validation.IsURLWithHTTPS,
 									},
 									"http_header": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"key": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 												},
 												"value": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 												},
 											},
 										},
 									},
 									"url": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: validation.IsURLWithHTTPS,
 									},
 								},
@@ -505,23 +505,23 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"iot_analytics": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"batch_mode": {
-										Type:     schema.TypeBool,
+										Type: schema.TypeBool,
 										Optional: true,
 										Default:  false,
 									},
 									"channel_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -529,27 +529,27 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"iot_events": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"batch_mode": {
-										Type:     schema.TypeBool,
+										Type: schema.TypeBool,
 										Optional: true,
 										Default:  false,
 									},
 									"input_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"message_id": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -557,31 +557,31 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"kafka": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"client_properties": {
-										Type:     schema.TypeMap,
+										Type: schema.TypeMap,
 										Required: true,
-										Elem:     &schema.Schema{Type: schema.TypeString},
+										Elem: &schema.Schema{Type: schema.TypeString},
 									},
 									"destination_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"key": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"partition": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"topic": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
@@ -589,22 +589,22 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"kinesis": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"partition_key": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"stream_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
@@ -612,14 +612,14 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"lambda": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"function_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -627,24 +627,24 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"republish": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"qos": {
-										Type:         schema.TypeInt,
-										Optional:     true,
-										Default:      0,
+										Type:schema.TypeInt,
+										Optional: true,
+										Default:  0,
 										ValidateFunc: validation.IntBetween(0, 1),
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"topic": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
@@ -652,27 +652,27 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"s3": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"bucket_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"canned_acl": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional: true,
 										ValidateFunc: validation.StringInSlice(iot.CannedAccessControlList_Values(), false),
 									},
 									"key": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -680,24 +680,24 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"sns": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"message_format": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Default:  iot.MessageFormatRaw,
 										Optional: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"target_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -705,22 +705,22 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"sqs": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"queue_url": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"use_base64": {
-										Type:     schema.TypeBool,
+										Type: schema.TypeBool,
 										Required: true,
 									},
 								},
@@ -728,22 +728,22 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"step_functions": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"execution_name_prefix": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Optional: true,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"state_machine_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
@@ -751,37 +751,37 @@ func ResourceTopicRule() *schema.Resource {
 							ExactlyOneOf: topicRuleErrorActionExactlyOneOf,
 						},
 						"timestream": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"database_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"dimension": {
-										Type:     schema.TypeSet,
+										Type: schema.TypeSet,
 										Required: true,
-										Elem:     timestreamDimensionResource,
+										Elem: timestreamDimensionResource,
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"table_name": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"timestamp": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"unit": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 													ValidateFunc: validation.StringInSlice([]string{
 														"SECONDS",
@@ -791,7 +791,7 @@ func ResourceTopicRule() *schema.Resource {
 													}, false),
 												},
 												"value": {
-													Type:     schema.TypeString,
+													Type: schema.TypeString,
 													Required: true,
 												},
 											},
@@ -805,339 +805,339 @@ func ResourceTopicRule() *schema.Resource {
 				},
 			},
 			"firehose": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"batch_mode": {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"delivery_stream_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"separator": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional: true,
 							ValidateFunc: validTopicRuleFirehoseSeparator,
 						},
 					},
 				},
 			},
 			"http": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"confirmation_url": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional: true,
 							ValidateFunc: validation.IsURLWithHTTPS,
 						},
 						"http_header": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"key": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"value": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
 							},
 						},
 						"url": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: validation.IsURLWithHTTPS,
 						},
 					},
 				},
 			},
 			"iot_analytics": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"batch_mode": {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"channel_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"iot_events": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"batch_mode": {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Optional: true,
 							Default:  false,
 						},
 						"input_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"message_id": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"kafka": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"client_properties": {
-							Type:     schema.TypeMap,
+							Type: schema.TypeMap,
 							Required: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 						},
 						"destination_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"key": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"partition": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"topic": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"kinesis": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"partition_key": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"stream_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"lambda": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"function_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validTopicRuleName,
 			},
 			"republish": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"qos": {
-							Type:         schema.TypeInt,
-							Optional:     true,
-							Default:      0,
+							Type:schema.TypeInt,
+							Optional: true,
+							Default:  0,
 							ValidateFunc: validation.IntBetween(0, 1),
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"topic": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"s3": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"bucket_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"canned_acl": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional: true,
 							ValidateFunc: validation.StringInSlice(iot.CannedAccessControlList_Values(), false),
 						},
 						"key": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"sns": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"message_format": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 							Default:  iot.MessageFormatRaw,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"target_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"sql": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 			"sql_version": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 			},
 			"sqs": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"queue_url": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"use_base64": {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Required: true,
 						},
 					},
 				},
 			},
 			"step_functions": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"execution_name_prefix": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"state_machine_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"timestream": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"database_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"dimension": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Required: true,
-							Elem:     timestreamDimensionResource,
+							Elem: timestreamDimensionResource,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"table_name": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Required: true,
 						},
 						"timestamp": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"unit": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 										ValidateFunc: validation.StringInSlice([]string{
 											"SECONDS",
@@ -1147,7 +1147,7 @@ func ResourceTopicRule() *schema.Resource {
 										}, false),
 									},
 									"value": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
@@ -1187,11 +1187,11 @@ var topicRuleErrorActionExactlyOneOf = []string{
 var timestreamDimensionResource *schema.Resource = &schema.Resource{
 	Schema: map[string]*schema.Schema{
 		"name": {
-			Type:     schema.TypeString,
+			Type: schema.TypeString,
 			Required: true,
 		},
 		"value": {
-			Type:     schema.TypeString,
+			Type: schema.TypeString,
 			Required: true,
 		},
 	},
@@ -1203,7 +1203,7 @@ func resourceTopicRuleCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	ruleName := d.Get("name").(string)
 	input := &iot.CreateTopicRuleInput{
-		RuleName:         aws.String(ruleName),
+		RuleName:aws.String(ruleName),
 		Tags:aws.String(KeyValueTags(ctx, getTagsIn(ctx)).URLQueryString()),
 		TopicRulePayload: expandTopicRulePayload(d),
 	}
@@ -1335,7 +1335,7 @@ func resourceTopicRuleUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &iot.ReplaceTopicRuleInput{
-			RuleName:         aws.String(d.Id()),
+			RuleName:aws.String(d.Id()),
 			TopicRulePayload: expandTopicRulePayload(d),
 		}
 
@@ -2355,11 +2355,11 @@ func expandTopicRulePayload(d *schema.ResourceData) *iot.TopicRulePayload {
 	}
 
 	return &iot.TopicRulePayload{
-		Actions:          actions,
+		Actions: actions,
 		AwsIotSqlVersion: aws.String(d.Get("sql_version").(string)),
-		Description:      aws.String(d.Get("description").(string)),
-		ErrorAction:      iotErrorAction,
-		RuleDisabled:     aws.Bool(!d.Get("enabled").(bool)),
+		Description:  aws.String(d.Get("description").(string)),
+		ErrorAction:  iotErrorAction,
+		RuleDisabled: aws.Bool(!d.Get("enabled").(bool)),
 		Sql: aws.String(d.Get("sql").(string)),
 	}
 }

@@ -23,16 +23,16 @@ func DataSourceCodeSigningConfig() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"allowed_publishers": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"signing_profile_version_arns": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Schema{
 								Type: schema.TypeString,
@@ -43,33 +43,32 @@ func DataSourceCodeSigningConfig() *schema.Resource {
 				},
 			},
 			"policies": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"untrusted_artifact_on_deployment": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"config_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"last_modified": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func dataSourceCodeSigningConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)

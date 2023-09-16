@@ -27,13 +27,13 @@ func TestParseVolumeGatewayARNAndTargetNameFromARN(t *testing.T) {
 		Input string
 		ExpectedGatewayARN string
 		ExpectedTargetName string
-		ErrCount           int
+		ErrCount  int
 	}{
 		{
 			Input: "arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:TargetName", //lintignore:AWSAT003,AWSAT005
 			ExpectedGatewayARN: "arn:aws:storagegateway:us-east-2:111122223333:gateway/sgw-12A3456B",   //lintignore:AWSAT003,AWSAT005
 			ExpectedTargetName: "TargetName",
-			ErrCount:           0,
+			ErrCount:  0,
 		},
 		{
 			Input:    "gateway/sgw-12A3456B/target/iqn.1997-05.com.amazon:TargetName",
@@ -267,7 +267,7 @@ func TestAccStorageGatewayCachediSCSIVolume_sourceVolumeARN(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"source_volume_arn"},
@@ -414,9 +414,9 @@ func testAccCachediSCSIVolumeConfig_basic(rName string) string {
 		testAccCachediSCSIVolumeBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_storagegateway_cached_iscsi_volume" "test" {
-  gateway_arn          = aws_storagegateway_cache.test.gateway_arn
+  gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
-  target_name          = %[1]q
+  target_name = %[1]q
   volume_size_in_bytes = 5368709120
 }
 `, rName))
@@ -435,7 +435,7 @@ resource "aws_kms_key" "test" {
        "Sid": "Enable IAM User Permissions",
        "Effect": "Allow",
        "Principal": {
-         "AWS": "*"
+"AWS": "*"
        },
        "Action": "kms:*",
        "Resource": "*"
@@ -446,9 +446,9 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_storagegateway_cached_iscsi_volume" "test" {
-  gateway_arn          = aws_storagegateway_cache.test.gateway_arn
+  gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
-  target_name          = %[1]q
+  target_name = %[1]q
   volume_size_in_bytes = 5368709120
   kms_encrypted        = true
   kms_key = aws_kms_key.test.arn
@@ -461,9 +461,9 @@ func testAccCachediSCSIVolumeConfig_tags1(rName, tagKey1, tagValue1 string) stri
 		testAccCachediSCSIVolumeBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_storagegateway_cached_iscsi_volume" "test" {
-  gateway_arn          = aws_storagegateway_cache.test.gateway_arn
+  gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
-  target_name          = %[1]q
+  target_name = %[1]q
   volume_size_in_bytes = 5368709120
 
   tags = {
@@ -478,9 +478,9 @@ func testAccCachediSCSIVolumeConfig_tags2(rName, tagKey1, tagValue1, tagKey2, ta
 		testAccCachediSCSIVolumeBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_storagegateway_cached_iscsi_volume" "test" {
-  gateway_arn          = aws_storagegateway_cache.test.gateway_arn
+  gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
-  target_name          = %[1]q
+  target_name = %[1]q
   volume_size_in_bytes = 5368709120
 
   tags = {
@@ -514,10 +514,10 @@ resource "aws_ebs_snapshot" "test" {
 }
 
 resource "aws_storagegateway_cached_iscsi_volume" "test" {
-  gateway_arn          = aws_storagegateway_cache.test.gateway_arn
+  gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
-  snapshot_id          = aws_ebs_snapshot.test.id
-  target_name          = %[1]q
+  snapshot_id = aws_ebs_snapshot.test.id
+  target_name = %[1]q
   volume_size_in_bytes = aws_ebs_snapshot.test.volume_size * 1024 * 1024 * 1024
 }
 `, rName))
@@ -528,17 +528,17 @@ func testAccCachediSCSIVolumeConfig_sourceARN(rName string) string {
 		testAccCachediSCSIVolumeBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_storagegateway_cached_iscsi_volume" "source" {
-  gateway_arn          = aws_storagegateway_cache.test.gateway_arn
+  gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
-  target_name          = "%[1]s-source"
+  target_name = "%[1]s-source"
   volume_size_in_bytes = 1073741824
 }
 
 resource "aws_storagegateway_cached_iscsi_volume" "test" {
-  gateway_arn          = aws_storagegateway_cache.test.gateway_arn
+  gateway_arn = aws_storagegateway_cache.test.gateway_arn
   network_interface_id = aws_instance.test.private_ip
   source_volume_arn    = aws_storagegateway_cached_iscsi_volume.source.arn
-  target_name          = %[1]q
+  target_name = %[1]q
   volume_size_in_bytes = aws_storagegateway_cached_iscsi_volume.source.volume_size_in_bytes
 }
 `, rName))

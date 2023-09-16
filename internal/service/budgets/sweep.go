@@ -16,22 +16,20 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_budgets_budget_action", &resource.Sweeper{
 		Name: "aws_budgets_budget_action",
-		F:    sweepBudgetActions,
+		F: sweepBudgetActions,
 	})
 
 	resource.AddTestSweepers("aws_budgets_budget", &resource.Sweeper{
 		Name: "aws_budgets_budget",
-		F:    sweepBudgets,
+		F: sweepBudgets,
 		Dependencies: []string{
 			"aws_budgets_budget_action",
 		},
 	})
 }
-
 func sweepBudgetActions(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -78,7 +76,6 @@ func sweepBudgetActions(region string) error {
 
 	return nil
 }
-
 func sweepBudgets(region string) error { // nosemgrep:ci.budgets-in-func-name
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

@@ -14,7 +14,8 @@ import (
 )
 
 // waitApplicationDeleted waits for an Application to return Deleted
-func waitApplicationDeleted(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, name string, timeout time.Duration) (*kinesisanalyticsv2.ApplicationDetail, error) {
+
+ waitApplicationDeleted(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, name string, timeout time.Duration) (*kinesisanalyticsv2.ApplicationDetail, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{kinesisanalyticsv2.ApplicationStatusDeleting},
 		Target:  []string{},
@@ -32,7 +33,8 @@ func waitApplicationDeleted(ctx context.Context, conn *kinesisanalyticsv2.Kinesi
 }
 
 // waitApplicationStarted waits for an Application to start
-func waitApplicationStarted(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, name string, timeout time.Duration) (*kinesisanalyticsv2.ApplicationDetail, error) {
+
+ waitApplicationStarted(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, name string, timeout time.Duration) (*kinesisanalyticsv2.ApplicationDetail, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{kinesisanalyticsv2.ApplicationStatusStarting},
 		Target:  []string{kinesisanalyticsv2.ApplicationStatusRunning},
@@ -50,7 +52,8 @@ func waitApplicationStarted(ctx context.Context, conn *kinesisanalyticsv2.Kinesi
 }
 
 // waitApplicationStopped waits for an Application to stop
-func waitApplicationStopped(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, name string, timeout time.Duration) (*kinesisanalyticsv2.ApplicationDetail, error) {
+
+ waitApplicationStopped(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, name string, timeout time.Duration) (*kinesisanalyticsv2.ApplicationDetail, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{kinesisanalyticsv2.ApplicationStatusForceStopping, kinesisanalyticsv2.ApplicationStatusStopping},
 		Target:  []string{kinesisanalyticsv2.ApplicationStatusReady},
@@ -68,7 +71,8 @@ func waitApplicationStopped(ctx context.Context, conn *kinesisanalyticsv2.Kinesi
 }
 
 // waitApplicationUpdated waits for an Application to return Deleted
-func waitApplicationUpdated(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, name string, timeout time.Duration) (*kinesisanalyticsv2.ApplicationDetail, error) { //nolint:unparam
+
+ waitApplicationUpdated(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, name string, timeout time.Duration) (*kinesisanalyticsv2.ApplicationDetail, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{kinesisanalyticsv2.ApplicationStatusUpdating},
 		Target:  []string{kinesisanalyticsv2.ApplicationStatusReady, kinesisanalyticsv2.ApplicationStatusRunning},
@@ -85,12 +89,17 @@ func waitApplicationUpdated(ctx context.Context, conn *kinesisanalyticsv2.Kinesi
 	return nil, err
 }
 
-// waitIAMPropagation retries the specified function if the returned error indicates an IAM eventual consistency issue.
-// If the retries time out the specified function is called one last time.
-func waitIAMPropagation(ctx context.Context, f func() (interface{}, error)) (interface{}, error) {
+// waitIAMPropagation retries the specified 
+tion if the returned error indicates an IAM eventual consistency issue.
+// If the retries time out the specified 
+tion is called one last time.
+
+ waitIAMPropagation(ctx context.Context, f 
+() (interface{}, error)) (interface{}, error) {
 	var output interface{}
 
-	err := retry.RetryContext(ctx, propagationTimeout, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, propagationTimeout, 
+() *retry.RetryError {
 		var err error
 
 		output, err = f()
@@ -105,7 +114,8 @@ func waitIAMPropagation(ctx context.Context, f func() (interface{}, error)) (int
 			return retry.RetryableError(err)
 		}
 
-		// InvalidArgumentException: Given IAM role arn : arn:aws:iam::123456789012:role/xxx does not provide Invoke permissions on the Lambda resource : arn:aws:lambda:us-west-2:123456789012:function:yyy
+		// InvalidArgumentException: Given IAM role arn : arn:aws:iam::123456789012:role/xxx does not provide Invoke permissions on the Lambda resource : arn:aws:lambda:us-west-2:123456789012:
+tion:yyy
 		if tfawserr.ErrMessageContains(err, kinesisanalyticsv2.ErrCodeInvalidArgumentException, "does not provide Invoke permissions on the Lambda resource") {
 			return retry.RetryableError(err)
 		}
@@ -134,7 +144,8 @@ func waitIAMPropagation(ctx context.Context, f func() (interface{}, error)) (int
 }
 
 // waitSnapshotCreated waits for a Snapshot to return Created
-func waitSnapshotCreated(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, applicationName, snapshotName string, timeout time.Duration) (*kinesisanalyticsv2.SnapshotDetails, error) {
+
+ waitSnapshotCreated(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, applicationName, snapshotName string, timeout time.Duration) (*kinesisanalyticsv2.SnapshotDetails, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{kinesisanalyticsv2.SnapshotStatusCreating},
 		Target:  []string{kinesisanalyticsv2.SnapshotStatusReady},
@@ -152,7 +163,8 @@ func waitSnapshotCreated(ctx context.Context, conn *kinesisanalyticsv2.KinesisAn
 }
 
 // waitSnapshotDeleted waits for a Snapshot to return Deleted
-func waitSnapshotDeleted(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, applicationName, snapshotName string, timeout time.Duration) (*kinesisanalyticsv2.SnapshotDetails, error) {
+
+ waitSnapshotDeleted(ctx context.Context, conn *kinesisanalyticsv2.KinesisAnalyticsV2, applicationName, snapshotName string, timeout time.Duration) (*kinesisanalyticsv2.SnapshotDetails, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{kinesisanalyticsv2.SnapshotStatusDeleting},
 		Target:  []string{},

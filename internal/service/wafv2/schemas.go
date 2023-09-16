@@ -21,11 +21,9 @@ var listOfEmptyObjectSchema *schema.Schema = &schema.Schema{
 		Schema: map[string]*schema.Schema{},
 	},
 }
-
 func emptySchema() *schema.Schema {
 	return listOfEmptyObjectSchema
 }
-
 func ruleLabelsSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeSet,
@@ -44,7 +42,6 @@ func ruleLabelsSchema() *schema.Schema {
 		},
 	}
 }
-
 func ruleGroupRootStatementSchema(level int) *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -52,12 +49,12 @@ func ruleGroupRootStatementSchema(level int) *schema.Schema {
 		MaxItems: 1,
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
-				"and_statement":            statementSchema(level),
+				"and_statement":   statementSchema(level),
 				"byte_match_statement":     byteMatchStatementSchema(),
 				"geo_match_statement":      geoMatchStatementSchema(),
-				"ip_set_reference_statement":            ipSetReferenceStatementSchema(),
+				"ip_set_reference_statement":   ipSetReferenceStatementSchema(),
 				"label_match_statement":    labelMatchStatementSchema(),
-				"not_statement":            statementSchema(level),
+				"not_statement":   statementSchema(level),
 				"or_statement":statementSchema(level),
 				"rate_based_statement":     rateBasedStatementSchema(level),
 				"regex_match_statement":    regexMatchStatementSchema(),
@@ -69,7 +66,6 @@ func ruleGroupRootStatementSchema(level int) *schema.Schema {
 		},
 	}
 }
-
 func statementSchema(level int) *schema.Schema {
 	if level > 1 {
 		return &schema.Schema{
@@ -83,12 +79,12 @@ func statementSchema(level int) *schema.Schema {
 						Required: true,
 						Elem: &schema.Resource{
 							Schema: map[string]*schema.Schema{
-								"and_statement":            statementSchema(level - 1),
+								"and_statement":   statementSchema(level - 1),
 								"byte_match_statement":     byteMatchStatementSchema(),
 								"geo_match_statement":      geoMatchStatementSchema(),
-								"ip_set_reference_statement":            ipSetReferenceStatementSchema(),
+								"ip_set_reference_statement":   ipSetReferenceStatementSchema(),
 								"label_match_statement":    labelMatchStatementSchema(),
-								"not_statement":            statementSchema(level - 1),
+								"not_statement":   statementSchema(level - 1),
 								"or_statement":statementSchema(level - 1),
 								"regex_match_statement":    regexMatchStatementSchema(),
 								"regex_pattern_set_reference_statement": regexPatternSetReferenceStatementSchema(),
@@ -116,7 +112,7 @@ func statementSchema(level int) *schema.Schema {
 						Schema: map[string]*schema.Schema{
 							"byte_match_statement":     byteMatchStatementSchema(),
 							"geo_match_statement":      geoMatchStatementSchema(),
-							"ip_set_reference_statement":            ipSetReferenceStatementSchema(),
+							"ip_set_reference_statement":   ipSetReferenceStatementSchema(),
 							"label_match_statement":    labelMatchStatementSchema(),
 							"regex_match_statement":    regexMatchStatementSchema(),
 							"regex_pattern_set_reference_statement": regexPatternSetReferenceStatementSchema(),
@@ -130,7 +126,6 @@ func statementSchema(level int) *schema.Schema {
 		},
 	}
 }
-
 func byteMatchStatementSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -140,12 +135,12 @@ func byteMatchStatementSchema() *schema.Schema {
 			Schema: map[string]*schema.Schema{
 				"field_to_match": fieldToMatchSchema(),
 				"positional_constraint": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.PositionalConstraint_Values(), false),
 				},
 				"search_string": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringLenBetween(1, 200),
 				},
@@ -154,7 +149,6 @@ func byteMatchStatementSchema() *schema.Schema {
 		},
 	}
 }
-
 func geoMatchStatementSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -173,7 +167,6 @@ func geoMatchStatementSchema() *schema.Schema {
 		},
 	}
 }
-
 func ipSetReferenceStatementSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -182,7 +175,7 @@ func ipSetReferenceStatementSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"arn": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: verify.ValidARN,
 				},
@@ -193,7 +186,7 @@ func ipSetReferenceStatementSchema() *schema.Schema {
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"fallback_behavior": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringInSlice(wafv2.FallbackBehavior_Values(), false),
 							},
@@ -206,7 +199,7 @@ func ipSetReferenceStatementSchema() *schema.Schema {
 								),
 							},
 							"position": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringInSlice(wafv2.ForwardedIPPosition_Values(), false),
 							},
@@ -217,7 +210,6 @@ func ipSetReferenceStatementSchema() *schema.Schema {
 		},
 	}
 }
-
 func labelMatchStatementSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -234,7 +226,7 @@ func labelMatchStatementSchema() *schema.Schema {
 					),
 				},
 				"scope": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.LabelMatchScope_Values(), false),
 				},
@@ -242,7 +234,6 @@ func labelMatchStatementSchema() *schema.Schema {
 		},
 	}
 }
-
 func regexMatchStatementSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -264,7 +255,6 @@ func regexMatchStatementSchema() *schema.Schema {
 		},
 	}
 }
-
 func regexPatternSetReferenceStatementSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -273,7 +263,7 @@ func regexPatternSetReferenceStatementSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"arn": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: verify.ValidARN,
 				},
@@ -283,7 +273,6 @@ func regexPatternSetReferenceStatementSchema() *schema.Schema {
 		},
 	}
 }
-
 func sizeConstraintSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -292,13 +281,13 @@ func sizeConstraintSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"comparison_operator": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.ComparisonOperator_Values(), false),
 				},
 				"field_to_match": fieldToMatchSchema(),
 				"size": {
-					Type:         schema.TypeInt,
+					Type:schema.TypeInt,
 					Required:     true,
 					ValidateFunc: validation.IntBetween(0, math.MaxInt32),
 				},
@@ -307,7 +296,6 @@ func sizeConstraintSchema() *schema.Schema {
 		},
 	}
 }
-
 func sqliMatchStatementSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -321,7 +309,6 @@ func sqliMatchStatementSchema() *schema.Schema {
 		},
 	}
 }
-
 func xssMatchStatementSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -335,7 +322,6 @@ func xssMatchStatementSchema() *schema.Schema {
 		},
 	}
 }
-
 func fieldToMatchBaseSchema() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
@@ -343,7 +329,7 @@ func fieldToMatchBaseSchema() *schema.Resource {
 			"body":   bodySchema(),
 			"cookies":cookiesSchema(),
 			"headers":headersSchema(),
-			"json_body":           jsonBodySchema(),
+			"json_body":  jsonBodySchema(),
 			"method": emptySchema(),
 			"query_string":        emptySchema(),
 			"single_header": {
@@ -388,7 +374,6 @@ func fieldToMatchBaseSchema() *schema.Resource {
 		},
 	}
 }
-
 func fieldToMatchSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -397,7 +382,6 @@ func fieldToMatchSchema() *schema.Schema {
 		Elem:     fieldToMatchBaseSchema(),
 	}
 }
-
 func jsonBodySchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -406,13 +390,13 @@ func jsonBodySchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"invalid_fallback_behavior": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.BodyParsingFallbackBehavior_Values(), false),
 				},
 				"match_pattern": jsonBodyMatchPatternSchema(),
 				"match_scope": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.JsonMatchScope_Values(), false),
 				},
@@ -421,7 +405,6 @@ func jsonBodySchema() *schema.Schema {
 		},
 	}
 }
-
 func jsonBodyMatchPatternSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -445,7 +428,6 @@ func jsonBodyMatchPatternSchema() *schema.Schema {
 		},
 	}
 }
-
 func forwardedIPConfigSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -454,7 +436,7 @@ func forwardedIPConfigSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"fallback_behavior": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.FallbackBehavior_Values(), false),
 				},
@@ -466,7 +448,6 @@ func forwardedIPConfigSchema() *schema.Schema {
 		},
 	}
 }
-
 func textTransformationSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeSet,
@@ -479,7 +460,7 @@ func textTransformationSchema() *schema.Schema {
 					Required: true,
 				},
 				"type": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.TextTransformationType_Values(), false),
 				},
@@ -487,7 +468,6 @@ func textTransformationSchema() *schema.Schema {
 		},
 	}
 }
-
 func visibilityConfigSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -515,7 +495,6 @@ func visibilityConfigSchema() *schema.Schema {
 		},
 	}
 }
-
 func associationConfigSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -528,7 +507,6 @@ func associationConfigSchema() *schema.Schema {
 		},
 	}
 }
-
 func requestBodySchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -541,7 +519,7 @@ func requestBodySchema() *schema.Schema {
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"default_size_inspection_limit": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringInSlice(wafv2.SizeInspectionLimit_Values(), false),
 							},
@@ -552,7 +530,6 @@ func requestBodySchema() *schema.Schema {
 		},
 	}
 }
-
 func allowConfigSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -565,7 +542,6 @@ func allowConfigSchema() *schema.Schema {
 		},
 	}
 }
-
 func captchaConfigSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -578,7 +554,6 @@ func captchaConfigSchema() *schema.Schema {
 		},
 	}
 }
-
 func outerCaptchaConfigSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -603,7 +578,6 @@ func outerCaptchaConfigSchema() *schema.Schema {
 		},
 	}
 }
-
 func challengeConfigSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -616,7 +590,6 @@ func challengeConfigSchema() *schema.Schema {
 		},
 	}
 }
-
 func countConfigSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -629,7 +602,6 @@ func countConfigSchema() *schema.Schema {
 		},
 	}
 }
-
 func blockConfigSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -642,7 +614,6 @@ func blockConfigSchema() *schema.Schema {
 		},
 	}
 }
-
 func customRequestHandlingSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -665,7 +636,7 @@ func customRequestHandlingSchema() *schema.Schema {
 								),
 							},
 							"value": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringLenBetween(1, 255),
 							},
@@ -676,7 +647,6 @@ func customRequestHandlingSchema() *schema.Schema {
 		},
 	}
 }
-
 func customResponseSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -693,7 +663,7 @@ func customResponseSchema() *schema.Schema {
 					),
 				},
 				"response_code": {
-					Type:         schema.TypeInt,
+					Type:schema.TypeInt,
 					Required:     true,
 					ValidateFunc: validation.IntBetween(200, 600),
 				},
@@ -711,7 +681,7 @@ func customResponseSchema() *schema.Schema {
 								),
 							},
 							"value": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringLenBetween(1, 255),
 							},
@@ -722,7 +692,6 @@ func customResponseSchema() *schema.Schema {
 		},
 	}
 }
-
 func customResponseBodySchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeSet,
@@ -738,12 +707,12 @@ func customResponseBodySchema() *schema.Schema {
 					),
 				},
 				"content": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringLenBetween(1, 10240),
 				},
 				"content_type": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.ResponseContentType_Values(), false),
 				},
@@ -751,7 +720,6 @@ func customResponseBodySchema() *schema.Schema {
 		},
 	}
 }
-
 func cookiesSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -766,7 +734,6 @@ func cookiesSchema() *schema.Schema {
 		},
 	}
 }
-
 func cookiesMatchPatternSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -788,7 +755,6 @@ func cookiesMatchPatternSchema() *schema.Schema {
 		},
 	}
 }
-
 func bodySchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -801,32 +767,28 @@ func bodySchema() *schema.Schema {
 		},
 	}
 }
-
 func oversizeHandlingOptionalSchema(defaultValue string) *schema.Schema {
 	return &schema.Schema{
-		Type:         schema.TypeString,
+		Type:schema.TypeString,
 		Optional:     true,
 		Default:      defaultValue,
 		ValidateFunc: validation.StringInSlice(wafv2.OversizeHandling_Values(), false),
 	}
 }
-
 func oversizeHandlingRequiredSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:         schema.TypeString,
+		Type:schema.TypeString,
 		Required:     true,
 		ValidateFunc: validation.StringInSlice(wafv2.OversizeHandling_Values(), false),
 	}
 }
-
 func matchScopeSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:         schema.TypeString,
+		Type:schema.TypeString,
 		Required:     true,
 		ValidateFunc: validation.StringInSlice(wafv2.MapMatchScope_Values(), false),
 	}
 }
-
 func headersSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -852,7 +814,6 @@ func headersSchema() *schema.Schema {
 		},
 	}
 }
-
 func headersMatchPatternBaseSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -868,7 +829,6 @@ func headersMatchPatternBaseSchema() *schema.Schema {
 		},
 	}
 }
-
 func webACLRootStatementSchema(level int) *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -876,13 +836,13 @@ func webACLRootStatementSchema(level int) *schema.Schema {
 		MaxItems: 1,
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
-				"and_statement":            statementSchema(level),
+				"and_statement":   statementSchema(level),
 				"byte_match_statement":     byteMatchStatementSchema(),
 				"geo_match_statement":      geoMatchStatementSchema(),
-				"ip_set_reference_statement":            ipSetReferenceStatementSchema(),
+				"ip_set_reference_statement":   ipSetReferenceStatementSchema(),
 				"label_match_statement":    labelMatchStatementSchema(),
-				"managed_rule_group_statement":          managedRuleGroupStatementSchema(level),
-				"not_statement":            statementSchema(level),
+				"managed_rule_group_statement": managedRuleGroupStatementSchema(level),
+				"not_statement":   statementSchema(level),
 				"or_statement":statementSchema(level),
 				"rate_based_statement":     rateBasedStatementSchema(level),
 				"regex_match_statement":    regexMatchStatementSchema(),
@@ -895,7 +855,6 @@ func webACLRootStatementSchema(level int) *schema.Schema {
 		},
 	}
 }
-
 func managedRuleGroupStatementSchema(level int) *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -905,19 +864,19 @@ func managedRuleGroupStatementSchema(level int) *schema.Schema {
 			Schema: map[string]*schema.Schema{
 				"managed_rule_group_configs": managedRuleGroupConfigSchema(),
 				"name": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringLenBetween(1, 128),
 				},
 				"rule_action_override": ruleActionOverrideSchema(),
 				"scope_down_statement": scopeDownStatementSchema(level - 1),
 				"vendor_name": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringLenBetween(1, 128),
 				},
 				"version": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringLenBetween(1, 128),
 				},
@@ -925,7 +884,6 @@ func managedRuleGroupStatementSchema(level int) *schema.Schema {
 		},
 	}
 }
-
 func rateBasedStatementSchema(level int) *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -934,14 +892,14 @@ func rateBasedStatementSchema(level int) *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"aggregate_key_type": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					Default:      wafv2.RateBasedStatementAggregateKeyTypeIp,
 					ValidateFunc: validation.StringInSlice(wafv2.RateBasedStatementAggregateKeyType_Values(), false),
 				},
 				"forwarded_ip_config": forwardedIPConfigSchema(),
 				"limit": {
-					Type:         schema.TypeInt,
+					Type:schema.TypeInt,
 					Required:     true,
 					ValidateFunc: validation.IntBetween(100, 2000000000),
 				},
@@ -950,7 +908,6 @@ func rateBasedStatementSchema(level int) *schema.Schema {
 		},
 	}
 }
-
 func scopeDownStatementSchema(level int) *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -958,12 +915,12 @@ func scopeDownStatementSchema(level int) *schema.Schema {
 		MaxItems: 1,
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
-				"and_statement":            statementSchema(level),
+				"and_statement":   statementSchema(level),
 				"byte_match_statement":     byteMatchStatementSchema(),
 				"geo_match_statement":      geoMatchStatementSchema(),
 				"label_match_statement":    labelMatchStatementSchema(),
-				"ip_set_reference_statement":            ipSetReferenceStatementSchema(),
-				"not_statement":            statementSchema(level),
+				"ip_set_reference_statement":   ipSetReferenceStatementSchema(),
+				"not_statement":   statementSchema(level),
 				"or_statement":statementSchema(level),
 				"regex_match_statement":    regexMatchStatementSchema(),
 				"regex_pattern_set_reference_statement": regexPatternSetReferenceStatementSchema(),
@@ -974,7 +931,6 @@ func scopeDownStatementSchema(level int) *schema.Schema {
 		},
 	}
 }
-
 func ruleActionOverrideSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -984,7 +940,7 @@ func ruleActionOverrideSchema() *schema.Schema {
 			Schema: map[string]*schema.Schema{
 				"action_to_use": actionToUseSchema(),
 				"name": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringLenBetween(1, 128),
 				},
@@ -992,7 +948,6 @@ func ruleActionOverrideSchema() *schema.Schema {
 		},
 	}
 }
-
 func managedRuleGroupConfigSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -1029,7 +984,7 @@ func managedRuleGroupConfigSchema() *schema.Schema {
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"inspection_level": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringInSlice(wafv2.InspectionLevel_Values(), false),
 							},
@@ -1062,7 +1017,7 @@ func managedRuleGroupConfigSchema() *schema.Schema {
 					},
 				},
 				"payload_type": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.PayloadType_Values(), false),
 				},
@@ -1087,7 +1042,6 @@ func managedRuleGroupConfigSchema() *schema.Schema {
 		},
 	}
 }
-
 func actionToUseSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -1104,7 +1058,6 @@ func actionToUseSchema() *schema.Schema {
 		},
 	}
 }
-
 func ruleGroupReferenceStatementSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -1113,7 +1066,7 @@ func ruleGroupReferenceStatementSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"arn": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: verify.ValidARN,
 				},
@@ -1122,7 +1075,6 @@ func ruleGroupReferenceStatementSchema() *schema.Schema {
 		},
 	}
 }
-
 func managedRuleGroupConfigATPRequestInspectionSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -1148,7 +1100,7 @@ func managedRuleGroupConfigATPRequestInspectionSchema() *schema.Schema {
 					},
 				},
 				"payload_type": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.PayloadType_Values(), false),
 				},
@@ -1173,7 +1125,6 @@ func managedRuleGroupConfigATPRequestInspectionSchema() *schema.Schema {
 		},
 	}
 }
-
 func managedRuleGroupConfigATPResponseInspectionSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -1213,7 +1164,7 @@ func managedRuleGroupConfigATPResponseInspectionSchema() *schema.Schema {
 								// TODO: ValidateFunc: length > 0
 							},
 							"name": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringLenBetween(1, 256),
 							},
@@ -1239,7 +1190,7 @@ func managedRuleGroupConfigATPResponseInspectionSchema() *schema.Schema {
 								// TODO: ValidateFunc: length > 0
 							},
 							"identifier": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringLenBetween(1, 256),
 							},

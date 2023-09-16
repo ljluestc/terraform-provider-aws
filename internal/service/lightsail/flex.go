@@ -41,7 +41,6 @@ func expandOperation(ctx context.Context, conn *lightsail.Client, operation type
 
 	return nil
 }
-
 func flattenResourceLocation(apiObject *types.ResourceLocation) map[string]interface{} {
 	if apiObject == nil {
 		return nil

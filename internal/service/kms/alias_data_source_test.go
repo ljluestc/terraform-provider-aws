@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccKMSAliasDataSource_service(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := "alias/aws/s3"
@@ -36,7 +35,6 @@ func TestAccKMSAliasDataSource_service(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSAliasDataSource_cmk(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -59,7 +57,6 @@ func TestAccKMSAliasDataSource_cmk(t *testing.T) {
 		},
 	})
 }
-
 func testAccAliasDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 data "aws_kms_alias" "test" {
@@ -67,7 +64,6 @@ data "aws_kms_alias" "test" {
 }
 `, rName)
 }
-
 func testAccAliasDataSourceConfig_cmk(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {

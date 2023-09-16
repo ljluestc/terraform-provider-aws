@@ -52,8 +52,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
@@ -87,8 +87,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 },
@@ -116,8 +116,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -165,8 +165,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -203,8 +203,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -239,8 +239,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -275,8 +275,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -311,8 +311,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -348,8 +348,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -390,8 +390,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -435,15 +435,15 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckOpenzfsVolumeExists(ctx, resourceName, &volume1),
 	resource.TestCheckResourceAttr(resourceName, "user_and_group_quotas.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user_and_group_quotas.*", map[string]string{
-"id":          "10",
+"id": "10",
 "storage_capacity_quota_gib": "256",
-"type":        "USER",
+"type":"USER",
 	}),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:  resourceName,
+ImportState:   true,
 ImportStateVerify: true,
 	},
 	{
@@ -453,24 +453,24 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckOpenzfsVolumeNotRecreated(&volume1, &volume2),
 	resource.TestCheckResourceAttr(resourceName, "user_and_group_quotas.#", "4"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user_and_group_quotas.*", map[string]string{
-"id":          "10",
+"id": "10",
 "storage_capacity_quota_gib": "128",
-"type":        "USER",
+"type":"USER",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user_and_group_quotas.*", map[string]string{
-"id":          "20",
+"id": "20",
 "storage_capacity_quota_gib": "1024",
-"type":        "GROUP",
+"type":"GROUP",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user_and_group_quotas.*", map[string]string{
-"id":          "5",
+"id": "5",
 "storage_capacity_quota_gib": "1024",
-"type":        "GROUP",
+"type":"GROUP",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user_and_group_quotas.*", map[string]string{
-"id":          "100",
+"id": "100",
 "storage_capacity_quota_gib": "128",
-"type":        "USER",
+"type":"USER",
 	}),
 ),
 	},
@@ -565,24 +565,24 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test.id
-  cidr_block        = "10.0.1.0/24"
+  vpc_id   = aws_vpc.test.id
+  cidr_block= "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity    = 64
-  subnet_ids          = [aws_subnet.test1.id]
-  deployment_type     = "SINGLE_AZ_1"
+  storage_capacity= 64
+  subnet_ids = [aws_subnet.test1.id]
+  deployment_type = "SINGLE_AZ_1"
   throughput_capacity = 64
 }
 `, rName))
@@ -618,7 +618,7 @@ resource "aws_fsx_openzfs_volume" "test" {
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -632,8 +632,8 @@ resource "aws_fsx_openzfs_volume" "test" {
 
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -642,12 +642,12 @@ resource "aws_fsx_openzfs_volume" "test" {
 func testAccOpenZFSVolumeConfig_copyTags(rName, tagKey1, tagValue1, copyTags string) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
-  name    = %[1]q
-  parent_volume_id       = aws_fsx_openzfs_file_system.test.root_volume_id
+  name= %[1]q
+  parent_volume_id   = aws_fsx_openzfs_file_system.test.root_volume_id
   copy_tags_to_snapshots = %[4]s
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1, copyTags))
@@ -657,7 +657,7 @@ func testAccOpenZFSVolumeConfig_dataCompression(rName, dType string) string {
 	return acctest.ConfigCompose(testAccOpenzfsVolumeBaseConfig(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_volume" "test" {
   name   = %[1]q
-  parent_volume_id      = aws_fsx_openzfs_file_system.test.root_volume_id
+  parent_volume_id  = aws_fsx_openzfs_file_system.test.root_volume_id
   data_compression_type = %[2]q
 }
 `, rName, dType))
@@ -668,7 +668,7 @@ func testAccOpenZFSVolumeConfig_readOnly(rName, readOnly string) string {
 resource "aws_fsx_openzfs_volume" "test" {
   name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
-  read_only        = %[2]s
+  read_only= %[2]s
 }
 `, rName, readOnly))
 }
@@ -688,7 +688,7 @@ func testAccOpenZFSVolumeConfig_storageCapacity(rName string, storageQuota, stor
 resource "aws_fsx_openzfs_volume" "test" {
   name = %[1]q
   parent_volume_id  = aws_fsx_openzfs_file_system.test.root_volume_id
-  storage_capacity_quota_gib       = %[2]d
+  storage_capacity_quota_gib   = %[2]d
   storage_capacity_reservation_gib = %[3]d
 }
 `, rName, storageQuota, storageReservation))
@@ -700,10 +700,10 @@ resource "aws_fsx_openzfs_volume" "test" {
   name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
   nfs_exports {
-    client_configurations {
-      clients = "10.0.1.0/24"
-      options = ["async", "rw"]
-    }
+client_configurations {
+  clients = "10.0.1.0/24"
+  options = ["async", "rw"]
+}
   }
 
 }
@@ -716,14 +716,14 @@ resource "aws_fsx_openzfs_volume" "test" {
   name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
   nfs_exports {
-    client_configurations {
-      clients = "10.0.1.0/24"
-      options = ["async", "rw"]
-    }
-    client_configurations {
-      clients = "*"
-      options = ["sync", "rw"]
-    }
+client_configurations {
+  clients = "10.0.1.0/24"
+  options = ["async", "rw"]
+}
+client_configurations {
+  clients = "*"
+  options = ["sync", "rw"]
+}
   }
 }
 `, rName))
@@ -735,9 +735,9 @@ resource "aws_fsx_openzfs_volume" "test" {
   name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
   user_and_group_quotas {
-    id          = 10
-    storage_capacity_quota_gib = %[2]d
-    type        = "USER"
+id = 10
+storage_capacity_quota_gib = %[2]d
+type= "USER"
   }
 }
 `, rName, quotaSize))
@@ -749,24 +749,24 @@ resource "aws_fsx_openzfs_volume" "test" {
   name= %[1]q
   parent_volume_id = aws_fsx_openzfs_file_system.test.root_volume_id
   user_and_group_quotas {
-    id          = 10
-    storage_capacity_quota_gib = %[2]d
-    type        = "USER"
+id = 10
+storage_capacity_quota_gib = %[2]d
+type= "USER"
   }
   user_and_group_quotas {
-    id          = 20
-    storage_capacity_quota_gib = %[3]d
-    type        = "GROUP"
+id = 20
+storage_capacity_quota_gib = %[3]d
+type= "GROUP"
   }
   user_and_group_quotas {
-    id          = 5
-    storage_capacity_quota_gib = %[3]d
-    type        = "GROUP"
+id = 5
+storage_capacity_quota_gib = %[3]d
+type= "GROUP"
   }
   user_and_group_quotas {
-    id          = 100
-    storage_capacity_quota_gib = %[2]d
-    type        = "USER"
+id = 100
+storage_capacity_quota_gib = %[2]d
+type= "USER"
   }
 }
 `, rName, userQuota, groupQuota))

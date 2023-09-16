@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package mainimport ("context""flag""log""github.com/hashicorp/terraform-plugin-go/tfprotov5/tf5server""github.com/hashicorp/terraform-provider-aws/internal/provider")
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagemainimport("context""flag""log""github.com/hashicorp/terraform-plugin-go/tfprotov5/tf5server""github.com/hashicorp/terraform-provider-aws/internal/provider")

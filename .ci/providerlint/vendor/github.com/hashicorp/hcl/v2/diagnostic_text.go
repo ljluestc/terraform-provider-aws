@@ -1,28 +1,18 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hcl
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hclimport (
 	"bufio"
 	"bytes"
 	"errors"
 	"fmt"
 	"io"
-	"sort"
-
-	wordwrap "github.com/mitchellh/go-wordwrap"
+	"sort"	wordwrap "github.com/mitchellh/go-wordwrap"
 	"github.com/zclconf/go-cty/cty"
-)
-
-type diagnosticTextWriter struct {
+)type diagnosticTextWriter struct {
 	files map[string]*File
 	wr    io.Writer
 	width uint
 	color bool
-}
-
-// NewDiagnosticTextWriter creates a DiagnosticWriter that writes diagnostics
+}// NewDiagnosticTextWriter creates a DiagnosticWriter that writes diagnostics
 // to the given writer as formatted text.
 //
 // It is designed to produce text appropriate to print in a monospaced font
@@ -33,9 +23,7 @@ type diagnosticTextWriter struct {
 //
 // If color is set to true, the output will include VT100 escape sequences to
 // color-code the severity indicators. It is suggested to turn this off if
-// the target writer is not a terminal.
-
- NewDiagnosticTextWriter(wr io.Writer, files map[string]*File, width uint, color bool) DiagnosticWriter {
+// the target writer is not a terminal. NewDiagnosticTextWriter(wr io.Writer, files map[string]*File, width uint, color bool) DiagnosticWriter {
 	return &diagnosticTextWriter{
 		files: files,
 		wr:    wr,
@@ -43,14 +31,10 @@ type diagnosticTextWriter struct {
 		color: color,
 	}
 }
-
-
  (w *diagnosticTextWriter) WriteDiagnostic(diag *Diagnostic) error {
 	if diag == nil {
 		return errors.New("nil diagnostic")
-	}
-
-	var colorCode, highlightCode, resetCode string
+	}	var colorCode, highlightCode, resetCode string
 	if w.color {
 		switch diag.Severity {
 		case DiagError:
@@ -60,9 +44,7 @@ type diagnosticTextWriter struct {
 		}
 		resetCode = "\x1b[0m"
 		highlightCode = "\x1b[1;4m"
-	}
-
-	var severityStr string
+	}	var severityStr string
 	switch diag.Severity {
 	case DiagError:
 		severityStr = "Error"
@@ -71,11 +53,7 @@ type diagnosticTextWriter struct {
 	default:
 		// should never happen
 		severityStr = "???????"
-	}
-
-	fmt.Fprintf(w.wr, "%s%s%s: %s\n\n", colorCode, severityStr, resetCode, diag.Summary)
-
-	if diag.Subject != nil {
+	}	fmt.Fprintf(w.wr, "%s%s%s: %s\n\n", colorCode, severityStr, resetCode, diag.Summary)	if diag.Subject != nil {
 		snipRange := *diag.Subject
 		highlightRange := snipRange
 		if diag.Context != nil {
@@ -95,33 +73,21 @@ type diagnosticTextWriter struct {
 		if highlightRange.Empty() {
 			highlightRange.End.Byte++
 			highlightRange.End.Column++
-		}
-
-		file := w.files[diag.Subject.Filename]
+		}		file := w.files[diag.Subject.Filename]
 		if file == nil || file.Bytes == nil {
 			fmt.Fprintf(w.wr, "  on %s line %d:\n  (source code not available)\n\n", diag.Subject.Filename, diag.Subject.Start.Line)
-		} else {
-
-			var contextLine string
+		} else {			var contextLine string
 			if diag.Subject != nil {
 				contextLine = contextString(file, diag.Subject.Start.Byte)
 				if contextLine != "" {
 					contextLine = ", in " + contextLine
 				}
-			}
-
-			fmt.Fprintf(w.wr, "  on %s line %d%s:\n", diag.Subject.Filename, diag.Subject.Start.Line, contextLine)
-
-			src := file.Bytes
-			sc := NewRangeScanner(src, diag.Subject.Filename, bufio.ScanLines)
-
-			for sc.Scan() {
+			}			fmt.Fprintf(w.wr, "  on %s line %d%s:\n", diag.Subject.Filename, diag.Subject.Start.Line, contextLine)			src := file.Bytes
+			sc := NewRangeScanner(src, diag.Subject.Filename, bufio.ScanLines)			for sc.Scan() {
 				lineRange := sc.Range()
 				if !lineRange.Overlaps(snipRange) {
 					continue
-				}
-
-				beforeRange, highlightedRange, afterRange := lineRange.PartitionAround(highlightRange)
+				}				beforeRange, highlightedRange, afterRange := lineRange.PartitionAround(highlightRange)
 				if highlightedRange.Empty() {
 					fmt.Fprintf(w.wr, "%4d: %s\n", lineRange.Start.Line, sc.Bytes())
 				} else {
@@ -135,22 +101,14 @@ type diagnosticTextWriter struct {
 						highlightCode, highlighted, resetCode,
 						after,
 					)
-				}
-
-			}
-
-			w.wr.Write([]byte{'\n'})
-		}
-
-		if diag.Expression != nil && diag.EvalContext != nil {
+				}			}			w.wr.Write([]byte{'\n'})
+		}		if diag.Expression != nil && diag.EvalContext != nil {
 			// We will attempt to render the values for any variables
 			// referenced in the given expression as additional context, for
 			// situations where the same expression is evaluated multiple
 			// times in different scopes.
 			expr := diag.Expression
-			ctx := diag.EvalContext
-
-			vars := expr.Variables()
+			ctx := diag.EvalContext			vars := expr.Variables()
 			stmts := make([]string, 0, len(vars))
 			seen := make(map[string]struct{}, len(vars))
 			for _, traversal := range vars {
@@ -160,9 +118,7 @@ type diagnosticTextWriter struct {
 					// already have the same error in our diagnostics set
 					// already.
 					continue
-				}
-
-				traversalStr := w.traversalStr(traversal)
+				}				traversalStr := w.traversalStr(traversal)
 				if _, exists := seen[traversalStr]; exists {
 					continue // don't show duplicates when the same variable is referenced multiple times
 				}
@@ -176,12 +132,8 @@ type diagnosticTextWriter struct {
 					stmts = append(stmts, fmt.Sprintf("%s as %s", traversalStr, w.valueStr(val)))
 				}
 				seen[traversalStr] = struct{}{}
-			}
-
-			sort.Strings(stmts) // FIXME: Should maybe use a traversal-aware sort that can sort numeric indexes properly?
-			last := len(stmts) - 1
-
-			for i, stmt := range stmts {
+			}			sort.Strings(stmts) // FIXME: Should maybe use a traversal-aware sort that can sort numeric indexes properly?
+			last := len(stmts) - 1			for i, stmt := range stmts {
 				switch i {
 				case 0:
 					w.wr.Write([]byte{'w', 'i', 't', 'h', ' '})
@@ -197,21 +149,13 @@ type diagnosticTextWriter struct {
 				}
 			}
 		}
-	}
-
-	if diag.Detail != "" {
+	}	if diag.Detail != "" {
 		detail := diag.Detail
 		if w.width != 0 {
 			detail = wordwrap.WrapString(detail, w.width)
 		}
 		fmt.Fprintf(w.wr, "%s\n\n", detail)
-	}
-
-	return nil
-
-
-
- (w *diagnosticTextWriter) WriteDiagnostics(diags Diagnostics) error {
+	}	return nil (w *diagnosticTextWriter) WriteDiagnostics(diags Diagnostics) error {
 	for _, diag := range diags {
 		err := w.WriteDiagnostic(diag)
 		if err != nil {
@@ -220,14 +164,10 @@ type diagnosticTextWriter struct {
 	}
 urn nil
 }
-
-
  (w *diagnosticTextWriter) traversalStr(traversal Traversal) string {
 	// This is a specialized subset of traversal rendering tailored to
 	// producing helpful contextual messages in diagnostics. It is not
-	// comprehensive nor intended to be used for other purposes.
-
-	var buf bytes.Buffer
+	// comprehensive nor intended to be used for other purposes.	var buf bytes.Buffer
 	for _, step := range traversal {
 		switch tStep := step.(type) {
 		case TraverseRoot:
@@ -245,18 +185,12 @@ urn nil
 				buf.WriteString("...")
 			}
 			buf.WriteByte(']')
-		}
-
-	return buf.String()
+		}	return buf.String()
 }
-
-
  (w *diagnosticTextWriter) valueStr(val cty.Value) string {
 	// This is a specialized subset of value rendering tailored to producing
 	// helpful but concise messages in diagnostics. It is not comprehensive
-	// nor intended to be used for other purposes.
-
-	ty := val.Type()
+	// nor intended to be used for other purposes.	ty := val.Type()
 	switch {
 	case val.IsNull():
 		return "null"
@@ -306,14 +240,10 @@ ault:
 		return ty.FriendlyName()
 	}
 }
-
-
  contextString(file *File, offset int) string {
 	type contextStringer interface {
 		ContextString(offset int) string
-	}
-
-	if cser, ok := file.Nav.(contextStringer); ok {
+	}	if cser, ok := file.Nav.(contextStringer); ok {
 		return cser.ContextString(offset)
 	}
 	return ""

@@ -41,7 +41,7 @@ func ResourceRegexMatchSet() *schema.Resource {
 			"regex_match_tuple": {
 				Type:     schema.TypeSet,
 				Optional: true,
-				Set:      tfwaf.RegexMatchSetTupleHash,
+				Set:tfwaf.RegexMatchSetTupleHash,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"field_to_match": {
@@ -94,7 +94,7 @@ func resourceRegexMatchSetCreate(ctx context.Context, d *schema.ResourceData, me
 func(token *string) (interface{}, error) {
 		params := &waf.CreateRegexMatchSetInput{
 			ChangeToken: token,
-			Name:        aws.String(d.Get("name").(string)),
+			Name:  aws.String(d.Get("name").(string)),
 		}
 		return conn.CreateRegexMatchSetWithContext(ctx, params)
 	})

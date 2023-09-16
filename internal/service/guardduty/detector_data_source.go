@@ -40,7 +40,6 @@ func DataSourceDetector() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceDetectorRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)

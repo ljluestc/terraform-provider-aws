@@ -320,7 +320,7 @@ func dataSourceThemeRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	permsResp, err := conn.DescribeThemePermissionsWithContext(ctx, &quicksight.DescribeThemePermissionsInput{
 		AwsAccountId: aws.String(awsAccountId),
-		ThemeId:      aws.String(themeId),
+		ThemeId:aws.String(themeId),
 	})
 
 	if err != nil {

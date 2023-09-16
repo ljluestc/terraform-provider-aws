@@ -30,25 +30,25 @@ func ResourceRoutingControl() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"cluster_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"control_panel_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -61,8 +61,8 @@ func resourceRoutingControlCreate(ctx context.Context, d *schema.ResourceData, m
 	conn := meta.(*conns.AWSClient).Route53RecoveryControlConfigConn(ctx)
 
 	input := &r53rcc.CreateRoutingControlInput{
-		ClientToken:        aws.String(id.UniqueId()),
-		ClusterArn:         aws.String(d.Get("cluster_arn").(string)),
+		ClientToken:   aws.String(id.UniqueId()),
+		ClusterArn:aws.String(d.Get("cluster_arn").(string)),
 		RoutingControlName: aws.String(d.Get("name").(string)),
 	}
 

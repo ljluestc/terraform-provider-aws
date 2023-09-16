@@ -12,7 +12,7 @@ const (
 	eventSourceMappingStateDeleting  = "Deleting"
 	eventSourceMappingStateDisabled  = "Disabled"
 	eventSourceMappingStateDisabling = "Disabling"
-	eventSourceMappingStateEnabled   = "Enabled"
+	eventSourceMappingStateEnabled= "Enabled"
 	eventSourceMappingStateEnabling  = "Enabling"
 	eventSourceMappingStateUpdating  = "Updating"
 )
@@ -29,9 +29,8 @@ const (
 
 const (
 	lifecycleScopeCreateOnly = "CREATE_ONLY"
-	lifecycleScopeCrud       = "CRUD"
+	lifecycleScopeCrud  = "CRUD"
 )
-
 func lifecycleScope_Values() []string {
 	return []string{
 		lifecycleScopeCreateOnly,

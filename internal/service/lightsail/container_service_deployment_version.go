@@ -47,7 +47,7 @@ func ResourceContainerServiceDeploymentVersion() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"container_name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringIsNotWhiteSpace,
@@ -76,7 +76,7 @@ func ResourceContainerServiceDeploymentVersion() *schema.Resource {
 							Optional: true,
 							ForceNew: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringInSlice(flattenContainerServiceProtocolValues(types.ContainerServiceProtocol("").Values()), false),
 							}},
 					},
@@ -117,7 +117,7 @@ func ResourceContainerServiceDeploymentVersion() *schema.Resource {
 										Default:  2,
 									},
 									"interval_seconds": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ForceNew:     true,
 										Default:      5,
@@ -136,7 +136,7 @@ func ResourceContainerServiceDeploymentVersion() *schema.Resource {
 										Default:  "200-499",
 									},
 									"timeout_seconds": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ForceNew:     true,
 										Default:      2,
@@ -170,7 +170,6 @@ func ResourceContainerServiceDeploymentVersion() *schema.Resource {
 		},
 	}
 }
-
 func resourceContainerServiceDeploymentVersionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	serviceName := d.Get("service_name").(string)
@@ -206,7 +205,6 @@ func resourceContainerServiceDeploymentVersionCreate(ctx context.Context, d *sch
 
 	return resourceContainerServiceDeploymentVersionRead(ctx, d, meta)
 }
-
 func resourceContainerServiceDeploymentVersionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -242,12 +240,10 @@ func resourceContainerServiceDeploymentVersionRead(ctx context.Context, d *schem
 
 	return nil
 }
-
 func resourceContainerServiceDeploymentVersionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	log.Printf("[WARN] Cannot destroy Lightsail Container Service Deployment Version. Terraform will remove this resource from the state file, however resources may remain.")
 	return nil
 }
-
 func ContainerServiceDeploymentVersionParseResourceID(id string) (string, int, error) {
 	parts := strings.Split(id, "/")
 
@@ -262,7 +258,6 @@ func ContainerServiceDeploymentVersionParseResourceID(id string) (string, int, e
 
 	return parts[0], version, nil
 }
-
 func expandContainerServiceDeploymentContainers(tfList []interface{}) map[string]types.Container {
 	if len(tfList) == 0 {
 		return map[string]types.Container{}
@@ -299,7 +294,6 @@ func expandContainerServiceDeploymentContainers(tfList []interface{}) map[string
 
 	return result
 }
-
 func expandContainerServiceProtocol(tfMap map[string]interface{}) map[string]types.ContainerServiceProtocol {
 	if tfMap == nil {
 		return nil
@@ -322,7 +316,6 @@ func expandContainerServiceProtocol(tfMap map[string]interface{}) map[string]typ
 
 	return apiObject
 }
-
 func expandContainerServiceDeploymentPublicEndpoint(tfList []interface{}) *types.EndpointRequest {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -344,7 +337,6 @@ func expandContainerServiceDeploymentPublicEndpoint(tfList []interface{}) *types
 
 	return endpoint
 }
-
 func expandContainerServiceDeploymentPublicEndpointHealthCheck(tfList []interface{}) *types.ContainerServiceHealthCheckConfig {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -366,7 +358,6 @@ func expandContainerServiceDeploymentPublicEndpointHealthCheck(tfList []interfac
 
 	return healthCheck
 }
-
 func flattenContainerServiceDeploymentContainers(containers map[string]types.Container) []interface{} {
 	if len(containers) == 0 {
 		return nil
@@ -376,10 +367,10 @@ func flattenContainerServiceDeploymentContainers(containers map[string]types.Con
 	for containerName, container := range containers {
 		rawContainer := map[string]interface{}{
 			"container_name": containerName,
-			"image":          aws.ToString(container.Image),
+			"image": aws.ToString(container.Image),
 			"command":        container.Command,
 			"environment":    container.Environment,
-			"ports":          container.Ports,
+			"ports": container.Ports,
 		}
 
 		rawContainers = append(rawContainers, rawContainer)
@@ -387,7 +378,6 @@ func flattenContainerServiceDeploymentContainers(containers map[string]types.Con
 
 	return rawContainers
 }
-
 func flattenContainerServiceDeploymentPublicEndpoint(endpoint *types.ContainerServiceEndpoint) []interface{} {
 	if endpoint == nil {
 		return []interface{}{}
@@ -401,7 +391,6 @@ func flattenContainerServiceDeploymentPublicEndpoint(endpoint *types.ContainerSe
 		},
 	}
 }
-
 func flattenContainerServiceDeploymentPublicEndpointHealthCheck(healthCheck *types.ContainerServiceHealthCheckConfig) []interface{} {
 	if healthCheck == nil {
 		return []interface{}{}
@@ -418,7 +407,6 @@ func flattenContainerServiceDeploymentPublicEndpointHealthCheck(healthCheck *typ
 		},
 	}
 }
-
 func flattenContainerServiceProtocolValues(t []types.ContainerServiceProtocol) []string {
 	var out []string
 
@@ -428,7 +416,6 @@ func flattenContainerServiceProtocolValues(t []types.ContainerServiceProtocol) [
 
 	return out
 }
-
 func FindContainerServiceDeploymentByVersion(ctx context.Context, conn *lightsail.Client, serviceName string, version int) (*types.ContainerServiceDeployment, error) {
 	input := &lightsail.GetContainerServiceDeploymentsInput{
 		ServiceName: aws.String(serviceName),

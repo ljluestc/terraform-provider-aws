@@ -9,7 +9,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/mq"
 	"github.com/aws/aws-sdk-go/service/mq/mqiface"
 )
-
 func describeBrokerInstanceOptionsPages(ctx context.Context, conn mqiface.MQAPI, input *mq.DescribeBrokerInstanceOptionsInput, fn func(*mq.DescribeBrokerInstanceOptionsOutput, bool) bool) error {
 	for {
 		output, err := conn.DescribeBrokerInstanceOptionsWithContext(ctx, input)

@@ -50,7 +50,6 @@ func ResourceInboundConnectionAccepter() *schema.Resource {
 		},
 	}
 }
-
 func resourceInboundConnectionAccepterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
 
@@ -77,7 +76,6 @@ func resourceInboundConnectionAccepterCreate(ctx context.Context, d *schema.Reso
 
 	return resourceInboundConnectionRead(ctx, d, meta)
 }
-
 func resourceInboundConnectionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
 
@@ -94,7 +92,6 @@ func resourceInboundConnectionRead(ctx context.Context, d *schema.ResourceData, 
 	d.Set("connection_status", statusCode)
 	return nil
 }
-
 func resourceInboundConnectionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
 
@@ -118,7 +115,6 @@ func resourceInboundConnectionDelete(ctx context.Context, d *schema.ResourceData
 
 	return nil
 }
-
 func inboundConnectionRefreshState(ctx context.Context, conn *opensearchservice.OpenSearchService, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		resp, err := conn.DescribeInboundConnectionsWithContext(ctx, &opensearchservice.DescribeInboundConnectionsInput{
@@ -150,7 +146,6 @@ func inboundConnectionRefreshState(ctx context.Context, conn *opensearchservice.
 		return ccsc, statusCode, nil
 	}
 }
-
 func inboundConnectionWaitUntilActive(ctx context.Context, conn *opensearchservice.OpenSearchService, id string, timeout time.Duration) error {
 	log.Printf("[DEBUG] Waiting for Inbound Connection (%s) to become available.", id)
 	stateConf := &retry.StateChangeConf{
@@ -169,7 +164,6 @@ func inboundConnectionWaitUntilActive(ctx context.Context, conn *opensearchservi
 	}
 	return nil
 }
-
 func waitForInboundConnectionDeletion(ctx context.Context, conn *opensearchservice.OpenSearchService, id string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{

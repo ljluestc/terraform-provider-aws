@@ -14,18 +14,12 @@ import (
 )
 
 type servicePackage struct{}
-
-
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{}
 }
-
-
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{}
 }
-
-
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
 		{
@@ -42,14 +36,12 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 		},
 	}
 }
-
-
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
 			Factory:  ResourceHTTPNamespace,
 			TypeName: "aws_service_discovery_http_namespace",
-			Name:     "HTTP Namespace",
+			Name:"HTTP Namespace",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -61,7 +53,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourcePrivateDNSNamespace,
 			TypeName: "aws_service_discovery_private_dns_namespace",
-			Name:     "Private DNS Namespace",
+			Name:"Private DNS Namespace",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -69,7 +61,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourcePublicDNSNamespace,
 			TypeName: "aws_service_discovery_public_dns_namespace",
-			Name:     "Public DNS Namespace",
+			Name:"Public DNS Namespace",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -77,28 +69,23 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceService,
 			TypeName: "aws_service_discovery_service",
-			Name:     "Service",
+			Name:"Service",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
 		},
 	}
 }
-
-
 func (p *servicePackage) ServicePackageName() string {
 	return names.ServiceDiscovery
 }
 
 // NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
-
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*servicediscovery_sdkv1.ServiceDiscovery, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return servicediscovery_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }

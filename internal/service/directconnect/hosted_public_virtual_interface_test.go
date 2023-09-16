@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDirectConnectHostedPublicVirtualInterface_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "DX_CONNECTION_ID"
@@ -71,15 +70,14 @@ func TestAccDirectConnectHostedPublicVirtualInterface_basic(t *testing.T) {
 			},
 			// Test import.
 			{
-				Config:            testAccHostedPublicVirtualInterfaceConfig_basic(connectionId, rName, amazonAddress, customerAddress, bgpAsn, vlan),
-				ResourceName:      resourceName,
-				ImportState:       true,
+				Config:dPublicVirtualInterfaceConfig_basic(connectionId, rName, amazonAddress, customerAddress, bgpAsn, vlan),
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectHostedPublicVirtualInterface_accepterTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "DX_CONNECTION_ID"
@@ -163,33 +161,30 @@ func TestAccDirectConnectHostedPublicVirtualInterface_accepterTags(t *testing.T)
 		},
 	})
 }
-
 func testAccCheckHostedPublicVirtualInterfaceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		return testAccCheckVirtualInterfaceDestroy(ctx, s, "aws_dx_hosted_public_virtual_interface")
 	}
 }
-
 func testAccCheckHostedPublicVirtualInterfaceExists(ctx context.Context, name string, vif *directconnect.VirtualInterface) resource.TestCheckFunc {
 	return testAccCheckVirtualInterfaceExists(ctx, name, vif)
 }
-
 func testAccHostedPublicVirtualInterfaceConfig_base(cid, rName, amzAddr, custAddr string, bgpAsn, vlan int) string {
 	return acctest.ConfigAlternateAccountProvider() + fmt.Sprintf(`
 # Creator
 resource "aws_dx_hosted_public_virtual_interface" "test" {
-  address_family   = "ipv4"
-  amazon_address   = %[3]q
-  bgp_asn          = %[5]d
-  connection_id    = %[1]q
+  address_family= "ipv4"
+  amazon_address= %[3]q
+  bgp_asn%[5]d
+  connection_id = %[1]q
   customer_address = %[4]q
   name= %[2]q
   owner_account_id = data.aws_caller_identity.accepter.account_id
   vlan= %[6]d
 
   route_filter_prefixes = [
-    "175.45.176.0/22",
-    "210.52.109.0/24",
+ "175.45.176.0/22",
+ "210.52.109.0/24",
   ]
 }
 
@@ -199,7 +194,6 @@ data "aws_caller_identity" "accepter" {
 }
 `, cid, rName, amzAddr, custAddr, bgpAsn, vlan)
 }
-
 func testAccHostedPublicVirtualInterfaceConfig_basic(cid, rName, amzAddr, custAddr string, bgpAsn, vlan int) string {
 	return testAccHostedPublicVirtualInterfaceConfig_base(cid, rName, amzAddr, custAddr, bgpAsn, vlan) + `
 resource "aws_dx_hosted_public_virtual_interface_accepter" "test" {
@@ -209,7 +203,6 @@ resource "aws_dx_hosted_public_virtual_interface_accepter" "test" {
 }
 `
 }
-
 func testAccHostedPublicVirtualInterfaceConfig_accepterTags(cid, rName, amzAddr, custAddr string, bgpAsn, vlan int) string {
 	return testAccHostedPublicVirtualInterfaceConfig_base(cid, rName, amzAddr, custAddr, bgpAsn, vlan) + fmt.Sprintf(`
 resource "aws_dx_hosted_public_virtual_interface_accepter" "test" {
@@ -218,14 +211,13 @@ resource "aws_dx_hosted_public_virtual_interface_accepter" "test" {
   virtual_interface_id = aws_dx_hosted_public_virtual_interface.test.id
 
   tags = {
-    Name = %[1]q
-    Key1 = "Value1"
-    Key2 = "Value2a"
+ Name = %[1]q
+ Key1 = "Value1"
+ Key2 = "Value2a"
   }
 }
 `, rName)
 }
-
 func testAccHostedPublicVirtualInterfaceConfig_accepterTagsUpdated(cid, rName, amzAddr, custAddr string, bgpAsn, vlan int) string {
 	return testAccHostedPublicVirtualInterfaceConfig_base(cid, rName, amzAddr, custAddr, bgpAsn, vlan) + fmt.Sprintf(`
 resource "aws_dx_hosted_public_virtual_interface_accepter" "test" {
@@ -234,9 +226,9 @@ resource "aws_dx_hosted_public_virtual_interface_accepter" "test" {
   virtual_interface_id = aws_dx_hosted_public_virtual_interface.test.id
 
   tags = {
-    Name = %[1]q
-    Key2 = "Value2b"
-    Key3 = "Value3"
+ Name = %[1]q
+ Key2 = "Value2b"
+ Key3 = "Value3"
   }
 }
 `, rName)

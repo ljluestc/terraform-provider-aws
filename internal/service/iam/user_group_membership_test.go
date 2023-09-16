@@ -25,7 +25,7 @@ import (
 	groupName3 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckUserGroupMembershipDestroy(ctx),
@@ -39,8 +39,8 @@ import (
 				),
 			},
 			{
-				ResourceName:      "aws_iam_user_group_membership.user1_test1",
-				ImportState:       true,
+				ResourceName: "aws_iam_user_group_membership.user1_test1",
+				ImportState:  true,
 				ImportStateIdFunc: testAccUserGroupMembershipImportStateIdFunc("aws_iam_user_group_membership.user1_test1"),
 				// We do not have a way to align IDs since the Create function uses id.UniqueId()
 				// Failed state verification, resource with ID USER/GROUP not found
@@ -192,12 +192,12 @@ import (
 // users and groups for all other testsfunc testAccUserGroupMembershipConfig_base(userName1, userName2, groupName1, groupName2, groupName3 string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_user" "user1" {
-  name          = %[1]q
+  name= %[1]q
   force_destroy = true
 }
 
 resource "aws_iam_user" "user2" {
-  name          = %[2]q
+  name= %[2]q
   force_destroy = true
 }
 
@@ -222,7 +222,7 @@ resource "aws_iam_group" "group3" {
 resource "aws_iam_user_group_membership" "user1_test1" {
   user = aws_iam_user.user1.name
   groups = [
-    aws_iam_group.group1.name,
+aws_iam_group.group1.name,
   ]
 }
 `)
@@ -232,8 +232,8 @@ resource "aws_iam_user_group_membership" "user1_test1" {
 		`
 rfuncer = aws_iam_user.user1.name
   groups = [
-    aws_iam_group.group1.name,
-    aws_iam_group.group2.name,
+aws_iam_group.group1.name,
+aws_iam_group.group2.name,
   ]
 }
 `)
@@ -243,30 +243,30 @@ rfuncer = aws_iam_user.user1.name
 		`
 resource "aws_iam_user_group_membership" "user1_test1" {
  funcoups = [
-    aws_iam_group.group1.name,
-    aws_iam_group.group2.name,
+aws_iam_group.group1.name,
+aws_iam_group.group2.name,
   ]
 }
 
 resource "aws_iam_user_group_membership" "user1_test2" {
   user = aws_iam_user.user1.name
   groups = [
-    aws_iam_group.group3.name,
+aws_iam_group.group3.name,
   ]
 }
 
 resource "aws_iam_user_group_membership" "user2_test1" {
   user = aws_iam_user.user2.name
   groups = [
-    aws_iam_group.group1.name,
+aws_iam_group.group1.name,
   ]
 }
 
 resource "aws_iam_user_group_membership" "user2_test2" {
   user = aws_iam_user.user2.name
   groups = [
-    aws_iam_group.group2.name,
-    aws_iam_group.group3.name,
+aws_iam_group.group2.name,
+aws_iam_group.group3.name,
   ]
 }
 `)
@@ -279,28 +279,28 @@ resource "aws_iam_user_group_membership" "user2_test2" {
 resource "aws_iam_user_group_membership" "user1_test1" {
   user = aws_iam_user.user1.name
   groups = [
-    aws_iam_group.group1.name,
+aws_iam_group.group1.name,
   ]
 }
 
 resource "aws_iam_user_group_membership" "user1_test2" {
   user = aws_iam_user.user1.name
   groups = [
-    aws_iam_group.group3.name,
+aws_iam_group.group3.name,
   ]
 }
 
 resource "aws_iam_user_group_membership" "user2_test1" {
   user = aws_iam_user.user2.name
   groups = [
-    aws_iam_group.group1.name,
+aws_iam_group.group1.name,
   ]
 }
 
 resource "aws_iam_user_group_membership" "user2_test2" {
   user = aws_iam_user.user2.name
   groups = [
-    aws_iam_group.group2.name,
+aws_iam_group.group2.name,
   ]
 }
 `)
@@ -313,21 +313,21 @@ resource "aws_iam_user_group_membership" "user2_test2" {
 resource "aws_iam_user_group_membership" "user1_test1" {
   user = aws_iam_user.user1.name
   groups = [
-    aws_iam_group.group1.name,
+aws_iam_group.group1.name,
   ]
 }
 
 resource "aws_iam_user_group_membership" "user1_test2" {
   user = aws_iam_user.user1.name
   groups = [
-    aws_iam_group.group3.name,
+aws_iam_group.group3.name,
   ]
 }
 
 resource "aws_iam_user_group_membership" "user2_test1" {
   user = aws_iam_user.user2.name
   groups = [
-    aws_iam_group.group1.name,
+aws_iam_group.group1.name,
   ]
 }
 `)

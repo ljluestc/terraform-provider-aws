@@ -24,7 +24,7 @@ func ResourceActiveReceiptRuleSet() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceActiveReceiptRuleSetUpdate,
 		UpdateWithoutTimeout: resourceActiveReceiptRuleSetUpdate,
-		ReadWithoutTimeout:   resourceActiveReceiptRuleSetRead,
+		ReadWithoutTimeout:resourceActiveReceiptRuleSetRead,
 		DeleteWithoutTimeout: resourceActiveReceiptRuleSetDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -33,18 +33,17 @@ func ResourceActiveReceiptRuleSet() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"rule_set_name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 		},
 	}
 }
-
 func resourceActiveReceiptRuleSetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -64,7 +63,6 @@ func resourceActiveReceiptRuleSetUpdate(ctx context.Context, d *schema.ResourceD
 
 	return append(diags, resourceActiveReceiptRuleSetRead(ctx, d, meta)...)
 }
-
 func resourceActiveReceiptRuleSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -91,8 +89,8 @@ func resourceActiveReceiptRuleSetRead(ctx context.Context, d *schema.ResourceDat
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "ses",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"ses",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("receipt-rule-set/%s", d.Id()),
 	}.String()
@@ -100,7 +98,6 @@ func resourceActiveReceiptRuleSetRead(ctx context.Context, d *schema.ResourceDat
 
 	return diags
 }
-
 func resourceActiveReceiptRuleSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -116,7 +113,6 @@ func resourceActiveReceiptRuleSetDelete(ctx context.Context, d *schema.ResourceD
 
 	return diags
 }
-
 func resourceActiveReceiptRuleSetImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
 
@@ -139,8 +135,8 @@ func resourceActiveReceiptRuleSetImport(ctx context.Context, d *schema.ResourceD
 
 	arnValue := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "ses",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"ses",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("receipt-rule-set/%s", d.Id()),
 	}.String()

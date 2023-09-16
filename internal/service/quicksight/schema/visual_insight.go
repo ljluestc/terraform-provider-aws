@@ -19,8 +19,8 @@ func insightVisualSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"data_set_identifier": stringSchema(true, validation.StringLenBetween(1, 2048)),
-				"visual_id":           idSchema(),
-				"actions":             visualCustomActionsSchema(customActionsMaxItems), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualCustomAction.html
+				"visual_id":     idSchema(),
+				"actions": visualCustomActionsSchema(customActionsMaxItems), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualCustomAction.html
 				"insight_configuration": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_InsightConfiguration.html
 					Type:     schema.TypeList,
 					Optional: true,
@@ -42,8 +42,8 @@ func insightVisualSchema() *schema.Schema {
 											MaxItems: 1,
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
-													"computation_id":           idSchema(),
-													"time":                     dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+													"computation_id":     idSchema(),
+													"time":   dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 													"custom_seasonality_value": intSchema(false, validation.IntBetween(1, 180)),
 													"lower_boundary": {
 														Type:     schema.TypeFloat,
@@ -56,7 +56,7 @@ func insightVisualSchema() *schema.Schema {
 													"periods_backward":    intSchema(false, validation.IntBetween(0, 1000)),
 													"periods_forward":     intSchema(false, validation.IntBetween(1, 1000)),
 													"prediction_interval": intSchema(false, validation.IntBetween(50, 95)),
-													"seasonality":         stringSchema(true, validation.StringInSlice(quicksight.ForecastComputationSeasonality_Values(), false)),
+													"seasonality":   stringSchema(true, validation.StringInSlice(quicksight.ForecastComputationSeasonality_Values(), false)),
 													"upper_boundary": {
 														Type:     schema.TypeFloat,
 														Optional: true,
@@ -73,13 +73,13 @@ func insightVisualSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"computation_id": idSchema(),
-													"time":           dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+													"time":     dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 													"name": {
 														Type:     schema.TypeString,
 														Optional: true,
 													},
 													"period_size": intSchema(false, validation.IntBetween(2, 52)),
-													"value":       measureFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
+													"value": measureFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
 												},
 											},
 										},
@@ -91,8 +91,8 @@ func insightVisualSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"computation_id": idSchema(),
-													"time":           dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
-													"type":           stringSchema(true, validation.StringInSlice(quicksight.MaximumMinimumComputationType_Values(), false)),
+													"time":     dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+													"type":     stringSchema(true, validation.StringInSlice(quicksight.MaximumMinimumComputationType_Values(), false)),
 													"name": {
 														Type:     schema.TypeString,
 														Optional: true,
@@ -109,7 +109,7 @@ func insightVisualSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"computation_id": idSchema(),
-													"time":           dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+													"time":     dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 													"from_value":     measureFieldSchema(1),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
 													"target_value":   measureFieldSchema(1),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
 													"name": {
@@ -127,7 +127,7 @@ func insightVisualSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"computation_id": idSchema(),
-													"time":           dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+													"time":     dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 													"name": {
 														Type:     schema.TypeString,
 														Optional: true,
@@ -144,13 +144,13 @@ func insightVisualSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"computation_id": idSchema(),
-													"time":           dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+													"time":     dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 													"name": {
 														Type:     schema.TypeString,
 														Optional: true,
 													},
 													"period_time_granularity": stringSchema(true, validation.StringInSlice(quicksight.TimeGranularity_Values(), false)),
-													"value":                   measureFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
+													"value": measureFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
 												},
 											},
 										},
@@ -162,9 +162,9 @@ func insightVisualSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"computation_id": idSchema(),
-													"category":       dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
-													"time":           dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
-													"type":           stringSchema(true, validation.StringInSlice(quicksight.TopBottomComputationType_Values(), false)),
+													"category": dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+													"time":     dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+													"type":     stringSchema(true, validation.StringInSlice(quicksight.TopBottomComputationType_Values(), false)),
 													"mover_size":     intSchema(false, validation.IntBetween(1, 20)),
 													"sort_order":     stringSchema(true, validation.StringInSlice(quicksight.TopBottomSortOrder_Values(), false)),
 													"name": {
@@ -183,14 +183,14 @@ func insightVisualSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"computation_id": idSchema(),
-													"category":       dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+													"category": dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 													"name": {
 														Type:     schema.TypeString,
 														Optional: true,
 													},
 													"result_size": intSchema(false, validation.IntBetween(1, 20)),
-													"type":        stringSchema(true, validation.StringInSlice(quicksight.TopBottomComputationType_Values(), false)),
-													"value":       measureFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
+													"type":  stringSchema(true, validation.StringInSlice(quicksight.TopBottomComputationType_Values(), false)),
+													"value": measureFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
 												},
 											},
 										},
@@ -217,7 +217,7 @@ func insightVisualSchema() *schema.Schema {
 											MaxItems: 1,
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
-													"category":       dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+													"category": dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 													"computation_id": idSchema(),
 													"name": {
 														Type:     schema.TypeString,
@@ -720,7 +720,7 @@ func flattenInsightVisual(apiObject *quicksight.InsightVisual) []interface{} {
 	}
 
 	tfMap := map[string]interface{}{
-		"visual_id":           aws.StringValue(apiObject.VisualId),
+		"visual_id":     aws.StringValue(apiObject.VisualId),
 		"data_set_identifier": aws.StringValue(apiObject.DataSetIdentifier),
 	}
 	if apiObject.Actions != nil {

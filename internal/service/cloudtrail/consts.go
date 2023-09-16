@@ -12,7 +12,7 @@ const (
 
 	resourceTypeDynamoDBTable  = "AWS::DynamoDB::Table"
 	resourceTypeLambdaFunction = "AWS::Lambda::Function"
-	resourceTypeS3Object       = "AWS::S3::Object"
+	resourceTypeS3Object   = "AWS::S3::Object"
 )
 
 func resourceType_Values() []string {
@@ -25,9 +25,9 @@ func resourceType_Values() []string {
 
 const (
 	fieldEventCategory = "eventCategory"
-	fieldEventName     = "eventName"
+	fieldEventName = "eventName"
 	fieldEventSource   = "eventSource"
-	fieldReadOnly      = "readOnly"
+	fieldReadOnly  = "readOnly"
 	fieldResourcesARN  = "resources.ARN"
 	fieldResourcesType = "resources.type"
 )

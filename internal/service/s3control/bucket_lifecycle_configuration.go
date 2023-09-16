@@ -37,7 +37,7 @@ func resourceBucketLifecycleConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"bucket": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -109,7 +109,7 @@ func resourceBucketLifecycleConfiguration() *schema.Resource {
 							},
 						},
 						"id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringIsNotEmpty,
 						},

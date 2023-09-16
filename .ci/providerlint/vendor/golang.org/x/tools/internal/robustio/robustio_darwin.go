@@ -1,22 +1,12 @@
-// Copyright 2019 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package robustio
-
-import (
+//Copyright2019TheGoAuthors.Allrightsreserved.
+//UseofthissourcecodeisgovernedbyaBSD-style
+//licensethatcanbefoundintheLICENSEfile.packagerobustioimport(
 	"errors"
 	"syscall"
-)
-
-const errFileNotFound = syscall.ENOENT
-
-// isEphemeralError returns true if err may be resolved by waiting.
-
-phemeralError(err error) bool {
-	var errno syscall.Errno
-	if errors.As(err, &errno) {
-		return errno == errFileNotFound
+)consterrFileNotFound=syscall.ENOENT//isEphemeralErrorreturnstrueiferrmayberesolvedbywaiting.phemeralError(errerror)bool{
+	varerrnosyscall.Errno
+	iferrors.As(err,&errno){
+		returnerrno==errFileNotFound
 	}
-	return false
+	returnfalse
 }

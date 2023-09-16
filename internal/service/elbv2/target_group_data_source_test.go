@@ -1,26 +1,18 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elbv2_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elbv2_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/elbv2"
+	"testing"	"github.com/aws/aws-sdk-go/service/elbv2"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccELBV2TargetGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	datasourceNameByARN := "data.aws_lb_target_group.alb_tg_test_with_arn"
-	datasourceNameByName := "data.aws_lb_target_group.alb_tg_test_with_name"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	datasourceNameByName := "data.aws_lb_target_group.alb_tg_test_with_name"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -48,9 +40,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(datasourceNameByARN, "health_check.0.timeout", "3"),
 	resource.TestCheckResourceAttr(datasourceNameByARN, "health_check.0.healthy_threshold", "3"),
 	resource.TestCheckResourceAttr(datasourceNameByARN, "health_check.0.unhealthy_threshold", "3"),
-	resource.TestCheckResourceAttr(datasourceNameByARN, "health_check.0.matcher", "200-299"),
-
-	resource.TestCheckResourceAttr(datasourceNameByName, "name", rName),
+	resource.TestCheckResourceAttr(datasourceNameByARN, "health_check.0.matcher", "200-299"),	resource.TestCheckResourceAttr(datasourceNameByName, "name", rName),
 	resource.TestCheckResourceAttrSet(datasourceNameByName, "arn"),
 	resource.TestCheckResourceAttrSet(datasourceNameByName, "arn_suffix"),
 	resource.TestCheckResourceAttr(datasourceNameByName, "port", "8080"),
@@ -76,14 +66,12 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func TestAccELBV2TargetGroupDataSource_appCookie(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceNameArn := "data.aws_lb_target_group.alb_tg_test_with_arn"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceNameArn := "data.aws_lb_target_group.alb_tg_test_with_arn"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -119,15 +107,13 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func TestAccELBV2TargetGroupDataSource_backwardsCompatibility(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceNameArn := "data.aws_alb_target_group.alb_tg_test_with_arn"
-	resourceName := "data.aws_alb_target_group.alb_tg_test_with_name"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	resourceName := "data.aws_alb_target_group.alb_tg_test_with_name"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -153,9 +139,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceNameArn, "health_check.0.timeout", "3"),
 	resource.TestCheckResourceAttr(resourceNameArn, "health_check.0.healthy_threshold", "3"),
 	resource.TestCheckResourceAttr(resourceNameArn, "health_check.0.unhealthy_threshold", "3"),
-	resource.TestCheckResourceAttr(resourceNameArn, "health_check.0.matcher", "200-299"),
-
-	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceNameArn, "health_check.0.matcher", "200-299"),	resource.TestCheckResourceAttr(resourceName, "name", rName),
 	resource.TestCheckResourceAttrSet(resourceName, "arn"),
 	resource.TestCheckResourceAttrSet(resourceName, "arn_suffix"),
 	resource.TestCheckResourceAttr(resourceName, "port", "8080"),
@@ -179,21 +163,15 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func TestAccELBV2TargetGroupDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resourceTg1 := "aws_lb_target_group.test1"
-	resourceTg2 := "aws_lb_target_group.test2"
-
-	dataSourceMatchFirstTag := "data.aws_lb_target_group.tag_match_first"
+	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resourceTg1 := "aws_lb_target_group.test1"
+	resourceTg2 := "aws_lb_target_group.test2"	dataSourceMatchFirstTag := "data.aws_lb_target_group.tag_match_first"
 	dataSourceMatchSecondTag := "data.aws_lb_target_group.tag_match_second"
-	dataSourceMatchFirstTagAndName := "data.aws_lb_target_group.tag_and_arn_match_first"
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	dataSourceMatchFirstTagAndName := "data.aws_lb_target_group.tag_and_arn_match_first"	resource.ParallelTest(t, resource.TestCase{
+PreCheck:  
+func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -213,9 +191,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttrPair(dataSourceMatchFirstTag, "health_check.0.healthy_threshold", resourceTg1, "health_check.0.healthy_threshold"),
 	resource.TestCheckResourceAttrPair(dataSourceMatchFirstTag, "health_check.0.matcher", resourceTg1, "health_check.0.matcher"),
 	resource.TestCheckResourceAttr(dataSourceMatchFirstTag, "tags.%", "1"),
-	resource.TestCheckResourceAttrPair(dataSourceMatchFirstTag, "tags.Name", resourceTg1, "tags.Name"),
-
-	resource.TestCheckResourceAttrPair(dataSourceMatchSecondTag, "name", resourceTg2, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceMatchFirstTag, "tags.Name", resourceTg1, "tags.Name"),	resource.TestCheckResourceAttrPair(dataSourceMatchSecondTag, "name", resourceTg2, "name"),
 	resource.TestCheckResourceAttrPair(dataSourceMatchSecondTag, "arn", resourceTg2, "arn"),
 	resource.TestCheckResourceAttrPair(dataSourceMatchSecondTag, "arn_suffix", resourceTg2, "arn_suffix"),
 	resource.TestCheckResourceAttrPair(dataSourceMatchSecondTag, "id", resourceTg2, "id"),
@@ -228,9 +204,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttrPair(dataSourceMatchSecondTag, "health_check.0.healthy_threshold", resourceTg2, "health_check.0.healthy_threshold"),
 	resource.TestCheckResourceAttrPair(dataSourceMatchSecondTag, "health_check.0.matcher", resourceTg2, "health_check.0.matcher"),
 	resource.TestCheckResourceAttr(dataSourceMatchSecondTag, "tags.%", "1"),
-	resource.TestCheckResourceAttrPair(dataSourceMatchSecondTag, "tags.Name", resourceTg2, "tags.Name"),
-
-	resource.TestCheckResourceAttrPair(dataSourceMatchFirstTagAndName, "name", resourceTg1, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceMatchSecondTag, "tags.Name", resourceTg2, "tags.Name"),	resource.TestCheckResourceAttrPair(dataSourceMatchFirstTagAndName, "name", resourceTg1, "name"),
 	resource.TestCheckResourceAttrPair(dataSourceMatchFirstTagAndName, "arn", resourceTg1, "arn"),
 	resource.TestCheckResourceAttrPair(dataSourceMatchFirstTagAndName, "arn_suffix", resourceTg1, "arn_suffix"),
 	resource.TestCheckResourceAttrPair(dataSourceMatchFirstTagAndName, "id", resourceTg1, "id"),
@@ -249,208 +223,143 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccTargetGroupDataSourceConfig_base(rName, resourceType string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
   protocol = "HTTP"
-  port     = "80"
-
-  default_action {
-    target_group_arn = %[2]s.test.id
-    type    = "forward"
+  port= "80"  default_action {
+ target_group_arn = %[2]s.test.id
+ type = "forward"
   }
-}
-
-resource "aws_lb" "test" {
-  name   = %[1]q
-  internal        = true
+}resource "aws_lb" "test" {
+  name= %[1]q
+  internal  = true
   security_groups = [aws_security_group.test.id]
-  subnets= aws_subnet.test[*].id
-
-  idle_timeout= 30
-  enable_deletion_protection = false
-
-  tags = {
-    Name = %[1]q
+  subnets= aws_subnet.test[*].id  idle_timeout= 30
+  enable_deletion_protection = false  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_security_group" "test" {
-  name        = %[1]q
+}resource "aws_security_group" "test" {
+  name  = %[1]q
   description = "Used for ALB Testing"
-  vpc_id      = aws_vpc.test.id
-
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = %[1]q
+  vpc_id= aws_vpc.test.id  ingress {
+ from_port= 0
+ to_port= 0
+ protocol = "-1"
+ cidr_blocks = ["0.0.0.0/0"]
+  }  egress {
+ from_port= 0
+ to_port= 0
+ protocol = "-1"
+ cidr_blocks = ["0.0.0.0/0"]
+  }  tags = {
+ Name = %[1]q
   }
 }
 `, rName, resourceType))
 }
-
 func testAccTargetGroupDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTargetGroupDataSourceConfig_base(rName, "aws_lb_target_group"), fmt.Sprintf(`
 resource "aws_lb_target_group" "test" {
-  name     = %[1]q
-  port     = 8080
+  name= %[1]q
+  port= 8080
   protocol = "HTTP"
-  vpc_id   = aws_vpc.test.id
-
-  health_check {
-    path = "/health"
-    interval   = 60
-    port = 8081
-    protocol   = "HTTP"
-    timeout    = 3
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-    matcher    = "200-299"
+  vpc_id= aws_vpc.test.id  health_check {
+ path = "/health"
+ interval= 60
+ port = 8081
+ protocol= "HTTP"
+ timeout = 3
+ healthy_threshold= 3
+ unhealthy_threshold = 3
+ matcher = "200-299"
+  }  tags = {
+ Name = %[1]q
   }
-
-  tags = {
-    Name = %[1]q
-  }
-}
-
-data "aws_lb_target_group" "alb_tg_test_with_arn" {
+}data "aws_lb_target_group" "alb_tg_test_with_arn" {
   arn = aws_lb_target_group.test.arn
-}
-
-data "aws_lb_target_group" "alb_tg_test_with_name" {
+}data "aws_lb_target_group" "alb_tg_test_with_name" {
   name = aws_lb_target_group.test.name
 }
 `, rName))
 }
-
 func testAccTargetGroupDataSourceConfig_appCookie(rName string) string {
 	return acctest.ConfigCompose(testAccTargetGroupDataSourceConfig_base(rName, "aws_lb_target_group"), fmt.Sprintf(`
 resource "aws_lb_target_group" "test" {
-  name     = %[1]q
-  port     = 8080
+  name= %[1]q
+  port= 8080
   protocol = "HTTP"
-  vpc_id   = aws_vpc.test.id
-
-  health_check {
-    path = "/health"
-    interval   = 60
-    port = 8081
-    protocol   = "HTTP"
-    timeout    = 3
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-    matcher    = "200-299"
+  vpc_id= aws_vpc.test.id  health_check {
+ path = "/health"
+ interval= 60
+ port = 8081
+ protocol= "HTTP"
+ timeout = 3
+ healthy_threshold= 3
+ unhealthy_threshold = 3
+ matcher = "200-299"
+  }  stickiness {
+ type= "app_cookie"
+ cookie_name= "cookieName"
+ cookie_duration = 600
+  }  tags = {
+ Name = %[1]q
   }
-
-  stickiness {
-    type   = "app_cookie"
-    cookie_name     = "cookieName"
-    cookie_duration = 600
-  }
-
-  tags = {
-    Name = %[1]q
-  }
-}
-
-data "aws_lb_target_group" "alb_tg_test_with_arn" {
+}data "aws_lb_target_group" "alb_tg_test_with_arn" {
   arn = aws_lb_target_group.test.arn
 }
 `, rName))
 }
-
 func testAccTargetGroupDataSourceConfig_backwardsCompatibility(rName string) string {
 	return acctest.ConfigCompose(testAccTargetGroupDataSourceConfig_base(rName, "aws_alb_target_group"), fmt.Sprintf(`
 resource "aws_alb_target_group" "test" {
-  name     = %[1]q
-  port     = 8080
+  name= %[1]q
+  port= 8080
   protocol = "HTTP"
-  vpc_id   = aws_vpc.test.id
-
-  health_check {
-    path = "/health"
-    interval   = 60
-    port = 8081
-    protocol   = "HTTP"
-    timeout    = 3
-    healthy_threshold   = 3
-    unhealthy_threshold = 3
-    matcher    = "200-299"
+  vpc_id= aws_vpc.test.id  health_check {
+ path = "/health"
+ interval= 60
+ port = 8081
+ protocol= "HTTP"
+ timeout = 3
+ healthy_threshold= 3
+ unhealthy_threshold = 3
+ matcher = "200-299"
+  }  tags = {
+ Name = %[1]q
   }
-
-  tags = {
-    Name = %[1]q
-  }
-}
-
-data "aws_alb_target_group" "alb_tg_test_with_arn" {
+}data "aws_alb_target_group" "alb_tg_test_with_arn" {
   arn = aws_alb_target_group.test.arn
-}
-
-data "aws_alb_target_group" "alb_tg_test_with_name" {
+}data "aws_alb_target_group" "alb_tg_test_with_name" {
   name = aws_alb_target_group.test.name
 }
 `, rName))
 }
-
 func testAccTargetGroupDataSourceConfig_tags(rName1, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_lb_target_group" "test1" {
-  name        = %[1]q
-  target_type = "lambda"
-
-  tags = {
-    Name = %[1]q
+  name  = %[1]q
+  target_type = "lambda"  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_lb_target_group" "test2" {
-  name        = %[2]q
-  target_type = "lambda"
-
-  tags = {
-    Name = %[2]q
+}resource "aws_lb_target_group" "test2" {
+  name  = %[2]q
+  target_type = "lambda"  tags = {
+ Name = %[2]q
   }
-}
-
-data "aws_lb_target_group" "tag_match_first" {
+}data "aws_lb_target_group" "tag_match_first" {
   tags = {
-    Name = %[1]q
-  }
-
-  depends_on = [aws_lb_target_group.test1, aws_lb_target_group.test2]
-}
-
-data "aws_lb_target_group" "tag_match_second" {
+ Name = %[1]q
+  }  depends_on = [aws_lb_target_group.test1, aws_lb_target_group.test2]
+}data "aws_lb_target_group" "tag_match_second" {
   tags = {
-    Name = %[2]q
-  }
-
-  depends_on = [aws_lb_target_group.test1, aws_lb_target_group.test2]
-}
-
-data "aws_lb_target_group" "tag_and_arn_match_first" {
-  arn = aws_lb_target_group.test1.arn
-
-  tags = {
-    Name = %[1]q
-  }
-
-  depends_on = [aws_lb_target_group.test1, aws_lb_target_group.test2]
+ Name = %[2]q
+  }  depends_on = [aws_lb_target_group.test1, aws_lb_target_group.test2]
+}data "aws_lb_target_group" "tag_and_arn_match_first" {
+  arn = aws_lb_target_group.test1.arn  tags = {
+ Name = %[1]q
+  }  depends_on = [aws_lb_target_group.test1, aws_lb_target_group.test2]
 }
 `, rName1, rName2)
 }

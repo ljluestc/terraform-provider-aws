@@ -23,7 +23,7 @@ var dataSourcePolicyDocumentVarReplacer = strings.NewReplacer("&{", "${")
 
 // @SDKDataSource("aws_iam_policy_document")func DataSourcePolicyDocument() *schema.Resource {
 	setOfString := &schema.Schema{
-		Type:     schema.TypeSet,
+		Type: schema.TypeSet,
 		Optional: true,
 		Elem: &schema.Schema{
 			Type: schema.TypeString,
@@ -35,78 +35,78 @@ var dataSourcePolicyDocumentVarReplacer = strings.NewReplacer("&{", "${")
 
 		Schema: map[string]*schema.Schema{
 			"json": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"override_policy_documents": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringIsJSON,
 				},
 			},
 			"policy_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"source_policy_documents": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringIsJSON,
 				},
 			},
 			"statement": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"actions": setOfString,
 						"condition": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"test": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 									"values": {
-										Type:     schema.TypeList,
+										Type: schema.TypeList,
 										Required: true,
 										Elem: &schema.Schema{
 											Type: schema.TypeString,
 										},
 									},
 									"variable": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
 							},
 						},
 						"effect": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      "Allow",
+							Type:schema.TypeString,
+							Optional: true,
+							Default:  "Allow",
 							ValidateFunc: validation.StringInSlice([]string{"Allow", "Deny"}, false),
 						},
-						"not_actions":    setOfString,
+						"not_actions":setOfString,
 						"not_principals": dataSourcePolicyPrincipalSchema(),
 						"not_resources":  setOfString,
-						"principals":     dataSourcePolicyPrincipalSchema(),
-						"resources":      setOfString,
+						"principals": dataSourcePolicyPrincipalSchema(),
+						"resources":  setOfString,
 						"sid": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Optional: true,
 						},
 					},
 				},
 			},
 			"version": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				Default:  "2012-10-17",
 				ValidateFunc: validation.StringInSlice([]string{
@@ -291,7 +291,7 @@ var dataSourcePolicyDocumentVarReplacer = strings.NewReplacer("&{", "${")
 	funcr err error
 		item := itemI.(map[string]interface{})
 		out[i] = IAMPolicyStatementCondition{
-			Test:     item["test"].(string),
+			Test: item["test"].(string),
 			Variable: item["variable"].(string),
 		}
 		out[i].Values, err = dataSourcePolicyDocumentReplaceVarsInList(
@@ -326,15 +326,15 @@ var dataSourcePolicyDocumentVarReplacer = strings.NewReplacer("&{", "${")
 	return IAMPolicyStatementPrincipalSet(out), nil
 }func dataSourcePolicyPrincipalSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:     schema.TypeSet,
+		Type: schema.TypeSet,
 		Optional: true,
 	funcchema: map[string]*schema.Schema{
 				"type": {
-					Type:     schema.TypeString,
+					Type: schema.TypeString,
 					Required: true,
 				},
 				"identifiers": {
-					Type:     schema.TypeSet,
+					Type: schema.TypeSet,
 					Required: true,
 					Elem: &schema.Schema{
 						Type: schema.TypeString,

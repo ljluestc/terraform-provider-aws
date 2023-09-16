@@ -101,8 +101,8 @@ func ResourceDomain() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"access_policies": {
 				Type:schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Optional:true,
+				Computed:true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				StateFunc: func(v interface{}) string {
@@ -144,7 +144,7 @@ func ResourceDomain() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"master_user_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -175,7 +175,7 @@ func ResourceDomain() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"desired_state": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(opensearchservice.AutoTuneDesiredState_Values(), false),
 						},
@@ -196,7 +196,7 @@ func ResourceDomain() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"unit": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(opensearchservice.TimeUnit_Values(), false),
 												},
@@ -208,7 +208,7 @@ func ResourceDomain() *schema.Resource {
 										},
 									},
 									"start_at": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.IsRFC3339Time,
 									},
@@ -216,7 +216,7 @@ func ResourceDomain() *schema.Resource {
 							},
 						},
 						"rollback_on_disable": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.StringInSlice(opensearchservice.RollbackOnDisable_Values(), false),
@@ -248,7 +248,7 @@ func ResourceDomain() *schema.Resource {
 						},
 						"dedicated_master_count": {
 							Type:schema.TypeInt,
-							Optional:         true,
+							Optional:true,
 							DiffSuppressFunc: suppressComputedDedicatedMaster,
 						},
 						"dedicated_master_enabled": {
@@ -258,7 +258,7 @@ func ResourceDomain() *schema.Resource {
 						},
 						"dedicated_master_type": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							DiffSuppressFunc: suppressComputedDedicatedMaster,
 						},
 						"instance_count": {
@@ -276,7 +276,7 @@ func ResourceDomain() *schema.Resource {
 							Optional: true,
 						},
 						"warm_count": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(2, 150),
 						},
@@ -285,19 +285,19 @@ func ResourceDomain() *schema.Resource {
 							Optional: true,
 						},
 						"warm_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(opensearchservice.OpenSearchWarmPartitionInstanceType_Values(), false),
 						},
 						"zone_awareness_config": {
 							Type:schema.TypeList,
-							Optional:         true,
-							MaxItems:         1,
+							Optional:true,
+							MaxItems:1,
 							DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"availability_zone_count": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Default:      2,
 										ValidateFunc: validation.IntInSlice([]int{2, 3}),
@@ -314,8 +314,8 @@ func ResourceDomain() *schema.Resource {
 			},
 			"cognito_options": {
 				Type:schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -329,7 +329,7 @@ func ResourceDomain() *schema.Resource {
 							Required: true,
 						},
 						"role_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: verify.ValidARN,
 						},
@@ -353,12 +353,12 @@ func ResourceDomain() *schema.Resource {
 					Schema: map[string]*schema.Schema{
 						"custom_endpoint": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							DiffSuppressFunc: isCustomEndpointDisabled,
 						},
 						"custom_endpoint_certificate_arn": {
 							Type:schema.TypeString,
-							Optional:         true,
+							Optional:true,
 							ValidateFunc:     verify.ValidARN,
 							DiffSuppressFunc: isCustomEndpointDisabled,
 						},
@@ -373,7 +373,7 @@ func ResourceDomain() *schema.Resource {
 							Default:  true,
 						},
 						"tls_security_policy": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.StringInSlice(opensearchservice.TLSSecurityPolicy_Values(), false),
@@ -410,7 +410,7 @@ func ResourceDomain() *schema.Resource {
 							Computed: true,
 						},
 						"throughput": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.IntAtLeast(125),
@@ -420,7 +420,7 @@ func ResourceDomain() *schema.Resource {
 							Optional: true,
 						},
 						"volume_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.StringInSlice(opensearchservice.VolumeType_Values(), false),
@@ -441,9 +441,9 @@ func ResourceDomain() *schema.Resource {
 						},
 						"kms_key_id": {
 							Type:schema.TypeString,
-							Optional:         true,
-							Computed:         true,
-							ForceNew:         true,
+							Optional:true,
+							Computed:true,
+							ForceNew:true,
 							DiffSuppressFunc: suppressEquivalentKMSKeyIDs,
 						},
 					},
@@ -469,7 +469,7 @@ func ResourceDomain() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cloudwatch_log_group_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: verify.ValidARN,
 						},
@@ -479,7 +479,7 @@ func ResourceDomain() *schema.Resource {
 							Default:  true,
 						},
 						"log_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(opensearchservice.LogType_Values(), false),
 						},
@@ -547,8 +547,8 @@ func ResourceDomain() *schema.Resource {
 			},
 			"snapshot_options": {
 				Type:schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -561,9 +561,9 @@ func ResourceDomain() *schema.Resource {
 			},
 			"software_update_options": {
 				Type:schema.TypeList,
-				Optional:         true,
-				Computed:         true,
-				MaxItems:         1,
+				Optional:true,
+				Computed:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -612,13 +612,11 @@ func ResourceDomain() *schema.Resource {
 		},
 	}
 }
-
 func resourceDomainImport(ctx context.Context,
 	d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	d.Set("domain_name", d.Id())
 	return []*schema.ResourceData{d}, nil
 }
-
 func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
@@ -828,7 +826,6 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceDomainRead(ctx, d, meta)...)
 }
-
 func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
@@ -964,7 +961,6 @@ func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
-
 func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
@@ -1119,7 +1115,6 @@ func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceDomainRead(ctx, d, meta)...)
 }
-
 func resourceDomainDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
@@ -1161,22 +1156,18 @@ func inPlaceEncryptionEnableVersion(version string) bool {
 
 	return false
 }
-
 func suppressEquivalentKMSKeyIDs(k, old, new string, d *schema.ResourceData) bool {
 	// The OpenSearch API accepts a short KMS key id but always returns the ARN of the key.
 	// The ARN is of the format 'arn:aws:kms:REGION:ACCOUNT_ID:key/KMS_KEY_ID'.
 	// These should be treated as equivalent.
 	return strings.Contains(old, new)
 }
-
 func getDashboardEndpoint(d *schema.ResourceData) string {
 	return d.Get("endpoint").(string) + "/_dashboards"
 }
-
 func getKibanaEndpoint(d *schema.ResourceData) string {
 	return d.Get("endpoint").(string) + "/_plugin/kibana/"
 }
-
 func suppressComputedDedicatedMaster(k, old, new string, d *schema.ResourceData) bool {
 	v, ok := d.GetOk("cluster_config")
 	if ok {
@@ -1185,7 +1176,6 @@ func suppressComputedDedicatedMaster(k, old, new string, d *schema.ResourceData)
 	}
 	return false
 }
-
 func isCustomEndpointDisabled(k, old, new string, d *schema.ResourceData) bool {
 	v, ok := d.GetOk("domain_endpoint_options")
 	if ok {
@@ -1194,7 +1184,6 @@ func isCustomEndpointDisabled(k, old, new string, d *schema.ResourceData) bool {
 	}
 	return false
 }
-
 func expandNodeToNodeEncryptionOptions(s map[string]interface{}) *opensearchservice.NodeToNodeEncryptionOptions {
 	options := opensearchservice.NodeToNodeEncryptionOptions{}
 
@@ -1203,7 +1192,6 @@ func expandNodeToNodeEncryptionOptions(s map[string]interface{}) *opensearchserv
 	}
 	return &options
 }
-
 func flattenNodeToNodeEncryptionOptions(o *opensearchservice.NodeToNodeEncryptionOptions) []map[string]interface{} {
 	if o == nil {
 		return []map[string]interface{}{}
@@ -1216,7 +1204,6 @@ func flattenNodeToNodeEncryptionOptions(o *opensearchservice.NodeToNodeEncryptio
 
 	return []map[string]interface{}{m}
 }
-
 func expandClusterConfig(m map[string]interface{}) *opensearchservice.ClusterConfig {
 	config := opensearchservice.ClusterConfig{}
 
@@ -1278,7 +1265,6 @@ func expandClusterConfig(m map[string]interface{}) *opensearchservice.ClusterCon
 
 	return &config
 }
-
 func expandZoneAwarenessConfig(l []interface{}) *opensearchservice.ZoneAwarenessConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -1294,7 +1280,6 @@ func expandZoneAwarenessConfig(l []interface{}) *opensearchservice.ZoneAwareness
 
 	return zoneAwarenessConfig
 }
-
 func expandColdStorageOptions(l []interface{}) *opensearchservice.ColdStorageOptions {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -1310,7 +1295,6 @@ func expandColdStorageOptions(l []interface{}) *opensearchservice.ColdStorageOpt
 
 	return ColdStorageOptions
 }
-
 func flattenClusterConfig(c *opensearchservice.ClusterConfig) []map[string]interface{} {
 	m := map[string]interface{}{
 		"zone_awareness_config":  flattenZoneAwarenessConfig(c.ZoneAwarenessConfig),
@@ -1350,7 +1334,6 @@ func flattenClusterConfig(c *opensearchservice.ClusterConfig) []map[string]inter
 
 	return []map[string]interface{}{m}
 }
-
 func flattenZoneAwarenessConfig(zoneAwarenessConfig *opensearchservice.ZoneAwarenessConfig) []interface{} {
 	if zoneAwarenessConfig == nil {
 		return []interface{}{}
@@ -1362,7 +1345,6 @@ func flattenZoneAwarenessConfig(zoneAwarenessConfig *opensearchservice.ZoneAware
 
 	return []interface{}{m}
 }
-
 func flattenColdStorageOptions(coldStorageOptions *opensearchservice.ColdStorageOptions) []interface{} {
 	if coldStorageOptions == nil {
 		return []interface{}{}

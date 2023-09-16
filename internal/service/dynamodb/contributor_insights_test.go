@@ -28,7 +28,7 @@ func TestAccDynamoDBContributorInsights_basic(t *testing.T) {
 	resourceName := "aws_dynamodb_contributor_insights.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckContributorInsightsDestroy(ctx),
@@ -41,8 +41,8 @@ func TestAccDynamoDBContributorInsights_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -63,7 +63,7 @@ func TestAccDynamoDBContributorInsights_disappears(t *testing.T) {
 	resourceName := "aws_dynamodb_contributor_insights.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckContributorInsightsDestroy(ctx),
@@ -86,19 +86,19 @@ resource "aws_dynamodb_table" "test" {
   name  = %[1]q
   read_capacity  = 2
   write_capacity = 2
-  hash_key       = %[1]q
+  hash_key   = %[1]q
 
   attribute {
-    name = %[1]q
-    type = "S"
+name = %[1]q
+type = "S"
   }
 
   global_secondary_index {
-    name   = "%[1]s-index"
-    hash_key        = %[1]q
-    projection_type = "ALL"
-    read_capacity   = 1
-    write_capacity  = 1
+name   = "%[1]s-index"
+hash_key= %[1]q
+projection_type = "ALL"
+read_capacity   = 1
+write_capacity  = 1
   }
 }
 `, rName)

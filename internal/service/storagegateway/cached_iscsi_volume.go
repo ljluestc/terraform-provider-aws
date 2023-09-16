@@ -48,7 +48,7 @@ Type:     schema.TypeBool,
 Computed: true,
 	},
 	"gateway_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: verify.ValidARN,
@@ -73,7 +73,7 @@ Optional: true,
 ForceNew: true,
 	},
 	"source_volume_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ForceNew:     true,
 ValidateFunc: verify.ValidARN,
@@ -108,7 +108,7 @@ Optional: true,
 ForceNew: true,
 	},
 	"kms_key": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ForceNew:     true,
 ValidateFunc: verify.ValidARN,
@@ -126,9 +126,9 @@ func resourceCachediSCSIVolumeCreate(ctx context.Context, d *schema.ResourceData
 
 	input := &storagegateway.CreateCachediSCSIVolumeInput{
 ClientToken:        aws.String(id.UniqueId()),
-GatewayARN:         aws.String(d.Get("gateway_arn").(string)),
+GatewayARN:aws.String(d.Get("gateway_arn").(string)),
 NetworkInterfaceId: aws.String(d.Get("network_interface_id").(string)),
-TargetName:         aws.String(d.Get("target_name").(string)),
+TargetName:aws.String(d.Get("target_name").(string)),
 VolumeSizeInBytes:  aws.Int64(int64(d.Get("volume_size_in_bytes").(int))),
 Tags:getTagsIn(ctx),
 	}

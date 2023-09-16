@@ -25,12 +25,12 @@ func ResourcePolicyAttachment() *schema.Resource {
 		DeleteWithoutTimeout: resourcePolicyAttachmentDelete,
 		Schema: map[string]*schema.Schema{
 			"policy": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"target": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -47,7 +47,7 @@ func resourcePolicyAttachmentCreate(ctx context.Context, d *schema.ResourceData,
 
 	_, err := conn.AttachPolicyWithContext(ctx, &iot.AttachPolicyInput{
 		PolicyName: aws.String(policyName),
-		Target:     aws.String(target),
+		Target: aws.String(target),
 	})
 
 	if err != nil {
@@ -82,7 +82,7 @@ func GetPolicyAttachment(ctx context.Context, conn *iot.IoT, target, policyName 
 	input := &iot.ListAttachedPoliciesInput{
 		PageSize:  aws.Int64(250),
 		Recursive: aws.Bool(false),
-		Target:    aws.String(target),
+		Target:aws.String(target),
 	}
 
 	err := ListPolicyAttachmentPages(ctx, conn, input, func(out *iot.ListAttachedPoliciesOutput, lastPage bool) bool {
@@ -131,7 +131,7 @@ func resourcePolicyAttachmentDelete(ctx context.Context, d *schema.ResourceData,
 
 	_, err := conn.DetachPolicyWithContext(ctx, &iot.DetachPolicyInput{
 		PolicyName: aws.String(policyName),
-		Target:     aws.String(target),
+		Target: aws.String(target),
 	})
 
 	// DetachPolicy doesn't return an error if the policy doesn't exist,

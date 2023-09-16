@@ -89,7 +89,7 @@ data "aws_lex_intent" "test" {
 func testAccIntentDataSourceConfig_withVersion() string {
 return `
 data "aws_lex_intent" "test" {
-  name    = aws_lex_intent.test.name
+  name= aws_lex_intent.test.name
   version = "1"
 }
 `

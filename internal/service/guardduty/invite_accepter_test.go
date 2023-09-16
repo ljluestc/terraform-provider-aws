@@ -16,7 +16,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func testAccInviteAccepter_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	masterDetectorResourceName := "aws_guardduty_detector.master"
@@ -50,7 +49,6 @@ func testAccInviteAccepter_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckInviteAccepterDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
@@ -84,7 +82,6 @@ func testAccCheckInviteAccepterDestroy(ctx context.Context) resource.TestCheckFu
 		return nil
 	}
 }
-
 func testAccCheckInviteAccepterExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -115,7 +112,6 @@ func testAccCheckInviteAccepterExists(ctx context.Context, resourceName string) 
 		return nil
 	}
 }
-
 func testAccInviteAccepterConfig_basic(email string) string {
 	return acctest.ConfigAlternateAccountProvider() + fmt.Sprintf(`
 resource "aws_guardduty_detector" "master" {

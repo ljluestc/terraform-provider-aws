@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hcl
-
-// ExprList tests if the given expression is a static list construct and,
+// SPDX-License-Identifier: MPL-2.0package hcl// ExprList tests if the given expression is a static list construct and,
 // if so, extracts the expressions that represent the list elements.
 // If the given expression is not a static list, error diagnostics are
 // returned.
@@ -15,20 +11,14 @@ tion by
 // be extracted.  Alternatively, an implementation support
 // UnwrapExpression to delegate handling of this 
  to a wrapped
-// Expression object.
-
- ExprList(expr Expression) ([]Expression, Diagnostics) {
+// Expression object. ExprList(expr Expression) ([]Expression, Diagnostics) {
 	type exprList interface {
 		ExprList() []Expression
-	}
-
-	physExpr := UnwrapExpressionUntil(expr, 
+	}	physExpr := UnwrapExpressionUntil(expr, 
 (expr Expression) bool {
 		_, supported := expr.(exprList)
 		return supported
-	})
-
-	if exL, supported := physExpr.(exprList); supported {
+	})	if exL, supported := physExpr.(exprList); supported {
 		if list := exL.ExprList(); list != nil {
 			return list, nil
 		}

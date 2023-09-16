@@ -49,7 +49,7 @@ func ResourceGlobalCluster() *schema.Resource {
 				Default:  false,
 			},
 			"engine": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -62,7 +62,7 @@ func ResourceGlobalCluster() *schema.Resource {
 				Computed: true,
 			},
 			"global_cluster_identifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validGlobalCusterIdentifier,
@@ -88,7 +88,7 @@ func ResourceGlobalCluster() *schema.Resource {
 				Computed: true,
 			},
 			"source_db_cluster_identifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -422,7 +422,7 @@ func waitGlobalClusterUpdated(ctx context.Context, conn *neptune.Neptune, id str
 func waitGlobalClusterDeleted(ctx context.Context, conn *neptune.Neptune, id string, timeout time.Duration) (*neptune.GlobalCluster, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:        []string{GlobalClusterStatusAvailable, GlobalClusterStatusDeleting},
-		Target:         []string{},
+		Target:[]string{},
 		Refresh:        statusGlobalCluster(ctx, conn, id),
 		Timeout:        timeout,
 		NotFoundChecks: 1,

@@ -12,13 +12,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccDelegatedServicesDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_organizations_delegated_services.test"
 	servicePrincipal := "config-multiaccountsetup.amazonaws.com"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckAlternateAccount(t)
 	acctest.PreCheckOrganizationManagementAccount(ctx, t)
@@ -36,6 +38,7 @@ Check: resource.ComposeTestCheckFunc(
 	})
 }
 
+
 func testAccDelegatedServicesDataSource_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_organizations_delegated_services.test"
@@ -43,7 +46,8 @@ func testAccDelegatedServicesDataSource_multiple(t *testing.T) {
 	servicePrincipal2 := "config.amazonaws.com"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckAlternateAccount(t)
 	acctest.PreCheckOrganizationManagementAccount(ctx, t)
@@ -60,6 +64,7 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
+
 
 func testAccDelegatedServicesDataSourceConfig_basic(servicePrincipal string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
@@ -79,6 +84,7 @@ data "aws_organizations_delegated_services" "test" {
 }
 `, servicePrincipal))
 }
+
 
 func testAccDelegatedServicesDataSourceConfig_multiple(servicePrincipal1, servicePrincipal2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`

@@ -1,37 +1,21 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hclsyntax
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hclsyntaximport (
 	"bytes"
-	"fmt"
-
-	"github.com/apparentlymart/go-textseg/v15/textseg"
+	"fmt"	"github.com/apparentlymart/go-textseg/v15/textseg"
 	"github.com/hashicorp/hcl/v2"
-)
-
-// Token represents a sequence of bytes from some HCL code that has been
+)// Token represents a sequence of bytes from some HCL code that has been
 // tagged with a type and its range within the source file.
 type Token struct {
 	Type  TokenType
 	Bytes []byte
 	Range hcl.Range
-}
-
-// Tokens is a slice of Token.
-type Tokens []Token
-
-// TokenType is an enumeration used for the Type field on Token.
-type TokenType rune
-
-const (
+}// Tokens is a slice of Token.
+type Tokens []Token// TokenType is an enumeration used for the Type field on Token.
+type TokenType runeconst (
 	// Single-character tokens are represented by their own character, for
 	// convenience in producing these within the scanner. However, the values
 	// are otherwise arbitrary and just intended to be mnemonic for humans
-	// who might see them in debug output.
-
-	TokenOBrace   TokenType = '{'
+	// who might see them in debug output.	TokenOBrace   TokenType = '{'
 	TokenCBrace   TokenType = '}'
 	TokenOBrack   TokenType = '['
 	TokenCBrack   TokenType = ']'
@@ -40,55 +24,31 @@ const (
 	TokenOQuote   TokenType = '«'
 	TokenCQuote   TokenType = '»'
 	TokenOHeredoc TokenType = 'H'
-	TokenCHeredoc TokenType = 'h'
-
-	TokenStar    TokenType = '*'
+	TokenCHeredoc TokenType = 'h'	TokenStar    TokenType = '*'
 	TokenSlash   TokenType = '/'
 	TokenPlus    TokenType = '+'
 	TokenMinus   TokenType = '-'
-	TokenPercent TokenType = '%'
-
-	TokenEqual         TokenType = '='
+	TokenPercent TokenType = '%'	TokenEqualTokenType = '='
 	TokenEqualOp       TokenType = '≔'
 	TokenNotEqual      TokenType = '≠'
 	TokenLessThan      TokenType = '<'
 	TokenLessThanEq    TokenType = '≤'
 	TokenGreaterThan   TokenType = '>'
-	TokenGreaterThanEq TokenType = '≥'
-
-	TokenAnd  TokenType = '∧'
+	TokenGreaterThanEq TokenType = '≥'	TokenAnd  TokenType = '∧'
 	TokenOr   TokenType = '∨'
-	TokenBang TokenType = '!'
-
-	TokenDot   TokenType = '.'
-	TokenComma TokenType = ','
-
-	TokenEllipsis TokenType = '…'
-	TokenFatArrow TokenType = '⇒'
-
-	TokenQuestion TokenType = '?'
-	TokenColon    TokenType = ':'
-
-	TokenTemplateInterp  TokenType = '∫'
+	TokenBang TokenType = '!'	TokenDot   TokenType = '.'
+	TokenComma TokenType = ','	TokenEllipsis TokenType = '…'
+	TokenFatArrow TokenType = '⇒'	TokenQuestion TokenType = '?'
+	TokenColon    TokenType = ':'	TokenTemplateInterp  TokenType = '∫'
 	TokenTemplateControl TokenType = 'λ'
-	TokenTemplateSeqEnd  TokenType = '∎'
-
-	TokenQuotedLit TokenType = 'Q' // might contain backslash escapes
+	TokenTemplateSeqEnd  TokenType = '∎'	TokenQuotedLit TokenType = 'Q' // might contain backslash escapes
 	TokenStringLit TokenType = 'S' // cannot contain backslash escapes
 	TokenNumberLit TokenType = 'N'
-	TokenIdent     TokenType = 'I'
-
-	TokenComment TokenType = 'C'
-
-	TokenNewline TokenType = '\n'
-	TokenEOF     TokenType = '␄'
-
-	// The rest are not used in the language but recognized by the scanner so
+	TokenIdent     TokenType = 'I'	TokenComment TokenType = 'C'	TokenNewline TokenType = '\n'
+	TokenEOF     TokenType = '␄'	// The rest are not used in the language but recognized by the scanner so
 	// we can generate good diagnostics in the parser when users try to write
 	// things that might work in other languages they are familiar with, or
-	// simply make incorrect assumptions about the HCL language.
-
-	TokenBitwiseAnd    TokenType = '&'
+	// simply make incorrect assumptions about the HCL language.	TokenBitwiseAnd    TokenType = '&'
 	TokenBitwiseOr     TokenType = '|'
 	TokenBitwiseNot    TokenType = '~'
 	TokenBitwiseXor    TokenType = '^'
@@ -96,48 +56,32 @@ const (
 	TokenApostrophe    TokenType = '\''
 	TokenBacktick      TokenType = '`'
 	TokenSemicolon     TokenType = ';'
-	TokenTabs          TokenType = '␉'
+	TokenTabs TokenType = '␉'
 	TokenInvalid       TokenType = '�'
 	TokenBadUTF8       TokenType = '💩'
-	TokenQuotedNewline TokenType = '␤'
-
-	// TokenNil is a placeholder for when a token is required but none is
+	TokenQuotedNewline TokenType = '␤'	// TokenNil is a placeholder for when a token is required but none is
 	// available, e.g. when reporting errors. The scanner will never produce
 	// this as part of a token stream.
 	TokenNil TokenType = '\x00'
 )
-
-
  (t TokenType) GoString() string {
 	return fmt.Sprintf("hclsyntax.%s", t.String())
-}
-
-type scanMode int
-
-const (
+}type scanMode intconst (
 	scanNormal scanMode = iota
 	scanTemplate
 	scanIdentOnly
-)
-
-type tokenAccum struct {
+)type tokenAccum struct {
 	Filename  string
 	Bytes     []byte
 	Pos       hcl.Pos
 	Tokens    []Token
 	StartByte int
 }
-
-
  (f *tokenAccum) emitToken(ty TokenType, startOfs, endOfs int) {
 	// Walk through our buffer to figure out how much we need to adjust
-	// the start pos to get our end pos.
-
-	start := f.Pos
+	// the start pos to get our end pos.	start := f.Pos
 	start.Column += startOfs + f.StartByte - f.Pos.Byte // Safe because only ASCII spaces can be in the offset
-	start.Byte = startOfs + f.StartByte
-
-	end := start
+	start.Byte = startOfs + f.StartByte	end := start
 	end.Byte = endOfs + f.StartByte
 	b := f.Bytes[startOfs:endOfs]
 	for len(b) > 0 {
@@ -149,11 +93,7 @@ type tokenAccum struct {
 			end.Column++
 		}
 		b = b[advance:]
-	}
-
-	f.Pos = end
-
-	f.Tokens = append(f.Tokens, Token{
+	}	f.Pos = end	f.Tokens = append(f.Tokens, Token{
 		Type:  ty,
 		Bytes: f.Bytes[startOfs:endOfs],
 		Range: hcl.Range{
@@ -162,49 +102,33 @@ type tokenAccum struct {
 			End:      end,
 		},
 	})
-}
-
-type heredocInProgress struct {
+}type heredocInProgress struct {
 	Marker      []byte
-	StartOfLine bool
-
-
-
- tokenOpensFlushHeredoc(tok Token) bool {
+	StartOfLine bool tokenOpensFlushHeredoc(tok Token) bool {
 	if tok.Type != TokenOHeredoc {
 		return false
 	}
 	return bytes.HasPrefix(tok.Bytes, []byte{'<', '<', '-'})
-}
-
-// checkInvalidTokens does a simple pass across the given tokens and generates
+}// checkInvalidTokens does a simple pass across the given tokens and generates
 // diagnostics for tokens that should _never_ appear in HCL source. This
 // is intended to avoid the need for the parser to have special support
 // for them all over.
 //
 eturns a diagnostics with no errors if everything seems acceptable.
 // Otherwise, returns zero or more error diagnostics, though tries to limit
-// repetition of the same information.
-
- checkInvalidTokens(tokens Tokens) hcl.Diagnostics {
-	var diags hcl.Diagnostics
-
-	toldBitwise := 0
+// repetition of the same information. checkInvalidTokens(tokens Tokens) hcl.Diagnostics {
+	var diags hcl.Diagnostics	toldBitwise := 0
 	toldExponent := 0
 	toldBacktick := 0
 	toldApostrophe := 0
 	toldSemicolon := 0
 	toldTabs := 0
-	toldBadUTF8 := 0
-
-	for _, tok := range tokens {
+	toldBadUTF8 := 0	for _, tok := range tokens {
 		tokRange := 
 () *hcl.Range {
 			r := tok.Range
 			return &r
-		}
-
-		switch tok.Type {
+		}		switch tok.Type {
 		case TokenBitwiseAnd, TokenBitwiseOr, TokenBitwiseXor, TokenBitwiseNot:
 			if toldBitwise < 4 {
 				var suggestion string
@@ -215,9 +139,7 @@ eturns a diagnostics with no errors if everything seems acceptable.
 					suggestion = " Did you mean boolean OR (\"||\")?"
 				case TokenBitwiseNot:
 					suggestion = " Did you mean boolean NOT (\"!\")?"
-				}
-
-				diags = append(diags, &hcl.Diagnostic{
+				}				diags = append(diags, &hcl.Diagnostic{
 					Severity: hcl.DiagError,
 					Summary:  "Unsupported operator",
 					Detail:   fmt.Sprintf("Bitwise operators are not supported.%s", suggestion),
@@ -232,9 +154,7 @@ eturns a diagnostics with no errors if everything seems acceptable.
 					Summary:  "Unsupported operator",
 					Detail:   "\"**\" is not a supported operator. Exponentiation is not supported as an operator.",
 					Subject:  tokRange(),
-				})
-
-				toldExponent++
+				})				toldExponent++
 			}
 		case TokenBacktick:
 			// Only report for alternating (even) backticks, so we won't report both start and ends of the same
@@ -270,9 +190,7 @@ eturns a diagnostics with no errors if everything seems acceptable.
 					Summary:  "Invalid character",
 					Detail:   "The \";\" character is not valid. Use newlines to separate arguments and blocks, and commas to separate items in collection values.",
 					Subject:  tokRange(),
-				})
-
-				toldSemicolon++
+				})				toldSemicolon++
 			}
 		case TokenTabs:
 			if toldTabs < 1 {
@@ -281,9 +199,7 @@ eturns a diagnostics with no errors if everything seems acceptable.
 					Summary:  "Invalid character",
 					Detail:   "Tab characters may not be used. The recommended indentation style is two spaces per indent.",
 					Subject:  tokRange(),
-				})
-
-				toldTabs++
+				})				toldTabs++
 			}
 		case TokenBadUTF8:
 			if toldBadUTF8 < 1 {
@@ -292,9 +208,7 @@ eturns a diagnostics with no errors if everything seems acceptable.
 					Summary:  "Invalid character encoding",
 					Detail:   "All input files must be UTF-8 encoded. Ensure that UTF-8 encoding is selected in your editor.",
 					Subject:  tokRange(),
-				})
-
-				toldBadUTF8++
+				})				toldBadUTF8++
 			}
 		case TokenQuotedNewline:
 			diags = append(diags, &hcl.Diagnostic{
@@ -324,17 +238,11 @@ eturns a diagnostics with no errors if everything seems acceptable.
 		}
 	}
 	return diags
-}
-
-var utf8BOM = []byte{0xef, 0xbb, 0xbf}
-
-tripUTF8BOM checks whether the given buffer begins with a UTF-8 byte order
+}var utf8BOM = []byte{0xef, 0xbb, 0xbf}tripUTF8BOM checks whether the given buffer begins with a UTF-8 byte order
 // mark (0xEF 0xBB 0xBF) and, if so, returns a truncated slice with the same
 // backing array but with the BOM skipped.
 //
-// If there is no BOM present, the given slice is returned verbatim.
-
- stripUTF8BOM(src []byte) []byte {
+// If there is no BOM present, the given slice is returned verbatim. stripUTF8BOM(src []byte) []byte {
 	if bytes.HasPrefix(src, utf8BOM) {
 		return src[3:]
 	}

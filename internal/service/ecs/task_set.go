@@ -45,14 +45,14 @@ func ResourceTaskSet() *schema.Resource {
 				Computed: true,
 			},
 			"capacity_provider_strategy": {
-				Type:          schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"launch_type"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"base": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IntBetween(0, 100000),
@@ -63,7 +63,7 @@ func ResourceTaskSet() *schema.Resource {
 							ForceNew: true,
 						},
 						"weight": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IntBetween(0, 1000),
@@ -87,7 +87,7 @@ func ResourceTaskSet() *schema.Resource {
 				Optional: true,
 			},
 			"launch_type": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				Computed:      true,
@@ -109,7 +109,7 @@ func ResourceTaskSet() *schema.Resource {
 							ForceNew: true,
 						},
 						"container_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IsPortNumber,
@@ -120,7 +120,7 @@ func ResourceTaskSet() *schema.Resource {
 							ForceNew: true,
 						},
 						"target_group_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: verify.ValidARN,
@@ -172,13 +172,13 @@ func ResourceTaskSet() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"unit": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      ecs.ScaleUnitPercent,
 							ValidateFunc: validation.StringInSlice(ecs.ScaleUnit_Values(), false),
 						},
 						"value": {
-							Type:         schema.TypeFloat,
+							Type:schema.TypeFloat,
 							Optional:     true,
 							ValidateFunc: validation.FloatBetween(0.0, 100.0),
 						},
@@ -203,19 +203,19 @@ func ResourceTaskSet() *schema.Resource {
 							ForceNew: true,
 						},
 						"container_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IsPortNumber,
 						},
 						"port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IsPortNumber,
 						},
 						"registry_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: verify.ValidARN,
@@ -281,7 +281,7 @@ func resourceTaskSetCreate(ctx context.Context, d *schema.ResourceData, meta int
 		ClientToken:    aws.String(id.UniqueId()),
 		Cluster:        aws.String(cluster),
 		Service:        aws.String(service),
-		Tags:           getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 		TaskDefinition: aws.String(d.Get("task_definition").(string)),
 	}
 

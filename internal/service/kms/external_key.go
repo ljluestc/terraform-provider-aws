@@ -48,59 +48,59 @@ CustomizeDiff: verify.SetTagsDiff,
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"bypass_policy_lockout_safety_check": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 	},
 	"deletion_window_in_days": {
 Type:schema.TypeInt,
-Optional:     true,
-Default:      30,
+Optional: true,
+Default:  30,
 ValidateFunc: validation.IntBetween(7, 30),
 	},
 	"description": {
 Type:schema.TypeString,
-Optional:     true,
+Optional: true,
 ValidateFunc: validation.StringLenBetween(0, 8192),
 	},
 	"enabled": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Computed: true,
 	},
 	"expiration_model": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"key_material_base64": {
-Type:      schema.TypeString,
+Type:  schema.TypeString,
 Optional:  true,
 ForceNew:  true,
 Sensitive: true,
 	},
 	"key_state": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"key_usage": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"multi_region": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"policy": {
 Type:   schema.TypeString,
-Optional:     true,
-Computed:     true,
-DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+Optional: true,
+Computed: true,
+DiffSuppressFunc:  verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 ValidateFunc: validation.All(
 	validation.StringLenBetween(0, 32768),
@@ -111,24 +111,23 @@ StateFunc: func(v interface{}) string {
 	return json
 },
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"valid_to": {
 Type:schema.TypeString,
-Optional:     true,
+Optional: true,
 ValidateFunc: validation.IsRFC3339Time,
 	},
 },
 	}
 }
-
 func resourceExternalKeyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
 
 	input := &kms.CreateKeyInput{
 BypassPolicyLockoutSafetyCheck: aws.Bool(d.Get("bypass_policy_lockout_safety_check").(bool)),
-KeyUsage:        aws.String(kms.KeyUsageTypeEncryptDecrypt),
+KeyUsage:aws.String(kms.KeyUsageTypeEncryptDecrypt),
 Origin: aws.String(kms.OriginTypeExternal),
 Tags:   getTagsIn(ctx),
 	}
@@ -206,7 +205,6 @@ if err := waitTagsPropagated(ctx, conn, d.Id(), tags); err != nil {
 
 	return append(diags, resourceExternalKeyRead(ctx, d, meta)...)
 }
-
 func resourceExternalKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -263,7 +261,6 @@ d.Set("valid_to", nil)
 
 	return diags
 }
-
 func resourceExternalKeyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -314,7 +311,6 @@ if err := updateKeyEnabled(ctx, conn, d.Id(), enabled); err != nil {
 
 	return append(diags, resourceExternalKeyRead(ctx, d, meta)...)
 }
-
 func resourceExternalKeyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -350,12 +346,11 @@ return sdkdiag.AppendErrorf(diags, "waiting for KMS External Key (%s) to delete:
 
 	return diags
 }
-
 func importExternalKeyMaterial(ctx context.Context, conn *kms.KMS, keyID, keyMaterialBase64, validTo string) error {
 	// Wait for propagation since KMS is eventually consistent.
 	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, PropagationTimeout, func() (interface{}, error) {
 return conn.GetParametersForImportWithContext(ctx, &kms.GetParametersForImportInput{
-	KeyId:    aws.String(keyID),
+	KeyId:aws.String(keyID),
 	WrappingAlgorithm: aws.String(kms.AlgorithmSpecRsaesOaepSha256),
 	WrappingKeySpec:   aws.String(kms.WrappingKeySpecRsa2048),
 })
@@ -387,7 +382,7 @@ return fmt.Errorf("encrypting key material: %w", err)
 
 	input := &kms.ImportKeyMaterialInput{
 EncryptedKeyMaterial: encryptedKeyMaterial,
-ExpirationModel:      aws.String(kms.ExpirationModelTypeKeyMaterialDoesNotExpire),
+ExpirationModel:  aws.String(kms.ExpirationModelTypeKeyMaterialDoesNotExpire),
 ImportToken: output.ImportToken,
 KeyId: aws.String(keyID),
 	}

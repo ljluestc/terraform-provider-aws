@@ -16,7 +16,6 @@ import (
 )
 
 type containerProperties batch.ContainerProperties
-
 func (cp *containerProperties) Reduce() error {
 	// Deal with Environment objects which may be re-ordered in the API
 	sort.Slice(cp.Environment, func(i, j int) bool {

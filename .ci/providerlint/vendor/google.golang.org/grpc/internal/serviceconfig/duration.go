@@ -32,13 +32,11 @@ import (
 //
 // [here]: https://protobuf.dev/reference/protobuf/google.protobuf/#duration
 type Duration time.Duration
-
-func (d Duration) String() string {
+ (d Duration) String() string {
 	return fmt.Sprint(time.Duration(d))
 }
 
-// MarshalJSON converts from d to a JSON string output.
-func (d Duration) MarshalJSON() ([]byte, error) {
+// MarshalJSON converts from d to a JSON string output. (d Duration) MarshalJSON() ([]byte, error) {
 	ns := time.Duration(d).Nanoseconds()
 	sec := ns / int64(time.Second)
 	ns = ns % int64(time.Second)
@@ -57,8 +55,7 @@ func (d Duration) MarshalJSON() ([]byte, error) {
 	return []byte(fmt.Sprintf("\"%ss\"", str)), nil
 }
 
-// UnmarshalJSON unmarshals b as a duration JSON string into d.
-func (d *Duration) UnmarshalJSON(b []byte) error {
+// UnmarshalJSON unmarshals b as a duration JSON string into d. (d *Duration) UnmarshalJSON(b []byte) error {
 	var s string
 	if err := json.Unmarshal(b, &s); err != nil {
 		return err

@@ -70,8 +70,7 @@ type bdpEstimator struct {
 // timesnap registers the time bdp ping was sent out so that
 // network rtt can be calculated when its ack is received.
 // It is called (by controller) when the bdpPing is
-// being written on the wire.
-func (b *bdpEstimator) timesnap(d [8]byte) {
+// being written on the wire. (b *bdpEstimator) timesnap(d [8]byte) {
 	if bdpPing.data != d {
 		return
 	}
@@ -81,8 +80,7 @@ func (b *bdpEstimator) timesnap(d [8]byte) {
 // add adds bytes to the current sample for calculating bdp.
 // It returns true only if a ping must be sent. This can be used
 // by the caller (handleData) to make decision about batching
-// a window update with it.
-func (b *bdpEstimator) add(n uint32) bool {
+// a window update with it. (b *bdpEstimator) add(n uint32) bool {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	if b.bdp == bdpLimit {
@@ -101,8 +99,7 @@ func (b *bdpEstimator) add(n uint32) bool {
 
 // calculate is called when an ack for a bdp ping is received.
 // Here we calculate the current bdp and bandwidth sample and
-// decide if the flow control windows should go up.
-func (b *bdpEstimator) calculate(d [8]byte) {
+// decide if the flow control windows should go up. (b *bdpEstimator) calculate(d [8]byte) {
 	// Check if the ping acked for was the bdp ping.
 	if bdpPing.data != d {
 		return

@@ -40,13 +40,13 @@ func ResourceComponent() *schema.Resource {
 				Computed: true,
 			},
 			"change_description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"data": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -58,7 +58,7 @@ func ResourceComponent() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
@@ -68,13 +68,13 @@ func ResourceComponent() *schema.Resource {
 				Computed: true,
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 126),
@@ -84,7 +84,7 @@ func ResourceComponent() *schema.Resource {
 				Computed: true,
 			},
 			"platform": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(imagebuilder.Platform_Values(), false),
@@ -99,7 +99,7 @@ func ResourceComponent() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringIsNotEmpty,
 				},
 				MinItems: 1,
@@ -112,13 +112,13 @@ func ResourceComponent() *schema.Resource {
 				Computed: true,
 			},
 			"uri": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ExactlyOneOf: []string{"data", "uri"},
 			},
 			"version": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),

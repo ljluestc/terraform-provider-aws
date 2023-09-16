@@ -409,10 +409,10 @@ func TestAccGlueMlTransform_disappears(t *testing.T) {
 	resourceName := "aws_glue_ml_transform.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMLTransformDestroy(ctx),
+		CheckDestroy:    testAccCheckMLTransformDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMLTransformConfig_basic(rName),
@@ -529,19 +529,19 @@ resource "aws_glue_catalog_database" "test" {
 resource "aws_glue_catalog_table" "test" {
   name= %[1]q
   database_name      = aws_glue_catalog_database.test.name
-  owner              = "my_owner"
-  retention          = 1
-  table_type         = "VIRTUAL_VIEW"
+  owner     = "my_owner"
+  retention = 1
+  table_type= "VIRTUAL_VIEW"
   view_expanded_text = "view_expanded_text_1"
   view_original_text = "view_original_text_1"
 
   storage_descriptor {
-    bucket_columns            = ["bucket_column_1"]
+    bucket_columns   = ["bucket_column_1"]
     compressed = false
-    input_format              = "SequenceFileInputFormat"
+    input_format     = "SequenceFileInputFormat"
     location   = "my_location"
-    number_of_buckets         = 1
-    output_format             = "SequenceFileInputFormat"
+    number_of_buckets= 1
+    output_format    = "SequenceFileInputFormat"
     stored_as_sub_directories = false
 
     parameters = {
@@ -688,7 +688,7 @@ resource "aws_glue_ml_transform" "test" {
 func testAccMLTransformConfig_version(rName, glueVersion string) string {
 	return testAccMLTransformBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_glue_ml_transform" "test" {
-  name         = %[1]q
+  name= %[1]q
   glue_version = %[2]q
   role_arn     = aws_iam_role.test.arn
 
@@ -820,10 +820,10 @@ resource "aws_glue_ml_transform" "test" {
 func testAccMLTransformConfig_workerType(rName, workerType string, numOfWorkers int) string {
 	return testAccMLTransformBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_glue_ml_transform" "test" {
-  name              = %[1]q
+  name     = %[1]q
   worker_type       = %[2]q
   number_of_workers = %[3]d
-  role_arn          = aws_iam_role.test.arn
+  role_arn = aws_iam_role.test.arn
 
   input_record_tables {
     database_name = aws_glue_catalog_table.test.database_name
@@ -846,7 +846,7 @@ resource "aws_glue_ml_transform" "test" {
 func testAccMLTransformConfig_maxCapacity(rName string, maxCapacity float64) string {
 	return testAccMLTransformBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_glue_ml_transform" "test" {
-  name         = %[1]q
+  name= %[1]q
   max_capacity = %[2]g
   role_arn     = aws_iam_role.test.arn
 

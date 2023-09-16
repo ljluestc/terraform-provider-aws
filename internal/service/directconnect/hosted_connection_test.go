@@ -22,10 +22,9 @@ import (
 )
 
 type testAccDxHostedConnectionEnv struct {
-	ConnectionId   string
+	ConnectionIdstring
 	OwnerAccountId string
 }
-
 func TestAccDirectConnectHostedConnection_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	env, err := testAccCheckHostedConnectionEnv()
@@ -37,7 +36,7 @@ func TestAccDirectConnectHostedConnection_basic(t *testing.T) {
 	resourceName := "aws_dx_hosted_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckHostedConnectionDestroy(ctx, testAccHostedConnectionProvider),
@@ -56,10 +55,9 @@ func TestAccDirectConnectHostedConnection_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckHostedConnectionEnv() (*testAccDxHostedConnectionEnv, error) {
 	result := &testAccDxHostedConnectionEnv{
-		ConnectionId:   os.Getenv("TEST_AWS_DX_CONNECTION_ID"),
+		ConnectionId:os.Getenv("TEST_AWS_DX_CONNECTION_ID"),
 		OwnerAccountId: os.Getenv("TEST_AWS_DX_OWNER_ACCOUNT_ID"),
 	}
 
@@ -69,7 +67,6 @@ func testAccCheckHostedConnectionEnv() (*testAccDxHostedConnectionEnv, error) {
 
 	return result, nil
 }
-
 func testAccCheckHostedConnectionDestroy(ctx context.Context, providerFunc func() *schema.Provider) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		provider := providerFunc()
@@ -96,7 +93,6 @@ func testAccCheckHostedConnectionDestroy(ctx context.Context, providerFunc func(
 		return nil
 	}
 }
-
 func testAccCheckHostedConnectionExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -115,19 +111,17 @@ func testAccCheckHostedConnectionExists(ctx context.Context, name string) resour
 		return err
 	}
 }
-
 func testAccHostedConnectionConfig_basic(name, connectionId, ownerAccountId string) string {
 	return fmt.Sprintf(`
 resource "aws_dx_hosted_connection" "test" {
   name= "%s"
-  connection_id    = "%s"
+  connection_id = "%s"
   owner_account_id = "%s"
-  bandwidth        = "100Mbps"
+  bandwidth00Mbps"
   vlan= 4094
 }
 `, name, connectionId, ownerAccountId)
 }
-
 func testAccHostedConnectionProvider() *schema.Provider {
 	return acctest.Provider
 }

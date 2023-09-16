@@ -39,38 +39,38 @@ func ResourceGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"display_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"external_ids": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"issuer": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"group_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"identity_store_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -151,9 +151,9 @@ func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	conn := meta.(*conns.AWSClient).IdentityStoreClient(ctx)
 
 	in := &identitystore.UpdateGroupInput{
-		GroupId:         aws.String(d.Get("group_id").(string)),
+		GroupId:aws.String(d.Get("group_id").(string)),
 		IdentityStoreId: aws.String(d.Get("identity_store_id").(string)),
-		Operations:      nil,
+		Operations: nil,
 	}
 
 	if d.HasChange("display_name") {
@@ -180,7 +180,7 @@ func resourceGroupDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	log.Printf("[INFO] Deleting IdentityStore Group %s", d.Id())
 	_, err := conn.DeleteGroup(ctx, &identitystore.DeleteGroupInput{
 		IdentityStoreId: aws.String(d.Get("identity_store_id").(string)),
-		GroupId:         aws.String(d.Get("group_id").(string)),
+		GroupId:aws.String(d.Get("group_id").(string)),
 	})
 
 	if errs.IsA[*types.ResourceNotFoundException](err) {
@@ -196,7 +196,7 @@ func resourceGroupDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 func FindGroupByTwoPartKey(ctx context.Context, conn *identitystore.Client, identityStoreID, groupID string) (*identitystore.DescribeGroupOutput, error) {
 	in := &identitystore.DescribeGroupInput{
-		GroupId:         aws.String(groupID),
+		GroupId:aws.String(groupID),
 		IdentityStoreId: aws.String(identityStoreID),
 	}
 

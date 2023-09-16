@@ -1,35 +1,21 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elasticache_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package elasticache_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/elasticache"
+	"testing"	"github.com/aws/aws-sdk-go/service/elasticache"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
-
-
 func TestAccElastiCacheClusterDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	}	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_elasticache_cluster.test"
-	dataSourceName := "data.aws_elasticache_cluster.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    
-
+	dataSourceName := "data.aws_elasticache_cluster.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -50,23 +36,15 @@ func() { acctest.PreCheck(ctx, t) },
 		},
 	})
 }
-
-
-
 func TestAccElastiCacheClusterDataSource_Engine_Redis_LogDeliveryConfigurations(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_elasticache_cluster.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    
-
+	}	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	dataSourceName := "data.aws_elasticache_cluster.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, elasticache.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elasticache.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -87,21 +65,16 @@ func() { acctest.PreCheck(ctx, t) },
 		},
 	})
 }
-
-
-
 func testAccClusterDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elasticache_cluster" "test" {
-  cluster_id      = %[1]q
-  engine          = "memcached"
-  node_type       = "cache.t3.small"
-  num_cache_nodes = 1
-  port            = 11211
-}
-
-data "aws_elasticache_cluster" "test" {
-  cluster_id = aws_elasticache_cluster.test.cluster_id
+cluster_id= %[1]q
+engine = "memcached"
+node_type = "cache.t3.small"
+num_cache_nodes = 1
+port= 11211
+}data "aws_elasticache_cluster" "test" {
+cluster_id = aws_elasticache_cluster.test.cluster_id
 }
 `, rName)
 }

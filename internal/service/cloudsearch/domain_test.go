@@ -49,8 +49,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -99,8 +99,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	testAccDomainExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "index_field.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":          "int_test",
-"type":          "int",
+"name":"int_test",
+"type":"int",
 "default_value": "2",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
@@ -112,8 +112,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -122,23 +122,23 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	testAccDomainExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "index_field.#", "3"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":          "literal_test",
-"type":          "literal",
+"name":"literal_test",
+"type":"literal",
 "default_value": "literally testing",
-"return":        "true",
-"sort":          "true",
+"return":   "true",
+"sort":"true",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":          "double_array_test",
-"type":          "double-array",
+"name":"double_array_test",
+"type":"double-array",
 "default_value": "-12.34",
-"search":        "true",
+"search":   "true",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":            "text_test",
-"type":            "text",
+"name":  "text_test",
+"type":  "text",
 "analysis_scheme": "_en_default_",
-"highlight":       "true",
+"highlight":  "true",
 	}),
 ),
 	},
@@ -164,27 +164,27 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	testAccDomainExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "index_field.#", "3"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":          "int_test",
-"type":          "int",
+"name":"int_test",
+"type":"int",
 "default_value": "2",
 "source_fields": "",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":          "int_test_2",
-"type":          "int",
+"name":"int_test_2",
+"type":"int",
 "default_value": "4",
 "source_fields": "",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":          "int_test_source",
-"type":          "int-array",
+"name":"int_test_source",
+"type":"int-array",
 "source_fields": "int_test,int_test_2",
 	}),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -193,26 +193,26 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	testAccDomainExists(ctx, resourceName, &v),
 	resource.TestCheckResourceAttr(resourceName, "index_field.#", "4"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":          "int_test",
-"type":          "int",
+"name":"int_test",
+"type":"int",
 "default_value": "2",
 "source_fields": "",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":          "int_test_2",
-"type":          "int",
+"name":"int_test_2",
+"type":"int",
 "default_value": "4",
 "source_fields": "",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":          "int_test_3",
-"type":          "int",
+"name":"int_test_3",
+"type":"int",
 "default_value": "8",
 "source_fields": "",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":          "int_test_source",
-"type":          "int-array",
+"name":"int_test_source",
+"type":"int-array",
 "source_fields": "int_test_3",
 	}),
 ),
@@ -256,8 +256,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -271,9 +271,9 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "endpoint_options.0.tls_security_policy", "Policy-Min-TLS-1-2-2019-07"),
 	resource.TestCheckResourceAttr(resourceName, "index_field.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "index_field.*", map[string]string{
-"name":            "text_array_test",
-"type":            "text-array",
-"return":          "true",
+"name":  "text_array_test",
+"type":  "text-array",
+"return":"true",
 "analysis_scheme": "_fr_default_",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "multi_az", "false"),
@@ -357,8 +357,8 @@ resource "aws_cloudsearch_domain" "test" {
   name = %[1]q
 
   index_field {
-    name          = "int_test"
-    type          = "int"
+    name= "int_test"
+    type= "int"
     default_value = "2"
   }
 
@@ -399,11 +399,11 @@ resource "aws_cloudsearch_domain" "test" {
   }
 
   index_field {
-    name            = "text_test"
-    type            = "text"
+    name  = "text_test"
+    type  = "text"
     analysis_scheme = "_en_default_"
-    highlight       = true
-    search          = true
+    highlight  = true
+    search= true
   }
 }
 `, rName)
@@ -415,14 +415,14 @@ resource "aws_cloudsearch_domain" "test" {
   name = %[1]q
 
   endpoint_options {
-    enforce_https       = true
+    enforce_https  = true
     tls_security_policy = "Policy-Min-TLS-1-0-2019-07"
   }
 
   multi_az = true
 
   scaling_parameters {
-    desired_instance_type     = "search.small"
+    desired_instance_type= "search.small"
     desired_partition_count   = 1
     desired_replication_count = 1
   }
@@ -441,14 +441,14 @@ resource "aws_cloudsearch_domain" "test" {
   name = %[1]q
 
   index_field {
-    name          = "int_test"
-    type          = "int"
+    name= "int_test"
+    type= "int"
     default_value = "2"
   }
 
   index_field {
-    name          = "int_test_2"
-    type          = "int"
+    name= "int_test_2"
+    type= "int"
     default_value = "4"
   }
 
@@ -468,20 +468,20 @@ resource "aws_cloudsearch_domain" "test" {
   name = %[1]q
 
   index_field {
-    name          = "int_test"
-    type          = "int"
+    name= "int_test"
+    type= "int"
     default_value = "2"
   }
 
   index_field {
-    name          = "int_test_2"
-    type          = "int"
+    name= "int_test_2"
+    type= "int"
     default_value = "4"
   }
 
   index_field {
-    name          = "int_test_3"
-    type          = "int"
+    name= "int_test_3"
+    type= "int"
     default_value = "8"
   }
 
@@ -501,23 +501,23 @@ resource "aws_cloudsearch_domain" "test" {
   name = %[1]q
 
   endpoint_options {
-    enforce_https       = true
+    enforce_https  = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
   }
 
   multi_az = false
 
   scaling_parameters {
-    desired_instance_type     = "search.medium"
+    desired_instance_type= "search.medium"
     desired_partition_count   = 1
     desired_replication_count = 2
   }
 
   index_field {
-    name            = "text_array_test"
-    type            = "text-array"
-    return          = true
-    search          = true
+    name  = "text_array_test"
+    type  = "text-array"
+    return= true
+    search= true
     analysis_scheme = "_fr_default_"
   }
 }

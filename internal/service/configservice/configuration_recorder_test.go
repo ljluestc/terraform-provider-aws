@@ -25,10 +25,10 @@ func testAccConfigurationRecorder_basic(t *testing.T) {
 	resourceName := "aws_config_configuration_recorder.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationRecorderDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationRecorderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationRecorderConfig_basic(rName),
@@ -54,10 +54,10 @@ func testAccConfigurationRecorder_disappears(t *testing.T) {
 	resourceName := "aws_config_configuration_recorder.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationRecorderDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationRecorderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationRecorderConfig_basic(rName),
@@ -78,10 +78,10 @@ func testAccConfigurationRecorder_allParams(t *testing.T) {
 	resourceName := "aws_config_configuration_recorder.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationRecorderDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationRecorderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationRecorderConfig_allParams(rName),
@@ -106,10 +106,10 @@ func testAccConfigurationRecorder_recordStrategy(t *testing.T) {
 	resourceName := "aws_config_configuration_recorder.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationRecorderDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationRecorderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationRecorderConfig_recordStrategy(rName),
@@ -234,7 +234,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_config_delivery_channel" "test" {
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.bucket
   depends_on     = [aws_config_configuration_recorder.test]
 }
@@ -248,9 +248,9 @@ resource "aws_config_configuration_recorder" "test" {
   role_arn = aws_iam_role.test.arn
 
   recording_group {
-    all_supported                 = false
+    all_supported        = false
     include_global_resource_types = false
-    resource_types                = ["AWS::EC2::Instance", "AWS::CloudTrail::Trail"]
+    resource_types       = ["AWS::EC2::Instance", "AWS::CloudTrail::Trail"]
   }
 }
 
@@ -303,7 +303,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_config_delivery_channel" "test" {
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.bucket
   depends_on     = [aws_config_configuration_recorder.test]
 }
@@ -317,7 +317,7 @@ resource "aws_config_configuration_recorder" "test" {
   role_arn = aws_iam_role.test.arn
 
   recording_group {
-    all_supported                 = false
+    all_supported        = false
     include_global_resource_types = false
 
     exclusion_by_resource_types {
@@ -387,7 +387,7 @@ resource "aws_s3_bucket_ownership_controls" "test" {
 }
 
 resource "aws_config_delivery_channel" "test" {
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.bucket
   depends_on     = [aws_config_configuration_recorder.test]
 }

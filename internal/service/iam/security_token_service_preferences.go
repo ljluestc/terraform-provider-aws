@@ -25,8 +25,8 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"global_endpoint_token_version": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(iam.GlobalEndpointTokenVersion_Values(), false),
 			},
 		},

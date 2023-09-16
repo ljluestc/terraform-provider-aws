@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_synthetics_group_association", name="Group Association")
+
 func ResourceGroupAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceGroupAssociationCreate,
@@ -53,6 +54,7 @@ func ResourceGroupAssociation() *schema.Resource {
 	}
 }
 
+
 func resourceGroupAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SyntheticsConn(ctx)
@@ -79,6 +81,7 @@ func resourceGroupAssociationCreate(ctx context.Context, d *schema.ResourceData,
 
 	return append(diags, resourceGroupAssociationRead(ctx, d, meta)...)
 }
+
 
 func resourceGroupAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -109,6 +112,7 @@ func resourceGroupAssociationRead(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
+
 
 func resourceGroupAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -142,12 +146,14 @@ func resourceGroupAssociationDelete(ctx context.Context, d *schema.ResourceData,
 
 const groupAssociationResourceIDSeparator = ","
 
+
 func GroupAssociationCreateResourceID(canaryArn, groupName string) string {
 	parts := []string{canaryArn, groupName}
 	id := strings.Join(parts, groupAssociationResourceIDSeparator)
 
 	return id
 }
+
 
 func GroupAssociationParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, groupAssociationResourceIDSeparator)

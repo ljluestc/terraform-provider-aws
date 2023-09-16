@@ -1,24 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package autoscaling
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package autoscalingimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// @SDKDataSource("aws_launch_configuration")
+)// @SDKDataSource("aws_launch_configuration")
 func DataSourceLaunchConfiguration() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceLaunchConfigurationRead,
-
-		Schema: map[string]*schema.Schema{
+		ReadWithoutTimeout: dataSourceLaunchConfigurationRead,		Schema: map[string]*schema.Schema{
 			"arn": {
 				Type:chema.TypeString,
 				Computed: true,
@@ -187,22 +177,13 @@ func DataSourceLaunchConfiguration() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceLaunchConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	autoscalingconn := meta.(*conns.AWSClient).AutoScalingConn(ctx)
-	ec2conn := meta.(*conns.AWSClient).EC2Conn(ctx)
-
-	name := d.Get("name").(string)
-	lc, err := FindLaunchConfigurationByName(ctx, autoscalingconn, name)
-
-	if err != nil {
+	ec2conn := meta.(*conns.AWSClient).EC2Conn(ctx)	name := d.Get("name").(string)
+	lc, err := FindLaunchConfigurationByName(ctx, autoscalingconn, name)	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading Auto Scaling Launch Configuration (%s): %s", name, err)
-	}
-
-	d.SetId(name)
-
-	d.Set("arn", lc.LaunchConfigurationARN)
+	}	d.SetId(name)	d.Set("arn", lc.LaunchConfigurationARN)
 	d.Set("associate_public_ip_address", lc.AssociatePublicIpAddress)
 	d.Set("ebs_optimized", lc.EbsOptimized)
 	if lc.InstanceMonitoring != nil {
@@ -225,17 +206,9 @@ func dataSourceLaunchConfigurationRead(ctx context.Context, d *schema.ResourceDa
 	d.Set("placement_tenancy", lc.PlacementTenancy)
 	d.Set("security_groups", aws.StringValueSlice(lc.SecurityGroups))
 	d.Set("spot_price", lc.SpotPrice)
-	d.Set("user_data", lc.UserData)
-
-	rootDeviceName, err := findImageRootDeviceName(ctx, ec2conn, d.Get("image_id").(string))
-
-	if err != nil {
+	d.Set("user_data", lc.UserData)	rootDeviceName, err := findImageRootDeviceName(ctx, ec2conn, d.Get("image_id").(string))	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading Auto Scaling Launch Configuration (%s): %s", name, err)
-	}
-
-	tfListEBSBlockDevice, tfListEphemeralBlockDevice, tfListRootBlockDevice := flattenBlockDeviceMappings(lc.BlockDeviceMappings, rootDeviceName, map[string]map[string]interface{}{})
-
-	if err := d.Set("ebs_block_device", tfListEBSBlockDevice); err != nil {
+	}	tfListEBSBlockDevice, tfListEphemeralBlockDevice, tfListRootBlockDevice := flattenBlockDeviceMappings(lc.BlockDeviceMappings, rootDeviceName, map[string]map[string]interface{}{})	if err := d.Set("ebs_block_device", tfListEBSBlockDevice); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting ebs_block_device: %s", err)
 	}
 	if err := d.Set("ephemeral_block_device", tfListEphemeralBlockDevice); err != nil {
@@ -243,7 +216,5 @@ func dataSourceLaunchConfigurationRead(ctx context.Context, d *schema.ResourceDa
 	}
 	if err := d.Set("root_block_device", tfListRootBlockDevice); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting root_block_device: %s", err)
-	}
-
-	return diags
+	}	return diags
 }

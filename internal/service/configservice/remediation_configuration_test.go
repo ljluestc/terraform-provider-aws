@@ -37,10 +37,10 @@ func testAccRemediationConfiguration_basic(t *testing.T) {
 	expectedName := fmt.Sprintf("%s-tf-acc-test-%d", prefix, rInt)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRemediationConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRemediationConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRemediationConfigurationConfig_basic(prefix, sseAlgorithm, rInt, rAttempts, rSeconds, rExecPct, rErrorPct, automatic),
@@ -56,7 +56,7 @@ func testAccRemediationConfiguration_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "execution_controls.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "execution_controls.*.ssm_controls.*", map[string]string{
 						"concurrent_execution_rate_percentage": strconv.Itoa(rExecPct),
-						"error_percentage":                     strconv.Itoa(rErrorPct),
+						"error_percentage":   strconv.Itoa(rErrorPct),
 					}),
 				),
 			},
@@ -79,10 +79,10 @@ func testAccRemediationConfiguration_basicBackwardCompatible(t *testing.T) {
 	expectedName := fmt.Sprintf("%s-tf-acc-test-%d", prefix, rInt)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRemediationConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRemediationConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRemediationConfigurationConfig_olderSchema(prefix, sseAlgorithm, rInt),
@@ -117,10 +117,10 @@ func testAccRemediationConfiguration_disappears(t *testing.T) {
 	sseAlgorithm := "AES256"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRemediationConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRemediationConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRemediationConfigurationConfig_basic(prefix, sseAlgorithm, rInt, rAttempts, rSeconds, rExecPct, rErrorPct, automatic),
@@ -151,10 +151,10 @@ func testAccRemediationConfiguration_recreates(t *testing.T) {
 	sseAlgorithm := "AES256"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRemediationConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRemediationConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRemediationConfigurationConfig_basic(originalName, sseAlgorithm, rInt, rAttempts, rSeconds, rExecPct, rErrorPct, automatic),
@@ -197,10 +197,10 @@ func testAccRemediationConfiguration_updates(t *testing.T) {
 	updatedSseAlgorithm := "aws:kms"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRemediationConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRemediationConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRemediationConfigurationConfig_basic(name, originalSseAlgorithm, rInt, rAttempts, rSeconds, rExecPct, rErrorPct, automatic),
@@ -213,7 +213,7 @@ func testAccRemediationConfiguration_updates(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "execution_controls.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "execution_controls.*.ssm_controls.*", map[string]string{
 						"concurrent_execution_rate_percentage": strconv.Itoa(rExecPct),
-						"error_percentage":                     strconv.Itoa(rErrorPct),
+						"error_percentage":   strconv.Itoa(rErrorPct),
 					}),
 				),
 			},
@@ -229,7 +229,7 @@ func testAccRemediationConfiguration_updates(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "execution_controls.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "execution_controls.*.ssm_controls.*", map[string]string{
 						"concurrent_execution_rate_percentage": strconv.Itoa(uExecPct),
-						"error_percentage":                     strconv.Itoa(uErrorPct),
+						"error_percentage":   strconv.Itoa(uErrorPct),
 					}),
 				),
 			},
@@ -250,10 +250,10 @@ func testAccRemediationConfiguration_values(t *testing.T) {
 	sseAlgorithm := "AES256"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRemediationConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRemediationConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRemediationConfigurationConfig_values(rName, sseAlgorithm, rAttempts, rSeconds, rExecPct, rErrorPct, automatic),
@@ -268,7 +268,7 @@ func testAccRemediationConfiguration_values(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "execution_controls.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "execution_controls.*.ssm_controls.*", map[string]string{
 						"concurrent_execution_rate_percentage": strconv.Itoa(rExecPct),
-						"error_percentage":                     strconv.Itoa(rErrorPct),
+						"error_percentage":   strconv.Itoa(rErrorPct),
 					}),
 				),
 			},
@@ -303,7 +303,7 @@ func testAccRemediationConfiguration_migrateParameters(t *testing.T) {
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:   "hashicorp/aws",
 						VersionConstraint: "4.66.0",
 					},
 				},
@@ -315,8 +315,8 @@ func testAccRemediationConfiguration_migrateParameters(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccRemediationConfigurationConfig_basic(prefix, sseAlgorithm, rInt, rAttempts, rSeconds, rExecPct, rErrorPct, automatic),
-				PlanOnly:                 true,
+				Config: testAccRemediationConfigurationConfig_basic(prefix, sseAlgorithm, rInt, rAttempts, rSeconds, rExecPct, rErrorPct, automatic),
+				PlanOnly:        true,
 			},
 		},
 	})
@@ -405,15 +405,15 @@ resource "aws_config_remediation_configuration" "test" {
   target_version = "1"
 
   parameter {
-    name         = "AutomationAssumeRole"
+    name= "AutomationAssumeRole"
     static_value = aws_iam_role.test.arn
   }
   parameter {
-    name           = "BucketName"
+    name  = "BucketName"
     resource_value = "RESOURCE_ID"
   }
   parameter {
-    name         = "SSEAlgorithm"
+    name= "SSEAlgorithm"
     static_value = "%[2]s"
   }
 }
@@ -426,7 +426,7 @@ resource "aws_config_config_rule" "test" {
   name = "%[1]s-tf-acc-test-%[3]d"
 
   source {
-    owner             = "AWS"
+    owner    = "AWS"
     source_identifier = "S3_BUCKET_VERSIONING_ENABLED"
   }
 
@@ -490,24 +490,24 @@ resource "aws_config_remediation_configuration" "test" {
   target_version = "1"
 
   parameter {
-    name         = "AutomationAssumeRole"
+    name= "AutomationAssumeRole"
     static_value = aws_iam_role.test.arn
   }
   parameter {
-    name           = "BucketName"
+    name  = "BucketName"
     resource_value = "RESOURCE_ID"
   }
   parameter {
-    name         = "SSEAlgorithm"
+    name= "SSEAlgorithm"
     static_value = "%[2]s"
   }
-  automatic                  = %[8]s
+  automatic= %[8]s
   maximum_automatic_attempts = %[4]d
   retry_attempt_seconds      = %[5]d
   execution_controls {
     ssm_controls {
       concurrent_execution_rate_percentage = %[6]d
-      error_percentage                     = %[7]d
+      error_percentage   = %[7]d
     }
   }
 }
@@ -520,7 +520,7 @@ resource "aws_config_config_rule" "test" {
   name = "%[1]s-tf-acc-test-%[3]d"
 
   source {
-    owner             = "AWS"
+    owner    = "AWS"
     source_identifier = "S3_BUCKET_VERSIONING_ENABLED"
   }
 
@@ -584,28 +584,28 @@ resource "aws_config_remediation_configuration" "test" {
   target_version = "1"
 
   parameter {
-    name          = "AutomationAssumeRole"
+    name = "AutomationAssumeRole"
     static_values = [aws_iam_role.test.arn, aws_iam_role.test2.arn]
   }
 
   parameter {
-    name           = "BucketName"
+    name  = "BucketName"
     resource_value = "RESOURCE_ID"
   }
 
   parameter {
-    name         = "SSEAlgorithm"
+    name= "SSEAlgorithm"
     static_value = "%[2]s"
   }
 
-  automatic                  = %[7]s
+  automatic= %[7]s
   maximum_automatic_attempts = %[3]d
   retry_attempt_seconds      = %[4]d
 
   execution_controls {
     ssm_controls {
       concurrent_execution_rate_percentage = %[5]d
-      error_percentage                     = %[6]d
+      error_percentage   = %[6]d
     }
   }
 }
@@ -618,7 +618,7 @@ resource "aws_config_config_rule" "test" {
   name = %[1]q
 
   source {
-    owner             = "AWS"
+    owner    = "AWS"
     source_identifier = "S3_BUCKET_VERSIONING_ENABLED"
   }
 

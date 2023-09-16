@@ -30,7 +30,7 @@ import (
 func ResourceFilter() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFilterCreate,
-		ReadWithoutTimeout:   resourceFilterRead,
+		ReadWithoutTimeout:resourceFilterRead,
 		UpdateWithoutTimeout: resourceFilterUpdate,
 		DeleteWithoutTimeout: resourceFilterDelete,
 
@@ -58,7 +58,7 @@ func ResourceFilter() *schema.Resource {
 				Optional:
 				ValidateFunc: validation.StringLenBetween(0, 512),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"finding_criteria": {
 				Type:eList,
@@ -131,7 +131,6 @@ func ResourceFilter() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceFilterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -161,7 +160,6 @@ func resourceFilterCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceFilterRead(ctx, d, meta)...)
 }
-
 func resourceFilterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -199,8 +197,8 @@ func resourceFilterRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "guardduty",
+		Region: meta.(*conns.AWSClient).Region,
+		Service:"guardduty",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("detector/%s/filter/%s", detectorID, name),
 	}.String()
@@ -223,7 +221,6 @@ func resourceFilterRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
-
 func resourceFilterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -251,7 +248,6 @@ func resourceFilterUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceFilterRead(ctx, d, meta)...)
 }
-
 func resourceFilterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -277,11 +273,9 @@ func resourceFilterDelete(ctx context.Context, d *schema.ResourceData, meta inte
 }
 
 const filterIDSeparator = ":"
-
 func filterCreateID(detectorID, filterName string) string {
 	return detectorID + filterIDSeparator + filterName
 }
-
 func FilterParseID(importedId string) (string, string, error) {
 	parts := strings.Split(importedId, filterIDSeparator)
 	if len(parts) != 2 {
@@ -289,7 +283,6 @@ func FilterParseID(importedId string) (string, string, error) {
 	}
 	return parts[0], parts[1], nil
 }
-
 func expandFindingCriteria(raw []interface{}) (*guardduty.FindingCriteria, error) {
 	findingCriteria := raw[0].(map[string]interface{})
 	inputFindingCriteria := findingCriteria["criterion"].(*schema.Set).List()
@@ -361,7 +354,6 @@ func expandFindingCriteria(raw []interface{}) (*guardduty.FindingCriteria, error
 
 	return &guardduty.FindingCriteria{Criterion: criteria}, nil
 }
-
 func expandConditionIntField(field, v string) (int64, error) {
 	if field == "updatedAt" {
 		date, err := time.Parse(time.RFC3339, v)
@@ -373,7 +365,6 @@ func expandConditionIntField(field, v string) (int64, error) {
 
 	return strconv.ParseInt(v, 10, 64)
 }
-
 func flattenFindingCriteria(findingCriteriaRemote *guardduty.FindingCriteria) []interface{} {
 	var flatCriteria []interface{}
 
@@ -408,7 +399,6 @@ func flattenFindingCriteria(findingCriteriaRemote *guardduty.FindingCriteria) []
 		},
 	}
 }
-
 func flattenConditionIntField(field string, v int64) string {
 	if field == "updatedAt" {
 		seconds := v / 1000

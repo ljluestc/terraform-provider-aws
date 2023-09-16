@@ -28,7 +28,7 @@ import (
 func ResourcePrivateVirtualInterface() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePrivateVirtualInterfaceCreate,
-		ReadWithoutTimeout:   resourcePrivateVirtualInterfaceRead,
+		ReadWithoutTimeout:resourcePrivateVirtualInterfaceRead,
 		UpdateWithoutTimeout: resourcePrivateVirtualInterfaceUpdate,
 		DeleteWithoutTimeout: resourcePrivateVirtualInterfaceDelete,
 		Importer: &schema.ResourceImporter{
@@ -37,7 +37,7 @@ func ResourcePrivateVirtualInterface() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"address_family": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.StringInSlice([]string{
@@ -46,82 +46,82 @@ func ResourcePrivateVirtualInterface() *schema.Resource {
 				}, false),
 			},
 			"amazon_address": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"amazon_side_asn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"aws_device": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"bgp_asn": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Required: true,
 				ForceNew: true,
 			},
 			"bgp_auth_key": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"connection_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"customer_address": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"dx_gateway_id": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				ForceNew:
 				ConflictsWith: []string{"vpn_gateway_id"},
 			},
 			"jumbo_frame_capable": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"mtu": {
-				Type:         schema.TypeInt,
-				Default:      1500,
-				Optional:     true,
+				Type:ema.TypeInt,
+				Default:
+				Optional:true,
 				ValidateFunc: validation.IntInSlice([]int{1500, 9001}),
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"sitelink_enabled": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vlan": {
-				Type:         schema.TypeInt,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeInt,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.IntBetween(1, 4094),
 			},
 			"vpn_gateway_id": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				ForceNew:
 				ConflictsWith: []string{"dx_gateway_id"},
 			},
 		},
@@ -135,7 +135,6 @@ func ResourcePrivateVirtualInterface() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourcePrivateVirtualInterfaceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -149,13 +148,13 @@ func resourcePrivateVirtualInterfaceCreate(ctx context.Context, d *schema.Resour
 	req := &directconnect.CreatePrivateVirtualInterfaceInput{
 		ConnectionId: aws.String(d.Get("connection_id").(string)),
 		NewPrivateVirtualInterface: &directconnect.NewPrivateVirtualInterface{
-			AddressFamily:        aws.String(d.Get("address_family").(string)),
-			Asn:     aws.Int64(int64(d.Get("bgp_asn").(int))),
-			EnableSiteLink:       aws.Bool(d.Get("sitelink_enabled").(bool)),
-			Mtu:     aws.Int64(int64(d.Get("mtu").(int))),
-			Tags:    getTagsIn(ctx),
+			AddressFamily:String(d.Get("address_family").(string)),
+			Asn:aws.Int64(int64(d.Get("bgp_asn").(int))),
+			EnableSiteLink:ool(d.Get("sitelink_enabled").(bool)),
+			Mtu:aws.Int64(int64(d.Get("mtu").(int))),
+			Tags: getTagsIn(ctx),
 			VirtualInterfaceName: aws.String(d.Get("name").(string)),
-			Vlan:    aws.Int64(int64(d.Get("vlan").(int))),
+			Vlan: aws.Int64(int64(d.Get("vlan").(int))),
 		},
 	}
 	if vgwOk && vgwIdRaw.(string) != "" {
@@ -188,7 +187,6 @@ func resourcePrivateVirtualInterfaceCreate(ctx context.Context, d *schema.Resour
 
 	return append(diags, resourcePrivateVirtualInterfaceRead(ctx, d, meta)...)
 }
-
 func resourcePrivateVirtualInterfaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -208,8 +206,8 @@ func resourcePrivateVirtualInterfaceRead(ctx context.Context, d *schema.Resource
 	d.Set("amazon_side_asn", strconv.FormatInt(aws.Int64Value(vif.AmazonSideAsn), 10))
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "directconnect",
+		Region: meta.(*conns.AWSClient).Region,
+		Service:"directconnect",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("dxvif/%s", d.Id()),
 	}.String()
@@ -229,7 +227,6 @@ func resourcePrivateVirtualInterfaceRead(ctx context.Context, d *schema.Resource
 
 	return diags
 }
-
 func resourcePrivateVirtualInterfaceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -244,11 +241,9 @@ func resourcePrivateVirtualInterfaceUpdate(ctx context.Context, d *schema.Resour
 
 	return append(diags, resourcePrivateVirtualInterfaceRead(ctx, d, meta)...)
 }
-
 func resourcePrivateVirtualInterfaceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	return virtualInterfaceDelete(ctx, d, meta)
 }
-
 func resourcePrivateVirtualInterfaceImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
@@ -266,7 +261,6 @@ func resourcePrivateVirtualInterfaceImport(ctx context.Context, d *schema.Resour
 
 	return []*schema.ResourceData{d}, nil
 }
-
 func privateVirtualInterfaceWaitUntilAvailable(ctx context.Context, conn *directconnect.DirectConnect, vifId string, timeout time.Duration) error {
 	return virtualInterfaceWaitUntilAvailable(ctx, conn,
 		vifId,

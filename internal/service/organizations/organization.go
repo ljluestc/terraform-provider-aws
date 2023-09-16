@@ -25,6 +25,7 @@ tfslices "github.com/hashicorp/terraform-provider-aws/internal/slices"
 )
 
 // @SDKResource("aws_organizations_organization")
+
 func ResourceOrganization() *schema.Resource {
 return &schema.Resource{
 CreateWithoutTimeout: resourceOrganizationCreate,
@@ -37,7 +38,8 @@ StateContext: resourceOrganizationImport,
 },
 
 CustomizeDiff: customdiff.Sequence(
-customdiff.ForceNewIfChange("feature_set", func(_ context.Context, old, new, meta interface{}) bool {
+customdiff.ForceNewIfChange("feature_set", 
+func(_ context.Context, old, new, meta interface{}) bool {
 // Only changes from ALL to CONSOLIDATED_BILLING for feature_set should force a new resource.
 return old.(string) == organizations.OrganizationFeatureSetAll && new.(string) == organizations.OrganizationFeatureSetConsolidatedBilling
 }),
@@ -85,12 +87,12 @@ Elem:     &schema.Schema{Type: schema.TypeString},
 Type:     schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
-Type:         schema.TypeString,
+Type:schema.TypeString,
 ValidateFunc: validation.StringInSlice(organizations.PolicyType_Values(), false),
 },
 },
 "feature_set": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      organizations.OrganizationFeatureSetAll,
 ValidateFunc: validation.StringInSlice(organizations.OrganizationFeatureSet_Values(), true),
@@ -175,6 +177,7 @@ Computed: true,
 }
 }
 
+
 func resourceOrganizationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -233,6 +236,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for policy type (%s) in Organization
 return append(diags, resourceOrganizationRead(ctx, d, meta)...)
 }
 
+
 func resourceOrganizationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -256,7 +260,8 @@ return sdkdiag.AppendErrorf(diags, "reading Organization (%s) accounts: %s", d.I
 }
 
 managementAccountID := aws.StringValue(org.MasterAccountId)
-nonManagementAccounts := tfslices.Filter(accounts, func(v *organizations.Account) bool {
+nonManagementAccounts := tfslices.Filter(accounts, 
+func(v *organizations.Account) bool {
 return aws.StringValue(v.Id) != managementAccountID
 })
 
@@ -306,6 +311,7 @@ d.Set("enabled_policy_types", enabledPolicyTypes)
 
 return diags
 }
+
 
 func resourceOrganizationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
@@ -381,6 +387,7 @@ return sdkdiag.AppendErrorf(diags, "enabling all features in Organization (%s): 
 return append(diags, resourceOrganizationRead(ctx, d, meta)...)
 }
 
+
 func resourceOrganizationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 var diags diag.Diagnostics
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -394,6 +401,7 @@ return sdkdiag.AppendErrorf(diags, "deleting Organization (%s): %s", d.Id(), err
 
 return diags
 }
+
 
 func resourceOrganizationImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -413,6 +421,7 @@ return []*schema.ResourceData{d}, nil
 }
 
 // FindOrganization is called from the acctest package and so can't be made private and exported as "test-only".
+
 func FindOrganization(ctx context.Context, conn *organizations.Organizations) (*organizations.Organization, error) {
 input := &organizations.DescribeOrganizationInput{}
 
@@ -436,11 +445,13 @@ return nil, tfresource.NewEmptyResultError(input)
 return output.Organization, nil
 }
 
+
 func findAccounts(ctx context.Context, conn *organizations.Organizations) ([]*organizations.Account, error) {
 input := &organizations.ListAccountsInput{}
 var output []*organizations.Account
 
-err := conn.ListAccountsPagesWithContext(ctx, input, func(page *organizations.ListAccountsOutput, lastPage bool) bool {
+err := conn.ListAccountsPagesWithContext(ctx, input, 
+func(page *organizations.ListAccountsOutput, lastPage bool) bool {
 if page == nil {
 return !lastPage
 }
@@ -458,6 +469,7 @@ return output, nil
 }
 
 // FindEnabledServicePrincipalNames is called from the service/ram package.
+
 func FindEnabledServicePrincipalNames(ctx context.Context, conn *organizations.Organizations) ([]string, error) {
 output, err := findEnabledServicePrincipals(ctx, conn)
 
@@ -465,16 +477,19 @@ if err != nil {
 return nil, err
 }
 
-return tfslices.ApplyToAll(output, func(v *organizations.EnabledServicePrincipal) string {
+return tfslices.ApplyToAll(output, 
+func(v *organizations.EnabledServicePrincipal) string {
 return aws.StringValue(v.ServicePrincipal)
 }), nil
 }
+
 
 func findEnabledServicePrincipals(ctx context.Context, conn *organizations.Organizations) ([]*organizations.EnabledServicePrincipal, error) {
 input := &organizations.ListAWSServiceAccessForOrganizationInput{}
 var output []*organizations.EnabledServicePrincipal
 
-err := conn.ListAWSServiceAccessForOrganizationPagesWithContext(ctx, input, func(page *organizations.ListAWSServiceAccessForOrganizationOutput, lastPage bool) bool {
+err := conn.ListAWSServiceAccessForOrganizationPagesWithContext(ctx, input, 
+func(page *organizations.ListAWSServiceAccessForOrganizationOutput, lastPage bool) bool {
 if page == nil {
 return !lastPage
 }
@@ -491,11 +506,13 @@ return nil, err
 return output, nil
 }
 
+
 func findRoots(ctx context.Context, conn *organizations.Organizations) ([]*organizations.Root, error) {
 input := &organizations.ListRootsInput{}
 var output []*organizations.Root
 
-err := conn.ListRootsPagesWithContext(ctx, input, func(page *organizations.ListRootsOutput, lastPage bool) bool {
+err := conn.ListRootsPagesWithContext(ctx, input, 
+func(page *organizations.ListRootsOutput, lastPage bool) bool {
 if page == nil {
 return !lastPage
 }
@@ -512,6 +529,7 @@ return nil, err
 return output, nil
 }
 
+
 func findDefaultRoot(ctx context.Context, conn *organizations.Organizations) (*organizations.Root, error) {
 output, err := findRoots(ctx, conn)
 
@@ -525,6 +543,7 @@ return nil, tfresource.NewEmptyResultError(nil)
 
 return output[0], nil
 }
+
 
 func flattenAccounts(accounts []*organizations.Account) []map[string]interface{} {
 if len(accounts) == 0 {
@@ -543,6 +562,7 @@ result = append(result, map[string]interface{}{
 return result
 }
 
+
 func flattenRoots(roots []*organizations.Root) []map[string]interface{} {
 if len(roots) == 0 {
 return nil
@@ -550,14 +570,15 @@ return nil
 var result []map[string]interface{}
 for _, r := range roots {
 result = append(result, map[string]interface{}{
-"id":           aws.StringValue(r.Id),
-"name":         aws.StringValue(r.Name),
-"arn":          aws.StringValue(r.Arn),
+"id":  aws.StringValue(r.Id),
+"name":aws.StringValue(r.Name),
+"arn": aws.StringValue(r.Arn),
 "policy_types": flattenRootPolicyTypeSummaries(r.PolicyTypes),
 })
 }
 return result
 }
+
 
 func flattenRootPolicyTypeSummaries(summaries []*organizations.PolicyTypeSummary) []map[string]interface{} {
 if len(summaries) == 0 {
@@ -573,8 +594,10 @@ result = append(result, map[string]interface{}{
 return result
 }
 
+
 func statusDefaultRootPolicyType(ctx context.Context, conn *organizations.Organizations, policyType string) retry.StateRefreshFunc {
-return func() (interface{}, string, error) {
+return 
+func() (interface{}, string, error) {
 defaultRoot, err := findDefaultRoot(ctx, conn)
 
 if err != nil {
@@ -593,6 +616,7 @@ return &organizations.PolicyTypeSummary{}, policyTypeStatusDisabled, nil
 
 const policyTypeStatusDisabled = "DISABLED"
 
+
 func waitDefaultRootPolicyTypeDisabled(ctx context.Context, conn *organizations.Organizations, policyType string) error {
 stateConf := &retry.StateChangeConf{
 Pending: []string{organizations.PolicyTypeStatusEnabled, organizations.PolicyTypeStatusPendingDisable},
@@ -605,6 +629,7 @@ _, err := stateConf.WaitForStateContext(ctx)
 
 return err
 }
+
 
 func waitDefaultRootPolicyTypeEnabled(ctx context.Context, conn *organizations.Organizations, policyType string) error {
 stateConf := &retry.StateChangeConf{
@@ -620,6 +645,7 @@ return err
 }
 
 // DisableServicePrincipal is called from the service/ram package.
+
 func DisableServicePrincipal(ctx context.Context, conn *organizations.Organizations, servicePrincipal string) error {
 input := &organizations.DisableAWSServiceAccessInput{
 ServicePrincipal: aws.String(servicePrincipal),

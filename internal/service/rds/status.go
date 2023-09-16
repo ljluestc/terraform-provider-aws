@@ -1,105 +1,78 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package rdsimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-const (
+)const (
 	// ProxyEndpoint NotFound
-	proxyEndpointStatusNotFound = "NotFound"
-
-	// ProxyEndpoint Unknown
+	proxyEndpointStatusNotFound = "NotFound"	// ProxyEndpoint Unknown
 	proxyEndpointStatusUnknown = "Unknown"
 )
-
-funcurn func() (interface{}, string, error) {
-output, func
+funcurn 
+func() (interface{}, string, error) {
+output, 
+func
 if tfresource.NotFound(err) {
 	return nil, "", nil
-}
-
-if err != nil {
+}if err != nil {
 	return nil, "", err
-}
-
-return output, aws.StringValue(output.Status), nil
+}return output, aws.StringValue(output.Status), nil
 	}
-}
-
-// statusDBProxyEndpoint fetches the ProxyEndpoint and its Status
+}// statusDBProxyEndpoint fetches the ProxyEndpoint and its Status
 func statusDBProxyEndpoint(ctx context.Context, conn *rds.RDS, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 funcrr != nil {
-	return func
-
-if output == nil {
+	return 
+funcif output == nil {
 	return nil, proxyEndpointStatusNotFound, nil
-}
-
-return output, aws.StringValue(output.Status), nil
+}return output, aws.StringValue(output.Status), nil
 	}
 }
-
 func statusDBClusterRole(ctx context.Context, conn *rds.RDS, dbClusterID, roleARN string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+	return 
+func() (interface{}, string, error) {
 output, err := FindDBClusterRoleByDBClusterIDAndRoleARN(ctx, conn, dbClusterID, roleARN)
-
 funcurn nil, "", nil
-}func
+}
+func
 if err != nil {
 	return nil, "", err
-}
-
-return output, aws.StringValue(output.Status), nil
+}return output, aws.StringValue(output.Status), nil
 	}
 }
-
 func statusDBProxy(ctx context.Context, conn *rds.RDS, name string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-output, err := FindDBProxyByName(ctx, conn, name)
-
-if tfresource.NotFound(err) {
+	return 
+func() (interface{}, string, error) {
+output, err := FindDBProxyByName(ctx, conn, name)if tfresource.NotFound(err) {
 	return nil, "", nil
 func
-if err !funcurn nil, "", err
-}
-
-return output, aws.StringValue(output.Status), nil
+if err !
+funcurn nil, "", err
+}return output, aws.StringValue(output.Status), nil
 	}
 }
-
 func statusReservedInstance(ctx context.Context, conn *rds.RDS, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-output, err := FindReservedDBInstanceByID(ctx, conn, id)
-
-if tfresource.NotFound(err) {
+	return 
+func() (interface{}, string, error) {
+output, err := FindReservedDBInstanceByID(ctx, conn, id)if tfresource.NotFound(err) {
 	return nil, "", nil
 }
-
 funcurn nil, "", err
-}func
+}
+func
 return output, aws.StringValue(output.State), nil
 	}
 }
-
 func statusDBSnapshot(ctx context.Context, conn *rds.RDS, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
-output, err := FindDBSnapshotByID(ctx, conn, id)
-
-if tfresource.NotFound(err) {
+	return 
+func() (interface{}, string, error) {
+output, err := FindDBSnapshotByID(ctx, conn, id)if tfresource.NotFound(err) {
 	return nil, "", nil
-}
-
-if err != nil {
+}if err != nil {
 	return nil, "", err
 func
-return ofunc
+return o
+func
 }

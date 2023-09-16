@@ -129,7 +129,7 @@ func ResourceJobTemplate() *schema.Resource {
 													},
 												},
 												"persistent_app_ui": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ForceNew:     true,
 													ValidateFunc: validation.StringInSlice(emrcontainers.PersistentAppUI_Values(), false),
@@ -156,7 +156,7 @@ func ResourceJobTemplate() *schema.Resource {
 							},
 						},
 						"execution_role_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: verify.ValidARN,
@@ -169,7 +169,7 @@ func ResourceJobTemplate() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"spark_sql_job_driver": {
-										Type:         schema.TypeList,
+										Type:schema.TypeList,
 										MaxItems:     1,
 										Optional:     true,
 										ForceNew:     true,
@@ -190,7 +190,7 @@ func ResourceJobTemplate() *schema.Resource {
 										},
 									},
 									"spark_submit_job_driver": {
-										Type:         schema.TypeList,
+										Type:schema.TypeList,
 										MaxItems:     1,
 										Optional:     true,
 										ForceNew:     true,
@@ -234,7 +234,7 @@ func ResourceJobTemplate() *schema.Resource {
 				},
 			},
 			"kms_key_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,

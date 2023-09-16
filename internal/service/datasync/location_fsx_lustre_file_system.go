@@ -62,7 +62,7 @@ func ResourceLocationFSxLustreFileSystem() *schema.Resource {
 				Computed: true,
 			},
 			"fsx_filesystem_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -74,12 +74,12 @@ func ResourceLocationFSxLustreFileSystem() *schema.Resource {
 				MinItems: 1,
 				MaxItems: 5,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
 			"subdirectory": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -105,7 +105,7 @@ func resourceLocationFSxLustreFileSystemCreate(ctx context.Context, d *schema.Re
 	input := &datasync.CreateLocationFsxLustreInput{
 		FsxFilesystemArn:  aws.String(fsxArn),
 		SecurityGroupArns: flex.ExpandStringSet(d.Get("security_group_arns").(*schema.Set)),
-		Tags:              getTagsIn(ctx),
+		Tags:     getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("subdirectory"); ok {

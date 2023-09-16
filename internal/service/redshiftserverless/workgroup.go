@@ -46,16 +46,16 @@ func ResourceWorkgroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"base_capacity": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional: true,
 				Computed: true,
 			},
 			"config_parameter": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
@@ -84,60 +84,60 @@ func ResourceWorkgroup() *schema.Resource {
 							Required: true,
 						},
 						"parameter_value": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"endpoint": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"address": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"port": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Computed: true,
 						},
 						"vpc_endpoint": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"network_interface": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Computed: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"availability_zone": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 												"network_interface_id": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 												"private_ip_address": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 												"subnet_id": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Computed: true,
 												},
 											},
 										},
 									},
 									"vpc_endpoint_id": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 									"vpc_id": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Computed: true,
 									},
 								},
@@ -147,20 +147,20 @@ func ResourceWorkgroup() *schema.Resource {
 				},
 			},
 			"enhanced_vpc_routing": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 			"namespace_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"publicly_accessible": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 			"security_group_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
@@ -168,7 +168,7 @@ func ResourceWorkgroup() *schema.Resource {
 				},
 			},
 			"subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
@@ -176,15 +176,15 @@ func ResourceWorkgroup() *schema.Resource {
 				},
 			},
 			"workgroup_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"workgroup_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -199,7 +199,7 @@ func resourceWorkgroupCreate(ctx context.Context, d *schema.ResourceData, meta i
 	name := d.Get("workgroup_name").(string)
 	input := redshiftserverless.CreateWorkgroupInput{
 		NamespaceName: aws.String(d.Get("namespace_name").(string)),
-		Tags:          getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 		WorkgroupName: aws.String(name),
 	}
 
@@ -298,7 +298,7 @@ func resourceWorkgroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	if d.HasChange("config_parameter") {
 		input := &redshiftserverless.UpdateWorkgroupInput{
 			ConfigParameters: expandConfigParameters(d.Get("config_parameter").(*schema.Set).List()),
-			WorkgroupName:    aws.String(d.Id()),
+			WorkgroupName:aws.String(d.Id()),
 		}
 
 		if err := updateWorkgroup(ctx, conn, input, d.Timeout(schema.TimeoutUpdate)); err != nil {
@@ -309,7 +309,7 @@ func resourceWorkgroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	if d.HasChange("enhanced_vpc_routing") {
 		input := &redshiftserverless.UpdateWorkgroupInput{
 			EnhancedVpcRouting: aws.Bool(d.Get("enhanced_vpc_routing").(bool)),
-			WorkgroupName:      aws.String(d.Id()),
+			WorkgroupName: aws.String(d.Id()),
 		}
 
 		if err := updateWorkgroup(ctx, conn, input, d.Timeout(schema.TimeoutUpdate)); err != nil {
@@ -320,7 +320,7 @@ func resourceWorkgroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	if d.HasChange("publicly_accessible") {
 		input := &redshiftserverless.UpdateWorkgroupInput{
 			PubliclyAccessible: aws.Bool(d.Get("publicly_accessible").(bool)),
-			WorkgroupName:      aws.String(d.Id()),
+			WorkgroupName: aws.String(d.Id()),
 		}
 
 		if err := updateWorkgroup(ctx, conn, input, d.Timeout(schema.TimeoutUpdate)); err != nil {
@@ -331,7 +331,7 @@ func resourceWorkgroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	if d.HasChange("security_group_ids") {
 		input := &redshiftserverless.UpdateWorkgroupInput{
 			SecurityGroupIds: flex.ExpandStringSet(d.Get("security_group_ids").(*schema.Set)),
-			WorkgroupName:    aws.String(d.Id()),
+			WorkgroupName:aws.String(d.Id()),
 		}
 
 		if err := updateWorkgroup(ctx, conn, input, d.Timeout(schema.TimeoutUpdate)); err != nil {
@@ -341,7 +341,7 @@ func resourceWorkgroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 	if d.HasChange("subnet_ids") {
 		input := &redshiftserverless.UpdateWorkgroupInput{
-			SubnetIds:     flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+			SubnetIds:flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
 			WorkgroupName: aws.String(d.Id()),
 		}
 

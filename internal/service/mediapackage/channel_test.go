@@ -32,9 +32,9 @@ func TestAccMediaPackageChannel_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(mediapackage.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
+		ErrorCheck:      acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccChannelConfig_basic(rName),
@@ -69,9 +69,9 @@ func TestAccMediaPackageChannel_description(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(mediapackage.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
+		ErrorCheck:      acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccChannelConfig_description(rName, "description1"),
@@ -107,9 +107,9 @@ func TestAccMediaPackageChannel_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(mediapackage.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
+		ErrorCheck:      acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccChannelConfig_tags(rName, "Environment", "test"),
@@ -156,9 +156,9 @@ func TestAccMediaPackageChannel_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(mediapackage.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
+		ErrorCheck:      acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccChannelConfig_basic(rName),

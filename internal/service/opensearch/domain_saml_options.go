@@ -65,7 +65,7 @@ func ResourceDomainSAMLOptions() *schema.Resource {
 										Required: true,
 									},
 									"metadata_content": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringIsNotEmpty,
 									},
@@ -73,12 +73,12 @@ func ResourceDomainSAMLOptions() *schema.Resource {
 							},
 						},
 						"master_backend_role": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringIsNotEmpty,
 						},
 						"master_user_name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Sensitive:    true,
 							ValidateFunc: validation.StringIsNotEmpty,
@@ -89,15 +89,15 @@ func ResourceDomainSAMLOptions() *schema.Resource {
 						},
 						"session_timeout_minutes": {
 							Type:t,
-							Optional:         true,
-							Default:          60,
+							Optional:true,
+							Default: 60,
 							ValidateFunc:     validation.IntBetween(1, 1440),
 							DiffSuppressFunc: domainSamlOptionsDiffSupress,
 						},
 						"subject_key": {
 							Type:ring,
-							Optional:         true,
-							Default:          "",
+							Optional:true,
+							Default: "",
 							DiffSuppressFunc: domainSamlOptionsDiffSupress,
 						},
 					},
@@ -114,7 +114,6 @@ func domainSamlOptionsDiffSupress(k, old, new string, d *schema.ResourceData) bo
 	}
 	return false
 }
-
 func resourceDomainSAMLOptionsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
@@ -141,7 +140,6 @@ func resourceDomainSAMLOptionsRead(ctx context.Context, d *schema.ResourceData, 
 
 	return diags
 }
-
 func resourceDomainSAMLOptionsPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)
@@ -169,7 +167,6 @@ func resourceDomainSAMLOptionsPut(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceDomainSAMLOptionsRead(ctx, d, meta)...)
 }
-
 func resourceDomainSAMLOptionsDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpenSearchConn(ctx)

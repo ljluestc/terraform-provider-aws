@@ -25,7 +25,7 @@ func TestAccRedshiftServerlessNamespace_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
@@ -43,8 +43,8 @@ func TestAccRedshiftServerlessNamespace_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -71,7 +71,7 @@ func TestAccRedshiftServerlessNamespace_defaultIAMRole(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
@@ -85,8 +85,8 @@ func TestAccRedshiftServerlessNamespace_defaultIAMRole(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -99,7 +99,7 @@ func TestAccRedshiftServerlessNamespace_user(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
@@ -111,8 +111,8 @@ func TestAccRedshiftServerlessNamespace_user(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -132,7 +132,7 @@ func TestAccRedshiftServerlessNamespace_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
@@ -146,8 +146,8 @@ func TestAccRedshiftServerlessNamespace_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -176,7 +176,7 @@ func TestAccRedshiftServerlessNamespace_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
@@ -199,7 +199,7 @@ func TestAccRedshiftServerlessNamespace_withWorkgroup(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckNamespaceDestroy(ctx),
@@ -272,20 +272,20 @@ resource "aws_iam_role" "test" {
 
   assume_role_policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
+"Version": "2012-10-17",
+"Statement": [
+   {
+  "Effect": "Allow",
+  "Principal": {
    "Service": [
-       "redshift-serverless.amazonaws.com",
-       "redshift.amazonaws.com",
-       "sagemaker.amazonaws.com"
+  "redshift-serverless.amazonaws.com",
+  "redshift.amazonaws.com",
+  "sagemaker.amazonaws.com"
    ]
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
+  },
+  "Action": "sts:AssumeRole"
+   }
+]
 }
 EOF
 }
@@ -295,7 +295,7 @@ data "aws_partition" "current" {}
 resource "aws_iam_role_policy_attachment" "test" {
   count = %[2]d
 
-  role       = aws_iam_role.test[count.index].name
+  role  = aws_iam_role.test[count.index].name
   policy_arn = "arn:${data.aws_partition.current.partition}:iam::aws:policy/AmazonRedshiftAllCommandsFullAccess"
 }
 
@@ -313,7 +313,7 @@ resource "aws_redshiftserverless_namespace" "test" {
 func testAccNamespaceConfig_user(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
-  namespace_name      = %[1]q
+  namespace_name = %[1]q
   admin_user_password = "Password123"
 }
 `, rName)
@@ -323,7 +323,7 @@ func testAccNamespaceConfig_updated(rName string) string {
 	return acctest.ConfigCompose(testAccNamespaceConfig_baseIAMRole(rName, 2), fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
-  iam_roles      = aws_iam_role.test[*].arn
+  iam_roles = aws_iam_role.test[*].arn
 }
 `, rName))
 }
@@ -334,7 +334,7 @@ resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -346,8 +346,8 @@ resource "aws_redshiftserverless_namespace" "test" {
   namespace_name = %[1]q
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -356,9 +356,9 @@ resource "aws_redshiftserverless_namespace" "test" {
 func testAccNamespaceConfig_defaultIAMRole(rName string) string {
 	return acctest.ConfigCompose(testAccNamespaceConfig_baseIAMRole(rName, 1), fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
-  namespace_name       = %[1]q
+  namespace_name  = %[1]q
   default_iam_role_arn = aws_iam_role.test[0].arn
-  iam_roles            = aws_iam_role.test[*].arn
+  iam_roles  = aws_iam_role.test[*].arn
 }
 `, rName))
 }
@@ -366,9 +366,9 @@ resource "aws_redshiftserverless_namespace" "test" {
 func testAccNamespaceConfig_withWorkgroup(rName string) string {
 	return acctest.ConfigCompose(testAccNamespaceConfig_baseIAMRole(rName, 2), fmt.Sprintf(`
 resource "aws_redshiftserverless_namespace" "test" {
-  namespace_name       = %[1]q
+  namespace_name  = %[1]q
   default_iam_role_arn = aws_iam_role.test[0].arn
-  iam_roles            = aws_iam_role.test[*].arn
+  iam_roles  = aws_iam_role.test[*].arn
 }
 
 resource "aws_redshiftserverless_workgroup" "test" {

@@ -17,14 +17,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfses "github.com/hashicorp/terraform-provider-aws/internal/service/ses"
 )
-
 func TestAccSESIdentityPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	domain := acctest.RandomDomainName()
 	resourceName := "aws_ses_identity_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckIdentityPolicyDestroy(ctx),
@@ -36,14 +36,13 @@ func TestAccSESIdentityPolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccSESIdentityPolicy_Identity_email(t *testing.T) {
 	ctx := acctest.Context(t)
 	emailPrefix := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -51,7 +50,8 @@ func TestAccSESIdentityPolicy_Identity_email(t *testing.T) {
 	resourceName := "aws_ses_identity_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckIdentityPolicyDestroy(ctx),
@@ -63,21 +63,21 @@ func TestAccSESIdentityPolicy_Identity_email(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccSESIdentityPolicy_policy(t *testing.T) {
 	ctx := acctest.Context(t)
 	domain := acctest.RandomDomainName()
 	resourceName := "aws_ses_identity_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckIdentityPolicyDestroy(ctx),
@@ -95,14 +95,13 @@ func TestAccSESIdentityPolicy_policy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccSESIdentityPolicy_ignoreEquivalent(t *testing.T) {
 	ctx := acctest.Context(t)
 	domain := acctest.RandomDomainName()
@@ -110,7 +109,8 @@ func TestAccSESIdentityPolicy_ignoreEquivalent(t *testing.T) {
 	resourceName := "aws_ses_identity_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, ses.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckIdentityPolicyDestroy(ctx),
@@ -122,15 +122,15 @@ func TestAccSESIdentityPolicy_ignoreEquivalent(t *testing.T) {
 				),
 			},
 			{
-				Config:   testAccIdentityPolicyConfig_equivalent2(rName, domain),
+				Config:testAccIdentityPolicyConfig_equivalent2(rName, domain),
 				PlanOnly: true,
 			},
 		},
 	})
 }
-
 func testAccCheckIdentityPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SESConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -144,7 +144,7 @@ func testAccCheckIdentityPolicyDestroy(ctx context.Context) resource.TestCheckFu
 			}
 
 			input := &ses.GetIdentityPoliciesInput{
-				Identity:    aws.String(identityARN),
+				Identity: aws.String(identityARN),
 				PolicyNames: aws.StringSlice([]string{policyName}),
 			}
 
@@ -162,9 +162,9 @@ func testAccCheckIdentityPolicyDestroy(ctx context.Context) resource.TestCheckFu
 		return nil
 	}
 }
-
 func testAccCheckIdentityPolicyExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("SES Identity Policy not found: %s", resourceName)
@@ -182,7 +182,7 @@ func testAccCheckIdentityPolicyExists(ctx context.Context, resourceName string) 
 		}
 
 		input := &ses.GetIdentityPoliciesInput{
-			Identity:    aws.String(identityARN),
+			Identity: aws.String(identityARN),
 			PolicyNames: aws.StringSlice([]string{policyName}),
 		}
 
@@ -199,18 +199,17 @@ func testAccCheckIdentityPolicyExists(ctx context.Context, resourceName string) 
 		return nil
 	}
 }
-
 func testAccIdentityPolicyConfig_domain(domain string) string {
 	return fmt.Sprintf(`
 data "aws_iam_policy_document" "test" {
   statement {
-    actions   = ["SES:SendEmail", "SES:SendRawEmail"]
-    resources = [aws_ses_domain_identity.test.arn]
+ actions= ["SES:SendEmail", "SES:SendRawEmail"]
+ resources = [aws_ses_domain_identity.test.arn]
 
-    principals {
-      identifiers = ["*"]
-      type        = "AWS"
-    }
+ principals {
+identifiers = ["*"]
+type  = "AWS"
+ }
   }
 }
 
@@ -220,23 +219,22 @@ resource "aws_ses_domain_identity" "test" {
 
 resource "aws_ses_identity_policy" "test" {
   identity = aws_ses_domain_identity.test.arn
-  name     = "test"
-  policy   = data.aws_iam_policy_document.test.json
+  name= "test"
+  policy= data.aws_iam_policy_document.test.json
 }
 `, domain)
 }
-
 func testAccIdentityPolicyConfig_email(email string) string {
 	return fmt.Sprintf(`
 data "aws_iam_policy_document" "test" {
   statement {
-    actions   = ["SES:SendEmail", "SES:SendRawEmail"]
-    resources = [aws_ses_email_identity.test.arn]
+ actions= ["SES:SendEmail", "SES:SendRawEmail"]
+ resources = [aws_ses_email_identity.test.arn]
 
-    principals {
-      identifiers = ["*"]
-      type        = "AWS"
-    }
+ principals {
+identifiers = ["*"]
+type  = "AWS"
+ }
   }
 }
 
@@ -246,23 +244,22 @@ resource "aws_ses_email_identity" "test" {
 
 resource "aws_ses_identity_policy" "test" {
   identity = aws_ses_email_identity.test.email
-  name     = "test"
-  policy   = data.aws_iam_policy_document.test.json
+  name= "test"
+  policy= data.aws_iam_policy_document.test.json
 }
 `, email)
 }
-
 func testAccIdentityPolicyConfig_1(domain string) string {
 	return fmt.Sprintf(`
 data "aws_iam_policy_document" "test" {
   statement {
-    actions   = ["SES:SendEmail", "SES:SendRawEmail"]
-    resources = [aws_ses_domain_identity.test.arn]
+ actions= ["SES:SendEmail", "SES:SendRawEmail"]
+ resources = [aws_ses_domain_identity.test.arn]
 
-    principals {
-      identifiers = ["*"]
-      type        = "AWS"
-    }
+ principals {
+identifiers = ["*"]
+type  = "AWS"
+ }
   }
 }
 
@@ -272,12 +269,11 @@ resource "aws_ses_domain_identity" "test" {
 
 resource "aws_ses_identity_policy" "test" {
   identity = aws_ses_domain_identity.test.arn
-  name     = "test"
-  policy   = data.aws_iam_policy_document.test.json
+  name= "test"
+  policy= data.aws_iam_policy_document.test.json
 }
 `, domain)
 }
-
 func testAccIdentityPolicyConfig_2(domain string) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
@@ -286,13 +282,13 @@ data "aws_partition" "current" {}
 
 data "aws_iam_policy_document" "test" {
   statement {
-    actions   = ["SES:SendEmail", "SES:SendRawEmail"]
-    resources = [aws_ses_domain_identity.test.arn]
+ actions= ["SES:SendEmail", "SES:SendRawEmail"]
+ resources = [aws_ses_domain_identity.test.arn]
 
-    principals {
-      identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
-      type        = "AWS"
-    }
+ principals {
+identifiers = ["arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"]
+type  = "AWS"
+ }
   }
 }
 
@@ -302,12 +298,11 @@ resource "aws_ses_domain_identity" "test" {
 
 resource "aws_ses_identity_policy" "test" {
   identity = aws_ses_domain_identity.test.arn
-  name     = "test"
-  policy   = data.aws_iam_policy_document.test.json
+  name= "test"
+  policy= data.aws_iam_policy_document.test.json
 }
 `, domain)
 }
-
 func testAccIdentityPolicyConfig_equivalent(rName, domain string) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
@@ -318,28 +313,27 @@ resource "aws_ses_domain_identity" "test" {
 
 resource "aws_ses_identity_policy" "test" {
   identity = aws_ses_domain_identity.test.arn
-  name     = %[2]q
+  name= %[2]q
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Id      = %[2]q
-    Statement = [{
-      Sid    = %[2]q
-      Effect = "Allow"
-      Principal = {
-        AWS = [data.aws_caller_identity.current.account_id]
-      }
-      Action = [
-        "SES:SendEmail",
-        "SES:SendRawEmail",
-      ]
-      Resource = [aws_ses_domain_identity.test.arn]
-    }]
+ Version = "2012-10-17"
+ Id= %[2]q
+ Statement = [{
+Sid = %[2]q
+Effect = "Allow"
+Principal = {
+  AWS = [data.aws_caller_identity.current.account_id]
+}
+Action = [
+  "SES:SendEmail",
+  "SES:SendRawEmail",
+]
+Resource = [aws_ses_domain_identity.test.arn]
+ }]
   })
 }
 `, domain, rName)
 }
-
 func testAccIdentityPolicyConfig_equivalent2(rName, domain string) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
@@ -350,23 +344,23 @@ resource "aws_ses_domain_identity" "test" {
 
 resource "aws_ses_identity_policy" "test" {
   identity = aws_ses_domain_identity.test.arn
-  name     = %[2]q
+  name= %[2]q
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Id      = %[2]q
-    Statement = [{
-      Sid    = %[2]q
-      Effect = "Allow"
-      Principal = {
-        AWS = data.aws_caller_identity.current.account_id
-      }
-      Action = [
-        "SES:SendRawEmail",
-        "SES:SendEmail",
-      ]
-      Resource = aws_ses_domain_identity.test.arn
-    }]
+ Version = "2012-10-17"
+ Id= %[2]q
+ Statement = [{
+Sid = %[2]q
+Effect = "Allow"
+Principal = {
+  AWS = data.aws_caller_identity.current.account_id
+}
+Action = [
+  "SES:SendRawEmail",
+  "SES:SendEmail",
+]
+Resource = aws_ses_domain_identity.test.arn
+ }]
   })
 }
 `, domain, rName)

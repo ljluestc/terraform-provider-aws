@@ -35,8 +35,8 @@ func ResourceResourcePolicy() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"policy": {
 				Type:schema.TypeString,
-				Required:         true,
-				ValidateFunc:     validation.StringIsJSON,
+				Required:true,
+				ValidateFunc:validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
@@ -44,9 +44,9 @@ func ResourceResourcePolicy() *schema.Resource {
 				},
 			},
 			"resource_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 		},
@@ -65,7 +65,7 @@ func resourceResourcePolicyPut(ctx context.Context, d *schema.ResourceData, meta
 
 	input := &networkfirewall.PutResourcePolicyInput{
 		ResourceArn: aws.String(resourceArn),
-		Policy:      aws.String(policy),
+		Policy: aws.String(policy),
 	}
 
 	log.Printf("[DEBUG] Putting NetworkFirewall Resource Policy for resource: %s", resourceArn)

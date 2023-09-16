@@ -1,114 +1,101 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds
-
-import (
-	"context"
-
-	"github.com/aws/aws-sdk-go/aws"
+// SPDX-License-Identifier: MPL-2.0package rdsimport (
+	"context"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
-)
-
-// @SDKDataSource("aws_db_proxy")
+)// @SDKDataSource("aws_db_proxy")
 funcurn &schema.Resource{
 		ReadWithoutTimeout: dataSourceProxyRead,
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"auth": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"auth_scheme": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"client_password_auth_type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"description": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"iam_auth": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"secret_arn": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"username": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"debug_logging": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"endpoint": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"engine_family": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"idle_client_timeout": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"require_tls": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"role_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"vpc_security_group_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 			"vpc_subnet_ids": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
 }
-
 func dataSourceProxyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-funcn := meta.(*conns.AWSClient).RDSConn(ctx)
-
-	name := d.Get("name").(string)
+funcn := meta.(*conns.AWSClient).RDSConn(ctx)	name := d.Get("name").(string)
 	dbProxy, err := FindDBProxyByName(ctx, conn, name)
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading RDS DB Proxy (%s): %s", name, err)
-	}
-
-	d.SetId(name)
+	}	d.SetId(name)
 	d.Set("arn", dbProxy.DBProxyArn)
 	d.Set("auth", flattenProxyAuths(dbProxy.Auth))
 	d.Set("debug_logging", dbProxy.DebugLogging)
@@ -119,7 +106,5 @@ funcn := meta.(*conns.AWSClient).RDSConn(ctx)
 	d.Set("role_arn", dbProxy.RoleArn)
 	d.Set("vpc_id", dbProxy.VpcId)
 	d.Set("vpc_security_group_ids", aws.StringValueSlice(dbProxy.VpcSecurityGroupIds))
-	d.Set("vpc_subnet_ids", aws.StringValueSlice(dbProxy.VpcSubnetIds))
-
-	return diags
+	d.Set("vpc_subnet_ids", aws.StringValueSlice(dbProxy.VpcSubnetIds))	return diags
 }

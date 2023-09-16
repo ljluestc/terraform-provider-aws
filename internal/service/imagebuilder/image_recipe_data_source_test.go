@@ -64,7 +64,7 @@ resource "aws_imagebuilder_component" "test" {
       steps = [{
         action = "ExecuteBash"
         inputs = {
-          commands = ["echo 'hello world'"]
+ commands = ["echo 'hello world'"]
         }
         name      = "example"
         onFailure = "Continue"
@@ -94,7 +94,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
 
   name
   parent_image     = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
-  version          = "1.0.0"
+  version = "1.0.0"
   user_data_base64 = base64encode("helloworld")
 }
 

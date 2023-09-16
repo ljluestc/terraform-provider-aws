@@ -13,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccWAFV2IPSetDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -45,7 +44,6 @@ func TestAccWAFV2IPSetDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccIPSetDataSourceConfig_name(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "test" {
@@ -60,7 +58,6 @@ data "aws_wafv2_ip_set" "test" {
 }
 `, name)
 }
-
 func testAccIPSetDataSourceConfig_nonExistent(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafv2_ip_set" "test" {

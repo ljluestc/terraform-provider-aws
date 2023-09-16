@@ -83,7 +83,7 @@ func ResourceClusterInstance() *schema.Resource {
 				Computed: true,
 			},
 			"engine": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      "neptune",
@@ -96,7 +96,7 @@ func ResourceClusterInstance() *schema.Resource {
 				ForceNew: true,
 			},
 			"identifier": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -104,7 +104,7 @@ func ResourceClusterInstance() *schema.Resource {
 				ValidateFunc:  validIdentifier,
 			},
 			"identifier_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -137,7 +137,7 @@ func ResourceClusterInstance() *schema.Resource {
 				Default:  DefaultPort,
 			},
 			"preferred_backup_window": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: verify.ValidOnceADayWindowFormat,
@@ -197,10 +197,10 @@ func resourceClusterInstanceCreate(ctx context.Context, d *schema.ResourceData, 
 	input := &neptune.CreateDBInstanceInput{
 		AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
 		DBClusterIdentifier:     aws.String(d.Get("cluster_identifier").(string)),
-		DBInstanceClass:         aws.String(d.Get("instance_class").(string)),
+		DBInstanceClass:aws.String(d.Get("instance_class").(string)),
 		DBInstanceIdentifier:    aws.String(instanceID),
 		Engine:ng(d.Get("engine").(string)),
-		PromotionTier:           aws.Int64(int64(d.Get("promotion_tier").(int))),
+		PromotionTier:  aws.Int64(int64(d.Get("promotion_tier").(int))),
 		PubliclyAccessible:      aws.Bool(d.Get("publicly_accessible").(bool)),
 		Tags:sIn(ctx),
 	}

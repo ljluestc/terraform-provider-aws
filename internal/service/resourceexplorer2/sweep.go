@@ -18,14 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/framework"
 )
 
-func init() {
+
+ init() {
 	resource.AddTestSweepers("aws_resourceexplorer2_index", &resource.Sweeper{
 		Name: "aws_resourceexplorer2_index",
-		F:    sweepIndexes,
+		F:sweepIndexes,
 	})
 }
 
-func sweepIndexes(region string) error {
+
+ sweepIndexes(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {

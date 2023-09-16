@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_organizations_organizational_units")
+
 func DataSourceOrganizationalUnits() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceOrganizationalUnitsRead,
@@ -48,6 +49,7 @@ func DataSourceOrganizationalUnits() *schema.Resource {
 	}
 }
 
+
 func dataSourceOrganizationalUnitsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -67,13 +69,15 @@ func dataSourceOrganizationalUnitsRead(ctx context.Context, d *schema.ResourceDa
 	return diags
 }
 
+
 func findOrganizationalUnitsForParent(ctx context.Context, conn *organizations.Organizations, id string) ([]*organizations.OrganizationalUnit, error) {
 	input := &organizations.ListOrganizationalUnitsForParentInput{
 		ParentId: aws.String(id),
 	}
 	var output []*organizations.OrganizationalUnit
 
-	err := conn.ListOrganizationalUnitsForParentPagesWithContext(ctx, input, func(page *organizations.ListOrganizationalUnitsForParentOutput, lastPage bool) bool {
+	err := conn.ListOrganizationalUnitsForParentPagesWithContext(ctx, input, 
+func(page *organizations.ListOrganizationalUnitsForParentOutput, lastPage bool) bool {
 		output = append(output, page.OrganizationalUnits...)
 
 		return !lastPage
@@ -85,6 +89,7 @@ func findOrganizationalUnitsForParent(ctx context.Context, conn *organizations.O
 
 	return output, nil
 }
+
 
 func flattenOrganizationalUnits(ous []*organizations.OrganizationalUnit) []map[string]interface{} {
 	if len(ous) == 0 {

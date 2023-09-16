@@ -87,13 +87,13 @@ func ResourceCluster() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"backup_retention_period": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      1,
 				ValidateFunc: validation.IntAtMost(35),
 			},
 			"cluster_identifier": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -101,7 +101,7 @@ func ResourceCluster() *schema.Resource {
 				ValidateFunc:  validIdentifier,
 			},
 			"cluster_identifier_prefix": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -139,7 +139,7 @@ func ResourceCluster() *schema.Resource {
 				Computed: true,
 			},
 			"engine": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      "neptune",
@@ -169,7 +169,7 @@ func ResourceCluster() *schema.Resource {
 				},
 			},
 			"global_cluster_identifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validGlobalCusterIdentifier,
 			},
@@ -185,12 +185,12 @@ func ResourceCluster() *schema.Resource {
 				Type:     schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
 			"kms_key_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -218,7 +218,7 @@ func ResourceCluster() *schema.Resource {
 				Default:  DefaultPort,
 			},
 			"preferred_backup_window": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: verify.ValidOnceADayWindowFormat,
@@ -566,7 +566,7 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 		allowMajorVersionUpgrade := d.Get("allow_major_version_upgrade").(bool)
 		input := &neptune.ModifyDBClusterInput{
 			AllowMajorVersionUpgrade: aws.Bool(allowMajorVersionUpgrade),
-			ApplyImmediately:         aws.Bool(d.Get("apply_immediately").(bool)),
+			ApplyImmediately:aws.Bool(d.Get("apply_immediately").(bool)),
 			DBClusterIdentifier:      aws.String(d.Id()),
 		}
 

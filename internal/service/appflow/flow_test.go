@@ -31,7 +31,7 @@ func TestAccAppFlowFlow_basic(t *testing.T) {
 	scheduleStartTime := time.Now().UTC().AddDate(0, 0, 1).Format(time.RFC3339)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFlowDestroy(ctx),
@@ -63,8 +63,8 @@ func TestAccAppFlowFlow_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -81,7 +81,7 @@ func TestAccAppFlowFlow_S3_outputFormatConfig_ParquetFileType(t *testing.T) {
 	scheduleStartTime := time.Now().UTC().AddDate(0, 0, 1).Format(time.RFC3339)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFlowDestroy(ctx),
@@ -129,7 +129,7 @@ func TestAccAppFlowFlow_update(t *testing.T) {
 	scheduleStartTime := time.Now().UTC().AddDate(0, 0, 1).Format(time.RFC3339)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFlowDestroy(ctx),
@@ -166,7 +166,7 @@ func TestAccAppFlowFlow_TaskProperties(t *testing.T) {
 	resourceName := "aws_appflow_flow.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFlowDestroy(ctx),
@@ -193,7 +193,7 @@ func TestAccAppFlowFlow_tags(t *testing.T) {
 	resourceName := "aws_appflow_flow.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFlowDestroy(ctx),
@@ -207,8 +207,8 @@ func TestAccAppFlowFlow_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -242,7 +242,7 @@ func TestAccAppFlowFlow_disappears(t *testing.T) {
 	scheduleStartTime := time.Now().UTC().AddDate(0, 0, 1).Format(time.RFC3339)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, appflow.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFlowDestroy(ctx),
@@ -271,23 +271,23 @@ resource "aws_s3_bucket_policy" "test_source" {
   bucket = aws_s3_bucket.test_source.id
   policy = <<EOF
 {
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Sid": "AllowAppFlowSourceActions",
-            "Principal": {
+"Statement": [
+{
+   "Effect": "Allow",
+   "Sid": "AllowAppFlowSourceActions",
+   "Principal": {
    "Service": "appflow.amazonaws.com"
-            },
-            "Action": [
+   },
+   "Action": [
    "s3:ListBucket",
    "s3:GetObject"
-            ],
-            "Resource": [
+   ],
+   "Resource": [
    "arn:${data.aws_partition.current.partition}:s3:::%[1]s",
    "arn:${data.aws_partition.current.partition}:s3:::%[1]s/*"
-            ]
-        }
-    ],
+   ]
+}
+],
 	"Version": "2012-10-17"
 }
 EOF
@@ -295,7 +295,7 @@ EOF
 
 resource "aws_s3_object" "test" {
   bucket = aws_s3_bucket.test_source.id
-  key    = "flow_source.csv"
+  key= "flow_source.csv"
   source = "test-fixtures/flow_source.csv"
 }
 
@@ -308,27 +308,27 @@ resource "aws_s3_bucket_policy" "test_destination" {
   policy = <<EOF
 
 {
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Sid": "AllowAppFlowDestinationActions",
-            "Principal": {
+"Statement": [
+{
+   "Effect": "Allow",
+   "Sid": "AllowAppFlowDestinationActions",
+   "Principal": {
    "Service": "appflow.amazonaws.com"
-            },
-            "Action": [
+   },
+   "Action": [
    "s3:PutObject",
    "s3:AbortMultipartUpload",
    "s3:ListMultipartUploadParts",
    "s3:ListBucketMultipartUploads",
    "s3:GetBucketAcl",
    "s3:PutObjectAcl"
-            ],
-            "Resource": [
+   ],
+   "Resource": [
    "arn:${data.aws_partition.current.partition}:s3:::%[2]s",
    "arn:${data.aws_partition.current.partition}:s3:::%[2]s/*"
-            ]
-        }
-    ],
+   ]
+}
+],
 	"Version": "2012-10-17"
 }
 EOF
@@ -344,50 +344,50 @@ resource "aws_appflow_flow" "test" {
   name = %[1]q
 
   source_flow_config {
-    connector_type = "S3"
-    source_connector_properties {
-      s3 {
-        bucket_name   = aws_s3_bucket_policy.test_source.bucket
-        bucket_prefix = "flow"
-      }
-    }
+connector_type = "S3"
+source_connector_properties {
+  s3 {
+bucket_name   = aws_s3_bucket_policy.test_source.bucket
+bucket_prefix = "flow"
+  }
+}
   }
 
   destination_flow_config {
-    connector_type = "S3"
-    destination_connector_properties {
-      s3 {
-        bucket_name = aws_s3_bucket_policy.test_destination.bucket
+connector_type = "S3"
+destination_connector_properties {
+  s3 {
+bucket_name = aws_s3_bucket_policy.test_destination.bucket
 
-        s3_output_format_config {
-          prefix_config {
-            prefix_type = "PATH"
-          }
-        }
-      }
-    }
+s3_output_format_config {
+ prefix_config {
+   prefix_type = "PATH"
+ }
+}
+  }
+}
   }
 
   task {
-    source_fields     = ["testField"]
-    destination_field = "testField"
-    task_type         = "Map"
+source_fields = ["testField"]
+destination_field = "testField"
+task_type= "Map"
 
-    connector_operator {
-      s3 = "NO_OP"
-    }
+connector_operator {
+  s3 = "NO_OP"
+}
   }
 
   trigger_config {
-    trigger_type = "Scheduled"
+trigger_type = "Scheduled"
 
-    trigger_properties {
-      scheduled {
-        data_pull_mode      = "Incremental"
-        schedule_expression = "rate(3hours)"
-        schedule_start_time = %[2]q
-      }
-    }
+trigger_properties {
+  scheduled {
+data_pull_mode  = "Incremental"
+schedule_expression = "rate(3hours)"
+schedule_start_time = %[2]q
+  }
+}
   }
 }
 `, rFlowName, scheduleStartTime),
@@ -402,62 +402,62 @@ resource "aws_appflow_flow" "test" {
   name = %[1]q
 
   source_flow_config {
-    connector_type = "S3"
-    source_connector_properties {
-      s3 {
-        bucket_name   = aws_s3_bucket_policy.test_source.bucket
-        bucket_prefix = "flow"
-      }
-    }
+connector_type = "S3"
+source_connector_properties {
+  s3 {
+bucket_name   = aws_s3_bucket_policy.test_source.bucket
+bucket_prefix = "flow"
+  }
+}
   }
 
   destination_flow_config {
-    connector_type = "S3"
-    destination_connector_properties {
-      s3 {
-        bucket_name = aws_s3_bucket_policy.test_destination.bucket
+connector_type = "S3"
+destination_connector_properties {
+  s3 {
+bucket_name = aws_s3_bucket_policy.test_destination.bucket
 
-        s3_output_format_config {
-          prefix_config {
-            prefix_type = "PATH"
-          }
+s3_output_format_config {
+ prefix_config {
+   prefix_type = "PATH"
+ }
 
-          file_type      = %[3]q
-          preserve_source_data_typing = %[4]t
+ file_type  = %[3]q
+ preserve_source_data_typing = %[4]t
 
-          aggregation_config {
-            aggregation_type = "None"
-          }
-        }
-      }
-    }
+ aggregation_config {
+   aggregation_type = "None"
+ }
+}
+  }
+}
   }
 
   task {
-    source_fields     = ["testField"]
-    destination_field = "testField"
-    task_type         = "Map"
+source_fields = ["testField"]
+destination_field = "testField"
+task_type= "Map"
 
-    task_properties = {
-      "DESTINATION_DATA_TYPE" = "string"
-      "SOURCE_DATA_TYPE"      = "string"
-    }
+task_properties = {
+  "DESTINATION_DATA_TYPE" = "string"
+  "SOURCE_DATA_TYPE"  = "string"
+}
 
-    connector_operator {
-      s3 = "NO_OP"
-    }
+connector_operator {
+  s3 = "NO_OP"
+}
   }
 
   trigger_config {
-    trigger_type = "Scheduled"
+trigger_type = "Scheduled"
 
-    trigger_properties {
-      scheduled {
-        data_pull_mode      = "Incremental"
-        schedule_expression = "rate(3hours)"
-        schedule_start_time = %[2]q
-      }
-    }
+trigger_properties {
+  scheduled {
+data_pull_mode  = "Incremental"
+schedule_expression = "rate(3hours)"
+schedule_start_time = %[2]q
+  }
+}
   }
 }
 `, rFlowName, scheduleStartTime, fileType, preserveSourceDataTyping),
@@ -469,53 +469,53 @@ func testAccFlowConfig_update(rSourceName string, rDestinationName string, rFlow
 		testAccFlowConfig_base(rSourceName, rDestinationName),
 		fmt.Sprintf(`
 resource "aws_appflow_flow" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = %[2]q
 
   source_flow_config {
-    connector_type = "S3"
-    source_connector_properties {
-      s3 {
-        bucket_name   = aws_s3_bucket_policy.test_source.bucket
-        bucket_prefix = "flow"
-      }
-    }
+connector_type = "S3"
+source_connector_properties {
+  s3 {
+bucket_name   = aws_s3_bucket_policy.test_source.bucket
+bucket_prefix = "flow"
+  }
+}
   }
 
   destination_flow_config {
-    connector_type = "S3"
-    destination_connector_properties {
-      s3 {
-        bucket_name = aws_s3_bucket_policy.test_destination.bucket
+connector_type = "S3"
+destination_connector_properties {
+  s3 {
+bucket_name = aws_s3_bucket_policy.test_destination.bucket
 
-        s3_output_format_config {
-          prefix_config {
-            prefix_type = "PATH"
-          }
-        }
-      }
-    }
+s3_output_format_config {
+ prefix_config {
+   prefix_type = "PATH"
+ }
+}
+  }
+}
   }
 
   task {
-    source_fields     = ["testField"]
-    destination_field = "testField"
-    task_type         = "Map"
+source_fields = ["testField"]
+destination_field = "testField"
+task_type= "Map"
 
-    connector_operator {
-      s3 = "NO_OP"
-    }
+connector_operator {
+  s3 = "NO_OP"
+}
   }
 
   trigger_config {
-    trigger_type = "Scheduled"
+trigger_type = "Scheduled"
 
-    trigger_properties {
-      scheduled {
-        data_pull_mode      = "Complete"
-        schedule_expression = "rate(6hours)"
-      }
-    }
+trigger_properties {
+  scheduled {
+data_pull_mode  = "Complete"
+schedule_expression = "rate(6hours)"
+  }
+}
   }
 }
 `, rFlowName, description),
@@ -530,47 +530,47 @@ resource "aws_appflow_flow" "test" {
   name = %[1]q
 
   source_flow_config {
-    connector_type = "S3"
-    source_connector_properties {
-      s3 {
-        bucket_name   = aws_s3_bucket_policy.test_source.bucket
-        bucket_prefix = "flow"
-      }
-    }
+connector_type = "S3"
+source_connector_properties {
+  s3 {
+bucket_name   = aws_s3_bucket_policy.test_source.bucket
+bucket_prefix = "flow"
+  }
+}
   }
 
   destination_flow_config {
-    connector_type = "S3"
-    destination_connector_properties {
-      s3 {
-        bucket_name = aws_s3_bucket_policy.test_destination.bucket
+connector_type = "S3"
+destination_connector_properties {
+  s3 {
+bucket_name = aws_s3_bucket_policy.test_destination.bucket
 
-        s3_output_format_config {
-          prefix_config {
-            prefix_type = "PATH"
-          }
-        }
-      }
-    }
+s3_output_format_config {
+ prefix_config {
+   prefix_type = "PATH"
+ }
+}
+  }
+}
   }
 
   task {
-    source_fields     = ["testField"]
-    destination_field = "testField"
-    task_type         = "Map"
+source_fields = ["testField"]
+destination_field = "testField"
+task_type= "Map"
 
-    task_properties = {
-      SOURCE_DATA_TYPE      = "CSV"
-      DESTINATION_DATA_TYPE = "CSV"
-    }
+task_properties = {
+  SOURCE_DATA_TYPE  = "CSV"
+  DESTINATION_DATA_TYPE = "CSV"
+}
 
-    connector_operator {
-      s3 = "NO_OP"
-    }
+connector_operator {
+  s3 = "NO_OP"
+}
   }
 
   trigger_config {
-    trigger_type = "OnDemand"
+trigger_type = "OnDemand"
   }
 }
 `, rFlowName),
@@ -585,46 +585,46 @@ resource "aws_appflow_flow" "test" {
   name = %[1]q
 
   source_flow_config {
-    connector_type = "S3"
-    source_connector_properties {
-      s3 {
-        bucket_name   = aws_s3_bucket_policy.test_source.bucket
-        bucket_prefix = "flow"
-      }
-    }
+connector_type = "S3"
+source_connector_properties {
+  s3 {
+bucket_name   = aws_s3_bucket_policy.test_source.bucket
+bucket_prefix = "flow"
+  }
+}
   }
 
   destination_flow_config {
-    connector_type = "S3"
-    destination_connector_properties {
-      s3 {
-        bucket_name = aws_s3_bucket_policy.test_destination.bucket
+connector_type = "S3"
+destination_connector_properties {
+  s3 {
+bucket_name = aws_s3_bucket_policy.test_destination.bucket
 
-        s3_output_format_config {
-          prefix_config {
-            prefix_type = "PATH"
-          }
-        }
-      }
-    }
+s3_output_format_config {
+ prefix_config {
+   prefix_type = "PATH"
+ }
+}
+  }
+}
   }
 
   task {
-    source_fields     = ["testField"]
-    destination_field = "testField"
-    task_type         = "Map"
+source_fields = ["testField"]
+destination_field = "testField"
+task_type= "Map"
 
-    connector_operator {
-      s3 = "NO_OP"
-    }
+connector_operator {
+  s3 = "NO_OP"
+}
   }
 
   trigger_config {
-    trigger_type = "OnDemand"
+trigger_type = "OnDemand"
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rFlowName, tagKey1, tagValue1),
@@ -639,47 +639,47 @@ resource "aws_appflow_flow" "test" {
   name = %[1]q
 
   source_flow_config {
-    connector_type = "S3"
-    source_connector_properties {
-      s3 {
-        bucket_name   = aws_s3_bucket_policy.test_source.bucket
-        bucket_prefix = "flow"
-      }
-    }
+connector_type = "S3"
+source_connector_properties {
+  s3 {
+bucket_name   = aws_s3_bucket_policy.test_source.bucket
+bucket_prefix = "flow"
+  }
+}
   }
 
   destination_flow_config {
-    connector_type = "S3"
-    destination_connector_properties {
-      s3 {
-        bucket_name = aws_s3_bucket_policy.test_destination.bucket
+connector_type = "S3"
+destination_connector_properties {
+  s3 {
+bucket_name = aws_s3_bucket_policy.test_destination.bucket
 
-        s3_output_format_config {
-          prefix_config {
-            prefix_type = "PATH"
-          }
-        }
-      }
-    }
+s3_output_format_config {
+ prefix_config {
+   prefix_type = "PATH"
+ }
+}
+  }
+}
   }
 
   task {
-    source_fields     = ["testField"]
-    destination_field = "testField"
-    task_type         = "Map"
+source_fields = ["testField"]
+destination_field = "testField"
+task_type= "Map"
 
-    connector_operator {
-      s3 = "NO_OP"
-    }
+connector_operator {
+  s3 = "NO_OP"
+}
   }
 
   trigger_config {
-    trigger_type = "OnDemand"
+trigger_type = "OnDemand"
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rFlowName, tagKey1, tagValue1, tagKey2, tagValue2),

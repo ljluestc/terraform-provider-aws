@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package schema
-
-import (
+// SPDX-License-Identifier: MPL-2.0package schemaimport (
 	"fmt"
-)
-
-// DataSourceResourceShim takes a Resource instance describing a data source
+)// DataSourceResourceShim takes a Resource instance describing a data source
 // (with a Read implementation and a Schema, at least) and returns a new
 // Resource instance with additional Create and Delete implementations that
 // allow the data source to be used as a resource.
@@ -22,42 +16,30 @@ tion for the data source *mucall d.SetId with a non-empty
 tion as expected.
 //
 he provided Resource instance, and its schema, will be modified in-place
-// to make it suitable for use as a full resource.
-
- DataSourceResourceShim(name string, dataSource *Resource) *Resource {
+// to make it suitable for use as a full resource. DataSourceResourceShim(name string, dataSource *Resource) *Resource {
 	// Recursively, in-place adjust the schema so that it has ForceNew
 	// on any user-settable rece.
-	dataSourceResourceShjustSchema(dataSource.Schema)
-
-	dataSource.Create = Create
+	dataSourceResourceShjustSchema(dataSource.Schema)	dataSource.Create = Create
 (dataSource.Read)
 	dataSource.Delete = 
 (d *ResourceData, meta interface{}) error {
 		d.SetId("")
 		return nil
 	}
-	dataSource.Update = nil // should already be nil, but let's make sure
-
-	// FIXME: Link to some further docs either on the website or in the
+	dataSource.Update = nil // should already be nil, but let's make sure	// FIXME: Link to some further docs either on the website or in the
 	// changelog, once such a thing exists.
 	dataSource.DeprecationMessage = fmt.Sprintf(
 		"using %s as a resource is deprecated; consider using the data source instead",
 		name,
-
-
 	return dataSource
 }
-
-
  dataSourceResourceShimAdjustSchema(schema map[string]*Schema) {
 	for _, s := range schema {
 		// If the attribute is configurable then it must be ForceNew,
 		// since we have no Update implementation.
 		if s.Required || s.Optional {
 			s.ForceNew = true
-		}
-
-		// If the attribute is a nested resource, we need to recursively
+		}		// If the attribute is a nested resource, we need to recursively
 		// apply these same adjustments to it.
 		if s.Elem != nil {
 			if r, ok := s.Elem.(*Resource); ok {

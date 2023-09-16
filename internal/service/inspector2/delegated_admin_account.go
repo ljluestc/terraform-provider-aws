@@ -64,7 +64,7 @@ func resourceDelegatedAdminAccountCreate(ctx context.Context, d *schema.Resource
 
 	in := &inspector2.EnableDelegatedAdminAccountInput{
 		DelegatedAdminAccountId: aws.String(d.Get("account_id").(string)),
-		ClientToken:             aws.String(id.UniqueId()),
+		ClientToken:    aws.String(id.UniqueId()),
 	}
 
 	out, err := conn.EnableDelegatedAdminAccount(ctx, in)
@@ -138,7 +138,7 @@ type DelegatedAccountStatus string
 const (
 	DelegatedAccountStatusDisableInProgress DelegatedAccountStatus = "DISABLE_IN_PROGRESS"
 	DelegatedAccountStatusEnableInProgress  DelegatedAccountStatus = "ENABLE_IN_PROGRESS"
-	DelegatedAccountStatusEnabling          DelegatedAccountStatus = "ENABLING"
+	DelegatedAccountStatusEnabling DelegatedAccountStatus = "ENABLING"
 )
 
 // Values returns all known values for DelegatedAccountStatus.

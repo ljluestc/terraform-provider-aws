@@ -1,18 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package connect
-
-import (
+// SPDX-License-Identifier: MPL-2.0package connectimport (
 	"testing"
 )
-
-
-
 func TestValidDeskPhoneNumber(t *testing.T) {
-	t.Parallel()
-
-	validNumbers := []string{
+	t.Parallel()	validNumbers := []string{
 		"+12345678912",
 		"+6598765432",
 	}
@@ -21,9 +12,7 @@ func TestValidDeskPhoneNumber(t *testing.T) {
 		if len(errors) != 0 {
 			t.Fatalf("%q should be a valid desk phone number: %q", v, errors)
 		}
-	}
-
-	invalidNumbers := []string{
+	}	invalidNumbers := []string{
 		"1232",
 		"invalid",
 	}
@@ -34,13 +23,8 @@ func TestValidDeskPhoneNumber(t *testing.T) {
 		}
 	}
 }
-
-
-
 func TestValidPhoneNumberPrefix(t *testing.T) {
-	t.Parallel()
-
-	validPrefixes := []string{
+	t.Parallel()	validPrefixes := []string{
 		"+12345",
 		"+659876",
 		"+6598765432",
@@ -52,9 +36,7 @@ func TestValidPhoneNumberPrefix(t *testing.T) {
 		if len(errors) != 0 {
 			t.Fatalf("%q should be a valid phone number prefix: %q", v, errors)
 		}
-	}
-
-	invalidPrefixes := []string{
+	}	invalidPrefixes := []string{
 		"1232",
 		"98765432",
 		"invalid",

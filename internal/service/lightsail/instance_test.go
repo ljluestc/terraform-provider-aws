@@ -31,7 +31,6 @@ const (
 const (
 	envVarAvailabilityZoneKeyError = "The availability zone that is outside the providers current region."
 )
-
 func TestAccLightsailInstance_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -64,7 +63,6 @@ func TestAccLightsailInstance_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailInstance_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -125,7 +123,6 @@ func TestAccLightsailInstance_name(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailInstance_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -166,7 +163,6 @@ func TestAccLightsailInstance_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailInstance_IPAddressType(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -204,7 +200,6 @@ func TestAccLightsailInstance_IPAddressType(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailInstance_addOn(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -275,7 +270,6 @@ func TestAccLightsailInstance_addOn(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailInstance_availabilityZone(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -298,7 +292,6 @@ func TestAccLightsailInstance_availabilityZone(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailInstance_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -325,7 +318,6 @@ func TestAccLightsailInstance_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckInstanceExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -352,7 +344,6 @@ func testAccCheckInstanceExists(ctx context.Context, n string) resource.TestChec
 		return nil
 	}
 }
-
 func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -378,7 +369,6 @@ func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
 
@@ -394,7 +384,6 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccInstanceConfigBase() string {
 	return `
 data "aws_availability_zones" "available" {
@@ -406,7 +395,6 @@ data "aws_availability_zones" "available" {
 }
 `
 }
-
 func testAccInstanceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccInstanceConfigBase(),
@@ -414,11 +402,10 @@ func testAccInstanceConfig_basic(rName string) string {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
 }
 `, rName))
 }
-
 func testAccInstanceConfig_availabilityZone(rName string, availabilityZone string) string {
 	return acctest.ConfigCompose(
 		testAccInstanceConfigBase(),
@@ -426,11 +413,10 @@ func testAccInstanceConfig_availabilityZone(rName string, availabilityZone strin
   name
   availability_zone = %[2]q
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
 }
 `, rName, availabilityZone))
 }
-
 func testAccInstanceConfig_tags1(rName string) string {
 	return acctest.ConfigCompose(
 		testAccInstanceConfigBase(),
@@ -439,7 +425,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
 
   tags = {
     Name = "tf-test"
@@ -447,7 +433,6 @@ resource "aws_lightsail_instance" "test" {
 }
 `, rName))
 }
-
 func testAccInstanceConfig_tags2(rName string) string {
 	return acctest.ConfigCompose(
 		testAccInstanceConfigBase(),
@@ -456,7 +441,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
 
   tags = {
     Name      = "tf-test",
@@ -465,7 +450,6 @@ resource "aws_lightsail_instance" "test" {
 }
 `, rName))
 }
-
 func testAccInstanceConfig_IPAddressType(rName string, rIPAddressType string) string {
 	return acctest.ConfigCompose(
 		testAccInstanceConfigBase(),
@@ -474,12 +458,11 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
   ip_address_type   = %[2]q
 }
 `, rName, rIPAddressType))
 }
-
 func testAccInstanceConfig_addOn(rName string, snapshotTime string, status string) string {
 	return acctest.ConfigCompose(
 		testAccInstanceConfigBase(),
@@ -488,9 +471,9 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "nano_1_0"
+  bundle_id= "nano_1_0"
   add_on {
-    type          = "AutoSnapshot"
+    type = "AutoSnapshot"
     snapshot_time = %[2]q
     status        = %[3]q
   }

@@ -20,7 +20,6 @@ import (
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccLightsailContainerService_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -70,7 +69,6 @@ func TestAccLightsailContainerService_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailContainerService_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -97,7 +95,6 @@ func TestAccLightsailContainerService_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailContainerService_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -131,7 +128,6 @@ func TestAccLightsailContainerService_name(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailContainerService_isDisabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -164,7 +160,6 @@ func TestAccLightsailContainerService_isDisabled(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailContainerService_power(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -197,7 +192,6 @@ func TestAccLightsailContainerService_power(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailContainerService_publicDomainNames(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -219,7 +213,6 @@ func TestAccLightsailContainerService_publicDomainNames(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailContainerService_privateRegistryAccess(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -248,7 +241,6 @@ func TestAccLightsailContainerService_privateRegistryAccess(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailContainerService_scale(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -281,7 +273,6 @@ func TestAccLightsailContainerService_scale(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailContainerService_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -330,7 +321,6 @@ func TestAccLightsailContainerService_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckContainerServiceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LightsailClient(ctx)
@@ -354,7 +344,6 @@ func testAccCheckContainerServiceDestroy(ctx context.Context) resource.TestCheck
 		return nil
 	}
 }
-
 func testAccCheckContainerServiceExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -373,7 +362,6 @@ func testAccCheckContainerServiceExists(ctx context.Context, resourceName string
 		return err
 	}
 }
-
 func testAccContainerServiceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_container_service" "test" {
@@ -383,7 +371,6 @@ resource "aws_lightsail_container_service" "test" {
 }
 `, rName)
 }
-
 func testAccContainerServiceConfig_disabled(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_container_service" "test" {
@@ -394,7 +381,6 @@ resource "aws_lightsail_container_service" "test" {
 }
 `, rName)
 }
-
 func testAccContainerServiceConfig_power(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_container_service" "test" {
@@ -404,7 +390,6 @@ resource "aws_lightsail_container_service" "test" {
 }
 `, rName)
 }
-
 func testAccContainerServiceConfig_publicDomainNames(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_container_service" "test" {
@@ -423,7 +408,6 @@ resource "aws_lightsail_container_service" "test" {
 }
 `, rName)
 }
-
 func testAccContainerServiceConfig_privateRegistryAccess(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_container_service" "test" {
@@ -439,7 +423,6 @@ resource "aws_lightsail_container_service" "test" {
 }
 `, rName)
 }
-
 func testAccContainerServiceConfig_scale(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_container_service" "test" {
@@ -449,7 +432,6 @@ resource "aws_lightsail_container_service" "test" {
 }
 `, rName)
 }
-
 func testAccContainerServiceConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_container_service" "test" {
@@ -462,7 +444,6 @@ resource "aws_lightsail_container_service" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccContainerServiceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_container_service" "test" {

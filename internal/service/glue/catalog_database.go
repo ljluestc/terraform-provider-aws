@@ -68,7 +68,7 @@ func ResourceCatalogDatabase() *schema.Resource {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringInSlice(glue.Permission_Values(), false),
 							},
 						},
@@ -79,7 +79,7 @@ func ResourceCatalogDatabase() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"data_lake_principal_identifier": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 255),
 									},
@@ -90,7 +90,7 @@ func ResourceCatalogDatabase() *schema.Resource {
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 2048),
 			},
@@ -165,7 +165,7 @@ func resourceCatalogDatabaseCreate(ctx context.Context, d *schema.ResourceData, 
 	input := &glue.CreateDatabaseInput{
 		CatalogId:     aws.String(catalogID),
 		DatabaseInput: dbInput,
-		Tags:          getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	_, err := conn.CreateDatabaseWithContext(ctx, input)

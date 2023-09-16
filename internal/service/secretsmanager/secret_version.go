@@ -45,14 +45,14 @@ func ResourceSecretVersion() *schema.Resource {
 				ForceNew: true,
 			},
 			"secret_string": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				Sensitive:     true,
 				ConflictsWith: []string{"secret_binary"},
 			},
 			"secret_binary": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				Sensitive:     true,
@@ -225,7 +225,7 @@ func resourceSecretVersionUpdate(ctx context.Context, d *schema.ResourceData, me
 		}
 		input := &secretsmanager.UpdateSecretVersionStageInput{
 			RemoveFromVersionId: aws.String(versionID),
-			SecretId:            aws.String(secretID),
+			SecretId:   aws.String(secretID),
 			VersionStage:        aws.String(stage.(string)),
 		}
 		log.Printf("[DEBUG] Updating Secrets Manager Secret Version Stage: %s", input)
@@ -256,7 +256,7 @@ func resourceSecretVersionDelete(ctx context.Context, d *schema.ResourceData, me
 			}
 			input := &secretsmanager.UpdateSecretVersionStageInput{
 				RemoveFromVersionId: aws.String(versionID),
-				SecretId:            aws.String(secretID),
+				SecretId:   aws.String(secretID),
 				VersionStage:        aws.String(stage.(string)),
 			}
 			log.Printf("[DEBUG] Updating Secrets Manager Secret Version Stage: %s", input)

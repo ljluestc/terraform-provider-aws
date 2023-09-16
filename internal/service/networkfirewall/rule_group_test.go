@@ -26,7 +26,7 @@ func TestAccNetworkFirewallRuleGroup_Basic_rulesSourceList(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -54,8 +54,8 @@ func TestAccNetworkFirewallRuleGroup_Basic_rulesSourceList(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -69,7 +69,7 @@ func TestAccNetworkFirewallRuleGroup_Basic_referenceSets(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -91,8 +91,8 @@ func TestAccNetworkFirewallRuleGroup_Basic_referenceSets(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -106,7 +106,7 @@ func TestAccNetworkFirewallRuleGroup_Basic_updateReferenceSets(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -128,8 +128,8 @@ func TestAccNetworkFirewallRuleGroup_Basic_updateReferenceSets(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -159,7 +159,7 @@ func TestAccNetworkFirewallRuleGroup_Basic_statefulRule(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -185,7 +185,7 @@ func TestAccNetworkFirewallRuleGroup_Basic_statefulRule(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rules_source.0.stateful_rule.0.header.0.source_port", "53"),
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rules_source.0.stateful_rule.0.rule_option.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule_group.0.rules_source.0.stateful_rule.0.rule_option.*", map[string]string{
-						"keyword":    "sid",
+						"keyword":"sid",
 						"settings.#": "1",
 						"settings.0": "1",
 					}),
@@ -194,8 +194,8 @@ func TestAccNetworkFirewallRuleGroup_Basic_statefulRule(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -209,7 +209,7 @@ func TestAccNetworkFirewallRuleGroup_Basic_statelessRule(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -226,20 +226,20 @@ func TestAccNetworkFirewallRuleGroup_Basic_statelessRule(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rules_source.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rules_source.0.stateless_rules_and_custom_actions.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule_group.0.rules_source.0.stateless_rules_and_custom_actions.0.stateless_rule.*", map[string]string{
-						"priority":    "1",
-						"rule_definition.#":        "1",
-						"rule_definition.0.actions.#":           "1",
+						"priority":"1",
+						"rule_definition.#":   "1",
+						"rule_definition.0.actions.#": "1",
 						"rule_definition.0.match_attributes.#":  "1",
 						"rule_definition.0.match_attributes.0.destination.#": "1",
-						"rule_definition.0.match_attributes.0.source.#":      "1",
+						"rule_definition.0.match_attributes.0.source.#": "1",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "rule_group.0.rules_source.0.stateless_rules_and_custom_actions.0.stateless_rule.*.rule_definition.0.actions.*", "aws:drop"),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -255,7 +255,7 @@ func TestAccNetworkFirewallRuleGroup_Basic_rules(t *testing.T) {
 alert http any any -> any any (http_response_line; content:"403 Forbidden"; sid:1;)`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -277,9 +277,9 @@ alert http any any -> any any (http_response_line; content:"403 Forbidden"; sid:
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"rules"}, // argument not returned in RuleGroup API response
 			},
 		},
@@ -294,7 +294,7 @@ func TestAccNetworkFirewallRuleGroup_statefulRuleOptions(t *testing.T) {
 	rules := `alert http any any -> any any (http_response_line; content:"403 Forbidden"; sid:1;)`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -308,8 +308,8 @@ func TestAccNetworkFirewallRuleGroup_statefulRuleOptions(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -324,7 +324,7 @@ func TestAccNetworkFirewallRuleGroup_updateStatefulRuleOptions(t *testing.T) {
 	rules := `alert http any any -> any any (http_response_line; content:"403 Forbidden"; sid:1;)`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -355,8 +355,8 @@ func TestAccNetworkFirewallRuleGroup_updateStatefulRuleOptions(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -370,7 +370,7 @@ func TestAccNetworkFirewallRuleGroup_statelessRuleWithCustomAction(t *testing.T)
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -387,17 +387,17 @@ func TestAccNetworkFirewallRuleGroup_statelessRuleWithCustomAction(t *testing.T)
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rules_source.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rules_source.0.stateless_rules_and_custom_actions.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule_group.0.rules_source.0.stateless_rules_and_custom_actions.0.stateless_rule.*", map[string]string{
-						"priority":    "1",
-						"rule_definition.#":        "1",
-						"rule_definition.0.actions.#":           "2",
+						"priority":"1",
+						"rule_definition.#":   "1",
+						"rule_definition.0.actions.#": "2",
 						"rule_definition.0.match_attributes.#":  "1",
 						"rule_definition.0.match_attributes.0.destination.#": "1",
-						"rule_definition.0.match_attributes.0.source.#":      "1",
+						"rule_definition.0.match_attributes.0.source.#": "1",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "rule_group.0.rules_source.0.stateless_rules_and_custom_actions.0.stateless_rule.*.rule_definition.0.actions.*", "aws:pass"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "rule_group.0.rules_source.0.stateless_rules_and_custom_actions.0.stateless_rule.*.rule_definition.0.actions.*", "example"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule_group.0.rules_source.0.stateless_rules_and_custom_actions.0.custom_action.*", map[string]string{
-						"action_name":         "example",
+						"action_name":"example",
 						"action_definition.#": "1",
 						"action_definition.0.publish_metric_action.#":"1",
 						"action_definition.0.publish_metric_action.0.dimension.#": "1",
@@ -405,8 +405,8 @@ func TestAccNetworkFirewallRuleGroup_statelessRuleWithCustomAction(t *testing.T)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -424,7 +424,7 @@ func TestAccNetworkFirewallRuleGroup_updateRules(t *testing.T) {
 	updatedRules := `pass tls $HOME_NET any -> $EXTERNAL_NET 443 (tls.sni; content:"NEW.example.com"; msg:"FQDN test"; sid:1;)`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -447,9 +447,9 @@ func TestAccNetworkFirewallRuleGroup_updateRules(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:  resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:  true,
 				ImportStateVerifyIgnore: []string{"rules"}, // argument not returned in RuleGroup API response
 			},
 		},
@@ -463,7 +463,7 @@ func TestAccNetworkFirewallRuleGroup_updateRulesSourceList(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -495,8 +495,8 @@ func TestAccNetworkFirewallRuleGroup_updateRulesSourceList(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -510,7 +510,7 @@ func TestAccNetworkFirewallRuleGroup_rulesSourceAndRuleVariables(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -524,7 +524,7 @@ func TestAccNetworkFirewallRuleGroup_rulesSourceAndRuleVariables(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rules_source.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rule_variables.0.ip_sets.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule_group.0.rule_variables.0.ip_sets.*", map[string]string{
-						"key":      "example",
+						"key": "example",
 						"ip_set.#": "1",
 						"ip_set.0.definition.#": "2",
 					}),
@@ -542,7 +542,7 @@ func TestAccNetworkFirewallRuleGroup_rulesSourceAndRuleVariables(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rule_variables.0.ip_sets.#", "2"),
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rule_variables.0.port_sets.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule_group.0.rule_variables.0.ip_sets.*", map[string]string{
-						"key":      "example",
+						"key": "example",
 						"ip_set.#": "1",
 						"ip_set.0.definition.#": "3",
 					}),
@@ -550,13 +550,13 @@ func TestAccNetworkFirewallRuleGroup_rulesSourceAndRuleVariables(t *testing.T) {
 					resource.TestCheckTypeSetElemAttr(resourceName, "rule_group.0.rule_variables.0.ip_sets.*.ip_set.0.definition.*", "10.0.1.0/24"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "rule_group.0.rule_variables.0.ip_sets.*.ip_set.0.definition.*", "192.168.0.0/16"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule_group.0.rule_variables.0.ip_sets.*", map[string]string{
-						"key":      "example2",
+						"key": "example2",
 						"ip_set.#": "1",
 						"ip_set.0.definition.#": "1",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "rule_group.0.rule_variables.0.ip_sets.*.ip_set.0.definition.*", "1.2.3.4/32"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule_group.0.rule_variables.0.port_sets.*", map[string]string{
-						"key":        "example",
+						"key":   "example",
 						"port_set.#": "1",
 						"port_set.0.definition.#": "2",
 					}),
@@ -574,8 +574,8 @@ func TestAccNetworkFirewallRuleGroup_rulesSourceAndRuleVariables(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -591,7 +591,7 @@ func TestAccNetworkFirewallRuleGroup_updateStatefulRule(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -617,20 +617,20 @@ func TestAccNetworkFirewallRuleGroup_updateStatefulRule(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rules_source.0.stateful_rule.0.header.0.source_port", "1001"),
 					resource.TestCheckResourceAttr(resourceName, "rule_group.0.rules_source.0.stateful_rule.0.rule_option.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule_group.0.rules_source.0.stateful_rule.0.rule_option.*", map[string]string{
-						"keyword":    "sid",
+						"keyword":"sid",
 						"settings.#": "1",
 						"settings.0": "1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule_group.0.rules_source.0.stateful_rule.0.rule_option.*", map[string]string{
-						"keyword":    "rev",
+						"keyword":"rev",
 						"settings.#": "1",
 						"settings.0": "2",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -647,7 +647,7 @@ func TestAccNetworkFirewallRuleGroup_updateMultipleStatefulRules(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -685,8 +685,8 @@ func TestAccNetworkFirewallRuleGroup_updateMultipleStatefulRules(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -706,8 +706,8 @@ func TestAccNetworkFirewallRuleGroup_updateMultipleStatefulRules(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -724,7 +724,7 @@ func TestAccNetworkFirewallRuleGroup_StatefulRule_action(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -738,8 +738,8 @@ func TestAccNetworkFirewallRuleGroup_StatefulRule_action(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -751,8 +751,8 @@ func TestAccNetworkFirewallRuleGroup_StatefulRule_action(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -764,8 +764,8 @@ func TestAccNetworkFirewallRuleGroup_StatefulRule_action(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -777,8 +777,8 @@ func TestAccNetworkFirewallRuleGroup_StatefulRule_action(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -793,7 +793,7 @@ func TestAccNetworkFirewallRuleGroup_StatefulRule_header(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -815,8 +815,8 @@ func TestAccNetworkFirewallRuleGroup_StatefulRule_header(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -836,8 +836,8 @@ func TestAccNetworkFirewallRuleGroup_StatefulRule_header(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -851,7 +851,7 @@ func TestAccNetworkFirewallRuleGroup_updateStatelessRule(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -867,16 +867,16 @@ func TestAccNetworkFirewallRuleGroup_updateStatelessRule(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckRuleGroupExists(ctx, resourceName, &ruleGroup),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "rule_group.0.rules_source.0.stateless_rules_and_custom_actions.0.stateless_rule.*", map[string]string{
-						"priority":         "10",
+						"priority":"10",
 						"rule_definition.#":"1",
 						"rule_definition.0.actions.#":   "1",
-						"rule_definition.0.match_attributes.#":       "1",
-						"rule_definition.0.match_attributes.0.destination.#":      "1",
+						"rule_definition.0.match_attributes.#":  "1",
+						"rule_definition.0.match_attributes.0.destination.#": "1",
 						"rule_definition.0.match_attributes.0.destination_port.#": "1",
-						"rule_definition.0.match_attributes.0.protocols.#":        "1",
-						"rule_definition.0.match_attributes.0.source.#":           "1",
-						"rule_definition.0.match_attributes.0.source_port.#":      "1",
-						"rule_definition.0.match_attributes.0.tcp_flag.#":         "1",
+						"rule_definition.0.match_attributes.0.protocols.#":   "1",
+						"rule_definition.0.match_attributes.0.source.#": "1",
+						"rule_definition.0.match_attributes.0.source_port.#": "1",
+						"rule_definition.0.match_attributes.0.tcp_flag.#":"1",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "rule_group.0.rules_source.0.stateless_rules_and_custom_actions.0.stateless_rule.*.rule_definition.0.actions.*", "aws:pass"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "rule_group.0.rules_source.0.stateless_rules_and_custom_actions.0.stateless_rule.*.rule_definition.0.match_attributes.0.protocols.*", "6"),
@@ -887,8 +887,8 @@ func TestAccNetworkFirewallRuleGroup_updateStatelessRule(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -902,7 +902,7 @@ func TestAccNetworkFirewallRuleGroup_tags(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -916,8 +916,8 @@ func TestAccNetworkFirewallRuleGroup_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -947,7 +947,7 @@ func TestAccNetworkFirewallRuleGroup_encryptionConfiguration(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -961,8 +961,8 @@ func TestAccNetworkFirewallRuleGroup_encryptionConfiguration(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -999,7 +999,7 @@ func TestAccNetworkFirewallRuleGroup_disappears(t *testing.T) {
 	resourceName := "aws_networkfirewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleGroupDestroy(ctx),
@@ -1089,17 +1089,17 @@ func testAccRuleGroupConfig_basicSourceList(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      rules_source_list {
-        generated_rules_type = "ALLOWLIST"
-        target_types         = ["HTTP_HOST"]
-        targets = ["test.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = "ALLOWLIST"
+   target_types= ["HTTP_HOST"]
+   targets = ["test.example.com"]
+ }
+}
   }
 }
 `, rName)
@@ -1108,59 +1108,59 @@ resource "aws_networkfirewall_rule_group" "test" {
 func testAccRuleGroupConfig_referenceSets(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_managed_prefix_list" "example1" {
-  name           = "All VPC CIDR-s"
+  name = "All VPC CIDR-s"
   address_family = "IPv4"
-  max_entries    = 5
+  max_entries= 5
 }
 
 resource "aws_ec2_managed_prefix_list" "example2" {
-  name           = "SOME VPC CIDR-s"
+  name = "SOME VPC CIDR-s"
   address_family = "IPv4"
-  max_entries    = 5
+  max_entries= 5
 }
 
 resource "aws_ec2_managed_prefix_list" "example3" {
-  name           = "FEW VPC CIDR-s"
+  name = "FEW VPC CIDR-s"
   address_family = "IPv4"
-  max_entries    = 5
+  max_entries= 5
 }
 
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    reference_sets {
-      ip_set_references {
-        key = "example1"
-        ip_set_reference {
-          reference_arn = aws_ec2_managed_prefix_list.example1.arn
-        }
-      }
+reference_sets {
+ ip_set_references {
+   key = "example1"
+   ip_set_reference {
+reference_arn = aws_ec2_managed_prefix_list.example1.arn
+   }
+ }
 
-      ip_set_references {
-        key = "example2"
-        ip_set_reference {
-          reference_arn = aws_ec2_managed_prefix_list.example2.arn
-        }
-      }
+ ip_set_references {
+   key = "example2"
+   ip_set_reference {
+reference_arn = aws_ec2_managed_prefix_list.example2.arn
+   }
+ }
 
-      ip_set_references {
-        key = "example3"
-        ip_set_reference {
-          reference_arn = aws_ec2_managed_prefix_list.example3.arn
-        }
-      }
-    }
+ ip_set_references {
+   key = "example3"
+   ip_set_reference {
+reference_arn = aws_ec2_managed_prefix_list.example3.arn
+   }
+ }
+}
 
-    rules_source {
-      rules_source_list {
-        generated_rules_type = "ALLOWLIST"
-        target_types         = ["HTTP_HOST"]
-        targets = ["test.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = "ALLOWLIST"
+   target_types= ["HTTP_HOST"]
+   targets = ["test.example.com"]
+ }
+}
   }
 }
 `, rName)
@@ -1169,59 +1169,59 @@ resource "aws_networkfirewall_rule_group" "test" {
 func testAccRuleGroupConfig_referenceSets1(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_managed_prefix_list" "example1" {
-  name           = "All VPC CIDR-s"
+  name = "All VPC CIDR-s"
   address_family = "IPv4"
-  max_entries    = 5
+  max_entries= 5
 }
 
 resource "aws_ec2_managed_prefix_list" "example2" {
-  name           = "SOME VPC CIDR-s"
+  name = "SOME VPC CIDR-s"
   address_family = "IPv4"
-  max_entries    = 5
+  max_entries= 5
 }
 
 resource "aws_ec2_managed_prefix_list" "example3" {
-  name           = "FEW VPC CIDR-s"
+  name = "FEW VPC CIDR-s"
   address_family = "IPv4"
-  max_entries    = 5
+  max_entries= 5
 }
 
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    reference_sets {
-      ip_set_references {
-        key = "example11"
-        ip_set_reference {
-          reference_arn = aws_ec2_managed_prefix_list.example1.arn
-        }
-      }
+reference_sets {
+ ip_set_references {
+   key = "example11"
+   ip_set_reference {
+reference_arn = aws_ec2_managed_prefix_list.example1.arn
+   }
+ }
 
-      ip_set_references {
-        key = "example21"
-        ip_set_reference {
-          reference_arn = aws_ec2_managed_prefix_list.example2.arn
-        }
-      }
+ ip_set_references {
+   key = "example21"
+   ip_set_reference {
+reference_arn = aws_ec2_managed_prefix_list.example2.arn
+   }
+ }
 
-      ip_set_references {
-        key = "example31"
-        ip_set_reference {
-          reference_arn = aws_ec2_managed_prefix_list.example3.arn
-        }
-      }
-    }
+ ip_set_references {
+   key = "example31"
+   ip_set_reference {
+reference_arn = aws_ec2_managed_prefix_list.example3.arn
+   }
+ }
+}
 
-    rules_source {
-      rules_source_list {
-        generated_rules_type = "ALLOWLIST"
-        target_types         = ["HTTP_HOST"]
-        targets = ["test.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = "ALLOWLIST"
+   target_types= ["HTTP_HOST"]
+   targets = ["test.example.com"]
+ }
+}
   }
 }
 `, rName)
@@ -1231,26 +1231,26 @@ func testAccRuleGroupConfig_sourceListVariables(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rule_variables {
-      ip_sets {
-        key = "example"
-        ip_set {
-          definition = ["10.0.0.0/16", "10.0.1.0/24"]
-        }
-      }
-    }
+rule_variables {
+ ip_sets {
+   key = "example"
+   ip_set {
+definition = ["10.0.0.0/16", "10.0.1.0/24"]
+   }
+ }
+}
 
-    rules_source {
-      rules_source_list {
-        generated_rules_type = "ALLOWLIST"
-        target_types         = ["HTTP_HOST"]
-        targets = ["test.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = "ALLOWLIST"
+   target_types= ["HTTP_HOST"]
+   targets = ["test.example.com"]
+ }
+}
   }
 }
 `, rName)
@@ -1260,40 +1260,40 @@ func testAccRuleGroupConfig_sourceListUpdateVariables(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rule_variables {
-      ip_sets {
-        key = "example"
-        ip_set {
-          definition = ["10.0.0.0/16", "10.0.1.0/24", "192.168.0.0/16"]
-        }
-      }
+rule_variables {
+ ip_sets {
+   key = "example"
+   ip_set {
+definition = ["10.0.0.0/16", "10.0.1.0/24", "192.168.0.0/16"]
+   }
+ }
 
-      ip_sets {
-        key = "example2"
-        ip_set {
-          definition = ["1.2.3.4/32"]
-        }
-      }
+ ip_sets {
+   key = "example2"
+   ip_set {
+definition = ["1.2.3.4/32"]
+   }
+ }
 
-      port_sets {
-        key = "example"
-        port_set {
-          definition = ["443", "80"]
-        }
-      }
-    }
+ port_sets {
+   key = "example"
+   port_set {
+definition = ["443", "80"]
+   }
+ }
+}
 
-    rules_source {
-      rules_source_list {
-        generated_rules_type = "ALLOWLIST"
-        target_types         = ["HTTP_HOST"]
-        targets = ["test.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = "ALLOWLIST"
+   target_types= ["HTTP_HOST"]
+   targets = ["test.example.com"]
+ }
+}
   }
 }
 `, rName)
@@ -1303,17 +1303,17 @@ func testAccRuleGroupConfig_updateSourceList(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      rules_source_list {
-        generated_rules_type = "DENYLIST"
-        target_types         = ["HTTP_HOST", "TLS_SNI"]
-        targets = ["test.example.com", "test2.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = "DENYLIST"
+   target_types= ["HTTP_HOST", "TLS_SNI"]
+   targets = ["test.example.com", "test2.example.com"]
+ }
+}
   }
 }
 `, rName)
@@ -1322,31 +1322,31 @@ resource "aws_networkfirewall_rule_group" "test" {
 func testAccRuleGroupConfig_basicStateful(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
-  capacity    = 100
-  name        = %[1]q
+  capacity= 100
+  name   = %[1]q
   description = %[1]q
-  type        = "STATEFUL"
+  type   = "STATEFUL"
 
   rule_group {
-    rules_source {
-      stateful_rule {
-        action = "PASS"
+rules_source {
+ stateful_rule {
+   action = "PASS"
 
-        header {
-          destination      = "124.1.1.24/32"
-          destination_port = 53
-          direction        = "ANY"
-          protocol         = "TCP"
-          source           = "1.2.3.4/32"
-          source_port      = 53
-        }
+   header {
+destination = "124.1.1.24/32"
+destination_port = 53
+direction   = "ANY"
+protocol= "TCP"
+source = "1.2.3.4/32"
+source_port = 53
+   }
 
-        rule_option {
-          keyword  = "sid"
-          settings = ["1"]
-        }
-      }
-    }
+   rule_option {
+keyword  = "sid"
+settings = ["1"]
+   }
+ }
+}
   }
 }
 `, rName)
@@ -1355,31 +1355,31 @@ resource "aws_networkfirewall_rule_group" "test" {
 func testAccRuleGroupConfig_statefulAction(rName, action string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
-  capacity    = 100
-  name        = %[1]q
+  capacity= 100
+  name   = %[1]q
   description = %[1]q
-  type        = "STATEFUL"
+  type   = "STATEFUL"
 
   rule_group {
-    rules_source {
-      stateful_rule {
-        action = %[2]q
+rules_source {
+ stateful_rule {
+   action = %[2]q
 
-        header {
-          destination      = "124.1.1.24/32"
-          destination_port = 53
-          direction        = "ANY"
-          protocol         = "TCP"
-          source           = "1.2.3.4/32"
-          source_port      = 53
-        }
+   header {
+destination = "124.1.1.24/32"
+destination_port = 53
+direction   = "ANY"
+protocol= "TCP"
+source = "1.2.3.4/32"
+source_port = 53
+   }
 
-        rule_option {
-          keyword  = "sid"
-          settings = ["1"]
-        }
-      }
-    }
+   rule_option {
+keyword  = "sid"
+settings = ["1"]
+   }
+ }
+}
   }
 }
 `, rName, action)
@@ -1388,31 +1388,31 @@ resource "aws_networkfirewall_rule_group" "test" {
 func testAccRuleGroupConfig_statefulHeader(rName, dstPort, srcPort string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
-  capacity    = 100
-  name        = %[1]q
+  capacity= 100
+  name   = %[1]q
   description = %[1]q
-  type        = "STATEFUL"
+  type   = "STATEFUL"
 
   rule_group {
-    rules_source {
-      stateful_rule {
-        action = "PASS"
+rules_source {
+ stateful_rule {
+   action = "PASS"
 
-        header {
-          destination      = "ANY"
-          destination_port = %[2]q
-          direction        = "ANY"
-          protocol         = "TCP"
-          source           = "ANY"
-          source_port      = %[3]q
-        }
+   header {
+destination = "ANY"
+destination_port = %[2]q
+direction   = "ANY"
+protocol= "TCP"
+source = "ANY"
+source_port = %[3]q
+   }
 
-        rule_option {
-          keyword  = "sid"
-          settings = ["1"]
-        }
-      }
-    }
+   rule_option {
+keyword  = "sid"
+settings = ["1"]
+   }
+ }
+}
   }
 }
 `, rName, dstPort, srcPort)
@@ -1422,34 +1422,34 @@ func testAccRuleGroupConfig_updateStateful(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      stateful_rule {
-        action = "DROP"
+rules_source {
+ stateful_rule {
+   action = "DROP"
 
-        header {
-          destination      = "1.2.3.4/32"
-          destination_port = 1001
-          direction        = "FORWARD"
-          protocol         = "IP"
-          source           = "124.1.1.24/32"
-          source_port      = 1001
-        }
+   header {
+destination = "1.2.3.4/32"
+destination_port = 1001
+direction   = "FORWARD"
+protocol= "IP"
+source = "124.1.1.24/32"
+source_port = 1001
+   }
 
-        rule_option {
-          keyword  = "sid"
-          settings = ["1"]
-        }
+   rule_option {
+keyword  = "sid"
+settings = ["1"]
+   }
 
-        rule_option {
-          keyword  = "rev"
-          settings = ["2"]
-        }
-      }
-    }
+   rule_option {
+keyword  = "rev"
+settings = ["2"]
+   }
+ }
+}
   }
 }
 `, rName)
@@ -1459,47 +1459,47 @@ func testAccRuleGroupConfig_multipleStateful(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      stateful_rule {
-        action = "PASS"
+rules_source {
+ stateful_rule {
+   action = "PASS"
 
-        header {
-          destination      = "124.1.1.24/32"
-          destination_port = 53
-          direction        = "ANY"
-          protocol         = "TCP"
-          source           = "1.2.3.4/32"
-          source_port      = 53
-        }
+   header {
+destination = "124.1.1.24/32"
+destination_port = 53
+direction   = "ANY"
+protocol= "TCP"
+source = "1.2.3.4/32"
+source_port = 53
+   }
 
-        rule_option {
-          keyword  = "sid"
-          settings = ["1"]
-        }
-      }
+   rule_option {
+keyword  = "sid"
+settings = ["1"]
+   }
+ }
 
-      stateful_rule {
-        action = "ALERT"
+ stateful_rule {
+   action = "ALERT"
 
-        header {
-          destination      = "ANY"
-          destination_port = "ANY"
-          direction        = "ANY"
-          protocol         = "IP"
-          source           = "ANY"
-          source_port      = "ANY"
-        }
+   header {
+destination = "ANY"
+destination_port = "ANY"
+direction   = "ANY"
+protocol= "IP"
+source = "ANY"
+source_port = "ANY"
+   }
 
-        rule_option {
-          keyword  = "sid"
-          settings = ["2"]
-        }
-      }
-    }
+   rule_option {
+keyword  = "sid"
+settings = ["2"]
+   }
+ }
+}
   }
 }
 `, rName)
@@ -1509,19 +1509,19 @@ func testAccRuleGroupConfig_basicStateless(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATELESS"
+  name= %[1]q
+  type= "STATELESS"
 
   rule_group {
-    rules_source {
-      stateless_rules_and_custom_actions {
-        stateless_rule {
-          priority = 1
+rules_source {
+ stateless_rules_and_custom_actions {
+   stateless_rule {
+priority = 1
 
-          rule_definition {
-            actions = ["aws:drop"]
+rule_definition {
+  actions = ["aws:drop"]
 
-            match_attributes {
+  match_attributes {
  destination {
    address_definition = "1.2.3.4/32"
  }
@@ -1529,11 +1529,11 @@ resource "aws_networkfirewall_rule_group" "test" {
  source {
    address_definition = "124.1.1.5/32"
  }
-            }
-          }
-        }
-      }
-    }
+  }
+}
+   }
+ }
+}
   }
 }
 `, rName)
@@ -1543,19 +1543,19 @@ func testAccRuleGroupConfig_updateStateless(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATELESS"
+  name= %[1]q
+  type= "STATELESS"
 
   rule_group {
-    rules_source {
-      stateless_rules_and_custom_actions {
-        stateless_rule {
-          priority = 10
+rules_source {
+ stateless_rules_and_custom_actions {
+   stateless_rule {
+priority = 10
 
-          rule_definition {
-            actions = ["aws:pass"]
+rule_definition {
+  actions = ["aws:pass"]
 
-            match_attributes {
+  match_attributes {
  destination {
    address_definition = "1.2.3.4/32"
  }
@@ -1580,11 +1580,11 @@ resource "aws_networkfirewall_rule_group" "test" {
    flags = ["SYN"]
    masks = ["SYN", "ACK"]
  }
-            }
-          }
-        }
-      }
-    }
+  }
+}
+   }
+ }
+}
   }
 }
 `, rName)
@@ -1594,9 +1594,9 @@ func testAccRuleGroupConfig_basic(rName, rules string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
-  rules    = %[2]q
+  name= %[1]q
+  type= "STATEFUL"
+  rules= %[2]q
 }
 `, rName, rules)
 }
@@ -1605,13 +1605,13 @@ func testAccRuleGroupConfig_sourceString(rName, rules string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      rules_string = %[2]q
-    }
+rules_source {
+ rules_string = %[2]q
+}
   }
 }
 `, rName, rules)
@@ -1621,17 +1621,17 @@ func testAccRuleGroupConfig_statefulOptions(rName, rules, ruleOrder string) stri
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      rules_string = %[2]q
-    }
+rules_source {
+ rules_string = %[2]q
+}
 
-    stateful_rule_options {
-      rule_order = %[3]q
-    }
+stateful_rule_options {
+ rule_order = %[3]q
+}
   }
 }
 `, rName, rules, ruleOrder)
@@ -1641,31 +1641,31 @@ func testAccRuleGroupConfig_statelessCustomAction(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATELESS"
+  name= %[1]q
+  type= "STATELESS"
 
   rule_group {
-    rules_source {
-      stateless_rules_and_custom_actions {
-        custom_action {
-          action_name = "example"
+rules_source {
+ stateless_rules_and_custom_actions {
+   custom_action {
+action_name = "example"
 
-          action_definition {
-            publish_metric_action {
+action_definition {
+  publish_metric_action {
  dimension {
    value = "2"
  }
-            }
-          }
-        }
+  }
+}
+   }
 
-        stateless_rule {
-          priority = 1
+   stateless_rule {
+priority = 1
 
-          rule_definition {
-            actions = ["aws:pass", "example"]
+rule_definition {
+  actions = ["aws:pass", "example"]
 
-            match_attributes {
+  match_attributes {
  destination {
    address_definition = "1.2.3.4/32"
  }
@@ -1673,11 +1673,11 @@ resource "aws_networkfirewall_rule_group" "test" {
  source {
    address_definition = "124.1.1.5/32"
  }
-            }
-          }
-        }
-      }
-    }
+  }
+}
+   }
+ }
+}
   }
 }
 `, rName)
@@ -1687,21 +1687,21 @@ func testAccRuleGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      rules_source_list {
-        generated_rules_type = "ALLOWLIST"
-        target_types         = ["HTTP_HOST"]
-        targets = ["test.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = "ALLOWLIST"
+   target_types= ["HTTP_HOST"]
+   targets = ["test.example.com"]
+ }
+}
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -1711,22 +1711,22 @@ func testAccRuleGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 
 	return fmt.Sprintf(`
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      rules_source_list {
-        generated_rules_type = "ALLOWLIST"
-        target_types         = ["HTTP_HOST"]
-        targets = ["test.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = "ALLOWLIST"
+   target_types= ["HTTP_HOST"]
+   targets = ["test.example.com"]
+ }
+}
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -1738,22 +1738,22 @@ resource "aws_kms_key" "test" {}
 
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      rules_source_list {
-        generated_rules_type = %[2]q
-        target_types         = ["HTTP_HOST"]
-        targets = ["test.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = %[2]q
+   target_types= ["HTTP_HOST"]
+   targets = ["test.example.com"]
+ }
+}
   }
 
   encryption_configuration {
-    key_id = aws_kms_key.test.arn
-    type   = "CUSTOMER_KMS"
+key_id = aws_kms_key.test.arn
+type   = "CUSTOMER_KMS"
   }
 }
 `, rName, generatedRulesType)
@@ -1770,17 +1770,17 @@ resource "aws_kms_key" "test" {}
 
 resource "aws_networkfirewall_rule_group" "test" {
   capacity = 100
-  name     = %[1]q
-  type     = "STATEFUL"
+  name= %[1]q
+  type= "STATEFUL"
 
   rule_group {
-    rules_source {
-      rules_source_list {
-        generated_rules_type = "ALLOWLIST"
-        target_types         = ["HTTP_HOST"]
-        targets = ["test.example.com"]
-      }
-    }
+rules_source {
+ rules_source_list {
+   generated_rules_type = "ALLOWLIST"
+   target_types= ["HTTP_HOST"]
+   targets = ["test.example.com"]
+ }
+}
   }
 }
 `, rName)

@@ -28,7 +28,7 @@ import (
 func ResourceFunctionEventInvokeConfig() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFunctionEventInvokeConfigCreate,
-		ReadWithoutTimeout:   resourceFunctionEventInvokeConfigRead,
+		ReadWithoutTimeout:resourceFunctionEventInvokeConfigRead,
 		UpdateWithoutTimeout: resourceFunctionEventInvokeConfigUpdate,
 		DeleteWithoutTimeout: resourceFunctionEventInvokeConfigDelete,
 		Importer: &schema.ResourceImporter{
@@ -37,34 +37,34 @@ func ResourceFunctionEventInvokeConfig() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"destination_config": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"on_failure": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"destination": {
 										Type:schema.TypeString,
-										Required:     true,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
 							},
 						},
 						"on_success": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"destination": {
 										Type:schema.TypeString,
-										Required:     true,
+										Required:true,
 										ValidateFunc: verify.ValidARN,
 									},
 								},
@@ -75,31 +75,30 @@ func ResourceFunctionEventInvokeConfig() *schema.Resource {
 			},
 			"function_name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"maximum_event_age_in_seconds": {
 				Type:schema.TypeInt,
-				Optional:     true,
+				Optional:true,
 				ValidateFunc: validation.IntBetween(60, 21600),
 			},
 			"maximum_retry_attempts": {
 				Type:schema.TypeInt,
-				Optional:     true,
-				Default:      2,
+				Optional:true,
+				Default: 2,
 				ValidateFunc: validation.IntBetween(0, 2),
 			},
 			"qualifier": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 		},
 	}
 }
-
 func resourceFunctionEventInvokeConfigCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -113,7 +112,7 @@ func resourceFunctionEventInvokeConfigCreate(ctx context.Context, d *schema.Reso
 	}
 
 	input := &lambda.PutFunctionEventInvokeConfigInput{
-		DestinationConfig:    expandFunctionEventInvokeConfigDestinationConfig(d.Get("destination_config").([]interface{})),
+		DestinationConfig: expandFunctionEventInvokeConfigDestinationConfig(d.Get("destination_config").([]interface{})),
 		FunctionName:aws.String(functionName),
 		MaximumRetryAttempts: aws.Int64(int64(d.Get("maximum_retry_attempts").(int))),
 	}
@@ -159,7 +158,6 @@ func resourceFunctionEventInvokeConfigCreate(ctx context.Context, d *schema.Reso
 
 	return append(diags, resourceFunctionEventInvokeConfigRead(ctx, d, meta)...)
 }
-
 func resourceFunctionEventInvokeConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -201,7 +199,6 @@ func resourceFunctionEventInvokeConfigRead(ctx context.Context, d *schema.Resour
 
 	return diags
 }
-
 func resourceFunctionEventInvokeConfigUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -213,7 +210,7 @@ func resourceFunctionEventInvokeConfigUpdate(ctx context.Context, d *schema.Reso
 	}
 
 	input := &lambda.PutFunctionEventInvokeConfigInput{
-		DestinationConfig:    expandFunctionEventInvokeConfigDestinationConfig(d.Get("destination_config").([]interface{})),
+		DestinationConfig: expandFunctionEventInvokeConfigDestinationConfig(d.Get("destination_config").([]interface{})),
 		FunctionName:aws.String(functionName),
 		MaximumRetryAttempts: aws.Int64(int64(d.Get("maximum_retry_attempts").(int))),
 	}
@@ -257,7 +254,6 @@ func resourceFunctionEventInvokeConfigUpdate(ctx context.Context, d *schema.Reso
 
 	return append(diags, resourceFunctionEventInvokeConfigRead(ctx, d, meta)...)
 }
-
 func resourceFunctionEventInvokeConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -288,7 +284,6 @@ func resourceFunctionEventInvokeConfigDelete(ctx context.Context, d *schema.Reso
 
 	return diags
 }
-
 func FunctionEventInvokeConfigParseID(id string) (string, string, error) {
 	if arn.IsARN(id) {
 		parsedARN, err := arn.Parse(id)
@@ -329,7 +324,6 @@ func FunctionEventInvokeConfigParseID(id string) (string, string, error) {
 
 	return idParts[0], idParts[1], nil
 }
-
 func expandFunctionEventInvokeConfigDestinationConfig(l []interface{}) *lambda.DestinationConfig {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -349,7 +343,6 @@ func expandFunctionEventInvokeConfigDestinationConfig(l []interface{}) *lambda.D
 
 	return destinationConfig
 }
-
 func expandFunctionEventInvokeConfigDestinationConfigOnFailure(l []interface{}) *lambda.OnFailure {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -365,7 +358,6 @@ func expandFunctionEventInvokeConfigDestinationConfigOnFailure(l []interface{}) 
 
 	return onFailure
 }
-
 func expandFunctionEventInvokeConfigDestinationConfigOnSuccess(l []interface{}) *lambda.OnSuccess {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -381,7 +373,6 @@ func expandFunctionEventInvokeConfigDestinationConfigOnSuccess(l []interface{}) 
 
 	return onSuccess
 }
-
 func flattenFunctionEventInvokeConfigDestinationConfig(destinationConfig *lambda.DestinationConfig) []interface{} {
 	// The API will respond with empty OnFailure and OnSuccess destinations when unconfigured:
 	// "DestinationConfig":{"OnFailure":{"Destination":null},"OnSuccess":{"Destination":null}}
@@ -406,7 +397,6 @@ func flattenFunctionEventInvokeConfigDestinationConfig(destinationConfig *lambda
 
 	return []interface{}{m}
 }
-
 func flattenFunctionEventInvokeConfigDestinationConfigOnFailure(onFailure *lambda.OnFailure) []interface{} {
 	// The API will respond with empty OnFailure destination when unconfigured:
 	// "DestinationConfig":{"OnFailure":{"Destination":null},"OnSuccess":{"Destination":null}}
@@ -422,7 +412,6 @@ func flattenFunctionEventInvokeConfigDestinationConfigOnFailure(onFailure *lambd
 
 	return []interface{}{m}
 }
-
 func flattenFunctionEventInvokeConfigDestinationConfigOnSuccess(onSuccess *lambda.OnSuccess) []interface{} {
 	// The API will respond with empty OnSuccess destination when unconfigured:
 	// "DestinationConfig":{"OnFailure":{"Destination":null},"OnSuccess":{"Destination":null}}

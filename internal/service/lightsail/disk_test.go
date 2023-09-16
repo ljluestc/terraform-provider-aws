@@ -22,7 +22,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccLightsailDisk_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -58,7 +57,6 @@ func TestAccLightsailDisk_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailDisk_Tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -107,7 +105,6 @@ func TestAccLightsailDisk_Tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckDiskExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -134,7 +131,6 @@ func testAccCheckDiskExists(ctx context.Context, n string) resource.TestCheckFun
 		return nil
 	}
 }
-
 func TestAccLightsailDisk_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -161,7 +157,6 @@ func TestAccLightsailDisk_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckDiskDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -187,7 +182,6 @@ func testAccCheckDiskDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccDiskConfigBase() string {
 	return `
 data "aws_availability_zones" "available" {
@@ -200,7 +194,6 @@ data "aws_availability_zones" "available" {
 }
 `
 }
-
 func testAccDiskConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccDiskConfigBase(),
@@ -212,7 +205,6 @@ resource "aws_lightsail_disk" "test" {
 }
 `, rName))
 }
-
 func testAccDiskConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
 		testAccDiskConfigBase(),
@@ -227,7 +219,6 @@ resource "aws_lightsail_disk" "test" {
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccDiskConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccDiskConfigBase(),

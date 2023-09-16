@@ -37,9 +37,9 @@ func testAccSSMDefaultPatchBaseline_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDefaultPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckDefaultPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDefaultPatchBaselineConfig_basic(rName),
@@ -77,9 +77,9 @@ func testAccSSMDefaultPatchBaseline_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDefaultPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckDefaultPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDefaultPatchBaselineConfig_basic(rName),
@@ -105,9 +105,9 @@ func testAccSSMDefaultPatchBaseline_patchBaselineARN(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDefaultPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckDefaultPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDefaultPatchBaselineConfig_patchBaselineARN(rName),
@@ -146,9 +146,9 @@ func testAccSSMDefaultPatchBaseline_otherOperatingSystem(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDefaultPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckDefaultPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDefaultPatchBaselineConfig_operatingSystem(rName, types.OperatingSystemAmazonLinux2022),
@@ -184,9 +184,9 @@ func testAccSSMDefaultPatchBaseline_wrongOperatingSystem(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDefaultPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckDefaultPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDefaultPatchBaselineConfig_wrongOperatingSystem(rName, types.OperatingSystemAmazonLinux2022, types.OperatingSystemUbuntu),
@@ -207,9 +207,9 @@ func testAccSSMDefaultPatchBaseline_systemDefault(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDefaultPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckDefaultPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDefaultPatchBaselineConfig_systemDefault(),
@@ -249,9 +249,9 @@ func testAccSSMDefaultPatchBaseline_update(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.SSMEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDefaultPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckDefaultPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDefaultPatchBaselineConfig_operatingSystem(rName, types.OperatingSystemWindows),
@@ -301,9 +301,9 @@ func testAccSSMDefaultPatchBaseline_multiRegion(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.SSMEndpointID)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-		CheckDestroy:             testAccCheckDefaultPatchBaselineDestroy(ctx),
+		CheckDestroy:    testAccCheckDefaultPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDefaultPatchBaselineConfig_multiRegion(rName),
@@ -427,7 +427,7 @@ resource "aws_ssm_default_patch_baseline" "test" {
 }
 
 resource "aws_ssm_patch_baseline" "test" {
-  name             = %[1]q
+  name    = %[1]q
   operating_system = %[2]q
 
   approved_patches   = ["KB123456"]
@@ -444,7 +444,7 @@ resource "aws_ssm_default_patch_baseline" "test" {
 }
 
 resource "aws_ssm_patch_baseline" "test" {
-  name             = %[1]q
+  name    = %[1]q
   operating_system = %[2]q
 
   approved_patches   = ["KB123456"]
@@ -477,7 +477,7 @@ resource "aws_ssm_default_patch_baseline" "test" {
 }
 
 data "aws_ssm_patch_baseline" "test" {
-  owner            = "AWS"
+  owner   = "AWS"
   name_prefix      = "AWS-"
   operating_system = "CENTOS"
 }
@@ -492,7 +492,7 @@ resource "aws_ssm_default_patch_baseline" "test" {
 }
 
 resource "aws_ssm_patch_baseline" "test" {
-  name             = %[1]q
+  name    = %[1]q
   operating_system = %[2]q
 
   approved_patches   = ["KB123456"]
@@ -500,7 +500,7 @@ resource "aws_ssm_patch_baseline" "test" {
 }
 
 resource "aws_ssm_patch_baseline" "updated" {
-  name             = "%[1]s-updated"
+  name    = "%[1]s-updated"
   operating_system = %[2]q
 
   approved_patches   = ["KB123456"]

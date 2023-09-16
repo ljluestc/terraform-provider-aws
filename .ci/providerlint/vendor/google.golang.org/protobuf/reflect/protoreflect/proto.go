@@ -58,8 +58,8 @@ tion can be used
 // The following diagrams demonstrate the relationships between
 // various types declared in this package.
 //
-//	                       ┌───────────────────────────────────┐
-//	                       V                                   │
+//                   ┌───────────────────────────────────┐
+//                   V                                   │
 //	   ┌────────────── New(n) ─────────────┐                   │
 //	   │                                   │                   │
 //	   │      ┌──── Descriptor() ──┐       │  ┌── Number() ──┐ │
@@ -67,10 +67,10 @@ tion can be used
 //	╔════════════╗  ╔════════════════╗  ╔════════╗  ╔════════════╗
 //	║  EnumType  ║  ║ EnumDescriptor ║  ║  Enum  ║  ║ EnumNumber ║
 //	╚════════════╝  ╚════════════════╝  ╚════════╝  ╚════════════╝
-//	      Λ           Λ                   │ │
-//	      │           └─── Descriptor() ──┘ │
-//	      │                                 │
-//	      └────────────────── Type() ───────┘
+//  Λ           Λ                   │ │
+//  │           └─── Descriptor() ──┘ │
+//  │                                 │
+//  └────────────────── Type() ───────┘
 //
 // • An EnumType describes a concrete Go enum type.
 // It has an EnumDescriptor and can construct an Enum instance.
@@ -86,10 +86,10 @@ tion can be used
 //	╔═════════════╗  ╔═══════════════════╗  ╔═════════╗  ╔══════════════╗
 //	║ MessageType ║  ║ MessageDescriptor ║  ║ Message ║  ║ ProtoMessage ║
 //	╚═════════════╝  ╚═══════════════════╝  ╚═════════╝  ╚══════════════╝
-//	       Λ           Λ                      │ │  Λ                  │
-//	       │           └──── Descriptor() ────┘ │  └─ ProtoReflect() ─┘
-//	       │                                    │
-//	       └─────────────────── Type() ─────────┘
+//   Λ           Λ                      │ │  Λ                  │
+//   │           └──── Descriptor() ────┘ │  └─ ProtoReflect() ─┘
+//   │                                    │
+//   └─────────────────── Type() ─────────┘
 //
 // • A MessageType describes a concrete Go message type.
 // It has a MessageDescriptor and can construct a Message instance.
@@ -110,15 +110,15 @@ tion can be used
 // calling reflect.ValueOf, and the Message.Interface method is similar to
 // calling reflect.Value.Interface.
 //
-//	      ┌── TypeDescriptor() ──┐    ┌───── Descriptor() ─────┐
-//	      │                      V    │                        V
+//  ┌── TypeDescriptor() ──┐    ┌───── Descriptor() ─────┐
+//  │                      V    │                        V
 //	╔═══════════════╗  ╔═════════════════════════╗  ╔═════════════════════╗
 //	║ ExtensionType ║  ║ ExtensionTypeDescriptor ║  ║ ExtensionDescriptor ║
 //	╚═══════════════╝  ╚═════════════════════════╝  ╚═════════════════════╝
-//	      Λ                      │   │ Λ                      │ Λ
-//	      └─────── Type() ───────┘   │ └─── may implement ────┘ │
-//	                                 │                          │
-//	                                 └────── implements ────────┘
+//  Λ                      │   │ Λ                      │ Λ
+//  └─────── Type() ───────┘   │ └─── may implement ────┘ │
+//                             │                          │
+//                             └────── implements ────────┘
 //
 // • An ExtensionType describes a concrete Go implementation of an extension.
 // It has an ExtensionTypeDescriptor and can convert to/from

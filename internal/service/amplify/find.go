@@ -32,7 +32,7 @@ func FindAppByID(ctx context.Context, conn *amplify.Amplify, id string) (*amplif
 
 	if output == nil || output.App == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message: "Empty result",
 			LastRequest: input,
 		}
 	}
@@ -42,7 +42,7 @@ func FindAppByID(ctx context.Context, conn *amplify.Amplify, id string) (*amplif
 
 func FindBackendEnvironmentByAppIDAndEnvironmentName(ctx context.Context, conn *amplify.Amplify, appID, environmentName string) (*amplify.BackendEnvironment, error) {
 	input := &amplify.GetBackendEnvironmentInput{
-		AppId:           aws.String(appID),
+		AppId:  aws.String(appID),
 		EnvironmentName: aws.String(environmentName),
 	}
 
@@ -61,7 +61,7 @@ func FindBackendEnvironmentByAppIDAndEnvironmentName(ctx context.Context, conn *
 
 	if output == nil || output.BackendEnvironment == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message: "Empty result",
 			LastRequest: input,
 		}
 	}
@@ -71,7 +71,7 @@ func FindBackendEnvironmentByAppIDAndEnvironmentName(ctx context.Context, conn *
 
 func FindBranchByAppIDAndBranchName(ctx context.Context, conn *amplify.Amplify, appID, branchName string) (*amplify.Branch, error) {
 	input := &amplify.GetBranchInput{
-		AppId:      aws.String(appID),
+		AppId:  aws.String(appID),
 		BranchName: aws.String(branchName),
 	}
 
@@ -90,7 +90,7 @@ func FindBranchByAppIDAndBranchName(ctx context.Context, conn *amplify.Amplify, 
 
 	if output == nil || output.Branch == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message: "Empty result",
 			LastRequest: input,
 		}
 	}
@@ -100,7 +100,7 @@ func FindBranchByAppIDAndBranchName(ctx context.Context, conn *amplify.Amplify, 
 
 func FindDomainAssociationByAppIDAndDomainName(ctx context.Context, conn *amplify.Amplify, appID, domainName string) (*amplify.DomainAssociation, error) {
 	input := &amplify.GetDomainAssociationInput{
-		AppId:      aws.String(appID),
+		AppId:  aws.String(appID),
 		DomainName: aws.String(domainName),
 	}
 
@@ -119,7 +119,7 @@ func FindDomainAssociationByAppIDAndDomainName(ctx context.Context, conn *amplif
 
 	if output == nil || output.DomainAssociation == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message: "Empty result",
 			LastRequest: input,
 		}
 	}
@@ -147,7 +147,7 @@ func FindWebhookByID(ctx context.Context, conn *amplify.Amplify, id string) (*am
 
 	if output == nil || output.Webhook == nil {
 		return nil, &retry.NotFoundError{
-			Message:     "Empty result",
+			Message: "Empty result",
 			LastRequest: input,
 		}
 	}

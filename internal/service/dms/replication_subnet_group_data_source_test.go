@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDMSReplicationSubnetGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -19,7 +18,8 @@ func TestAccDMSReplicationSubnetGroupDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_dms_replication_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -36,7 +36,6 @@ func TestAccDMSReplicationSubnetGroupDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccReplicationSubnetGroupDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccReplicationSubnetGroupConfig_basic(rName, "testing"), `
 data "aws_dms_replication_subnet_group" "test" {

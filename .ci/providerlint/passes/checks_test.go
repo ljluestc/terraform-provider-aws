@@ -1,15 +1,1 @@
-package passes
-
-import (
-	"testing"
-
-	"golang.org/x/tools/go/analysis"
-)
-
-func TestValidateAllChecks(t *testing.T) {
-	err := analysis.Validate(AllChecks)
-
-	if err != nil {
-		t.Fatal(err)
-	}
-}
+packagepassesimport("testing""golang.org/x/tools/go/analysis")funcTestValidateAllChecks(t*testing.T){err:=analysis.Validate(AllChecks)iferr!=nil{t.Fatal(err)}}

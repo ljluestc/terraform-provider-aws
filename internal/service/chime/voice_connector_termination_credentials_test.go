@@ -31,7 +31,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
+CheckDestroy:    testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceConnectorTerminationCredentialsConfig_basic(rName),
@@ -41,8 +41,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"credentials"},
 	},
@@ -62,7 +62,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
+CheckDestroy:    testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceConnectorTerminationCredentialsConfig_basic(rName),
@@ -88,7 +88,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
+CheckDestroy:    testAccCheckVoiceConnectorTerminationCredentialsDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceConnectorTerminationCredentialsConfig_basic(rName),

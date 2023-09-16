@@ -1,24 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kinesis_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package kinesis_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/kinesis"
+	"testing"	"github.com/aws/aws-sdk-go/service/kinesis"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func TestAccKinesisStreamDataSource_basic(t *testing.T) {
+)func TestAccKinesisStreamDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	dataSourceName := "data.aws_kinesis_stream.test"
-
-	resource.ParallelTest(t, resource.TestCase{
+	dataSourceName := "data.aws_kinesis_stream.test"	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:    func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -48,26 +38,18 @@ func TestAccKinesisStreamDataSource_basic(t *testing.T) {
 			},
 		},
 	})
-}
-
-func testAccStreamDataSourceConfig_basic(rName string, shardCount int) string {
+}func testAccStreamDataSourceConfig_basic(rName string, shardCount int) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
   name    = %[1]q
-  shard_count      = %[2]d
-  retention_period = 72
-
-  tags = {
+  shard_count= %[2]d
+  retention_period = 72  tags = {
     Name = %[1]q
-  }
-
-  shard_level_metrics = [
+  }  shard_level_metrics = [
     "IncomingBytes",
     "OutgoingBytes"
   ]
-}
-
-data "aws_kinesis_stream" "test" {
+}data "aws_kinesis_stream" "test" {
   name = aws_kinesis_stream.test.name
 }
 `, rName, shardCount)

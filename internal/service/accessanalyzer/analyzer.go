@@ -50,7 +50,7 @@ func resourceAnalyzer() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"analyzer_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -59,16 +59,16 @@ func resourceAnalyzer() *schema.Resource {
 				),
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
 				Type:ring,
-				Optional:         true,
-				ForceNew:         true,
-				Default:          types.TypeAccount,
+				Optional:true,
+				ForceNew:true,
+				Default: types.TypeAccount,
 				ValidateDiagFunc: enum.Validate[types.Type](),
 			},
 		},
@@ -85,8 +85,8 @@ func resourceAnalyzerCreate(ctx context.Context, d *schema.ResourceData, meta in
 	input := &accessanalyzer.CreateAnalyzerInput{
 		AnalyzerName: aws.String(analyzerName),
 		ClientToken:  aws.String(id.UniqueId()),
-		Tags:         getTagsIn(ctx),
-		Type:         types.Type(d.Get("type").(string)),
+		Tags:getTagsIn(ctx),
+		Type:types.Type(d.Get("type").(string)),
 	}
 
 	// Handle Organizations eventual consistency.

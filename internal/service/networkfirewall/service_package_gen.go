@@ -45,7 +45,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceFirewall,
 			TypeName: "aws_networkfirewall_firewall",
-			Name:     "Firewall",
+			Name:"Firewall",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -53,7 +53,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceFirewallPolicy,
 			TypeName: "aws_networkfirewall_firewall_policy",
-			Name:     "Firewall Policy",
+			Name:"Firewall Policy",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -69,7 +69,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceRuleGroup,
 			TypeName: "aws_networkfirewall_rule_group",
-			Name:     "Rule Group",
+			Name:"Rule Group",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},

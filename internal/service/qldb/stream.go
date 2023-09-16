@@ -41,45 +41,45 @@ func resourceStream() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"exclusive_end_time": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				ValidateFunc: validation.IsRFC3339Time,
 			},
 			"inclusive_start_time": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.IsRFC3339Time,
 			},
 			"kinesis_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Required: true,
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"aggregation_enabled": {
-							Type:     schema.TypeBool,
+							Type: schema.TypeBool,
 							Optional: true,
 							Default:  true,
 							ForceNew: true,
 						},
 						"stream_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type:schema.TypeString,
+							Required: true,
+							ForceNew: true,
 							ValidateFunc: verify.ValidARN,
 						},
 					},
 				},
 			},
 			"ledger_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -87,20 +87,20 @@ func resourceStream() *schema.Resource {
 				),
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"stream_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 32),
 				),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -115,9 +115,9 @@ func resourceStreamCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	name := d.Get("stream_name").(string)
 	input := &qldb.StreamJournalToKinesisInput{
 		LedgerName: aws.String(ledgerName),
-		RoleArn:    aws.String(d.Get("role_arn").(string)),
+		RoleArn:aws.String(d.Get("role_arn").(string)),
 		StreamName: aws.String(name),
-		Tags:       getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("exclusive_end_time"); ok {
@@ -240,7 +240,7 @@ func findStreamByTwoPartKey(ctx context.Context, conn *qldb.Client, ledgerName, 
 	switch status := output.Status; status {
 	case types.StreamStatusCompleted, types.StreamStatusCanceled, types.StreamStatusFailed:
 		return nil, &retry.NotFoundError{
-			Message:     string(status),
+			Message: string(status),
 			LastRequest: input,
 		}
 	}
@@ -291,10 +291,10 @@ func statusStreamCreated(ctx context.Context, conn *qldb.Client, ledgerName, str
 
 func waitStreamCreated(ctx context.Context, conn *qldb.Client, ledgerName, streamID string, timeout time.Duration) (*types.JournalKinesisStreamDescription, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.StreamStatusImpaired),
-		Target:     enum.Slice(types.StreamStatusActive),
-		Refresh:    statusStreamCreated(ctx, conn, ledgerName, streamID),
-		Timeout:    timeout,
+		Pending:enum.Slice(types.StreamStatusImpaired),
+		Target: enum.Slice(types.StreamStatusActive),
+		Refresh:statusStreamCreated(ctx, conn, ledgerName, streamID),
+		Timeout:timeout,
 		MinTimeout: 3 * time.Second,
 	}
 
@@ -327,10 +327,10 @@ func statusStreamDeleted(ctx context.Context, conn *qldb.Client, ledgerName, str
 
 func waitStreamDeleted(ctx context.Context, conn *qldb.Client, ledgerName, streamID string, timeout time.Duration) (*types.JournalKinesisStreamDescription, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.StreamStatusActive, types.StreamStatusImpaired),
-		Target:     []string{},
-		Refresh:    statusStreamDeleted(ctx, conn, ledgerName, streamID),
-		Timeout:    timeout,
+		Pending:enum.Slice(types.StreamStatusActive, types.StreamStatusImpaired),
+		Target: []string{},
+		Refresh:statusStreamDeleted(ctx, conn, ledgerName, streamID),
+		Timeout:timeout,
 		MinTimeout: 1 * time.Second,
 	}
 

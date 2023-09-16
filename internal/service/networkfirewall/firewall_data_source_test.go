@@ -25,7 +25,7 @@ func TestAccNetworkFirewallFirewallDataSource_arn(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -73,7 +73,7 @@ func TestAccNetworkFirewallFirewallDataSource_name(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -121,7 +121,7 @@ func TestAccNetworkFirewallFirewallDataSource_arnandname(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, networkfirewall.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -165,8 +165,8 @@ data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+name   = "opt-in-status"
+values = ["opt-in-not-required"]
   }
 }
 
@@ -174,25 +174,25 @@ resource "aws_vpc" "test" {
   cidr_block = "192.168.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  vpc_id  = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_networkfirewall_firewall_policy" "test" {
   name = %[1]q
   firewall_policy {
-    stateless_fragment_default_actions = ["aws:drop"]
-    stateless_default_actions          = ["aws:pass"]
+stateless_fragment_default_actions = ["aws:drop"]
+stateless_default_actions= ["aws:pass"]
   }
 }
 `, rName)
@@ -208,7 +208,7 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
   }
 }
 
@@ -228,7 +228,7 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
   }
 }
 
@@ -250,7 +250,7 @@ resource "aws_networkfirewall_firewall" "test" {
   vpc_id = aws_vpc.test.id
 
   subnet_mapping {
-    subnet_id = aws_subnet.test.id
+subnet_id = aws_subnet.test.id
   }
 }
 

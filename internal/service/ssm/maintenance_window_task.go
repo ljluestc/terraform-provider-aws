@@ -51,27 +51,27 @@ func ResourceMaintenanceWindowTask() *schema.Resource {
 			},
 
 			"cutoff_behavior": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(ssm.MaintenanceWindowTaskCutoffBehavior_Values(), false),
 			},
 
 			"max_concurrency": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^([1-9][0-9]*|[1-9][0-9]%|[1-9]%|100%)$`), "must be a number without leading zeros or a percentage between 1% and 100% without leading zeros and ending with the percentage symbol"),
 			},
 
 			"max_errors": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^([1-9][0-9]*|[0]|[1-9][0-9]%|[0-9]%|100%)$`), "must be zero, a number without leading zeros, or a percentage between 1% and 100% without leading zeros and ending with the percentage symbol"),
 			},
 
 			"task_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(ssm.MaintenanceWindowTaskType_Values(), false),
@@ -83,7 +83,7 @@ func ResourceMaintenanceWindowTask() *schema.Resource {
 			},
 
 			"service_role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: verify.ValidARN,
@@ -117,13 +117,13 @@ func ResourceMaintenanceWindowTask() *schema.Resource {
 			},
 
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 
 			"priority": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntAtLeast(0),
 			},
@@ -141,7 +141,7 @@ func ResourceMaintenanceWindowTask() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"document_version": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringMatch(regexache.MustCompile("([$]LATEST|[$]DEFAULT|^[1-9][0-9]*$)"), "see https://docs.aws.amazon.com/systems-manager/latest/APIReference/API_MaintenanceWindowAutomationParameters.html"),
 									},
@@ -174,20 +174,20 @@ func ResourceMaintenanceWindowTask() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"client_context": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 8000),
 									},
 
 									"payload": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Sensitive:    true,
 										ValidateFunc: validation.StringLenBetween(0, 4096),
 									},
 
 									"qualifier": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 128),
 									},
@@ -202,24 +202,24 @@ func ResourceMaintenanceWindowTask() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"comment": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(0, 100),
 									},
 
 									"document_hash": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(0, 256),
 									},
 
 									"document_hash_type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringInSlice(ssm.DocumentHashType_Values(), false),
 									},
 									"document_version": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringMatch(regexache.MustCompile(`([$]LATEST|[$]DEFAULT|^[1-9][0-9]*$)`), "must be $DEFAULT, $LATEST, or a version number"),
 									},
@@ -231,7 +231,7 @@ func ResourceMaintenanceWindowTask() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"notification_arn": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: verify.ValidARN,
 												},
@@ -240,13 +240,13 @@ func ResourceMaintenanceWindowTask() *schema.Resource {
 													Type:     schema.TypeList,
 													Optional: true,
 													Elem: &schema.Schema{
-														Type:         schema.TypeString,
+														Type:schema.TypeString,
 														ValidateFunc: validation.StringInSlice(ssm.NotificationEvent_Values(), false),
 													},
 												},
 
 												"notification_type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: validation.StringInSlice(ssm.NotificationType_Values(), false),
 												},
@@ -284,13 +284,13 @@ func ResourceMaintenanceWindowTask() *schema.Resource {
 									},
 
 									"service_role_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: verify.ValidARN,
 									},
 
 									"timeout_seconds": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ValidateFunc: validation.IntBetween(30, 2592000),
 									},
@@ -323,14 +323,14 @@ func ResourceMaintenanceWindowTask() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"input": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Sensitive:    true,
 										ValidateFunc: validation.StringLenBetween(0, 4096),
 									},
 
 									"name": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 80),
 									},

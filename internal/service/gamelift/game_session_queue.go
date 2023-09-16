@@ -38,53 +38,53 @@ func ResourceGameSessionQueue() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"custom_event_data": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
 			"destinations": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"notification_target": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"player_latency_policy": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"maximum_individual_player_latency_milliseconds": {
-							Type:         schema.TypeInt,
-							Required:     true,
+							Type:schema.TypeInt,
+							Required: true,
 							ValidateFunc: validation.IntAtLeast(0),
 						},
 						"policy_duration_seconds": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type:schema.TypeInt,
+							Optional: true,
 							ValidateFunc: validation.IntAtLeast(0),
 						},
 					},
 				},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"timeout_in_seconds": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional: true,
 				ValidateFunc: validation.IntBetween(10, 600),
 			},
 		},
@@ -99,11 +99,11 @@ func resourceGameSessionQueueCreate(ctx context.Context, d *schema.ResourceData,
 
 	name := d.Get("name").(string)
 	input := &gamelift.CreateGameSessionQueueInput{
-		Name:     aws.String(name),
-		Destinations:          expandGameSessionQueueDestinations(d.Get("destinations").([]interface{})),
+		Name: aws.String(name),
+		Destinations: expandGameSessionQueueDestinations(d.Get("destinations").([]interface{})),
 		PlayerLatencyPolicies: expandGameSessionPlayerLatencyPolicies(d.Get("player_latency_policy").([]interface{})),
-		TimeoutInSeconds:      aws.Int64(int64(d.Get("timeout_in_seconds").(int))),
-		Tags:     getTagsIn(ctx),
+		TimeoutInSeconds:  aws.Int64(int64(d.Get("timeout_in_seconds").(int))),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("custom_event_data"); ok {
@@ -163,10 +163,10 @@ func resourceGameSessionQueueUpdate(ctx context.Context, d *schema.ResourceData,
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &gamelift.UpdateGameSessionQueueInput{
-			Name:     aws.String(d.Id()),
-			Destinations:          expandGameSessionQueueDestinations(d.Get("destinations").([]interface{})),
+			Name: aws.String(d.Id()),
+			Destinations: expandGameSessionQueueDestinations(d.Get("destinations").([]interface{})),
 			PlayerLatencyPolicies: expandGameSessionPlayerLatencyPolicies(d.Get("player_latency_policy").([]interface{})),
-			TimeoutInSeconds:      aws.Int64(int64(d.Get("timeout_in_seconds").(int))),
+			TimeoutInSeconds:  aws.Int64(int64(d.Get("timeout_in_seconds").(int))),
 		}
 
 		if v, ok := d.GetOk("custom_event_data"); ok {
@@ -263,7 +263,7 @@ func flattenPlayerLatencyPolicies(playerLatencyPolicies []*gamelift.PlayerLatenc
 	for _, policy := range playerLatencyPolicies {
 		m := map[string]interface{}{
 			"maximum_individual_player_latency_milliseconds": aws.Int64Value(policy.MaximumIndividualPlayerLatencyMilliseconds),
-			"policy_duration_seconds":           aws.Int64Value(policy.PolicyDurationSeconds),
+			"policy_duration_seconds":  aws.Int64Value(policy.PolicyDurationSeconds),
 		}
 		l = append(l, m)
 	}
@@ -296,7 +296,7 @@ func expandGameSessionPlayerLatencyPolicies(destinationsPlayerLatencyPolicyMap [
 			playerLatencyPolicies,
 			&gamelift.PlayerLatencyPolicy{
 				MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(int64(item["maximum_individual_player_latency_milliseconds"].(int))),
-				PolicyDurationSeconds:         aws.Int64(int64(item["policy_duration_seconds"].(int))),
+				PolicyDurationSeconds:aws.Int64(int64(item["policy_duration_seconds"].(int))),
 			})
 	}
 	return playerLatencyPolicies

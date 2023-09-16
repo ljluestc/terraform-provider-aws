@@ -14,25 +14,21 @@ import (
 )
 
 type servicePackage struct{}
-
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{}
 }
-
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{}
 }
-
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{}
 }
-
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
 			Factory:  ResourceGraph,
 			TypeName: "aws_detective_graph",
-			Name:     "Graph",
+			Name:"Graph",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "id",
 			},
@@ -47,7 +43,6 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		},
 	}
 }
-
 func (p *servicePackage) ServicePackageName() string {
 	return names.Detective
 }
@@ -58,7 +53,6 @@ func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*d
 
 	return detective_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }

@@ -25,7 +25,7 @@ import (
 func ResourceIdentityPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceIdentityPolicyCreate,
-		ReadWithoutTimeout:   resourceIdentityPolicyRead,
+		ReadWithoutTimeout:resourceIdentityPolicyRead,
 		UpdateWithoutTimeout: resourceIdentityPolicyUpdate,
 		DeleteWithoutTimeout: resourceIdentityPolicyDelete,
 		Importer: &schema.ResourceImporter{
@@ -34,12 +34,12 @@ func ResourceIdentityPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"identity": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -48,12 +48,13 @@ func ResourceIdentityPolicy() *schema.Resource {
 				),
 			},
 			"policy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				ValidateFunc: validation.StringIsJSON,
+				DiffSuppressFunc:verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				StateFunc: func(v interface{}) string {
+				StateFunc: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -61,7 +62,6 @@ func ResourceIdentityPolicy() *schema.Resource {
 		},
 	}
 }
-
 func resourceIdentityPolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -75,9 +75,9 @@ func resourceIdentityPolicyCreate(ctx context.Context, d *schema.ResourceData, m
 	}
 
 	input := &ses.PutIdentityPolicyInput{
-		Identity:   aws.String(identity),
+		Identity:aws.String(identity),
 		PolicyName: aws.String(policyName),
-		Policy:     aws.String(policy),
+		Policy:aws.String(policy),
 	}
 
 	_, err = conn.PutIdentityPolicyWithContext(ctx, input)
@@ -89,7 +89,6 @@ func resourceIdentityPolicyCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceIdentityPolicyRead(ctx, d, meta)...)
 }
-
 func resourceIdentityPolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -105,9 +104,9 @@ func resourceIdentityPolicyUpdate(ctx context.Context, d *schema.ResourceData, m
 	}
 
 	req := ses.PutIdentityPolicyInput{
-		Identity:   aws.String(identity),
+		Identity:aws.String(identity),
 		PolicyName: aws.String(policyName),
-		Policy:     aws.String(policy),
+		Policy:aws.String(policy),
 	}
 
 	_, err = conn.PutIdentityPolicyWithContext(ctx, &req)
@@ -117,7 +116,6 @@ func resourceIdentityPolicyUpdate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceIdentityPolicyRead(ctx, d, meta)...)
 }
-
 func resourceIdentityPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -128,7 +126,7 @@ func resourceIdentityPolicyRead(ctx context.Context, d *schema.ResourceData, met
 	}
 
 	input := &ses.GetIdentityPoliciesInput{
-		Identity:    aws.String(identity),
+		Identity: aws.String(identity),
 		PolicyNames: aws.StringSlice([]string{policyName}),
 	}
 
@@ -167,7 +165,6 @@ func resourceIdentityPolicyRead(ctx context.Context, d *schema.ResourceData, met
 
 	return diags
 }
-
 func resourceIdentityPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -178,7 +175,7 @@ func resourceIdentityPolicyDelete(ctx context.Context, d *schema.ResourceData, m
 	}
 
 	input := &ses.DeleteIdentityPolicyInput{
-		Identity:   aws.String(identity),
+		Identity:aws.String(identity),
 		PolicyName: aws.String(policyName),
 	}
 
@@ -191,7 +188,6 @@ func resourceIdentityPolicyDelete(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
-
 func IdentityPolicyParseID(id string) (string, string, error) {
 	idParts := strings.SplitN(id, "|", 2)
 	if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {

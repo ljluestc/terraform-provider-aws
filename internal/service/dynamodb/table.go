@@ -34,7 +34,7 @@ import (
 
 const (
 provisionedThroughputMinValue = 1
-ResNameTable     = "Table"
+ResNameTable = "Table"
 )
 
 // @SDKResource("aws_dynamodb_table", name="Table")
@@ -117,22 +117,22 @@ MigrateState:  resourceTableMigrateState,
 
 Schema: map[string]*schema.Schema{
 names.AttrARN: {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "attribute": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Optional: true,
 Computed: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 names.AttrName: {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 },
 names.AttrType: {
-Type:         schema.TypeString,
-Required:     true,
+Type:schema.TypeString,
+Required: true,
 ValidateFunc: validation.StringInSlice(dynamodb.ScalarAttributeType_Values(), false),
 },
 },
@@ -145,84 +145,84 @@ return create.StringHashcode(buf.String())
 },
 },
 "billing_mode": {
-Type:         schema.TypeString,
-Optional:     true,
-Default:      dynamodb.BillingModeProvisioned,
+Type:schema.TypeString,
+Optional: true,
+Default:  dynamodb.BillingModeProvisioned,
 ValidateFunc: validation.StringInSlice(dynamodb.BillingMode_Values(), false),
 },
 "deletion_protection_enabled": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 },
 "global_secondary_index": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Optional: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "hash_key": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 },
 names.AttrName: {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 },
 "non_key_attributes": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Optional: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 },
 "projection_type": {
-Type:         schema.TypeString,
-Required:     true,
+Type:schema.TypeString,
+Required: true,
 ValidateFunc: validation.StringInSlice(dynamodb.ProjectionType_Values(), false),
 },
 "range_key": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 },
 "read_capacity": {
-Type:     schema.TypeInt,
+Type: schema.TypeInt,
 Optional: true,
 },
 "write_capacity": {
-Type:     schema.TypeInt,
+Type: schema.TypeInt,
 Optional: true,
 },
 },
 },
 },
 "hash_key": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
 },
 "local_secondary_index": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Optional: true,
 ForceNew: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 names.AttrName: {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "non_key_attributes": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Optional: true,
 ForceNew: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 },
 "projection_type": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 ValidateFunc: validation.StringInSlice(dynamodb.ProjectionType_Values(), false),
 },
 "range_key": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ForceNew: true,
 },
@@ -236,125 +236,125 @@ return create.StringHashcode(buf.String())
 },
 },
 names.AttrName: {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "point_in_time_recovery": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 names.AttrEnabled: {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Required: true,
 },
 },
 },
 },
 "range_key": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 ForceNew: true,
 },
 "read_capacity": {
-Type:     schema.TypeInt,
+Type: schema.TypeInt,
 Optional: true,
 Computed: true,
 },
 "replica": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Optional: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 names.AttrARN: {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 names.AttrKMSKeyARN: {
-Type:         schema.TypeString,
-Optional:     true,
-Computed:     true,
+Type:schema.TypeString,
+Optional: true,
+Computed: true,
 ValidateFunc: verify.ValidARN,
 // update is equivalent of force a new *replica*, not table
 },
 "point_in_time_recovery": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 },
 "propagate_tags": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 },
 "region_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 // update is equivalent of force a new *replica*, not table
 },
 "stream_arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "stream_label": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 },
 },
 },
 "restore_date_time": {
-Type:         schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Optional: true,
+ForceNew: true,
 ValidateFunc: verify.ValidUTCTimestamp,
 },
 "restore_source_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 },
 "restore_to_latest_time": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 ForceNew: true,
 },
 "server_side_encryption": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 names.AttrEnabled: {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Required: true,
 },
 names.AttrKMSKeyARN: {
-Type:         schema.TypeString,
-Optional:     true,
-Computed:     true,
+Type:schema.TypeString,
+Optional: true,
+Computed: true,
 ValidateFunc: verify.ValidARN,
 },
 },
 },
 },
 "stream_arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "stream_enabled": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 },
 "stream_label": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "stream_view_type": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 Computed: true,
 StateFunc: func(v interface{}) string {
@@ -364,7 +364,7 @@ return strings.ToUpper(value)
 ValidateFunc: validation.StringInSlice(append(dynamodb.StreamViewType_Values(), ""), false),
 },
 "table_class": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 Default:  dynamodb.TableClassStandard,
 DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
@@ -372,21 +372,21 @@ return old == "" && new == dynamodb.TableClassStandard
 },
 ValidateFunc: validation.StringInSlice(dynamodb.TableClass_Values(), false),
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 "ttl": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Optional: true,
 Computed: true,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "attribute_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 },
 names.AttrEnabled: {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 },
@@ -395,7 +395,7 @@ Default:  false,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 },
 "write_capacity": {
-Type:     schema.TypeInt,
+Type: schema.TypeInt,
 Computed: true,
 Optional: true,
 },
@@ -491,7 +491,7 @@ input := &dynamodb.CreateTableInput{
 BillingMode: aws.String(d.Get("billing_mode").(string)),
 KeySchema:   expandKeySchema(keySchemaMap),
 TableName:   aws.String(tableName),
-Tags:        getTagsIn(ctx),
+Tags:getTagsIn(ctx),
 }
 
 billingMode := d.Get("billing_mode").(string)
@@ -763,8 +763,8 @@ log.Printf("[DEBUG] Computed DynamoDB Table (%s) Global Secondary Index updates:
 
 // Phase 1 of Global Secondary Index Operations: Delete Only
 //  * Delete indexes first to prevent error when simultaneously updating
-//    BillingMode to PROVISIONED, which requires updating index
-//    ProvisionedThroughput first, but we have no definition
+//BillingMode to PROVISIONED, which requires updating index
+//ProvisionedThroughput first, but we have no definition
 //  * Only 1 online index can be deleted simultaneously per table
 for _, gsiUpdate := range gsiUpdates {
 if gsiUpdate.Delete == nil {
@@ -774,7 +774,7 @@ continue
 idxName := aws.StringValue(gsiUpdate.Delete.IndexName)
 input := &dynamodb.UpdateTableInput{
 GlobalSecondaryIndexUpdates: []*dynamodb.GlobalSecondaryIndexUpdate{gsiUpdate},
-TableName:      aws.String(d.Id()),
+TableName:  aws.String(d.Id()),
 }
 
 if _, err := conn.UpdateTableWithContext(ctx, input); err != nil {
@@ -896,9 +896,9 @@ continue
 
 idxName := aws.StringValue(gsiUpdate.Create.IndexName)
 input := &dynamodb.UpdateTableInput{
-AttributeDefinitions:        expandAttributes(d.Get("attribute").(*schema.Set).List()),
+AttributeDefinitions:expandAttributes(d.Get("attribute").(*schema.Set).List()),
 GlobalSecondaryIndexUpdates: []*dynamodb.GlobalSecondaryIndexUpdate{gsiUpdate},
-TableName:      aws.String(d.Id()),
+TableName:  aws.String(d.Id()),
 }
 
 if _, err := conn.UpdateTableWithContext(ctx, input); err != nil {
@@ -930,7 +930,7 @@ if v, ok := tfMap[names.AttrKMSKeyARN].(string); ok && v != "" {
 KMSMasterKeyId = v
 }
 var input = &dynamodb.UpdateReplicationGroupMemberAction{
-RegionName:     aws.String(regionName),
+RegionName: aws.String(regionName),
 KMSMasterKeyId: aws.String(KMSMasterKeyId),
 }
 var update = &dynamodb.ReplicationGroupUpdate{Update: input}
@@ -938,12 +938,12 @@ replicaInputs = append(replicaInputs, update)
 }
 var input = &dynamodb.UpdateReplicationGroupMemberAction{
 KMSMasterKeyId: expandEncryptAtRestOptions(d.Get("server_side_encryption").([]interface{})).KMSMasterKeyId,
-RegionName:     aws.String(meta.(*conns.AWSClient).Region),
+RegionName: aws.String(meta.(*conns.AWSClient).Region),
 }
 var update = &dynamodb.ReplicationGroupUpdate{Update: input}
 replicaInputs = append(replicaInputs, update)
 _, err := conn.UpdateTableWithContext(ctx, &dynamodb.UpdateTableInput{
-TableName:      aws.String(d.Id()),
+TableName:  aws.String(d.Id()),
 ReplicaUpdates: replicaInputs,
 })
 if err != nil {
@@ -960,7 +960,7 @@ return sdkdiag.AppendErrorf(diags, "waiting for DynamoDB Table (%s) SSE update: 
 } else {
 log.Printf("[DEBUG] Using normal update for SSE")
 _, err := conn.UpdateTableWithContext(ctx, &dynamodb.UpdateTableInput{
-TableName:        aws.String(d.Id()),
+TableName:aws.String(d.Id()),
 SSESpecification: expandEncryptAtRestOptions(d.Get("server_side_encryption").([]interface{})),
 })
 if err != nil {
@@ -1244,7 +1244,7 @@ input := &dynamodb.UpdateTimeToLiveInput{
 TableName: aws.String(tableName),
 TimeToLiveSpecification: &dynamodb.TimeToLiveSpecification{
 AttributeName: aws.String(ttlMap["attribute_name"].(string)),
-Enabled:       aws.Bool(ttlMap[names.AttrEnabled].(bool)),
+Enabled:   aws.Bool(ttlMap[names.AttrEnabled].(bool)),
 },
 }
 
@@ -1440,7 +1440,7 @@ Create: &dynamodb.CreateGlobalSecondaryIndexAction{
 IndexName:aws.String(idxName),
 KeySchema:expandKeySchema(m),
 ProvisionedThroughput: expandProvisionedThroughput(m, billingMode),
-Projection:            expandProjection(m),
+Projection:   expandProjection(m),
 },
 })
 }
@@ -1502,7 +1502,7 @@ Create: &dynamodb.CreateGlobalSecondaryIndexAction{
 IndexName:aws.String(idxName),
 KeySchema:expandKeySchema(newMap),
 ProvisionedThroughput: expandProvisionedThroughput(newMap, billingMode),
-Projection:            expandProjection(newMap),
+Projection:   expandProjection(newMap),
 },
 })
 }
@@ -1532,9 +1532,9 @@ return true, err
 }
 // This handles multiple scenarios in the DynamoDB API:
 //  1. Updating a table immediately before deletion may return:
-//     ResourceInUseException: Attempt to change a resource which is still in use: Table is being updated:
+// ResourceInUseException: Attempt to change a resource which is still in use: Table is being updated:
 //  2. Removing a table from a DynamoDB global table may return:
-//     ResourceInUseException: Attempt to change a resource which is still in use: Table is being deleted:
+// ResourceInUseException: Attempt to change a resource which is still in use: Table is being deleted:
 if tfawserr.ErrCodeEquals(err, dynamodb.ErrCodeResourceInUseException) {
 return true, err
 }
@@ -2030,7 +2030,7 @@ func expandGlobalSecondaryIndex(data map[string]interface{}, billingMode string)
 return &dynamodb.GlobalSecondaryIndex{
 IndexName:aws.String(data[names.AttrName].(string)),
 KeySchema:expandKeySchema(data),
-Projection:            expandProjection(data),
+Projection:   expandProjection(data),
 ProvisionedThroughput: expandProvisionedThroughput(data, billingMode),
 }
 }
@@ -2082,14 +2082,14 @@ keySchema := []*dynamodb.KeySchemaElement{}
 if v, ok := data["hash_key"]; ok && v != nil && v != "" {
 keySchema = append(keySchema, &dynamodb.KeySchemaElement{
 AttributeName: aws.String(v.(string)),
-KeyType:       aws.String(dynamodb.KeyTypeHash),
+KeyType:   aws.String(dynamodb.KeyTypeHash),
 })
 }
 
 if v, ok := data["range_key"]; ok && v != nil && v != "" {
 keySchema = append(keySchema, &dynamodb.KeySchemaElement{
 AttributeName: aws.String(v.(string)),
-KeyType:       aws.String(dynamodb.KeyTypeRange),
+KeyType:   aws.String(dynamodb.KeyTypeRange),
 })
 }
 

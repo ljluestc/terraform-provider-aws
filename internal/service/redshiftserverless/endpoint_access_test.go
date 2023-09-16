@@ -25,7 +25,7 @@ func TestAccRedshiftServerlessEndpointAccess_basic(t *testing.T) {
 	rName := sdkacctest.RandStringFromCharSet(30, sdkacctest.CharSetAlpha)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEndpointAccessDestroy(ctx),
@@ -42,8 +42,8 @@ func TestAccRedshiftServerlessEndpointAccess_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -68,7 +68,7 @@ func TestAccRedshiftServerlessEndpointAccess_disappears_workgroup(t *testing.T) 
 	rName := sdkacctest.RandStringFromCharSet(30, sdkacctest.CharSetAlpha)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEndpointAccessDestroy(ctx),
@@ -91,7 +91,7 @@ func TestAccRedshiftServerlessEndpointAccess_disappears(t *testing.T) {
 	rName := sdkacctest.RandStringFromCharSet(30, sdkacctest.CharSetAlpha)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEndpointAccessDestroy(ctx),
@@ -162,8 +162,8 @@ resource "aws_vpc" "test" {
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  vpc_id  = aws_vpc.test.id
 }
 
 resource "aws_redshiftserverless_namespace" "test" {
@@ -178,7 +178,7 @@ resource "aws_redshiftserverless_workgroup" "test" {
 resource "aws_redshiftserverless_endpoint_access" "test" {
   workgroup_name = aws_redshiftserverless_workgroup.test.workgroup_name
   endpoint_name  = %[1]q
-  subnet_ids     = [aws_subnet.test.id]
+  subnet_ids= [aws_subnet.test.id]
 }
 `, rName))
 }
@@ -198,8 +198,8 @@ resource "aws_security_group" "test" {
 
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
-  vpc_id            = aws_vpc.test.id
+  cidr_block   = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  vpc_id  = aws_vpc.test.id
 }
 
 resource "aws_redshiftserverless_namespace" "test" {
@@ -212,8 +212,8 @@ resource "aws_redshiftserverless_workgroup" "test" {
 }
 
 resource "aws_redshiftserverless_endpoint_access" "test" {
-  workgroup_name         = aws_redshiftserverless_workgroup.test.workgroup_name
-  endpoint_name          = %[1]q
+  workgroup_name= aws_redshiftserverless_workgroup.test.workgroup_name
+  endpoint_name= %[1]q
   subnet_ids= [aws_subnet.test.id]
   vpc_security_group_ids = [aws_security_group.test.id]
 }

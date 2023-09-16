@@ -51,7 +51,7 @@ func DataSourceVirtualNode() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
-			"spec":         dataSourcePropertyFromResourceProperty(resourceVirtualNodeSpecSchema()),
+			"spec":dataSourcePropertyFromResourceProperty(resourceVirtualNodeSpecSchema()),
 			names.AttrTags: tftags.TagsSchemaComputed(),
 		},
 	}

@@ -1,12 +1,6 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package ce_test
-
-import (
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/costexplorer"
+// SPDX-License-Identifier: MPL-2.0package ce_testimport (
+	"testing"	"github.com/aws/aws-sdk-go/service/costexplorer"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
@@ -15,10 +9,9 @@ func := acctest.Context(t)
 	var output costexplorer.CostCategory
 	resourceName := "aws_ce_cost_category.test"
 	dataSourceName := "data.aws_ce_cost_category.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+PreCheck:
+func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
 Steps: []resource.TestStep{
@@ -39,7 +32,7 @@ Check: resource.ComposeTestCheckFunc(
 }
 func testAccCostCategoryDataSourceConfig_basic(rName string) string {
 func "aws_ce_cost_category" "test" {
-  cost_category_arn = aws_ce_cost_category.test.arn
+cost_category_arn = aws_ce_cost_category.test.arn
 }
 `)
 }

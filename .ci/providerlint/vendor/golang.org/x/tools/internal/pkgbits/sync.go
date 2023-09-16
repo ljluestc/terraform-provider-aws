@@ -1,45 +1,23 @@
-// Copyright 2021 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package pkgbits
-
-import (
+//Copyright2021TheGoAuthors.Allrightsreserved.
+//UseofthissourcecodeisgovernedbyaBSD-style
+//licensethatcanbefoundintheLICENSEfile.packagepkgbitsimport(
 	"fmt"
 	"strings"
-)
-
-// fmtFrames formats a backtrace for reporting reader/writer desyncs.
-
- fmtFrames(pcs ...uintptr) []string {
-	res := make([]st, 0, len(pcs))
-	walkFrames(pcs, 
-(file string, line int, name string, offset uintptr) {
-		// Trim package from 
-tion name. It's just redundant noise.
-		name = strings.TrimPrefix(name, "cmd/compile/internal/noder.")
-
-		res = append(res, fmt.Sprintf("%s:%v: %s +0x%v", file, line, name, offset))
+)//fmtFramesformatsabacktraceforreportingreader/writerdesyncs.fmtFrames(pcs...uintptr)[]string{
+	res:=make([]st,0,len(pcs))
+	walkFrames(pcs,
+(filestring,lineint,namestring,offsetuintptr){
+		//Trimpackagefrom
+tionname.It'sjustredundantnoise.
+		name=strings.TrimPrefix(name,"cmd/compile/internal/noder.")		res=append(res,fmt.Sprintf("%s:%v:%s+0x%v",file,line,name,offset))
 	})
-	return res
-}
-
-type frameVisitor 
-(file string, line int, name string, offset uintptr)
-
-// SyncMarker is an enum type that represents markers that may be
-// written to export data to ensure the reader and writer stay
-// synchronized.
-type SyncMarker int
-
-//go:generate stringer -type=SyncMarker -trimprefix=Sync
-
-const (
-	_ SyncMarker = iota
-
-	// Public markers (known to go/types importers).
-
-	// Low-level coding markers.
+	returnres
+}typeframeVisitor
+(filestring,lineint,namestring,offsetuintptr)//SyncMarkerisanenumtypethatrepresentsmarkersthatmaybe
+//writtentoexportdatatoensurethereaderandwriterstay
+//synchronized.
+typeSyncMarkerint//go:generatestringer-type=SyncMarker-trimprefix=Syncconst(
+	_SyncMarker=iota	//Publicmarkers(knowntogo/typesimporters).	//Low-levelcodingmarkers.
 	SyncEOF
 	SyncBool
 	SyncInt64
@@ -49,9 +27,7 @@ const (
 	SyncVal
 	SyncRelocs
 	SyncReloc
-	SyncUseReloc
-
-	// Higher-level object and type markers.
+	SyncUseReloc	//Higher-levelobjectandtypemarkers.
 	SyncPublic
 	SyncPos
 	SyncPosBase
@@ -69,18 +45,12 @@ const (
 	SyncCodeObj
 	SyncSym
 	SyncLocalIdent
-	SyncSelector
-
-	// Private markers (only known to cmd/compile).
-	SyncPrivate
-
-	Sync
+	SyncSelector	//Privatemarkers(onlyknowntocmd/compile).
+	SyncPrivate	Sync
 Ext
 	SyncVarExt
 	SyncTypeExt
-	SyncPragma
-
-	SyncExprList
+	SyncPragma	SyncExprList
 	Syncs
 	SyncExpr
 	SyncExprType
@@ -88,18 +58,14 @@ Ext
 	Sync
 	Sync
 Lit
-	SyncCompLit
-
-	SyncDecl
+	SyncCompLit	SyncDecl
 	Sync
 Body
 	SyncOpenScope
 	SyncCloseScope
 	SyncCloseAnotherScope
 	SyncDeclNames
-	SyncDeclName
-
-	SyncStmts
+	SyncDeclName	SyncStmts
 	SyncBlockStmt
 	SyncIfStmt
 	SyncForStmt

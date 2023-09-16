@@ -44,7 +44,7 @@ func DataSourceTracker() *schema.Resource {
 				Computed: true,
 			},
 			"tracker_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
 			},

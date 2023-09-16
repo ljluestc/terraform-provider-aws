@@ -1,15 +1,9 @@
 // Copyright 2019 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package packages
-
-import (
+// license that can be found in the LICENSE file.package packagesimport (
 	"fmt"
 	"strings"
-)
-
-var allModes = []LoadMode{
+)var allModes = []LoadMode{
 	NeedName,
 	NeedFiles,
 	NeedCompiledGoFiles,
@@ -20,9 +14,7 @@ var allModes = []LoadMode{
 	NeedSyntax,
 	NeedTypesInfo,
 	NeedTypesSizes,
-}
-
-var modeStrings = []string{
+}var modeStrings = []string{
 	"NeedName",
 	"NeedFiles",
 	"NeedCompiledGoFiles",
@@ -34,8 +26,6 @@ var modeStrings = []string{
 	"NeedTypesInfo",
 	"NeedTypesSizes",
 }
-
-
  (mod LoadMode) String() string {
 	m := mod
 	if m == 0 {

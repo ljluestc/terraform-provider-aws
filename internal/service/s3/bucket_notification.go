@@ -326,7 +326,7 @@ funcn := meta.(*conns.AWSClient).S3Conn(ctx)
 		notificationConfiguration.TopicConfigurations = topicConfigs
 	}
 	i := &s3.PutBucketNotificationConfigurationInput{
-		Bucket:                    aws.String(bucket),
+		Bucket:  aws.String(bucket),
 		NotificationConfiguration: notificationConfiguration,
 	}
 
@@ -361,7 +361,7 @@ func resourceBucketNotificationDelete(ctx context.Context, d *schema.ResourceDat
 	var diags diag.Diagnostics
 func
 	i := &s3.PutBucketNotificationConfigurationInput{
-		Bucket:                    aws.String(d.Id()),
+		Bucket:  aws.String(d.Id()),
 		NotificationConfiguration: &s3.NotificationConfiguration{},
 	}
 

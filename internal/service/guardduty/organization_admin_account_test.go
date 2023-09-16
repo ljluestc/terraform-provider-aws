@@ -16,7 +16,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfguardduty "github.com/hashicorp/terraform-provider-aws/internal/service/guardduty"
 )
-
 func testAccOrganizationAdminAccount_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_guardduty_organization_admin_account.test"
@@ -45,7 +44,6 @@ func testAccOrganizationAdminAccount_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckOrganizationAdminAccountDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
@@ -75,7 +73,6 @@ func testAccCheckOrganizationAdminAccountDestroy(ctx context.Context) resource.T
 		return nil
 	}
 }
-
 func testAccCheckOrganizationAdminAccountExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -98,7 +95,6 @@ func testAccCheckOrganizationAdminAccountExists(ctx context.Context, resourceNam
 		return nil
 	}
 }
-
 func testAccOrganizationAdminAccountConfig_self() string {
 	return `
 data "aws_caller_identity" "current" {}
@@ -107,7 +103,7 @@ data "aws_partition" "current" {}
 
 resource "aws_organizations_organization" "test" {
   aws_service_access_principals = ["guardduty.${data.aws_partition.current.dns_suffix}"]
-  feature_set    = "ALL"
+  feature_set = "ALL"
 }
 
 resource "aws_guardduty_detector" "test" {}

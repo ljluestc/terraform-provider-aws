@@ -1,17 +1,11 @@
 // Copyright 2016 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package gcexportdata
-
-import (
+// license that can be found in the LICENSE file.package gcexportdataimport (
 	"fmt"
 	"go/token"
 	"go/types"
 	"os"
-)
-
-// NewImporter returns a new instance of the types.Importer interface
+)// NewImporter returns a new instance of the types.Importer interface
 // that reads type information from export data files written by gc.
 // The Importer also satisfies types.ImporterFrom.
 //
@@ -24,24 +18,14 @@ import (
 // package loading.
 //
 // Deprecated: Use the higher-level API in golang.org/x/tools/go/packages,
-// which is more efficient.
-
- NewImporter(fset *token.FileSet, imports map[string]*types.Package) types.ImporterFrom {
+// which is more efficient. NewImporter(fset *token.FileSet, imports map[string]*types.Package) types.ImporterFrom {
 	return importer{fset, imports}
-}
-
-type importer struct {
+}type importer struct {
 	fset    *token.FileSet
 	imports map[string]*types.Package
 }
-
-
  (imp importer) Import(importPath string) (*types.Package, error) {
-	return imp.ImportFrom(importPath, "", 0)
-
-
-
- (imp importer) ImportFrom(importPath, srcDir string, mode types.ImportMode) (_ *types.Package, err error) {
+	return imp.ImportFrom(importPath, "", 0) (imp importer) ImportFrom(importPath, srcDir string, mode types.ImportMode) (_ *types.Package, err error) {
 	filename, path := Find(importPath, srcDir)
 	if filename == "" {
 		if importPath == "unsafe" {
@@ -50,13 +34,9 @@ type importer struct {
 			return types.Unsafe, nil
 		}
 		return nil, fmt.Errorf("can't find import: %s", importPath)
-	}
-
-	if pkg, ok := imp.imports[path]; ok && pkg.Complete() {
+	}	if pkg, ok := imp.imports[path]; ok && pkg.Complete() {
 		return pkg, nil // cache hit
-	}
-
-	// open file
+	}	// open file
 	f, err := os.Open(filename)
 	if errnil {
 		return nil, err
@@ -68,12 +48,8 @@ type importer struct {
 			// add file name to error
 			err = fmt.Errorf("reading export data: %s: %v", filename, err)
 		}
-	}()
-
-	r, err := NewReader(f)
+	}()	r, err := NewReader(f)
 	if err != nil {
 		return nil, err
-	}
-
-	return Read(r, imp.fset, imp.imports, path)
+	}	return Read(r, imp.fset, imp.imports, path)
 }

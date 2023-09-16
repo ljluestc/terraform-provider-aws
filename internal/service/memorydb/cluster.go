@@ -49,43 +49,43 @@ CustomizeDiff: verify.SetTagsDiff,
 
 Schema: map[string]*schema.Schema{
 	"acl_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 	},
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"auto_minor_version_upgrade": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  true,
 ForceNew: true,
 	},
 	"cluster_endpoint": endpointSchema(),
 	"data_tiering": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 ForceNew: true,
 Optional: true,
 Default:  false,
 	},
 	"description": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 Default:  "Managed by Terraform",
 	},
 	"engine_patch_version": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"engine_version": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 Computed: true,
 	},
 	"final_snapshot_name": {
 Type:schema.TypeString,
-Optional:     true,
+Optional: true,
 ValidateFunc: validateResourceName(snapshotNameMaxLength),
 	},
 	"kms_key_arn": {
@@ -94,104 +94,104 @@ ValidateFunc: validateResourceName(snapshotNameMaxLength),
 // To prevent confusion, the attribute is suffixed _arn rather
 // than the _id implied by the API.
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional: true,
+ForceNew: true,
 ValidateFunc: verify.ValidARN,
 	},
 	"maintenance_window": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional: true,
+Computed: true,
 ValidateFunc: verify.ValidOnceAWeekWindowFormat,
 	},
 	"name": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional:  true,
+Computed:  true,
+ForceNew:  true,
 ConflictsWith: []string{"name_prefix"},
 ValidateFunc:  validateResourceName(clusterNameMaxLength),
 	},
 	"name_prefix": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional:  true,
+Computed:  true,
+ForceNew:  true,
 ConflictsWith: []string{"name"},
 ValidateFunc:  validateResourceNamePrefix(clusterNameMaxLength - id.UniqueIDSuffixLength),
 	},
 	"node_type": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 	},
 	"num_replicas_per_shard": {
 Type:schema.TypeInt,
-Optional:     true,
-Default:      1,
+Optional: true,
+Default:  1,
 ValidateFunc: validation.IntBetween(0, 5),
 	},
 	"num_shards": {
 Type:schema.TypeInt,
-Optional:     true,
-Default:      1,
+Optional: true,
+Default:  1,
 ValidateFunc: validation.IntAtLeast(1),
 	},
 	"parameter_group_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 Computed: true,
 	},
 	"port": {
-Type:     schema.TypeInt,
+Type: schema.TypeInt,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
 	"security_group_ids": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
 	Type: schema.TypeString,
 },
 	},
 	"shards": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Computed: true,
-Set:      shardHash,
+Set:  shardHash,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "name": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Computed: true,
 },
 "nodes": {
-	Type:     schema.TypeSet,
+	Type: schema.TypeSet,
 	Computed: true,
-	Set:      nodeHash,
+	Set:  nodeHash,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"availability_zone": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"create_time": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"endpoint": endpointSchema(),
 	"name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 },
 	},
 },
 "num_nodes": {
-	Type:     schema.TypeInt,
+	Type: schema.TypeInt,
 	Computed: true,
 },
 "slots": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Computed: true,
 },
 	},
@@ -199,8 +199,8 @@ Computed: true,
 	},
 	"snapshot_arns": {
 Type: schema.TypeList,
-Optional:      true,
-ForceNew:      true,
+Optional:  true,
+ForceNew:  true,
 ConflictsWith: []string{"snapshot_name"},
 Elem: &schema.Schema{
 	Type: schema.TypeString,
@@ -212,37 +212,37 @@ validation.StringDoesNotContainAny(","),
 	},
 	"snapshot_name": {
 Type: schema.TypeString,
-Optional:      true,
-ForceNew:      true,
+Optional:  true,
+ForceNew:  true,
 ConflictsWith: []string{"snapshot_arns"},
 	},
 	"snapshot_retention_limit": {
 Type:schema.TypeInt,
-Computed:     true,
-Optional:     true,
+Computed: true,
+Optional: true,
 ValidateFunc: validation.IntBetween(0, 35),
 	},
 	"snapshot_window": {
 Type:schema.TypeString,
-Optional:     true,
-Computed:     true,
+Optional: true,
+Computed: true,
 ValidateFunc: verify.ValidOnceADayWindowFormat,
 	},
 	"sns_topic_arn": {
 Type:schema.TypeString,
-Optional:     true,
+Optional: true,
 ValidateFunc: verify.ValidARN,
 	},
 	"subnet_group_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"tls_enabled": {
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  true,
 ForceNew: true,
@@ -253,16 +253,16 @@ ForceNew: true,
 
 func endpointSchema() *schema.Schema {
 	return &schema.Schema{
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "address": {
-	Type:     schema.TypeString,
+	Type: schema.TypeString,
 	Computed: true,
 },
 "port": {
-	Type:     schema.TypeInt,
+	Type: schema.TypeInt,
 	Computed: true,
 },
 	},
@@ -277,12 +277,12 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 	input := &memorydb.CreateClusterInput{
 ACLName:  aws.String(d.Get("acl_name").(string)),
 AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
-ClusterName:    aws.String(name),
+ClusterName:aws.String(name),
 NodeType: aws.String(d.Get("node_type").(string)),
-NumReplicasPerShard:     aws.Int64(int64(d.Get("num_replicas_per_shard").(int))),
+NumReplicasPerShard: aws.Int64(int64(d.Get("num_replicas_per_shard").(int))),
 NumShards:aws.Int64(int64(d.Get("num_shards").(int))),
-Tags:     getTagsIn(ctx),
-TLSEnabled:     aws.Bool(d.Get("tls_enabled").(bool)),
+Tags: getTagsIn(ctx),
+TLSEnabled: aws.Bool(d.Get("tls_enabled").(bool)),
 	}
 
 	if v, ok := d.GetOk("data_tiering"); ok {
@@ -618,17 +618,17 @@ continue
 
 	nodeSet.Add(map[string]interface{}{
 "availability_zone": aws.StringValue(node.AvailabilityZone),
-"create_time":       aws.TimeValue(node.CreateTime).Format(time.RFC3339),
+"create_time":   aws.TimeValue(node.CreateTime).Format(time.RFC3339),
 "endpoint": flattenEndpoint(node.Endpoint),
-"name":     aws.StringValue(node.Name),
+"name": aws.StringValue(node.Name),
 	})
 }
 
 shardSet.Add(map[string]interface{}{
-	"name":      aws.StringValue(shard.Name),
+	"name":  aws.StringValue(shard.Name),
 	"num_nodes": int(aws.Int64Value(shard.NumberOfNodes)),
-	"nodes":     nodeSet,
-	"slots":     aws.StringValue(shard.Slots),
+	"nodes": nodeSet,
+	"slots": aws.StringValue(shard.Slots),
 })
 	}
 

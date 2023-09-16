@@ -1,28 +1,18 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hclsyntax
-
-import (
-	"fmt"
-
-	"github.com/hashicorp/hcl/v2"
+// SPDX-License-Identifier: MPL-2.0package hclsyntaximport (
+	"fmt"	"github.com/hashicorp/hcl/v2"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
 	"github.com/zclconf/go-cty/cty/
 tion"
 	"github.com/zclconf/go-cty/cty/
 tion/stdlib"
-)
-
-type Operation struct {
+)type Operation struct {
 	Impl 
 tion.
 tion
 	Type cty.Type
-}
-
-var (
+}var (
 	OpLogicalOr = &Operation{
 		Impl: stdlib.Or
 ,
@@ -37,9 +27,7 @@ var (
 		Impl: stdlib.Not
 ,
 		Type: cty.Bool,
-	}
-
-	OpEqual = &Operation{
+	}	OpEqual = &Operation{
 		Impl: stdlib.Equal
 ,
 		Type: cty.Bool,
@@ -48,9 +36,7 @@ var (
 		Impl: stdlib.NotEqual
 ,
 		Type: cty.Bool,
-	}
-
-	OpGreaterThan = &Opera{
+	}	OpGreaterThan = &Opera{
 		Impl: stdlib.GreaterThan
 ,
 		Type: cty.Bool,
@@ -69,9 +55,7 @@ var (
 		Impl: stdlib.LessThanOrEqualTo
 ,
 		Type: cty.Bool,
-	}
-
-	OpAdd = &Operation{
+	}	OpAdd = &Operation{
 		Impl: stdlib.Add
 ,
 		Type: cty.Number,
@@ -101,11 +85,7 @@ ivide = &Operation{
 ,
 		Type: cty.Number,
 	}
-)
-
-var binaryOps []map[TokenType]*Operation
-
-
+)var binaryOps []map[TokenType]*Operation
  init() {
 	// This operation table maps from the operator's token type
 	// to the AST operation type. All expressions produced from
@@ -130,9 +110,7 @@ var binaryOps []map[TokenType]*Operation
 			TokenGreaterThanEq: OpGreaterThanOrEqual,
 			TokenLessThan:      OpLessThan,
 			TokenLessThanEq:    OpLessThanOrEqual,
-		},
-
-			TokenPlus:  OpAdd,
+		},			TokenPlus:  OpAdd,
 			TokenMinus: OpSubtract,
 		},
 		{
@@ -141,39 +119,25 @@ okenStar:    OpMultiply,
 			TokenPercent: OpModulo,
 		},
 	}
-}
-
-type BinaryOpExpr struct {
+}type BinaryOpExpr struct {
 	LHS Expression
 	Op  *Operation
-	RHS Expression
-
-	SrcRange hcl.Range
+	RHS Expression	SrcRange hcl.Range
 }
-
-
  (e *BinaryOpExpr) walkChildNodes(w internalWalk
 ) {
 	w(e.LHS)
 	w(e.RHS)
 }
-
-
  (e *BinaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	impl := e.Op.Impl // assumed to be a 
 tion taking exactly two arguments
 	params := impl.Params()
 	lhsParam := params[0]
-	rhsParam := params[1]
-
-	var diags hcl.Diagnostics
-
-	givenLHSVal, lhsDiags := e.LHS.Value(ctx)
+	rhsParam := params[1]	var diags hcl.Diagnostics	givenLHSVal, lhsDiags := e.LHS.Value(ctx)
 	givenRHSVal, rhsDiags := e.RHS.Value(ctx)
 	diags = append(diags, lhsDiags...)
-	diags = append(diags, rhsDiags...)
-
-	lhsVal, err := convert.Convert(givenLHSVal, lhsParam.Type)
+	diags = append(diags, rhsDiags...)	lhsVal, err := convert.Convert(givenLHSVal, lhsParam.Type)
 	if err != nil {
 		diags = append(diags, &hcl.Diagnostic{
 			Severity:    hcl.DiagError,
@@ -196,14 +160,10 @@ tion taking exactly two arguments
 			Expression:  e.RHS,
 			EvalContext: ctx,
 		})
-	}
-
-diags.HasErrors() {
+	}diags.HasErrors() {
 		// Don't actually try the call if we have errors already, since the
 		// this will probably just produce a confusing duplicative diagnostic.
 		return cty.UnknownVal(e.Op.Type), diags
-
-
 	args := []cty.Value{lhsVal, rhsVal}
 	result, err := impl.Call(args)
 	if err != nil {
@@ -217,45 +177,27 @@ diags.HasErrors() {
 valContext: ctx,
 		})
 		return cty.UnknownVal(e.Op.Type), diags
-	}
-
-	return result, diags
+	}	return result, diags
 }
-
-
  (e *BinaryOpExpr) Range() hcl.Range {
 	return e.SrcRange
 }
-
-
  (e *BinaryOpExpr) StartRange() hcl.Range {
 	return e.LHS.StartRange()
-}
-
-type UnaryOpExpr struct {
+}type UnaryOpExpr struct {
 	Op  *Operation
-	Val Expression
-
-	SrcRange    hcl.Range
+	Val Expression	SrcRange    hcl.Range
 	SymbolRange hcl.Range
 }
-
-
  (e *UnaryOpExpr) walkChildNodes(w internalWalk
 ) {
 	w(e.Val)
 }
-
-
  (e *UnaryOpExpr) Value(ctx *hcl.EvalContext) (cty.Value, hcl.Diagnostics) {
 	impl := e.Op.Impl // assumed to be a 
 tion taking exactly one argument
 	params := impl.Params()
-	param := params[0]
-
-	givenVal, diags := e.Val.Value(ctx)
-
-	val, err := convert.Convert(givenVal, param.Type)
+	param := params[0]	givenVal, diags := e.Val.Value(ctx)	val, err := convert.Convert(givenVal, param.Type)
 	if err != nil {
 		diags = append(diags, &hcl.Diagnostic{
 			Severity:    hcl.DiagError,
@@ -266,15 +208,11 @@ ontext:     &e.SrcRange,
 			Expression:  e.Val,
 			EvalContext: ctx,
 		})
-
-
 	if diags.HasErrors() {
 		// Don't actually try the call if we have errors already, since the
 		// this will probably just produce a confusing duplicative diagnostic.
 		return cty.UnknownVal(e.Op.Type), diags
-	}
-
-	args := []cty.Value{val}
+	}	args := []cty.Value{val}
 	result, err := impl.Call(args)
 	if err != nil {
 		diags = append(diags, &hcl.Diagnostic{
@@ -287,17 +225,11 @@ ontext:     &e.SrcRange,
 			EvalContext: ctx,
 		})
 		return cty.UnknownVal(e.Op.Type), diags
-	}
-
-	return result, diags
+	}	return result, diags
 }
-
-
  (e *UnaryOpExpr) Range() hcl.Range {
 	return e.SrcRange
 }
-
-
  (e *UnaryOpExpr) StartRange() hcl.Range {
 	return e.SymbolRange
 }

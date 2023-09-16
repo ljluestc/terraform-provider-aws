@@ -41,36 +41,36 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"base_32_string_seed": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"enable_date": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"path": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      "/",
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional:true,
+				Default: "/",
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 512),
 			},
 			"qr_code_png": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"user_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"virtual_mfa_device_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.StringMatch(
@@ -87,8 +87,8 @@ import (
 
 	name := d.Get("virtual_mfa_device_name").(string)
 	input := &iam.CreateVirtualMFADeviceInput{
-		Path:    aws.String(d.Get("path").(string)),
-		Tags:    getTagsIn(ctx),
+		Path:aws.String(d.Get("path").(string)),
+		Tags:getTagsIn(ctx),
 		VirtualMFADeviceName: aws.String(name),
 	}
 
@@ -194,7 +194,7 @@ import (
 	conn := meta.(*conns.AWSClient).IAMConn(ctx)
 funcv := d.Get("user_name"); v != "" {
 		_, err := conn.DeactivateMFADeviceWithContext(ctx, &iam.DeactivateMFADeviceInput{
-			UserName:     aws.String(v.(string)),
+			UserName:aws.String(v.(string)),
 			SerialNumber: aws.String(d.Id()),
 		})
 		if tfawserr.ErrCodeEquals(err, iam.ErrCodeNoSuchEntityException) {

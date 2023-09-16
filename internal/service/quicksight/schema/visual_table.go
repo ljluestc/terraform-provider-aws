@@ -197,7 +197,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "overflow_column_header_visibility": stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
-"vertical_overflow_visibility":      stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
+"vertical_overflow_visibility":stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 	},
 },
 	},
@@ -243,7 +243,7 @@ Elem: &schema.Resource{
 	MaxItems: 1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-	"field_id":       stringSchema(true, validation.StringLenBetween(1, 512)),
+	"field_id": stringSchema(true, validation.StringLenBetween(1, 512)),
 	"negative_color": stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}$`), "")),
 	"positive_color": stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}$`), "")),
 },
@@ -321,7 +321,7 @@ Schema: map[string]*schema.Schema{
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"background_color": conditionalFormattingColorSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ConditionalFormattingColor.html
-	"text_color":       conditionalFormattingColorSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ConditionalFormattingColor.html
+	"text_color": conditionalFormattingColorSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ConditionalFormattingColor.html
 },
 	},
 },

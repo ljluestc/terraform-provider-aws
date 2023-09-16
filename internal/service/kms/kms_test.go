@@ -8,7 +8,6 @@ import (
 
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccKMS_serial(t *testing.T) {
 	t.Parallel()
 

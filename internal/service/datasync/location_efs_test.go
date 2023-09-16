@@ -28,10 +28,10 @@ func TestAccDataSyncLocationEFS_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationEFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationEFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationEFSConfig_basic(rName),
@@ -48,8 +48,8 @@ func TestAccDataSyncLocationEFS_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"efs_file_system_arn"},
 			},
@@ -64,10 +64,10 @@ func TestAccDataSyncLocationEFS_accessPointARN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationEFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationEFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationEFSConfig_accessPointARN(rName),
@@ -78,8 +78,8 @@ func TestAccDataSyncLocationEFS_accessPointARN(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"efs_file_system_arn"},
 			},
@@ -94,10 +94,10 @@ func TestAccDataSyncLocationEFS_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationEFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationEFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationEFSConfig_basic(rName),
@@ -119,10 +119,10 @@ func TestAccDataSyncLocationEFS_subdirectory(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationEFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationEFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationEFSConfig_subdirectory(rName, "/subdirectory1/"),
@@ -132,8 +132,8 @@ func TestAccDataSyncLocationEFS_subdirectory(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"efs_file_system_arn"},
 			},
@@ -148,10 +148,10 @@ func TestAccDataSyncLocationEFS_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationEFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationEFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationEFSConfig_tags1(rName, "key1", "value1"),
@@ -162,8 +162,8 @@ func TestAccDataSyncLocationEFS_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"efs_file_system_arn"},
 			},
@@ -282,7 +282,7 @@ resource "aws_datasync_location_efs" "test" {
 
   ec2_config {
     security_group_arns = [aws_security_group.test.arn]
-    subnet_arn          = aws_subnet.test.arn
+    subnet_arn = aws_subnet.test.arn
   }
 }
 `)
@@ -296,7 +296,7 @@ resource "aws_datasync_location_efs" "test" {
 
   ec2_config {
     security_group_arns = [aws_security_group.test.arn]
-    subnet_arn          = aws_subnet.test.arn
+    subnet_arn = aws_subnet.test.arn
   }
 }
 `, subdirectory))
@@ -309,7 +309,7 @@ resource "aws_datasync_location_efs" "test" {
 
   ec2_config {
     security_group_arns = [aws_security_group.test.arn]
-    subnet_arn          = aws_subnet.test.arn
+    subnet_arn = aws_subnet.test.arn
   }
 
   tags = {
@@ -326,7 +326,7 @@ resource "aws_datasync_location_efs" "test" {
 
   ec2_config {
     security_group_arns = [aws_security_group.test.arn]
-    subnet_arn          = aws_subnet.test.arn
+    subnet_arn = aws_subnet.test.arn
   }
 
   tags = {
@@ -354,7 +354,7 @@ resource "aws_datasync_location_efs" "test" {
 
   ec2_config {
     security_group_arns = [aws_security_group.test.arn]
-    subnet_arn          = aws_subnet.test.arn
+    subnet_arn = aws_subnet.test.arn
   }
 }
 `, rName))

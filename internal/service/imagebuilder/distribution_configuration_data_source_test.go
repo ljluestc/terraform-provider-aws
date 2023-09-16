@@ -69,7 +69,7 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_launch_template" "test" {
   instance_type = "t2.micro"
-  name          = %[1]q
+  name = %[1]q
 }
 
 resource "aws_imagebuilder_distribution_configuration" "test" {
@@ -83,13 +83,13 @@ resource "aws_imagebuilder_distribution_configuration" "test" {
     container_distribution_configuration {
       target_repository {
         repository_name = "repository-name"
-        service         = "ECR"
+        service= "ECR"
       }
     }
 
     launch_template_configuration {
-      account_id         = data.aws_caller_identity.current.account_id
-      default            = false
+      account_id= data.aws_caller_identity.current.account_id
+      default   = false
       launch_template_id = aws_launch_template.test.id
     }
 

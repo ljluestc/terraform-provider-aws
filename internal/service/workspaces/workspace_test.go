@@ -22,7 +22,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfworkspaces "github.com/hashicorp/terraform-provider-aws/internal/service/workspaces"
 )
-
 func testAccWorkspace_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.Workspace
@@ -74,7 +73,6 @@ func testAccWorkspace_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccWorkspace_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2, v3 types.Workspace
@@ -128,7 +126,6 @@ func testAccWorkspace_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccWorkspace_workspaceProperties(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2, v3 types.Workspace
@@ -235,7 +232,6 @@ func testAccWorkspace_workspaceProperties_runningModeAlwaysOn(t *testing.T) {
 		},
 	})
 }
-
 func testAccWorkspace_validateRootVolumeSize(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandString(8)
@@ -254,7 +250,6 @@ func testAccWorkspace_validateRootVolumeSize(t *testing.T) {
 		},
 	})
 }
-
 func testAccWorkspace_validateUserVolumeSize(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandString(8)
@@ -273,7 +268,6 @@ func testAccWorkspace_validateUserVolumeSize(t *testing.T) {
 		},
 	})
 }
-
 func testAccWorkspace_recreate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.Workspace
@@ -309,7 +303,6 @@ func testAccWorkspace_recreate(t *testing.T) {
 		},
 	})
 }
-
 func testAccWorkspace_timeout(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v types.Workspace
@@ -339,7 +332,6 @@ func testAccWorkspace_timeout(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckWorkspaceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).WorkSpacesClient(ctx)
@@ -369,7 +361,6 @@ func testAccCheckWorkspaceDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckWorkspaceExists(ctx context.Context, n string, v *types.Workspace) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -394,7 +385,6 @@ func testAccCheckWorkspaceExists(ctx context.Context, n string, v *types.Workspa
 		return fmt.Errorf("workspace %q not found", rs.Primary.ID)
 	}
 }
-
 func testAccWorkspaceConfig_Prerequisites(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccDirectoryConfig_Prerequisites(rName, domain),
@@ -412,7 +402,6 @@ resource "aws_workspaces_directory" "test" {
 }
 `, rName))
 }
-
 func testAccWorkspaceConfig_basic(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -431,7 +420,6 @@ resource "aws_workspaces_workspace" "test" {
 }
 `, rName))
 }
-
 func testAccWorkspaceConfig_tagsA(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -451,7 +439,6 @@ resource "aws_workspaces_workspace" "test" {
 }
 `, rName))
 }
-
 func testAccWorkspaceConfig_tagsB(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -471,7 +458,6 @@ resource "aws_workspaces_workspace" "test" {
 }
 `, rName))
 }
-
 func testAccWorkspaceConfig_tagsC(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -490,7 +476,6 @@ resource "aws_workspaces_workspace" "test" {
 }
 `, rName))
 }
-
 func testAccWorkspaceConfig_propertiesA(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -515,7 +500,6 @@ resource "aws_workspaces_workspace" "test" {
 }
 `, rName))
 }
-
 func testAccWorkspaceConfig_propertiesB(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -539,7 +523,6 @@ resource "aws_workspaces_workspace" "test" {
 }
 `, rName))
 }
-
 func testAccWorkspaceConfig_propertiesC(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -561,7 +544,6 @@ resource "aws_workspaces_workspace" "test" {
 }
 `, rName))
 }
-
 func testAccWorkspaceConfig_validateRootVolumeSize(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -585,7 +567,6 @@ resource "aws_workspaces_workspace" "test" {
 }
 `, rName))
 }
-
 func testAccWorkspaceConfig_validateUserVolumeSize(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -609,7 +590,6 @@ resource "aws_workspaces_workspace" "test" {
 }
 `, rName))
 }
-
 func testAccWorkspaceConfig_timeout(rName, domain string) string {
 	return acctest.ConfigCompose(
 		testAccWorkspaceConfig_Prerequisites(rName, domain),
@@ -634,7 +614,6 @@ resource "aws_workspaces_workspace" "test" {
 }
 `, rName))
 }
-
 func TestExpandWorkspaceProperties(t *testing.T) {
 	t.Parallel()
 
@@ -651,17 +630,17 @@ func TestExpandWorkspaceProperties(t *testing.T) {
 		{
 			input: []interface{}{
 				map[string]interface{}{
-					"compute_type_name":            string(types.ComputeValue),
-					"root_volume_size_gib":         80,
+					"compute_type_name":   string(types.ComputeValue),
+					"root_volume_size_gib":80,
 					"running_mode":    string(types.RunningModeAutoStop),
 					"running_mode_auto_stop_timeout_in_minutes": 60,
-					"user_volume_size_gib":         10,
+					"user_volume_size_gib":10,
 				},
 			},
 			expected: &types.WorkspaceProperties{
 				ComputeTypeName:        types.ComputeValue,
 				RootVolumeSizeGib:      aws.Int32(80),
-				RunningMode:            types.RunningModeAutoStop,
+				RunningMode:   types.RunningModeAutoStop,
 				RunningModeAutoStopTimeoutInMinutes: aws.Int32(60),
 				UserVolumeSizeGib:      aws.Int32(10),
 			},
@@ -675,7 +654,6 @@ func TestExpandWorkspaceProperties(t *testing.T) {
 		}
 	}
 }
-
 func TestFlattenWorkspaceProperties(t *testing.T) {
 	t.Parallel()
 
@@ -693,17 +671,17 @@ func TestFlattenWorkspaceProperties(t *testing.T) {
 			input: &types.WorkspaceProperties{
 				ComputeTypeName:        types.ComputeValue,
 				RootVolumeSizeGib:      aws.Int32(80),
-				RunningMode:            types.RunningModeAutoStop,
+				RunningMode:   types.RunningModeAutoStop,
 				RunningModeAutoStopTimeoutInMinutes: aws.Int32(60),
 				UserVolumeSizeGib:      aws.Int32(10),
 			},
 			expected: []map[string]interface{}{
 				{
-					"compute_type_name":            string(types.ComputeValue),
-					"root_volume_size_gib":         80,
+					"compute_type_name":   string(types.ComputeValue),
+					"root_volume_size_gib":80,
 					"running_mode":    string(types.RunningModeAutoStop),
 					"running_mode_auto_stop_timeout_in_minutes": 60,
-					"user_volume_size_gib":         10,
+					"user_volume_size_gib":10,
 				},
 			},
 		},

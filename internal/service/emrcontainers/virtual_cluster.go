@@ -85,7 +85,7 @@ func ResourceVirtualCluster() *schema.Resource {
 							},
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice(emrcontainers.ContainerProviderType_Values(), false),

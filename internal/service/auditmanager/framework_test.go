@@ -48,8 +48,8 @@ func TestAccAuditManagerFramework_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -108,8 +108,8 @@ func TestAccAuditManagerFramework_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -160,8 +160,8 @@ func TestAccAuditManagerFramework_optional(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -231,9 +231,9 @@ resource "aws_auditmanager_control" "test" {
   name = %[1]q
 
   control_mapping_sources {
-    source_name          = %[1]q
-    source_set_up_option = "Procedural_Controls_Mapping"
-    source_type          = "MANUAL"
+source_name= %[1]q
+source_set_up_option = "Procedural_Controls_Mapping"
+source_type= "MANUAL"
   }
 }
 `, rName)
@@ -247,10 +247,10 @@ resource "aws_auditmanager_framework" "test" {
   name = %[1]q
 
   control_sets {
-    name = %[1]q
-    controls {
-      id = aws_auditmanager_control.test.id
-    }
+name = %[1]q
+controls {
+ id = aws_auditmanager_control.test.id
+}
   }
 }
 `, rName))
@@ -264,14 +264,14 @@ resource "aws_auditmanager_framework" "test" {
   name = %[1]q
 
   control_sets {
-    name = %[1]q
-    controls {
-      id = aws_auditmanager_control.test.id
-    }
+name = %[1]q
+controls {
+ id = aws_auditmanager_control.test.id
+}
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
@@ -285,15 +285,15 @@ resource "aws_auditmanager_framework" "test" {
   name = %[1]q
 
   control_sets {
-    name = %[1]q
-    controls {
-      id = aws_auditmanager_control.test.id
-    }
+name = %[1]q
+controls {
+ id = aws_auditmanager_control.test.id
+}
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
@@ -307,13 +307,13 @@ resource "aws_auditmanager_framework" "test" {
   name = %[1]q
 
   compliance_type = %[2]q
-  description     = %[3]q
+  description= %[3]q
 
   control_sets {
-    name = %[1]q
-    controls {
-      id = aws_auditmanager_control.test.id
-    }
+name = %[1]q
+controls {
+ id = aws_auditmanager_control.test.id
+}
   }
 }
 `, rName, complianceType, description))

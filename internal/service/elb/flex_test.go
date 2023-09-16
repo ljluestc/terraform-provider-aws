@@ -18,13 +18,13 @@ func TestExpandListeners(t *testing.T) {
 	expanded := []interface{}{
 		map[string]interface{}{
 			"instance_port":     8000,
-			"lb_port":           80,
+			"lb_port":  80,
 			"instance_protocol": "http",
 			"lb_protocol":       "http",
 		},
 		map[string]interface{}{
 			"instance_port":      8000,
-			"lb_port":            80,
+			"lb_port":   80,
 			"instance_protocol":  "https",
 			"lb_protocol":        "https",
 			"ssl_certificate_id": "something",
@@ -39,7 +39,7 @@ func TestExpandListeners(t *testing.T) {
 		InstancePort:     aws.Int64(8000),
 		LoadBalancerPort: aws.Int64(80),
 		InstanceProtocol: aws.String("http"),
-		Protocol:         aws.String("http"),
+		Protocol:aws.String("http"),
 	}
 
 	if !reflect.DeepEqual(listeners[0], expected) {
@@ -59,7 +59,7 @@ func TestExpandListeners_invalid(t *testing.T) {
 	expanded := []interface{}{
 		map[string]interface{}{
 			"instance_port":      8000,
-			"lb_port":            80,
+			"lb_port":   80,
 			"instance_protocol":  "http",
 			"lb_protocol":        "http",
 			"ssl_certificate_id": "something",
@@ -90,8 +90,8 @@ func TestFlattenHealthCheck(t *testing.T) {
 				UnhealthyThreshold: aws.Int64(10),
 				HealthyThreshold:   aws.Int64(10),
 				Target:aws.String("HTTP:80/"),
-				Timeout:            aws.Int64(30),
-				Interval:           aws.Int64(30),
+				Timeout:   aws.Int64(30),
+				Interval:  aws.Int64(30),
 			},
 			Output: []map[string]interface{}{
 				{
@@ -99,7 +99,7 @@ func TestFlattenHealthCheck(t *testing.T) {
 					"healthy_threshold":   int64(10),
 					"target": "HTTP:80/",
 					"timeout":int64(30),
-					"interval":            int64(30),
+					"interval":   int64(30),
 				},
 			},
 		},

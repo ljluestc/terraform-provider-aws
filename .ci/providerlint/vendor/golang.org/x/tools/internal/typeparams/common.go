@@ -1,189 +1,145 @@
-// Copyright 2021 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Package typeparams contains common utilities for writing tools that interact
-// with generic Go code, as introduced with Go 1.18.
+//Copyright2021TheGoAuthors.Allrightsreserved.
+//UseofthissourcecodeisgovernedbyaBSD-style
+//licensethatcanbefoundintheLICENSEfile.//Packagetypeparamscontainscommonutilitiesforwritingtoolsthatinteract
+//withgenericGocode,asintroducedwithGo1.18.
 //
-// Many of the types and 
-tions in this package are proxies for the new APIs
-// introduced in the standard library with Go 1.18. For example, the
-// params.Union type is an alias for go/types.Union, and the ForTypeSpec
-// 
-tion returns the value of the go/ast.TypeSpec.TypeParams field. At Go
-// versions older than 1.18 these helpers are implemented as stubs, allowing
-// users of this package to write code that handles generic constructs inline,
-// even if the Go version being used to compile does not support generics.
+//Manyofthetypesand
+tionsinthispackageareproxiesforthenewAPIs
+//introducedinthestandardlibrarywithGo1.18.Forexample,the
+//params.Uniontypeisanaliasforgo/types.Union,andtheForTypeSpec
 //
-// Additionally, this package contains common utilities for working with the
-// new generic constructs, to supplement the standard library APIs. Notably,
-// the StructuralTerms API computes a minimal representation of the structural
-// restrictions on a type parameter.
+tionreturnsthevalueofthego/ast.TypeSpec.TypeParamsfield.AtGo
+//versionsolderthan1.18thesehelpersareimplementedasstubs,allowing
+//usersofthispackagetowritecodethathandlesgenericconstructsinline,
+//eveniftheGoversionbeingusedtocompiledoesnotsupportgenerics.
 //
-// An external version of these APIs is available in the
-// golang.org/x/exp/typeparams module.
-package typeparams
-
-import (
+//Additionally,thispackagecontainscommonutilitiesforworkingwiththe
+//newgenericconstructs,tosupplementthestandardlibraryAPIs.Notably,
+//theStructuralTermsAPIcomputesaminimalrepresentationofthestructural
+//restrictionsonatypeparameter.
+//
+//AnexternalversionoftheseAPIsisavailableinthe
+//golang.org/x/exp/typeparamsmodule.
+packagetypeparamsimport(
 	"go/ast"
 	"go/token"
 	"go/types"
-)
-
-// UnpackIndexExpr extracts data from AST nodes that represent index
-// expressions.
+)//UnpackIndexExprextractsdatafromASTnodesthatrepresentindex
+//expressions.
 //
-// For an ast.IndexExpr, the resulting indices slice will contain exactly one
-// index expression. For an ast.IndexListExpr (go1.18+), it may have a variable
-// number of index expressions.
+//Foranast.IndexExpr,theresultingindicesslicewillcontainexactlyone
+//indexexpression.Foranast.IndexListExpr(go1.18+),itmayhaveavariable
+//numberofindexexpressions.
 //
-or nodes that don't represent index expressions, the first return value of
-// UnpackIndexExpr will be nil.
-
- UnpackIndexExpr(n ast.Node) (x ast.Expr, lbrack token.Pos, indices []ast.Expr, rbrack token.Pos) {
-	switch e := n.(type) {
-	case *ast.IndexExpr:
-		return e.X, e.Lbrack, []ast.Expr{e.Index}, e.Rbrack
-	case *IndexListExpr:
-		return e.X, e.Lbrack, e.Indices, e.Rbrack
+ornodesthatdon'trepresentindexexpressions,thefirstreturnvalueof
+//UnpackIndexExprwillbenil.UnpackIndexExpr(nast.Node)(xast.Expr,lbracktoken.Pos,indices[]ast.Expr,rbracktoken.Pos){
+	switche:=n.(type){
+	case*ast.IndexExpr:
+		returne.X,e.Lbrack,[]ast.Expr{e.Index},e.Rbrack
+	case*IndexListExpr:
+		returne.X,e.Lbrack,e.Indices,e.Rbrack
 	}
-	return nil, token.NoPos, nil, token.NoPos
-}
-
-ackIndexExpr returns an *ast.IndexExpr or *ast.IndexListExpr, depending on
-// the cardinality of indices. Calling PackIndexExpr with len(indices) == 0
-// will panic.
-
- PackIndexExpr(x ast.Expr, lbrack token.Pos, indices []ast.Expr, rbrack token.Pos) ast.Expr {
-	switch len(indices) {
-	case 0:
-		panic("empty indices")
-	case 1:
-		return &ast.IndexExpr{
-			X:      x,
-			Lbrack: lbrack,
-			Index:  indices[0],
-			Rbrack: rbrack,
+	returnnil,token.NoPos,nil,token.NoPos
+}ackIndexExprreturnsan*ast.IndexExpror*ast.IndexListExpr,dependingon
+//thecardinalityofindices.CallingPackIndexExprwithlen(indices)==0
+//willpanic.PackIndexExpr(xast.Expr,lbracktoken.Pos,indices[]ast.Expr,rbracktoken.Pos)ast.Expr{
+	switchlen(indices){
+	case0:
+		panic("emptyindices")
+	case1:
+		return&ast.IndexExpr{
+			X:x,
+			Lbrack:lbrack,
+			Index:indices[0],
+			Rbrack:rbrack,
 		}
 	default:
-		return &IndexListExpr{
-			X:       x,
-			Lbrack:  lbrack,
-			Indices: indices,
-			Rbrack:  rbrack,
-		}
-
-}
-
-// IsTypeParam reports whether t is a type parameter.
-
- IsTypeParam(t types.Type) bool {
-	_, ok := t.(*TypeParam)
-	return ok
-}
-
-// OriginMethod returns the origin method associated with the method fn.
-// For methods on a non-generic receiver base type, this is just
-n. However, for methods  a genericeiver, OriginMethod returns the
-// corresponding method in the method set of the origin type.
+		return&IndexListExpr{
+			X:x,
+			Lbrack:lbrack,
+			Indices:indices,
+			Rbrack:rbrack,
+		}}//IsTypeParamreportswhethertisatypeparameter.IsTypeParam(ttypes.Type)bool{
+	_,ok:=t.(*TypeParam)
+	returnok
+}//OriginMethodreturnstheoriginmethodassociatedwiththemethodfn.
+//Formethodsonanon-genericreceiverbasetype,thisisjust
+n.However,formethodsagenericeiver,OriginMethodreturnsthe
+//correspondingmethodinthemethodsetoftheorigintype.
 //
-// As a special case, if fn is not a method (has no receiver), OriginMethod
-// returns fn.
-
- OriginMethod(fn *types.
-) *types.
- {
-	recv := fn.Type().(*types.Signature).Recv()
-	if recv == nil {
-		return fn
+//Asaspecialcase,iffnisnotamethod(hasnoreceiver),OriginMethod
+//returnsfn.OriginMethod(fn*types.
+)*types.
+{
+	recv:=fn.Type().(*types.Signature).Recv()
+	ifrecv==nil{
+		returnfn
 	}
-	base := recv.Type()
-	p, isPtr := base.(*types.Pointer)
-	if isPtr {
-		base = p.Elem()
+	base:=recv.Type()
+	p,isPtr:=base.(*types.Pointer)
+	ifisPtr{
+		base=p.Elem()
 	}
-	named, isNamed := base.(*types.Named)
-	if !isNamed {
-		// Receiver is a *types.Interface.
-		return fn
+	named,isNamed:=base.(*types.Named)
+	if!isNamed{
+		//Receiverisa*types.Interface.
+		returnfn
 	}
-	if ForNamed(named).Len() == 0 {
-		// Receiver base has no type parameters, so we can avoid the lookup below.
-		return fn
+	ifForNamed(named).Len()==0{
+		//Receiverbasehasnotypeparameters,sowecanavoidthelookupbelow.
+		returnfn
 	}
-	orig := NamedTypeOrigin(named)
-	gfn, _, _ := types.LookupFieldOrMethod(orig, true, fn.Pkg(), fn.Name())
-	return gfn.(*types.
+	orig:=NamedTypeOrigin(named)
+	gfn,_,_:=types.LookupFieldOrMethod(orig,true,fn.Pkg(),fn.Name())
+	returngfn.(*types.
 )
-}
-
-// GenericAssignableTo is a generalization of types.AssignableTo that
-// implements the following rule for uninstantiated generic types:
+}//GenericAssignableToisageneralizationoftypes.AssignableTothat
+//implementsthefollowingruleforuninstantiatedgenerictypes:
 //
-// If V and T are generic named types, then V is considered assignable to T if,
-// for every possible instantation of V[A_1, ..., A_N], the instantiation
-// T[A_1, ..., A_N] is valid and V[A_1, ..., A_N] implements T[A_1, ..., A_N].
+//IfVandTaregenericnamedtypes,thenVisconsideredassignabletoTif,
+//foreverypossibleinstantationofV[A_1,...,A_N],theinstantiation
+//T[A_1,...,A_N]isvalidandV[A_1,...,A_N]implementsT[A_1,...,A_N].
 //
-// If T has structural constraints, they must be satisfied by V.
+//IfThasstructuralconstraints,theymustbesatisfiedbyV.
 //
-// For example, consider the following type declarations:
+//Forexample,considerthefollowingtypedeclarations:
 //
-//	type Interface[T any] interface {
+//	typeInterface[Tany]interface{
 //		Accept(T)
-//	}
-
-//	type Container[T any] struct {
-//		Element T
+//	}//	typeContainer[Tany]struct{
+//		ElementT
 //	}
 //
 //	
- (c Container[T]) Accept(t T) { c.Element = t }
+(cContainer[T])Accept(tT){c.Element=t}
 //
-// In this case, GenericAssignableTo reports that instantiations of Container
-// are assignable to the corresponding instantiation of Interface.
-
- GenericAssignableTo(ctxt *Context, V, T types.Type) bool {
-	// If V and T are not both named, or do not have matching non-empty type
-	// parameter lists, fall back on types.AssignableTo.
-
-	VN, Vnamed := V.(*types.Named)
-	TN, Tnamed := T.(*types.Named)
-	if !Vnamed || !Tnamed {
-		return types.AssignableTo(V, T)
-	}
-
-	vtparams := ForNamed(VN)
-	ttparams := ForNamed(TN)
-	if vtparams.Len() == 0 || vtparams.Len() != ttparams.Len() || NamedTypeArgs(VN).Len() != 0 || NamedTypeArgs(TN).Len() != 0 {
-		return types.AssignableTo(V, T)
-	}
-
-	// V and T have the same (non-zero) number of type params. Instantiate both
-	// with the type parameters of V. This must always succeed for V, and will
-	// succeed for T if and only if the type set of each type parameter of V is a
-	// subset of the type set of the corresponding type parameter of T, meaning
-	// that every instantiation of V corresponds to a valid instantiation of T.
-
-	// Minor optimization: ensure we share a context across the two
-	// instantiations below.
-	if ctxt == nil {
-		ctxt = NewContext()
-	}
-
-	var targs []types.Type
-	for i := 0; i < vtparams.Len(); i++ {
-		targs = append(targs, vtparams.At(i))
-	}
-
-	vinst, err := Instantiate(ctxt, V, targs, true)
-	if err != nil {
-		panic("type parameters should satisfy their own constraints")
-	}
-
-	tinst, err := Instantiate(ctxt, T, targs, true)
-	if err != nil {
-		return false
-	}
-
-	return types.AssignableTo(vinst, tinst)
+//Inthiscase,GenericAssignableToreportsthatinstantiationsofContainer
+//areassignabletothecorrespondinginstantiationofInterface.GenericAssignableTo(ctxt*Context,V,Ttypes.Type)bool{
+	//IfVandTarenotbothnamed,ordonothavematchingnon-emptytype
+	//parameterlists,fallbackontypes.AssignableTo.	VN,Vnamed:=V.(*types.Named)
+	TN,Tnamed:=T.(*types.Named)
+	if!Vnamed||!Tnamed{
+		returntypes.AssignableTo(V,T)
+	}	vtparams:=ForNamed(VN)
+	ttparams:=ForNamed(TN)
+	ifvtparams.Len()==0||vtparams.Len()!=ttparams.Len()||NamedTypeArgs(VN).Len()!=0||NamedTypeArgs(TN).Len()!=0{
+		returntypes.AssignableTo(V,T)
+	}	//VandThavethesame(non-zero)numberoftypeparams.Instantiateboth
+	//withthetypeparametersofV.ThismustalwayssucceedforV,andwill
+	//succeedforTifandonlyifthetypesetofeachtypeparameterofVisa
+	//subsetofthetypesetofthecorrespondingtypeparameterofT,meaning
+	//thateveryinstantiationofVcorrespondstoavalidinstantiationofT.	//Minoroptimization:ensureweshareacontextacrossthetwo
+	//instantiationsbelow.
+	ifctxt==nil{
+		ctxt=NewContext()
+	}	vartargs[]types.Type
+	fori:=0;i<vtparams.Len();i++{
+		targs=append(targs,vtparams.At(i))
+	}	vinst,err:=Instantiate(ctxt,V,targs,true)
+	iferr!=nil{
+		panic("typeparametersshouldsatisfytheirownconstraints")
+	}	tinst,err:=Instantiate(ctxt,T,targs,true)
+	iferr!=nil{
+		returnfalse
+	}	returntypes.AssignableTo(vinst,tinst)
 }

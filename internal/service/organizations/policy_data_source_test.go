@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccPolicyDataSource_UnattachedPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -20,11 +21,12 @@ func testAccPolicyDataSource_UnattachedPolicy(t *testing.T) {
 	dataSourceName := "data.aws_organizations_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationsAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, organizations.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, organizations.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -41,10 +43,11 @@ func testAccPolicyDataSource_UnattachedPolicy(t *testing.T) {
 	})
 }
 
+
 func testAccPolicyDataSourceConfig_unattachedPolicy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {
-  feature_set          = "ALL"
+  feature_set = "ALL"
   enabled_policy_types = ["SERVICE_CONTROL_POLICY", "TAG_POLICY", "BACKUP_POLICY", "AISERVICES_OPT_OUT_POLICY"]
 }
 

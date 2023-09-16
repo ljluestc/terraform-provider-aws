@@ -96,8 +96,8 @@ func(token *string) (interface{}, error) {
 		input := &waf.CreateRuleInput{
 			ChangeToken: token,
 			MetricName:  aws.String(d.Get("metric_name").(string)),
-			Name:        aws.String(d.Get("name").(string)),
-			Tags:        getTagsIn(ctx),
+			Name:  aws.String(d.Get("name").(string)),
+			Tags:  getTagsIn(ctx),
 		}
 
 		return conn.CreateRuleWithContext(ctx, input)
@@ -191,7 +191,7 @@ func resourceRuleDelete(ctx context.Context, d *schema.ResourceData, meta interf
 func(token *string) (interface{}, error) {
 		req := &waf.DeleteRuleInput{
 			ChangeToken: token,
-			RuleId:      aws.String(d.Id()),
+			RuleId:aws.String(d.Id()),
 		}
 		log.Printf("[INFO] Deleting WAF Rule")
 		return conn.DeleteRuleWithContext(ctx, req)
@@ -213,7 +213,7 @@ func updateRuleResource(ctx context.Context, id string, oldP, newP []interface{}
 func(token *string) (interface{}, error) {
 		req := &waf.UpdateRuleInput{
 			ChangeToken: token,
-			RuleId:      aws.String(id),
+			RuleId:aws.String(id),
 			Updates:     tfwaf.DiffRulePredicates(oldP, newP),
 		}
 

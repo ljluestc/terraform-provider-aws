@@ -26,7 +26,7 @@ func DataSourceRouteCalculator() *schema.Resource {
 				Computed: true,
 			},
 			"calculator_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
 			},

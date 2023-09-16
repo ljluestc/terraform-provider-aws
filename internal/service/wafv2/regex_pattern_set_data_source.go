@@ -47,7 +47,7 @@ func DataSourceRegexPatternSet() *schema.Resource {
 					},
 				},
 				"scope": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringInSlice(wafv2.Scope_Values(), false),
 				},
@@ -55,7 +55,6 @@ func DataSourceRegexPatternSet() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceRegexPatternSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)

@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package waf_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package waf_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/waf"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -17,36 +11,29 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfwaf "github.com/hashicorp/terraform-provider-aws/internal/service/waf"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
-)
-
-// Serialize to avoid resource limits
+)// Serialize to avoid resource limits
 func TestAccWAFRateBasedRule_serial(t *testing.T) {
 	testCases := map[string]map[string]func(t *testing.T){
 		"resource": {
 			"basic": testAccWAFRateBasedRule_basic,
 			"changeNameForceNew": testAccWAFRateBasedRule_changeNameForceNew,
-			"disappears":         testAccWAFRateBasedRule_disappears,
-			"changePredicates":   testAccWAFRateBasedRule_changePredicates,
-			"changeRateLimit":    testAccWAFRateBasedRule_changeRateLimit,
-			"noPredicates":       testAccWAFRateBasedRule_noPredicates,
+			"disappears":tAccWAFRateBasedRule_disappears,
+			"changePredicates":testAccWAFRateBasedRule_changePredicates,
+			"changeRateLimit": testAccWAFRateBasedRule_changeRateLimit,
+			"noPredicates":ccWAFRateBasedRule_noPredicates,
 			"Tags":  testAccWAFRateBasedRule_tags,
 		},
 		"data_source": {
 			"basic": testAccWAFRateBasedRuleDataSource_basic,
 		},
-	}
-
-	acctest.RunSerialTests2Levels(t, testCases, 0)
+	}	acctest.RunSerialTests2Levels(t, testCases, 0)
 }
-
 func testAccWAFRateBasedRule_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v waf.RateBasedRule
 	wafRuleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_rate_based_rule.wafrule"
-
-	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	resourceName := "aws_waf_rate_based_rule.wafrule"	resource.Test(t, resource.TestCase{
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRateBasedRuleDestroy(ctx),
@@ -62,23 +49,20 @@ func testAccWAFRateBasedRule_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccWAFRateBasedRule_changeNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after waf.RateBasedRule
 	wafRuleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
 	wafRuleNewName := fmt.Sprintf("wafrulenew%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_rate_based_rule.wafrule"
-
-	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	resourceName := "aws_waf_rate_based_rule.wafrule"	resource.Test(t, resource.TestCase{
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckIPSetDestroy(ctx),
@@ -102,22 +86,19 @@ func testAccWAFRateBasedRule_changeNameForceNew(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccWAFRateBasedRule_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v waf.RateBasedRule
 	wafRuleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_rate_based_rule.wafrule"
-
-	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	resourceName := "aws_waf_rate_based_rule.wafrule"	resource.Test(t, resource.TestCase{
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRateBasedRuleDestroy(ctx),
@@ -133,18 +114,13 @@ func testAccWAFRateBasedRule_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccWAFRateBasedRule_changePredicates(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ipset waf.IPSet
-	var byteMatchSet waf.ByteMatchSet
-
-	var before, after waf.RateBasedRule
+	var byteMatchSet waf.ByteMatchSet	var before, after waf.RateBasedRule
 	ruleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_rate_based_rule.wafrule"
-
-	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	resourceName := "aws_waf_rate_based_rule.wafrule"	resource.Test(t, resource.TestCase{
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleDestroy(ctx),
@@ -158,7 +134,7 @@ func testAccWAFRateBasedRule_changePredicates(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "predicates.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicates.*", map[string]string{
 						"negated": "false",
-						"type":    "IPMatch",
+						"type": "IPMatch",
 					}),
 				),
 			},
@@ -171,29 +147,25 @@ func testAccWAFRateBasedRule_changePredicates(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "predicates.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicates.*", map[string]string{
 						"negated": "true",
-						"type":    "ByteMatch",
+						"type": "ByteMatch",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/9659
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/9659
 func testAccWAFRateBasedRule_changeRateLimit(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ipset waf.IPSet
 	var before, after waf.RateBasedRule
 	ruleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_rate_based_rule.wafrule"
-
-	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	resourceName := "aws_waf_rate_based_rule.wafrule"	resource.Test(t, resource.TestCase{
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRuleDestroy(ctx),
@@ -208,7 +180,7 @@ func testAccWAFRateBasedRule_changeRateLimit(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "predicates.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicates.*", map[string]string{
 						"negated": "false",
-						"type":    "IPMatch",
+						"type": "IPMatch",
 					}),
 				),
 			},
@@ -222,27 +194,24 @@ func testAccWAFRateBasedRule_changeRateLimit(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "predicates.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicates.*", map[string]string{
 						"negated": "false",
-						"type":    "IPMatch",
+						"type": "IPMatch",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccWAFRateBasedRule_noPredicates(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rule waf.RateBasedRule
 	ruleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_rate_based_rule.wafrule"
-
-	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	resourceName := "aws_waf_rate_based_rule.wafrule"	resource.Test(t, resource.TestCase{
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRateBasedRuleDestroy(ctx),
@@ -256,22 +225,19 @@ func testAccWAFRateBasedRule_noPredicates(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccWAFRateBasedRule_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rule waf.RateBasedRule
 	ruleName := fmt.Sprintf("wafrule%s", sdkacctest.RandString(5))
-	resourceName := "aws_waf_rate_based_rule.wafrule"
-
-	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	resourceName := "aws_waf_rate_based_rule.wafrule"	resource.Test(t, resource.TestCase{
+		PreCheck: func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, waf.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRateBasedRuleDestroy(ctx),
@@ -306,224 +272,157 @@ func testAccWAFRateBasedRule_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckRateBasedRuleDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_waf_rate_based_rule" {
 				continue
-			}
-
-			conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
-
-			_, err := tfwaf.FindRateBasedRuleByID(ctx, conn, rs.Primary.ID)
-
-			if tfresource.NotFound(err) {
+			}			conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)			_, err := tfwaf.FindRateBasedRuleByID(ctx, conn, rs.Primary.ID)			if tfresource.NotFound(err) {
 				continue
-			}
-
-			if err != nil {
+			}			if err != nil {
 				return err
-			}
-
-			return fmt.Errorf("WAF Rate Based Rule %s still exists", rs.Primary.ID)
-		}
-
-		return nil
+			}			return fmt.Errorf("WAF Rate Based Rule %s still exists", rs.Primary.ID)
+		}		return nil
 	}
 }
-
 func testAccCheckRateBasedRuleExists(ctx context.Context, n string, v *waf.RateBasedRule) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No WAF Rate Based Rule ID is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
-
-		output, err := tfwaf.FindRateBasedRuleByID(ctx, conn, rs.Primary.ID)
-
-		if err != nil {
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)		output, err := tfwaf.FindRateBasedRuleByID(ctx, conn, rs.Primary.ID)		if err != nil {
 			return err
-		}
-
-		*v = *output
-
-		return nil
+		}		*v = *output		return nil
 	}
 }
-
 func testAccRateBasedRuleConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_ipset" "ipset" {
-  name = "%s"
-
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = "%s"  ip_set_descriptors {
+ type  = "IPV4"
+ value = "192.0.7.0/24"
   }
-}
-
-resource "aws_waf_rate_based_rule" "wafrule" {
+}resource "aws_waf_rate_based_rule" "wafrule" {
   depends_on  = [aws_waf_ipset.ipset]
-  name        = "%s"
+  names"
   metric_name = "%s"
-  rate_key    = "IP"
-  rate_limit  = 2000
-
-  predicates {
-    data_id = aws_waf_ipset.ipset.id
-    negated = false
-    type    = "IPMatch"
+  rate_key = "IP"
+  rate_limit  = 2000  predicates {
+ data_id = aws_waf_ipset.ipset.id
+ negated = false
+ type = "IPMatch"
   }
 }
 `, name, name, name)
 }
-
 func testAccRateBasedRuleConfig_changeLimit(name string, rateLimit int) string {
 	return fmt.Sprintf(`
 resource "aws_waf_ipset" "ipset" {
-  name = "%s"
-
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = "%s"  ip_set_descriptors {
+ type  = "IPV4"
+ value = "192.0.7.0/24"
   }
-}
-
-resource "aws_waf_rate_based_rule" "wafrule" {
+}resource "aws_waf_rate_based_rule" "wafrule" {
   depends_on  = [aws_waf_ipset.ipset]
-  name        = "%[1]s"
+  name[1]s"
   metric_name = "%[1]s"
-  rate_key    = "IP"
-  rate_limit  = %[2]d
-
-  predicates {
-    data_id = aws_waf_ipset.ipset.id
-    negated = false
-    type    = "IPMatch"
+  rate_key = "IP"
+  rate_limit  = %[2]d  predicates {
+ data_id = aws_waf_ipset.ipset.id
+ negated = false
+ type = "IPMatch"
   }
 }
 `, name, rateLimit)
 }
-
 func testAccRateBasedRuleConfig_changeName(name string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_ipset" "ipset" {
-  name = "%s"
-
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = "%s"  ip_set_descriptors {
+ type  = "IPV4"
+ value = "192.0.7.0/24"
   }
-}
-
-resource "aws_waf_rate_based_rule" "wafrule" {
+}resource "aws_waf_rate_based_rule" "wafrule" {
   depends_on  = [aws_waf_ipset.ipset]
-  name        = "%s"
+  names"
   metric_name = "%s"
-  rate_key    = "IP"
-  rate_limit  = 2000
-
-  predicates {
-    data_id = aws_waf_ipset.ipset.id
-    negated = false
-    type    = "IPMatch"
+  rate_key = "IP"
+  rate_limit  = 2000  predicates {
+ data_id = aws_waf_ipset.ipset.id
+ negated = false
+ type = "IPMatch"
   }
 }
 `, name, name, name)
 }
-
 func testAccRateBasedRuleConfig_changePredicates(name string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_ipset" "ipset" {
-  name = "%s"
-
-  ip_set_descriptors {
-    type  = "IPV4"
-    value = "192.0.7.0/24"
+  name = "%s"  ip_set_descriptors {
+ type  = "IPV4"
+ value = "192.0.7.0/24"
   }
-}
-
-resource "aws_waf_byte_match_set" "set" {
-  name = "%s"
-
-  byte_match_tuples {
-    text_transformation   = "NONE"
-    target_string         = "badrefer1"
-    positional_constraint = "CONTAINS"
-
-    field_to_match {
-      type = "HEADER"
-      data = "referer"
-    }
+}resource "aws_waf_byte_match_set" "set" {
+  name = "%s"  byte_match_tuples {
+ text_transformation= "NONE"
+ target_stringbadrefer1"
+ positional_constraint = "CONTAINS" field_to_match {
+ "HEADER"
+ "referer"
+ }
   }
-}
-
-resource "aws_waf_rate_based_rule" "wafrule" {
-  name        = "%s"
+}resource "aws_waf_rate_based_rule" "wafrule" {
+  names"
   metric_name = "%s"
-  rate_key    = "IP"
-  rate_limit  = 2000
-
-  predicates {
-    data_id = aws_waf_byte_match_set.set.id
-    negated = true
-    type    = "ByteMatch"
+  rate_key = "IP"
+  rate_limit  = 2000  predicates {
+ data_id = aws_waf_byte_match_set.set.id
+ negated = true
+ type = "ByteMatch"
   }
 }
 `, name, name, name, name)
 }
-
 func testAccRateBasedRuleConfig_noPredicates(name string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_rate_based_rule" "wafrule" {
-  name        = "%s"
+  names"
   metric_name = "%s"
-  rate_key    = "IP"
+  rate_key = "IP"
   rate_limit  = 2000
 }
 `, name, name)
 }
-
 func testAccRateBasedRuleConfig_tags1(name, tag1Key, tag1Value string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_rate_based_rule" "wafrule" {
-  name        = "%s"
+  names"
   metric_name = "%s"
-  rate_key    = "IP"
-  rate_limit  = 2000
-
-  tags = {
-    %q = %q
+  rate_key = "IP"
+  rate_limit  = 2000  tags = {
+ %q = %q
   }
 }
 `, name, name, tag1Key, tag1Value)
 }
-
 func testAccRateBasedRuleConfig_tags2(name, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return fmt.Sprintf(`
 resource "aws_waf_rate_based_rule" "wafrule" {
-  name        = "%s"
+  names"
   metric_name = "%s"
-  rate_key    = "IP"
-  rate_limit  = 2000
-
-  tags = {
-    %q = %q
-    %q = %q
+  rate_key = "IP"
+  rate_limit  = 2000  tags = {
+ %q = %q
+ %q = %q
   }
 }
 `, name, name, tag1Key, tag1Value, tag2Key, tag2Value)

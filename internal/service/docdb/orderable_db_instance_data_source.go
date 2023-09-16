@@ -20,52 +20,51 @@ func DataSourceOrderableDBInstance() *schema.Resource {
 		ReadWithoutTimeout: dataSourceOrderableDBInstanceRead,
 		Schema: map[string]*schema.Schema{
 			"availability_zones": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 
 			"engine": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  "docdb",
 			},
 
 			"engine_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 
 			"instance_class": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
 				ConflictsWith: []string{"preferred_instance_classes"},
 			},
 
 			"license_model": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  "na",
 			},
 
 			"preferred_instance_classes": {
-				Type:          schema.TypeList,
-				Optional:      true,
-				Elem:          &schema.Schema{Type: schema.TypeString},
+				Type:hema.TypeList,
+				Optional:
+				Elem:chema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"instance_class"},
 			},
 
 			"vpc": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func dataSourceOrderableDBInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)

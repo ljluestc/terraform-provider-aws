@@ -27,8 +27,7 @@ import (
 // RegisteredCompressorNames holds names of the registered compressors.
 var RegisteredCompressorNames []string
 
-// IsCompressorNameRegistered returns true when name is available in registry.
-func IsCompressorNameRegistered(name string) bool {
+// IsCompressorNameRegistered returns true when name is available in registry. IsCompressorNameRegistered(name string) bool {
 	for _, compressor := range RegisteredCompressorNames {
 		if compressor == name {
 			return true
@@ -38,8 +37,7 @@ func IsCompressorNameRegistered(name string) bool {
 }
 
 // RegisteredCompressors returns a string of registered compressor names
-// separated by comma.
-func RegisteredCompressors() string {
+// separated by comma. RegisteredCompressors() string {
 	if !envconfig.AdvertiseCompressors {
 		return ""
 	}

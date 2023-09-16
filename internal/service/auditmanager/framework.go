@@ -68,7 +68,7 @@ func (r *resourceFramework) Schema(ctx context.Context, req resource.SchemaReque
 			"name": schema.StringAttribute{
 				Required: true,
 			},
-			names.AttrTags:    tftags.TagsAttribute(),
+			names.AttrTags:tftags.TagsAttribute(),
 			names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
 		},
 		Blocks: map[string]schema.Block{
@@ -125,9 +125,9 @@ func (r *resourceFramework) Create(ctx context.Context, req resource.CreateReque
 	}
 
 	in := auditmanager.CreateAssessmentFrameworkInput{
-		Name:        aws.String(plan.Name.ValueString()),
+		Name:   aws.String(plan.Name.ValueString()),
 		ControlSets: csInput,
-		Tags:        getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if !plan.ComplianceType.IsNull() {
@@ -217,7 +217,7 @@ func (r *resourceFramework) Update(ctx context.Context, req resource.UpdateReque
 		in := &auditmanager.UpdateAssessmentFrameworkInput{
 			ControlSets: csInput,
 			FrameworkId: aws.String(plan.ID.ValueString()),
-			Name:        aws.String(plan.Name.ValueString()),
+			Name:   aws.String(plan.Name.ValueString()),
 		}
 
 		if !plan.ComplianceType.IsNull() {
@@ -331,8 +331,8 @@ func FindFrameworkByID(ctx context.Context, conn *auditmanager.Client, id string
 var (
 	frameworkControlSetsAttrTypes = map[string]attr.Type{
 		"controls": types.SetType{ElemType: types.ObjectType{AttrTypes: frameworkControlSetsControlsAttrTypes}},
-		"id":       types.StringType,
-		"name":     types.StringType,
+		"id":  types.StringType,
+		"name":types.StringType,
 	}
 
 	frameworkControlSetsControlsAttrTypes = map[string]attr.Type{
@@ -341,21 +341,21 @@ var (
 )
 
 type resourceFrameworkData struct {
-	ARN            types.String `tfsdk:"arn"`
+	ARN  types.String `tfsdk:"arn"`
 	ComplianceType types.String `tfsdk:"compliance_type"`
-	ControlSets    types.Set    `tfsdk:"control_sets"`
-	Description    types.String `tfsdk:"description"`
+	ControlSetstypes.Set`tfsdk:"control_sets"`
+	Descriptiontypes.String `tfsdk:"description"`
 	FrameworkType  types.String `tfsdk:"framework_type"`
 	IDtypes.String `tfsdk:"id"`
-	Name           types.String `tfsdk:"name"`
-	Tags           types.Map    `tfsdk:"tags"`
-	TagsAll        types.Map    `tfsdk:"tags_all"`
+	Name types.String `tfsdk:"name"`
+	Tags types.Map`tfsdk:"tags"`
+	TagsAll   types.Map`tfsdk:"tags_all"`
 }
 
 type frameworkControlSetsData struct {
-	Controls types.Set    `tfsdk:"controls"`
-	ID       types.String `tfsdk:"id"`
-	Name     types.String `tfsdk:"name"`
+	Controls types.Set`tfsdk:"controls"`
+	ID  types.String `tfsdk:"id"`
+	Nametypes.String `tfsdk:"name"`
 }
 
 type frameworkControlSetsControlsData struct {
@@ -395,7 +395,7 @@ func expandFrameworkControlSetsCreate(ctx context.Context, tfList []frameworkCon
 		diags.Append(item.Controls.ElementsAs(ctx, &controls, false)...)
 
 		new := awstypes.CreateAssessmentFrameworkControlSet{
-			Name:     aws.String(item.Name.ValueString()),
+			Name:aws.String(item.Name.ValueString()),
 			Controls: expandFrameworkControlSetsControls(controls),
 		}
 
@@ -414,8 +414,8 @@ func expandFrameworkControlSetsUpdate(ctx context.Context, tfList []frameworkCon
 
 		new := awstypes.UpdateAssessmentFrameworkControlSet{
 			Controls: expandFrameworkControlSetsControls(controls),
-			Id:       aws.String(item.ID.ValueString()),
-			Name:     aws.String(item.Name.ValueString()),
+			Id:  aws.String(item.ID.ValueString()),
+			Name:aws.String(item.Name.ValueString()),
 		}
 
 		ucs = append(ucs, new)
@@ -450,8 +450,8 @@ func flattenFrameworkControlSets(ctx context.Context, apiObject []awstypes.Contr
 
 		obj := map[string]attr.Value{
 			"controls": controls,
-			"id":       flex.StringToFramework(ctx, item.Id),
-			"name":     flex.StringToFramework(ctx, item.Name),
+			"id":  flex.StringToFramework(ctx, item.Id),
+			"name":flex.StringToFramework(ctx, item.Name),
 		}
 		objVal, d := types.ObjectValue(frameworkControlSetsAttrTypes, obj)
 		diags.Append(d...)

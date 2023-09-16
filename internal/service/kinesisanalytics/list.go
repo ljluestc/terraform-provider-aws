@@ -11,7 +11,6 @@ import (
 )
 
 // Custom Kinesisanalytics listing functions using similar formatting as other service generated code.
-
 func ListApplicationsPages(ctx context.Context, conn *kinesisanalytics.KinesisAnalytics, input *kinesisanalytics.ListApplicationsInput, fn func(*kinesisanalytics.ListApplicationsOutput, bool) bool) error {
 	for {
 		output, err := conn.ListApplicationsWithContext(ctx, input)

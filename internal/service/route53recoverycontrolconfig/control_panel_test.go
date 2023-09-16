@@ -25,7 +25,7 @@ func testAccControlPanel_basic(t *testing.T) {
 	resourceName := "aws_route53recoverycontrolconfig_control_panel.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -42,8 +42,8 @@ func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -57,7 +57,7 @@ func testAccControlPanel_disappears(t *testing.T) {
 	resourceName := "aws_route53recoverycontrolconfig_control_panel.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, r53rcc.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, r53rcc.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -114,7 +114,7 @@ resource "aws_route53recoverycontrolconfig_cluster" "test" {
 func testAccControlPanelConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccClusterSetUp(rName), fmt.Sprintf(`
 resource "aws_route53recoverycontrolconfig_control_panel" "test" {
-  name        = %[1]q
+  name   = %[1]q
   cluster_arn = aws_route53recoverycontrolconfig_cluster.test.arn
 }
 `, rName))

@@ -57,7 +57,7 @@ func Tags(tags tftags.KeyValueTags) []*databasemigrationservice.Tag {
 
 	for k, v := range tags.Map() {
 		tag := &databasemigrationservice.Tag{
-			Key:   aws.String(k),
+			Key:aws.String(k),
 			Value: aws.String(v),
 		}
 
@@ -111,7 +111,7 @@ func updateTags(ctx context.Context, conn databasemigrationserviceiface.Database
 	if len(removedTags) > 0 {
 		input := &databasemigrationservice.RemoveTagsFromResourceInput{
 			ResourceArn: aws.String(identifier),
-			TagKeys:     aws.StringSlice(removedTags.Keys()),
+			TagKeys:aws.StringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.RemoveTagsFromResourceWithContext(ctx, input)
@@ -126,7 +126,7 @@ func updateTags(ctx context.Context, conn databasemigrationserviceiface.Database
 	if len(updatedTags) > 0 {
 		input := &databasemigrationservice.AddTagsToResourceInput{
 			ResourceArn: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:  Tags(updatedTags),
 		}
 
 		_, err := conn.AddTagsToResourceWithContext(ctx, input)

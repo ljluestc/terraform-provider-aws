@@ -45,7 +45,7 @@ func ResourceStorediSCSIVolume() *schema.Resource {
 				ForceNew: true,
 			},
 			"gateway_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -66,7 +66,7 @@ func ResourceStorediSCSIVolume() *schema.Resource {
 				ForceNew: true,
 			},
 			"kms_key": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -133,9 +133,9 @@ func resourceStorediSCSIVolumeCreate(ctx context.Context, d *schema.ResourceData
 
 	input := &storagegateway.CreateStorediSCSIVolumeInput{
 		DiskId:  aws.String(d.Get("disk_id").(string)),
-		GatewayARN:           aws.String(d.Get("gateway_arn").(string)),
+		GatewayARN:  aws.String(d.Get("gateway_arn").(string)),
 		NetworkInterfaceId:   aws.String(d.Get("network_interface_id").(string)),
-		TargetName:           aws.String(d.Get("target_name").(string)),
+		TargetName:  aws.String(d.Get("target_name").(string)),
 		PreserveExistingData: aws.Bool(d.Get("preserve_existing_data").(bool)),
 		Tags:    getTagsIn(ctx),
 	}

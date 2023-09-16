@@ -21,19 +21,17 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfworklink "github.com/hashicorp/terraform-provider-aws/internal/service/worklink"
 )
-
-
 func TestAccWorkLinkFleet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	suffix := sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha)
 	resourceName := "aws_worklink_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, worklink.EndpointsID),
+		ErrorCheck:t.ErrorCheck(t, worklink.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFleetDestroy(ctx),
+		CheckDestroy: testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_basic(suffix),
@@ -45,26 +43,24 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
-
 func TestAccWorkLinkFleet_displayName(t *testing.T) {
 	ctx := acctest.Context(t)
 	suffix := sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha)
 	resourceName := "aws_worklink_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, worklink.EndpointsID),
+		ErrorCheck:t.ErrorCheck(t, worklink.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFleetDestroy(ctx),
+		CheckDestroy: testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_displayName(suffix, "display1"),
@@ -81,26 +77,24 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
-
 func TestAccWorkLinkFleet_optimizeForEndUserLocation(t *testing.T) {
 	ctx := acctest.Context(t)
 	suffix := sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha)
 	resourceName := "aws_worklink_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, worklink.EndpointsID),
+		ErrorCheck:t.ErrorCheck(t, worklink.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFleetDestroy(ctx),
+		CheckDestroy: testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_optimizeForEndUserLocation(suffix, false),
@@ -117,26 +111,24 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
-
 func TestAccWorkLinkFleet_auditStreamARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha)
 	resourceName := "aws_worklink_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, worklink.EndpointsID),
+		ErrorCheck:t.ErrorCheck(t, worklink.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFleetDestroy(ctx),
+		CheckDestroy: testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_auditStreamARN(rName),
@@ -146,26 +138,24 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
-
 func TestAccWorkLinkFleet_network(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha)
 	resourceName := "aws_worklink_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, worklink.EndpointsID),
+		ErrorCheck:t.ErrorCheck(t, worklink.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFleetDestroy(ctx),
+		CheckDestroy: testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_network(rName, "192.168.0.0/16"),
@@ -188,30 +178,28 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
-				Config:      testAccFleetConfig_basic(rName),
+				Config:cFleetConfig_basic(rName),
 				ExpectError: regexache.MustCompile(`Company Network Configuration cannot be removed`),
 			},
 		},
 	})
 }
-
-
 func TestAccWorkLinkFleet_deviceCaCertificate(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha)
 	resourceName := "aws_worklink_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, worklink.EndpointsID),
+		ErrorCheck:t.ErrorCheck(t, worklink.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFleetDestroy(ctx),
+		CheckDestroy: testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_deviceCaCertificate(rName),
@@ -221,8 +209,8 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -235,8 +223,6 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		},
 	})
 }
-
-
 func TestAccWorkLinkFleet_identityProvider(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha)
@@ -244,11 +230,11 @@ func TestAccWorkLinkFleet_identityProvider(t *testing.T) {
 	idpEntityId := fmt.Sprintf("https://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, worklink.EndpointsID),
+		ErrorCheck:t.ErrorCheck(t, worklink.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFleetDestroy(ctx),
+		CheckDestroy: testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_identityProvider(rName, idpEntityId),
@@ -259,30 +245,28 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
-				Config:      testAccFleetConfig_basic(rName),
+				Config:cFleetConfig_basic(rName),
 				ExpectError: regexache.MustCompile(`Identity Provider Configuration cannot be removed`),
 			},
 		},
 	})
 }
-
-
 func TestAccWorkLinkFleet_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(20, sdkacctest.CharSetAlpha)
 	resourceName := "aws_worklink_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        
+		PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, worklink.EndpointsID),
+		ErrorCheck:t.ErrorCheck(t, worklink.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckFleetDestroy(ctx),
+		CheckDestroy: testAccCheckFleetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_basic(rName),
@@ -295,8 +279,6 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		},
 	})
 }
-
-
 func testAccCheckFleetDisappears(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return 
 func(s *terraform.State) error {
@@ -320,11 +302,11 @@ func(s *terraform.State) error {
 		}
 
 		stateConf := &retry.StateChangeConf{
-			Pending:    []string{"DELETING"},
-			Target:     []string{"DELETED"},
-			Refresh:    tfworklink.FleetStateRefresh(ctx, conn, rs.Primary.ID),
-			Timeout:    15 * time.Minute,
-			Delay:      10 * time.Second,
+			Pending: []string{"DELETING"},
+			Target:[]string{"DELETED"},
+			Refresh: tfworklink.FleetStateRefresh(ctx, conn, rs.Primary.ID),
+			Timeout: 15 * time.Minute,
+			Delay:ime.Second,
 			MinTimeout: 3 * time.Second,
 		}
 
@@ -333,8 +315,6 @@ func(s *terraform.State) error {
 		return err
 	}
 }
-
-
 func testAccCheckFleetDestroy(ctx context.Context) resource.TestCheckFunc {
 	return 
 func(s *terraform.State) error {
@@ -363,8 +343,6 @@ func(s *terraform.State) error {
 		return nil
 	}
 }
-
-
 func testAccCheckFleetExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return 
 func(s *terraform.State) error {
@@ -385,8 +363,6 @@ func(s *terraform.State) error {
 		return err
 	}
 }
-
-
 func testAccPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).WorkLinkConn(ctx)
 
@@ -404,8 +380,6 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
-
 func testAccFleetConfig_basic(r string) string {
 	return fmt.Sprintf(`
 resource "aws_worklink_fleet" "test" {
@@ -413,8 +387,6 @@ resource "aws_worklink_fleet" "test" {
 }
 `, r)
 }
-
-
 func testAccFleetConfig_displayName(r, displayName string) string {
 	return fmt.Sprintf(`
 resource "aws_worklink_fleet" "test" {
@@ -423,26 +395,22 @@ resource "aws_worklink_fleet" "test" {
 }
 `, r, displayName)
 }
-
-
 func testAccFleetConfig_optimizeForEndUserLocation(r string, b bool) string {
 	return fmt.Sprintf(`
 resource "aws_worklink_fleet" "test" {
-  name   = "tf-worklink-fleet-%s"
+  name= "tf-worklink-fleet-%s"
   optimize_for_end_user_location = %t
 }
 `, r, b)
 }
-
-
 func testAccFleetNetworkConfig_Base(rName, cidrBlock string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
   state = "available"
 
   filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+ name= "opt-in-status"
+ values = ["opt-in-not-required"]
   }
 }
 
@@ -450,20 +418,20 @@ resource "aws_vpc" "test" {
   cidr_block = "%s"
 
   tags = {
-    Name = %q
+ Name = %q
   }
 }
 
 resource "aws_security_group" "test" {
-  name        = "tf_test_foo"
+  namef_test_foo"
   description = "foo"
-  vpc_id      = aws_vpc.test.id
+  vpc_idvpc.test.id
 
   ingress {
-    protocol  = "icmp"
-    from_port = -1
-    to_port   = -1
-    self      = true
+ protocol  = "icmp"
+ from_port = -1
+ to_port= -1
+ self
   }
 }
 
@@ -471,17 +439,15 @@ resource "aws_subnet" "test" {
   count = 2
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
-  vpc_id   = aws_vpc.test.id
+  cidr_blockdrsubnet(aws_vpc.test.cidr_block, 8, count.index)
+  vpc_id= aws_vpc.test.id
 
   tags = {
-    Name = %q
+ Name = %q
   }
 }
 `, cidrBlock, rName, rName)
 }
-
-
 func testAccFleetConfig_network(r, cidrBlock string) string {
 	return acctest.ConfigCompose(
 		testAccFleetNetworkConfig_Base(r, cidrBlock),
@@ -490,19 +456,17 @@ resource "aws_worklink_fleet" "test" {
   name = "tf-worklink-fleet-%s"
 
   network {
-    vpc_id    = aws_vpc.test.id
-    subnet_ids= aws_subnet.test[*].id
-    security_group_ids = [aws_security_group.test.id]
+ vpc_id = aws_vpc.test.id
+ subnet_ids= aws_subnet.test[*].id
+ security_group_ids = [aws_security_group.test.id]
   }
 }
 `, r))
 }
-
-
 func testAccFleetConfig_auditStreamARN(r string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test_stream" {
-  name        = "AmazonWorkLink-%[1]s_kinesis_test"
+  namemazonWorkLink-%[1]s_kinesis_test"
   shard_count = 1
 }
 
@@ -513,8 +477,6 @@ resource "aws_worklink_fleet" "test" {
 }
 `, r)
 }
-
-
 func testAccFleetConfig_deviceCaCertificate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_worklink_fleet" "test" {
@@ -524,16 +486,14 @@ resource "aws_worklink_fleet" "test" {
 }
 `, rName)
 }
-
-
 func testAccFleetConfig_identityProvider(rName, idpEntityId string) string {
 	return fmt.Sprintf(`
 resource "aws_worklink_fleet" "test" {
   name = "tf-worklink-fleet-%[1]s"
 
   identity_provider {
-    type = "SAML"
-    saml_metadata = templatefile("./test-fixtures/saml-metadata.xml.tpl", { entity_id = %[2]q })
+ type = "SAML"
+ saml_metadata = templatefile("./test-fixtures/saml-metadata.xml.tpl", { entity_id = %[2]q })
   }
 }
 `, rName, idpEntityId)

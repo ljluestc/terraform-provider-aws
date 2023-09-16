@@ -38,13 +38,13 @@ func ResourcePartitionIndex() *schema.Resource {
 				Computed: true,
 			},
 			"database_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"table_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),

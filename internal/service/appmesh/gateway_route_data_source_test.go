@@ -79,16 +79,16 @@ resource "aws_appmesh_virtual_service" "test" {
 
 resource "aws_appmesh_gateway_route" "test" {
   name    = %[4]q
-  mesh_name            = aws_appmesh_mesh.test.name
+  mesh_name   = aws_appmesh_mesh.test.name
   virtual_gateway_name = aws_appmesh_virtual_gateway.test.name
 
   spec {
     http_route {
       action {
         target {
-          virtual_service {
-            virtual_service_name = aws_appmesh_virtual_service.test.name
-          }
+ virtual_service {
+   virtual_service_name = aws_appmesh_virtual_service.test.name
+ }
         }
       }
 
@@ -105,7 +105,7 @@ resource "aws_appmesh_gateway_route" "test" {
 
 data "aws_appmesh_gateway_route" "test" {
   name    = aws_appmesh_gateway_route.test.name
-  mesh_name            = aws_appmesh_gateway_route.test.mesh_name
+  mesh_name   = aws_appmesh_gateway_route.test.mesh_name
   virtual_gateway_name = aws_appmesh_gateway_route.test.virtual_gateway_name
 }
 `, meshName, vgName, vsName, gwRouteName)

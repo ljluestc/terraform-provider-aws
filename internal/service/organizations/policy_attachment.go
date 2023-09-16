@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_organizations_policy_attachment")
+
 func ResourcePolicyAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePolicyAttachmentCreate,
@@ -51,6 +52,7 @@ func ResourcePolicyAttachment() *schema.Resource {
 	}
 }
 
+
 func resourcePolicyAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OrganizationsConn(ctx)
@@ -63,7 +65,8 @@ func resourcePolicyAttachmentCreate(ctx context.Context, d *schema.ResourceData,
 		TargetId: aws.String(targetID),
 	}
 
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 4*time.Minute, func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, 4*time.Minute, 
+func() (interface{}, error) {
 		return conn.AttachPolicyWithContext(ctx, input)
 	}, organizations.ErrCodeFinalizingOrganizationException)
 
@@ -75,6 +78,7 @@ func resourcePolicyAttachmentCreate(ctx context.Context, d *schema.ResourceData,
 
 	return append(diags, resourcePolicyAttachmentRead(ctx, d, meta)...)
 }
+
 
 func resourcePolicyAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -103,11 +107,13 @@ func resourcePolicyAttachmentRead(ctx context.Context, d *schema.ResourceData, m
 	return diags
 }
 
+
 func resourcePolicyAttachmentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Update is just a pass-through to allow skip_destroy to be updated in-place
 	var diags diag.Diagnostics
 	return append(diags, resourcePolicyAttachmentRead(ctx, d, meta)...)
 }
+
 
 func resourcePolicyAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	if v, ok := d.GetOk("skip_destroy"); ok && v.(bool) {
@@ -139,6 +145,7 @@ func resourcePolicyAttachmentDelete(ctx context.Context, d *schema.ResourceData,
 
 	return diags
 }
+
 
 func DecodePolicyAttachmentID(id string) (string, string, error) {
 	idParts := strings.Split(id, ":")

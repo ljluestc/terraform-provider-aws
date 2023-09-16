@@ -25,7 +25,7 @@ func updateTagsNoIgnoreSystem(ctx context.Context, conn transferiface.TransferAP
 	removedTags := oldTags.Removed(newTags)
 	if len(removedTags) > 0 {
 		input := &transfer.UntagResourceInput{
-			Arn:     aws.String(identifier),
+			Arn: aws.String(identifier),
 			TagKeys: aws.StringSlice(removedTags.Keys()),
 		}
 

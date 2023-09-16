@@ -23,7 +23,7 @@ func DataSourceStreamConsumer() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:         schema.TypeString,
+				Type:   schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: verify.ValidARN,
@@ -46,7 +46,7 @@ func DataSourceStreamConsumer() *schema.Resource {
 			},
 
 			"stream_arn": {
-				Type:         schema.TypeString,
+				Type:   schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},

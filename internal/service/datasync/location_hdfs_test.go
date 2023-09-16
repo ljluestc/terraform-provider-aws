@@ -26,10 +26,10 @@ func TestAccDataSyncLocationHDFS_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationHDFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationHDFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationHDFSConfig_basic(rName),
@@ -65,10 +65,10 @@ func TestAccDataSyncLocationHDFS_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationHDFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationHDFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationHDFSConfig_basic(rName),
@@ -90,10 +90,10 @@ func TestAccDataSyncLocationHDFS_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationHDFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationHDFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationHDFSConfig_tags1(rName, "key1", "value1"),
@@ -188,9 +188,9 @@ resource "aws_datasync_agent" "test" {
 func testAccLocationHDFSConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccLocationHDFSConfig_base(rName), fmt.Sprintf(`
 resource "aws_datasync_location_hdfs" "test" {
-  agent_arns          = [aws_datasync_agent.test.arn]
+  agent_arns = [aws_datasync_agent.test.arn]
   authentication_type = "SIMPLE"
-  simple_user         = %[1]q
+  simple_user= %[1]q
 
   name_node {
     hostname = aws_instance.test.private_dns
@@ -203,9 +203,9 @@ resource "aws_datasync_location_hdfs" "test" {
 func testAccLocationHDFSConfig_tags1(rName, key1, value1 string) string {
 	return acctest.ConfigCompose(testAccLocationHDFSConfig_base(rName), fmt.Sprintf(`
 resource "aws_datasync_location_hdfs" "test" {
-  agent_arns          = [aws_datasync_agent.test.arn]
+  agent_arns = [aws_datasync_agent.test.arn]
   authentication_type = "SIMPLE"
-  simple_user         = %[1]q
+  simple_user= %[1]q
 
   name_node {
     hostname = aws_instance.test.private_dns
@@ -222,9 +222,9 @@ resource "aws_datasync_location_hdfs" "test" {
 func testAccLocationHDFSConfig_tags2(rName, key1, value1, key2, value2 string) string {
 	return acctest.ConfigCompose(testAccLocationHDFSConfig_base(rName), fmt.Sprintf(`
 resource "aws_datasync_location_hdfs" "test" {
-  agent_arns          = [aws_datasync_agent.test.arn]
+  agent_arns = [aws_datasync_agent.test.arn]
   authentication_type = "SIMPLE"
-  simple_user         = %[1]q
+  simple_user= %[1]q
 
   name_node {
     hostname = aws_instance.test.private_dns

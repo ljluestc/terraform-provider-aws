@@ -16,31 +16,30 @@ import (
 )
 
 // @SDKDataSource("aws_service_discovery_dns_namespace")
-
 func DataSourceDNSNamespace() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceDNSNamespaceRead,
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"hosted_zone": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				// HTTP namespaces are handled via the aws_service_discovery_http_namespace data source.
 				Validate
@@ -52,8 +51,6 @@ func: validation.StringInSlice([]string{
 		},
 	}
 }
-
-
 func dataSourceDNSNamespaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 	ignoreTagsConfig := meta.(*conns.AWSClient).IgnoreTagsConfig

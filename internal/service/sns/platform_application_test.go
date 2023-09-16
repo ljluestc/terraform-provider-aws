@@ -38,7 +38,7 @@ import (
 **/
 
 type testAccPlatformApplicationPlatform struct {
-	Name         string
+	Namestring
 	Credential   string
 	Principal    string
 	ApnsAuthType string // "certificate", "token"
@@ -53,7 +53,7 @@ func testAccPlatformApplicationPlatformFromEnv(t *testing.T, allowedApnsAuthType
 		}
 
 		platform := &testAccPlatformApplicationPlatform{
-			Name:         "APNS_SANDBOX",
+			Name:"APNS_SANDBOX",
 			Credential:   fmt.Sprintf("<<EOF\n%s\nEOF\n", strings.TrimSpace(os.Getenv("APNS_SANDBOX_CREDENTIAL"))),
 			Principal:    fmt.Sprintf("<<EOF\n%s\nEOF\n", strings.TrimSpace(os.Getenv("APNS_SANDBOX_PRINCIPAL"))),
 			ApnsAuthType: "certificate",
@@ -65,7 +65,7 @@ func testAccPlatformApplicationPlatformFromEnv(t *testing.T, allowedApnsAuthType
 		}
 
 		platform := &testAccPlatformApplicationPlatform{
-			Name:         "APNS_SANDBOX",
+			Name:"APNS_SANDBOX",
 			Credential:   strconv.Quote(fmt.Sprintf("${file(pathexpand(%q))}", os.Getenv("APNS_SANDBOX_CREDENTIAL_PATH"))),
 			Principal:    strconv.Quote(fmt.Sprintf("${file(pathexpand(%q))}", os.Getenv("APNS_SANDBOX_PRINCIPAL_PATH"))),
 			ApnsAuthType: "certificate",
@@ -77,7 +77,7 @@ func testAccPlatformApplicationPlatformFromEnv(t *testing.T, allowedApnsAuthType
 		}
 
 		platform := &testAccPlatformApplicationPlatform{
-			Name:         "APNS_SANDBOX",
+			Name:"APNS_SANDBOX",
 			Credential:   fmt.Sprintf("<<EOF\n%s\nEOF\n", strings.TrimSpace(os.Getenv("APNS_SANDBOX_TOKEN_CREDENTIAL"))),
 			Principal:    fmt.Sprintf("<<EOF\n%s\nEOF\n", strings.TrimSpace(os.Getenv("APNS_SANDBOX_TOKEN_PRINCIPAL"))),
 			ApnsAuthType: "token",
@@ -103,53 +103,53 @@ func TestDecodePlatformApplicationID(t *testing.T) {
 	t.Parallel()
 
 	var testCases = []struct {
-		Input            string
+		Input   string
 		ExpectedArn      string
 		ExpectedName     string
 		ExpectedPlatform string
-		ErrCount         int
+		ErrCountint
 	}{
 		{
-			Input:            "arn:aws:sns:us-east-1:123456789012:app/APNS_SANDBOX/myAppName", //lintignore:AWSAT003,AWSAT005
+			Input:   "arn:aws:sns:us-east-1:123456789012:app/APNS_SANDBOX/myAppName", //lintignore:AWSAT003,AWSAT005
 			ExpectedArn:      "arn:aws:sns:us-east-1:123456789012:app/APNS_SANDBOX/myAppName", //lintignore:AWSAT003,AWSAT005
 			ExpectedName:     "myAppName",
 			ExpectedPlatform: "APNS_SANDBOX",
-			ErrCount:         0,
+			ErrCount:0,
 		},
 		{
-			Input:            "arn:aws:sns:us-east-1:123456789012:app/APNS_SANDBOX/myAppName/extra", //lintignore:AWSAT003,AWSAT005
+			Input:   "arn:aws:sns:us-east-1:123456789012:app/APNS_SANDBOX/myAppName/extra", //lintignore:AWSAT003,AWSAT005
 			ExpectedArn:      "",
 			ExpectedName:     "",
 			ExpectedPlatform: "",
-			ErrCount:         1,
+			ErrCount:1,
 		},
 		{
-			Input:            "arn:aws:sns:us-east-1:123456789012:endpoint/APNS_SANDBOX/myAppName/someID", //lintignore:AWSAT003,AWSAT005
+			Input:   "arn:aws:sns:us-east-1:123456789012:endpoint/APNS_SANDBOX/myAppName/someID", //lintignore:AWSAT003,AWSAT005
 			ExpectedArn:      "",
 			ExpectedName:     "",
 			ExpectedPlatform: "",
-			ErrCount:         1,
+			ErrCount:1,
 		},
 		{
-			Input:            "arn:aws:sns:us-east-1:123456789012:APNS_SANDBOX/myAppName", //lintignore:AWSAT003,AWSAT005
+			Input:   "arn:aws:sns:us-east-1:123456789012:APNS_SANDBOX/myAppName", //lintignore:AWSAT003,AWSAT005
 			ExpectedArn:      "",
 			ExpectedName:     "",
 			ExpectedPlatform: "",
-			ErrCount:         1,
+			ErrCount:1,
 		},
 		{
-			Input:            "arn:aws:sns:us-east-1:123456789012:app", //lintignore:AWSAT003,AWSAT005
+			Input:   "arn:aws:sns:us-east-1:123456789012:app", //lintignore:AWSAT003,AWSAT005
 			ExpectedArn:      "",
 			ExpectedName:     "",
 			ExpectedPlatform: "",
-			ErrCount:         1,
+			ErrCount:1,
 		},
 		{
-			Input:            "myAppName",
+			Input:   "myAppName",
 			ExpectedArn:      "",
 			ExpectedName:     "",
 			ExpectedPlatform: "",
-			ErrCount:         1,
+			ErrCount:1,
 		},
 	}
 
@@ -185,10 +185,10 @@ func TestAccSNSPlatformApplication_GCM_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sns.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlatformApplicationDestroy(ctx),
+		CheckDestroy:    testAccCheckPlatformApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlatformApplicationConfig_gcmBasic(rName, apiKey),
@@ -209,8 +209,8 @@ func TestAccSNSPlatformApplication_GCM_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"platform_credential", "platform_principal"},
 			},
@@ -230,10 +230,10 @@ func TestAccSNSPlatformApplication_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sns.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlatformApplicationDestroy(ctx),
+		CheckDestroy:    testAccCheckPlatformApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlatformApplicationConfig_gcmBasic(rName, apiKey),
@@ -263,10 +263,10 @@ func TestAccSNSPlatformApplication_GCM_allAttributes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, sns.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlatformApplicationDestroy(ctx),
+		CheckDestroy:    testAccCheckPlatformApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlatformApplicationConfig_gcmAllAttributes(rName, apiKey),
@@ -287,8 +287,8 @@ func TestAccSNSPlatformApplication_GCM_allAttributes(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"platform_credential", "platform_principal"},
 			},
@@ -328,10 +328,10 @@ func TestAccSNSPlatformApplication_basic(t *testing.T) {
 
 		t.Run(platform.Name, func(*testing.T) {
 			resource.ParallelTest(t, resource.TestCase{
-				PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-				ErrorCheck:               acctest.ErrorCheck(t, sns.EndpointsID),
+				PreCheck:        func() { acctest.PreCheck(ctx, t) },
+				ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				CheckDestroy:             testAccCheckPlatformApplicationDestroy(ctx),
+				CheckDestroy:    testAccCheckPlatformApplicationDestroy(ctx),
 				Steps: []resource.TestStep{
 					{
 						Config: testAccPlatformApplicationConfig_basic(name, platform),
@@ -345,8 +345,8 @@ func TestAccSNSPlatformApplication_basic(t *testing.T) {
 						),
 					},
 					{
-						ResourceName:            resourceName,
-						ImportState:             true,
+						ResourceName:   resourceName,
+						ImportState:    true,
 						ImportStateVerify:       true,
 						ImportStateVerifyIgnore: []string{"platform_credential", "platform_principal"},
 					},
@@ -362,12 +362,12 @@ func TestAccSNSPlatformApplication_basicAttributes(t *testing.T) {
 	resourceName := "aws_sns_platform_application.test"
 
 	var testCases = []struct {
-		AttributeKey         string
+		AttributeKeystring
 		AttributeValue       string
 		AttributeValueUpdate string
 	}{
 		{
-			AttributeKey:         "success_feedback_sample_rate",
+			AttributeKey:"success_feedback_sample_rate",
 			AttributeValue:       "100",
 			AttributeValueUpdate: "99",
 		},
@@ -382,10 +382,10 @@ func TestAccSNSPlatformApplication_basicAttributes(t *testing.T) {
 					name := fmt.Sprintf("tf-acc-%d", sdkacctest.RandInt())
 
 					resource.ParallelTest(t, resource.TestCase{
-						PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-						ErrorCheck:               acctest.ErrorCheck(t, sns.EndpointsID),
+						PreCheck:        func() { acctest.PreCheck(ctx, t) },
+						ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
 						ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-						CheckDestroy:             testAccCheckPlatformApplicationDestroy(ctx),
+						CheckDestroy:    testAccCheckPlatformApplicationDestroy(ctx),
 						Steps: []resource.TestStep{
 							{
 								Config: testAccPlatformApplicationConfig_basicAttribute(name, platform, tc.AttributeKey, tc.AttributeValue),
@@ -402,8 +402,8 @@ func TestAccSNSPlatformApplication_basicAttributes(t *testing.T) {
 								),
 							},
 							{
-								ResourceName:            resourceName,
-								ImportState:             true,
+								ResourceName:   resourceName,
+								ImportState:    true,
 								ImportStateVerify:       true,
 								ImportStateVerifyIgnore: []string{"platform_credential", "platform_principal"},
 							},
@@ -429,10 +429,10 @@ func TestAccSNSPlatformApplication_basicApnsWithTokenCredentials(t *testing.T) {
 
 		t.Run(platform.Name, func(*testing.T) {
 			resource.ParallelTest(t, resource.TestCase{
-				PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-				ErrorCheck:               acctest.ErrorCheck(t, sns.EndpointsID),
+				PreCheck:        func() { acctest.PreCheck(ctx, t) },
+				ErrorCheck:      acctest.ErrorCheck(t, sns.EndpointsID),
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				CheckDestroy:             testAccCheckPlatformApplicationDestroy(ctx),
+				CheckDestroy:    testAccCheckPlatformApplicationDestroy(ctx),
 				Steps: []resource.TestStep{
 					{
 						Config: testAccPlatformApplicationConfig_basicApnsWithTokenCredentials(name, platform, applePlatformTeamId, applePlatformBundleId),
@@ -455,8 +455,8 @@ func TestAccSNSPlatformApplication_basicApnsWithTokenCredentials(t *testing.T) {
 						),
 					},
 					{
-						ResourceName:            resourceName,
-						ImportState:             true,
+						ResourceName:   resourceName,
+						ImportState:    true,
 						ImportStateVerify:       true,
 						ImportStateVerifyIgnore: []string{"platform_credential", "platform_principal"},
 					},
@@ -515,7 +515,7 @@ func testAccPlatformApplicationConfig_gcmBasic(rName, credentials string) string
 	return fmt.Sprintf(`
 resource "aws_sns_platform_application" "test" {
   name = %[1]q
-  platform            = "GCM"
+  platform   = "GCM"
   platform_credential = %[2]q
 }
 `, rName, credentials)
@@ -563,7 +563,7 @@ func testAccPlatformApplicationConfig_gcmAllAttributes(rName, credentials string
 	return acctest.ConfigCompose(testAccPlatformApplicationConfig_gcmAllAttributesBase(rName), fmt.Sprintf(`
 resource "aws_sns_platform_application" "test" {
   name = %[1]q
-  platform            = "GCM"
+  platform   = "GCM"
   platform_credential = %[2]q
 
   event_delivery_failure_topic_arn = aws_sns_topic.test[0].arn
@@ -583,7 +583,7 @@ func testAccPlatformApplicationConfig_gcmAllAttributesUpdated(rName, credentials
 	return acctest.ConfigCompose(testAccPlatformApplicationConfig_gcmAllAttributesBase(rName), fmt.Sprintf(`
 resource "aws_sns_platform_application" "test" {
   name = %[1]q
-  platform            = "GCM"
+  platform   = "GCM"
   platform_credential = %[2]q
 
   event_delivery_failure_topic_arn = aws_sns_topic.test[1].arn
@@ -604,7 +604,7 @@ func testAccPlatformApplicationConfig_basic(name string, platform *testAccPlatfo
 		return fmt.Sprintf(`
 resource "aws_sns_platform_application" "test" {
   name = "%s"
-  platform            = "%s"
+  platform   = "%s"
   platform_credential = %s
 }
 `, name, platform.Name, platform.Credential)
@@ -612,7 +612,7 @@ resource "aws_sns_platform_application" "test" {
 	return fmt.Sprintf(`
 resource "aws_sns_platform_application" "test" {
   name = "%s"
-  platform            = "%s"
+  platform   = "%s"
   platform_credential = %s
   platform_principal  = %s
 }
@@ -624,7 +624,7 @@ func testAccPlatformApplicationConfig_basicAttribute(name string, platform *test
 		return fmt.Sprintf(`
 resource "aws_sns_platform_application" "test" {
   name = "%s"
-  platform            = "%s"
+  platform   = "%s"
   platform_credential = %s
   %s   = "%s"
 }
@@ -633,7 +633,7 @@ resource "aws_sns_platform_application" "test" {
 	return fmt.Sprintf(`
 resource "aws_sns_platform_application" "test" {
   name = "%s"
-  platform            = "%s"
+  platform   = "%s"
   platform_credential = %s
   platform_principal  = %s
   %s   = "%s"

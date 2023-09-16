@@ -44,7 +44,7 @@ func statusAdminAccountAdmin(ctx context.Context, conn *guardduty.GuardDuty, adm
 func statusPublishingDestination(ctx context.Context, conn *guardduty.GuardDuty, destinationID, detectorID string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		input := &guardduty.DescribePublishingDestinationInput{
-			DetectorId:    aws.String(detectorID),
+			DetectorId: aws.String(detectorID),
 			DestinationId: aws.String(destinationID),
 		}
 

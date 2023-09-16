@@ -34,7 +34,7 @@ import (
 func ResourceComputeEnvironment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceComputeEnvironmentCreate,
-		ReadWithoutTimeout:   resourceComputeEnvironmentRead,
+		ReadWithoutTimeout:resourceComputeEnvironmentRead,
 		UpdateWithoutTimeout: resourceComputeEnvironmentUpdate,
 		DeleteWithoutTimeout: resourceComputeEnvironmentDelete,
 
@@ -49,27 +49,27 @@ func ResourceComputeEnvironment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"compute_environment_name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ConflictsWith: []string{"compute_environment_name_prefix"},
 				ValidateFunc:  validName,
 			},
 			"compute_environment_name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ConflictsWith: []string{"compute_environment_name"},
 				ValidateFunc:  validPrefix,
 			},
 			"compute_resources": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MinItems: 0,
@@ -77,7 +77,7 @@ func ResourceComputeEnvironment() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"allocation_strategy": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							StateFunc: func(val interface{}) string {
 								return strings.ToUpper(val.(string))
@@ -85,16 +85,16 @@ func ResourceComputeEnvironment() *schema.Resource {
 							ValidateFunc: validation.StringInSlice(batch.CRAllocationStrategy_Values(), true),
 						},
 						"bid_percentage": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 						},
 						"desired_vcpus": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 							Computed: true,
 						},
 						"ec2_configuration": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							Computed: true,
 							ForceNew: true,
@@ -102,56 +102,56 @@ func ResourceComputeEnvironment() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"image_id_override": {
-										Type:         schema.TypeString,
-										Optional:     true,
-										Computed:     true,
+										Type: schema.TypeString,
+										Optional:true,
+										Computed:true,
 										ValidateFunc: validation.StringLenBetween(1, 256),
 									},
 									"image_type": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type: schema.TypeString,
+										Optional:true,
 										ValidateFunc: validation.StringLenBetween(1, 256),
 									},
 								},
 							},
 						},
 						"ec2_key_pair": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"image_id": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 						},
 						"instance_role": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type: schema.TypeString,
+							Optional:true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"instance_type": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"launch_template": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							ForceNew: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"launch_template_id": {
-										Type:          schema.TypeString,
-										Optional:      true,
+										Type:schema.TypeString,
+										Optional: true,
 										ConflictsWith: []string{"compute_resources.0.launch_template.0.launch_template_name"},
 									},
 									"launch_template_name": {
-										Type:          schema.TypeString,
-										Optional:      true,
+										Type:schema.TypeString,
+										Optional: true,
 										ConflictsWith: []string{"compute_resources.0.launch_template.0.launch_template_id"},
 									},
 									"version": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 										Computed: true,
 									},
@@ -159,37 +159,37 @@ func ResourceComputeEnvironment() *schema.Resource {
 							},
 						},
 						"max_vcpus": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Required: true,
 						},
 						"min_vcpus": {
-							Type:     schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional: true,
 						},
 						"placement_group": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Optional: true,
 							ForceNew: true,
 						},
 						"security_group_ids": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Optional: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"spot_iam_fleet_role": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							ForceNew:     true,
+							Type: schema.TypeString,
+							Optional:true,
+							ForceNew:true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"subnets": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
-							Elem:     &schema.Schema{Type: schema.TypeString},
+							Elem:&schema.Schema{Type: schema.TypeString},
 						},
 						"tags": tftags.TagsSchema(),
 						"type": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							StateFunc: func(val interface{}) string {
 								return strings.ToUpper(val.(string))
@@ -200,11 +200,11 @@ func ResourceComputeEnvironment() *schema.Resource {
 				},
 			},
 			"ecs_cluster_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"eks_configuration": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				ForceNew: true,
 				MinItems: 0,
@@ -212,13 +212,13 @@ func ResourceComputeEnvironment() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"eks_cluster_arn": {
-							Type:         schema.TypeString,
-							Required:     true,
-							ForceNew:     true,
+							Type: schema.TypeString,
+							Required:true,
+							ForceNew:true,
 							ValidateFunc: verify.ValidARN,
 						},
 						"kubernetes_namespace": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ForceNew: true,
 						},
@@ -226,32 +226,32 @@ func ResourceComputeEnvironment() *schema.Resource {
 				},
 			},
 			"service_role": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type: schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				StateFunc: func(val interface{}) string {
 					return strings.ToUpper(val.(string))
 				},
 				ValidateFunc: validation.StringInSlice(batch.CEState_Values(), true),
-				Default:      batch.CEStateEnabled,
+				Default: batch.CEStateEnabled,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"status_reason": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				StateFunc: func(val interface{}) string {
@@ -262,7 +262,6 @@ func ResourceComputeEnvironment() *schema.Resource {
 		},
 	}
 }
-
 func resourceComputeEnvironmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BatchConn(ctx)
@@ -271,9 +270,9 @@ func resourceComputeEnvironmentCreate(ctx context.Context, d *schema.ResourceDat
 	computeEnvironmentType := d.Get("type").(string)
 	input := &batch.CreateComputeEnvironmentInput{
 		ComputeEnvironmentName: aws.String(computeEnvironmentName),
-		ServiceRole:            aws.String(d.Get("service_role").(string)),
-		Tags:      getTagsIn(ctx),
-		Type:      aws.String(computeEnvironmentType),
+		ServiceRole:  aws.String(d.Get("service_role").(string)),
+		Tags: getTagsIn(ctx),
+		Type: aws.String(computeEnvironmentType),
 	}
 
 	if v, ok := d.GetOk("compute_resources"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -302,7 +301,6 @@ func resourceComputeEnvironmentCreate(ctx context.Context, d *schema.ResourceDat
 
 	return append(diags, resourceComputeEnvironmentRead(ctx, d, meta)...)
 }
-
 func resourceComputeEnvironmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BatchConn(ctx)
@@ -349,7 +347,6 @@ func resourceComputeEnvironmentRead(ctx context.Context, d *schema.ResourceData,
 
 	return diags
 }
-
 func resourceComputeEnvironmentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BatchConn(ctx)
@@ -486,7 +483,6 @@ func resourceComputeEnvironmentUpdate(ctx context.Context, d *schema.ResourceDat
 
 	return append(diags, resourceComputeEnvironmentRead(ctx, d, meta)...)
 }
-
 func resourceComputeEnvironmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BatchConn(ctx)
@@ -524,7 +520,6 @@ func resourceComputeEnvironmentDelete(ctx context.Context, d *schema.ResourceDat
 
 	return diags
 }
-
 func resourceComputeEnvironmentCustomizeDiff(_ context.Context, diff *schema.ResourceDiff, meta interface{}) error {
 	if computeEnvironmentType := strings.ToUpper(diff.Get("type").(string)); computeEnvironmentType == batch.CETypeUnmanaged {
 		// UNMANAGED compute environments can have no compute_resources configured.
@@ -639,7 +634,6 @@ func resourceComputeEnvironmentCustomizeDiff(_ context.Context, diff *schema.Res
 
 	return nil
 }
-
 func findComputeEnvironmentDetailByName(ctx context.Context, conn *batch.Batch, name string) (*batch.ComputeEnvironmentDetail, error) {
 	input := &batch.DescribeComputeEnvironmentsInput{
 		ComputeEnvironments: aws.StringSlice([]string{name}),
@@ -653,14 +647,13 @@ func findComputeEnvironmentDetailByName(ctx context.Context, conn *batch.Batch, 
 
 	if status := aws.StringValue(output.Status); status == batch.CEStatusDeleted {
 		return nil, &retry.NotFoundError{
-			Message:     status,
+			Message:status,
 			LastRequest: input,
 		}
 	}
 
 	return output, nil
 }
-
 func findComputeEnvironmentDetail(ctx context.Context, conn *batch.Batch, input *batch.DescribeComputeEnvironmentsInput) (*batch.ComputeEnvironmentDetail, error) {
 	output, err := conn.DescribeComputeEnvironmentsWithContext(ctx, input)
 
@@ -674,7 +667,6 @@ func findComputeEnvironmentDetail(ctx context.Context, conn *batch.Batch, input 
 
 	return tfresource.AssertSinglePtrResult(output.ComputeEnvironments)
 }
-
 func statusComputeEnvironment(ctx context.Context, conn *batch.Batch, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		computeEnvironmentDetail, err := findComputeEnvironmentDetailByName(ctx, conn, name)
@@ -690,7 +682,6 @@ func statusComputeEnvironment(ctx context.Context, conn *batch.Batch, name strin
 		return computeEnvironmentDetail, aws.StringValue(computeEnvironmentDetail.Status), nil
 	}
 }
-
 func waitComputeEnvironmentCreated(ctx context.Context, conn *batch.Batch, name string, timeout time.Duration) (*batch.ComputeEnvironmentDetail, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{batch.CEStatusCreating},
@@ -711,7 +702,6 @@ func waitComputeEnvironmentCreated(ctx context.Context, conn *batch.Batch, name 
 
 	return nil, err
 }
-
 func waitComputeEnvironmentDeleted(ctx context.Context, conn *batch.Batch, name string, timeout time.Duration) (*batch.ComputeEnvironmentDetail, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{batch.CEStatusDeleting},
@@ -732,7 +722,6 @@ func waitComputeEnvironmentDeleted(ctx context.Context, conn *batch.Batch, name 
 
 	return nil, err
 }
-
 func waitComputeEnvironmentDisabled(ctx context.Context, conn *batch.Batch, name string, timeout time.Duration) (*batch.ComputeEnvironmentDetail, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{batch.CEStatusUpdating},
@@ -753,7 +742,6 @@ func waitComputeEnvironmentDisabled(ctx context.Context, conn *batch.Batch, name
 
 	return nil, err
 }
-
 func waitComputeEnvironmentUpdated(ctx context.Context, conn *batch.Batch, name string, timeout time.Duration) (*batch.ComputeEnvironmentDetail, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{batch.CEStatusUpdating},
@@ -770,14 +758,12 @@ func waitComputeEnvironmentUpdated(ctx context.Context, conn *batch.Batch, name 
 
 	return nil, err
 }
-
 func isFargateType(computeResourceType string) bool {
 	if computeResourceType == batch.CRTypeFargate || computeResourceType == batch.CRTypeFargateSpot {
 		return true
 	}
 	return false
 }
-
 func isUpdatableComputeEnvironment(diff *schema.ResourceDiff) bool {
 	if !isServiceLinkedRoleDiff(diff) {
 		return false
@@ -787,7 +773,6 @@ func isUpdatableComputeEnvironment(diff *schema.ResourceDiff) bool {
 	}
 	return true
 }
-
 func isServiceLinkedRoleDiff(diff *schema.ResourceDiff) bool {
 	var before, after string
 	if diff.HasChange("service_role") {
@@ -800,7 +785,6 @@ func isServiceLinkedRoleDiff(diff *schema.ResourceDiff) bool {
 	after, _ = afterRaw.(string)
 	return isServiceLinkedRole(after)
 }
-
 func isServiceLinkedRole(roleArn string) bool {
 	if roleArn == "" {
 		// Empty role ARN defaults to AWS service-linked role
@@ -809,7 +793,6 @@ func isServiceLinkedRole(roleArn string) bool {
 	re := regexache.MustCompile(`arn:[^:]+:iam::\d{12}:role/aws-service-role/batch\.amazonaws\.com/*`)
 	return re.MatchString(roleArn)
 }
-
 func isUpdatableAllocationStrategyDiff(diff *schema.ResourceDiff) bool {
 	var before, after string
 	if computeResourcesCount, ok := diff.Get("compute_resources.#").(int); ok {
@@ -827,11 +810,9 @@ func isUpdatableAllocationStrategyDiff(diff *schema.ResourceDiff) bool {
 	}
 	return false
 }
-
 func isUpdatableAllocationStrategy(allocationStrategy string) bool {
 	return allocationStrategy == batch.CRAllocationStrategyBestFitProgressive || allocationStrategy == batch.CRAllocationStrategySpotCapacityOptimized
 }
-
 func expandComputeResource(ctx context.Context, tfMap map[string]interface{}) *batch.ComputeResource {
 	if tfMap == nil {
 		return nil
@@ -917,7 +898,6 @@ func expandComputeResource(ctx context.Context, tfMap map[string]interface{}) *b
 
 	return apiObject
 }
-
 func expandEKSConfiguration(tfMap map[string]interface{}) *batch.EksConfiguration {
 	if tfMap == nil {
 		return nil
@@ -935,7 +915,6 @@ func expandEKSConfiguration(tfMap map[string]interface{}) *batch.EksConfiguratio
 
 	return apiObject
 }
-
 func expandEC2Configuration(tfMap map[string]interface{}) *batch.Ec2Configuration {
 	if tfMap == nil {
 		return nil
@@ -953,7 +932,6 @@ func expandEC2Configuration(tfMap map[string]interface{}) *batch.Ec2Configuratio
 
 	return apiObject
 }
-
 func expandEC2Configurations(tfList []interface{}) []*batch.Ec2Configuration {
 	if len(tfList) == 0 {
 		return nil
@@ -979,7 +957,6 @@ func expandEC2Configurations(tfList []interface{}) []*batch.Ec2Configuration {
 
 	return apiObjects
 }
-
 func expandLaunchTemplateSpecification(tfMap map[string]interface{}) *batch.LaunchTemplateSpecification {
 	if tfMap == nil {
 		return nil
@@ -1001,7 +978,6 @@ func expandLaunchTemplateSpecification(tfMap map[string]interface{}) *batch.Laun
 
 	return apiObject
 }
-
 func expandEC2ConfigurationsUpdate(tfList []interface{}, defaultImageType string) []*batch.Ec2Configuration {
 	if len(tfList) == 0 {
 		return []*batch.Ec2Configuration{
@@ -1031,7 +1007,6 @@ func expandEC2ConfigurationsUpdate(tfList []interface{}, defaultImageType string
 
 	return apiObjects
 }
-
 func expandLaunchTemplateSpecificationUpdate(tfList []interface{}) *batch.LaunchTemplateSpecification {
 	if len(tfList) == 0 || tfList[0] == nil {
 		// delete any existing launch template configuration
@@ -1059,7 +1034,6 @@ func expandLaunchTemplateSpecificationUpdate(tfList []interface{}) *batch.Launch
 
 	return apiObject
 }
-
 func flattenComputeResource(ctx context.Context, apiObject *batch.ComputeResource) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1137,7 +1111,6 @@ func flattenComputeResource(ctx context.Context, apiObject *batch.ComputeResourc
 
 	return tfMap
 }
-
 func flattenEKSConfiguration(apiObject *batch.EksConfiguration) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1155,7 +1128,6 @@ func flattenEKSConfiguration(apiObject *batch.EksConfiguration) map[string]inter
 
 	return tfMap
 }
-
 func flattenEC2Configuration(apiObject *batch.Ec2Configuration) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1173,7 +1145,6 @@ func flattenEC2Configuration(apiObject *batch.Ec2Configuration) map[string]inter
 
 	return tfMap
 }
-
 func flattenEC2Configurations(apiObjects []*batch.Ec2Configuration) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -1191,7 +1162,6 @@ func flattenEC2Configurations(apiObjects []*batch.Ec2Configuration) []interface{
 
 	return tfList
 }
-
 func flattenLaunchTemplateSpecification(apiObject *batch.LaunchTemplateSpecification) map[string]interface{} {
 	if apiObject == nil {
 		return nil

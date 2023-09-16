@@ -28,7 +28,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckCustomLayerDestroy(ctx),
+CheckDestroy:testAccCheckCustomLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomLayerConfig_basic(rName),
@@ -53,9 +53,9 @@ func(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_volume.*", map[string]string{
 "type":   "gp2",
 "number_of_disks": "2",
-"mount_point":     "/home",
+"mount_point":"/home",
 "size":   "100",
-"encrypted":       "false",
+"encrypted":  "false",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "elastic_load_balancer", ""),
 	resource.TestCheckResourceAttr(resourceName, "instance_shutdown_timeout", "300"),
@@ -72,8 +72,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
@@ -94,7 +94,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckCustomLayerDestroy(ctx),
+CheckDestroy:testAccCheckCustomLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomLayerConfig_basic(rName),
@@ -104,8 +104,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -130,17 +130,17 @@ func(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_volume.*", map[string]string{
 "type":   "gp2",
 "number_of_disks": "2",
-"mount_point":     "/home",
+"mount_point":"/home",
 "size":   "100",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_volume.*", map[string]string{
 "type":   "io1",
 "number_of_disks": "4",
-"mount_point":     "/var",
+"mount_point":"/var",
 "size":   "100",
-"raid_level":      "1",
+"raid_level": "1",
 "iops":   "3000",
-"encrypted":       "true",
+"encrypted":  "true",
 	}),
 	resource.TestCheckResourceAttr(resourceName, "elastic_load_balancer", ""),
 	resource.TestCheckResourceAttr(resourceName, "instance_shutdown_timeout", "120"),
@@ -172,7 +172,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckCustomLayerDestroy(ctx),
+CheckDestroy:testAccCheckCustomLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomLayerConfig_cloudWatch(rName, true),
@@ -197,8 +197,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -259,7 +259,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckCustomLayerDestroy(ctx),
+CheckDestroy:testAccCheckCustomLayerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomLayerConfig_loadBasedAutoScaling(rName, true),
@@ -288,8 +288,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 	{
@@ -334,26 +334,26 @@ func testAccCustomLayerConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_opsworks_custom_layer" "test" {
   stack_id= aws_opsworks_stack.test.id
-  name    = %[1]q
-  short_name    = "tf-ops-acc-custom-layer"
+  name= %[1]q
+  short_name= "tf-ops-acc-custom-layer"
   auto_assign_public_ips = false
 
   custom_security_group_ids = aws_security_group.test[*].id
 
-  drain_elb_on_shutdown     = true
+  drain_elb_on_shutdown= true
   instance_shutdown_timeout = 300
 
   system_packages = [
-    "git",
-    "golang",
+"git",
+"golang",
   ]
 
   ebs_volume {
-    type   = "gp2"
-    number_of_disks = 2
-    mount_point     = "/home"
-    size   = 100
-    raid_level      = 0
+type   = "gp2"
+number_of_disks = 2
+mount_point= "/home"
+size   = 100
+raid_level = 0
   }
 }
 `, rName))
@@ -367,51 +367,51 @@ resource "aws_security_group" "extra" {
   vpc_id = aws_vpc.test.id
 
   ingress {
-    from_port   = 8
-    to_port     = -1
-    protocol    = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
+from_port   = 8
+to_port= -1
+protocol= "icmp"
+cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_opsworks_custom_layer" "test" {
   stack_id= aws_opsworks_stack.test.id
-  name    = %[1]q
-  short_name    = "tf-ops-acc-custom-layer"
+  name= %[1]q
+  short_name= "tf-ops-acc-custom-layer"
   auto_assign_public_ips = true
 
   custom_security_group_ids = concat(aws_security_group.test[*].id, [aws_security_group.extra.id])
 
-  drain_elb_on_shutdown     = false
+  drain_elb_on_shutdown= false
   instance_shutdown_timeout = 120
 
   system_packages = [
-    "git",
-    "golang",
-    "subversion",
+"git",
+"golang",
+"subversion",
   ]
 
   ebs_volume {
-    type   = "gp2"
-    number_of_disks = 2
-    mount_point     = "/home"
-    size   = 100
-    raid_level      = 0
-    encrypted       = true
+type   = "gp2"
+number_of_disks = 2
+mount_point= "/home"
+size   = 100
+raid_level = 0
+encrypted  = true
   }
 
   ebs_volume {
-    type   = "io1"
-    number_of_disks = 4
-    mount_point     = "/var"
-    size   = 100
-    raid_level      = 1
-    iops   = 3000
-    encrypted       = true
+type   = "io1"
+number_of_disks = 4
+mount_point= "/var"
+size   = 100
+raid_level = 1
+iops   = 3000
+encrypted  = true
   }
 
   custom_json = %[2]q
@@ -428,22 +428,22 @@ resource "aws_cloudwatch_log_group" "test" {
 
 resource "aws_opsworks_custom_layer" "test" {
   stack_id= aws_opsworks_stack.test.id
-  name    = %[1]q
-  short_name    = "tf-ops-acc-custom-layer"
+  name= %[1]q
+  short_name= "tf-ops-acc-custom-layer"
   auto_assign_public_ips = true
 
   custom_security_group_ids = aws_security_group.test[*].id
 
-  drain_elb_on_shutdown     = true
+  drain_elb_on_shutdown= true
   instance_shutdown_timeout = 300
 
   cloudwatch_configuration {
-    enabled = %[2]t
+enabled = %[2]t
 
-    log_streams {
-      log_group_name = aws_cloudwatch_log_group.test.name
-      file  = "/var/log/system.log*"
-    }
+log_streams {
+ log_group_name = aws_cloudwatch_log_group.test.name
+ file  = "/var/log/system.log*"
+}
   }
 }
 `, rName, enabled))
@@ -458,30 +458,30 @@ resource "aws_cloudwatch_log_group" "test" {
 
 resource "aws_opsworks_custom_layer" "test" {
   stack_id= aws_opsworks_stack.test.id
-  name    = %[1]q
-  short_name    = "tf-ops-acc-custom-layer"
+  name= %[1]q
+  short_name= "tf-ops-acc-custom-layer"
   auto_assign_public_ips = true
 
   custom_security_group_ids = aws_security_group.test[*].id
 
-  drain_elb_on_shutdown     = true
+  drain_elb_on_shutdown= true
   instance_shutdown_timeout = 300
 
   cloudwatch_configuration {
-    enabled = true
+enabled = true
 
-    log_streams {
-      log_group_name = aws_cloudwatch_log_group.test.name
-      file     = "/var/log/system.lo*"
-      batch_count    = 2000
-      batch_size     = 50000
-      buffer_duration= 6000
-      encoding = "mac_turkish"
-      file_fingerprint_lines  = "2"
-      initial_position        = "end_of_file"
-      multiline_start_pattern = "test*"
-      time_zone= "LOCAL"
-    }
+log_streams {
+ log_group_name = aws_cloudwatch_log_group.test.name
+ file= "/var/log/system.lo*"
+ batch_count= 2000
+ batch_size= 50000
+ buffer_duration= 6000
+ encoding = "mac_turkish"
+ file_fingerprint_lines  = "2"
+ initial_position   = "end_of_file"
+ multiline_start_pattern = "test*"
+ time_zone= "LOCAL"
+}
   }
 }
 `, rName))
@@ -492,35 +492,35 @@ func testAccCustomLayerConfig_loadBasedAutoScaling(rName string, enable bool) st
 	return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_opsworks_custom_layer" "test" {
   stack_id= aws_opsworks_stack.test.id
-  name    = %[1]q
-  short_name    = "tf-ops-acc-custom-layer"
+  name= %[1]q
+  short_name= "tf-ops-acc-custom-layer"
   auto_assign_public_ips = true
 
   custom_security_group_ids = aws_security_group.test[*].id
 
-  drain_elb_on_shutdown     = true
+  drain_elb_on_shutdown= true
   instance_shutdown_timeout = 300
 
   load_based_auto_scaling {
-    enable = %[2]t
+enable = %[2]t
 
-    downscaling {
-      cpu_threshold        = 20
-      ignore_metrics_time  = 15
-      instance_count       = 2
-      load_threshold       = 5
-      memory_threshold     = 20
-      thresholds_wait_time = 30
-    }
+downscaling {
+ cpu_threshold   = 20
+ ignore_metrics_time  = 15
+ instance_count  = 2
+ load_threshold  = 5
+ memory_threshold= 20
+ thresholds_wait_time = 30
+}
 
-    upscaling {
-      cpu_threshold        = 80
-      ignore_metrics_time  = 15
-      instance_count       = 3
-      load_threshold       = 10
-      memory_threshold     = 80
-      thresholds_wait_time = 35
-    }
+upscaling {
+ cpu_threshold   = 80
+ ignore_metrics_time  = 15
+ instance_count  = 3
+ load_threshold  = 10
+ memory_threshold= 80
+ thresholds_wait_time = 35
+}
   }
 }
 `, rName, enable))

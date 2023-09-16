@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
+	"testing"	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/rds/types"
 	rdsv1 "github.com/aws/aws-sdk-go/service/rds"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
@@ -22,17 +16,16 @@ import (
 	tfrds "github.com/hashicorp/terraform-provider-aws/internal/service/rds"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func := acctest.Context(t)
 	var exportTask types.ExportTask
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_rds_export_task.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.Pfunccctest.PreCheckPartitionHasService(t, rdsv1.EndpointsID)
+	resourceName := "aws_rds_export_task.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() {
+			acctest.P
+funccctest.PreCheckPartitionHasService(t, rdsv1.EndpointsID)
 		},
-		ErrorCheck:  acctest.ErrorCheck(t, rdsv1.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, rdsv1.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckExportTaskDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -49,25 +42,24 @@ func := acctest.Context(t)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccRDSExportTask_optional(t *testing.T) {
 	ctx := acctest.Context(t)
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_rds_export_task.test"
-	s3Prefix := "test_prefix/test-export"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+	s3Prefix := "test_prefix/test-export"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, rdsv1.EndpointsID)
-		},funcrorCheck:  acctest.ErrorCheck(t, rdsv1.EndpointsID),
+		},
+funcrorCheck:acctest.ErrorCheck(t, rdsv1.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckExportTaskDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -87,22 +79,20 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccCheckExportTaskDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSClient(ctx)
-
 funcf rs.Type != "aws_rds_export_task" {
-				contfunc
-
-			out, err := tfrds.FindExportTaskByID(ctx, conn, rs.Primary.ID)
+				cont
+func			out, err := tfrds.FindExportTaskByID(ctx, conn, rs.Primary.ID)
 			if err != nil {
 				var nfe *retry.NotFoundError
 				if errors.As(err, &nfe) {
@@ -113,34 +103,25 @@ funcf rs.Type != "aws_rds_export_task" {
 			if !isInDestroyedStatus(aws.ToString(out.Status)) {
 				return create.Error(names.RDS, create.ErrActionCheckingDestroyed, tfrds.ResNameExportTask, rs.Primary.ID, errors.New("not destroyed"))
 			}
-		}
-
-		return nil
+		}		return nil
 	}
 }
-
 func testAccCheckExportTaskExists(ctx context.Context, name string, exportTask *types.ExportTask) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.RDS, create.ErrActionCheckingExistence, tfrds.ResNameExportTask, name, errors.New("not found"))
 		}
 func rs.Primary.ID == "" {
-			returfunc
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSClient(ctx)
+			retur
+func		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSClient(ctx)
 		resp, err := tfrds.FindExportTaskByID(ctx, conn, rs.Primary.ID)
 		if err != nil {
 			return create.Error(names.RDS, create.ErrActionCheckingExistence, tfrds.ResNameExportTask, rs.Primary.ID, err)
-		}
-
-		*exportTask = *resp
-
-		return nil
+		}		*exportTask = *resp		return nil
 	}
-}
-
-// isInDestroyedStatus determines whether the export task status is a value that could
+}// isInDestroyedStatus determines whether the export task status is a value that could
 // be returned if the resource was properly destroyed.
 //
 // COMPLETE and FAILED statuses are valid because the resource is simply removed from
@@ -158,120 +139,102 @@ func
 	}
 	return false
 }
-
 func testAccExportTaskConfigBase(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
-  force_destroy = true
-}
-
-resource "aws_iam_role" "test" {
-  name = %[1]q
+bucket= %[1]q
+force_destroy = true
+}resource "aws_iam_role" "test" {
+name = %[1]q
 funcsume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "export.rds.amazonaws.com"
-        }
-      },
-    ]
-  })
+ Version = "2012-10-17"
+ Statement = [
+{
+Action = "sts:AssumeRole"
+Effect = "Allow"
+Sid = ""
+Principal = {
+ Service = "export.rds.amazonaws.com"
 }
-
-data "aws_iam_policy_document" "test" {
-  statement {
-    actions = [
-      "s3:ListAllMyBuckets",
-    ]
-    resources = [
-      "*"
-    ]
-  }
-  statement {
-    actions = [
-      "s3:GetBucketLocation",
-      "s3:ListBucket",
-    ]
-    resources = [
-      aws_s3_bucket.test.arn,
-    ]
-  }
-  statement {
-    actions = [
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:DeleteObject",
-    ]
-    resources = [
-      "${aws_s3_bucket.test.arn}/*"
-    ]
-  }
+},
+ ]
+})
+}data "aws_iam_policy_document" "test" {
+statement {
+ actions = [
+"s3:ListAllMyBuckets",
+ ]
+ resources = [
+"*"
+ ]
 }
-
-resource "aws_iam_policy" "test" {
-  name   = %[1]q
-  policy = data.aws_iam_policy_document.test.json
+statement {
+ actions = [
+"s3:GetBucketLocation",
+"s3:ListBucket",
+ ]
+ resources = [
+aws_s3_bucket.test.arn,
+ ]
 }
-
-resource "aws_iam_role_policy_attachment" "test-attach" {
-  role       = aws_iam_role.test.name
-  policy_arn = aws_iam_policy.test.arn
+statement {
+ actions = [
+"s3:GetObject",
+"s3:PutObject",
+"s3:DeleteObject",
+ ]
+ resources = [
+"${aws_s3_bucket.test.arn}/*"
+ ]
 }
-
-resource "aws_kms_key" "test" {
-  deletion_window_in_days = 10
-}
-
-resource "aws_db_instance" "test" {
-  identifier           = %[1]q
-  allocated_storage    = 10
-  db_name = "test"
-  engine  = "mysql"
-  engine_version       = "5.7"
-  instance_class       = "db.t3.micro"
-  username= "foo"
-  password= "foobarbaz"
-  parameter_group_name = "default.mysql5.7"
-  skip_final_snapshot  = true
-}
-
-resource "aws_db_snapshot" "test" {
-  db_instance_identifier = aws_db_instance.test.identifier
-  db_snapshot_identifier = %[1]q
+}resource "aws_iam_policy" "test" {
+name= %[1]q
+policy = data.aws_iam_policy_document.test.json
+}resource "aws_iam_role_policy_attachment" "test-attach" {
+role = aws_iam_role.test.name
+policy_arn = aws_iam_policy.test.arn
+}resource "aws_kms_key" "test" {
+deletion_window_in_days = 10
+}resource "aws_db_instance" "test" {
+identifier= %[1]q
+allocated_storage = 10
+db_name = "test"
+engine= "mysql"
+engine_version = "5.7"
+instance_class = "db.t3.micro"
+username= "foo"
+password= "foobarbaz"
+parameter_group_name = "default.mysql5.7"
+skip_final_snapshot= true
+}resource "aws_db_snapshot" "test" {
+db_instance_identifier = aws_db_instance.test.identifier
+db_snapshot_identifier = %[1]q
 }
 `, rName)
 }
-
 func testAccExportTaskConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccExportTaskConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_rds_export_task" "test" {
-  export_task_identifier = %[1]q
-  source_arn= aws_db_snapshot.test.db_snapshot_arn
-  s3_bucket_name         = aws_s3_bucket.test.id
-  iam_role_arn           = aws_iam_role.test.arn
-  kms_key_id= aws_kms_key.test.arn
+export_task_identifier = %[1]q
+source_arn= aws_db_snapshot.test.db_snapshot_arn
+s3_bucket_name= aws_s3_bucket.test.id
+iam_role_arn= aws_iam_role.test.arn
+kms_key_id= aws_kms_key.test.arn
 funcName))
 }
-
 func testAccExportTaskConfig_optional(rName, s3Prefix string) string {
 	return acctest.ConfigCompose(
 		testAccExportTaskConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_rds_export_task" "test" {
-  export_task_identifier = %[1]q
-  source_arn= aws_db_snapshot.test.db_snapshot_arn
-  s3_bucket_name         = aws_s3_bucket.test.id
-  iam_role_arn           = aws_iam_role.test.arn
-  kms_key_id= aws_kms_key.test.arn
-
-func_prefix   = %[2]q
+export_task_identifier = %[1]q
+source_arn= aws_db_snapshot.test.db_snapshot_arn
+s3_bucket_name= aws_s3_bucket.test.id
+iam_role_arn= aws_iam_role.test.arn
+kms_key_id= aws_kms_key.test.arn
+func_prefix= %[2]q
 }
 `, rName, s3Prefix))
 }

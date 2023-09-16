@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccKafkaBrokerNodesDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -20,10 +19,10 @@ func TestAccKafkaBrokerNodesDataSource_basic(t *testing.T) {
 	resourceName := "aws_msk_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, kafka.EndpointsID),
+		PreCheck:   func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, kafka.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckClusterDestroy(ctx),
+		CheckDestroy:testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBrokerNodesDataSourceConfig_basic(rName),
@@ -38,7 +37,6 @@ func TestAccKafkaBrokerNodesDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccBrokerNodesDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_base(rName), fmt.Sprintf(`
 resource "aws_msk_cluster" "test" {
@@ -47,19 +45,19 @@ resource "aws_msk_cluster" "test" {
   number_of_broker_nodes = 3
 
   broker_node_group_info {
-    client_subnets  = aws_subnet.test[*].id
-    instance_type   = "kafka.t3.small"
-    security_groups = [aws_security_group.test.id]
+client_subnets  = aws_subnet.test[*].id
+instance_type   = "kafka.t3.small"
+security_groups = [aws_security_group.test.id]
 
-    storage_info {
-      ebs_storage_info {
-        volume_size = 10
-      }
-    }
+storage_info {
+ ebs_storage_info {
+   volume_size = 10
+ }
+}
   }
 
   tags = {
-    foo = "bar"
+foo = "bar"
   }
 }
 

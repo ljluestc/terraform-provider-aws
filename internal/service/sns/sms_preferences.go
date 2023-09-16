@@ -49,7 +49,7 @@ var (
 },
 
 "default_sms_type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	ValidateFunc: validation.StringInSlice([]string{"Promotional", "Transactional"}, false),
 	AtLeastOneOf: []string{
@@ -76,7 +76,7 @@ var (
 },
 
 "delivery_status_success_sampling_rate": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	ValidateFunc: validateDeliverySamplingRate,
 	AtLeastOneOf: []string{
@@ -90,7 +90,7 @@ var (
 },
 
 "monthly_spend_limit": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	Computed:     true,
 	ValidateFunc: validateMonthlySpend,
@@ -121,7 +121,7 @@ var (
 	SMSPreferencesAttributeMap = attrmap.New(map[string]string{
 "default_sender_id":      "DefaultSenderID",
 "default_sms_type":       "DefaultSMSType",
-"delivery_status_iam_role_arn":          "DeliveryStatusIAMRole",
+"delivery_status_iam_role_arn": "DeliveryStatusIAMRole",
 "delivery_status_success_sampling_rate": "DeliveryStatusSuccessSamplingRate",
 "monthly_spend_limit":    "MonthlySpendLimit",
 "usage_report_s3_bucket": "UsageReportS3Bucket",

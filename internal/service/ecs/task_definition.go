@@ -109,7 +109,7 @@ func ResourceTaskDefinition() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"size_in_gib": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IntBetween(21, 200),
@@ -118,7 +118,7 @@ func ResourceTaskDefinition() *schema.Resource {
 				},
 			},
 			"execution_role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -152,7 +152,7 @@ func ResourceTaskDefinition() *schema.Resource {
 				},
 			},
 			"ipc_mode": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(ecs.IpcMode_Values(), false),
@@ -163,14 +163,14 @@ func ResourceTaskDefinition() *schema.Resource {
 				ForceNew: true,
 			},
 			"network_mode": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(ecs.NetworkMode_Values(), false),
 			},
 			"pid_mode": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(ecs.PidMode_Values(), false),
@@ -188,7 +188,7 @@ func ResourceTaskDefinition() *schema.Resource {
 							Optional: true,
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							ForceNew:     true,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(ecs.TaskDefinitionPlacementConstraintType_Values(), false),
@@ -215,7 +215,7 @@ func ResourceTaskDefinition() *schema.Resource {
 							ForceNew: true,
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Default:      ecs.ProxyConfigurationTypeAppmesh,
 							Optional:     true,
 							ForceNew:     true,
@@ -249,13 +249,13 @@ func ResourceTaskDefinition() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cpu_architecture": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice(ecs.CPUArchitecture_Values(), false),
 						},
 						"operating_system_family": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice(ecs.OSFamily_Values(), false),
@@ -271,7 +271,7 @@ func ResourceTaskDefinition() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"task_role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -313,7 +313,7 @@ func ResourceTaskDefinition() *schema.Resource {
 										Optional: true,
 									},
 									"scope": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Computed:     true,
 										ForceNew:     true,
@@ -342,7 +342,7 @@ func ResourceTaskDefinition() *schema.Resource {
 													Optional: true,
 												},
 												"iam": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													ForceNew:     true,
 													Optional:     true,
 													ValidateFunc: validation.StringInSlice(ecs.EFSAuthorizationConfigIAM_Values(), false),
@@ -362,13 +362,13 @@ func ResourceTaskDefinition() *schema.Resource {
 										Default:  "/",
 									},
 									"transit_encryption": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										ForceNew:     true,
 										Optional:     true,
 										ValidateFunc: validation.StringInSlice(ecs.EFSTransitEncryption_Values(), false),
 									},
 									"transit_encryption_port": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										ForceNew:     true,
 										Optional:     true,
 										ValidateFunc: validation.IsPortNumber,
@@ -391,7 +391,7 @@ func ResourceTaskDefinition() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"credentials_parameter": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													ForceNew:     true,
 													Required:     true,
 													ValidateFunc: verify.ValidARN,
@@ -882,7 +882,7 @@ func expandTaskDefinitionProxyConfiguration(proxyConfigs []interface{}) *ecs.Pro
 
 	ecsProxyConfig := &ecs.ProxyConfiguration{
 		ContainerName: aws.String(configMap["container_name"].(string)),
-		Type:          aws.String(configMap["type"].(string)),
+		Type: aws.String(configMap["type"].(string)),
 		Properties:    properties,
 	}
 

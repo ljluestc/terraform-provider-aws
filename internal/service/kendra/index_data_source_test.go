@@ -1,28 +1,20 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kendra_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package kendra_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/backup"
+	"testing"	"github.com/aws/aws-sdk-go/service/backup"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccKendraIndexDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_kendra_index.test"
 	resourceName := "aws_kendra_index.test"
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-
-	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")	resource.ParallelTest(t, resource.TestCase{
+PreCheck:
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
@@ -63,34 +55,25 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccIndexDataSourceConfig_userTokenJSON(rName, rName2, rName3 string) string {
 	return acctest.ConfigCompose(
 testAccIndexConfigBase(rName, rName2),
 fmt.Sprintf(`
 resource "aws_kendra_index" "test" {
-  name        = %[1]q
-  description = "example"
-  role_arn    = aws_iam_role.access_cw.arn
-
-  server_side_encryption_configuration {
-    kms_key_id = data.aws_kms_key.this.arn
-  }
-
-  user_token_configurations {
-    json_token_type_configuration {
-      group_attribute_field     = "groups"
-      user_name_attribute_field = "username"
-    }
-  }
-
-  tags = {
-    "Key1" = "Value1"
-  }
+name= %[1]q
+description = "example"
+role_arn = aws_iam_role.access_cw.arnserver_side_encryption_configuration {
+ kms_key_id = data.aws_kms_key.this.arn
+}user_token_configurations {
+ json_token_type_configuration {
+group_attribute_field= "groups"
+user_name_attribute_field = "username"
+ }
+}tags = {
+ "Key1" = "Value1"
 }
-
-data "aws_kendra_index" "test" {
-  id = aws_kendra_index.test.id
+}data "aws_kendra_index" "test" {
+id = aws_kendra_index.test.id
 }
 `, rName3))
 }

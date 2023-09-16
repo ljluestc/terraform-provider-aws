@@ -25,10 +25,10 @@ func TestAccECRPublicRepositoryPolicy_basic(t *testing.T) {
 	resourceName := "aws_ecrpublic_repository_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:               acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_basic(rName),
@@ -59,10 +59,10 @@ func TestAccECRPublicRepositoryPolicy_disappears(t *testing.T) {
 	resourceName := "aws_ecrpublic_repository_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:               acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_basic(rName),
@@ -84,10 +84,10 @@ func TestAccECRPublicRepositoryPolicy_Disappears_repository(t *testing.T) {
 	repositoryResourceName := "aws_ecrpublic_repository.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:               acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_basic(rName),
@@ -108,10 +108,10 @@ func TestAccECRPublicRepositoryPolicy_iam(t *testing.T) {
 	resourceName := "aws_ecrpublic_repository_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-ErrorCheck:               acctest.ErrorCheck(t, ecrpublic.EndpointsID),
+PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck:      acctest.ErrorCheck(t, ecrpublic.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_iamRole(rName),
@@ -195,10 +195,10 @@ resource "aws_ecrpublic_repository_policy" "test" {
     "Version": "2008-10-17",
     "Statement": [
         {
-            "Sid": "testpolicy",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "ecr-public:ListImages"
+   "Sid": "testpolicy",
+   "Effect": "Allow",
+   "Principal": "*",
+   "Action": "ecr-public:ListImages"
         }
     ]
 }
@@ -221,13 +221,13 @@ resource "aws_ecrpublic_repository_policy" "test" {
     "Version": "2008-10-17",
     "Statement": [
         {
-            "Sid": "testpolicy",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": [
-                "ecr-public:ListImages",
-                "ecr-public:PutImage"
-            ]
+   "Sid": "testpolicy",
+   "Effect": "Allow",
+   "Principal": "*",
+   "Action": [
+       "ecr-public:ListImages",
+       "ecr-public:PutImage"
+   ]
         }
     ]
 }
@@ -273,12 +273,12 @@ resource "aws_ecrpublic_repository_policy" "test" {
     "Version": "2008-10-17",
     "Statement": [
         {
-            "Sid": "testpolicy",
-            "Effect": "Allow",
-            "Principal": {
-              "AWS": "${aws_iam_role.test.arn}"
-            },
-            "Action": "ecr-public:ListImages"
+   "Sid": "testpolicy",
+   "Effect": "Allow",
+   "Principal": {
+     "AWS": "${aws_iam_role.test.arn}"
+   },
+   "Action": "ecr-public:ListImages"
         }
     ]
 }
@@ -320,15 +320,15 @@ resource "aws_ecrpublic_repository_policy" "test" {
     "Version": "2008-10-17",
     "Statement": [
         {
-            "Sid": "testpolicy",
-            "Effect": "Allow",
-            "Principal": {
-              "AWS": "${aws_iam_role.test.arn}"
-            },
-            "Action": [
-                "ecr-public:ListImages",
-                "ecr-public:PutImage"
-            ]
+   "Sid": "testpolicy",
+   "Effect": "Allow",
+   "Principal": {
+     "AWS": "${aws_iam_role.test.arn}"
+   },
+   "Action": [
+       "ecr-public:ListImages",
+       "ecr-public:PutImage"
+   ]
         }
     ]
 }

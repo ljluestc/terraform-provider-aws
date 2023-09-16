@@ -24,72 +24,72 @@ func DataSourceLayerVersion() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"layer_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"version": {
 				Type: schema.TypeInt,
-				Optional:      true,
-				Computed:      true,
+				Optional: true,
+				Computed: true,
 				ConflictsWith: []string{"compatible_runtimes"},
 			},
 			"compatible_runtime": {
 				Type: schema.TypeString,
-				Optional:      true,
+				Optional: true,
 				ValidateFunc:  validation.StringInSlice(lambda.Runtime_Values(), false),
 				ConflictsWith: []string{"version"},
 			},
 			"compatible_runtimes": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"license_info": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"layer_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"created_date": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"source_code_hash": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"source_code_size": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"signing_profile_version_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"signing_job_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"compatible_architecture": {
 				Type: schema.TypeString,
-				Optional:      true,
+				Optional: true,
 				ValidateFunc:  validation.StringInSlice(lambda.Architecture_Values(), false),
 				ConflictsWith: []string{"version"},
 			},
 			"compatible_architectures": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
@@ -98,7 +98,6 @@ func DataSourceLayerVersion() *schema.Resource {
 		},
 	}
 }
-
 func dataSourceLayerVersionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -134,7 +133,7 @@ func dataSourceLayerVersionRead(ctx context.Context, d *schema.ResourceData, met
 	}
 
 	input := &lambda.GetLayerVersionInput{
-		LayerName:     aws.String(layerName),
+		LayerName:aws.String(layerName),
 		VersionNumber: aws.Int64(version),
 	}
 

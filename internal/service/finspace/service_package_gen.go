@@ -13,25 +13,21 @@ import (
 )
 
 type servicePackage struct{}
-
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{}
 }
-
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{}
 }
-
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{}
 }
-
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
 			Factory:  ResourceKxCluster,
 			TypeName: "aws_finspace_kx_cluster",
-			Name:     "Kx Cluster",
+			Name:"Kx Cluster",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -39,7 +35,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceKxDatabase,
 			TypeName: "aws_finspace_kx_database",
-			Name:     "Kx Database",
+			Name:"Kx Database",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -47,7 +43,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceKxEnvironment,
 			TypeName: "aws_finspace_kx_environment",
-			Name:     "Kx Environment",
+			Name:"Kx Environment",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -55,14 +51,13 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceKxUser,
 			TypeName: "aws_finspace_kx_user",
-			Name:     "Kx User",
+			Name:"Kx User",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
 		},
 	}
 }
-
 func (p *servicePackage) ServicePackageName() string {
 	return names.FinSpace
 }
@@ -77,7 +72,6 @@ func (p *servicePackage) NewClient(ctx context.Context, config map[string]any) (
 		}
 	}), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }

@@ -8,25 +8,24 @@ import (
 
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccWorkSpaces_serial(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]map[string]func(t *testing.T){
 		"Directory": {
-			"basic":          testAccDirectory_basic,
+			"basic": testAccDirectory_basic,
 			"disappears":     testAccDirectory_disappears,
 			"ipGroupIds":     testAccDirectory_ipGroupIDs,
 			"selfServicePermissions":      testAccDirectory_selfServicePermissions,
 			"subnetIDs":      testAccDirectory_subnetIDs,
-			"tags":           testAccDirectory_tags,
+			"tags":  testAccDirectory_tags,
 			"workspaceAccessProperties":   testAccDirectory_workspaceAccessProperties,
 			"workspaceCreationProperties": testAccDirectory_workspaceCreationProperties,
 			"workspaceCreationProperties_customSecurityGroupId_defaultOu": testAccDirectory_workspaceCreationProperties_customSecurityGroupId_defaultOu,
 		},
 		"IpGroup": {
 			"basic":  testAccIPGroup_basic,
-			"disappears":          testAccIPGroup_disappears,
+			"disappears": testAccIPGroup_disappears,
 			"multipleDirectories": testAccIPGroup_MultipleDirectories,
 			"tags":   testAccIPGroup_tags,
 		},

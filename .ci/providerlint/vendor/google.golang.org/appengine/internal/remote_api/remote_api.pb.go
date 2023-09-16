@@ -66,24 +66,20 @@ var RpcError_ErrorCode_value = map[string]int32{
 	"REPLAY_ERROR":        11,
 	"DEADLINE_EXCEEDED":   12,
 }
-
-func (x RpcError_ErrorCode) Enum() *RpcError_ErrorCode {
+ (x RpcError_ErrorCode) Enum() *RpcError_ErrorCode {
 	p := new(RpcError_ErrorCode)
 	*p = x
 	return p
-}
-func (x RpcError_ErrorCode) String() string {
+} (x RpcError_ErrorCode) String() string {
 	return proto.EnumName(RpcError_ErrorCode_name, int32(x))
-}
-func (x *RpcError_ErrorCode) UnmarshalJSON(data []byte) error {
+} (x *RpcError_ErrorCode) UnmarshalJSON(data []byte) error {
 	value, err := proto.UnmarshalJSONEnum(RpcError_ErrorCode_value, data, "RpcError_ErrorCode")
 	if err != nil {
 		return err
 	}
 	*x = RpcError_ErrorCode(value)
 	return nil
-}
-func (RpcError_ErrorCode) EnumDescriptor() ([]byte, []int) {
+} (RpcError_ErrorCode) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_remote_api_1978114ec33a273d, []int{2, 0}
 }
 
@@ -96,53 +92,40 @@ type Request struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *Request) Reset()         { *m = Request{} }
-func (m *Request) String() string { return proto.CompactTextString(m) }
-func (*Request) ProtoMessage()    {}
-func (*Request) Descriptor() ([]byte, []int) {
+ (m *Request) Reset()         { *m = Request{} } (m *Request) String() string { return proto.CompactTextString(m) } (*Request) ProtoMessage()    {} (*Request) Descriptor() ([]byte, []int) {
 	return fileDescriptor_remote_api_1978114ec33a273d, []int{0}
-}
-func (m *Request) XXX_Unmarshal(b []byte) error {
+} (m *Request) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Request.Unmarshal(m, b)
-}
-func (m *Request) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Request) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Request.Marshal(b, m, deterministic)
-}
-func (dst *Request) XXX_Merge(src proto.Message) {
+} (dst *Request) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Request.Merge(dst, src)
-}
-func (m *Request) XXX_Size() int {
+} (m *Request) XXX_Size() int {
 	return xxx_messageInfo_Request.Size(m)
-}
-func (m *Request) XXX_DiscardUnknown() {
+} (m *Request) XXX_DiscardUnknown() {
 	xxx_messageInfo_Request.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Request proto.InternalMessageInfo
-
-func (m *Request) GetServiceName() string {
+ (m *Request) GetServiceName() string {
 	if m != nil && m.ServiceName != nil {
 		return *m.ServiceName
 	}
 	return ""
 }
-
-func (m *Request) GetMethod() string {
+ (m *Request) GetMethod() string {
 	if m != nil && m.Method != nil {
 		return *m.Method
 	}
 	return ""
 }
-
-func (m *Request) GetRequest() []byte {
+ (m *Request) GetRequest() []byte {
 	if m != nil {
 		return m.Request
 	}
 	return nil
 }
-
-func (m *Request) GetRequestId() string {
+ (m *Request) GetRequestId() string {
 	if m != nil && m.RequestId != nil {
 		return *m.RequestId
 	}
@@ -156,39 +139,28 @@ type ApplicationError struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *ApplicationError) Reset()         { *m = ApplicationError{} }
-func (m *ApplicationError) String() string { return proto.CompactTextString(m) }
-func (*ApplicationError) ProtoMessage()    {}
-func (*ApplicationError) Descriptor() ([]byte, []int) {
+ (m *ApplicationError) Reset()         { *m = ApplicationError{} } (m *ApplicationError) String() string { return proto.CompactTextString(m) } (*ApplicationError) ProtoMessage()    {} (*ApplicationError) Descriptor() ([]byte, []int) {
 	return fileDescriptor_remote_api_1978114ec33a273d, []int{1}
-}
-func (m *ApplicationError) XXX_Unmarshal(b []byte) error {
+} (m *ApplicationError) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ApplicationError.Unmarshal(m, b)
-}
-func (m *ApplicationError) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *ApplicationError) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ApplicationError.Marshal(b, m, deterministic)
-}
-func (dst *ApplicationError) XXX_Merge(src proto.Message) {
+} (dst *ApplicationError) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_ApplicationError.Merge(dst, src)
-}
-func (m *ApplicationError) XXX_Size() int {
+} (m *ApplicationError) XXX_Size() int {
 	return xxx_messageInfo_ApplicationError.Size(m)
-}
-func (m *ApplicationError) XXX_DiscardUnknown() {
+} (m *ApplicationError) XXX_DiscardUnknown() {
 	xxx_messageInfo_ApplicationError.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_ApplicationError proto.InternalMessageInfo
-
-func (m *ApplicationError) GetCode() int32 {
+ (m *ApplicationError) GetCode() int32 {
 	if m != nil && m.Code != nil {
 		return *m.Code
 	}
 	return 0
 }
-
-func (m *ApplicationError) GetDetail() string {
+ (m *ApplicationError) GetDetail() string {
 	if m != nil && m.Detail != nil {
 		return *m.Detail
 	}
@@ -202,39 +174,28 @@ type RpcError struct {
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
-
-func (m *RpcError) Reset()         { *m = RpcError{} }
-func (m *RpcError) String() string { return proto.CompactTextString(m) }
-func (*RpcError) ProtoMessage()    {}
-func (*RpcError) Descriptor() ([]byte, []int) {
+ (m *RpcError) Reset()         { *m = RpcError{} } (m *RpcError) String() string { return proto.CompactTextString(m) } (*RpcError) ProtoMessage()    {} (*RpcError) Descriptor() ([]byte, []int) {
 	return fileDescriptor_remote_api_1978114ec33a273d, []int{2}
-}
-func (m *RpcError) XXX_Unmarshal(b []byte) error {
+} (m *RpcError) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RpcError.Unmarshal(m, b)
-}
-func (m *RpcError) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *RpcError) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_RpcError.Marshal(b, m, deterministic)
-}
-func (dst *RpcError) XXX_Merge(src proto.Message) {
+} (dst *RpcError) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_RpcError.Merge(dst, src)
-}
-func (m *RpcError) XXX_Size() int {
+} (m *RpcError) XXX_Size() int {
 	return xxx_messageInfo_RpcError.Size(m)
-}
-func (m *RpcError) XXX_DiscardUnknown() {
+} (m *RpcError) XXX_DiscardUnknown() {
 	xxx_messageInfo_RpcError.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_RpcError proto.InternalMessageInfo
-
-func (m *RpcError) GetCode() int32 {
+ (m *RpcError) GetCode() int32 {
 	if m != nil && m.Code != nil {
 		return *m.Code
 	}
 	return 0
 }
-
-func (m *RpcError) GetDetail() string {
+ (m *RpcError) GetDetail() string {
 	if m != nil && m.Detail != nil {
 		return *m.Detail
 	}
@@ -251,74 +212,58 @@ type Response struct {
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`
 }
-
-func (m *Response) Reset()         { *m = Response{} }
-func (m *Response) String() string { return proto.CompactTextString(m) }
-func (*Response) ProtoMessage()    {}
-func (*Response) Descriptor() ([]byte, []int) {
+ (m *Response) Reset()         { *m = Response{} } (m *Response) String() string { return proto.CompactTextString(m) } (*Response) ProtoMessage()    {} (*Response) Descriptor() ([]byte, []int) {
 	return fileDescriptor_remote_api_1978114ec33a273d, []int{3}
-}
-func (m *Response) XXX_Unmarshal(b []byte) error {
+} (m *Response) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Response.Unmarshal(m, b)
-}
-func (m *Response) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+} (m *Response) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Response.Marshal(b, m, deterministic)
-}
-func (dst *Response) XXX_Merge(src proto.Message) {
+} (dst *Response) XXX_Merge(src proto.Message) {
 	xxx_messageInfo_Response.Merge(dst, src)
-}
-func (m *Response) XXX_Size() int {
+} (m *Response) XXX_Size() int {
 	return xxx_messageInfo_Response.Size(m)
-}
-func (m *Response) XXX_DiscardUnknown() {
+} (m *Response) XXX_DiscardUnknown() {
 	xxx_messageInfo_Response.DiscardUnknown(m)
 }
 
 var xxx_messageInfo_Response proto.InternalMessageInfo
-
-func (m *Response) GetResponse() []byte {
+ (m *Response) GetResponse() []byte {
 	if m != nil {
 		return m.Response
 	}
 	return nil
 }
-
-func (m *Response) GetException() []byte {
+ (m *Response) GetException() []byte {
 	if m != nil {
 		return m.Exception
 	}
 	return nil
 }
-
-func (m *Response) GetApplicationError() *ApplicationError {
+ (m *Response) GetApplicationError() *ApplicationError {
 	if m != nil {
 		return m.ApplicationError
 	}
 	return nil
 }
-
-func (m *Response) GetJavaException() []byte {
+ (m *Response) GetJavaException() []byte {
 	if m != nil {
 		return m.JavaException
 	}
 	return nil
 }
-
-func (m *Response) GetRpcError() *RpcError {
+ (m *Response) GetRpcError() *RpcError {
 	if m != nil {
 		return m.RpcError
 	}
 	return nil
 }
-
-func init() {
+ init() {
 	proto.RegisterType((*Request)(nil), "remote_api.Request")
 	proto.RegisterType((*ApplicationError)(nil), "remote_api.ApplicationError")
 	proto.RegisterType((*RpcError)(nil), "remote_api.RpcError")
 	proto.RegisterType((*Response)(nil), "remote_api.Response")
 }
-
-func init() {
+ init() {
 	proto.RegisterFile("google.golang.org/appengine/internal/remote_api/remote_api.proto", fileDescriptor_remote_api_1978114ec33a273d)
 }
 

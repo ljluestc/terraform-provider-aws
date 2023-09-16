@@ -1,16 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package elasticache
-
-import (
-	"fmt"
-
-	"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package elasticacheimport (
+	"fmt"	"github.com/YakDriver/regexache"
 )
-
-
-
 func validReplicationGroupAuthToken(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if (len(value) < 16) || (len(value) > 128) {

@@ -42,8 +42,8 @@ const (
 	ResNameIAMPolicyAssignment = "IAM Policy Assignment"
 
 	DefaultIAMPolicyAssignmentNamespace = "default"
-	identitiesUserKey                   = "user"
-	identitiesGroupKey                  = "group"
+	identitiesUserKey = "user"
+	identitiesGroupKey= "group"
 )
 
 type resourceIAMPolicyAssignment struct {
@@ -131,7 +131,7 @@ func (r *resourceIAMPolicyAssignment) Create(ctx context.Context, req resource.C
 
 	in := quicksight.CreateIAMPolicyAssignmentInput{
 		AwsAccountId:     aws.String(plan.AWSAccountID.ValueString()),
-		Namespace:        aws.String(plan.Namespace.ValueString()),
+		Namespace:  aws.String(plan.Namespace.ValueString()),
 		AssignmentName:   aws.String(plan.AssignmentName.ValueString()),
 		AssignmentStatus: aws.String(plan.AssignmentStatus.ValueString()),
 	}
@@ -242,7 +242,7 @@ func (r *resourceIAMPolicyAssignment) Update(ctx context.Context, req resource.U
 		!plan.PolicyARN.Equal(state.PolicyARN) {
 		in := quicksight.UpdateIAMPolicyAssignmentInput{
 			AwsAccountId:     aws.String(plan.AWSAccountID.ValueString()),
-			Namespace:        aws.String(plan.Namespace.ValueString()),
+			Namespace:  aws.String(plan.Namespace.ValueString()),
 			AssignmentName:   aws.String(plan.AssignmentName.ValueString()),
 			AssignmentStatus: aws.String(plan.AssignmentStatus.ValueString()),
 		}
@@ -291,7 +291,7 @@ func (r *resourceIAMPolicyAssignment) Delete(ctx context.Context, req resource.D
 
 	_, err := conn.DeleteIAMPolicyAssignmentWithContext(ctx, &quicksight.DeleteIAMPolicyAssignmentInput{
 		AwsAccountId:   aws.String(state.AWSAccountID.ValueString()),
-		Namespace:      aws.String(state.Namespace.ValueString()),
+		Namespace:aws.String(state.Namespace.ValueString()),
 		AssignmentName: aws.String(state.AssignmentName.ValueString()),
 	})
 	if err != nil {
@@ -330,7 +330,7 @@ func FindIAMPolicyAssignmentByID(ctx context.Context, conn *quicksight.QuickSigh
 
 	in := &quicksight.DescribeIAMPolicyAssignmentInput{
 		AwsAccountId:   aws.String(awsAccountID),
-		Namespace:      aws.String(namespace),
+		Namespace:aws.String(namespace),
 		AssignmentName: aws.String(assignmentName),
 	}
 
@@ -378,9 +378,9 @@ type resourceIAMPolicyAssignmentData struct {
 	AssignmentStatus types.String `tfsdk:"assignment_status"`
 	AWSAccountID     types.String `tfsdk:"aws_account_id"`
 	IDtypes.String   `tfsdk:"id"`
-	Identities       types.List   `tfsdk:"identities"`
-	Namespace        types.String `tfsdk:"namespace"`
-	PolicyARN        types.String `tfsdk:"policy_arn"`
+	Identities types.List   `tfsdk:"identities"`
+	Namespace  types.String `tfsdk:"namespace"`
+	PolicyARN  types.String `tfsdk:"policy_arn"`
 }
 
 type identitiesData struct {

@@ -102,7 +102,7 @@ func TestAccNeptuneParameterGroup_parameter(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "parameter.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "parameter.*", map[string]string{
 						"apply_method": "pending-reboot",
-						"name":         "neptune_query_timeout",
+						"name":"neptune_query_timeout",
 						"value":        "25",
 					}),
 				),
@@ -263,7 +263,7 @@ resource "aws_neptune_parameter_group" "test" {
 
   parameter {
     apply_method = %q
-    name         = %q
+    name= %q
     value        = %q
   }
 }

@@ -325,9 +325,9 @@ data "aws_storagegateway_local_disk" "test" {
 func testAccStorediSCSIVolumeConfig_basic(rName string) string {
 	return testAccStorediSCSIVolumeBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_stored_iscsi_volume" "test" {
-  gateway_arn            = data.aws_storagegateway_local_disk.test.gateway_arn
+  gateway_arn   = data.aws_storagegateway_local_disk.test.gateway_arn
   network_interface_id   = aws_instance.test.private_ip
-  target_name            = %[1]q
+  target_name   = %[1]q
   preserve_existing_data = false
   disk_id = data.aws_storagegateway_local_disk.test.disk_id
 
@@ -360,12 +360,12 @@ POLICY
 }
 
 resource "aws_storagegateway_stored_iscsi_volume" "test" {
-  gateway_arn            = data.aws_storagegateway_local_disk.test.gateway_arn
+  gateway_arn   = data.aws_storagegateway_local_disk.test.gateway_arn
   network_interface_id   = aws_instance.test.private_ip
-  target_name            = %[1]q
+  target_name   = %[1]q
   preserve_existing_data = false
   disk_id = data.aws_storagegateway_local_disk.test.id
-  kms_encrypted          = true
+  kms_encrypted = true
   kms_key = aws_kms_key.test.arn
 
   depends_on = [aws_storagegateway_working_storage.buffer]
@@ -376,9 +376,9 @@ resource "aws_storagegateway_stored_iscsi_volume" "test" {
 func testAccStorediSCSIVolumeConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return testAccStorediSCSIVolumeBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_stored_iscsi_volume" "test" {
-  gateway_arn            = data.aws_storagegateway_local_disk.test.gateway_arn
+  gateway_arn   = data.aws_storagegateway_local_disk.test.gateway_arn
   network_interface_id   = aws_instance.test.private_ip
-  target_name            = %[1]q
+  target_name   = %[1]q
   preserve_existing_data = false
   disk_id = data.aws_storagegateway_local_disk.test.id
 
@@ -394,9 +394,9 @@ resource "aws_storagegateway_stored_iscsi_volume" "test" {
 func testAccStorediSCSIVolumeConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return testAccStorediSCSIVolumeBaseConfig(rName) + fmt.Sprintf(`
 resource "aws_storagegateway_stored_iscsi_volume" "test" {
-  gateway_arn            = data.aws_storagegateway_local_disk.test.gateway_arn
+  gateway_arn   = data.aws_storagegateway_local_disk.test.gateway_arn
   network_interface_id   = aws_instance.test.private_ip
-  target_name            = %[1]q
+  target_name   = %[1]q
   preserve_existing_data = false
   disk_id = data.aws_storagegateway_local_disk.test.id
 
@@ -431,10 +431,10 @@ resource "aws_ebs_snapshot" "test" {
 }
 
 resource "aws_storagegateway_stored_iscsi_volume" "test" {
-  gateway_arn            = data.aws_storagegateway_local_disk.test.gateway_arn
+  gateway_arn   = data.aws_storagegateway_local_disk.test.gateway_arn
   network_interface_id   = aws_instance.test.private_ip
-  snapshot_id            = aws_ebs_snapshot.test.id
-  target_name            = %[1]q
+  snapshot_id   = aws_ebs_snapshot.test.id
+  target_name   = %[1]q
   preserve_existing_data = false
   disk_id = data.aws_storagegateway_local_disk.test.id
 

@@ -61,7 +61,7 @@ func ResourceConnectPeer() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"peer_asn": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(1, 2147483647),
 						},
@@ -157,7 +157,7 @@ func ResourceConnectPeer() *schema.Resource {
 				ForceNew: true,
 				MaxItems: 2,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.IsCIDR,
 				},
 			},
@@ -189,8 +189,8 @@ func resourceConnectPeerCreate(ctx context.Context, d *schema.ResourceData, meta
 	input := &networkmanager.CreateConnectPeerInput{
 		ConnectAttachmentId: aws.String(connectAttachmentID),
 		InsideCidrBlocks:    insideCIDRBlocks,
-		PeerAddress:         aws.String(peerAddress),
-		Tags:                getTagsIn(ctx),
+		PeerAddress:aws.String(peerAddress),
+		Tags:       getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("bgp_options"); ok && len(v.([]interface{})) > 0 {
@@ -427,7 +427,7 @@ func waitConnectPeerCreated(ctx context.Context, conn *networkmanager.NetworkMan
 func waitConnectPeerDeleted(ctx context.Context, conn *networkmanager.NetworkManager, id string, timeout time.Duration) (*networkmanager.ConnectPeer, error) {
 	stateconf := &retry.StateChangeConf{
 		Pending:        []string{networkmanager.ConnectPeerStateDeleting},
-		Target:         []string{},
+		Target:[]string{},
 		Timeout:        timeout,
 		Refresh:        statusConnectPeerState(ctx, conn, id),
 		NotFoundChecks: 1,

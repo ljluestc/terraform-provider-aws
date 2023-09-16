@@ -33,10 +33,10 @@ func TestAccDynamoDBTableReplica_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:      acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:    testAccCheckTableReplicaDestroy(ctx),
+		CheckDestroy:testAccCheckTableReplicaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableReplicaConfig_basic(rName),
@@ -46,8 +46,8 @@ func TestAccDynamoDBTableReplica_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -64,10 +64,10 @@ func TestAccDynamoDBTableReplica_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:      acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:    testAccCheckTableReplicaDestroy(ctx),
+		CheckDestroy:testAccCheckTableReplicaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableReplicaConfig_basic(rName),
@@ -91,10 +91,10 @@ func TestAccDynamoDBTableReplica_pitr(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:      acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:    testAccCheckTableReplicaDestroy(ctx),
+		CheckDestroy:testAccCheckTableReplicaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableReplicaConfig_pitr(rName),
@@ -104,8 +104,8 @@ func TestAccDynamoDBTableReplica_pitr(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -122,10 +122,10 @@ func TestAccDynamoDBTableReplica_pitrKMS(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:      acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:    testAccCheckTableReplicaDestroy(ctx),
+		CheckDestroy:testAccCheckTableReplicaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableReplicaConfig_pitrKMS(rName, false),
@@ -152,8 +152,8 @@ func TestAccDynamoDBTableReplica_pitrKMS(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -170,10 +170,10 @@ func TestAccDynamoDBTableReplica_pitrDefault(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:      acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:    testAccCheckTableReplicaDestroy(ctx),
+		CheckDestroy:testAccCheckTableReplicaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableReplicaConfig_pitrDefault(rName, false),
@@ -200,8 +200,8 @@ func TestAccDynamoDBTableReplica_pitrDefault(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -218,10 +218,10 @@ func TestAccDynamoDBTableReplica_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:      acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:    testAccCheckTableReplicaDestroy(ctx),
+		CheckDestroy:testAccCheckTableReplicaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableReplicaConfig_tags1(rName),
@@ -232,8 +232,8 @@ func TestAccDynamoDBTableReplica_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -249,8 +249,8 @@ func TestAccDynamoDBTableReplica_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -262,8 +262,8 @@ func TestAccDynamoDBTableReplica_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -280,10 +280,10 @@ func TestAccDynamoDBTableReplica_tableClass(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:      acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:    testAccCheckTableReplicaDestroy(ctx),
+		CheckDestroy:testAccCheckTableReplicaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableReplicaConfig_tableClass(rName, "STANDARD"),
@@ -293,8 +293,8 @@ func TestAccDynamoDBTableReplica_tableClass(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -318,10 +318,10 @@ func TestAccDynamoDBTableReplica_keys(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
-		ErrorCheck:      acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckMultipleRegion(t, 2) },
+		ErrorCheck:  acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
-		CheckDestroy:    testAccCheckTableReplicaDestroy(ctx),
+		CheckDestroy:testAccCheckTableReplicaDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTableReplicaConfig_keys(rName, "test1"),
@@ -331,8 +331,8 @@ func TestAccDynamoDBTableReplica_keys(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -448,19 +448,19 @@ func testAccTableReplicaConfig_basic(rName string) string {
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
   provider= "awsalternate"
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   lifecycle {
-    ignore_changes = [replica]
+ignore_changes = [replica]
   }
 }
 
@@ -468,8 +468,8 @@ resource "aws_dynamodb_table_replica" "test" {
   global_table_arn = aws_dynamodb_table.test.arn
 
   tags = {
-    Name = %[1]q
-    Pozo = "Amargo"
+Name = %[1]q
+Pozo = "Amargo"
   }
 }
 `, rName))
@@ -480,25 +480,25 @@ func testAccTableReplicaConfig_pitr(rName string) string {
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   lifecycle {
-    ignore_changes = [replica]
+ignore_changes = [replica]
   }
 }
 
 resource "aws_dynamodb_table_replica" "test" {
   provider= "awsalternate"
-  global_table_arn       = aws_dynamodb_table.test.arn
+  global_table_arn   = aws_dynamodb_table.test.arn
   point_in_time_recovery = true
 }
 `, rName))
@@ -509,41 +509,41 @@ func testAccTableReplicaConfig_pitrKMS(rName string, pitr bool) string {
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   server_side_encryption {
-    enabled     = true
-    kms_key_arn = aws_kms_key.test.arn
+enabled = true
+kms_key_arn = aws_kms_key.test.arn
   }
 
   lifecycle {
-    ignore_changes = [replica]
+ignore_changes = [replica]
   }
 }
 
 resource "aws_kms_key" "alternate" {
   provider = awsalternate
-  description    = %[1]q
+  description= %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_dynamodb_table_replica" "test" {
   provider= awsalternate
-  global_table_arn       = aws_dynamodb_table.test.arn
+  global_table_arn   = aws_dynamodb_table.test.arn
   point_in_time_recovery = %[2]t
   kms_key_arn   = aws_kms_key.alternate.arn
 }
@@ -555,29 +555,29 @@ func testAccTableReplicaConfig_pitrDefault(rName string, pitr bool) string {
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   server_side_encryption {
-    enabled = true
+enabled = true
   }
 
   lifecycle {
-    ignore_changes = [replica]
+ignore_changes = [replica]
   }
 }
 
 resource "aws_dynamodb_table_replica" "test" {
   provider= awsalternate
-  global_table_arn       = aws_dynamodb_table.test.arn
+  global_table_arn   = aws_dynamodb_table.test.arn
   point_in_time_recovery = %[2]t
 }
 `, rName, pitr))
@@ -588,23 +588,23 @@ func testAccTableReplicaConfig_tags1(rName string) string {
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 
   lifecycle {
-    ignore_changes = [replica]
+ignore_changes = [replica]
   }
 }
 
@@ -613,8 +613,8 @@ resource "aws_dynamodb_table_replica" "test" {
   global_table_arn = aws_dynamodb_table.test.arn
 
   tags = {
-    Name = %[1]q
-    tape = "Valladolid"
+Name = %[1]q
+tape = "Valladolid"
   }
 }
 `, rName))
@@ -625,23 +625,23 @@ func testAccTableReplicaConfig_tags2(rName string) string {
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 
   lifecycle {
-    ignore_changes = [replica]
+ignore_changes = [replica]
   }
 }
 
@@ -650,11 +650,11 @@ resource "aws_dynamodb_table_replica" "test" {
   global_table_arn = aws_dynamodb_table.test.arn
 
   tags = {
-    Name      = %[1]q
-    tape      = "Valladolid"
-    brightest = "Lights"
-    arise     = "Melandru"
-    shooting  = "Stars"
+Name  = %[1]q
+tape  = "Valladolid"
+brightest = "Lights"
+arise = "Melandru"
+shooting  = "Stars"
   }
 }
 `, rName))
@@ -665,23 +665,23 @@ func testAccTableReplicaConfig_tags3(rName string) string {
 		acctest.ConfigMultipleRegionProvider(3),
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name    = %[1]q
+  name= %[1]q
   hash_key= "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "TestTableHashKey"
-    type = "S"
+name = "TestTableHashKey"
+type = "S"
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 
   lifecycle {
-    ignore_changes = [replica]
+ignore_changes = [replica]
   }
 }
 
@@ -690,7 +690,7 @@ resource "aws_dynamodb_table_replica" "test" {
   global_table_arn = aws_dynamodb_table.test.arn
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName))
@@ -702,32 +702,32 @@ func testAccTableReplicaConfig_tableClass(rName, class string) string {
 		fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
   provider= "awsalternate"
-  name    = %[1]q
+  name= %[1]q
   hash_key= "ArticLake"
-  billing_mode     = "PAY_PER_REQUEST"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
   attribute {
-    name = "ArticLake"
-    type = "S"
+name = "ArticLake"
+type = "S"
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 
   lifecycle {
-    ignore_changes = [replica]
+ignore_changes = [replica]
   }
 }
 
 resource "aws_dynamodb_table_replica" "test" {
-  global_table_arn     = aws_dynamodb_table.test.arn
+  global_table_arn = aws_dynamodb_table.test.arn
   table_class_override = %[2]q
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 `, rName, class))
@@ -739,59 +739,59 @@ func testAccTableReplicaConfig_keys(rName, key string) string {
 		fmt.Sprintf(`
 resource "aws_kms_key" "alternate" {
   provider = awsalternate
-  description    = "Julie test KMS key A"
+  description= "Julie test KMS key A"
   multi_region   = false
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key" "test1" {
-  description    = "Julie test KMS key Z"
+  description= "Julie test KMS key Z"
   multi_region   = false
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key" "test2" {
-  description    = "Julie test KMS key Z"
+  description= "Julie test KMS key Z"
   multi_region   = false
   deletion_window_in_days = 7
 }
 
 resource "aws_dynamodb_table" "test" {
   provider= awsalternate
-  name    = %[1]q
+  name= %[1]q
   hash_key= "ParticipantId"
-  range_key        = "SubscriptionId"
-  billing_mode     = "PAY_PER_REQUEST"
+  range_key= "SubscriptionId"
+  billing_mode = "PAY_PER_REQUEST"
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
-  table_class      = "STANDARD"
+  table_class  = "STANDARD"
 
   point_in_time_recovery {
-    enabled = true
+enabled = true
   }
 
   server_side_encryption {
-    enabled     = true
-    kms_key_arn = aws_kms_key.alternate.arn
+enabled = true
+kms_key_arn = aws_kms_key.alternate.arn
   }
 
   attribute {
-    name = "ParticipantId"
-    type = "S"
+name = "ParticipantId"
+type = "S"
   }
 
   attribute {
-    name = "SubscriptionId"
-    type = "S"
+name = "SubscriptionId"
+type = "S"
   }
 
   lifecycle {
-    ignore_changes = [replica]
+ignore_changes = [replica]
   }
 }
 
 resource "aws_dynamodb_table_replica" "test" {
-  global_table_arn       = aws_dynamodb_table.test.arn
+  global_table_arn   = aws_dynamodb_table.test.arn
   kms_key_arn   = aws_kms_key.%[2]s.arn
   point_in_time_recovery = true
 }

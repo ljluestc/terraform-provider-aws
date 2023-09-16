@@ -1,17 +1,1 @@
-// Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package fromproto
-
-import (
-	"github.com/hashicorp/terraform-plugin-go/tfprotov5"
-	"github.com/hashicorp/terraform-plugin-go/tfprotov5/internal/tfplugin5"
-)
-
-
-State(in *tfplugin5.RawState) *tfprotov5.RawState {
-	return &tfprotov5.RawState{
-		JSON:    in.Json,
-		Flatmap: in.Flatmap,
-	}
-}
+// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package fromprotoimport (	"github.com/hashicorp/terraform-plugin-go/tfprotov5"	"github.com/hashicorp/terraform-plugin-go/tfprotov5/internal/tfplugin5")State(in *tfplugin5.RawState) *tfprotov5.RawState {	return &tfprotov5.RawState{		JSON:    in.Json,		Flatmap: in.Flatmap,	}}

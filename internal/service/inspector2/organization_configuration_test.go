@@ -33,9 +33,9 @@ func testAccOrganizationConfiguration_basic(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConfigurationConfig_basic(true, false),
@@ -60,9 +60,9 @@ func testAccOrganizationConfiguration_disappears(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConfigurationConfig_basic(true, false),
@@ -87,9 +87,9 @@ func testAccOrganizationConfiguration_ec2ECR(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConfigurationConfig_basic(true, true),
@@ -114,9 +114,9 @@ func testAccOrganizationConfiguration_lambda(t *testing.T) {
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Inspector2EndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Inspector2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckOrganizationConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckOrganizationConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOrganizationConfigurationConfig_lambda(false, false, true),

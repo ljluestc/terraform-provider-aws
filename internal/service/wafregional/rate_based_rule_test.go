@@ -46,8 +46,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -77,8 +77,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -141,8 +141,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -221,8 +221,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -264,8 +264,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -296,8 +296,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -394,7 +394,7 @@ resource "aws_wafregional_ipset" "ipset" {
 }
 
 resource "aws_wafregional_rate_based_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
   rate_key    = "IP"
   rate_limit  = 2000
@@ -421,7 +421,7 @@ resource "aws_wafregional_ipset" "ipset" {
 }
 
 resource "aws_wafregional_rate_based_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
   rate_key    = "IP"
   rate_limit  = 2000
@@ -452,7 +452,7 @@ resource "aws_wafregional_ipset" "ipset" {
 }
 
 resource "aws_wafregional_rate_based_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
   rate_key    = "IP"
   rate_limit  = 2000
@@ -484,7 +484,7 @@ resource "aws_wafregional_ipset" "ipset" {
 }
 
 resource "aws_wafregional_rate_based_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
   rate_key    = "IP"
   rate_limit  = 2000
@@ -519,14 +519,14 @@ resource "aws_wafregional_byte_match_set" "set" {
     positional_constraint = "CONTAINS"
 
     field_to_match {
-      type = "HEADER"
-      data = "referer"
+type = "HEADER"
+data = "referer"
     }
   }
 }
 
 resource "aws_wafregional_rate_based_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
   rate_key    = "IP"
   rate_limit  = 2000
@@ -544,7 +544,7 @@ resource "aws_wafregional_rate_based_rule" "wafrule" {
 func testAccRateBasedRuleConfig_noPredicates(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rate_based_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
   rate_key    = "IP"
   rate_limit  = 2000
@@ -556,7 +556,7 @@ resource "aws_wafregional_rate_based_rule" "wafrule" {
 func testAccRateBasedRuleConfig_limit(name string, limit string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rate_based_rule" "wafrule" {
-  name        = "%s"
+  name  = "%s"
   metric_name = "%s"
   rate_key    = "IP"
   rate_limit  = %s

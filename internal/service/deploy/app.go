@@ -74,13 +74,13 @@ func ResourceApp() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
 			},
 
 			"compute_platform": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(codedeploy.ComputePlatform_Values(), false),
@@ -111,7 +111,7 @@ func resourceAppCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 	resp, err := conn.CreateApplicationWithContext(ctx, &codedeploy.CreateApplicationInput{
 		ApplicationName: aws.String(application),
 		ComputePlatform: aws.String(computePlatform),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	})
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating CodeDeploy Application (%s): %s", application, err)

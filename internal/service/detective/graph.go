@@ -25,7 +25,7 @@ import (
 func ResourceGraph() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceGraphCreate,
-		ReadWithoutTimeout:   resourceGraphRead,
+		ReadWithoutTimeout:resourceGraphRead,
 		UpdateWithoutTimeout: resourceGraphUpdate,
 		DeleteWithoutTimeout: resourceGraphDelete,
 		Importer: &schema.ResourceImporter{
@@ -33,20 +33,19 @@ func ResourceGraph() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"created_time": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"graph_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceGraphCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DetectiveConn(ctx)
 
@@ -81,7 +80,6 @@ func resourceGraphCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return resourceGraphRead(ctx, d, meta)
 }
-
 func resourceGraphRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DetectiveConn(ctx)
 
@@ -100,12 +98,10 @@ func resourceGraphRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return nil
 }
-
 func resourceGraphUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceGraphRead(ctx, d, meta)
 }
-
 func resourceGraphDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DetectiveConn(ctx)
 

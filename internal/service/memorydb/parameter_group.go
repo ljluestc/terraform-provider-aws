@@ -43,54 +43,54 @@ CustomizeDiff: verify.SetTagsDiff,
 
 Schema: map[string]*schema.Schema{
 "arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 "description": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Optional: true,
 ForceNew: true,
 Default:  "Managed by Terraform",
 },
 "family": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ForceNew: true,
 },
 "name": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional:  true,
+Computed:  true,
+ForceNew:  true,
 ConflictsWith: []string{"name_prefix"},
 ValidateFunc:  validateResourceName(parameterGroupNameMaxLength),
 },
 "name_prefix": {
 Type: schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Optional:  true,
+Computed:  true,
+ForceNew:  true,
 ConflictsWith: []string{"name"},
 ValidateFunc:  validateResourceNamePrefix(parameterGroupNameMaxLength - id.UniqueIDSuffixLength),
 },
 "parameter": {
-Type:     schema.TypeSet,
+Type: schema.TypeSet,
 Optional: true,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 },
 "value": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 },
 },
 },
 Set: ParameterHash,
 },
-names.AttrTags:    tftags.TagsSchema(),
+names.AttrTags:tftags.TagsSchema(),
 names.AttrTagsAll: tftags.TagsSchemaComputed(),
 },
 }
@@ -101,10 +101,10 @@ conn := meta.(*conns.AWSClient).MemoryDBConn(ctx)
 
 name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 input := &memorydb.CreateParameterGroupInput{
-Description:        aws.String(d.Get("description").(string)),
-Family:    aws.String(d.Get("family").(string)),
+Description:aws.String(d.Get("description").(string)),
+Family:aws.String(d.Get("family").(string)),
 ParameterGroupName: aws.String(name),
-Tags:      getTagsIn(ctx),
+Tags:  getTagsIn(ctx),
 }
 
 log.Printf("[DEBUG] Creating MemoryDB Parameter Group: %s", input)
@@ -237,7 +237,7 @@ parameterNames = append(parameterNames, parameter.ParameterName)
 
 input := memorydb.ResetParameterGroupInput{
 ParameterGroupName: aws.String(name),
-ParameterNames:     parameterNames,
+ParameterNames: parameterNames,
 }
 
 return retry.RetryContext(ctx, 30*time.Second, func() *retry.RetryError {

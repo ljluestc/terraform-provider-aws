@@ -47,13 +47,13 @@ func ResourceAddon() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"addon_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"addon_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ValidateFunc: validation.All(
@@ -62,40 +62,40 @@ func ResourceAddon() *schema.Resource {
 				),
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"cluster_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validClusterName,
 			},
 			"configuration_values": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 			},
 			"created_at": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"modified_at": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"preserve": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 			},
 			"resolve_conflicts": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: validation.StringInSlice(eks.ResolveConflicts_Values(), false),
 				Deprecated:   `The "resolve_conflicts" attribute can't be set to "PRESERVE" on initial resource creation. Use "resolve_conflicts_on_create" and/or "resolve_conflicts_on_update" instead`,
 			},
 			"resolve_conflicts_on_create": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ValidateFunc: validation.StringInSlice([]string{
 					eks.ResolveConflictsNone,
@@ -104,17 +104,17 @@ func ResourceAddon() *schema.Resource {
 				ConflictsWith: []string{"resolve_conflicts"},
 			},
 			"resolve_conflicts_on_update": {
-				Type:          schema.TypeString,
-				Optional:      true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc:  validation.StringInSlice(eks.ResolveConflicts_Values(), false),
 				ConflictsWith: []string{"resolve_conflicts"},
 			},
 			"service_account_role_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional:true,
 				ValidateFunc: verify.ValidARN,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -128,9 +128,9 @@ func resourceAddonCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	clusterName := d.Get("cluster_name").(string)
 	id := AddonCreateResourceID(clusterName, addonName)
 	input := &eks.CreateAddonInput{
-		AddonName:          aws.String(addonName),
+		AddonName:aws.String(addonName),
 		ClientRequestToken: aws.String(sdkid.UniqueId()),
-		ClusterName:        aws.String(clusterName),
+		ClusterName:   aws.String(clusterName),
 		Tags:  getTagsIn(ctx),
 	}
 
@@ -240,9 +240,9 @@ func resourceAddonUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	if d.HasChanges("addon_version", "service_account_role_arn", "configuration_values") {
 		input := &eks.UpdateAddonInput{
-			AddonName:          aws.String(addonName),
+			AddonName:aws.String(addonName),
 			ClientRequestToken: aws.String(sdkid.UniqueId()),
-			ClusterName:        aws.String(clusterName),
+			ClusterName:   aws.String(clusterName),
 		}
 
 		if d.HasChange("addon_version") {

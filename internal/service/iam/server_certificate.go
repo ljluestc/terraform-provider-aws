@@ -43,61 +43,61 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"certificate_body": {
 				Type:schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Required:true,
+				ForceNew:true,
 				DiffSuppressFunc: suppressNormalizeCertRemoval,
-				StateFunc:        StateTrimSpace,
+				StateFunc:   StateTrimSpace,
 			},
 			"certificate_chain": {
 				Type:schema.TypeString,
-				Optional:         true,
-				ForceNew:         true,
+				Optional:true,
+				ForceNew:true,
 				DiffSuppressFunc: suppressNormalizeCertRemoval,
-				StateFunc:        StateTrimSpace,
+				StateFunc:   StateTrimSpace,
 			},
 			"expiration": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ConflictsWith: []string{"name_prefix"},
 				ValidateFunc:  validation.StringLenBetween(0, 128),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ConflictsWith: []string{"name"},
 				ValidateFunc:  validation.StringLenBetween(0, 128-id.UniqueIDSuffixLength),
 			},
 			"path": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Default:  "/",
 				ForceNew: true,
 			},
 			"private_key": {
 				Type:schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
-				Sensitive:        true,
+				Required:true,
+				ForceNew:true,
+				Sensitive:   true,
 				DiffSuppressFunc: suppressNormalizeCertRemoval,
-				StateFunc:        StateTrimSpace,
+				StateFunc:   StateTrimSpace,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"upload_date": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -109,10 +109,10 @@ import (
 
 	sslCertName := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &iam.UploadServerCertificateInput{
-		CertificateBody:       aws.String(d.Get("certificate_body").(string)),
-		PrivateKey:            aws.String(d.Get("private_key").(string)),
+		CertificateBody:  aws.String(d.Get("certificate_body").(string)),
+		PrivateKey:  aws.String(d.Get("private_key").(string)),
 		ServerCertificateName: aws.String(sslCertName),
-		Tags:     getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("certificate_chain"); ok {

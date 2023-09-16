@@ -26,7 +26,7 @@ func TestAccKafkaConnectConnector_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:{ acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 		ErrorCheck:rrorCheck(t, kafkaconnect.EndpointsID),
-		CheckDestroy:    testAccCheckConnectorDestroy(ctx),
+		CheckDestroy:testAccCheckConnectorDestroy(ctx),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -88,7 +88,7 @@ func TestAccKafkaConnectConnector_disappears(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:{ acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 		ErrorCheck:rrorCheck(t, kafkaconnect.EndpointsID),
-		CheckDestroy:    testAccCheckConnectorDestroy(ctx),
+		CheckDestroy:testAccCheckConnectorDestroy(ctx),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -111,7 +111,7 @@ func TestAccKafkaConnectConnector_update(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:{ acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 		ErrorCheck:rrorCheck(t, kafkaconnect.EndpointsID),
-		CheckDestroy:    testAccCheckConnectorDestroy(ctx),
+		CheckDestroy:testAccCheckConnectorDestroy(ctx),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -279,7 +279,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.10.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -289,7 +289,7 @@ resource "aws_subnet" "test1" {
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -299,7 +299,7 @@ resource "aws_subnet" "test2" {
   availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -309,7 +309,7 @@ resource "aws_subnet" "test3" {
   availability_zone = data.aws_availability_zones.available.names[2]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -318,21 +318,21 @@ resource "aws_security_group" "test" {
   name   = %[1]q
 
   ingress {
-    from_port   = 0
-    to_port
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+from_port   = 0
+to_port
+protocol= "-1"
+cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port   = 0
-    to_port
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+from_port   = 0
+to_port
+protocol= "-1"
+cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -344,11 +344,11 @@ resource "aws_vpc_endpoint" "test" {
   vpc_endpoint_type = "Interface"
 
   security_group_ids = [
-    aws_security_group.test.id,
+aws_security_group.test.id,
   ]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -360,13 +360,13 @@ resource "aws_iam_role" "test" {
 
 data "aws_iam_policy_document" "assume_role" {
   statement {
-    actions = ["sts:AssumeRole"]
-    effect  = "Allow"
+actions = ["sts:AssumeRole"]
+effect  = "Allow"
 
-    principals {
+principals {
 ice"
 rs = ["kafkaconnect.amazonaws.com"]
-    }
+}
   }
 }
 
@@ -377,17 +377,17 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Effect": "Allow",
-    "Action": [
+"Effect": "Allow",
+"Action": [
 
-    ],
-    "Resource": ["*"]
+],
+"Resource": ["*"]
   },{
-    "Effect": "Allow",
-    "Action": [
+"Effect": "Allow",
+"Action": [
 
-    ],
-    "Resource": ["*"]
+],
+"Resource": ["*"]
   }]
 }
 EOF
@@ -399,15 +399,15 @@ resource "aws_msk_cluster" "test" {
   number_of_broker_nodes = 3
 
   broker_node_group_info {
-    client_subnets  = [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
-    instance_type   = "kafka.m5.large"
-    security_groups = [aws_security_group.test.id]
+client_subnets  = [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
+instance_type   = "kafka.m5.large"
+security_groups = [aws_security_group.test.id]
 
-    storage_info {
+storage_info {
 ge_info {
 size = 10
 
-    }
+}
   }
 }
 `, rName))
@@ -424,42 +424,42 @@ resource "aws_mskconnect_connector" "test" {
   kafkaconnect_version = "2.7.1"
 
   capacity {
-    autoscaling {
+autoscaling {
 r_count = 1
 r_count = 2
-    }
+}
   }
 
   connector_configuration = {
-    "connector.class" = "com.github.jcustenborder.kafka.connect.simulator.SimulatorSinkConnector"
-    "tasks.max"
-    "topics" = "t1"
+"connector.class" = "com.github.jcustenborder.kafka.connect.simulator.SimulatorSinkConnector"
+"tasks.max"
+"topics" = "t1"
   }
 
   kafka_cluster {
-    apache_kafka_cluster {
+apache_kafka_cluster {
 _servers = aws_msk_cluster.test.bootstrap_brokers_tls
 
 
 y_groups = [aws_security_group.test.id]
 = [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
 
-    }
+}
   }
 
   kafka_cluster_client_authentication {
-    authentication_type = "NONE"
+authentication_type = "NONE"
   }
 
   kafka_cluster_encryption_in_transit {
-    encryption_type = "TLS"
+encryption_type = "TLS"
   }
 
   plugin {
-    custom_plugin {
+custom_plugin {
 onnestom_plugin.test.arn
 = aws_mskconnect_custom_plugin.test.latest_revision
-    }
+}
   }
 
   service_execution_role_arn = aws_iam_role.test.arn
@@ -485,7 +485,7 @@ resource "aws_mskconnect_connector" "test" {
   kafkaconnect_version = "2.7.1"
 
   capacity {
-    autoscaling {
+autoscaling {
    = 
 r_count = 4
 r_count = 6
@@ -497,36 +497,36 @@ lization_percentage = 25
 _policy {
 lization_percentage = 75
 
-    }
+}
   }
 
   connector_configuration = {
-    "connector.class" = "com.github.jcustenborder.kafka.connect.simulator.SimulatorSinkConnector"
-    "tasks.max"
-    "topics" = "t1"
+"connector.class" = "com.github.jcustenborder.kafka.connect.simulator.SimulatorSinkConnector"
+"tasks.max"
+"topics" = "t1"
   }
 
   kafka_cluster {
-    apache_kafka_cluster {
+apache_kafka_cluster {
 _servers = aws_msk_cluster.test.bootstrap_brokers_tls
 
 
 y_groups = [aws_security_group.test.id]
 = [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
 
-    }
+}
   }
 
   kafka_cluster_client_authentication {
-    authentication_type = "NONE"
+authentication_type = "NONE"
   }
 
   kafka_cluster_encryption_in_transit {
-    encryption_type = "TLS"
+encryption_type = "TLS"
   }
 
   log_delivery {
-    worker_log_delivery {
+worker_log_delivery {
 h_logs {
    = true
 up = aws_cloudwatch_log_group.test.name
@@ -539,21 +539,21 @@ up = aws_cloudwatch_log_group.test.name
 
  = false
 
-    }
+}
   }
 
   plugin {
-    custom_plugin {
+custom_plugin {
 onnestom_plugin.test.arn
 = aws_mskconnect_custom_plugin.test.latest_revision
-    }
+}
   }
 
   service_execution_role_arn = aws_iam_role.test.arn
 
   worker_configuration {
-    arnconnect_worker_configuration.test.arn
-    revision = aws_mskconnect_worker_configuration.test.latest_revision
+arnconnect_worker_configuration.test.arn
+revision = aws_mskconnect_worker_configuration.test.latest_revision
   }
 
   depends_on = [aws_iam_role_policy.test, aws_vpc_endpoint.test]
@@ -577,38 +577,38 @@ resource "aws_mskconnect_connector" "test" {
   kafkaconnect_version = "2.7.1"
 
   capacity {
-    provisioned_capacity {
+provisioned_capacity {
 unt = 4
-    }
+}
   }
 
   connector_configuration = {
-    "connector.class" = "com.github.jcustenborder.kafka.connect.simulator.SimulatorSinkConnector"
-    "tasks.max"
-    "topics" = "t1"
+"connector.class" = "com.github.jcustenborder.kafka.connect.simulator.SimulatorSinkConnector"
+"tasks.max"
+"topics" = "t1"
   }
 
   kafka_cluster {
-    apache_kafka_cluster {
+apache_kafka_cluster {
 _servers = aws_msk_cluster.test.bootstrap_brokers_tls
 
 
 y_groups = [aws_security_group.test.id]
 = [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
 
-    }
+}
   }
 
   kafka_cluster_client_authentication {
-    authentication_type = "NONE"
+authentication_type = "NONE"
   }
 
   kafka_cluster_encryption_in_transit {
-    encryption_type = "TLS"
+encryption_type = "TLS"
   }
 
   log_delivery {
-    worker_log_delivery {
+worker_log_delivery {
 h_logs {
    = true
 up = aws_cloudwatch_log_group.test.name
@@ -621,21 +621,21 @@ up = aws_cloudwatch_log_group.test.name
 
  = false
 
-    }
+}
   }
 
   plugin {
-    custom_plugin {
+custom_plugin {
 onnestom_plugin.test.arn
 = aws_mskconnect_custom_plugin.test.latest_revision
-    }
+}
   }
 
   service_execution_role_arn = aws_iam_role.test.arn
 
   worker_configuration {
-    arnconnect_worker_configuration.test.arn
-    revision = aws_mskconnect_worker_configuration.test.latest_revision
+arnconnect_worker_configuration.test.arn
+revision = aws_mskconnect_worker_configuration.test.latest_revision
   }
 
   depends_on = [aws_iam_role_policy.test, aws_vpc_endpoint.test]

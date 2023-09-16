@@ -26,10 +26,10 @@ func TestAccDataSyncLocationNFS_basic(t *testing.T) {
 	resourceName := "aws_datasync_location_nfs.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationNFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationNFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationNFSConfig_basic(rName),
@@ -47,8 +47,8 @@ func TestAccDataSyncLocationNFS_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"server_hostname"},
 			},
@@ -63,10 +63,10 @@ func TestAccDataSyncLocationNFS_mountOptions(t *testing.T) {
 	resourceName := "aws_datasync_location_nfs.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationNFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationNFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationNFSConfig_mountOptions(rName, "NFS4_0"),
@@ -76,8 +76,8 @@ func TestAccDataSyncLocationNFS_mountOptions(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"server_hostname"},
 			},
@@ -99,10 +99,10 @@ func TestAccDataSyncLocationNFS_disappears(t *testing.T) {
 	resourceName := "aws_datasync_location_nfs.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationNFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationNFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationNFSConfig_basic(rName),
@@ -123,10 +123,10 @@ func TestAccDataSyncLocationNFS_AgentARNs_multiple(t *testing.T) {
 	resourceName := "aws_datasync_location_nfs.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationNFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationNFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationNFSConfig_agentARNsMultiple(rName),
@@ -137,8 +137,8 @@ func TestAccDataSyncLocationNFS_AgentARNs_multiple(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"server_hostname"},
 			},
@@ -153,10 +153,10 @@ func TestAccDataSyncLocationNFS_subdirectory(t *testing.T) {
 	resourceName := "aws_datasync_location_nfs.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationNFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationNFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationNFSConfig_subdirectory(rName, "/subdirectory1/"),
@@ -166,8 +166,8 @@ func TestAccDataSyncLocationNFS_subdirectory(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"server_hostname"},
 			},
@@ -189,10 +189,10 @@ func TestAccDataSyncLocationNFS_tags(t *testing.T) {
 	resourceName := "aws_datasync_location_nfs.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, datasync.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, datasync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocationNFSDestroy(ctx),
+		CheckDestroy:    testAccCheckLocationNFSDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLocationNFSConfig_tags1(rName, "key1", "value1"),
@@ -203,8 +203,8 @@ func TestAccDataSyncLocationNFS_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"server_hostname"},
 			},
@@ -320,11 +320,11 @@ func testAccLocationNFSConfig_agentARNsMultiple(rName string) string {
 resource "aws_instance" "test2" {
   depends_on = [aws_internet_gateway.test]
 
-  ami                         = aws_instance.test.ami
+  ami       = aws_instance.test.ami
   associate_public_ip_address = true
-  instance_type               = aws_instance.test.instance_type
+  instance_type      = aws_instance.test.instance_type
   vpc_security_group_ids      = [aws_security_group.test.id]
-  subnet_id                   = aws_subnet.test[0].id
+  subnet_id = aws_subnet.test[0].id
 
   tags = {
     Name = %[1]q

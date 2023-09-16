@@ -1,40 +1,23 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package connect_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package connect_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/connect"
+	"testing"	"github.com/aws/aws-sdk-go/service/connect"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-
-
-func testAccInstanceDataSource_basic(t *testing.T) {
+)func testAccInstanceDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("datasource-test-terraform")
 	dataSourceName := "data.aws_connect_instance.test"
 	resourceName := "aws_connect_instance.test"
 	resource.Test(t, resource.TestCase{
-PreCheck:  
-
-
-func() { acctest.PreCheck(ctx, t) },
+PreCheck:func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceDataSourceConfig_basic(rName),
-Check: resource.ComposeAggregateTestCheck
-
-
-func(
+Check: resource.ComposeAggregateTestCheckfunc(
 	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
 	resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
 	resource.TestCheckResourceAttrPair(resourceName, "identity_management_type", dataSourceName, "identity_management_type"),
@@ -52,10 +35,7 @@ func(
 	},
 	{
 Config: testAccInstanceDataSourceConfig_alias(rName),
-Check: resource.ComposeAggregateTestCheck
-
-
-func(
+Check: resource.ComposeAggregateTestCheckfunc(
 	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
 	resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
 	resource.TestCheckResourceAttrPair(resourceName, "identity_management_type", dataSourceName, "identity_management_type"),
@@ -73,40 +53,26 @@ func(
 	},
 },
 	})
-}
-
-
-
-
-func testAccInstanceDataSourceConfig_basic(rName string) string {
+}func testAccInstanceDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
-  instance_alias  = %[1]q
-  identity_management_type = "CONNECT_MANAGED"
-  inbound_calls_enabled    = true
-  outbound_calls_enabled   = true
-}
-
-data "aws_connect_instance" "test" {
-  instance_id = aws_connect_instance.test.id
+instance_alias= %[1]q
+identity_management_type = "CONNECT_MANAGED"
+inbound_calls_enabled = true
+outbound_calls_enabled= true
+}data "aws_connect_instance" "test" {
+instance_id = aws_connect_instance.test.id
 }
 `, rName)
-}
-
-
-
-
-func testAccInstanceDataSourceConfig_alias(rName string) string {
+}func testAccInstanceDataSourceConfig_alias(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
-  instance_alias  = %[1]q
-  identity_management_type = "CONNECT_MANAGED"
-  inbound_calls_enabled    = true
-  outbound_calls_enabled   = true
-}
-
-data "aws_connect_instance" "test" {
-  instance_alias = aws_connect_instance.test.instance_alias
+instance_alias= %[1]q
+identity_management_type = "CONNECT_MANAGED"
+inbound_calls_enabled = true
+outbound_calls_enabled= true
+}data "aws_connect_instance" "test" {
+instance_alias = aws_connect_instance.test.instance_alias
 }
 `, rName)
 }

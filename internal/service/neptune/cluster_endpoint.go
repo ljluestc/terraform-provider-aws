@@ -42,13 +42,13 @@ func ResourceClusterEndpoint() *schema.Resource {
 				Computed: true,
 			},
 			"cluster_identifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validIdentifier,
 			},
 			"cluster_endpoint_identifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validIdentifier,
@@ -58,7 +58,7 @@ func ResourceClusterEndpoint() *schema.Resource {
 				Computed: true,
 			},
 			"endpoint_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice([]string{"READER", "WRITER", "ANY"}, false),
@@ -87,9 +87,9 @@ func resourceClusterEndpointCreate(ctx context.Context, d *schema.ResourceData, 
 
 	input := &neptune.CreateDBClusterEndpointInput{
 		DBClusterEndpointIdentifier: aws.String(d.Get("cluster_endpoint_identifier").(string)),
-		DBClusterIdentifier:         aws.String(d.Get("cluster_identifier").(string)),
+		DBClusterIdentifier:aws.String(d.Get("cluster_identifier").(string)),
 		EndpointType:   aws.String(d.Get("endpoint_type").(string)),
-		Tags:           getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if attr := d.Get("static_members").(*schema.Set); attr.Len() > 0 {

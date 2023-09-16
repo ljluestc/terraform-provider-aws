@@ -24,7 +24,7 @@ import (
 func ResourceClusterSnapshot() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClusterSnapshotCreate,
-		ReadWithoutTimeout:   resourceClusterSnapshotRead,
+		ReadWithoutTimeout:resourceClusterSnapshotRead,
 		DeleteWithoutTimeout: resourceClusterSnapshotDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -36,73 +36,72 @@ func ResourceClusterSnapshot() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"db_cluster_snapshot_identifier": {
-				Type:         schema.TypeString,
+				Type:ema.TypeString,
 				ValidateFunc: validClusterSnapshotIdentifier,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 			},
 			"db_cluster_identifier": {
-				Type:         schema.TypeString,
+				Type:ema.TypeString,
 				ValidateFunc: validClusterIdentifier,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 			},
 
 			"availability_zones": {
-				Type:     schema.TypeList,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Type:schema.TypeList,
+				Elem:&schema.Schema{Type: schema.TypeString},
 				Computed: true,
 			},
 			"db_cluster_snapshot_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"storage_encrypted": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"engine": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"engine_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"kms_key_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"port": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"source_db_cluster_snapshot_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"snapshot_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"status": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceClusterSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
 
 	params := &docdb.CreateDBClusterSnapshotInput{
-		DBClusterIdentifier:         aws.String(d.Get("db_cluster_identifier").(string)),
+		DBClusterIdentifier:.String(d.Get("db_cluster_identifier").(string)),
 		DBClusterSnapshotIdentifier: aws.String(d.Get("db_cluster_snapshot_identifier").(string)),
 	}
 
@@ -113,12 +112,12 @@ func resourceClusterSnapshotCreate(ctx context.Context, d *schema.ResourceData, 
 	d.SetId(d.Get("db_cluster_snapshot_identifier").(string))
 
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{"creating"},
-		Target:     []string{"available"},
-		Refresh:    resourceClusterSnapshotStateRefreshFunc(ctx, d.Id(), conn),
-		Timeout:    d.Timeout(schema.TimeoutCreate),
+		Pending: []string{"creating"},
+		Target:[]string{"available"},
+		Refresh: resourceClusterSnapshotStateRefreshFunc(ctx, d.Id(), conn),
+		Timeout: d.Timeout(schema.TimeoutCreate),
 		MinTimeout: 10 * time.Second,
-		Delay:      5 * time.Second,
+		Delay:me.Second,
 	}
 
 	// Wait, catching any errors
@@ -129,7 +128,6 @@ func resourceClusterSnapshotCreate(ctx context.Context, d *schema.ResourceData, 
 
 	return append(diags, resourceClusterSnapshotRead(ctx, d, meta)...)
 }
-
 func resourceClusterSnapshotRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -173,7 +171,6 @@ func resourceClusterSnapshotRead(ctx context.Context, d *schema.ResourceData, me
 
 	return diags
 }
-
 func resourceClusterSnapshotDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DocDBConn(ctx)
@@ -191,7 +188,6 @@ func resourceClusterSnapshotDelete(ctx context.Context, d *schema.ResourceData, 
 
 	return diags
 }
-
 func resourceClusterSnapshotStateRefreshFunc(ctx context.Context, dbClusterSnapshotIdentifier string, conn *docdb.DocDB) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		opts := &docdb.DescribeDBClusterSnapshotsInput{

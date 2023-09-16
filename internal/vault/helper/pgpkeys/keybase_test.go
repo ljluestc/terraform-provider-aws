@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package pgpkeysimport ("bytes""encoding/base64""encoding/hex""reflect""testing""github.com/ProtonMail/go-crypto/openpgp""github.com/ProtonMail/go-crypto/openpgp/packet")func
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagepgpkeysimport("bytes""encoding/base64""encoding/hex""reflect""testing""github.com/ProtonMail/go-crypto/openpgp""github.com/ProtonMail/go-crypto/openpgp/packet")

@@ -26,7 +26,7 @@ import (
 func ResourceHostedPublicVirtualInterfaceAccepter() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceHostedPublicVirtualInterfaceAccepterCreate,
-		ReadWithoutTimeout:   resourceHostedPublicVirtualInterfaceAccepterRead,
+		ReadWithoutTimeout:resourceHostedPublicVirtualInterfaceAccepterRead,
 		UpdateWithoutTimeout: resourceHostedPublicVirtualInterfaceAccepterUpdate,
 		DeleteWithoutTimeout: resourceHostedPublicVirtualInterfaceAccepterDelete,
 		Importer: &schema.ResourceImporter{
@@ -35,13 +35,13 @@ func ResourceHostedPublicVirtualInterfaceAccepter() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"virtual_interface_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -55,7 +55,6 @@ func ResourceHostedPublicVirtualInterfaceAccepter() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceHostedPublicVirtualInterfaceAccepterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -74,8 +73,8 @@ func resourceHostedPublicVirtualInterfaceAccepterCreate(ctx context.Context, d *
 	d.SetId(vifId)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "directconnect",
+		Region: meta.(*conns.AWSClient).Region,
+		Service:"directconnect",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("dxvif/%s", d.Id()),
 	}.String()
@@ -91,7 +90,6 @@ func resourceHostedPublicVirtualInterfaceAccepterCreate(ctx context.Context, d *
 
 	return append(diags, resourceHostedPublicVirtualInterfaceAccepterUpdate(ctx, d, meta)...)
 }
-
 func resourceHostedPublicVirtualInterfaceAccepterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -118,7 +116,6 @@ func resourceHostedPublicVirtualInterfaceAccepterRead(ctx context.Context, d *sc
 
 	return diags
 }
-
 func resourceHostedPublicVirtualInterfaceAccepterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -129,13 +126,11 @@ func resourceHostedPublicVirtualInterfaceAccepterUpdate(ctx context.Context, d *
 
 	return append(diags, resourceHostedPublicVirtualInterfaceAccepterRead(ctx, d, meta)...)
 }
-
 func resourceHostedPublicVirtualInterfaceAccepterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	log.Printf("[WARN] Will not delete Direct Connect virtual interface. Terraform will remove this resource from the state file, however resources may remain.")
 	return diags
 }
-
 func resourceHostedPublicVirtualInterfaceAccepterImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
@@ -153,8 +148,8 @@ func resourceHostedPublicVirtualInterfaceAccepterImport(ctx context.Context, d *
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "directconnect",
+		Region: meta.(*conns.AWSClient).Region,
+		Service:"directconnect",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("dxvif/%s", d.Id()),
 	}.String()
@@ -162,7 +157,6 @@ func resourceHostedPublicVirtualInterfaceAccepterImport(ctx context.Context, d *
 
 	return []*schema.ResourceData{d}, nil
 }
-
 func hostedPublicVirtualInterfaceAccepterWaitUntilAvailable(ctx context.Context, conn *directconnect.DirectConnect, vifId string, timeout time.Duration) error {
 	return virtualInterfaceWaitUntilAvailable(ctx, conn,
 		vifId,

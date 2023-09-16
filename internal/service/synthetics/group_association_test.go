@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccSyntheticsGroupAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
@@ -26,7 +27,8 @@ func TestAccSyntheticsGroupAssociation_basic(t *testing.T) {
 	var groupSummary synthetics.GroupSummary
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckGroupAssociationDestroy(ctx),
@@ -50,6 +52,7 @@ func TestAccSyntheticsGroupAssociation_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccSyntheticsGroupAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(8))
@@ -57,7 +60,8 @@ func TestAccSyntheticsGroupAssociation_disappears(t *testing.T) {
 	var groupSummary synthetics.GroupSummary
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		PreCheck:        
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:    testAccCheckGroupAssociationDestroy(ctx),
@@ -74,8 +78,10 @@ func TestAccSyntheticsGroupAssociation_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccCheckGroupAssociationExists(ctx context.Context, name string, v *synthetics.GroupSummary) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("not found: %s", name)
@@ -104,8 +110,10 @@ func testAccCheckGroupAssociationExists(ctx context.Context, name string, v *syn
 	}
 }
 
+
 func testAccCheckGroupAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SyntheticsConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -135,6 +143,7 @@ func testAccCheckGroupAssociationDestroy(ctx context.Context) resource.TestCheck
 		return nil
 	}
 }
+
 
 func testAccGroupAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccCanaryConfig_basic(rName), testAccGroupConfig_basic(rName), `

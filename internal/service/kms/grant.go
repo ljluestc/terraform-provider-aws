@@ -136,7 +136,6 @@ func ResourceGrant() *schema.Resource {
 		},
 	}
 }
-
 func resourceGrantCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -187,7 +186,6 @@ func resourceGrantCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return append(diags, resourceGrantRead(ctx, d, meta)...)
 }
-
 func resourceGrantRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	const (
 		timeout = 3 * time.Minute
@@ -233,7 +231,6 @@ func resourceGrantRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return diags
 }
-
 func resourceGrantDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -276,7 +273,6 @@ func resourceGrantDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
-
 func FindGrantByTwoPartKey(ctx context.Context, conn *kms.KMS, keyID, grantID string) (*kms.GrantListEntry, error) {
 	input := &kms.ListGrantsInput{
 		KeyId: aws.String(keyID),
@@ -321,7 +317,6 @@ func FindGrantByTwoPartKey(ctx context.Context, conn *kms.KMS, keyID, grantID st
 
 	return output, nil
 }
-
 func findGrantByTwoPartKeyWithRetry(ctx context.Context, conn *kms.KMS, keyID, grantID string, timeout time.Duration) (*kms.GrantListEntry, error) {
 	var output *kms.GrantListEntry
 
@@ -386,7 +381,6 @@ func grantConstraintsIsValid(constraints *schema.Set) bool {
 
 	return constraintCount <= 1
 }
-
 func expandGrantConstraints(configured *schema.Set) *kms.GrantConstraints {
 	if len(configured.List()) < 1 {
 		return nil
@@ -406,7 +400,6 @@ func expandGrantConstraints(configured *schema.Set) *kms.GrantConstraints {
 
 	return &constraint
 }
-
 func sortStringMapKeys(m map[string]*string) []string {
 	keys := make([]string, 0)
 	for k := range m {
@@ -451,7 +444,6 @@ func resourceGrantConstraintsHash(v interface{}) int {
 
 	return create.StringHashcode(buf.String())
 }
-
 func flattenGrantConstraints(constraint *kms.GrantConstraints) *schema.Set {
 	constraints := schema.NewSet(resourceGrantConstraintsHash, []interface{}{})
 	if constraint == nil {
@@ -475,14 +467,12 @@ func flattenGrantConstraints(constraint *kms.GrantConstraints) *schema.Set {
 }
 
 const grantIDSeparator = ":"
-
 func GrantCreateResourceID(keyID, grantID string) string {
 	parts := []string{keyID, grantID}
 	id := strings.Join(parts, grantIDSeparator)
 
 	return id
 }
-
 func GrantParseResourceID(id string) (string, string, error) {
 	if arn.IsARN(id) {
 		arnParts := strings.Split(id, "/")

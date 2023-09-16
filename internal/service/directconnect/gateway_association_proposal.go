@@ -25,7 +25,7 @@ import (
 func ResourceGatewayAssociationProposal() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceGatewayAssociationProposalCreate,
-		ReadWithoutTimeout:   resourceGatewayAssociationProposalRead,
+		ReadWithoutTimeout:resourceGatewayAssociationProposalRead,
 		DeleteWithoutTimeout: resourceGatewayAssociationProposalDelete,
 
 		Importer: &schema.ResourceImporter{
@@ -58,44 +58,43 @@ func ResourceGatewayAssociationProposal() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"allowed_prefixes": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 
 			"associated_gateway_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"associated_gateway_owner_account_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"associated_gateway_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"dx_gateway_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"dx_gateway_owner_account_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 		},
 	}
 }
-
 func resourceGatewayAssociationProposalCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -103,9 +102,9 @@ func resourceGatewayAssociationProposalCreate(ctx context.Context, d *schema.Res
 	directConnectGatewayID := d.Get("dx_gateway_id").(string)
 	associatedGatewayID := d.Get("associated_gateway_id").(string)
 	input := &directconnect.CreateDirectConnectGatewayAssociationProposalInput{
-		DirectConnectGatewayId:           aws.String(directConnectGatewayID),
+		DirectConnectGatewayId:ws.String(directConnectGatewayID),
 		DirectConnectGatewayOwnerAccount: aws.String(d.Get("dx_gateway_owner_account_id").(string)),
-		GatewayId:           aws.String(associatedGatewayID),
+		GatewayId:ws.String(associatedGatewayID),
 	}
 
 	if v, ok := d.GetOk("allowed_prefixes"); ok && v.(*schema.Set).Len() > 0 {
@@ -123,7 +122,6 @@ func resourceGatewayAssociationProposalCreate(ctx context.Context, d *schema.Res
 
 	return append(diags, resourceGatewayAssociationProposalRead(ctx, d, meta)...)
 }
-
 func resourceGatewayAssociationProposalRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -178,7 +176,6 @@ func resourceGatewayAssociationProposalRead(ctx context.Context, d *schema.Resou
 
 	return diags
 }
-
 func resourceGatewayAssociationProposalDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -198,7 +195,6 @@ func resourceGatewayAssociationProposalDelete(ctx context.Context, d *schema.Res
 
 	return diags
 }
-
 func expandRouteFilterPrefixes(tfList []interface{}) []*directconnect.RouteFilterPrefix {
 	if len(tfList) == 0 {
 		return nil
@@ -222,7 +218,6 @@ func expandRouteFilterPrefixes(tfList []interface{}) []*directconnect.RouteFilte
 
 	return apiObjects
 }
-
 func flattenRouteFilterPrefixes(apiObjects []*directconnect.RouteFilterPrefix) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -240,7 +235,6 @@ func flattenRouteFilterPrefixes(apiObjects []*directconnect.RouteFilterPrefix) [
 
 	return tfList
 }
-
 func resourceGatewayAssociationProposalImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	switch parts := strings.Split(strings.ToLower(d.Id()), "/"); len(parts) {
 	case 1:

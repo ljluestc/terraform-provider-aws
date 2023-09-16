@@ -28,10 +28,10 @@ func TestAccNetworkManagerVPCAttachment_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckVPCAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCAttachmentConfig_basic(rName),
@@ -71,10 +71,10 @@ func TestAccNetworkManagerVPCAttachment_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckVPCAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCAttachmentConfig_basic(rName),
@@ -95,10 +95,10 @@ func TestAccNetworkManagerVPCAttachment_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckVPCAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCAttachmentConfig_tags1(rName, "segment", "shared"),
@@ -141,10 +141,10 @@ func TestAccNetworkManagerVPCAttachment_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckVPCAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCAttachmentConfig_updates(rName, 2, true, false),
@@ -257,11 +257,11 @@ resource "aws_vpc" "test" {
 resource "aws_subnet" "test" {
   count = 2
 
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
 
-  ipv6_cidr_block                 = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, count.index)
+  ipv6_cidr_block        = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, count.index)
   assign_ipv6_address_on_creation = true
 
   tags = {
@@ -299,8 +299,8 @@ data "aws_networkmanager_core_network_policy_document" "test" {
   }
 
   segments {
-    name                          = "shared"
-    description                   = "SegmentForSharedServices"
+    name        = "shared"
+    description = "SegmentForSharedServices"
     require_attachment_acceptance = true
   }
 
@@ -324,7 +324,7 @@ data "aws_networkmanager_core_network_policy_document" "test" {
 
     action {
       association_method = "constant"
-      segment            = "shared"
+      segment   = "shared"
     }
   }
 }
@@ -336,7 +336,7 @@ func testAccVPCAttachmentConfig_basic(rName string) string {
 resource "aws_networkmanager_vpc_attachment" "test" {
   subnet_arns     = aws_subnet.test[*].arn
   core_network_id = aws_networkmanager_core_network_policy_attachment.test.core_network_id
-  vpc_arn         = aws_vpc.test.arn
+  vpc_arn= aws_vpc.test.arn
 }
 
 resource "aws_networkmanager_attachment_accepter" "test" {
@@ -351,7 +351,7 @@ func testAccVPCAttachmentConfig_tags1(rName, tagKey1, tagValue1 string) string {
 resource "aws_networkmanager_vpc_attachment" "test" {
   subnet_arns     = [aws_subnet.test[0].arn]
   core_network_id = aws_networkmanager_core_network_policy_attachment.test.core_network_id
-  vpc_arn         = aws_vpc.test.arn
+  vpc_arn= aws_vpc.test.arn
 
   tags = {
     %[1]q = %[2]q
@@ -370,7 +370,7 @@ func testAccVPCAttachmentConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagVal
 resource "aws_networkmanager_vpc_attachment" "test" {
   subnet_arns     = [aws_subnet.test[0].arn]
   core_network_id = aws_networkmanager_core_network_policy_attachment.test.core_network_id
-  vpc_arn         = aws_vpc.test.arn
+  vpc_arn= aws_vpc.test.arn
 
   tags = {
     %[1]q = %[2]q
@@ -390,11 +390,11 @@ func testAccVPCAttachmentConfig_updates(rName string, nSubnets int, applianceMod
 resource "aws_networkmanager_vpc_attachment" "test" {
   subnet_arns     = slice(aws_subnet.test[*].arn, 0, %[2]d)
   core_network_id = aws_networkmanager_core_network_policy_attachment.test.core_network_id
-  vpc_arn         = aws_vpc.test.arn
+  vpc_arn= aws_vpc.test.arn
 
   options {
     appliance_mode_support = %[3]t
-    ipv6_support           = %[4]t
+    ipv6_support  = %[4]t
   }
 
   tags = {

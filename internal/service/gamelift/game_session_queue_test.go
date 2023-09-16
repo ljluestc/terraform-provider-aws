@@ -31,11 +31,11 @@ func TestAccGameLiftGameSessionQueue_basic(t *testing.T) {
 	playerLatencyPolicies := []gamelift.PlayerLatencyPolicy{
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(100),
-			PolicyDurationSeconds:         aws.Int64(5),
+			PolicyDurationSeconds:aws.Int64(5),
 		},
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(200),
-			PolicyDurationSeconds:         nil,
+			PolicyDurationSeconds:nil,
 		},
 	}
 	timeoutInSeconds := int64(124)
@@ -44,11 +44,11 @@ func TestAccGameLiftGameSessionQueue_basic(t *testing.T) {
 	uPlayerLatencyPolicies := []gamelift.PlayerLatencyPolicy{
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(150),
-			PolicyDurationSeconds:         aws.Int64(10),
+			PolicyDurationSeconds:aws.Int64(10),
 		},
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(250),
-			PolicyDurationSeconds:         nil,
+			PolicyDurationSeconds:nil,
 		},
 	}
 	uTimeoutInSeconds := int64(600)
@@ -107,8 +107,8 @@ func TestAccGameLiftGameSessionQueue_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -141,8 +141,8 @@ func TestAccGameLiftGameSessionQueue_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -175,11 +175,11 @@ func TestAccGameLiftGameSessionQueue_disappears(t *testing.T) {
 	playerLatencyPolicies := []gamelift.PlayerLatencyPolicy{
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(100),
-			PolicyDurationSeconds:         aws.Int64(5),
+			PolicyDurationSeconds:aws.Int64(5),
 		},
 		{
 			MaximumIndividualPlayerLatencyMilliseconds: aws.Int64(200),
-			PolicyDurationSeconds:         nil,
+			PolicyDurationSeconds:nil,
 		},
 	}
 	timeoutInSeconds := int64(124)
@@ -261,16 +261,16 @@ func testAccGameSessionQueueConfig_basic(queueName string,
 	playerLatencyPolicies []gamelift.PlayerLatencyPolicy, timeoutInSeconds int64, customEventData string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_game_session_queue" "test" {
-  name         = "%s"
+  name= "%s"
   destinations = []
 
   player_latency_policy {
-    maximum_individual_player_latency_milliseconds = %d
-    policy_duration_seconds           = %d
+maximum_individual_player_latency_milliseconds = %d
+policy_duration_seconds  = %d
   }
 
   player_latency_policy {
-    maximum_individual_player_latency_milliseconds = %d
+maximum_individual_player_latency_milliseconds = %d
   }
 
   timeout_in_seconds = %d
@@ -289,22 +289,22 @@ resource "aws_gamelift_game_session_queue" "test" {
 func testAccGameSessionQueueConfig_basicTags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_game_session_queue" "test" {
-  name         = %[1]q
+  name= %[1]q
   destinations = []
 
   player_latency_policy {
-    maximum_individual_player_latency_milliseconds = 100000
-    policy_duration_seconds           = 10
+maximum_individual_player_latency_milliseconds = 100000
+policy_duration_seconds  = 10
   }
 
   player_latency_policy {
-    maximum_individual_player_latency_milliseconds = 100000
+maximum_individual_player_latency_milliseconds = 100000
   }
 
   timeout_in_seconds = 10
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -313,23 +313,23 @@ resource "aws_gamelift_game_session_queue" "test" {
 func testAccGameSessionQueueConfig_basicTags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_game_session_queue" "test" {
-  name         = %[1]q
+  name= %[1]q
   destinations = []
 
   player_latency_policy {
-    maximum_individual_player_latency_milliseconds = 100000
-    policy_duration_seconds           = 10
+maximum_individual_player_latency_milliseconds = 100000
+policy_duration_seconds  = 10
   }
 
   player_latency_policy {
-    maximum_individual_player_latency_milliseconds = 100000
+maximum_individual_player_latency_milliseconds = 100000
   }
 
   timeout_in_seconds = 10
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

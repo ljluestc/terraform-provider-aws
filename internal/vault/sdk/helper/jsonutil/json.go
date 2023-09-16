@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package jsonutilimport ("encoding/json""fmt""io")// Decodes/Unmarshals the given io.Reader pointing to a JSON, into a desired objectfunc
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagejsonutilimport("encoding/json""fmt""io")//Decodes/Unmarshalsthegivenio.ReaderpointingtoaJSON,intoadesiredobject

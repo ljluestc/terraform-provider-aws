@@ -37,8 +37,8 @@ MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
-"direction":            stringSchema(true, validation.StringInSlice(quicksight.SortDirection_Values(), false)),
-"sort_by":              columnSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+"direction":stringSchema(true, validation.StringInSlice(quicksight.SortDirection_Values(), false)),
+"sort_by":  columnSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 "aggregation_
 function": aggregation
 functionSchema(false), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation

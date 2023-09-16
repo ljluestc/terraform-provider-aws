@@ -18,10 +18,10 @@ ctx := acctest.Context(t)
 dataSourceName := "data.aws_outposts_outposts.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck:      acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil,
+CheckDestroy:    nil,
 Steps: []resource.TestStep{
 {
 Config: testAccOutpostsDataSourceConfig_basic(),

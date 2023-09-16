@@ -1,24 +1,14 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package lexmodels_test
-
-import (
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/lexmodelbuildingservice"
+// SPDX-License-Identifier: MPL-2.0package lexmodels_testimport (
+	"testing"	"github.com/aws/aws-sdk-go/service/lexmodelbuildingservice"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-func testAccBotAliasDataSource_basic(t *testing.T) {
+)func testAccBotAliasDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
 	dataSourceName := "data.aws_lex_bot_alias.test"
-	resourceName := "aws_lex_bot_alias.test"
-
-	// If this test runs in parallel with other Lex Bot tests, it loses its description
+	resourceName := "aws_lex_bot_alias.test"	// If this test runs in parallel with other Lex Bot tests, it loses its description
 	resource.Test(t, resource.TestCase{
 PreCheck: func() {
 	acctest.PreCheck(ctx, t)
@@ -47,9 +37,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	},
 },
 	})
-}
-
-func testAccBotAliasDataSourceConfig_basic() string {
+}func testAccBotAliasDataSourceConfig_basic() string {
 	return `
 data "aws_lex_bot_alias" "test" {
   name     = aws_lex_bot_alias.test.name

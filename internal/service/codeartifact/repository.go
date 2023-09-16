@@ -28,7 +28,7 @@ import (
 func ResourceRepository() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRepositoryCreate,
-		ReadWithoutTimeout:   resourceRepositoryRead,
+		ReadWithoutTimeout:resourceRepositoryRead,
 		UpdateWithoutTimeout: resourceRepositoryUpdate,
 		DeleteWithoutTimeout: resourceRepositoryDelete,
 		Importer: &schema.ResourceImporter{
@@ -37,84 +37,83 @@ func ResourceRepository() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"repository": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"domain": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"domain_owner": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Computed:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				ForceNew:true,
+				Computed:true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"upstream": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				MinItems: 1,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"repository_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 					},
 				},
 			},
 			"external_connections": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"external_connection_name": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 						},
 						"package_format": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 						"status": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"administrator_account": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceRepositoryCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
 
 	input := &codeartifact.CreateRepositoryInput{
 		Repository: aws.String(d.Get("repository").(string)),
-		Domain:     aws.String(d.Get("domain").(string)),
-		Tags:       getTagsIn(ctx),
+		Domain:aws.String(d.Get("domain").(string)),
+		Tags:gsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -141,8 +140,8 @@ func resourceRepositoryCreate(ctx context.Context, d *schema.ResourceData, meta 
 		externalConnection := v.([]interface{})[0].(map[string]interface{})
 		input := &codeartifact.AssociateExternalConnectionInput{
 			Domain:repo.DomainName,
-			Repository:         repo.Name,
-			DomainOwner:        repo.DomainOwner,
+			Repository:o.Name,
+			DomainOwner:.DomainOwner,
 			ExternalConnection: aws.String(externalConnection["external_connection_name"].(string)),
 		}
 
@@ -154,7 +153,6 @@ func resourceRepositoryCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceRepositoryRead(ctx, d, meta)...)
 }
-
 func resourceRepositoryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -165,7 +163,7 @@ func resourceRepositoryRead(ctx context.Context, d *schema.ResourceData, meta in
 	}
 	sm, err := conn.DescribeRepositoryWithContext(ctx, &codeartifact.DescribeRepositoryInput{
 		Repository:  aws.String(repo),
-		Domain:      aws.String(domain),
+		Domain:ring(domain),
 		DomainOwner: aws.String(owner),
 	})
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, codeartifact.ErrCodeResourceNotFoundException) {
@@ -200,7 +198,6 @@ func resourceRepositoryRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -209,7 +206,7 @@ func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	needsUpdate := false
 	params := &codeartifact.UpdateRepositoryInput{
 		Repository:  aws.String(d.Get("repository").(string)),
-		Domain:      aws.String(d.Get("domain").(string)),
+		Domain:ring(d.Get("domain").(string)),
 		DomainOwner: aws.String(d.Get("domain_owner").(string)),
 	}
 
@@ -238,9 +235,9 @@ func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta 
 		if v, ok := d.GetOk("external_connections"); ok {
 			externalConnection := v.([]interface{})[0].(map[string]interface{})
 			input := &codeartifact.AssociateExternalConnectionInput{
-				Repository:         aws.String(d.Get("repository").(string)),
+				Repository:.String(d.Get("repository").(string)),
 				Domain:aws.String(d.Get("domain").(string)),
-				DomainOwner:        aws.String(d.Get("domain_owner").(string)),
+				DomainOwner:String(d.Get("domain_owner").(string)),
 				ExternalConnection: aws.String(externalConnection["external_connection_name"].(string)),
 			}
 
@@ -252,9 +249,9 @@ func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta 
 			oldConn, _ := d.GetChange("external_connections")
 			externalConnection := oldConn.([]interface{})[0].(map[string]interface{})
 			input := &codeartifact.DisassociateExternalConnectionInput{
-				Repository:         aws.String(d.Get("repository").(string)),
+				Repository:.String(d.Get("repository").(string)),
 				Domain:aws.String(d.Get("domain").(string)),
-				DomainOwner:        aws.String(d.Get("domain_owner").(string)),
+				DomainOwner:String(d.Get("domain_owner").(string)),
 				ExternalConnection: aws.String(externalConnection["external_connection_name"].(string)),
 			}
 
@@ -267,7 +264,6 @@ func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceRepositoryRead(ctx, d, meta)...)
 }
-
 func resourceRepositoryDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -279,7 +275,7 @@ func resourceRepositoryDelete(ctx context.Context, d *schema.ResourceData, meta 
 	}
 	input := &codeartifact.DeleteRepositoryInput{
 		Repository:  aws.String(repo),
-		Domain:      aws.String(domain),
+		Domain:ring(domain),
 		DomainOwner: aws.String(owner),
 	}
 
@@ -295,7 +291,6 @@ func resourceRepositoryDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
-
 func expandUpstreams(l []interface{}) []*codeartifact.UpstreamRepository {
 	upstreams := []*codeartifact.UpstreamRepository{}
 
@@ -310,7 +305,6 @@ func expandUpstreams(l []interface{}) []*codeartifact.UpstreamRepository {
 
 	return upstreams
 }
-
 func flattenUpstreams(upstreams []*codeartifact.UpstreamRepositoryInfo) []interface{} {
 	if len(upstreams) == 0 {
 		return nil
@@ -328,7 +322,6 @@ func flattenUpstreams(upstreams []*codeartifact.UpstreamRepositoryInfo) []interf
 
 	return ls
 }
-
 func flattenExternalConnections(connections []*codeartifact.RepositoryExternalConnectionInfo) []interface{} {
 	if len(connections) == 0 {
 		return nil
@@ -339,8 +332,8 @@ func flattenExternalConnections(connections []*codeartifact.RepositoryExternalCo
 	for _, connection := range connections {
 		m := map[string]interface{}{
 			"external_connection_name": aws.StringValue(connection.ExternalConnectionName),
-			"package_format":           aws.StringValue(connection.PackageFormat),
-			"status":      aws.StringValue(connection.Status),
+			"package_format":ws.StringValue(connection.PackageFormat),
+			"status":ringValue(connection.Status),
 		}
 
 		ls = append(ls, m)
@@ -348,7 +341,6 @@ func flattenExternalConnections(connections []*codeartifact.RepositoryExternalCo
 
 	return ls
 }
-
 func DecodeRepositoryID(id string) (string, string, string, error) {
 	repoArn, err := arn.Parse(id)
 	if err != nil {

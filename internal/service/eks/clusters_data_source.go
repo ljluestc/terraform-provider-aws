@@ -21,9 +21,9 @@ func DataSourceClusters() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"names": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}

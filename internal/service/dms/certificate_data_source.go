@@ -27,15 +27,15 @@ func DataSourceCertificate() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"certificate_arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"certificate_creation_date": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"certificate_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ValidateFunc: validation.All(
 					validation.StringLenBetween(1, 255),
@@ -45,33 +45,33 @@ func DataSourceCertificate() *schema.Resource {
 				),
 			},
 			"certificate_owner": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"certificate_pem": {
-				Type:      schema.TypeString,
+				Type:schema.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},
 			"certificate_wallet": {
-				Type:      schema.TypeString,
+				Type:schema.TypeString,
 				Computed:  true,
 				Sensitive: true,
 			},
 			"key_length": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"signing_algorithm": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"valid_from_date": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"valid_to_date": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),
@@ -82,7 +82,6 @@ func DataSourceCertificate() *schema.Resource {
 const (
 	DSNameCertificate = "Certificate Data Source"
 )
-
 func dataSourceCertificateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).DMSConn(ctx)
 	defaultTagsConfig := meta.(*conns.AWSClient).DefaultTagsConfig
@@ -129,12 +128,11 @@ func dataSourceCertificateRead(ctx context.Context, d *schema.ResourceData, meta
 
 	return nil
 }
-
 func FindCertificateByID(ctx context.Context, conn *dms.DatabaseMigrationService, id string) (*dms.Certificate, error) {
 	input := &dms.DescribeCertificatesInput{
 		Filters: []*dms.Filter{
 			{
-				Name:   aws.String("certificate-id"),
+				Name:aws.String("certificate-id"),
 				Values: []*string{aws.String(id)},
 			},
 		},

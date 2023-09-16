@@ -22,7 +22,7 @@ func TestAccKafkaConnectCustomPluginDataSource_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:nc() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 		ErrorCheck:est.ErrorCheck(t, kafkaconnect.EndpointsID),
-		CheckDestroy:    nil,
+		CheckDestroy:nil,
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -46,10 +46,10 @@ resource "aws_mskconnect_custom_plugin" "test" {
   content_type = "ZIP"
 
   location {
-    s3 {
+s3 {
 et_arn = aws_s3_bucket.test.arn
 _key   = aws_s3_object.test.key
-    }
+}
   }
 }
 

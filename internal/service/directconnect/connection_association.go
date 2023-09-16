@@ -22,24 +22,23 @@ import (
 func ResourceConnectionAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceConnectionAssociationCreate,
-		ReadWithoutTimeout:   resourceConnectionAssociationRead,
+		ReadWithoutTimeout:resourceConnectionAssociationRead,
 		DeleteWithoutTimeout: resourceConnectionAssociationDelete,
 
 		Schema: map[string]*schema.Schema{
 			"connection_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"lag_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 		},
 	}
 }
-
 func resourceConnectionAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -48,7 +47,7 @@ func resourceConnectionAssociationCreate(ctx context.Context, d *schema.Resource
 	lagID := d.Get("lag_id").(string)
 	input := &directconnect.AssociateConnectionWithLagInput{
 		ConnectionId: aws.String(connectionID),
-		LagId:        aws.String(lagID),
+		LagId:String(lagID),
 	}
 
 	log.Printf("[DEBUG] Creating Direct Connect Connection LAG Association: %s", input)
@@ -62,7 +61,6 @@ func resourceConnectionAssociationCreate(ctx context.Context, d *schema.Resource
 
 	return diags
 }
-
 func resourceConnectionAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -82,7 +80,6 @@ func resourceConnectionAssociationRead(ctx context.Context, d *schema.ResourceDa
 
 	return diags
 }
-
 func resourceConnectionAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -92,11 +89,10 @@ func resourceConnectionAssociationDelete(ctx context.Context, d *schema.Resource
 	}
 	return diags
 }
-
 func deleteConnectionLAGAssociation(ctx context.Context, conn *directconnect.DirectConnect, connectionID, lagID string) error {
 	input := &directconnect.DisassociateConnectionFromLagInput{
 		ConnectionId: aws.String(connectionID),
-		LagId:        aws.String(lagID),
+		LagId:String(lagID),
 	}
 
 	_, err := tfresource.RetryWhen(ctx, connectionDisassociatedTimeout,

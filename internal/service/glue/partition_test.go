@@ -25,10 +25,10 @@ func TestAccGluePartition_basic(t *testing.T) {
 	resourceName := "aws_glue_partition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPartitionDestroy(ctx),
+		CheckDestroy:    testAccCheckPartitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPartitionConfig_basic(rName, parValue),
@@ -59,10 +59,10 @@ func TestAccGluePartition_multipleValues(t *testing.T) {
 	resourceName := "aws_glue_partition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPartitionDestroy(ctx),
+		CheckDestroy:    testAccCheckPartitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPartitionConfig_multiplePartValue(rName, parValue, parValue2),
@@ -89,10 +89,10 @@ func TestAccGluePartition_parameters(t *testing.T) {
 	resourceName := "aws_glue_partition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPartitionDestroy(ctx),
+		CheckDestroy:    testAccCheckPartitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPartitionConfig_parameters1(rName, parValue, "key1", "value1"),
@@ -135,10 +135,10 @@ func TestAccGluePartition_disappears(t *testing.T) {
 	resourceName := "aws_glue_partition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPartitionDestroy(ctx),
+		CheckDestroy:    testAccCheckPartitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPartitionConfig_basic(rName, parValue),
@@ -159,10 +159,10 @@ func TestAccGluePartition_Disappears_table(t *testing.T) {
 	resourceName := "aws_glue_partition.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPartitionDestroy(ctx),
+		CheckDestroy:    testAccCheckPartitionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPartitionConfig_basic(rName, parValue),
@@ -230,16 +230,16 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
-    bucket_columns            = ["bucket_column_1"]
+    bucket_columns   = ["bucket_column_1"]
     compressed = false
-    input_format              = "SequenceFileInputFormat"
+    input_format     = "SequenceFileInputFormat"
     location   = "my_location"
-    number_of_buckets         = 1
-    output_format             = "SequenceFileInputFormat"
+    number_of_buckets= 1
+    output_format    = "SequenceFileInputFormat"
     stored_as_sub_directories = false
 
     parameters = {
@@ -346,16 +346,16 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
-    bucket_columns            = ["bucket_column_1"]
+    bucket_columns   = ["bucket_column_1"]
     compressed = false
-    input_format              = "SequenceFileInputFormat"
+    input_format     = "SequenceFileInputFormat"
     location   = "my_location"
-    number_of_buckets         = 1
-    output_format             = "SequenceFileInputFormat"
+    number_of_buckets= 1
+    output_format    = "SequenceFileInputFormat"
     stored_as_sub_directories = false
 
     parameters = {

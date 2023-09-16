@@ -38,34 +38,34 @@ func testContactChannel_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContactChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckContactChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccContactChannelConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContactExists(ctx, contactResourceName),
-					testAccCheckContactChannelExists(ctx, channelResourceName),
-					resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
-					resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", acctest.DefaultEmailAddress),
-					resource.TestCheckResourceAttr(channelResourceName, "name", rName),
-					resource.TestCheckResourceAttr(channelResourceName, "type", "EMAIL"),
-					resource.TestCheckResourceAttrPair(channelResourceName, "contact_id", contactResourceName, "arn"),
-					acctest.MatchResourceAttrRegionalARN(channelResourceName, "arn", "ssm-contacts", regexache.MustCompile("contact-channel/test-contact-for-"+rName+"/.")),
-				),
+Config: testAccContactChannelConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContactExists(ctx, contactResourceName),
+	testAccCheckContactChannelExists(ctx, channelResourceName),
+	resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
+	resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", acctest.DefaultEmailAddress),
+	resource.TestCheckResourceAttr(channelResourceName, "name", rName),
+	resource.TestCheckResourceAttr(channelResourceName, "type", "EMAIL"),
+	resource.TestCheckResourceAttrPair(channelResourceName, "contact_id", contactResourceName, "arn"),
+	acctest.MatchResourceAttrRegionalARN(channelResourceName, "arn", "ssm-contacts", regexache.MustCompile("contact-channel/test-contact-for-"+rName+"/.")),
+),
 			},
 			{
-				ResourceName:      channelResourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      channelResourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 			{
-				// We need to explicitly test destroying this resource instead of just using CheckDestroy,
-				// because CheckDestroy will run after the replication set has been destroyed and destroying
-				// the replication set will destroy all other resources.
-				Config: testAccContactChannelConfig_none(),
-				Check:  testAccCheckContactChannelDestroy(ctx),
+// We need to explicitly test destroying this resource instead of just using CheckDestroy,
+// because CheckDestroy will run after the replication set has been destroyed and destroying
+// the replication set will destroy all other resources.
+Config: testAccContactChannelConfig_none(),
+Check:  testAccCheckContactChannelDestroy(ctx),
 			},
 		},
 	})
@@ -85,17 +85,17 @@ func testContactChannel_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContactChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckContactChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccContactChannelConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContactChannelExists(ctx, channelResourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssmcontacts.ResourceContactChannel(), channelResourceName),
-				),
-				ExpectNonEmptyPlan: true,
+Config: testAccContactChannelConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContactChannelExists(ctx, channelResourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssmcontacts.ResourceContactChannel(), channelResourceName),
+),
+ExpectNonEmptyPlan: true,
 			},
 		},
 	})
@@ -117,37 +117,37 @@ func testContactChannel_contactID(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContactChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckContactChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccContactChannelConfig_withTwoContacts(rName, testContactOneResourceName+".arn"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContactExists(ctx, testContactOneResourceName),
-					testAccCheckContactExists(ctx, testContactTwoResourceName),
-					testAccCheckContactChannelExists(ctx, channelResourceName),
-					resource.TestCheckResourceAttrPair(channelResourceName, "contact_id", testContactOneResourceName, "arn"),
-				),
+Config: testAccContactChannelConfig_withTwoContacts(rName, testContactOneResourceName+".arn"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContactExists(ctx, testContactOneResourceName),
+	testAccCheckContactExists(ctx, testContactTwoResourceName),
+	testAccCheckContactChannelExists(ctx, channelResourceName),
+	resource.TestCheckResourceAttrPair(channelResourceName, "contact_id", testContactOneResourceName, "arn"),
+),
 			},
 			{
-				ResourceName:      channelResourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      channelResourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 			{
-				Config: testAccContactChannelConfig_withTwoContacts(rName, testContactTwoResourceName+".arn"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContactExists(ctx, testContactOneResourceName),
-					testAccCheckContactExists(ctx, testContactTwoResourceName),
-					testAccCheckContactChannelExists(ctx, channelResourceName),
-					resource.TestCheckResourceAttrPair(channelResourceName, "contact_id", testContactTwoResourceName, "arn"),
-				),
+Config: testAccContactChannelConfig_withTwoContacts(rName, testContactTwoResourceName+".arn"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContactExists(ctx, testContactOneResourceName),
+	testAccCheckContactExists(ctx, testContactTwoResourceName),
+	testAccCheckContactChannelExists(ctx, channelResourceName),
+	resource.TestCheckResourceAttrPair(channelResourceName, "contact_id", testContactTwoResourceName, "arn"),
+),
 			},
 			{
-				ResourceName:      channelResourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      channelResourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 		},
 	})
@@ -171,39 +171,39 @@ func testContactChannel_deliveryAddress(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContactChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckContactChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccContactChannelConfig(rName, rName, "EMAIL", address1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContactExists(ctx, contactResourceName),
-					testAccCheckContactChannelExists(ctx, channelResourceName),
-					resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
-					resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", address1),
-					resource.TestCheckResourceAttr(channelResourceName, "type", "EMAIL"),
-				),
+Config: testAccContactChannelConfig(rName, rName, "EMAIL", address1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContactExists(ctx, contactResourceName),
+	testAccCheckContactChannelExists(ctx, channelResourceName),
+	resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
+	resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", address1),
+	resource.TestCheckResourceAttr(channelResourceName, "type", "EMAIL"),
+),
 			},
 			{
-				ResourceName:      channelResourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      channelResourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 			{
-				Config: testAccContactChannelConfig(rName, rName, "EMAIL", address2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContactExists(ctx, contactResourceName),
-					testAccCheckContactChannelExists(ctx, channelResourceName),
-					resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
-					resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", address2),
-					resource.TestCheckResourceAttr(channelResourceName, "type", "EMAIL"),
-				),
+Config: testAccContactChannelConfig(rName, rName, "EMAIL", address2),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContactExists(ctx, contactResourceName),
+	testAccCheckContactChannelExists(ctx, channelResourceName),
+	resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
+	resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", address2),
+	resource.TestCheckResourceAttr(channelResourceName, "type", "EMAIL"),
+),
 			},
 			{
-				ResourceName:      channelResourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      channelResourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 		},
 	})
@@ -225,35 +225,35 @@ func testContactChannel_name(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContactChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckContactChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccContactChannelConfig(rName1, "update-name-test", "EMAIL", acctest.DefaultEmailAddress),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContactExists(ctx, contactResourceName),
-					testAccCheckContactChannelExists(ctx, channelResourceName),
-					resource.TestCheckResourceAttr(channelResourceName, "name", rName1),
-				),
+Config: testAccContactChannelConfig(rName1, "update-name-test", "EMAIL", acctest.DefaultEmailAddress),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContactExists(ctx, contactResourceName),
+	testAccCheckContactChannelExists(ctx, channelResourceName),
+	resource.TestCheckResourceAttr(channelResourceName, "name", rName1),
+),
 			},
 			{
-				ResourceName:      channelResourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      channelResourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 			{
-				Config: testAccContactChannelConfig(rName2, "update-name-test", "EMAIL", acctest.DefaultEmailAddress),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContactExists(ctx, contactResourceName),
-					testAccCheckContactChannelExists(ctx, channelResourceName),
-					resource.TestCheckResourceAttr(channelResourceName, "name", rName2),
-				),
+Config: testAccContactChannelConfig(rName2, "update-name-test", "EMAIL", acctest.DefaultEmailAddress),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContactExists(ctx, contactResourceName),
+	testAccCheckContactChannelExists(ctx, channelResourceName),
+	resource.TestCheckResourceAttr(channelResourceName, "name", rName2),
+),
 			},
 			{
-				ResourceName:      channelResourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      channelResourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 		},
 	})
@@ -274,54 +274,54 @@ func testContactChannel_type(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccContactPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.SSMContactsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContactChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckContactChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccContactChannelConfig_defaultEmail(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContactExists(ctx, contactResourceName),
-					testAccCheckContactChannelExists(ctx, channelResourceName),
-					resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
-					resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", acctest.DefaultEmailAddress),
-					resource.TestCheckResourceAttr(channelResourceName, "type", "EMAIL"),
-				),
+Config: testAccContactChannelConfig_defaultEmail(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContactExists(ctx, contactResourceName),
+	testAccCheckContactChannelExists(ctx, channelResourceName),
+	resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
+	resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", acctest.DefaultEmailAddress),
+	resource.TestCheckResourceAttr(channelResourceName, "type", "EMAIL"),
+),
 			},
 			{
-				ResourceName:      channelResourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      channelResourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 			{
-				Config: testAccContactChannelConfig_defaultSMS(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContactExists(ctx, contactResourceName),
-					testAccCheckContactChannelExists(ctx, channelResourceName),
-					resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
-					resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", "+12065550100"),
-					resource.TestCheckResourceAttr(channelResourceName, "type", "SMS"),
-				),
+Config: testAccContactChannelConfig_defaultSMS(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContactExists(ctx, contactResourceName),
+	testAccCheckContactChannelExists(ctx, channelResourceName),
+	resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
+	resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", "+12065550100"),
+	resource.TestCheckResourceAttr(channelResourceName, "type", "SMS"),
+),
 			},
 			{
-				ResourceName:      channelResourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      channelResourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 			{
-				Config: testAccContactChannelConfig_defaultVoice(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContactExists(ctx, contactResourceName),
-					testAccCheckContactChannelExists(ctx, channelResourceName),
-					resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
-					resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", "+12065550199"),
-					resource.TestCheckResourceAttr(channelResourceName, "type", "VOICE"),
-				),
+Config: testAccContactChannelConfig_defaultVoice(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContactExists(ctx, contactResourceName),
+	testAccCheckContactChannelExists(ctx, channelResourceName),
+	resource.TestCheckResourceAttr(channelResourceName, "activation_status", "NOT_ACTIVATED"),
+	resource.TestCheckResourceAttr(channelResourceName, "delivery_address.0.simple_address", "+12065550199"),
+	resource.TestCheckResourceAttr(channelResourceName, "type", "VOICE"),
+),
 			},
 			{
-				ResourceName:      channelResourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
+ResourceName:      channelResourceName,
+ImportState:       true,
+ImportStateVerify: true,
 			},
 		},
 	})
@@ -333,27 +333,27 @@ func testAccCheckContactChannelDestroy(ctx context.Context) resource.TestCheckFu
 
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_ssmcontacts_contact_channel" {
-				continue
+continue
 			}
 
 			input := &ssmcontacts.GetContactChannelInput{
-				ContactChannelId: aws.String(rs.Primary.ID),
+ContactChannelId: aws.String(rs.Primary.ID),
 			}
 			_, err := conn.GetContactChannel(ctx, input)
 
 			if err != nil {
-				// Getting resources may return validation exception when the replication set has been destroyed
-				var ve *types.ValidationException
-				if errors.As(err, &ve) {
-					continue
-				}
+// Getting resources may return validation exception when the replication set has been destroyed
+var ve *types.ValidationException
+if errors.As(err, &ve) {
+	continue
+}
 
-				var nfe *types.ResourceNotFoundException
-				if errors.As(err, &nfe) {
-					continue
-				}
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	continue
+}
 
-				return err
+return err
 			}
 
 			return create.Error(names.SSMContacts, create.ErrActionCheckingDestroyed, tfssmcontacts.ResNameContactChannel, rs.Primary.ID, errors.New("not destroyed"))

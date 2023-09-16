@@ -37,17 +37,17 @@ func ResourceResource() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"group_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"resource_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"resource_type": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -61,7 +61,7 @@ func resourceResourceCreate(ctx context.Context, d *schema.ResourceData, meta in
 	resourceARN := d.Get("resource_arn").(string)
 	id := strings.Join([]string{strings.Split(strings.ToLower(groupARN), "/")[1], strings.Split(resourceARN, "/")[1]}, "_")
 	input := &resourcegroups.GroupResourcesInput{
-		Group:        aws.String(groupARN),
+		Group:aws.String(groupARN),
 		ResourceArns: aws.StringSlice([]string{resourceARN}),
 	}
 
@@ -112,7 +112,7 @@ func resourceResourceDelete(ctx context.Context, d *schema.ResourceData, meta in
 	resourceARN := d.Get("resource_arn").(string)
 	log.Printf("[INFO] Deleting Resource Groups Resource: %s", d.Id())
 	output, err := conn.UngroupResourcesWithContext(ctx, &resourcegroups.UngroupResourcesInput{
-		Group:        aws.String(groupARN),
+		Group:aws.String(groupARN),
 		ResourceArns: aws.StringSlice([]string{resourceARN}),
 	})
 

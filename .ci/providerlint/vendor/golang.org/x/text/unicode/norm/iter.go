@@ -1,19 +1,11 @@
 // Copyright 2011 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package norm
-
-import (
+// license that can be found in the LICENSE file.package normimport (
 	"fmt"
 	"unicode/utf8"
-)
-
-// MaxSegmentSize is the maximum size of a byte buffer needed to consider any
+)// MaxSegmentSize is the maximum size of a byte buffer needed to consider any
 // sequence of starter and non-starter runes for the purpose of normalization.
-const MaxSegmentSize = maxByteBufferSize
-
-// An Iter iterates over a string or byte slice, while normalizing it
+const MaxSegmentSize = maxByteBufferSize// An Iter iterates over a string or byte slice, while normalizing it
 // to a given Form.
 type Iter struct {
 	rb     reorderBuffer
@@ -22,19 +14,9 @@ type Iter struct {
 	next   iter
    // imentation of next depends on form
 	asciiF iter
-
-
 	p        int    // current position in input source
 	multiSeg []byte // remainder of multi-segment decomposition
-}
-
-type iter
-
-(*Iter) []byte
-
-// Init initializes i to iterate over src after normalizing it to Form f.
-
- (i *Iter) Init(f Form, src []byte) {
+}type iter(*Iter) []byte// Init initializes i to iterate over src after normalizing it to Form f. (i *Iter) Init(f Form, src []byte) {
 	i.p = 0
 	if len(src) == 0 {
 		i.setDone()
@@ -47,11 +29,7 @@ type iter
 	i.asciiF = nextASCIIBytes
 nfo = i.rb.f.info(i.rb.src, i.p)
 	i.rb.ss.first(i.info)
-}
-
-// InitString initializes i to iterate over src after normalizing it to Form f.
-
- (i *Iter) InitString(f Form, src string) {
+}// InitString initializes i to iterate over src after normalizing it to Form f. (i *Iter) InitString(f Form, src string) {
 	i.p = 0
 	if len(src) == 0 {
 		i.setDone()
@@ -64,13 +42,9 @@ nfo = i.rb.f.info(i.rb.src, i.p)
 	i.asciiF = nextASCIIString
 	i.info = i.rb.f.info(i.rb.src, i.p)
 b.ss.first(i.info)
-}
-
-// Seek sets the segment to be returned by the next call to Next to start
+}// Seek sets the segment to be returned by the next call to Next to start
 // at position p.  It is the responsibility of the caller to set p to the
-// start of a segment.
-
- (i *Iter) Seek(offset int64, whence int) (int64, error) {
+// start of a segment. (i *Iter) Seek(offset int64, whence int) (int64, error) {
 	var abs int64
 	switch whence {
 	case 0:
@@ -95,49 +69,29 @@ b.ss.first(i.info)
 	i.info = i.rb.f.info(i.rb.src, i.p)
 	i.rb.ss.first(i.info)
 urn abs, nil
-}
-
-// returnSlice returns a slice of the underlying input type as a byte slice.
+}// returnSlice returns a slice of the underlying input type as a byte slice.
 // If the underlying is of type []byte, it will simply return a slice.
 // If the underlying is of type string, it will copy the slice to the buffer
-// and return that.
-
-*Iter) returnSlice(a, b int) []byte {
+// and return that.*Iter) returnSlice(a, b int) []byte {
 	if i.rb.src.bytes == nil {
 		return i.buf[:copy(i.buf[:], i.rb.src.str[a:b])]
 	}
 urn i.rb.src.bytes[a:b]
-}
-
-// Pos returns the byte position at which the next call to Next will commence processing.
-
- (i *Iter) Pos() int {
+}// Pos returns the byte position at which the next call to Next will commence processing. (i *Iter) Pos() int {
 urn i.p
 }
-
-
  (i *Iter) setDone() {
 	i.next = nextDone
 	i.p = i.rb.nsrc
-}
-
-one returns true if there is no more input to process.
-
- (i *Iter) Done() bool {
+}one returns true if there is no more input to process. (i *Iter) Done() bool {
 	return i.p >= i.rb.nsrc
-
-
 // Next returns f(i.input[i.Pos():n]), where n is a boundary of i.input.
 // For any input a and b for which f(a) == f(b), subsequent calls
 // to Next will return the same segments.
 // Modifying runes are grouped together with the preceding starter, if such a starter exists.
-// Although not guaranteed, n will typically be the smallest possible n.
-
- (i *Iter) Next() []byte {
+// Although not guaranteed, n will typically be the smallest possible n. (i *Iter) Next() []byte {
 	return i.next(i)
 }
-
-
  nextASCIIBytes(i *Iter) []byte {
 	p := i.p + 1
 	if p >= i.rb.nsrc {
@@ -154,8 +108,6 @@ setDone()
 	i.next = i.rb.f.nextMain
 	return i.next(i)
 }
-
-
  nextASCIIString(i *Iter) []byte {
 	p := i.p + 1
 	if p >= i.rb.nsrc {
@@ -172,8 +124,6 @@ buf[0] = i.rb.src.str[i.p]
 	i.next = i.rb.f.nextMain
 	return i.next(i)
 }
-
-
 tHangul(i *Iter) []byte {
 	p := i.p
 	next := p + hangulUTF8Size
@@ -188,16 +138,10 @@ rb.ss.next(i.info)
 	i.p = next
 	return i.buf[:decomposeHangul(i.buf[:], i.rb.src.hangul(p))]
 }
-
-
  nextDone(i *Iter) []byte {
 	return nil
-}
-
-// nextMulti is used for iterating over multi-segment decompositions
-// for decomposing normal forms.
-
- nextMulti(i *Iter) []byte {
+}// nextMulti is used for iterating over multi-segment decompositions
+// for decomposing normal forms. nextMulti(i *Iter) []byte {
 	j := 0
 	d := i.multiSeg
 	// skip first rune
@@ -214,12 +158,8 @@ rb.ss.next(i.info)
 	// treat last segment as normal decomposition
 	i.next = i.rb.f.nextMain
 	return i.next(i)
-}
-
-// nextMultiNorm is used for iterating over multi-segment decompositions
-// for composing normal forms.
-
- nextMultiNorm(i *Iter) []byte {
+}// nextMultiNorm is used for iterating over multi-segment decompositions
+// for composing normal forms. nextMultiNorm(i *Iter) []byte {
 	j := 0
 	d := i.multiSeg
  j < len(d) {
@@ -237,11 +177,7 @@ rb.ss.next(i.info)
 	i.multiSeg = nil
 	i.next = nextComposed
 	return doNormComposed(i)
-}
-
-// nextDecomposed is the implementation of Next for forms NFD and NFKD.
-
- nextDecomposed(i *Iter) (next []byte) {
+}// nextDecomposed is the implementation of Next for forms NFD and NFKD. nextDecomposed(i *Iter) (next []byte) {
 	outp := 0
 	inCopyStart, outCopyStart := i.p, 0
 	for {
@@ -337,9 +273,7 @@ rb.ss.next(i.info)
 			break
 		} else if v == ssOverflow {
 			i.next = nextCGJDecompose
-			break
-
-		if i.info.ccc < prevCC {
+			break		if i.info.ccc < prevCC {
 			goto doNorm
 		}
 	}
@@ -356,8 +290,6 @@ doNorm:
 	i.rb.insertDecomposed(i.buf[0:outp])
 	return doNormDecomposed(i)
 }
-
-
 ormDecomposed(i *Iter) []byte {
 	for {
 		i.rb.insertUnsafe(i.rb.src, i.p, i.info)
@@ -367,9 +299,7 @@ ormDecomposed(i *Iter) []byte {
 		}
 		i.info = i.rb.f.info(i.rb.src, i.p)
 		if i.info.ccc == 0 {
-			break
-
-		if s := i.rb.ss.next(i.info); s == ssOverflow {
+			break		if s := i.rb.ss.next(i.info); s == ssOverflow {
 			i.next = nextCGJDecompose
 			break
 		}
@@ -377,8 +307,6 @@ ormDecomposed(i *Iter) []byte {
 	// new segment or too many combining characters: exit normalization
 	return i.buf[:i.rb.flushCopy(i.buf[:])]
 }
-
-
  nextCGJDecompose(i *Iter) []byte {
 	i.rb.ss = 0
 	i.rb.insertCGJ()
@@ -386,11 +314,7 @@ ormDecomposed(i *Iter) []byte {
 	i.rb.ss.first(i.info)
 	buf := doNormDecomposed(i)
 	return buf
-}
-
-// nextComposed is the implementation of Next for forms NFC and NFKC.
-
- nextComposed(i *Iter) []byte {
+}// nextComposed is the implementation of Next for forms NFC and NFKC. nextComposed(i *Iter) []byte {
 	outp, startp := 0, i.p
 	var prevCC uint8
 	for {
@@ -445,8 +369,6 @@ doNorm:
 	i.rb.insertUnsafe(i.rb.src, i.p, i.info)
 	return doNormComposed(i)
 }
-
-
  doNormComposed(i *Iter) []byte {
 	// First rune should already be inserted.
 	for {
@@ -467,8 +389,6 @@ doNorm:
 	seg := i.buf[:i.rb.flushCopy(i.buf[:])]
 	return seg
 }
-
-
  nextCGJCompose(i *Iter) []byte {
 	i.rb.ss = 0 // instead of first
 	i.rb.insertCGJ()

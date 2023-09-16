@@ -89,7 +89,7 @@ func TestAccLexModelsBot_Version_serial(t *testing.T) {
 t.Parallel()
 
 testCases := map[string]func(t *testing.T){
-"LexBot_createVersion":         testAccBot_createVersion,
+"LexBot_createVersion":testAccBot_createVersion,
 "LexBotAlias_botVersion":       testAccBotAlias_botVersion,
 "DataSourceLexBot_withVersion": testAccBotDataSource_withVersion,
 "DataSourceLexBotAlias_basic":  testAccBotAliasDataSource_basic,
@@ -819,7 +819,7 @@ func testAccBotConfig_intent(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   create_version = true
-  name           = "%s"
+  name  = "%s"
   fulfillment_activity {
     type = "ReturnIntent"
   }
@@ -834,7 +834,7 @@ func testAccBotConfig_intentMultiple(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   create_version = true
-  name           = "%[1]s"
+  name  = "%[1]s"
   fulfillment_activity {
     type = "ReturnIntent"
   }
@@ -845,7 +845,7 @@ resource "aws_lex_intent" "test" {
 
 resource "aws_lex_intent" "test_2" {
   create_version = true
-  name           = "%[1]stwo"
+  name  = "%[1]stwo"
   fulfillment_activity {
     type = "ReturnIntent"
   }
@@ -860,7 +860,7 @@ func testAccBotConfig_intentMultipleSecondUpdated(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   create_version = true
-  name           = "%[1]s"
+  name  = "%[1]s"
   fulfillment_activity {
     type = "ReturnIntent"
   }
@@ -871,7 +871,7 @@ resource "aws_lex_intent" "test" {
 
 resource "aws_lex_intent" "test_2" {
   create_version = true
-  name           = "%[1]stwo"
+  name  = "%[1]stwo"
   fulfillment_activity {
     type = "ReturnIntent"
   }
@@ -887,7 +887,7 @@ return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
   description    = "Bot to order flowers on the behalf of a user"
-  name           = "%s"
+  name  = "%s"
   abort_statement {
     message {
       content      = "Sorry, I'm not able to assist at this time"
@@ -929,7 +929,7 @@ return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
   description    = "Bot to order flowers on the behalf of a user"
-  name           = "%s"
+  name  = "%s"
   abort_statement {
     message {
       content      = "Sorry, I'm not able to assist at this time"
@@ -949,7 +949,7 @@ return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
   description    = "Bot to order flowers on the behalf of a user"
-  name           = "%s"
+  name  = "%s"
   abort_statement {
     message {
       content      = "Sorry, I'm not able to assist at this time"
@@ -976,7 +976,7 @@ return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
   description    = "Bot to order flowers on the behalf of a user"
-  name           = "%s"
+  name  = "%s"
   abort_statement {
     message {
       content      = "Sorry, I'm not able to assist at this time"
@@ -1003,7 +1003,7 @@ return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
   description    = "Bot to order flowers on the behalf of a user"
-  name           = "%s"
+  name  = "%s"
   abort_statement {
     message {
       content      = "Sorry, I'm not able to assist at this time"
@@ -1037,7 +1037,7 @@ return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = true
   description    = "Bot to order flowers on the behalf of a user"
-  name           = "%s"
+  name  = "%s"
   abort_statement {
     message {
       content      = "Sorry, I'm not able to assist at this time"
@@ -1057,7 +1057,7 @@ return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
   description    = "Bot to order flowers"
-  name           = "%s"
+  name  = "%s"
   abort_statement {
     message {
       content      = "Sorry, I'm not able to assist at this time"
@@ -1121,7 +1121,7 @@ resource "aws_lex_bot" "test" {
   child_directed = false
   description  = "Bot to order flowers on the behalf of a user"
   idle_session_ttl_in_seconds = 600
-  name         = "%s"
+  name= "%s"
   abort_statement {
     message {
       content      = "Sorry, I'm not able to assist at this time"
@@ -1141,7 +1141,7 @@ return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
   description    = "Bot to order flowers on the behalf of a user"
-  name           = "%s"
+  name  = "%s"
   abort_statement {
     message {
       content      = "Sorry, I'm not able to assist at this time"
@@ -1163,7 +1163,7 @@ resource "aws_lex_bot" "test" {
 func testAccBotConfig_localeUpdate(rName string) string {
 return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
-  child_directed            = false
+  child_directed   = false
   description= "Bot to order flowers on the behalf of a user"
   enable_model_improvements = true
   locale     = "en-GB"
@@ -1187,7 +1187,7 @@ return fmt.Sprintf(`
 resource "aws_lex_bot" "test" {
   child_directed = false
   description    = "Bot to order flowers on the behalf of a user"
-  name           = "%s"
+  name  = "%s"
   voice_id       = "Justin"
   abort_statement {
     message {

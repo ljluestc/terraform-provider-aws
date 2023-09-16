@@ -20,8 +20,8 @@ func TestAccNetworkManagerConnectionsDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -114,7 +114,7 @@ resource "aws_networkmanager_device" "test4" {
 
 resource "aws_networkmanager_connection" "test1" {
   global_network_id   = aws_networkmanager_global_network.test.id
-  device_id           = aws_networkmanager_device.test1.id
+  device_id  = aws_networkmanager_device.test1.id
   connected_device_id = aws_networkmanager_device.test2.id
 
   description = "%[1]s-1"
@@ -122,7 +122,7 @@ resource "aws_networkmanager_connection" "test1" {
 
 resource "aws_networkmanager_connection" "test2" {
   global_network_id   = aws_networkmanager_global_network.test.id
-  device_id           = aws_networkmanager_device.test3.id
+  device_id  = aws_networkmanager_device.test3.id
   connected_device_id = aws_networkmanager_device.test4.id
 
   description = "%[1]s-2"

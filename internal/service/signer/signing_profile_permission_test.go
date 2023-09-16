@@ -34,7 +34,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, signer.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSigningProfileDestroy(ctx),
+CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccSigningProfilePermissionConfig_basic(profileName),
@@ -46,8 +46,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            profileResourceName,
-ImportState:             true,
+ResourceName:   profileResourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"name_prefix"},
 	},
@@ -72,7 +72,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, signer.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSigningProfileDestroy(ctx),
+CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:  testAccSigningProfilePermissionConfig_getSP(profileName),
@@ -83,8 +83,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            profileResourceName,
-ImportState:             true,
+ResourceName:   profileResourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"name_prefix"},
 	},
@@ -118,7 +118,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, signer.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSigningProfileDestroy(ctx),
+CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSigningProfilePermissionConfig_startJobGetSP(profileName),
@@ -129,8 +129,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            profileResourceName,
-ImportState:             true,
+ResourceName:   profileResourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"name_prefix"},
 	},
@@ -156,7 +156,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, signer.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSigningProfileDestroy(ctx),
+CheckDestroy:    testAccCheckSigningProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSigningProfilePermissionConfig_statementPrefix(statementNamePrefix, profileName),
@@ -166,8 +166,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            profileResourceName,
-ImportState:             true,
+ResourceName:   profileResourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"name_prefix"},
 	},
@@ -211,8 +211,8 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_signer_signing_profile_permission" "sp1_perm" {
   profile_name        = aws_signer_signing_profile.test_sp.name
-  action              = "signer:StartSigningJob"
-  principal           = data.aws_caller_identity.current.account_id
+  action     = "signer:StartSigningJob"
+  principal  = data.aws_caller_identity.current.account_id
   statement_id_prefix = %[1]q
 }`, statementNamePrefix)
 }

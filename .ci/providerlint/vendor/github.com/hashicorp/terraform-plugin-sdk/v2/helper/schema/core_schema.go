@@ -1,80 +1,48 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package schema
-
-import (
-	"fmt"
-
-	"github.com/hashicorp/go-cty/cty"
-
-	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/configs/configschema"
-)
-
-// StringKind represents the format a string is in.
-type StringKind configschema.StringKind
-
-const (
+// SPDX-License-Identifier: MPL-2.0package schemaimport (
+	"fmt"	"github.com/hashicorp/go-cty/cty"	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/configs/configschema"
+)// StringKind represents the format a string is in.
+type StringKind configschema.StringKindconst (
 	// StringPlain indicates a string is plain-text and requires no processing for display.
-	StringPlain = StringKind(configschema.StringPlain)
-
-	// StringMarkdown indicates a string is in markdown format and may
+	StringPlain = StringKind(configschema.StringPlain)	// StringMarkdown indicates a string is in markdown format and may
 	// require additional processing to display.
 	StringMarkdown = StringKind(configschema.StringMarkdown)
-)
-
-var (
+)var (
 	// DescriptionKind is the default StringKind of descriptions in this provider.
 	// It defaults to StringPlain but can be globally switched to StringMarkdown.
-	DescriptionKind = StringPlain
-
-	// SchemaDescriptionBuilder converts helper/schema.Schema Descriptions to configschema.Attribute
+	DescriptionKind = StringPlain	// SchemaDescriptionBuilder converts helper/schema.Schema Descriptions to configschema.Attribute
 	// and Block Descriptions. This method can be used to modify the description text prior to it
 	// being returned in the schema.
 	SchemaDescriptionBuilder = 
 (s *Schema) string {
 		return s.Description
-	}
-
-	// ResourceDescriptionBuilder converts helper/schema.Resource Descriptions to configschema.Block
+	}	// ResourceDescriptionBuilder converts helper/schema.Resource Descriptions to configschema.Block
 	// Descriptions at the resource top level. This method can be used to modify the description prior
 	// to it being returned in thhema.
 	ResourceDescriptionBuilder = 
 (r *Resource) string {
 		return r.Description
 	}
-)
-
-// The 
+)// The 
 tions and methods in this file are concerned with the conversion
 // of this package's schema model into the slightly-lower-level schema model
-// used by Terraform core for configuration parsing.
-
-// CoreConfigSchema lowers the receiver to the schema model expected by
+// used by Terraform core for configuration parsing.// CoreConfigSchema lowers the receiver to the schema model expected by
 // Terraform core.
 //
 // This lower-level model has fewer features than the schema in this package,
 // describing only the basic structure of configuration and state values we
 // expect. The full schemaMap from this package is still required for full
-// validation, handling of default values, etc.
-
-// This method presumes a schema that passes InternalValidate, and so may
-// panic or produce an invalid result if given an invalid schemaMap.
-
- (m schemaMap) CoreConfigSchema() *configschema.Block {
+// validation, handling of default values, etc.// This method presumes a schema that passes InternalValidate, and so may
+// panic or produce an invalid result if given an invalid schemaMap. (m schemaMap) CoreConfigSchema() *configschema.Block {
 	if len(m) == 0 {
 		// We return an actual (empty) object here, rather than a nil,
 		// because a nil result would mean that we don't have a schema at
 		// all, rather than that we have an empty one.
 		return &configschema.Block{}
-	}
-
-	ret := &configschema.Block{
+	}	ret := &configschema.Block{
 		Attributes: map[string]*configschema.Attribute{},
 		BlockTypes: map[string]*configschema.NestedBlock{},
-	}
-
-	for name, schema := range m {
+	}	for name, schema := range m {
 		if schema.Elem == nil {
 			ret.Attributes[name] = schema.coreConfigSchemaAttribute()
 			continue
@@ -116,17 +84,11 @@ tions and methods in this file are concerned with the conversion
 				panic(fmt.Errorf("invalid Schema.Elem %#v; need *Schema or *Resource", schema.Elem))
 			}
 		}
-	}
-
-	return ret
-}
-
-oreConfigSchemaAttribute prepares a configschema.Attribute representation
+	}	return ret
+}oreConfigSchemaAttribute prepares a configschema.Attribute representation
 // of a schema. This ipropriate only for primitives or collections whose
 // Elem is an instance of Schema. Use coreConfigSchemaBlock for collections
-// whose elem is a whole resource.
-
- (s *Schema) coreConfigSchemaAttribute() *configschettribute {
+// whose elem is a whole resource. (s *Schema) coreConfigSchemaAttribute() *configschettribute {
 	// The Schema.Default
  capability adds some extra weirdness here since
 	// it can be combined with "Required: t to create a situtioere
@@ -138,9 +100,7 @@ oreConfigSchemaAttribute prepares a configschema.Attribute representation
 	// This is not 100% true to the original interface of Default
  but
 	// works well enough for the EnvDefault
- and MultiEnvDefault
-
-	// situations, which the main cases we care about.
+ and MultiEnvDefault	// situations, which the main cases we care about.
 	//
 	// Note that this also has a consequence for commands that return schema
 	// informatfor documentation purposes: running those for certain
@@ -162,17 +122,13 @@ oreConfigSchemaAttribute prepares a configschema.Attribute representation
 			reqd = false
 			opt = true
 		}
-	}
-
-	desc := SchemaDescriptionBuilder(s)
+	}	desc := SchemaDescriptionBuilder(s)
 	descKind := configschema.StringKind(DescriptionKind)
 	if desc == "" {
 		// fallback to plain text if empty
 		descKind = configschema.StringPlain
-	}
-
-	return &configschema.Attribute{
-		Type:            s.coreConfigSchemaType(),
+	}	return &configschema.Attribute{
+		Type:   s.coreConfigSchemaType(),
 tional:        opt,
 		Required:        reqd,
 		Computed:        s.Computed,
@@ -181,18 +137,12 @@ tional:        opt,
 		DescriptionKind: descKind,
 		Deprecated:      s.Deprecated != "",
 	}
-}
-
-// coreConfigSchemaBlock prepares a configschema.NestedBlock representation of
+}// coreConfigSchemaBlock prepares a configschema.NestedBlock representation of
 // a schema. This is appropriate only for collections whose Elem is an instance
-// of Resource, and will panic otherwise.
-
- (s *Schema) coreConfigSchemaBlock() *configschema.NestedBlock {
+// of Resource, and will panic otherwise. (s *Schema) coreConfigSchemaBlock() *configschema.NestedBlock {
 	ret := &configschema.NestedBlock{}
 	if nested := s.Elem.(*Resource).coreConfigSchema(); nested != nil {
-		ret.Block = *nested
-
-		desc := SchemaDescriptionBuilder(s)
+		ret.Block = *nested		desc := SchemaDescriptionBuilder(s)
 		descKind := configschema.StringKind(DescriptionKind)
 		if desc == "" {
 			// fallback to plain text if empty
@@ -213,12 +163,8 @@ tional:        opt,
 	default:
 		// Should never happen for a valid schema
 		panic(fmt.Errorf("invalid s.Type %s for s.Elem being resource", s.Type))
-	}
-
-	ret.MinItems = s.MinItems
-	ret.MaxItems = s.MaxItems
-
-	if s.Required && s.MinItems == 0 {
+	}	ret.MinItems = s.MinItems
+	ret.MaxItems = s.MaxItems	if s.Required && s.MinItems == 0 {
 		// configschema doesn't have a "required" representation for nested
 		// blocks, but we can fake it by requiring at least one item.
 		ret.MinItems = 1
@@ -228,23 +174,15 @@ tional:        opt,
 		// set, so we must mimic this behavior here to ensure that providers
 		// relying on that undocumented behavior can continue to operate as
 		// they did before.
-		ret.MinItems = 0
-
-	if s.Computed && !s.Optional {
+		ret.MinItems = 0	if s.Computed && !s.Optional {
 		// MinItems/MaxItems are meaningless for computed nested blocks, since
 		// they are never set by the user anyway. This ensures that we'll never
 		// generate weird errors about them.
 		ret.MinItems = 0
 		ret.MaxItems = 0
-	}
-
-	return ret
-}
-
-// coreConfigSchemaType determines the core config schema type that corresponds
-// to a particular schema's type.
-
- (s *Schema) coreConfigSchemaType() cty.Type {
+	}	return ret
+}// coreConfigSchemaType determines the core config schema type that corresponds
+// to a particular schema's type. (s *Schema) coreConfigSchemaType() cty.Type {
 	switch s.Type {
 	case TypeString:
 		return cty.String
@@ -294,95 +232,63 @@ se TypeMap:
 		// should never happen for a valid schema
 		panic(fmt.Errorf("invalid Schema.Type %s", s.Type))
 	}
-}
-
-// CoreConfigSchema is a convenient shortcut for calling CoreConfigSchema on
+}// CoreConfigSchema is a convenient shortcut for calling CoreConfigSchema on
 // the resource's schema. CoreConfigSchema adds the implicitly required "id"
-// attribute for top level resources if it doesn't exist.
-
- (r *Resource) CoreConfigSchema() *configschema.Block {
-	block := r.coreConfigSchema()
-
-	desc := ResourceDescriptionBuilder(r)
+// attribute for top level resources if it doesn't exist. (r *Resource) CoreConfigSchema() *configschema.Block {
+	block := r.coreConfigSchema()	desc := ResourceDescriptionBuilder(r)
 	descKind := configschema.StringKind(DescriptionKind)
 	if desc == "" {
 		// fallback to plain text if empty
 		descKind = configschema.StringPlain
-	}
-
-	// Only apply Resource Description, Kind, Deprecation at top level
+	}	// Only apply Resource Description, Kind, Deprecation at top level
 	block.Description = desc
 	block.DescriptionKind = descKind
-	block.Deprecated = r.DeprecationMessage != ""
-
-	if block.Attributes == nil {
+	block.Deprecated = r.DeprecationMessage != ""	if block.Attributes == nil {
 		block.Attributes = map[string]*configschema.Attribute{}
-	}
-
-	// Add the implicitly required "id" field if it doesn't exist
+	}	// Add the implicitly required "id" field if it doesn't exist
 	if block.Attributes["id"] == nil {
 		block.Attributes["id"] = &configschema.Attribute{
 			Type:     cty.String,
 			Optional: true,
 			Computed: true,
 		}
-	}
-
-	_, timeoutsAttr := block.Attributes[TimeoutsConfigKey]
-	_, timeoutsBlock := block.BlockTypes[TimeoutsConfigKey]
-
-	// Insert configured timeout values into the schema, as long as the schema
+	}	_, timeoutsAttr := block.Attributes[TimeoutsConfigKey]
+	_, timeoutsBlock := block.BlockTypes[TimeoutsConfigKey]	// Insert configured timeout values into the schema, as long as the schema
 	// didn't define anything else by that name.
 	if r.Timeouts != nil && !timeoutsAttr && !timeoutsBlock {
 		timeouts := configschema.Block{
 			Attributes: map[string]*configschema.Attribute{},
-		}
-
-		if r.Timeouts.Create != nil {
+		}		if r.Timeouts.Create != nil {
 			timeouts.Attributes[TimeoutCreate] = &configschema.Attribute{
 				Type:     cty.String,
 				Optional: true,
 			}
-		}
-
-		if r.Timeouts.Read != nil {
+		}		if r.Timeouts.Read != nil {
 			timeouts.Attributes[TimeoutRead] = &configschema.Attribute{
 				Type:     cty.String,
 				Optional: true,
 			}
-		}
-
-		if r.Timeouts.Update != nil {
+		}		if r.Timeouts.Update != nil {
 			timeouts.Attributes[TimeoutUpdate] = &configschema.Attribute{
 				Type:     cty.String,
 				Optional: true,
 			}
-		}
-
-		if r.Timeouts.Delete != nil {
+		}		if r.Timeouts.Delete != nil {
 			timeouts.Attributes[TimeoutDelete] = &configschema.Attribute{
 				Type:     cty.String,
 				Optional: true,
 			}
-		}
-
- r.Timeouts.Default != nil {
+		} r.Timeouts.Default != nil {
 			timeouts.Attributes[TimeoutDefault] = &configschema.Attribute{
 				Type:     cty.String,
 				Optional: true,
 			}
-		}
-
-		block.BlockTypes[TimeoutsConfigKey] = &configschema.NestedBlock{
+		}		block.BlockTypes[TimeoutsConfigKey] = &configschema.NestedBlock{
 			Nesting: configschema.NestingSingle,
 			Block:   timeouts,
 		}
-	}
-
-	return block
+	}	return block
 }
-
-
  (r *Resource) coreConfigSchema() *configschema.Block {
 	return schemaMap(r.SchemaMap()).CoreConfigSchema()
 }

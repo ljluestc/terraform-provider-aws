@@ -42,8 +42,8 @@ func TestAccKinesisStreamConsumer_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 			},
 		},
@@ -178,7 +178,7 @@ func testAccStreamConsumerExists(ctx context.Context, n string) resource.TestChe
 func testAccStreamConsumerBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name        = %q
+  name  = %q
   shard_count = 2
 }
 `, rName)
@@ -189,7 +189,7 @@ func testAccStreamConsumerConfig_basic(rName string) string {
 		testAccStreamConsumerBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_kinesis_stream_consumer" "test" {
-  name       = %q
+  name = %q
   stream_arn = aws_kinesis_stream.test.arn
 }
 `, rName))
@@ -200,8 +200,8 @@ func testAccStreamConsumerConfig_multiple(rName string, count int) string {
 		testAccStreamConsumerBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_kinesis_stream_consumer" "test" {
-  count      = %d
-  name       = "%s-${count.index}"
+  count= %d
+  name = "%s-${count.index}"
   stream_arn = aws_kinesis_stream.test.arn
 }
 `, count, rName))

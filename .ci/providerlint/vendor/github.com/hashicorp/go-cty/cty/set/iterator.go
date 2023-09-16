@@ -1,17 +1,1 @@
-package set
-
-type Iterator struct {
-	vals []interface{}
-	idx  int
-}
-
-
- *Iterator) Value() interface{} {
-	return it.vals[it.idx]
-}
-
-
- *Iterator) Next() bool {
-	it.idx++
-	return it.idx < len(it.vals)
-}
+package settype Iterator struct {	vals []interface{}	idx  int} *Iterator) Value() interface{} {	return it.vals[it.idx]} *Iterator) Next() bool {	it.idx++	return it.idx < len(it.vals)}

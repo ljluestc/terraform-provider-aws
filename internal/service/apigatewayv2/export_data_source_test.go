@@ -70,13 +70,13 @@ resource "aws_apigatewayv2_integration" "test" {
   integration_type = "HTTP_PROXY"
 
   integration_method = "GET"
-  integration_uri    = "https://example.com"
+  integration_uri= "https://example.com"
 }
 
 resource "aws_apigatewayv2_route" "test" {
-  api_id    = aws_apigatewayv2_api.test.id
+  api_id= aws_apigatewayv2_api.test.id
   route_key = "GET /test"
-  target    = "integrations/${aws_apigatewayv2_integration.test.id}"
+  target= "integrations/${aws_apigatewayv2_integration.test.id}"
 }
 `, rName)
 }
@@ -108,7 +108,7 @@ data "aws_apigatewayv2_export" "test" {
   api_idaws_apigatewayv2_api.test.id
   specification = "OAS30"
   output_type   = "JSON"
-  stage_name    = aws_apigatewayv2_stage.test.name
+  stage_name= aws_apigatewayv2_stage.test.name
 }
 `, rName))
 }

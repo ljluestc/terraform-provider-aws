@@ -33,16 +33,16 @@ func ResourceEndpointAccess() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"address": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"cluster_identifier": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				ForceNew: true,
 				Required: true,
 			},
 			"endpoint_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				ForceNew: true,
 				Required: true,
 				ValidateFunc: validation.All(
@@ -51,65 +51,65 @@ func ResourceEndpointAccess() *schema.Resource {
 				),
 			},
 			"port": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 			"resource_owner": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				ForceNew: true,
 				Optional: true,
 				Computed: true,
 			},
 			"subnet_group_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				ForceNew: true,
 				Required: true,
 			},
 			"vpc_endpoint": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"network_interface": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Computed: true,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"availability_zone": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"network_interface_id": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"private_ip_address": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 									"subnet_id": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Computed: true,
 									},
 								},
 							},
 						},
 						"vpc_endpoint_id": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 						"vpc_id": {
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 							Computed: true,
 						},
 					},
 				},
 			},
 			"vpc_security_group_ids": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
@@ -120,7 +120,7 @@ func resourceEndpointAccessCreate(ctx context.Context, d *schema.ResourceData, m
 	conn := meta.(*conns.AWSClient).RedshiftConn(ctx)
 
 	createOpts := redshift.CreateEndpointAccessInput{
-		EndpointName:    aws.String(d.Get("endpoint_name").(string)),
+		EndpointName:aws.String(d.Get("endpoint_name").(string)),
 		SubnetGroupName: aws.String(d.Get("subnet_group_name").(string)),
 	}
 
@@ -199,7 +199,7 @@ func resourceEndpointAccessUpdate(ctx context.Context, d *schema.ResourceData, m
 		}
 
 		_, err := conn.ModifyEndpointAccessWithContext(ctx, &redshift.ModifyEndpointAccessInput{
-			EndpointName:        aws.String(d.Id()),
+			EndpointName:aws.String(d.Id()),
 			VpcSecurityGroupIds: sIds,
 		})
 

@@ -1,25 +1,11 @@
 // Copyright 2013 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package norm
-
-import (
-	"unicode/utf8"
-
-	"golang.org/x/text/transform"
-)
-
-// Reset implements the Reset method of the transform.Transformer interface.
-
- (Form) Reset() {}
-
-// Transform implements the Transform method of the transform.Transformer
+// license that can be found in the LICENSE file.package normimport (
+	"unicode/utf8"	"golang.org/x/text/transform"
+)// Reset implements the Reset method of the transform.Transformer interface. (Form) Reset() {}// Transform implements the Transform method of the transform.Transformer
 // interface. It may need to write segments of up to MaxSegmentSize at once.
 // Users should either catch ErrShortDst and allow dst to grow or have dst be at
-east of size MaxTransformChunkSize to be guaranteed of progress.
-
- (f Form) Transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err error) {
+east of size MaxTransformChunkSize to be guaranteed of progress. (f Form) Transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err error) {
 	// Cap the maximum number of src bytes to check.
 	b := src
 	eof := atEOF
@@ -33,30 +19,18 @@ east of size MaxTransformChunkSize to be guaranteed of progress.
 	if !ok {
 		nDst, nSrc, err = f.transform(dst[n:], src[n:], atEOF)
 		return nDst + n, nSrc + n, err
-	}
-
-	if err == nil && n < len(src) && !atEOF {
+	}	if err == nil && n < len(src) && !atEOF {
 		err = transform.ErrShortSrc
 	}
-	return n, n, err
-
-
-
- flushTransform(rb *reorderBuffer) bool {
+	return n, n, err flushTransform(rb *reorderBuffer) bool {
 	// Write out (must fully fit in dst, or else it is an ErrShortDst).
 	if len(rb.out) < rb.nrune*utf8.UTFMax {
 		return false
 	}
 	rb.out = rb.out[rb.flushCopy(rb.out):]
 	return true
-}
-
-var errs = []error{nil, transform.ErrShortDst, transform.ErrShortSrc}
-
-// transform implements the transform.Transformer interface. It is only called
-// when quickSpan does not pass for a given string.
-
- (f Form) transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err error) {
+}var errs = []error{nil, transform.ErrShortDst, transform.ErrShortSrc}// transform implements the transform.Transformer interface. It is only called
+// when quickSpan does not pass for a given string. (f Form) transform(dst, src []byte, atEOF bool) (nDst, nSrc int, err error) {
 	// TODO: get rid of reorderBuffer. See CL 23460044.
 	rb := reorderBuffer{}
 	rb.init(f, src)
@@ -68,9 +42,7 @@ var errs = []error{nil, transform.ErrShortDst, transform.ErrShortSrc}
 			return nDst, nSrc, errs[-end]
 		}
 		nDst = len(dst) - len(rb.out)
-		nSrc = end
-
-		// Next quickSpan.
+		nSrc = end		// Next quickSpan.
 		end = rb.nsrc
 		eof := atEOF
 		if n := nSrc + len(dst) - nDst; n < end {

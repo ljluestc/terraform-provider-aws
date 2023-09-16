@@ -17,7 +17,6 @@ import (
 	tfkms "github.com/hashicorp/terraform-provider-aws/internal/service/kms"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccKMSGrant_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_grant.test"
@@ -50,7 +49,6 @@ ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 },
 	})
 }
-
 func TestAccKMSGrant_withConstraints(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_grant.test"
@@ -99,7 +97,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccKMSGrant_withRetiringPrincipal(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_grant.test"
@@ -127,7 +124,6 @@ ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 },
 	})
 }
-
 func TestAccKMSGrant_bare(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_grant.test"
@@ -157,7 +153,6 @@ ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 },
 	})
 }
-
 func TestAccKMSGrant_arn(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_grant.test"
@@ -190,7 +185,6 @@ ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 },
 	})
 }
-
 func TestAccKMSGrant_asymmetricKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_grant.test"
@@ -217,7 +211,6 @@ ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 },
 	})
 }
-
 func TestAccKMSGrant_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_grant.test"
@@ -240,7 +233,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccKMSGrant_crossAccountARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_grant.test"
@@ -276,7 +268,6 @@ ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 },
 	})
 }
-
 func TestAccKMSGrant_service(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_grant.test"
@@ -311,7 +302,6 @@ ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 },
 	})
 }
-
 func testAccCheckGrantDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).KMSConn(ctx)
@@ -343,7 +333,6 @@ return err
 return nil
 	}
 }
-
 func testAccCheckGrantExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[n]
@@ -368,7 +357,6 @@ _, err = tfkms.FindGrantByTwoPartKey(ctx, conn, keyID, grantID)
 return err
 	}
 }
-
 func testAccGrantConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -395,7 +383,6 @@ resource "aws_iam_role" "test" {
 }
 `, rName)
 }
-
 func testAccGrantConfig_basic(rName string, operations string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
@@ -406,7 +393,6 @@ resource "aws_kms_grant" "test" {
 }
 `, rName, operations))
 }
-
 func testAccGrantConfig_constraints(rName string, constraintName string, encryptionContext string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
@@ -423,7 +409,6 @@ resource "aws_kms_grant" "test" {
 }
 `, rName, constraintName, encryptionContext))
 }
-
 func testAccGrantConfig_retiringPrincipal(rName string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
@@ -435,7 +420,6 @@ resource "aws_kms_grant" "test" {
 }
 `, rName))
 }
-
 func testAccGrantConfig_bare(rName string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), `
 resource "aws_kms_grant" "test" {
@@ -445,7 +429,6 @@ resource "aws_kms_grant" "test" {
 }
 `)
 }
-
 func testAccGrantConfig_arn(rName string, operations string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
@@ -456,7 +439,6 @@ resource "aws_kms_grant" "test" {
 }
 `, rName, operations))
 }
-
 func testAccGrantConfig_asymmetricKey(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
@@ -493,7 +475,6 @@ resource "aws_iam_role" "test" {
 }
 `, rName)
 }
-
 func testAccGrantConfig_crossAccountARN(rName string, operations string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -531,7 +512,6 @@ resource "aws_kms_grant" "test" {
 }
 `, rName, operations))
 }
-
 func testAccGrantConfig_service(rName string, operations string, servicePrincipal string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {

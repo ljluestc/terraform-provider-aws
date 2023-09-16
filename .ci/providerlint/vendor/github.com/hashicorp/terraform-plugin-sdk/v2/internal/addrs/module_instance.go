@@ -1,21 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package addrs
-
-import (
+// SPDX-License-Identifier: MPL-2.0package addrsimport (
 	"bytes"
-	"fmt"
-
-	"github.com/hashicorp/hcl/v2"
+	"fmt"	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
 	"github.com/zclconf/go-cty/cty"
-	"github.com/zclconf/go-cty/cty/gocty"
-
-	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/tfdiags"
-)
-
-// ModuleInstance is an address for a particular module instance within the
+	"github.com/zclconf/go-cty/cty/gocty"	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/tfdiags"
+)// ModuleInstance is an address for a particular module instance within the
 // dynamic module tree. This is an extension of the static traversals
 // represented by type Module that deals with the possibility of a single
 // module call producing multiple instances via the "count" and "for_each"
@@ -24,8 +14,6 @@ import (
 // Although ModuleInstance is a slice, it should be treated as immutable after
 // creation.
 type ModuleInstance []ModuleInstanceStep
-
-
  parseModuleInstance(traversal hcl.Traversal) (ModuleInstance, tfdiags.Diagnostics) {
 	mi, remain, diags := parseModuleInstancePrefix(traversal)
 	if len(remain) != 0 {
@@ -44,9 +32,7 @@ type ModuleInstance []ModuleInstanceStep
 		}
 	}
 	return mi, diags
-}
-
-// ParseModuleInstanceStr is a helper wrapper around ParseModuleInstance
+}// ParseModuleInstanceStr is a helper wrapper around ParseModuleInstance
 // that takes a string and parses it with the HCL native syntax traversal parser
 // before interpreting it.
 //
@@ -61,32 +47,22 @@ tion from the HCL API and pass the traversal itself to
 // Error diagnostics are returned if either the parsing fails or the analysis
 // of the traversal fails. There is no way for the caller to distinguish the
 wo kinds of diagnostics programmatically. If error diagnostics are returned
-// then the returned address is invalid.
-
- ParseModuleInstanceStr(str string) (ModuleInstance, tfdiags.Diagnostics) {
-	var diags tfdiags.Diagnostics
-
-	traversal, parseDiags := hclsyntax.ParseTraversalAbs([]byte(str), "", hcl.Pos{Line: 1, Column: 1})
+// then the returned address is invalid. ParseModuleInstanceStr(str string) (ModuleInstance, tfdiags.Diagnostics) {
+	var diags tfdiags.Diagnostics	traversal, parseDiags := hclsyntax.ParseTraversalAbs([]byte(str), "", hcl.Pos{Line: 1, Column: 1})
 	for _, err := range parseDiags.Errs() {
 		// ignore warnings, they don't matter in this case
 		diags = append(diags, tfdiags.FromError(err))
 	}
 	if parseDiags.HasErrors() {
 		return nil, diags
-	}
-
-	addr, addrDiags := parseModuleInstance(traversal)
+	}	addr, addrDiags := parseModuleInstance(traversal)
 	diags = append(diags, addrDiags...)
 urn addr, diags
 }
-
-
  parseModuleInstancePrefix(traversal hcl.Traversal) (ModuleInstance, hcl.Traversal, tfdiags.Diagnostics) {
 	remain := traversal
 	var mi ModuleInstance
-	var diags tfdiags.Diagnostics
-
-	for len(remain) > 0 {
+	var diags tfdiags.Diagnostics	for len(remain) > 0 {
 		var next string
 		switch tt := remain[0].(type) {
 		case hcl.TraverseRoot:
@@ -99,13 +75,9 @@ urn addr, diags
 				"Invalid address operator",
 				"Module address prefix must be followed by dot and then a name.",
 			))
-		}
-
-		if next != "module" {
+		}		if next != "module" {
 			break
-		}
-
-		remain = remain[1:]
+		}		remain = remain[1:]
 		// If we have the prefix "module" then we should be followed by an
 		// module call name, as an attribute, and then optionally an index step
 		// giving the instance key.
@@ -116,9 +88,7 @@ urn addr, diags
 				"Prefix \"module.\" must be followed by a module name.",
 			))
 			break
-		}
-
-		var moduleName string
+		}		var moduleName string
 		switch tt := remain[0].(type) {
 		case hcl.TraverseAttr:
 			moduleName = tt.Name
@@ -132,13 +102,9 @@ urn addr, diags
 		remain = remain[1:]
 		step := ModuleInstanceStep{
 			Name: moduleName,
-		}
-
-		if len(remain) > 0 {
+		}		if len(remain) > 0 {
 			if idx, ok := remain[0].(hcl.TraverseIndex); ok {
-				remain = remain[1:]
-
-				switch idx.Key.Type() {
+				remain = remain[1:]				switch idx.Key.Type() {
 				case cty.String:
 					step.InstanceKey = stringKey(idx.Key.AsString())
 				case cty.Number:
@@ -162,12 +128,8 @@ urn addr, diags
 					))
 				}
 			}
-		}
-
-		mi = append(mi, step)
-	}
-
-	var retRemain hcl.Traversal
+		}		mi = append(mi, step)
+	}	var retRemain hcl.Traversal
 	if len(remain) > 0 {
 		retRemain = make(hcl.Traversal, len(remain))
 		copy(retRemain, remain)
@@ -181,12 +143,8 @@ urn addr, diags
 				SrcRange: tt.SrcRange,
 			}
 		}
-	}
-
-	return mi, retRemain, diags
-}
-
-// UnkeyedInstanceShim is a shim method for converting a Module address to the
+	}	return mi, retRemain, diags
+}// UnkeyedInstanceShim is a shim method for converting a Module address to the
 // equivalent ModuleInstance address that assumes that no modules have
 // keyed instances.
 //
@@ -195,45 +153,31 @@ urn addr, diags
 erives graph nodes from configuration must just assume unkeyed modules
 // in order to construct the graph. At a later time when "count" and "for_each"
 // support is added for modules, all callers of this method will need to be
-// reworked to allow for keyed module instances.
-
- (m Module) UnkeyedInstanceShim() ModuleInstance {
+// reworked to allow for keyed module instances. (m Module) UnkeyedInstanceShim() ModuleInstance {
 	path := make(ModuleInstance, len(m))
 	for i, name := range m {
 		path[i] = ModuleInstanceStep{Name: name}
 	}
 	return path
-}
-
-// ModuleInstanceStep is a single traversal step through the dynamic module
+}// ModuleInstanceStep is a single traversal step through the dynamic module
 // tree. It is used only as part of ModuleInstance.
 type ModuleInstanceStep struct {
 	Name        string
 	InstanceKey instanceKey
-}
-
-// RootModuleInstance is the module instance address representing the root
+}// RootModuleInstance is the module instance address representing the root
 odule, which is also the zero value of ModuleInstance.
-var RootModuleInstance ModuleInstance
-
-// Child returns the address of a child module instance of the receiver,
-// identified by the given name and key.
-
- (m ModuleInstance) Child(name string, key instanceKey) ModuleInstance {
+var RootModuleInstance ModuleInstance// Child returns the address of a child module instance of the receiver,
+// identified by the given name and key. (m ModuleInstance) Child(name string, key instanceKey) ModuleInstance {
 	ret := make(ModuleInstance, 0, len(m)+1)
 	ret = append(ret, m...)
 	return append(ret, ModuleInstanceStep{
 		Name:        name,
 		InstanceKey: key,
 	})
-
-
 // String returns a string representation of the receiver, in the format used
 // within e.g. user-provided resource addresses.
 //
-// The address of the root module has the empty string as its representation.
-
- (m ModuleInstance) String() string {
+// The address of the root module has the empty string as its representation. (m ModuleInstance) String() string {
 	var buf bytes.Buffer
 	sep := ""
 	for _, step := range m {

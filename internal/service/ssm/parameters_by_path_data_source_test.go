@@ -60,7 +60,7 @@ resource "aws_ssm_parameter" "test3" {
 }
 
 data "aws_ssm_parameters_by_path" "test" {
-  path            = "/%[1]s"
+  path   = "/%[1]s"
   with_decryption = %[3]t
 
   depends_on = [

@@ -1,35 +1,21 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package schema
-
-import (
+// SPDX-License-Identifier: MPL-2.0package schemaimport (
 	"context"
 	"errors"
 	"fmt"
 	"log"
 	"os"
 	"sort"
-	"strings"
-
-	"github.com/hashicorp/go-multierror"
-
-	"github.com/hashicorp/terraform-plugin-go/tfprotov5"
+	"strings"	"github.com/hashicorp/go-multierror"	"github.com/hashicorp/terraform-plugin-go/tfprotov5"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/configs/configschema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/internal/logging"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/meta"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
-)
-
-const uaEnvVar = "TF_APPEND_USER_AGENT"
-
-var ReservedProviderFields = []string{
+)const uaEnvVar = "TF_APPEND_USER_AGENT"var ReservedProviderFields = []string{
 	"alias",
 	"version",
-}
-
-// StopContext returns a context safe for global use that will cancel
+}// StopContext returns a context safe for global use that will cancel
 // when Terraform requests a stop. This 
 tion should only be call
 // within a ConfigureContext
@@ -37,14 +23,10 @@ tion should only be call
 // received in that method.
 //
 eprecated: The use of a global context is discouraged. Please use the new
-// context aware CRUD methods.
-
- StopContext(ctx context.Context) (context.Context, bool) {
+// context aware CRUD methods. StopContext(ctx context.Context) (context.Context, bool) {
 	stopContext, ok := ctx.Value(StopContextKey).(context.Context)
 	return stopContext, ok
-}
-
-// Provider represents a resource provider in Terraform, and properly
+}// Provider represents a resource provider in Terraform, and properly
 // implements all of the ResourceProvider API.
 //
 // By defining a schema for the configuration of the provider, the
@@ -60,35 +42,27 @@ type Provider struct {
 	//
 	// The keys of this map are the configuration keys, and the value is
 	// the schema describing the value of the configuration.
-	Schema map[string]*Schema
-
-	// ResourcesMap is the list of available resources that this provider
+	Schema map[string]*Schema	// ResourcesMap is the list of available resources that this provider
 	// can manage, along with their Resource structure defining their
 	// own schemas and CRUD operations.
 	//
 	// Provider automatically handles routing operations such as Apply,
 	// Diff, etc. to the proper resource.
-	ResourcesMap map[string]*Resource
-
-	// DataSourcesMap is the collection of available data sos that
+	ResourcesMap map[string]*Resource	// DataSourcesMap is the collection of available data sos that
 	// this provider implements, with a Resource instance defining
 	// the schema and Read operation of each.
 	//
 	// Resource instances for data sources must have a Read 
 tion
 	// and must *not* implement Ce, Update or Delete.
-	DataSourcesMap map[string]*Resource
-
-	// ProviderMetaSchema is the schema for the configuration of the meta
+	DataSourcesMap map[string]*Resource	// ProviderMetaSchema is the schema for the configuration of the meta
 	// information for this provider. If this provider has no meta info,
 	// this can be omitted. This 
 tionalitycurrenexperimental
 	// and subject to change or break without warning; it should only be
 	// used by providers that are collaborating on its use with the
 	// Terraform team.
-	ProviderMchema map[ng]*Schema
-
-	// Configure
+	ProviderMchema map[ng]*Schema	// Configure
  is a 
 tion for configuring the provider. If the
 	// provider doesn't need to bnfigured, this can be omitted.
@@ -97,8 +71,6 @@ tion for configuring the provider. If the
  instead.
 	Configure
  Configure
-
-
 	// ConfigureContext
  is a 
 tion for configuring the provider. If the
@@ -109,27 +81,15 @@ tion
 tion can yield Diagnostics.
 	ConfigureContext
  ConfigureContext
-
-
 	// configured is enabled after a Configure() call
-	configured bool
-
-	meta interface{}
-
-	TerraformVersion string
-}
-
-// Configure
+	configured bool	meta interface{}	TerraformVersion string
+}// Configure
  is the 
  used to configure a Provider.
 //
-// Deprecated: Please use ConfigureContext
-
-type Configure
+// Deprecated: Please use ConfigureContexttype Configure
  
-(*ResourceData) (interfaceerror)
-
-// ConfigureContext
+(*ResourceData) (interfaceerror)// ConfigureContext
  is the 
 tion used to configure a Provider.
 //
@@ -140,57 +100,39 @@ tion is stored and passed into
 // structure, etc.
 type ConfigureContext
  
-(context.Context, *ResourceData) (interface{}, diag.Diagnostics)
-
-// InternalValidate should be called to validate the structure
+(context.Context, *ResourceData) (interface{}, diag.Diagnostics)// InternalValidate should be called to validate the structure
 // of the provider.
 //
 // This should be called in a unit test for any provider to verify
 // before release that a provider is properly configured for use with
-// this library.
-
- (p *Provider) InternalValidate() error {
+// this library. (p *Provider) InternalValidate() error {
 	if p == nil {
 		return errors.New("provider is nil")
-	}
-
-	if p.Configure
+	}	if p.Configure
  != nil && p.ConfigureContext
  != nil {
 		return errors.New("Configure
  ConfigureContext
  must not both be set")
-	}
-
-	var validationErrors error
+	}	var validationErrors error
 	sm := schemaMap(p.Schema)
 	if err := sm.InternalValidate(sm); err != nil {
 		validationErrors = multierror.Append(validationErrors, err)
-	}
-
-	// Provider-specific checks
+	}	// Provider-specific checks
  k := range sm {
 		if isReservedProviderFieldName(k) {
 			return fmt.Errorf("%s is a reserved field name for a provider", k)
 		}
-	}
-
-	for k, r := range p.ResourcesMap {
+	}	for k, r := range p.ResourcesMap {
  err := r.InternalValidate(nil, true); err != nil {
 			validationErrors = multierror.Append(validationErrors, fmt.Errorf("resource %s: %s", k, err))
 		}
-	}
-
-	for k, r := range p.DataSourcesMap {
+	}	for k, r := range p.DataSourcesMap {
 		if err := r.InternalValidate(nil, false); err != nil {
 			validationErrors = multierror.Append(validationErrors, fmt.Errorf("data source %s: %s", k, err))
 		}
-	}
-
-urn validationErrors
+	}urn validationErrors
 }
-
-
  isReservedProviderFieldName(name string) bool {
 	for _, reservedName := range ReservedProviderFields {
 		if name == reservedName {
@@ -198,36 +140,20 @@ urn validationErrors
 		}
 	}
 	return false
-}
-
-// Meta returns the metadata associated with this provider that was
-// returned by the Configure call. It will be nil until Configure is called.
-
- (p *Provider) Meta() interface{} {
+}// Meta returns the metadata associated with this provider that was
+// returned by the Configure call. It will be nil until Configure is called. (p *Provider) Meta() interface{} {
 	return p.meta
-}
-
-// SetMeta can be used to forcefully set the Meta object of the provider.
+}// SetMeta can be used to forcefully set the Meta object of the provider.
 // Note that if Configure is called the return value will override anything
-// set here.
-
- (p *Provider) SetMeta(v interface{}) {
+// set here. (p *Provider) SetMeta(v interface{}) {
 	p.meta = v
-}
-
-// GetSchema returns the config schema for the main provider
+}// GetSchema returns the config schema for the main provider
 // configuration, as would appear in a "provider" block in the
-// configuration files.
-
-// Currently not all providers support schema. Callers must therefore
+// configuration files.// Currently not all providers support schema. Callers must therefore
 // first call Resources and DataSources and ensure that at least one
-// resource or data source has the SchemaAvailable flag set.
-
- (p *Provider) GetSchema(req *terraform.ProviderSchemaRequest) (*terraform.ProviderSchema, error) {
+// resource or data source has the SchemaAvailable flag set. (p *Provider) GetSchema(req *terraform.ProviderSchemaRequest) (*terraform.ProviderSchema, error) {
 	resourceTypes := map[string]*configschema.Block{}
-	dataSources := map[string]*configschema.Block{}
-
-	for _, name := range req.ResourceTypes {
+	dataSources := map[string]*configschema.Block{}	for _, name := range req.ResourceTypes {
 		if r, exists := p.ResourcesMap[name]; exists {
 			resourceTypes[name] = r.CoreConfigSchema()
 		}
@@ -236,15 +162,11 @@ urn validationErrors
 		if r, exists := p.DataSourcesMap[name]; exists {
 			dataSources[name] = r.CoreConfigSchema()
 		}
-	}
-
-	return &terraform.ProviderSchema{
+	}	return &terraform.ProviderSchema{
 		Provider:      schemaMap(p.Schema).CoreConfigSchema(),
 		ResourceTypes: resourceTypes,
 		DataSources:   dataSources,
 	}, nil
-
-
 // Validate is called once at the beginning with the raw configuration
 // (no interpolation done) and can return diagnostics
 //
@@ -253,9 +175,7 @@ urn validationErrors
 //
 // This should not assume that any values of the configurations are valid.
 // The primary use case of this call is to check that required keys are
-// set.
-
- (p *Provider) Validate(c *terraform.ResourceConfig) diag.Diagnostics {
+// set. (p *Provider) Validate(c *terraform.ResourceConfig) diag.Diagnostics {
 	if err := p.InternalValidate(); err != nil {
 		return []diag.Diagnostic{
 			{
@@ -266,12 +186,8 @@ urn validationErrors
 					"this bug:\n\n%s", err),
 			},
 		}
-	}
-
-	return schemaMap(p.Schema).Validate(c)
-}
-
-// ValidateResource is called once at the beginning with the raw
+	}	return schemaMap(p.Schema).Validate(c)
+}// ValidateResource is called once at the beginning with the raw
 // configuration (no interpolation done) and can return diagnostics.
 //
 // This is called once per resource.
@@ -279,9 +195,7 @@ urn validationErrors
 // This should not assume any of the values in the resource configuration
 // are valid since it is possible they have to be interpolated still.
 // The primary use case of this call is to check that the required keys
-// are set and that the general structure is correct.
-
- (p *Provider) ValidateResource(
+// are set and that the general structure is correct. (p *Provider) ValidateResource(
 	t string, c *terraform.ResourceConfig) diag.Diagnostics {
 	r, ok := p.ResourcesMap[t]
 	if !ok {
@@ -291,43 +205,27 @@ urn validationErrors
 				Summary:  fmt.Sprintf("Provider doesn't support resource: %s", t),
 			},
 		}
-	}
-
-	return r.Validate(c)
-}
-
-// Configure configuree provider itself with the configuration
+	}	return r.Validate(c)
+}// Configure configuree provider itself with the configuration
 // given. This is useful for setting things  access keys.
 //
-// This won't be called at all if no provider configuration is given.
-
- (p *Provider) Configure(ctx context.Context, c *terraform.ResourceConfig) diag.Diagnostics {
+// This won't be called at all if no provider configuration is given. (p *Provider) Configure(ctx context.Context, c *terraform.ResourceConfig) diag.Diagnostics {
 	// No configuration
 	if p.Configure
  == nil && p.ConfigureContext
  == nil {
 		return nil
-	}
-
-	if p.configured {
+	}	if p.configured {
 		logging.HelperSchemaWarn(ctx, "Previously configured provider being re-configured. This can cause issues in concurrent testing if the configurations are not equal.")
-	}
-
-	sm := schemaMap(p.Schema)
-
-	// Get a ResourceData for this configuration. To do this, we actually
+	}	sm := schemaMap(p.Schema)	// Get a ResourceData for this configuration. To do this, we actually
 	// generate an intermediary "diff" although that is never exposed.
 	diff, err := sm.Diff(ctx, nil, c, nil, p.meta, true)
 	if err != nil {
 		return diag.FromErr(err)
-	}
-
-	data, err := sm.Data(nil, diff)
+	}	data, err := sm.Data(nil, diff)
 	if err != nil {
 		return diag.FromErr(err)
-	}
-
-	if p.Configure
+	}	if p.Configure
  != nil {
 		meta, err := p.Configure
 (data)
@@ -335,62 +233,34 @@ urn validationErrors
 			return diag.FromErr(err)
 		}
 		p.meta = meta
-	}
-
-	var diags diag.Diagnostics
-
-	if p.ConfigureContext
+	}	var diags diag.Diagnostics	if p.ConfigureContext
  != nil {
 		meta, configureDiags := p.ConfigureContext
 (ctx, data)
-		diags = append(diags, configureDiags...)
-
-		if diags.HasError() {
+		diags = append(diags, configureDiags...)		if diags.HasError() {
 			return diags
-		}
-
-		p.meta = meta
-	}
-
-	p.configured = true
-
-	return diags
-}
-
-// Resources returns all the available resource types that this provider
-nows how to manage.
-
- (p *Provider) Resources() []terraform.ResourceType {
+		}		p.meta = meta
+	}	p.configured = true	return diags
+}// Resources returns all the available resource types that this provider
+nows how to manage. (p *Provider) Resources() []terraform.ResourceType {
 	keys := make([]string, 0, len(p.ResourcesMap))
 	for k := range p.ResourcesMap {
 		keys = append(keys, k)
 	}
-	sort.Strings(keys)
-
-	result := make([]terraform.ResourceType, 0, len(keys))
+	sort.Strings(keys)	result := make([]terraform.ResourceType, 0, len(keys))
 	for _, k := range keys {
-		resource := p.ResourcesMap[k]
-
-		// This isn't really possible (it'd fail InternalValidate), but
+		resource := p.ResourcesMap[k]		// This isn't really possible (it'd fail InternalValidate), but
 		// we do it anyways to avoid a panic.
 		if resource == nil {
 			resource = &Resource{}
-		}
-
-		result = append(result, terraform.ResourceType{
+		}		result = append(result, terraform.ResourceType{
 			Name:       k,
-			Importable: resource.Importer != nil,
-
-			// Indicates that a provider is compiled against a new enough
+			Importable: resource.Importer != nil,			// Indicates that a provider is compiled against a new enough
 			// version of core to support the GetSchema method.
 			SchemaAvailable: true,
 		})
-	}
-
-	return result
-}
-
-// ImportState requests that the given resource be imported.
+	}	return result
+}// ImportState requests that the given resource be imported.
 //
 // The returned InstanceState only requires ID be set. Importing
 // will always call Refresh after the state to complete it.
@@ -404,9 +274,7 @@ tion can return multiple states. Normally, an import
 // will map 1:1 to a physical resource. However, some resources map
 // to multiple. For example, an AWS security group may contain many rules.
 // Each rule is represented by a separate resource in Terraform,
-// therefore multiple states are returned.
-
- (p *Provider) ImportState(
+// therefore multiple states are returned. (p *Provider) ImportState(
 	ctx context.Context,
 	info *terraform.InstanceInfo,
 	id string) ([]*terraform.InstanceState, error) {
@@ -414,38 +282,26 @@ tion can return multiple states. Normally, an import
 	r, ok := p.ResourcesMap[info.Type]
 	if !ok {
 		return nil, fmt.Errorf("unknown resource type: %s", info.Type)
-	}
-
-	// If it doesn't support import, error
+	}	// If it doesn't support import, error
 	if r.Importer == nil {
 		return nil, fmt.Errorf("resource %s doesn't support import", info.Type)
-	}
-
-	// Create the data
+	}	// Create the data
 	data := r.Data(nil)
 	data.SetId(id)
-	data.SetType(info.Type)
-
-	// Call the import 
+	data.SetType(info.Type)	// Call the import 
 tion
 	results := []*ResourceData{data}
 	if r.Importer.State != nil || r.Importer.StateContext != nil {
 		var err error
-		logging.HelperSchemaTrace(ctx, "Calling downstream")
-
-		if r.Importer.StateContext != nil {
+		logging.HelperSchemaTrace(ctx, "Calling downstream")		if r.Importer.StateContext != nil {
 			results, err = r.Importer.StateContext(ctx, data, p.meta)
 		} else {
 			results, err = r.Importer.State(data, p.meta)
 		}
-		logging.HelperSchemaTrace(ctx, "Called downstream")
-
- err != nil {
+		logging.HelperSchemaTrace(ctx, "Called downstream") err != nil {
 			return nil, err
 		}
-	}
-
-	// Convert the results to InstanceState values and return it
+	}	// Convert the results to InstanceState values and return it
 	states := make([]*terraform.InstanceState, len(results))
 	for i, r := range results {
 		if r == nil {
@@ -453,20 +309,14 @@ tion
 				"This is generally a bug in the resource implementation for import. " +
 				"Resource import code should return an error for missing resources and skip returning a missing or empty ResourceData. " +
 				"Please report this to the provider developers.")
-		}
-
-		if r.Id() == "" {
+		}		if r.Id() == "" {
 			return nil, fmt.Errorf("The provider returned a resource missing an identifier during ImportResourceState. " +
 "This is generally a bug in the resource implementation for import. " +
 				"Resource import code should not call d.SetId(\"\") or create an empty ResourceData. " +
 				"If the resource is missing, instead return an error. " +
 				"Please report this to the provider developers.")
-		}
-
-		states[i] = r.State()
-	}
-
-	// Verify that all are non-nil. If there are any nil the error
+		}		states[i] = r.State()
+	}	// Verify that all are non-nil. If there are any nil the error
 	// isn't obvious so we circumvent that with a friendlier error.
 	for _, s := range states {
 		if s == nil {
@@ -475,12 +325,8 @@ tion
 				"Resource import code should return an error for missing resources. " +
 				"Please report this to the provider developers.")
 		}
-	}
-
-	return states, nil
-}
-
-// ValidateDataSource is called once at the beginning with the raw
+	}	return states, nil
+}// ValidateDataSource is called once at the beginning with the raw
 // configuration (no interpolation done) and can return diagnostics.
 //
 // This is called once per data source instance.
@@ -488,9 +334,7 @@ tion
 // This should not assume any of the values in the resource configuration
 re valid since it is possible they have to be interpolated still.
 // The primary use case of this call is to check that the required keys
-// are set and that the general structure is correct.
-
- (p *Provider) ValidateDataSource(
+// are set and that the general structure is correct. (p *Provider) ValidateDataSource(
 	t string, c *terraform.ResourceConfig) diag.Diagnostics {
 	r, ok := p.DataSourcesMap[t]
 	if !ok {
@@ -500,66 +344,42 @@ re valid since it is possible they have to be interpolated still.
 				Summary:  fmt.Sprintf("Provider doesn't support data source: %s", t),
 			},
 		}
-	}
-
-	return r.Validate(c)
-}
-
-// DataSources returns all of the available data sources that this
-// provider implements.
-
- (p *Provider) DataSources() []terraform.DataSource {
+	}	return r.Validate(c)
+}// DataSources returns all of the available data sources that this
+// provider implements. (p *Provider) DataSources() []terraform.DataSource {
 	keys := make([]string, 0, len(p.DataSourcesMap))
 	for k := range p.DataSourcesMap {
 		keys = append(keys, k)
 	}
-	sort.Strings(keys)
-
-	result := make([]terraform.DataSource, 0, len(keys))
+	sort.Strings(keys)	result := make([]terraform.DataSource, 0, len(keys))
 	for _, k := range keys {
 		result = append(result, terraform.DataSource{
-			Name: k,
-
-			// Indicates that a provider is compiled against a new enough
+			Name: k,			// Indicates that a provider is compiled against a new enough
 			// version of core to support the GetSchema method.
 			SchemaAvailable: true,
 		})
-	}
-
-	return result
-}
-
-// UserAgent returns a string suitable for use in the User-Agent header of
+	}	return result
+}// UserAgent returns a string suitable for use in the User-Agent header of
 // requests generated by the provider. The generated string contains the
 // version of Terraform, the Plugin SDK, and the provider used to generate the
 // request. `name` should be the hyphen-separated reporting name of the
 // provider, and `version` should be the version of the provider.
 //
 // If TF_APPEND_USER_AGENT is set, its value will be appended to the returned
-// string.
-
- (p *Provider) UserAgent(name, version string) string {
+// string. (p *Provider) UserAgent(name, version string) string {
 	ua := fmt.Sprintf("Terraform/%s (+https://www.terraform.io) Terraform-Plugin-SDK/%s", p.TerraformVersion, meta.SDKVersionString())
 	if name != "" {
 		ua += " " + name
 		if version != "" {
 			ua += "/" + version
 		}
-	}
-
-	if add := os.Getenv(uaEnvVar); add != "" {
+	}	if add := os.Getenv(uaEnvVar); add != "" {
 		add = strings.TrimSpace(add)
 		if len(add) > 0 {
 			ua += " " + add
 			log.Printf("[DEBUG] Using modified User-Agent: %s", ua)
 		}
-	}
-
-	return ua
-}
-
-// GRPCProvider returns a gRPC server, for use with terraform-plugin-mux.
-
- (p *Provider) GRPCProvider() tfprotov5.ProviderServer {
+	}	return ua
+}// GRPCProvider returns a gRPC server, for use with terraform-plugin-mux. (p *Provider) GRPCProvider() tfprotov5.ProviderServer {
 	return NewGRPCProviderServer(p)
 }

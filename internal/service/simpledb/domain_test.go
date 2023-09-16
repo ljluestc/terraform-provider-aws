@@ -17,14 +17,13 @@ import (
 	tfsimpledb "github.com/hashicorp/terraform-provider-aws/internal/service/simpledb"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccSimpleDBDomain_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_simpledb_domain.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, simpledb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainDestroy(ctx),
@@ -37,21 +36,20 @@ func TestAccSimpleDBDomain_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccSimpleDBDomain_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_simpledb_domain.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, simpledb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainDestroy(ctx),
@@ -67,21 +65,20 @@ func TestAccSimpleDBDomain_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccSimpleDBDomain_MigrateFromPluginSDK(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_simpledb_domain.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:     func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, simpledb.EndpointsID) },
 		ErrorCheck:   acctest.ErrorCheck(t, simpledb.EndpointsID),
 		CheckDestroy: testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:  "hashicorp/aws",
 						VersionConstraint: "4.35.0",
 					},
 				},
@@ -93,13 +90,12 @@ func TestAccSimpleDBDomain_MigrateFromPluginSDK(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:      testAccDomainConfig_basic(rName),
-				PlanOnly:    true,
+				Config: testAccDomainConfig_basic(rName),
+				PlanOnly:true,
 			},
 		},
 	})
 }
-
 func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SimpleDBConn(ctx)
@@ -125,7 +121,6 @@ func testAccCheckDomainDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckDomainExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -144,7 +139,6 @@ func testAccCheckDomainExists(ctx context.Context, n string) resource.TestCheckF
 		return err
 	}
 }
-
 func testAccDomainConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_simpledb_domain" "test" {

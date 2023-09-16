@@ -1,43 +1,30 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package kendra_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package kendra_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/service/backup"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
-)
-
-
-func TestAccKendraExperienceDataSource_basic(t *testing.T) {
+)func TestAccKendraExperienceDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	datasourceName := "data.aws_kendra_experience.test"
+	}	datasourceName := "data.aws_kendra_experience.test"
 	resourceName := "aws_kendra_experience.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: 
 func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, backup.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccExperienceDataSourceConfig_nonExistent,
+				Config:testAccExperienceDataSourceConfig_nonExistent,
 				ExpectError: regexache.MustCompile(`reading Kendra Experience`),
 			},
 			{
@@ -63,85 +50,58 @@ func() {
 				)},
 		},
 	})
-}
-
-const testAccExperienceDataSourceConfig_nonExistent = `
+}const testAccExperienceDataSourceConfig_nonExistent = `
 data "aws_kendra_experience" "test" {
-  experience_id = "tf-acc-test-does-not-exist-exp-id"
-  index_id      = "tf-acc-test-does-not-exist-kendra-id"
+experience_id = "tf-acc-test-does-not-exist-exp-id"
+index_id= "tf-acc-test-does-not-exist-kendra-id"
 }
-`
-
-
-func testAccExperienceDataSourceConfig_basic(rName, rName2 string) string {
+`func testAccExperienceDataSourceConfig_basic(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 		testAccExperienceBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
-  force_destroy = true
+bucket= %[1]q
+force_destroy = true
+}resource "aws_s3_object" "test" {
+bucket = aws_s3_bucket.test.bucket
+source = "test-fixtures/basic.csv"
+key = "test/basic.csv"
+}data "aws_iam_policy_document" "faq" {
+statement {
+ sid = "AllowKendraToAccessS3"
+ effect = "Allow"
+ actions = [
+"s3:GetObject"
+ ]
+ resources = [
+"${aws_s3_bucket.test.arn}/*"
+ ]
 }
-
-resource "aws_s3_object" "test" {
-  bucket = aws_s3_bucket.test.bucket
-  source = "test-fixtures/basic.csv"
-  key    = "test/basic.csv"
+}resource "aws_iam_policy" "faq" {
+name= "%[1]s-faq"
+description = "Allow Kendra to access S3"
+policy= data.aws_iam_policy_document.faq.json
+}resource "aws_iam_role_policy_attachment" "faq" {
+role = aws_iam_role.test.name
+policy_arn = aws_iam_policy.faq.arn
+}resource "aws_kendra_faq" "test" {
+depends_on = [aws_iam_role_policy_attachment.faq]index_id = aws_kendra_index.test.id
+name= %[1]q
+role_arn = aws_iam_role.test.arns3_path {
+ bucket = aws_s3_bucket.test.id
+ key = aws_s3_object.test.key
 }
-
-data "aws_iam_policy_document" "faq" {
-  statement {
-    sid    = "AllowKendraToAccessS3"
-    effect = "Allow"
-    actions = [
-      "s3:GetObject"
-    ]
-    resources = [
-      "${aws_s3_bucket.test.arn}/*"
-    ]
-  }
+}resource "aws_kendra_experience" "test" {
+depends_on = [aws_iam_role_policy_attachment.experience]index_id = aws_kendra_index.test.id
+name= %[1]q
+role_arn = aws_iam_role.test.arnconfiguration {
+ content_source_configuration {
+faq_ids = [aws_kendra_faq.test.faq_id]
+ }
 }
-
-resource "aws_iam_policy" "faq" {
-  name        = "%[1]s-faq"
-  description = "Allow Kendra to access S3"
-  policy      = data.aws_iam_policy_document.faq.json
-}
-
-resource "aws_iam_role_policy_attachment" "faq" {
-  role       = aws_iam_role.test.name
-  policy_arn = aws_iam_policy.faq.arn
-}
-
-resource "aws_kendra_faq" "test" {
-  depends_on = [aws_iam_role_policy_attachment.faq]
-
-  index_id = aws_kendra_index.test.id
-  name     = %[1]q
-  role_arn = aws_iam_role.test.arn
-
-  s3_path {
-    bucket = aws_s3_bucket.test.id
-    key    = aws_s3_object.test.key
-  }
-}
-
-resource "aws_kendra_experience" "test" {
-  depends_on = [aws_iam_role_policy_attachment.experience]
-
-  index_id = aws_kendra_index.test.id
-  name     = %[1]q
-  role_arn = aws_iam_role.test.arn
-
-  configuration {
-    content_source_configuration {
-      faq_ids = [aws_kendra_faq.test.faq_id]
-    }
-  }
-}
-
-data "aws_kendra_experience" "test" {
-  experience_id = aws_kendra_experience.test.experience_id
-  index_id      = aws_kendra_index.test.id
+}data "aws_kendra_experience" "test" {
+experience_id = aws_kendra_experience.test.experience_id
+index_id= aws_kendra_index.test.id
 }
 `, rName2))
 }

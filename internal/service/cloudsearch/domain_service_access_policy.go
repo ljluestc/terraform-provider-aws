@@ -40,18 +40,18 @@ func ResourceDomainServiceAccessPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_policy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				ValidateFunc:          validation.StringIsJSON,
+				ValidateFunc:validation.StringIsJSON,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
 			},
 			"domain_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 		},
@@ -128,7 +128,7 @@ func resourceDomainServiceAccessPolicyDelete(ctx context.Context, d *schema.Reso
 
 	input := &cloudsearch.UpdateServiceAccessPoliciesInput{
 		AccessPolicies: aws.String(""),
-		DomainName:     aws.String(d.Id()),
+		DomainName:aws.String(d.Id()),
 	}
 
 	log.Printf("[DEBUG] Deleting CloudSearch Domain Service Access Policy: %s", d.Id())

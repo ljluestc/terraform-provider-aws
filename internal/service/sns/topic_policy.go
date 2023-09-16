@@ -32,7 +32,7 @@ func ResourceTopicPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -42,9 +42,9 @@ func ResourceTopicPolicy() *schema.Resource {
 				Computed: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
-				ValidateFunc:          validation.StringIsJSON,
+				Type:schema.TypeString,
+				Required:     true,
+				ValidateFunc: validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
@@ -151,7 +151,7 @@ func defaultTopicPolicy(topicArn, accountId string) string {
       "Resource": %[1]q,
       "Condition": {
         "StringEquals": {
-          "AWS:SourceOwner": %[2]q
+ "AWS:SourceOwner": %[2]q
         }
       }
     }

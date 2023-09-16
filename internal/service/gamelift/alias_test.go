@@ -59,8 +59,8 @@ func TestAccGameLiftAlias_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -106,8 +106,8 @@ func TestAccGameLiftAlias_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -189,8 +189,8 @@ func TestAccGameLiftAlias_fleetRouting(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -303,12 +303,12 @@ func testAccCheckAliasDestroy(ctx context.Context) resource.TestCheckFunc {
 func testAccAliasConfig_basic(aliasName, description, message string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_alias" "test" {
-  name        = "%s"
+  name= "%s"
   description = "%s"
 
   routing_strategy {
-    message = "%s"
-    type    = "TERMINAL"
+message = "%s"
+type= "TERMINAL"
   }
 }
 `, aliasName, description, message)
@@ -317,16 +317,16 @@ resource "aws_gamelift_alias" "test" {
 func testAccAliasConfig_basicTags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_alias" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = "foo"
 
   routing_strategy {
-    message = "bar"
-    type    = "TERMINAL"
+message = "bar"
+type= "TERMINAL"
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -335,17 +335,17 @@ resource "aws_gamelift_alias" "test" {
 func testAccAliasConfig_basicTags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_alias" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = "foo"
 
   routing_strategy {
-    message = "bar"
-    type    = "TERMINAL"
+message = "bar"
+type= "TERMINAL"
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -355,12 +355,12 @@ func testAccAliasConfig_allFields(aliasName, description,
 	fleetName, launchPath, params, bucketName, key, roleArn string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_alias" "test" {
-  name        = "%s"
+  name= "%s"
   description = "%s"
 
   routing_strategy {
-    fleet_id = aws_gamelift_fleet.test.id
-    type     = "SIMPLE"
+fleet_id = aws_gamelift_fleet.test.id
+type = "SIMPLE"
   }
 }
 %s

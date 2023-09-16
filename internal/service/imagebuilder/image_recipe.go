@@ -48,7 +48,7 @@ func ResourceImageRecipe() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"device_name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 1024),
@@ -62,50 +62,50 @@ func ResourceImageRecipe() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"delete_on_termination": {
 										Type:NullableBool,
-										Optional:         true,
-										ForceNew:         true,
+										Optional:true,
+										ForceNew:true,
 										DiffSuppressFunc: nullable.DiffSuppressNullableBool,
 										ValidateFunc:     nullable.ValidateTypeStringNullableBool,
 									},
 									"encrypted": {
 										Type:NullableBool,
-										Optional:         true,
-										ForceNew:         true,
+										Optional:true,
+										ForceNew:true,
 										DiffSuppressFunc: nullable.DiffSuppressNullableBool,
 										ValidateFunc:     nullable.ValidateTypeStringNullableBool,
 									},
 									"iops": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.IntBetween(100, 10000),
 									},
 									"kms_key_id": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringLenBetween(1, 1024),
 									},
 									"snapshot_id": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringLenBetween(1, 1024),
 									},
 									"throughput": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.IntBetween(125, 1000),
 									},
 									"volume_size": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.IntBetween(1, 16000),
 									},
 									"volume_type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringInSlice(imagebuilder.EbsVolumeType_Values(), false),
@@ -122,7 +122,7 @@ func ResourceImageRecipe() *schema.Resource {
 							ForceNew: true,
 						},
 						"virtual_name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 1024),
@@ -138,7 +138,7 @@ func ResourceImageRecipe() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"component_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: verify.ValidARN,
@@ -149,7 +149,7 @@ func ResourceImageRecipe() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringLenBetween(1, 256),
@@ -170,13 +170,13 @@ func ResourceImageRecipe() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
@@ -186,7 +186,7 @@ func ResourceImageRecipe() *schema.Resource {
 				Computed: true,
 			},
 			"parent_image": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
@@ -232,13 +232,13 @@ func ResourceImageRecipe() *schema.Resource {
 				),
 			},
 			"version": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
 			},
 			"working_directory": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),

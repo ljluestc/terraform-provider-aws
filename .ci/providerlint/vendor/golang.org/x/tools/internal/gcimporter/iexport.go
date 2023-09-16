@@ -1,14 +1,8 @@
 // Copyright 2019 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Indexed binary package export.
+// license that can be found in the LICENSE file.// Indexed binary package export.
 // This file was derived from $GOROOT/src/cmd/compile/internal/gc/iexport.go;
-// see that file for specification of the format.
-
-package gcimporter
-
-import (
+// see that file for specification of the format.package gcimporterimport (
 	"bytes"
 	"encoding/binary"
 	"fmt"
@@ -20,20 +14,14 @@ import (
 	"reflect"
 	"sort"
 	"strconv"
-	"strings"
-
-	"golang.org/x/tools/internal/tokeninternal"
+	"strings"	"golang.org/x/tools/internal/tokeninternal"
 	"golang.org/x/tools/internal/typeparams"
-)
-
-// IExportShallow encodes "shallow" export data for the specified package.
+)// IExportShallow encodes "shallow" export data for the specified package.
 //
 // No promises are made about the encoding other than that it can be
 // decoded by the same version of IIExportShallow. If you plan to save
 // export data in the file system, be sure to include a cryptographic
-// digest of the executable in the key to avoid version skew.
-
- IExportShallow(fset *token.FileSet, pkg *types.Package) ([]byte, error) {
+// digest of the executable in the key to avoid version skew. IExportShallow(fset *token.FileSet, pkg *types.Package) ([]byte, error) {
 	// In principle this operation can only fail if out.Write fails,
 	// but that's impossible for bytes.Buffer---and as a matter of
 	// fact iexportCommon doesn't even check for I/O errors.
@@ -43,14 +31,10 @@ import (
 	var out bytes.Buffer
 	err := iexportCommon(&out, fset, bundle, shallow, iexportVersion, []*types.Package{pkg})
 	return out.Bytes(), err
-}
-
-// IImportShallow decodes "shallow" types.Packaata encoded by
+}// IImportShallow decodes "shallow" types.Packaata encoded by
 // IExportShallow in the same executable. This 
  cannot import data from
-// cmd/compile or gcexportdata.Write.
-
- IImportShallow(fset *token.FileSet, getPackage GetPackage
+// cmd/compile or gcexportdata.Write. IImportShallow(fset *token.FileSet, getPackage GetPackage
 , data []byte, path string, insert InsertType) (*types.Package, error) {
 	const bundle = false
 	pkgs, err := iimportCommon(fset, getPackage, data, bundle, path, insert)
@@ -58,38 +42,24 @@ import (
 		return nil, err
 	}
 	return pkgs[0], nil
-}
-
-// InsertType is the type of a 
+}// InsertType is the type of a 
 tion that creates a types.TypeName
 // object for a named type and inserts it into the scope of the
 // specified Package.
 type InsertType = 
-(pkg *types.Package, name string)
-
-// Current bundled export format version. Increase with each format change.
+(pkg *types.Package, name string)// Current bundled export format version. Increase with each format change.
 // 0: initial implementation
-const bundleVersion = 0
-
-// IExportData writes indexed export data for pkg to out.
+const bundleVersion = 0// IExportData writes indexed export data for pkg to out.
 //
 // If no file set is provided, position info will be missing.
 // The package path of the top-level package will not be recorded,
-// so that calls to IImportData can override with a provided package path.
-
- IExportData(out io.Writer, fset *token.FileSet, pkg *types.Package) error {
+// so that calls to IImportData can override with a provided package path. IExportData(out io.Writer, fset *token.FileSet, pkg *types.Package) error {
 	const bundle, shallow = false, false
 	return iexportCommon(out, fset, bundle, shallow, iexportVersion, []*types.Package{pkg})
-}
-
-// IExportBundle writes an indexed export bundle for pkgs to out.
-
- IExportBundle(out io.Writer, fset *token.FileSet, pkgs []*types.Package) error {
+}// IExportBundle writes an indexed export bundle for pkgs to out. IExportBundle(out io.Writer, fset *token.FileSet, pkgs []*types.Package) error {
 	const bundle, shallow = true, false
 	return iexportCommon(out, fset, bundle, shallow, iexportVersion, pkgs)
 }
-
-
  iexportCommon(out io.Writer, fset *token.FileSet, bundle, shallow bool, version int, pkgs []*types.Package) (err error) {
 	if !debug {
 		defer 
@@ -103,9 +73,7 @@ const bundleVersion = 0
 				panic(e)
 			}
 		}()
-	}
-
-	p := iexporter{
+	}	p := iexporter{
 		fset:        fset,
 		version:     version,
 		shallow:     shallow,
@@ -117,39 +85,29 @@ const bundleVersion = 0
 	}
 	if !bundle {
 		p.localpkg = pkgs[0]
-	}
-
-	for i, pt := range predeclared() {
+	}	for i, pt := range predeclared() {
 		p.typIndex[pt] = uint64(i)
 	}
 	if len(p.typIndex) > predeclReserved {
 		panic(internalErrorf("too many predeclared types: %d > %d", len(p.typIndex), predeclReserved))
-	}
-
-	// Initialize work queue with exported declarations.
+	}	// Initialize work queue with exported declarations.
 	for _, pkg := range pkgs {
 		scope := pkg.Scope()
 		for _, name := range scope.Names() {
 			if token.IsExported(name) {
 				p.pushDecl(scope.Lookup(name))
 			}
-		}
-
-		if bundle {
+		}		if bundle {
 			// Ensure pkg and its imports are included in the index.
 			p.allPkgs[pkg] = true
 			for _, imp := range pkg.Imports() {
 				p.allPkgs[imp] = true
 			}
 		}
-	}
-
-	// Loop until no more work.
+	}	// Loop until no more work.
 	for !p.declTodo.empty() {
 		p.doDecl(p.declTodo.popHead())
-	}
-
-	// Produce index of offset of each file record in files.
+	}	// Produce index of offset of each file record in files.
 	var files intWriter
 	var fileOffset []uint64 // fileOffset[i] is offset in files of file encoded as i
 	if p.shallow {
@@ -158,14 +116,10 @@ const bundleVersion = 0
 			fileOffset[i] = uint64(files.Len())
 			p.encodeFile(&files, info.file, info.needed)
 		}
-	}
-
-	// Append indices to data0 section.
+	}	// Append indices to data0 section.
 	dataLen := uint64(p.data0.Len())
 	w := p.newWriter()
-	w.writeIndex(p.declIndex)
-
-	if bundle {
+	w.writeIndex(p.declIndex)	if bundle {
 		w.uint64(uint64(len(pkgs)))
 		for _, pkg := range pkgs {
 			w.pkg(pkg)
@@ -176,9 +130,7 @@ const bundleVersion = 0
 			}
 		}
 	}
-	w.flush()
-
-	// Assemble header.
+	w.flush()	// Assemble header.
 	var hdr intWriter
 	if bundle {
 		hdr.uint64(bundleVersion)
@@ -192,39 +144,21 @@ const bundleVersion = 0
 			hdr.uint64(offset)
 		}
 	}
-	hdr.uint64(dataLen)
-
-	// Flush output.
+	hdr.uint64(dataLen)	// Flush output.
 	io.Copy(out, &hdr)
 	io.Copy(out, &p.strings)
 	if p.shallow {
 .Copy(out, &files)
 	}
-	io.Copy(out, &p.data0)
-
-	return nil
-}
-
-// encodeFile writes to w a representation of the file sufficient to
+	io.Copy(out, &p.data0)	return nil
+}// encodeFile writes to w a representation of the file sufficient to
 // faithfully restore position information about all needed offsets.
-// Mutates the neederay.
-
- (p *iexporter) encodeFile(w *intWriter, file *token.File, needed []uint64) {
-	_ = needed[0] // precondition: needed is non-empty
-
-	w.uint64(p.stringOff(file.Name()))
-
-	size := uint64(file.Size())
-	w.uint64(size)
-
-	// Sort the set of needed offsets. Duplicates are harmless.
+// Mutates the neederay. (p *iexporter) encodeFile(w *intWriter, file *token.File, needed []uint64) {
+	_ = needed[0] // precondition: needed is non-empty	w.uint64(p.stringOff(file.Name()))	size := uint64(file.Size())
+	w.uint64(size)	// Sort the set of needed offsets. Duplicates are harmless.
 	sort.Slice(needed, 
-(i, j int) bool { return needed[i] < needed[j] })
-
-	lines := tokeninternal.GetLines(file) // byte offset of each line start
-	w.uint64(uint64(len(lines)))
-
-	// Rather than record the entire array of line start offsets,
+(i, j int) bool { return needed[i] < needed[j] })	lines := tokeninternal.GetLines(file) // byte offset of each line start
+	w.uint64(uint64(len(lines)))	// Rather than record the entire array of line start offsets,
 	// we save only a sparse list of (index, offset) pairs for
 	// the start of each line that contains a needed position.
 	var sparse [][2]int // (index, offset) pairs
@@ -244,9 +178,7 @@ outer:
 				}
 			}
 		}
-	}
-
-	// Delta-encode the columns.
+	}	// Delta-encode the columns.
 	w.uint64(uint64(len(sparse)))
  prev [2]int
 	for _, pair := range sparse {
@@ -254,22 +186,16 @@ outer:
 		w.uint64(uint64(pair[1] - prev[1]))
 		prev = pair
 	}
-}
-
-// writeIndex writes out an object index. mainIndex indicates whether
+}// writeIndex writes out an object index. mainIndex indicates whether
 // we're writing out the main index, which is also read by
 // non-compiler tools and includes a complete package description
-// (i.e., name and height).
-
- (w *exportWriter) writeIndex(index map[types.Object]uint64) {
+// (i.e., name and height). (w *exportWriter) writeIndex(index map[types.Object]uint64) {
 	type pkgObj struct {
 		obj  types.Object
 		name string // qualified name; differs from obj.Name for type params
 	}
 	// Build a map from packages to objects from that package.
-	pkgObjs := map[*types.Package][]pkgObj{}
-
-	// For the main index, make sure to include every package that
+	pkgObjs := map[*types.Package][]pkgObj{}	// For the main index, make sure to include every package that
 	// we reference, even if we're not exporting (or reexporting)
 	// any symbols from it.
 	if w.p.localpkg != nil {
@@ -277,91 +203,55 @@ outer:
 	}
 	for pkg := range wllPkgs {
 		pkgObjs[pkg] = nil
-	}
-
-	for obj := range index {
+	}	for obj := range index {
 		name := w.p.expome(obj)
 		pkgObjs[obj.Pkg()] = append(pkgObjs[obj.Pkg()], pkgObj{obj, name})
-	}
-
-	var pkgs []*types.Package
+	}	var pkgs []*types.Package
 	for pkg, objs := range pkgObjs {
-		pkgs = append(pkgs, pkg)
-
-		sort.Slice(objs, 
+		pkgs = append(pkgs, pkg)		sort.Slice(objs, 
 (i, j int) bool {
 			return objs[i].name < objs[j].name
 		})
-	}
-
-	sort.Slice(pkgs, 
+	}	sort.Slice(pkgs, 
 (i, j int) bool {
 		return w.exportPath(pkgs[i]) < w.exportPath(pkgs[j])
-	})
-
-	w.uint64(uint64(len(pkgs)))
+	})	w.uint64(uint64(len(pkgs)))
 	for _, pkg := range pkgs {
 string(w.exportPath(pkg))
 		w.string(pkg.Name())
-		w.uint64(uint64(0)) // package height is not needed for go/types
-
-		objs := pkgObjs[pkg]
+		w.uint64(uint64(0)) // package height is not needed for go/types		objs := pkgObjs[pkg]
 		w.uint64(uint64(len(objs)))
 		for _, obj := range objs {
 			w.string(obj.name)
 			w.uint64(index[obj.obj])
 		}
 	}
-}
-
-// exportName returns the 'exported' name of an object. It differs from
-// obj.Name() only for type parameters (see tparamExportName for details).
-
- (p *iexporter) exportName(obj types.Object) (res string) {
+}// exportName returns the 'exported' name of an object. It differs from
+// obj.Name() only for type parameters (see tparamExportName for details). (p *iexporter) exportName(obj types.Object) (res string) {
 	if name := p.tparamNames[obj]; name != "" {
 		return name
 	}
 	return obj.Name()
-}
-
-type iexporter struct {
+}type iexporter struct {
 	fset    *token.FileSet
 	out     *bytes.Buffer
-	version int
-
-	shallow  bool           // don't put types from other packages in the index
-	localpkg *types.Package // (nil in bundle mode)
-
-	// allPkgs tracks all packages that have been referenced by
+	version int	shallow  bool           // don't put types from other packages in the index
+	localpkg *types.Package // (nil in bundle mode)	// allPkgs tracks all packages that have been referenced by
 	// the export data, so we can ensure to include them in the
 	// main index.
-	allPkgs map[*types.Package]bool
-
-	declTodo objQueue
-
-	strings     intWriter
-	stringIndex map[string]uint64
-
-	// In shallow mode, object positions are encoded as (file, offset).
+	allPkgs map[*types.Package]bool	declTodo objQueue	strings     intWriter
+	stringIndex map[string]uint64	// In shallow mode, object positions are encoded as (file, offset).
 	// Each file is recorded as a line-number table.
 	// Only the lines of needed positions are saved faithfully.
 eInfo  map[*token.File]uint64 // value is index in fileInfos
-	fileInfos []*filePositions
-
-	data0       intWriter
+	fileInfos []*filePositions	data0       intWriter
 	declIndex   map[types.Object]uint64
 	tparamNames map[types.Object]string // typeparam->exported name
-	typIndex    map[types.Type]uint64
-
-	indent int // for tracing support
-}
-
- filePositions struct {
+	typIndex    map[types.Type]uint64	indent int // for tracing support
+} filePositions struct {
 	file   *token.File
 	needed []uint64 // unordered list of needed file offsets
 }
-
-
  (p *iexporter) trace(format string, args ...interface{}) {
 	if !trace {
 		// Call sites should also be guarded, but having this check here allows
@@ -369,26 +259,16 @@ eInfo  map[*token.File]uint64 // value is index in fileInfos
 		return
 	}
 	fmt.Printf(strings.Repeat("..", p.indent)+format+"\n", args...)
-
-
 // stringOff returns the offset of s within the string section.
-// If not already present, it's added to the end.
-
- (p *iexporter) stringOff(s string) uint64 {
+// If not already present, it's added to the end. (p *iexporter) stringOff(s string) uint64 {
 	off, ok := p.stringIndex[s]
 	if !ok {
 		off = uint64(p.strings.Len())
-		p.stringIndex[s] = off
-
-		p.strings.uint64(uint64(len(s)))
+		p.stringIndex[s] = off		p.strings.uint64(uint64(len(s)))
 		p.strings.WriteString(s)
 	}
 	return off
-}
-
-// fileIndexAndOffset returns the index of the token.File and the byte offset of pos within it.
-
-*iexporter) fileIndexAndOffset(file *token.File, pos token.Pos) (uint64, uint64) {
+}// fileIndexAndOffset returns the index of the token.File and the byte offset of pos within it.*iexporter) fileIndexAndOffset(file *token.File, pos token.Pos) (uint64, uint64) {
 	index, ok := p.fileInfo[file]
 	if !ok {
 		index = uint64(len(p.fileInfo))
@@ -401,53 +281,33 @@ eInfo  map[*token.File]uint64 // value is index in fileInfos
 	// Record each needed offset.
 	info := p.fileInfos[index]
 	offset := uint64(file.Offset(pos))
-	info.needed = append(info.needed, offset)
-
-	return index, offset
-}
-
-// pushDecl adds n to the declaration work queue, if not already present.
-
- (p *iexporter) pushDecl(obj types.Object) {
+	info.needed = append(info.needed, offset)	return index, offset
+}// pushDecl adds n to the declaration work queue, if not already present. (p *iexporter) pushDecl(obj types.Object) {
 	// Package unsafe is known to the compiler and predeclared.
 	// Caller should not ask us to do export it.
 	if obj.Pkg() == types.Unsafe {
 		panic("cannot export package unsafe")
-	}
-
-	// Shallow export data: don't index decls from other packages.
+	}	// Shallow export data: don't index decls from other packages.
 	if p.shallow && obj.Pkg() != p.localpkg {
 		return
-	}
-
-	if _, ok := p.declIndex[obj]; ok {
+	}	if _, ok := p.declIndex[obj]; ok {
 		return
-	}
-
-	p.declIndex[obj] = ^uint64(0) // mark obj present in work queue
+	}	p.declIndex[obj] = ^uint64(0) // mark obj present in work queue
 	p.declTodo.pushTail(obj)
-
-
 // exportWriter handles writing out individual data section chunks.
 type exportWriter struct {
-	p *iexpr
-
-	data       intWriter
+	p *iexpr	data       intWriter
 	currPkg    *types.Package
 	prevFile   string
 	prevLine   int64
 	prevColumn int64
 }
-
-
  (w *exportWriter) exportPath(pkg *types.Package) string {
 	if pkg == w.p.localpkg {
 		return ""
 	}
 	return pkg.P)
 }
-
-
  (p *iexporter) doDecl(obj types.Ob) {
 	if trace 
 		p.trace("exporting decl %v (%T)", obj, obj)
@@ -459,15 +319,11 @@ type exportWriter struct {
 		}()
 	}
 	w := p.newWriter()
-	w.setPkg(obj.Pkg(), false)
-
-	switch obj := obj.(type) {
+	w.setPkg(obj.Pkg(), false)	switch obj := obj.(type) {
 	case *types.Var:
 		w.tag('V')
 		w.pos(obj.Pos())
-		w.typ(obj.Type(), obj.Pkg())
-
-	case *types.
+		w.typ(obj.Type(), obj.Pkg())	case *types.
 :
 		sig, _ := obj.Type().(*types.Signature)
 		if sig.Recv() != nil {
@@ -481,9 +337,7 @@ type exportWriter struct {
 			if sig.Recv().Type() != types.Typ[types.Invalid] {
 				panic(internalErrorf("unexpected method: %v", sig))
 			}
-		}
-
-		// 
+		}		// 
 tion.
 		if typeparams.ForSignature(sig).Len() == 0 {
 			w.tag('F')
@@ -503,17 +357,11 @@ tion where they are used.
 		if tparams := typeparams.ForSignature(sig); tparams.Len() > 0 {
 			w.tparamList(obj.Name(), tparams, obj.Pkg())
 		}
-		w.signature(sig)
-
-	case *types.Const:
+		w.signature(sig)	case *types.Const:
 		w.tag('C')
 		w.pos(obj.Pos())
-		w.value(obj.Type(), obj.Val())
-
-	case *types.TypeName:
-		t := obj.Type()
-
-		if tparam, ok := t.(*typeparams.TypeParam); ok {
+		w.value(obj.Type(), obj.Val())	case *types.TypeName:
+		t := obj.Type()		if tparam, ok := t.(*typeparams.TypeParam); ok {
 			w.tag('P')
 			w.pos(obj.Pos())
 			constraint := tparam.Constraint()
@@ -526,50 +374,34 @@ tion where they are used.
 			}
 			w.typ(constraint, obj.Pkg())
 			break
-		}
-
-		if obj.IsAlias() {
+		}		if obj.IsAlias() {
 			w.tag('A')
 			w.pos(obj.Pos())
 			w.typ(t, obj.Pkg())
 			break
-		}
-
-		// Defined type.
+		}		// Defined type.
 		named, ok := t.(*types.Named)
 		if !ok {
 			panic(internalErrorf("%s is not a defined type", t))
-		}
-
-		if typeparams.ForNamed(named).Len() == 0 {
+		}		if typeparams.ForNamed(named).Len() == 0 {
 			w.tag('T')
 		} else {
 			w.tag('U')
 		}
-		w.pos(obj.Pos())
-
-		if typeparams.ForNamed(named).Len() > 0 {
+		w.pos(obj.Pos())		if typeparams.ForNamed(named).Len() > 0 {
 			// While importing the type parameters, tparamList computes and records
 			// their export name, so that it can be later used when writing the index.
 			w.tparamList(obj.Name(), typeparams.ForNamed(named), obj.Pkg())
-		}
-
-		underlying := obj.Type().Underlying()
-		w.typ(underlying, obj.Pkg())
-
-		if types.IsInterface(t) {
+		}		underlying := obj.Type().Underlying()
+		w.typ(underlying, obj.Pkg())		if types.IsInterface(t) {
 			break
-		}
-
-		n := named.NumMethods()
+		}		n := named.NumMethods()
 		w.uint64(uint64(n))
 		for i := 0; i < n; i++ {
  := named.Method(i)
 			w.pos(m.Pos())
 			w.string(m.Name())
-			sig, _ := m.Type().(*types.Signature)
-
-			// Receiver type parameters are type arguments of the receiver type, so
+			sig, _ := m.Type().(*types.Signature)			// Receiver type parameters are type arguments of the receiver type, so
 			// their name must be qualified before exporting recv.
 			if rparams := typeparams.RecvTypeParams(sig); rparams.Len() > 0 {
 				prefix := obj.Name() + "." + m.Name()
@@ -577,25 +409,15 @@ tion where they are used.
 					rparam := rparams.At(i)
 					name := tparamExportName(prefix, rparam)
 					w.p.tparamNames[rparam.Obj()] = name
-				}
-
-			w.param(sig.Recv())
+				}			w.param(sig.Recv())
 			w.signature(sig)
-		}
-
-	default:
+		}	default:
 		panic(internalErrorf("unexpected object: %v", obj))
-	}
-
-	p.declIndex[obj] = w.flush()
+	}	p.declIndex[obj] = w.flush()
 }
-
-
  (w *exportWriter) tag(tag byte) {
 	w.data.WriteByte(tag)
 }
-
-
  (w *exportWriter) pos(pos token.Pos) {
 	if w.p.shallow {
 		w.posV2(pos)
@@ -604,14 +426,10 @@ tion where they are used.
 	} else {
 		w.posV0(pos)
 	}
-}
-
-// posV2 encoding (used only in shallow mode) records positions as
+}// posV2 encoding (used only in shallow mode) records positions as
 // (file, offset), where file is the index in the token.File table
 // (which records the file name and newline offsets) and offset is a
-// byte offset. It effectively ignores //line directives.
-
- (w *exportWriter) posV2(pos token.Pos) {
+// byte offset. It effectively ignores //line directives. (w *exportWriter) posV2(pos token.Pos) {
 	if pos == token.NoPos {
 		w.uint64(0)
 		return
@@ -621,63 +439,43 @@ tion where they are used.
 	w.uint64(1 + index)
 	w.uint64(offset)
 }
-
-
 *exportWriter) posV1(pos token.Pos) {
 	if w.p.fset == nil {
 		w.int64(0)
 		return
-	}
-
-	p := w.p.fset.Position(pos)
+	}	p := w.p.fset.Position(pos)
 	file := p.Filename
 	line := int64(p.Line)
-	column := int64(p.Column)
-
-	deltaColumn := (column - w.prevColumn) << 1
-	deltaLine := (line - w.prevLine) << 1
-
-	if file != w.prevFile {
+	column := int64(p.Column)	deltaColumn := (column - w.prevColumn) << 1
+	deltaLine := (line - w.prevLine) << 1	if file != w.prevFile {
 		deltaLine |= 1
 	}
 	if deltaLine != 0 {
 		deltaColumn |= 1
-	}
-
-	w.int64(deltaColumn)
+	}	w.int64(deltaColumn)
 	if deltaColumn&1 != 0 {
 		w.int64(deltaLine)
 		if deltaLine&1 != 0 {
 			w.string(file)
 		}
-	}
-
-	w.prevFile = file
+	}	w.prevFile = file
 	w.prevLine = line
 	w.prevColumn = column
 }
-
-
  (w *exportWriter) posV0(pos token.Pos) {
 	if w.p.fset == nil {
 		w.int64(0)
 		return
-	}
-
-= w.p.fset.Position(pos)
+	}= w.p.fset.Position(pos)
 	file := p.Filename
-	line := int64(p.Line)
-
-	// When file is the same as the last position (common case),
+	line := int64(p.Line)	// When file is the same as the last position (common case),
 	// we can save a few bytes by delta encoding just the line
 	// number.
 	//
 	// Note: Because data objects may be read out of order (or not
 at all), we can only apply delta encoding within a single
 	// object. This is handled implicitly by tracking prevFile and
-	// prevLine as fields of exportWriter.
-
-file == w.prevFile {
+	// prevLine as fields of exportWriter.file == w.prevFile {
 		delta := line - w.prevLine
 		w.int64(delta)
 		if delta == deltaNewFile {
@@ -691,43 +489,25 @@ prevFile = file
 	}
 	w.prevLine = line
 }
-
-
  (w *exportWriter) pkg(pkg *types.Package) {
 	// Ensure any referenced packages are declared in the main index.
-	w.p.allPkgs[pkg] = true
-
-	w.string(w.exportPath(pkg))
-
-
-
- (w *exportWriter) qualifiedType(obj *types.TypeName) {
-e := w.p.exportName(obj)
-
-	// Ensure any referenced declarations are written out too.
+	w.p.allPkgs[pkg] = true	w.string(w.exportPath(pkg)) (w *exportWriter) qualifiedType(obj *types.TypeName) {
+e := w.p.exportName(obj)	// Ensure any referenced declarations are written out too.
 	w.p.pushDecl(obj)
 	w.strinme)
 	w.pkg(obj.Pkg())
 }
-
-
  (w *exportWriter) typ(t types.Type, pkg *types.Package) {
 	w.data.uint64(w.p.typOff(t, pkg))
 }
-
-
  (p *iexporter) newWriter() *exportWriter {
 	return &exportWriter{p: p}
 }
-
-
  (w *exportWriter) flush() uint64 {
 	off := uint64(w.p.data0.Len())
 	io.Copy(&w.p.data0, &w.data)
 	return off
 }
-
-
  (p *iexporter) typOff(t types.Type, pkg *types.Package) uint64 {
 	off, ok := p.typIndex[t]
 	if !ok {
@@ -738,13 +518,9 @@ e := w.p.exportName(obj)
 	}
 	return off
 }
-
-
  (w *exportWriter) startType(k itag) {
 	w.data.uint64(uint64(k))
 }
-
-
  (w *exportWriter) doTyp(t types.Type, pkg *types.Package) {
 	if trace {
 		w.p.trace("exporting type %s (%T)", t, t)
@@ -767,26 +543,16 @@ e := w.p.exportName(obj)
 			return
 		}
 		w.startType(definedType)
-		w.qualifiedType(t.Obj())
-
-	case *typeparams.TypeParam:
+		w.qualifiedType(t.Obj())	case *typeparams.TypeParam:
 		w.startType(typeParamType)
-		w.qualifiedType(t.Obj())
-
-	case *types.Pointer:
+		w.qualifiedType(t.Obj())	case *types.Pointer:
 		w.startType(pointerType)
-		w.typ(t.Elem(), pkg)
-
-	case *types.Slice:
+		w.typ(t.Elem(), pkg)	case *types.Slice:
 		w.startType(sliceType)
-		w.typ(t.Elem(), pkg)
-
-	case *types.Array:
+		w.typ(t.Elem(), pkg)	case *types.Array:
 		w.startType(arrayType)
 		w.uint64(uint64(t.Len()))
-		w.typ(t.Elem(), pkg)
-
-	case *types.Chan:
+		w.typ(t.Elem(), pkg)	case *types.Chan:
 		w.startType(chanType)
 		// 1 RecvOnly; 2 SendOnly; 3 SendRecv
 		var dir uint64
@@ -799,19 +565,13 @@ e := w.p.exportName(obj)
 			dir = 3
 		}
 		w.uint64(dir)
-		w.typ(t.Elem(), pkg)
-
-	case *types.Map:
+		w.typ(t.Elem(), pkg)	case *types.Map:
 		w.startType(mapType)
 		w.typ(t.Key(), pkg)
-		w.typ(t.Elem(), pkg)
-
-	case *types.Signature:
+		w.typ(t.Elem(), pkg)	case *types.Signature:
 		w.startType(signatureType)
 		w.setPkg(pkg, true)
-		w.signature(t)
-
-	case *types.Struct:
+		w.signature(t)	case *types.Struct:
 		w.startType(structType)
 		n := t.NumFields()
 		if n > 0 {
@@ -827,13 +587,9 @@ e := w.p.exportName(obj)
 			w.typ(f.Type(), pkg)
 			w.bool(f.Anonymous())
 			w.string(t.Tag(i)) // note (or tag)
-
-
 	case *types.Interface:
 		w.startType(interfaceType)
-		w.setPkg(pkg, true)
-
-		n := t.NumEmbeddeds()
+		w.setPkg(pkg, true)		n := t.NumEmbeddeds()
 		w.uint64(uint64(n))
 r i := 0; i < n; i++ {
 			ft := t.EmbeddedType(i)
@@ -844,9 +600,7 @@ r i := 0; i < n; i++ {
 				w.pos(token.NoPos)
 			}
 .typ(ft, tPkg)
-		}
-
-		n = t.NumExplicitMethods()
+		}		n = t.NumExplicitMethods()
 		w.uint64(uint64(n))
 		for i := 0; i < n; i++ {
 			m := t.ExplicitMethod(i)
@@ -854,9 +608,7 @@ r i := 0; i < n; i++ {
 			w.string(m.Name())
 			sig, _ := m.Type().(*types.Signature)
 			w.signature(sig)
-		}
-
-	case *typeparams.Union:
+		}	case *typeparams.Union:
 		w.startType(unionType)
 		nt := t.Len()
 		w.uint64(uint64(nt))
@@ -864,23 +616,13 @@ r i := 0; i < n; i++ {
 			term := t.Term(i)
 			w.bool(term.Tilde())
 			w.typ(term.Type(), pkg)
-		}
-
-	default:
-		panic(internalErrorf("unexpected type: %v, %v", t, reflect.TypeOf(t)))
-
-}
-
-
+		}	default:
+		panic(internalErrorf("unexpected type: %v, %v", t, reflect.TypeOf(t)))}
  (w *exportWriter) setPkg(pkg *types.Package, write bool) {
 	if write {
 		w.pkg(pkg)
-	}
-
-	w.currPkg = pkg
+	}	w.currPkg = pkg
 }
-
-
  (w *exportWriter) signature(sig *types.Signature) {
 	w.paramList(sig.Params())
 	w.paramList(sig.Results())
@@ -888,16 +630,12 @@ r i := 0; i < n; i++ {
 		w.bool(sig.Variadic())
 	}
 }
-
-
  (w *exportWriter) typeList(ts *typeparams.TypeList, pkg *types.Package) {
 	w.uint64(uint64(ts.Len()))
 	for i := 0; i < ts.Len(); i++ {
 typ(ts.At(i), pkg)
 	}
 }
-
-
  (w *exportWriter) tparamList(prefix string, list *typeparams.TypeParamList, pkg *types.Package) {
 	ll := uint64(list.Len())
 	w.uint64(ll)
@@ -906,31 +644,19 @@ typ(ts.At(i), pkg)
 		// Set the type parameter exportName before exporting its type.
 		exportName := tparamExportName(prefix, tparam)
 		w.p.tparamNames[tparam.Obj()] = exportName
-		w.typ(list.At(i), pkg)
-
-}
-
-const blankMarker = "$"
-
-// tparamExportName returns the 'exported' name of a type parameter, which
+		w.typ(list.At(i), pkg)}const blankMarker = "$"// tparamExportName returns the 'exported' name of a type parameter, which
 // differs from its actual object name: it is prefixed with a qualifier, and
 // blank type parameter names are disambiguated by their index in the type
-// parameter list.
-
- tparamExportName(prefix string, tparam *typeparams.TypeParam) string {
+// parameter list. tparamExportName(prefix string, tparam *typeparams.TypeParam) string {
 	assert(prefix != "")
 	name := tparam.Obj().Name()
 	if name == "_" {
 		name = blankMarker + strconv.Itoa(tparam.Index())
 	}
 	return prefix + "." + name
-}
-
-// tparamName returns the real name of a type parameter, after stripping its
+}// tparamName returns the real name of a type parameter, after stripping its
 // qualifying prefix and reverting blank-name encoding. See tparamExportName
-// for details.
-
- tparamName(exportName string) string {
+// for details. tparamName(exportName string) string {
 	// Remove the "path" from the type param name that makes it unique.
 	ix := strings.LastIndex(exportName, ".")
 	if ix < 0 {
@@ -942,8 +668,6 @@ const blankMarker = "$"
 	}
 	return name
 }
-
-
  (w *exportWriter) paramList(tup *types.Tuple) {
 = tup.Len()
 	w.uint64(uint64(n))
@@ -951,22 +675,16 @@ const blankMarker = "$"
 		w.param(tup.At(i))
 	}
 }
-
-
  (w *exportWriter) param(obj types.Object) {
 	w.pos(obj.Pos())
 	w.localIdent(obj)
 	w.typ(obj.Type(), obj.Pkg())
 }
-
-
  (w *exportWriter) value(typ types.Type, v constant.Value) {
 	w.typ(typ, nil)
 	if w.p.version >= iexportVersionGo1_18 {
 		w.int64(int64(v.Kind()))
-	}
-
-	switch b := typ.Underlying().(*types.Basic); b.Info() & types.IsConstType {
+	}	switch b := typ.Underlying().(*types.Basic); b.Info() & types.IsConstType {
 	case types.IsBoolean:
 		w.bool(constant.BoolVal(v))
 	case types.IsInteger:
@@ -994,12 +712,8 @@ const blankMarker = "$"
 		}
 		panic(internalErrorf("unexpected type %v (%v)", typ, typ.Underlying()))
 	}
-}
-
-// constantToFloat converts a constant.Value with kind constant.Float to a
-// big.Float.
-
- constantToFloat(x constant.Value) *big.Float {
+}// constantToFloat converts a constant.Value with kind constant.Float to a
+// big.Float. constantToFloat(x constant.Value) *big.Float {
 	x = constant.ToFloat(x)
 	// Use the same floating-point precision (512) as cmd/compile
 	// (see Mpprec in cmd/compile/internal/gc/mpfloat.go).
@@ -1021,9 +735,7 @@ const blankMarker = "$"
 		assert(ok)
 	}
 	return &f
-}
-
-// mpint exports a multi-precision integer.
+}// mpint exports a multi-precision integer.
 //
 // For unsigned types, small values are written out as a single
 // byte. Larger values are written out as a length-prefixed big-endian
@@ -1042,38 +754,26 @@ const blankMarker = "$"
 // of type typ. As a special case, 8-bit types are always encoded as a
 // single byte.
 //
-// TODO(mdempsky): Is this level of complexity really worthwhile?
-
- (w *exportWriter) mpint(x *big.Int, typ types.Type) {
+// TODO(mdempsky): Is this level of complexity really worthwhile? (w *exportWriter) mpint(x *big.Int, typ types.Type) {
 	basic, ok := typ.Underlying().(*types.Basic)
 	if !ok {
 		panic(internalErrorf("unexpected type %v (%T)", typ.Underlying(), typ.Underlying()))
-	}
-
-	signed, maxBytes := intSize(basic)
-
-	negative := x.Sign() < 0
+	}	signed, maxBytes := intSize(basic)	negative := x.Sign() < 0
 	if !signed && negative {
 		panic(internalErrorf("negative unsigned integer; type %v, value %v", typ, x))
-	}
-
-= x.Bytes()
+	}= x.Bytes()
 	if len(b) > 0 && b[0] == 0 {
 		panic(internalErrorf("leading zeros"))
 	}
 	if uint(len(b)) > maxBytes {
 		panic(internalErrorf("bad mpint length: %d > %d (type %v, value %v)", len(b), maxBytes, typ, x))
-	}
-
-	maxSmall := 256 - maxBytes
+	}	maxSmall := 256 - maxBytes
 	if signed {
 		maxSmall = 256 - 2*maxBytes
 	}
 	if maxBytes == 1 {
 		maxSmall = 256
-	}
-
-	// Check if x can use small value encoding.
+	}	// Check if x can use small value encoding.
 	if len(b) <= 1 {
 		var ux uint
 		if len(b) == 1 {
@@ -1089,9 +789,7 @@ f negative {
 			w.data.WriteByte(byte(ux))
 			return
 		}
-	}
-
-= 256 - uint(len(b))
+	}= 256 - uint(len(b))
 signed {
 		n = 256 - 2*uint(len(b))
  negative {
@@ -1100,34 +798,22 @@ signed {
 	}
 	if n < maxSmall || n >= 256 {
 		panic(internalErrorf("encoding mistake: %d, %v, %v => %d", len(b), signed, negative, n))
-	}
-
-	w.data.WriteByte(byte(n))
+	}	w.data.WriteByte(byte(n))
 	w.data.Write(b)
-}
-
-// mpfloat exports a multi-precision floating point number.
+}// mpfloat exports a multi-precision floating point number.
 //
 // The number's value is decomposed into mantissa × 2**exponent, where
 // mantissa is an integer. The value is written out as mantissa (as a
 // multi-precision integer) and then the exponent, except exponent is
-// omitted if mantissa is zero.
-
- (w *exportWriter) mpfloat(f *big.Float, typ types.Type) {
+// omitted if mantissa is zero. (w *exportWriter) mpfloat(f *big.Float, typ types.Type) {
 f.IsInf() {
 		panic("infinite constant")
-	}
-
-	// Break into f = mant × 2**exp, with 0.5 <= mant < 1.
+	}	// Break into f = mant × 2**exp, with 0.5 <= mant < 1.
 	var mant big.Float
- := int64(f.MantExp(&mant))
-
-	// Scale so that mant is an integer.
+ := int64(f.MantExp(&mant))	// Scale so that mant is an integer.
 	prec := mant.MinPrec()
 	mant.SetMantExp(&mant, int(prec))
-	exp -= int64(prec)
-
-	manti, acc := mant.Int(nil)
+	exp -= int64(prec)	manti, acc := mant.Int(nil)
 	if acc != big.Exact {
 		panic(internalErrorf("mantissa scaling failed for %f (%s)", f, acc))
 	}
@@ -1136,84 +822,48 @@ f.IsInf() {
 		w.int64(exp)
 	}
 }
-
-
  (w *exportWriter) bool(b bool) bool {
 	var x uint64
 	if b {
-		x = 1
-
-	w.uint64(x)
+		x = 1	w.uint64(x)
 	return b
 }
-
-
- (w *exportWriter) int64(x int64)   { w.data.int64(x) }
-
- (w *exportWriter) uint64(x uint64) { w.data.uint64(x) }
-
- (w *exportWriter) string(s string) { w.uint64(w.p.stringOff(s)) }
-
-
+ (w *exportWriter) int64(x int64)   { w.data.int64(x) } (w *exportWriter) uint64(x uint64) { w.data.uint64(x) } (w *exportWriter) string(s string) { w.uint64(w.p.stringOff(s)) }
  (w *exportWriter) localIdent(obj types.Object) {
 	// Anonymous parameters.
 	if obj == nil {
 		w.string("")
 		return
-	}
-
-	name := obj.Name()
+	}	name := obj.Name()
 	if name == "_" {
 		w.string("_")
 		return
-	}
-
-	w.string(name)
-}
-
-type intWriter struct {
+	}	w.string(name)
+}type intWriter struct {
 	bytes.Buffer
 }
-
-
  (w *intWriter) int64(x int64) {
 	var buf [binary.MaxVarintLen64]byte
 	n := binary.PutVarint(buf[:], x)
 	w.Write(buf[:n])
 }
-
-
  (w *intWriter) uint64(x uint64) {
 	var buf [binary.MaxVarintLen64]byte
 	n := binary.PutUvarint(buf[:], x)
 	w.Write(buf[:n])
 }
-
-
  assert(cond bool) {
 	if !cond {
 		panic("internal error: assertion failed")
 	}
-}
-
-// The below is copied from go/src/cmd/compile/internal/gc/syntax.go.
-
-// objQueue is a FIFO queue of types.Object. The zero value of objQueue is
+}// The below is copied from go/src/cmd/compile/internal/gc/syntax.go.// objQueue is a FIFO queue of types.Object. The zero value of objQueue is
 // a ready-to-use empty queue.
 type objQueue struct {
 	ring       []types.Object
 	head, tail int
-}
-
-// empty returns true if q contains no Nodes.
-
- (q *objQueue) empty() bool {
+}// empty returns true if q contains no Nodes. (q *objQueue) empty() bool {
 	return q.head == q.tail
-}
-
-// pushTail appends n to the tail of the queue.
-
- (q *objQueue) pushTail(obj types.Object) {
+}// pushTail appends n to the tail of the queue. (q *objQueue) pushTail(obj types.Object) {
 	if len(q.ring) == 0 {
 		q.ring = make([]types.Object, 16)
 	} else if q.head+len(q.ring) == q.tail {
@@ -1229,15 +879,9 @@ type objQueue struct {
 			copy(nring[pos:], q.ring[:q.tail%len(q.ring)])
 		}
 		q.ring, q.head, q.tail = nring, 0, q.tail-q.head
-	}
-
-	q.ring[q.tail%len(q.ring)] = obj
+	}	q.ring[q.tail%len(q.ring)] = obj
 	q.tail++
-}
-
-// popHead pops a node from the head of the queue. It panics if q is empty.
-
- (q *objQueue) popHead() types.Object {
+}// popHead pops a node from the head of the queue. It panics if q is empty. (q *objQueue) popHead() types.Object {
 	if q.empty() {
 		panic("dequeue empty")
 	}

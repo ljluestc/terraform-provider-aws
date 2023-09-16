@@ -58,14 +58,14 @@ resource "aws_glue_catalog_database" "test" {
 
 resource "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_database.test.name
-  name          = %[2]q
+  name = %[2]q
 
   description = "aws_glue_catalog_table datasource acc test"
 
   table_type = "EXTERNAL_TABLE"
 
   parameters = {
-    EXTERNAL              = "TRUE"
+    EXTERNAL     = "TRUE"
     "parquet.compression" = "SNAPPY"
   }
 
@@ -104,7 +104,7 @@ resource "aws_glue_catalog_table" "test" {
 
 data "aws_glue_catalog_table" "test" {
   database_name = aws_glue_catalog_table.test.database_name
-  name          = aws_glue_catalog_table.test.name
+  name = aws_glue_catalog_table.test.name
 }
 `, dbName, tName)
 }

@@ -92,7 +92,7 @@ func sweepSecrets(region string) error {
 			log.Printf("[INFO] Deleting Secrets Manager Secret: %s", name)
 			input := &secretsmanager.DeleteSecretInput{
 				ForceDeleteWithoutRecovery: aws.Bool(true),
-				SecretId:                   aws.String(name),
+				SecretId: aws.String(name),
 			}
 
 			_, err := conn.DeleteSecretWithContext(ctx, input)

@@ -17,14 +17,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccSESDomainDKIM_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ses_domain_dkim.test"
 	domain := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
@@ -32,7 +32,8 @@ func TestAccSESDomainDKIM_basic(t *testing.T) {
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckDomainDKIMDestroy(ctx),
 		Steps: []resource.TestStep{
-			{ // nosemgrep:ci.test-config-funcs-correct-form
+			{ // nosemgrep:ci.test-config-
+funcs-correct-form
 				Config: fmt.Sprintf(testAccDomainDKIMConfig, domain),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckDomainDKIMExists(ctx, resourceName),
@@ -42,9 +43,9 @@ func TestAccSESDomainDKIM_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckDomainDKIMDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SESConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -73,9 +74,9 @@ func testAccCheckDomainDKIMDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckDomainDKIMExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("SES Domain Identity not found: %s", n)
@@ -106,9 +107,9 @@ func testAccCheckDomainDKIMExists(ctx context.Context, n string) resource.TestCh
 		return nil
 	}
 }
-
 func testAccCheckDomainDKIMTokens(n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs := s.RootModule().Resources[n]
 
 		expectedNum := 3

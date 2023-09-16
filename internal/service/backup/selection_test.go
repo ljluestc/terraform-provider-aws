@@ -1,14 +1,8 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package backup_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package backup_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/aws"
+	"testing"	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/backup"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
@@ -16,21 +10,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfbackup "github.com/hashicorp/terraform-provider-aws/internal/service/backup"
-)
-
-
-func TestAccBackupSelection_basic(t *testing.T) {
+)func TestAccBackupSelection_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var selection1 backup.GetBackupSelectionOutput
 	resourceName := "aws_backup_selection.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSelectionDestroy(ctx),
+CheckDestroy: testAccCheckSelectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSelectionConfig_basic(rName),
@@ -40,8 +29,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateId
 func: testAccSelectionImportStateID
 func(resourceName),
@@ -49,21 +38,16 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccBackupSelection_disappears(t *testing.T) {
+}func TestAccBackupSelection_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var selection1 backup.GetBackupSelectionOutput
 	resourceName := "aws_backup_selection.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSelectionDestroy(ctx),
+CheckDestroy: testAccCheckSelectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSelectionConfig_basic(rName),
@@ -76,22 +60,17 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func TestAccBackupSelection_Disappears_backupPlan(t *testing.T) {
+}func TestAccBackupSelection_Disappears_backupPlan(t *testing.T) {
 	ctx := acctest.Context(t)
 	var selection1 backup.GetBackupSelectionOutput
 	resourceName := "aws_backup_selection.test"
 	backupPlanResourceName := "aws_backup_plan.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSelectionDestroy(ctx),
+CheckDestroy: testAccCheckSelectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSelectionConfig_basic(rName),
@@ -105,21 +84,16 @@ ExpectNonEmptyPlan: true,
 	},
 },
 	})
-}
-
-
-func TestAccBackupSelection_withTags(t *testing.T) {
+}func TestAccBackupSelection_withTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var selection1 backup.GetBackupSelectionOutput
 	resourceName := "aws_backup_selection.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSelectionDestroy(ctx),
+CheckDestroy: testAccCheckSelectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSelectionConfig_tags(rName),
@@ -130,8 +104,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateId
 func: testAccSelectionImportStateID
 func(resourceName),
@@ -139,21 +113,16 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccBackupSelection_conditionsWithTags(t *testing.T) {
+}func TestAccBackupSelection_conditionsWithTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var selection1 backup.GetBackupSelectionOutput
 	resourceName := "aws_backup_selection.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSelectionDestroy(ctx),
+CheckDestroy: testAccCheckSelectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSelectionConfig_conditionsTags(rName),
@@ -168,8 +137,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateId
 func: testAccSelectionImportStateID
 func(resourceName),
@@ -177,21 +146,16 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccBackupSelection_withResources(t *testing.T) {
+}func TestAccBackupSelection_withResources(t *testing.T) {
 	ctx := acctest.Context(t)
 	var selection1 backup.GetBackupSelectionOutput
 	resourceName := "aws_backup_selection.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSelectionDestroy(ctx),
+CheckDestroy: testAccCheckSelectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSelectionConfig_resources(rName),
@@ -202,8 +166,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateId
 func: testAccSelectionImportStateID
 func(resourceName),
@@ -211,21 +175,16 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccBackupSelection_withNotResources(t *testing.T) {
+}func TestAccBackupSelection_withNotResources(t *testing.T) {
 	ctx := acctest.Context(t)
 	var selection1 backup.GetBackupSelectionOutput
 	resourceName := "aws_backup_selection.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSelectionDestroy(ctx),
+CheckDestroy: testAccCheckSelectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSelectionConfig_notResources(rName),
@@ -236,8 +195,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateId
 func: testAccSelectionImportStateID
 func(resourceName),
@@ -245,21 +204,16 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func TestAccBackupSelection_updateTag(t *testing.T) {
+}func TestAccBackupSelection_updateTag(t *testing.T) {
 	ctx := acctest.Context(t)
 	var selection1, selection2 backup.GetBackupSelectionOutput
 	resourceName := "aws_backup_selection.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckSelectionDestroy(ctx),
+CheckDestroy: testAccCheckSelectionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSelectionConfig_basic(rName),
@@ -277,8 +231,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateId
 func: testAccSelectionImportStateID
 func(resourceName),
@@ -286,10 +240,7 @@ ImportStateVerify: true,
 	},
 },
 	})
-}
-
-
-func testAccCheckSelectionDestroy(ctx context.Context) resource.TestCheck
+}func testAccCheckSelectionDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
@@ -297,57 +248,31 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
 for _, rs := range s.RootModule().Resources {
 	if rs.Type != "aws_backup_selection" {
 continue
-	}
-
-	input := &backup.GetBackupSelectionInput{
+	}	input := &backup.GetBackupSelectionInput{
 BackupPlanId: aws.String(rs.Primary.Attributes["plan_id"]),
 SelectionId:  aws.String(rs.Primary.ID),
-	}
-
-	resp, err := conn.GetBackupSelectionWithContext(ctx, input)
-
-	if err == nil {
+	}	resp, err := conn.GetBackupSelectionWithContext(ctx, input)	if err == nil {
 if *resp.SelectionId == rs.Primary.ID {
 	return fmt.Errorf("Selection '%s' was not deleted properly", rs.Primary.ID)
 }
 	}
-}
-
-return nil
+}return nil
 	}
-}
-
-
-func testAccCheckSelectionExists(ctx context.Context, name string, selection *backup.GetBackupSelectionOutput) resource.TestCheck
+}func testAccCheckSelectionExists(ctx context.Context, name string, selection *backup.GetBackupSelectionOutput) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
 if !ok {
 	return fmt.Errorf("not found: %s, %v", name, s.RootModule().Resources)
-}
-
-conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
-
-input := &backup.GetBackupSelectionInput{
+}conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)input := &backup.GetBackupSelectionInput{
 	BackupPlanId: aws.String(rs.Primary.Attributes["plan_id"]),
 	SelectionId:  aws.String(rs.Primary.ID),
-}
-
-output, err := conn.GetBackupSelectionWithContext(ctx, input)
-
-if err != nil {
+}output, err := conn.GetBackupSelectionWithContext(ctx, input)if err != nil {
 	return err
-}
-
-*selection = *output
-
-return nil
+}*selection = *outputreturn nil
 	}
-}
-
-
-func testAccCheckSelectionRecreated(t *testing.T,
+}func testAccCheckSelectionRecreated(t *testing.T,
 	before, after *backup.GetBackupSelectionOutput) resource.TestCheck
 func {
 	return 
@@ -357,10 +282,7 @@ if *before.SelectionId == *after.SelectionId {
 }
 return nil
 	}
-}
-
-
-func testAccSelectionImportStateID
+}func testAccSelectionImportStateID
 func(resourceName string) resource.ImportStateId
 func {
 	return 
@@ -368,226 +290,141 @@ func(s *terraform.State) (string, error) {
 rs, ok := s.RootModule().Resources[resourceName]
 if !ok {
 	return "", fmt.Errorf("Not found: %s", resourceName)
-}
-
-id := fmt.Sprintf("%s|%s",
+}id := fmt.Sprintf("%s|%s",
 	rs.Primary.Attributes["plan_id"],
-	rs.Primary.ID)
-
-return id, nil
+	rs.Primary.ID)return id, nil
 	}
-}
-
-
-func testAccSelectionConfig_base(rName string) string {
+}func testAccSelectionConfig_base(rName string) string {
 	return fmt.Sprintf(`
-data "aws_caller_identity" "current" {}
-
-data "aws_partition" "current" {}
-
-data "aws_region" "current" {}
-
-resource "aws_backup_vault" "test" {
+data "aws_caller_identity" "current" {}data "aws_partition" "current" {}data "aws_region" "current" {}resource "aws_backup_vault" "test" {
   name = %[1]q
-}
-
-resource "aws_backup_plan" "test" {
-  name = %[1]q
-
-  rule {
-    rule_name= %[1]q
-    target_vault_name = aws_backup_vault.test.name
-    schedule = "cron(0 12 * * ? *)"
+}resource "aws_backup_plan" "test" {
+  name = %[1]q  rule {
+ rule_name= %[1]q
+ target_vault_name = aws_backup_vault.test.name
+ schedule = "cron(0 12 * * ? *)"
   }
 }
 `, rName)
-}
-
-
-func testAccSelectionConfig_basic(rName string) string {
+}func testAccSelectionConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 testAccSelectionConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_backup_selection" "test" {
-  plan_id = aws_backup_plan.test.id
-
-  name= %[1]q
-  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"
-
-  selection_tag {
-    type  = "STRINGEQUALS"
-    key   = "foo"
-    value = "bar"
-  }
-
-  resources = [
-    "arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:volume/*"
+  plan_id = aws_backup_plan.test.id  name= %[1]q
+  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"  selection_tag {
+ type  = "STRINGEQUALS"
+ key= "foo"
+ value = "bar"
+  }  resources = [
+ "arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:volume/*"
   ]
 }
 `, rName))
-}
-
-
-func testAccSelectionConfig_tags(rName string) string {
+}func testAccSelectionConfig_tags(rName string) string {
 	return acctest.ConfigCompose(
 testAccSelectionConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_backup_selection" "test" {
-  plan_id = aws_backup_plan.test.id
-
-  name= %[1]q
-  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"
-
-  selection_tag {
-    type  = "STRINGEQUALS"
-    key   = "foo"
-    value = "bar"
-  }
-
-  selection_tag {
-    type  = "STRINGEQUALS"
-    key   = "boo"
-    value = "far"
-  }
-
-  resources = [
-    "arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:volume/*"
+  plan_id = aws_backup_plan.test.id  name= %[1]q
+  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"  selection_tag {
+ type  = "STRINGEQUALS"
+ key= "foo"
+ value = "bar"
+  }  selection_tag {
+ type  = "STRINGEQUALS"
+ key= "boo"
+ value = "far"
+  }  resources = [
+ "arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:volume/*"
   ]
 }
 `, rName))
-}
-
-
-func testAccSelectionConfig_conditionsTags(rName string) string {
+}func testAccSelectionConfig_conditionsTags(rName string) string {
 	return acctest.ConfigCompose(
 testAccSelectionConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_backup_selection" "test" {
-  plan_id = aws_backup_plan.test.id
-
-  name = %[1]q
-
-  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"
-
-  condition {
-    string_equals {
-      key   = "aws:ResourceTag/Component"
-      value = "rds"
-    }
-    string_equals {
-      key   = "aws:ResourceTag/Team"
-      value = "dev"
-    }
-    string_like {
-      key   = "aws:ResourceTag/Application"
-      value = "app*"
-    }
-    string_not_equals {
-      key   = "aws:ResourceTag/Backup"
-      value = "false"
-    }
-    string_not_equals {
-      key   = "aws:ResourceTag/Team"
-      value = "infra"
-    }
-    string_not_like {
-      key   = "aws:ResourceTag/Environment"
-      value = "test*"
-    }
-  }
-
-  resources = [
-    "arn:${data.aws_partition.current.partition}:rds:*:*:cluster:*",
-    "arn:${data.aws_partition.current.partition}:rds:*:*:db:*"
+  plan_id = aws_backup_plan.test.id  name = %[1]q  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"  condition {
+ string_equals {
+key= "aws:ResourceTag/Component"
+value = "rds"
+ }
+ string_equals {
+key= "aws:ResourceTag/Team"
+value = "dev"
+ }
+ string_like {
+key= "aws:ResourceTag/Application"
+value = "app*"
+ }
+ string_not_equals {
+key= "aws:ResourceTag/Backup"
+value = "false"
+ }
+ string_not_equals {
+key= "aws:ResourceTag/Team"
+value = "infra"
+ }
+ string_not_like {
+key= "aws:ResourceTag/Environment"
+value = "test*"
+ }
+  }  resources = [
+ "arn:${data.aws_partition.current.partition}:rds:*:*:cluster:*",
+ "arn:${data.aws_partition.current.partition}:rds:*:*:db:*"
   ]
 }
 `, rName))
-}
-
-
-func testAccSelectionConfig_resources(rName string) string {
+}func testAccSelectionConfig_resources(rName string) string {
 	return acctest.ConfigCompose(
 testAccSelectionConfig_base(rName),
 fmt.Sprintf(`
 data "aws_availability_zones" "available" {
-  state = "available"
-
-  filter {
-    name   = "opt-in-status"
-    values = ["opt-in-not-required"]
+  state = "available"  filter {
+ name= "opt-in-status"
+ values = ["opt-in-not-required"]
   }
-}
-
-resource "aws_ebs_volume" "test" {
-  count = 2
-
-  availability_zone = data.aws_availability_zones.available.names[0]
-  size     = 1
-
-  tags = {
-    Name = %[1]q
+}resource "aws_ebs_volume" "test" {
+  count = 2  availability_zone = data.aws_availability_zones.available.names[0]
+  size= 1  tags = {
+ Name = %[1]q
   }
-}
-
-resource "aws_backup_selection" "test" {
-  plan_id = aws_backup_plan.test.id
-
-  name= %[1]q
-  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"
-
-  selection_tag {
-    type  = "STRINGEQUALS"
-    key   = "foo"
-    value = "bar"
-  }
-
-  resources = aws_ebs_volume.test[*].arn
+}resource "aws_backup_selection" "test" {
+  plan_id = aws_backup_plan.test.id  name= %[1]q
+  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"  selection_tag {
+ type  = "STRINGEQUALS"
+ key= "foo"
+ value = "bar"
+  }  resources = aws_ebs_volume.test[*].arn
 }
 `, rName))
-}
-
-
-func testAccSelectionConfig_notResources(rName string) string {
+}func testAccSelectionConfig_notResources(rName string) string {
 	return acctest.ConfigCompose(
 testAccSelectionConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_backup_selection" "test" {
-  plan_id = aws_backup_plan.test.id
-
-  name= %[1]q
-  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"
-
-  selection_tag {
-    type  = "STRINGEQUALS"
-    key   = "foo"
-    value = "bar"
-  }
-
-  not_resources = ["arn:${data.aws_partition.current.partition}:fsx:*"]
-  resources     = ["*"]
+  plan_id = aws_backup_plan.test.id  name= %[1]q
+  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"  selection_tag {
+ type  = "STRINGEQUALS"
+ key= "foo"
+ value = "bar"
+  }  not_resources = ["arn:${data.aws_partition.current.partition}:fsx:*"]
+  resources= ["*"]
 }
 `, rName))
-}
-
-
-func testAccSelectionConfig_updateTag(rName string) string {
+}func testAccSelectionConfig_updateTag(rName string) string {
 	return acctest.ConfigCompose(
 testAccSelectionConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_backup_selection" "test" {
-  plan_id = aws_backup_plan.test.id
-
-  name= %[1]q
-  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"
-
-  selection_tag {
-    type  = "STRINGEQUALS"
-    key   = "foo2"
-    value = "bar2"
-  }
-
-  resources = [
-    "arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:volume/*"
+  plan_id = aws_backup_plan.test.id  name= %[1]q
+  iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"  selection_tag {
+ type  = "STRINGEQUALS"
+ key= "foo2"
+ value = "bar2"
+  }  resources = [
+ "arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:volume/*"
   ]
 }
 `, rName))

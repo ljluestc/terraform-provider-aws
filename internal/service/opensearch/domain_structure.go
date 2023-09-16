@@ -10,7 +10,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/opensearchservice"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
-
 func expandAdvancedSecurityOptions(m []interface{}) *opensearchservice.AdvancedSecurityOptionsInput_ {
 	config := opensearchservice.AdvancedSecurityOptionsInput_{}
 	group := m[0].(map[string]interface{})
@@ -52,7 +51,6 @@ muo.MasterUserPassword = aws.String(v)
 
 	return &config
 }
-
 func expandAutoTuneOptions(tfMap map[string]interface{}) *opensearchservice.AutoTuneOptions {
 	if tfMap == nil {
 return nil
@@ -69,7 +67,6 @@ return nil
 
 	return options
 }
-
 func expandAutoTuneOptionsInput(tfMap map[string]interface{}) *opensearchservice.AutoTuneOptionsInput_ {
 	if tfMap == nil {
 return nil
@@ -85,7 +82,6 @@ options.MaintenanceSchedules = expandAutoTuneMaintenanceSchedules(v.List())
 
 	return options
 }
-
 func expandAutoTuneMaintenanceSchedules(tfList []interface{}) []*opensearchservice.AutoTuneMaintenanceSchedule {
 	var autoTuneMaintenanceSchedules []*opensearchservice.AutoTuneMaintenanceSchedule
 
@@ -108,7 +104,6 @@ autoTuneMaintenanceSchedules = append(autoTuneMaintenanceSchedules, autoTuneMain
 
 	return autoTuneMaintenanceSchedules
 }
-
 func expandAutoTuneMaintenanceScheduleDuration(tfMap map[string]interface{}) *opensearchservice.Duration {
 	autoTuneMaintenanceScheduleDuration := &opensearchservice.Duration{
 Value: aws.Int64(int64(tfMap["value"].(int))),
@@ -117,7 +112,6 @@ Unit:  aws.String(tfMap["unit"].(string)),
 
 	return autoTuneMaintenanceScheduleDuration
 }
-
 func expandESSAMLOptions(data []interface{}) *opensearchservice.SAMLOptionsInput_ {
 	if len(data) == 0 {
 return nil
@@ -155,7 +149,6 @@ options.SubjectKey = aws.String(v)
 
 	return &options
 }
-
 func expandSAMLOptionsIdp(l []interface{}) *opensearchservice.SAMLIdp {
 	if len(l) == 0 {
 return nil
@@ -172,7 +165,6 @@ EntityId:        aws.String(m["entity_id"].(string)),
 MetadataContent: aws.String(m["metadata_content"].(string)),
 	}
 }
-
 func expandOffPeakWindowOptions(tfMap map[string]interface{}) *opensearchservice.OffPeakWindowOptions {
 	if tfMap == nil {
 return nil
@@ -190,7 +182,6 @@ apiObject.OffPeakWindow = expandOffPeakWindow(v[0].(map[string]interface{}))
 
 	return apiObject
 }
-
 func expandOffPeakWindow(tfMap map[string]interface{}) *opensearchservice.OffPeakWindow {
 	if tfMap == nil {
 return nil
@@ -204,7 +195,6 @@ apiObject.WindowStartTime = expandWindowStartTime(v[0].(map[string]interface{}))
 
 	return apiObject
 }
-
 func expandWindowStartTime(tfMap map[string]interface{}) *opensearchservice.WindowStartTime {
 	if tfMap == nil {
 return nil
@@ -222,7 +212,6 @@ apiObject.Minutes = aws.Int64(int64(v))
 
 	return apiObject
 }
-
 func flattenAdvancedSecurityOptions(advancedSecurityOptions *opensearchservice.AdvancedSecurityOptions) []map[string]interface{} {
 	if advancedSecurityOptions == nil {
 return []map[string]interface{}{}
@@ -241,7 +230,6 @@ m["internal_user_database_enabled"] = aws.BoolValue(advancedSecurityOptions.Inte
 
 	return []map[string]interface{}{m}
 }
-
 func flattenAutoTuneOptions(autoTuneOptions *opensearchservice.AutoTuneOptions) map[string]interface{} {
 	if autoTuneOptions == nil {
 return nil
@@ -259,7 +247,6 @@ m["maintenance_schedule"] = flattenAutoTuneMaintenanceSchedules(v)
 
 	return m
 }
-
 func flattenAutoTuneMaintenanceSchedules(autoTuneMaintenanceSchedules []*opensearchservice.AutoTuneMaintenanceSchedule) []interface{} {
 	if len(autoTuneMaintenanceSchedules) == 0 {
 return nil
@@ -281,7 +268,6 @@ tfList = append(tfList, m)
 
 	return tfList
 }
-
 func flattenAutoTuneMaintenanceScheduleDuration(autoTuneMaintenanceScheduleDuration *opensearchservice.Duration) map[string]interface{} {
 	m := map[string]interface{}{}
 
@@ -290,7 +276,6 @@ func flattenAutoTuneMaintenanceScheduleDuration(autoTuneMaintenanceScheduleDurat
 
 	return m
 }
-
 func flattenESSAMLOptions(d *schema.ResourceData, samlOptions *opensearchservice.SAMLOptionsOutput_) []interface{} {
 	if samlOptions == nil {
 return nil
@@ -314,7 +299,6 @@ return nil
 
 	return []interface{}{m}
 }
-
 func flattenESSAMLIdpOptions(SAMLIdp *opensearchservice.SAMLIdp) []interface{} {
 	if SAMLIdp == nil {
 return []interface{}{}
@@ -327,7 +311,6 @@ return []interface{}{}
 
 	return []interface{}{m}
 }
-
 func getMasterUserOptions(d *schema.ResourceData) []interface{} {
 	if v, ok := d.GetOk("advanced_security_options"); ok {
 options := v.([]interface{})
@@ -340,7 +323,6 @@ return opts.([]interface{})
 	}
 	return []interface{}{}
 }
-
 func expandLogPublishingOptions(m *schema.Set) map[string]*opensearchservice.LogPublishingOption {
 	options := make(map[string]*opensearchservice.LogPublishingOption)
 
@@ -354,7 +336,6 @@ options[lo["log_type"].(string)] = &opensearchservice.LogPublishingOption{
 
 	return options
 }
-
 func flattenLogPublishingOptions(o map[string]*opensearchservice.LogPublishingOption) []map[string]interface{} {
 	m := make([]map[string]interface{}, 0)
 	for logType, val := range o {
@@ -371,7 +352,6 @@ m = append(m, mm)
 	}
 	return m
 }
-
 func flattenOffPeakWindowOptions(apiObject *opensearchservice.OffPeakWindowOptions) map[string]interface{} {
 	if apiObject == nil {
 return nil
@@ -389,7 +369,6 @@ tfMap["off_peak_window"] = []interface{}{flattenOffPeakWindow(v)}
 
 	return tfMap
 }
-
 func flattenOffPeakWindow(apiObject *opensearchservice.OffPeakWindow) map[string]interface{} {
 	if apiObject == nil {
 return nil
@@ -403,7 +382,6 @@ tfMap["window_start_time"] = []interface{}{flattenWindowStartTime(v)}
 
 	return tfMap
 }
-
 func flattenWindowStartTime(apiObject *opensearchservice.WindowStartTime) map[string]interface{} {
 	if apiObject == nil {
 return nil

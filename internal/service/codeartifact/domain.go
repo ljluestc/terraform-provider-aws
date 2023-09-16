@@ -30,7 +30,7 @@ import (
 func ResourceDomain() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDomainCreate,
-		ReadWithoutTimeout:   resourceDomainRead,
+		ReadWithoutTimeout:resourceDomainRead,
 		DeleteWithoutTimeout: resourceDomainDelete,
 		UpdateWithoutTimeout: resourceDomainUpdate,
 		Importer: &schema.ResourceImporter{
@@ -39,52 +39,51 @@ func ResourceDomain() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"domain": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"encryption_key": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				Computed:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"owner": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"created_time": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"asset_size_bytes": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"repository_count": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
 
 	input := &codeartifact.CreateDomainInput{
 		Domain: aws.String(d.Get("domain").(string)),
-		Tags:   getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("encryption_key"); ok {
@@ -103,7 +102,6 @@ func resourceDomainCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceDomainRead(ctx, d, meta)...)
 }
-
 func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -114,7 +112,7 @@ func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 
 	sm, err := conn.DescribeDomainWithContext(ctx, &codeartifact.DescribeDomainInput{
-		Domain:      aws.String(domainName),
+		Domain:ring(domainName),
 		DomainOwner: aws.String(domainOwner),
 	})
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, codeartifact.ErrCodeResourceNotFoundException) {
@@ -138,7 +136,6 @@ func resourceDomainRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
-
 func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -146,7 +143,6 @@ func resourceDomainUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceDomainRead(ctx, d, meta)...)
 }
-
 func resourceDomainDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeArtifactConn(ctx)
@@ -158,7 +154,7 @@ func resourceDomainDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 
 	input := &codeartifact.DeleteDomainInput{
-		Domain:      aws.String(domainName),
+		Domain:ring(domainName),
 		DomainOwner: aws.String(domainOwner),
 	}
 
@@ -174,7 +170,6 @@ func resourceDomainDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func DecodeDomainID(id string) (string, string, error) {
 	repoArn, err := arn.Parse(id)
 	if err != nil {

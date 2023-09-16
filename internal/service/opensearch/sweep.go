@@ -16,14 +16,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_opensearch_domain", &resource.Sweeper{
 		Name: "aws_opensearch_domain",
 		F:    sweepDomains,
 	})
 }
-
 func sweepDomains(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

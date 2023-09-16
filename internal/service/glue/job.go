@@ -55,13 +55,13 @@ func ResourceJob() *schema.Resource {
 							Default:  "glueetl",
 						},
 						"python_version": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.StringInSlice([]string{"2", "3", "3.9"}, true),
 						},
 						"runtime": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.StringInSlice([]string{"Ray2.4"}, true),
@@ -88,7 +88,7 @@ func ResourceJob() *schema.Resource {
 				Optional: true,
 			},
 			"execution_class": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(glue.ExecutionClass_Values(), true),
 			},
@@ -100,7 +100,7 @@ func ResourceJob() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"max_concurrent_runs": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      1,
 							ValidateFunc: validation.IntAtLeast(1),
@@ -114,18 +114,18 @@ func ResourceJob() *schema.Resource {
 				Computed: true,
 			},
 			"max_capacity": {
-				Type:          schema.TypeFloat,
+				Type: schema.TypeFloat,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"number_of_workers", "worker_type"},
 			},
 			"max_retries": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(0, 10),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.NoZeroValues,
@@ -143,7 +143,7 @@ func ResourceJob() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"notify_delay_after": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntAtLeast(1),
 						},
@@ -151,20 +151,20 @@ func ResourceJob() *schema.Resource {
 				},
 			},
 			"number_of_workers": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				ConflictsWith: []string{"max_capacity"},
 				ValidateFunc:  validation.IntAtLeast(2),
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"timeout": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.IntAtLeast(1),
@@ -174,7 +174,7 @@ func ResourceJob() *schema.Resource {
 				Optional: true,
 			},
 			"worker_type": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"max_capacity"},
 				ValidateFunc:  validation.StringInSlice(glue.WorkerType_Values(), false),
@@ -434,7 +434,7 @@ func expandJobCommand(l []interface{}) *glue.JobCommand {
 	m := l[0].(map[string]interface{})
 
 	jobCommand := &glue.JobCommand{
-		Name:           aws.String(m["name"].(string)),
+		Name:  aws.String(m["name"].(string)),
 		ScriptLocation: aws.String(m["script_location"].(string)),
 	}
 
@@ -485,10 +485,10 @@ func flattenJobCommand(jobCommand *glue.JobCommand) []map[string]interface{} {
 	}
 
 	m := map[string]interface{}{
-		"name":            aws.StringValue(jobCommand.Name),
+		"name":   aws.StringValue(jobCommand.Name),
 		"script_location": aws.StringValue(jobCommand.ScriptLocation),
 		"python_version":  aws.StringValue(jobCommand.PythonVersion),
-		"runtime":         aws.StringValue(jobCommand.Runtime),
+		"runtime":aws.StringValue(jobCommand.Runtime),
 	}
 
 	return []map[string]interface{}{m}

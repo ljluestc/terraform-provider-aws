@@ -23,7 +23,7 @@ import (
 func ResourceCodeSigningConfig() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceCodeSigningConfigCreate,
-		ReadWithoutTimeout:   resourceCodeSigningConfigRead,
+		ReadWithoutTimeout:resourceCodeSigningConfigRead,
 		UpdateWithoutTimeout: resourceCodeSigningConfigUpdate,
 		DeleteWithoutTimeout: resourceCodeSigningConfigDelete,
 
@@ -33,13 +33,13 @@ func ResourceCodeSigningConfig() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"allowed_publishers": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"signing_profile_version_arns": {
-							Type:     schema.TypeSet,
+							Type:schema.TypeSet,
 							Required: true,
 							MinItems: 1,
 							MaxItems: 20,
@@ -53,14 +53,14 @@ func ResourceCodeSigningConfig() *schema.Resource {
 				},
 			},
 			"policies": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"untrusted_artifact_on_deployment": {
-							Type:     schema.TypeString,
+							Type:schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.StringInSlice(
 								lambda.CodeSigningPolicy_Values(),
@@ -70,26 +70,25 @@ func ResourceCodeSigningConfig() *schema.Resource {
 				},
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"config_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional:true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},
 			"last_modified": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func resourceCodeSigningConfigCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -98,7 +97,7 @@ func resourceCodeSigningConfigCreate(ctx context.Context, d *schema.ResourceData
 
 	configInput := &lambda.CreateCodeSigningConfigInput{
 		AllowedPublishers: expandCodeSigningConfigAllowedPublishers(d.Get("allowed_publishers").([]interface{})),
-		Description:       aws.String(d.Get("description").(string)),
+		Description:  aws.String(d.Get("description").(string)),
 	}
 
 	if v, ok := d.GetOk("policies"); ok {
@@ -121,7 +120,6 @@ func resourceCodeSigningConfigCreate(ctx context.Context, d *schema.ResourceData
 
 	return append(diags, resourceCodeSigningConfigRead(ctx, d, meta)...)
 }
-
 func resourceCodeSigningConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -171,7 +169,6 @@ func resourceCodeSigningConfigRead(ctx context.Context, d *schema.ResourceData, 
 
 	return diags
 }
-
 func resourceCodeSigningConfigUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -209,7 +206,6 @@ func resourceCodeSigningConfigUpdate(ctx context.Context, d *schema.ResourceData
 
 	return append(diags, resourceCodeSigningConfigRead(ctx, d, meta)...)
 }
-
 func resourceCodeSigningConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -228,7 +224,6 @@ func resourceCodeSigningConfigDelete(ctx context.Context, d *schema.ResourceData
 	log.Printf("[DEBUG] Lambda code signing config %q deleted", d.Id())
 	return diags
 }
-
 func expandCodeSigningConfigAllowedPublishers(allowedPublishers []interface{}) *lambda.AllowedPublishers {
 	if len(allowedPublishers) == 0 || allowedPublishers[0] == nil {
 		return nil
@@ -240,7 +235,6 @@ func expandCodeSigningConfigAllowedPublishers(allowedPublishers []interface{}) *
 		SigningProfileVersionArns: flex.ExpandStringSet(mAllowedPublishers["signing_profile_version_arns"].(*schema.Set)),
 	}
 }
-
 func flattenCodeSigningConfigAllowedPublishers(allowedPublishers *lambda.AllowedPublishers) []interface{} {
 	if allowedPublishers == nil {
 		return []interface{}{}
@@ -250,7 +244,6 @@ func flattenCodeSigningConfigAllowedPublishers(allowedPublishers *lambda.Allowed
 		"signing_profile_version_arns": flex.FlattenStringSet(allowedPublishers.SigningProfileVersionArns),
 	}}
 }
-
 func flattenCodeSigningPolicies(p *lambda.CodeSigningPolicies) []interface{} {
 	if p == nil {
 		return nil

@@ -21,7 +21,6 @@ import (
 	tfmq "github.com/hashicorp/terraform-provider-aws/internal/service/mq"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestValidateBrokerName(t *testing.T) {
 	t.Parallel()
 
@@ -54,44 +53,43 @@ func TestValidateBrokerName(t *testing.T) {
 		}
 	}
 }
-
 func TestBrokerPasswordValidation(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
-		Value    string
+		Value string
 		ErrCount int
 	}{
 		{
-			Value:    "123456789012",
+			Value: "123456789012",
 			ErrCount: 0,
 		},
 		{
-			Value:    "12345678901",
+			Value: "12345678901",
 			ErrCount: 1,
 		},
 		{
-			Value:    "1234567890" + strings.Repeat("#", 240),
+			Value: "1234567890" + strings.Repeat("#", 240),
 			ErrCount: 0,
 		},
 		{
-			Value:    "1234567890" + strings.Repeat("#", 241),
+			Value: "1234567890" + strings.Repeat("#", 241),
 			ErrCount: 1,
 		},
 		{
-			Value:    "123" + strings.Repeat("#", 9),
+			Value: "123" + strings.Repeat("#", 9),
 			ErrCount: 0,
 		},
 		{
-			Value:    "12" + strings.Repeat("#", 10),
+			Value: "12" + strings.Repeat("#", 10),
 			ErrCount: 1,
 		},
 		{
-			Value:    "12345678901,",
+			Value: "12345678901,",
 			ErrCount: 1,
 		},
 		{
-			Value:    "1," + strings.Repeat("#", 9),
+			Value: "1," + strings.Repeat("#", 9),
 			ErrCount: 3,
 		},
 	}
@@ -104,7 +102,6 @@ func TestBrokerPasswordValidation(t *testing.T) {
 		}
 	}
 }
-
 func TestDiffUsers(t *testing.T) {
 	t.Parallel()
 
@@ -114,55 +111,55 @@ func TestDiffUsers(t *testing.T) {
 
 		Creations []*mq.CreateUserRequest
 		Deletions []*mq.DeleteUserInput
-		Updates   []*mq.UpdateUserRequest
+		Updates[]*mq.UpdateUserRequest
 	}{
 		{
 			OldUsers: []interface{}{},
 			NewUsers: []interface{}{
 				map[string]interface{}{
-					"console_access":   false,
-					"username":         "second",
-					"password":         "TestTest2222",
-					"groups":           schema.NewSet(schema.HashString, []interface{}{"admin"}),
+					"console_access":false,
+					"username":cond",
+					"password":stTest2222",
+					"groups":chema.NewSet(schema.HashString, []interface{}{"admin"}),
 					"replication_user": false,
 				},
 			},
 			Creations: []*mq.CreateUserRequest{
 				{
-					BrokerId:        aws.String("test"),
-					ConsoleAccess:   aws.Bool(false),
-					Username:        aws.String("second"),
-					Password:        aws.String("TestTest2222"),
-					Groups:          aws.StringSlice([]string{"admin"}),
+					BrokerId:String("test"),
+					ConsoleAccess:aws.Bool(false),
+					Username:String("second"),
+					Password:String("TestTest2222"),
+					Groups:s.StringSlice([]string{"admin"}),
 					ReplicationUser: aws.Bool(false),
 				},
 			},
 			Deletions: []*mq.DeleteUserInput{},
-			Updates:   []*mq.UpdateUserRequest{},
+			Updates:[]*mq.UpdateUserRequest{},
 		},
 		{
 			OldUsers: []interface{}{
 				map[string]interface{}{
-					"console_access":   true,
-					"username":         "first",
-					"password":         "TestTest1111",
+					"console_access":true,
+					"username":rst",
+					"password":stTest1111",
 					"replication_user": false,
 				},
 			},
 			NewUsers: []interface{}{
 				map[string]interface{}{
-					"console_access":   false,
-					"username":         "second",
-					"password":         "TestTest2222",
+					"console_access":false,
+					"username":cond",
+					"password":stTest2222",
 					"replication_user": false,
 				},
 			},
 			Creations: []*mq.CreateUserRequest{
 				{
-					BrokerId:        aws.String("test"),
-					ConsoleAccess:   aws.Bool(false),
-					Username:        aws.String("second"),
-					Password:        aws.String("TestTest2222"),
+					BrokerId:String("test"),
+					ConsoleAccess:aws.Bool(false),
+					Username:String("second"),
+					Password:String("TestTest2222"),
 					ReplicationUser: aws.Bool(false),
 				},
 			},
@@ -174,24 +171,24 @@ func TestDiffUsers(t *testing.T) {
 		{
 			OldUsers: []interface{}{
 				map[string]interface{}{
-					"console_access":   true,
-					"username":         "first",
-					"password":         "TestTest1111updated",
+					"console_access":true,
+					"username":rst",
+					"password":stTest1111updated",
 					"replication_user": false,
 				},
 				map[string]interface{}{
-					"console_access":   false,
-					"username":         "second",
-					"password":         "TestTest2222",
+					"console_access":false,
+					"username":cond",
+					"password":stTest2222",
 					"replication_user": false,
 				},
 			},
 			NewUsers: []interface{}{
 				map[string]interface{}{
-					"console_access":   false,
-					"username":         "second",
-					"password":         "TestTest2222",
-					"groups":           schema.NewSet(schema.HashString, []interface{}{"admin"}),
+					"console_access":false,
+					"username":cond",
+					"password":stTest2222",
+					"groups":chema.NewSet(schema.HashString, []interface{}{"admin"}),
 					"replication_user": false,
 				},
 			},
@@ -201,11 +198,11 @@ func TestDiffUsers(t *testing.T) {
 			},
 			Updates: []*mq.UpdateUserRequest{
 				{
-					BrokerId:        aws.String("test"),
-					ConsoleAccess:   aws.Bool(false),
-					Username:        aws.String("second"),
-					Password:        aws.String("TestTest2222"),
-					Groups:          aws.StringSlice([]string{"admin"}),
+					BrokerId:String("test"),
+					ConsoleAccess:aws.Bool(false),
+					Username:String("second"),
+					Password:String("TestTest2222"),
+					Groups:s.StringSlice([]string{"admin"}),
 					ReplicationUser: aws.Bool(false),
 				},
 			},
@@ -241,9 +238,8 @@ func TestDiffUsers(t *testing.T) {
 const (
 	testAccBrokerVersionNewer = "5.16.3"  // before changing, check b/c must be valid on GovCloud
 	testAccBrokerVersionOlder = "5.15.12" // before changing, check b/c must be valid on GovCloud
-	testAccRabbitVersion      = "3.8.6"   // before changing, check b/c must be valid on GovCloud
+	testAccRabbitVersion.6"// before changing, check b/c must be valid on GovCloud
 )
-
 func TestAccMQBroker_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -307,22 +303,21 @@ func TestAccMQBroker_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "user.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user.*", map[string]string{
 						"console_access": "false",
-						"groups.#":       "0",
-						"username":       "Test",
-						"password":       "TestTest1234",
+						"groups.#":
+						"username":",
+						"password":Test1234",
 					}),
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 		},
 	})
 }
-
 func TestAccMQBroker_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -354,7 +349,6 @@ func TestAccMQBroker_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccMQBroker_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -384,9 +378,9 @@ func TestAccMQBroker_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 			{
@@ -409,7 +403,6 @@ func TestAccMQBroker_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccMQBroker_throughputOptimized(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -459,9 +452,9 @@ func TestAccMQBroker_throughputOptimized(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "user.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user.*", map[string]string{
 						"console_access": "false",
-						"groups.#":       "0",
-						"username":       "Test",
-						"password":       "TestTest1234",
+						"groups.#":
+						"username":",
+						"password":Test1234",
 					}),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "mq", regexache.MustCompile(`broker:+.`)),
 					resource.TestCheckResourceAttr(resourceName, "instances.#", "1"),
@@ -480,7 +473,6 @@ func TestAccMQBroker_throughputOptimized(t *testing.T) {
 		},
 	})
 }
-
 func TestAccMQBroker_AllFields_defaultVPC(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -498,9 +490,9 @@ func TestAccMQBroker_AllFields_defaultVPC(t *testing.T) {
 	cfgBodyAfter := `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <broker xmlns="http://activemq.apache.org/schema/core">
   <plugins>
-    <forcePersistencyModeBrokerPlugin persistenceFlag="true"/>
-    <statisticsBrokerPlugin/>
-    <timeStampingBrokerPlugin ttlCeiling="86400000" zeroExpirationOverride="86400000"/>
+ <forcePersistencyModeBrokerPlugin persistenceFlag="true"/>
+ <statisticsBrokerPlugin/>
+ <timeStampingBrokerPlugin ttlCeiling="86400000" zeroExpirationOverride="86400000"/>
   </plugins>
 </broker>`
 
@@ -541,18 +533,18 @@ func TestAccMQBroker_AllFields_defaultVPC(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "user.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user.*", map[string]string{
 						"console_access": "true",
-						"groups.#":       "3",
-						"username":       "SecondTest",
-						"password":       "SecondTestTest1234",
+						"groups.#":
+						"username":ndTest",
+						"password":ndTestTest1234",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "user.*.groups.*", "first"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "user.*.groups.*", "second"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "user.*.groups.*", "third"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user.*", map[string]string{
 						"console_access": "false",
-						"groups.#":       "0",
-						"username":       "Test",
-						"password":       "TestTest1234",
+						"groups.#":
+						"username":",
+						"password":Test1234",
 					}),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "mq", regexache.MustCompile(`broker:+.`)),
 					resource.TestCheckResourceAttr(resourceName, "instances.#", "2"),
@@ -579,9 +571,9 @@ func TestAccMQBroker_AllFields_defaultVPC(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 			{
@@ -609,7 +601,6 @@ func TestAccMQBroker_AllFields_defaultVPC(t *testing.T) {
 		},
 	})
 }
-
 func TestAccMQBroker_AllFields_customVPC(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -627,9 +618,9 @@ func TestAccMQBroker_AllFields_customVPC(t *testing.T) {
 	cfgBodyAfter := `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <broker xmlns="http://activemq.apache.org/schema/core">
   <plugins>
-    <forcePersistencyModeBrokerPlugin persistenceFlag="true"/>
-    <statisticsBrokerPlugin/>
-    <timeStampingBrokerPlugin ttlCeiling="86400000" zeroExpirationOverride="86400000"/>
+ <forcePersistencyModeBrokerPlugin persistenceFlag="true"/>
+ <statisticsBrokerPlugin/>
+ <timeStampingBrokerPlugin ttlCeiling="86400000" zeroExpirationOverride="86400000"/>
   </plugins>
 </broker>`
 
@@ -670,18 +661,18 @@ func TestAccMQBroker_AllFields_customVPC(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "user.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user.*", map[string]string{
 						"console_access": "true",
-						"groups.#":       "3",
-						"username":       "SecondTest",
-						"password":       "SecondTestTest1234",
+						"groups.#":
+						"username":ndTest",
+						"password":ndTestTest1234",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "user.*.groups.*", "first"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "user.*.groups.*", "second"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "user.*.groups.*", "third"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user.*", map[string]string{
 						"console_access": "false",
-						"groups.#":       "0",
-						"username":       "Test",
-						"password":       "TestTest1234",
+						"groups.#":
+						"username":",
+						"password":Test1234",
 					}),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "mq", regexache.MustCompile(`broker:+.`)),
 					resource.TestCheckResourceAttr(resourceName, "instances.#", "2"),
@@ -708,9 +699,9 @@ func TestAccMQBroker_AllFields_customVPC(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 			{
@@ -742,7 +733,6 @@ func TestAccMQBroker_AllFields_customVPC(t *testing.T) {
 		},
 	})
 }
-
 func TestAccMQBroker_EncryptionOptions_kmsKeyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -774,15 +764,14 @@ func TestAccMQBroker_EncryptionOptions_kmsKeyID(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 		},
 	})
 }
-
 func TestAccMQBroker_EncryptionOptions_managedKeyDisabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -812,15 +801,14 @@ func TestAccMQBroker_EncryptionOptions_managedKeyDisabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 		},
 	})
 }
-
 func TestAccMQBroker_EncryptionOptions_managedKeyEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -850,15 +838,14 @@ func TestAccMQBroker_EncryptionOptions_managedKeyEnabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 		},
 	})
 }
-
 func TestAccMQBroker_Update_users(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -886,16 +873,16 @@ func TestAccMQBroker_Update_users(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "user.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user.*", map[string]string{
 						"console_access": "false",
-						"groups.#":       "0",
-						"username":       "first",
-						"password":       "TestTest1111",
+						"groups.#":
+						"username":t",
+						"password":Test1111",
 					}),
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 			// Adding new user + modify existing
@@ -906,15 +893,15 @@ func TestAccMQBroker_Update_users(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "user.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user.*", map[string]string{
 						"console_access": "false",
-						"groups.#":       "0",
-						"username":       "second",
-						"password":       "TestTest2222",
+						"groups.#":
+						"username":nd",
+						"password":Test2222",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user.*", map[string]string{
 						"console_access": "true",
-						"groups.#":       "0",
-						"username":       "first",
-						"password":       "TestTest1111updated",
+						"groups.#":
+						"username":t",
+						"password":Test1111updated",
 					}),
 				),
 			},
@@ -926,9 +913,9 @@ func TestAccMQBroker_Update_users(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "user.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user.*", map[string]string{
 						"console_access": "false",
-						"groups.#":       "1",
-						"username":       "second",
-						"password":       "TestTest2222",
+						"groups.#":
+						"username":nd",
+						"password":Test2222",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "user.*.groups.*", "admin"),
 				),
@@ -936,7 +923,6 @@ func TestAccMQBroker_Update_users(t *testing.T) {
 		},
 	})
 }
-
 func TestAccMQBroker_Update_securityGroup(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -965,9 +951,9 @@ func TestAccMQBroker_Update_securityGroup(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 			{
@@ -994,7 +980,6 @@ func TestAccMQBroker_Update_securityGroup(t *testing.T) {
 		},
 	})
 }
-
 func TestAccMQBroker_Update_engineVersion(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1023,9 +1008,9 @@ func TestAccMQBroker_Update_engineVersion(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 			{
@@ -1038,7 +1023,6 @@ func TestAccMQBroker_Update_engineVersion(t *testing.T) {
 		},
 	})
 }
-
 func TestAccMQBroker_Update_hostInstanceType(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1077,7 +1061,6 @@ func TestAccMQBroker_Update_hostInstanceType(t *testing.T) {
 		},
 	})
 }
-
 func TestAccMQBroker_RabbitMQ_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1115,15 +1098,14 @@ func TestAccMQBroker_RabbitMQ_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 		},
 	})
 }
-
 func TestAccMQBroker_RabbitMQ_logs(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1161,15 +1143,14 @@ func TestAccMQBroker_RabbitMQ_logs(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 		},
 	})
 }
-
 func TestAccMQBroker_RabbitMQ_validationAuditLog(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1191,7 +1172,7 @@ func TestAccMQBroker_RabbitMQ_validationAuditLog(t *testing.T) {
 		CheckDestroy:testAccCheckBrokerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccBrokerConfig_rabbitAuditLog(rName, testAccRabbitVersion, true),
+				Config:cBrokerConfig_rabbitAuditLog(rName, testAccRabbitVersion, true),
 				ExpectError: regexache.MustCompile(`logs.audit: Can not be configured when engine is RabbitMQ`),
 			},
 			{
@@ -1208,7 +1189,6 @@ func TestAccMQBroker_RabbitMQ_validationAuditLog(t *testing.T) {
 		},
 	})
 }
-
 func TestAccMQBroker_RabbitMQ_cluster(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1254,9 +1234,9 @@ func TestAccMQBroker_RabbitMQ_cluster(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "user.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "user.*", map[string]string{
 						"console_access": "false",
-						"groups.#":       "0",
-						"username":       "Test",
-						"password":       "TestTest1234",
+						"groups.#":
+						"username":",
+						"password":Test1234",
 					}),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "mq", regexache.MustCompile(`broker:+.`)),
 					resource.TestCheckResourceAttr(resourceName, "instances.#", "1"),
@@ -1267,15 +1247,14 @@ func TestAccMQBroker_RabbitMQ_cluster(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:
 				ImportStateVerifyIgnore: []string{"apply_immediately", "user"},
 			},
 		},
 	})
 }
-
 func TestAccMQBroker_ldap(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -1320,7 +1299,6 @@ func TestAccMQBroker_ldap(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckBrokerDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).MQConn(ctx)
@@ -1346,7 +1324,6 @@ func testAccCheckBrokerDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckBrokerExists(ctx context.Context, n string, v *mq.DescribeBrokerResponse) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -1371,7 +1348,6 @@ func testAccCheckBrokerExists(ctx context.Context, n string, v *mq.DescribeBroke
 		return nil
 	}
 }
-
 func testAccPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).MQConn(ctx)
 
@@ -1387,7 +1363,6 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func testAccCheckBrokerNotRecreated(before, after *mq.DescribeBrokerResponse) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if before, after := aws.StringValue(before.BrokerId), aws.StringValue(after.BrokerId); before != after {
@@ -1397,98 +1372,94 @@ func testAccCheckBrokerNotRecreated(before, after *mq.DescribeBrokerResponse) re
 		return nil
 	}
 }
-
 func testAccBrokerConfig_basic(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
   broker_name= %[1]q
   engine_type= "ActiveMQ"
-  engine_version          = %[2]q
-  host_instance_type      = "mq.t2.micro"
-  security_groups         = [aws_security_group.test.id]
+  engine_version%[2]q
+  host_instance_typet2.micro"
+  security_groupsaws_security_group.test.id]
   authentication_strategy = "simple"
-  storage_type            = "efs"
+  storage_type
 
   logs {
-    general = true
+ general = true
   }
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_ebs(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
-  broker_name        = %[1]q
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
-  storage_type       = "ebs"
+  broker_name1]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
+  storage_types"
   host_instance_type = "mq.m5.large"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   logs {
-    general = true
+ general = true
   }
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_engineVersionUpdate(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
-  broker_name        = %[1]q
+  broker_name1]q
   apply_immediately  = true
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t2.micro"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   logs {
-    general = true
+ general = true
   }
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_allFieldsDefaultVPC(rName, version, cfgName, cfgBody string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
@@ -1497,13 +1468,13 @@ resource "aws_security_group" "test" {
   name = "%[1]s-${count.index}"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_configuration" "test" {
-  name           = %[3]q
-  engine_type    = "ActiveMQ"
+  name %[3]q
+  engine_type = "ActiveMQ"
   engine_version = %[2]q
 
   data = <<DATA
@@ -1513,51 +1484,50 @@ DATA
 
 resource "aws_mq_broker" "test" {
   auto_minor_version_upgrade = true
-  apply_immediately          = true
+  apply_immediatelytrue
   broker_name = %[1]q
 
   configuration {
-    id       = aws_mq_configuration.test.id
-    revision = aws_mq_configuration.test.latest_revision
+ id_mq_configuration.test.id
+ revision = aws_mq_configuration.test.latest_revision
   }
 
-  deployment_mode    = "ACTIVE_STANDBY_MULTI_AZ"
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
-  storage_type       = "efs"
+  deployment_mode = "ACTIVE_STANDBY_MULTI_AZ"
+  engine_typectiveMQ"
+  engine_version= %[2]q
+  storage_types"
   host_instance_type = "mq.t2.micro"
 
   maintenance_window_start_time {
-    day_of_week = "TUESDAY"
-    time_of_day = "02:00"
-    time_zone   = "CET"
+ day_of_week = "TUESDAY"
+ time_of_day = "02:00"
+ time_zone= "CET"
   }
 
   publicly_accessible = true
-  security_groups     = aws_security_group.test[*].id
+  security_groups= aws_security_group.test[*].id
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 
   user {
-    username       = "SecondTest"
-    password       = "SecondTestTest1234"
-    console_access = true
-    groups         = ["first", "second", "third"]
+ usernamecondTest"
+ passwordcondTestTest1234"
+ console_access = true
+ groups"first", "second", "third"]
   }
 }
 `, rName, version, cfgName, cfgBody)
 }
-
 func testAccBrokerConfig_baseCustomVPC(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -1565,40 +1535,39 @@ resource "aws_route_table" "test" {
   vpc_id = aws_vpc.test.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.test.id
+ cidr_block = "0.0.0.0/0"
+ gateway_id = aws_internet_gateway.test.id
   }
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_route_table_association" "test" {
   count = 2
 
-  subnet_id      = aws_subnet.test[count.index].id
+  subnet_idsubnet.test[count.index].id
   route_table_id = aws_route_table.test.id
 }
 
 resource "aws_security_group" "test" {
   count = 2
 
-  name   = "%[1]s-${count.index}"
+  name= "%[1]s-${count.index}"
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 `, rName))
 }
-
 func testAccBrokerConfig_allFieldsCustomVPC(rName, version, cfgName, cfgBody, tz string) string {
 	return acctest.ConfigCompose(testAccBrokerConfig_baseCustomVPC(rName), fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
-  name           = %[3]q
-  engine_type    = "ActiveMQ"
+  name %[3]q
+  engine_type = "ActiveMQ"
   engine_version = %[2]q
 
   data = <<DATA
@@ -1608,52 +1577,51 @@ DATA
 
 resource "aws_mq_broker" "test" {
   auto_minor_version_upgrade = true
-  apply_immediately          = true
+  apply_immediatelytrue
   broker_name = %[1]q
 
   configuration {
-    id       = aws_mq_configuration.test.id
-    revision = aws_mq_configuration.test.latest_revision
+ id_mq_configuration.test.id
+ revision = aws_mq_configuration.test.latest_revision
   }
 
-  deployment_mode    = "ACTIVE_STANDBY_MULTI_AZ"
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
-  storage_type       = "efs"
+  deployment_mode = "ACTIVE_STANDBY_MULTI_AZ"
+  engine_typectiveMQ"
+  engine_version= %[2]q
+  storage_types"
   host_instance_type = "mq.t2.micro"
 
   logs {
-    general = true
-    audit   = true
+ general = true
+ audit= true
   }
 
   maintenance_window_start_time {
-    day_of_week = "TUESDAY"
-    time_of_day = "02:00"
-    time_zone   = %[5]q
+ day_of_week = "TUESDAY"
+ time_of_day = "02:00"
+ time_zone= %[5]q
   }
 
   publicly_accessible = true
-  security_groups     = aws_security_group.test[*].id
-  subnet_ids          = aws_subnet.test[*].id
+  security_groups= aws_security_group.test[*].id
+  subnet_idsaws_subnet.test[*].id
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 
   user {
-    username       = "SecondTest"
-    password       = "SecondTestTest1234"
-    console_access = true
-    groups         = ["first", "second", "third"]
+ usernamecondTest"
+ passwordcondTestTest1234"
+ console_access = true
+ groups"first", "second", "third"]
   }
 
   depends_on = [aws_internet_gateway.test]
 }
 `, rName, version, cfgName, cfgBody, tz))
 }
-
 func testAccBrokerConfig_encryptionOptionsKMSKeyID(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -1665,220 +1633,213 @@ resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
-  broker_name        = %[1]q
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t2.micro"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   encryption_options {
-    kms_key_id        = aws_kms_key.test.arn
-    use_aws_owned_key = false
+ kms_key_ids_kms_key.test.arn
+ use_aws_owned_key = false
   }
 
   logs {
-    general = true
+ general = true
   }
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_encryptionOptionsManagedKey(rName, version string, useAwsOwnedKey bool) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
-  broker_name        = %[1]q
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t2.micro"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   encryption_options {
-    use_aws_owned_key = %[3]t
+ use_aws_owned_key = %[3]t
   }
 
   logs {
-    general = true
+ general = true
   }
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 }
 `, rName, version, useAwsOwnedKey)
 }
-
 func testAccBrokerConfig_updateUsers1(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
   apply_immediately  = true
-  broker_name        = %[1]q
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t2.micro"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   user {
-    username = "first"
-    password = "TestTest1111"
+ username = "first"
+ password = "TestTest1111"
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_updateUsers2(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
   apply_immediately  = true
-  broker_name        = %[1]q
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t2.micro"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   user {
-    console_access = true
-    username       = "first"
-    password       = "TestTest1111updated"
+ console_access = true
+ usernamerst"
+ passwordstTest1111updated"
   }
 
   user {
-    username = "second"
-    password = "TestTest2222"
+ username = "second"
+ password = "TestTest2222"
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_updateUsers3(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
   apply_immediately  = true
-  broker_name        = %[1]q
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t2.micro"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   user {
-    username = "second"
-    password = "TestTest2222"
-    groups   = ["admin"]
+ username = "second"
+ password = "TestTest2222"
+ groups= ["admin"]
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_tags1(rName, version, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
   apply_immediately  = true
-  broker_name        = %[1]q
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t2.micro"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 
   tags = {
-    %[3]q = %[4]q
+ %[3]q = %[4]q
   }
 }
 `, rName, version, tagKey1, tagValue1)
 }
-
 func testAccBrokerConfig_tags2(rName, version, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
   apply_immediately  = true
-  broker_name        = %[1]q
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t2.micro"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 
   tags = {
-    %[3]q = %[4]q
-    %[5]q = %[6]q
+ %[3]q = %[4]q
+ %[5]q = %[6]q
   }
 }
 `, rName, version, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccBrokerConfig_updateSecurityGroups(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -1886,37 +1847,36 @@ resource "aws_security_group" "test2" {
   name = "%[1]s-1"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
   apply_immediately  = true
-  broker_name        = %[1]q
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t2.micro"
-  security_groups    = [aws_security_group.test.id, aws_security_group.test2.id]
+  security_groups = [aws_security_group.test.id, aws_security_group.test2.id]
 
   logs {
-    general = true
+ general = true
   }
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_updateUsersSecurityGroups(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -1924,71 +1884,69 @@ resource "aws_security_group" "test2" {
   name = "%[1]s-1"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
   apply_immediately  = true
-  broker_name        = %[1]q
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t2.micro"
-  security_groups    = [aws_security_group.test2.id]
+  security_groups = [aws_security_group.test2.id]
 
   logs {
-    general = true
+ general = true
   }
 
   user {
-    username = "Test"
-    password = "TestTest9999"
+ username = "Test"
+ password = "TestTest9999"
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_rabbit(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
-  broker_name        = %[1]q
-  engine_type        = "RabbitMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typeabbitMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t3.micro"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_rabbitLogs(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_broker" "test" {
-  broker_name        = %[1]q
-  engine_type        = "RabbitMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typeabbitMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t3.micro"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   logs {
-    general = true
+ general = true
   }
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 }
 
@@ -1996,29 +1954,28 @@ resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_rabbitAuditLog(rName, version string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_mq_broker" "test" {
-  broker_name        = %[1]q
-  engine_type        = "RabbitMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typeabbitMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.t3.micro"
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   logs {
-    general = true
-    audit   = %[3]t
+ general = true
+ audit= %[3]t
   }
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 }
 
@@ -2026,109 +1983,106 @@ resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 `, rName, version, enabled)
 }
-
 func testAccBrokerConfig_rabbitCluster(rName, version string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
-  broker_name        = %[1]q
-  engine_type        = "RabbitMQ"
-  engine_version     = %[2]q
+  broker_name1]q
+  engine_typeabbitMQ"
+  engine_version= %[2]q
   host_instance_type = "mq.m5.large"
-  security_groups    = [aws_security_group.test.id]
-  storage_type       = "ebs"
-  deployment_mode    = "CLUSTER_MULTI_AZ"
+  security_groups = [aws_security_group.test.id]
+  storage_types"
+  deployment_mode = "CLUSTER_MULTI_AZ"
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 }
 `, rName, version)
 }
-
 func testAccBrokerConfig_ldap(rName, version, ldapUsername string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
-  apply_immediately       = true
+  apply_immediatelye
   authentication_strategy = "ldap"
   broker_name= %[1]q
   engine_type= "ActiveMQ"
-  engine_version          = %[2]q
-  host_instance_type      = "mq.t2.micro"
-  security_groups         = [aws_security_group.test.id]
+  engine_version%[2]q
+  host_instance_typet2.micro"
+  security_groupsaws_security_group.test.id]
 
   logs {
-    general = true
+ general = true
   }
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 
   ldap_server_metadata {
-    hosts     = ["my.ldap.server-1.com", "my.ldap.server-2.com"]
-    role_base = "role.base"
-    role_name = "role.name"
-    role_search_matching     = "role.search.matching"
-    role_search_subtree      = true
-    service_account_password = "supersecret"
-    service_account_username = %[3]q
-    user_base = "user.base"
-    user_role_name           = "user.role.name"
-    user_search_matching     = "user.search.matching"
-    user_search_subtree      = true
+ hosts= ["my.ldap.server-1.com", "my.ldap.server-2.com"]
+ role_base = "role.base"
+ role_name = "role.name"
+ role_search_matching= "role.search.matching"
+ role_search_subtree
+ service_account_password = "supersecret"
+ service_account_username = %[3]q
+ user_base = "user.base"
+ user_role_name "user.role.name"
+ user_search_matching= "user.search.matching"
+ user_search_subtree
   }
 }
 `, rName, version, ldapUsername)
 }
-
 func testAccBrokerConfig_instanceType(rName, version, instanceType string) string {
 	return fmt.Sprintf(`
 resource "aws_security_group" "test" {
   name = %[1]q
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_mq_broker" "test" {
-  broker_name        = %[1]q
+  broker_name1]q
   apply_immediately  = true
-  engine_type        = "ActiveMQ"
-  engine_version     = %[2]q
+  engine_typectiveMQ"
+  engine_version= %[2]q
   host_instance_type = %[3]q
-  security_groups    = [aws_security_group.test.id]
+  security_groups = [aws_security_group.test.id]
 
   logs {
-    general = true
+ general = true
   }
 
   user {
-    username = "Test"
-    password = "TestTest1234"
+ username = "Test"
+ password = "TestTest1234"
   }
 }
 `, rName, version, instanceType)

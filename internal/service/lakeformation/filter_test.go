@@ -30,8 +30,8 @@ func TestFilterPermissions(t *testing.T) {
 	testCases := []struct {
 		Name   string
 		Input  *lakeformation.ListPermissionsInput
-		TableType           string
-		ColumnNames         []*string
+		TableType  string
+		ColumnNames[]*string
 		ExcludedColumnNames []*string
 		ColumnWildcard      bool
 		All    []*lakeformation.PrincipalResourcePermissions
@@ -43,7 +43,7 @@ func TestFilterPermissions(t *testing.T) {
 				Principal: principal,
 				Resource:  &lakeformation.Resource{},
 			},
-			All:           nil,
+			All:  nil,
 			ExpectedClean: nil,
 		},
 		{
@@ -54,11 +54,11 @@ func TestFilterPermissions(t *testing.T) {
 					Table: &lakeformation.TableResource{
 						CatalogId:    aws.String(accountID),
 						DatabaseName: aws.String(dbName),
-						Name:         aws.String(tableName),
+						Name:aws.String(tableName),
 					},
 				},
 			},
-			All:           nil,
+			All:  nil,
 			ExpectedClean: nil,
 		},
 		{
@@ -69,7 +69,7 @@ func TestFilterPermissions(t *testing.T) {
 					Table: &lakeformation.TableResource{
 						CatalogId:    aws.String(accountID),
 						DatabaseName: aws.String(dbName),
-						Name:         aws.String(tableName),
+						Name:aws.String(tableName),
 					},
 				},
 			},
@@ -82,7 +82,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(altDBName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -97,7 +97,7 @@ func TestFilterPermissions(t *testing.T) {
 					Table: &lakeformation.TableResource{
 						CatalogId:    aws.String(accountID),
 						DatabaseName: aws.String(dbName),
-						Name:         aws.String(tableName),
+						Name:aws.String(tableName),
 					},
 				},
 			},
@@ -110,7 +110,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -124,7 +124,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -138,7 +138,7 @@ func TestFilterPermissions(t *testing.T) {
 					Table: &lakeformation.TableResource{
 						CatalogId:    aws.String(accountID),
 						DatabaseName: aws.String(dbName),
-						Name:         aws.String(tableName),
+						Name:aws.String(tableName),
 					},
 				},
 			},
@@ -151,7 +151,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -163,7 +163,7 @@ func TestFilterPermissions(t *testing.T) {
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:      aws.String(accountID),
 							DatabaseName:   aws.String(dbName),
-							Name:           aws.String(tableName),
+							Name:  aws.String(tableName),
 							ColumnWildcard: &lakeformation.ColumnWildcard{},
 						},
 					},
@@ -176,7 +176,7 @@ func TestFilterPermissions(t *testing.T) {
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -190,7 +190,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -202,7 +202,7 @@ func TestFilterPermissions(t *testing.T) {
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:      aws.String(accountID),
 							DatabaseName:   aws.String(dbName),
-							Name:           aws.String(tableName),
+							Name:  aws.String(tableName),
 							ColumnWildcard: &lakeformation.ColumnWildcard{},
 						},
 					},
@@ -217,7 +217,7 @@ func TestFilterPermissions(t *testing.T) {
 					Table: &lakeformation.TableResource{
 						CatalogId:    aws.String(accountID),
 						DatabaseName: aws.String(dbName),
-						Name:         aws.String(tableName),
+						Name:aws.String(tableName),
 					},
 				},
 			},
@@ -230,7 +230,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -242,7 +242,7 @@ func TestFilterPermissions(t *testing.T) {
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:      aws.String(accountID),
 							DatabaseName:   aws.String(dbName),
-							Name:           aws.String(tableName),
+							Name:  aws.String(tableName),
 							ColumnWildcard: &lakeformation.ColumnWildcard{},
 						},
 					},
@@ -255,7 +255,7 @@ func TestFilterPermissions(t *testing.T) {
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -269,7 +269,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -281,7 +281,7 @@ func TestFilterPermissions(t *testing.T) {
 						TableWithColumns: &lakeformation.TableWithColumnsResource{
 							CatalogId:      aws.String(accountID),
 							DatabaseName:   aws.String(dbName),
-							Name:           aws.String(tableName),
+							Name:  aws.String(tableName),
 							ColumnWildcard: &lakeformation.ColumnWildcard{},
 						},
 					},
@@ -296,7 +296,7 @@ func TestFilterPermissions(t *testing.T) {
 					Table: &lakeformation.TableResource{
 						CatalogId:    aws.String(accountID),
 						DatabaseName: aws.String(dbName),
-						Name:         aws.String(tableName),
+						Name:aws.String(tableName),
 					},
 				},
 			},
@@ -311,7 +311,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -324,7 +324,7 @@ func TestFilterPermissions(t *testing.T) {
 							CatalogId:    aws.String(accountID),
 							ColumnNames:  aws.StringSlice([]string{"value"}),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -337,7 +337,7 @@ func TestFilterPermissions(t *testing.T) {
 							CatalogId:    aws.String(accountID),
 							ColumnNames:  aws.StringSlice([]string{"fred"}),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -351,7 +351,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -364,7 +364,7 @@ func TestFilterPermissions(t *testing.T) {
 							CatalogId:    aws.String(accountID),
 							ColumnNames:  aws.StringSlice([]string{"value"}),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -378,7 +378,7 @@ func TestFilterPermissions(t *testing.T) {
 					Table: &lakeformation.TableResource{
 						CatalogId:    aws.String(accountID),
 						DatabaseName: aws.String(dbName),
-						Name:         aws.String(tableName),
+						Name:aws.String(tableName),
 					},
 				},
 			},
@@ -393,7 +393,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -406,7 +406,7 @@ func TestFilterPermissions(t *testing.T) {
 							CatalogId:      aws.String(accountID),
 							ColumnWildcard: &lakeformation.ColumnWildcard{},
 							DatabaseName:   aws.String(dbName),
-							Name:           aws.String(tableName),
+							Name:  aws.String(tableName),
 						},
 					},
 				},
@@ -419,7 +419,7 @@ func TestFilterPermissions(t *testing.T) {
 							CatalogId:    aws.String(accountID),
 							ColumnNames:  aws.StringSlice([]string{"fred"}),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -433,7 +433,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -446,7 +446,7 @@ func TestFilterPermissions(t *testing.T) {
 							CatalogId:      aws.String(accountID),
 							ColumnWildcard: &lakeformation.ColumnWildcard{},
 							DatabaseName:   aws.String(dbName),
-							Name:           aws.String(tableName),
+							Name:  aws.String(tableName),
 						},
 					},
 				},
@@ -460,11 +460,11 @@ func TestFilterPermissions(t *testing.T) {
 					Table: &lakeformation.TableResource{
 						CatalogId:    aws.String(accountID),
 						DatabaseName: aws.String(dbName),
-						Name:         aws.String(tableName),
+						Name:aws.String(tableName),
 					},
 				},
 			},
-			TableType:           tflakeformation.TableTypeTableWithColumns,
+			TableType:  tflakeformation.TableTypeTableWithColumns,
 			ColumnWildcard:      true,
 			ExcludedColumnNames: aws.StringSlice([]string{"value"}),
 			All: []*lakeformation.PrincipalResourcePermissions{
@@ -476,7 +476,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -491,7 +491,7 @@ func TestFilterPermissions(t *testing.T) {
 								ExcludedColumnNames: aws.StringSlice([]string{"value"}),
 							},
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -504,7 +504,7 @@ func TestFilterPermissions(t *testing.T) {
 							CatalogId:    aws.String(accountID),
 							ColumnNames:  aws.StringSlice([]string{"fred"}),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -518,7 +518,7 @@ func TestFilterPermissions(t *testing.T) {
 						Table: &lakeformation.TableResource{
 							CatalogId:    aws.String(accountID),
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},
@@ -533,7 +533,7 @@ func TestFilterPermissions(t *testing.T) {
 								ExcludedColumnNames: aws.StringSlice([]string{"value"}),
 							},
 							DatabaseName: aws.String(dbName),
-							Name:         aws.String(tableName),
+							Name:aws.String(tableName),
 						},
 					},
 				},

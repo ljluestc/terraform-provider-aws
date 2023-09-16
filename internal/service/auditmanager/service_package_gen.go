@@ -32,7 +32,7 @@ func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.Servic
 		},
 		{
 			Factory: newResourceAssessment,
-			Name:    "Assessment",
+			Name:"Assessment",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -45,14 +45,14 @@ func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.Servic
 		},
 		{
 			Factory: newResourceControl,
-			Name:    "Control",
+			Name:"Control",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
 		},
 		{
 			Factory: newResourceFramework,
-			Name:    "Framework",
+			Name:"Framework",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

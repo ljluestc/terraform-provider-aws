@@ -66,7 +66,7 @@ MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-"color":      stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}$`), "")),
+"color":stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}$`), "")),
 "expression": stringSchema(true, validation.StringLenBetween(1, 4096)),
 },
 },
@@ -91,7 +91,7 @@ MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-"color":      stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}$`), "")),
+"color":stringSchema(false, validation.StringMatch(regexache.MustCompile(`^#[0-9A-F]{6}$`), "")),
 "expression": stringSchema(true, validation.StringLenBetween(1, 4096)),
 "icon_options": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ConditionalFormattingCustomIconOptions.html
 Type:     schema.TypeList,
@@ -100,7 +100,7 @@ MinItems: 1,
 MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
-"icon":         stringSchema(false, validation.StringInSlice(quicksight.Icon_Values(), false)),
+"icon":   stringSchema(false, validation.StringInSlice(quicksight.Icon_Values(), false)),
 "unicode_icon": stringSchema(false, validation.StringMatch(regexache.MustCompile(`^[^\\u0000-\\u00FF]$`), "")),
 },
 },

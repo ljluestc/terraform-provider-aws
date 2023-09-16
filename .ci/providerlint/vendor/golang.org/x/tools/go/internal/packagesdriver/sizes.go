@@ -1,22 +1,12 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Package packagesdriver fetches type sizes for go/packages and go/analysis.
-package packagesdriver
-
-import (
+// license that can be found in the LICENSE file.// Package packagesdriver fetches type sizes for go/packages and go/analysis.
+package packagesdriverimport (
 	"context"
 	"fmt"
 	"go/types"
-	"strings"
-
-	"golang.org/x/tools/internal/gocommand"
-)
-
-var debug = false
-
-
+	"strings"	"golang.org/x/tools/internal/gocommand"
+)var debug = false
  GetSizesGolist(ctx context.Context, inv gocommand.Invocation, gocmdRunner *gocommand.Runner) (types.Sizes, error) {
 	inv.Verb = "list"
 	inv.Args = []string{"-f", "{{context.GOARCH}} {{context.Compiler}}", "--", "unsafe"}

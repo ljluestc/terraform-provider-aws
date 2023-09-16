@@ -24,8 +24,8 @@ ctx := acctest.Context(t)
 dataSourceName := "data.aws_outposts_assets.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -48,8 +48,8 @@ ctx := acctest.Context(t)
 dataSourceName := "data.aws_outposts_assets.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -72,8 +72,8 @@ ctx := acctest.Context(t)
 dataSourceName := "data.aws_outposts_assets.test"
 
 resource.ParallelTest(t, resource.TestCase{
-PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-ErrorCheck:               acctest.ErrorCheck(t, outposts.EndpointsID),
+PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+ErrorCheck:  acctest.ErrorCheck(t, outposts.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 {
@@ -105,7 +105,7 @@ data "aws_outposts_assets" "source" {
 }
 
 data "aws_outposts_assets" "test" {
-  arn              = data.aws_outposts_assets.source.arn
+  arn = data.aws_outposts_assets.source.arn
   status_id_filter = ["ACTIVE"]
 }
 `
@@ -120,7 +120,7 @@ data "aws_outposts_assets" "source" {
 }
 
 data "aws_outposts_assets" "test" {
-  arn            = data.aws_outposts_assets.source.arn
+  arn   = data.aws_outposts_assets.source.arn
   host_id_filter = [%[1]q]
 }
 `, outpostHostId)

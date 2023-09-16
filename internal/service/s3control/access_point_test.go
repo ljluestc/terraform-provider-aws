@@ -31,7 +31,7 @@ func TestAccS3ControlAccessPoint_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_basic(bucketName, accessPointName),
@@ -77,7 +77,7 @@ func TestAccS3ControlAccessPoint_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_basic(bucketName, accessPointName),
@@ -101,7 +101,7 @@ func TestAccS3ControlAccessPoint_Bucket_arn(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_bucketARN(rName),
@@ -183,7 +183,7 @@ return fmt.Sprintf(`{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_policy(rName),
@@ -237,7 +237,7 @@ func TestAccS3ControlAccessPoint_publicAccessBlock(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_publicBlock(rName),
@@ -278,7 +278,7 @@ func TestAccS3ControlAccessPoint_vpc(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccessPointDestroy(ctx),
+CheckDestroy:    testAccCheckAccessPointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAccessPointConfig_vpc(rName),

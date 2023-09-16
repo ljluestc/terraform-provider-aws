@@ -17,17 +17,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccDAXParameterGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_dax_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, dax.EndpointsID),
+		PreCheck:() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:t.ErrorCheck(t, dax.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckParameterGroupDestroy(ctx),
+		CheckDestroy: testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccParameterGroupConfig_basic(rName),
@@ -37,8 +36,8 @@ func TestAccDAXParameterGroup_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:ceName,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -51,7 +50,6 @@ func TestAccDAXParameterGroup_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckParameterGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DAXConn(ctx)
@@ -74,7 +72,6 @@ func testAccCheckParameterGroupDestroy(ctx context.Context) resource.TestCheckFu
 		return nil
 	}
 }
-
 func testAccCheckParameterGroupExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -91,7 +88,6 @@ func testAccCheckParameterGroupExists(ctx context.Context, name string) resource
 		return err
 	}
 }
-
 func testAccParameterGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dax_parameter_group" "test" {
@@ -99,20 +95,19 @@ resource "aws_dax_parameter_group" "test" {
 }
 `, rName)
 }
-
 func testAccParameterGroupConfig_parameters(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dax_parameter_group" "test" {
   name = "%s"
 
   parameters {
-    name  = "query-ttl-millis"
-    value = "100000"
+ name  = "query-ttl-millis"
+ value = "100000"
   }
 
   parameters {
-    name  = "record-ttl-millis"
-    value = "100000"
+ name  = "record-ttl-millis"
+ value = "100000"
   }
 }
 `, rName)

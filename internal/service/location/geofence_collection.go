@@ -49,7 +49,7 @@ func ResourceGeofenceCollection() *schema.Resource {
 				Computed: true,
 			},
 			"collection_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
@@ -59,12 +59,12 @@ func ResourceGeofenceCollection() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 1000),
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 2048),
@@ -90,7 +90,7 @@ func resourceGeofenceCollectionCreate(ctx context.Context, d *schema.ResourceDat
 
 	in := &locationservice.CreateGeofenceCollectionInput{
 		CollectionName: aws.String(d.Get("collection_name").(string)),
-		Tags:           getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok && v != "" {

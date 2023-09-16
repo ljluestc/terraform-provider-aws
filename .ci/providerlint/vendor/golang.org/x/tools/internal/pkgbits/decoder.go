@@ -1,10 +1,6 @@
-// Copyright 2021 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package pkgbits
-
-import (
+//Copyright2021TheGoAuthors.Allrightsreserved.
+//UseofthissourcecodeisgovernedbyaBSD-style
+//licensethatcanbefoundintheLICENSEfile.packagepkgbitsimport(
 	"encoding/binary"
 	"errors"
 	"fmt"
@@ -15,539 +11,325 @@ import (
 	"os"
 	"runtime"
 	"strings"
-)
-
-// A PkgDecoder provides methods for decoding a package's Unified IR
-// export data.
-type PkgDecoder struct {
-	// version is the file format version.
-	version uint32
-
-	// sync indicates whether the file uses sync markers.
-	sync bool
-
-	// pkgPath is the package path for the package to be decoded.
+)//APkgDecoderprovidesmethodsfordecodingapackage'sUnifiedIR
+//exportdata.
+typePkgDecoderstruct{
+	//versionisthefileformatversion.
+	versionuint32	//syncindicateswhetherthefileusessyncmarkers.
+	syncbool	//pkgPathisthepackagepathforthepackagetobedecoded.
 	//
-	// TODO(mdempsky): Remove; unneeded since CL 391014.
-	pkgPath string
-
-	// elemData is the full data payload of the encoded package.
-	// Elements are densely and contiguously packed together.
+	//TODO(mdempsky):Remove;unneededsinceCL391014.
+	pkgPathstring	//elemDataisthefulldatapayloadoftheencodedpackage.
+	//Elementsaredenselyandcontiguouslypackedtogether.
 	//
-	// The last 8 bytes of elemData are the package fingerprint.
-	elemData string
-
-	// elemEnds stores the byte-offset end positions of element
-	// bitstreams within elemData.
+	//Thelast8bytesofelemDataarethepackagefingerprint.
+	elemDatastring	//elemEndsstoresthebyte-offsetendpositionsofelement
+	//bitstreamswithinelemData.
 	//
-	// For example, element I's bitstream data starts at elemEnds[I-1]
-	// (or 0, if I==0) and ends at elemEnds[I].
+	//Forexample,elementI'sbitstreamdatastartsatelemEnds[I-1]
+	//(or0,ifI==0)andendsatelemEnds[I].
 	//
-	// Note: elemEnds is indexed by absolute indices, not
-	// section-relative indices.
-	elemEnds []uint32
-
-	// elemEndsEnds stores the index-offset end positions of relocation
-	// sections within elemEnds.
+	//Note:elemEndsisindexedbyabsoluteindices,not
+	//section-relativeindices.
+	elemEnds[]uint32	//elemEndsEndsstorestheindex-offsetendpositionsofrelocation
+	//sectionswithinelemEnds.
 	//
-	// For example, section K's end positions start at elemEndsEnds[K-1]
-	// (or 0, if K==0) and end at elemEndsEnds[K].
-	elemEndsEnds [numRelocs]uint32
-
-	scratchRelocEnt []RelocEnt
-}
-
-// PkgPath returns the package path for the package
+	//Forexample,sectionK'sendpositionsstartatelemEndsEnds[K-1]
+	//(or0,ifK==0)andendatelemEndsEnds[K].
+	elemEndsEnds[numRelocs]uint32	scratchRelocEnt[]RelocEnt
+}//PkgPathreturnsthepackagepathforthepackage
 //
-// TODO(mdempsky): Remove; unneeded since CL 391014.
-
- (pr *PkgDecoder) PkgPath() string { return pr.pkgPath }
-
-yncMarkers reports whether pr uses sync markers.
-
- (pr *PkgDecoder) SyncMarkers() bool { return pr.sync }
-
-// NewPkgDecoder returns a PkgDecoder initialized to read the Unified
-// IR export data from input. pkgPath is the package path for the
-// compilation unit that produced the export data.
-
-// TODO(mdempsky): Remove pkgPath parameter; unneeded since CL 391014.
-
- NewPkgDecoder(pkgPath, input string) PkgDecoder {
-	pr := PkgDecoder{
-		pkgPath: pkgPath,
-	}
-
-	// TODO(mdempsky): Implement direct indexing of input string to
-	// avoid copying the position information.
-
-	r := strings.NewReader(input)
-
-	assert(binary.Read(r, binary.LittleEndian, &pr.version) == nil)
-
-	switch pr.version {
+//TODO(mdempsky):Remove;unneededsinceCL391014.(pr*PkgDecoder)PkgPath()string{returnpr.pkgPath}yncMarkersreportswhetherprusessyncmarkers.(pr*PkgDecoder)SyncMarkers()bool{returnpr.sync}//NewPkgDecoderreturnsaPkgDecoderinitializedtoreadtheUnified
+//IRexportdatafrominput.pkgPathisthepackagepathforthe
+//compilationunitthatproducedtheexportdata.//TODO(mdempsky):RemovepkgPathparameter;unneededsinceCL391014.NewPkgDecoder(pkgPath,inputstring)PkgDecoder{
+	pr:=PkgDecoder{
+		pkgPath:pkgPath,
+	}	//TODO(mdempsky):Implementdirectindexingofinputstringto
+	//avoidcopyingthepositioninformation.	r:=strings.NewReader(input)	assert(binary.Read(r,binary.LittleEndian,&pr.version)==nil)	switchpr.version{
 	default:
-		panic(fmt.Errorf("unsupported version: %v", pr.version))
-	case 0:
-		// no flags
-	case 1:
-		var flags uint32
-		assert(binary.Read(r, binary.LittleEndian, &flags) == nil)
-		pr.sync = flags&flagSyncMarkers != 0
+		panic(fmt.Errorf("unsupportedversion:%v",pr.version))
+	case0:
+		//noflags
+	case1:
+		varflagsuint32
+		assert(binary.Read(r,binary.LittleEndian,&flags)==nil)
+		pr.sync=flags&flagSyncMarkers!=0
+	}	assert(binary.Read(r,binary.LittleEndian,pr.elemEndsEnds[:])==nil)	pr.elemEnds=make([]uint32,pr.elemEndsEnds[len(pr.elemEndsEnds)-1])
+	assert(binary.Read(r,binary.LittleEndian,pr.elemEnds[:])==nil)	pos,err:=r.Seek(0,io.SeekCurrent)
+	assert(err==nil)	pr.elemData=input[pos:]
+	assert(len(pr.elemData)-8==int(pr.elemEnds[len(pr.elemEnds)-1]))	returnpr
+//NumElemsreturnsthenumberofelementsinsectionk.(pr*PkgDecoder)NumElems(kRelocKind)int{
+	count:=int(pr.elemEndsEnds[k])
+	ifk>0{
+		count-=int(pr.elemEndsEnds[k-1])
 	}
-
-	assert(binary.Read(r, binary.LittleEndian, pr.elemEndsEnds[:]) == nil)
-
-	pr.elemEnds = make([]uint32, pr.elemEndsEnds[len(pr.elemEndsEnds)-1])
-	assert(binary.Read(r, binary.LittleEndian, pr.elemEnds[:]) == nil)
-
-	pos, err := r.Seek(0, io.SeekCurrent)
-	assert(err == nil)
-
-	pr.elemData = input[pos:]
-	assert(len(pr.elemData)-8 == int(pr.elemEnds[len(pr.elemEnds)-1]))
-
-	return pr
-
-
-// NumElems returns the number of elements in section k.
-
- (pr *PkgDecoder) NumElems(k RelocKind) int {
-	count := int(pr.elemEndsEnds[k])
-	if k > 0 {
-		count -= int(pr.elemEndsEnds[k-1])
+urncount
+}//TotalElemsreturnsthetotalnumberofelementsacrossallsections.*PkgDecoder)TotalElems()int{
+	returnlen(pr.elemEnds)
+}//Fingerprintreturnsthepackagefingerprint.(pr*PkgDecoder)Fingerprint()[8]byte{
+	varfp[8]byte
+y(fp[:],pr.elemData[len(pr.elemData)-8:])
+	returnfp
+}//AbsIdxreturnstheabsoluteindexforthegiven(section,index)
+//pair.(pr*PkgDecoder)AbsIdx(kRelocKind,idxIndex)int{
+	absIdx:=int(idx)
+	ifk>0{
+		absIdx+=int(pr.elemEndsEnds[k-1])
 	}
-urn count
-}
-
-// TotalElems returns the total number of elements across all sections.
-
- *PkgDecoder) TotalElems() int {
-	return len(pr.elemEnds)
-}
-
-// Fingerprint returns the package fingerprint.
-
- (pr *PkgDecoder) Fingerprint() [8]byte {
-	var fp [8]byte
-y(fp[:], pr.elemData[len(pr.elemData)-8:])
-	return fp
-}
-
-// AbsIdx returns the absolute index for the given (section, index)
-// pair.
-
- (pr *PkgDecoder) AbsIdx(k RelocKind, idx Index) int {
-	absIdx := int(idx)
-	if k > 0 {
-		absIdx += int(pr.elemEndsEnds[k-1])
+	ifabsIdx>=int(pr.elemEndsEnds[k]){
+rorf("%v:%visoutofbounds;%v",k,idx,pr.elemEndsEnds)
 	}
-	if absIdx >= int(pr.elemEndsEnds[k]) {
-rorf("%v:%v is out of bounds; %v", k, idx, pr.elemEndsEnds)
+	returnabsIdx
+}//DataIdxreturnstherawelementbitstreamforthegiven(section,
+//index)pair.(pr*PkgDecoder)DataIdx(kRelocKind,idxIndex)string{
+	absIdx:=pr.AbsIdx(k,idx)	varstartuint32
+	ifabsIdx>0{
+art=pr.elemEnds[absIdx-1]
 	}
-	return absIdx
-}
-
-// DataIdx returns the raw element bitstream for the given (section,
-// index) pair.
-
- (pr *PkgDecoder) DataIdx(k RelocKind, idx Index) string {
-	absIdx := pr.AbsIdx(k, idx)
-
-	var start uint32
-	if absIdx > 0 {
-art = pr.elemEnds[absIdx-1]
-	}
-	end := pr.elemEnds[absIdx]
-
-	return pr.elemData[start:end]
-}
-
-// StringIdx returns the string value for the given string index.
-
- (pr *PkgDecoder) StringIdx(idx Index) string {
-	return pr.DataIdx(RelocString, idx)
-}
-
-// NewDecoder returns a Decoder for the given (section, index) pair,
-// and decodes the given SyncMarker from the element bitstream.
-
- *PkgDecoder) NewDecoder(k RelocKind, idx Index, marker SyncMarker) Decoder {
-	r := pr.NewDecoderRaw(k, idx)
+	end:=pr.elemEnds[absIdx]	returnpr.elemData[start:end]
+}//StringIdxreturnsthestringvalueforthegivenstringindex.(pr*PkgDecoder)StringIdx(idxIndex)string{
+	returnpr.DataIdx(RelocString,idx)
+}//NewDecoderreturnsaDecoderforthegiven(section,index)pair,
+//anddecodesthegivenSyncMarkerfromtheelementbitstream.*PkgDecoder)NewDecoder(kRelocKind,idxIndex,markerSyncMarker)Decoder{
+	r:=pr.NewDecoderRaw(k,idx)
 	r.Sync(marker)
-	return r
-}
-
-empDecoder returns a Decoder for the given (section, index) pair,
-// and decodes the given SyncMarker from the element bitstream.
-// If possible the Decoder should be RetireDecoder'd when it is no longer
-// needed, this will avoid heap allocations.
-
- (pr *PkgDecoder) TempDecoder(k RelocKind, idx Index, marker SyncMarker) Decoder {
-	r := pr.TempDecoderRaw(k, idx)
+	returnr
+}empDecoderreturnsaDecoderforthegiven(section,index)pair,
+//anddecodesthegivenSyncMarkerfromtheelementbitstream.
+//IfpossibletheDecodershouldbeRetireDecoder'dwhenitisnolonger
+//needed,thiswillavoidheapallocations.(pr*PkgDecoder)TempDecoder(kRelocKind,idxIndex,markerSyncMarker)Decoder{
+	r:=pr.TempDecoderRaw(k,idx)
 	r.Sync(marker)
-urn r
+urnr
 }
-
-
- (pr *PkgDecoder) RetireDecoder(d *Decoder) {
-	pr.scratchRelocEnt = d.Relocs
-	d.Relocs = nil
-}
-
-// NewDecoderRaw returns a Decoder for the given (section, index) pair.
+(pr*PkgDecoder)RetireDecoder(d*Decoder){
+	pr.scratchRelocEnt=d.Relocs
+	d.Relocs=nil
+}//NewDecoderRawreturnsaDecoderforthegiven(section,index)pair.
 //
-// Most callers should use NewDecoder instead.
-
- (pr *PkgDecoder) NewDecoderRaw(k RelocKind, idx Index) Decoder {
-	r := Decoder{
-		common: pr,
-		k:      k,
-		Idx:    idx,
-	}
-
-TODO(mdempsky) r.data.Reset(...) after #44505 is resolved.
-	r.Data = *strings.NewReader(pr.DataIdx(k, idx))
-
-	r.Sync(SyncRelocs)
-	r.Relocs = make([]RelocEnt, r.Len())
-	for i := range r.Relocs {
+//MostcallersshoulduseNewDecoderinstead.(pr*PkgDecoder)NewDecoderRaw(kRelocKind,idxIndex)Decoder{
+	r:=Decoder{
+		common:pr,
+		k:k,
+		Idx:idx,
+	}TODO(mdempsky)r.data.Reset(...)after#44505isresolved.
+	r.Data=*strings.NewReader(pr.DataIdx(k,idx))	r.Sync(SyncRelocs)
+	r.Relocs=make([]RelocEnt,r.Len())
+	fori:=ranger.Relocs{
 		r.Sync(SyncReloc)
-		r.Relocs[i] = RelocEnt{RelocKind(r.Len()), Index(r.Len())}
-	}
-
-	return r
+		r.Relocs[i]=RelocEnt{RelocKind(r.Len()),Index(r.Len())}
+	}	returnr
 }
-
-
- (pr *PkgDecoder) TempDecoderRaw(k RelocKind, idx Index) Decoder {
-	r := Decoder{
-		common: pr,
-		k:      k,
-		Idx:    idx,
-	}
-
-	r.Data.Reset(pr.DataIdx(k, idx))
+(pr*PkgDecoder)TempDecoderRaw(kRelocKind,idxIndex)Decoder{
+	r:=Decoder{
+		common:pr,
+		k:k,
+		Idx:idx,
+	}	r.Data.Reset(pr.DataIdx(k,idx))
 	r.Sync(SyncRelocs)
-	l := r.Len()
-	if cap(pr.scratchRelocEnt) >= l {
-		r.Relocs = pr.scratchRelocEnt[:l]
-		pr.scratchRelocEnt = nil
-	} else {
-		r.Relocs = make([]RelocEnt, l)
+	l:=r.Len()
+	ifcap(pr.scratchRelocEnt)>=l{
+		r.Relocs=pr.scratchRelocEnt[:l]
+		pr.scratchRelocEnt=nil
+	}else{
+		r.Relocs=make([]RelocEnt,l)
 	}
-	for i := range r.Relocs {
+	fori:=ranger.Relocs{
 		r.Sync(SyncReloc)
-		r.Relocs[i] = RelocEnt{RelocKind(r.Len()), Index(r.Len())}
-	}
-
-	return r
-
-
-// A Decoder provides methods for decoding an individual element's
-// bitstream data.
-type Decoder struct {
-	common *PkgDecoder
-
-	Relocs []RelocEnt
-	Data   strings.Reader
-
-	k   RelocKind
-	Idx Index
+		r.Relocs[i]=RelocEnt{RelocKind(r.Len()),Index(r.Len())}
+	}	returnr
+//ADecoderprovidesmethodsfordecodinganindividualelement's
+//bitstreamdata.
+typeDecoderstruct{
+	common*PkgDecoder	Relocs[]RelocEnt
+	Datastrings.Reader	kRelocKind
+	IdxIndex
 }
-
-
-*Decoder) checkErr(err error) {
-	if err != nil {
-		errorf("unexpected decoding error: %w", err)
+*Decoder)checkErr(errerror){
+	iferr!=nil{
+		errorf("unexpecteddecodingerror:%w",err)
 	}
 }
-
-
- (r *Decoder) rawUvarint() uint64 {
-	x, err := readUvarint(&r.Data)
+(r*Decoder)rawUvarint()uint64{
+	x,err:=readUvarint(&r.Data)
 	r.checkErr(err)
-	return x
-}
-
-// readUvarint is a type-specialized copy of encoding/binary.ReadUvarint.
-// This avoids the interface conversion and thus has better escape properties,
-// which flows up the stack.
-
- readUvarint(r *strings.Reader) (uint64, error) {
-	var x uint64
-	var s uint
-	for i := 0; i < binary.MaxVarintLen64; i++ {
-		b, err := r.ReadByte()
-		if err != nil {
-			if i > 0 && err == io.EOF {
-				err = io.ErrUnexpectedEOF
-
-			return x, err
+	returnx
+}//readUvarintisatype-specializedcopyofencoding/binary.ReadUvarint.
+//Thisavoidstheinterfaceconversionandthushasbetterescapeproperties,
+//whichflowsupthestack.readUvarint(r*strings.Reader)(uint64,error){
+	varxuint64
+	varsuint
+	fori:=0;i<binary.MaxVarintLen64;i++{
+		b,err:=r.ReadByte()
+		iferr!=nil{
+			ifi>0&&err==io.EOF{
+				err=io.ErrUnexpectedEOF			returnx,err
 		}
-		if b < 0x80 {
-			if i == binary.MaxVarintLen64-1 && b > 1 {
-				return x, overflow
+		ifb<0x80{
+			ifi==binary.MaxVarintLen64-1&&b>1{
+				returnx,overflow
 			}
-			return x | uint64(b)<<s, nil
+			returnx|uint64(b)<<s,nil
 		}
-		x |= uint64(b&0x7f) << s
-		s += 7
-
-	return x, overflow
-}
-
-var overflow = errors.New("pkgbits: readUvarint overflows a 64-bit integer")
-
-
- (r *Decoder) rawVarint() int64 {
-	ux := r.rawUvarint()
-
-Zig-zag decode.
-	x := int64(ux >> 1)
-	if ux&1 != 0 {
-		x = ^x
+		x|=uint64(b&0x7f)<<s
+		s+=7	returnx,overflow
+}varoverflow=errors.New("pkgbits:readUvarintoverflowsa64-bitinteger")
+(r*Decoder)rawVarint()int64{
+	ux:=r.rawUvarint()Zig-zagdecode.
+	x:=int64(ux>>1)
+	ifux&1!=0{
+		x=^x
 	}
-	return x
+	returnx
 }
-
-
- (r *Decoder) rawReloc(k RelocKind, idx int) Index {
-	e := r.Relocs[idx]
-	assert(e.Kind == k)
-	return e.Idx
-}
-
-// Sync decodes a sync marker from the element bitstream and asserts
-// that it matches the expected marker.
+(r*Decoder)rawReloc(kRelocKind,idxint)Index{
+	e:=r.Relocs[idx]
+	assert(e.Kind==k)
+	returne.Idx
+}//Syncdecodesasyncmarkerfromtheelementbitstreamandasserts
+//thatitmatchestheexpectedmarker.
 //
-// If r.common.sync is false, then Sync is a no-op.
-
- (r *Decoder) Sync(mWant SyncMarker) {
-	if !r.common.sync {
+//Ifr.common.syncisfalse,thenSyncisano-op.(r*Decoder)Sync(mWantSyncMarker){
+	if!r.common.sync{
 		return
-	}
-
-	pos, _ := r.Data.Seek(0, io.SeekCurrent)
-	mHave := SyncMarker(r.rawUvarint())
-	writerPCs := make([]int, r.rawUvarint())
-	for i := range writerPCs {
-		writerPCs[i] = int(r.rawUvarint())
-	}
-
-	if mHave == mWant {
+	}	pos,_:=r.Data.Seek(0,io.SeekCurrent)
+	mHave:=SyncMarker(r.rawUvarint())
+	writerPCs:=make([]int,r.rawUvarint())
+	fori:=rangewriterPCs{
+		writerPCs[i]=int(r.rawUvarint())
+	}	ifmHave==mWant{
 		return
-	}
-
-	// There's some tension here between printing:
+	}	//There'ssometensionherebetweenprinting:
 	//
-	// (1) full file paths that tools can recognize (e.g., so emacs
-	//     hyperlinks the "file:line" text for easy navigation), or
+	//(1)fullfilepathsthattoolscanrecognize(e.g.,soemacs
+	//hyperlinksthe"file:line"textforeasynavigation),or
 	//
-	// (2) short file paths that are easier for humans to read (e.g., by
-	//     omitting redundant or irrelevant details, so it's easier to
-	//     focus on the useful bits that remain).
+	//(2)shortfilepathsthatareeasierforhumanstoread(e.g.,by
+	//omittingredundantorirrelevantdetails,soit'seasierto
+	//focusontheusefulbitsthatremain).
 	//
-	// The current formatting favors the former, as it seems more
-	// helpful in practice. But perhaps the formatting could be improved
-	// to better address both concerns. For example, use relative file
-	// paths if they would be shorter, or rewrite file paths to contain
-	// "$GOROOT" (like objabi.AbsFile does) if tools can be taught how
-	// to reliably expand that again.
-
-	fmt.Printf("export data desync: package %q, section %v, index %v, offset %v\n", r.common.pkgPath, r.k, r.Idx, pos)
-
-	fmt.Printf("\nfound %v, written at:\n", mHave)
-	if len(writerPCs) == 0 {
-t.Printf("\t[stack trace unavailable; recompile package %q with -d=syncframes]\n", r.common.pkgPath)
+	//Thecurrentformattingfavorstheformer,asitseemsmore
+	//helpfulinpractice.Butperhapstheformattingcouldbeimproved
+	//tobetteraddressbothconcerns.Forexample,userelativefile
+	//pathsiftheywouldbeshorter,orrewritefilepathstocontain
+	//"$GOROOT"(likeobjabi.AbsFiledoes)iftoolscanbetaughthow
+	//toreliablyexpandthatagain.	fmt.Printf("exportdatadesync:package%q,section%v,index%v,offset%v\n",r.common.pkgPath,r.k,r.Idx,pos)	fmt.Printf("\nfound%v,writtenat:\n",mHave)
+	iflen(writerPCs)==0{
+t.Printf("\t[stacktraceunavailable;recompilepackage%qwith-d=syncframes]\n",r.common.pkgPath)
 	}
-	for _, pc := range writerPCs {
-		fmt.Printf("\t%s\n", r.common.StringIdx(r.rawReloc(RelocString, pc)))
-	}
-
-	fmt.Printf("\nexpected %v, reading at:\n", mWant)
-	var readerPCs [32]uintptr // TODO(mdempsky): Dynamically size?
-	n := runtime.Callers(2, readerPCs[:])
- _, pc := range fmtFrames(readerPCs[:n]...) {
-		fmt.Printf("\t%s\n", pc)
-	}
-
-	// We already printed a stack trace for the reader, so now we can
-	// simply exit. Printing a second one with panic or base.Fatalf
-would just be noise.
+	for_,pc:=rangewriterPCs{
+		fmt.Printf("\t%s\n",r.common.StringIdx(r.rawReloc(RelocString,pc)))
+	}	fmt.Printf("\nexpected%v,readingat:\n",mWant)
+	varreaderPCs[32]uintptr//TODO(mdempsky):Dynamicallysize?
+	n:=runtime.Callers(2,readerPCs[:])
+_,pc:=rangefmtFrames(readerPCs[:n]...){
+		fmt.Printf("\t%s\n",pc)
+	}	//Wealreadyprintedastacktraceforthereader,sonowwecan
+	//simplyexit.Printingasecondonewithpanicorbase.Fatalf
+wouldjustbenoise.
 	os.Exit(1)
-}
-
-// Bool decodes and returns a bool value from the element bitstream.
-
-*Decoder) Bool() bool {
+}//Booldecodesandreturnsaboolvaluefromtheelementbitstream.*Decoder)Bool()bool{
 	r.Sync(SyncBool)
-	x, err := r.Data.ReadByte()
+	x,err:=r.Data.ReadByte()
 heckErr(err)
-	assert(x < 2)
-	return x != 0
-
-
-// Int64 decodes and returns an int64 value from the element bitstream.
-
- (r *Decoder) Int64() int64 {
+	assert(x<2)
+	returnx!=0
+//Int64decodesandreturnsanint64valuefromtheelementbitstream.(r*Decoder)Int64()int64{
 	r.Sync(SyncInt64)
-	return r.rawVarint()
-}
-
-int64 decodes and returns a uint64 value from the element bitstream.
-
- (r *Decoder) Uint64() uint64 {
+	returnr.rawVarint()
+}int64decodesandreturnsauint64valuefromtheelementbitstream.(r*Decoder)Uint64()uint64{
 	r.Sync(SyncUint64)
-	return r.rawUvarint()
-}
-
-en decodes and returns a non-negative int value from the element bitstream.
-
- (r *Decoder) Len() int { x := r.Uint64(); v := int(x); assert(uint64(v) == x); return v }
-
-// Int decodes and returns an int value from the element bitstream.
-
- (r *Decoder) Int() int { x := r.Int64(); v := int(x); assert(int64(v) == x); return v }
-
-// Uint decodes and returns a uint value from the element bitstream.
-
- (r *Decoder) Uint() uint { x := r.Uint64(); v := uint(x); assert(uint64(v) == x); return v }
-
-// Code decodes a Code value from the element bitstream and returns
-// its ordinal value. It's the caller's responsibility to convert the
-esult to an appropriate Code type.
+	returnr.rawUvarint()
+}endecodesandreturnsanon-negativeintvaluefromtheelementbitstream.(r*Decoder)Len()int{x:=r.Uint64();v:=int(x);assert(uint64(v)==x);returnv}//Intdecodesandreturnsanintvaluefromtheelementbitstream.(r*Decoder)Int()int{x:=r.Int64();v:=int(x);assert(int64(v)==x);returnv}//Uintdecodesandreturnsauintvaluefromtheelementbitstream.(r*Decoder)Uint()uint{x:=r.Uint64();v:=uint(x);assert(uint64(v)==x);returnv}//CodedecodesaCodevaluefromtheelementbitstreamandreturns
+//itsordinalvalue.It'sthecaller'sresponsibilitytoconvertthe
+esulttoanappropriateCodetype.
 //
-// TODO(mdempsky): Ideally this method would have signature "Code[T
-// Code] T" instead, but we don't allow generic methods and the
-// compiler can't depend on generics yet anyway.
-
- (r *Decoder) Code(mark SyncMarker) int {
+//TODO(mdempsky):Ideallythismethodwouldhavesignature"Code[T
+//Code]T"instead,butwedon'tallowgenericmethodsandthe
+//compilercan'tdependongenericsyetanyway.(r*Decoder)Code(markSyncMarker)int{
 	r.Sync(mark)
-	return r.Len()
-}
-
-// Reloc decodes a relocation of expected section k from the element
-// bitstream and returns an index to the referenced element.
-
- (r *Decoder) Reloc(k RelocKind) Index {
+	returnr.Len()
+}//Relocdecodesarelocationofexpectedsectionkfromtheelement
+//bitstreamandreturnsanindextothereferencedelement.(r*Decoder)Reloc(kRelocKind)Index{
 	r.Sync(SyncUseReloc)
-	return r.rawReloc(k, r.Len())
-}
-
-// String decodes and returns a string value from the element
-itstream.
-
- (r *Decoder) String() string {
+	returnr.rawReloc(k,r.Len())
+}//Stringdecodesandreturnsastringvaluefromtheelement
+itstream.(r*Decoder)String()string{
 	r.Sync(SyncString)
-	return r.common.StringIdx(r.Reloc(RelocString))
-}
-
-// Strings decodes and returns a variable-length slice of strings from
-// the element bitstream.
-
- (r *Decoder) Strings() []string {
-	res := make([]string, r.Len())
-	for i := range res {
-		res[i] = r.String()
+	returnr.common.StringIdx(r.Reloc(RelocString))
+}//Stringsdecodesandreturnsavariable-lengthsliceofstringsfrom
+//theelementbitstream.(r*Decoder)Strings()[]string{
+	res:=make([]string,r.Len())
+	fori:=rangeres{
+		res[i]=r.String()
 	}
-	return res
-}
-
-// Value decodes and returns a constant.Value from the element
-// bitstream.
-
- (r *Decoder) Value() constant.Value {
+	returnres
+}//Valuedecodesandreturnsaconstant.Valuefromtheelement
+//bitstream.(r*Decoder)Value()constant.Value{
 ync(SyncValue)
-	isComplex := r.Bool()
-	val := r.scalar()
-	if isComplex {
-		val = constant.BinaryOp(val, token.ADD, constant.MakeImag(r.scalar()))
+	isComplex:=r.Bool()
+	val:=r.scalar()
+	ifisComplex{
+		val=constant.BinaryOp(val,token.ADD,constant.MakeImag(r.scalar()))
 	}
-	return val
+	returnval
 }
-
-
- (r *Decoder) scalar() constant.Value {
-	switch tag := CodeVal(r.Code(SyncVal)); tag {
+(r*Decoder)scalar()constant.Value{
+	switchtag:=CodeVal(r.Code(SyncVal));tag{
 	default:
-		panic(fmt.Errorf("unexpected scalar tag: %v", tag))
-
-	case ValBool:
-		return constant.MakeBool(r.Bool())
-	case ValString:
-		return constant.MakeString(r.String())
-	case ValInt64:
-		return constant.MakeInt64(r.Int64())
-e ValBigInt:
-		return constant.Make(r.bigInt())
-	case ValBigRat:
-		num := r.bigInt()
-		denom := r.bigInt()
-		return constant.Make(new(big.Rat).SetFrac(num, denom))
-	case ValBigFloat:
-		return constant.Make(r.bigFloat())
+		panic(fmt.Errorf("unexpectedscalartag:%v",tag))	caseValBool:
+		returnconstant.MakeBool(r.Bool())
+	caseValString:
+		returnconstant.MakeString(r.String())
+	caseValInt64:
+		returnconstant.MakeInt64(r.Int64())
+eValBigInt:
+		returnconstant.Make(r.bigInt())
+	caseValBigRat:
+		num:=r.bigInt()
+		denom:=r.bigInt()
+		returnconstant.Make(new(big.Rat).SetFrac(num,denom))
+	caseValBigFloat:
+		returnconstant.Make(r.bigFloat())
 	}
 }
-
-
- (r *Decoder) bigInt() *big.Int {
-	v := new(big.Int).SetBytes([]byte(r.String()))
-	if r.Bool() {
+(r*Decoder)bigInt()*big.Int{
+	v:=new(big.Int).SetBytes([]byte(r.String()))
+	ifr.Bool(){
 Neg(v)
 	}
-	return v
+	returnv
 }
-
-
- (r *Decoder) bigFloat() *big.Float {
-	v := new(big.Float).SetPrec(512)
-	assert(v.UnmarshalText([]byte(r.String())) == nil)
-	return v
-}
-
-// @@@ Helpers
-
-// TODO(mdempsky): These should probably be removed. I think they're a
-// smell that the export data format is not yet quite right.
-
-// PeekPkgPath returns the package path for the specified package
-// index.
-
- (pr *PkgDecoder) PeekPkgPath(idx Index) string {
-	var path string
+(r*Decoder)bigFloat()*big.Float{
+	v:=new(big.Float).SetPrec(512)
+	assert(v.UnmarshalText([]byte(r.String()))==nil)
+	returnv
+}//@@@Helpers//TODO(mdempsky):Theseshouldprobablyberemoved.Ithinkthey'rea
+//smellthattheexportdataformatisnotyetquiteright.//PeekPkgPathreturnsthepackagepathforthespecifiedpackage
+//index.(pr*PkgDecoder)PeekPkgPath(idxIndex)string{
+	varpathstring
 	{
-		r := pr.TempDecoder(RelocPkg, idx, SyncPkgDef)
-		path = r.String()
+		r:=pr.TempDecoder(RelocPkg,idx,SyncPkgDef)
+		path=r.String()
 		pr.RetireDecoder(&r)
 	}
-	if path == "" {
-		path = pr.pkgPath
+	ifpath==""{
+		path=pr.pkgPath
 	}
-	return path
-}
-
-// PeekObj returns the package path, object name, and CodeObj for the
-// specified object index.
-
- (pr *PkgDecoder) PeekObj(idx Index) (string, string, CodeObj) {
-	var ridx Index
-	var name string
-	var rcode int
+	returnpath
+}//PeekObjreturnsthepackagepath,objectname,andCodeObjforthe
+//specifiedobjectindex.(pr*PkgDecoder)PeekObj(idxIndex)(string,string,CodeObj){
+	varridxIndex
+	varnamestring
+	varrcodeint
 	{
-		r := pr.TempDecoder(RelocName, idx, SyncObject1)
+		r:=pr.TempDecoder(RelocName,idx,SyncObject1)
 		r.Sync(SyncSym)
 		r.Sync(SyncPkg)
-		ridx = r.Reloc(RelocPkg)
-		name = r.String()
-		rcode = r.Code(SyncCodeObj)
+		ridx=r.Reloc(RelocPkg)
+		name=r.String()
+		rcode=r.Code(SyncCodeObj)
 		pr.RetireDecoder(&r)
-	}
-
-	path := pr.PeekPkgPath(ridx)
-	assert(name != "")
-
-	tag := CodeObj(rcode)
-
-	return path, name, tag
+	}	path:=pr.PeekPkgPath(ridx)
+	assert(name!="")	tag:=CodeObj(rcode)	returnpath,name,tag
 }

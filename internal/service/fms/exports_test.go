@@ -8,7 +8,7 @@ var (
 	ResourceAdminAccount = resourceAdminAccount
 	ResourcePolicy       = resourcePolicy
 
-	FindAdminAccount          = findAdminAccount
-	FindPolicyByID            = findPolicyByID
+	FindAdminAccount = findAdminAccount
+	FindPolicyByID   = findPolicyByID
 	RemoveEmptyFieldsFromJSON = removeEmptyFieldsFromJSON
 )

@@ -25,45 +25,45 @@ func DataSourceEnvironment() *schema.Resource {
 		ReadWithoutTimeout: dataSourceEnvironmentRead,
 		Schema: map[string]*schema.Schema{
 			"application_id": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[a-z\d]{4,7}`), ""),
 			},
 			"environment_id": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[a-z\d]{4,7}`), ""),
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"monitor": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"alarm_arn": {
 							Computed: true,
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 						},
 						"alarm_role_arn": {
 							Computed: true,
-							Type:     schema.TypeString,
+							Type: schema.TypeString,
 						},
 					},
 				},
 			},
 			"state": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"tags": tftags.TagsSchemaComputed(),

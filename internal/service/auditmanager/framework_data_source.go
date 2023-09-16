@@ -135,14 +135,14 @@ func FindFrameworkByName(ctx context.Context, conn *auditmanager.Client, name, f
 }
 
 type dataSourceFrameworkData struct {
-	ARN            types.String `tfsdk:"arn"`
+	ARN  types.String `tfsdk:"arn"`
 	ComplianceType types.String `tfsdk:"compliance_type"`
-	ControlSets    types.Set    `tfsdk:"control_sets"`
-	Description    types.String `tfsdk:"description"`
+	ControlSetstypes.Set`tfsdk:"control_sets"`
+	Descriptiontypes.String `tfsdk:"description"`
 	FrameworkType  types.String `tfsdk:"framework_type"`
 	IDtypes.String `tfsdk:"id"`
-	Name           types.String `tfsdk:"name"`
-	Tags           types.Map    `tfsdk:"tags"`
+	Name types.String `tfsdk:"name"`
+	Tags types.Map`tfsdk:"tags"`
 }
 
 // refreshFromOutput writes state data from an AWS response object

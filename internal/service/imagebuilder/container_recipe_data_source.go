@@ -22,7 +22,7 @@ func DataSourceContainerRecipe() *schema.Resource {
 		ReadWithoutTimeout: dataSourceContainerRecipeRead,
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},

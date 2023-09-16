@@ -67,7 +67,7 @@ func resourceGeoMatchSetCreate(ctx context.Context, d *schema.ResourceData, meta
 		func(token *string) (interface{}, error) {
 			params := &waf.CreateGeoMatchSetInput{
 				ChangeToken: token,
-				Name:        aws.String(d.Get("name").(string)),
+				Name:  aws.String(d.Get("name").(string)),
 			}
 
 			return conn.CreateGeoMatchSetWithContext(ctx, params)
@@ -165,7 +165,7 @@ func updateGeoMatchSetResourceWR(ctx context.Context, id string, oldConstraints,
 			req := &waf.UpdateGeoMatchSetInput{
 				ChangeToken:   token,
 				GeoMatchSetId: aws.String(id),
-				Updates:       tfwaf.DiffGeoMatchSetConstraints(oldConstraints, newConstraints),
+				Updates: tfwaf.DiffGeoMatchSetConstraints(oldConstraints, newConstraints),
 			}
 
 			return conn.UpdateGeoMatchSetWithContext(ctx, req)

@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccGuardDuty_serial(t *testing.T) {
 	t.Parallel()
 
@@ -21,7 +20,7 @@ func TestAccGuardDuty_serial(t *testing.T) {
 			"basic":
 			"datasources_s3logs":3logs,
 			"datasources_kubernetes_audit_logs": testAccDetector_datasources_kubernetes_audit_logs,
-			"datasources_malware_protection":    testAccDetector_datasources_malware_protection,
+			"datasources_malware_protection": testAccDetector_datasources_malware_protection,
 			"datasources_all":s_all,
 			"tags":
 			"datasource_basic":asic,
@@ -68,7 +67,6 @@ func TestAccGuardDuty_serial(t *testing.T) {
 
 	acctest.RunSerialTests2Levels(t, testCases, 0)
 }
-
 func testAccMemberFromEnv(t *testing.T) (string, string) {
 	accountID := os.Getenv("AWS_GUARDDUTY_MEMBER_ACCOUNT_ID")
 	if accountID == "" {

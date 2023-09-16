@@ -31,9 +31,9 @@ func testAccAccess_s3_basic(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckAccessDestroy(ctx),
+		CheckDestroy:testAccCheckAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccessConfig_s3Basic(rName),
@@ -47,8 +47,8 @@ func testAccAccess_s3_basic(t *testing.T) {
 			},
 			{
 				ResourceName:   resourceName,
-				ImportState:    true,
-				ImportStateVerify:       true,
+				ImportState:true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"role"},
 			},
 			{
@@ -77,9 +77,9 @@ func testAccAccess_efs_basic(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckAccessDestroy(ctx),
+		CheckDestroy:testAccCheckAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccessConfig_efsBasic(rName),
@@ -93,8 +93,8 @@ func testAccAccess_efs_basic(t *testing.T) {
 			},
 			{
 				ResourceName:   resourceName,
-				ImportState:    true,
-				ImportStateVerify:       true,
+				ImportState:true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"role"},
 			},
 			{
@@ -124,9 +124,9 @@ func testAccAccess_disappears(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckAccessDestroy(ctx),
+		CheckDestroy:testAccCheckAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccessConfig_s3Basic(rName),
@@ -153,9 +153,9 @@ func testAccAccess_s3_policy(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:  acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckAccessDestroy(ctx),
+		CheckDestroy:testAccCheckAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccessConfig_s3ScopeDownPolicy(rName),
@@ -238,7 +238,7 @@ resource "aws_vpc" "test" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -246,18 +246,18 @@ resource "aws_internet_gateway" "test" {
   vpc_id = aws_vpc.test.id
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
 resource "aws_subnet" "test" {
   vpc_id   = aws_vpc.test.id
-  cidr_block     = "10.0.0.0/24"
+  cidr_block = "10.0.0.0/24"
   map_public_ip_on_launch = true
-  availability_zone       = data.aws_availability_zones.available.names[0]
+  availability_zone   = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 
   depends_on = [aws_internet_gateway.test]
@@ -265,28 +265,28 @@ resource "aws_subnet" "test" {
 
 resource "aws_subnet" "test2" {
   vpc_id   = aws_vpc.test.id
-  cidr_block     = "10.0.1.0/24"
+  cidr_block = "10.0.1.0/24"
   map_public_ip_on_launch = true
-  availability_zone       = data.aws_availability_zones.available.names[1]
+  availability_zone   = data.aws_availability_zones.available.names[1]
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 
   depends_on = [aws_internet_gateway.test]
 }
 
 resource "aws_directory_service_directory" "test" {
-  name     = "corp.notexample.com"
+  name = "corp.notexample.com"
   password = "SuperSecretPassw0rd"
 
   vpc_settings {
-    vpc_id = aws_vpc.test.id
+vpc_id = aws_vpc.test.id
 
-    subnet_ids = [
-      aws_subnet.test.id,
-      aws_subnet.test2.id
-    ]
+subnet_ids = [
+  aws_subnet.test.id,
+  aws_subnet.test2.id
+]
   }
 }
 
@@ -297,11 +297,11 @@ resource "aws_iam_role" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "transfer.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+  "Service": "transfer.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
   }]
 }
 EOF
@@ -328,22 +328,22 @@ resource "aws_iam_role_policy" "test" {
 {
    "Version":"2012-10-17",
    "Statement":[
-      {
+  {
 "Sid":"AllowFullAccesstoCloudWatchLogs",
 "Effect":"Allow",
 "Action":[
    "logs:*"
 ],
 "Resource":"*"
-      },
-      {
+  },
+  {
 "Sid":"AllowFullAccesstoS3",
 "Effect":"Allow",
 "Action":[
    "s3:*"
 ],
 "Resource":"*"
-      }
+  }
    ]
 }
 POLICY
@@ -359,9 +359,9 @@ func testAccAccessConfig_s3Basic(rName string) string {
 resource "aws_transfer_access" "test" {
   external_id = "S-1-1-12-1234567890-123456789-1234567890-1234"
   server_id   = aws_transfer_server.test.id
-  role        = aws_iam_role.test.arn
+  role= aws_iam_role.test.arn
 
-  home_directory      = "/${aws_s3_bucket.test.id}/"
+  home_directory  = "/${aws_s3_bucket.test.id}/"
   home_directory_type = "PATH"
 }
 `)
@@ -375,9 +375,9 @@ func testAccAccessConfig_s3Updated(rName string) string {
 resource "aws_transfer_access" "test" {
   external_id = "S-1-1-12-1234567890-123456789-1234567890-1234"
   server_id   = aws_transfer_server.test.id
-  role        = aws_iam_role.test.arn
+  role= aws_iam_role.test.arn
 
-  home_directory      = "/${aws_s3_bucket.test.id}/test"
+  home_directory  = "/${aws_s3_bucket.test.id}/test"
   home_directory_type = "PATH"
 }
 `)
@@ -391,16 +391,16 @@ func testAccAccessConfig_s3ScopeDownPolicy(rName string) string {
 resource "aws_transfer_access" "test" {
   external_id = "S-1-1-12-1234567890-123456789-1234567890-1234"
   server_id   = aws_transfer_server.test.id
-  role        = aws_iam_role.test.arn
+  role= aws_iam_role.test.arn
 
-  home_directory      = "/${aws_s3_bucket.test.id}/"
+  home_directory  = "/${aws_s3_bucket.test.id}/"
   home_directory_type = "PATH"
 
   policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
+"Version": "2012-10-17",
+"Statement": [
+{
    "Sid": "AllowListingOfUserFolder",
    "Action": [
  "s3:ListBucket"
@@ -409,8 +409,8 @@ resource "aws_transfer_access" "test" {
    "Resource": [
  "arn:${data.aws_partition.current.partition}:s3:::$${transfer:HomeBucket}"
    ]
-        },
-        {
+},
+{
    "Sid": "HomeDirObjectAccess",
    "Effect": "Allow",
    "Action": [
@@ -423,8 +423,8 @@ resource "aws_transfer_access" "test" {
  "s3:PutObjectACL"
    ],
    "Resource": "arn:${data.aws_partition.current.partition}:s3:::$${transfer:HomeDirectory}/*"
-        }
-    ]
+}
+]
 }
 EOF
 }`)
@@ -449,12 +449,12 @@ resource "aws_iam_role_policy" "test" {
 {
   "Version": "2012-10-17",
   "Statement": [{
-    "Sid": "AllowFullAccesstoCloudWatchLogs",
-    "Effect": "Allow",
-    "Action": [
-      "logs:*"
-    ],
-    "Resource": "*"
+"Sid": "AllowFullAccesstoCloudWatchLogs",
+"Effect": "Allow",
+"Action": [
+  "logs:*"
+],
+"Resource": "*"
   }]
 }
 POLICY
@@ -470,14 +470,14 @@ func testAccAccessConfig_efsBasic(rName string) string {
 resource "aws_transfer_access" "test" {
   external_id = "S-1-1-12-1234567890-123456789-1234567890-1234"
   server_id   = aws_transfer_server.test.id
-  role        = aws_iam_role.test.arn
+  role= aws_iam_role.test.arn
 
-  home_directory      = "/${aws_efs_file_system.test.id}/"
+  home_directory  = "/${aws_efs_file_system.test.id}/"
   home_directory_type = "PATH"
 
   posix_profile {
-    gid = 1000
-    uid = 1000
+gid = 1000
+uid = 1000
   }
 }
 `)
@@ -491,14 +491,14 @@ func testAccAccessConfig_efsUpdated(rName string) string {
 resource "aws_transfer_access" "test" {
   external_id = "S-1-1-12-1234567890-123456789-1234567890-1234"
   server_id   = aws_transfer_server.test.id
-  role        = aws_iam_role.test.arn
+  role= aws_iam_role.test.arn
 
-  home_directory      = "/${aws_efs_file_system.test.id}/test"
+  home_directory  = "/${aws_efs_file_system.test.id}/test"
   home_directory_type = "PATH"
 
   posix_profile {
-    gid = 1000
-    uid = 1000
+gid = 1000
+uid = 1000
   }
 }
 `)

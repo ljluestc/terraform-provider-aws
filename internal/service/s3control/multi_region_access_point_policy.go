@@ -40,7 +40,7 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"account_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ForceNew:     true,
@@ -54,15 +54,15 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "name": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ForceNew:     true,
 	ValidateFunc: validateS3MultiRegionAccessPointName,
 },
 "policy": {
 	Type:   schema.TypeString,
-	Required:              true,
-	ValidateFunc:          validation.StringIsJSON,
+	Required:     true,
+	ValidateFunc: validation.StringIsJSON,
 	DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 	DiffSuppressOnRefresh: true,
 	StateFunc: func(v interface{}) string {

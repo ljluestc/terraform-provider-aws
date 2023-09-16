@@ -15,11 +15,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_service_discovery_http_namespace", &resource.Sweeper{
 		Name: "aws_service_discovery_http_namespace",
-		F:    sweepHTTPNamespaces,
+		F: sweepHTTPNamespaces,
 		Dependencies: []string{
 			"aws_service_discovery_service",
 		},
@@ -27,7 +26,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_service_discovery_private_dns_namespace", &resource.Sweeper{
 		Name: "aws_service_discovery_private_dns_namespace",
-		F:    sweepPrivateDNSNamespaces,
+		F: sweepPrivateDNSNamespaces,
 		Dependencies: []string{
 			"aws_service_discovery_service",
 		},
@@ -35,7 +34,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_service_discovery_public_dns_namespace", &resource.Sweeper{
 		Name: "aws_service_discovery_public_dns_namespace",
-		F:    sweepPublicDNSNamespaces,
+		F: sweepPublicDNSNamespaces,
 		Dependencies: []string{
 			"aws_service_discovery_service",
 		},
@@ -43,10 +42,9 @@ func init() {
 
 	resource.AddTestSweepers("aws_service_discovery_service", &resource.Sweeper{
 		Name: "aws_service_discovery_service",
-		F:    sweepServices,
+		F: sweepServices,
 	})
 }
-
 func sweepHTTPNamespaces(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -83,7 +81,6 @@ func sweepHTTPNamespaces(region string) error {
 
 	return nil
 }
-
 func sweepPrivateDNSNamespaces(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -120,7 +117,6 @@ func sweepPrivateDNSNamespaces(region string) error {
 
 	return nil
 }
-
 func sweepPublicDNSNamespaces(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -157,7 +153,6 @@ func sweepPublicDNSNamespaces(region string) error {
 
 	return nil
 }
-
 func sweepServices(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

@@ -356,7 +356,7 @@ resource "aws_codepipeline_custom_action_type" "test" {
 
   configuration_property {
     description = "Date of birth"
-    key         = false
+    key= false
     name        = "dob"
     queryable   = false
     required    = false

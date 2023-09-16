@@ -33,7 +33,7 @@ import (
 func ResourceCluster() *schema.Resource {
 	return &schema.Resource{
 CreateWithoutTimeout: resourceClusterCreate,
-ReadWithoutTimeout:   resourceClusterRead,
+ReadWithoutTimeout:resourceClusterRead,
 UpdateWithoutTimeout: resourceClusterUpdate,
 DeleteWithoutTimeout: resourceClusterDelete,
 Importer: &schema.ResourceImporter{
@@ -48,13 +48,13 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"cluster_endpoint_encryption_type": {
 Type:schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Optional:true,
+ForceNew:true,
 ValidateFunc: validation.StringInSlice(dax.ClusterEndpointEncryptionType_Values(), false),
 DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 	// API returns "NONE" by default.
@@ -66,7 +66,7 @@ return true
 },
 	},
 	"cluster_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 StateFunc: func(val interface{}) string {
@@ -82,41 +82,41 @@ ValidateFunc: validation.All(
 	},
 	"iam_role_arn": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required:true,
+ForceNew:true,
 ValidateFunc: verify.ValidARN,
 	},
 	"node_type": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
 	"replication_factor": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Required: true,
 	},
 	"availability_zones": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 ForceNew: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
-Set:      schema.HashString,
+Elem:&schema.Schema{Type: schema.TypeString},
+Set:.HashString,
 	},
 	"description": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 	},
 	"notification_topic_arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 	},
 	"parameter_group_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 	},
 	"maintenance_window": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 StateFunc: func(val interface{}) string {
@@ -125,14 +125,14 @@ StateFunc: func(val interface{}) string {
 ValidateFunc: verify.ValidOnceAWeekWindowFormat,
 	},
 	"security_group_ids": {
-Type:     schema.TypeSet,
+Type:schema.TypeSet,
 Optional: true,
 Computed: true,
-Elem:     &schema.Schema{Type: schema.TypeString},
-Set:      schema.HashString,
+Elem:&schema.Schema{Type: schema.TypeString},
+Set:.HashString,
 	},
 	"server_side_encryption": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Optional: true,
 MaxItems: 1,
 DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
@@ -144,7 +144,7 @@ return true
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "enabled": {
-	Type:     schema.TypeBool,
+	Type:schema.TypeBool,
 	Optional: true,
 	Default:  false,
 	ForceNew: true,
@@ -153,44 +153,44 @@ Elem: &schema.Resource{
 },
 	},
 	"subnet_group_name": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Computed: true,
 ForceNew: true,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags: tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"port": {
-Type:     schema.TypeInt,
+Type:schema.TypeInt,
 Computed: true,
 	},
 	"configuration_endpoint": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"cluster_address": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"nodes": {
-Type:     schema.TypeList,
+Type:schema.TypeList,
 Computed: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "id": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Computed: true,
 },
 "address": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Computed: true,
 },
 "port": {
-	Type:     schema.TypeInt,
+	Type:schema.TypeInt,
 	Computed: true,
 },
 "availability_zone": {
-	Type:     schema.TypeString,
+	Type:schema.TypeString,
 	Computed: true,
 },
 	},
@@ -201,7 +201,6 @@ Elem: &schema.Resource{
 CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DAXConn(ctx)
@@ -214,13 +213,13 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 	securityIdSet := d.Get("security_group_ids").(*schema.Set)
 	securityIds := flex.ExpandStringSet(securityIdSet)
 	input := &dax.CreateClusterInput{
-ClusterName:       aws.String(clusterName),
-IamRoleArn:        aws.String(iamRoleArn),
+ClusterName:tring(clusterName),
+IamRoleArn:String(iamRoleArn),
 NodeType: aws.String(nodeType),
 ReplicationFactor: aws.Int64(numNodes),
 SecurityGroupIds:  securityIds,
-SubnetGroupName:   aws.String(subnetGroupName),
-Tags:     getTagsIn(ctx),
+SubnetGroupName:aws.String(subnetGroupName),
+Tags:getTagsIn(ctx),
 	}
 
 	// optionals can be defaulted by AWS
@@ -284,12 +283,12 @@ return sdkdiag.AppendErrorf(diags, "creating DAX cluster: %s", err)
 
 	pending := []string{"creating", "modifying"}
 	stateConf := &retry.StateChangeConf{
-Pending:    pending,
-Target:     []string{"available"},
-Refresh:    clusterStateRefreshFunc(ctx, conn, d.Id(), "available", pending),
-Timeout:    d.Timeout(schema.TimeoutCreate),
+Pending: pending,
+Target:[]string{"available"},
+Refresh: clusterStateRefreshFunc(ctx, conn, d.Id(), "available", pending),
+Timeout: d.Timeout(schema.TimeoutCreate),
 MinTimeout: 10 * time.Second,
-Delay:      30 * time.Second,
+Delay:ime.Second,
 	}
 
 	log.Printf("[DEBUG] Waiting for state to become available: %v", d.Id())
@@ -300,7 +299,6 @@ return sdkdiag.AppendErrorf(diags, "waiting for DAX cluster (%s) to be created: 
 
 	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
-
 func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DAXConn(ctx)
@@ -366,7 +364,6 @@ return sdkdiag.AppendErrorf(diags, "setting server_side_encryption: %s", err)
 
 	return diags
 }
-
 func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DAXConn(ctx)
@@ -450,12 +447,12 @@ return sdkdiag.AppendErrorf(diags, "increasing nodes in DAX cluster %s, error: %
 log.Printf("[DEBUG] Waiting for update: %s", d.Id())
 pending := []string{"modifying"}
 stateConf := &retry.StateChangeConf{
-	Pending:    pending,
-	Target:     []string{"available"},
-	Refresh:    clusterStateRefreshFunc(ctx, conn, d.Id(), "available", pending),
-	Timeout:    d.Timeout(schema.TimeoutUpdate),
+	Pending: pending,
+	Target:[]string{"available"},
+	Refresh: clusterStateRefreshFunc(ctx, conn, d.Id(), "available", pending),
+	Timeout: d.Timeout(schema.TimeoutUpdate),
 	MinTimeout: 10 * time.Second,
-	Delay:      30 * time.Second,
+	Delay:ime.Second,
 }
 
 _, sterr := stateConf.WaitForStateContext(ctx)
@@ -466,7 +463,6 @@ if sterr != nil {
 
 	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
-
 func setClusterNodeData(d *schema.ResourceData, c *dax.Cluster) error {
 	sortedNodes := make([]*dax.Node, len(c.Nodes))
 	copy(sortedNodes, c.Nodes)
@@ -481,7 +477,7 @@ if node.NodeId == nil || node.Endpoint == nil || node.Endpoint.Address == nil ||
 nodeData = append(nodeData, map[string]interface{}{
 	"id": aws.StringValue(node.NodeId),
 	"address":  aws.StringValue(node.Endpoint.Address),
-	"port":     aws.Int64Value(node.Endpoint.Port),
+	"port":aws.Int64Value(node.Endpoint.Port),
 	"availability_zone": aws.StringValue(node.AvailabilityZone),
 })
 	}
@@ -490,14 +486,12 @@ nodeData = append(nodeData, map[string]interface{}{
 }
 
 type byNodeId []*dax.Node
-
-func (b byNodeId) Len() int      { return len(b) }
+func (b byNodeId) Len() intrn len(b) }
 func (b byNodeId) Swap(i, j int) { b[i], b[j] = b[j], b[i] }
 func (b byNodeId) Less(i, j int) bool {
 	return b[i].NodeId != nil && b[j].NodeId != nil &&
 aws.StringValue(b[i].NodeId) < aws.StringValue(b[j].NodeId)
 }
-
 func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DAXConn(ctx)
@@ -524,12 +518,12 @@ return sdkdiag.AppendErrorf(diags, "deleting DAX cluster: %s", err)
 
 	log.Printf("[DEBUG] Waiting for deletion: %v", d.Id())
 	stateConf := &retry.StateChangeConf{
-Pending:    []string{"creating", "available", "deleting", "incompatible-parameters", "incompatible-network"},
-Target:     []string{},
-Refresh:    clusterStateRefreshFunc(ctx, conn, d.Id(), "", []string{}),
-Timeout:    d.Timeout(schema.TimeoutDelete),
+Pending: []string{"creating", "available", "deleting", "incompatible-parameters", "incompatible-network"},
+Target:[]string{},
+Refresh: clusterStateRefreshFunc(ctx, conn, d.Id(), "", []string{}),
+Timeout: d.Timeout(schema.TimeoutDelete),
 MinTimeout: 10 * time.Second,
-Delay:      30 * time.Second,
+Delay:ime.Second,
 	}
 
 	_, sterr := stateConf.WaitForStateContext(ctx)
@@ -539,7 +533,6 @@ return sdkdiag.AppendErrorf(diags, "waiting for DAX (%s) to delete: %s", d.Id(),
 
 	return diags
 }
-
 func clusterStateRefreshFunc(ctx context.Context, conn *dax.DAX, clusterID, givenState string, pending []string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 resp, err := conn.DescribeClustersWithContext(ctx, &dax.DescribeClustersInput{

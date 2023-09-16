@@ -50,8 +50,7 @@ type Exponential struct {
 }
 
 // Backoff returns the amount of time to wait before the next retry given the
-// number of retries.
-func (bc Exponential) Backoff(retries int) time.Duration {
+// number of retries. (bc Exponential) Backoff(retries int) time.Duration {
 	if retries == 0 {
 		return bc.Config.BaseDelay
 	}

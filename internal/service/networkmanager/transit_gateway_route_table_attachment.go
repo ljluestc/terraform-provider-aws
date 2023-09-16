@@ -92,7 +92,7 @@ func ResourceTransitGatewayRouteTableAttachment() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"transit_gateway_route_table_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -107,8 +107,8 @@ func resourceTransitGatewayRouteTableAttachmentCreate(ctx context.Context, d *sc
 	peeringID := d.Get("peering_id").(string)
 	transitGatewayRouteTableARN := d.Get("transit_gateway_route_table_arn").(string)
 	input := &networkmanager.CreateTransitGatewayRouteTableAttachmentInput{
-		PeeringId:                   aws.String(peeringID),
-		Tags:                        getTagsIn(ctx),
+		PeeringId: aws.String(peeringID),
+		Tags:      getTagsIn(ctx),
 		TransitGatewayRouteTableArn: aws.String(transitGatewayRouteTableARN),
 	}
 
@@ -257,7 +257,7 @@ func waitTransitGatewayRouteTableAttachmentCreated(ctx context.Context, conn *ne
 func waitTransitGatewayRouteTableAttachmentDeleted(ctx context.Context, conn *networkmanager.NetworkManager, id string, timeout time.Duration) (*networkmanager.TransitGatewayRouteTableAttachment, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:        []string{networkmanager.AttachmentStateDeleting},
-		Target:         []string{},
+		Target:[]string{},
 		Timeout:        timeout,
 		Refresh:        statusTransitGatewayRouteTableAttachmentState(ctx, conn, id),
 		NotFoundChecks: 1,

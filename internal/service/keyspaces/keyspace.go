@@ -46,11 +46,11 @@ func resourceKeyspace() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				ForceNew: true,
 				Required: true,
 				ValidateFunc: validation.StringMatch(
@@ -58,7 +58,7 @@ func resourceKeyspace() *schema.Resource {
 					"The name can have up to 48 characters. It must begin with an alpha-numeric character and can only contain alpha-numeric characters and underscores.",
 				),
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
@@ -70,7 +70,7 @@ func resourceKeyspaceCreate(ctx context.Context, d *schema.ResourceData, meta in
 	name := d.Get("name").(string)
 	input := &keyspaces.CreateKeyspaceInput{
 		KeyspaceName: aws.String(name),
-		Tags:         getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	_, err := conn.CreateKeyspace(ctx, input)

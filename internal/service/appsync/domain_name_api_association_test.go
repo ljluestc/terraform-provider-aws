@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfappsync "github.com/hashicorp/terraform-provider-aws/internal/service/appsync"
 )
-
 func testAccDomainNameAPIAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var association appsync.ApiAssociation
@@ -28,7 +27,7 @@ func testAccDomainNameAPIAssociation_basic(t *testing.T) {
 	resourceName := "aws_appsync_domain_name_api_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckDomainNameAPIAssociationDestroy(ctx),
@@ -42,8 +41,8 @@ func testAccDomainNameAPIAssociation_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -57,7 +56,6 @@ func testAccDomainNameAPIAssociation_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccDomainNameAPIAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var association appsync.ApiAssociation
@@ -67,7 +65,7 @@ func testAccDomainNameAPIAssociation_disappears(t *testing.T) {
 	resourceName := "aws_appsync_domain_name_api_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckDomainNameAPIAssociationDestroy(ctx),
@@ -83,7 +81,6 @@ func testAccDomainNameAPIAssociation_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckDomainNameAPIAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
@@ -109,7 +106,6 @@ func testAccCheckDomainNameAPIAssociationDestroy(ctx context.Context) resource.T
 		return nil
 	}
 }
-
 func testAccCheckDomainNameAPIAssociationExists(ctx context.Context, resourceName string, DomainNameAPIAssociation *appsync.ApiAssociation) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -132,17 +128,16 @@ func testAccCheckDomainNameAPIAssociationExists(ctx context.Context, resourceNam
 		return nil
 	}
 }
-
 func testAccDomainNameAPIAssociationBaseConfig(domain, rName string) string {
 	return acctest.ConfigAlternateRegionProvider() + fmt.Sprintf(`
 data "aws_acm_certificate" "test" {
-  provider    = "awsalternate"
-  domain      = "*.%[1]s"
+  provider= "awsalternate"
+  domain = "*.%[1]s"
   most_recent = true
 }
 
 resource "aws_appsync_domain_name" "test" {
-  domain_name     = "%[2]s.%[1]s"
+  domain_name= "%[2]s.%[1]s"
   certificate_arn = data.aws_acm_certificate.test.arn
 }
 
@@ -152,16 +147,14 @@ resource "aws_appsync_graphql_api" "test" {
 }
 `, domain, rName)
 }
-
 func testAccDomainNameAPIAssociationConfig_basic(domain, rName string) string {
 	return testAccDomainNameAPIAssociationBaseConfig(domain, rName) + `
 resource "aws_appsync_domain_name_api_association" "test" {
-  api_id      = aws_appsync_graphql_api.test.id
+  api_id = aws_appsync_graphql_api.test.id
   domain_name = aws_appsync_domain_name.test.domain_name
 }
 `
 }
-
 func testAccDomainNameAPIAssociationConfig_updated(domain, rName string) string {
 	return testAccDomainNameAPIAssociationBaseConfig(domain, rName) + fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test2" {
@@ -170,7 +163,7 @@ resource "aws_appsync_graphql_api" "test2" {
 }
 
 resource "aws_appsync_domain_name_api_association" "test" {
-  api_id      = aws_appsync_graphql_api.test2.id
+  api_id = aws_appsync_graphql_api.test2.id
   domain_name = aws_appsync_domain_name.test.domain_name
 }
 `, rName)

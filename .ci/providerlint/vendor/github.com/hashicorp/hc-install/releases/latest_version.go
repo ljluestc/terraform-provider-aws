@@ -1,9 +1,5 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package releases
-
-import (
+// SPDX-License-Identifier: MPL-2.0package releasesimport (
 	"context"
 	"fmt"
 	"io/ioutil"
@@ -11,73 +7,43 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
-	"time"
-
-	"github.com/hashicorp/go-version"
+	"time"	"github.com/hashicorp/go-version"
 	"github.com/hashicorp/hc-install/internal/pubkey"
 	rjson "github.com/hashicorp/hc-install/internal/releasesjson"
 	isrc "github.com/hashicorp/hc-install/internal/src"
 	"github.com/hashicorp/hc-install/internal/validators"
 	"github.com/hashicorp/hc-install/product"
-)
-
-type LatestVersion struct {
-	Product            product.Product
+)type LatestVersion struct {
+	Product   product.Product
 	Constraints        version.Constraints
-	InstallDir         string
-	Timeout            time.Duration
-	IncludePrereleases bool
-
-	// Enterprise indicates installation of enterprise version (leave nil for Community editions)
-	Enterprise *EnterpriseOptions
-
-	SkipChecksumVerification bool
-
-	// ArmoredPublicKey is a public PGP key in ASCII/armor format to use
+	InstallDirstring
+	Timeout   time.Duration
+	IncludePrereleases bool	// Enterprise indicates installation of enterprise version (leave nil for Community editions)
+	Enterprise *EnterpriseOptions	SkipChecksumVerification bool	// ArmoredPublicKey is a public PGP key in ASCII/armor format to use
 	// instead of built-in pubkey to verify signature of downloaded checksums
-	ArmoredPublicKey string
-
-	apiBaseURL    string
+	ArmoredPublicKey string	apiBaseURL    string
 	logger        *log.Logger
 	pathsToRemove []string
 }
-
-
  (*LatestVersion) IsSourceImpl() isrc.InstallSrcSigil {
 	return isrc.InstallSrcSigil{}
 }
-
-
  (lv *LatestVersion) SetLogger(logger *log.Logger) {
-	lv.logger = logger
-
-
-
- (lv *LatestVersion) log() *log.Logger {
+	lv.logger = logger (lv *LatestVersion) log() *log.Logger {
 	if lv.logger == nil {
 		return discardLogger
 	}
 urn lv.logger
 }
-
-
  (lv *LatestVersion) Validate() error {
 	if !validators.IsProductNameValid(lv.Product.Name) {
 		return fmt.Errorf("invalid product name: %q", lv.Product.Name)
-	}
-
-	if !validators.IsBinaryNameValid(lv.Product.BinaryName()) {
+	}	if !validators.IsBinaryNameValid(lv.Product.BinaryName()) {
 		return fmt.Errorf("invalid binary name: %q", lv.Product.BinaryName())
-	}
-
-	if err := validateEnterpriseOptions(lv.Enterprise); err != nil {
+	}	if err := validateEnterpriseOptions(lv.Enterprise); err != nil {
 		return err
-	}
-
-	return nil
+	}	return nil
 }
-
-
  (lv *LaVersion) Install(ctx context.Context) (string, error) {
 	timeout := dltInstallTimeout
 	if lv.Timeout > 0 {
@@ -86,13 +52,9 @@ urn lv.logger
 	ctx, cancel
  := context.WithTimeout(ctx, timeout)
 	defer cancel
-()
-
-	if lv.pathsToRemove == nil {
+()	if lv.pathsToRemove == nil {
 		lv.pathsToRemove = make([]string, 0)
-	}
-
-	dstDir := lv.InstallDir
+	}	dstDir := lv.InstallDir
 	if dstDir == "" {
 		var err error
 		dirName := fmt.Sprintf("%s_*", lv.Product.Name)
@@ -103,9 +65,7 @@ urn lv.logger
 		lv.pathsToRemove = append(lv.pathsToRemove, dstDir)
 		lv.log().Printf("created new temp dir at %s", dstDir)
 	}
-	lv.log().Printf("will install into dir at %s", dstDir)
-
-	rels := rjson.NewReleases()
+	lv.log().Printf("will install into dir at %s", dstDir)	rels := rjson.NewReleases()
 	if lv.apiBaseURL != "" {
 		rels.BaseURL = lv.apiBaseURL
 	}
@@ -113,22 +73,16 @@ urn lv.logger
 	versions, err := rels.ListProductVersions(ctx, lv.Product.Name)
 	if err != nil {
 		return "", err
-	}
-
-	if len(versions) == 0 {
+	}	if len(versions) == 0 {
 		return "", fmt.Errorf("no versions found for %q", lv.Product.Name)
-	}
-
-	versionToInstall, ok := lv.findLatestMatchingVersion(versions, lv.Constraints)
+	}	versionToInstall, ok := lv.findLatestMatchingVersion(versions, lv.Constraints)
 	if !ok {
 		return "", fmt.Errorf("no matching version found for %q", lv.Constraints)
-	}
-
-	d := &rjson.Downloader{
-		Logger:           lv.log(),
+	}	d := &rjson.Downloader{
+		Logger:  lv.log(),
 		VerifyChecksum:   !lv.SkipChecksumVerification,
 		ArmoredPublicKey: pubkey.DefaultPublicKey,
-		BaseURL:          rels.BaseURL,
+		BaseURL: rels.BaseURL,
 	}
 	if lv.ArmoredPublicKey != "" {
 		d.ArmoredPublicKey = lv.ArmoredPublicKey
@@ -146,22 +100,12 @@ urn lv.logger
 	}
 	if err != nil {
 		return "", err
-	}
-
-	execPath := filepath.Join(dstDir, lv.Product.BinaryName())
-
-	lv.pathsToRemove = append(lv.pathsToRemove, execPath)
-
-	lv.log().Printf("changing perms of %s", execPath)
+	}	execPath := filepath.Join(dstDir, lv.Product.BinaryName())	lv.pathsToRemove = append(lv.pathsToRemove, execPath)	lv.log().Printf("changing perms of %s", execPath)
 	err = os.Chmod(execPath, 0o700)
 err != nil {
 		return "", err
-	}
-
-	return execPath, nil
+	}	return execPath, nil
 }
-
-
  (lv *LatestVersion) Remove(ctx context.Context) error {
 	if lv.pathsToRemove != nil {
 		for _, path := range lv.pathsToRemove {
@@ -173,8 +117,6 @@ f err != nil {
 	}
 	return nil
 }
-
-
  (lv *LatestVersion) findLatestMatchingVersion(pvs rjson.ProductVersionsMap, vc version.Constraints) (*rjson.ProductVersion, bool) {
 	expectedMetadata := enterpriseVersionMetadata(lv.Enterprise)
 	versions := make(version.Collection, 0)
@@ -182,21 +124,11 @@ f err != nil {
 		if !lv.IncludePrereleases && pv.Version.Prerelease() != "" {
 			// skip prereleases if desired
 			continue
-		}
-
-		if pv.Version.Metadata() != expectedMetadata {
+		}		if pv.Version.Metadata() != expectedMetadata {
 			continue
-		}
-
-		versions = append(versions, pv.Version)
-	}
-
-	if len(versions) == 0 {
+		}		versions = append(versions, pv.Version)
+	}	if len(versions) == 0 {
 		return nil, false
-	}
-
-	sort.Stable(versions)
-	latestVersion := versions[len(versions)-1]
-
-	return pvs[latestVersion.Original()], true
+	}	sort.Stable(versions)
+	latestVersion := versions[len(versions)-1]	return pvs[latestVersion.Original()], true
 }

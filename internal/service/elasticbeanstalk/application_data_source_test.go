@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccElasticBeanstalkApplicationDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -38,7 +37,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccApplicationDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccApplicationConfig_maxAge(rName), `
 data "aws_elastic_beanstalk_application" "test" {

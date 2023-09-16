@@ -30,7 +30,7 @@ KeyValidToPropagationTimeout     = 5 * time.Minute
 PropagationTimeout = 2 * time.Minute
 
 ReplicaExternalKeyCreatedTimeout = 2 * time.Minute
-ReplicaKeyCreatedTimeout         = 2 * time.Minute
+ReplicaKeyCreatedTimeout= 2 * time.Minute
 )
 
 // WaitIAMPropagation retries the specified function if the returned error indicates an IAM eventual consistency issue.
@@ -48,7 +48,6 @@ return zero, err
 
 return outputRaw.(T), nil
 }
-
 func WaitKeyDeleted(ctx context.Context, conn *kms.KMS, id string) (*kms.KeyMetadata, error) {
 stateConf := &retry.StateChangeConf{
 Pending: []string{kms.KeyStateDisabled, kms.KeyStateEnabled},
@@ -65,7 +64,6 @@ return output, err
 
 return nil, err
 }
-
 func WaitKeyDescriptionPropagated(ctx context.Context, conn *kms.KMS, id string, description string) error {
 checkFunc := func() (bool, error) {
 output, err := FindKeyByID(ctx, conn, id)
@@ -87,7 +85,6 @@ MinTimeout:   2 * time.Second,
 
 return tfresource.WaitUntil(ctx, KeyDescriptionPropagationTimeout, checkFunc, opts)
 }
-
 func WaitKeyMaterialImported(ctx context.Context, conn *kms.KMS, id string) (*kms.KeyMetadata, error) {
 stateConf := &retry.StateChangeConf{
 Pending: []string{kms.KeyStatePendingImport},
@@ -104,7 +101,6 @@ return output, err
 
 return nil, err
 }
-
 func WaitKeyPolicyPropagated(ctx context.Context, conn *kms.KMS, id, policy string) error {
 checkFunc := func() (bool, error) {
 output, err := FindKeyPolicyByKeyIDAndPolicyName(ctx, conn, id, PolicyNameDefault)
@@ -132,7 +128,6 @@ MinTimeout:   1 * time.Second,
 
 return tfresource.WaitUntil(ctx, KeyPolicyPropagationTimeout, checkFunc, opts)
 }
-
 func WaitKeyRotationEnabledPropagated(ctx context.Context, conn *kms.KMS, id string, enabled bool) error {
 checkFunc := func() (bool, error) {
 output, err := FindKeyRotationEnabledByKeyID(ctx, conn, id)
@@ -154,7 +149,6 @@ MinTimeout:   1 * time.Second,
 
 return tfresource.WaitUntil(ctx, KeyRotationUpdatedTimeout, checkFunc, opts)
 }
-
 func WaitKeyStatePropagated(ctx context.Context, conn *kms.KMS, id string, enabled bool) error {
 checkFunc := func() (bool, error) {
 output, err := FindKeyByID(ctx, conn, id)
@@ -176,7 +170,6 @@ MinTimeout:   2 * time.Second,
 
 return tfresource.WaitUntil(ctx, KeyStatePropagationTimeout, checkFunc, opts)
 }
-
 func WaitKeyValidToPropagated(ctx context.Context, conn *kms.KMS, id string, validTo string) error {
 checkFunc := func() (bool, error) {
 output, err := FindKeyByID(ctx, conn, id)
@@ -202,7 +195,6 @@ MinTimeout:   2 * time.Second,
 
 return tfresource.WaitUntil(ctx, KeyValidToPropagationTimeout, checkFunc, opts)
 }
-
 func WaitReplicaExternalKeyCreated(ctx context.Context, conn *kms.KMS, id string) (*kms.KeyMetadata, error) {
 stateConf := &retry.StateChangeConf{
 Pending: []string{kms.KeyStateCreating},
@@ -219,7 +211,6 @@ return output, err
 
 return nil, err
 }
-
 func WaitReplicaKeyCreated(ctx context.Context, conn *kms.KMS, id string) (*kms.KeyMetadata, error) {
 stateConf := &retry.StateChangeConf{
 Pending: []string{kms.KeyStateCreating},

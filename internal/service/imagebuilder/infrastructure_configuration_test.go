@@ -663,7 +663,7 @@ func testAccInfrastructureConfigurationConfig_description(rName string, descript
 testAccInfrastructureConfigurationBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
-  description           = %[2]q
+  description  = %[2]q
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
 }
@@ -981,7 +981,7 @@ resource "aws_sns_topic" "test" {
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
-  sns_topic_arn         = aws_sns_topic.test.arn
+  sns_topic_arn= aws_sns_topic.test.arn
 }
 `, rName))
 }
@@ -997,7 +997,7 @@ resource "aws_sns_topic" "test2" {
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
   name   = %[1]q
-  sns_topic_arn         = aws_sns_topic.test2.arn
+  sns_topic_arn= aws_sns_topic.test2.arn
 }
 `, rName))
 }
@@ -1038,8 +1038,8 @@ func testAccInfrastructureConfigurationConfig_terminateInstanceOnFailure(rName s
 testAccInfrastructureConfigurationBaseConfig(rName),
 fmt.Sprintf(`
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
-  instance_profile_name         = aws_iam_instance_profile.test.name
-  name           = %[1]q
+  instance_profile_name= aws_iam_instance_profile.test.name
+  name  = %[1]q
   terminate_instance_on_failure = %[2]t
 }
 `, rName, terminateInstanceOnFailure))

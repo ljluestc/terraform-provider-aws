@@ -40,8 +40,8 @@ func TestAccRedshiftServerlessResourcePolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -142,17 +142,17 @@ resource "aws_redshiftserverless_snapshot" "test" {
 resource "aws_redshiftserverless_resource_policy" "test" {
   resource_arn = aws_redshiftserverless_snapshot.test.arn
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Effect = "Allow"
-      Principal = {
-        AWS = [data.aws_caller_identity.test.account_id]
-      }
-      Action = [
-        "redshift-serverless:RestoreFromSnapshot",
-      ]
-      Sid = ""
-    }]
+Version = "2012-10-17"
+Statement = [{
+ Effect = "Allow"
+ Principal = {
+   AWS = [data.aws_caller_identity.test.account_id]
+ }
+ Action = [
+   "redshift-serverless:RestoreFromSnapshot",
+ ]
+ Sid = ""
+}]
   })
 }
 `, rName))

@@ -45,27 +45,27 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 	},
 	"home_directory": {
 Type:schema.TypeString,
-Optional:     true,
+Optional: true,
 ValidateFunc: validation.StringLenBetween(0, 1024),
 	},
 	"home_directory_mappings": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "entry": {
 	Type:schema.TypeString,
-	Required:     true,
+	Required: true,
 	ValidateFunc: validation.StringLenBetween(0, 1024),
 },
 "target": {
 	Type:schema.TypeString,
-	Required:     true,
+	Required: true,
 	ValidateFunc: validation.StringLenBetween(0, 1024),
 },
 	},
@@ -73,15 +73,15 @@ Elem: &schema.Resource{
 	},
 	"home_directory_type": {
 Type:schema.TypeString,
-Optional:     true,
-Default:      transfer.HomeDirectoryTypePath,
+Optional: true,
+Default:  transfer.HomeDirectoryTypePath,
 ValidateFunc: validation.StringInSlice(transfer.HomeDirectoryType_Values(), false),
 	},
 	"policy": {
 Type:   schema.TypeString,
-Optional:     true,
+Optional: true,
 ValidateFunc: verify.ValidIAMPolicyJSON,
-DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+DiffSuppressFunc:  verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 StateFunc: func(v interface{}) string {
 	json, _ := structure.NormalizeJsonString(v)
@@ -89,22 +89,22 @@ StateFunc: func(v interface{}) string {
 },
 	},
 	"posix_profile": {
-Type:     schema.TypeList,
+Type: schema.TypeList,
 MaxItems: 1,
 Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "gid": {
-	Type:     schema.TypeInt,
+	Type: schema.TypeInt,
 	Required: true,
 },
 "secondary_gids": {
-	Type:     schema.TypeSet,
-	Elem:     &schema.Schema{Type: schema.TypeInt},
+	Type: schema.TypeSet,
+	Elem: &schema.Schema{Type: schema.TypeInt},
 	Optional: true,
 },
 "uid": {
-	Type:     schema.TypeInt,
+	Type: schema.TypeInt,
 	Required: true,
 },
 	},
@@ -112,21 +112,21 @@ Elem: &schema.Resource{
 	},
 	"role": {
 Type:schema.TypeString,
-Required:     true,
+Required: true,
 ValidateFunc: verify.ValidARN,
 	},
 	"server_id": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required: true,
+ForceNew: true,
 ValidateFunc: validServerID,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"user_name": {
 Type:schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Required: true,
+ForceNew: true,
 ValidateFunc: validUserName,
 	},
 },
@@ -143,9 +143,9 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	userName := d.Get("user_name").(string)
 	id := UserCreateResourceID(serverID, userName)
 	input := &transfer.CreateUserInput{
-Role:     aws.String(d.Get("role").(string)),
+Role: aws.String(d.Get("role").(string)),
 ServerId: aws.String(serverID),
-Tags:     getTagsIn(ctx),
+Tags: getTagsIn(ctx),
 UserName: aws.String(userName),
 	}
 

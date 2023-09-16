@@ -88,7 +88,7 @@ func (r *resourceAssessmentReport) Create(ctx context.Context, req resource.Crea
 
 	in := auditmanager.CreateAssessmentReportInput{
 		AssessmentId: aws.String(plan.AssessmentID.ValueString()),
-		Name:         aws.String(plan.Name.ValueString()),
+		Name:aws.String(plan.Name.ValueString()),
 	}
 	if !plan.Description.IsNull() {
 		in.Description = aws.String(plan.Description.ValueString())
@@ -165,7 +165,7 @@ func (r *resourceAssessmentReport) Delete(ctx context.Context, req resource.Dele
 	//   deleted. You can only delete assessment reports that are completed or failed
 	err := tfresource.Retry(ctx, reportCompletionTimeout, func() *retry.RetryError {
 		_, err := conn.DeleteAssessmentReport(ctx, &auditmanager.DeleteAssessmentReportInput{
-			AssessmentId:       aws.String(state.AssessmentID.ValueString()),
+			AssessmentId:  aws.String(state.AssessmentID.ValueString()),
 			AssessmentReportId: aws.String(state.ID.ValueString()),
 		})
 		if err != nil {
@@ -219,11 +219,11 @@ func FindAssessmentReportByID(ctx context.Context, conn *auditmanager.Client, id
 
 type resourceAssessmentReportData struct {
 	AssessmentID types.String `tfsdk:"assessment_id"`
-	Author       types.String `tfsdk:"author"`
+	Author  types.String `tfsdk:"author"`
 	Description  types.String `tfsdk:"description"`
-	ID           types.String `tfsdk:"id"`
-	Name         types.String `tfsdk:"name"`
-	Status       types.String `tfsdk:"status"`
+	ID types.String `tfsdk:"id"`
+	Nametypes.String `tfsdk:"name"`
+	Status  types.String `tfsdk:"status"`
 }
 
 // refreshFromOutput writes state data from an AWS response object

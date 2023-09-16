@@ -1,77 +1,41 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package tfexec
-
-import (
+// SPDX-License-Identifier: MPL-2.0package tfexecimport (
 	"context"
 	"fmt"
 	"os/exec"
 	"strconv"
-)
-
-type workspaceNewConfig struct {
+)type workspaceNewConfig struct {
 	lock        bool
 	lockTimeout string
 	copyState   string
-}
-
-var defaultWorkspaceNewOptions = workspaceNewConfig{
+}var defaultWorkspaceNewOptions = workspaceNewConfig{
 	lock:        true,
 	lockTimeout: "0s",
-}
-
-// WorkspaceNewCmdOption represents options that are applicable to the WorkspaceNew method.
+}// WorkspaceNewCmdOption represents options that are applicable to the WorkspaceNew method.
 type WorkspaceNewCmdOption interface {
 	configureWorkspaceNew(*workspaceNewConfig)
 }
-
-
  (opt *LockOption) configureWorkspaceNew(conf *workspaceNewConfig) {
 	conf.lock = opt.lock
 }
-
-
  (opt *LockTimeoutOption) configureWorkspaceNew(conf *workspaceNewConfig) {
-	conf.lockTimeout = opt.timeout
-
-
-
- (opt *CopyStateOption) configureWorkspaceNew(conf *workspaceNewConfig) {
+	conf.lockTimeout = opt.timeout (opt *CopyStateOption) configureWorkspaceNew(conf *workspaceNewConfig) {
 	conf.copyState = opt.path
-
-
-// WorkspaceNew represents the workspace new subcommand to the Terraform CLI.
-
- (tf *Terraform) WorkspaceNew(ctx context.Context, workspace string, opts ...WorkspaceNewCmdOption) error {
+// WorkspaceNew represents the workspace new subcommand to the Terraform CLI. (tf *Terraform) WorkspaceNew(ctx context.Context, workspace string, opts ...WorkspaceNewCmdOption) error {
 	cmd, err := tf.workspaceNewCmd(ctx, workspace, opts...)
 	if err != nil {
-		return err
-
-	return tf.runTerraformCmd(ctx, cmd)
+		return err	return tf.runTerraformCmd(ctx, cmd)
 }
-
-
  (tf *Terraform) workspaceNewCmd(ctx context.Context, workspace string, opts ...WorkspaceNewCmdOption) (*exec.Cmd, error) {
-	// TODO: [DIR] param option
-
-	c := defaultWorkspaceNewOptions
-
-	for _, o := range opts {
+	// TODO: [DIR] param option	c := defaultWorkspaceNewOptions	for _, o := range opts {
 		switch o.(type) {
 		case *LockOption, *LockTimeoutOption:
 			err := tf.compatible(ctx, tf0_12_0, nil)
 			if err != nil {
 				return nil, fmt.Errorf("-lock and -lock-timeout were added to workspace new in Terraform 0.12: %w", err)
 			}
-		}
-
-		o.configureWorkspaceNew(&c)
-	}
-
-	args := []string{"workspace", "new", "-no-color"}
-
-	if c.lockTimeout != "" && c.lockTimeout != defaultWorkspaceNewOptions.lockTimeout {
+		}		o.configureWorkspaceNew(&c)
+	}	args := []string{"workspace", "new", "-no-color"}	if c.lockTimeout != "" && c.lockTimeout != defaultWorkspaceNewOptions.lockTimeout {
 		// only pass if not default, so we don't need to worry about the 0.11 version check
 		args = append(args, "-lock-timeout="+c.lockTimeout)
 	}
@@ -81,11 +45,5 @@ type WorkspaceNewCmdOption interface {
 	}
 	if c.copyState != "" {
 		args = append(args, "-state="+c.copyState)
-	}
-
-	args = append(args, workspace)
-
-	cmd := tf.buildTerraformCmd(ctx, nil, args...)
-
-	return cmd, nil
+	}	args = append(args, workspace)	cmd := tf.buildTerraformCmd(ctx, nil, args...)	return cmd, nil
 }

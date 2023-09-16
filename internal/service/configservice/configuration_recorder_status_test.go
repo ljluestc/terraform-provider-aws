@@ -25,10 +25,10 @@ func testAccConfigurationRecorderStatus_basic(t *testing.T) {
 	expectedName := fmt.Sprintf("tf-acc-test-%d", rInt)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationRecorderStatusDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationRecorderStatusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationRecorderStatusConfig_basic(rInt, false),
@@ -52,10 +52,10 @@ func testAccConfigurationRecorderStatus_startEnabled(t *testing.T) {
 	expectedName := fmt.Sprintf("tf-acc-test-%d", rInt)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationRecorderStatusDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationRecorderStatusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationRecorderStatusConfig_basic(rInt, true),
@@ -97,10 +97,10 @@ func testAccConfigurationRecorderStatus_importBasic(t *testing.T) {
 	rInt := sdkacctest.RandInt()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, configservice.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, configservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationRecorderStatusDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationRecorderStatusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationRecorderStatusConfig_basic(rInt, true),

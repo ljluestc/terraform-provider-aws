@@ -18,29 +18,29 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/awsv1"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_ses_configuration_set", &resource.Sweeper{
 		Name: "aws_ses_configuration_set",
-		F:    sweepConfigurationSets,
+		F: sweepConfigurationSets,
 	})
 
 	resource.AddTestSweepers("aws_ses_domain_identity", &resource.Sweeper{
 		Name: "aws_ses_domain_identity",
-		F:    func(region string) error { return sweepIdentities(region, ses.IdentityTypeDomain) },
+		F: 
+func(region string) error { return sweepIdentities(region, ses.IdentityTypeDomain) },
 	})
 
 	resource.AddTestSweepers("aws_ses_email_identity", &resource.Sweeper{
 		Name: "aws_ses_email_identity",
-		F:    func(region string) error { return sweepIdentities(region, ses.IdentityTypeEmailAddress) },
+		F: 
+func(region string) error { return sweepIdentities(region, ses.IdentityTypeEmailAddress) },
 	})
 
 	resource.AddTestSweepers("aws_ses_receipt_rule_set", &resource.Sweeper{
 		Name: "aws_ses_receipt_rule_set",
-		F:    sweepReceiptRuleSets,
+		F: sweepReceiptRuleSets,
 	})
 }
-
 func sweepConfigurationSets(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -88,7 +88,6 @@ func sweepConfigurationSets(region string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepIdentities(region, identityType string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -101,7 +100,8 @@ func sweepIdentities(region, identityType string) error {
 	}
 	var sweeperErrs *multierror.Error
 
-	err = conn.ListIdentitiesPagesWithContext(ctx, input, func(page *ses.ListIdentitiesOutput, lastPage bool) bool {
+	err = conn.ListIdentitiesPagesWithContext(ctx, input, 
+func(page *ses.ListIdentitiesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -133,7 +133,6 @@ func sweepIdentities(region, identityType string) error {
 
 	return sweeperErrs.ErrorOrNil()
 }
-
 func sweepReceiptRuleSets(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

@@ -54,7 +54,7 @@ func ResourceTransitGatewayConnectPeerAssociation() *schema.Resource {
 				ForceNew: true,
 			},
 			"transit_gateway_connect_peer_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -70,8 +70,8 @@ func resourceTransitGatewayConnectPeerAssociationCreate(ctx context.Context, d *
 	connectPeerARN := d.Get("transit_gateway_connect_peer_arn").(string)
 	id := TransitGatewayConnectPeerAssociationCreateResourceID(globalNetworkID, connectPeerARN)
 	input := &networkmanager.AssociateTransitGatewayConnectPeerInput{
-		DeviceId:                     aws.String(d.Get("device_id").(string)),
-		GlobalNetworkId:              aws.String(globalNetworkID),
+		DeviceId:   aws.String(d.Get("device_id").(string)),
+		GlobalNetworkId:     aws.String(globalNetworkID),
 		TransitGatewayConnectPeerArn: aws.String(connectPeerARN),
 	}
 
@@ -147,7 +147,7 @@ func disassociateTransitGatewayConnectPeer(ctx context.Context, conn *networkman
 
 	log.Printf("[DEBUG] Deleting Network Manager Transit Gateway Connect Peer Association: %s", id)
 	_, err := conn.DisassociateTransitGatewayConnectPeerWithContext(ctx, &networkmanager.DisassociateTransitGatewayConnectPeerInput{
-		GlobalNetworkId:              aws.String(globalNetworkID),
+		GlobalNetworkId:     aws.String(globalNetworkID),
 		TransitGatewayConnectPeerArn: aws.String(connectPeerARN),
 	})
 
@@ -219,7 +219,7 @@ func FindTransitGatewayConnectPeerAssociations(ctx context.Context, conn *networ
 
 func FindTransitGatewayConnectPeerAssociationByTwoPartKey(ctx context.Context, conn *networkmanager.NetworkManager, globalNetworkID, connectPeerARN string) (*networkmanager.TransitGatewayConnectPeerAssociation, error) {
 	input := &networkmanager.GetTransitGatewayConnectPeerAssociationsInput{
-		GlobalNetworkId:               aws.String(globalNetworkID),
+		GlobalNetworkId:      aws.String(globalNetworkID),
 		TransitGatewayConnectPeerArns: aws.StringSlice([]string{connectPeerARN}),
 	}
 

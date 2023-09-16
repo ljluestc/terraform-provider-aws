@@ -12,13 +12,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccDelegatedAdministratorsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_organizations_delegated_administrators.test"
 	servicePrincipal := "config-multiaccountsetup.amazonaws.com"
 
 	resource.Test(t, resource.TestCase{
-PreCheck: func() {
+PreCheck: 
+func() {
 	acctest.PreCheck(ctx, t)
 	acctest.PreCheckAlternateAccount(t)
 	acctest.PreCheckOrganizationManagementAccount(ctx, t)
@@ -35,6 +37,7 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
+
 
 func testAccDelegatedAdministratorsDataSourceConfig_basic(servicePrincipal string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`

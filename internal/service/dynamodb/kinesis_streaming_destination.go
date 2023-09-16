@@ -31,13 +31,13 @@ func ResourceKinesisStreamingDestination() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"stream_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"table_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},

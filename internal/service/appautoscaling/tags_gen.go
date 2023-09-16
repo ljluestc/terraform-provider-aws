@@ -94,7 +94,7 @@ func updateTags(ctx context.Context, conn applicationautoscalingiface.Applicatio
 	if len(removedTags) > 0 {
 		input := &applicationautoscaling.UntagResourceInput{
 			ResourceARN: aws.String(identifier),
-			TagKeys:     aws.StringSlice(removedTags.Keys()),
+			TagKeys:aws.StringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagResourceWithContext(ctx, input)
@@ -109,7 +109,7 @@ func updateTags(ctx context.Context, conn applicationautoscalingiface.Applicatio
 	if len(updatedTags) > 0 {
 		input := &applicationautoscaling.TagResourceInput{
 			ResourceARN: aws.String(identifier),
-			Tags:        Tags(updatedTags),
+			Tags:(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)

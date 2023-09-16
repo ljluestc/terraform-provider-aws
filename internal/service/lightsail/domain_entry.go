@@ -78,7 +78,6 @@ func ResourceDomainEntry() *schema.Resource {
 		},
 	}
 }
-
 func resourceDomainEntryCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 	name := d.Get("name").(string)
@@ -123,7 +122,6 @@ func resourceDomainEntryCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return resourceDomainEntryRead(ctx, d, meta)
 }
-
 func resourceDomainEntryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -174,7 +172,6 @@ func resourceDomainEntryRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return nil
 }
-
 func resourceDomainEntryDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -211,7 +208,6 @@ func resourceDomainEntryDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	return nil
 }
-
 func expandDomainEntry(id string) (*types.DomainEntry, error) {
 	partCount := flex.ResourceIdPartCount(id)
 
@@ -255,7 +251,6 @@ func expandDomainEntry(id string) (*types.DomainEntry, error) {
 
 	return entry, nil
 }
-
 func expandDomainNameFromId(id string) (string, error) {
 	partCount := flex.ResourceIdPartCount(id)
 	var domainName string
@@ -283,7 +278,6 @@ func expandDomainNameFromId(id string) (string, error) {
 	}
 	return domainName, nil
 }
-
 func expandDomainEntryName(name, domainName string) string {
 	rn := strings.ToLower(strings.TrimSuffix(name, "."))
 	domainName = strings.TrimSuffix(domainName, ".")
@@ -296,7 +290,6 @@ func expandDomainEntryName(name, domainName string) string {
 	}
 	return rn
 }
-
 func flattenDomainEntryName(name, domainName string) string {
 	rn := strings.ToLower(strings.TrimSuffix(name, "."))
 	domainName = strings.TrimSuffix(domainName, ".")
@@ -308,7 +301,6 @@ func flattenDomainEntryName(name, domainName string) string {
 	}
 	return rn
 }
-
 func FindDomainEntryById(ctx context.Context, conn *lightsail.Client, id string) (*types.DomainEntry, error) {
 	partCount := flex.ResourceIdPartCount(id)
 

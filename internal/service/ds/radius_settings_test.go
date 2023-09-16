@@ -37,9 +37,9 @@ func TestAccDSRadiusSettings_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRadiusSettingsDestroy(ctx),
+		CheckDestroy:    testAccCheckRadiusSettingsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRadiusSettingsConfig_basic(rName, domainName, radiusServer),
@@ -85,9 +85,9 @@ func TestAccDSRadiusSettings_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, directoryservice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, directoryservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRadiusSettingsDestroy(ctx),
+		CheckDestroy:    testAccCheckRadiusSettingsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRadiusSettingsConfig_basic(rName, domainName, radiusServer),
@@ -169,12 +169,12 @@ resource "aws_directory_service_radius_settings" "test" {
   directory_id = aws_directory_service_directory.test.id
 
   authentication_protocol = "PAP"
-  display_label           = "test"
-  radius_port             = 1812
-  radius_retries          = 3
-  radius_servers          = [%[2]q]
-  radius_timeout          = 30
-  shared_secret           = "avoid-plaintext-passwords"
+  display_label  = "test"
+  radius_port    = 1812
+  radius_retries = 3
+  radius_servers = [%[2]q]
+  radius_timeout = 30
+  shared_secret  = "avoid-plaintext-passwords"
 }
 `, domain, radiusServer))
 }

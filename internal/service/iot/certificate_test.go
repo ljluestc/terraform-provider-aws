@@ -20,7 +20,7 @@ import (
 func TestAccIoTCertificate_csr(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckCertificateDestroy_basic(ctx),
@@ -43,7 +43,7 @@ func TestAccIoTCertificate_csr(t *testing.T) {
 func TestAccIoTCertificate_Keys_certificate(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckCertificateDestroy_basic(ctx),
@@ -69,7 +69,7 @@ func TestAccIoTCertificate_Keys_existingCertificate(t *testing.T) {
 	certificate := acctest.TLSRSAX509SelfSignedCertificatePEM(t, key, "testcert")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckCertificateDestroy_basic(ctx),
@@ -124,7 +124,7 @@ func testAccCheckCertificateDestroy_basic(ctx context.Context) resource.TestChec
 
 var testAccCertificateConfig_csr = `
 resource "aws_iot_certificate" "foo_cert" {
-  csr    = file("test-fixtures/iot-csr.pem")
+  csr= file("test-fixtures/iot-csr.pem")
   active = true
 }
 `
@@ -138,7 +138,7 @@ resource "aws_iot_certificate" "foo_cert" {
 func testAccCertificateConfig_existingCertificate(pem string) string {
 	return fmt.Sprintf(`
 resource "aws_iot_certificate" "foo_cert" {
-  active          = true
+  active = true
   certificate_pem = "%[1]s"
 }
 `, pem)

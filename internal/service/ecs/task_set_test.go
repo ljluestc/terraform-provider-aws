@@ -486,7 +486,7 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name          = %[1]q
+  name = %[1]q
   cluster       = aws_ecs_cluster.test.id
   desired_count = 1
   deployment_controller {
@@ -499,8 +499,8 @@ resource "aws_ecs_service" "test" {
 func testAccTaskSetConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTaskSetConfig_base(rName), `
 resource "aws_ecs_task_set" "test" {
-  service         = aws_ecs_service.test.id
-  cluster         = aws_ecs_cluster.test.id
+  service= aws_ecs_service.test.id
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
 }
 `)
@@ -509,8 +509,8 @@ resource "aws_ecs_task_set" "test" {
 func testAccTaskSetConfig_externalID(rName string) string {
 	return acctest.ConfigCompose(testAccTaskSetConfig_base(rName), `
 resource "aws_ecs_task_set" "test" {
-  service         = aws_ecs_service.test.id
-  cluster         = aws_ecs_cluster.test.id
+  service= aws_ecs_service.test.id
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   external_id     = "TEST_ID"
 }
@@ -520,8 +520,8 @@ resource "aws_ecs_task_set" "test" {
 func testAccTaskSetConfig_scale(rName string, scale float64) string {
 	return acctest.ConfigCompose(testAccTaskSetConfig_base(rName), fmt.Sprintf(`
 resource "aws_ecs_task_set" "test" {
-  service         = aws_ecs_service.test.id
-  cluster         = aws_ecs_cluster.test.id
+  service= aws_ecs_service.test.id
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   scale {
     value = %[1]f
@@ -540,12 +540,12 @@ resource "aws_ecs_capacity_provider" "test" {
 }
 
 resource "aws_ecs_task_set" "test" {
-  service         = aws_ecs_service.test.id
-  cluster         = aws_ecs_cluster.test.id
+  service= aws_ecs_service.test.id
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   capacity_provider_strategy {
     capacity_provider = aws_ecs_capacity_provider.test.name
-    weight            = %[2]d
+    weight   = %[2]d
     base = %[3]d
   }
 }
@@ -595,7 +595,7 @@ resource "aws_lb" "test" {
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
   port = "80"
-  protocol          = "HTTP"
+  protocol = "HTTP"
   default_action {
     target_group_arn = aws_lb_target_group.test.id
     type= "forward"
@@ -603,7 +603,7 @@ resource "aws_lb_listener" "test" {
 }
 
 resource "aws_ecs_service" "test" {
-  name          = %[1]q
+  name = %[1]q
   cluster       = aws_ecs_cluster.test.id
   desired_count = 1
   deployment_controller {
@@ -612,8 +612,8 @@ resource "aws_ecs_service" "test" {
 }
 
 resource "aws_ecs_task_set" "test" {
-  service         = aws_ecs_service.test.id
-  cluster         = aws_ecs_cluster.test.id
+  service= aws_ecs_service.test.id
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   load_balancer {
     target_group_arn = aws_lb_target_group.test.id
@@ -627,8 +627,8 @@ resource "aws_ecs_task_set" "test" {
 func testAccTaskSetConfig_tags1(rName, tag1Key, tag1Value string) string {
 	return acctest.ConfigCompose(testAccTaskSetConfig_base(rName), fmt.Sprintf(`
 resource "aws_ecs_task_set" "test" {
-  service         = aws_ecs_service.test.id
-  cluster         = aws_ecs_cluster.test.id
+  service= aws_ecs_service.test.id
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   tags = {
     %[1]q = %[2]q
@@ -640,8 +640,8 @@ resource "aws_ecs_task_set" "test" {
 func testAccTaskSetConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value string) string {
 	return acctest.ConfigCompose(testAccTaskSetConfig_base(rName), fmt.Sprintf(`
 resource "aws_ecs_task_set" "test" {
-  service         = aws_ecs_service.test.id
-  cluster         = aws_ecs_cluster.test.id
+  service= aws_ecs_service.test.id
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   tags = {
     %[1]q = %[2]q
@@ -672,7 +672,7 @@ resource "aws_security_group" "test" {
 resource "aws_service_discovery_private_dns_namespace" "test" {
   name        = "%[1]s.terraform.local"
   description = "test"
-  vpc         = aws_vpc.test.id
+  vpc= aws_vpc.test.id
 }
 
 resource "aws_service_discovery_service" "test" {
@@ -692,7 +692,7 @@ resource "aws_ecs_cluster" "test" {
 
 resource "aws_ecs_task_definition" "test" {
   family   = %[1]q
-  network_mode          = "awsvpc"
+  network_mode = "awsvpc"
   container_definitions = <<DEFINITION
 [
   {
@@ -707,7 +707,7 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name          = %[1]q
+  name = %[1]q
   cluster       = aws_ecs_cluster.test.id
   desired_count = 1
   deployment_controller {
@@ -716,16 +716,16 @@ resource "aws_ecs_service" "test" {
 }
 
 resource "aws_ecs_task_set" "test" {
-  service         = aws_ecs_service.test.id
-  cluster         = aws_ecs_cluster.test.id
+  service= aws_ecs_service.test.id
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   service_registries {
-    port         = 34567
+    port= 34567
     registry_arn = aws_service_discovery_service.test.arn
   }
   network_configuration {
     security_groups = [aws_security_group.test.id]
-    subnets         = aws_subnet.test[*].id
+    subnets= aws_subnet.test[*].id
   }
 }
 `, rName))
@@ -759,7 +759,7 @@ resource "aws_ecs_task_definition" "test" {
   family      = %[1]q
   network_mode= "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu         = "256"
+  cpu= "256"
   memory      = "512"
   container_definitions    = <<DEFINITION
 [
@@ -776,7 +776,7 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name          = %[1]q
+  name = %[1]q
   cluster       = aws_ecs_cluster.test.id
   desired_count = 1
   deployment_controller {
@@ -785,13 +785,13 @@ resource "aws_ecs_service" "test" {
 }
 
 resource "aws_ecs_task_set" "test" {
-  service         = aws_ecs_service.test.id
-  cluster         = aws_ecs_cluster.test.id
+  service= aws_ecs_service.test.id
+  cluster= aws_ecs_cluster.test.id
   task_definition = aws_ecs_task_definition.test.arn
   launch_type     = "FARGATE"
   network_configuration {
     security_groups  = aws_security_group.test[*].id
-    subnets          = aws_subnet.test[*].id
+    subnets = aws_subnet.test[*].id
     assign_public_ip = false
   }
 }
@@ -826,7 +826,7 @@ resource "aws_ecs_task_definition" "test" {
   family      = %[1]q
   network_mode= "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu         = "256"
+  cpu= "256"
   memory      = "512"
   container_definitions    = <<DEFINITION
 [
@@ -843,7 +843,7 @@ DEFINITION
 }
 
 resource "aws_ecs_service" "test" {
-  name          = %[1]q
+  name = %[1]q
   cluster       = aws_ecs_cluster.test.id
   desired_count = 1
   deployment_controller {
@@ -852,14 +852,14 @@ resource "aws_ecs_service" "test" {
 }
 
 resource "aws_ecs_task_set" "test" {
-  service          = aws_ecs_service.test.id
-  cluster          = aws_ecs_cluster.test.id
+  service = aws_ecs_service.test.id
+  cluster = aws_ecs_cluster.test.id
   task_definition  = aws_ecs_task_definition.test.arn
   launch_type      = "FARGATE"
   platform_version = %[2]q
   network_configuration {
     security_groups  = aws_security_group.test[*].id
-    subnets          = aws_subnet.test[*].id
+    subnets = aws_subnet.test[*].id
     assign_public_ip = false
   }
 }

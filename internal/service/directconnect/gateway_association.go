@@ -25,7 +25,7 @@ import (
 func ResourceGatewayAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceGatewayAssociationCreate,
-		ReadWithoutTimeout:   resourceGatewayAssociationRead,
+		ReadWithoutTimeout:resourceGatewayAssociationRead,
 		UpdateWithoutTimeout: resourceGatewayAssociationUpdate,
 		DeleteWithoutTimeout: resourceGatewayAssociationDelete,
 
@@ -36,7 +36,7 @@ func ResourceGatewayAssociation() *schema.Resource {
 		SchemaVersion: 1,
 		StateUpgraders: []schema.StateUpgrader{
 			{
-				Type:    resourceGatewayAssociationResourceV0().CoreConfigSchema().ImpliedType(),
+				Type: resourceGatewayAssociationResourceV0().CoreConfigSchema().ImpliedType(),
 				Upgrade: GatewayAssociationStateUpgradeV0,
 				Version: 0,
 			},
@@ -44,26 +44,26 @@ func ResourceGatewayAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"allowed_prefixes": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Optional: true,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 			},
 
 			"associated_gateway_id": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ConflictsWith: []string{"associated_gateway_owner_account_id", "proposal_id"},
 				AtLeastOneOf:  []string{"associated_gateway_id", "associated_gateway_owner_account_id", "proposal_id"},
 			},
 
 			"associated_gateway_owner_account_id": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				Computed:
+				ForceNew:
 				ValidateFunc:  verify.ValidAccountID,
 				ConflictsWith: []string{"associated_gateway_id"},
 				RequiredWith:  []string{"proposal_id"},
@@ -71,39 +71,39 @@ func ResourceGatewayAssociation() *schema.Resource {
 			},
 
 			"associated_gateway_type": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"dx_gateway_association_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"dx_gateway_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"dx_gateway_owner_account_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 
 			"proposal_id": {
-				Type:          schema.TypeString,
-				Optional:      true,
+				Type:hema.TypeString,
+				Optional:
 				ConflictsWith: []string{"associated_gateway_id", "vpn_gateway_id"},
 				AtLeastOneOf:  []string{"associated_gateway_id", "associated_gateway_owner_account_id", "proposal_id"},
 			},
 
 			"vpn_gateway_id": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				ForceNew:      true,
+				Type:hema.TypeString,
+				Optional:
+				ForceNew:
 				ConflictsWith: []string{"associated_gateway_id", "associated_gateway_owner_account_id", "proposal_id"},
-				Deprecated:    "use 'associated_gateway_id' argument instead",
+				Deprecated: "use 'associated_gateway_id' argument instead",
 			},
 		},
 
@@ -114,7 +114,6 @@ func ResourceGatewayAssociation() *schema.Resource {
 		},
 	}
 }
-
 func resourceGatewayAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -126,8 +125,8 @@ func resourceGatewayAssociationCreate(ctx context.Context, d *schema.ResourceDat
 		proposalID := d.Get("proposal_id").(string)
 		input := &directconnect.AcceptDirectConnectGatewayAssociationProposalInput{
 			AssociatedGatewayOwnerAccount: aws.String(associatedGatewayOwnerAccount),
-			DirectConnectGatewayId:        aws.String(directConnectGatewayID),
-			ProposalId:       aws.String(proposalID),
+			DirectConnectGatewayId:String(directConnectGatewayID),
+			ProposalId:tring(proposalID),
 		}
 
 		if v, ok := d.GetOk("allowed_prefixes"); ok && v.(*schema.Set).Len() > 0 {
@@ -175,7 +174,6 @@ func resourceGatewayAssociationCreate(ctx context.Context, d *schema.ResourceDat
 
 	return append(diags, resourceGatewayAssociationRead(ctx, d, meta)...)
 }
-
 func resourceGatewayAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -207,7 +205,6 @@ func resourceGatewayAssociationRead(ctx context.Context, d *schema.ResourceData,
 
 	return diags
 }
-
 func resourceGatewayAssociationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -241,7 +238,6 @@ func resourceGatewayAssociationUpdate(ctx context.Context, d *schema.ResourceDat
 
 	return append(diags, resourceGatewayAssociationRead(ctx, d, meta)...)
 }
-
 func resourceGatewayAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -267,7 +263,6 @@ func resourceGatewayAssociationDelete(ctx context.Context, d *schema.ResourceDat
 
 	return diags
 }
-
 func resourceGatewayAssociationImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 

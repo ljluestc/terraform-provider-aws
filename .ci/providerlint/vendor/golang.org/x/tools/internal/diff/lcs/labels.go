@@ -1,33 +1,19 @@
 // Copyright 2022 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-package lcs
-
-import (
+// license that can be found in the LICENSE file.package lcsimport (
 	"fmt"
-)
-
-//  For each D, vec[D] has length D+1,
+)//  For each D, vec[D] has length D+1,
 // and the label for (D, k) is stored in vec[D][(D+k)/2].
 type label struct {
 	vec [][]int
-}
-
-// Temporary checking DO NOT COMMIT true TO PRODUCTION CODE
-const debug = false
-
-// debugging. check that the (d,k) pair is valid
-// (that is, -d<=k<=d and d+k even)
-
- checkDK(D, k int) {
+}// Temporary checking DO NOT COMMIT true TO PRODUCTION CODE
+const debug = false// debugging. check that the (d,k) pair is valid
+// (that is, -d<=k<=d and d+k even) checkDK(D, k int) {
 	if k >= -D && k <= D && (D+k)%2 == 0 {
 		return
 	}
 	panic(fmt.Sprintf("out of range, d=%d,k=%d", D, k))
 }
-
-
  (t *label) set(D, k, x int) {
 	if debug {
 		checkDK(D, k)
@@ -38,18 +24,12 @@ const debug = false
 	if t.vec[D] == nil {
 		t.vec[D] = make([]int, D+1)
 	}
-	t.vec[D][(D+k)/2] = x // known that D+k is even
-
-
-
- (t *label) get(d, k int) int {
+	t.vec[D][(D+k)/2] = x // known that D+k is even (t *label) get(d, k int) int {
 	if debug {
 		checkDK(d, k)
 	}
 urn int(t.vec[d][(d+k)/2])
 }
-
-
  newtriang(limit int) label {
 	if limit < 100 {
 		// Preallocate if limit is not large.

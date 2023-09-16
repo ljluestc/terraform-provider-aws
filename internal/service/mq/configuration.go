@@ -29,7 +29,7 @@ import (
 func ResourceConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceConfigurationCreate,
-		ReadWithoutTimeout:   resourceConfigurationRead,
+		ReadWithoutTimeout:resourceConfigurationRead,
 		UpdateWithoutTimeout: resourceConfigurationUpdate,
 		DeleteWithoutTimeout: schema.NoopContext, // Delete is not available in the API
 
@@ -57,60 +57,59 @@ func ResourceConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"authentication_strategy": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:ema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc: validation.StringInSlice(mq.AuthenticationStrategy_Values(), true),
 			},
 			"data": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
-				DiffSuppressFunc:      suppressXMLEquivalentConfig,
+				DiffSuppressFunc:ssXMLEquivalentConfig,
 				DiffSuppressOnRefresh: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"engine_type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringInSlice(mq.EngineType_Values(), true),
 			},
 			"engine_version": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"latest_revision": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
 }
-
 func resourceConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MQConn(ctx)
 
 	name := d.Get("name").(string)
 	input := &mq.CreateConfigurationRequest{
-		EngineType:    aws.String(d.Get("engine_type").(string)),
+		EngineType: aws.String(d.Get("engine_type").(string)),
 		EngineVersion: aws.String(d.Get("engine_version").(string)),
-		Name:          aws.String(name),
-		Tags:          getTagsIn(ctx),
+		Name:s.String(name),
+		Tags:tTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("authentication_strategy"); ok {
@@ -128,7 +127,7 @@ func resourceConfigurationCreate(ctx context.Context, d *schema.ResourceData, me
 	if v, ok := d.GetOk("data"); ok {
 		input := &mq.UpdateConfigurationRequest{
 			ConfigurationId: aws.String(d.Id()),
-			Data:            aws.String(base64.StdEncoding.EncodeToString([]byte(v.(string)))),
+			Data:ase64.StdEncoding.EncodeToString([]byte(v.(string)))),
 		}
 
 		if v, ok := d.GetOk("description"); ok {
@@ -144,7 +143,6 @@ func resourceConfigurationCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return resourceConfigurationRead(ctx, d, meta)
 }
-
 func resourceConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MQConn(ctx)
 
@@ -170,7 +168,7 @@ func resourceConfigurationRead(ctx context.Context, d *schema.ResourceData, meta
 
 	revision := strconv.FormatInt(aws.Int64Value(configuration.LatestRevision.Revision), 10)
 	configurationRevision, err := conn.DescribeConfigurationRevisionWithContext(ctx, &mq.DescribeConfigurationRevisionInput{
-		ConfigurationId:       aws.String(d.Id()),
+		ConfigurationId:tring(d.Id()),
 		ConfigurationRevision: aws.String(revision),
 	})
 
@@ -190,14 +188,13 @@ func resourceConfigurationRead(ctx context.Context, d *schema.ResourceData, meta
 
 	return nil
 }
-
 func resourceConfigurationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MQConn(ctx)
 
 	if d.HasChanges("data", "description") {
 		input := &mq.UpdateConfigurationRequest{
 			ConfigurationId: aws.String(d.Id()),
-			Data:            aws.String(base64.StdEncoding.EncodeToString([]byte(d.Get("data").(string)))),
+			Data:ase64.StdEncoding.EncodeToString([]byte(d.Get("data").(string)))),
 		}
 
 		if v, ok := d.GetOk("description"); ok {
@@ -213,7 +210,6 @@ func resourceConfigurationUpdate(ctx context.Context, d *schema.ResourceData, me
 
 	return resourceConfigurationRead(ctx, d, meta)
 }
-
 func FindConfigurationByID(ctx context.Context, conn *mq.MQ, id string) (*mq.DescribeConfigurationOutput, error) {
 	input := &mq.DescribeConfigurationInput{
 		ConfigurationId: aws.String(id),
@@ -223,7 +219,7 @@ func FindConfigurationByID(ctx context.Context, conn *mq.MQ, id string) (*mq.Des
 
 	if tfawserr.ErrCodeEquals(err, mq.ErrCodeNotFoundException) {
 		return nil, &retry.NotFoundError{
-			LastError:   err,
+			LastError:err,
 			LastRequest: input,
 		}
 	}
@@ -238,7 +234,6 @@ func FindConfigurationByID(ctx context.Context, conn *mq.MQ, id string) (*mq.Des
 
 	return output, nil
 }
-
 func suppressXMLEquivalentConfig(k, old, new string, d *schema.ResourceData) bool {
 	os, err := CanonicalXML(old)
 	if err != nil {

@@ -81,11 +81,11 @@ func (r *resourceAssessment) Schema(ctx context.Context, req resource.SchemaRequ
 			// Both attributes are defined as schema.SetAttribute's here rather than in the Blocks
 			// section to allow for Required/Computed to be set explicitly.
 			"roles": schema.SetAttribute{
-				Required:    true,
+				Required:true,
 				ElementType: types.ObjectType{AttrTypes: assessmentRolesAttrTypes},
 			},
 			"roles_all": schema.SetAttribute{
-				Computed:    true,
+				Computed:true,
 				ElementType: types.ObjectType{AttrTypes: assessmentRolesAttrTypes},
 				PlanModifiers: []planmodifier.Set{
 					setplanmodifier.UseStateForUnknown(),
@@ -94,7 +94,7 @@ func (r *resourceAssessment) Schema(ctx context.Context, req resource.SchemaRequ
 			"status": schema.StringAttribute{
 				Computed: true,
 			},
-			names.AttrTags:    tftags.TagsAttribute(),
+			names.AttrTags:tftags.TagsAttribute(),
 			names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
 		},
 		Blocks: map[string]schema.Block{
@@ -188,11 +188,11 @@ func (r *resourceAssessment) Create(ctx context.Context, req resource.CreateRequ
 
 	in := auditmanager.CreateAssessmentInput{
 		AssessmentReportsDestination: expandAssessmentReportsDestination(reportsDestination),
-		FrameworkId:     aws.String(plan.FrameworkID.ValueString()),
-		Name:            aws.String(plan.Name.ValueString()),
-		Roles:           expandAssessmentRoles(roles),
-		Scope:           scopeInput,
-		Tags:            getTagsIn(ctx),
+		FrameworkId:aws.String(plan.FrameworkID.ValueString()),
+		Name:  aws.String(plan.Name.ValueString()),
+		Roles: expandAssessmentRoles(roles),
+		Scope: scopeInput,
+		Tags:  getTagsIn(ctx),
 	}
 
 	if !plan.Description.IsNull() {
@@ -306,11 +306,11 @@ func (r *resourceAssessment) Update(ctx context.Context, req resource.UpdateRequ
 		}
 
 		in := &auditmanager.UpdateAssessmentInput{
-			AssessmentId:    aws.String(plan.ID.ValueString()),
+			AssessmentId:aws.String(plan.ID.ValueString()),
 			AssessmentName:  aws.String(plan.Name.ValueString()),
 			AssessmentReportsDestination: expandAssessmentReportsDestination(reportsDestination),
-			Roles:           expandAssessmentRoles(roles),
-			Scope:           scopeInput,
+			Roles: expandAssessmentRoles(roles),
+			Scope: scopeInput,
 		}
 
 		if !plan.Description.IsNull() {
@@ -399,7 +399,7 @@ func FindAssessmentByID(ctx context.Context, conn *auditmanager.Client, id strin
 
 var (
 	assessmentReportsDestinationAttrTypes = map[string]attr.Type{
-		"destination":      types.StringType,
+		"destination": types.StringType,
 		"destination_type": types.StringType,
 	}
 
@@ -425,20 +425,20 @@ var (
 type resourceAssessmentData struct {
 	ARNtypes.String `tfsdk:"arn"`
 	AssessmentReportsDestination types.List   `tfsdk:"assessment_reports_destination"`
-	Description     types.String `tfsdk:"description"`
+	Descriptiontypes.String `tfsdk:"description"`
 	ID types.String `tfsdk:"id"`
-	FrameworkID     types.String `tfsdk:"framework_id"`
-	Name            types.String `tfsdk:"name"`
-	Roles           types.Set    `tfsdk:"roles"`
-	RolesAll        types.Set    `tfsdk:"roles_all"`
-	Scope           types.List   `tfsdk:"scope"`
-	Status          types.String `tfsdk:"status"`
-	Tags            types.Map    `tfsdk:"tags"`
-	TagsAll         types.Map    `tfsdk:"tags_all"`
+	FrameworkIDtypes.String `tfsdk:"framework_id"`
+	Name  types.String `tfsdk:"name"`
+	Roles types.Set`tfsdk:"roles"`
+	RolesAll   types.Set`tfsdk:"roles_all"`
+	Scope types.List   `tfsdk:"scope"`
+	Statustypes.String `tfsdk:"status"`
+	Tags  types.Map`tfsdk:"tags"`
+	TagsAlltypes.Map`tfsdk:"tags_all"`
 }
 
 type assessmentReportsDestinationData struct {
-	Destination     types.String `tfsdk:"destination"`
+	Destinationtypes.String `tfsdk:"destination"`
 	DestinationType types.String `tfsdk:"destination_type"`
 }
 
@@ -499,7 +499,7 @@ func expandAssessmentReportsDestination(tfList []assessmentReportsDestinationDat
 	}
 	rd := tfList[0]
 	return &awstypes.AssessmentReportsDestination{
-		Destination:     aws.String(rd.Destination.ValueString()),
+		Destination:aws.String(rd.Destination.ValueString()),
 		DestinationType: awstypes.AssessmentReportDestinationType(rd.DestinationType.ValueString()),
 	}
 }
@@ -566,7 +566,7 @@ func flattenAssessmentReportsDestination(ctx context.Context, apiObject *awstype
 	}
 
 	obj := map[string]attr.Value{
-		"destination":      flex.StringToFramework(ctx, apiObject.Destination),
+		"destination": flex.StringToFramework(ctx, apiObject.Destination),
 		"destination_type": flex.StringValueToFramework(ctx, apiObject.DestinationType),
 	}
 	objVal, d := types.ObjectValue(assessmentReportsDestinationAttrTypes, obj)

@@ -50,21 +50,21 @@ func ResourceFleet() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"build_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"build_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				ExactlyOneOf: []string{"build_id", "script_id"},
 			},
 			"certificate_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				MaxItems: 1,
 				Computed: true,
 				Optional: true,
@@ -72,151 +72,151 @@ func ResourceFleet() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"certificate_type": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Default:      gamelift.CertificateTypeDisabled,
+							Type:schema.TypeString,
+							Optional: true,
+							Default:  gamelift.CertificateTypeDisabled,
 							ValidateFunc: validation.StringInSlice(gamelift.CertificateType_Values(), false),
 						},
 					},
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"ec2_inbound_permission": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				Computed: true,
 				MaxItems: 50,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"from_port": {
-							Type:         schema.TypeInt,
-							Required:     true,
+							Type:schema.TypeInt,
+							Required: true,
 							ValidateFunc: validation.IsPortNumber,
 						},
 						"ip_range": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: verify.ValidCIDRNetworkAddress,
 						},
 						"protocol": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: validation.StringInSlice(gamelift.IpProtocol_Values(), false),
 						},
 						"to_port": {
-							Type:         schema.TypeInt,
-							Required:     true,
+							Type:schema.TypeInt,
+							Required: true,
 							ValidateFunc: validation.IsPortNumber,
 						},
 					},
 				},
 			},
 			"ec2_instance_type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringInSlice(gamelift.EC2InstanceType_Values(), false),
 			},
 			"fleet_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      gamelift.FleetTypeOnDemand,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+				Default:  gamelift.FleetTypeOnDemand,
 				ValidateFunc: validation.StringInSlice(gamelift.FleetType_Values(), false),
 			},
 			"instance_role_arn": {
-				Type:         schema.TypeString,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				ForceNew: true,
 				ValidateFunc: verify.ValidARN,
-				Optional:     true,
+				Optional: true,
 			},
 			"log_paths": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"metric_groups": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(1, 255),
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"new_game_session_protection_policy": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Default:      gamelift.ProtectionPolicyNoProtection,
+				Type:schema.TypeString,
+				Optional: true,
+				Default:  gamelift.ProtectionPolicyNoProtection,
 				ValidateFunc: validation.StringInSlice(gamelift.ProtectionPolicy_Values(), false),
 			},
 			"operating_system": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"resource_creation_limit_policy": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"new_game_sessions_per_creator": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type:schema.TypeInt,
+							Optional: true,
 							ValidateFunc: validation.IntAtLeast(0),
 						},
 						"policy_period_in_minutes": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type:schema.TypeInt,
+							Optional: true,
 							ValidateFunc: validation.IntAtLeast(0),
 						},
 					},
 				},
 			},
 			"runtime_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"game_session_activation_timeout_seconds": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type:schema.TypeInt,
+							Optional: true,
 							ValidateFunc: validation.IntBetween(1, 600),
 						},
 						"max_concurrent_game_session_activations": {
-							Type:         schema.TypeInt,
-							Optional:     true,
+							Type:schema.TypeInt,
+							Optional: true,
 							ValidateFunc: validation.IntBetween(1, 2147483647),
 						},
 						"server_process": {
-							Type:     schema.TypeList,
+							Type: schema.TypeList,
 							Optional: true,
 							MaxItems: 50,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"concurrent_executions": {
-										Type:         schema.TypeInt,
-										Required:     true,
+										Type:schema.TypeInt,
+										Required: true,
 										ValidateFunc: validation.IntAtLeast(1),
 									},
 									"launch_path": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required: true,
 										ValidateFunc: validation.StringLenBetween(1, 1024),
 									},
 									"parameters": {
-										Type:         schema.TypeString,
-										Optional:     true,
+										Type:schema.TypeString,
+										Optional: true,
 										ValidateFunc: validation.StringLenBetween(1, 1024),
 									},
 								},
@@ -226,16 +226,16 @@ func ResourceFleet() *schema.Resource {
 				},
 			},
 			"script_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"script_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				ExactlyOneOf: []string{"build_id", "script_id"},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
@@ -249,8 +249,8 @@ func resourceFleetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	input := &gamelift.CreateFleetInput{
 		EC2InstanceType: aws.String(d.Get("ec2_instance_type").(string)),
-		Name:            aws.String(d.Get("name").(string)),
-		Tags:            getTagsIn(ctx),
+		Name:   aws.String(d.Get("name").(string)),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("build_id"); ok {
@@ -390,12 +390,12 @@ func resourceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	if d.HasChanges("description", "metric_groups", "name", "new_game_session_protection_policy", "resource_creation_limit_policy") {
 		_, err := conn.UpdateFleetAttributesWithContext(ctx, &gamelift.UpdateFleetAttributesInput{
-			Description:       aws.String(d.Get("description").(string)),
-			FleetId:           aws.String(d.Id()),
-			MetricGroups:      flex.ExpandStringList(d.Get("metric_groups").([]interface{})),
+			Description:   aws.String(d.Get("description").(string)),
+			FleetId:  aws.String(d.Id()),
+			MetricGroups:  flex.ExpandStringList(d.Get("metric_groups").([]interface{})),
 			Name: aws.String(d.Get("name").(string)),
 			NewGameSessionProtectionPolicy: aws.String(d.Get("new_game_session_protection_policy").(string)),
-			ResourceCreationLimitPolicy:    expandResourceCreationLimitPolicy(d.Get("resource_creation_limit_policy").([]interface{})),
+			ResourceCreationLimitPolicy:expandResourceCreationLimitPolicy(d.Get("resource_creation_limit_policy").([]interface{})),
 		})
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating for GameLift Fleet attributes (%s): %s", d.Id(), err)
@@ -407,9 +407,9 @@ func resourceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		authorizations, revocations := DiffPortSettings(oldPerms.(*schema.Set).List(), newPerms.(*schema.Set).List())
 
 		_, err := conn.UpdateFleetPortSettingsWithContext(ctx, &gamelift.UpdateFleetPortSettingsInput{
-			FleetId:            aws.String(d.Id()),
+			FleetId:   aws.String(d.Id()),
 			InboundPermissionAuthorizations: authorizations,
-			InboundPermissionRevocations:    revocations,
+			InboundPermissionRevocations:revocations,
 		})
 		if err != nil {
 			return sdkdiag.AppendErrorf(diags, "updating for GameLift Fleet port settings (%s): %s", d.Id(), err)
@@ -582,7 +582,7 @@ func expandServerProcesses(cfgs []interface{}) []*gamelift.ServerProcess {
 		cfg := rawCfg.(map[string]interface{})
 		process := &gamelift.ServerProcess{
 			ConcurrentExecutions: aws.Int64(int64(cfg["concurrent_executions"].(int))),
-			LaunchPath:           aws.String(cfg["launch_path"].(string)),
+			LaunchPath:  aws.String(cfg["launch_path"].(string)),
 		}
 		if v, ok := cfg["parameters"].(string); ok && len(v) > 0 {
 			process.Parameters = aws.String(v)

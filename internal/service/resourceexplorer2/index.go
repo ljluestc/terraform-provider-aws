@@ -31,7 +31,8 @@ import (
 
 // @FrameworkResource(name="Index")
 // @Tags(identifierAttribute="id")
-func newResourceIndex(context.Context) (resource.ResourceWithConfigure, error) {
+
+ newResourceIndex(context.Context) (resource.ResourceWithConfigure, error) {
 	r := &resourceIndex{}
 	r.SetDefaultCreateTimeout(2 * time.Hour)
 	r.SetDefaultUpdateTimeout(2 * time.Hour)
@@ -46,16 +47,18 @@ type resourceIndex struct {
 	framework.WithTimeouts
 }
 
-func (r *resourceIndex) Metadata(_ context.Context, request resource.MetadataRequest, response *resource.MetadataResponse) {
+
+ (r *resourceIndex) Metadata(_ context.Context, request resource.MetadataRequest, response *resource.MetadataResponse) {
 	response.TypeName = "aws_resourceexplorer2_index"
 }
 
-func (r *resourceIndex) Schema(ctx context.Context, request resource.SchemaRequest, response *resource.SchemaResponse) {
+
+ (r *resourceIndex) Schema(ctx context.Context, request resource.SchemaRequest, response *resource.SchemaResponse) {
 	response.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
-			names.AttrARN:     framework.ARNAttributeComputedOnly(),
-			names.AttrID:      framework.IDAttribute(),
-			names.AttrTags:    tftags.TagsAttribute(),
+			names.AttrARN: framework.ARNAttributeComputedOnly(),
+			names.AttrID:  framework.IDAttribute(),
+			names.AttrTags:tftags.TagsAttribute(),
 			names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
 			"type": schema.StringAttribute{
 				Required: true,
@@ -74,7 +77,8 @@ func (r *resourceIndex) Schema(ctx context.Context, request resource.SchemaReque
 	}
 }
 
-func (r *resourceIndex) Create(ctx context.Context, request resource.CreateRequest, response *resource.CreateResponse) {
+
+ (r *resourceIndex) Create(ctx context.Context, request resource.CreateRequest, response *resource.CreateResponse) {
 	var data resourceIndexData
 
 	response.Diagnostics.Append(request.Plan.Get(ctx, &data)...)
@@ -87,7 +91,7 @@ func (r *resourceIndex) Create(ctx context.Context, request resource.CreateReque
 
 	input := &resourceexplorer2.CreateIndexInput{
 		ClientToken: aws.String(id.UniqueId()),
-		Tags:        getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateIndex(ctx, input)
@@ -135,7 +139,8 @@ func (r *resourceIndex) Create(ctx context.Context, request resource.CreateReque
 	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
 }
 
-func (r *resourceIndex) Read(ctx context.Context, request resource.ReadRequest, response *resource.ReadResponse) {
+
+ (r *resourceIndex) Read(ctx context.Context, request resource.ReadRequest, response *resource.ReadResponse) {
 	var data resourceIndexData
 
 	response.Diagnostics.Append(request.State.Get(ctx, &data)...)
@@ -172,7 +177,8 @@ func (r *resourceIndex) Read(ctx context.Context, request resource.ReadRequest, 
 	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
 }
 
-func (r *resourceIndex) Update(ctx context.Context, request resource.UpdateRequest, response *resource.UpdateResponse) {
+
+ (r *resourceIndex) Update(ctx context.Context, request resource.UpdateRequest, response *resource.UpdateResponse) {
 	var old, new resourceIndexData
 
 	response.Diagnostics.Append(request.State.Get(ctx, &old)...)
@@ -214,7 +220,8 @@ func (r *resourceIndex) Update(ctx context.Context, request resource.UpdateReque
 	response.Diagnostics.Append(response.State.Set(ctx, &new)...)
 }
 
-func (r *resourceIndex) Delete(ctx context.Context, request resource.DeleteRequest, response *resource.DeleteResponse) {
+
+ (r *resourceIndex) Delete(ctx context.Context, request resource.DeleteRequest, response *resource.DeleteResponse) {
 	var data resourceIndexData
 
 	response.Diagnostics.Append(request.State.Get(ctx, &data)...)
@@ -246,21 +253,23 @@ func (r *resourceIndex) Delete(ctx context.Context, request resource.DeleteReque
 	}
 }
 
-func (r *resourceIndex) ModifyPlan(ctx context.Context, request resource.ModifyPlanRequest, response *resource.ModifyPlanResponse) {
+
+ (r *resourceIndex) ModifyPlan(ctx context.Context, request resource.ModifyPlanRequest, response *resource.ModifyPlanResponse) {
 	r.SetTagsAll(ctx, request, response)
 }
 
 // See https://docs.aws.amazon.com/resource-explorer/latest/apireference/API_Index.html.
 type resourceIndexData struct {
-	Arn      types.String   `tfsdk:"arn"`
-	ID       types.String   `tfsdk:"id"`
-	Tags     types.Map      `tfsdk:"tags"`
-	TagsAll  types.Map      `tfsdk:"tags_all"`
+	Arn  types.String   `tfsdk:"arn"`
+	ID   types.String   `tfsdk:"id"`
+	Tags types.Map  `tfsdk:"tags"`
+	TagsAll  types.Map  `tfsdk:"tags_all"`
 	Timeouts timeouts.Value `tfsdk:"timeouts"`
-	Type     types.String   `tfsdk:"type"`
+	Type types.String   `tfsdk:"type"`
 }
 
-func findIndex(ctx context.Context, conn *resourceexplorer2.Client) (*resourceexplorer2.GetIndexOutput, error) {
+
+ findIndex(ctx context.Context, conn *resourceexplorer2.Client) (*resourceexplorer2.GetIndexOutput, error) {
 	input := &resourceexplorer2.GetIndexInput{}
 
 	output, err := conn.GetIndex(ctx, input)
@@ -282,7 +291,7 @@ func findIndex(ctx context.Context, conn *resourceexplorer2.Client) (*resourceex
 
 	if state := output.State; state == awstypes.IndexStateDeleted {
 		return nil, &retry.NotFoundError{
-			Message:     string(state),
+			Message: string(state),
 			LastRequest: input,
 		}
 	}
@@ -290,8 +299,10 @@ func findIndex(ctx context.Context, conn *resourceexplorer2.Client) (*resourceex
 	return output, nil
 }
 
-func statusIndex(ctx context.Context, conn *resourceexplorer2.Client) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+ statusIndex(ctx context.Context, conn *resourceexplorer2.Client) retry.StateRefreshFunc {
+	return 
+() (interface{}, string, error) {
 		output, err := findIndex(ctx, conn)
 
 		if tfresource.NotFound(err) {
@@ -306,7 +317,8 @@ func statusIndex(ctx context.Context, conn *resourceexplorer2.Client) retry.Stat
 	}
 }
 
-func waitIndexCreated(ctx context.Context, conn *resourceexplorer2.Client, timeout time.Duration) (*resourceexplorer2.GetIndexOutput, error) {
+
+ waitIndexCreated(ctx context.Context, conn *resourceexplorer2.Client, timeout time.Duration) (*resourceexplorer2.GetIndexOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(awstypes.IndexStateCreating),
 		Target:  enum.Slice(awstypes.IndexStateActive),
@@ -323,7 +335,8 @@ func waitIndexCreated(ctx context.Context, conn *resourceexplorer2.Client, timeo
 	return nil, err
 }
 
-func waitIndexUpdated(ctx context.Context, conn *resourceexplorer2.Client, timeout time.Duration) (*resourceexplorer2.GetIndexOutput, error) { //nolint:unparam
+
+ waitIndexUpdated(ctx context.Context, conn *resourceexplorer2.Client, timeout time.Duration) (*resourceexplorer2.GetIndexOutput, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(awstypes.IndexStateUpdating),
 		Target:  enum.Slice(awstypes.IndexStateActive),
@@ -340,7 +353,8 @@ func waitIndexUpdated(ctx context.Context, conn *resourceexplorer2.Client, timeo
 	return nil, err
 }
 
-func waitIndexDeleted(ctx context.Context, conn *resourceexplorer2.Client, timeout time.Duration) (*resourceexplorer2.GetIndexOutput, error) {
+
+ waitIndexDeleted(ctx context.Context, conn *resourceexplorer2.Client, timeout time.Duration) (*resourceexplorer2.GetIndexOutput, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: enum.Slice(awstypes.IndexStateDeleting),
 		Target:  []string{},

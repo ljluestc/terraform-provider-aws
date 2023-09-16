@@ -28,7 +28,7 @@ func TestAccAPIGatewayV2RouteResponse_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRouteResponseDestroy(ctx),
@@ -44,9 +44,9 @@ func TestAccAPIGatewayV2RouteResponse_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName: resourceName,
 				ImportStateIdFunc: testAccRouteResponseImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -61,7 +61,7 @@ func TestAccAPIGatewayV2RouteResponse_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRouteResponseDestroy(ctx),
@@ -89,7 +89,7 @@ func TestAccAPIGatewayV2RouteResponse_model(t *testing.T) {
 	rName := strings.ReplaceAll(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix), "-", "")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRouteResponseDestroy(ctx),
@@ -106,9 +106,9 @@ func TestAccAPIGatewayV2RouteResponse_model(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName: resourceName,
 				ImportStateIdFunc: testAccRouteResponseImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
@@ -125,8 +125,8 @@ func testAccCheckRouteResponseDestroy(ctx context.Context) resource.TestCheckFun
 			}
 
 			_, err := conn.GetRouteResponseWithContext(ctx, &apigatewayv2.GetRouteResponseInput{
-				ApiId:           aws.String(rs.Primary.Attributes["api_id"]),
-				RouteId:         aws.String(rs.Primary.Attributes["route_id"]),
+				ApiId: aws.String(rs.Primary.Attributes["api_id"]),
+				RouteId:aws.String(rs.Primary.Attributes["route_id"]),
 				RouteResponseId: aws.String(rs.Primary.ID),
 			})
 			if tfawserr.ErrCodeEquals(err, apigatewayv2.ErrCodeNotFoundException) {
@@ -148,8 +148,8 @@ func testAccCheckRouteResponseDisappears(ctx context.Context, apiId, routeId *st
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 		_, err := conn.DeleteRouteResponseWithContext(ctx, &apigatewayv2.DeleteRouteResponseInput{
-			ApiId:           apiId,
-			RouteId:         routeId,
+			ApiId: apiId,
+			RouteId:routeId,
 			RouteResponseId: v.RouteResponseId,
 		})
 
@@ -173,8 +173,8 @@ func testAccCheckRouteResponseExists(ctx context.Context, n string, vApiId, vRou
 		apiId := aws.String(rs.Primary.Attributes["api_id"])
 		routeId := aws.String(rs.Primary.Attributes["route_id"])
 		resp, err := conn.GetRouteResponseWithContext(ctx, &apigatewayv2.GetRouteResponseInput{
-			ApiId:           apiId,
-			RouteId:         routeId,
+			ApiId: apiId,
+			RouteId:routeId,
 			RouteResponseId: aws.String(rs.Primary.ID),
 		})
 		if err != nil {
@@ -206,7 +206,7 @@ func testAccRouteResponseConfig_basicWebSocket(rName string) string {
 		`
 resource "aws_apigatewayv2_route_response" "test" {
   api_id= aws_apigatewayv2_api.test.id
-  route_id           = aws_apigatewayv2_route.test.id
+  route_id = aws_apigatewayv2_route.test.id
   route_response_key = "$default"
 }
 `)
@@ -218,13 +218,13 @@ func testAccRouteResponseConfig_model(rName string) string {
 		`
 resource "aws_apigatewayv2_route_response" "test" {
   api_id= aws_apigatewayv2_api.test.id
-  route_id           = aws_apigatewayv2_route.test.id
+  route_id = aws_apigatewayv2_route.test.id
   route_response_key = "$default"
 
   model_selection_expression = "action"
 
   response_models = {
-    "test" = aws_apigatewayv2_model.test.name
+"test" = aws_apigatewayv2_model.test.name
   }
 }
 `)

@@ -12,12 +12,11 @@ import (
 )
 
 const (
-	apiCacheAvailableTimeout           = 60 * time.Minute
+	apiCacheAvailableTimeout = 60 * time.Minute
 	apiCacheDeletedTimeout= 60 * time.Minute
-	domainNameAPIAssociationTimeout    = 60 * time.Minute
+	domainNameAPIAssociationTimeout= 60 * time.Minute
 	domainNameAPIDisassociationTimeout = 60 * time.Minute
 )
-
 func waitAPICacheAvailable(ctx context.Context, conn *appsync.AppSync, id string) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{appsync.ApiCacheStatusCreating, appsync.ApiCacheStatusModifying},
@@ -30,7 +29,6 @@ func waitAPICacheAvailable(ctx context.Context, conn *appsync.AppSync, id string
 
 	return err
 }
-
 func waitAPICacheDeleted(ctx context.Context, conn *appsync.AppSync, id string) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{appsync.ApiCacheStatusDeleting},
@@ -43,7 +41,6 @@ func waitAPICacheDeleted(ctx context.Context, conn *appsync.AppSync, id string) 
 
 	return err
 }
-
 func waitDomainNameAPIAssociation(ctx context.Context, conn *appsync.AppSync, id string) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{appsync.AssociationStatusProcessing},
@@ -56,7 +53,6 @@ func waitDomainNameAPIAssociation(ctx context.Context, conn *appsync.AppSync, id
 
 	return err
 }
-
 func waitDomainNameAPIDisassociation(ctx context.Context, conn *appsync.AppSync, id string) error {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{appsync.AssociationStatusProcessing},

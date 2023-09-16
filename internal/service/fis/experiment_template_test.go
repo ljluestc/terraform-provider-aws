@@ -31,7 +31,7 @@ func TestAccFISExperimentTemplate_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckExperimentTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExperimentTemplateConfig_basic(rName, "An experiment template for testing", "test-action-1", "", "aws:ec2:terminate-instances", "Instances", "to-terminate-1", "aws:ec2:instance", "COUNT(1)", "env", "test"),
@@ -81,7 +81,7 @@ func TestAccFISExperimentTemplate_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckExperimentTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExperimentTemplateConfig_basic(rName, "An experiment template for testing", "test-action-1", "", "aws:ec2:terminate-instances", "Instances", "to-terminate-1", "aws:ec2:instance", "COUNT(1)", "env", "test"),
@@ -105,7 +105,7 @@ func TestAccFISExperimentTemplate_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckExperimentTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExperimentTemplateConfig_basic(rName, "An experiment template for testing", "test-action-1", "", "aws:ec2:terminate-instances", "Instances", "to-terminate-1", "aws:ec2:instance", "COUNT(1)", "env", "test"),
@@ -175,7 +175,7 @@ func TestAccFISExperimentTemplate_spot(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckExperimentTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExperimentTemplateConfig_actionParameter(rName, "Send Spot Instance Interruptions", "Send-Spot-Instance-Interruptions", "Send Spot Instance Interruptions", "aws:ec2:send-spot-instance-interruptions", "SpotInstances", "send-spot-instance-interruptions-target", "durationBeforeInterruption", "PT2M", "aws:ec2:spot-instance", "PERCENT(25)", "env", "test"),
@@ -225,7 +225,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckExperimentTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExperimentTemplateConfig_eks(rName, "kubernetes custom resource creation", "k8s-pod-delete", "k8s pod delete", "aws:eks:inject-kubernetes-custom-resource", "Cluster", "kubernetes-custom-resource-creation-target", "kubernetesApiVersion", "litmuschaos.io/v1alpha1", "kubernetesKind", "ChaosEngine", "kubernetesNamespace", "observability", "kubernetesSpec", "{\"engineState\":\"active\",\"appinfo\":{\"appns\":\"observability\",\"applabel\":\"app=nginx\",\"appkind\":\"deployment\"},\"chaosServiceAccount\":\"pod-delete-sa\",\"experiments\":[{\"name\":\"pod-delete\",\"spec\":{\"components\":{\"env\":[{\"name\":\"TOTAL_CHAOS_DURATION\",\"value\":\"60\"},{\"name\":\"CHAOS_INTERVAL\",\"value\":\"60\"},{\"name\":\"PODS_AFFECTED_PERC\",\"value\":\"30\"}]},\"probe\":[]}}],\"annotationCheck\":\"false\"}", "maxDuration", "PT2M", "aws:eks:cluster", "ALL", "env", "test"),
@@ -281,7 +281,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckExperimentTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExperimentTemplateConfig_ebsVolume(rName, "EBS Volume Pause I/O Experiment", "ebs-paused-io-action", "EBS Volume Pause I/O", "aws:ebs:pause-volume-io", "Volumes", "ebs-volume-to-pause-io", "duration", "PT6M", "aws:ec2:ebs-volume", "ALL", "env", "test"),
@@ -329,7 +329,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckExperimentTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccExperimentTemplateConfig_ebsVolumeParameters(rName, "EBS Volume Pause I/O Experiment", "ebs-paused-io-action", "EBS Volume Pause I/O", "aws:ebs:pause-volume-io", "Volumes", "ebs-volume-to-pause-io", "duration", "PT6M", "aws:ec2:ebs-volume", "ALL", "env", "test"),
@@ -377,7 +377,7 @@ func TestAccFISExperimentTemplate_loggingConfiguration(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckExperimentTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	// Cloudwatch Logging
 	{
@@ -475,7 +475,7 @@ resource "aws_iam_role" "test" {
       Effect = "Allow"
       Principal = {
         Service = [
-          "fis.${data.aws_partition.current.dns_suffix}",
+ "fis.${data.aws_partition.current.dns_suffix}",
         ]
       }
     }]
@@ -503,7 +503,7 @@ resource "aws_fis_experiment_template" "test" {
   }
 
   target {
-    name           = %[7]q
+    name  = %[7]q
     resource_type  = %[8]q
     selection_mode = %[9]q
 
@@ -533,7 +533,7 @@ resource "aws_iam_role" "test" {
       Effect = "Allow"
       Principal = {
         Service = [
-          "fis.${data.aws_partition.current.dns_suffix}",
+ "fis.${data.aws_partition.current.dns_suffix}",
         ]
       }
     }]
@@ -566,7 +566,7 @@ resource "aws_fis_experiment_template" "test" {
   }
 
   target {
-    name           = %[7]q
+    name  = %[7]q
     resource_type  = %[10]q
     selection_mode = %[11]q
 
@@ -616,7 +616,7 @@ resource "aws_vpc" "test" {
   assign_generated_ipv6_cidr_block = true
 
   tags = {
-    Name           = %[1]q
+    Name  = %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -626,13 +626,13 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = "10.0.${count.index}.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   ipv6_cidr_block  = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, count.index)
   assign_ipv6_address_on_creation = true
 
   tags = {
-    Name           = %[1]q
+    Name  = %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -661,7 +661,7 @@ resource "aws_iam_role" "test_fis" {
       Effect = "Allow"
       Principal = {
         Service = [
-          "fis.${data.aws_partition.current.dns_suffix}",
+ "fis.${data.aws_partition.current.dns_suffix}",
         ]
       }
     }]
@@ -714,7 +714,7 @@ resource "aws_fis_experiment_template" "test" {
   }
 
   target {
-    name           = %[7]q
+    name  = %[7]q
     resource_type  = %[18]q
     selection_mode = %[19]q
 
@@ -734,7 +734,7 @@ data "aws_partition" "current" {}
 
 resource "aws_ebs_volume" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size              = 40
+  size     = 40
 
   tags = {
     Name = %[1]q
@@ -754,7 +754,7 @@ resource "aws_iam_role" "test_fis" {
       Effect = "Allow"
       Principal = {
         Service = [
-          "fis.${data.aws_partition.current.dns_suffix}",
+ "fis.${data.aws_partition.current.dns_suffix}",
         ]
       }
     }]
@@ -787,7 +787,7 @@ resource "aws_fis_experiment_template" "test" {
   }
 
   target {
-    name           = %[7]q
+    name  = %[7]q
     resource_type  = %[10]q
     selection_mode = %[11]q
 
@@ -811,7 +811,7 @@ resource "aws_iam_role" "test_fis" {
       Effect = "Allow"
       Principal = {
         Service = [
-          "fis.${data.aws_partition.current.dns_suffix}",
+ "fis.${data.aws_partition.current.dns_suffix}",
         ]
       }
     }]
@@ -838,7 +838,7 @@ resource "aws_fis_experiment_template" "test" {
     }
   }
   target {
-    name           = %[7]q
+    name  = %[7]q
     resource_type  = %[10]q
     selection_mode = %[11]q
     resource_tag {
@@ -869,7 +869,7 @@ resource "aws_iam_role" "test" {
       Effect = "Allow"
       Principal = {
         Service = [
-          "fis.${data.aws_partition.current.dns_suffix}",
+ "fis.${data.aws_partition.current.dns_suffix}",
         ]
       }
     }]
@@ -901,7 +901,7 @@ resource "aws_fis_experiment_template" "test" {
   }
 
   target {
-    name           = %[7]q
+    name  = %[7]q
     resource_type  = %[8]q
     selection_mode = %[9]q
 
@@ -939,7 +939,7 @@ resource "aws_iam_role" "test" {
       Effect = "Allow"
       Principal = {
         Service = [
-          "fis.${data.aws_partition.current.dns_suffix}",
+ "fis.${data.aws_partition.current.dns_suffix}",
         ]
       }
     }]
@@ -971,7 +971,7 @@ resource "aws_fis_experiment_template" "test" {
   }
 
   target {
-    name           = %[7]q
+    name  = %[7]q
     resource_type  = %[8]q
     selection_mode = %[9]q
 
@@ -1009,7 +1009,7 @@ resource "aws_iam_role" "test" {
       Effect = "Allow"
       Principal = {
         Service = [
-          "fis.${data.aws_partition.current.dns_suffix}",
+ "fis.${data.aws_partition.current.dns_suffix}",
         ]
       }
     }]
@@ -1041,7 +1041,7 @@ resource "aws_fis_experiment_template" "test" {
   }
 
   target {
-    name           = %[7]q
+    name  = %[7]q
     resource_type  = %[8]q
     selection_mode = %[9]q
 

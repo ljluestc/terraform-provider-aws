@@ -333,7 +333,7 @@ return nil
 func testAccWebhookConfig_basic(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name            = %[1]q
+  name   = %[1]q
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
   target_pipeline = aws_codepipeline.test.name
@@ -353,7 +353,7 @@ resource "aws_codepipeline_webhook" "test" {
 func testAccWebhookConfig_filters(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name            = %[1]q
+  name   = %[1]q
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
   target_pipeline = aws_codepipeline.test.name
@@ -378,7 +378,7 @@ resource "aws_codepipeline_webhook" "test" {
 func testAccWebhookConfig_ipAuth(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name            = %[1]q
+  name   = %[1]q
   authentication  = "IP"
   target_action   = "Source"
   target_pipeline = aws_codepipeline.test.name
@@ -398,7 +398,7 @@ resource "aws_codepipeline_webhook" "test" {
 func testAccWebhookConfig_unauthenticated(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name            = %[1]q
+  name   = %[1]q
   authentication  = "UNAUTHENTICATED"
   target_action   = "Source"
   target_pipeline = aws_codepipeline.test.name
@@ -414,7 +414,7 @@ resource "aws_codepipeline_webhook" "test" {
 func testAccWebhookConfig_tags(rName, tag1, tag2, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name            = %[1]q
+  name   = %[1]q
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
   target_pipeline = aws_codepipeline.test.name
@@ -440,7 +440,7 @@ resource "aws_codepipeline_webhook" "test" {
 func testAccWebhookConfig_secretTokenUpdated(rName, githubToken string) string {
 	return testAccWebhookConfig_base(rName, githubToken) + fmt.Sprintf(`
 resource "aws_codepipeline_webhook" "test" {
-  name            = %[1]q
+  name   = %[1]q
   authentication  = "GITHUB_HMAC"
   target_action   = "Source"
   target_pipeline = aws_codepipeline.test.name
@@ -534,10 +534,10 @@ resource "aws_codepipeline" "test" {
 
     action {
       name= "Source"
-      category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
-      version          = "1"
+      category= "Source"
+      owner   = "ThirdParty"
+      provider= "GitHub"
+      version = "1"
       output_artifacts = ["test"]
 
       configuration = {
@@ -553,12 +553,12 @@ resource "aws_codepipeline" "test" {
     name = "Build"
 
     action {
-      name            = "Build"
+      name   = "Build"
       category        = "Build"
-      owner           = "AWS"
+      owner  = "AWS"
       provider        = "CodeBuild"
       input_artifacts = ["test"]
-      version         = "1"
+      version= "1"
 
       configuration = {
         ProjectName = "test"

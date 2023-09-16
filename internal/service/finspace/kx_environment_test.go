@@ -21,7 +21,6 @@ import (
 	tffinspace "github.com/hashicorp/terraform-provider-aws/internal/service/finspace"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccFinSpaceKxEnvironment_basic(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
@@ -40,7 +39,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy: testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_basic(rName),
@@ -51,14 +50,13 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName: resourceName,
+ImportState:  true,
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
 func TestAccFinSpaceKxEnvironment_disappears(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
@@ -76,7 +74,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy: testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_basic(rName),
@@ -89,7 +87,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccFinSpaceKxEnvironment_updateName(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
@@ -108,7 +105,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy: testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_basic(rName),
@@ -127,7 +124,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccFinSpaceKxEnvironment_description(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
@@ -145,7 +141,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy: testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_description(rName, "description 1"),
@@ -164,7 +160,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccFinSpaceKxEnvironment_customDNS(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
@@ -182,7 +177,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy: testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_dnsConfig(rName, "example.finspace.amazon.aws.com", "10.0.0.76"),
@@ -190,7 +185,7 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckKxEnvironmentExists(ctx, resourceName, &kxenvironment),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "custom_dns_configuration.*", map[string]string{
 "custom_dns_server_name": "example.finspace.amazon.aws.com",
-"custom_dns_server_ip":   "10.0.0.76",
+"custom_dns_server_ip":"10.0.0.76",
 	}),
 ),
 	},
@@ -200,14 +195,13 @@ Check: resource.ComposeTestCheckFunc(
 	testAccCheckKxEnvironmentExists(ctx, resourceName, &kxenvironment),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "custom_dns_configuration.*", map[string]string{
 "custom_dns_server_name": "updated.finspace.amazon.com",
-"custom_dns_server_ip":   "10.0.0.24",
+"custom_dns_server_ip":"10.0.0.24",
 	}),
 ),
 	},
 },
 	})
 }
-
 func TestAccFinSpaceKxEnvironment_transitGateway(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
@@ -225,7 +219,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy: testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_tgwConfig(rName, "100.64.0.0/26"),
@@ -239,7 +233,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccFinSpaceKxEnvironment_attachmentNetworkACLConfiguration(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
@@ -257,7 +250,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy: testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_attachmentNetworkACLConfig(rName, "100.64.0.0/26"),
@@ -268,7 +261,7 @@ Check: resource.ComposeTestCheckFunc(
 	}),
 	resource.TestCheckResourceAttr(resourceName, "transit_gateway_configuration.0.attachment_network_acl_configuration.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "transit_gateway_configuration.0.attachment_network_acl_configuration.*", map[string]string{
-"protocol":    "6",
+"protocol": "6",
 "rule_action": "allow",
 "cidr_block":  "0.0.0.0/0",
 "rule_number": "1",
@@ -284,13 +277,13 @@ Check: resource.ComposeTestCheckFunc(
 	}),
 	resource.TestCheckResourceAttr(resourceName, "transit_gateway_configuration.0.attachment_network_acl_configuration.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "transit_gateway_configuration.0.attachment_network_acl_configuration.*", map[string]string{
-"protocol":    "6",
+"protocol": "6",
 "rule_action": "allow",
 "cidr_block":  "0.0.0.0/0",
 "rule_number": "1",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "transit_gateway_configuration.0.attachment_network_acl_configuration.*", map[string]string{
-"protocol":    "4",
+"protocol": "4",
 "rule_action": "allow",
 "cidr_block":  "0.0.0.0/0",
 "rule_number": "20",
@@ -306,7 +299,7 @@ Check: resource.ComposeTestCheckFunc(
 	}),
 	resource.TestCheckResourceAttr(resourceName, "transit_gateway_configuration.0.attachment_network_acl_configuration.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "transit_gateway_configuration.0.attachment_network_acl_configuration.*", map[string]string{
-"protocol":    "6",
+"protocol": "6",
 "rule_action": "allow",
 "cidr_block":  "0.0.0.0/0",
 "rule_number": "1",
@@ -316,7 +309,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccFinSpaceKxEnvironment_tags(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
@@ -334,7 +326,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy: testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_tags1(rName, "key1", "value1"),
@@ -364,7 +356,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccCheckKxEnvironmentDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).FinSpaceClient(ctx)
@@ -394,7 +385,6 @@ return nil
 return nil
 	}
 }
-
 func testAccCheckKxEnvironmentExists(ctx context.Context, name string, kxenvironment *finspace.GetKxEnvironmentOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
@@ -420,7 +410,6 @@ if err != nil {
 return nil
 	}
 }
-
 func testAccKxEnvironmentConfigBase() string {
 	return `
 resource "aws_kms_key" "test" {
@@ -428,30 +417,27 @@ resource "aws_kms_key" "test" {
 }
 `
 }
-
 func testAccKxEnvironmentConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 testAccKxEnvironmentConfigBase(),
 fmt.Sprintf(`
 resource "aws_finspace_kx_environment" "test" {
-  name       = %[1]q
+  name  = %[1]q
   kms_key_id = aws_kms_key.test.arn
 }
 `, rName))
 }
-
 func testAccKxEnvironmentConfig_description(rName, desc string) string {
 	return acctest.ConfigCompose(
 testAccKxEnvironmentConfigBase(),
 fmt.Sprintf(`
 resource "aws_finspace_kx_environment" "test" {
-  name        = %[1]q
+  name= %[1]q
   kms_key_id  = aws_kms_key.test.arn
   description = %[2]q
 }
 `, rName, desc))
 }
-
 func testAccKxEnvironmentConfig_tgwConfig(rName, cidr string) string {
 	return acctest.ConfigCompose(
 testAccKxEnvironmentConfigBase(),
@@ -461,17 +447,16 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_finspace_kx_environment" "test" {
-  name       = %[1]q
+  name  = %[1]q
   kms_key_id = aws_kms_key.test.arn
 
   transit_gateway_configuration {
-    transit_gateway_id  = aws_ec2_transit_gateway.test.id
-    routable_cidr_space = %[2]q
+ transit_gateway_id  = aws_ec2_transit_gateway.test.id
+ routable_cidr_space = %[2]q
   }
 }
 `, rName, cidr))
 }
-
 func testAccKxEnvironmentConfig_attachmentNetworkACLConfig(rName, cidr string) string {
 	return acctest.ConfigCompose(
 testAccKxEnvironmentConfigBase(),
@@ -481,31 +466,30 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_finspace_kx_environment" "test" {
-  name       = %[1]q
+  name  = %[1]q
   kms_key_id = aws_kms_key.test.arn
 
   transit_gateway_configuration {
-    transit_gateway_id  = aws_ec2_transit_gateway.test.id
-    routable_cidr_space = %[2]q
-    attachment_network_acl_configuration {
-      rule_number = 1
-      protocol    = "6"
-      rule_action = "allow"
-      cidr_block  = "0.0.0.0/0"
-      port_range {
-        from = 53
-        to   = 53
-      }
-      icmp_type_code {
-        type = -1
-        code = -1
-      }
-    }
+ transit_gateway_id  = aws_ec2_transit_gateway.test.id
+ routable_cidr_space = %[2]q
+ attachment_network_acl_configuration {
+ rule_number = 1
+ protocol = "6"
+ rule_action = "allow"
+ cidr_block  = "0.0.0.0/0"
+ port_range {
+from = 53
+to= 53
+ }
+ icmp_type_code {
+type = -1
+code = -1
+ }
+ }
   }
 }
 `, rName, cidr))
 }
-
 func testAccKxEnvironmentConfig_attachmentNetworkACLConfig2(rName, cidr string) string {
 	return acctest.ConfigCompose(
 testAccKxEnvironmentConfigBase(),
@@ -515,87 +499,84 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_finspace_kx_environment" "test" {
-  name       = %[1]q
+  name  = %[1]q
   kms_key_id = aws_kms_key.test.arn
 
   transit_gateway_configuration {
-    transit_gateway_id  = aws_ec2_transit_gateway.test.id
-    routable_cidr_space = %[2]q
-    attachment_network_acl_configuration {
-      rule_number = 1
-      protocol    = "6"
-      rule_action = "allow"
-      cidr_block  = "0.0.0.0/0"
-      port_range {
-        from = 53
-        to   = 53
-      }
-      icmp_type_code {
-        type = -1
-        code = -1
-      }
-    }
-    attachment_network_acl_configuration {
-      rule_number = 20
-      protocol    = "4"
-      rule_action = "allow"
-      cidr_block  = "0.0.0.0/0"
-      port_range {
-        from = 51
-        to   = 51
-      }
-      icmp_type_code {
-        type = -1
-        code = -1
-      }
-    }
+ transit_gateway_id  = aws_ec2_transit_gateway.test.id
+ routable_cidr_space = %[2]q
+ attachment_network_acl_configuration {
+ rule_number = 1
+ protocol = "6"
+ rule_action = "allow"
+ cidr_block  = "0.0.0.0/0"
+ port_range {
+from = 53
+to= 53
+ }
+ icmp_type_code {
+type = -1
+code = -1
+ }
+ }
+ attachment_network_acl_configuration {
+ rule_number = 20
+ protocol = "4"
+ rule_action = "allow"
+ cidr_block  = "0.0.0.0/0"
+ port_range {
+from = 51
+to= 51
+ }
+ icmp_type_code {
+type = -1
+code = -1
+ }
+ }
   }
 }
 `, rName, cidr))
 }
-
 func testAccKxEnvironmentConfig_dnsConfig(rName, serverName, serverIP string) string {
 	return acctest.ConfigCompose(
 testAccKxEnvironmentConfigBase(),
 fmt.Sprintf(`
 resource "aws_finspace_kx_environment" "test" {
-  name       = %[1]q
+  name  = %[1]q
   kms_key_id = aws_kms_key.test.arn
 
   custom_dns_configuration {
-    custom_dns_server_name = %[2]q
-    custom_dns_server_ip   = %[3]q
+ custom_dns_server_name = %[2]q
+ custom_dns_server_ip= %[3]q
   }
 }
 `, rName, serverName, serverIP))
 }
-
 func testAccKxEnvironmentConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
 testAccKxEnvironmentConfigBase(),
 fmt.Sprintf(`
 resource "aws_finspace_kx_environment" "test" {
-  name       = %[1]q
+  name  = %[1]q
   kms_key_id = aws_kms_key.test.arn
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccKxEnvironmentConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 testAccKxEnvironmentConfigBase(),
 fmt.Sprintf(`
 resource "aws_finspace_kx_environment" "test" {
-  name       = %[1]q
+  name  = %[1]q
   kms_key_id = aws_kms_key.test.arn
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))

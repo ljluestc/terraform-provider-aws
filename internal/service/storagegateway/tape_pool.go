@@ -37,26 +37,26 @@ func ResourceTapePool() *schema.Resource {
 				Computed: true,
 			},
 			"pool_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
 			},
 			"storage_class": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(storagegateway.TapeStorageClass_Values(), false),
 			},
 			"retention_lock_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      storagegateway.RetentionLockTypeNone,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(storagegateway.RetentionLockType_Values(), false),
 			},
 			"retention_lock_time_in_days": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      0,
@@ -76,7 +76,7 @@ func resourceTapePoolCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	input := &storagegateway.CreateTapePoolInput{
 		PoolName:   aws.String(d.Get("pool_name").(string)),
-		StorageClass:            aws.String(d.Get("storage_class").(string)),
+		StorageClass:   aws.String(d.Get("storage_class").(string)),
 		RetentionLockType:       aws.String(d.Get("retention_lock_type").(string)),
 		RetentionLockTimeInDays: aws.Int64(int64(d.Get("retention_lock_time_in_days").(int))),
 		Tags:       getTagsIn(ctx),

@@ -22,7 +22,6 @@ import (
 	tfelasticbeanstalk "github.com/hashicorp/terraform-provider-aws/internal/service/elasticbeanstalk"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestAccElasticBeanstalkEnvironment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -64,7 +63,6 @@ func TestAccElasticBeanstalkEnvironment_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkEnvironment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -88,7 +86,6 @@ func TestAccElasticBeanstalkEnvironment_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkEnvironment_tier(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -122,7 +119,6 @@ func TestAccElasticBeanstalkEnvironment_tier(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkEnvironment_cnamePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -155,7 +151,6 @@ func TestAccElasticBeanstalkEnvironment_cnamePrefix(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkEnvironment_beanstalkEnv(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -202,7 +197,6 @@ func TestAccElasticBeanstalkEnvironment_beanstalkEnv(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkEnvironment_resource(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -233,7 +227,6 @@ func TestAccElasticBeanstalkEnvironment_resource(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkEnvironment_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -283,7 +276,6 @@ func TestAccElasticBeanstalkEnvironment_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkEnvironment_changeStack(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -317,7 +309,6 @@ func TestAccElasticBeanstalkEnvironment_changeStack(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkEnvironment_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -361,7 +352,6 @@ func TestAccElasticBeanstalkEnvironment_update(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkEnvironment_label(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -400,7 +390,6 @@ func TestAccElasticBeanstalkEnvironment_label(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkEnvironment_settingWithJSONValue(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -436,7 +425,6 @@ func TestAccElasticBeanstalkEnvironment_settingWithJSONValue(t *testing.T) {
 		},
 	})
 }
-
 func TestAccElasticBeanstalkEnvironment_platformARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	var app elasticbeanstalk.EnvironmentDescription
@@ -468,7 +456,6 @@ func TestAccElasticBeanstalkEnvironment_platformARN(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckEnvironmentDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -494,7 +481,6 @@ func testAccCheckEnvironmentDestroy(ctx context.Context) resource.TestCheckFunc 
 		return nil
 	}
 }
-
 func testAccCheckEnvironmentExists(ctx context.Context, n string, v *elasticbeanstalk.EnvironmentDescription) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -519,7 +505,6 @@ func testAccCheckEnvironmentExists(ctx context.Context, n string, v *elasticbean
 		return nil
 	}
 }
-
 func testAccVerifyConfig(ctx context.Context, env *elasticbeanstalk.EnvironmentDescription, expected []string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if env == nil {
@@ -571,7 +556,6 @@ func testAccVerifyConfig(ctx context.Context, env *elasticbeanstalk.EnvironmentD
 		return nil
 	}
 }
-
 func testAccCheckEnvironmentConfigValue(ctx context.Context, n string, expectedValue string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -614,7 +598,6 @@ func testAccCheckEnvironmentConfigValue(ctx context.Context, n string, expectedV
 		return nil
 	}
 }
-
 func testAccEnvironmentConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 data "aws_elastic_beanstalk_solution_stack" "test" {
@@ -637,7 +620,7 @@ resource "aws_internet_gateway" "test" {
 resource "aws_route" "test" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_idt_gateway.test.id
-  route_table_id         = aws_vpc.test.main_route_table_id
+  route_table_id= aws_vpc.test.main_route_table_id
 }
 
 resource "aws_security_group" "test" {
@@ -663,7 +646,7 @@ resource "aws_iam_role" "service_role" {
       Action = "sts:AssumeRole"
       Condition = {
         StringEquals = {
-          "sts:ExternalId" = "elasticbeanstalk"
+ "sts:ExternalId" = "elasticbeanstalk"
         }
       }
       Effect = "Allow"
@@ -725,11 +708,10 @@ resource "aws_iam_instance_profile" "test" {
 }
 `, rName))
 }
-
 func testAccEnvironmentConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_environment" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
 
@@ -771,12 +753,11 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 `, rName))
 }
-
 func testAccEnvironmentConfig_platformARN(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_environment" "test" {
   application  = aws_elastic_beanstalk_application.test.name
-  name         = %[1]q
+  name= %[1]q
   platform_arn = "arn:${data.aws_partition.current.partition}:elasticbeanstalk:${data.aws_region.current.name}::platform/Python 3.6 running on 64bit Amazon Linux/2.9.6"
 
   setting {
@@ -817,11 +798,10 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 `, rName))
 }
-
 func testAccEnvironmentConfig_settings(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_environment" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
 
@@ -902,11 +882,10 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 `, rName))
 }
-
 func testAccEnvironmentConfig_worker(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_environment" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
   tier = "Worker"
@@ -949,11 +928,10 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 `, rName))
 }
-
 func testAccEnvironmentConfig_cnamePrefix(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_environment" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   cname_prefix        = %[1]q
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
@@ -996,17 +974,16 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 `, rName))
 }
-
 func testAccEnvironmentConfig_template(rName string, cfgTplValue int) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_environment" "test" {
   application   = aws_elastic_beanstalk_application.test.name
-  name          = %[1]q
+  name = %[1]q
   template_name = aws_elastic_beanstalk_configuration_template.test.name
 }
 
 resource "aws_elastic_beanstalk_configuration_template" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
 
@@ -1054,11 +1031,10 @@ resource "aws_elastic_beanstalk_configuration_template" "test" {
 }
 `, rName, cfgTplValue))
 }
-
 func testAccEnvironmentConfig_resourceOptionSetting(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_environment" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
 
@@ -1121,11 +1097,10 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 `, rName))
 }
-
 func testAccEnvironmentConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_environment" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
 
@@ -1171,11 +1146,10 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccEnvironmentConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_environment" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
 
@@ -1222,11 +1196,10 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
 func testAccEnvironmentConfig_templateChangeStack(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_environment" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
 
@@ -1268,18 +1241,17 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 
 resource "aws_elastic_beanstalk_configuration_template" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
 }
 `, rName))
 }
-
 func testAccEnvironmentConfig_templateChangeTemp(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_elastic_beanstalk_environment" "test" {
   application   = aws_elastic_beanstalk_application.test.name
-  name          = %[1]q
+  name = %[1]q
   template_name = aws_elastic_beanstalk_configuration_template.test.name
 
   setting {
@@ -1320,13 +1292,12 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 
 resource "aws_elastic_beanstalk_configuration_template" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
 }
 `, rName))
 }
-
 func testAccEnvironmentConfig_applicationVersion(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
@@ -1342,12 +1313,12 @@ resource "aws_s3_object" "test" {
 resource "aws_elastic_beanstalk_application_version" "test" {
   application = aws_elastic_beanstalk_application.test.name
   bucket      = aws_s3_bucket.test.id
-  key         = aws_s3_object.test.id
+  key= aws_s3_object.test.id
   name        = "%[1]s-1"
 }
 
 resource "aws_elastic_beanstalk_environment" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
   version_label       = aws_elastic_beanstalk_application_version.test.name
@@ -1390,7 +1361,6 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 `, rName))
 }
-
 func testAccEnvironmentConfig_applicationVersionUpdate(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
@@ -1406,12 +1376,12 @@ resource "aws_s3_object" "test" {
 resource "aws_elastic_beanstalk_application_version" "test" {
   application = aws_elastic_beanstalk_application.test.name
   bucket      = aws_s3_bucket.test.id
-  key         = aws_s3_object.test.id
+  key= aws_s3_object.test.id
   name        = "%[1]s-2"
 }
 
 resource "aws_elastic_beanstalk_environment" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
   version_label       = aws_elastic_beanstalk_application_version.test.name
@@ -1454,7 +1424,6 @@ resource "aws_elastic_beanstalk_environment" "test" {
 }
 `, rName))
 }
-
 func testAccEnvironmentConfig_settingJSONValue(rName, publicKey, email string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
@@ -1467,7 +1436,7 @@ resource "aws_key_pair" "test" {
 }
 
 resource "aws_elastic_beanstalk_environment" "test" {
-  application         = aws_elastic_beanstalk_application.test.name
+  application= aws_elastic_beanstalk_application.test.name
   name = %[1]q
   solution_stack_name = data.aws_elastic_beanstalk_solution_stack.test.name
   tier = "Worker"

@@ -18,8 +18,6 @@ import (
 	tfservicediscovery "github.com/hashicorp/terraform-provider-aws/internal/service/servicediscovery"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
-
 func TestAccServiceDiscoveryPublicDNSNamespace_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_public_dns_namespace.test"
@@ -34,7 +32,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPublicDNSNamespaceDestroy(ctx),
+CheckDestroy: testAccCheckPublicDNSNamespaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPublicDNSNamespaceConfig_basic(rName),
@@ -48,15 +46,13 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 },
 	})
 }
-
-
 func TestAccServiceDiscoveryPublicDNSNamespace_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_public_dns_namespace.test"
@@ -71,7 +67,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPublicDNSNamespaceDestroy(ctx),
+CheckDestroy: testAccCheckPublicDNSNamespaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPublicDNSNamespaceConfig_basic(rName),
@@ -85,8 +81,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
-
 func TestAccServiceDiscoveryPublicDNSNamespace_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_public_dns_namespace.test"
@@ -101,7 +95,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPublicDNSNamespaceDestroy(ctx),
+CheckDestroy: testAccCheckPublicDNSNamespaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPublicDNSNamespaceConfig_description(rName, "desc1"),
@@ -122,8 +116,6 @@ func(
 },
 	})
 }
-
-
 func TestAccServiceDiscoveryPublicDNSNamespace_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_public_dns_namespace.test"
@@ -138,7 +130,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:    testAccCheckPublicDNSNamespaceDestroy(ctx),
+CheckDestroy: testAccCheckPublicDNSNamespaceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPublicDNSNamespaceConfig_tags1(rName, "key1", "value1"),
@@ -150,8 +142,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:ceName,
+ImportState:
 ImportStateVerify: true,
 	},
 	{
@@ -176,8 +168,6 @@ func(
 },
 	})
 }
-
-
 func testAccCheckPublicDNSNamespaceDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
@@ -205,8 +195,6 @@ return err
 return nil
 	}
 }
-
-
 func testAccCheckPublicDNSNamespaceExists(ctx context.Context, n string) resource.TestCheck
 func {
 	return 
@@ -227,8 +215,6 @@ _, err := tfservicediscovery.FindNamespaceByID(ctx, conn, rs.Primary.ID)
 return err
 	}
 }
-
-
 func testAccPublicDNSNamespaceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_public_dns_namespace" "test" {
@@ -236,39 +222,33 @@ resource "aws_service_discovery_public_dns_namespace" "test" {
 }
 `, rName)
 }
-
-
 func testAccPublicDNSNamespaceConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_public_dns_namespace" "test" {
   description = %[1]q
-  name        = "%[2]s.test"
+  name[2]s.test"
 }
 `, description, rName)
 }
-
-
 func testAccPublicDNSNamespaceConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_public_dns_namespace" "test" {
   name = "%[1]s.test"
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }
-
-
 func testAccPublicDNSNamespaceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_public_dns_namespace" "test" {
   name = "%[1]s.test"
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

@@ -1,30 +1,20 @@
 // Copyright 2022 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Package goroot is a copy of package internal/goroot
+// license that can be found in the LICENSE file.// Package goroot is a copy of package internal/goroot
 // in the main GO repot. It provides a utility to produce
 // an importcfg and import path to package file map mapping
 // standard library packages to the locations of their export
 // data files.
-package goroot
-
-import (
+package gorootimport (
 	"bytes"
 	"fmt"
 	"os/exec"
 	"strings"
 	"sync"
-)
-
-// Importcfg returns an importcfg file to be passed to the
+)// Importcfg returns an importcfg file to be passed to the
 // Go compiler that contains the cached paths for the .a files for the
-// standard library.
-
- Importcfg() (string, error) {
-	var icfg bytes.Buffer
-
-	m, err := PkgfileMap()
+// standard library. Importcfg() (string, error) {
+	var icfg bytes.Buffer	m, err := PkgfileMap()
 	if err != nil {
 		return "", err
 	}
@@ -34,19 +24,13 @@ import (
 	}
 	s := icfg.String()
 	return s, nil
-}
-
-var (
+}var (
 	stdlibPkgfileMap map[string]string
 	stdlibPkgfileErr error
 	once             sync.Once
-)
-
-// PkgfileMap returns a map of package paths to the location on disk
+)// PkgfileMap returns a map of package paths to the location on disk
 // of the .a file for the package.
-he caller must not modify the map.
-
- PkgfileMap() (map[string]string, error) {
+he caller must not modify the map. PkgfileMap() (map[string]string, error) {
 	once.Do(
 () {
 		m := make(map[string]string)

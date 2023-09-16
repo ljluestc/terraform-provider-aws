@@ -6,7 +6,6 @@ package dms
 import (
 	"testing"
 )
-
 func TestValidEndpointID(t *testing.T) {
 	t.Parallel()
 
@@ -39,7 +38,6 @@ func TestValidEndpointID(t *testing.T) {
 		}
 	}
 }
-
 func TestValidReplicationInstanceID(t *testing.T) {
 	t.Parallel()
 
@@ -72,7 +70,6 @@ func TestValidReplicationInstanceID(t *testing.T) {
 		}
 	}
 }
-
 func TestValidReplicationSubnetGroupID(t *testing.T) {
 	t.Parallel()
 
@@ -104,7 +101,6 @@ func TestValidReplicationSubnetGroupID(t *testing.T) {
 		}
 	}
 }
-
 func TestValidReplicationTaskID(t *testing.T) {
 	t.Parallel()
 

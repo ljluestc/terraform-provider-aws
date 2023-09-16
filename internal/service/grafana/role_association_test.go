@@ -264,7 +264,7 @@ func testAccRoleAssociation_usersAndGroupsEditor(t *testing.T) {
 func testAccRoleAssociationConfig_workspaceUsers(rName, role, userID string) string {
 	return acctest.ConfigCompose(testAccWorkspaceConfig_authenticationProvider(rName, "AWS_SSO"), fmt.Sprintf(`
 resource "aws_grafana_role_association" "test" {
-  role         = %[1]q
+  role= %[1]q
   user_ids     = [%[2]q]
   workspace_id = aws_grafana_workspace.test.id
 }
@@ -274,7 +274,7 @@ resource "aws_grafana_role_association" "test" {
 func testAccRoleAssociationConfig_workspaceGroups(rName, role, groupID string) string {
 	return acctest.ConfigCompose(testAccWorkspaceConfig_authenticationProvider(rName, "AWS_SSO"), fmt.Sprintf(`
 resource "aws_grafana_role_association" "test" {
-  role         = %[1]q
+  role= %[1]q
   group_ids    = [%[2]q]
   workspace_id = aws_grafana_workspace.test.id
 }
@@ -284,7 +284,7 @@ resource "aws_grafana_role_association" "test" {
 func testAccRoleAssociationConfig_workspaceUsersAndGroups(rName, role, userID, groupID string) string {
 	return acctest.ConfigCompose(testAccWorkspaceConfig_authenticationProvider(rName, "AWS_SSO"), fmt.Sprintf(`
 resource "aws_grafana_role_association" "test" {
-  role         = %[1]q
+  role= %[1]q
   user_ids     = [%[2]q]
   group_ids    = [%[3]q]
   workspace_id = aws_grafana_workspace.test.id

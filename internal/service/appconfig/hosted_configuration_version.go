@@ -34,41 +34,41 @@ func ResourceHostedConfigurationVersion() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"application_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"configuration_profile_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
 			},
 			"content": {
-				Type:      schema.TypeString,
+				Type:  schema.TypeString,
 				Required:  true,
 				ForceNew:  true,
 				Sensitive: true,
 			},
 			"content_type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"version_number": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Computed: true,
 			},
 		},
@@ -83,10 +83,10 @@ func resourceHostedConfigurationVersionCreate(ctx context.Context, d *schema.Res
 	profileID := d.Get("configuration_profile_id").(string)
 
 	input := &appconfig.CreateHostedConfigurationVersionInput{
-		ApplicationId:          aws.String(appID),
+		ApplicationId: aws.String(appID),
 		ConfigurationProfileId: aws.String(profileID),
 		Content:   []byte(d.Get("content").(string)),
-		ContentType:            aws.String(d.Get("content_type").(string)),
+		ContentType:   aws.String(d.Get("content_type").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -115,9 +115,9 @@ func resourceHostedConfigurationVersionRead(ctx context.Context, d *schema.Resou
 	}
 
 	input := &appconfig.GetHostedConfigurationVersionInput{
-		ApplicationId:          aws.String(appID),
+		ApplicationId: aws.String(appID),
 		ConfigurationProfileId: aws.String(confProfID),
-		VersionNumber:          aws.Int64(int64(versionNumber)),
+		VersionNumber: aws.Int64(int64(versionNumber)),
 	}
 
 	output, err := conn.GetHostedConfigurationVersionWithContext(ctx, input)
@@ -146,7 +146,7 @@ func resourceHostedConfigurationVersionRead(ctx context.Context, d *schema.Resou
 	arn := arn.ARN{
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
+		Region:meta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("application/%s/configurationprofile/%s/hostedconfigurationversion/%d", appID, confProfID, versionNumber),
 		Service:   "appconfig",
 	}.String()
@@ -167,9 +167,9 @@ func resourceHostedConfigurationVersionDelete(ctx context.Context, d *schema.Res
 	}
 
 	input := &appconfig.DeleteHostedConfigurationVersionInput{
-		ApplicationId:          aws.String(appID),
+		ApplicationId: aws.String(appID),
 		ConfigurationProfileId: aws.String(confProfID),
-		VersionNumber:          aws.Int64(int64(versionNumber)),
+		VersionNumber: aws.Int64(int64(versionNumber)),
 	}
 
 	_, err = conn.DeleteHostedConfigurationVersionWithContext(ctx, input)

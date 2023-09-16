@@ -23,7 +23,7 @@ func TestAccServiceQuotasServiceQuotaDataSource_quotaCode(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, servicequotas.EndpointsID)
 			preCheckServiceQuotaSet(ctx, setQuotaServiceCode, setQuotaQuotaCode, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -55,7 +55,7 @@ func TestAccServiceQuotasServiceQuotaDataSource_quotaCode_Unset(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, servicequotas.EndpointsID)
 			preCheckServiceQuotaUnset(ctx, unsetQuotaServiceCode, unsetQuotaQuotaCode, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -88,7 +88,7 @@ func TestAccServiceQuotasServiceQuotaDataSource_quotaCode_hasUsageMetric(t *test
 			acctest.PreCheckPartitionHasService(t, servicequotas.EndpointsID)
 			preCheckServiceQuotaHasUsageMetric(ctx, hasUsageMetricServiceCode, hasUsageMetricQuotaCode, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -126,9 +126,9 @@ func TestAccServiceQuotasServiceQuotaDataSource_PermissionError_quotaCode(t *tes
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckAssumeRoleARN(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:    nil,
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccServiceQuotaDataSourceConfig_permissionErrorCode("elasticloadbalancing", "L-53DA6B97"),
@@ -148,7 +148,7 @@ func TestAccServiceQuotasServiceQuotaDataSource_quotaName(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, servicequotas.EndpointsID)
 			preCheckServiceQuotaSet(ctx, setQuotaServiceCode, setQuotaQuotaCode, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -180,7 +180,7 @@ func TestAccServiceQuotasServiceQuotaDataSource_quotaName_Unset(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, servicequotas.EndpointsID)
 			preCheckServiceQuotaUnset(ctx, unsetQuotaServiceCode, unsetQuotaQuotaCode, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -213,7 +213,7 @@ func TestAccServiceQuotasServiceQuotaDataSource_quotaName_hasUsageMetric(t *test
 			acctest.PreCheckPartitionHasService(t, servicequotas.EndpointsID)
 			preCheckServiceQuotaHasUsageMetric(ctx, hasUsageMetricServiceCode, hasUsageMetricQuotaCode, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -251,9 +251,9 @@ func TestAccServiceQuotasServiceQuotaDataSource_PermissionError_quotaName(t *tes
 			testAccPreCheck(ctx, t)
 			acctest.PreCheckAssumeRoleARN(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicequotas.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicequotas.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
+		CheckDestroy:    nil,
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccServiceQuotaDataSourceConfig_permissionErrorName("elasticloadbalancing", "Application Load Balancers per Region"),
@@ -279,14 +279,14 @@ func testAccServiceQuotaDataSourceConfig_permissionErrorCode(serviceCode, quotaC
     {
   	  "Effect": "Allow",
   	  "Action": [
-  	    "servicequotas:GetServiceQuota"
+  "servicequotas:GetServiceQuota"
   	  ],
   	  "Resource": "*"
     },
     {
   	  "Effect": "Deny",
   	  "Action": [
-  	    "elasticloadbalancing:*"
+  "elasticloadbalancing:*"
   	  ],
   	  "Resource": "*"
     }
@@ -319,14 +319,14 @@ func testAccServiceQuotaDataSourceConfig_permissionErrorName(serviceCode, quotaN
     {
   	  "Effect": "Allow",
   	  "Action": [
-  	    "servicequotas:ListServiceQuotas"
+  "servicequotas:ListServiceQuotas"
   	  ],
   	  "Resource": "*"
     },
     {
   	  "Effect": "Deny",
   	  "Action": [
-  	    "elasticloadbalancing:*"
+  "elasticloadbalancing:*"
   	  ],
   	  "Resource": "*"
     }

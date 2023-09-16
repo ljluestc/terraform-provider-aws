@@ -17,7 +17,7 @@ func TestAccMetaRegionsDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_regions.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -36,7 +36,7 @@ func TestAccMetaRegionsDataSource_filter(t *testing.T) {
 	dataSourceName := "data.aws_regions.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -55,7 +55,7 @@ func TestAccMetaRegionsDataSource_allRegions(t *testing.T) {
 	dataSourceName := "data.aws_regions.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -74,7 +74,7 @@ func TestAccMetaRegionsDataSource_nonExistentRegion(t *testing.T) {
 	dataSourceName := "data.aws_regions.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, tfmeta.PseudoServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -106,8 +106,8 @@ func testAccRegionsDataSourceConfig_optInStatusFilter(filter string) string {
 	return fmt.Sprintf(`
 data "aws_regions" "test" {
   filter {
-    name   = "opt-in-status"
-    values = [%[1]q]
+name   = "opt-in-status"
+values = [%[1]q]
   }
 }
 `, filter)
@@ -117,8 +117,8 @@ func testAccRegionsDataSourceConfig_nonExistentRegion() string {
 	return `
 data "aws_regions" "test" {
   filter {
-    name   = "region-name"
-    values = ["us-east-4"]
+name   = "region-name"
+values = ["us-east-4"]
   }
 }
 `

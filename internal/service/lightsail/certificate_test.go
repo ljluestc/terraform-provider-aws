@@ -24,7 +24,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func TestAccLightsailCertificate_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_certificate.test"
@@ -59,7 +58,6 @@ func TestAccLightsailCertificate_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailCertificate_subjectAlternativeNames(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_certificate.test"
@@ -89,7 +87,6 @@ func TestAccLightsailCertificate_subjectAlternativeNames(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailCertificate_DomainValidationOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_certificate.test"
@@ -114,11 +111,11 @@ func TestAccLightsailCertificate_DomainValidationOptions(t *testing.T) {
 				Check: resource.ComposeAggregateTestCheckFunc(
 					testAccCheckCertificateExists(ctx, resourceName),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "domain_validation_options.*", map[string]string{
-						"domain_name":          domainName,
+						"domain_name": domainName,
 						"resource_record_type": "CNAME",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "domain_validation_options.*", map[string]string{
-						"domain_name":          subjectAlternativeName,
+						"domain_name": subjectAlternativeName,
 						"resource_record_type": "CNAME",
 					}),
 				),
@@ -126,7 +123,6 @@ func TestAccLightsailCertificate_DomainValidationOptions(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailCertificate_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_certificate.test"
@@ -176,7 +172,6 @@ func TestAccLightsailCertificate_tags(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailCertificate_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lightsail_certificate.test"
@@ -221,7 +216,6 @@ func TestAccLightsailCertificate_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckCertificateDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -247,7 +241,6 @@ func testAccCheckCertificateDestroy(ctx context.Context) resource.TestCheckFunc 
 		return nil
 	}
 }
-
 func testAccCheckCertificateExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -274,7 +267,6 @@ func testAccCheckCertificateExists(ctx context.Context, n string) resource.TestC
 		return nil
 	}
 }
-
 func testAccCertificateConfig_basic(rName string, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_certificate" "test" {
@@ -283,7 +275,6 @@ resource "aws_lightsail_certificate" "test" {
 }
 `, rName, domainName)
 }
-
 func testAccCertificateConfig_subjectAlternativeNames(rName string, domainName string, san string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_certificate" "test" {
@@ -293,7 +284,6 @@ resource "aws_lightsail_certificate" "test" {
 }
 `, rName, domainName, san)
 }
-
 func testAccCertificateConfig_tags1(resourceName string, domainName string, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_certificate" "test" {
@@ -305,7 +295,6 @@ resource "aws_lightsail_certificate" "test" {
 }
 `, resourceName, domainName, tagKey1, tagValue1)
 }
-
 func testAccCertificateConfig_tags2(resourceName, domainName string, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_lightsail_certificate" "test" {

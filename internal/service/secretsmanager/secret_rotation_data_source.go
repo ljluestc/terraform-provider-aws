@@ -49,7 +49,7 @@ func DataSourceSecretRotation() *schema.Resource {
 				},
 			},
 			"secret_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ValidateFunc: validation.StringLenBetween(1, 2048),
 				Required:     true,
 			},

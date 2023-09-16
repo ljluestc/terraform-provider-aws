@@ -8,18 +8,17 @@ import (
 
 	tfbatch "github.com/hashicorp/terraform-provider-aws/internal/service/batch"
 )
-
 func TestEquivalentContainerPropertiesJSON(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]struct {
-		ApiJson           string
+		ApiJson string
 		ConfigurationJson string
 		ExpectEquivalent  bool
-		ExpectError       bool
+		ExpectError  bool
 	}{
 		"empty": {
-			ApiJson:           ``,
+			ApiJson: ``,
 			ConfigurationJson: ``,
 			ExpectEquivalent:  true,
 		},
@@ -236,17 +235,17 @@ func TestEquivalentContainerPropertiesJSON(t *testing.T) {
 			//lintignore:AWSAT003,AWSAT005
 			ConfigurationJson: `
 {
-    "image": "123.dkr.ecr.us-east-1.amazonaws.com/my-app",
-    "memory": 4096,
-    "vcpus": 1,
-    "jobRoleArn": "arn:aws:iam::123:role/role-test",
-    "environment": [
-      {
-        "name": "ENVIRONMENT",
-        "value": "test"
-      }
-   ],
-   "logConfiguration": {
+ "image": "123.dkr.ecr.us-east-1.amazonaws.com/my-app",
+ "memory": 4096,
+ "vcpus": 1,
+ "jobRoleArn": "arn:aws:iam::123:role/role-test",
+ "environment": [
+ {
+"name": "ENVIRONMENT",
+"value": "test"
+ }
+],
+"logConfiguration": {
 		"logDriver": "awslogs"
 	}
 }
@@ -300,7 +299,7 @@ func TestEquivalentContainerPropertiesJSON(t *testing.T) {
 	"memory": 4096,
 	"jobRoleArn": "arn:aws:iam::123:role/role-test",
 	"environment": [{"name":"ENVIRONMENT","value":"test"}],
-    "linuxParameters": {
+ "linuxParameters": {
 		"devices": [],
 		"initProcessEnabled": true,
 		"tmpfs": []
@@ -319,7 +318,7 @@ func TestEquivalentContainerPropertiesJSON(t *testing.T) {
 	"memory": 4096,
 	"jobRoleArn": "arn:aws:iam::123:role/role-test",
 	"environment": [{"name":"ENVIRONMENT","value":"test"}],
-    "linuxParameters": {
+ "linuxParameters": {
 		"initProcessEnabled": true
 	},
 	"logConfiguration": {
@@ -338,7 +337,7 @@ func TestEquivalentContainerPropertiesJSON(t *testing.T) {
 	"memory": 4096,
 	"jobRoleArn": "arn:aws:iam::123:role/role-test",
 	"environment": [{"name":"ENVIRONMENT","value":"test"}],
-    "linuxParameters": {
+ "linuxParameters": {
 		"devices": [{
 			"containerPath": "/test",
 			"hostPath": "/tmp",
@@ -361,7 +360,7 @@ func TestEquivalentContainerPropertiesJSON(t *testing.T) {
 	"memory": 4096,
 	"jobRoleArn": "arn:aws:iam::123:role/role-test",
 	"environment": [{"name":"ENVIRONMENT","value":"test"}],
-    "linuxParameters": {
+ "linuxParameters": {
 		"devices": [{
 			"containerPath": "/test",
 			"hostPath": "/tmp"

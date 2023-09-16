@@ -42,13 +42,13 @@ testAccCheckXSSMatchSetExists(ctx, resourceName, &v),
 resource.TestCheckResourceAttr(resourceName, "name", rName),
 resource.TestCheckResourceAttr(resourceName, "xss_match_tuple.#", "2"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "",
 "field_to_match.0.type": "QUERY_STRING",
 "text_transformation":   "NONE",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "",
 "field_to_match.0.type": "URI",
 "text_transformation":   "NONE",
@@ -56,8 +56,8 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuple.*", map[
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 },
 },
@@ -89,8 +89,8 @@ resource.TestCheckResourceAttr(resourceName, "xss_match_tuple.#", "2"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 },
 {
@@ -155,13 +155,13 @@ testAccCheckXSSMatchSetExists(ctx, resourceName, &before),
 resource.TestCheckResourceAttr(resourceName, "name", rName),
 resource.TestCheckResourceAttr(resourceName, "xss_match_tuple.#", "2"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "",
 "field_to_match.0.type": "QUERY_STRING",
 "text_transformation":   "NONE",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "",
 "field_to_match.0.type": "URI",
 "text_transformation":   "NONE",
@@ -169,8 +169,8 @@ resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuple.*", map[
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 },
 {
@@ -181,13 +181,13 @@ testAccCheckXSSMatchSetExists(ctx, resourceName, &after),
 resource.TestCheckResourceAttr(resourceName, "name", rName),
 resource.TestCheckResourceAttr(resourceName, "xss_match_tuple.#", "2"),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "",
 "field_to_match.0.type": "METHOD",
 "text_transformation":   "HTML_ENTITY_DECODE",
 }),
 resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "",
 "field_to_match.0.type": "BODY",
 "text_transformation":   "CMD_LINE",
@@ -222,8 +222,8 @@ resource.TestCheckResourceAttr(resourceName, "xss_match_tuple.#", "0"),
 ),
 },
 {
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 },
 },
@@ -305,7 +305,7 @@ resource "aws_wafregional_xss_match_set" "test" {
     text_transformation = "NONE"
 
     field_to_match {
-      type = "URI"
+type = "URI"
     }
   }
 
@@ -313,7 +313,7 @@ resource "aws_wafregional_xss_match_set" "test" {
     text_transformation = "NONE"
 
     field_to_match {
-      type = "QUERY_STRING"
+type = "QUERY_STRING"
     }
   }
 }
@@ -330,7 +330,7 @@ resource "aws_wafregional_xss_match_set" "test" {
     text_transformation = "NONE"
 
     field_to_match {
-      type = "URI"
+type = "URI"
     }
   }
 
@@ -338,7 +338,7 @@ resource "aws_wafregional_xss_match_set" "test" {
     text_transformation = "NONE"
 
     field_to_match {
-      type = "QUERY_STRING"
+type = "QUERY_STRING"
     }
   }
 }
@@ -355,7 +355,7 @@ resource "aws_wafregional_xss_match_set" "test" {
     text_transformation = "CMD_LINE"
 
     field_to_match {
-      type = "BODY"
+type = "BODY"
     }
   }
 
@@ -363,7 +363,7 @@ resource "aws_wafregional_xss_match_set" "test" {
     text_transformation = "HTML_ENTITY_DECODE"
 
     field_to_match {
-      type = "METHOD"
+type = "METHOD"
     }
   }
 }

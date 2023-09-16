@@ -50,8 +50,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -123,7 +123,7 @@ func(
 	{
 ResourceName:   resourceName,
 ImportState:    true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"source_entity"},
 	},
 },
@@ -206,7 +206,7 @@ func(
 	{
 ResourceName:   resourceName,
 ImportState:    true,
-ImportStateVerify:       true,
+ImportStateVerify: true,
 ImportStateVerifyIgnore: []string{"parameters"},
 	},
 },
@@ -276,41 +276,41 @@ testAccDataSetConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
-  name        = %[2]q
+  name  = %[2]q
   import_mode = "SPICE"
 
   physical_table_map {
     physical_table_map_id = %[1]q
     s3_source {
-      data_source_arn = aws_quicksight_data_source.test.arn
-      input_columns {
-        name = "Column1"
-        type = "STRING"
-      }
-      input_columns {
-        name = "Column2"
-        type = "STRING"
-      }
-      upload_settings {}
+data_source_arn = aws_quicksight_data_source.test.arn
+input_columns {
+  name = "Column1"
+  type = "STRING"
+}
+input_columns {
+  name = "Column2"
+  type = "STRING"
+}
+upload_settings {}
     }
   }
   logical_table_map {
     logical_table_map_id = %[1]q
     alias = "Group1"
     source {
-      physical_table_id = %[1]q
+physical_table_id = %[1]q
     }
     data_transforms {
-      cast_column_type_operation {
-        column_name     = "Column2"
-        new_column_type = "INTEGER"
-      }
+cast_column_type_operation {
+  column_name     = "Column2"
+  new_column_type = "INTEGER"
+}
     }
   }
 
   lifecycle {
     ignore_changes = [
-      physical_table_map
+physical_table_map
     ]
   }
 }
@@ -323,19 +323,19 @@ func testAccDashboardConfig_basic(rId, rName string) string {
 testAccDashboardConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_dashboard" "test" {
-  dashboard_id        = %[1]q
+  dashboard_id  = %[1]q
   name = %[2]q
   version_description = "test"
   definition {
     data_set_identifiers_declarations {
-      data_set_arn = aws_quicksight_data_set.test.arn
-      identifier   = "1"
+data_set_arn = aws_quicksight_data_set.test.arn
+identifier   = "1"
     }
     sheets {
-      title    = "Test"
-      sheet_id = "Test1"
-      visuals {
-        custom_content_visual {
+title    = "Test"
+sheet_id = "Test1"
+visuals {
+  custom_content_visual {
  data_set_identifier = "1"
  title {
    format_text {
@@ -343,10 +343,10 @@ resource "aws_quicksight_dashboard" "test" {
    }
  }
  visual_id = "Test1"
-        }
-      }
-      visuals {
-        line_chart_visual {
+  }
+}
+visuals {
+  line_chart_visual {
  visual_id = "LineChart"
  title {
    format_text {
@@ -360,8 +360,8 @@ resource "aws_quicksight_dashboard" "test" {
    categorical_dimension_field {
      field_id = "1"
      column {
-       data_set_identifier = "1"
-       column_name= "Column1"
+ data_set_identifier = "1"
+ column_name= "Column1"
      }
    }
  }
@@ -369,8 +369,8 @@ resource "aws_quicksight_dashboard" "test" {
    categorical_measure_field {
      field_id = "2"
      column {
-       data_set_identifier = "1"
-       column_name= "Column1"
+ data_set_identifier = "1"
+ column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
@@ -379,8 +379,8 @@ function = "COUNT"
      }
    }
  }
-        }
-      }
+  }
+}
     }
   }
 }
@@ -398,23 +398,23 @@ resource "aws_quicksight_template" "test" {
   version_description = "test"
   definition {
     data_set_configuration {
-      data_set_schema {
-        column_schema_list {
- name      = "Column1"
+data_set_schema {
+  column_schema_list {
+ name= "Column1"
  data_type = "STRING"
-        }
-        column_schema_list {
- name      = "Column2"
+  }
+  column_schema_list {
+ name= "Column2"
  data_type = "INTEGER"
-        }
-      }
-      placeholder = "1"
+  }
+}
+placeholder = "1"
     }
     sheets {
-      title    = "Test"
-      sheet_id = "Test1"
-      visuals {
-        custom_content_visual {
+title    = "Test"
+sheet_id = "Test1"
+visuals {
+  custom_content_visual {
  data_set_identifier = "1"
  title {
    format_text {
@@ -422,10 +422,10 @@ resource "aws_quicksight_template" "test" {
    }
  }
  visual_id = "Test1"
-        }
-      }
-      visuals {
-        line_chart_visual {
+  }
+}
+visuals {
+  line_chart_visual {
  visual_id = "LineChart"
  title {
    format_text {
@@ -439,8 +439,8 @@ resource "aws_quicksight_template" "test" {
    categorical_dimension_field {
      field_id = "1"
      column {
-       data_set_identifier = "1"
-       column_name= "Column1"
+ data_set_identifier = "1"
+ column_name= "Column1"
      }
    }
  }
@@ -448,8 +448,8 @@ resource "aws_quicksight_template" "test" {
    categorical_measure_field {
      field_id = "2"
      column {
-       data_set_identifier = "1"
-       column_name= "Column1"
+ data_set_identifier = "1"
+ column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
@@ -458,23 +458,23 @@ function = "COUNT"
      }
    }
  }
-        }
-      }
+  }
+}
     }
   }
 }
 
 resource "aws_quicksight_dashboard" "test" {
-  dashboard_id        = %[1]q
+  dashboard_id  = %[1]q
   name = %[2]q
   version_description = "test"
   source_entity {
     source_template {
-      arn = aws_quicksight_template.test.arn
-      data_set_references {
-        data_set_arn= aws_quicksight_data_set.test.arn
-        data_set_placeholder = "1"
-      }
+arn = aws_quicksight_template.test.arn
+data_set_references {
+  data_set_arn= aws_quicksight_data_set.test.arn
+  data_set_placeholder = "1"
+}
     }
   }
 }
@@ -487,69 +487,69 @@ func testAccDashboardConfig_DashboardSpecificConfig(rId, rName string) string {
 testAccDashboardConfigBase(rId, rName),
 fmt.Sprintf(`
 resource "aws_quicksight_dashboard" "test" {
-  dashboard_id        = %[1]q
+  dashboard_id  = %[1]q
   name = %[2]q
   version_description = "test"
   parameters {
     string_parameters {
-      name   = "test"
-      values = ["value"]
+name   = "test"
+values = ["value"]
     }
   }
   dashboard_publish_options {
     ad_hoc_filtering_option {
-      availability_status = "DISABLED"
+availability_status = "DISABLED"
     }
     data_point_drill_up_down_option {
-      availability_status = "ENABLED"
+availability_status = "ENABLED"
     }
     data_point_menu_label_option {
-      availability_status = "ENABLED"
+availability_status = "ENABLED"
     }
     data_point_tooltip_option {
-      availability_status = "ENABLED"
+availability_status = "ENABLED"
     }
     export_to_csv_option {
-      availability_status = "ENABLED"
+availability_status = "ENABLED"
     }
     export_with_hidden_fields_option {
-      availability_status = "DISABLED"
+availability_status = "DISABLED"
     }
     sheet_controls_option {
-      visibility_state = "COLLAPSED"
+visibility_state = "COLLAPSED"
     }
     sheet_layout_element_maximization_option {
-      availability_status = "ENABLED"
+availability_status = "ENABLED"
     }
     visual_axis_sort_option {
-      availability_status = "ENABLED"
+availability_status = "ENABLED"
     }
     visual_menu_option {
-      availability_status = "ENABLED"
+availability_status = "ENABLED"
     }
   }
   definition {
     data_set_identifiers_declarations {
-      data_set_arn = aws_quicksight_data_set.test.arn
-      identifier   = "1"
+data_set_arn = aws_quicksight_data_set.test.arn
+identifier   = "1"
     }
     parameter_declarations {
-      string_parameter_declaration {
-        name  = "test"
-        parameter_value_type = "SINGLE_VALUED"
-        default_values {
+string_parameter_declaration {
+  name  = "test"
+  parameter_value_type = "SINGLE_VALUED"
+  default_values {
  static_values = ["value"]
-        }
-        values_when_unset {
+  }
+  values_when_unset {
  value_when_unset_option = "NULL"
-        }
-      }
+  }
+}
     }
     sheets {
-      title    = "Example"
-      sheet_id = "Example1"
-      visuals {
-        line_chart_visual {
+title    = "Example"
+sheet_id = "Example1"
+visuals {
+  line_chart_visual {
  visual_id = "LineChart"
  title {
    format_text {
@@ -563,8 +563,8 @@ resource "aws_quicksight_dashboard" "test" {
    categorical_dimension_field {
      field_id = "1"
      column {
-       data_set_identifier = "1"
-       column_name= "Column1"
+ data_set_identifier = "1"
+ column_name= "Column1"
      }
    }
  }
@@ -572,8 +572,8 @@ resource "aws_quicksight_dashboard" "test" {
    categorical_measure_field {
      field_id = "2"
      column {
-       data_set_identifier = "1"
-       column_name= "Column1"
+ data_set_identifier = "1"
+ column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
@@ -582,8 +582,8 @@ function = "COUNT"
      }
    }
  }
-        }
-      }
+  }
+}
     }
   }
 }

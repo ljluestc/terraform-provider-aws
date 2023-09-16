@@ -36,8 +36,7 @@ type PreparedMsg struct {
 	payload     []byte
 }
 
-// Encode marshalls and compresses the message using the codec and compressor for the stream.
-func (p *PreparedMsg) Encode(s Stream, msg interface{}) error {
+// Encode marshalls and compresses the message using the codec and compressor for the stream. (p *PreparedMsg) Encode(s Stream, msg interface{}) error {
 	ctx := s.Context()
 	rpcInfo, ok := rpcInfoFromContext(ctx)
 	if !ok {

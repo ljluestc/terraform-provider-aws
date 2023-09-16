@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccDirectConnectRouterConfigurationDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "VIRTUAL_INTERFACE_ID"
@@ -49,11 +48,10 @@ func TestAccDirectConnectRouterConfigurationDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccRouterConfigurationDataSourceConfig_basic(virtualInterfaceId, routerTypeIdentifier string) string {
 	return fmt.Sprintf(`
 data "aws_dx_router_configuration" "test" {
-  virtual_interface_id   = %[1]q
+  virtual_interface_id= %[1]q
   router_type_identifier = %[2]q
 }
 `, virtualInterfaceId, routerTypeIdentifier)

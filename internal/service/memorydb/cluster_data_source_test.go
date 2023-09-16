@@ -20,8 +20,8 @@ func TestAccMemoryDBClusterDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:  acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -75,18 +75,18 @@ func testAccClusterDataSourceConfig_basic(rName string) string {
 		testAccClusterConfigBaseUserAndACL(rName),
 		fmt.Sprintf(`
 resource "aws_security_group" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = %[1]q
-  vpc_id      = aws_vpc.test.id
+  vpc_id  = aws_vpc.test.id
 }
 
 resource "aws_kms_key" "test" {}
 
 resource "aws_memorydb_cluster" "test" {
-  acl_name    = aws_memorydb_acl.test.id
+  acl_name= aws_memorydb_acl.test.id
   auto_minor_version_upgrade = false
   kms_key_arn = aws_kms_key.test.arn
-  name        = %[1]q
+  name= %[1]q
   node_type   = "db.t4g.small"
   num_shards  = 2
   security_group_ids= [aws_security_group.test.id]
@@ -95,7 +95,7 @@ resource "aws_memorydb_cluster" "test" {
   tls_enabled = true
 
   tags = {
-    Test = "test"
+Test = "test"
   }
 }
 

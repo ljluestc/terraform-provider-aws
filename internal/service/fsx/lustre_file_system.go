@@ -52,34 +52,34 @@ func ResourceLustreFileSystem() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"auto_import_policy": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
 				ValidateFunc: validation.StringInSlice(fsx.AutoImportPolicyType_Values(), false),
 			},
 			"automatic_backup_retention_days": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				Computed:     true,
+				Type:schema.TypeInt,
+				Optional: true,
+				Computed: true,
 				ValidateFunc: validation.IntBetween(0, 90),
 			},
 			"backup_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"copy_tags_to_backups": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 				Default:  false,
 			},
 			"daily_automatic_backup_start_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ValidateFunc: validation.All(
@@ -88,30 +88,30 @@ func ResourceLustreFileSystem() *schema.Resource {
 				),
 			},
 			"data_compression_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringInSlice(fsx.DataCompressionType_Values(), false),
-				Default:      fsx.DataCompressionTypeNone,
+				Default:  fsx.DataCompressionTypeNone,
 			},
 			"deployment_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      fsx.LustreDeploymentTypeScratch1,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+				Default:  fsx.LustreDeploymentTypeScratch1,
 				ValidateFunc: validation.StringInSlice(fsx.LustreDeploymentType_Values(), false),
 			},
 			"dns_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"drive_cache_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringInSlice(fsx.DriveCacheType_Values(), false),
 			},
 			"export_path": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
@@ -121,7 +121,7 @@ func ResourceLustreFileSystem() *schema.Resource {
 				),
 			},
 			"file_system_type_version": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				ForceNew: true,
 				Computed: true,
 				Optional: true,
@@ -131,7 +131,7 @@ func ResourceLustreFileSystem() *schema.Resource {
 				),
 			},
 			"import_path": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -140,61 +140,61 @@ func ResourceLustreFileSystem() *schema.Resource {
 				),
 			},
 			"imported_file_chunk_size": {
-				Type:         schema.TypeInt,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeInt,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ValidateFunc: validation.IntBetween(1, 512000),
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"log_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"destination": {
-							Type:         schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Type:schema.TypeString,
+							Optional: true,
+							Computed: true,
 							ValidateFunc: verify.ValidARN,
-							StateFunc:    logStateFunc,
+							StateFunc:logStateFunc,
 							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 								return strings.HasPrefix(old, fmt.Sprintf("%s:", new))
 							},
 						},
 						"level": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional: true,
 							ValidateFunc: validation.StringInSlice(fsx.LustreAccessAuditLogLevel_Values(), false),
 						},
 					},
 				},
 			},
 			"mount_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"network_interface_ids": {
 				// As explained in https://docs.aws.amazon.com/fsx/latest/LustreGuide/mounting-on-premises.html, the first
 				// network_interface_id is the primary one, so ordering matters. Use TypeList instead of TypeSet to preserve it.
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"owner_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"per_unit_storage_throughput": {
-				Type:     schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional: true,
 				ForceNew: true,
 				ValidateFunc: validation.IntInSlice([]int{
@@ -210,62 +210,62 @@ func ResourceLustreFileSystem() *schema.Resource {
 				}),
 			},
 			"root_squash_configuration": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"no_squash_nids": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringMatch(regexache.MustCompile(`^([0-9\[\]\-]*\.){3}([0-9\[\]\-]*)@tcp$`), "must be in the standard Lustre NID foramt"),
 							},
 						},
 						"root_squash": {
-							Type:         schema.TypeString,
-							Optional:     true,
+							Type:schema.TypeString,
+							Optional: true,
 							ValidateFunc: validation.StringMatch(regexache.MustCompile(`^([0-9]{1,10}):([0-9]{1,10})$`), "must be in the format UID:GID"),
 						},
 					},
 				},
 			},
 			"security_group_ids": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				ForceNew: true,
 				MaxItems: 50,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
 			"storage_capacity": {
-				Type:         schema.TypeInt,
-				Optional:     true,
+				Type:schema.TypeInt,
+				Optional: true,
 				ValidateFunc: validation.IntAtLeast(1200),
 			},
 			"storage_type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      fsx.StorageTypeSsd,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+				Default:  fsx.StorageTypeSsd,
 				ValidateFunc: validation.StringInSlice(fsx.StorageType_Values(), false),
 			},
 			"subnet_ids": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Required: true,
 				ForceNew: true,
 				MinItems: 1,
 				MaxItems: 1,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"weekly_maintenance_start_time": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ValidateFunc: validation.All(
@@ -302,14 +302,14 @@ func resourceLustreFileSystemCreate(ctx context.Context, d *schema.ResourceData,
 
 	inputC := &fsx.CreateFileSystemInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
-		FileSystemType:     aws.String(fsx.FileSystemTypeLustre),
+		FileSystemType: aws.String(fsx.FileSystemTypeLustre),
 		LustreConfiguration: &fsx.CreateFileSystemLustreConfiguration{
 			DeploymentType: aws.String(d.Get("deployment_type").(string)),
 		},
 		StorageCapacity: aws.Int64(int64(d.Get("storage_capacity").(int))),
-		StorageType:     aws.String(d.Get("storage_type").(string)),
-		SubnetIds:       flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
-		Tags:            getTagsIn(ctx),
+		StorageType: aws.String(d.Get("storage_type").(string)),
+		SubnetIds:   flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
+		Tags:   getTagsIn(ctx),
 	}
 	inputB := &fsx.CreateFileSystemFromBackupInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
@@ -318,7 +318,7 @@ func resourceLustreFileSystemCreate(ctx context.Context, d *schema.ResourceData,
 		},
 		StorageType: aws.String(d.Get("storage_type").(string)),
 		SubnetIds:   flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
-		Tags:        getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("auto_import_policy"); ok {
@@ -496,7 +496,7 @@ func resourceLustreFileSystemUpdate(ctx context.Context, d *schema.ResourceData,
 		input := &fsx.UpdateFileSystemInput{
 			ClientRequestToken:  aws.String(id.UniqueId()),
 			LustreConfiguration: &fsx.UpdateFileSystemLustreConfiguration{},
-			FileSystemId:        aws.String(d.Id()),
+			FileSystemId:aws.String(d.Id()),
 		}
 
 		if d.HasChange("auto_import_policy") {

@@ -33,25 +33,25 @@ DeleteWithoutTimeout: resourceTableItemDelete,
 
 Schema: map[string]*schema.Schema{
 	"table_name": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
 	"hash_key": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Required: true,
 ForceNew: true,
 	},
 	"range_key": {
-Type:     schema.TypeString,
+Type: schema.TypeString,
 ForceNew: true,
 Optional: true,
 	},
 	"item": {
 Type:   schema.TypeString,
-Required:     true,
+Required: true,
 ValidateFunc: validateTableItem,
-DiffSuppressFunc:      verify.SuppressEquivalentJSONDiffs,
+DiffSuppressFunc:  verify.SuppressEquivalentJSONDiffs,
 DiffSuppressOnRefresh: true,
 	},
 },
@@ -83,7 +83,7 @@ return sdkdiag.AppendErrorf(diags, "creating DynamoDB Table Item: %s", err)
 	_, err = conn.PutItemWithContext(ctx, &dynamodb.PutItemInput{
 Item: attributes,
 // Explode if item exists. We didn't create it.
-ConditionExpression:      aws.String("attribute_not_exists(#hk)"),
+ConditionExpression:  aws.String("attribute_not_exists(#hk)"),
 ExpressionAttributeNames: aws.StringMap(map[string]string{"#hk": hashKey}),
 TableName: aws.String(tableName),
 	})
@@ -148,8 +148,8 @@ updates[k] = &dynamodb.AttributeValueUpdate{
 
 _, err = conn.UpdateItemWithContext(ctx, &dynamodb.UpdateItemInput{
 	AttributeUpdates: updates,
-	TableName:        aws.String(tableName),
-	Key:     newQueryKey,
+	TableName:aws.String(tableName),
+	Key: newQueryKey,
 })
 if err != nil {
 	return sdkdiag.AppendErrorf(diags, "updating DynamoDB Table Item (%s): %s", d.Id(), err)
@@ -161,7 +161,7 @@ oldQueryKey := BuildTableItemQueryKey(oldAttributes, hashKey, rangeKey)
 if !reflect.DeepEqual(oldQueryKey, newQueryKey) {
 	log.Printf("[DEBUG] Deleting old record: %#v", oldQueryKey)
 	_, err := conn.DeleteItemWithContext(ctx, &dynamodb.DeleteItemInput{
-Key:       oldQueryKey,
+Key:   oldQueryKey,
 TableName: aws.String(tableName),
 	})
 	if err != nil {
@@ -230,7 +230,7 @@ return sdkdiag.AppendErrorf(diags, "deleting DynamoDB Table Item (%s): %s", d.Id
 	queryKey := BuildTableItemQueryKey(attributes, hashKey, rangeKey)
 
 	_, err = conn.DeleteItemWithContext(ctx, &dynamodb.DeleteItemInput{
-Key:       queryKey,
+Key:   queryKey,
 TableName: aws.String(d.Get("table_name").(string)),
 	})
 
@@ -245,7 +245,7 @@ return sdkdiag.AppendErrorf(diags, "deleting DynamoDB Table Item (%s): %s", d.Id
 
 func FindTableItem(ctx context.Context, conn *dynamodb.DynamoDB, tableName string, key map[string]*dynamodb.AttributeValue) (*dynamodb.GetItemOutput, error) {
 	in := &dynamodb.GetItemInput{
-TableName:      aws.String(tableName),
+TableName:  aws.String(tableName),
 ConsistentRead: aws.Bool(true),
 Key:   key,
 	}

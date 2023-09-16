@@ -76,7 +76,7 @@ func resourceRoleAssociationUpsert(ctx context.Context, d *schema.ResourceData, 
 
 	input := &managedgrafana.UpdatePermissionsInput{
 		UpdateInstructionBatch: updateInstructions,
-		WorkspaceId:            aws.String(workspaceID),
+		WorkspaceId:   aws.String(workspaceID),
 	}
 
 	log.Printf("[DEBUG] Creating Grafana Workspace Role Association: %s", input)
@@ -153,7 +153,7 @@ func resourceRoleAssociationDelete(ctx context.Context, d *schema.ResourceData, 
 
 	input := &managedgrafana.UpdatePermissionsInput{
 		UpdateInstructionBatch: updateInstructions,
-		WorkspaceId:            aws.String(d.Get("workspace_id").(string)),
+		WorkspaceId:   aws.String(d.Get("workspace_id").(string)),
 	}
 
 	log.Printf("[DEBUG] Deleting Grafana Workspace Role Association: %s", input)

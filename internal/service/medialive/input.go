@@ -190,9 +190,9 @@ func resourceInputCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	in := &medialive.CreateInputInput{
 RequestId: aws.String(id.UniqueId()),
-Name:      aws.String(d.Get("name").(string)),
-Tags:      getTagsIn(ctx),
-Type:      types.InputType(d.Get("type").(string)),
+Name:ring(d.Get("name").(string)),
+Tags:sIn(ctx),
+Type:InputType(d.Get("type").(string)),
 	}
 
 	if v, ok := d.GetOk("destinations"); ok && v.(*schema.Set).Len() > 0 {
@@ -377,7 +377,7 @@ Refresh:    statusInput(ctx, conn, id),
 Timeout:    timeout,
 NotFoundChecks:   20,
 ContinuousTargetOccurence: 2,
-Delay:      30 * time.Second,
+Delay:ime.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -396,7 +396,7 @@ Refresh:    statusInput(ctx, conn, id),
 Timeout:    timeout,
 NotFoundChecks:   20,
 ContinuousTargetOccurence: 2,
-Delay:      30 * time.Second,
+Delay:ime.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)

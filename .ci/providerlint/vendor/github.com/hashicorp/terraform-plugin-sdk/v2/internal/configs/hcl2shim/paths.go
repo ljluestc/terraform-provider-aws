@@ -1,42 +1,24 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package hcl2shim
-
-import (
+// SPDX-License-Identifier: MPL-2.0package hcl2shimimport (
 	"fmt"
 	"reflect"
 	"strconv"
-	"strings"
-
-	"github.com/hashicorp/go-cty/cty"
-)
-
-// RequiresReplace takes a list of flatmapped paths from a
+	"strings"	"github.com/hashicorp/go-cty/cty"
+)// RequiresReplace takes a list of flatmapped paths from a
 // InstanceDiff.Attributes along with the corresponding cty.Type, and returns
 // the list of the cty.Paths that are flagged as causing the resource
 // replacement (RequiresNew).
 // This will filter out redundant paths, paths that refer to flatmapped indexes
 // (e.g. "#", "%"), and will return any changes within a set as the path to the
-// set itself.
-
- RequiresReplace(attrs []string, ty cty.Type) ([]cty.Path, error) {
-	var paths []cty.Path
-
-	for _, attr := range attrs {
+// set itself. RequiresReplace(attrs []string, ty cty.Type) ([]cty.Path, error) {
+	var paths []cty.Path	for _, attr := range attrs {
 		p, err := requiresReplacePath(attr, ty)
 		if err != nil {
 			return nil, err
-		}
-
-		paths = append(paths, p)
-	}
-
-	// now trim off any trailing paths that aren't GetAttrSteps, since only an
+		}		paths = append(paths, p)
+	}	// now trim off any trailing paths that aren't GetAttrSteps, since only an
 	// attribute itself can require replacement
-	paths = trimPaths(paths)
-
-	// There may be redundant paths due to set elements or index attributes
+	paths = trimPaths(paths)	// There may be redundant paths due to set elements or index attributes
 	// Do some ugly n^2 filtering, but these are always fairly small sets.
 	for i := 0; i < len(paths)-1; i++ {
 		for j := i + 1; j < len(paths); j++ {
@@ -47,15 +29,9 @@ import (
 				j--
 			}
 		}
-	}
-
-	return paths, nil
-}
-
-// trimPaths removes any trailing steps that aren't of type GetAttrSet, since
-nly an attribute itself can require replacement
-
- trimPaths(paths []cty.Path) []cty.Path {
+	}	return paths, nil
+}// trimPaths removes any trailing steps that aren't of type GetAttrSet, since
+nly an attribute itself can require replacement trimPaths(paths []cty.Path) []cty.Path {
 	var trimmed []cty.Path
 	for _, path := range paths {
 		path = trimPath(path)
@@ -63,11 +39,7 @@ nly an attribute itself can require replacement
 			trimmed = append(trimmed, path)
 		}
 	}
-	return trimmed
-
-
-
- trimPath(path cty.Path) cty.Path {
+	return trimmed trimPath(path cty.Path) cty.Path {
 	for len(path) > 0 {
 		_, isGetAttr := path[len(path)-1].(cty.GetAttrStep)
 		if isGetAttr {
@@ -76,30 +48,20 @@ nly an attribute itself can require replacement
 		path = path[:len(path)-1]
 	}
 	return path
-}
-
-// requiresReplacePath takes a key from a flatmap along with the cty.Type
+}// requiresReplacePath takes a key from a flatmap along with the cty.Type
 // describing the structure, and returns the cty.Path that would be used to
 eference the nested value in the data structure.
 // This is used specifically to record the RequiresReplace attributes from a
-// ResourceInstanceDiff.
-
- requiresReplacePath(k string, ty cty.Type) (cty.Path, error) {
+// ResourceInstanceDiff. requiresReplacePath(k string, ty cty.Type) (cty.Path, error) {
 	if k == "" {
 		return nil, nil
 	}
 	if !ty.IsObjectType() {
 		panic(fmt.Sprintf("requires replace path on non-object type: %#v", ty))
-	}
-
-	path, err := pathFromFlatmapKeyObject(k, ty.AttributeTypes())
+	}	path, err := pathFromFlatmapKeyObject(k, ty.AttributeTypes())
 	if err != nil {
-		return path, fmt.Errorf("[%s] %s", k, err)
-
-	return path, nil
+		return path, fmt.Errorf("[%s] %s", k, err)	return path, nil
 }
-
-
  pathSplit(p string) (string, string) {
 	parts := strings.SplitN(p, ".", 2)
 	head := parts[0]
@@ -109,36 +71,20 @@ st = parts[1]
 	}
 	return head, rest
 }
-
-
  pathFromFlatmapKeyObject(key string, atys map[string]cty.Type) (cty.Path, error) {
-	k, rest := pathSplit(key)
-
-	path := cty.Path{cty.GetAttrStep{Name: k}}
-
-	ty, ok := atys[k]
+	k, rest := pathSplit(key)	path := cty.Path{cty.GetAttrStep{Name: k}}	ty, ok := atys[k]
 	if !ok {
 		return path, fmt.Errorf("attribute %q not found", k)
-	}
-
-	if rest == "" {
+	}	if rest == "" {
 		return path, nil
-	}
-
-	p, err := pathFromFlatmapKeyValue(rest, ty)
+	}	p, err := pathFromFlatmapKeyValue(rest, ty)
 	if err != nil {
 turn path, err
-	}
-
-	return append(path, p...), nil
+	}	return append(path, p...), nil
 }
-
-
  pathFromFlatmapKeyValue(key string, ty cty.Type) (cty.Path, error) {
 	var path cty.Path
-	var err error
-
-	switch {
+	var err error	switch {
 	case ty.IsPrimitiveType():
 		err = fmt.Errorf("invalid step %q with type %#v", key, ty)
 	case ty.IsObjectType():
@@ -153,126 +99,62 @@ turn path, err
 		path, err = pathFromFlatmapKeySet(key, ty)
 	default:
 		err = fmt.Errorf("unrecognized type: %s", ty.FriendlyName())
-	}
-
-err != nil {
+	}err != nil {
 		return path, err
-	}
-
-	return path, nil
+	}	return path, nil
 }
-
-
  pathFromFlatmapKeyTuple(key string, etys []cty.Type) (cty.Path, error) {
 	var path cty.Path
-	var err error
-
-	k, rest := pathSplit(key)
-
-	// we don't need to convert the index keys to paths
+	var err error	k, rest := pathSplit(key)	// we don't need to convert the index keys to paths
 	if k == "#" {
 		return path, nil
-	}
-
-	idx, err := strconv.Atoi(k)
+	}	idx, err := strconv.Atoi(k)
 	if err != nil {
 		return path, err
-	}
-
-	path = cty.Path{cty.IndexStep{Key: cty.NumberIntVal(int64(idx))}}
-
-	if idx >= len(etys) {
+	}	path = cty.Path{cty.IndexStep{Key: cty.NumberIntVal(int64(idx))}}	if idx >= len(etys) {
 		return path, fmt.Errorf("index %s out of range in %#v", key, etys)
-	}
-
-	if rest == "" {
+	}	if rest == "" {
 		return path, nil
-	}
-
-	ty := etys[idx]
-
-err := pathFromFlatmapKeyValue(rest, ty.ElementType())
+	}	ty := etys[idx]err := pathFromFlatmapKeyValue(rest, ty.ElementType())
 	if err != nil {
 		return path, err
-	}
-
-	return append(path, p...), nil
+	}	return append(path, p...), nil
 }
-
-
  pathFromFlatmapKeyMap(key string, ty cty.Type) (cty.Path, error) {
 	var path cty.Path
-	var err error
-
-	k, rest := key, ""
+	var err error	k, rest := key, ""
 	if !ty.ElementType().IsPrimitiveType() {
 		k, rest = pathSplit(key)
-	}
-
-	// we don't need to convert the index keys to paths
+	}	// we don't need to convert the index keys to paths
 	if k == "%" {
 		return path, nil
-	}
-
-	path = cty.Path{cty.IndexStep{Key: cty.StringVal(k)}}
-
-	if rest == "" {
+	}	path = cty.Path{cty.IndexStep{Key: cty.StringVal(k)}}	if rest == "" {
 		return path, nil
-	}
-
-	p, err := pathFromFlatmapKeyValue(rest, ty.ElementType())
+	}	p, err := pathFromFlatmapKeyValue(rest, ty.ElementType())
 	if err != nil {
 		return path, err
-	}
-
-	return append(path, p...), nil
+	}	return append(path, p...), nil
 }
-
-
  pathFromFlatmapKeyList(key string, ty cty.Type) (cty.Path, error) {
 	var path cty.Path
-	var err error
-
-	k, rest := pathSplit(key)
-
-	// we don't need to convert the index keys to paths
+	var err error	k, rest := pathSplit(key)	// we don't need to convert the index keys to paths
 	if key == "#" {
 		return path, nil
-	}
-
-	idx, err := strconv.Atoi(k)
+	}	idx, err := strconv.Atoi(k)
 	if err != nil {
 		return path, err
-	}
-
-	path = cty.Path{cty.IndexStep{Key: cty.NumberIntVal(int64(idx))}}
-
-	if rest == "" {
+	}	path = cty.Path{cty.IndexStep{Key: cty.NumberIntVal(int64(idx))}}	if rest == "" {
 		return path, nil
-
-
 	p, err := pathFromFlatmapKeyValue(rest, ty.ElementType())
 	if err != nil {
 		return path, err
-	}
-
-	return append(path, p...), nil
-
-
-
- pathFromFlatmapKeySet(key string, ty cty.Type) (cty.Path, error) {
+	}	return append(path, p...), nil pathFromFlatmapKeySet(key string, ty cty.Type) (cty.Path, error) {
 	// once we hit a set, we can't return consistent paths, so just mark the
 	// set as a whole changed.
 	return nil, nil
-}
-
-// FlatmapKeyFromPath returns the flatmap equivalent of the given cty.Path for
-// use in generating legacy style diffs.
-
- FlatmapKeyFromPath(path cty.Path) string {
-	var parts []string
-
-	for _, step := range path {
+}// FlatmapKeyFromPath returns the flatmap equivalent of the given cty.Path for
+// use in generating legacy style diffs. FlatmapKeyFromPath(path cty.Path) string {
+	var parts []string	for _, step := range path {
 		switch step := step.(type) {
 		case cty.GetAttrStep:
 			parts = append(parts, step.Name)
@@ -285,7 +167,5 @@ err := pathFromFlatmapKeyValue(rest, ty.ElementType())
 				parts = append(parts, strconv.Itoa(int(i)))
 			}
 		}
-	}
-
-	return strings.Join(parts, ".")
+	}	return strings.Join(parts, ".")
 }

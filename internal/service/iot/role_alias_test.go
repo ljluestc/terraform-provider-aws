@@ -28,7 +28,7 @@ func TestAccIoTRoleAlias_basic(t *testing.T) {
 	resourceName2 := "aws_iot_role_alias.ra2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iot.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckRoleAliasDestroy(ctx),
@@ -75,8 +75,8 @@ func TestAccIoTRoleAlias_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName2,
-				ImportState:       true,
+				ResourceName:  resourceName2,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -140,11 +140,11 @@ resource "aws_iam_role" "role" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "credentials.iot.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+  "Service": "credentials.iot.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
   }
 }
 EOF
@@ -152,7 +152,7 @@ EOF
 }
 
 resource "aws_iot_role_alias" "ra" {
-  alias    = "%s"
+  alias= "%s"
   role_arn = aws_iam_role.role.arn
 }
 `, alias)
@@ -167,11 +167,11 @@ resource "aws_iam_role" "role" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "credentials.iot.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+  "Service": "credentials.iot.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
   }
 }
 EOF
@@ -180,12 +180,12 @@ EOF
 
 resource "aws_iot_role_alias" "ra" {
   alias  = "%s"
-  role_arn            = aws_iam_role.role.arn
+  role_arn   = aws_iam_role.role.arn
   credential_duration = 43200
 }
 
 resource "aws_iot_role_alias" "ra2" {
-  alias    = "%s"
+  alias= "%s"
   role_arn = aws_iam_role.role.arn
 }
 `, alias, alias2)
@@ -200,11 +200,11 @@ resource "aws_iam_role" "role" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "credentials.iot.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+  "Service": "credentials.iot.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
   }
 }
 EOF
@@ -212,7 +212,7 @@ EOF
 }
 
 resource "aws_iot_role_alias" "ra2" {
-  alias    = "%s"
+  alias= "%s"
   role_arn = aws_iam_role.role.arn
 }
 `, alias2)
@@ -227,11 +227,11 @@ resource "aws_iam_role" "role" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "credentials.iot.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+  "Service": "credentials.iot.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
   }
 }
 EOF
@@ -239,12 +239,12 @@ EOF
 }
 
 resource "aws_iot_role_alias" "ra2" {
-  alias    = "%s"
+  alias= "%s"
   role_arn = aws_iam_role.role.arn
 }
 
 resource "aws_iot_role_alias" "ra3" {
-  alias    = "%s"
+  alias= "%s"
   role_arn = aws_iam_role.role.arn
 }
 `, alias2, alias2)
@@ -259,11 +259,11 @@ resource "aws_iam_role" "role" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "credentials.iot.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+  "Service": "credentials.iot.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
   }
 }
 EOF
@@ -277,11 +277,11 @@ resource "aws_iam_role" "role2" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "credentials.iot.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+  "Service": "credentials.iot.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
   }
 }
 EOF
@@ -289,7 +289,7 @@ EOF
 }
 
 resource "aws_iot_role_alias" "ra2" {
-  alias    = "%s"
+  alias= "%s"
   role_arn = aws_iam_role.role2.arn
 }
 `, alias2)
@@ -304,11 +304,11 @@ resource "aws_iam_role" "role" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "credentials.iot.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+  "Service": "credentials.iot.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
   }
 }
 EOF
@@ -322,11 +322,11 @@ resource "aws_iam_role" "role2" {
 {
   "Version": "2012-10-17",
   "Statement": {
-    "Effect": "Allow",
-    "Principal": {
-      "Service": "credentials.iot.amazonaws.com"
-    },
-    "Action": "sts:AssumeRole"
+"Effect": "Allow",
+"Principal": {
+  "Service": "credentials.iot.amazonaws.com"
+},
+"Action": "sts:AssumeRole"
   }
 }
 EOF
@@ -334,7 +334,7 @@ EOF
 }
 
 resource "aws_iot_role_alias" "ra2" {
-  alias    = "%s"
+  alias= "%s"
   role_arn = "${aws_iam_role.role.arn}bogus"
 }
 `, alias2)

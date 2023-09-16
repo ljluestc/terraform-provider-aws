@@ -29,10 +29,10 @@ func TestAccElasticTranscoderPipeline_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:    testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPipelineConfig_basic(rName),
@@ -58,10 +58,10 @@ func TestAccElasticTranscoderPipeline_kmsKey(t *testing.T) {
 	keyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:    testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPipelineConfig_kmsKey(rName),
@@ -87,10 +87,10 @@ func TestAccElasticTranscoderPipeline_notifications(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:    testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPipelineConfig_notifications(rName),
@@ -157,10 +157,10 @@ func TestAccElasticTranscoderPipeline_withContent(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:    testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPipelineConfig_content(rName),
@@ -191,10 +191,10 @@ func TestAccElasticTranscoderPipeline_withPermissions(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:    testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPipelineConfig_perms(rName),
@@ -218,10 +218,10 @@ func TestAccElasticTranscoderPipeline_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elastictranscoder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+		CheckDestroy:    testAccCheckPipelineDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPipelineConfig_basic(rName),
@@ -310,8 +310,8 @@ func testAccPipelineConfig_basic(rName string) string {
 resource "aws_elastictranscoder_pipeline" "test" {
   input_bucket  = aws_s3_bucket.test.bucket
   output_bucket = aws_s3_bucket.test.bucket
-  name          = %[1]q
-  role          = aws_iam_role.test.arn
+  name = %[1]q
+  role = aws_iam_role.test.arn
 }
 
 resource "aws_iam_role" "test" {
@@ -366,8 +366,8 @@ POLICY
 resource "aws_elastictranscoder_pipeline" "test" {
   input_bucket    = aws_s3_bucket.test.bucket
   output_bucket   = aws_s3_bucket.test.bucket
-  name            = %[1]q
-  role            = aws_iam_role.test.arn
+  name   = %[1]q
+  role   = aws_iam_role.test.arn
   aws_kms_key_arn = aws_kms_key.test.arn
 }
 
@@ -401,8 +401,8 @@ func testAccPipelineConfig_content(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elastictranscoder_pipeline" "test" {
   input_bucket = aws_s3_bucket.content_bucket.bucket
-  name         = %[1]q
-  role         = aws_iam_role.test.arn
+  name= %[1]q
+  role= aws_iam_role.test.arn
 
   content_config {
     bucket        = aws_s3_bucket.content_bucket.bucket
@@ -453,8 +453,8 @@ func testAccPipelineConfig_contentUpdate(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elastictranscoder_pipeline" "test" {
   input_bucket = aws_s3_bucket.input_bucket.bucket
-  name         = %[1]q
-  role         = aws_iam_role.test.arn
+  name= %[1]q
+  role= aws_iam_role.test.arn
 
   content_config {
     bucket        = aws_s3_bucket.content_bucket.bucket
@@ -505,8 +505,8 @@ func testAccPipelineConfig_perms(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_elastictranscoder_pipeline" "test" {
   input_bucket = aws_s3_bucket.test.bucket
-  name         = %[1]q
-  role         = aws_iam_role.test.arn
+  name= %[1]q
+  role= aws_iam_role.test.arn
 
   content_config {
     bucket        = aws_s3_bucket.test.bucket
@@ -562,8 +562,8 @@ func testAccPipelineConfig_notifications(rName string) string {
 resource "aws_elastictranscoder_pipeline" "test" {
   input_bucket  = aws_s3_bucket.test.bucket
   output_bucket = aws_s3_bucket.test.bucket
-  name          = %[1]q
-  role          = aws_iam_role.test.arn
+  name = %[1]q
+  role = aws_iam_role.test.arn
 
   notifications {
     completed = aws_sns_topic.test.arn
@@ -622,8 +622,8 @@ func testAccPipelineConfig_notificationsUpdate(rName string) string {
 resource "aws_elastictranscoder_pipeline" "test" {
   input_bucket  = aws_s3_bucket.test.bucket
   output_bucket = aws_s3_bucket.test.bucket
-  name          = %[1]q
-  role          = aws_iam_role.test.arn
+  name = %[1]q
+  role = aws_iam_role.test.arn
 
   notifications {
     completed = aws_sns_topic.test.arn

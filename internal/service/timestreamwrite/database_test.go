@@ -26,10 +26,10 @@ func TestAccTimestreamWriteDatabase_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:    testAccCheckDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDatabaseConfig_basic(rName),
@@ -56,10 +56,10 @@ func TestAccTimestreamWriteDatabase_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:    testAccCheckDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDatabaseConfig_basic(rName),
@@ -80,10 +80,10 @@ func TestAccTimestreamWriteDatabase_kmsKey(t *testing.T) {
 	kmsResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:    testAccCheckDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDatabaseConfig_kmsKey(rName),
@@ -109,10 +109,10 @@ func TestAccTimestreamWriteDatabase_updateKMSKey(t *testing.T) {
 	kmsResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:    testAccCheckDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDatabaseConfig_basic(rName),
@@ -150,10 +150,10 @@ func TestAccTimestreamWriteDatabase_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.TimestreamWriteEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDatabaseDestroy(ctx),
+		CheckDestroy:    testAccCheckDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDatabaseConfig_tags1(rName, "key1", "value1"),

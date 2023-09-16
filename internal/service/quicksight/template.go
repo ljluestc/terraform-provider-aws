@@ -257,7 +257,7 @@ return diag.FromErr(err)
 
 	if d.HasChangesExcept("permissions", "tags", "tags_all") {
 in := &quicksight.UpdateTemplateInput{
-	AwsAccountId:       aws.String(awsAccountId),
+	AwsAccountId: aws.String(awsAccountId),
 	TemplateId:aws.String(templateId),
 	Name:aws.String(d.Get("name").(string)),
 	VersionDescription: aws.String(d.Get("version_description").(string)),

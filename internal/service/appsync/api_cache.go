@@ -31,37 +31,36 @@ func ResourceAPICache() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"api_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"api_caching_behavior": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(appsync.ApiCachingBehavior_Values(), false),
 			},
 			"type": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(appsync.ApiCacheType_Values(), false),
 			},
 			"ttl": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Required: true,
 			},
 			"at_rest_encryption_enabled": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 			},
 			"transit_encryption_enabled": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 			},
 		},
 	}
 }
-
 func resourceAPICacheCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -96,7 +95,6 @@ func resourceAPICacheCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceAPICacheRead(ctx, d, meta)...)
 }
-
 func resourceAPICacheRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -121,7 +119,6 @@ func resourceAPICacheRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
-
 func resourceAPICacheUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)
@@ -153,7 +150,6 @@ func resourceAPICacheUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceAPICacheRead(ctx, d, meta)...)
 }
-
 func resourceAPICacheDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AppSyncConn(ctx)

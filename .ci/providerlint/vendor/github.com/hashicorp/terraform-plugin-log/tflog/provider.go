@@ -1,35 +1,19 @@
-package tflog
-
-import (
+package tflogimport (
 	"context"
-	"regexp"
-
-	"github.com/hashicorp/terraform-plugin-log/internal/logging"
-)
-
-// SetField returns a new context.Context that has a modified logger in it which
+	"regexp"	"github.com/hashicorp/terraform-plugin-log/internal/logging"
+)// SetField returns a new context.Context that has a modified logger in it which
 // will include key and value as fields in all its log output.
 //
 // In case of the same key is used multiple times (i.e. key collision),
-// the last one set is the one that gets persisted and then outputted with the logs.
-
- SetField(ctx context.Context, key string, value interface{}) context.Context {
-	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)
-
-	// Copy to prevent slice/map aliasing issues.
+// the last one set is the one that gets persisted and then outputted with the logs. SetField(ctx context.Context, key string, value interface{}) context.Context {
+	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)	// Copy to prevent slice/map aliasing issues.
 	// Reference: https://github.com/hashicorp/terraform-plugin-log/issues/131
-	lOpts = logging.WithField(key, value)(lOpts.Copy())
-
-	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
-}
-
-// Trace logs `msg` at the trace level to the logger in `ctx`, with optional
+	lOpts = logging.WithField(key, value)(lOpts.Copy())	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
+}// Trace logs `msg` at the trace level to the logger in `ctx`, with optional
 // `additionalFields` structured key-value fields in the log output. Fields
 // shallow merged with any defined on the logger, e.g. by the `SetField()` 
 ,
-// and across multiple maps.
-
- Trace(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
+// and across multiple maps. Trace(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
 	logger := logging.GetProviderRootLogger(ctx)
 	if logger == nil {
 		// this essentially should never happen in production
@@ -38,23 +22,15 @@ import (
 		// really this is only likely in unit tests, at most
 		// so just making this a no-op is fine
 		return
-	}
-
-	additionalArgs, shouldOmit := logging.OmitOrMask(logging.GetProviderRootTFLoggerOpts(ctx), &msg, additionalFields)
+	}	additionalArgs, shouldOmit := logging.OmitOrMask(logging.GetProviderRootTFLoggerOpts(ctx), &msg, additionalFields)
 	if shouldOmit {
 		return
-	}
-
-	logger.Trace(msg, additionalArgs...)
-}
-
-// Debug logs `msg` at the debug level to the logger in `ctx`, with optional
+	}	logger.Trace(msg, additionalArgs...)
+}// Debug logs `msg` at the debug level to the logger in `ctx`, with optional
 additionalFields` structured key-value fields in the log output. Fields are
 // shallow merged with any defined on the logger, e.g. by the `SetField()` 
 tion,
-// and across multiple maps.
-
- Debug(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
+// and across multiple maps. Debug(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
 	logger := logging.GetProviderRootLogger(ctx)
 	if logger == nil {
 		// this essentially should never happen in production
@@ -63,23 +39,15 @@ tion,
 		// really this is only likely in unit tests, at most
 		// so just making this a no-op is fine
 		return
-	}
-
-	additionalArgs, shouldOmit := logging.OmitOrMask(logging.GetProviderRootTFLoggerOpts(ctx), &msg, additionalFields)
+	}	additionalArgs, shouldOmit := logging.OmitOrMask(logging.GetProviderRootTFLoggerOpts(ctx), &msg, additionalFields)
 	if shouldOmit {
 		return
-	}
-
-	logger.Debug(msg, additionalArgs...)
-}
-
-// Info logs `msg` at the info level to the logger in `ctx`, with optional
+	}	logger.Debug(msg, additionalArgs...)
+}// Info logs `msg` at the info level to the logger in `ctx`, with optional
 // `additionalFields` structured key-value fields in the log output. Fields are
 // shallow merged with any defined on the logger, e.g. by the `SetField()` 
 tion,
-// and across multiple maps.
-
- Info(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
+// and across multiple maps. Info(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
 	logger := logging.GetProviderRootLogger(ctx)
 	if logger == nil {
 		// this essentially should never happen in production
@@ -88,23 +56,15 @@ tion,
 		// really this is only likely in unit tests, at most
 		// so just making this a no-op is fine
 		return
-	}
-
-	additionalArgs, shouldOmit := logging.OmitOrMask(logging.GetProviderRootTFLoggerOpts(ctx), &msg, additionalFields)
+	}	additionalArgs, shouldOmit := logging.OmitOrMask(logging.GetProviderRootTFLoggerOpts(ctx), &msg, additionalFields)
 	if shouldOmit {
 		return
-	}
-
-ger.Info(msg, additionalArgs...)
-}
-
-// Warn logs `msg` at the warn level to the logger in `ctx`, with optional
+	}ger.Info(msg, additionalArgs...)
+}// Warn logs `msg` at the warn level to the logger in `ctx`, with optional
 // `additionalFields` structured key-value fields in the log output. Fields are
 // shallow merged with any defined on the logger, e.g. by the `SetField()` 
 tion,
-// and across multiple maps.
-
- Warn(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
+// and across multiple maps. Warn(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
 	logger := logging.GetProviderRootLogger(ctx)
 	if logger == nil {
 		// this essentially should never happen in production
@@ -113,23 +73,15 @@ tion,
 		// really this is only likely in unit tests, at most
 		// so just making this a no-op is fine
 		return
-	}
-
-	additionalArgs, shouldOmit := logging.OmitOrMask(logging.GetProviderRootTFLoggerOpts(ctx), &msg, additionalFields)
+	}	additionalArgs, shouldOmit := logging.OmitOrMask(logging.GetProviderRootTFLoggerOpts(ctx), &msg, additionalFields)
 	if shouldOmit {
 		return
-
-
 	logger.Warn(msg, additionalArgs...)
-}
-
-// Error logs `msg` at the error level to the logger in `ctx`, with optional
+}// Error logs `msg` at the error level to the logger in `ctx`, with optional
 // `additionalFields` structured key-value fields in the log output. Fields are
 // shallow merged with any defined on the logger, e.g. by the `SetField()` 
 tion,
-// and across multiple maps.
-
- Error(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
+// and across multiple maps. Error(ctx context.Context, msg string, additionalFields ...map[string]interface{}) {
 	logger := logging.GetProviderRootLogger(ctx)
 	if logger == nil {
 		// this essentially should never happen in production
@@ -138,21 +90,13 @@ tion,
 		// really this is only likely in unit tests, at most
 		// so just making this a no-op is fine
 		return
-	}
-
-	additionalArgs, shouldOmit := logging.OmitOrMask(logging.GetProviderRootTFLoggerOpts(ctx), &msg, additionalFields)
+	}	additionalArgs, shouldOmit := logging.OmitOrMask(logging.GetProviderRootTFLoggerOpts(ctx), &msg, additionalFields)
 	if shouldOmit {
 		return
-	}
-
-	logger.Error(msg, additionalArgs...)
-}
-
-// OmitLogWithFieldKeys returns a new context.Context that has a modified logger
+	}	logger.Error(msg, additionalArgs...)
+}// OmitLogWithFieldKeys returns a new context.Context that has a modified logger
 // that will omit to write any log when any of the given keys is found
-// within its fields.
-
-// Each call to this 
+// within its fields.// Each call to this 
 tion is additive:
 // the keys to omit by are added to the existing configuration.
 //
@@ -161,20 +105,12 @@ tion is additive:
 //	configuration = `['foo', 'baz']`
 //
 //	log1 = `{ msg = "...", fields = { 'foo': '...', 'bar': '...' }`  -> omitted
-//	log2 = `{ msg = "...", fields = { 'bar': '...' }`                -> printed
-//	log3 = `{ msg = "...", fields = { 'baz': '...', 'boo': '...' }`  -> omitted
-
- OmitLogWithFieldKeys(ctx context.Context, keys ...string) context.Context {
-	lOpts := logging.GetiderRootTFLoggerOpts(ctx)
-
-	// Copy to prevent slice/map aliasing issues.
+//	log2 = `{ msg = "...", fields = { 'bar': '...' }`       -> printed
+//	log3 = `{ msg = "...", fields = { 'baz': '...', 'boo': '...' }`  -> omitted OmitLogWithFieldKeys(ctx context.Context, keys ...string) context.Context {
+	lOpts := logging.GetiderRootTFLoggerOpts(ctx)	// Copy to prevent slice/map aliasing issues.
 	// Reference: https://github.com/hashicorp/terraform-plugin-log/issues/131
-	lOpts = logging.WithOmitLogWithFieldKeys(keys...)(lOpts.Copy())
-
-	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
-}
-
-// OmitLogWithMessageRegexes returns a new context.Context that has a modified logger
+	lOpts = logging.WithOmitLogWithFieldKeys(keys...)(lOpts.Copy())	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
+}// OmitLogWithMessageRegexes returns a new context.Context that has a modified logger
 hat will omit to write any log that has a message matching any of the
 // given *regexp.Regexp.
 //
@@ -188,18 +124,10 @@ tion is additive:
 //
 //	log1 = `{ msg = "banana apple foo", fields = {...}`     -> omitted
 //	log2 = `{ msg = "pineapple mango", fields = {...}`      -> printed
-//	log3 = `{ msg = "ppple mango bar", fields = {...}`  -> omitted
-
- OmitLogWithMessageRegexes(ctx context.Context, expressions ...*regexp.Regexp) context.Context {
-	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)
-
-	// Copy to prevent slice/map aliasing issues.
+//	log3 = `{ msg = "ppple mango bar", fields = {...}`  -> omitted OmitLogWithMessageRegexes(ctx context.Context, expressions ...*regexp.Regexp) context.Context {
+	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)	// Copy to prevent slice/map aliasing issues.
 	// Reference: https://github.com/hashicorp/terraform-plugin-log/issues/131
-	lOpts = logging.WithOmitLogWithMessageRegexes(expressions...)(lOpts.Copy())
-
-	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
-
-
+	lOpts = logging.WithOmitLogWithMessageRegexes(expressions...)(lOpts.Copy())	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
 // OmitLogWithMessageStrings  returns a new context.Context that has a modified logger
 // that will omit to write any log that matches any of the given string.
 //
@@ -213,19 +141,11 @@ tion is additive:
 //
 //	log1 = `{ msg = "banana apple foo", fields = {...}`     -> omitted
 //	log2 = `{ msg = "ppple mango", fields = {...}`      -> printed
-//	log3 = `{ msg = "pineapple mango bar", fields = {...}`  -> omitted
-
- OmitLogWithMessageStrings(ctx context.Context, matchingStrings ...string) context.Context {
-	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)
-
-	// Copy to prevent slice/map aliasing issues.
+//	log3 = `{ msg = "pineapple mango bar", fields = {...}`  -> omitted OmitLogWithMessageStrings(ctx context.Context, matchingStrings ...string) context.Context {
+	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)	// Copy to prevent slice/map aliasing issues.
 	// Reference: https://github.com/hashicorp/terraform-plugin-log/issues/131
-	lOpts = logging.WithOmitLogWithMessageStrings(matchingStrings...)(lOpts.Copy())
-
-urn logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
-}
-
-// MaskFieldValuesWithFieldKeys returns a new context.Context that has a modified logger
+	lOpts = logging.WithOmitLogWithMessageStrings(matchingStrings...)(lOpts.Copy())urn logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
+}// MaskFieldValuesWithFieldKeys returns a new context.Context that has a modified logger
 // that masks (replaces) with asterisks (`***`) any field value where the
 // key matches one of the given keys.
 //
@@ -238,20 +158,12 @@ tion is additive:
 //	configuration = `['foo', 'baz']`
 //
 //	log1 = `{ msg = "...", fields = { 'foo': '***', 'bar': '...' }`  -> masked value
-//	log2 = `{ msg = ". fields = { 'bar': '...' }`                -> as-is value
-//	log3 = `{ msg = "...", fields = { 'baz': '***', 'boo': '...' }`  -> masked value
-
- MaskFieldValuesWithFieldKeys(ctx context.Context, keys ...string) context.Context {
-	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)
-
-	// Copy to prevent slice/map aliasing issues.
+//	log2 = `{ msg = ". fields = { 'bar': '...' }`       -> as-is value
+//	log3 = `{ msg = "...", fields = { 'baz': '***', 'boo': '...' }`  -> masked value MaskFieldValuesWithFieldKeys(ctx context.Context, keys ...string) context.Context {
+	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)	// Copy to prevent slice/map aliasing issues.
 	// Reference: https://github.com/hashicorp/terraform-plugin-log/issues/131
-	lOpts = logging.WithMaskFieldValuesWithFieldKeys(keys...)(lOpts.Copy())
-
-urn logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
-}
-
-// MaskAllFieldValuesRegexes returns a new context.Context that has a modified logger
+	lOpts = logging.WithMaskFieldValuesWithFieldKeys(keys...)(lOpts.Copy())urn logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
+}// MaskAllFieldValuesRegexes returns a new context.Context that has a modified logger
 // that masks (replaces) with asterisks (`***`) all field value substrings,
 // matching one of the given *regexp.Regexp.
 //
@@ -267,19 +179,11 @@ tion is additive:
 //
 //	log1 = `{ msg = "...", fields = { 'k1': '***', 'k2': '***', 'k3': 'baz' }`  -> masked value
 //	log2 = `{ msg = "...", fields = { 'k1': 'boo', 'k2': 'far', 'k3': 'baz' }`  -> as-is value
-//	log2 = `{ msg = "...", fields = { 'k1': '*** *** baz' }`                    -> masked value
-
- MaskAllFieldValuesRegexes(ctx context.Context, expressions ...*regexp.Regexp) context.Context {
-	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)
-
-	// Copy to prevent slice/map aliasing issues.
+//	log2 = `{ msg = "...", fields = { 'k1': '*** *** baz' }`  -> masked value MaskAllFieldValuesRegexes(ctx context.Context, expressions ...*regexp.Regexp) context.Context {
+	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)	// Copy to prevent slice/map aliasing issues.
 	// Reference: https://github.com/hashicorp/terraform-plugin-log/issues/131
-ts = logging.WithMaskAllFieldValuesRegexes(expressions...)(lOpts.Copy())
-
-	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
-}
-
-// MaskAllFieldValuesStrings returns a new context.Context that has a modified logger
+ts = logging.WithMaskAllFieldValuesRegexes(expressions...)(lOpts.Copy())	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
+}// MaskAllFieldValuesStrings returns a new context.Context that has a modified logger
 // that masks (replaces) with asterisks (`***`) all field value substrings,
 // equal to one of the given strings.
 //
@@ -295,19 +199,11 @@ tion is additive:
 //
 //	log1 = `{ msg = "...", fields = { 'k1': '***', 'k2': '***', 'k3': 'baz' }`  -> masked value
 //	log2 = `{ msg = "...", fields = { 'k1': 'boo', 'k2': 'far', 'k3': 'baz' }`  -> as-is value
-//	log2 = `{ msg = "...", fields = { 'k1': '*** *** baz' }`                    -> masked value
-
- MaskAllFieldValuesStrings(ctx context.Context, matchingStrings ...string) context.Context {
-ts := logging.GetProviderRootTFLoggerOpts(ctx)
-
-	// Copy to prevent slice/map aliasing issues.
+//	log2 = `{ msg = "...", fields = { 'k1': '*** *** baz' }`  -> masked value MaskAllFieldValuesStrings(ctx context.Context, matchingStrings ...string) context.Context {
+ts := logging.GetProviderRootTFLoggerOpts(ctx)	// Copy to prevent slice/map aliasing issues.
 	// Reference: https://github.com/hashicorp/terraform-plugin-log/issues/131
-	lOpts = logging.WithMaskAllFieldValuesStrings(matchingStrings...)(lOpts.Copy())
-
-	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
-}
-
-// MaskMessageRegexes returns a new context.Context that has a modified logger
+	lOpts = logging.WithMaskAllFieldValuesStrings(matchingStrings...)(lOpts.Copy())	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
+}// MaskMessageRegexes returns a new context.Context that has a modified logger
 // that masks (replaces) with asterisks (`***`) all message substrings,
 // matching one of the given *regexp.Regexp.
 //
@@ -321,56 +217,32 @@ tion is additive:
 //
 //	log1 = `{ msg = "banana apple ***", fields = {...}`     -> masked portion
 //	log2 = `{ msg = "pineapple mango", fields = {...}`      -> as-is
-//	log3 = `{ msg = "pineapple mango ***", fields = {...}`  -> masked portion
-
- MaskMessageRegexes(ctx context.Context, expressions ...*regexp.Regexp) context.Context {
-	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)
-
-	// Copy to prevent slice/map aliasing issues.
+//	log3 = `{ msg = "pineapple mango ***", fields = {...}`  -> masked portion MaskMessageRegexes(ctx context.Context, expressions ...*regexp.Regexp) context.Context {
+	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)	// Copy to prevent slice/map aliasing issues.
 	// Reference: https://github.com/hashicorp/terraform-plugin-log/issues/131
-	lOpts = logging.WithMaskMessageRegexes(expressions...)(lOpts.Copy())
-
-	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
-}
-
-// MaskMessageStrireturns a new context.Context that has a modified logger
+	lOpts = logging.WithMaskMessageRegexes(expressions...)(lOpts.Copy())	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
+}// MaskMessageStrireturns a new context.Context that has a modified logger
 hat masks (replace) with asterisks (`***`) all message substrings,
 // equal to one of the given strings.
 //
 // Each call to this 
 tion is additive:
-// the string to mby are added to the existing configuration.
-
-// Example:
+// the string to mby are added to the existing configuration.// Example:
 //
 //	configuration = `['foo', 'bar']`
 //
 //	log1 = `{ msg = "banana apple ***", fields = { 'k1': 'foo, bar, baz' }`  -> masked portion
-//	log2 = `{ msg = "pineapple mango", fields = {...}`                       -> as-is
-//	log3 = `{ msg = "pineapple mango ***", fields = {...}`                   -> masked portion
-
- MaskMessageStrings(ctx context.Context, matchingStrings ...string) context.Context {
-	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)
-
-	// Copy to prevent slice/map aliasing issues.
+//	log2 = `{ msg = "pineapple mango", fields = {...}`     -> as-is
+//	log3 = `{ msg = "pineapple mango ***", fields = {...}` -> masked portion MaskMessageStrings(ctx context.Context, matchingStrings ...string) context.Context {
+	lOpts := logging.GetProviderRootTFLoggerOpts(ctx)	// Copy to prevent slice/map aliasing issues.
 	// Reference: https://github.com/hashicorp/terraform-plugin-log/issues/131
-	lOpts = logging.WithMaskMessageStrings(matchingStrings...)(lOpts.Copy())
-
-	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
-}
-
-// MaskLogRegexes is a shortcut to invoke MaskMessageRegexes and MaskAllFieldValuesRegexes using the same input.
+	lOpts = logging.WithMaskMessageStrings(matchingStrings...)(lOpts.Copy())	return logging.SetProviderRootTFLoggerOpts(ctx, lOpts)
+}// MaskLogRegexes is a shortcut to invoke MaskMessageRegexes and MaskAllFieldValuesRegexes using the same input.
 // Refer to those 
-tions for details.
-
- MaskLogRegexes(ctx context.Context, expressions ...*regexp.Regexp) context.Context {
+tions for details. MaskLogRegexes(ctx context.Context, expressions ...*regexp.Regexp) context.Context {
 	return MaskMessageRegexes(MaskAllFieldValuesRegexes(ctx, expressions...), expressions...)
-}
-
-// MaskLogStrings is a shortcut to invoke MaskMessageStrings and MaskAllFieldValuesStrings using the same input.
+}// MaskLogStrings is a shortcut to invoke MaskMessageStrings and MaskAllFieldValuesStrings using the same input.
 // Refer to those 
-tions for details.
-
- MaskLogStrings(ctx context.Context, matchingStrings ...string) context.Context {
+tions for details. MaskLogStrings(ctx context.Context, matchingStrings ...string) context.Context {
 	return MaskMessageStrings(MaskAllFieldValuesStrings(ctx, matchingStrings...), matchingStrings...)
 }

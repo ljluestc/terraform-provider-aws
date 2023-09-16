@@ -19,7 +19,7 @@ func TestAccEKSNodeGroupsDataSource_basic(t *testing.T) {
 	dataSourceResourceName := "data.aws_eks_node_groups.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, eks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckClusterDestroy(ctx),
@@ -52,40 +52,40 @@ data "aws_eks_node_groups" "test" {
 func testAccNodeGroupsDataSourceConfig_namesBasic(rName string) string {
 	return acctest.ConfigCompose(testAccNodeGroupBaseConfig(rName), fmt.Sprintf(`
 resource "aws_eks_node_group" "test_a" {
-  cluster_name    = aws_eks_cluster.test.name
+  cluster_name= aws_eks_cluster.test.name
   node_group_name = "%[1]s-test-a"
   node_role_arn   = aws_iam_role.node.arn
-  subnet_ids      = aws_subnet.test[*].id
+  subnet_ids = aws_subnet.test[*].id
 
   scaling_config {
-    desired_size = 1
-    max_size     = 1
-    min_size     = 1
+desired_size = 1
+max_size= 1
+min_size= 1
   }
 
   depends_on = [
-    "aws_iam_role_policy_attachment.node-AmazonEKSWorkerNodePolicy",
-    "aws_iam_role_policy_attachment.node-AmazonEKS_CNI_Policy",
-    "aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly",
+"aws_iam_role_policy_attachment.node-AmazonEKSWorkerNodePolicy",
+"aws_iam_role_policy_attachment.node-AmazonEKS_CNI_Policy",
+"aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly",
   ]
 }
 
 resource "aws_eks_node_group" "test_b" {
-  cluster_name    = aws_eks_cluster.test.name
+  cluster_name= aws_eks_cluster.test.name
   node_group_name = "%[1]s-test-b"
   node_role_arn   = aws_iam_role.node.arn
-  subnet_ids      = aws_subnet.test[*].id
+  subnet_ids = aws_subnet.test[*].id
 
   scaling_config {
-    desired_size = 1
-    max_size     = 1
-    min_size     = 1
+desired_size = 1
+max_size= 1
+min_size= 1
   }
 
   depends_on = [
-    "aws_iam_role_policy_attachment.node-AmazonEKSWorkerNodePolicy",
-    "aws_iam_role_policy_attachment.node-AmazonEKS_CNI_Policy",
-    "aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly",
+"aws_iam_role_policy_attachment.node-AmazonEKSWorkerNodePolicy",
+"aws_iam_role_policy_attachment.node-AmazonEKS_CNI_Policy",
+"aws_iam_role_policy_attachment.node-AmazonEC2ContainerRegistryReadOnly",
   ]
 }
 `, rName))

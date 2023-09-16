@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccKMSKeyDataSource_byKeyARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_key.test"
@@ -47,7 +46,6 @@ func TestAccKMSKeyDataSource_byKeyARN(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyDataSource_byKeyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_key.test"
@@ -82,7 +80,6 @@ func TestAccKMSKeyDataSource_byKeyID(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyDataSource_byAliasARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_key.test"
@@ -117,7 +114,6 @@ func TestAccKMSKeyDataSource_byAliasARN(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyDataSource_byAliasID(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_key.test"
@@ -157,7 +153,6 @@ func TestAccKMSKeyDataSource_byAliasID(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyDataSource_grantToken(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_key.test"
@@ -192,7 +187,6 @@ func TestAccKMSKeyDataSource_grantToken(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyDataSource_multiRegionConfigurationByARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_key.test"
@@ -232,7 +226,6 @@ func TestAccKMSKeyDataSource_multiRegionConfigurationByARN(t *testing.T) {
 		},
 	})
 }
-
 func TestAccKMSKeyDataSource_multiRegionConfigurationByID(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_kms_key.test"
@@ -272,7 +265,6 @@ func TestAccKMSKeyDataSource_multiRegionConfigurationByID(t *testing.T) {
 		},
 	})
 }
-
 func testAccKeyDataSourceConfig_byKeyARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -285,7 +277,6 @@ data "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyDataSourceConfig_byKeyID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -298,7 +289,6 @@ data "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyDataSourceConfig_byAliasARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -316,7 +306,6 @@ data "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyDataSourceConfig_byAliasID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -334,7 +323,6 @@ data "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyDataSourceConfig_grantToken(rName string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
@@ -350,7 +338,6 @@ data "aws_kms_key" "test" {
 }
 `, rName))
 }
-
 func testAccKeyDataSourceConfig_multiRegionByARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
@@ -364,7 +351,6 @@ data "aws_kms_key" "test" {
 }
 `, rName)
 }
-
 func testAccKeyDataSourceConfig_multiRegionByID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {

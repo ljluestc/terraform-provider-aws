@@ -318,7 +318,7 @@ func testAccCheckDatabaseLFTagsDestroy(ctx context.Context) resource.TestCheckFu
 			}
 
 			input := &lakeformation.GetResourceLFTagsInput{
-				Resource:           &lakeformation.Resource{},
+				Resource:  &lakeformation.Resource{},
 				ShowAssignedLFTags: aws.Bool(true),
 			}
 
@@ -425,7 +425,7 @@ func testAccCheckDatabaseLFTagsExists(ctx context.Context, resourceName string) 
 		}
 
 		input := &lakeformation.GetResourceLFTagsInput{
-			Resource:           &lakeformation.Resource{},
+			Resource:  &lakeformation.Resource{},
 			ShowAssignedLFTags: aws.Bool(true),
 		}
 
@@ -656,7 +656,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -718,7 +718,7 @@ resource "aws_lakeformation_resource_lf_tags" "database_tags" {
 resource "aws_lakeformation_resource_lf_tags" "table_tags" {
   table {
     database_name = aws_glue_catalog_database.test.name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
   }
 
   lf_tag {
@@ -733,7 +733,7 @@ resource "aws_lakeformation_resource_lf_tags" "table_tags" {
 resource "aws_lakeformation_resource_lf_tags" "column_tags" {
   table_with_columns {
     database_name = aws_glue_catalog_database.test.name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
     column_names  = ["event", "timestamp"]
   }
 
@@ -765,7 +765,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -797,7 +797,7 @@ resource "aws_lakeformation_lf_tag" "test" {
 resource "aws_lakeformation_resource_lf_tags" "test" {
   table {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
   }
 
   lf_tag {
@@ -828,7 +828,7 @@ resource "aws_glue_catalog_database" "test" {
 }
 
 resource "aws_glue_catalog_table" "test" {
-  name          = %[1]q
+  name = %[1]q
   database_name = aws_glue_catalog_database.test.name
 
   storage_descriptor {
@@ -868,7 +868,7 @@ resource "aws_lakeformation_lf_tag" "test2" {
 resource "aws_lakeformation_resource_lf_tags" "test" {
   table_with_columns {
     database_name = aws_glue_catalog_table.test.database_name
-    name          = aws_glue_catalog_table.test.name
+    name = aws_glue_catalog_table.test.name
     column_names  = ["event", "timestamp"]
   }
 

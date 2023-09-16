@@ -25,7 +25,7 @@ func TestAccCloudTrailEventDataStore_basic(t *testing.T) {
 	resourceName := "aws_cloudtrail_event_data_store.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEventDataStoreDestroy(ctx),
@@ -39,7 +39,7 @@ func TestAccCloudTrailEventDataStore_basic(t *testing.T) {
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.0.field_selector.*", map[string]string{
 						"equals.#": "1",
 						"equals.0": "Management",
-						"field":    "eventCategory",
+						"field":"eventCategory",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.0.name", "Default management events"),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "cloudtrail", regexache.MustCompile(`eventdatastore/.+`)),
@@ -52,8 +52,8 @@ func TestAccCloudTrailEventDataStore_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -67,7 +67,7 @@ func TestAccCloudTrailEventDataStore_kmsKeyId(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEventDataStoreDestroy(ctx),
@@ -84,8 +84,8 @@ func TestAccCloudTrailEventDataStore_kmsKeyId(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -98,7 +98,7 @@ func TestAccCloudTrailEventDataStore_disappears(t *testing.T) {
 	resourceName := "aws_cloudtrail_event_data_store.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEventDataStoreDestroy(ctx),
@@ -121,7 +121,7 @@ func TestAccCloudTrailEventDataStore_tags(t *testing.T) {
 	resourceName := "aws_cloudtrail_event_data_store.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEventDataStoreDestroy(ctx),
@@ -135,8 +135,8 @@ func TestAccCloudTrailEventDataStore_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -166,7 +166,7 @@ func TestAccCloudTrailEventDataStore_options(t *testing.T) {
 	resourceName := "aws_cloudtrail_event_data_store.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationManagementAccount(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationManagementAccount(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEventDataStoreDestroy(ctx),
@@ -182,8 +182,8 @@ func TestAccCloudTrailEventDataStore_options(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -206,7 +206,7 @@ func TestAccCloudTrailEventDataStore_advancedEventSelector(t *testing.T) {
 	resourceName := "aws_cloudtrail_event_data_store.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckEventDataStoreDestroy(ctx),
@@ -218,77 +218,77 @@ func TestAccCloudTrailEventDataStore_advancedEventSelector(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.0.name", "s3Custom"),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.0.field_selector.#", "4"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.0.field_selector.*", map[string]string{
-						"field":    "eventCategory",
+						"field":"eventCategory",
 						"equals.#": "1",
 						"equals.0": "Data",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.0.field_selector.*", map[string]string{
-						"field":    "eventName",
+						"field":"eventName",
 						"equals.#": "1",
 						"equals.0": "DeleteObject",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.0.field_selector.*", map[string]string{
-						"field":    "readOnly",
+						"field":"readOnly",
 						"equals.#": "1",
 						"equals.0": "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.0.field_selector.*", map[string]string{
-						"field":    "resources.type",
+						"field":"resources.type",
 						"equals.#": "1",
 						"equals.0": "AWS::S3::Object",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.1.name", "lambdaLogAllEvents"),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.1.field_selector.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.1.field_selector.*", map[string]string{
-						"field":    "eventCategory",
+						"field":"eventCategory",
 						"equals.#": "1",
 						"equals.0": "Data",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.1.field_selector.*", map[string]string{
-						"field":    "resources.type",
+						"field":"resources.type",
 						"equals.#": "1",
 						"equals.0": "AWS::Lambda::Function",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.2.name", "dynamoDbReadOnlyEvents"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.2.field_selector.*", map[string]string{
-						"field":    "readOnly",
+						"field":"readOnly",
 						"equals.#": "1",
 						"equals.0": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.2.field_selector.*", map[string]string{
-						"field":    "resources.type",
+						"field":"resources.type",
 						"equals.#": "1",
 						"equals.0": "AWS::DynamoDB::Table",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.3.name", "s3OutpostsWriteOnlyEvents"),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.3.field_selector.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.3.field_selector.*", map[string]string{
-						"field":    "eventCategory",
+						"field":"eventCategory",
 						"equals.#": "1",
 						"equals.0": "Data",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.3.field_selector.*", map[string]string{
-						"field":    "readOnly",
+						"field":"readOnly",
 						"equals.#": "1",
 						"equals.0": "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.3.field_selector.*", map[string]string{
-						"field":    "resources.type",
+						"field":"resources.type",
 						"equals.#": "1",
 						"equals.0": "AWS::S3Outposts::Object",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.4.name", "managementEventsSelector"),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.4.field_selector.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.4.field_selector.*", map[string]string{
-						"field":    "eventCategory",
+						"field":"eventCategory",
 						"equals.#": "1",
 						"equals.0": "Management",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -355,23 +355,23 @@ func testAccEventDataStoreConfig_kmsKeyId(rName string) string {
 resource "aws_kms_key" "test" {
   multi_region = true
   policy = jsonencode({
-    Id = %[1]q
-    Statement = [{
-      Sid    = "Enable IAM User Permissions"
-      Effect = "Allow"
-      Principal = {
-        AWS = "*"
-      }
-      Action   = "kms:*"
-      Resource = "*"
-    }]
-    Version = "2012-10-17"
+Id = %[1]q
+Statement = [{
+  Sid= "Enable IAM User Permissions"
+  Effect = "Allow"
+  Principal = {
+AWS = "*"
+  }
+  Action   = "kms:*"
+  Resource = "*"
+}]
+Version = "2012-10-17"
   })
 }
 
 resource "aws_cloudtrail_event_data_store" "test" {
-  name            = %[1]q
-  kms_key_id      = aws_kms_key.test.arn
+  name   = %[1]q
+  kms_key_id  = aws_kms_key.test.arn
   termination_protection_enabled = false # For ease of deletion.
 }
 `, rName)
@@ -385,7 +385,7 @@ resource "aws_cloudtrail_event_data_store" "test" {
   termination_protection_enabled = false
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -399,8 +399,8 @@ resource "aws_cloudtrail_event_data_store" "test" {
   termination_protection_enabled = false
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
@@ -412,7 +412,7 @@ resource "aws_cloudtrail_event_data_store" "test" {
   name  = %[1]q
   multi_region_enabled = false
   organization_enabled = true
-  retention_period     = 365
+  retention_period = 365
 
   termination_protection_enabled = true
 }
@@ -425,7 +425,7 @@ resource "aws_cloudtrail_event_data_store" "test" {
   name  = %[1]q
   multi_region_enabled = true
   organization_enabled = false
-  retention_period     = 90
+  retention_period = 90
 
   termination_protection_enabled = false
 }
@@ -440,83 +440,83 @@ resource "aws_cloudtrail_event_data_store" "test" {
   termination_protection_enabled = false
 
   advanced_event_selector {
-    name = "s3Custom"
-    field_selector {
-      field  = "eventCategory"
-      equals = ["Data"]
-    }
+name = "s3Custom"
+field_selector {
+  field  = "eventCategory"
+  equals = ["Data"]
+}
 
-    field_selector {
-      field  = "eventName"
-      equals = ["DeleteObject"]
-    }
+field_selector {
+  field  = "eventName"
+  equals = ["DeleteObject"]
+}
 
-    field_selector {
-      field  = "readOnly"
-      equals = ["false"]
-    }
+field_selector {
+  field  = "readOnly"
+  equals = ["false"]
+}
 
-    field_selector {
-      field  = "resources.type"
-      equals = ["AWS::S3::Object"]
-    }
+field_selector {
+  field  = "resources.type"
+  equals = ["AWS::S3::Object"]
+}
   }
 
   advanced_event_selector {
-    name = "lambdaLogAllEvents"
-    field_selector {
-      field  = "eventCategory"
-      equals = ["Data"]
-    }
+name = "lambdaLogAllEvents"
+field_selector {
+  field  = "eventCategory"
+  equals = ["Data"]
+}
 
-    field_selector {
-      field  = "resources.type"
-      equals = ["AWS::Lambda::Function"]
-    }
+field_selector {
+  field  = "resources.type"
+  equals = ["AWS::Lambda::Function"]
+}
   }
 
   advanced_event_selector {
-    name = "dynamoDbReadOnlyEvents"
-    field_selector {
-      field  = "eventCategory"
-      equals = ["Data"]
-    }
+name = "dynamoDbReadOnlyEvents"
+field_selector {
+  field  = "eventCategory"
+  equals = ["Data"]
+}
 
-    field_selector {
-      field  = "readOnly"
-      equals = ["true"]
-    }
+field_selector {
+  field  = "readOnly"
+  equals = ["true"]
+}
 
-    field_selector {
-      field  = "resources.type"
-      equals = ["AWS::DynamoDB::Table"]
-    }
+field_selector {
+  field  = "resources.type"
+  equals = ["AWS::DynamoDB::Table"]
+}
   }
 
   advanced_event_selector {
-    name = "s3OutpostsWriteOnlyEvents"
-    field_selector {
-      field  = "eventCategory"
-      equals = ["Data"]
-    }
+name = "s3OutpostsWriteOnlyEvents"
+field_selector {
+  field  = "eventCategory"
+  equals = ["Data"]
+}
 
-    field_selector {
-      field  = "readOnly"
-      equals = ["false"]
-    }
+field_selector {
+  field  = "readOnly"
+  equals = ["false"]
+}
 
-    field_selector {
-      field  = "resources.type"
-      equals = ["AWS::S3Outposts::Object"]
-    }
+field_selector {
+  field  = "resources.type"
+  equals = ["AWS::S3Outposts::Object"]
+}
   }
 
   advanced_event_selector {
-    name = "managementEventsSelector"
-    field_selector {
-      field  = "eventCategory"
-      equals = ["Management"]
-    }
+name = "managementEventsSelector"
+field_selector {
+  field  = "eventCategory"
+  equals = ["Management"]
+}
   }
 }
 `, rName)

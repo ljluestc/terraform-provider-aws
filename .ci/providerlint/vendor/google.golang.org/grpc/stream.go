@@ -153,8 +153,7 @@ type ClientStream interface {
 //  4. Receive a non-nil, non-io.EOF error from Header or SendMsg.
 //
 // If none of the above happen, a goroutine and a context will be leaked, and grpc
-// will not call the optionally-configured stats handler with a stats.End message.
-func (cc *ClientConn) NewStream(ctx context.Context, desc *StreamDesc, method string, opts ...CallOption) (ClientStream, error) {
+// will not call the optionally-configured stats handler with a stats.End message. (cc *ClientConn) NewStream(ctx context.Context, desc *StreamDesc, method string, opts ...CallOption) (ClientStream, error) {
 	if err := cc.idlenessMgr.onCallBegin(); err != nil {
 		return nil, err
 	}
@@ -170,12 +169,10 @@ func (cc *ClientConn) NewStream(ctx context.Context, desc *StreamDesc, method st
 	return newClientStream(ctx, desc, cc, method, opts...)
 }
 
-// NewClientStream is a wrapper for ClientConn.NewStream.
-func NewClientStream(ctx context.Context, desc *StreamDesc, cc *ClientConn, method string, opts ...CallOption) (ClientStream, error) {
+// NewClientStream is a wrapper for ClientConn.NewStream. NewClientStream(ctx context.Context, desc *StreamDesc, cc *ClientConn, method string, opts ...CallOption) (ClientStream, error) {
 	return cc.NewStream(ctx, desc, method, opts...)
 }
-
-func newClientStream(ctx context.Context, desc *StreamDesc, cc *ClientConn, method string, opts ...CallOption) (_ ClientStream, err error) {
+ newClientStream(ctx context.Context, desc *StreamDesc, cc *ClientConn, method string, opts ...CallOption) (_ ClientStream, err error) {
 	if md, added, ok := metadata.FromOutgoingContextRaw(ctx); ok {
 		// validate md
 		if err := imetadata.Validate(md); err != nil {
@@ -244,8 +241,7 @@ func newClientStream(ctx context.Context, desc *StreamDesc, cc *ClientConn, meth
 
 	return newStream(ctx, func() {})
 }
-
-func newClientStreamWithParams(ctx context.Context, desc *StreamDesc, cc *ClientConn, method string, mc serviceconfig.MethodConfig, onCommit, doneFunc func(), opts ...CallOption) (_ iresolver.ClientStream, err error) {
+ newClientStreamWithParams(ctx context.Context, desc *StreamDesc, cc *ClientConn, method string, mc serviceconfig.MethodConfig, onCommit, doneFunc func(), opts ...CallOption) (_ iresolver.ClientStream, err error) {
 	c := defaultCallInfo()
 	if mc.WaitForReady != nil {
 		c.failFast = !*mc.WaitForReady
@@ -391,8 +387,7 @@ func newClientStreamWithParams(ctx context.Context, desc *StreamDesc, cc *Client
 	return cs, nil
 }
 
-// newAttemptLocked creates a new csAttempt without a transport or stream.
-func (cs *clientStream) newAttemptLocked(isTransparent bool) (*csAttempt, error) {
+// newAttemptLocked creates a new csAttempt without a transport or stream. (cs *clientStream) newAttemptLocked(isTransparent bool) (*csAttempt, error) {
 	if err := cs.ctx.Err(); err != nil {
 		return nil, toRPCErr(err)
 	}
@@ -450,8 +445,7 @@ func (cs *clientStream) newAttemptLocked(isTransparent bool) (*csAttempt, error)
 		trInfo:        trInfo,
 	}, nil
 }
-
-func (a *csAttempt) getTransport() error {
+ (a *csAttempt) getTransport() error {
 	cs := a.cs
 
 	var err error
@@ -468,8 +462,7 @@ func (a *csAttempt) getTransport() error {
 	}
 	return nil
 }
-
-func (a *csAttempt) newStream() error {
+ (a *csAttempt) newStream() error {
 	cs := a.cs
 	cs.callHdr.PreviousAttempts = cs.numRetries
 
@@ -591,16 +584,14 @@ type csAttempt struct {
 	// set for pick errors that are returned as a status
 	drop bool
 }
-
-func (cs *clientStream) commitAttemptLocked() {
+ (cs *clientStream) commitAttemptLocked() {
 	if !cs.committed && cs.onCommit != nil {
 		cs.onCommit()
 	}
 	cs.committed = true
 	cs.buffer = nil
 }
-
-func (cs *clientStream) commitAttempt() {
+ (cs *clientStream) commitAttempt() {
 	cs.mu.Lock()
 	cs.commitAttemptLocked()
 	cs.mu.Unlock()
@@ -608,8 +599,7 @@ func (cs *clientStream) commitAttempt() {
 
 // shouldRetry returns nil if the RPC should be retried; otherwise it returns
 // the error that should be returned by the operation.  If the RPC should be
-// retried, the bool indicates whether it is being retried transparently.
-func (a *csAttempt) shouldRetry(err error) (bool, error) {
+// retried, the bool indicates whether it is being retried transparently. (a *csAttempt) shouldRetry(err error) (bool, error) {
 	cs := a.cs
 
 	if cs.finished || cs.committed || a.drop {
@@ -706,8 +696,7 @@ func (a *csAttempt) shouldRetry(err error) (bool, error) {
 	}
 }
 
-// Returns nil if a retry was performed and succeeded; error otherwise.
-func (cs *clientStream) retryLocked(attempt *csAttempt, lastErr error) error {
+// Returns nil if a retry was performed and succeeded; error otherwise. (cs *clientStream) retryLocked(attempt *csAttempt, lastErr error) error {
 	for {
 		attempt.finish(toRPCErr(lastErr))
 		isTransparent, err := attempt.shouldRetry(lastErr)
@@ -729,8 +718,7 @@ func (cs *clientStream) retryLocked(attempt *csAttempt, lastErr error) error {
 		}
 	}
 }
-
-func (cs *clientStream) Context() context.Context {
+ (cs *clientStream) Context() context.Context {
 	cs.commitAttempt()
 	// No need to lock before using attempt, since we know it is committed and
 	// cannot change.
@@ -739,8 +727,7 @@ func (cs *clientStream) Context() context.Context {
 	}
 	return cs.ctx
 }
-
-func (cs *clientStream) withRetry(op func(a *csAttempt) error, onSuccess func()) error {
+ (cs *clientStream) withRetry(op func(a *csAttempt) error, onSuccess func()) error {
 	cs.mu.Lock()
 	for {
 		if cs.committed {
@@ -785,8 +772,7 @@ func (cs *clientStream) withRetry(op func(a *csAttempt) error, onSuccess func())
 		}
 	}
 }
-
-func (cs *clientStream) Header() (metadata.MD, error) {
+ (cs *clientStream) Header() (metadata.MD, error) {
 	var m metadata.MD
 	noHeader := false
 	err := cs.withRetry(func(a *csAttempt) error {
@@ -822,8 +808,7 @@ func (cs *clientStream) Header() (metadata.MD, error) {
 	}
 	return m, nil
 }
-
-func (cs *clientStream) Trailer() metadata.MD {
+ (cs *clientStream) Trailer() metadata.MD {
 	// On RPC failure, we never need to retry, because usage requires that
 	// RecvMsg() returned a non-nil error before calling this function is valid.
 	// We would have retried earlier if necessary.
@@ -837,8 +822,7 @@ func (cs *clientStream) Trailer() metadata.MD {
 	}
 	return cs.attempt.s.Trailer()
 }
-
-func (cs *clientStream) replayBufferLocked(attempt *csAttempt) error {
+ (cs *clientStream) replayBufferLocked(attempt *csAttempt) error {
 	for _, f := range cs.buffer {
 		if err := f(attempt); err != nil {
 			return err
@@ -846,8 +830,7 @@ func (cs *clientStream) replayBufferLocked(attempt *csAttempt) error {
 	}
 	return nil
 }
-
-func (cs *clientStream) bufferForRetryLocked(sz int, op func(a *csAttempt) error) {
+ (cs *clientStream) bufferForRetryLocked(sz int, op func(a *csAttempt) error) {
 	// Note: we still will buffer if retry is disabled (for transparent retries).
 	if cs.committed {
 		return
@@ -859,8 +842,7 @@ func (cs *clientStream) bufferForRetryLocked(sz int, op func(a *csAttempt) error
 	}
 	cs.buffer = append(cs.buffer, op)
 }
-
-func (cs *clientStream) SendMsg(m interface{}) (err error) {
+ (cs *clientStream) SendMsg(m interface{}) (err error) {
 	defer func() {
 		if err != nil && err != io.EOF {
 			// Call finish on the client stream for errors generated by this SendMsg
@@ -903,8 +885,7 @@ func (cs *clientStream) SendMsg(m interface{}) (err error) {
 	}
 	return err
 }
-
-func (cs *clientStream) RecvMsg(m interface{}) error {
+ (cs *clientStream) RecvMsg(m interface{}) error {
 	if len(cs.binlogs) != 0 && !cs.serverHeaderBinlogged {
 		// Call Header() to binary log header if it's not already logged.
 		cs.Header()
@@ -949,8 +930,7 @@ func (cs *clientStream) RecvMsg(m interface{}) error {
 	}
 	return err
 }
-
-func (cs *clientStream) CloseSend() error {
+ (cs *clientStream) CloseSend() error {
 	if cs.sentLast {
 		// TODO: return an error and finish the stream instead, due to API misuse?
 		return nil
@@ -976,8 +956,7 @@ func (cs *clientStream) CloseSend() error {
 	// We never returned an error here for reasons.
 	return nil
 }
-
-func (cs *clientStream) finish(err error) {
+ (cs *clientStream) finish(err error) {
 	if err == io.EOF {
 		// Ending a stream with EOF indicates a success.
 		err = nil
@@ -1027,8 +1006,7 @@ func (cs *clientStream) finish(err error) {
 	}
 	cs.cancel()
 }
-
-func (a *csAttempt) sendMsg(m interface{}, hdr, payld, data []byte) error {
+ (a *csAttempt) sendMsg(m interface{}, hdr, payld, data []byte) error {
 	cs := a.cs
 	if a.trInfo != nil {
 		a.mu.Lock()
@@ -1054,8 +1032,7 @@ func (a *csAttempt) sendMsg(m interface{}, hdr, payld, data []byte) error {
 	}
 	return nil
 }
-
-func (a *csAttempt) recvMsg(m interface{}, payInfo *payloadInfo) (err error) {
+ (a *csAttempt) recvMsg(m interface{}, payInfo *payloadInfo) (err error) {
 	cs := a.cs
 	if len(a.statsHandlers) != 0 && payInfo == nil {
 		payInfo = &payloadInfo{}
@@ -1125,8 +1102,7 @@ func (a *csAttempt) recvMsg(m interface{}, payInfo *payloadInfo) (err error) {
 	}
 	return toRPCErr(err)
 }
-
-func (a *csAttempt) finish(err error) {
+ (a *csAttempt) finish(err error) {
 	a.mu.Lock()
 	if a.finished {
 		a.mu.Unlock()
@@ -1189,8 +1165,7 @@ func (a *csAttempt) finish(err error) {
 // Main difference between this and ClientConn.NewStream:
 // - no retry
 // - no service config (or wait for service config)
-// - no tracing or stats
-func newNonRetryClientStream(ctx context.Context, desc *StreamDesc, method string, t transport.ClientTransport, ac *addrConn, opts ...CallOption) (_ ClientStream, err error) {
+// - no tracing or stats newNonRetryClientStream(ctx context.Context, desc *StreamDesc, method string, t transport.ClientTransport, ac *addrConn, opts ...CallOption) (_ ClientStream, err error) {
 	if t == nil {
 		// TODO: return RPC error here?
 		return nil, errors.New("transport provided is nil")
@@ -1316,20 +1291,17 @@ type addrConnStream struct {
 	mu        sync.Mutex
 	finished  bool
 }
-
-func (as *addrConnStream) Header() (metadata.MD, error) {
+ (as *addrConnStream) Header() (metadata.MD, error) {
 	m, err := as.s.Header()
 	if err != nil {
 		as.finish(toRPCErr(err))
 	}
 	return m, err
 }
-
-func (as *addrConnStream) Trailer() metadata.MD {
+ (as *addrConnStream) Trailer() metadata.MD {
 	return as.s.Trailer()
 }
-
-func (as *addrConnStream) CloseSend() error {
+ (as *addrConnStream) CloseSend() error {
 	if as.sentLast {
 		// TODO: return an error and finish the stream instead, due to API misuse?
 		return nil
@@ -1343,12 +1315,10 @@ func (as *addrConnStream) CloseSend() error {
 	// RecvMsg.  This also matches historical behavior.
 	return nil
 }
-
-func (as *addrConnStream) Context() context.Context {
+ (as *addrConnStream) Context() context.Context {
 	return as.s.Context()
 }
-
-func (as *addrConnStream) SendMsg(m interface{}) (err error) {
+ (as *addrConnStream) SendMsg(m interface{}) (err error) {
 	defer func() {
 		if err != nil && err != io.EOF {
 			// Call finish on the client stream for errors generated by this SendMsg
@@ -1392,8 +1362,7 @@ func (as *addrConnStream) SendMsg(m interface{}) (err error) {
 	}
 	return nil
 }
-
-func (as *addrConnStream) RecvMsg(m interface{}) (err error) {
+ (as *addrConnStream) RecvMsg(m interface{}) (err error) {
 	defer func() {
 		if err != nil || !as.desc.ServerStreams {
 			// err != nil or non-server-streaming indicates end of stream.
@@ -1447,8 +1416,7 @@ func (as *addrConnStream) RecvMsg(m interface{}) (err error) {
 	}
 	return toRPCErr(err)
 }
-
-func (as *addrConnStream) finish(err error) {
+ (as *addrConnStream) finish(err error) {
 	as.mu.Lock()
 	if as.finished {
 		as.mu.Unlock()
@@ -1556,12 +1524,10 @@ type serverStream struct {
 
 	mu sync.Mutex // protects trInfo.tr after the service handler runs.
 }
-
-func (ss *serverStream) Context() context.Context {
+ (ss *serverStream) Context() context.Context {
 	return ss.ctx
 }
-
-func (ss *serverStream) SetHeader(md metadata.MD) error {
+ (ss *serverStream) SetHeader(md metadata.MD) error {
 	if md.Len() == 0 {
 		return nil
 	}
@@ -1571,8 +1537,7 @@ func (ss *serverStream) SetHeader(md metadata.MD) error {
 	}
 	return ss.s.SetHeader(md)
 }
-
-func (ss *serverStream) SendHeader(md metadata.MD) error {
+ (ss *serverStream) SendHeader(md metadata.MD) error {
 	err := imetadata.Validate(md)
 	if err != nil {
 		return status.Error(codes.Internal, err.Error())
@@ -1591,8 +1556,7 @@ func (ss *serverStream) SendHeader(md metadata.MD) error {
 	}
 	return err
 }
-
-func (ss *serverStream) SetTrailer(md metadata.MD) {
+ (ss *serverStream) SetTrailer(md metadata.MD) {
 	if md.Len() == 0 {
 		return
 	}
@@ -1601,8 +1565,7 @@ func (ss *serverStream) SetTrailer(md metadata.MD) {
 	}
 	ss.s.SetTrailer(md)
 }
-
-func (ss *serverStream) SendMsg(m interface{}) (err error) {
+ (ss *serverStream) SendMsg(m interface{}) (err error) {
 	defer func() {
 		if ss.trInfo != nil {
 			ss.mu.Lock()
@@ -1676,8 +1639,7 @@ func (ss *serverStream) SendMsg(m interface{}) (err error) {
 	}
 	return nil
 }
-
-func (ss *serverStream) RecvMsg(m interface{}) (err error) {
+ (ss *serverStream) RecvMsg(m interface{}) (err error) {
 	defer func() {
 		if ss.trInfo != nil {
 			ss.mu.Lock()
@@ -1749,15 +1711,13 @@ func (ss *serverStream) RecvMsg(m interface{}) (err error) {
 }
 
 // MethodFromServerStream returns the method string for the input stream.
-// The returned string is in the format of "/service/method".
-func MethodFromServerStream(stream ServerStream) (string, bool) {
+// The returned string is in the format of "/service/method". MethodFromServerStream(stream ServerStream) (string, bool) {
 	return Method(stream.Context())
 }
 
 // prepareMsg returns the hdr, payload and data
 // using the compressors passed or using the
-// passed preparedmsg
-func prepareMsg(m interface{}, codec baseCodec, cp Compressor, comp encoding.Compressor) (hdr, payload, data []byte, err error) {
+// passed preparedmsg prepareMsg(m interface{}, codec baseCodec, cp Compressor, comp encoding.Compressor) (hdr, payload, data []byte, err error) {
 	if preparedMsg, ok := m.(*PreparedMsg); ok {
 		return preparedMsg.hdr, preparedMsg.payload, preparedMsg.encodedData, nil
 	}

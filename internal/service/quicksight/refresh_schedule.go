@@ -42,9 +42,9 @@ return &resourceRefreshSchedule{}, nil
 
 const (
 ResNameRefreshSchedule   = "Refresh Schedule"
-dayOfMonthRegex          = "^(?:LAST_DAY_OF_MONTH|1[0-9]|2[0-8]|[12]|[3-9])$"
-timeOfTheDayLayout       = "15:04"
-timeOfTheDayFormat       = "HH:MM"
+dayOfMonthRegex    = "^(?:LAST_DAY_OF_MONTH|1[0-9]|2[0-8]|[12]|[3-9])$"
+timeOfTheDayLayout = "15:04"
+timeOfTheDayFormat = "HH:MM"
 startAfterDateTimeLayout = "2006-01-02T15:04:05"
 startAfterDateTimeFormat = "YYYY-MM-DDTHH:MM:SS"
 )
@@ -170,16 +170,16 @@ path.MatchRelative().AtParent().AtName("day_of_month"),
 }
 
 type resourceRefreshScheduleData struct {
-ARN          types.String `tfsdk:"arn"`
+ARN    types.String `tfsdk:"arn"`
 AWSAccountID types.String `tfsdk:"aws_account_id"`
 DataSetID    types.String `tfsdk:"data_set_id"`
-ID           types.String `tfsdk:"id"`
+ID     types.String `tfsdk:"id"`
 ScheduleID   types.String `tfsdk:"schedule_id"`
 Schedule     types.List   `tfsdk:"schedule"`
 }
 
 type scheduleData struct {
-RefreshType        types.String `tfsdk:"refresh_type"`
+RefreshType  types.String `tfsdk:"refresh_type"`
 ScheduleFrequency  types.List   `tfsdk:"schedule_frequency"`
 StartAfterDateTime types.String `tfsdk:"start_after_date_time"`
 }
@@ -209,7 +209,7 @@ AttrTypes: refreshOnDayAttrTypes,
 },
 },
 "time_of_the_day": types.StringType,
-"timezone":        types.StringType,
+"timezone":  types.StringType,
 }
 scheduleAttrTypes = map[string]attr.Type{
 "refresh_type": types.StringType,
@@ -598,7 +598,7 @@ refreshFrequency, d := flattenRefreshFrequency(ctx, apiObject.ScheduleFrequency)
 diags.Append(d...)
 
 scheduleAttrs := map[string]attr.Value{
-"refresh_type":       flex.StringToFramework(ctx, apiObject.RefreshType),
+"refresh_type": flex.StringToFramework(ctx, apiObject.RefreshType),
 "schedule_frequency": refreshFrequency,
 }
 
@@ -624,9 +624,9 @@ refreshOnDay, d := flattenRefreshOnDay(ctx, apiObject.RefreshOnDay)
 diags.Append(d...)
 
 refreshFrequencyAttrs := map[string]attr.Value{
-"interval":        flex.StringToFramework(ctx, apiObject.Interval),
+"interval":  flex.StringToFramework(ctx, apiObject.Interval),
 "time_of_the_day": flex.StringToFramework(ctx, apiObject.TimeOfTheDay),
-"timezone":        flex.StringToFramework(ctx, apiObject.Timezone),
+"timezone":  flex.StringToFramework(ctx, apiObject.Timezone),
 "refresh_on_day":  refreshOnDay,
 }
 

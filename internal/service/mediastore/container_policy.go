@@ -31,14 +31,14 @@ func ResourceContainerPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"container_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"policy": {
-				Type:    schema.TypeString,
+				Type:schema.TypeString,
 				Required:true,
-				ValidateFunc:     verify.ValidIAMPolicyJSON,
+				ValidateFunc:verify.ValidIAMPolicyJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
@@ -62,7 +62,7 @@ func resourceContainerPolicyPut(ctx context.Context, d *schema.ResourceData, met
 
 	input := &mediastore.PutContainerPolicyInput{
 		ContainerName: aws.String(name),
-		Policy:        aws.String(policy),
+		Policy:   aws.String(policy),
 	}
 
 	_, err = conn.PutContainerPolicyWithContext(ctx, input)

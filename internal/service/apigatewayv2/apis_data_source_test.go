@@ -4,97 +4,97 @@
 package apigatewayv2_test
 
 import (
-	"fmt"
-	"testing"
+"fmt"
+"testing"
 
-	"github.com/aws/aws-sdk-go/service/apigatewayv2"
-	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
+"github.com/aws/aws-sdk-go/service/apigatewayv2"
+sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
+"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
 func TestAccAPIGatewayV2APIsDataSource_name(t *testing.T) {
-	ctx := acctest.Context(t)
-	dataSource1Name := "data.aws_apigatewayv2_apis.test1"
-	dataSource2Name := "data.aws_apigatewayv2_apis.test2"
-	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+ctx := acctest.Context(t)
+dataSource1Name := "data.aws_apigatewayv2_apis.test1"
+dataSource2Name := "data.aws_apigatewayv2_apis.test2"
+rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.Test(t, resource.TestCase{
+resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccAPIsDataSourceConfig_name(rName1, rName2),
 Check: resource.ComposeTestCheckFunc(
-	resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
-	resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "2"),
+resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
+resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "2"),
 ),
-	},
 },
-	})
+},
+})
 }
 
 func TestAccAPIGatewayV2APIsDataSource_protocolType(t *testing.T) {
-	ctx := acctest.Context(t)
-	dataSource1Name := "data.aws_apigatewayv2_apis.test1"
-	dataSource2Name := "data.aws_apigatewayv2_apis.test2"
-	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+ctx := acctest.Context(t)
+dataSource1Name := "data.aws_apigatewayv2_apis.test1"
+dataSource2Name := "data.aws_apigatewayv2_apis.test2"
+rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.Test(t, resource.TestCase{
+resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccAPIsDataSourceConfig_protocolType(rName1, rName2),
 Check: resource.ComposeTestCheckFunc(
-	resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
-	resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "1"),
+resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
+resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "1"),
 ),
-	},
 },
-	})
+},
+})
 }
 
 func TestAccAPIGatewayV2APIsDataSource_tags(t *testing.T) {
-	ctx := acctest.Context(t)
-	dataSource1Name := "data.aws_apigatewayv2_apis.test1"
-	dataSource2Name := "data.aws_apigatewayv2_apis.test2"
-	dataSource3Name := "data.aws_apigatewayv2_apis.test3"
-	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+ctx := acctest.Context(t)
+dataSource1Name := "data.aws_apigatewayv2_apis.test1"
+dataSource2Name := "data.aws_apigatewayv2_apis.test2"
+dataSource3Name := "data.aws_apigatewayv2_apis.test3"
+rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
-	resource.Test(t, resource.TestCase{
+resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 CheckDestroy:
 Steps: []resource.TestStep{
-	{
+{
 Config: testAccAPIsDataSourceConfig_tags(rName1, rName2),
 Check: resource.ComposeTestCheckFunc(
-	resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
-	resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "2"),
-	resource.TestCheckResourceAttr(dataSource3Name, "ids.#", "0"),
+resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
+resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "2"),
+resource.TestCheckResourceAttr(dataSource3Name, "ids.#", "0"),
 ),
-	},
 },
-	})
+},
+})
 }
 
 func testAccAPIsBaseDataSourceConfig(rName1, rName2 string) string {
-	return fmt.Sprintf(`
+return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test1" {
   name
   protocol_type = "HTTP"
 
   tags = {
-    Name = %[1]q
+Name = %[1]q
   }
 }
 
@@ -103,7 +103,7 @@ resource "aws_apigatewayv2_api" "test2" {
   protocol_type = "HTTP"
 
   tags = {
-    Name = %[2]q
+Name = %[2]q
   }
 }
 
@@ -113,14 +113,14 @@ resource "aws_apigatewayv2_api" "test3" {
   route_selection_expression = "$request.body.action"
 
   tags = {
-    Name = %[2]q
+Name = %[2]q
   }
 }
 `, rName1, rName2)
 }
 
 func testAccAPIsDataSourceConfig_name(rName1, rName2 string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccAPIsBaseDataSourceConfig(rName1, rName2),
 `
 data "aws_apigatewayv2_apis" "test1" {
@@ -136,7 +136,7 @@ data "aws_apigatewayv2_apis" "test2" {
 }
 
 func testAccAPIsDataSourceConfig_protocolType(rName1, rName2 string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccAPIsBaseDataSourceConfig(rName1, rName2),
 fmt.Sprintf(`
 data "aws_apigatewayv2_apis" "test1" {
@@ -154,28 +154,28 @@ data "aws_apigatewayv2_apis" "test2" {
 }
 
 func testAccAPIsDataSourceConfig_tags(rName1, rName2 string) string {
-	return acctest.ConfigCompose(
+return acctest.ConfigCompose(
 testAccAPIsBaseDataSourceConfig(rName1, rName2),
 `
 data "aws_apigatewayv2_apis" "test1" {
   # Force dependency on resources.
   tags = {
-    Name = element([aws_apigatewayv2_api.test1.name, aws_apigatewayv2_api.test2.name, aws_apigatewayv2_api.test3.name], 0)
+Name = element([aws_apigatewayv2_api.test1.name, aws_apigatewayv2_api.test2.name, aws_apigatewayv2_api.test3.name], 0)
   }
 }
 
 data "aws_apigatewayv2_apis" "test2" {
   # Force dependency on resources.
   tags = {
-    Name = element([aws_apigatewayv2_api.test1.name, aws_apigatewayv2_api.test2.name, aws_apigatewayv2_api.test3.name], 1)
+Name = element([aws_apigatewayv2_api.test1.name, aws_apigatewayv2_api.test2.name, aws_apigatewayv2_api.test3.name], 1)
   }
 }
 
 data "aws_apigatewayv2_apis" "test3" {
   # Force dependency on resources.
   tags = {
-    Name = element([aws_apigatewayv2_api.test1.name, aws_apigatewayv2_api.test2.name, aws_apigatewayv2_api.test3.name], 2)
-    Key2 = "Value2"
+Name = element([aws_apigatewayv2_api.test1.name, aws_apigatewayv2_api.test2.name, aws_apigatewayv2_api.test3.name], 2)
+Key2 = "Value2"
   }
 }
 `)

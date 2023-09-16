@@ -33,8 +33,8 @@ Importer: &schema.ResourceImporter{
 Schema: map[string]*schema.Schema{
 	"policy": {
 Type:   schema.TypeString,
-Required:              true,
-ValidateFunc:          validation.StringIsJSON,
+Required:     true,
+ValidateFunc: validation.StringIsJSON,
 DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 StateFunc: func(v interface{}) string {
@@ -43,7 +43,7 @@ StateFunc: func(v interface{}) string {
 },
 	},
 	"enable_hybrid": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringInSlice(glue.EnableHybridValues_Values(), false),
 	},
@@ -63,7 +63,7 @@ if err != nil {
 }
 
 input := &glue.PutResourcePolicyInput{
-	PolicyInJson:          aws.String(policy),
+	PolicyInJson: aws.String(policy),
 	PolicyExistsCondition: aws.String(condition),
 }
 

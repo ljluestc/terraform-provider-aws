@@ -1,19 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-//line scan_tokens.rl:1
-
-package hclsyntax
-
-import (
-	"bytes"
-
-	"github.com/hashicorp/hcl/v2"
-)
-
-// This file is generated from scan_tokens.rl. DO NOT EDIT.
-
-//line scan_tokens.go:15
+// SPDX-License-Identifier: MPL-2.0//line scan_tokens.rl:1package hclsyntaximport (
+	"bytes"	"github.com/hashicorp/hcl/v2"
+)// This file is generated from scan_tokens.rl. DO NOT EDIT.//line scan_tokens.go:15
 var _hcltok_actions []byte = []byte{
 	0, 1, 0, 1, 1, 1, 3, 1, 4,
 	1, 7, 1, 8, 1, 9, 1, 10,
@@ -40,9 +28,7 @@ var _hcltok_actions []byte = []byte{
 	21, 2, 4, 22, 2, 4, 33, 2,
 	4, 34, 2, 4, 45, 2, 4, 46,
 	2, 4, 54, 2, 4, 55,
-}
-
-var _hcltok_key_offsets []int16 = []int16{
+}var _hcltok_key_offsets []int16 = []int16{
 	0, 0, 1, 2, 4, 9, 13, 15,
 	57, 98, 144, 145, 149, 155, 155, 157,
 	159, 168, 174, 181, 182, 185, 186, 190,
@@ -241,9 +227,7 @@ var _hcltok_key_offsets []int16 = []int16{
 	10096, 10100, 10110, 10114, 10121, 10132, 10139, 10143,
 	10149, 10160, 10192, 10241, 10256, 10271, 10276, 10278,
 	10283, 10315, 10323, 10325, 10347, 10369,
-}
-
-var _hcltok_trans_keys []byte = []byte{
+}var _hcltok_trans_keys []byte = []byte{
 	46, 42, 42, 47, 46, 69, 101, 48,
 	57, 43, 45, 48, 57, 48, 57, 45,
 	95, 194, 195, 198, 199, 203, 205, 206,
@@ -1541,9 +1525,7 @@ var _hcltok_trans_keys []byte = []byte{
 	150, 151, 152, 155, 157, 158, 160, 170,
 	171, 172, 175, 128, 159, 161, 169, 173,
 	191, 128, 191,
-}
-
-var _hcltok_single_lengths []byte = []byte{
+}var _hcltok_single_lengths []byte = []byte{
 	0, 1, 1, 2, 3, 2, 0, 32,
 	31, 36, 1, 4, 0, 0, 0, 0,
 	1, 2, 1, 1, 1, 1, 0, 1,
@@ -1742,9 +1724,7 @@ var _hcltok_single_lengths []byte = []byte{
 	0, 0, 0, 1, 1, 1, 0, 0,
 	1, 30, 47, 13, 9, 3, 0, 1,
 	28, 2, 0, 18, 16, 0,
-}
-
-var _hcltok_range_lengths []byte = []byte{
+}var _hcltok_range_lengths []byte = []byte{
 	0, 0, 0, 0, 1, 1, 1, 5,
 	5, 5, 0, 0, 3, 0, 1, 1,
 	4, 2, 3, 0, 1, 0, 2, 2,
@@ -1943,9 +1923,7 @@ var _hcltok_range_lengths []byte = []byte{
 	2, 5, 2, 3, 5, 3, 2, 3,
 	5, 1, 1, 1, 3, 1, 1, 2,
 	2, 3, 1, 2, 3, 1,
-}
-
-var _hcltok_index_offsets []int16 = []int16{
+}var _hcltok_index_offsets []int16 = []int16{
 	0, 0, 2, 4, 7, 12, 16, 18,
 	56, 93, 135, 137, 142, 146, 147, 149,
 	151, 157, 162, 167, 169, 172, 174, 177,
@@ -2144,9 +2122,7 @@ var _hcltok_index_offsets []int16 = []int16{
 	8040, 8043, 8049, 8052, 8057, 8064, 8069, 8072,
 	8076, 8083, 8115, 8164, 8179, 8192, 8197, 8199,
 	8203, 8234, 8240, 8242, 8263, 8283,
-}
-
-var _hcltok_indicies []int16 = []int16{
+}var _hcltok_indicies []int16 = []int16{
 	1, 0, 3, 2, 3, 4, 2, 6,
 	8, 8, 7, 5, 9, 9, 7, 5,
 	7, 5, 10, 11, 12, 13, 15, 16,
@@ -3183,9 +3159,7 @@ var _hcltok_indicies []int16 = []int16{
 	1639, 1640, 1641, 1642, 1643, 1644, 1645, 1646,
 	1647, 1648, 1644, 1650, 1651, 1652, 1653, 1637,
 	1649, 1637, 1510, 1637, 1510,
-}
-
-var _hcltok_trans_targs []int16 = []int16{
+}var _hcltok_trans_targs []int16 = []int16{
 	1459, 1459, 2, 3, 1459, 1459, 4, 1467,
 	5, 6, 8, 9, 286, 12, 13, 14,
 	15, 16, 287, 288, 19, 289, 21, 22,
@@ -3393,9 +3367,7 @@ var _hcltok_trans_targs []int16 = []int16{
 	1351, 1352, 1353, 1354, 1355, 1356, 1357, 1386,
 	1411, 1414, 1415, 1417, 1424, 1425, 1428, 1432,
 	1444, 1449, 1450, 1452, 1455, 1457,
-}
-
-var _hcltok_trans_actions []byte = []byte{
+}var _hcltok_trans_actions []byte = []byte{
 	145, 107, 0, 0, 91, 141, 0, 7,
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
@@ -3603,9 +3575,7 @@ var _hcltok_trans_actions []byte = []byte{
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0,
-}
-
-var _hcltok_to_state_actions []byte = []byte{
+}var _hcltok_to_state_actions []byte = []byte{
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
@@ -3804,9 +3774,7 @@ var _hcltok_to_state_actions []byte = []byte{
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0,
-}
-
-var _hcltok_from_state_actions []byte = []byte{
+}var _hcltok_from_state_actions []byte = []byte{
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
@@ -4005,9 +3973,7 @@ var _hcltok_from_state_actions []byte = []byte{
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0,
-}
-
-var _hcltok_eof_trans []int16 = []int16{
+}var _hcltok_eof_trans []int16 = []int16{
 	0, 1, 1, 1, 6, 6, 6, 1,
 	1, 1, 1, 1, 1, 1, 1, 1,
 	1, 1, 1, 1, 1, 1, 1, 1,
@@ -4206,46 +4172,30 @@ var _hcltok_eof_trans []int16 = []int16{
 	1511, 1511, 1511, 1511, 1511, 1511, 1511, 1511,
 	1511, 1511, 1511, 1511, 1511, 1511, 1511, 1511,
 	1511, 1511, 1511, 1511, 1511, 1511,
-}
-
-const hcltok_start int = 1459
+}const hcltok_start int = 1459
 const hcltok_first_final int = 1459
-const hcltok_error int = 0
-
-const hcltok_en_stringTemplate int = 1509
+const hcltok_error int = 0const hcltok_en_stringTemplate int = 1509
 const hcltok_en_heredocTemplate int = 1523
 const hcltok_en_bareTemplate int = 1534
 const hcltok_en_identOnly int = 1545
-const hcltok_en_main int = 1459
-
-//line scan_tokens.rl:16
-
-
+const hcltok_en_main int = 1459//line scan_tokens.rl:16
  scanTokens(data []byte, filename string, start hcl.Pos, mode scanMode) []Token {
 	stripData := stripUTF8BOM(data)
 	start.Byte += len(data) - len(stripData)
-	data = stripData
-
-	f := &tokenAccum{
+	data = stripData	f := &tokenAccum{
 		Filename:  filename,
 		Bytes:     data,
 		Pos:       start,
 		StartByte: start.Byte,
-	}
-
-//line scan_tokens.rl:305
-
-	// Ragel state
-	p := 0          // "Pointer" into data
+	}//line scan_tokens.rl:305	// Ragel state
+	p := 0 // "Pointer" into data
 	pe := len(data) // End-of-data "pointer"
 	ts := 0
 	te := 0
 	act := 0
 	eof := pe
 	var stack []int
-	var top int
-
-	var cs int // current state
+	var top int	var cs int // current state
 	switch mode {
 	case scanNormal:
 		cs = hcltok_en_main
@@ -4255,21 +4205,13 @@ const hcltok_en_main int = 1459
 		cs = hcltok_en_identOnly
 	default:
 		panic("invalid scanMode")
-	}
-
-	braces := 0
-	var retBraces []int              // stack of brace levels that cause us to use fret
-	var heredocs []heredocInProgress // stack of heredocs we're currently processing
-
-//line scan_tokens.rl:340
-
-	// Make Go compiler happy
+	}	braces := 0
+	var retBraces []int     // stack of brace levels that cause us to use fret
+	var heredocs []heredocInProgress // stack of heredocs we're currently processing//line scan_tokens.rl:340	// Make Go compiler happy
 	_ = ts
 	_ = te
 	_ = act
-	_ = eof
-
-	token := 
+	_ = eof	token := 
 (ty TokenType) {
 		f.emitToken(ts, te)
 	}
@@ -4281,17 +4223,13 @@ const hcltok_en_main int = 1459
 			panic("selfToken only works for single-character tokens")
 		}
 		f.emitToken(TokenType(b[0]), ts, te)
-	}
-
-//line scan_tokens.go:4289
+	}//line scan_tokens.go:4289
 	{
 		top = 0
 		ts = 0
 		te = 0
 		act = 0
-	}
-
-//line scan_tokens.go:4297
+	}//line scan_tokens.go:4297
 	{
 		var _klen int
 		var _trans int
@@ -4313,16 +4251,10 @@ const hcltok_en_main int = 1459
 			switch _hcltok_actions[_acts-1] {
 			case 3:
 //line NONE:1
-				ts = p
-
-//line scan_tokens.go:4320
+				ts = p//line scan_tokens.go:4320
 			}
-		}
-
-		_keys = int(_hcltok_key_offsets[cs])
-		_trans = int(_hcltok_index_offsets[cs])
-
-		_klen = int(_hcltok_single_lengths[cs])
+		}		_keys = int(_hcltok_key_offsets[cs])
+		_trans = int(_hcltok_index_offsets[cs])		_klen = int(_hcltok_single_lengths[cs])
 		if _klen > 0 {
 			_lower := int(_keys)
 			var _mid int
@@ -4330,9 +4262,7 @@ const hcltok_en_main int = 1459
 			for {
 				if _upper < _lower {
 					break
-				}
-
-				_mid = _lower + ((_upper - _lower) >> 1)
+				}				_mid = _lower + ((_upper - _lower) >> 1)
 				switch {
 				case data[p] < _hcltok_trans_keys[_mid]:
 					_upper = _mid - 1
@@ -4345,9 +4275,7 @@ const hcltok_en_main int = 1459
 			}
 			_keys += _klen
 			_trans += _klen
-		}
-
-		_klen = int(_hcltok_range_lengths[cs])
+		}		_klen = int(_hcltok_range_lengths[cs])
 		if _klen > 0 {
 			_lower := int(_keys)
 			var _mid int
@@ -4355,9 +4283,7 @@ const hcltok_en_main int = 1459
 			for {
 				if _upper < _lower {
 					break
-				}
-
-				_mid = _lower + (((_upper - _lower) >> 1) & ^1)
+				}				_mid = _lower + (((_upper - _lower) >> 1) & ^1)
 				switch {
 				case data[p] < _hcltok_trans_keys[_mid]:
 					_upper = _mid - 2
@@ -4369,18 +4295,12 @@ const hcltok_en_main int = 1459
 				}
 			}
 			_trans += _klen
-		}
-
-	_match:
+		}	_match:
 		_trans = int(_hcltok_indicies[_trans])
 	_eof_trans:
-		cs = int(_hcltok_trans_targs[_trans])
-
-		if _hcltok_trans_actions[_trans] == 0 {
+		cs = int(_hcltok_trans_targs[_trans])		if _hcltok_trans_actions[_trans] == 0 {
 			goto _again
-		}
-
-		_acts = int(_hcltok_trans_actions[_trans])
+		}		_acts = int(_hcltok_trans_actions[_trans])
 		_nacts = uint(_hcltok_actions[_acts])
 		_acts++
 		for ; _nacts > 0; _nacts-- {
@@ -4388,13 +4308,9 @@ const hcltok_en_main int = 1459
 			switch _hcltok_actions[_acts-1] {
 			case 0:
 //line scan_tokens.rl:224
-				p--
-
-			case 4:
+				p--			case 4:
 //line NONE:1
-				te = p + 1
-
-			case 5:
+				te = p + 1			case 5:
 //line scan_tokens.rl:248
 				act = 4
 			case 6:
@@ -4446,9 +4362,7 @@ const hcltok_en_main int = 1459
 					{
 						stack = stack[:len(stack)-1]
 					}
-					goto _again
-
-				}
+					goto _again				}
 			case 10:
 //line scan_tokens.rl:248
 				te = p + 1
@@ -4552,9 +4466,7 @@ const hcltok_en_main int = 1459
 						p = (te) - 1
 						token(TokenInvalid)
 					}
-				}
-
-			case 21:
+				}			case 21:
 //line scan_tokens.rl:148
 				act = 11
 			case 22:
@@ -4601,9 +4513,7 @@ const hcltok_en_main int = 1459
 				te = p + 1
 				{
 					// This action is called specificially when a heredoc literal
-					// ends with a newline character.
-
-					// This might actually be our end marker.
+					// ends with a newline character.					// This might actually be our end marker.
 					topdoc := &heredocs[len(heredocs)-1]
 					if topdoc.StartOfLine {
 						maybeMarker := bytes.TrimSpace(data[ts:te])
@@ -4633,12 +4543,8 @@ const hcltok_en_main int = 1459
 							{
 								stack = stack[:len(stack)-1]
 							}
-							goto _again
-
-						}
-					}
-
-					topdoc.StartOfLine = true
+							goto _again						}
+					}					topdoc.StartOfLine = true
 					token(TokenStringLit)
 				}
 			case 26:
@@ -4723,9 +4629,7 @@ const hcltok_en_main int = 1459
 					}
 				case 11:
 					{
-						p = (te) - 1
-
-						// This action is called when a heredoc literal _doesn't_ end
+						p = (te) - 1						// This action is called when a heredoc literal _doesn't_ end
 						// with a newline character, e.g. because we're about to enter
 						// an interpolation sequence.
 						heredocs[len(heredocs)-1].StartOfLine = false
@@ -4736,9 +4640,7 @@ const hcltok_en_main int = 1459
 						p = (te) - 1
 						token(TokenBadUTF8)
 					}
-				}
-
-			case 33:
+				}			case 33:
 //line scan_tokens.rl:156
 				act = 15
 			case 34:
@@ -4860,18 +4762,14 @@ const hcltok_en_main int = 1459
 					}
 				case 15:
 					{
-						p = (te) - 1
-
-						token(TokenStringLit)
+						p = (te) - 1						token(TokenStringLit)
 					}
 				case 16:
 					{
 						p = (te) - 1
 						token(TokenBadUTF8)
 					}
-				}
-
-			case 45:
+				}			case 45:
 //line scan_tokens.rl:270
 				act = 17
 			case 46:
@@ -4928,9 +4826,7 @@ const hcltok_en_main int = 1459
 						p = (te) - 1
 						token(TokenBadUTF8)
 					}
-				}
-
-			case 54:
+				}			case 54:
 //line scan_tokens.rl:278
 				act = 22
 			case 55:
@@ -5022,9 +4918,7 @@ const hcltok_en_main int = 1459
 						{
 							stack = stack[:len(stack)-1]
 						}
-						goto _again
-
-					} else {
+						goto _again					} else {
 						token(TokenCBrace)
 						braces--
 					}
@@ -5046,9 +4940,7 @@ const hcltok_en_main int = 1459
 						{
 							stack = stack[:len(stack)-1]
 						}
-						goto _again
-
-					} else {
+						goto _again					} else {
 						// We intentionally generate a TokenTemplateSeqEnd here,
 						// even though the user apparently wanted a brace, because
 						// we want to allow the parser to catch the incorrect use
@@ -5078,22 +4970,16 @@ const hcltok_en_main int = 1459
 					token(TokenOHeredoc)
 					// the token is currently the whole heredoc introducer, like
 					// <<EOT or <<-EOT, followed by a newline. We want to extract
-					// just the "EOT" portion that we'll use as the closing marker.
-
-					marker := data[ts+2 : te-1]
+					// just the "EOT" portion that we'll use as the closing marker.					marker := data[ts+2 : te-1]
 					if marker[0] == '-' {
 						marker = marker[1:]
 					}
 					if marker[len(marker)-1] == '\r' {
 						marker = marker[:len(marker)-1]
-					}
-
-					heredocs = append(heredocs, heredocInProgress{
+					}					heredocs = append(heredocs, heredocInProgress{
 						Marker:      marker,
 						StartOfLine: true,
-					})
-
-					{
+					})					{
 						stack = append(stack, 0)
 						stack[top] = cs
 						top++
@@ -5116,9 +5002,7 @@ const hcltok_en_main int = 1459
 			case 74:
 //line scan_tokens.rl:276
 				te = p
-				p--
-
-			case 75:
+				p--			case 75:
 //line scan_tokens.rl:277
 				te = p
 				p--
@@ -5197,13 +5081,9 @@ const hcltok_en_main int = 1459
 						p = (te) - 1
 						token(TokenBadUTF8)
 					}
-				}
-
-//line scan_tokens.go:5055
+				}//line scan_tokens.go:5055
 			}
-		}
-
-	_again:
+		}	_again:
 		_acts = int(_hcltok_to_state_actions[cs])
 		_nacts = uint(_hcltok_actions[_acts])
 		_acts++
@@ -5212,17 +5092,11 @@ const hcltok_en_main int = 1459
 			switch _hcltok_actions[_acts-1] {
 			case 1:
 //line NONE:1
-				ts = 0
-
-			case 2:
+				ts = 0			case 2:
 //line NONE:1
-				act = 0
-
-//line scan_tokens.go:5073
+				act = 0//line scan_tokens.go:5073
 			}
-		}
-
-		if cs == 0 {
+		}		if cs == 0 {
 			goto _out
 		}
 		p++
@@ -5237,16 +5111,10 @@ const hcltok_en_main int = 1459
 				_trans = int(_hcltok_eof_trans[cs] - 1)
 				goto _eof_trans
 			}
-		}
-
-	_out:
+		}	_out:
 		{
 		}
-	}
-
-//line scan_tokens.rl:363
-
-	// If we fall out here without being in a final state then we've
+	}//line scan_tokens.rl:363	// If we fall out here without being in a final state then we've
 	// encountered something that the scanner can't match, which we'll
 	// deal with as an invalid.
 	if cs < hcltok_first_final {
@@ -5261,11 +5129,7 @@ const hcltok_en_main int = 1459
 		} else {
 			f.emitToken(TokenInvalid, ts, len(data))
 		}
-	}
-
-	// We always emit a synthetic EOF token at the end, since it gives the
+	}	// We always emit a synthetic EOF token at the end, since it gives the
 	// parser position information for an "unexpected EOF" diagnostic.
-	f.emitToken(TokenEOF, len(data), len(data))
-
-	return f.Tokens
+	f.emitToken(TokenEOF, len(data), len(data))	return f.Tokens
 }

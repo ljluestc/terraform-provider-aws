@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccElasticBeanstalkApplicationVersion_BeanstalkApp_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var appVersion elasticbeanstalk.ApplicationVersionDescription
@@ -38,7 +37,6 @@ func TestAccElasticBeanstalkApplicationVersion_BeanstalkApp_basic(t *testing.T) 
 		},
 	})
 }
-
 func TestAccElasticBeanstalkApplicationVersion_BeanstalkApp_duplicateLabels(t *testing.T) {
 	ctx := acctest.Context(t)
 	var firstAppVersion elasticbeanstalk.ApplicationVersionDescription
@@ -60,7 +58,6 @@ func TestAccElasticBeanstalkApplicationVersion_BeanstalkApp_duplicateLabels(t *t
 		},
 	})
 }
-
 func TestAccElasticBeanstalkApplicationVersion_BeanstalkApp_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var appVersion elasticbeanstalk.ApplicationVersionDescription
@@ -112,7 +109,6 @@ func TestAccElasticBeanstalkApplicationVersion_BeanstalkApp_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckApplicationVersionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ElasticBeanstalkConn(ctx)
@@ -142,7 +138,6 @@ func testAccCheckApplicationVersionDestroy(ctx context.Context) resource.TestChe
 		return nil
 	}
 }
-
 func testAccCheckApplicationVersionExists(ctx context.Context, n string, app *elasticbeanstalk.ApplicationVersionDescription) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -175,7 +170,6 @@ func testAccCheckApplicationVersionExists(ctx context.Context, n string, app *el
 		return nil
 	}
 }
-
 func testAccApplicationVersionConfig_basic(randInt int) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "default" {
@@ -197,11 +191,10 @@ resource "aws_elastic_beanstalk_application_version" "default" {
   application = aws_elastic_beanstalk_application.default.name
   name        = "tf-test-version-label-%d"
   bucket      = aws_s3_bucket.default.id
-  key         = aws_s3_object.default.id
+  key= aws_s3_object.default.id
 }
 `, randInt, randInt, randInt)
 }
-
 func testAccApplicationVersionConfig_duplicateLabel(randInt int) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "default" {
@@ -223,7 +216,7 @@ resource "aws_elastic_beanstalk_application_version" "first" {
   application = aws_elastic_beanstalk_application.first.name
   name        = "tf-test-version-label-%d"
   bucket      = aws_s3_bucket.default.id
-  key         = aws_s3_object.default.id
+  key= aws_s3_object.default.id
 }
 
 resource "aws_elastic_beanstalk_application" "second" {
@@ -235,11 +228,10 @@ resource "aws_elastic_beanstalk_application_version" "second" {
   application = aws_elastic_beanstalk_application.second.name
   name        = "tf-test-version-label-%d"
   bucket      = aws_s3_bucket.default.id
-  key         = aws_s3_object.default.id
+  key= aws_s3_object.default.id
 }
 `, randInt, randInt, randInt, randInt, randInt)
 }
-
 func testAccApplicationVersionConfig_tags(randInt int, tag1, tag2 string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "default" {
@@ -261,7 +253,7 @@ resource "aws_elastic_beanstalk_application_version" "default" {
   application = aws_elastic_beanstalk_application.default.name
   name        = "tf-test-version-label-%[1]d"
   bucket      = aws_s3_bucket.default.id
-  key         = aws_s3_object.default.id
+  key= aws_s3_object.default.id
 
   tags = {
     firstTag  = "%[2]s"
@@ -270,7 +262,6 @@ resource "aws_elastic_beanstalk_application_version" "default" {
 }
 `, randInt, tag1, tag2)
 }
-
 func testAccApplicationVersionConfig_addTags(randInt int, tag1, tag2, tag3 string) string {
 	return fmt.Sprintf(`
 resource "aws_s3_bucket" "default" {
@@ -292,7 +283,7 @@ resource "aws_elastic_beanstalk_application_version" "default" {
   application = aws_elastic_beanstalk_application.default.name
   name        = "tf-test-version-label-%[1]d"
   bucket      = aws_s3_bucket.default.id
-  key         = aws_s3_object.default.id
+  key= aws_s3_object.default.id
 
   tags = {
     firstTag  = "%[2]s"

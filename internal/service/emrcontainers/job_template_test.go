@@ -28,9 +28,9 @@ func TestAccEMRContainersJobTemplate_basic(t *testing.T) {
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, emrcontainers.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, emrcontainers.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobTemplateDestroy(ctx),
+		CheckDestroy:    testAccCheckJobTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobTemplateConfig_basic(rName),
@@ -65,9 +65,9 @@ func TestAccEMRContainersJobTemplate_disappears(t *testing.T) {
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, emrcontainers.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, emrcontainers.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobTemplateDestroy(ctx),
+		CheckDestroy:    testAccCheckJobTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobTemplateConfig_basic(rName),
@@ -91,9 +91,9 @@ func TestAccEMRContainersJobTemplate_tags(t *testing.T) {
 		PreCheck: func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, emrcontainers.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, emrcontainers.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJobTemplateDestroy(ctx),
+		CheckDestroy:    testAccCheckJobTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccJobTemplateConfig_tags1(rName, "key1", "value1"),
@@ -176,8 +176,8 @@ resource "aws_iam_role" "test" {
       Effect = "Allow"
       Principal = {
         Service = [
-          "eks.${data.aws_partition.current.dns_suffix}",
-          "eks-nodegroup.${data.aws_partition.current.dns_suffix}",
+ "eks.${data.aws_partition.current.dns_suffix}",
+ "eks-nodegroup.${data.aws_partition.current.dns_suffix}",
         ]
       }
     }]
@@ -215,8 +215,8 @@ resource "aws_iam_role" "test" {
       Effect = "Allow"
       Principal = {
         Service = [
-          "eks.${data.aws_partition.current.dns_suffix}",
-          "eks-nodegroup.${data.aws_partition.current.dns_suffix}",
+ "eks.${data.aws_partition.current.dns_suffix}",
+ "eks-nodegroup.${data.aws_partition.current.dns_suffix}",
         ]
       }
     }]

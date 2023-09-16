@@ -47,7 +47,7 @@ func DataSourceMap() *schema.Resource {
 				Computed: true,
 			},
 			"map_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
 			},

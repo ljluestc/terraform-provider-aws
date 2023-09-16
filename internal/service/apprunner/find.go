@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package apprunnerimport ("context""github.com/aws/aws-sdk-go/aws""github.com/aws/aws-sdk-go/service/apprunner")funcfuncfuncfunc
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packageapprunnerimport("context""github.com/aws/aws-sdk-go/aws""github.com/aws/aws-sdk-go/service/apprunner")

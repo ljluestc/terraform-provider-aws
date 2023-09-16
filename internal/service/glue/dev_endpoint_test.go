@@ -30,7 +30,7 @@ func TestAccGlueDevEndpoint_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDevEndpointConfig_basic(rName),
@@ -65,7 +65,7 @@ func TestAccGlueDevEndpoint_arguments(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDevEndpointConfig_arguments(rName, "--arg1", "value1"),
@@ -114,7 +114,7 @@ func TestAccGlueDevEndpoint_extraJarsS3Path(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDevEndpointConfig_extraJarsS3Path(rName, extraJarsS3Path),
@@ -152,7 +152,7 @@ func TestAccGlueDevEndpoint_extraPythonLibsS3Path(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDevEndpointConfig_extraPythonLibsS3Path(rName, extraPythonLibsS3Path),
@@ -188,7 +188,7 @@ func TestAccGlueDevEndpoint_glueVersion(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccDevEndpointConfig_version(rName, "1"),
@@ -228,7 +228,7 @@ func TestAccGlueDevEndpoint_numberOfNodes(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccDevEndpointConfig_numberOfNodes(rName, 1),
@@ -268,7 +268,7 @@ func TestAccGlueDevEndpoint_numberOfWorkers(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccDevEndpointConfig_numberOfWorkers(rName, 1),
@@ -317,7 +317,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDevEndpointConfig_publicKey(rName, publicKey1),
@@ -370,7 +370,7 @@ t.Fatalf("error generating random SSH key: %s", err)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDevEndpointConfig_publicKeys2(rName, publicKey1, publicKey2),
@@ -413,7 +413,7 @@ func TestAccGlueDevEndpoint_security(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDevEndpointConfig_securityConfiguration(rName),
@@ -443,7 +443,7 @@ func TestAccGlueDevEndpoint_SubnetID_securityGroupIDs(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDevEndpointConfig_subnetIDSecurityGroupIDs(rName),
@@ -475,7 +475,7 @@ func TestAccGlueDevEndpoint_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDevEndpointConfig_tags1(rName, "key1", "value1"),
@@ -522,7 +522,7 @@ func TestAccGlueDevEndpoint_workerType(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDevEndpointConfig_workerTypeStandard(rName),
@@ -565,7 +565,7 @@ func TestAccGlueDevEndpoint_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckDevEndpointDestroy(ctx),
+CheckDestroy:    testAccCheckDevEndpointDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccDevEndpointConfig_basic(rName),
@@ -695,7 +695,7 @@ func testAccDevEndpointConfig_extraJarsS3Path(rName string, extraJarsS3Path stri
 	return acctest.ConfigCompose(testAccDevEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_dev_endpoint" "test" {
   name= %[1]q
-  role_arn           = aws_iam_role.test.arn
+  role_arn  = aws_iam_role.test.arn
   extra_jars_s3_path = %[2]q
 }
 `, rName, extraJarsS3Path))
@@ -714,7 +714,7 @@ resource "aws_glue_dev_endpoint" "test" {
 func testAccDevEndpointConfig_version(rName string, glueVersion string) string {
 	return acctest.ConfigCompose(testAccDevEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_dev_endpoint" "test" {
-  name         = %[1]q
+  name= %[1]q
   role_arn     = aws_iam_role.test.arn
   glue_version = %[2]q
 }
@@ -724,7 +724,7 @@ resource "aws_glue_dev_endpoint" "test" {
 func testAccDevEndpointConfig_numberOfNodes(rName string, numberOfNodes int) string {
 	return acctest.ConfigCompose(testAccDevEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_dev_endpoint" "test" {
-  name            = %[1]q
+  name   = %[1]q
   role_arn        = aws_iam_role.test.arn
   number_of_nodes = %[2]d
 }
@@ -734,8 +734,8 @@ resource "aws_glue_dev_endpoint" "test" {
 func testAccDevEndpointConfig_numberOfWorkers(rName string, numberOfWorkers int) string {
 	return acctest.ConfigCompose(testAccDevEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_dev_endpoint" "test" {
-  name              = %[1]q
-  role_arn          = aws_iam_role.test.arn
+  name     = %[1]q
+  role_arn = aws_iam_role.test.arn
   worker_type       = "G.1X"
   number_of_workers = %[2]d
 }
@@ -814,8 +814,8 @@ func testAccDevEndpointConfig_subnetIDSecurityGroupIDs(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), testAccDevEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_dev_endpoint" "test" {
   name= %[1]q
-  role_arn           = aws_iam_role.test.arn
-  subnet_id          = aws_subnet.test.id
+  role_arn  = aws_iam_role.test.arn
+  subnet_id = aws_subnet.test.id
   security_group_ids = [aws_security_group.test.id]
 }
 
@@ -835,7 +835,7 @@ resource "aws_vpc_endpoint_route_table_association" "test" {
 }
 
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block  = "10.0.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
 
@@ -845,7 +845,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -919,8 +919,8 @@ resource "aws_glue_dev_endpoint" "test" {
 func testAccDevEndpointConfig_workerType(rName, workerType string) string {
 	return acctest.ConfigCompose(testAccDevEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_dev_endpoint" "test" {
-  name              = %[1]q
-  role_arn          = aws_iam_role.test.arn
+  name     = %[1]q
+  role_arn = aws_iam_role.test.arn
   worker_type       = %[2]q
   number_of_workers = 2
 }
@@ -930,8 +930,8 @@ resource "aws_glue_dev_endpoint" "test" {
 func testAccDevEndpointConfig_workerTypeStandard(rName string) string {
 	return acctest.ConfigCompose(testAccDevEndpointConfig_base(rName), fmt.Sprintf(`
 resource "aws_glue_dev_endpoint" "test" {
-  name              = %[1]q
-  role_arn          = aws_iam_role.test.arn
+  name     = %[1]q
+  role_arn = aws_iam_role.test.arn
   worker_type       = "Standard"
   number_of_workers = 2
 }

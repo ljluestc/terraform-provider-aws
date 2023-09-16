@@ -25,7 +25,7 @@ import (
 func ResourceWebhook() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceWebhookCreate,
-		ReadWithoutTimeout:   resourceWebhookRead,
+		ReadWithoutTimeout:resourceWebhookRead,
 		UpdateWithoutTimeout: resourceWebhookUpdate,
 		DeleteWithoutTimeout: resourceWebhookDelete,
 		Importer: &schema.ResourceImporter{
@@ -34,29 +34,29 @@ func ResourceWebhook() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:  schema.TypeString,
 				Computed: true,
 			},
 
 			"app_id": {
-				Type:     schema.TypeString,
+				Type:  schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 
 			"branch_name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:  true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z/_.-]{1,255}$`), "should be not be more than 255 letters, numbers, and the symbols /_.-"),
 			},
 
 			"description": {
-				Type:     schema.TypeString,
+				Type:  schema.TypeString,
 				Optional: true,
 			},
 
 			"url": {
-				Type:     schema.TypeString,
+				Type:  schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -68,7 +68,7 @@ func resourceWebhookCreate(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).AmplifyConn(ctx)
 
 	input := &amplify.CreateWebhookInput{
-		AppId:      aws.String(d.Get("app_id").(string)),
+		AppId:aws.String(d.Get("app_id").(string)),
 		BranchName: aws.String(d.Get("branch_name").(string)),
 	}
 

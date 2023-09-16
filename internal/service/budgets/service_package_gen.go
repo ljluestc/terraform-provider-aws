@@ -14,37 +14,32 @@ import (
 )
 
 type servicePackage struct{}
-
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{}
 }
-
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{}
 }
-
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
 		{
-			Factory:  DataSourceBudget,
+			Factory:DataSourceBudget,
 			TypeName: "aws_budgets_budget",
 		},
 	}
 }
-
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
-			Factory:  ResourceBudget,
+			Factory:ResourceBudget,
 			TypeName: "aws_budgets_budget",
 		},
 		{
-			Factory:  ResourceBudgetAction,
+			Factory:ResourceBudgetAction,
 			TypeName: "aws_budgets_budget_action",
 		},
 	}
 }
-
 func (p *servicePackage) ServicePackageName() string {
 	return names.Budgets
 }
@@ -55,7 +50,6 @@ func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*b
 
 	return budgets_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
-
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}
 }

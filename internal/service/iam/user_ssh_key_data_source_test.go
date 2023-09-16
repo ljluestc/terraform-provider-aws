@@ -22,7 +22,7 @@ import (
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -49,12 +49,12 @@ resource "aws_iam_user_ssh_key" "test" {
   username   = aws_iam_user.test.name
   encoding   = "SSH"
   public_key = %[2]q
-  status     = "Inactive"
+  status = "Inactive"
 }
 
 data "aws_iam_user_ssh_key" "test" {
-  username          = aws_iam_user.test.name
-  encoding          = "SSH"
+  username = aws_iam_user.test.name
+  encoding = "SSH"
   ssh_public_key_id = aws_iam_user_ssh_key.test.ssh_public_key_id
 }
 `, username, publicKey)

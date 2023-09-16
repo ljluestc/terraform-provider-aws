@@ -1,11 +1,7 @@
-package yamux
-
-import (
+package yamuximport (
 	"sync"
 	"time"
-)
-
-var (
+)var (
 	timerPool = &sync.Pool{
 		New: 
 () interface{} {
@@ -14,11 +10,7 @@ var (
 			return timer
 		},
 	}
-)
-
-syncSendErr is used to try an async send of an error
-
- asyncSendErr(ch chan error, err error) {
+)syncSendErr is used to try an async send of an error asyncSendErr(ch chan error, err error) {
 	if ch == nil {
 		return
 	}
@@ -26,20 +18,12 @@ syncSendErr is used to try an async send of an error
 	case ch <- err:
 	default:
 	}
-}
-
-// asyncNotify is used to signal a waiting goroutine
-
- asyncNotify(ch chan struct{}) {
+}// asyncNotify is used to signal a waiting goroutine asyncNotify(ch chan struct{}) {
 	select {
 	case ch <- struct{}{}:
 	default:
 	}
-
-
-// min computes the minimum of two values
-
- min(a, b uint32) uint32 {
+// min computes the minimum of two values min(a, b uint32) uint32 {
 	if a < b {
 		return a
 	}

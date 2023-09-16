@@ -48,14 +48,14 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"container_recipe_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):container-recipe/[0-9a-z_-]+/\d+\.\d+\.\d+$`), "valid container recipe ARN must be provided"),
 ExactlyOneOf: []string{"container_recipe_arn", "image_recipe_arn"},
 	},
 	"distribution_configuration_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):distribution-configuration/[0-9a-z_-]+$`), "valid distribution configuration ARN must be provided"),
@@ -67,7 +67,7 @@ ForceNew: true,
 Default:  true,
 	},
 	"image_recipe_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):image-recipe/[0-9a-z_-]+/\d+\.\d+\.\d+$`), "valid image recipe ARN must be provided"),
@@ -88,7 +88,7 @@ Elem: &schema.Resource{
 	Default:  true,
 },
 "timeout_minutes": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ForceNew:     true,
 	Default:      720,
@@ -98,7 +98,7 @@ Elem: &schema.Resource{
 },
 	},
 	"infrastructure_configuration_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`^arn:aws[^:]*:imagebuilder:[^:]+:(?:\d{12}|aws):infrastructure-configuration/[0-9a-z_-]+$`), "valid infrastructure configuration ARN must be provided"),
@@ -187,7 +187,7 @@ func resourceImageCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	input := &imagebuilder.CreateImageInput{
 ClientToken:   aws.String(id.UniqueId()),
 EnhancedImageMetadataEnabled: aws.Bool(d.Get("enhanced_image_metadata_enabled").(bool)),
-Tags:          getTagsIn(ctx),
+Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("container_recipe_arn"); ok {

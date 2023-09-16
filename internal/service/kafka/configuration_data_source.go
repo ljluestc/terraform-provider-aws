@@ -22,37 +22,36 @@ func DataSourceConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"kafka_versions": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
 			},
 			"latest_revision": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Computed: true,
 			},
 			"name": {
 				Type:schema.TypeString,
-				Required:     true,
+				Required:true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 			"server_properties": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
 	}
 }
-
 func dataSourceConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KafkaConn(ctx)
@@ -85,7 +84,7 @@ func dataSourceConfigurationRead(ctx context.Context, d *schema.ResourceData, me
 
 	revision := configuration.LatestRevision.Revision
 	revisionInput := &kafka.DescribeConfigurationRevisionInput{
-		Arn:      configuration.Arn,
+		Arn: configuration.Arn,
 		Revision: revision,
 	}
 

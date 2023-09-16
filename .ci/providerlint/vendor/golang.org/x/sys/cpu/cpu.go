@@ -1,27 +1,17 @@
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// Package cpu implements processor feature detection for
+// license that can be found in the LICENSE file.// Package cpu implements processor feature detection for
 // various CPU architectures.
-package cpu
-
-import (
-	"os"
-	"strings"
-)
-
-// Initialized reports whether the CPU features were initialized.
+package cpuimport (
+"os"
+"strings"
+)// Initialized reports whether the CPU features were initialized.
 //
 // For some GOOS/GOARCH combinations initialization of the CPU features depends
 // on reading an operating specific file, e.g. /proc/self/auxv on linux/arm
 // Initialized will report false if reading the file fails.
-var Initialized bool
-
-// CacheLinePad is used to pad structs to avoid false sharing.
-type CacheLinePad struct{ _ [cacheLineSize]byte }
-
-// X86 contains the supported CPU features of the
+var Initialized bool// CacheLinePad is used to pad structs to avoid false sharing.
+type CacheLinePad struct{ _ [cacheLineSize]byte }// X86 contains the supported CPU features of the
 // current X86/AMD64 platform. If the current platform
 // is not X86/AMD64 then all feature flags are false.
 //
@@ -73,9 +63,7 @@ HasSSSE3            bool // Supplemental streaming SIMD extension 3
 HasSSE41            bool // Streaming SIMD extension 4 and 4.1
 HasSSE42            bool // Streaming SIMD extension 4 and 4.2
 _                   CacheLinePad
-}
-
-// ARM64 contains the supported CPU features of the
+}// ARM64 contains the supported CPU features of the
 // current ARMv8(aarch64) platform. If the current platform
 // is not arm64 then all feature flags are false.
 var ARM64 struct {
@@ -105,9 +93,7 @@ HasSHA512   bool // SHA512 hardware implementation
 HasSVE      bool // Scalable Vector Extensions
 HasASIMDFHM bool // Advanced SIMD multiplication FP16 to FP32
 _           CacheLinePad
-}
-
-// ARM contains the supported CPU features of the current ARM (32-bit) platform.
+}// ARM contains the supported CPU features of the current ARM (32-bit) platform.
 // All feature flags are false if:
 //  1. the current platform is not arm, or
 //  2. the current operating system is not Linux.
@@ -141,18 +127,14 @@ HasSHA1     bool // SHA1 hardware implementation
 HasSHA2     bool // SHA2 hardware implementation
 HasCRC32    bool // CRC32 hardware implementation
 _           CacheLinePad
-}
-
-// MIPS64X contains the supported CPU features of the current mips64/mips64le
+}// MIPS64X contains the supported CPU features of the current mips64/mips64le
 // platforms. If the current platform is not mips64/mips64le or the current
 // operating system is not Linux then all feature flags are false.
 var MIPS64X struct {
 _      CacheLinePad
 HasMSA bool // MIPS SIMD architecture
 _      CacheLinePad
-}
-
-// PPC64 contains the supported CPU features of the current ppc64/ppc64le platforms.
+}// PPC64 contains the supported CPU features of the current ppc64/ppc64le platforms.
 // If the current platform is not ppc64/ppc64le then all feature flags are false.
 //
 // For ppc64/ppc64le, it is safe to check only for ISA level starting on ISA v3.00,
@@ -166,9 +148,7 @@ HasSCV   bool // Syscall vectored (requires kernel enablement)
 IsPOWER8 bool // ISA v2.07 (POWER8)
 IsPOWER9 bool // ISA v3.00 (POWER9), implies IsPOWER8
 _        CacheLinePad
-}
-
-// S390X contains the supported CPU features of the current IBM Z
+}// S390X contains the supported CPU features of the current IBM Z
 // (s390x) platform. If the current platform is not IBM Z then all
 // feature flags are false.
 //
@@ -197,20 +177,15 @@ HasVX     bool // vector facility
 HasVXE    bool // vector-enhancements facility 1
 _         CacheLinePad
 }
-
-func init() {
+ init() {
 archInit()
 initOptions()
 processOptions()
-}
-
-// options contains the cpu debug options that can be used in GODEBUG.
+}// options contains the cpu debug options that can be used in GODEBUG.
 // Options are arch dependent and are added by the arch specific initOptions functions.
 // Features that are mandatory for the specific GOARCH should have the Required field set
 // (e.g. SSE2 on amd64).
-var options []option
-
-// Option names should be lower case. e.g. avx instead of AVX.
+var options []option// Option names should be lower case. e.g. avx instead of AVX.
 type option struct {
 Name      string
 Feature   *bool
@@ -218,8 +193,7 @@ Specified bool // whether feature value was specified in GODEBUG
 Enable    bool // whether feature should be enabled
 Required  bool // whether feature is mandatory and can not be disabled
 }
-
-func processOptions() {
+ processOptions() {
 env := os.Getenv("GODEBUG")
 field:
 for env != "" {
@@ -238,9 +212,7 @@ if i < 0 {
 print("GODEBUG sys/cpu: no value specified for \"", field, "\"\n")
 continue
 }
-key, value := field[4:i], field[i+1:] // e.g. "SSE2", "on"
-
-var enable bool
+key, value := field[4:i], field[i+1:] // e.g. "SSE2", "on"var enable bool
 switch value {
 case "on":
 enable = true
@@ -249,42 +221,28 @@ enable = false
 default:
 print("GODEBUG sys/cpu: value \"", value, "\" not supported for cpu option \"", key, "\"\n")
 continue field
-}
-
-if key == "all" {
+}if key == "all" {
 for i := range options {
 options[i].Specified = true
 options[i].Enable = enable || options[i].Required
 }
 continue field
-}
-
-for i := range options {
+}for i := range options {
 if options[i].Name == key {
 options[i].Specified = true
 options[i].Enable = enable
 continue field
 }
-}
-
-print("GODEBUG sys/cpu: unknown cpu feature \"", key, "\"\n")
-}
-
-for _, o := range options {
+}print("GODEBUG sys/cpu: unknown cpu feature \"", key, "\"\n")
+}for _, o := range options {
 if !o.Specified {
 continue
-}
-
-if o.Enable && !*o.Feature {
+}if o.Enable && !*o.Feature {
 print("GODEBUG sys/cpu: can not enable \"", o.Name, "\", missing CPU support\n")
 continue
-}
-
-if !o.Enable && o.Required {
+}if !o.Enable && o.Required {
 print("GODEBUG sys/cpu: can not disable \"", o.Name, "\", required CPU feature\n")
 continue
-}
-
-*o.Feature = o.Enable
+}*o.Feature = o.Enable
 }
 }

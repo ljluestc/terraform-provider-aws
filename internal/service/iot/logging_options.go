@@ -26,17 +26,17 @@ func ResourceLoggingOptions() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"default_log_level": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringInSlice(iot.LogLevel_Values(), false),
 			},
 			"disable_all_logs": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: verify.ValidARN,
 			},
 		},

@@ -22,10 +22,10 @@ const (
 
 func waitClusterCreated(ctx context.Context, conn *redshift.Redshift, id string, timeout time.Duration) (*redshift.Cluster, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{clusterAvailabilityStatusModifying, clusterAvailabilityStatusUnavailable},
-		Target:     []string{clusterAvailabilityStatusAvailable},
-		Refresh:    statusClusterAvailability(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:[]string{clusterAvailabilityStatusModifying, clusterAvailabilityStatusUnavailable},
+		Target: []string{clusterAvailabilityStatusAvailable},
+		Refresh:statusClusterAvailability(ctx, conn, id),
+		Timeout:timeout,
 		MinTimeout: 10 * time.Second,
 	}
 
@@ -97,10 +97,10 @@ func waitClusterRelocationStatusResolved(ctx context.Context, conn *redshift.Red
 
 func waitClusterRebooted(ctx context.Context, conn *redshift.Redshift, id string, timeout time.Duration) (*redshift.Cluster, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{clusterStatusRebooting, clusterStatusModifying},
-		Target:     []string{clusterStatusAvailable},
-		Refresh:    statusCluster(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:[]string{clusterStatusRebooting, clusterStatusModifying},
+		Target: []string{clusterStatusAvailable},
+		Refresh:statusCluster(ctx, conn, id),
+		Timeout:timeout,
 		MinTimeout: 10 * time.Second,
 	}
 
@@ -117,10 +117,10 @@ func waitClusterRebooted(ctx context.Context, conn *redshift.Redshift, id string
 
 func waitClusterAquaApplied(ctx context.Context, conn *redshift.Redshift, id string, timeout time.Duration) (*redshift.Cluster, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{redshift.AquaStatusApplying},
-		Target:     []string{redshift.AquaStatusDisabled, redshift.AquaStatusEnabled},
-		Refresh:    statusClusterAqua(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:[]string{redshift.AquaStatusApplying},
+		Target: []string{redshift.AquaStatusDisabled, redshift.AquaStatusEnabled},
+		Refresh:statusClusterAqua(ctx, conn, id),
+		Timeout:timeout,
 		MinTimeout: 10 * time.Second,
 	}
 
@@ -137,12 +137,12 @@ func waitClusterAquaApplied(ctx context.Context, conn *redshift.Redshift, id str
 
 func waitEndpointAccessActive(ctx context.Context, conn *redshift.Redshift, id string) (*redshift.EndpointAccess, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{endpointAccessStatusCreating, endpointAccessStatusModifying},
-		Target:     []string{endpointAccessStatusActive},
-		Refresh:    statusEndpointAccess(ctx, conn, id),
-		Timeout:    10 * time.Minute,
+		Pending:[]string{endpointAccessStatusCreating, endpointAccessStatusModifying},
+		Target: []string{endpointAccessStatusActive},
+		Refresh:statusEndpointAccess(ctx, conn, id),
+		Timeout:10 * time.Minute,
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+		Delay:  30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -158,12 +158,12 @@ func waitEndpointAccessActive(ctx context.Context, conn *redshift.Redshift, id s
 
 func waitEndpointAccessDeleted(ctx context.Context, conn *redshift.Redshift, id string) (*redshift.EndpointAccess, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{endpointAccessStatusDeleting},
-		Target:     []string{},
-		Refresh:    statusEndpointAccess(ctx, conn, id),
-		Timeout:    10 * time.Minute,
+		Pending:[]string{endpointAccessStatusDeleting},
+		Target: []string{},
+		Refresh:statusEndpointAccess(ctx, conn, id),
+		Timeout:10 * time.Minute,
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+		Delay:  30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -179,12 +179,12 @@ func waitEndpointAccessDeleted(ctx context.Context, conn *redshift.Redshift, id 
 
 func waitClusterSnapshotCreated(ctx context.Context, conn *redshift.Redshift, id string) (*redshift.Snapshot, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{clusterSnapshotStatusCreating},
-		Target:     []string{clusterSnapshotStatusAvailable},
-		Refresh:    statusClusterSnapshot(ctx, conn, id),
-		Timeout:    10 * time.Minute,
+		Pending:[]string{clusterSnapshotStatusCreating},
+		Target: []string{clusterSnapshotStatusAvailable},
+		Refresh:statusClusterSnapshot(ctx, conn, id),
+		Timeout:10 * time.Minute,
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+		Delay:  30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -200,12 +200,12 @@ func waitClusterSnapshotCreated(ctx context.Context, conn *redshift.Redshift, id
 
 func waitClusterSnapshotDeleted(ctx context.Context, conn *redshift.Redshift, id string) (*redshift.Snapshot, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{clusterSnapshotStatusAvailable},
-		Target:     []string{},
-		Refresh:    statusClusterSnapshot(ctx, conn, id),
-		Timeout:    10 * time.Minute,
+		Pending:[]string{clusterSnapshotStatusAvailable},
+		Target: []string{},
+		Refresh:statusClusterSnapshot(ctx, conn, id),
+		Timeout:10 * time.Minute,
 		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+		Delay:  30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)

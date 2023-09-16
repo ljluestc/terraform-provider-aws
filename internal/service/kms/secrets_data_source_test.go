@@ -16,7 +16,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func TestAccKMSSecretsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var encryptedPayload string
@@ -43,7 +42,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccKMSSecretsDataSource_asymmetric(t *testing.T) {
 	ctx := acctest.Context(t)
 	var encryptedPayload string
@@ -70,7 +68,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func testAccSecretsEncryptDataSource(ctx context.Context, key *kms.KeyMetadata, plaintext string, encryptedPayload *string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).KMSConn(ctx)
@@ -94,7 +91,6 @@ if err != nil {
 return nil
 	}
 }
-
 func testAccSecretsEncryptDataSourceAsymmetric(ctx context.Context, key *kms.KeyMetadata, plaintext string, encryptedPayload *string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).KMSConn(ctx)
@@ -116,7 +112,6 @@ if err != nil {
 return nil
 	}
 }
-
 func testAccSecretsDecryptDataSource(ctx context.Context, t *testing.T, plaintext string, encryptedPayload *string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 dataSourceName := "data.aws_kms_secrets.test"
@@ -139,7 +134,6 @@ resource.TestCheckResourceAttr(dataSourceName, "plaintext.secret1", plaintext),
 return nil
 	}
 }
-
 func testAccSecretsDecryptDataSourceAsym(ctx context.Context, t *testing.T, key *kms.KeyMetadata, plaintext string, encryptedPayload *string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 dataSourceName := "data.aws_kms_secrets.test"
@@ -170,7 +164,6 @@ resource "aws_kms_key" "test" {
   description    = "Testing the Terraform AWS KMS Secrets data_source"
 }
 `
-
 func testAccSecretsDataSourceConfig_secret(payload string) string {
 	return acctest.ConfigCompose(testAccSecretsDataSourceConfig_key, fmt.Sprintf(`
 data "aws_kms_secrets" "test" {
@@ -193,7 +186,6 @@ resource "aws_kms_key" "test" {
   customer_master_key_spec = "RSA_2048"
 }
 `
-
 func testAccSecretsDataSourceConfig_asymmetricSecret(payload string, keyid string) string {
 	return acctest.ConfigCompose(testAccSecretsDataSourceConfig_asymmetricKey, fmt.Sprintf(`
 data "aws_kms_secrets" "test" {

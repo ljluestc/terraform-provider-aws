@@ -43,7 +43,7 @@ func ResourceLFTag() *schema.Resource {
 				Computed: true,
 			},
 			"key": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
@@ -56,7 +56,7 @@ func ResourceLFTag() *schema.Resource {
 				// https://docs.aws.amazon.com/lake-formation/latest/dg/TBAC-notes.html
 				MaxItems: 1000,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validateLFTagValues(),
 				},
 				Set: schema.HashString,
@@ -98,7 +98,7 @@ func resourceLFTagCreate(ctx context.Context, d *schema.ResourceData, meta inter
 		for _, v := range tagValueChunks {
 			in := &lakeformation.UpdateLFTagInput{
 				CatalogId:      aws.String(catalogID),
-				TagKey:         aws.String(tagKey),
+				TagKey:aws.String(tagKey),
 				TagValuesToAdd: flex.ExpandStringList(v),
 			}
 

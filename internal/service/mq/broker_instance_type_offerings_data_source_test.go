@@ -10,11 +10,10 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccMQBrokerInstanceTypeOfferingsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, mq.EndpointsID) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, mq.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -40,15 +39,14 @@ func TestAccMQBrokerInstanceTypeOfferingsDataSource_basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet("data.aws_mq_broker_instance_type_offerings.all", "broker_instance_options.#"),
 					resource.TestCheckTypeSetElemNestedAttrs("data.aws_mq_broker_instance_type_offerings.instance", "broker_instance_options.*", map[string]string{
 						"host_instance_type": "mq.m5.large",
-						"storage_type":       "ebs",
-						"engine_type":        "ACTIVEMQ",
+						"storage_type":,
+						"engine_type":IVEMQ",
 					}),
 				),
 			},
 		},
 	})
 }
-
 func testAccBrokerInstanceTypeOfferingsDataSourceConfig_basic() string {
 	return `
 data "aws_mq_broker_instance_type_offerings" "empty" {}
@@ -67,8 +65,8 @@ data "aws_mq_broker_instance_type_offerings" "instance" {
 
 data "aws_mq_broker_instance_type_offerings" "all" {
   host_instance_type = "mq.m5.large"
-  storage_type       = "EBS"
-  engine_type        = "ACTIVEMQ"
+  storage_typeS"
+  engine_typeCTIVEMQ"
 }
 `
 }

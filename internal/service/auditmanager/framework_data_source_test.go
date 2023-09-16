@@ -68,7 +68,7 @@ func TestAccAuditManagerFrameworkDataSource_custom(t *testing.T) {
 func testAccFrameworkDataSourceConfig_standard(rName string) string {
 	return fmt.Sprintf(`
 data "aws_auditmanager_framework" "test" {
-  name           = %[1]q
+  name = %[1]q
   framework_type = "Standard"
 }
 `, rName)
@@ -80,9 +80,9 @@ resource "aws_auditmanager_control" "test" {
   name = %[1]q
 
   control_mapping_sources {
-    source_name          = %[1]q
-    source_set_up_option = "Procedural_Controls_Mapping"
-    source_type          = "MANUAL"
+source_name= %[1]q
+source_set_up_option = "Procedural_Controls_Mapping"
+source_type= "MANUAL"
   }
 }
 
@@ -90,15 +90,15 @@ resource "aws_auditmanager_framework" "test" {
   name = %[1]q
 
   control_sets {
-    name = %[1]q
-    controls {
-      id = aws_auditmanager_control.test.id
-    }
+name = %[1]q
+controls {
+ id = aws_auditmanager_control.test.id
+}
   }
 }
 
 data "aws_auditmanager_framework" "test" {
-  name           = aws_auditmanager_framework.test.name
+  name = aws_auditmanager_framework.test.name
   framework_type = "Custom"
 }
 `, rName)

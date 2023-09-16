@@ -79,7 +79,7 @@ if err != nil {
 	if updatedTags := oldTags.Updated(newTags).IgnoreSystem(names.IAM); len(updatedTags) > 0 {
 input := &iam.TagOpenIDConnectProviderInput{
 	OpenIDConnectProviderArn: aws.String(identifier),
-	Tags:      Tags(updatedTags),
+	Tags: Tags(updatedTags),
 }
 
 _, err := conn.TagOpenIDConnectProviderWithContext(ctx, input)
@@ -118,7 +118,7 @@ if err != nil {
 	if updatedTags := oldTags.Updated(newTags).IgnoreSystem(names.IAM); len(updatedTags) > 0 {
 input := &iam.TagPolicyInput{
 	PolicyArn: aws.String(identifier),
-	Tags:      Tags(updatedTags),
+	Tags: Tags(updatedTags),
 }
 
 _, err := conn.TagPolicyWithContext(ctx, input)
@@ -157,7 +157,7 @@ if err != nil {
 	if updatedTags := oldTags.Updated(newTags).IgnoreSystem(names.IAM); len(updatedTags) > 0 {
 input := &iam.TagRoleInput{
 	RoleName: aws.String(identifier),
-	Tags:     Tags(updatedTags),
+	Tags:Tags(updatedTags),
 }
 
 _, err := conn.TagRoleWithContext(ctx, input)
@@ -183,7 +183,7 @@ return nil
 	if removedTags := oldTags.Removed(newTags).IgnoreSystem(names.IAM); len(removedTags) > 0 {
 input := &iam.UntagSAMLProviderInput{
 	SAMLProviderArn: aws.String(identifier),
-	TagKeys:         aws.StringSlice(removedTags.Keys()),
+	TagKeys:aws.StringSlice(removedTags.Keys()),
 }
 
 _, err := conn.UntagSAMLProviderWithContext(ctx, input)
@@ -196,7 +196,7 @@ if err != nil {
 	if updatedTags := oldTags.Updated(newTags).IgnoreSystem(names.IAM); len(updatedTags) > 0 {
 input := &iam.TagSAMLProviderInput{
 	SAMLProviderArn: aws.String(identifier),
-	Tags:            Tags(updatedTags),
+	Tags:  Tags(updatedTags),
 }
 
 _, err := conn.TagSAMLProviderWithContext(ctx, input)
@@ -274,7 +274,7 @@ if err != nil {
 	if updatedTags := oldTags.Updated(newTags).IgnoreSystem(names.IAM); len(updatedTags) > 0 {
 input := &iam.TagUserInput{
 	UserName: aws.String(identifier),
-	Tags:     Tags(updatedTags),
+	Tags:Tags(updatedTags),
 }
 
 _, err := conn.TagUserWithContext(ctx, input)
@@ -300,7 +300,7 @@ return nil
 	if removedTags := oldTags.Removed(newTags).IgnoreSystem(names.IAM); len(removedTags) > 0 {
 input := &iam.UntagMFADeviceInput{
 	SerialNumber: aws.String(identifier),
-	TagKeys:      aws.StringSlice(removedTags.Keys()),
+	TagKeys: aws.StringSlice(removedTags.Keys()),
 }
 
 _, err := conn.UntagMFADeviceWithContext(ctx, input)
@@ -313,7 +313,7 @@ if err != nil {
 	if updatedTags := oldTags.Updated(newTags).IgnoreSystem(names.IAM); len(updatedTags) > 0 {
 input := &iam.TagMFADeviceInput{
 	SerialNumber: aws.String(identifier),
-	Tags:         Tags(updatedTags),
+	Tags:Tags(updatedTags),
 }
 
 _, err := conn.TagMFADeviceWithContext(ctx, input)

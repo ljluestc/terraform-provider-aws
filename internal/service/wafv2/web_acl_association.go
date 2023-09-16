@@ -39,13 +39,13 @@ func ResourceWebACLAssociation() *schema.Resource {
 		SchemaFunc: func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"resource_arn": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ForceNew:     true,
 					Required:     true,
 					ValidateFunc: verify.ValidARN,
 				},
 				"web_acl_arn": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ForceNew:     true,
 					Required:     true,
 					ValidateFunc: verify.ValidARN,
@@ -54,7 +54,6 @@ func ResourceWebACLAssociation() *schema.Resource {
 		},
 	}
 }
-
 func resourceWebACLAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -79,7 +78,6 @@ func resourceWebACLAssociationCreate(ctx context.Context, d *schema.ResourceData
 
 	return resourceWebACLAssociationRead(ctx, d, meta)
 }
-
 func resourceWebACLAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -106,7 +104,6 @@ func resourceWebACLAssociationRead(ctx context.Context, d *schema.ResourceData, 
 
 	return nil
 }
-
 func resourceWebACLAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).WAFV2Conn(ctx)
 
@@ -131,7 +128,6 @@ func resourceWebACLAssociationDelete(ctx context.Context, d *schema.ResourceData
 
 	return nil
 }
-
 func FindWebACLByResourceARN(ctx context.Context, conn *wafv2.WAFV2, arn string) (*wafv2.WebACL, error) {
 	input := &wafv2.GetWebACLForResourceInput{
 		ResourceArn: aws.String(arn),
@@ -158,14 +154,12 @@ func FindWebACLByResourceARN(ctx context.Context, conn *wafv2.WAFV2, arn string)
 }
 
 const webACLAssociationIDSeparator = ","
-
 func WebACLAssociationCreateResourceID(webACLARN, resourceARN string) string {
 	parts := []string{webACLARN, resourceARN}
 	id := strings.Join(parts, webACLAssociationIDSeparator)
 
 	return id
 }
-
 func WebACLAssociationParseResourceID(id string) (string, string, error) {
 	parts := strings.SplitN(id, webACLAssociationIDSeparator, 2)
 

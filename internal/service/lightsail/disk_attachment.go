@@ -50,7 +50,6 @@ func ResourceDiskAttachment() *schema.Resource {
 		},
 	}
 }
-
 func resourceDiskAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -82,7 +81,6 @@ func resourceDiskAttachmentCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return resourceDiskAttachmentRead(ctx, d, meta)
 }
-
 func resourceDiskAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -104,7 +102,6 @@ func resourceDiskAttachmentRead(ctx context.Context, d *schema.ResourceData, met
 
 	return nil
 }
-
 func resourceDiskAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).LightsailClient(ctx)
 
@@ -173,7 +170,6 @@ func resourceDiskAttachmentDelete(ctx context.Context, d *schema.ResourceData, m
 
 	return nil
 }
-
 func FindDiskAttachmentById(ctx context.Context, conn *lightsail.Client, id string) (*types.Disk, error) {
 	id_parts := strings.SplitN(id, ",", -1)
 

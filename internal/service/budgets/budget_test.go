@@ -19,7 +19,6 @@ import (
 	tfbudgets "github.com/hashicorp/terraform-provider-aws/internal/service/budgets"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func TestTimePeriodSecondsFromString(t *testing.T) {
 	t.Parallel()
 
@@ -33,7 +32,6 @@ func TestTimePeriodSecondsFromString(t *testing.T) {
 		t.Errorf("got %s, expected %s", seconds, want)
 	}
 }
-
 func TestTimePeriodSecondsToString(t *testing.T) {
 	t.Parallel()
 
@@ -47,7 +45,6 @@ func TestTimePeriodSecondsToString(t *testing.T) {
 		t.Errorf("got %s, expected %s", ts, want)
 	}
 }
-
 func TestAccBudgetsBudget_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var budget budgets.Budget
@@ -55,10 +52,10 @@ func TestAccBudgetsBudget_basic(t *testing.T) {
 	resourceName := "aws_budgets_budget.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckBudgetDestroy(ctx),
+		CheckDestroy: testAccCheckBudgetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetConfig_basic(rName),
@@ -69,7 +66,7 @@ func TestAccBudgetsBudget_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "budget_type", "RI_UTILIZATION"),
 					resource.TestCheckResourceAttr(resourceName, "cost_filter.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "cost_filter.*", map[string]string{
-						"name":     "Service",
+						"name":"Service",
 						"values.#": "1",
 						"values.0": "Amazon Redshift",
 					}),
@@ -84,24 +81,23 @@ func TestAccBudgetsBudget_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBudgetsBudget_Name_generated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var budget budgets.Budget
 	resourceName := "aws_budgets_budget.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckBudgetDestroy(ctx),
+		CheckDestroy: testAccCheckBudgetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetConfig_nameGenerated(),
@@ -110,7 +106,7 @@ func TestAccBudgetsBudget_Name_generated(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "budget_type", "RI_COVERAGE"),
 					resource.TestCheckResourceAttr(resourceName, "cost_filter.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "cost_filter.*", map[string]string{
-						"name":     "Service",
+						"name":"Service",
 						"values.#": "1",
 						"values.0": "Amazon Redshift",
 					}),
@@ -126,24 +122,23 @@ func TestAccBudgetsBudget_Name_generated(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBudgetsBudget_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var budget budgets.Budget
 	resourceName := "aws_budgets_budget.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckBudgetDestroy(ctx),
+		CheckDestroy: testAccCheckBudgetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetConfig_namePrefix("tf-acc-test-prefix-"),
@@ -163,14 +158,13 @@ func TestAccBudgetsBudget_namePrefix(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBudgetsBudget_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var budget budgets.Budget
@@ -178,10 +172,10 @@ func TestAccBudgetsBudget_disappears(t *testing.T) {
 	resourceName := "aws_budgets_budget.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckBudgetDestroy(ctx),
+		CheckDestroy: testAccCheckBudgetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetConfig_basic(rName),
@@ -194,7 +188,6 @@ func TestAccBudgetsBudget_disappears(t *testing.T) {
 		},
 	})
 }
-
 func TestAccBudgetsBudget_autoAdjustDataForecast(t *testing.T) {
 	ctx := acctest.Context(t)
 	var budget budgets.Budget
@@ -202,10 +195,10 @@ func TestAccBudgetsBudget_autoAdjustDataForecast(t *testing.T) {
 	resourceName := "aws_budgets_budget.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckBudgetDestroy(ctx),
+		CheckDestroy: testAccCheckBudgetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetConfig_autoAdjustDataForecast(rName),
@@ -220,14 +213,13 @@ func TestAccBudgetsBudget_autoAdjustDataForecast(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccBudgetsBudget_autoAdjustDataHistorical(t *testing.T) {
 	ctx := acctest.Context(t)
 	var budget budgets.Budget
@@ -235,10 +227,10 @@ func TestAccBudgetsBudget_autoAdjustDataHistorical(t *testing.T) {
 	resourceName := "aws_budgets_budget.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckBudgetDestroy(ctx),
+		CheckDestroy: testAccCheckBudgetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetConfig_autoAdjustDataHistorical(rName),
@@ -257,8 +249,8 @@ func TestAccBudgetsBudget_autoAdjustDataHistorical(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:true,
 				ImportStateVerify: true,
 			},
 			{
@@ -280,7 +272,6 @@ func TestAccBudgetsBudget_autoAdjustDataHistorical(t *testing.T) {
 		},
 	})
 }
-
 func TestAccBudgetsBudget_costTypes(t *testing.T) {
 	ctx := acctest.Context(t)
 	var budget budgets.Budget
@@ -298,10 +289,10 @@ func TestAccBudgetsBudget_costTypes(t *testing.T) {
 	endDate2 := tfbudgets.TimePeriodTimestampToString(&ts4)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckBudgetDestroy(ctx),
+		CheckDestroy: testAccCheckBudgetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetConfig_costTypes(rName, startDate1, endDate1),
@@ -310,7 +301,7 @@ func TestAccBudgetsBudget_costTypes(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "budget_type", "COST"),
 					resource.TestCheckResourceAttr(resourceName, "cost_filter.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "cost_filter.*", map[string]string{
-						"name":     "AZ",
+						"name":"AZ",
 						"values.#": "2",
 						"values.0": acctest.Region(),
 						"values.1": acctest.AlternateRegion(),
@@ -338,8 +329,8 @@ func TestAccBudgetsBudget_costTypes(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:true,
 				ImportStateVerify: true,
 			},
 			{
@@ -349,7 +340,7 @@ func TestAccBudgetsBudget_costTypes(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "budget_type", "COST"),
 					resource.TestCheckResourceAttr(resourceName, "cost_filter.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "cost_filter.*", map[string]string{
-						"name":     "AZ",
+						"name":"AZ",
 						"values.#": "2",
 						"values.0": acctest.AlternateRegion(),
 						"values.1": acctest.ThirdRegion(),
@@ -379,7 +370,6 @@ func TestAccBudgetsBudget_costTypes(t *testing.T) {
 		},
 	})
 }
-
 func TestAccBudgetsBudget_notifications(t *testing.T) {
 	ctx := acctest.Context(t)
 	var budget budgets.Budget
@@ -393,10 +383,10 @@ func TestAccBudgetsBudget_notifications(t *testing.T) {
 	emailAddress3 := acctest.RandomEmailAddress(domain)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckBudgetDestroy(ctx),
+		CheckDestroy: testAccCheckBudgetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetConfig_notifications(rName, emailAddress1, emailAddress2),
@@ -410,20 +400,20 @@ func TestAccBudgetsBudget_notifications(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "notification.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "notification.*", map[string]string{
 						"comparison_operator": "GREATER_THAN",
-						"notification_type":   "ACTUAL",
+						"notification_type":"ACTUAL",
 						"subscriber_email_addresses.#": "0",
-						"subscriber_sns_topic_arns.#":  "1",
-						"threshold":  "150",
-						"threshold_type":      "PERCENTAGE",
+						"subscriber_sns_topic_arns.#":"1",
+						"threshold":"150",
+						"threshold_type": "PERCENTAGE",
 					}),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "notification.*.subscriber_sns_topic_arns.*", snsTopicResourceName, "arn"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "notification.*", map[string]string{
 						"comparison_operator": "EQUAL_TO",
-						"notification_type":   "FORECASTED",
+						"notification_type":"FORECASTED",
 						"subscriber_email_addresses.#": "2",
-						"subscriber_sns_topic_arns.#":  "0",
-						"threshold":  "200.1",
-						"threshold_type":      "ABSOLUTE_VALUE",
+						"subscriber_sns_topic_arns.#":"0",
+						"threshold":"200.1",
+						"threshold_type": "ABSOLUTE_VALUE",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "notification.*.subscriber_email_addresses.*", emailAddress1),
 					resource.TestCheckTypeSetElemAttr(resourceName, "notification.*.subscriber_email_addresses.*", emailAddress2),
@@ -432,8 +422,8 @@ func TestAccBudgetsBudget_notifications(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:true,
 				ImportStateVerify: true,
 			},
 			{
@@ -448,11 +438,11 @@ func TestAccBudgetsBudget_notifications(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "notification.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "notification.*", map[string]string{
 						"comparison_operator": "LESS_THAN",
-						"notification_type":   "ACTUAL",
+						"notification_type":"ACTUAL",
 						"subscriber_email_addresses.#": "1",
-						"subscriber_sns_topic_arns.#":  "0",
-						"threshold":  "123.45",
-						"threshold_type":      "ABSOLUTE_VALUE",
+						"subscriber_sns_topic_arns.#":"0",
+						"threshold":"123.45",
+						"threshold_type": "ABSOLUTE_VALUE",
 					}),
 					resource.TestCheckTypeSetElemAttr(resourceName, "notification.*.subscriber_email_addresses.*", emailAddress3),
 					resource.TestCheckResourceAttr(resourceName, "planned_limit.#", "0"),
@@ -462,7 +452,6 @@ func TestAccBudgetsBudget_notifications(t *testing.T) {
 		},
 	})
 }
-
 func TestAccBudgetsBudget_plannedLimits(t *testing.T) {
 	ctx := acctest.Context(t)
 	var budget budgets.Budget
@@ -473,10 +462,10 @@ func TestAccBudgetsBudget_plannedLimits(t *testing.T) {
 	config2, testCheckFuncs2 := generateStartTimes(resourceName, "200.0", now)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck: acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:    testAccCheckBudgetDestroy(ctx),
+		CheckDestroy: testAccCheckBudgetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetConfig_plannedLimits(rName, config1),
@@ -492,8 +481,8 @@ func TestAccBudgetsBudget_plannedLimits(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:true,
 				ImportStateVerify: true,
 			},
 			{
@@ -512,7 +501,6 @@ func TestAccBudgetsBudget_plannedLimits(t *testing.T) {
 		},
 	})
 }
-
 func testAccBudgetExists(ctx context.Context, resourceName string, v *budgets.Budget) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -543,7 +531,6 @@ func testAccBudgetExists(ctx context.Context, resourceName string, v *budgets.Bu
 		return nil
 	}
 }
-
 func testAccCheckBudgetDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).BudgetsConn(ctx)
@@ -575,230 +562,217 @@ func testAccCheckBudgetDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccBudgetConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_budgets_budget" "test" {
-  name= %[1]q
-  budget_type  = "RI_UTILIZATION"
-  limit_amount = "100.0"
-  limit_unit   = "PERCENTAGE"
-  time_unit    = "QUARTERLY"
+name= %[1]q
+budget_type= "RI_UTILIZATION"
+limit_amount = "100.0"
+limit_unit= "PERCENTAGE"
+time_unit = "QUARTERLY"
 
-  cost_filter {
-    name   = "Service"
-    values = ["Amazon Redshift"]
-  }
+cost_filter {
+ name= "Service"
+ values = ["Amazon Redshift"]
+}
 }
 `, rName)
 }
-
 func testAccBudgetConfig_nameGenerated() string {
 	return `
 resource "aws_budgets_budget" "test" {
-  budget_type  = "RI_COVERAGE"
-  limit_amount = "100.00"
-  limit_unit   = "PERCENTAGE"
-  time_unit    = "ANNUALLY"
+budget_type= "RI_COVERAGE"
+limit_amount = "100.00"
+limit_unit= "PERCENTAGE"
+time_unit = "ANNUALLY"
 
-  cost_filter {
-    name   = "Service"
-    values = ["Amazon Redshift"]
-  }
+cost_filter {
+ name= "Service"
+ values = ["Amazon Redshift"]
+}
 }
 `
 }
-
 func testAccBudgetConfig_namePrefix(namePrefix string) string {
 	return fmt.Sprintf(`
 resource "aws_budgets_budget" "test" {
-  name_prefix  = %[1]q
-  budget_type  = "SAVINGS_PLANS_UTILIZATION"
-  limit_amount = "100"
-  limit_unit   = "PERCENTAGE"
-  time_unit    = "MONTHLY"
+name_prefix= %[1]q
+budget_type= "SAVINGS_PLANS_UTILIZATION"
+limit_amount = "100"
+limit_unit= "PERCENTAGE"
+time_unit = "MONTHLY"
 }
 `, namePrefix)
 }
-
 func testAccBudgetConfig_autoAdjustDataForecast(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_budgets_budget" "test" {
-  name        = %[1]q
-  budget_type = "COST"
-  time_unit   = "MONTHLY"
+name= %[1]q
+budget_type = "COST"
+time_unit= "MONTHLY"
 
-  auto_adjust_data {
-    auto_adjust_type = "FORECAST"
-  }
+auto_adjust_data {
+ auto_adjust_type = "FORECAST"
+}
 }
 `, rName)
 }
-
 func testAccBudgetConfig_autoAdjustDataHistorical(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_budgets_budget" "test" {
-  name        = %[1]q
-  budget_type = "COST"
-  time_unit   = "MONTHLY"
+name= %[1]q
+budget_type = "COST"
+time_unit= "MONTHLY"
 
-  auto_adjust_data {
-    auto_adjust_type = "HISTORICAL"
-    historical_options {
-      budget_adjustment_period = 2
-    }
-  }
+auto_adjust_data {
+ auto_adjust_type = "HISTORICAL"
+ historical_options {
+ budget_adjustment_period = 2
+ }
+}
 }
 `, rName)
 }
-
 func testAccBudgetConfig_autoAdjustDataHistoricalUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_budgets_budget" "test" {
-  name        = %[1]q
-  budget_type = "COST"
-  time_unit   = "MONTHLY"
+name= %[1]q
+budget_type = "COST"
+time_unit= "MONTHLY"
 
-  auto_adjust_data {
-    auto_adjust_type = "HISTORICAL"
-    historical_options {
-      budget_adjustment_period = 5
-    }
-  }
+auto_adjust_data {
+ auto_adjust_type = "HISTORICAL"
+ historical_options {
+ budget_adjustment_period = 5
+ }
+}
 }
 `, rName)
 }
-
 func testAccBudgetConfig_costTypes(rName, startDate, endDate string) string {
 	return fmt.Sprintf(`
 resource "aws_budgets_budget" "test" {
-  name= %[1]q
-  budget_type  = "COST"
-  limit_amount = "456.78"
-  limit_unit   = "USD"
+name= %[1]q
+budget_type= "COST"
+limit_amount = "456.78"
+limit_unit= "USD"
 
-  time_period_start = %[2]q
-  time_period_end   = %[3]q
-  time_unit= "DAILY"
+time_period_start = %[2]q
+time_period_end= %[3]q
+time_unit= "DAILY"
 
-  cost_filter {
-    name   = "AZ"
-    values = [%[4]q, %[5]q]
-  }
+cost_filter {
+ name= "AZ"
+ values = [%[4]q, %[5]q]
+}
 
-  cost_types {
-    include_discount     = false
-    include_subscription = true
-    include_tax = false
-    use_blended = true
-  }
+cost_types {
+ include_discount= false
+ include_subscription = true
+ include_tax = false
+ use_blended = true
+}
 }
 `, rName, startDate, endDate, acctest.Region(), acctest.AlternateRegion())
 }
-
 func testAccBudgetConfig_costTypesUpdated(rName, startDate, endDate string) string {
 	return fmt.Sprintf(`
 resource "aws_budgets_budget" "test" {
-  name= %[1]q
-  budget_type  = "COST"
-  limit_amount = "567.89"
-  limit_unit   = "USD"
+name= %[1]q
+budget_type= "COST"
+limit_amount = "567.89"
+limit_unit= "USD"
 
-  time_period_start = %[2]q
-  time_period_end   = %[3]q
-  time_unit= "DAILY"
+time_period_start = %[2]q
+time_period_end= %[3]q
+time_unit= "DAILY"
 
-  cost_filter {
-    name   = "AZ"
-    values = [%[4]q, %[5]q]
-  }
+cost_filter {
+ name= "AZ"
+ values = [%[4]q, %[5]q]
+}
 
-  cost_types {
-    include_credit       = false
-    include_discount     = true
-    include_refund       = false
-    include_subscription = true
-    include_tax = true
-    use_blended = false
-  }
+cost_types {
+ include_credit= false
+ include_discount= true
+ include_refund= false
+ include_subscription = true
+ include_tax = true
+ use_blended = false
+}
 }
 `, rName, startDate, endDate, acctest.AlternateRegion(), acctest.ThirdRegion())
 }
-
 func testAccBudgetConfig_notifications(rName, emailAddress1, emailAddress2 string) string {
 	return fmt.Sprintf(`
 resource "aws_sns_topic" "test" {
-  name = %[1]q
+name = %[1]q
 }
 
 resource "aws_budgets_budget" "test" {
-  name= %[1]q
-  budget_type  = "USAGE"
-  limit_amount = "432.10"
-  limit_unit   = "GBP"
-  time_unit    = "ANNUALLY"
+name= %[1]q
+budget_type= "USAGE"
+limit_amount = "432.10"
+limit_unit= "GBP"
+time_unit = "ANNUALLY"
 
-  notification {
-    comparison_operator       = "GREATER_THAN"
-    notification_type= "ACTUAL"
-    threshold  = 150
-    threshold_type   = "PERCENTAGE"
-    subscriber_sns_topic_arns = [aws_sns_topic.test.arn]
-  }
+notification {
+ comparison_operator= "GREATER_THAN"
+ notification_type= "ACTUAL"
+ threshold= 150
+ threshold_type= "PERCENTAGE"
+ subscriber_sns_topic_arns = [aws_sns_topic.test.arn]
+}
 
-  notification {
-    comparison_operator        = "EQUAL_TO"
-    notification_type = "FORECASTED"
-    threshold   = 200.10
-    threshold_type    = "ABSOLUTE_VALUE"
-    subscriber_email_addresses = [%[2]q, %[3]q]
-  }
+notification {
+ comparison_operator= "EQUAL_TO"
+ notification_type = "FORECASTED"
+ threshold= 200.10
+ threshold_type = "ABSOLUTE_VALUE"
+ subscriber_email_addresses = [%[2]q, %[3]q]
+}
 }
 `, rName, emailAddress1, emailAddress2)
 }
-
 func testAccBudgetConfig_notificationsUpdated(rName, emailAddress1 string) string {
 	return fmt.Sprintf(`
 resource "aws_budgets_budget" "test" {
-  name= %[1]q
-  budget_type  = "USAGE"
-  limit_amount = "432.10"
-  limit_unit   = "GBP"
-  time_unit    = "ANNUALLY"
+name= %[1]q
+budget_type= "USAGE"
+limit_amount = "432.10"
+limit_unit= "GBP"
+time_unit = "ANNUALLY"
 
-  notification {
-    comparison_operator        = "LESS_THAN"
-    notification_type = "ACTUAL"
-    threshold   = 123.45
-    threshold_type    = "ABSOLUTE_VALUE"
-    subscriber_email_addresses = [%[2]q]
-  }
+notification {
+ comparison_operator= "LESS_THAN"
+ notification_type = "ACTUAL"
+ threshold= 123.45
+ threshold_type = "ABSOLUTE_VALUE"
+ subscriber_email_addresses = [%[2]q]
+}
 }
 `, rName, emailAddress1)
 }
-
 func testAccBudgetConfig_plannedLimits(rName, config string) string {
 	return fmt.Sprintf(`
 resource "aws_budgets_budget" "test" {
-  name        = %[1]q
-  budget_type = "COST"
-  time_unit   = "MONTHLY"
-  %[2]s
+name= %[1]q
+budget_type = "COST"
+time_unit= "MONTHLY"
+%[2]s
 }
 `, rName, config)
 }
-
 func testAccBudgetConfig_plannedLimitsUpdated(rName, config string) string {
 	return fmt.Sprintf(`
 resource "aws_budgets_budget" "test" {
-  name        = %[1]q
-  budget_type = "COST"
-  time_unit   = "MONTHLY"
-  %[2]s
+name= %[1]q
+budget_type = "COST"
+time_unit= "MONTHLY"
+%[2]s
 }
 `, rName, config)
 }
-
 func generateStartTimes(resourceName, amount string, now time.Time) (string, []resource.TestCheckFunc) {
 	startTimes := make([]time.Time, 12)
 
@@ -813,9 +787,9 @@ func generateStartTimes(resourceName, amount string, now time.Time) (string, []r
 	for i := 0; i < len(startTimes); i++ {
 		configBuilder.WriteString(fmt.Sprintf(`
 planned_limit {
-  start_time = %[1]q
-  amount     = %[2]q
-  unit       = "USD"
+start_time = %[1]q
+amount= %[2]q
+unit= "USD"
 }
 `, tfbudgets.TimePeriodTimestampToString(&startTimes[i]), amount))
 	}
@@ -824,8 +798,8 @@ planned_limit {
 	for i := 0; i < len(startTimes); i++ {
 		testCheckFuncs[i] = resource.TestCheckTypeSetElemNestedAttrs(resourceName, "planned_limit.*", map[string]string{
 			"start_time": tfbudgets.TimePeriodTimestampToString(&startTimes[i]),
-			"amount":     amount,
-			"unit":       "USD",
+			"amount":amount,
+			"unit":"USD",
 		})
 	}
 

@@ -23,7 +23,7 @@ import (
 func ResourceReceiptRuleSet() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceReceiptRuleSetCreate,
-		ReadWithoutTimeout:   resourceReceiptRuleSetRead,
+		ReadWithoutTimeout:resourceReceiptRuleSetRead,
 		DeleteWithoutTimeout: resourceReceiptRuleSetDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
@@ -31,19 +31,18 @@ func ResourceReceiptRuleSet() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"rule_set_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 		},
 	}
 }
-
 func resourceReceiptRuleSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -63,7 +62,6 @@ func resourceReceiptRuleSetCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceReceiptRuleSetRead(ctx, d, meta)...)
 }
-
 func resourceReceiptRuleSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)
@@ -94,8 +92,8 @@ func resourceReceiptRuleSetRead(ctx context.Context, d *schema.ResourceData, met
 	d.Set("rule_set_name", name)
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "ses",
-		Region:    meta.(*conns.AWSClient).Region,
+		Service:"ses",
+		Region: meta.(*conns.AWSClient).Region,
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("receipt-rule-set/%s", name),
 	}.String()
@@ -103,7 +101,6 @@ func resourceReceiptRuleSetRead(ctx context.Context, d *schema.ResourceData, met
 
 	return diags
 }
-
 func resourceReceiptRuleSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SESConn(ctx)

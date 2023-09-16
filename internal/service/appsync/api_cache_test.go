@@ -17,7 +17,6 @@ import (
 	tfappsync "github.com/hashicorp/terraform-provider-aws/internal/service/appsync"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func testAccAPICache_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var apiCache appsync.ApiCache
@@ -25,7 +24,7 @@ func testAccAPICache_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAPICacheDestroy(ctx),
@@ -40,14 +39,13 @@ func testAccAPICache_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func testAccAPICache_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var apiCache appsync.ApiCache
@@ -55,7 +53,7 @@ func testAccAPICache_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, appsync.EndpointsID) },
 		ErrorCheck:  acctest.ErrorCheck(t, appsync.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckAPICacheDestroy(ctx),
@@ -71,7 +69,6 @@ func testAccAPICache_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckAPICacheDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).AppSyncConn(ctx)
@@ -93,7 +90,6 @@ func testAccCheckAPICacheDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
-
 func testAccCheckAPICacheExists(ctx context.Context, resourceName string, apiCache *appsync.ApiCache) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -112,7 +108,6 @@ func testAccCheckAPICacheExists(ctx context.Context, resourceName string, apiCac
 		return nil
 	}
 }
-
 func testAccAPICacheConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
@@ -122,9 +117,9 @@ resource "aws_appsync_graphql_api" "test" {
 
 resource "aws_appsync_api_cache" "test" {
   api_id  = aws_appsync_graphql_api.test.id
-  type    = "SMALL"
+  type= "SMALL"
   api_caching_behavior = "FULL_REQUEST_CACHING"
-  ttl     = 60
+  ttl= 60
 }
 `, rName)
 }

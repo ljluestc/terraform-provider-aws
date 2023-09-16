@@ -58,7 +58,7 @@ func (r *resourceDRTAccessRoleARNAssociation) Schema(ctx context.Context, req re
 			"id": schema.StringAttribute{ // required by hashicorps terraform plugin testing framework
 				DeprecationMessage:  "id is only for framework compatibility and not used by the provider",
 				MarkdownDescription: "The ID of the directory.",
-				Computed:            true,
+				Computed:   true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
@@ -245,11 +245,11 @@ func (r *resourceDRTAccessRoleARNAssociation) Delete(ctx context.Context, req re
 
 func waitDRTAccessRoleARNAssociationCreated(ctx context.Context, conn *shield.Shield, roleARN string, timeout time.Duration) (*shield.DescribeDRTAccessOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    []string{statusNormal},
-		Refresh:                   statusDRTAccessRoleARNAssociation(ctx, conn, roleARN),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: []string{},
+		Target:  []string{statusNormal},
+		Refresh: statusDRTAccessRoleARNAssociation(ctx, conn, roleARN),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -263,11 +263,11 @@ func waitDRTAccessRoleARNAssociationCreated(ctx context.Context, conn *shield.Sh
 
 func waitDRTAccessRoleARNAssociationUpdated(ctx context.Context, conn *shield.Shield, roleARN string, timeout time.Duration) (*shield.DescribeDRTAccessOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{statusChangePending},
-		Target:                    []string{statusUpdated},
-		Refresh:                   statusDRTAccessRoleARNAssociation(ctx, conn, roleARN),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: []string{statusChangePending},
+		Target:  []string{statusUpdated},
+		Refresh: statusDRTAccessRoleARNAssociation(ctx, conn, roleARN),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 

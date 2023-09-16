@@ -38,7 +38,7 @@ func TestAccShieldDRTAccessLogBucketAssociation_basic(t *testing.T) {
 			testAccPreCheckLogBucket(ctx, t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDRTAccessLogBucketAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckDRTAccessLogBucketAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDRTAccessLogBucketAssociationConfig_basic(rName, bucketName),
@@ -69,7 +69,7 @@ func TestAccShieldDRTAccessLogBucketAssociation_multibucket(t *testing.T) {
 			testAccPreCheckLogBucket(ctx, t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDRTAccessLogBucketAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckDRTAccessLogBucketAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDRTAccessLogBucketAssociationConfig_multibucket(rName, buckets),
@@ -98,7 +98,7 @@ func TestAccShieldDRTAccessLogBucketAssociation_disappears(t *testing.T) {
 			testAccPreCheckLogBucket(ctx, t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDRTAccessLogBucketAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckDRTAccessLogBucketAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDRTAccessLogBucketAssociationConfig_basic(rName, bucketName),
@@ -217,8 +217,8 @@ resource "aws_iam_role_policy_attachment" "test" {
 
 resource "aws_shield_protection_group" "test" {
   protection_group_id = %[1]q
-  aggregation         = "MAX"
-  pattern             = "ALL"
+  aggregation= "MAX"
+  pattern    = "ALL"
 }
 
 resource "aws_shield_drt_access_role_arn_association" "test" {
@@ -226,7 +226,7 @@ resource "aws_shield_drt_access_role_arn_association" "test" {
 }
 
 resource "aws_shield_drt_access_log_bucket_association" "test" {
-  log_bucket              = aws_s3_bucket.test.id
+  log_bucket     = aws_s3_bucket.test.id
   role_arn_association_id = aws_shield_drt_access_role_arn_association.test.id
 }
 `, rName, bucket)
@@ -267,8 +267,8 @@ resource "aws_iam_role_policy_attachment" "test" {
 
 resource "aws_shield_protection_group" "test" {
   protection_group_id = %[1]q
-  aggregation         = "MAX"
-  pattern             = "ALL"
+  aggregation= "MAX"
+  pattern    = "ALL"
 }
 
 resource "aws_shield_drt_access_role_arn_association" "test" {
@@ -276,12 +276,12 @@ resource "aws_shield_drt_access_role_arn_association" "test" {
 }
 
 resource "aws_shield_drt_access_log_bucket_association" "test1" {
-  log_bucket              = aws_s3_bucket.test1.id
+  log_bucket     = aws_s3_bucket.test1.id
   role_arn_association_id = aws_shield_drt_access_role_arn_association.test.id
 }
 
 resource "aws_shield_drt_access_log_bucket_association" "test2" {
-  log_bucket              = aws_s3_bucket.test2.id
+  log_bucket     = aws_s3_bucket.test2.id
   role_arn_association_id = aws_shield_drt_access_role_arn_association.test.id
 
   depends_on = [aws_shield_drt_access_log_bucket_association.test1]

@@ -32,17 +32,17 @@ func ResourceThingGroupMembership() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"override_dynamic_group": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				ForceNew: true,
 			},
 			"thing_group_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"thing_name": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
@@ -58,7 +58,7 @@ func resourceThingGroupMembershipCreate(ctx context.Context, d *schema.ResourceD
 	thingName := d.Get("thing_name").(string)
 	input := &iot.AddThingToThingGroupInput{
 		ThingGroupName: aws.String(thingGroupName),
-		ThingName:      aws.String(thingName),
+		ThingName:  aws.String(thingName),
 	}
 
 	if v, ok := d.GetOk("override_dynamic_group"); ok {
@@ -118,7 +118,7 @@ func resourceThingGroupMembershipDelete(ctx context.Context, d *schema.ResourceD
 	log.Printf("[DEBUG] Deleting IoT Thing Group Membership: %s", d.Id())
 	_, err = conn.RemoveThingFromThingGroupWithContext(ctx, &iot.RemoveThingFromThingGroupInput{
 		ThingGroupName: aws.String(thingGroupName),
-		ThingName:      aws.String(thingName),
+		ThingName:  aws.String(thingName),
 	})
 
 	if tfawserr.ErrCodeEquals(err, iot.ErrCodeResourceNotFoundException) {

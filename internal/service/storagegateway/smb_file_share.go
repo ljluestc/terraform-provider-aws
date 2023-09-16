@@ -59,19 +59,19 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"audit_destination_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: verify.ValidARN,
 	},
 	"authentication": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ForceNew:     true,
 Default:      authenticationActiveDirectory,
 ValidateFunc: validation.StringInSlice(authentication_Values(), false),
 	},
 	"bucket_region": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ForceNew:     true,
 RequiredWith: []string{"vpc_endpoint_dns_name"},
@@ -83,7 +83,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "cache_stale_timeout_in_seconds": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntBetween(300, 2592000),
 },
@@ -91,13 +91,13 @@ Elem: &schema.Resource{
 },
 	},
 	"case_sensitivity": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      storagegateway.CaseSensitivityClientSpecified,
 ValidateFunc: validation.StringInSlice(storagegateway.CaseSensitivity_Values(), false),
 	},
 	"default_storage_class": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      defaultStorageClassS3Standard,
 ValidateFunc: validation.StringInSlice(defaultStorageClass_Values(), false),
@@ -112,7 +112,7 @@ Optional: true,
 Computed: true,
 	},
 	"gateway_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: verify.ValidARN,
@@ -134,19 +134,19 @@ Optional: true,
 Default:  false,
 	},
 	"kms_key_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: verify.ValidARN,
 RequiredWith: []string{"kms_encrypted"},
 	},
 	"location_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: verify.ValidARN,
 	},
 	"object_acl": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      storagegateway.ObjectACLPrivate,
 ValidateFunc: validation.StringInSlice(storagegateway.ObjectACL_Values(), false),
@@ -180,7 +180,7 @@ Optional: true,
 Default:  false,
 	},
 	"role_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: verify.ValidARN,
@@ -214,15 +214,15 @@ func resourceSMBFileShareCreate(ctx context.Context, d *schema.ResourceData, met
 
 	input := &storagegateway.CreateSMBFileShareInput{
 AccessBasedEnumeration: aws.Bool(d.Get("access_based_enumeration").(bool)),
-ClientToken:            aws.String(id.UniqueId()),
+ClientToken:   aws.String(id.UniqueId()),
 GatewayARN:aws.String(d.Get("gateway_arn").(string)),
 GuessMIMETypeEnabled:   aws.Bool(d.Get("guess_mime_type_enabled").(bool)),
-KMSEncrypted:           aws.Bool(d.Get("kms_encrypted").(bool)),
-LocationARN:            aws.String(d.Get("location_arn").(string)),
+KMSEncrypted:  aws.Bool(d.Get("kms_encrypted").(bool)),
+LocationARN:   aws.String(d.Get("location_arn").(string)),
 ReadOnly:aws.Bool(d.Get("read_only").(bool)),
-RequesterPays:          aws.Bool(d.Get("requester_pays").(bool)),
+RequesterPays: aws.Bool(d.Get("requester_pays").(bool)),
 Role:    aws.String(d.Get("role_arn").(string)),
-SMBACLEnabled:          aws.Bool(d.Get("smb_acl_enabled").(bool)),
+SMBACLEnabled: aws.Bool(d.Get("smb_acl_enabled").(bool)),
 Tags:    getTagsIn(ctx),
 	}
 
@@ -366,12 +366,12 @@ func resourceSMBFileShareUpdate(ctx context.Context, d *schema.ResourceData, met
 	if d.HasChangesExcept("tags", "tags_all") {
 input := &storagegateway.UpdateSMBFileShareInput{
 	AccessBasedEnumeration: aws.Bool(d.Get("access_based_enumeration").(bool)),
-	FileShareARN:           aws.String(d.Id()),
+	FileShareARN:  aws.String(d.Id()),
 	GuessMIMETypeEnabled:   aws.Bool(d.Get("guess_mime_type_enabled").(bool)),
-	KMSEncrypted:           aws.Bool(d.Get("kms_encrypted").(bool)),
+	KMSEncrypted:  aws.Bool(d.Get("kms_encrypted").(bool)),
 	ReadOnly:aws.Bool(d.Get("read_only").(bool)),
-	RequesterPays:          aws.Bool(d.Get("requester_pays").(bool)),
-	SMBACLEnabled:          aws.Bool(d.Get("smb_acl_enabled").(bool)),
+	RequesterPays: aws.Bool(d.Get("requester_pays").(bool)),
+	SMBACLEnabled: aws.Bool(d.Get("smb_acl_enabled").(bool)),
 }
 
 if d.HasChange("admin_user_list") {

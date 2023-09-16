@@ -26,7 +26,7 @@ import (
 func ResourceMember() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceMemberCreate,
-		ReadWithoutTimeout:   resourceMemberRead,
+		ReadWithoutTimeout:resourceMemberRead,
 		UpdateWithoutTimeout: resourceMemberUpdate,
 		DeleteWithoutTimeout: resourceMemberDelete,
 
@@ -76,7 +76,6 @@ func ResourceMember() *schema.Resource {
 		},
 	}
 }
-
 func resourceMemberCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -123,7 +122,6 @@ func resourceMemberCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceMemberRead(ctx, d, meta)...)
 }
-
 func resourceMemberRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -171,7 +169,6 @@ func resourceMemberRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
-
 func resourceMemberUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -220,7 +217,6 @@ func resourceMemberUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceMemberRead(ctx, d, meta)...)
 }
-
 func resourceMemberDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GuardDutyConn(ctx)
@@ -242,7 +238,6 @@ func resourceMemberDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 	return diags
 }
-
 func inviteMemberWaiter(ctx context.Context, accountID, detectorID string, timeout time.Duration, conn *guardduty.GuardDuty) error {
 	input := guardduty.GetMembersInput{
 		DetectorId: aws.String(detectorID),
@@ -284,7 +279,6 @@ func inviteMemberWaiter(ctx context.Context, accountID, detectorID string, timeo
 	}
 	return nil
 }
-
 func memberInvited(out *guardduty.GetMembersOutput, accountID string) (bool, error) {
 	if out == nil || len(out.Members) == 0 {
 		return true, fmt.Errorf("reading GuardDuty Member %q: member missing from response", accountID)
@@ -303,7 +297,6 @@ func memberInvited(out *guardduty.GetMembersOutput, accountID string) (bool, err
 
 	return false, fmt.Errorf("inviting GuardDuty Member %q: invalid status: %s", accountID, status)
 }
-
 func DecodeMemberID(id string) (accountID, detectorID string, err error) {
 	parts := strings.Split(id, ":")
 	if len(parts) != 2 {

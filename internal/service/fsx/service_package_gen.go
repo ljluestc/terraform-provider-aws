@@ -41,7 +41,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceBackup,
 			TypeName: "aws_fsx_backup",
-			Name:     "Backup",
+			Name: "Backup",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -49,7 +49,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceDataRepositoryAssociation,
 			TypeName: "aws_fsx_data_repository_association",
-			Name:     "Data Repository Association",
+			Name: "Data Repository Association",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -57,7 +57,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceFileCache,
 			TypeName: "aws_fsx_file_cache",
-			Name:     "File Cache",
+			Name: "File Cache",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -65,7 +65,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceLustreFileSystem,
 			TypeName: "aws_fsx_lustre_file_system",
-			Name:     "Lustre File System",
+			Name: "Lustre File System",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -73,7 +73,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceOntapFileSystem,
 			TypeName: "aws_fsx_ontap_file_system",
-			Name:     "ONTAP File System",
+			Name: "ONTAP File System",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -81,7 +81,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceOntapStorageVirtualMachine,
 			TypeName: "aws_fsx_ontap_storage_virtual_machine",
-			Name:     "ONTAP Storage Virtual Machine",
+			Name: "ONTAP Storage Virtual Machine",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -89,7 +89,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceOntapVolume,
 			TypeName: "aws_fsx_ontap_volume",
-			Name:     "ONTAP Volume",
+			Name: "ONTAP Volume",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -97,7 +97,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceOpenZFSFileSystem,
 			TypeName: "aws_fsx_openzfs_file_system",
-			Name:     "OpenZFS File System",
+			Name: "OpenZFS File System",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -105,7 +105,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceOpenzfsSnapshot,
 			TypeName: "aws_fsx_openzfs_snapshot",
-			Name:     "OpenZFS Snapshot",
+			Name: "OpenZFS Snapshot",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -113,7 +113,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceOpenzfsVolume,
 			TypeName: "aws_fsx_openzfs_volume",
-			Name:     "OpenZFS Volume",
+			Name: "OpenZFS Volume",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},
@@ -121,7 +121,7 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 		{
 			Factory:  ResourceWindowsFileSystem,
 			TypeName: "aws_fsx_windows_file_system",
-			Name:     "Windows File System",
+			Name: "Windows File System",
 			Tags: &types.ServicePackageResourceTags{
 				IdentifierAttribute: "arn",
 			},

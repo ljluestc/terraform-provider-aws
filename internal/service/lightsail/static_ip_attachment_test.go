@@ -19,7 +19,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tflightsail "github.com/hashicorp/terraform-provider-aws/internal/service/lightsail"
 )
-
 func TestAccLightsailStaticIPAttachment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	staticIpName := fmt.Sprintf("tf-test-lightsail-%s", sdkacctest.RandString(5))
@@ -42,7 +41,6 @@ func TestAccLightsailStaticIPAttachment_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLightsailStaticIPAttachment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	staticIpName := fmt.Sprintf("tf-test-lightsail-%s", sdkacctest.RandString(5))
@@ -79,7 +77,6 @@ func TestAccLightsailStaticIPAttachment_disappears(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckStaticIPAttachmentExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
@@ -111,7 +108,6 @@ func testAccCheckStaticIPAttachmentExists(ctx context.Context, n string) resourc
 		return nil
 	}
 }
-
 func testAccCheckStaticIPAttachmentDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
@@ -141,7 +137,6 @@ func testAccCheckStaticIPAttachmentDestroy(ctx context.Context) resource.TestChe
 		return nil
 	}
 }
-
 func testAccStaticIPAttachmentConfig_basic(staticIpName, instanceName, keypairName string) string {
 	return fmt.Sprintf(`
 data "aws_availability_zones" "available" {
@@ -166,7 +161,7 @@ resource "aws_lightsail_instance" "test" {
   name
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
-  bundle_id         = "micro_1_0"
+  bundle_id= "micro_1_0"
   key_pair_name     = aws_lightsail_key_pair.test.name
 }
 

@@ -33,13 +33,13 @@ import (
 
 		Schema: map[string]*schema.Schema{
 			"bucket": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 63),
 			},
 			"expected_bucket_owner": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,
@@ -55,13 +55,13 @@ import (
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"mfa_delete": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.StringInSlice(s3.MFADelete_Values(), false),
 						},
 						"status": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(BucketVersioningStatus_Values(), false),
 						},
@@ -103,7 +103,7 @@ import (
 	// Thus, we essentially bring existing bucket versioning into adoption.
 	if aws.StringValue(versioningConfiguration.Status) != BucketVersioningStatusDisabled {
 		input := &s3.PutBucketVersioningInput{
-			Bucket:                  aws.String(bucket),
+			Bucket:aws.String(bucket),
 			VersioningConfiguration: versioningConfiguration,
 		}
 
@@ -165,7 +165,7 @@ funcket, expectedBucketOwner, err := ParseResourceID(d.Id())
 	}
 
 	input := &s3.PutBucketVersioningInput{
-		Bucket:                  aws.String(bucket),
+		Bucket:aws.String(bucket),
 		VersioningConfiguration: expandBucketVersioningConfiguration(d.Get("versioning_configuration").([]interface{})),
 	}
 

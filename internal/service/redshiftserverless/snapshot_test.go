@@ -24,7 +24,7 @@ func TestAccRedshiftServerlessSnapshot_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSnapshotDestroy(ctx),
@@ -43,8 +43,8 @@ func TestAccRedshiftServerlessSnapshot_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName: resourceName,
+				ImportState:  true,
 				ImportStateVerify: true,
 			},
 			{
@@ -67,7 +67,7 @@ func TestAccRedshiftServerlessSnapshot_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, redshiftserverless.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSnapshotDestroy(ctx),
@@ -159,7 +159,7 @@ resource "aws_redshiftserverless_workgroup" "test" {
 
 resource "aws_redshiftserverless_snapshot" "test" {
   namespace_name   = aws_redshiftserverless_workgroup.test.namespace_name
-  snapshot_name    = %[1]q
+  snapshot_name= %[1]q
   retention_period = 10
 }
 `, rName)

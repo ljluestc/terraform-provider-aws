@@ -49,8 +49,7 @@ import (
 
 // NewServerHandlerTransport returns a ServerTransport handling gRPC from
 // inside an http.Handler, or writes an HTTP error to w and returns an error.
-// It requires that the http Server supports HTTP/2.
-func NewServerHandlerTransport(w http.ResponseWriter, r *http.Request, stats []stats.Handler) (ServerTransport, error) {
+// It requires that the http Server supports HTTP/2. NewServerHandlerTransport(w http.ResponseWriter, r *http.Request, stats []stats.Handler) (ServerTransport, error) {
 	if r.ProtoMajor != 2 {
 		msg := "gRPC requires HTTP/2"
 		http.Error(w, msg, http.StatusBadRequest)
@@ -155,8 +154,7 @@ type serverHandlerTransport struct {
 	stats  []stats.Handler
 	logger *grpclog.PrefixLogger
 }
-
-func (ht *serverHandlerTransport) Close(err error) {
+ (ht *serverHandlerTransport) Close(err error) {
 	ht.closeOnce.Do(func() {
 		if ht.logger.V(logLevel) {
 			ht.logger.Infof("Closing: %v", err)
@@ -164,14 +162,12 @@ func (ht *serverHandlerTransport) Close(err error) {
 		close(ht.closedCh)
 	})
 }
-
-func (ht *serverHandlerTransport) RemoteAddr() net.Addr { return strAddr(ht.req.RemoteAddr) }
+ (ht *serverHandlerTransport) RemoteAddr() net.Addr { return strAddr(ht.req.RemoteAddr) }
 
 // strAddr is a net.Addr backed by either a TCP "ip:port" string, or
 // the empty string if unknown.
 type strAddr string
-
-func (a strAddr) Network() string {
+ (a strAddr) Network() string {
 	if a != "" {
 		// Per the documentation on net/http.Request.RemoteAddr, if this is
 		// set, it's set to the IP:port of the peer (hence, TCP):
@@ -186,11 +182,9 @@ func (a strAddr) Network() string {
 	}
 	return ""
 }
+ (a strAddr) String() string { return string(a) }
 
-func (a strAddr) String() string { return string(a) }
-
-// do runs fn in the ServeHTTP goroutine.
-func (ht *serverHandlerTransport) do(fn func()) error {
+// do runs fn in the ServeHTTP goroutine. (ht *serverHandlerTransport) do(fn func()) error {
 	select {
 	case <-ht.closedCh:
 		return ErrConnClosing
@@ -198,8 +192,7 @@ func (ht *serverHandlerTransport) do(fn func()) error {
 		return nil
 	}
 }
-
-func (ht *serverHandlerTransport) WriteStatus(s *Stream, st *status.Status) error {
+ (ht *serverHandlerTransport) WriteStatus(s *Stream, st *status.Status) error {
 	ht.writeStatusMu.Lock()
 	defer ht.writeStatusMu.Unlock()
 
@@ -259,15 +252,13 @@ func (ht *serverHandlerTransport) WriteStatus(s *Stream, st *status.Status) erro
 }
 
 // writePendingHeaders sets common and custom headers on the first
-// write call (Write, WriteHeader, or WriteStatus)
-func (ht *serverHandlerTransport) writePendingHeaders(s *Stream) {
+// write call (Write, WriteHeader, or WriteStatus) (ht *serverHandlerTransport) writePendingHeaders(s *Stream) {
 	ht.writeCommonHeaders(s)
 	ht.writeCustomHeaders(s)
 }
 
 // writeCommonHeaders sets common headers on the first write
-// call (Write, WriteHeader, or WriteStatus).
-func (ht *serverHandlerTransport) writeCommonHeaders(s *Stream) {
+// call (Write, WriteHeader, or WriteStatus). (ht *serverHandlerTransport) writeCommonHeaders(s *Stream) {
 	h := ht.rw.Header()
 	h["Date"] = nil // suppress Date to make tests happy; TODO: restore
 	h.Set("Content-Type", ht.contentType)
@@ -287,8 +278,7 @@ func (ht *serverHandlerTransport) writeCommonHeaders(s *Stream) {
 }
 
 // writeCustomHeaders sets custom headers set on the stream via SetHeader
-// on the first write call (Write, WriteHeader, or WriteStatus).
-func (ht *serverHandlerTransport) writeCustomHeaders(s *Stream) {
+// on the first write call (Write, WriteHeader, or WriteStatus). (ht *serverHandlerTransport) writeCustomHeaders(s *Stream) {
 	h := ht.rw.Header()
 
 	s.hdrMu.Lock()
@@ -303,8 +293,7 @@ func (ht *serverHandlerTransport) writeCustomHeaders(s *Stream) {
 
 	s.hdrMu.Unlock()
 }
-
-func (ht *serverHandlerTransport) Write(s *Stream, hdr []byte, data []byte, opts *Options) error {
+ (ht *serverHandlerTransport) Write(s *Stream, hdr []byte, data []byte, opts *Options) error {
 	headersWritten := s.updateHeaderSent()
 	return ht.do(func() {
 		if !headersWritten {
@@ -315,8 +304,7 @@ func (ht *serverHandlerTransport) Write(s *Stream, hdr []byte, data []byte, opts
 		ht.rw.(http.Flusher).Flush()
 	})
 }
-
-func (ht *serverHandlerTransport) WriteHeader(s *Stream, md metadata.MD) error {
+ (ht *serverHandlerTransport) WriteHeader(s *Stream, md metadata.MD) error {
 	if err := s.SetHeader(md); err != nil {
 		return err
 	}
@@ -343,8 +331,7 @@ func (ht *serverHandlerTransport) WriteHeader(s *Stream, md metadata.MD) error {
 	}
 	return err
 }
-
-func (ht *serverHandlerTransport) HandleStreams(startStream func(*Stream), traceCtx func(context.Context, string) context.Context) {
+ (ht *serverHandlerTransport) HandleStreams(startStream func(*Stream), traceCtx func(context.Context, string) context.Context) {
 	// With this transport type there will be exactly 1 stream: this HTTP request.
 
 	ctx := ht.req.Context()
@@ -437,8 +424,7 @@ func (ht *serverHandlerTransport) HandleStreams(startStream func(*Stream), trace
 	req.Body.Close()
 	<-readerDone
 }
-
-func (ht *serverHandlerTransport) runStream() {
+ (ht *serverHandlerTransport) runStream() {
 	for {
 		select {
 		case fn := <-ht.writes:
@@ -448,12 +434,9 @@ func (ht *serverHandlerTransport) runStream() {
 		}
 	}
 }
-
-func (ht *serverHandlerTransport) IncrMsgSent() {}
-
-func (ht *serverHandlerTransport) IncrMsgRecv() {}
-
-func (ht *serverHandlerTransport) Drain(debugData string) {
+ (ht *serverHandlerTransport) IncrMsgSent() {}
+ (ht *serverHandlerTransport) IncrMsgRecv() {}
+ (ht *serverHandlerTransport) Drain(debugData string) {
 	panic("Drain() is not implemented")
 }
 
@@ -463,8 +446,7 @@ func (ht *serverHandlerTransport) Drain(debugData string) {
 //   - io.EOF
 //   - io.ErrUnexpectedEOF
 //   - of type transport.ConnectionError
-//   - an error from the status package
-func mapRecvMsgError(err error) error {
+//   - an error from the status package mapRecvMsgError(err error) error {
 	if err == io.EOF || err == io.ErrUnexpectedEOF {
 		return err
 	}

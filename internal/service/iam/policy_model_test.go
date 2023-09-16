@@ -19,14 +19,14 @@ import (
 		"single_arn": {
 			json: `{
   "Statement":[
-    {
-      "Effect":"Allow",
-      "Principal":{
-        "AWS": "arn:aws:iam::123456789012:role/role-name"
-      },
-      "Action": "*",
-      "Resource": "*"
-    }
+{
+  "Effect":"Allow",
+  "Principal":{
+"AWS": "arn:aws:iam::123456789012:role/role-name"
+  },
+  "Action": "*",
+  "Resource": "*"
+}
   ]
 }`, // lintignore:AWSAT005
 			valid: true,
@@ -34,14 +34,14 @@ import (
 		"account_id": {
 			json: `{
   "Statement":[
-    {
-      "Effect":"Allow",
-      "Principal":{
-        "AWS": "123456789012"
-      },
-      "Action": "*",
-      "Resource": "*"
-    }
+{
+  "Effect":"Allow",
+  "Principal":{
+"AWS": "123456789012"
+  },
+  "Action": "*",
+  "Resource": "*"
+}
   ]
 }`,
 			valid: true,
@@ -49,42 +49,42 @@ import (
 		"wildcard": {
 			json: `{
   "Statement":[
-    {
-      "Effect":"Allow",
-      "Principal":{
-        "AWS": "*"
-      },
-      "Action": "*",
-      "Resource": "*"
-    }
+{
+  "Effect":"Allow",
+  "Principal":{
+"AWS": "*"
+  },
+  "Action": "*",
+  "Resource": "*"
+}
   ]
 }`,
 			valid: true,
 		},
 		"unique_id": {json: `{
   "Statement":[
-    {
-      "Effect":"Allow",
-      "Principal":{
-        "AWS": "AROAS5MHDZS6NEXAMPLE"
-      },
-      "Action": "*",
-      "Resource": "*"
-    }
+{
+  "Effect":"Allow",
+  "Principal":{
+"AWS": "AROAS5MHDZS6NEXAMPLE"
+  },
+  "Action": "*",
+  "Resource": "*"
+}
   ]
 }`,
 			valid: false,
 		},
 		"non_AWS_principal": {json: `{
   "Statement":[
-    {
-      "Effect":"Allow",
-      "Principal":{
-        "Federated": "cognito-identity.amazonaws.com"
-      },
-      "Action": "*",
-      "Resource": "*"
-    }
+{
+  "Effect":"Allow",
+  "Principal":{
+"Federated": "cognito-identity.amazonaws.com"
+  },
+  "Action": "*",
+  "Resource": "*"
+}
   ]
 }`,
 			valid: true,
@@ -92,17 +92,17 @@ import (
 		"multiple_arns": {
 			json: `{
   "Statement":[
-    {
-      "Effect":"Allow",
-      "Principal":{
-        "AWS": [
-          "arn:aws:iam::123456789012:role/role-name",
-          "arn:aws:iam::123456789012:role/another-role-name"
-        ]
-      },
-      "Action": "*",
-      "Resource": "*"
-    }
+{
+  "Effect":"Allow",
+  "Principal":{
+"AWS": [
+ "arn:aws:iam::123456789012:role/role-name",
+ "arn:aws:iam::123456789012:role/another-role-name"
+]
+  },
+  "Action": "*",
+  "Resource": "*"
+}
   ]
 }`, // lintignore:AWSAT005
 			valid: true,
@@ -110,17 +110,17 @@ import (
 		"mixed_principals": {
 			json: `{
   "Statement":[
-    {
-      "Effect":"Allow",
-      "Principal":{
-        "AWS": [
-          "arn:aws:iam::123456789012:role/role-name",
-          "AROAS5MHDZS6NEXAMPLE"
-        ]
-      },
-      "Action": "*",
-      "Resource": "*"
-    }
+{
+  "Effect":"Allow",
+  "Principal":{
+"AWS": [
+ "arn:aws:iam::123456789012:role/role-name",
+ "AROAS5MHDZS6NEXAMPLE"
+]
+  },
+  "Action": "*",
+  "Resource": "*"
+}
   ]
 }`, // lintignore:AWSAT005
 			valid: true,
@@ -128,22 +128,22 @@ import (
 		"multiple_statements_valid": {
 			json: `{
   "Statement":[
-    {
-      "Effect":"Allow",
-      "Principal":{
-        "AWS": "arn:aws:iam::123456789012:role/role-name"
-      },
-      "Action": "*",
-      "Resource": "*"
-    },
-    {
-      "Effect":"Allow",
-      "Principal":{
-        "AWS": "arn:aws:iam::123456789012:role/another-role-name"
-      },
-      "Action": "*",
-      "Resource": "*"
-    }
+{
+  "Effect":"Allow",
+  "Principal":{
+"AWS": "arn:aws:iam::123456789012:role/role-name"
+  },
+  "Action": "*",
+  "Resource": "*"
+},
+{
+  "Effect":"Allow",
+  "Principal":{
+"AWS": "arn:aws:iam::123456789012:role/another-role-name"
+  },
+  "Action": "*",
+  "Resource": "*"
+}
   ]
 }`, // lintignore:AWSAT005
 			valid: true,
@@ -151,22 +151,22 @@ import (
 		"multiple_statements_invalid": {
 			json: `{
   "Statement":[
-    {
-      "Effect":"Allow",
-      "Principal":{
-        "AWS": "arn:aws:iam::123456789012:role/role-name"
-      },
-      "Action": "*",
-      "Resource": "*"
-    },
-    {
-      "Effect":"Allow",
-      "Principal":{
-        "AWS": "AROAS5MHDZS6NEXAMPLE"
-      },
-      "Action": "*",
-      "Resource": "*"
-    }
+{
+  "Effect":"Allow",
+  "Principal":{
+"AWS": "arn:aws:iam::123456789012:role/role-name"
+  },
+  "Action": "*",
+  "Resource": "*"
+},
+{
+  "Effect":"Allow",
+  "Principal":{
+"AWS": "AROAS5MHDZS6NEXAMPLE"
+  },
+  "Action": "*",
+  "Resource": "*"
+}
   ]
 }`, // lintignore:AWSAT005
 			valid: false,
@@ -182,14 +182,14 @@ import (
 		"invalid_json": {
 			json: `{
   "Statement":[
-    {
-      "Effect":"Allow"
-      "Principal":{
-        "AWS": "arn:aws:iam::123456789012:role/role-name"
-      },
-      "Action": "*",
-      "Resource": "*"
-    }
+{
+  "Effect":"Allow"
+  "Principal":{
+"AWS": "arn:aws:iam::123456789012:role/role-name"
+  },
+  "Action": "*",
+  "Resource": "*"
+}
   ]
 }`, // lintignore:AWSAT005
 			err: func(t *testing.T, err error) {
@@ -262,8 +262,8 @@ import (
 }func TestIAMPolicyStatementConditionSet_MarshalJSON(t *testing.T) { // nosemgrep:ci.iam-in-func-name
 	t.Parallel()
 functcases := map[string]struct {
-		cs      IAMPolicyStatementConditionSet
-		want    []byte
+		cs  IAMPolicyStatementConditionSet
+		want[]byte
 		wantErr bool
 	}{
 		"invalid value type": {

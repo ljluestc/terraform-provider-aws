@@ -28,7 +28,7 @@ ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
-Config:      testAccRateBasedRuleDataSourceConfig_nonExistent,
+Config:testAccRateBasedRuleDataSourceConfig_nonExistent,
 ExpectError: regexache.MustCompile(`WAF Rate Based Rules not found`),
 	},
 	{
@@ -47,7 +47,7 @@ func(
 func testAccRateBasedRuleDataSourceConfig_name(name string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rate_based_rule" "wafrule" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = "WafruleTest"
   rate_key    = "IP"
   rate_limit  = 2000

@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-
 func statusCluster(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, id string) retry.StateRefresh
 func {
 	return 
@@ -30,7 +29,6 @@ func() (interface{}, string, error) {
 		return output, aws.StringValue(output.State), err
 	}
 }
-
 
 func statusHSM(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, id string) retry.StateRefresh
 func {

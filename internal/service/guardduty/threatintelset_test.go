@@ -19,7 +19,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfguardduty "github.com/hashicorp/terraform-provider-aws/internal/service/guardduty"
 )
-
 func testAccThreatIntelSet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	bucketName := fmt.Sprintf("tf-test-%s", sdkacctest.RandString(5))
@@ -63,7 +62,6 @@ func testAccThreatIntelSet_basic(t *testing.T) {
 		},
 	})
 }
-
 func testAccThreatIntelSet_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -108,7 +106,6 @@ func testAccThreatIntelSet_tags(t *testing.T) {
 		},
 	})
 }
-
 func testAccCheckThreatIntelSetDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GuardDutyConn(ctx)
@@ -145,7 +142,6 @@ func testAccCheckThreatIntelSetDestroy(ctx context.Context) resource.TestCheckFu
 		return nil
 	}
 }
-
 func testAccCheckThreatIntelSetExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -168,7 +164,6 @@ func testAccCheckThreatIntelSetExists(ctx context.Context, name string) resource
 		return err
 	}
 }
-
 func testAccThreatIntelSetConfig_basic(bucketName, keyName, threatintelsetName string, activate bool) string {
 	return fmt.Sprintf(`
 resource "aws_guardduty_detector" "test" {}
@@ -189,12 +184,11 @@ resource "aws_guardduty_threatintelset" "test" {
   name
   detector_id = aws_guardduty_detector.test.id
   format
-  location    = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
-  activate    = %t
+  location = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
+  activate = %t
 }
 `, bucketName, keyName, threatintelsetName, activate)
 }
-
 func testAccThreatIntelSetConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_guardduty_detector" "test" {}
@@ -212,19 +206,18 @@ resource "aws_s3_object" "test" {
 }
 
 resource "aws_guardduty_threatintelset" "test" {
-  activate    = true
+  activate = true
   detector_id = aws_guardduty_detector.test.id
   format
-  location    = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
+  location = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
   name
 
   tags = {
-    %[2]q = %[3]q
+ %[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccThreatIntelSetConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_guardduty_detector" "test" {}
@@ -242,15 +235,15 @@ resource "aws_s3_object" "test" {
 }
 
 resource "aws_guardduty_threatintelset" "test" {
-  activate    = true
+  activate = true
   detector_id = aws_guardduty_detector.test.id
   format
-  location    = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
+  location = "https://s3.amazonaws.com/${aws_s3_object.test.bucket}/${aws_s3_object.test.key}"
   name
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+ %[2]q = %[3]q
+ %[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

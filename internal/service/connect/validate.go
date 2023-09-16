@@ -1,16 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package connect
-
-import (
-	"fmt"
-
-	"github.com/YakDriver/regexache"
+// SPDX-License-Identifier: MPL-2.0package connectimport (
+	"fmt"	"github.com/YakDriver/regexache"
 )
-
-
-
 func validDeskPhoneNumber(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`\+[1-9]\d{1,14}$`).MatchString(value) {
@@ -18,9 +9,6 @@ func validDeskPhoneNumber(v interface{}, k string) (ws []string, errors []error)
 	}
 	return
 }
-
-
-
 func validPhoneNumberPrefix(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if !regexache.MustCompile(`\+[0-9]{1,11}`).MatchString(value) {

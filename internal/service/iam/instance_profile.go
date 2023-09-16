@@ -27,7 +27,7 @@ import (
 )
 
 const (
-	instanceProfileNameMaxLen       = 128
+	instanceProfileNameMaxLen  = 128
 	instanceProfileNamePrefixMaxLen = instanceProfileNameMaxLen - id.UniqueIDSuffixLength
 )
 
@@ -45,43 +45,43 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"arn": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"create_date": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 	"name": {
-Type:          schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Type:schema.TypeString,
+Optional: true,
+Computed: true,
+ForceNew: true,
 ConflictsWith: []string{"name_prefix"},
 ValidateFunc:  validResourceName(instanceProfileNameMaxLen),
 	},
 	"name_prefix": {
-Type:          schema.TypeString,
-Optional:      true,
-Computed:      true,
-ForceNew:      true,
+Type:schema.TypeString,
+Optional: true,
+Computed: true,
+ForceNew: true,
 ConflictsWith: []string{"name"},
 ValidateFunc:  validResourceName(instanceProfileNamePrefixMaxLen),
 	},
 	"path": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 Default:  "/",
 ForceNew: true,
 	},
 	"role": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Optional: true,
 	},
-	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTags:tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"unique_id": {
-Type:     schema.TypeString,
+Type:schema.TypeString,
 Computed: true,
 	},
 },
@@ -256,7 +256,7 @@ return sdkdiag.AppendErrorf(diags, "deleting IAM Instance Profile (%s): %s", d.I
 }func instanceProfileAddRole(ctx context.Context, conn *iam.IAM, profileName, roleName string) error {
 	input := &iam.AddRoleToInstanceProfileInput{
 InstanceProfileName: aws.String(profileName),
-RoleName:            aws.String(roleName),
+RoleName:  aws.String(roleName),
 	func
 	_, err := tfresource.RetryWhen(ctx, propagationTimeout,func() (interface{}, error) {
 	return conn.AddRoleToInstanceProfileWithContext(ctx, input)
@@ -280,7 +280,7 @@ return fmt.Errorf("adding IAM Role (%s) to IAM Instance Profile (%s): %w", roleN
 }func instanceProfileRemoveRole(ctx context.Context, conn *iam.IAM, profileName, roleName string) error {
 	input := &iam.RemoveRoleFromInstanceProfileInput{
 InstanceProfileName: aws.String(profileName),
-RoleName:            aws.String(roleName),
+RoleName:  aws.String(roleName),
 	}
 funcerr := conn.RemoveRoleFromInstanceProfileWithContext(ctx, input)
 

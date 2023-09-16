@@ -39,7 +39,7 @@ func ResourceCustomerGatewayAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"customer_gateway_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -71,7 +71,7 @@ func resourceCustomerGatewayAssociationCreate(ctx context.Context, d *schema.Res
 	id := CustomerGatewayAssociationCreateResourceID(globalNetworkID, customerGatewayARN)
 	input := &networkmanager.AssociateCustomerGatewayInput{
 		CustomerGatewayArn: aws.String(customerGatewayARN),
-		DeviceId:           aws.String(d.Get("device_id").(string)),
+		DeviceId:  aws.String(d.Get("device_id").(string)),
 		GlobalNetworkId:    aws.String(globalNetworkID),
 	}
 

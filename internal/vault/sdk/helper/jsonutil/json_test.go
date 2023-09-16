@@ -1,1 +1,1 @@
-// Copyright (c) HashiCorp, Inc.// SPDX-License-Identifier: MPL-2.0package jsonutilimport ("bytes""reflect""testing")func
+//Copyright(c)HashiCorp,Inc.//SPDX-License-Identifier:MPL-2.0packagejsonutilimport("bytes""reflect""testing")

@@ -1,63 +1,36 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package comprehend_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package comprehend_testimport (
 	"context"
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go-v2/service/comprehend"
+	"testing"	"github.com/aws/aws-sdk-go-v2/service/comprehend"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/id"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
-funcn := acctest.Provider.Meta().(*conns.AWSClient).ComprehendClient(ctx)
-
-	input := &comprehend.ListEntityRecognizersInput{}
-
-	_, err := conn.ListEntityRecognizers(ctx, input)
-
-	if acctest.PreCheckSkipError(err) {
+funcn := acctest.Provider.Meta().(*conns.AWSClient).ComprehendClient(ctx)	input := &comprehend.ListEntityRecognizersInput{}	_, err := conn.ListEntityRecognizers(ctx, input)	if acctest.PreCheckSkipError(err) {
 		t.Skipf("skipping acceptance testing: %s", err)
-	}
-
-	if err != nil {
+	}	if err != nil {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
-
 func configVPCWithSubnetsAndDNS(rName string, subnetCount int) string {
 funcctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 		fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block = "10.0.0.0/16"
-
-  enable_dns_support   = true
-  enable_dns_hostnames = true
-
-  tags = {
-    Name = %[1]q
-  }
+cidr_block = "10.0.0.0/16"enable_dns_support= true
+enable_dns_hostnames = truetags = {
+ Name = %[1]q
 }
-
-resource "aws_subnet" "test" {
-  count = %[2]d
-
-  vpc_id            = aws_vpc.test.id
-  availability_zone = element(data.aws_availability_zones.available.names, count.index)
-  cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
-
-  tags = {
-    Name = %[1]q
-  }
+}resource "aws_subnet" "test" {
+count = %[2]dvpc_id= aws_vpc.test.id
+availability_zone = element(data.aws_availability_zones.available.names, count.index)
+cidr_block= cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)tags = {
+ Name = %[1]q
+}
 }
 `, rName, subnetCount),
 	)
 }
-
 func uniqueIDPattern() string {
 	return prefixedUniqueIDPattern(id.UniqueIdPrefix)
 func

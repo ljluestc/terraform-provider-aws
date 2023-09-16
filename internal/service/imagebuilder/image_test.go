@@ -438,7 +438,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
     component_arn = data.aws_imagebuilder_component.update-linux.arn
   }
 
-  name         = %[1]q
+  name= %[1]q
   parent_image = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-2-x86/x.x.x"
   version      = "1.0.0"
 }
@@ -645,7 +645,7 @@ resource "aws_iam_instance_profile" "test" {
 }
 
 resource "aws_ecr_repository" "test" {
-  name         = %[1]q
+  name= %[1]q
   force_delete = true
 }
 
@@ -664,13 +664,13 @@ FROM {{{ imagebuilder:parentImage }}}
 {{{ imagebuilder:components }}}
 EOF
 
-  name           = %[1]q
+  name  = %[1]q
   container_type = "DOCKER"
   parent_image   = "arn:${data.aws_partition.current.partition}:imagebuilder:${data.aws_region.current.name}:aws:image/amazon-linux-x86-latest/x.x.x"
   version        = "1.0.0"
   target_repository {
     repository_name = aws_ecr_repository.test.name
-    service         = "ECR"
+    service= "ECR"
   }
 }
 

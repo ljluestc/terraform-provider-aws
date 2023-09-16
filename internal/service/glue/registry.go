@@ -41,7 +41,7 @@ func ResourceRegistry() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 2048),
 			},
@@ -66,7 +66,7 @@ func resourceRegistryCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	input := &glue.CreateRegistryInput{
 		RegistryName: aws.String(d.Get("registry_name").(string)),
-		Tags:         getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

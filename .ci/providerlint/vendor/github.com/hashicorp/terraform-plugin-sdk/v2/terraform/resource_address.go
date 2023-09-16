@@ -1,55 +1,35 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package terraform
-
-import (
+// SPDX-License-Identifier: MPL-2.0package terraformimport (
 	"fmt"
 	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
-)
-
-// resourceAddress is a way of identifying an individual resource (or,
+)// resourceAddress is a way of identifying an individual resource (or,
 // eventually, a subset of resources) within the state. It is used for Targets.
 type resourceAddress struct {
 	// Addresses a resource falling somewhere in the module path
 	// When specified alone, addresses all resources within a module path
-	Path []string
-
-	// Addresses a specific resource that occurs in a list
-	Index int
-
-	InstanceType    instanceType
+	Path []string	// Addresses a specific resource that occurs in a list
+	Index int	InstanceType    instanceType
 	InstanceTypeSet bool
-	Name            string
-	Type            string
-	Mode            ResourceMode // significant only if InstanceTypeSet
-}
-
-// String outputs the address that parses into this address.
-
- (r *resourceAddress) String() string {
+	Name   string
+	Type   string
+	Mode   ResourceMode // significant only if InstanceTypeSet
+}// String outputs the address that parses into this address. (r *resourceAddress) String() string {
 	var result []string
 	for _, p := range r.Path {
 		result = append(result, "module", p)
-	}
-
-	switch r.Mode {
+	}	switch r.Mode {
 	case ManagedResourceMode:
 		// nothing to do
 	case DataResourceMode:
 		result = append(result, "data")
 	default:
 		panic(fmt.Errorf("unsupported resource mode %s", r.Mode))
-	}
-
-	if r.Type != "" {
+	}	if r.Type != "" {
 		result = append(result, r.Type)
-	}
-
-	if r.Name != "" {
+	}	if r.Name != "" {
 		name := r.Name
 		if r.InstanceTypeSet {
 			switch r.InstanceType {
@@ -60,18 +40,12 @@ type resourceAddress struct {
 			case typeTainted:
 				name += ".tainted"
 			}
-		}
-
-		if r.Index >= 0 {
+		}		if r.Index >= 0 {
 			name += fmt.Sprintf("[%d]", r.Index)
 		}
 		result = append(result, name)
-	}
-
-	return strings.Join(result, ".")
+	}	return strings.Join(result, ".")
 }
-
-
  parseResourceAddress(s string) (*resourceAddress, error) {
 	matches, err := tokenizeResourceAddress(s)
 	if err != nil {
@@ -89,90 +63,54 @@ type resourceAddress struct {
 	if err != nil {
 		return nil, err
 	}
-	path := parseResourcePath(matches["path"])
-
-	// not allowed to say "data." without a type following
+	path := parseResourcePath(matches["path"])	// not allowed to say "data." without a type following
 	if mode == DataResourceMode && matches["type"] == "" {
 		return nil, fmt.Errorf(
 			"invalid resource address %q: must target specific data instance",
 			s,
 		)
-	}
-
-	return &resourceAddress{
-		Path:            path,
-		Index:           resourceIndex,
+	}	return &resourceAddress{
+		Path:   path,
+		Index:  resourceIndex,
 		InstanceType:    instanceType,
 		InstanceTypeSet: matches["instance_type"] != "",
-		Name:            matches["name"],
-		Type:            matches["type"],
-		Mode:            mode,
+		Name:   matches["name"],
+		Type:   matches["type"],
+		Mode:   mode,
 	}, nil
-}
-
-// Less returns true if and only if the receiver should be sorted before
+}// Less returns true if and only if the receiver should be sorted before
 // the given address when presenting a list of resource addresses to
 // an end-user.
 //
 // This sort uses lexicographic sorting for most components, but uses
 umeric sort for indices, thus causing index 10 to sort after
-// index 9, rather than after index 1.
-
- (addr *resourceAddress) Less(other *resourceAddress) bool {
-
-	switch {
-
-	case len(addr.Path) != len(other.Path):
-		return len(addr.Path) < len(other.Path)
-
-	case !reflect.DeepEqual(addr.Path, other.Path):
+// index 9, rather than after index 1. (addr *resourceAddress) Less(other *resourceAddress) bool {	switch {	case len(addr.Path) != len(other.Path):
+		return len(addr.Path) < len(other.Path)	case !reflect.DeepEqual(addr.Path, other.Path):
 		// If the two paths are the same length but don't match, we'll just
 		// cheat and compare the string forms since it's easier than
 		// comparing all of the path segments in turn, and lexicographic
 		// comparison is correct for the module path portion.
 		addrStr := addr.String()
 		otherStr := other.String()
-		return addrStr < otherStr
-
-	case addr.Mode != other.Mode:
-		return addr.Mode == DataResourceMode
-
-	case addr.Type != other.Type:
-		return addr.Type < other.Type
-
-	case addr.Name != other.Name:
-		return addr.Name < other.Name
-
-	case addr.Index != other.Index:
+		return addrStr < otherStr	case addr.Mode != other.Mode:
+		return addr.Mode == DataResourceMode	case addr.Type != other.Type:
+		return addr.Type < other.Type	case addr.Name != other.Name:
+		return addr.Name < other.Name	case addr.Index != other.Index:
 		// Since "Index" is -1 for an un-indexed address, this also conveniently
 		// sorts unindexed addresses before indexed ones, should they both
 		// appear for some reason.
-		return addr.Index < other.Index
-
-	case addr.InstanceTypeSet != other.InstanceTypeSet:
-		return !addr.InstanceTypeSet
-
-	case addr.InstanceType != other.InstanceType:
+		return addr.Index < other.Index	case addr.InstanceTypeSet != other.InstanceTypeSet:
+		return !addr.InstanceTypeSet	case addr.InstanceType != other.InstanceType:
 		// InstanceType is actually an enum, so this is just an arbitrary
 		// sort based on the enum numeric values, and thus not particularly
 		// meaningful.
-		return addr.InstanceType < other.InstanceType
-
-	default:
+		return addr.InstanceType < other.InstanceType	default:
 		return false
-
-
 }
-
-
  parseResourceIndex(s string) (int, error) {
 	if s == "" {
-		return -1, nil
-
-	return strconv.Atoi(s)
+		return -1, nil	return strconv.Atoi(s)
 }
-
-
  parseResourcePath(s string) []string {
 	if s == "" {
 		return nil
@@ -189,8 +127,6 @@ th = append(path, s)
 	}
 	return path
 }
-
-
  parseInstanceType(s string) (instanceType, error) {
 	switch s {
 	case "", "primary":
@@ -203,8 +139,6 @@ turn typeTainted, nil
 		return typeInvalid, fmt.Errorf("Unexpected value for instanceType field: %q", s)
 	}
 }
-
-
  tokenizeResourceAddress(s string) (map[string]string, error) {
 	// Example of portions of the regexp below using the
 	// string "aws_instance.web.tainted[1]"
@@ -219,18 +153,12 @@ turn typeTainted, nil
 		`(?:\.(?P<instance_type>\w+))?` +
 		// "1" (optional, omission implies: "0")
 		`(?:\[(?P<index>\d+)\])?` +
-		`\z`)
-
-	groupNames := re.SubexpNames()
+		`\z`)	groupNames := re.SubexpNames()
 	rawMatches := re.FindAllStringSubmatch(s, -1)
 	if len(rawMatches) != 1 {
 		return nil, fmt.Errorf("invalid resource address %q", s)
-	}
-
-	matches := make(map[string]string)
+	}	matches := make(map[string]string)
 	for i, m := range rawMatches[0] {
 		matches[groupNames[i]] = m
-	}
-
-	return matches, nil
+	}	return matches, nil
 }

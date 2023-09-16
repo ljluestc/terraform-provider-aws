@@ -59,36 +59,36 @@ verify.SetTagsDiff,
 
 Schema: map[string]*schema.Schema{
 names.AttrARN: { // direct to replica
-Type:     schema.TypeString,
+Type: schema.TypeString,
 Computed: true,
 },
 // global_secondary_index read capacity override can be set but not return by aws atm either through main/replica nor directly
 "global_table_arn": {
-Type:         schema.TypeString,
-Required:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Required: true,
+ForceNew: true,
 ValidateFunc: verify.ValidARN,
 },
 names.AttrKMSKeyARN: { // through main table
-Type:         schema.TypeString,
-Optional:     true,
-Computed:     true,
+Type:schema.TypeString,
+Optional: true,
+Computed: true,
 ValidateFunc: verify.ValidARN,
-ForceNew:     true,
+ForceNew: true,
 },
 "point_in_time_recovery": { // direct to replica
-Type:     schema.TypeBool,
+Type: schema.TypeBool,
 Optional: true,
 Default:  false,
 },
 // read_capacity_override can be set but requires table write_capacity to be autoscaled which is not yet supported in the provider
 "table_class_override": { // through main table
-Type:         schema.TypeString,
-Optional:     true,
-ForceNew:     true,
+Type:schema.TypeString,
+Optional: true,
+ForceNew: true,
 ValidateFunc: validation.StringInSlice(dynamodb.TableClass_Values(), false),
 },
-names.AttrTags:    tftags.TagsSchema(),         // direct to replica
+names.AttrTags:tftags.TagsSchema(),// direct to replica
 names.AttrTagsAll: tftags.TagsSchemaComputed(), // direct to replica
 },
 }
@@ -203,7 +203,7 @@ return create.DiagError(names.DynamoDB, create.ErrActionReading, ResNameTableRep
 globalTableARN := arn.ARN{
 AccountID: meta.(*conns.AWSClient).AccountID,
 Partition: meta.(*conns.AWSClient).Partition,
-Region:    mainRegion,
+Region:mainRegion,
 Resource:  fmt.Sprintf("table/%s", tableName),
 Service:   dynamodb.EndpointsID,
 }.String()

@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	"github.com/hashicorp/terraform-provider-aws/internal/errs/sdkdiag"
 )
-
 func virtualInterfaceRead(ctx context.Context, id string, conn *directconnect.DirectConnect) (*directconnect.VirtualInterface, error) {
 	resp, state, err := virtualInterfaceStateRefresh(ctx, conn, id)()
 	if err != nil {
@@ -30,14 +29,13 @@ func virtualInterfaceRead(ctx context.Context, id string, conn *directconnect.Di
 
 	return resp.(*directconnect.VirtualInterface), nil
 }
-
 func virtualInterfaceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
 	if d.HasChange("mtu") {
 		req := &directconnect.UpdateVirtualInterfaceAttributesInput{
-			Mtu:   aws.Int64(int64(d.Get("mtu").(int))),
+			Mtu:aws.Int64(int64(d.Get("mtu").(int))),
 			VirtualInterfaceId: aws.String(d.Id()),
 		}
 		log.Printf("[DEBUG] Modifying Direct Connect virtual interface attributes: %s", req)
@@ -48,7 +46,7 @@ func virtualInterfaceUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	}
 	if d.HasChange("sitelink_enabled") {
 		req := &directconnect.UpdateVirtualInterfaceAttributesInput{
-			EnableSiteLink:     aws.Bool(d.Get("sitelink_enabled").(bool)),
+			EnableSiteLink:aws.Bool(d.Get("sitelink_enabled").(bool)),
 			VirtualInterfaceId: aws.String(d.Id()),
 		}
 		log.Printf("[DEBUG] Modifying Direct Connect virtual interface attributes: %s", req)
@@ -60,7 +58,6 @@ func virtualInterfaceUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func virtualInterfaceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -89,9 +86,9 @@ func virtualInterfaceDelete(ctx context.Context, d *schema.ResourceData, meta in
 		Target: []string{
 			directconnect.VirtualInterfaceStateDeleted,
 		},
-		Refresh:    virtualInterfaceStateRefresh(ctx, conn, d.Id()),
-		Timeout:    d.Timeout(schema.TimeoutDelete),
-		Delay:      10 * time.Second,
+		Refresh: virtualInterfaceStateRefresh(ctx, conn, d.Id()),
+		Timeout: d.Timeout(schema.TimeoutDelete),
+		Delay:ime.Second,
 		MinTimeout: 5 * time.Second,
 	}
 	_, err = deleteStateConf.WaitForStateContext(ctx)
@@ -101,7 +98,6 @@ func virtualInterfaceDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func virtualInterfaceStateRefresh(ctx context.Context, conn *directconnect.DirectConnect, vifId string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		resp, err := conn.DescribeVirtualInterfacesWithContext(ctx, &directconnect.DescribeVirtualInterfacesInput{
@@ -125,14 +121,13 @@ func virtualInterfaceStateRefresh(ctx context.Context, conn *directconnect.Direc
 		}
 	}
 }
-
 func virtualInterfaceWaitUntilAvailable(ctx context.Context, conn *directconnect.DirectConnect, vifId string, timeout time.Duration, pending, target []string) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:    pending,
-		Target:     target,
-		Refresh:    virtualInterfaceStateRefresh(ctx, conn, vifId),
-		Timeout:    timeout,
-		Delay:      10 * time.Second,
+		Pending: pending,
+		Target:target,
+		Refresh: virtualInterfaceStateRefresh(ctx, conn, vifId),
+		Timeout: timeout,
+		Delay:ime.Second,
 		MinTimeout: 5 * time.Second,
 	}
 	if _, err := stateConf.WaitForStateContext(ctx); err != nil {

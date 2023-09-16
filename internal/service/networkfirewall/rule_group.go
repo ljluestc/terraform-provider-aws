@@ -40,58 +40,58 @@ func ResourceRuleGroup() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"capacity": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Required: true,
 				ForceNew: true,
 			},
 			"description": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
 			"encryption_configuration": encryptionConfigurationSchema(),
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"rule_group": {
-				Type:     schema.TypeList,
+				Type:schema.TypeList,
 				MaxItems: 1,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"reference_sets": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"ip_set_references": {
-										Type:     schema.TypeSet,
+										Type:schema.TypeSet,
 										Optional: true,
 										MaxItems: 5,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"ip_set_reference": {
-													Type:     schema.TypeList,
+													Type:schema.TypeList,
 													Required: true,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"reference_arn": {
-																Type:         schema.TypeString,
-																Required:     true,
+																Type:schema.TypeString,
+																Required:true,
 																ValidateFunc: verify.ValidARN,
 															},
 														},
 													},
 												},
 												"key": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Required: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(1, 32),
@@ -106,100 +106,100 @@ func ResourceRuleGroup() *schema.Resource {
 							},
 						},
 						"rules_source": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"rules_source_list": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Optional: true,
 										MaxItems: 1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"generated_rules_type": {
-													Type:         schema.TypeString,
-													Required:     true,
+													Type:schema.TypeString,
+													Required:true,
 													ValidateFunc: validation.StringInSlice(networkfirewall.GeneratedRulesType_Values(), false),
 												},
 												"target_types": {
-													Type:     schema.TypeSet,
+													Type:schema.TypeSet,
 													Required: true,
 													Elem: &schema.Schema{
-														Type:         schema.TypeString,
+														Type:schema.TypeString,
 														ValidateFunc: validation.StringInSlice(networkfirewall.TargetType_Values(), false),
 													},
 												},
 												"targets": {
-													Type:     schema.TypeSet,
+													Type:schema.TypeSet,
 													Required: true,
-													Elem:     &schema.Schema{Type: schema.TypeString},
+													Elem:&schema.Schema{Type: schema.TypeString},
 												},
 											},
 										},
 									},
 									"rules_string": {
-										Type:     schema.TypeString,
+										Type:schema.TypeString,
 										Optional: true,
 									},
 									"stateful_rule": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										Optional: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"action": {
-													Type:         schema.TypeString,
-													Required:     true,
+													Type:schema.TypeString,
+													Required:true,
 													ValidateFunc: validation.StringInSlice(networkfirewall.StatefulAction_Values(), false),
 												},
 												"header": {
-													Type:     schema.TypeList,
+													Type:schema.TypeList,
 													Required: true,
 													MaxItems: 1,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"destination": {
-																Type:     schema.TypeString,
+																Type:schema.TypeString,
 																Required: true,
 															},
 															"destination_port": {
-																Type:     schema.TypeString,
+																Type:schema.TypeString,
 																Required: true,
 															},
 															"direction": {
-																Type:         schema.TypeString,
-																Required:     true,
+																Type:schema.TypeString,
+																Required:true,
 																ValidateFunc: validation.StringInSlice(networkfirewall.StatefulRuleDirection_Values(), false),
 															},
 															"protocol": {
-																Type:         schema.TypeString,
-																Required:     true,
+																Type:schema.TypeString,
+																Required:true,
 																ValidateFunc: validation.StringInSlice(networkfirewall.StatefulRuleProtocol_Values(), false),
 															},
 															"source": {
-																Type:     schema.TypeString,
+																Type:schema.TypeString,
 																Required: true,
 															},
 															"source_port": {
-																Type:     schema.TypeString,
+																Type:schema.TypeString,
 																Required: true,
 															},
 														},
 													},
 												},
 												"rule_option": {
-													Type:     schema.TypeSet,
+													Type:schema.TypeSet,
 													Required: true,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"keyword": {
-																Type:     schema.TypeString,
+																Type:schema.TypeString,
 																Required: true,
 															},
 															"settings": {
-																Type:     schema.TypeSet,
+																Type:schema.TypeSet,
 																Optional: true,
-																Elem:     &schema.Schema{Type: schema.TypeString},
+																Elem:&schema.Schema{Type: schema.TypeString},
 															},
 														},
 													},
@@ -208,119 +208,119 @@ func ResourceRuleGroup() *schema.Resource {
 										},
 									},
 									"stateless_rules_and_custom_actions": {
-										Type:     schema.TypeList,
+										Type:schema.TypeList,
 										MaxItems: 1,
 										Optional: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"custom_action": customActionSchema(),
 												"stateless_rule": {
-													Type:     schema.TypeSet,
+													Type:schema.TypeSet,
 													Required: true,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"priority": {
-																Type:     schema.TypeInt,
+																Type:schema.TypeInt,
 																Required: true,
 															},
 															"rule_definition": {
-																Type:     schema.TypeList,
+																Type:schema.TypeList,
 																MaxItems: 1,
 																Required: true,
 																Elem: &schema.Resource{
 																	Schema: map[string]*schema.Schema{
 																		"actions": {
-																			Type:     schema.TypeSet,
+																			Type:schema.TypeSet,
 																			Required: true,
-																			Elem:     &schema.Schema{Type: schema.TypeString},
+																			Elem:&schema.Schema{Type: schema.TypeString},
 																		},
 																		"match_attributes": {
-																			Type:     schema.TypeList,
+																			Type:schema.TypeList,
 																			MaxItems: 1,
 																			Required: true,
 																			Elem: &schema.Resource{
 																				Schema: map[string]*schema.Schema{
 																					"destination": {
-																						Type:     schema.TypeSet,
+																						Type:schema.TypeSet,
 																						Optional: true,
 																						Elem: &schema.Resource{
 																							Schema: map[string]*schema.Schema{
 																								"address_definition": {
-																									Type:         schema.TypeString,
-																									Required:     true,
+																									Type:schema.TypeString,
+																									Required:true,
 																									ValidateFunc: verify.ValidIPv4CIDRNetworkAddress,
 																								},
 																							},
 																						},
 																					},
 																					"destination_port": {
-																						Type:     schema.TypeSet,
+																						Type:schema.TypeSet,
 																						Optional: true,
 																						Elem: &schema.Resource{
 																							Schema: map[string]*schema.Schema{
 																								"from_port": {
-																									Type:     schema.TypeInt,
+																									Type:schema.TypeInt,
 																									Required: true,
 																								},
 																								"to_port": {
-																									Type:     schema.TypeInt,
+																									Type:schema.TypeInt,
 																									Optional: true,
 																								},
 																							},
 																						},
 																					},
 																					"protocols": {
-																						Type:     schema.TypeSet,
+																						Type:schema.TypeSet,
 																						Optional: true,
-																						Elem:     &schema.Schema{Type: schema.TypeInt},
+																						Elem:&schema.Schema{Type: schema.TypeInt},
 																					},
 																					"source": {
-																						Type:     schema.TypeSet,
+																						Type:schema.TypeSet,
 																						Optional: true,
 																						Elem: &schema.Resource{
 																							Schema: map[string]*schema.Schema{
 																								"address_definition": {
-																									Type:         schema.TypeString,
-																									Required:     true,
+																									Type:schema.TypeString,
+																									Required:true,
 																									ValidateFunc: verify.ValidIPv4CIDRNetworkAddress,
 																								},
 																							},
 																						},
 																					},
 																					"source_port": {
-																						Type:     schema.TypeSet,
+																						Type:schema.TypeSet,
 																						Optional: true,
 																						Elem: &schema.Resource{
 																							Schema: map[string]*schema.Schema{
 																								"from_port": {
-																									Type:     schema.TypeInt,
+																									Type:schema.TypeInt,
 																									Required: true,
 																								},
 																								"to_port": {
-																									Type:     schema.TypeInt,
+																									Type:schema.TypeInt,
 																									Optional: true,
 																								},
 																							},
 																						},
 																					},
 																					"tcp_flag": {
-																						Type:     schema.TypeSet,
+																						Type:schema.TypeSet,
 																						Optional: true,
 																						Elem: &schema.Resource{
 																							Schema: map[string]*schema.Schema{
 																								"flags": {
-																									Type:     schema.TypeSet,
+																									Type:schema.TypeSet,
 																									Required: true,
 																									Elem: &schema.Schema{
-																										Type:         schema.TypeString,
+																										Type:schema.TypeString,
 																										ValidateFunc: validation.StringInSlice(networkfirewall.TCPFlag_Values(), false),
 																									},
 																								},
 																								"masks": {
-																									Type:     schema.TypeSet,
+																									Type:schema.TypeSet,
 																									Optional: true,
 																									Elem: &schema.Schema{
-																										Type:         schema.TypeString,
+																										Type:schema.TypeString,
 																										ValidateFunc: validation.StringInSlice(networkfirewall.TCPFlag_Values(), false),
 																									},
 																								},
@@ -343,18 +343,18 @@ func ResourceRuleGroup() *schema.Resource {
 							},
 						},
 						"rule_variables": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"ip_sets": {
-										Type:     schema.TypeSet,
+										Type:schema.TypeSet,
 										Optional: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"key": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Required: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(1, 32),
@@ -363,15 +363,15 @@ func ResourceRuleGroup() *schema.Resource {
 													),
 												},
 												"ip_set": {
-													Type:     schema.TypeList,
+													Type:schema.TypeList,
 													Required: true,
 													MaxItems: 1,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"definition": {
-																Type:     schema.TypeSet,
+																Type:schema.TypeSet,
 																Required: true,
-																Elem:     &schema.Schema{Type: schema.TypeString},
+																Elem:&schema.Schema{Type: schema.TypeString},
 															},
 														},
 													},
@@ -380,12 +380,12 @@ func ResourceRuleGroup() *schema.Resource {
 										},
 									},
 									"port_sets": {
-										Type:     schema.TypeSet,
+										Type:schema.TypeSet,
 										Optional: true,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"key": {
-													Type:     schema.TypeString,
+													Type:schema.TypeString,
 													Required: true,
 													ValidateFunc: validation.All(
 														validation.StringLenBetween(1, 32),
@@ -394,15 +394,15 @@ func ResourceRuleGroup() *schema.Resource {
 													),
 												},
 												"port_set": {
-													Type:     schema.TypeList,
+													Type:schema.TypeList,
 													Required: true,
 													MaxItems: 1,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"definition": {
-																Type:     schema.TypeSet,
+																Type:schema.TypeSet,
 																Required: true,
-																Elem:     &schema.Schema{Type: schema.TypeString},
+																Elem:&schema.Schema{Type: schema.TypeString},
 															},
 														},
 													},
@@ -414,14 +414,14 @@ func ResourceRuleGroup() *schema.Resource {
 							},
 						},
 						"stateful_rule_options": {
-							Type:     schema.TypeList,
+							Type:schema.TypeList,
 							Optional: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"rule_order": {
-										Type:         schema.TypeString,
-										Required:     true,
+										Type:schema.TypeString,
+										Required:true,
 										ValidateFunc: validation.StringInSlice(networkfirewall.RuleOrder_Values(), false),
 									},
 								},
@@ -431,18 +431,18 @@ func ResourceRuleGroup() *schema.Resource {
 				},
 			},
 			"rules": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required:true,
 				ValidateFunc: validation.StringInSlice(networkfirewall.RuleGroupType_Values(), false),
 			},
 			"update_token": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 		},
@@ -463,10 +463,10 @@ func resourceRuleGroupCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	name := d.Get("name").(string)
 	input := &networkfirewall.CreateRuleGroupInput{
-		Capacity:      aws.Int64(int64(d.Get("capacity").(int))),
+		Capacity: aws.Int64(int64(d.Get("capacity").(int))),
 		RuleGroupName: aws.String(name),
-		Tags:          getTagsIn(ctx),
-		Type:          aws.String(d.Get("type").(string)),
+		Tags:getTagsIn(ctx),
+		Type:aws.String(d.Get("type").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -538,8 +538,8 @@ func resourceRuleGroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	if d.HasChanges("description", "encryption_configuration", "rule_group", "rules", "type") {
 		input := &networkfirewall.UpdateRuleGroupInput{
 			EncryptionConfiguration: expandEncryptionConfiguration(d.Get("encryption_configuration").([]interface{})),
-			RuleGroupArn:            aws.String(d.Id()),
-			Type:       aws.String(d.Get("type").(string)),
+			RuleGroupArn:  aws.String(d.Id()),
+			Type:  aws.String(d.Get("type").(string)),
 			UpdateToken:aws.String(d.Get("update_token").(string)),
 		}
 
@@ -1085,9 +1085,9 @@ func flattenRuleGroup(r *networkfirewall.RuleGroup) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"reference_sets":        flattenReferenceSets(r.ReferenceSets),
-		"rule_variables":        flattenRuleVariables(r.RuleVariables),
-		"rules_source":          flattenRulesSource(r.RulesSource),
+		"reference_sets":   flattenReferenceSets(r.ReferenceSets),
+		"rule_variables":   flattenRuleVariables(r.RuleVariables),
+		"rules_source":flattenRulesSource(r.RulesSource),
 		"stateful_rule_options": flattenStatefulRulesOptions(r.StatefulRuleOptions),
 	}
 
@@ -1151,7 +1151,7 @@ func flattenIPSets(m map[string]*networkfirewall.IPSet) []interface{} {
 	sets := make([]interface{}, 0, len(m))
 	for k, v := range m {
 		tfMap := map[string]interface{}{
-			"key":    k,
+			"key":k,
 			"ip_set": flattenIPSet(v),
 		}
 		sets = append(sets, tfMap)
@@ -1167,7 +1167,7 @@ func flattenPortSets(m map[string]*networkfirewall.PortSet) []interface{} {
 	sets := make([]interface{}, 0, len(m))
 	for k, v := range m {
 		tfMap := map[string]interface{}{
-			"key":      k,
+			"key": k,
 			"port_set": flattenPortSet(v),
 		}
 		sets = append(sets, tfMap)
@@ -1204,9 +1204,9 @@ func flattenRulesSource(rs *networkfirewall.RulesSource) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"rules_source_list":     flattenRulesSourceList(rs.RulesSourceList),
-		"rules_string":          aws.StringValue(rs.RulesString),
-		"stateful_rule":         flattenStatefulRules(rs.StatefulRules),
+		"rules_source_list":flattenRulesSourceList(rs.RulesSourceList),
+		"rules_string":aws.StringValue(rs.RulesString),
+		"stateful_rule":flattenStatefulRules(rs.StatefulRules),
 		"stateless_rules_and_custom_actions": flattenStatelessRulesAndCustomActions(rs.StatelessRulesAndCustomActions),
 	}
 
@@ -1220,7 +1220,7 @@ func flattenRulesSourceList(r *networkfirewall.RulesSourceList) []interface{} {
 
 	m := map[string]interface{}{
 		"generated_rules_type": aws.StringValue(r.GeneratedRulesType),
-		"target_types":         flex.FlattenStringSet(r.TargetTypes),
+		"target_types":flex.FlattenStringSet(r.TargetTypes),
 		"targets": flex.FlattenStringSet(r.Targets),
 	}
 
@@ -1234,8 +1234,8 @@ func flattenStatefulRules(sr []*networkfirewall.StatefulRule) []interface{} {
 	rules := make([]interface{}, 0, len(sr))
 	for _, s := range sr {
 		m := map[string]interface{}{
-			"action":      aws.StringValue(s.Action),
-			"header":      flattenHeader(s.Header),
+			"action": aws.StringValue(s.Action),
+			"header": flattenHeader(s.Header),
 			"rule_option": flattenRuleOptions(s.RuleOptions),
 		}
 		rules = append(rules, m)
@@ -1249,12 +1249,12 @@ func flattenHeader(h *networkfirewall.Header) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"destination":      aws.StringValue(h.Destination),
+		"destination": aws.StringValue(h.Destination),
 		"destination_port": aws.StringValue(h.DestinationPort),
-		"direction":        aws.StringValue(h.Direction),
-		"protocol":         aws.StringValue(h.Protocol),
-		"source":           aws.StringValue(h.Source),
-		"source_port":      aws.StringValue(h.SourcePort),
+		"direction":   aws.StringValue(h.Direction),
+		"protocol":aws.StringValue(h.Protocol),
+		"source": aws.StringValue(h.Source),
+		"source_port": aws.StringValue(h.SourcePort),
 	}
 
 	return []interface{}{m}
@@ -1298,7 +1298,7 @@ func flattenStatelessRules(sr []*networkfirewall.StatelessRule) []interface{} {
 	rules := make([]interface{}, 0, len(sr))
 	for _, s := range sr {
 		rule := map[string]interface{}{
-			"priority":        int(aws.Int64Value(s.Priority)),
+			"priority":   int(aws.Int64Value(s.Priority)),
 			"rule_definition": flattenRuleDefinition(s.RuleDefinition),
 		}
 		rules = append(rules, rule)
@@ -1313,7 +1313,7 @@ func flattenRuleDefinition(r *networkfirewall.RuleDefinition) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"actions":          flex.FlattenStringSet(r.Actions),
+		"actions":flex.FlattenStringSet(r.Actions),
 		"match_attributes": flattenMatchAttributes(r.MatchAttributes),
 	}
 
@@ -1326,12 +1326,12 @@ func flattenMatchAttributes(ma *networkfirewall.MatchAttributes) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"destination":      flattenAddresses(ma.Destinations),
+		"destination": flattenAddresses(ma.Destinations),
 		"destination_port": flattenPortRanges(ma.DestinationPorts),
-		"protocols":        flex.FlattenInt64Set(ma.Protocols),
-		"source":           flattenAddresses(ma.Sources),
-		"source_port":      flattenPortRanges(ma.SourcePorts),
-		"tcp_flag":         flattenTCPFlags(ma.TCPFlags),
+		"protocols":   flex.FlattenInt64Set(ma.Protocols),
+		"source": flattenAddresses(ma.Sources),
+		"source_port": flattenPortRanges(ma.SourcePorts),
+		"tcp_flag":flattenTCPFlags(ma.TCPFlags),
 	}
 
 	return []interface{}{m}

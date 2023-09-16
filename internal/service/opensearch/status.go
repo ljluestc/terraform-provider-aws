@@ -18,7 +18,6 @@ const (
 	ConfigStatusUnknown  = "Unknown"
 	ConfigStatusExists   = "Exists"
 )
-
 func statusUpgradeStatus(ctx context.Context, conn *opensearchservice.OpenSearchService, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		out, err := conn.GetUpgradeStatusWithContext(ctx, &opensearchservice.GetUpgradeStatusInput{
@@ -38,7 +37,6 @@ func statusUpgradeStatus(ctx context.Context, conn *opensearchservice.OpenSearch
 		return out, aws.StringValue(out.StepStatus), nil
 	}
 }
-
 func domainConfigStatus(ctx context.Context, conn *opensearchservice.OpenSearchService, name string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		out, err := conn.DescribeDomainConfigWithContext(ctx, &opensearchservice.DescribeDomainConfigInput{

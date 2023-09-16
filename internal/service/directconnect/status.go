@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func statusConnectionState(ctx context.Context, conn *directconnect.DirectConnect, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindConnectionByID(ctx, conn, id)
@@ -27,7 +26,6 @@ func statusConnectionState(ctx context.Context, conn *directconnect.DirectConnec
 		return output, aws.StringValue(output.ConnectionState), nil
 	}
 }
-
 func statusGatewayState(ctx context.Context, conn *directconnect.DirectConnect, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindGatewayByID(ctx, conn, id)
@@ -43,7 +41,6 @@ func statusGatewayState(ctx context.Context, conn *directconnect.DirectConnect, 
 		return output, aws.StringValue(output.DirectConnectGatewayState), nil
 	}
 }
-
 func statusGatewayAssociationState(ctx context.Context, conn *directconnect.DirectConnect, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindGatewayAssociationByID(ctx, conn, id)
@@ -59,7 +56,6 @@ func statusGatewayAssociationState(ctx context.Context, conn *directconnect.Dire
 		return output, aws.StringValue(output.AssociationState), nil
 	}
 }
-
 func statusHostedConnectionState(ctx context.Context, conn *directconnect.DirectConnect, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindHostedConnectionByID(ctx, conn, id)
@@ -75,7 +71,6 @@ func statusHostedConnectionState(ctx context.Context, conn *directconnect.Direct
 		return output, aws.StringValue(output.ConnectionState), nil
 	}
 }
-
 func statusLagState(ctx context.Context, conn *directconnect.DirectConnect, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
 		output, err := FindLagByID(ctx, conn, id)

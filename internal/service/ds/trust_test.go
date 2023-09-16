@@ -33,9 +33,9 @@ func TestAccDSTrust_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustConfig_basic(rName, domainName, domainNameOther),
@@ -84,9 +84,9 @@ func TestAccDSTrust_Domain_TrailingPeriod(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustConfig_domain_trailingPeriod(rName, domainName, domainNameOther),
@@ -123,9 +123,9 @@ func TestAccDSTrust_twoWayBasic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustConfig_twoWayBasic(rName, domainName, domainNameOther),
@@ -167,9 +167,9 @@ func TestAccDSTrust_oneWayBasic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustConfig_oneWay(rName, domainName, domainNameOther),
@@ -210,9 +210,9 @@ func TestAccDSTrust_SelectiveAuth(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustConfig_SelectiveAuth(rName, domainName, domainNameOther, awstypes.SelectiveAuthEnabled),
@@ -267,9 +267,9 @@ func TestAccDSTrust_twoWaySelectiveAuth(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustConfig_twoWaySelectiveAuth(rName, domainName, domainNameOther, awstypes.SelectiveAuthEnabled),
@@ -324,9 +324,9 @@ func TestAccDSTrust_TrustType(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustConfig_TrustType(rName, domainName, domainNameOther, awstypes.TrustTypeExternal),
@@ -363,9 +363,9 @@ func TestAccDSTrust_TrustTypeSpecifyDefault(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustConfig_basic(rName, domainName, domainNameOther),
@@ -395,9 +395,9 @@ func TestAccDSTrust_ConditionalForwarderIPs(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustConfig_basic(rName, domainName, domainNameOther),
@@ -450,9 +450,9 @@ func TestAccDSTrust_deleteAssociatedConditionalForwarder(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustConfig_deleteAssociatedConditionalForwarder(rName, domainName, domainNameOther),
@@ -1074,7 +1074,7 @@ resource "aws_directory_service_trust" "test" {
   trust_direction    = "Two-Way"
   trust_password     = "Some0therPassword"
 
-  conditional_forwarder_ip_addrs          = aws_directory_service_directory.other.dns_ip_addresses
+  conditional_forwarder_ip_addrs = aws_directory_service_directory.other.dns_ip_addresses
   delete_associated_conditional_forwarder = true
 }
 

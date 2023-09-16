@@ -54,15 +54,15 @@ func TestAccEvidentlyFeature_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeString),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    "Variation1",
+						"name":"Variation1",
 						"value.#": "1",
 						"value.0.string_value": "test",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -96,8 +96,8 @@ func TestAccEvidentlyFeature_updateDefaultVariation(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -138,8 +138,8 @@ func TestAccEvidentlyFeature_updateDescription(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -179,20 +179,20 @@ func TestAccEvidentlyFeature_updateEntityOverrides(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "entity_overrides.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "entity_overrides.test1", variationName1),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    variationName1,
+						"name":variationName1,
 						"value.#": "1",
 						"value.0.string_value": "testval1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    variationName2,
+						"name":variationName2,
 						"value.#": "1",
 						"value.0.string_value": "testval2",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -203,12 +203,12 @@ func TestAccEvidentlyFeature_updateEntityOverrides(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "entity_overrides.test1", variationName2),
 					resource.TestCheckResourceAttr(resourceName, "entity_overrides.test2", variationName1),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    variationName1,
+						"name":variationName1,
 						"value.#": "1",
 						"value.0.string_value": "testval1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    variationName2,
+						"name":variationName2,
 						"value.#": "1",
 						"value.0.string_value": "testval2",
 					}),
@@ -245,8 +245,8 @@ func TestAccEvidentlyFeature_updateEvaluationStrategy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -292,14 +292,14 @@ func TestAccEvidentlyFeature_updateVariationsBoolValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
 						"name":  originalVariationName1,
-						"value.#":            "1",
+						"value.#":   "1",
 						"value.0.bool_value": strconv.FormatBool(originalVariationBoolVal1),
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -311,12 +311,12 @@ func TestAccEvidentlyFeature_updateVariationsBoolValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
 						"name":  updatedVariationName1,
-						"value.#":            "1",
+						"value.#":   "1",
 						"value.0.bool_value": strconv.FormatBool(updatedVariationBoolVal1),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
 						"name":  variationName2,
-						"value.#":            "1",
+						"value.#":   "1",
 						"value.0.bool_value": strconv.FormatBool(variationBoolVal2),
 					}),
 				),
@@ -356,15 +356,15 @@ func TestAccEvidentlyFeature_updateVariationsDoubleValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeDouble),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    originalVariationName1,
+						"name":originalVariationName1,
 						"value.#": "1",
 						"value.0.double_value": strconv.FormatFloat(originalVariationDoubleVal1, 'f', -1, 64),
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -375,12 +375,12 @@ func TestAccEvidentlyFeature_updateVariationsDoubleValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeDouble),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    updatedVariationName1,
+						"name":updatedVariationName1,
 						"value.#": "1",
 						"value.0.double_value": strconv.FormatFloat(updatedVariationDoubleVal1, 'f', -1, 64),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    variationName2,
+						"name":variationName2,
 						"value.#": "1",
 						"value.0.double_value": strconv.FormatFloat(float64(variationDoubleVal2), 'f', -1, 64),
 					}),
@@ -422,14 +422,14 @@ func TestAccEvidentlyFeature_updateVariationsLongValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
 						"name":  originalVariationName1,
-						"value.#":            "1",
+						"value.#":   "1",
 						"value.0.long_value": strconv.Itoa(originalVariationLongVal1),
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -441,12 +441,12 @@ func TestAccEvidentlyFeature_updateVariationsLongValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
 						"name":  updatedVariationName1,
-						"value.#":            "1",
+						"value.#":   "1",
 						"value.0.long_value": strconv.Itoa(updatedVariationLongVal1),
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
 						"name":  variationName2,
-						"value.#":            "1",
+						"value.#":   "1",
 						"value.0.long_value": strconv.Itoa(variationLongVal2),
 					}),
 				),
@@ -487,15 +487,15 @@ func TestAccEvidentlyFeature_updateVariationsStringValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeString),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    originalVariationName1,
+						"name":originalVariationName1,
 						"value.#": "1",
 						"value.0.string_value": originalVariationStringVal1,
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -506,12 +506,12 @@ func TestAccEvidentlyFeature_updateVariationsStringValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeString),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    updatedVariationName1,
+						"name":updatedVariationName1,
 						"value.#": "1",
 						"value.0.string_value": updatedVariationStringVal1,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    variationName2,
+						"name":variationName2,
 						"value.#": "1",
 						"value.0.string_value": variationStringVal2,
 					}),
@@ -525,12 +525,12 @@ func TestAccEvidentlyFeature_updateVariationsStringValue(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "value_type", cloudwatchevidently.VariationValueTypeString),
 					resource.TestCheckResourceAttr(resourceName, "variations.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    updatedVariationName1,
+						"name":updatedVariationName1,
 						"value.#": "1",
 						"value.0.string_value": updatedVariationStringVal1,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "variations.*", map[string]string{
-						"name":    variationName2,
+						"name":variationName2,
 						"value.#": "1",
 						"value.0.string_value": updatedVariationStringVal2, // test empty string
 					}),
@@ -566,8 +566,8 @@ func TestAccEvidentlyFeature_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -600,7 +600,7 @@ func TestAccEvidentlyFeature_disappears(t *testing.T) {
 	resourceName := "aws_evidently_feature.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckFeatureDestroy(ctx),
@@ -693,14 +693,14 @@ func testAccFeatureConfig_basic(rName, rName2 string) string {
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name    = %[1]q
+  name= %[1]q
   project = aws_evidently_project.test.name
 
   variations {
-    name = "Variation1"
-    value {
-      string_value = "test"
-    }
+name = "Variation1"
+value {
+  string_value = "test"
+}
   }
 }
 `, rName2))
@@ -712,27 +712,27 @@ func testAccFeatureConfig_defaultVariation(rName, rName2, variationName1, variat
 		fmt.Sprintf(`
 locals {
   select_default_variation = %[4]q
-  variation_name1          = %[2]q
-  variation_name2          = %[3]q
+  variation_name1 = %[2]q
+  variation_name2 = %[3]q
 }
 
 resource "aws_evidently_feature" "test" {
   name = %[1]q
-  project           = aws_evidently_project.test.name
+  project  = aws_evidently_project.test.name
   default_variation = local.select_default_variation == "first" ? local.variation_name1 : local.variation_name2
 
   variations {
-    name = %[2]q
-    value {
-      string_value = "testval1"
-    }
+name = %[2]q
+value {
+  string_value = "testval1"
+}
   }
 
   variations {
-    name = %[3]q
-    value {
-      string_value = "testval2"
-    }
+name = %[3]q
+value {
+  string_value = "testval2"
+}
   }
 }
 `, rName2, variationName1, variationName2, selectDefaultVariation))
@@ -743,15 +743,15 @@ func testAccFeatureConfig_description(rName, rName2, description string) string 
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name        = %[1]q
+  name= %[1]q
   description = %[2]q
-  project     = aws_evidently_project.test.name
+  project = aws_evidently_project.test.name
 
   variations {
-    name = "Variation1"
-    value {
-      string_value = "test"
-    }
+name = "Variation1"
+value {
+  string_value = "test"
+}
   }
 }
 `, rName2, description))
@@ -762,25 +762,25 @@ func testAccFeatureConfig_entityOverrides1(rName, rName2, variationName1, variat
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name    = %[1]q
+  name= %[1]q
   project = aws_evidently_project.test.name
 
   entity_overrides = {
-    test1 = %[2]q
+test1 = %[2]q
   }
 
   variations {
-    name = %[2]q
-    value {
-      string_value = "testval1"
-    }
+name = %[2]q
+value {
+  string_value = "testval1"
+}
   }
 
   variations {
-    name = %[3]q
-    value {
-      string_value = "testval2"
-    }
+name = %[3]q
+value {
+  string_value = "testval2"
+}
   }
 }
 `, rName2, variationName1, variationName2))
@@ -791,26 +791,26 @@ func testAccFeatureConfig_entityOverrides2(rName, rName2, variationName1, variat
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name    = %[1]q
+  name= %[1]q
   project = aws_evidently_project.test.name
 
   entity_overrides = {
-    test1 = %[3]q
-    test2 = %[2]q
+test1 = %[3]q
+test2 = %[2]q
   }
 
   variations {
-    name = %[2]q
-    value {
-      string_value = "testval1"
-    }
+name = %[2]q
+value {
+  string_value = "testval1"
+}
   }
 
   variations {
-    name = %[3]q
-    value {
-      string_value = "testval2"
-    }
+name = %[3]q
+value {
+  string_value = "testval2"
+}
   }
 }
 `, rName2, variationName1, variationName2))
@@ -826,10 +826,10 @@ resource "aws_evidently_feature" "test" {
   project= aws_evidently_project.test.name
 
   variations {
-    name = "Variation1"
-    value {
-      string_value = "test"
-    }
+name = "Variation1"
+value {
+  string_value = "test"
+}
   }
 }
 `, rName2, evaluationStrategy))
@@ -840,14 +840,14 @@ func testAccFeatureConfig_variationsBoolValue1(rName, rName2, variationName1 str
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name    = %[1]q
+  name= %[1]q
   project = aws_evidently_project.test.name
 
   variations {
-    name = %[2]q
-    value {
-      bool_value = %[3]t
-    }
+name = %[2]q
+value {
+  bool_value = %[3]t
+}
   }
 }
 `, rName2, variationName1, boolVal1))
@@ -859,21 +859,21 @@ func testAccFeatureConfig_variationsBoolValue2(rName, rName2, variationName1 str
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name = %[1]q
-  project           = aws_evidently_project.test.name
+  project  = aws_evidently_project.test.name
   default_variation = %[4]q
 
   variations {
-    name = %[2]q
-    value {
-      bool_value = %[3]t
-    }
+name = %[2]q
+value {
+  bool_value = %[3]t
+}
   }
 
   variations {
-    name = %[4]q
-    value {
-      bool_value = %[5]t
-    }
+name = %[4]q
+value {
+  bool_value = %[5]t
+}
   }
 }
 `, rName2, variationName1, boolVal1, variationName2, boolVal2))
@@ -884,14 +884,14 @@ func testAccFeatureConfig_variationsDoubleValue1(rName, rName2, variationName1 s
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name    = %[1]q
+  name= %[1]q
   project = aws_evidently_project.test.name
 
   variations {
-    name = %[2]q
-    value {
-      double_value = %[3]f
-    }
+name = %[2]q
+value {
+  double_value = %[3]f
+}
   }
 }
 `, rName2, variationName1, doubleVal1))
@@ -903,21 +903,21 @@ func testAccFeatureConfig_variationsDoubleValue2(rName, rName2, variationName1 s
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name = %[1]q
-  project           = aws_evidently_project.test.name
+  project  = aws_evidently_project.test.name
   default_variation = %[4]q
 
   variations {
-    name = %[2]q
-    value {
-      double_value = %[3]f
-    }
+name = %[2]q
+value {
+  double_value = %[3]f
+}
   }
 
   variations {
-    name = %[4]q
-    value {
-      double_value = %[5]f
-    }
+name = %[4]q
+value {
+  double_value = %[5]f
+}
   }
 }
 `, rName2, variationName1, doubleVal1, variationName2, doubleVal2))
@@ -928,14 +928,14 @@ func testAccFeatureConfig_variationsLongValue1(rName, rName2, variationName1 str
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name    = %[1]q
+  name= %[1]q
   project = aws_evidently_project.test.name
 
   variations {
-    name = %[2]q
-    value {
-      long_value = %[3]d
-    }
+name = %[2]q
+value {
+  long_value = %[3]d
+}
   }
 }
 `, rName2, variationName1, longVal1))
@@ -947,21 +947,21 @@ func testAccFeatureConfig_variationsLongValue2(rName, rName2, variationName1 str
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name = %[1]q
-  project           = aws_evidently_project.test.name
+  project  = aws_evidently_project.test.name
   default_variation = %[4]q
 
   variations {
-    name = %[2]q
-    value {
-      long_value = %[3]d
-    }
+name = %[2]q
+value {
+  long_value = %[3]d
+}
   }
 
   variations {
-    name = %[4]q
-    value {
-      long_value = %[5]d
-    }
+name = %[4]q
+value {
+  long_value = %[5]d
+}
   }
 }
 `, rName2, variationName1, longVal1, variationName2, longVal2))
@@ -972,14 +972,14 @@ func testAccFeatureConfig_variationsStringValue1(rName, rName2, variationName1, 
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name    = %[1]q
+  name= %[1]q
   project = aws_evidently_project.test.name
 
   variations {
-    name = %[2]q
-    value {
-      string_value = %[3]q
-    }
+name = %[2]q
+value {
+  string_value = %[3]q
+}
   }
 }
 `, rName2, variationName1, stringVal1))
@@ -991,21 +991,21 @@ func testAccFeatureConfig_variationsStringValue2(rName, rName2, variationName1, 
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
   name = %[1]q
-  project           = aws_evidently_project.test.name
+  project  = aws_evidently_project.test.name
   default_variation = %[4]q
 
   variations {
-    name = %[2]q
-    value {
-      string_value = %[3]q
-    }
+name = %[2]q
+value {
+  string_value = %[3]q
+}
   }
 
   variations {
-    name = %[4]q
-    value {
-      string_value = %[5]q
-    }
+name = %[4]q
+value {
+  string_value = %[5]q
+}
   }
 }
 `, rName2, variationName1, stringVal1, variationName2, stringVal2))
@@ -1016,18 +1016,18 @@ func testAccFeatureConfig_tags1(rName, rName2, tag, value string) string {
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name    = %[1]q
+  name= %[1]q
   project = aws_evidently_project.test.name
 
   variations {
-    name = "Variation1"
-    value {
-      string_value = "test"
-    }
+name = "Variation1"
+value {
+  string_value = "test"
+}
   }
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName2, tag, value))
@@ -1038,19 +1038,19 @@ func testAccFeatureConfig_tags2(rName, rName2, tag1, value1, tag2, value2 string
 		testAccFeatureConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_evidently_feature" "test" {
-  name    = %[1]q
+  name= %[1]q
   project = aws_evidently_project.test.name
 
   variations {
-    name = "Variation1"
-    value {
-      string_value = "test"
-    }
+name = "Variation1"
+value {
+  string_value = "test"
+}
   }
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName2, tag1, value1, tag2, value2))

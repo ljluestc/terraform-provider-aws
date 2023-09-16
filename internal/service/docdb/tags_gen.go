@@ -57,7 +57,7 @@ func Tags(tags tftags.KeyValueTags) []*docdb.Tag {
 
 	for k, v := range tags.Map() {
 		tag := &docdb.Tag{
-			Key:   aws.String(k),
+			Key:aws.String(k),
 			Value: aws.String(v),
 		}
 
@@ -111,7 +111,7 @@ func updateTags(ctx context.Context, conn docdbiface.DocDBAPI, identifier string
 	if len(removedTags) > 0 {
 		input := &docdb.RemoveTagsFromResourceInput{
 			ResourceName: aws.String(identifier),
-			TagKeys:      aws.StringSlice(removedTags.Keys()),
+			TagKeys:ringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.RemoveTagsFromResourceWithContext(ctx, input)
@@ -126,7 +126,7 @@ func updateTags(ctx context.Context, conn docdbiface.DocDBAPI, identifier string
 	if len(updatedTags) > 0 {
 		input := &docdb.AddTagsToResourceInput{
 			ResourceName: aws.String(identifier),
-			Tags:         Tags(updatedTags),
+			Tags:s(updatedTags),
 		}
 
 		_, err := conn.AddTagsToResourceWithContext(ctx, input)

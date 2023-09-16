@@ -76,7 +76,7 @@ Schema: map[string]*schema.Schema{
 	},
 },
 	},
-	"legend": legendOptionsSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LegendOptions.html
+	"legend": legendOptionsSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LegendOptions.html
 	"primary_y_axis_display_options": axisDisplayOptionsSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AxisDisplayOptions.html
 	"primary_y_axis_label_options":   chartAxisLabelOptionsSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
 	"reference_lines": referenceLineSchema(referenceLinesMaxItems), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ReferenceLine.html
@@ -90,11 +90,11 @@ func: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "category_sort":   fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html,
-"pagination_configuration": paginationConfigurationSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PaginationConfiguration.html
+"pagination_configuration": paginationConfigurationSchema(),// https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PaginationConfiguration.html
 	},
 },
 	},
-	"tooltip":        tooltipOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
+	"tooltip":  tooltipOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
 	"visual_palette": visualPaletteSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
 },
 	},

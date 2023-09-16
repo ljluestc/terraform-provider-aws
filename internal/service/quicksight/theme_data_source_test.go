@@ -97,23 +97,23 @@ resource "aws_quicksight_theme" "test" {
 
   configuration {
     data_color_palette {
-      colors = [
-        "#FFFFFF",
-        "#111111",
-        "#222222",
-        "#333333",
-        "#444444",
-        "#555555",
-        "#666666",
-        "#777777",
-        "#888888",
-        "#999999"
-      ]
-      empty_fill_color = "#FFFFFF"
-      min_max_gradient = [
-        "#FFFFFF",
-        "#111111",
-      ]
+colors = [
+  "#FFFFFF",
+  "#111111",
+  "#222222",
+  "#333333",
+  "#444444",
+  "#555555",
+  "#666666",
+  "#777777",
+  "#888888",
+  "#999999"
+]
+empty_fill_color = "#FFFFFF"
+min_max_gradient = [
+  "#FFFFFF",
+  "#111111",
+]
     }
   }
 }
@@ -136,64 +136,64 @@ resource "aws_quicksight_theme" "test" {
 
   configuration {
     data_color_palette {
-      colors = [
-        "#FFFFFF",
-        "#111111",
-        "#222222",
-        "#333333",
-        "#444444",
-        "#555555",
-        "#666666",
-        "#777777",
-        "#888888",
-        "#999999"
-      ]
-      empty_fill_color = "#FFFFFF"
-      min_max_gradient = [
-        "#FFFFFF",
-        "#111111",
-      ]
+colors = [
+  "#FFFFFF",
+  "#111111",
+  "#222222",
+  "#333333",
+  "#444444",
+  "#555555",
+  "#666666",
+  "#777777",
+  "#888888",
+  "#999999"
+]
+empty_fill_color = "#FFFFFF"
+min_max_gradient = [
+  "#FFFFFF",
+  "#111111",
+]
     }
     sheet {
-      tile {
-        border {
+tile {
+  border {
  show = false
-        }
-      }
-      tile_layout {
-        gutter {
+  }
+}
+tile_layout {
+  gutter {
  show = false
-        }
-        margin {
+  }
+  margin {
  show = false
-        }
-      }
+  }
+}
     }
     typography {
-      font_families {
-        font_family = "monospace"
-      }
-      font_families {
-        font_family = "Roboto"
-      }
+font_families {
+  font_family = "monospace"
+}
+font_families {
+  font_family = "Roboto"
+}
     }
     ui_color_palette {
-      accent= "#202020"
-      accent_foreground    = "#FFFFFF"
-      danger= "#202020"
-      danger_foreground    = "#FFFFFF"
-      dimension   = "#202020"
-      dimension_foreground = "#FFFFFF"
-      measure     = "#202020"
-      measure_foreground   = "#FFFFFF"
-      primary_background   = "#202020"
-      primary_foreground   = "#FFFFFF"
-      secondary_background = "#202020"
-      secondary_foreground = "#FFFFFF"
-      success     = "#202020"
-      success_foreground   = "#FFFFFF"
-      warning     = "#202020"
-      warning_foreground   = "#FFFFFF"
+accent= "#202020"
+accent_foreground    = "#FFFFFF"
+danger= "#202020"
+danger_foreground    = "#FFFFFF"
+dimension   = "#202020"
+dimension_foreground = "#FFFFFF"
+measure     = "#202020"
+measure_foreground   = "#FFFFFF"
+primary_background   = "#202020"
+primary_foreground   = "#FFFFFF"
+secondary_background = "#202020"
+secondary_foreground = "#FFFFFF"
+success     = "#202020"
+success_foreground   = "#FFFFFF"
+warning     = "#202020"
+warning_foreground   = "#FFFFFF"
     }
   }
 }

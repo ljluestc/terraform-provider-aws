@@ -11,7 +11,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccOpenSearchDomainDataSource_Data_basic(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
@@ -58,7 +57,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func TestAccOpenSearchDomainDataSource_Data_advanced(t *testing.T) {
 	if testing.Short() {
 t.Skip("skipping long-running test in short mode")
@@ -105,7 +103,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
 func testAccDomainDataSourceConfig_basic(rName, autoTuneStartAtTime string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -133,9 +130,9 @@ resource "aws_opensearch_domain" "test" {
       "Resource": "arn:${data.aws_partition.current.partition}:es:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:domain/${local.domain_substr}/*",
       "Condition": {
         "IpAddress": {
-          "aws:SourceIp": [
-            "127.0.0.0/8"
-          ]
+ "aws:SourceIp": [
+   "127.0.0.0/8"
+ ]
         }
       }
     }
@@ -160,7 +157,7 @@ POLICY
   }
 
   cluster_config {
-    instance_count           = 2
+    instance_count  = 2
     dedicated_master_enabled = false
 
     zone_awareness_config {
@@ -192,7 +189,6 @@ data "aws_opensearch_domain" "test" {
 }
 `, rName, autoTuneStartAtTime)
 }
-
 func testAccDomainDataSourceConfig_advanced(rName, autoTuneStartAtTime string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -286,7 +282,7 @@ POLICY
   }
 
   cluster_config {
-    instance_count           = 2
+    instance_count  = 2
     dedicated_master_enabled = false
 
     zone_awareness_config {
@@ -313,11 +309,11 @@ POLICY
 
   vpc_options {
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = aws_subnet.test[*].id
+    subnet_ids= aws_subnet.test[*].id
   }
 
   advanced_security_options {
-    enabled         = false
+    enabled= false
     internal_user_database_enabled = false
   }
 

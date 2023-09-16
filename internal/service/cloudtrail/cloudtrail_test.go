@@ -36,21 +36,21 @@ func TestAccCloudTrail_serial(t *testing.T) {
 
 	testCases := map[string]map[string]func(t *testing.T){
 		"Trail": {
-			"basic":    testAcc_basic,
-			"cloudwatch":            testAcc_cloudWatch,
-			"enableLogging":         testAcc_enableLogging,
+			"basic":testAcc_basic,
+			"cloudwatch":   testAcc_cloudWatch,
+			"enableLogging":testAcc_enableLogging,
 			"globalServiceEvents":   testAcc_globalServiceEvents,
-			"multiRegion":           testAcc_multiRegion,
-			"organization":          testAcc_organization,
-			"logValidation":         testAcc_logValidation,
+			"multiRegion":  testAcc_multiRegion,
+			"organization": testAcc_organization,
+			"logValidation":testAcc_logValidation,
 			"kmsKey":   testAcc_kmsKey,
-			"tags":     testAcc_tags,
-			"eventSelector":         testAcc_eventSelector,
+			"tags": testAcc_tags,
+			"eventSelector":testAcc_eventSelector,
 			"eventSelectorDynamoDB": testAcc_eventSelectorDynamoDB,
 			"eventSelectorExclude":  testAcc_eventSelectorExclude,
-			"insightSelector":       testAcc_insightSelector,
+			"insightSelector":   testAcc_insightSelector,
 			"advancedEventSelector": testAcc_advanced_event_selector,
-			"disappears":            testAcc_disappears,
+			"disappears":   testAcc_disappears,
 		},
 	}
 
@@ -64,7 +64,7 @@ func testAcc_basic(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -81,8 +81,8 @@ func testAcc_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -96,8 +96,8 @@ func testAcc_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -111,7 +111,7 @@ func testAcc_cloudWatch(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -125,8 +125,8 @@ func testAcc_cloudWatch(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -138,8 +138,8 @@ func testAcc_cloudWatch(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -153,7 +153,7 @@ func testAcc_enableLogging(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -170,8 +170,8 @@ func testAcc_enableLogging(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -184,8 +184,8 @@ func testAcc_enableLogging(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -208,7 +208,7 @@ func testAcc_multiRegion(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -232,8 +232,8 @@ func testAcc_multiRegion(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -256,7 +256,7 @@ func testAcc_organization(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationsAccount(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -271,8 +271,8 @@ func testAcc_organization(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -295,7 +295,7 @@ func testAcc_logValidation(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -311,8 +311,8 @@ func testAcc_logValidation(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -338,7 +338,7 @@ func testAcc_kmsKey(t *testing.T) {
 	kmsResourceName := "aws_kms_key.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -354,8 +354,8 @@ func testAcc_kmsKey(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -371,7 +371,7 @@ func testAcc_tags(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -389,8 +389,8 @@ func testAcc_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -427,7 +427,7 @@ func testAcc_globalServiceEvents(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -440,8 +440,8 @@ func testAcc_globalServiceEvents(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -454,7 +454,7 @@ func testAcc_eventSelector(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -474,8 +474,8 @@ func testAcc_eventSelector(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -526,7 +526,7 @@ func testAcc_eventSelectorDynamoDB(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -553,7 +553,7 @@ func testAcc_eventSelectorExclude(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -568,8 +568,8 @@ func testAcc_eventSelectorExclude(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -583,8 +583,8 @@ func testAcc_eventSelectorExclude(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -603,7 +603,7 @@ func testAcc_insightSelector(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -616,8 +616,8 @@ func testAcc_insightSelector(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -651,7 +651,7 @@ func testAcc_advanced_event_selector(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -663,81 +663,81 @@ func testAcc_advanced_event_selector(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.0.name", "s3Custom"),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.0.field_selector.#", "5"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.0.field_selector.*", map[string]string{
-						"field":    "eventCategory",
+						"field":"eventCategory",
 						"equals.#": "1",
 						"equals.0": "Data",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.0.field_selector.*", map[string]string{
-						"field":    "eventName",
+						"field":"eventName",
 						"equals.#": "1",
 						"equals.0": "DeleteObject",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.0.field_selector.*", map[string]string{
-						"field":    "resources.ARN",
+						"field":"resources.ARN",
 						"equals.#": "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.0.field_selector.*", map[string]string{
-						"field":    "readOnly",
+						"field":"readOnly",
 						"equals.#": "1",
 						"equals.0": "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.0.field_selector.*", map[string]string{
-						"field":    "resources.type",
+						"field":"resources.type",
 						"equals.#": "1",
 						"equals.0": "AWS::S3::Object",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.1.name", "lambdaLogAllEvents"),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.1.field_selector.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.1.field_selector.*", map[string]string{
-						"field":    "eventCategory",
+						"field":"eventCategory",
 						"equals.#": "1",
 						"equals.0": "Data",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.1.field_selector.*", map[string]string{
-						"field":    "resources.type",
+						"field":"resources.type",
 						"equals.#": "1",
 						"equals.0": "AWS::Lambda::Function",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.2.name", "dynamoDbReadOnlyEvents"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.2.field_selector.*", map[string]string{
-						"field":    "readOnly",
+						"field":"readOnly",
 						"equals.#": "1",
 						"equals.0": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.2.field_selector.*", map[string]string{
-						"field":    "resources.type",
+						"field":"resources.type",
 						"equals.#": "1",
 						"equals.0": "AWS::DynamoDB::Table",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.3.name", "s3OutpostsWriteOnlyEvents"),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.3.field_selector.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.3.field_selector.*", map[string]string{
-						"field":    "eventCategory",
+						"field":"eventCategory",
 						"equals.#": "1",
 						"equals.0": "Data",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.3.field_selector.*", map[string]string{
-						"field":    "readOnly",
+						"field":"readOnly",
 						"equals.#": "1",
 						"equals.0": "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.3.field_selector.*", map[string]string{
-						"field":    "resources.type",
+						"field":"resources.type",
 						"equals.#": "1",
 						"equals.0": "AWS::S3Outposts::Object",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.4.name", "managementEventsSelector"),
 					resource.TestCheckResourceAttr(resourceName, "advanced_event_selector.4.field_selector.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "advanced_event_selector.4.field_selector.*", map[string]string{
-						"field":    "eventCategory",
+						"field":"eventCategory",
 						"equals.#": "1",
 						"equals.0": "Management",
 					}),
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -751,7 +751,7 @@ func testAcc_disappears(t *testing.T) {
 	resourceName := "aws_cloudtrail.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudtrail.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckTrailDestroy(ctx),
@@ -905,45 +905,45 @@ data "aws_partition" "current" {}
 data "aws_region" "current" {}
 
 resource "aws_s3_bucket" "test" {
-  bucket        = %[1]q
+  bucket= %[1]q
   force_destroy = true
 }
 
 resource "aws_s3_bucket_policy" "test" {
   bucket = aws_s3_bucket.test.id
   policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Sid    = "AWSCloudTrailAclCheck"
-        Effect = "Allow"
-        Principal = {
-          Service = "cloudtrail.amazonaws.com"
-        }
-        Action   = "s3:GetBucketAcl"
-        Resource = "arn:${data.aws_partition.current.partition}:s3:::%[1]s"
-        Condition = {
-          StringEquals = {
-            "aws:SourceArn" = "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/%[1]s"
-          }
-        }
-      },
-      {
-        Sid    = "AWSCloudTrailWrite"
-        Effect = "Allow"
-        Principal = {
-          Service = "cloudtrail.amazonaws.com"
-        }
-        Action   = "s3:PutObject"
-        Resource = "arn:${data.aws_partition.current.partition}:s3:::%[1]s/*"
-        Condition = {
-          StringEquals = {
-            "s3:x-amz-acl"  = "bucket-owner-full-control"
-            "aws:SourceArn" = "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/%[1]s"
-          }
-        }
-      }
-    ]
+Version = "2012-10-17"
+Statement = [
+  {
+Sid= "AWSCloudTrailAclCheck"
+Effect = "Allow"
+Principal = {
+ Service = "cloudtrail.amazonaws.com"
+}
+Action   = "s3:GetBucketAcl"
+Resource = "arn:${data.aws_partition.current.partition}:s3:::%[1]s"
+Condition = {
+ StringEquals = {
+   "aws:SourceArn" = "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/%[1]s"
+ }
+}
+  },
+  {
+Sid= "AWSCloudTrailWrite"
+Effect = "Allow"
+Principal = {
+ Service = "cloudtrail.amazonaws.com"
+}
+Action   = "s3:PutObject"
+Resource = "arn:${data.aws_partition.current.partition}:s3:::%[1]s/*"
+Condition = {
+ StringEquals = {
+   "s3:x-amz-acl"  = "bucket-owner-full-control"
+   "aws:SourceArn" = "arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/%[1]s"
+ }
+}
+  }
+]
   })
 }
 `, rName)
@@ -955,7 +955,7 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 }
 `, rName))
@@ -967,7 +967,7 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
   s3_key_prefix  = "prefix"
   include_global_service_events = false
@@ -981,7 +981,7 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
   s3_key_prefix  = "prefix"
   include_global_service_events = false
@@ -996,7 +996,7 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
   cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.test.arn}:*"
@@ -1011,17 +1011,17 @@ resource "aws_iam_role" "test" {
   name = %[1]q
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+Version = "2012-10-17"
 
-    Statement = [{
-      Sid    = ""
-      Effect = "Allow"
-      Action = "sts:AssumeRole"
+Statement = [{
+  Sid= ""
+  Effect = "Allow"
+  Action = "sts:AssumeRole"
 
-      Principal = {
-        Service = "cloudtrail.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
+  Principal = {
+Service = "cloudtrail.${data.aws_partition.current.dns_suffix}"
+  }
+}]
   })
 }
 
@@ -1030,18 +1030,18 @@ resource "aws_iam_role_policy" "test" {
   role = aws_iam_role.test.id
 
   policy = jsonencode({
-    Version = "2012-10-17"
+Version = "2012-10-17"
 
-    Statement = [{
-      Sid      = "AWSCloudTrailCreateLogStream"
-      Effect   = "Allow"
-      Resource = "${aws_cloudwatch_log_group.test.arn}:*"
+Statement = [{
+  Sid  = "AWSCloudTrailCreateLogStream"
+  Effect   = "Allow"
+  Resource = "${aws_cloudwatch_log_group.test.arn}:*"
 
-      Action = [
-        "logs:CreateLogStream",
-        "logs:PutLogEvents",
-      ]
-    }]
+  Action = [
+"logs:CreateLogStream",
+"logs:PutLogEvents",
+  ]
+}]
   })
 }
 `, rName))
@@ -1053,7 +1053,7 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
   cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.test2.arn}:*"
@@ -1072,17 +1072,17 @@ resource "aws_iam_role" "test" {
   name = %[1]q
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+Version = "2012-10-17"
 
-    Statement = [{
-      Sid    = ""
-      Effect = "Allow"
-      Action = "sts:AssumeRole"
+Statement = [{
+  Sid= ""
+  Effect = "Allow"
+  Action = "sts:AssumeRole"
 
-      Principal = {
-        Service = "cloudtrail.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
+  Principal = {
+Service = "cloudtrail.${data.aws_partition.current.dns_suffix}"
+  }
+}]
   })
 }
 
@@ -1091,18 +1091,18 @@ resource "aws_iam_role_policy" "test" {
   role = aws_iam_role.test.id
 
   policy = jsonencode({
-    Version = "2012-10-17"
+Version = "2012-10-17"
 
-    Statement = [{
-      Sid      = "AWSCloudTrailCreateLogStream"
-      Effect   = "Allow"
-      Resource = "${aws_cloudwatch_log_group.test2.arn}:*"
+Statement = [{
+  Sid  = "AWSCloudTrailCreateLogStream"
+  Effect   = "Allow"
+  Resource = "${aws_cloudwatch_log_group.test2.arn}:*"
 
-      Action = [
-        "logs:CreateLogStream",
-        "logs:PutLogEvents",
-      ]
-    }]
+  Action = [
+"logs:CreateLogStream",
+"logs:PutLogEvents",
+  ]
+}]
   })
 }
 `, rName))
@@ -1115,7 +1115,7 @@ resource "aws_cloudtrail" "test" {
   depends_on = [aws_s3_bucket_policy.test]
 
   name   = %[1]q
-  s3_bucket_name        = aws_s3_bucket.test.id
+  s3_bucket_name= aws_s3_bucket.test.id
   is_multi_region_trail = true
 }
 `, rName))
@@ -1133,7 +1133,7 @@ resource "aws_cloudtrail" "test" {
 
   is_organization_trail = true
   name   = %[1]q
-  s3_bucket_name        = aws_s3_bucket.test.id
+  s3_bucket_name= aws_s3_bucket.test.id
 }
 `, rName))
 }
@@ -1144,11 +1144,11 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
-  is_multi_region_trail         = true
+  is_multi_region_trail= true
   include_global_service_events = true
-  enable_log_file_validation    = true
+  enable_log_file_validation= true
 }
 `, rName))
 }
@@ -1159,7 +1159,7 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
   include_global_service_events = true
 }
@@ -1172,19 +1172,19 @@ resource "aws_kms_key" "test" {
   description = %[1]q
 
   policy = jsonencode({
-    Version = "2012-10-17"
-    Id      = %[1]q
+Version = "2012-10-17"
+Id  = %[1]q
 
-    Statement = [{
-      Sid      = "Enable IAM User Permissions"
-      Effect   = "Allow"
-      Action   = "kms:*"
-      Resource = "*"
+Statement = [{
+  Sid  = "Enable IAM User Permissions"
+  Effect   = "Allow"
+  Action   = "kms:*"
+  Resource = "*"
 
-      Principal = {
-        AWS = "*"
-      }
-    }]
+  Principal = {
+AWS = "*"
+  }
+}]
   })
 }
 
@@ -1192,10 +1192,10 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
   include_global_service_events = true
-  kms_key_id     = aws_kms_key.test.arn
+  kms_key_id = aws_kms_key.test.arn
 }
 `, rName))
 }
@@ -1206,7 +1206,7 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
   include_global_service_events = false
 }
@@ -1219,12 +1219,12 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
   tags = {
-    Yak = "milk"
-    Fox = "tail"
+Yak = "milk"
+Fox = "tail"
   }
 }
 `, rName))
@@ -1236,13 +1236,13 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
   tags = {
-    Yak = "milk"
-    Fox = "tail"
-    Emu = "toes"
+Yak = "milk"
+Fox = "tail"
+Emu = "toes"
   }
 }
 `, rName))
@@ -1254,7 +1254,7 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 }
 `, rName))
@@ -1266,26 +1266,26 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
   event_selector {
-    read_write_type           = "ReadOnly"
-    include_management_events = false
+read_write_type  = "ReadOnly"
+include_management_events = false
 
-    data_resource {
-      type = "AWS::S3::Object"
+data_resource {
+  type = "AWS::S3::Object"
 
-      values = [
-        "${aws_s3_bucket.test2.arn}/isen",
-        "${aws_s3_bucket.test2.arn}/ko",
-      ]
-    }
+  values = [
+"${aws_s3_bucket.test2.arn}/isen",
+"${aws_s3_bucket.test2.arn}/ko",
+  ]
+}
   }
 }
 
 resource "aws_s3_bucket" "test2" {
-  bucket        = "%[1]s-2"
+  bucket= "%[1]s-2"
   force_destroy = true
 }
 `, rName))
@@ -1297,12 +1297,12 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
   event_selector {
-    read_write_type           = "WriteOnly"
-    include_management_events = true
+read_write_type  = "WriteOnly"
+include_management_events = true
   }
 }
 `, rName))
@@ -1314,48 +1314,48 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
   event_selector {
-    read_write_type           = "ReadOnly"
-    include_management_events = true
+read_write_type  = "ReadOnly"
+include_management_events = true
 
-    data_resource {
-      type = "AWS::S3::Object"
+data_resource {
+  type = "AWS::S3::Object"
 
-      values = [
-        "${aws_s3_bucket.test2.arn}/isen",
-        "${aws_s3_bucket.test2.arn}/ko",
-      ]
-    }
+  values = [
+"${aws_s3_bucket.test2.arn}/isen",
+"${aws_s3_bucket.test2.arn}/ko",
+  ]
+}
   }
 
   event_selector {
-    read_write_type           = "All"
-    include_management_events = false
+read_write_type  = "All"
+include_management_events = false
 
-    data_resource {
-      type = "AWS::S3::Object"
+data_resource {
+  type = "AWS::S3::Object"
 
-      values = [
-        "${aws_s3_bucket.test2.arn}/tf1",
-        "${aws_s3_bucket.test2.arn}/tf2",
-      ]
-    }
+  values = [
+"${aws_s3_bucket.test2.arn}/tf1",
+"${aws_s3_bucket.test2.arn}/tf2",
+  ]
+}
 
-    data_resource {
-      type = "AWS::Lambda::Function"
+data_resource {
+  type = "AWS::Lambda::Function"
 
-      values = [
-        aws_lambda_function.test.arn,
-      ]
-    }
+  values = [
+aws_lambda_function.test.arn,
+  ]
+}
   }
 }
 
 resource "aws_s3_bucket" "test2" {
-  bucket        = "%[1]s-2"
+  bucket= "%[1]s-2"
   force_destroy = true
 }
 
@@ -1363,26 +1363,26 @@ resource "aws_iam_role" "test" {
   name = %[1]q
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+Version = "2012-10-17"
 
-    Statement = [{
-      Sid    = ""
-      Effect = "Allow"
-      Action = "sts:AssumeRole"
+Statement = [{
+  Sid= ""
+  Effect = "Allow"
+  Action = "sts:AssumeRole"
 
-      Principal = {
-        Service = "lambda.${data.aws_partition.current.dns_suffix}"
-      }
-    }]
+  Principal = {
+Service = "lambda.${data.aws_partition.current.dns_suffix}"
+  }
+}]
   })
 }
 
 resource "aws_lambda_function" "test" {
-  filename      = "test-fixtures/lambdatest.zip"
+  filename  = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.test.arn
-  handler       = "exports.example"
-  runtime       = "nodejs16.x"
+  role = aws_iam_role.test.arn
+  handler   = "exports.example"
+  runtime   = "nodejs16.x"
 }
 `, rName))
 }
@@ -1393,7 +1393,7 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 }
 `, rName))
@@ -1405,32 +1405,32 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
   event_selector {
-    read_write_type           = "All"
-    include_management_events = true
+read_write_type  = "All"
+include_management_events = true
 
-    data_resource {
-      type = "AWS::DynamoDB::Table"
+data_resource {
+  type = "AWS::DynamoDB::Table"
 
-      values = [
-        aws_dynamodb_table.test.arn,
-      ]
-    }
+  values = [
+aws_dynamodb_table.test.arn,
+  ]
+}
   }
 }
 
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name  = %[1]q
   read_capacity  = 1
   write_capacity = 1
-  hash_key       = %[1]q
+  hash_key   = %[1]q
 
   attribute {
-    name = %[1]q
-    type = "S"
+name = %[1]q
+type = "S"
   }
 }
 `, rName))
@@ -1444,11 +1444,11 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
   event_selector {
-    exclude_management_event_sources = ["kms.${data.aws_partition.current.dns_suffix}"]
+exclude_management_event_sources = ["kms.${data.aws_partition.current.dns_suffix}"]
   }
 }
 `, rName))
@@ -1462,14 +1462,14 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
   event_selector {
-    exclude_management_event_sources = [
-      "kms.${data.aws_partition.current.dns_suffix}",
-      "rdsdata.${data.aws_partition.current.dns_suffix}"
-    ]
+exclude_management_event_sources = [
+  "kms.${data.aws_partition.current.dns_suffix}",
+  "rdsdata.${data.aws_partition.current.dns_suffix}"
+]
   }
 }
 `, rName))
@@ -1481,12 +1481,12 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
 
   insight_selector {
-    insight_type = "ApiCallRateInsight"
+insight_type = "ApiCallRateInsight"
   }
 }
 `, rName))
@@ -1498,16 +1498,16 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
 
   insight_selector {
-    insight_type = "ApiCallRateInsight"
+insight_type = "ApiCallRateInsight"
   }
 
   insight_selector {
-    insight_type = "ApiErrorRateInsight"
+insight_type = "ApiErrorRateInsight"
   }
 }
 `, rName))
@@ -1519,99 +1519,99 @@ resource "aws_cloudtrail" "test" {
   # Must have bucket policy attached first
   depends_on = [aws_s3_bucket_policy.test]
 
-  name           = %[1]q
+  name  = %[1]q
   s3_bucket_name = aws_s3_bucket.test.id
 
   advanced_event_selector {
-    name = "s3Custom"
-    field_selector {
-      field  = "eventCategory"
-      equals = ["Data"]
-    }
+name = "s3Custom"
+field_selector {
+  field  = "eventCategory"
+  equals = ["Data"]
+}
 
-    field_selector {
-      field  = "eventName"
-      equals = ["DeleteObject"]
-    }
+field_selector {
+  field  = "eventName"
+  equals = ["DeleteObject"]
+}
 
-    field_selector {
-      field = "resources.ARN"
-      equals = [
-        "${aws_s3_bucket.test2.arn}/foobar",
-        "${aws_s3_bucket.test2.arn}/bar",
-      ]
-    }
+field_selector {
+  field = "resources.ARN"
+  equals = [
+"${aws_s3_bucket.test2.arn}/foobar",
+"${aws_s3_bucket.test2.arn}/bar",
+  ]
+}
 
-    field_selector {
-      field  = "readOnly"
-      equals = ["false"]
-    }
+field_selector {
+  field  = "readOnly"
+  equals = ["false"]
+}
 
-    field_selector {
-      field  = "resources.type"
-      equals = ["AWS::S3::Object"]
-    }
+field_selector {
+  field  = "resources.type"
+  equals = ["AWS::S3::Object"]
+}
   }
   advanced_event_selector {
-    name = "lambdaLogAllEvents"
-    field_selector {
-      field  = "eventCategory"
-      equals = ["Data"]
-    }
+name = "lambdaLogAllEvents"
+field_selector {
+  field  = "eventCategory"
+  equals = ["Data"]
+}
 
-    field_selector {
-      field  = "resources.type"
-      equals = ["AWS::Lambda::Function"]
-    }
-  }
-
-  advanced_event_selector {
-    name = "dynamoDbReadOnlyEvents"
-    field_selector {
-      field  = "eventCategory"
-      equals = ["Data"]
-    }
-
-    field_selector {
-      field  = "readOnly"
-      equals = ["true"]
-    }
-
-    field_selector {
-      field  = "resources.type"
-      equals = ["AWS::DynamoDB::Table"]
-    }
+field_selector {
+  field  = "resources.type"
+  equals = ["AWS::Lambda::Function"]
+}
   }
 
   advanced_event_selector {
-    name = "s3OutpostsWriteOnlyEvents"
-    field_selector {
-      field  = "eventCategory"
-      equals = ["Data"]
-    }
+name = "dynamoDbReadOnlyEvents"
+field_selector {
+  field  = "eventCategory"
+  equals = ["Data"]
+}
 
-    field_selector {
-      field  = "readOnly"
-      equals = ["false"]
-    }
+field_selector {
+  field  = "readOnly"
+  equals = ["true"]
+}
 
-    field_selector {
-      field  = "resources.type"
-      equals = ["AWS::S3Outposts::Object"]
-    }
+field_selector {
+  field  = "resources.type"
+  equals = ["AWS::DynamoDB::Table"]
+}
   }
 
   advanced_event_selector {
-    name = "managementEventsSelector"
-    field_selector {
-      field  = "eventCategory"
-      equals = ["Management"]
-    }
+name = "s3OutpostsWriteOnlyEvents"
+field_selector {
+  field  = "eventCategory"
+  equals = ["Data"]
+}
+
+field_selector {
+  field  = "readOnly"
+  equals = ["false"]
+}
+
+field_selector {
+  field  = "resources.type"
+  equals = ["AWS::S3Outposts::Object"]
+}
+  }
+
+  advanced_event_selector {
+name = "managementEventsSelector"
+field_selector {
+  field  = "eventCategory"
+  equals = ["Management"]
+}
   }
 }
 
 resource "aws_s3_bucket" "test2" {
-  bucket        = "%[1]s-2"
+  bucket= "%[1]s-2"
   force_destroy = true
 }
 `, rName))

@@ -44,8 +44,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -103,8 +103,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -181,7 +181,7 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_backend_environment" "test" {
-  app_id           = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   environment_name = %[2]q
 }
 `, rName, environmentName)
@@ -194,11 +194,11 @@ resource "aws_amplify_app" "test" {
 }
 
 resource "aws_amplify_backend_environment" "test" {
-  app_id           = aws_amplify_app.test.id
+  app_id  = aws_amplify_app.test.id
   environment_name = %[2]q
 
   deployment_artifacts = %[1]q
-  stack_name           = %[1]q
+  stack_name  = %[1]q
 }
 `, rName, environmentName)
 }

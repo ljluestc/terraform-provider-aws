@@ -32,18 +32,15 @@ import (
 
 // PickFirstBalancerName is the name of the pick_first balancer.
 const PickFirstBalancerName = "pick_first"
-
-func newPickfirstBuilder() balancer.Builder {
+ newPickfirstBuilder() balancer.Builder {
 	return &pickfirstBuilder{}
 }
 
 type pickfirstBuilder struct{}
-
-func (*pickfirstBuilder) Build(cc balancer.ClientConn, opt balancer.BuildOptions) balancer.Balancer {
+ (*pickfirstBuilder) Build(cc balancer.ClientConn, opt balancer.BuildOptions) balancer.Balancer {
 	return &pickfirstBalancer{cc: cc}
 }
-
-func (*pickfirstBuilder) Name() string {
+ (*pickfirstBuilder) Name() string {
 	return PickFirstBalancerName
 }
 
@@ -55,8 +52,7 @@ type pfConfig struct {
 	// connect to them.
 	ShuffleAddressList bool `json:"shuffleAddressList"`
 }
-
-func (*pickfirstBuilder) ParseConfig(js json.RawMessage) (serviceconfig.LoadBalancingConfig, error) {
+ (*pickfirstBuilder) ParseConfig(js json.RawMessage) (serviceconfig.LoadBalancingConfig, error) {
 	cfg := &pfConfig{}
 	if err := json.Unmarshal(js, cfg); err != nil {
 		return nil, fmt.Errorf("pickfirst: unable to unmarshal LB policy config: %s, error: %v", string(js), err)
@@ -70,8 +66,7 @@ type pickfirstBalancer struct {
 	subConn balancer.SubConn
 	cfg     *pfConfig
 }
-
-func (b *pickfirstBalancer) ResolverError(err error) {
+ (b *pickfirstBalancer) ResolverError(err error) {
 	if logger.V(2) {
 		logger.Infof("pickfirstBalancer: ResolverError called with error: %v", err)
 	}
@@ -89,8 +84,7 @@ func (b *pickfirstBalancer) ResolverError(err error) {
 		Picker:            &picker{err: fmt.Errorf("name resolver error: %v", err)},
 	})
 }
-
-func (b *pickfirstBalancer) UpdateClientConnState(state balancer.ClientConnState) error {
+ (b *pickfirstBalancer) UpdateClientConnState(state balancer.ClientConnState) error {
 	addrs := state.ResolverState.Addresses
 	if len(addrs) == 0 {
 		// The resolver reported an empty address list. Treat it like an error by
@@ -142,8 +136,7 @@ func (b *pickfirstBalancer) UpdateClientConnState(state balancer.ClientConnState
 	b.subConn.Connect()
 	return nil
 }
-
-func (b *pickfirstBalancer) UpdateSubConnState(subConn balancer.SubConn, state balancer.SubConnState) {
+ (b *pickfirstBalancer) UpdateSubConnState(subConn balancer.SubConn, state balancer.SubConnState) {
 	if logger.V(2) {
 		logger.Infof("pickfirstBalancer: UpdateSubConnState: %p, %v", subConn, state)
 	}
@@ -192,11 +185,9 @@ func (b *pickfirstBalancer) UpdateSubConnState(subConn balancer.SubConn, state b
 	}
 	b.state = state.ConnectivityState
 }
-
-func (b *pickfirstBalancer) Close() {
+ (b *pickfirstBalancer) Close() {
 }
-
-func (b *pickfirstBalancer) ExitIdle() {
+ (b *pickfirstBalancer) ExitIdle() {
 	if b.subConn != nil && b.state == connectivity.Idle {
 		b.subConn.Connect()
 	}
@@ -206,8 +197,7 @@ type picker struct {
 	result balancer.PickResult
 	err    error
 }
-
-func (p *picker) Pick(balancer.PickInfo) (balancer.PickResult, error) {
+ (p *picker) Pick(balancer.PickInfo) (balancer.PickResult, error) {
 	return p.result, p.err
 }
 
@@ -216,12 +206,10 @@ func (p *picker) Pick(balancer.PickInfo) (balancer.PickResult, error) {
 type idlePicker struct {
 	subConn balancer.SubConn
 }
-
-func (i *idlePicker) Pick(balancer.PickInfo) (balancer.PickResult, error) {
+ (i *idlePicker) Pick(balancer.PickInfo) (balancer.PickResult, error) {
 	i.subConn.Connect()
 	return balancer.PickResult{}, balancer.ErrNoSubConnAvailable
 }
-
-func init() {
+ init() {
 	balancer.Register(newPickfirstBuilder())
 }

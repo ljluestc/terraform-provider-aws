@@ -15,14 +15,12 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
-
 func init() {
 	resource.AddTestSweepers("aws_dax_cluster", &resource.Sweeper{
 		Name: "aws_dax_cluster",
-		F:    sweepClusters,
+		F: sweepClusters,
 	})
 }
-
 func sweepClusters(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)

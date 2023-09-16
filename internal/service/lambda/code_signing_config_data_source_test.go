@@ -10,14 +10,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
 func TestAccLambdaCodeSigningConfigDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_lambda_code_signing_config.test"
 	resourceName := "aws_lambda_code_signing_config.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -30,14 +29,13 @@ func TestAccLambdaCodeSigningConfigDataSource_basic(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLambdaCodeSigningConfigDataSource_policyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_lambda_code_signing_config.test"
 	resourceName := "aws_lambda_code_signing_config.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -52,14 +50,13 @@ func TestAccLambdaCodeSigningConfigDataSource_policyID(t *testing.T) {
 		},
 	})
 }
-
 func TestAccLambdaCodeSigningConfigDataSource_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_lambda_code_signing_config.test"
 	resourceName := "aws_lambda_code_signing_config.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:        func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck: acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -81,9 +78,9 @@ resource "aws_signer_signing_profile" "test" {
 
 resource "aws_lambda_code_signing_config" "test" {
   allowed_publishers {
-    signing_profile_version_arns = [
-      aws_signer_signing_profile.test.version_arn
-    ]
+ signing_profile_version_arns = [
+ aws_signer_signing_profile.test.version_arn
+ ]
   }
 }
 
@@ -99,13 +96,13 @@ resource "aws_signer_signing_profile" "test" {
 
 resource "aws_lambda_code_signing_config" "test" {
   allowed_publishers {
-    signing_profile_version_arns = [
-      aws_signer_signing_profile.test.version_arn
-    ]
+ signing_profile_version_arns = [
+ aws_signer_signing_profile.test.version_arn
+ ]
   }
 
   policies {
-    untrusted_artifact_on_deployment = "Warn"
+ untrusted_artifact_on_deployment = "Warn"
   }
 }
 
@@ -121,9 +118,9 @@ resource "aws_signer_signing_profile" "test" {
 
 resource "aws_lambda_code_signing_config" "test" {
   allowed_publishers {
-    signing_profile_version_arns = [
-      aws_signer_signing_profile.test.version_arn
-    ]
+ signing_profile_version_arns = [
+ aws_signer_signing_profile.test.version_arn
+ ]
   }
 
   description = "Code Signing Config for app A"

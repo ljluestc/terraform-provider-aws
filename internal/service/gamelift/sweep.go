@@ -29,12 +29,12 @@ func init() {
 
 	resource.AddTestSweepers("aws_gamelift_build", &resource.Sweeper{
 		Name: "aws_gamelift_build",
-		F:    sweepBuilds,
+		F:sweepBuilds,
 	})
 
 	resource.AddTestSweepers("aws_gamelift_script", &resource.Sweeper{
 		Name: "aws_gamelift_script",
-		F:    sweepScripts,
+		F:sweepScripts,
 	})
 
 	resource.AddTestSweepers("aws_gamelift_fleet", &resource.Sweeper{
@@ -47,12 +47,12 @@ func init() {
 
 	resource.AddTestSweepers("aws_gamelift_game_server_group", &resource.Sweeper{
 		Name: "aws_gamelift_game_server_group",
-		F:    sweepGameServerGroups,
+		F:sweepGameServerGroups,
 	})
 
 	resource.AddTestSweepers("aws_gamelift_game_session_queue", &resource.Sweeper{
 		Name: "aws_gamelift_game_session_queue",
-		F:    sweepGameSessionQueue,
+		F:sweepGameSessionQueue,
 	})
 }
 

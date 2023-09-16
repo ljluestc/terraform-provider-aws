@@ -1,20 +1,11 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package connect_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package connect_testimport (
 	"fmt"
-	"testing"
-
-	"github.com/aws/aws-sdk-go/service/connect"
+	"testing"	"github.com/aws/aws-sdk-go/service/connect"
 	sdkacctest "github.com/hashicorp/terraform-plugin-testing/helper/acctest"
 	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
-
-
-
 func testAccRoutingProfileDataSource_routingProfileID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -22,11 +13,8 @@ func testAccRoutingProfileDataSource_routingProfileID(t *testing.T) {
 	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	resourceName := "aws_connect_routing_profile.test"
-	datasourceName := "data.aws_connect_routing_profile.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
-
+	datasourceName := "data.aws_connect_routing_profile.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -40,11 +28,11 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "media_concurrencies.#", resourceName, "media_concurrencies.#"),
 	resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
-"channel":     "VOICE",
+"channel":"VOICE",
 "concurrency": "1",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
-"channel":     "CHAT",
+"channel":"CHAT",
 "concurrency": "2",
 	}),
 	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
@@ -69,9 +57,6 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
-
-
 func testAccRoutingProfileDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -79,11 +64,8 @@ func testAccRoutingProfileDataSource_name(t *testing.T) {
 	rName3 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	rName4 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	resourceName := "aws_connect_routing_profile.test"
-	datasourceName := "data.aws_connect_routing_profile.test"
-
-	resource.Test(t, resource.TestCase{
-PreCheck:  
-
+	datasourceName := "data.aws_connect_routing_profile.test"	resource.Test(t, resource.TestCase{
+PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
@@ -97,11 +79,11 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
 	resource.TestCheckResourceAttrPair(datasourceName, "media_concurrencies.#", resourceName, "media_concurrencies.#"),
 	resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
-"channel":     "VOICE",
+"channel":"VOICE",
 "concurrency": "1",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "media_concurrencies.*", map[string]string{
-"channel":     "CHAT",
+"channel":"CHAT",
 "concurrency": "2",
 	}),
 	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
@@ -126,96 +108,69 @@ Check: resource.ComposeAggregateTestCheckFunc(
 },
 	})
 }
-
-
-
 func testAccRoutingProfileBaseDataSourceConfig(rName, rName2, rName3, rName4 string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
-  identity_management_type = "CONNECT_MANAGED"
-  inbound_calls_enabled    = true
-  instance_alias  = %[1]q
-  outbound_calls_enabled   = true
+identity_management_type = "CONNECT_MANAGED"
+inbound_calls_enabled = true
+instance_alias= %[1]q
+outbound_calls_enabled= true
+}data "aws_connect_hours_of_operation" "test" {
+instance_id = aws_connect_instance.test.id
+name= "Basic Hours"
+}resource "aws_connect_queue" "default_outbound_queue" {
+instance_id= aws_connect_instance.test.id
+name= %[2]q
+description= "Default Outbound Queue for Routing Profiles"
+hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
+}resource "aws_connect_queue" "test" {
+instance_id= aws_connect_instance.test.id
+name= %[3]q
+description= "Additional queue to routing profile queue config"
+hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
+}resource "aws_connect_routing_profile" "test" {
+instance_id= aws_connect_instance.test.id
+name = %[4]q
+default_outbound_queue_id = aws_connect_queue.default_outbound_queue.queue_id
+description= "Test Routing Profile Data Source"media_concurrencies {
+ channel= "VOICE"
+ concurrency = 1
+}media_concurrencies {
+ channel= "CHAT"
+ concurrency = 2
+}queue_configs {
+ channel= "VOICE"
+ delay = 1
+ priority = 2
+ queue_id = aws_connect_queue.default_outbound_queue.queue_id
+}queue_configs {
+ channel= "CHAT"
+ delay = 1
+ priority = 1
+ queue_id = aws_connect_queue.test.queue_id
+}tags = {
+ "Name" = "Test Routing Profile",
 }
-
-data "aws_connect_hours_of_operation" "test" {
-  instance_id = aws_connect_instance.test.id
-  name        = "Basic Hours"
-}
-
-resource "aws_connect_queue" "default_outbound_queue" {
-  instance_id  = aws_connect_instance.test.id
-  name   = %[2]q
-  description  = "Default Outbound Queue for Routing Profiles"
-  hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
-}
-
-resource "aws_connect_queue" "test" {
-  instance_id  = aws_connect_instance.test.id
-  name   = %[3]q
-  description  = "Additional queue to routing profile queue config"
-  hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
-}
-
-resource "aws_connect_routing_profile" "test" {
-  instance_id= aws_connect_instance.test.id
-  name       = %[4]q
-  default_outbound_queue_id = aws_connect_queue.default_outbound_queue.queue_id
-  description= "Test Routing Profile Data Source"
-
-  media_concurrencies {
-    channel     = "VOICE"
-    concurrency = 1
-  }
-
-  media_concurrencies {
-    channel     = "CHAT"
-    concurrency = 2
-  }
-
-  queue_configs {
-    channel  = "VOICE"
-    delay    = 1
-    priority = 2
-    queue_id = aws_connect_queue.default_outbound_queue.queue_id
-  }
-
-  queue_configs {
-    channel  = "CHAT"
-    delay    = 1
-    priority = 1
-    queue_id = aws_connect_queue.test.queue_id
-  }
-
-  tags = {
-    "Name" = "Test Routing Profile",
-  }
 }
 `, rName, rName2, rName3, rName4)
 }
-
-
-
 func testAccRoutingProfileDataSourceConfig_id(rName, rName2, rName3, rName4 string) string {
 	return acctest.ConfigCompose(
 testAccRoutingProfileBaseDataSourceConfig(rName, rName2, rName3, rName4),
 `
 data "aws_connect_routing_profile" "test" {
-  instance_id        = aws_connect_instance.test.id
-  routing_profile_id = aws_connect_routing_profile.test.routing_profile_id
+instance_id= aws_connect_instance.test.id
+routing_profile_id = aws_connect_routing_profile.test.routing_profile_id
 }
 `)
 }
-
-
-
 func testAccRoutingProfileDataSourceConfig_name(rName, rName2, rName3, rName4 string) string {
 	return acctest.ConfigCompose(
 testAccRoutingProfileBaseDataSourceConfig(rName, rName2, rName3, rName4),
 `
 data "aws_connect_routing_profile" "test" {
-  instance_id = aws_connect_instance.test.id
-  name        = aws_connect_routing_profile.test.name
+instance_id = aws_connect_instance.test.id
+name= aws_connect_routing_profile.test.name
 }
 `)
 }

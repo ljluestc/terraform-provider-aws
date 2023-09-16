@@ -61,7 +61,7 @@ func dataParameterRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	name := d.Get("name").(string)
 
 	paramInput := &ssm.GetParameterInput{
-		Name:           aws.String(name),
+		Name:  aws.String(name),
 		WithDecryption: aws.Bool(d.Get("with_decryption").(bool)),
 	}
 

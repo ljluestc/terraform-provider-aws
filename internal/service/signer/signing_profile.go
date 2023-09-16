@@ -43,13 +43,13 @@ Importer: &schema.ResourceImporter{
 
 Schema: map[string]*schema.Schema{
 	"platform_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringInSlice(PlatformID_Values(), false),
 	},
 	"name": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 Computed:      true,
 ForceNew:      true,
@@ -57,7 +57,7 @@ ConflictsWith: []string{"name_prefix"},
 ValidateFunc:  validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_]{0,64}$`), "must be alphanumeric with max length of 64 characters"),
 	},
 	"name_prefix": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 ForceNew:      true,
 ConflictsWith: []string{"name"},
@@ -77,9 +77,9 @@ Elem: &schema.Resource{
 	ForceNew: true,
 },
 "type": {
-	Type:             schema.TypeString,
-	Required:         true,
-	ForceNew:         true,
+	Type:    schema.TypeString,
+	Required:true,
+	ForceNew:true,
 	ValidateDiagFunc: enum.Validate[types.ValidityType](),
 },
 	},

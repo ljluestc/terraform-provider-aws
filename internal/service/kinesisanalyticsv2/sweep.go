@@ -18,14 +18,16 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep"
 )
 
-func init() {
+
+ init() {
 	resource.AddTestSweepers("aws_kinesisanalyticsv2_application", &resource.Sweeper{
 		Name: "aws_kinesisanalyticsv2_application",
 		F:    sweepApplication,
 	})
 }
 
-func sweepApplication(region string) error {
+
+ sweepApplication(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 	if err != nil {
@@ -37,7 +39,8 @@ func sweepApplication(region string) error {
 	var sweeperErrs *multierror.Error
 
 	input := &kinesisanalyticsv2.ListApplicationsInput{}
-	err = listApplicationsPages(ctx, conn, input, func(page *kinesisanalyticsv2.ListApplicationsOutput, lastPage bool) bool {
+	err = listApplicationsPages(ctx, conn, input, 
+(page *kinesisanalyticsv2.ListApplicationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

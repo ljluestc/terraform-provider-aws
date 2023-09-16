@@ -38,57 +38,57 @@ func ResourceConfigurationProfile() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"application_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"configuration_profile_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"location_uri": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:schema.TypeString,
+				Required: true,
+				ForceNew: true,
 				ValidateFunc: validation.StringLenBetween(1, 2048),
 			},
 			"name": {
-				Type:         schema.TypeString,
-				Required:     true,
+				Type:schema.TypeString,
+				Required: true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 			"retrieval_role_arn": {
-				Type:         schema.TypeString,
-				Optional:     true,
+				Type:schema.TypeString,
+				Optional: true,
 				ValidateFunc: verify.ValidARN,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      configurationProfileTypeFreeform,
+				Type:schema.TypeString,
+				Optional: true,
+				ForceNew: true,
+				Default:  configurationProfileTypeFreeform,
 				ValidateFunc: validation.StringInSlice(ConfigurationProfileType_Values(), false),
 			},
 			"validator": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional: true,
 				MaxItems: 2,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"content": {
-							Type:      schema.TypeString,
+							Type:  schema.TypeString,
 							Optional:  true,
 							Sensitive: true,
 							ValidateFunc: validation.Any(
@@ -98,8 +98,8 @@ func ResourceConfigurationProfile() *schema.Resource {
 							DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 						},
 						"type": {
-							Type:         schema.TypeString,
-							Required:     true,
+							Type:schema.TypeString,
+							Required: true,
 							ValidateFunc: validation.StringInSlice(appconfig.ValidatorType_Values(), false),
 						},
 					},
@@ -119,8 +119,8 @@ func resourceConfigurationProfileCreate(ctx context.Context, d *schema.ResourceD
 	input := &appconfig.CreateConfigurationProfileInput{
 		ApplicationId: aws.String(appId),
 		LocationUri:   aws.String(d.Get("location_uri").(string)),
-		Name:          aws.String(name),
-		Tags:          getTagsIn(ctx),
+		Name: aws.String(name),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -165,7 +165,7 @@ func resourceConfigurationProfileRead(ctx context.Context, d *schema.ResourceDat
 	}
 
 	input := &appconfig.GetConfigurationProfileInput{
-		ApplicationId:          aws.String(appID),
+		ApplicationId: aws.String(appID),
 		ConfigurationProfileId: aws.String(confProfID),
 	}
 
@@ -200,7 +200,7 @@ func resourceConfigurationProfileRead(ctx context.Context, d *schema.ResourceDat
 	arn := arn.ARN{
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
+		Region:meta.(*conns.AWSClient).Region,
 		Resource:  fmt.Sprintf("application/%s/configurationprofile/%s", appID, confProfID),
 		Service:   "appconfig",
 	}.String()
@@ -221,7 +221,7 @@ func resourceConfigurationProfileUpdate(ctx context.Context, d *schema.ResourceD
 		}
 
 		updateInput := &appconfig.UpdateConfigurationProfileInput{
-			ApplicationId:          aws.String(appID),
+			ApplicationId: aws.String(appID),
 			ConfigurationProfileId: aws.String(confProfID),
 		}
 
@@ -262,7 +262,7 @@ func resourceConfigurationProfileDelete(ctx context.Context, d *schema.ResourceD
 	}
 
 	input := &appconfig.DeleteConfigurationProfileInput{
-		ApplicationId:          aws.String(appID),
+		ApplicationId: aws.String(appID),
 		ConfigurationProfileId: aws.String(confProfID),
 	}
 

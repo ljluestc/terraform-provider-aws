@@ -200,7 +200,7 @@ func testAccRuleDataSourceConfig_basic(rName, domainName string) string {
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
   rule_type   = "SYSTEM"
-  name        = %[1]q
+  name   = %[1]q
 }
 
 data "aws_route53_resolver_rule" "by_resolver_rule_id" {
@@ -212,7 +212,7 @@ data "aws_route53_resolver_rule" "by_domain_name" {
 }
 
 data "aws_route53_resolver_rule" "by_name_and_rule_type" {
-  name      = aws_route53_resolver_rule.test.name
+  name = aws_route53_resolver_rule.test.name
   rule_type = aws_route53_resolver_rule.test.rule_type
 }
 `, rName, domainName)
@@ -224,7 +224,7 @@ func testAccRuleDataSourceConfig_resolverEndpointIDTags(rName, domainName string
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
   rule_type   = "FORWARD"
-  name        = %[1]q
+  name   = %[1]q
 
   resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id
 
@@ -250,7 +250,7 @@ func testAccRuleDataSourceConfig_sharedByMe(rName, domainName string) string {
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
   rule_type   = "FORWARD"
-  name        = %[1]q
+  name   = %[1]q
 
   resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id
 
@@ -265,12 +265,12 @@ resource "aws_route53_resolver_rule" "test" {
 }
 
 resource "aws_ram_resource_share" "test" {
-  name       = %[1]q
+  name  = %[1]q
   allow_external_principals = true
 }
 
 resource "aws_ram_resource_association" "test" {
-  resource_arn       = aws_route53_resolver_rule.test.arn
+  resource_arn  = aws_route53_resolver_rule.test.arn
   resource_share_arn = aws_ram_resource_share.test.arn
 }
 
@@ -295,7 +295,7 @@ func testAccRuleDataSourceConfig_sharedWithMe(rName, domainName string) string {
 resource "aws_route53_resolver_rule" "test" {
   domain_name = %[2]q
   rule_type   = "FORWARD"
-  name        = %[1]q
+  name   = %[1]q
 
   resolver_endpoint_id = aws_route53_resolver_endpoint.test[1].id
 
@@ -310,12 +310,12 @@ resource "aws_route53_resolver_rule" "test" {
 }
 
 resource "aws_ram_resource_share" "test" {
-  name       = %[1]q
+  name  = %[1]q
   allow_external_principals = true
 }
 
 resource "aws_ram_resource_association" "test" {
-  resource_arn       = aws_route53_resolver_rule.test.arn
+  resource_arn  = aws_route53_resolver_rule.test.arn
   resource_share_arn = aws_ram_resource_share.test.arn
 }
 

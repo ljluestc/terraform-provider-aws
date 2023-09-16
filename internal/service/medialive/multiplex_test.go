@@ -56,7 +56,7 @@ Check: resource.ComposeTestCheckFunc(
 	{
 ResourceName:   resourceName,
 ImportState:    true,
-ImportStateVerify:       true,
+ImportStateVerify:
 ImportStateVerifyIgnore: []string{"start_multiplex"},
 	},
 },
@@ -306,8 +306,8 @@ resource "aws_medialive_multiplex" "test" {
 
   multiplex_settings {
     transport_stream_bitrate = 1000000
-    transport_stream_id      = 1
-    transport_stream_reserved_bitrate       = 1
+    transport_stream_id
+    transport_stream_reserved_bitrate
     maximum_video_buffer_delay_milliseconds = 1000
   }
 
@@ -330,8 +330,8 @@ resource "aws_medialive_multiplex" "test" {
 
   multiplex_settings {
     transport_stream_bitrate = 1000001
-    transport_stream_id      = 2
-    transport_stream_reserved_bitrate       = 1
+    transport_stream_id
+    transport_stream_reserved_bitrate
     maximum_video_buffer_delay_milliseconds = 1000
   }
 
@@ -354,8 +354,8 @@ resource "aws_medialive_multiplex" "test" {
 
   multiplex_settings {
     transport_stream_bitrate = 1000000
-    transport_stream_id      = 1
-    transport_stream_reserved_bitrate       = 1
+    transport_stream_id
+    transport_stream_reserved_bitrate
     maximum_video_buffer_delay_milliseconds = 1000
   }
 
@@ -376,8 +376,8 @@ resource "aws_medialive_multiplex" "test" {
 
   multiplex_settings {
     transport_stream_bitrate = 1000000
-    transport_stream_id      = 1
-    transport_stream_reserved_bitrate       = 1
+    transport_stream_id
+    transport_stream_reserved_bitrate
     maximum_video_buffer_delay_milliseconds = 1000
   }
 

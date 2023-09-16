@@ -12,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/retry"
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
-
 func FindAPICacheByID(ctx context.Context, conn *appsync.AppSync, id string) (*appsync.ApiCache, error) {
 	input := &appsync.GetApiCacheInput{
 		ApiId: aws.String(id),
@@ -36,7 +35,6 @@ func FindAPICacheByID(ctx context.Context, conn *appsync.AppSync, id string) (*a
 
 	return out.ApiCache, nil
 }
-
 func FindDomainNameByID(ctx context.Context, conn *appsync.AppSync, id string) (*appsync.DomainNameConfig, error) {
 	input := &appsync.GetDomainNameInput{
 		DomainName: aws.String(id),
@@ -60,7 +58,6 @@ func FindDomainNameByID(ctx context.Context, conn *appsync.AppSync, id string) (
 
 	return out.DomainNameConfig, nil
 }
-
 func FindDomainNameAPIAssociationByID(ctx context.Context, conn *appsync.AppSync, id string) (*appsync.ApiAssociation, error) {
 	input := &appsync.GetApiAssociationInput{
 		DomainName: aws.String(id),
@@ -84,10 +81,9 @@ func FindDomainNameAPIAssociationByID(ctx context.Context, conn *appsync.AppSync
 
 	return out.ApiAssociation, nil
 }
-
 func FindTypeByThreePartKey(ctx context.Context, conn *appsync.AppSync, apiID, format, name string) (*appsync.Type, error) {
 	input := &appsync.GetTypeInput{
-		ApiId:    aws.String(apiID),
+		ApiId:aws.String(apiID),
 		Format:   aws.String(format),
 		TypeName: aws.String(name),
 	}

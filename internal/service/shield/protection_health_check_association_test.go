@@ -30,9 +30,9 @@ func TestAccShieldProtectionHealthCheckAssociation_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, shield.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProtectionHealthCheckAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckProtectionHealthCheckAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProtectionHealthCheckAssociationConfig_protectionaHealthCheckAssociation(rName),
@@ -60,9 +60,9 @@ func TestAccShieldProtectionHealthCheckAssociation_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, shield.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, shield.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, shield.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProtectionHealthCheckAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckProtectionHealthCheckAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProtectionHealthCheckAssociationConfig_protectionaHealthCheckAssociation(rName),
@@ -178,13 +178,13 @@ resource "aws_eip" "test" {
   }
 }
 resource "aws_shield_protection" "test" {
-  name         = %[1]q
+  name= %[1]q
   resource_arn = "arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:eip-allocation/${aws_eip.test.id}"
 }
 resource "aws_route53_health_check" "test" {
-  fqdn              = "example.com"
-  port              = 80
-  type              = "HTTP"
+  fqdn     = "example.com"
+  port     = 80
+  type     = "HTTP"
   resource_path     = "/"
   failure_threshold = "5"
   request_interval  = "30"

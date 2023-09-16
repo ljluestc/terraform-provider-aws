@@ -46,7 +46,7 @@ Type:     schema.TypeString,
 Computed: true,
 },
 "configuration_set_name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringLenBetween(1, 64),
@@ -62,8 +62,8 @@ Type:     schema.TypeString,
 Optional: true,
 },
 "tls_policy": {
-Type:             schema.TypeString,
-Optional:         true,
+Type:    schema.TypeString,
+Optional:true,
 ValidateDiagFunc: enum.Validate[types.TlsPolicy](),
 },
 },
@@ -114,7 +114,7 @@ Type:     schema.TypeList,
 Optional: true,
 MinItems: 1,
 Elem: &schema.Schema{
-Type:             schema.TypeString,
+Type:    schema.TypeString,
 ValidateDiagFunc: enum.Validate[types.SuppressionListReason](),
 },
 },
@@ -149,8 +149,8 @@ MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "engagement_metrics": {
-Type:             schema.TypeString,
-Optional:         true,
+Type:    schema.TypeString,
+Optional:true,
 ValidateDiagFunc: enum.Validate[types.FeatureStatus](),
 },
 },
@@ -163,8 +163,8 @@ MaxItems: 1,
 Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 "optimized_shared_delivery": {
-Type:             schema.TypeString,
-Optional:         true,
+Type:    schema.TypeString,
+Optional:true,
 ValidateDiagFunc: enum.Validate[types.FeatureStatus](),
 },
 },
@@ -188,7 +188,7 @@ conn := meta.(*conns.AWSClient).SESV2Client(ctx)
 
 in := &sesv2.CreateConfigurationSetInput{
 ConfigurationSetName: aws.String(d.Get("configuration_set_name").(string)),
-Tags:                 getTagsIn(ctx),
+Tags:        getTagsIn(ctx),
 }
 
 if v, ok := d.GetOk("delivery_options"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {

@@ -55,63 +55,63 @@ func ResourceServer() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"certificate": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"directory_id": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"domain": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      transfer.DomainS3,
+				Optional: true,
+				ForceNew: true,
+				Default:  transfer.DomainS3,
 				ValidateFunc: validation.StringInSlice(transfer.Domain_Values(), false),
 			},
 			"endpoint": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"endpoint_details": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"address_allocation_ids": {
 							Type: schema.TypeSet,
-							Optional:      true,
+							Optional:  true,
 							Elem: &schema.Schema{Type: schema.TypeString},
 							ConflictsWith: []string{"endpoint_details.0.vpc_endpoint_id"},
 						},
 						"security_group_ids": {
 							Type: schema.TypeSet,
-							Optional:      true,
-							Computed:      true,
+							Optional:  true,
+							Computed:  true,
 							Elem: &schema.Schema{Type: schema.TypeString},
 							ConflictsWith: []string{"endpoint_details.0.vpc_endpoint_id"},
 						},
 						"subnet_ids": {
 							Type: schema.TypeSet,
-							Optional:      true,
+							Optional:  true,
 							Elem: &schema.Schema{Type: schema.TypeString},
 							ConflictsWith: []string{"endpoint_details.0.vpc_endpoint_id"},
 						},
 						"vpc_endpoint_id": {
 							Type: schema.TypeString,
-							Optional:      true,
-							Computed:      true,
+							Optional:  true,
+							Computed:  true,
 							ConflictsWith: []string{"endpoint_details.0.address_allocation_ids", "endpoint_details.0.security_group_ids", "endpoint_details.0.subnet_ids", "endpoint_details.0.vpc_id"},
 						},
 						"vpc_id": {
 							Type: schema.TypeString,
-							Optional:      true,
+							Optional:  true,
 							ValidateFunc:  validation.NoZeroValues,
 							ConflictsWith: []string{"endpoint_details.0.vpc_endpoint_id"},
 						},
@@ -120,68 +120,68 @@ func ResourceServer() *schema.Resource {
 			},
 			"endpoint_type": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      transfer.EndpointTypePublic,
+				Optional: true,
+				Default:  transfer.EndpointTypePublic,
 				ValidateFunc: validation.StringInSlice(transfer.EndpointType_Values(), false),
 			},
 			"force_destroy": {
-				Type:     schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"function": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"host_key": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Sensitive:    true,
+				Optional: true,
+				Sensitive:true,
 				ValidateFunc: validation.StringLenBetween(0, 4096),
 			},
 			"host_key_fingerprint": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 			"identity_provider_type": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				Default:      transfer.IdentityProviderTypeServiceManaged,
+				Optional: true,
+				ForceNew: true,
+				Default:  transfer.IdentityProviderTypeServiceManaged,
 				ValidateFunc: validation.StringInSlice(transfer.IdentityProviderType_Values(), false),
 			},
 			"invocation_role": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"logging_role": {
 				Type:schema.TypeString,
-				Optional:     true,
+				Optional: true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"post_authentication_login_banner": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Sensitive:    true,
+				Optional: true,
+				Sensitive:true,
 				ValidateFunc: validation.StringLenBetween(0, 512),
 			},
 			"pre_authentication_login_banner": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Sensitive:    true,
+				Optional: true,
+				Sensitive:true,
 				ValidateFunc: validation.StringLenBetween(0, 512),
 			},
 			"protocol_details": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				Computed: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"as2_transports": {
-							Type:     schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional: true,
 							Computed: true,
 							Elem: &schema.Schema{
@@ -191,27 +191,27 @@ func ResourceServer() *schema.Resource {
 						},
 						"passive_ip": {
 							Type:schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Optional: true,
+							Computed: true,
 							ValidateFunc: validation.StringLenBetween(0, 15),
 						},
 						"set_stat_option": {
 							Type:schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Optional: true,
+							Computed: true,
 							ValidateFunc: validation.StringInSlice(transfer.SetStatOption_Values(), false),
 						},
 						"tls_session_resumption_mode": {
 							Type:schema.TypeString,
-							Optional:     true,
-							Computed:     true,
+							Optional: true,
+							Computed: true,
 							ValidateFunc: validation.StringInSlice(transfer.TlsSessionResumptionMode_Values(), false),
 						},
 					},
 				},
 			},
 			"protocols": {
-				Type:     schema.TypeSet,
+				Type: schema.TypeSet,
 				MinItems: 1,
 				MaxItems: 3,
 				Optional: true,
@@ -223,8 +223,8 @@ func ResourceServer() *schema.Resource {
 			},
 			"security_policy_name": {
 				Type:schema.TypeString,
-				Optional:     true,
-				Default:      SecurityPolicyName2018_11,
+				Optional: true,
+				Default:  SecurityPolicyName2018_11,
 				ValidateFunc: validation.StringInSlice(SecurityPolicyName_Values(), false),
 			},
 			"structured_log_destinations": {
@@ -234,34 +234,34 @@ func ResourceServer() *schema.Resource {
 					ValidateFunc: verify.ValidARN,
 				},
 				Description: "This is a set of arns of destinations that will receive structured logs from the transfer server",
-				Optional:    true,
+				Optional:true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags:tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"url": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Optional: true,
 			},
 			"workflow_details": {
-				Type:     schema.TypeList,
+				Type: schema.TypeList,
 				Optional: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"on_partial_upload": {
 							Type:schema.TypeList,
-							Optional:     true,
-							MaxItems:     1,
+							Optional: true,
+							MaxItems: 1,
 							AtLeastOneOf: []string{"workflow_details.0.on_upload", "workflow_details.0.on_partial_upload"},
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"execution_role": {
 										Type:schema.TypeString,
-										Required:     true,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"workflow_id": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
@@ -269,18 +269,18 @@ func ResourceServer() *schema.Resource {
 						},
 						"on_upload": {
 							Type:schema.TypeList,
-							Optional:     true,
-							MaxItems:     1,
+							Optional: true,
+							MaxItems: 1,
 							AtLeastOneOf: []string{"workflow_details.0.on_upload", "workflow_details.0.on_partial_upload"},
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"execution_role": {
 										Type:schema.TypeString,
-										Required:     true,
+										Required: true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"workflow_id": {
-										Type:     schema.TypeString,
+										Type: schema.TypeString,
 										Required: true,
 									},
 								},
@@ -917,7 +917,7 @@ func flattenProtocolDetails(apiObject *transfer.ProtocolDetails) []interface{} {
 func expandWorkflowDetails(tfMap []interface{}) *transfer.WorkflowDetails {
 	apiObject := &transfer.WorkflowDetails{
 		OnPartialUpload: []*transfer.WorkflowDetail{},
-		OnUpload:        []*transfer.WorkflowDetail{},
+		OnUpload:[]*transfer.WorkflowDetail{},
 	}
 
 	if len(tfMap) == 0 || tfMap[0] == nil {

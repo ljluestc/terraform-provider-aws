@@ -24,8 +24,7 @@ import (
 )
 
 // ParseMethod splits service and method from the input. It expects format
-// "/service/method".
-func ParseMethod(methodName string) (service, method string, _ error) {
+// "/service/method". ParseMethod(methodName string) (service, method string, _ error) {
 	if !strings.HasPrefix(methodName, "/") {
 		return "", "", errors.New("invalid method name: should start with /")
 	}
@@ -57,8 +56,7 @@ const baseContentType = "application/grpc"
 // "application/grpc+", or "application/grpc;", the boolean will be true,
 // but no content-subtype will be returned.
 //
-// contentType is assumed to be lowercase already.
-func ContentSubtype(contentType string) (string, bool) {
+// contentType is assumed to be lowercase already. ContentSubtype(contentType string) (string, bool) {
 	if contentType == baseContentType {
 		return "", true
 	}
@@ -79,8 +77,7 @@ func ContentSubtype(contentType string) (string, bool) {
 
 // ContentType builds full content type with the given sub-type.
 //
-// contentSubtype is assumed to be lowercase
-func ContentType(contentSubtype string) string {
+// contentSubtype is assumed to be lowercase ContentType(contentSubtype string) string {
 	if contentSubtype == "" {
 		return baseContentType
 	}

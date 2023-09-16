@@ -21,6 +21,7 @@ const (
 	canaryDeletedTimeout = 5 * time.Minute
 )
 
+
 func waitCanaryReady(ctx context.Context, conn *synthetics.Synthetics, name string) (*synthetics.Canary, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{synthetics.CanaryStateCreating, synthetics.CanaryStateUpdating},
@@ -41,6 +42,7 @@ func waitCanaryReady(ctx context.Context, conn *synthetics.Synthetics, name stri
 
 	return nil, err
 }
+
 
 func waitCanaryStopped(ctx context.Context, conn *synthetics.Synthetics, name string) (*synthetics.Canary, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
@@ -69,6 +71,7 @@ func waitCanaryStopped(ctx context.Context, conn *synthetics.Synthetics, name st
 	return nil, err
 }
 
+
 func waitCanaryRunning(ctx context.Context, conn *synthetics.Synthetics, name string) (*synthetics.Canary, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
@@ -94,6 +97,7 @@ func waitCanaryRunning(ctx context.Context, conn *synthetics.Synthetics, name st
 
 	return nil, err
 }
+
 
 func waitCanaryDeleted(ctx context.Context, conn *synthetics.Synthetics, name string) (*synthetics.Canary, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{

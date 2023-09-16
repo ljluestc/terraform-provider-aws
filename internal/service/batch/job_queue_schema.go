@@ -21,7 +21,6 @@ import (
 	tftags "github.com/hashicorp/terraform-provider-aws/internal/tags"
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
-
 func jobQueueSchema0(ctx context.Context) schema.Schema {
 	return schema.Schema{
 		Version: 0,
@@ -29,7 +28,7 @@ func jobQueueSchema0(ctx context.Context) schema.Schema {
 			"arn": framework.ARNAttributeComputedOnly(),
 			"compute_environments": schema.ListAttribute{
 				ElementType: types.StringType,
-				Required:    true,
+				Required: true,
 			},
 			"id": framework.IDAttribute(),
 			"name": schema.StringAttribute{
@@ -57,7 +56,7 @@ func jobQueueSchema0(ctx context.Context) schema.Schema {
 					stringvalidator.OneOfCaseInsensitive(batch.JQState_Values()...),
 				},
 			},
-			names.AttrTags:    tftags.TagsAttribute(),
+			names.AttrTags: tftags.TagsAttribute(),
 			names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
 		},
 		Blocks: map[string]schema.Block{
@@ -69,19 +68,18 @@ func jobQueueSchema0(ctx context.Context) schema.Schema {
 		},
 	}
 }
-
 func upgradeJobQueueResourceStateV0toV1(ctx context.Context, req resource.UpgradeStateRequest, resp *resource.UpgradeStateResponse) {
 	type resourceJobQueueDataV0 struct {
-		ARN    types.String   `tfsdk:"arn"`
-		ComputeEnvironments types.List     `tfsdk:"compute_environments"`
-		ID     types.String   `tfsdk:"id"`
-		Name   types.String   `tfsdk:"name"`
-		Priority            types.Int64    `tfsdk:"priority"`
-		SchedulingPolicyARN types.String   `tfsdk:"scheduling_policy_arn"`
-		State  types.String   `tfsdk:"state"`
-		Tags   types.Map      `tfsdk:"tags"`
-		TagsAlltypes.Map      `tfsdk:"tags_all"`
-		Timeouts            timeouts.Value `tfsdk:"timeouts"`
+		ARN types.String`tfsdk:"arn"`
+		ComputeEnvironments types.List`tfsdk:"compute_environments"`
+		IDtypes.String`tfsdk:"id"`
+		Nametypes.String`tfsdk:"name"`
+		Priority  types.Int64 `tfsdk:"priority"`
+		SchedulingPolicyARN types.String`tfsdk:"scheduling_policy_arn"`
+		State  types.String`tfsdk:"state"`
+		Tagstypes.Map `tfsdk:"tags"`
+		TagsAlltypes.Map `tfsdk:"tags_all"`
+		Timeouts  timeouts.Value `tfsdk:"timeouts"`
 	}
 
 	var jobQueueDataV0 resourceJobQueueDataV0
@@ -93,13 +91,13 @@ func upgradeJobQueueResourceStateV0toV1(ctx context.Context, req resource.Upgrad
 
 	jobQueueDataV2 := resourceJobQueueData{
 		ComputeEnvironments: jobQueueDataV0.ComputeEnvironments,
-		ID:     jobQueueDataV0.ID,
-		Name:   jobQueueDataV0.Name,
-		Priority:            jobQueueDataV0.Priority,
+		ID:jobQueueDataV0.ID,
+		Name:jobQueueDataV0.Name,
+		Priority:  jobQueueDataV0.Priority,
 		State:  jobQueueDataV0.State,
-		Tags:   jobQueueDataV0.Tags,
+		Tags:jobQueueDataV0.Tags,
 		TagsAll:jobQueueDataV0.TagsAll,
-		Timeouts:            jobQueueDataV0.Timeouts,
+		Timeouts:  jobQueueDataV0.Timeouts,
 	}
 
 	if jobQueueDataV0.SchedulingPolicyARN.ValueString() == "" {

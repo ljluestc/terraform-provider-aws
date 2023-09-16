@@ -61,7 +61,7 @@ t.Run(name, func(t *testing.T) {
 	ctx := context.Background()
 
 	request := validator.StringRequest{
-Path:           path.Root("test"),
+Path:  path.Root("test"),
 PathExpression: path.MatchRoot("test"),
 ConfigValue:    test.val,
 	}
@@ -115,7 +115,7 @@ t.Run(name, func(t *testing.T) {
 	ctx := context.Background()
 
 	request := validator.StringRequest{
-Path:           path.Root("test"),
+Path:  path.Root("test"),
 PathExpression: path.MatchRoot("test"),
 ConfigValue:    test.val,
 	}
@@ -166,7 +166,7 @@ t.Run(name, func(t *testing.T) {
 	ctx := context.Background()
 
 	request := validator.StringRequest{
-Path:           path.Root("test"),
+Path:  path.Root("test"),
 PathExpression: path.MatchRoot("test"),
 ConfigValue:    test.val,
 	}

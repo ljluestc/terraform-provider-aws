@@ -20,12 +20,12 @@ import (
 func init() {
 	resource.AddTestSweepers("aws_fsx_backup", &resource.Sweeper{
 		Name: "aws_fsx_backup",
-		F:    sweepBackups,
+		F:sweepBackups,
 	})
 
 	resource.AddTestSweepers("aws_fsx_lustre_file_system", &resource.Sweeper{
 		Name: "aws_fsx_lustre_file_system",
-		F:    sweepLustreFileSystems,
+		F:sweepLustreFileSystems,
 		Dependencies: []string{
 			"aws_datasync_location",
 		},
@@ -33,7 +33,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_fsx_ontap_file_system", &resource.Sweeper{
 		Name: "aws_fsx_ontap_file_system",
-		F:    sweepOntapFileSystems,
+		F:sweepOntapFileSystems,
 		Dependencies: []string{
 			"aws_datasync_location",
 			"aws_fsx_ontap_storage_virtual_machine",
@@ -42,7 +42,7 @@ func init() {
 
 	resource.AddTestSweepers("aws_fsx_ontap_storage_virtual_machine", &resource.Sweeper{
 		Name: "aws_fsx_ontap_storage_virtual_machine",
-		F:    sweepOntapStorageVirtualMachine,
+		F:sweepOntapStorageVirtualMachine,
 		Dependencies: []string{
 			"aws_fsx_ontap_volume",
 		},
@@ -50,12 +50,12 @@ func init() {
 
 	resource.AddTestSweepers("aws_fsx_ontap_volume", &resource.Sweeper{
 		Name: "aws_fsx_ontap_volume",
-		F:    sweepOntapVolume,
+		F:sweepOntapVolume,
 	})
 
 	resource.AddTestSweepers("aws_fsx_openzfs_file_system", &resource.Sweeper{
 		Name: "aws_fsx_openzfs_file_system",
-		F:    sweepOpenZFSFileSystems,
+		F:sweepOpenZFSFileSystems,
 		Dependencies: []string{
 			"aws_datasync_location",
 			"aws_fsx_openzfs_volume",
@@ -64,12 +64,12 @@ func init() {
 
 	resource.AddTestSweepers("aws_fsx_openzfs_volume", &resource.Sweeper{
 		Name: "aws_fsx_openzfs_volume",
-		F:    sweepOpenZFSVolume,
+		F:sweepOpenZFSVolume,
 	})
 
 	resource.AddTestSweepers("aws_fsx_windows_file_system", &resource.Sweeper{
 		Name: "aws_fsx_windows_file_system",
-		F:    sweepWindowsFileSystems,
+		F:sweepWindowsFileSystems,
 		Dependencies: []string{
 			"aws_datasync_location",
 			"aws_storagegateway_file_system_association",

@@ -27,7 +27,7 @@ import (
 func ResourceLag() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceLagCreate,
-		ReadWithoutTimeout:   resourceLagRead,
+		ReadWithoutTimeout:resourceLagRead,
 		UpdateWithoutTimeout: resourceLagUpdate,
 		DeleteWithoutTimeout: resourceLagDelete,
 		Importer: &schema.ResourceImporter{
@@ -36,60 +36,59 @@ func ResourceLag() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"connection_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"connections_bandwidth": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validConnectionBandWidth(),
 			},
 			"force_destroy": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},
 			"has_logical_redundancy": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"jumbo_frame_capable": {
-				Type:     schema.TypeBool,
+				Type:schema.TypeBool,
 				Computed: true,
 			},
 			"location": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 			},
 			"owner_account_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"provider_name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
-			names.AttrTags:    tftags.TagsSchema(),
+			names.AttrTags: tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
-
 func resourceLagCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -99,7 +98,7 @@ func resourceLagCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 		ConnectionsBandwidth: aws.String(d.Get("connections_bandwidth").(string)),
 		LagName: aws.String(name),
 		Location:aws.String(d.Get("location").(string)),
-		Tags:    getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	var connectionIDSpecified bool
@@ -133,7 +132,6 @@ func resourceLagCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return append(diags, resourceLagRead(ctx, d, meta)...)
 }
-
 func resourceLagRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -152,8 +150,8 @@ func resourceLagRead(ctx context.Context, d *schema.ResourceData, meta interface
 
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    aws.StringValue(lag.Region),
-		Service:   "directconnect",
+		Region: aws.StringValue(lag.Region),
+		Service:"directconnect",
 		AccountID: aws.StringValue(lag.OwnerAccount),
 		Resource:  fmt.Sprintf("dxlag/%s", d.Id()),
 	}.String()
@@ -168,14 +166,13 @@ func resourceLagRead(ctx context.Context, d *schema.ResourceData, meta interface
 
 	return diags
 }
-
 func resourceLagUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
 	if d.HasChange("name") {
 		input := &directconnect.UpdateLagInput{
-			LagId:   aws.String(d.Id()),
+			LagId:aws.String(d.Id()),
 			LagName: aws.String(d.Get("name").(string)),
 		}
 
@@ -189,7 +186,6 @@ func resourceLagUpdate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return append(diags, resourceLagRead(ctx, d, meta)...)
 }
-
 func resourceLagDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)

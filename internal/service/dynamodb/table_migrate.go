@@ -37,7 +37,7 @@ func migrateStateV0toV1(is *terraform.InstanceState) (*terraform.InstanceState, 
 	// Read old keys
 	reader := &schema.MapFieldReader{
 		Schema: entity.Schema,
-		Map:    schema.BasicMapReader(is.Attributes),
+		Map:schema.BasicMapReader(is.Attributes),
 	}
 	result, err := reader.ReadField([]string{prefix})
 	if err != nil {

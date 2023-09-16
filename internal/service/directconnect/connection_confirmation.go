@@ -20,19 +20,18 @@ import (
 func ResourceConnectionConfirmation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceConnectionConfirmationCreate,
-		ReadWithoutTimeout:   resourceConnectionConfirmationRead,
+		ReadWithoutTimeout:resourceConnectionConfirmationRead,
 		DeleteWithoutTimeout: resourceConnectionConfirmationDelete,
 
 		Schema: map[string]*schema.Schema{
 			"connection_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 		},
 	}
 }
-
 func resourceConnectionConfirmationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -57,7 +56,6 @@ func resourceConnectionConfirmationCreate(ctx context.Context, d *schema.Resourc
 
 	return diags
 }
-
 func resourceConnectionConfirmationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -76,7 +74,6 @@ func resourceConnectionConfirmationRead(ctx context.Context, d *schema.ResourceD
 
 	return diags
 }
-
 func resourceConnectionConfirmationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	log.Printf("[WARN] Will not delete Direct Connect connection. Terraform will remove this resource from the state file, however resources may remain.")

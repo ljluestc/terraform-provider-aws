@@ -41,76 +41,75 @@ func ResourcePermission() *schema.Resource {
 		Schema: map[string]*schema.Schema{
 			"action": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validPermissionAction(),
 			},
 			"event_source_token": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: validPermissionEventSourceToken(),
 			},
 			"function_name": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validFunctionName(),
 			},
 			"function_url_auth_type": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringInSlice(lambda.FunctionUrlAuthType_Values(), false),
 			},
 			"principal": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"principal_org_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				ForceNew: true,
 			},
 			"qualifier": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: validQualifier(),
 			},
 			"source_account": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"source_arn": {
 				Type:schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
+				Optional:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"statement_id": {
 				Type: schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ValidateFunc:  validPolicyStatementID(),
 				ConflictsWith: []string{"statement_id_prefix"},
 			},
 			"statement_id_prefix": {
 				Type: schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Optional: true,
+				Computed: true,
+				ForceNew: true,
 				ValidateFunc:  validPolicyStatementID(),
 				ConflictsWith: []string{"statement_id"},
 			},
 		},
 	}
 }
-
 func resourcePermissionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -125,9 +124,9 @@ func resourcePermissionCreate(ctx context.Context, d *schema.ResourceData, meta 
 	defer conns.GlobalMutexKV.Unlock(functionName)
 
 	input := &lambda.AddPermissionInput{
-		Action:       aws.String(d.Get("action").(string)),
+		Action:  aws.String(d.Get("action").(string)),
 		FunctionName: aws.String(functionName),
-		Principal:    aws.String(d.Get("principal").(string)),
+		Principal:aws.String(d.Get("principal").(string)),
 		StatementId:  aws.String(statementID),
 	}
 
@@ -171,7 +170,6 @@ func resourcePermissionCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourcePermissionRead(ctx, d, meta)...)
 }
-
 func resourcePermissionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -240,7 +238,6 @@ func resourcePermissionRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
-
 func resourcePermissionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).LambdaConn(ctx)
@@ -283,7 +280,6 @@ func resourcePermissionDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
-
 func findPolicy(ctx context.Context, conn *lambda.Lambda, input *lambda.GetPolicyInput) (*lambda.GetPolicyOutput, error) {
 	output, err := conn.GetPolicyWithContext(ctx, input)
 
@@ -304,7 +300,6 @@ func findPolicy(ctx context.Context, conn *lambda.Lambda, input *lambda.GetPolic
 
 	return output, nil
 }
-
 func FindPolicyStatementByTwoPartKey(ctx context.Context, conn *lambda.Lambda, functionName, statementID, qualifier string) (*PolicyStatement, error) {
 	input := &lambda.GetPolicyInput{
 		FunctionName: aws.String(functionName),
@@ -336,10 +331,9 @@ func FindPolicyStatementByTwoPartKey(ctx context.Context, conn *lambda.Lambda, f
 	return nil, &retry.NotFoundError{
 		LastRequest:  statementID,
 		LastResponse: policy,
-		Message:      fmt.Sprintf("Failed to find statement %q in Lambda policy:\n%s", statementID, policy.Statement),
+		Message: fmt.Sprintf("Failed to find statement %q in Lambda policy:\n%s", statementID, policy.Statement),
 	}
 }
-
 func FindPolicyStatementByID(policy *Policy, id string) (*PolicyStatement, error) {
 	log.Printf("[DEBUG] Received %d statements in Lambda policy: %s", len(policy.Statement), policy.Statement)
 	for _, statement := range policy.Statement {
@@ -351,10 +345,9 @@ func FindPolicyStatementByID(policy *Policy, id string) (*PolicyStatement, error
 	return nil, &retry.NotFoundError{
 		LastRequest:  id,
 		LastResponse: policy,
-		Message:      fmt.Sprintf("Failed to find statement %q in Lambda policy:\n%s", id, policy.Statement),
+		Message: fmt.Sprintf("Failed to find statement %q in Lambda policy:\n%s", id, policy.Statement),
 	}
 }
-
 func GetQualifierFromAliasOrVersionARN(arn string) (string, error) {
 	matches := regexache.MustCompile(functionRegexp).FindStringSubmatch(arn)
 	if len(matches) < 8 || matches[7] == "" {
@@ -364,7 +357,6 @@ func GetQualifierFromAliasOrVersionARN(arn string) (string, error) {
 
 	return matches[7], nil
 }
-
 func GetFunctionNameFromARN(arn string) (string, error) {
 	matches := regexache.MustCompile(functionRegexp).FindStringSubmatch(arn)
 	if len(matches) < 6 || matches[5] == "" {
@@ -373,7 +365,6 @@ func GetFunctionNameFromARN(arn string) (string, error) {
 	}
 	return matches[5], nil
 }
-
 func resourcePermissionImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	idParts := strings.Split(d.Id(), "/")
 	if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
@@ -412,14 +403,14 @@ func resourcePermissionImport(ctx context.Context, d *schema.ResourceData, meta 
 type Policy struct {
 	Version   string
 	Statement []PolicyStatement
-	Id        string
+	Id   string
 }
 
 type PolicyStatement struct {
 	Condition map[string]map[string]string
-	Action    string
+	Actionstring
 	Resource  string
-	Effect    string
+	Effectstring
 	Principal interface{}
-	Sid       string
+	Sid  string
 }

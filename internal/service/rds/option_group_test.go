@@ -1,15 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package rds_test
-
-import (
+// SPDX-License-Identifier: MPL-2.0package rds_testimport (
 	"context"
 	"errors"
 	"fmt"
-	"testing"
-
-	"github.com/YakDriver/regexache"
+	"testing"	"github.com/YakDriver/regexache"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/hashicorp/aws-sdk-go-base/v2/awsv1shim/v2/tfawserr"
@@ -19,15 +13,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
-
 func := acctest.Context(t)
 	var v rds.OptionGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_option_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+	resourceName := "aws_db_option_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:
+funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
@@ -44,25 +37,24 @@ func := acctest.Context(t)
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
 	})
 }
-
 func TestAccRDSOptionGroup_timeoutBlock(t *testing.T) {
 	ctx := acctest.Context(t)
 funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_option_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_option_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:funceps: []resource.TestStep{
+		CheckDestroy:
+funceps: []resource.TestStep{
 			{
 				Config: testAccOptionGroupConfig_timeoutBlock(rName),
 				Check: resource.ComposeTestCheckFunc(
@@ -71,72 +63,69 @@ funcme := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
 	})
 }
-
 func TestAccRDSOptionGroup_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.OptionGroup
-
-funceCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+funceCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
-			{funcConfig: testAccOptionGroupConfig_namePrefix,
+			{
+funcConfig: testAccOptionGroupConfig_namePrefix,
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckOptionGroupExists(ctx, "aws_db_option_group.test", &v),
 					resource.TestMatchResourceAttr("aws_db_option_group.test", "name", regexache.MustCompile("^tf-test-")),
 				),
 			},
 			{
-				ResourceName:            "aws_db_option_group.test",
+				ResourceName:"aws_db_option_group.test",
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
 	})
 }
-
 func TestAccRDSOptionGroup_generatedName(t *testing.T) {
 	ctx := acctest.Context(t)
-	var v rds.OptionGroup
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	var v rds.OptionGroup	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOptionGroupConfig_generatedName,
-				Check: resofunc	testAccCheckOptionGroupExists(ctx, "aws_db_option_group.test", &v),
+				Check: reso
+func	testAccCheckOptionGroupExists(ctx, "aws_db_option_group.test", &v),
 				),
 			},
 			{
-				ResourceName:            "aws_db_option_group.test",
+				ResourceName:"aws_db_option_group.test",
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
 	})
 }
-
 func TestAccRDSOptionGroup_optionGroupDescription(t *testing.T) {
 	ctx := acctest.Context(t)
 	var optionGroup1 rds.OptionGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_option_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+	resourceName := "aws_db_option_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
 funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -144,29 +133,25 @@ funcotoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 				Config: testAccOptionGroupConfig_description(rName, "description1"),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckOptionGroupExists(ctx, resourceName, &optionGroup1),
-					resource.Tfunc),
+					resource.T
+func),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
 	})
 }
-
 func TestAccRDSOptionGroup_basicDestroyWithInstance(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
-	}
-
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_option_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-funcrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	}	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
+	resourceName := "aws_db_option_group.test"	resource.ParallelTest(t, resource.TestCase{
+funcrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -174,23 +159,22 @@ funcrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
 				Config: testAccOptionGroupConfig_destroy(rName),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStatefuncImportStateVerifyIgnore: []string{"name_prefix"},
+				ImportState
+funcImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
 	})
 }
-
 func TestAccRDSOptionGroup_Option_optionSettings(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.OptionGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_option_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_option_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -201,11 +185,12 @@ funcConfig: testAccOptionGroupConfig_optionSettings(rName),
 					resource.TestCheckResourceAttr(resourceName, "option.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "option.*.option_settings.*", map[string]string{
 						"value": "UTC",
-					}),func),
+					}),
+func),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 				// Ignore option since our current logic skips "unconfigured" default option settings
 				// Even with Config set, ImportState TestStep does not "see" the configuration to check against
@@ -224,24 +209,22 @@ funcConfig: testAccOptionGroupConfig_optionSettings(rName),
 			},
 			// Ensure we can import non-default value option settings
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
 	})
 }
-
 func TestAccRDSOptionGroup_OptionOptionSettings_iamRole(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.OptionGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_option_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_option_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -254,23 +237,22 @@ func	testAccCheckOptionGroupExists(ctx, resourceName, &v),
 				),
 			},
 			{
-				ResourceNamfuncImportState:true,
-				ImportStateVerify:       true,
+				ResourceNam
+funcImportState:true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
 	})
 }
-
 func TestAccRDSOptionGroup_sqlServerOptionsUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.OptionGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_option_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_option_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -281,11 +263,12 @@ func TestAccRDSOptionGroup_sqlServerOptionsUpdate(t *testing.T) {
 func),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
-			},func
+			},
+func
 				Config: testAccOptionGroupConfig_sqlServerEEOptionsUpdate(rName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckOptionGroupExists(ctx, resourceName, &v),
@@ -296,16 +279,14 @@ func),
 		},
 	})
 }
-
 func TestAccRDSOptionGroup_oracleOptionsUpdate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.OptionGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_option_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_option_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -318,11 +299,12 @@ func TestAccRDSOptionGroup_oracleOptionsUpdate(t *testing.T) {
 func),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:resourceName,
+				ImportState: true,
 				ImportStateVerify: true,
 				// Ignore option since API responds with **** instead of password
-				ImportStatefunc,
+				ImportState
+func,
 			{
 				Config: testAccOptionGroupConfig_oracleEEOptionSettings(rName, "13.3.0.0.v2"),
 				Check: resource.ComposeTestCheckFunc(
@@ -334,18 +316,15 @@ func),
 			},
 		},
 	})
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/1876
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/1876
 func TestAccRDSOptionGroup_OptionOptionSettings_multipleNonDefault(t *testing.T) {
 	ctx := acctest.Context(t)
 	var optionGroup1, optionGroup2 rds.OptionGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_option_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_option_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -358,28 +337,27 @@ func TestAccRDSOptionGroup_OptionOptionSettings_multipleNonDefault(t *testing.T)
 			},
 			{
 funcImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 			{
 				Config: testAccOptionGroupConfig_settingsMultiple(rName, "example1,example2"),
 				Check: resource.ComposeTestCheckFunc(
-					testAccChefunc	resource.TestCheckResourceAttr(resourceName, "option.#", "1"),
+					testAccChe
+func	resource.TestCheckResourceAttr(resourceName, "option.#", "1"),
 				),
 			},
 		},
 	})
 }
-
 func TestAccRDSOptionGroup_multipleOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v rds.OptionGroup
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-	resourceName := "aws_db_option_group.test"
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	resourceName := "aws_db_option_group.test"	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -392,22 +370,21 @@ func TestAccRDSOptionGroup_multipleOptions(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-funcImportStateVerify:       true,
+				ResourceName:resourceName,
+funcImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 			},
 		},
 	})
 }
-
-func TestAccRDSfunc := acctest.Context(t)
+func TestAccRDS
+func := acctest.Context(t)
 	var optionGroup1, optionGroup2, optionGroup3 rds.OptionGroup
 	resourceName := "aws_db_option_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -420,9 +397,9 @@ func TestAccRDSfunc := acctest.Context(t)
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 func,
 			{
 				Config: testAccOptionGroupConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
@@ -430,7 +407,8 @@ func,
 					testAccCheckOptionGroupExists(ctx, resourceName, &optionGroup2),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.Tfunc),
+					resource.T
+func),
 			},
 			{
 				Config: testAccOptionGroupConfig_tags1(rName, "key2", "value2"),
@@ -442,18 +420,15 @@ func,
 			},
 		},
 	})
-}
-
-// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/7114
+}// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/7114
 func TestAccRDSOptionGroup_Tags_withOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	var optionGroup1, optionGroup2, optionGroup3 rds.OptionGroup
 	resourceName := "aws_db_option_group.test"
-	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
-
-	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:  acctest.ErrorCheck(t, rds.EndpointsID),
+	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)	resource.ParallelTest(t, resource.TestCase{
+		PreCheck: 
+func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, rds.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckOptionGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -467,9 +442,9 @@ func TestAccRDSOptionGroup_Tags_withOptions(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify: true,
 				ImportStateVerifyIgnore: []string{"name_prefix"},
 func
 				Config: testAccOptionGroupConfig_tagsOption2(rName, "key1", "value1updated", "key2", "value2"),
@@ -478,7 +453,8 @@ func
 					resource.TestCheckResourceAttr(resourceName, "option.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.Tfunc),
+					resource.T
+func),
 			},
 			{
 				Config: testAccOptionGroupConfig_tagsOption1(rName, "key2", "value2"),
@@ -492,9 +468,9 @@ func
 		},
 	})
 }
-
 func testAccCheckOptionGroupOptionSettingsIAMRole(optionGroup *rds.OptionGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		if optionGroup == nil {
 			return errors.New("Option Group does not exist")
 		}
@@ -503,14 +479,10 @@ func testAccCheckOptionGroupOptionSettingsIAMRole(optionGroup *rds.OptionGroup) 
 		}
 		if len(optionGroup.Options[0].OptionSettings) == 0 {
 			return errors.New("Option Group does not have any option settings")
-		}
-
-		settingName := aws.StringValue(optionGroup.Options[0].OptionSettings[0].Name)
+		}		settingName := aws.StringValue(optionGroup.Options[0].OptionSettings[0].Name)
 		if settingName != "IAM_ROLE_ARN" {
 			return fmt.Errorf("Expected option setting IAM_ROLE_ARN and received %s", settingName)
-		}
-
-		settingValue := aws.StringValue(optionGroup.Options[0].OptionSettings[0].Value)
+		}		settingValue := aws.StringValue(optionGroup.Options[0].OptionSettings[0].Value)
 		iamArnRegExp := regexache.MustCompile(fmt.Sprintf(`^arn:%s:iam::\d{12}:role/.+`, acctest.Partition()))
 		if !iamArnRegExp.MatchString(settingValue) {
 			return fmt.Errorf("Expected option setting to be a valid IAM role but received %s", settingValue)
@@ -518,11 +490,12 @@ func testAccCheckOptionGroupOptionSettingsIAMRole(optionGroup *rds.OptionGroup) 
 		return nil
 	}
 }
-
 func testAccCheckOptionGroupOptionVersionAttribute(optionGroup *rds.OptionGroup, optionVersion string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 funceturn errors.New("Option Group does not exist")
-		}func len(optionGroup.Options) == 0 {
+		}
+func len(optionGroup.Options) == 0 {
 			return errors.New("Option Group does not have any options")
 		}
 		foundOptionVersion := aws.StringValue(optionGroup.Options[0].OptionVersion)
@@ -532,473 +505,330 @@ funceturn errors.New("Option Group does not exist")
 		return nil
 	}
 }
-
 func testAccCheckOptionGroupExists(ctx context.Context, n string, v *rds.OptionGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
-		}
-
-		if rs.Primary.ID == "" {
+		}		if rs.Primary.ID == "" {
 			return fmt.Errorf("No DB Option Group Name is set")
-		}
-
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-		opts := rds.DescribeOptionGroupsInput{
+		}		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)		opts := rds.DescribeOptionGroupsInput{
 func
 funcsp, err := conn.DescribeOptionGroupsWithContext(ctx, &opts)
 		if err != nil {
 			return err
-		}
-
-		if len(resp.OptionGroupsList) != 1 ||
+		}		if len(resp.OptionGroupsList) != 1 ||
 			*resp.OptionGroupsList[0].OptionGroupName != rs.Primary.ID {
 			return fmt.Errorf("DB Option Group not found")
-		}
-
-		*v = *resp.OptionGroupsList[0]
-
-		return nil
+		}		*v = *resp.OptionGroupsList[0]		return nil
 	}
 }
 func testAccCheckOptionGroupDestroy(ctx context.Context) resource.TestCheckFunc {
-	return funcnn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-
-		for _, rs := range s.RootModule().Resources {
+	return 
+funcnn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_db_option_group" {
 				continue
-			}
-
-			resp, err := conn.DescribeOptionGroupsWithContext(ctx, &rds.DescribeOptionGroupsInput{
+			}			resp, err := conn.DescribeOptionGroupsWithContext(ctx, &rds.DescribeOptionGroupsInput{
 				OptionGroupName: aws.String(rs.Primary.ID),
-			})
-
-			if err == nil {
+			})			if err == nil {
 				if len(resp.OptionGroupsList) != 0 &&
 					*resp.OptionGroupsList[0].OptionGroupName == rs.Primary.ID {
 					return fmt.Errorf("DB Option Group still exists")
 				}
-			}
-
-			// Verify the error
+			}			// Verify the error
 			if !tfawserr.ErrCodeEquals(err, rds.ErrCodeOptionGroupNotFoundFault) {
 				return err
 			}
-		}
-
-		return nil
+		}		return nil
 	}
 }
-
 func testAccOptionGroupConfig_timeoutBlock(rName string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "mysql"
+engine = "mysql"
 func
-resourcefuncme        = %[1]q
-  option_group_description = "Test option group for terraform"
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
-
-  timeouts {
-    delete = "10m"
-  }
+resource
+funcme= %[1]q
+option_group_description = "Test option group for terraform"
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)timeouts {
+ delete = "10m"
+}
 }
 `, rName)
 }
-
 func testAccOptionGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "mysql"
-}
-
-resource "aws_db_option_group" "test" {
-  name    = %[1]q
-  engine_name          = data.aws_rds_engine_version.default.engine
-  major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
+engine = "mysql"
+}resource "aws_db_option_group" "test" {
+name = %[1]q
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
 }
 `, rName)
 }
-
 func testAccOptionGroupConfig_destroy(rName string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-func
-
-data "aws_rds_orderable_db_instance" "test" {
-  engine        = data.aws_rds_engine_version.default.engine
-  engine_version= data.aws_rds_engine_version.default.version
-  preferred_instance_classes = [%[1]s]
-}
-
-resource "aws_db_instance" "test" {
-  allocated_storage = 10
-  engine            = data.aws_rds_orderable_db_instance.test.engine
-  engine_version    = data.aws_rds_orderable_db_instance.test.engine_version
-  instance_class    = data.aws_rds_orderable_db_instance.test.instance_class
-  db_name           = "baz"
-  password          = "barbarbarbar"
-  username          = "foo"
-
-  # Maintenance Window is stored in lower case in the API, though not strictly
-  # documented. Terraform will downcase this to match (as opposed to throw a
-funcintenance_window = "Fri:09:00-Fri:09:30"
-
-  backup_retention_period = 0
-  skip_final_snapshot     = true
-
-  option_group_name = aws_db_option_group.test.name
-}
-
-resource "aws_db_option_group" "test" {
-  name        = %[2]q
-  option_group_description = "Test option group for terraform"
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
+funcdata "aws_rds_orderable_db_instance" "test" {
+engine= data.aws_rds_engine_version.default.engine
+engine_version= data.aws_rds_engine_version.default.version
+preferred_instance_classes = [%[1]s]
+}resource "aws_db_instance" "test" {
+allocated_storage = 10
+engine= data.aws_rds_orderable_db_instance.test.engine
+engine_version = data.aws_rds_orderable_db_instance.test.engine_version
+instance_class = data.aws_rds_orderable_db_instance.test.instance_class
+db_name= "baz"
+password = "barbarbarbar"
+username = "foo"# Maintenance Window is stored in lower case in the API, though not strictly
+# documented. Terraform will downcase this to match (as opposed to throw a
+funcintenance_window = "Fri:09:00-Fri:09:30"backup_retention_period = 0
+skip_final_snapshot= trueoption_group_name = aws_db_option_group.test.name
+}resource "aws_db_option_group" "test" {
+name= %[2]q
+option_group_description = "Test option group for terraform"
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
 }
 func
-
 func testAccOptionGroupConfig_optionSettings(rName string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "oracle-ee"
+engine = "oracle-ee"
+}resource "aws_db_option_group" "test" {
+name= %[1]q
+option_group_description = "Test option group for terraform"
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+", data.aws_rds_engine_version.default.version)option {
+ option_name = "Timezone" option_settings {
+name= "TIME_ZONE"
+value = "UTC"
+ }
 }
-
-resource "aws_db_option_group" "test" {
-  name        = %[1]q
-  option_group_description = "Test option group for terraform"
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+", data.aws_rds_engine_version.default.version)
-
-  option {
-    option_name = "Timezone"
-
-    option_settings {
-      name  = "TIME_ZONE"
-      value = "UTC"
-    }
-  }
 }
 `, rName)
 }
-
 func testAccOptionGroupConfig_optionSettingsIAMRole(rName string) string {
 	return fmt.Sprintf(`
-data "aws_partition" "current" {}
-
-data "aws_rds_engine_version" "default" {
-  engine = "sqlserver-ex"
-}
-
-data "aws_iam_policy_document" "rds_assume_role" {
-  statement {
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["rds.${data.aws_partition.current.dns_suffix}"]
+data "aws_partition" "current" {}data "aws_rds_engine_version" "default" {
+engine = "sqlserver-ex"
+}data "aws_iam_policy_document" "rds_assume_role" {
+statement {
+ actions = ["sts:AssumeRole"] principals {
+type= "Service"
+identifiers = ["rds.${data.aws_partition.current.dns_suffix}"]
 func
+}resource "aws_iam_role" "sql_server_backup" {
+name= "rds-backup-%[1]s"
+assume_role_policy = data.aws_iam_policy_document.rds_assume_role.json
+}resource "aws_db_option_group" "test" {
+name= %[1]q
+option_group_description = "Test option group for terraform"
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)option {
+ option_name = "SQLSERVER_BACKUP_RESTORE" option_settings {
+name= "IAM_ROLE_ARN"
+value = aws_iam_role.sql_server_backup.arn
+ }
 }
-
-resource "aws_iam_role" "sql_server_backup" {
-  name  = "rds-backup-%[1]s"
-  assume_role_policy = data.aws_iam_policy_document.rds_assume_role.json
-}
-
-resource "aws_db_option_group" "test" {
-  name        = %[1]q
-  option_group_description = "Test option group for terraform"
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
-
-  option {
-    option_name = "SQLSERVER_BACKUP_RESTORE"
-
-    option_settings {
-      name  = "IAM_ROLE_ARN"
-      value = aws_iam_role.sql_server_backup.arn
-    }
-  }
 }
 `, rName)
 func
 func testAccOptionGroupConfig_optionSettingsUpdate(rName string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "oracle-ee"
+engine = "oracle-ee"
+}resource "aws_db_option_group" "test" {
+name= %[1]q
+option_group_description = "Test option group for terraform"
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+", data.aws_rds_engine_version.default.version)option {
+ option_name = "Timezone" option_settings {
+name= "TIME_ZONE"
+value = "US/Pacific"
+ }
 }
-
-resource "aws_db_option_group" "test" {
-  name        = %[1]q
-  option_group_description = "Test option group for terraform"
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+", data.aws_rds_engine_version.default.version)
-
-  option {
-    option_name = "Timezone"
-
-    option_settings {
-      name  = "TIME_ZONE"
-      value = "US/Pacific"
-    }
-  }
 }
 `, rName)
 }
-
 func testAccOptionGroupConfig_sqlServerEEOptions(rName string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "sqlserver-ee"
-}
-
-resource "aws_db_option_group" "test" {
-  name        = %[1]q
-  option_group_description = "Test option group for terraform"
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
+engine = "sqlserver-ee"
+}resource "aws_db_option_group" "test" {
+name= %[1]q
+option_group_description = "Test option group for terraform"
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
 }
 `, rName)
 }
-
 func testAccOptionGroupConfig_sqlServerEEOptionsUpdate(rName string) string {
 	return fmt.Sprintf(`
 funcgine = "sqlserver-ee"
+}resource "aws_db_option_group" "test" {
+name= %[1]q
+option_group_description = "Test option group for terraform"
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)option {
+ option_name = "TDE"
 }
-
-resource "aws_db_option_group" "test" {
-  name        = %[1]q
-  option_group_description = "Test option group for terraform"
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
-
-  option {
-    option_name = "TDE"
-  }
 }
 `, rName)
 }
-
 func testAccOptionGroupConfig_oracleEEOptionSettings(rName, optionVersion string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "oracle-ee"
-}
-
-resource "aws_security_group" "foo" {
-  name = %[1]q
+engine = "oracle-ee"
+}resource "aws_security_group" "foo" {
+name = %[1]q
 func
 resource "aws_db_option_group" "test" {
-  name        = %[1]q
-  option_group_description = "Test option group for terraform issue 748"
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+", data.aws_rds_engine_version.default.version)
-
-  option {
-    option_name = "OEM_AGENT"
-    port        = "3872"
-    version     = %[2]q
-
-    vpc_security_group_memberships = [aws_security_group.foo.id]
-
-    option_settings {
-func  value = "4903"
-    }
-
-    option_settings {
-      name  = "OMS_HOST"
-      value = "oem.host.value"
-    }
-
-    option_settings {
-      name  = "AGENT_REGISTRATION_PASSWORD"
-      value = "password"
-    }
-  }
+name= %[1]q
+option_group_description = "Test option group for terraform issue 748"
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+", data.aws_rds_engine_version.default.version)option {
+ option_name = "OEM_AGENT"
+ port= "3872"
+ version= %[2]q vpc_security_group_memberships = [aws_security_group.foo.id] option_settings {
+funcvalue = "4903"
+ } option_settings {
+name= "OMS_HOST"
+value = "oem.host.value"
+ } option_settings {
+name= "AGENT_REGISTRATION_PASSWORD"
+value = "password"
+ }
+}
 }
 `, rName, optionVersion)
 }
-
 func testAccOptionGroupConfig_multipleOptions(rName string) string {
 	return fmt.Sprintf(`
 funcgine = "oracle-ee"
+}resource "aws_db_option_group" "test" {
+name= %[1]q
+option_group_description = "Test option group for terraform"
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+", data.aws_rds_engine_version.default.version)option {
+ option_name = "SPATIAL"
+}option {
+ option_name = "STATSPACK"
 }
-
-resource "aws_db_option_group" "test" {
-  name        = %[1]q
-  option_group_description = "Test option group for terraform"
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+", data.aws_rds_engine_version.default.version)
-
-  option {
-    option_name = "SPATIAL"
-  }
-
-  option {
-    option_name = "STATSPACK"
-  }
 }
 `, rName)
-}
-
-const testAccOptionGroupConfig_namePrefix = `
+}const testAccOptionGroupConfig_namePrefix = `
 data "aws_rds_engine_version" "default" {
-  engine = "mysql"
+engine = "mysql"
+}resource "aws_db_option_group" "test" {
+name_prefix = "tf-test-"
+option_group_description = "Test option group for terraform"
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
 }
-
-resource "aws_db_option_group" "test" {
-  name_prefix = "tf-test-"
-  option_group_description = "Test option group for terraform"
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
-}
-`
-
-const testAccOptionGroupConfig_generatedName = `
+`const testAccOptionGroupConfig_generatedName = `
 data "aws_rds_engine_version" "default" {
-  engine = "mysql"
-}
-
-resource "aws_db_option_group" "test" {
-  option_group_description = "Test option group for terraform"
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
+engine = "mysql"
+}resource "aws_db_option_group" "test" {
+option_group_description = "Test option group for terraform"
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
 func
-
 func testAccOptionGroupConfig_description(rName, optionGroupDescription string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "mysql"
-}
-
-resource "aws_db_option_group" "test" {
-  engine_name = data.aws_rds_engine_version.default.engine
-  major_engine_version     = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
-  name        = %[1]q
-  option_group_description = %[2]q
+engine = "mysql"
+}resource "aws_db_option_group" "test" {
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version= regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
+name= %[1]q
+option_group_description = %[2]q
 }
 `, rName, optionGroupDescription)
 }
-
 func testAccOptionGroupConfig_settingsMultiple(rName, value string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "mysql"
+engine = "mysql"
+}resource "aws_db_option_group" "test" {
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
+name = %[1]qoption {
+ option_name = "MARIADB_AUDIT_PLUGIN" option_settings {
+name= "SERVER_AUDIT_EXCL_USERS"
+value = %[2]q
+ } option_settings {
+name= "SERVER_AUDIT_FILE_ROTATIONS"
+value = "15"
+ } option_settings {
+name= "SERVER_AUDIT_FILE_ROTATE_SIZE"
+value = "52428800"
+ }
 }
-
-resource "aws_db_option_group" "test" {
-  engine_name          = data.aws_rds_engine_version.default.engine
-  major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
-  name    = %[1]q
-
-  option {
-    option_name = "MARIADB_AUDIT_PLUGIN"
-
-    option_settings {
-      name  = "SERVER_AUDIT_EXCL_USERS"
-      value = %[2]q
-    }
-
-    option_settings {
-      name  = "SERVER_AUDIT_FILE_ROTATIONS"
-      value = "15"
-    }
-
-    option_settings {
-      name  = "SERVER_AUDIT_FILE_ROTATE_SIZE"
-      value = "52428800"
-    }
-  }
 }
 `, rName, value)
 func
 func testAccOptionGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "mysql"
+engine = "mysql"
+}resource "aws_db_option_group" "test" {
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
+name = %[1]qtags = {
+ %[2]q = %[3]q
 }
-
-resource "aws_db_option_group" "test" {
-  engine_name          = data.aws_rds_engine_version.default.engine
-  major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
-  name    = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
-  }
 funcName, tagKey1, tagValue1)
 }
-
 func testAccOptionGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "mysql"
+engine = "mysql"
+}resource "aws_db_option_group" "test" {
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
+name = %[1]qtags = {
+ %[2]q = %[3]q
+ %[4]q = %[5]q
 }
-
-resource "aws_db_option_group" "test" {
-  engine_name          = data.aws_rds_engine_version.default.engine
-  major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
-  name    = %[1]q
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
-  }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
-
 func testAccOptionGroupConfig_tagsOption1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-  engine = "mysql"
+engine = "mysql"
+}resource "aws_db_option_group" "test" {
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
+name = %[1]q
+funcoption_name = "MARIADB_AUDIT_PLUGIN" option_settings {
+name= "SERVER_AUDIT_FILE_ROTATIONS"
+value = "0"
+ }
+}tags = {
+ %[2]q = %[3]q
 }
-
-resource "aws_db_option_group" "test" {
-  engine_name          = data.aws_rds_engine_version.default.engine
-  major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
-  name    = %[1]q
-
-funcoption_name = "MARIADB_AUDIT_PLUGIN"
-
-    option_settings {
-      name  = "SERVER_AUDIT_FILE_ROTATIONS"
-      value = "0"
-    }
-  }
-
-  tags = {
-    %[2]q = %[3]q
-  }
 }
 `, rName, tagKey1, tagValue1)
 }
-
 func testAccOptionGroupConfig_tagsOption2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
-func
-
-resource "aws_db_option_group" "test" {
-  engine_name          = data.aws_rds_engine_version.default.engine
-  major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
-  name    = %[1]q
-
-  option {
-    option_name = "MARIADB_AUDIT_PLUGIN"
-
-    option_settings {
-      name  = "SERVER_AUDIT_FILE_ROTATIONS"
-      value = "0"
-    }
-  }
-
-  tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+funcresource "aws_db_option_group" "test" {
+engine_name = data.aws_rds_engine_version.default.engine
+major_engine_version = regex("^\\d+\\.\\d+", data.aws_rds_engine_version.default.version)
+name = %[1]qoption {
+ option_name = "MARIADB_AUDIT_PLUGIN" option_settings {
+name= "SERVER_AUDIT_FILE_ROTATIONS"
+value = "0"
+ }
+}tags = {
+ %[2]q = %[3]q
+ %[4]q = %[5]q
 func
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }

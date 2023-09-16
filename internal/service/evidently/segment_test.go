@@ -50,8 +50,8 @@ func TestAccEvidentlySegment_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -83,8 +83,8 @@ func TestAccEvidentlySegment_description(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -116,8 +116,8 @@ func TestAccEvidentlySegment_patternJSON(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 		},
@@ -149,8 +149,8 @@ func TestAccEvidentlySegment_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -163,8 +163,8 @@ func TestAccEvidentlySegment_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:      resourceName,
-				ImportState:       true,
+				ResourceName:  resourceName,
+				ImportState:   true,
 				ImportStateVerify: true,
 			},
 			{
@@ -188,7 +188,7 @@ func TestAccEvidentlySegment_disappears(t *testing.T) {
 	resourceName := "aws_evidently_segment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck:func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, cloudwatchevidently.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckSegmentDestroy(ctx),
@@ -259,7 +259,7 @@ func testAccCheckSegmentExists(ctx context.Context, n string, v *cloudwatchevide
 func testAccSegmentConfig_basic(rName, pattern string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_segment" "test" {
-  name    = %[1]q
+  name= %[1]q
   pattern = %[2]q
 }
 `, rName, pattern)
@@ -268,8 +268,8 @@ resource "aws_evidently_segment" "test" {
 func testAccSegmentConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_segment" "test" {
-  name        = %[1]q
-  pattern     = "{\"Price\":[{\"numeric\":[\">\",10,\"<=\",20]}]}"
+  name= %[1]q
+  pattern = "{\"Price\":[{\"numeric\":[\">\",10,\"<=\",20]}]}"
   description = %[2]q
 }
 `, rName, description)
@@ -278,7 +278,7 @@ resource "aws_evidently_segment" "test" {
 func testAccSegmentConfig_patternJSON(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_segment" "test" {
-  name    = %[1]q
+  name= %[1]q
   pattern = <<JSON
   {
 	  "Price": [
@@ -295,11 +295,11 @@ resource "aws_evidently_segment" "test" {
 func testAccSegmentConfig_tags1(rName, tag, value string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_segment" "test" {
-  name    = %[1]q
+  name= %[1]q
   pattern = "{\"Price\":[{\"numeric\":[\">\",10,\"<=\",20]}]}"
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tag, value)
@@ -308,12 +308,12 @@ resource "aws_evidently_segment" "test" {
 func testAccSegmentConfig_tags2(rName, tag1, value1, tag2, value2 string) string {
 	return fmt.Sprintf(`
 resource "aws_evidently_segment" "test" {
-  name    = %[1]q
+  name= %[1]q
   pattern = "{\"Price\":[{\"numeric\":[\">\",10,\"<=\",20]}]}"
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tag1, value1, tag2, value2)

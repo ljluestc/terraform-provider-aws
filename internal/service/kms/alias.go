@@ -32,42 +32,41 @@ func ResourceAlias() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 
 			"name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type: schema.TypeString,
+				Optional:  true,
+				Computed:  true,
+				ForceNew:  true,
 				ConflictsWith: []string{"name_prefix"},
 				ValidateFunc:  validNameForResource,
 			},
 
 			"name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
+				Type: schema.TypeString,
+				Optional:  true,
+				Computed:  true,
+				ForceNew:  true,
 				ConflictsWith: []string{"name"},
 				ValidateFunc:  validNameForResource,
 			},
 
 			"target_key_arn": {
-				Type:     schema.TypeString,
+				Type: schema.TypeString,
 				Computed: true,
 			},
 
 			"target_key_id": {
 				Type:schema.TypeString,
-				Required:         true,
+				Required:true,
 				DiffSuppressFunc: suppressEquivalentKeyARNOrID,
 			},
 		},
 	}
 }
-
 func resourceAliasCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -98,7 +97,6 @@ func resourceAliasCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return append(diags, resourceAliasRead(ctx, d, meta)...)
 }
-
 func resourceAliasRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -133,7 +131,6 @@ func resourceAliasRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return diags
 }
-
 func resourceAliasUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -154,7 +151,6 @@ func resourceAliasUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return append(diags, resourceAliasRead(ctx, d, meta)...)
 }
-
 func resourceAliasDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).KMSConn(ctx)
@@ -174,7 +170,6 @@ func resourceAliasDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
-
 func suppressEquivalentKeyARNOrID(k, old, new string, d *schema.ResourceData) bool {
 	return KeyARNOrIDEqual(old, new)
 }

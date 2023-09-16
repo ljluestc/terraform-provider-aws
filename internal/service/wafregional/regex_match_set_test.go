@@ -71,7 +71,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "name", matchSetName),
 	resource.TestCheckResourceAttr(resourceName, "regex_match_tuple.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "regex_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "user-agent",
 "field_to_match.0.type": "HEADER",
 "text_transformation":   "NONE",
@@ -79,8 +79,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -115,7 +115,7 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "name", matchSetName),
 	resource.TestCheckResourceAttr(resourceName, "regex_match_tuple.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "regex_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "user-agent",
 "field_to_match.0.type": "HEADER",
 "text_transformation":   "NONE",
@@ -132,7 +132,7 @@ func(
 
 	computeRegexMatchSetTuple(&patternSet, &waf.FieldToMatch{Data: aws.String("Referer"), Type: aws.String("HEADER")}, "COMPRESS_WHITE_SPACE", &idx2),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "regex_match_tuple.*", map[string]string{
-"field_to_match.#":      "1",
+"field_to_match.#":"1",
 "field_to_match.0.data": "referer",
 "field_to_match.0.type": "HEADER",
 "text_transformation":   "COMPRESS_WHITE_SPACE",
@@ -140,8 +140,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -172,8 +172,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -281,8 +281,8 @@ resource "aws_wafregional_regex_match_set" "test" {
 
   regex_match_tuple {
     field_to_match {
-      data = "User-Agent"
-      type = "HEADER"
+data = "User-Agent"
+type = "HEADER"
     }
 
     regex_pattern_set_id = aws_wafregional_regex_pattern_set.test.id
@@ -305,8 +305,8 @@ resource "aws_wafregional_regex_match_set" "test" {
 
   regex_match_tuple {
     field_to_match {
-      data = "Referer"
-      type = "HEADER"
+data = "Referer"
+type = "HEADER"
     }
 
     regex_pattern_set_id = aws_wafregional_regex_pattern_set.test.id
@@ -336,7 +336,7 @@ func {
 	return 
 func(s *terraform.State) error {
 m := map[string]interface{}{
-	"field_to_match":       tfwaf.FlattenFieldToMatch(fieldToMatch),
+	"field_to_match": tfwaf.FlattenFieldToMatch(fieldToMatch),
 	"regex_pattern_set_id": *patternSet.RegexPatternSetId,
 	"text_transformation":  textTransformation,
 }

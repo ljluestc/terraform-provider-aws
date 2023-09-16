@@ -25,7 +25,7 @@ import (
 func ResourceHostedPublicVirtualInterface() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceHostedPublicVirtualInterfaceCreate,
-		ReadWithoutTimeout:   resourceHostedPublicVirtualInterfaceRead,
+		ReadWithoutTimeout:resourceHostedPublicVirtualInterfaceRead,
 		DeleteWithoutTimeout: resourceHostedPublicVirtualInterfaceDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: resourceHostedPublicVirtualInterfaceImport,
@@ -34,7 +34,7 @@ func ResourceHostedPublicVirtualInterface() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"address_family": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.StringInSlice([]string{
@@ -43,67 +43,67 @@ func ResourceHostedPublicVirtualInterface() *schema.Resource {
 				}, false),
 			},
 			"amazon_address": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"amazon_side_asn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"arn": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"aws_device": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Computed: true,
 			},
 			"bgp_asn": {
-				Type:     schema.TypeInt,
+				Type:schema.TypeInt,
 				Required: true,
 				ForceNew: true,
 			},
 			"bgp_auth_key": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"connection_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"customer_address": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
 			},
 			"name": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 			},
 			"owner_account_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"route_filter_prefixes": {
-				Type:     schema.TypeSet,
+				Type:schema.TypeSet,
 				Required: true,
 				ForceNew: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 				MinItems: 1,
 			},
 			"vlan": {
-				Type:         schema.TypeInt,
-				Required:     true,
-				ForceNew:     true,
+				Type:ema.TypeInt,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.IntBetween(1, 4094),
 			},
 		},
@@ -114,7 +114,6 @@ func ResourceHostedPublicVirtualInterface() *schema.Resource {
 		},
 	}
 }
-
 func resourceHostedPublicVirtualInterfaceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -122,10 +121,10 @@ func resourceHostedPublicVirtualInterfaceCreate(ctx context.Context, d *schema.R
 	req := &directconnect.AllocatePublicVirtualInterfaceInput{
 		ConnectionId: aws.String(d.Get("connection_id").(string)),
 		NewPublicVirtualInterfaceAllocation: &directconnect.NewPublicVirtualInterfaceAllocation{
-			AddressFamily:        aws.String(d.Get("address_family").(string)),
-			Asn:     aws.Int64(int64(d.Get("bgp_asn").(int))),
+			AddressFamily:String(d.Get("address_family").(string)),
+			Asn:aws.Int64(int64(d.Get("bgp_asn").(int))),
 			VirtualInterfaceName: aws.String(d.Get("name").(string)),
-			Vlan:    aws.Int64(int64(d.Get("vlan").(int))),
+			Vlan: aws.Int64(int64(d.Get("vlan").(int))),
 		},
 		OwnerAccount: aws.String(d.Get("owner_account_id").(string)),
 	}
@@ -156,7 +155,6 @@ func resourceHostedPublicVirtualInterfaceCreate(ctx context.Context, d *schema.R
 
 	return append(diags, resourceHostedPublicVirtualInterfaceRead(ctx, d, meta)...)
 }
-
 func resourceHostedPublicVirtualInterfaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
@@ -176,8 +174,8 @@ func resourceHostedPublicVirtualInterfaceRead(ctx context.Context, d *schema.Res
 	d.Set("amazon_side_asn", strconv.FormatInt(aws.Int64Value(vif.AmazonSideAsn), 10))
 	arn := arn.ARN{
 		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Service:   "directconnect",
+		Region: meta.(*conns.AWSClient).Region,
+		Service:"directconnect",
 		AccountID: meta.(*conns.AWSClient).AccountID,
 		Resource:  fmt.Sprintf("dxvif/%s", d.Id()),
 	}.String()
@@ -196,11 +194,9 @@ func resourceHostedPublicVirtualInterfaceRead(ctx context.Context, d *schema.Res
 
 	return diags
 }
-
 func resourceHostedPublicVirtualInterfaceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	return virtualInterfaceDelete(ctx, d, meta)
 }
-
 func resourceHostedPublicVirtualInterfaceImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	conn := meta.(*conns.AWSClient).DirectConnectConn(ctx)
 
@@ -218,7 +214,6 @@ func resourceHostedPublicVirtualInterfaceImport(ctx context.Context, d *schema.R
 
 	return []*schema.ResourceData{d}, nil
 }
-
 func resourceHostedPublicVirtualInterfaceCustomizeDiff(_ context.Context, diff *schema.ResourceDiff, meta interface{}) error {
 	if diff.Id() == "" {
 		// New resource.
@@ -234,7 +229,6 @@ func resourceHostedPublicVirtualInterfaceCustomizeDiff(_ context.Context, diff *
 
 	return nil
 }
-
 func hostedPublicVirtualInterfaceWaitUntilAvailable(ctx context.Context, conn *directconnect.DirectConnect, vifId string, timeout time.Duration) error {
 	return virtualInterfaceWaitUntilAvailable(ctx, conn,
 		vifId,

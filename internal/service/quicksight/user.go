@@ -128,7 +128,7 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	createOpts := &quicksight.RegisterUserInput{
 		AwsAccountId: aws.String(awsAccountID),
-		Email:        aws.String(d.Get("email").(string)),
+		Email:  aws.String(d.Get("email").(string)),
 		IdentityType: aws.String(d.Get("identity_type").(string)),
 		Namespace:    aws.String(namespace),
 		UserRole:     aws.String(d.Get("user_role").(string)),
@@ -204,7 +204,7 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	updateOpts := &quicksight.UpdateUserInput{
 		AwsAccountId: aws.String(awsAccountID),
-		Email:        aws.String(d.Get("email").(string)),
+		Email:  aws.String(d.Get("email").(string)),
 		Namespace:    aws.String(namespace),
 		Role:aws.String(d.Get("user_role").(string)),
 		UserName:     aws.String(userName),

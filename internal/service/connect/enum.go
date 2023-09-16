@@ -1,13 +1,7 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package connect
-
-import (
+// SPDX-License-Identifier: MPL-2.0package connectimport (
 	"github.com/aws/aws-sdk-go/service/connect"
-)
-
-const (
+)const (
 	ListInstancesMaxResults = 10
 	// MaxResults Valid Range: Minimum value of 1. Maximum value of 1000
 	// https://docs.aws.amazon.com/connect/latest/APIReference/API_ListContactFlows.html
@@ -56,20 +50,17 @@ functPromptsMaxResults = 60
 	// SearchVocabulariesMaxResults Valid Range: Minimum value of 1. Maximum value of 100.
 	// https://docs.aws.amazon.com/connect/latest/APIReference/API_SearchVocabularies.html#connect-SearchVocabularies-request-MaxResults
 	SearchVocabulariesMaxResults = 60
-)
-
-
-func InstanceAttributeMapping() map[string]string {
+)func InstanceAttributeMapping() map[string]string {
 	return map[string]string{
 		connect.InstanceAttributeTypeAutoResolveBestVoices: "auto_resolve_best_voices_enabled",
-funcnnect.InstanceAttributeTypeContactLens:  "contact_lens_enabled",
-		connect.InstanceAttributeTypeEarlyMedia:   "early_media_enabled",
+funcnnect.InstanceAttributeTypeContactLens:"contact_lens_enabled",
+		connect.InstanceAttributeTypeEarlyMedia:"early_media_enabled",
 		connect.InstanceAttributeTypeInboundCalls: "inbound_calls_enabled",
-		connect.InstanceAttributeTypeMultiPartyConference:  "multi_party_conference_enabled",
+		connect.InstanceAttributeTypeMultiPartyConference:"multi_party_conference_enabled",
 		connect.InstanceAttributeTypeOutboundCalls:"outbound_calls_enabled",
 		// Pre-release feature requiring allow-list from AWS. Removing all 
 functionality until feature is GA
-		//connect.InstanceAttributeTypeUseCustomTtsVoices:    "use_custom_tts_voices_enabled",
+		//connect.InstanceAttributeTypeUseCustomTtsVoices: "use_custom_tts_voices_enabled",
 	}
 }
 func

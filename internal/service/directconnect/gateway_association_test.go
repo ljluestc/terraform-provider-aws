@@ -29,7 +29,7 @@ func TestAccDirectConnectGatewayAssociation_v0StateUpgrade(t *testing.T) {
 	var gap directconnect.GatewayAssociationProposal
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGatewayAssociationDestroy(ctx),
@@ -44,7 +44,6 @@ func TestAccDirectConnectGatewayAssociation_v0StateUpgrade(t *testing.T) {
 		},
 	})
 }
-
 func TestAccDirectConnectGatewayAssociation_basicVPNGatewaySingleAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dx_gateway_association.test"
@@ -56,7 +55,7 @@ func TestAccDirectConnectGatewayAssociation_basicVPNGatewaySingleAccount(t *test
 	var gap directconnect.GatewayAssociationProposal
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGatewayAssociationDestroy(ctx),
@@ -76,15 +75,14 @@ func TestAccDirectConnectGatewayAssociation_basicVPNGatewaySingleAccount(t *test
 				),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName:ceName,
 				ImportStateIdFunc: testAccGatewayAssociationImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectGatewayAssociation_basicVPNGatewayCrossAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dx_gateway_association.test"
@@ -96,7 +94,7 @@ func TestAccDirectConnectGatewayAssociation_basicVPNGatewayCrossAccount(t *testi
 	var gap directconnect.GatewayAssociationProposal
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckAlternateAccount(t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckAlternateAccount(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckGatewayAssociationDestroy(ctx),
@@ -119,7 +117,6 @@ func TestAccDirectConnectGatewayAssociation_basicVPNGatewayCrossAccount(t *testi
 		},
 	})
 }
-
 func TestAccDirectConnectGatewayAssociation_basicTransitGatewaySingleAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dx_gateway_association.test"
@@ -131,7 +128,7 @@ func TestAccDirectConnectGatewayAssociation_basicTransitGatewaySingleAccount(t *
 	var gap directconnect.GatewayAssociationProposal
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGatewayAssociationDestroy(ctx),
@@ -152,15 +149,14 @@ func TestAccDirectConnectGatewayAssociation_basicTransitGatewaySingleAccount(t *
 				),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName:ceName,
 				ImportStateIdFunc: testAccGatewayAssociationImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
-
 func TestAccDirectConnectGatewayAssociation_basicTransitGatewayCrossAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dx_gateway_association.test"
@@ -172,7 +168,7 @@ func TestAccDirectConnectGatewayAssociation_basicTransitGatewayCrossAccount(t *t
 	var gap directconnect.GatewayAssociationProposal
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckAlternateAccount(t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckAlternateAccount(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckGatewayAssociationDestroy(ctx),
@@ -196,7 +192,6 @@ func TestAccDirectConnectGatewayAssociation_basicTransitGatewayCrossAccount(t *t
 		},
 	})
 }
-
 func TestAccDirectConnectGatewayAssociation_multiVPNGatewaysSingleAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName1 := "aws_dx_gateway_association.test.0"
@@ -207,7 +202,7 @@ func TestAccDirectConnectGatewayAssociation_multiVPNGatewaysSingleAccount(t *tes
 	var gap directconnect.GatewayAssociationProposal
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGatewayAssociationDestroy(ctx),
@@ -228,7 +223,6 @@ func TestAccDirectConnectGatewayAssociation_multiVPNGatewaysSingleAccount(t *tes
 		},
 	})
 }
-
 func TestAccDirectConnectGatewayAssociation_allowedPrefixesVPNGatewaySingleAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dx_gateway_association.test"
@@ -240,7 +234,7 @@ func TestAccDirectConnectGatewayAssociation_allowedPrefixesVPNGatewaySingleAccou
 	var gap directconnect.GatewayAssociationProposal
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:testAccCheckGatewayAssociationDestroy(ctx),
@@ -258,9 +252,9 @@ func TestAccDirectConnectGatewayAssociation_allowedPrefixesVPNGatewaySingleAccou
 				),
 			},
 			{
-				ResourceName:      resourceName,
+				ResourceName:ceName,
 				ImportStateIdFunc: testAccGatewayAssociationImportStateIdFunc(resourceName),
-				ImportState:       true,
+				ImportState:
 				ImportStateVerify: true,
 			},
 			{
@@ -274,7 +268,6 @@ func TestAccDirectConnectGatewayAssociation_allowedPrefixesVPNGatewaySingleAccou
 		},
 	})
 }
-
 func TestAccDirectConnectGatewayAssociation_allowedPrefixesVPNGatewayCrossAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dx_gateway_association.test"
@@ -286,7 +279,7 @@ func TestAccDirectConnectGatewayAssociation_allowedPrefixesVPNGatewayCrossAccoun
 	var gap directconnect.GatewayAssociationProposal
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckAlternateAccount(t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckAlternateAccount(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckGatewayAssociationDestroy(ctx),
@@ -319,7 +312,6 @@ func TestAccDirectConnectGatewayAssociation_allowedPrefixesVPNGatewayCrossAccoun
 		},
 	})
 }
-
 func TestAccDirectConnectGatewayAssociation_recreateProposal(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_dx_gateway_association.test"
@@ -329,7 +321,7 @@ func TestAccDirectConnectGatewayAssociation_recreateProposal(t *testing.T) {
 	var gap1, gap2 directconnect.GatewayAssociationProposal
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:    func() { acctest.PreCheck(ctx, t); acctest.PreCheckAlternateAccount(t) },
+		PreCheck: func() { acctest.PreCheck(ctx, t); acctest.PreCheckAlternateAccount(t) },
 		ErrorCheck:  acctest.ErrorCheck(t, directconnect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:testAccCheckGatewayAssociationDestroy(ctx),
@@ -351,7 +343,6 @@ func TestAccDirectConnectGatewayAssociation_recreateProposal(t *testing.T) {
 		},
 	})
 }
-
 func testAccGatewayAssociationImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]
@@ -362,7 +353,6 @@ func testAccGatewayAssociationImportStateIdFunc(resourceName string) resource.Im
 		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["dx_gateway_id"], rs.Primary.Attributes["associated_gateway_id"]), nil
 	}
 }
-
 func testAccCheckGatewayAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).DirectConnectConn(ctx)
@@ -387,7 +377,6 @@ func testAccCheckGatewayAssociationDestroy(ctx context.Context) resource.TestChe
 		return nil
 	}
 }
-
 func testAccCheckGatewayAssociationExists(ctx context.Context, name string, ga *directconnect.GatewayAssociation, gap *directconnect.GatewayAssociationProposal) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
@@ -422,7 +411,6 @@ func testAccCheckGatewayAssociationExists(ctx context.Context, name string, ga *
 		return nil
 	}
 }
-
 func testAccCheckGatewayAssociationNotRecreated(old, new *directconnect.GatewayAssociation) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 		if old, new := aws.StringValue(old.AssociationId), aws.StringValue(new.AssociationId); old != new {
@@ -463,11 +451,10 @@ func testAccCheckGatewayAssociationStateUpgradeV0(ctx context.Context, name stri
 		return nil
 	}
 }
-
 func testAccGatewayAssociationConfigBase_vpnGatewaySingleAccount(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
 resource "aws_dx_gateway" "test" {
-  name            = %[1]q
+  name
   amazon_side_asn = "%[2]d"
 }
 
@@ -475,23 +462,22 @@ resource "aws_vpc" "test" {
   cidr_block = "10.255.255.0/28"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_vpn_gateway" "test" {
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_vpn_gateway_attachment" "test" {
-  vpc_id         = aws_vpc.test.id
+  vpc_idws_vpc.test.id
   vpn_gateway_id = aws_vpn_gateway.test.id
 }
 `, rName, rBgpAsn)
 }
-
 func testAccGatewayAssociationConfigBase_vpnGatewayCrossAccount(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateAccountProvider(),
@@ -503,18 +489,18 @@ resource "aws_vpc" "test" {
   cidr_block = "10.255.255.0/28"
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_vpn_gateway" "test" {
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_vpn_gateway_attachment" "test" {
-  vpc_id         = aws_vpc.test.id
+  vpc_idws_vpc.test.id
   vpn_gateway_id = aws_vpn_gateway.test.id
 }
 
@@ -523,22 +509,20 @@ resource "aws_dx_gateway" "test" {
   provider = "awsalternate"
 
   amazon_side_asn = %[2]d
-  name            = %[1]q
+  name
 }
 `, rName, rBgpAsn))
 }
-
 func testAccGatewayAssociationConfig_basicVPNSingleAccount(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(
 		testAccGatewayAssociationConfigBase_vpnGatewaySingleAccount(rName, rBgpAsn),
 		`
 resource "aws_dx_gateway_association" "test" {
-  dx_gateway_id         = aws_dx_gateway.test.id
+  dx_gateway_idws_dx_gateway.test.id
   associated_gateway_id = aws_vpn_gateway_attachment.test.vpn_gateway_id
 }
 `)
 }
-
 func testAccGatewayAssociationConfig_basicVPNCrossAccount(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(
 		testAccGatewayAssociationConfigBase_vpnGatewayCrossAccount(rName, rBgpAsn),
@@ -547,20 +531,19 @@ func testAccGatewayAssociationConfig_basicVPNCrossAccount(rName string, rBgpAsn 
 resource "aws_dx_gateway_association_proposal" "test" {
   dx_gateway_id  = aws_dx_gateway.test.id
   dx_gateway_owner_account_id = aws_dx_gateway.test.owner_account_id
-  associated_gateway_id       = aws_vpn_gateway_attachment.test.vpn_gateway_id
+  associated_gateway_id_vpn_gateway_attachment.test.vpn_gateway_id
 }
 
 # Accepter
 resource "aws_dx_gateway_association" "test" {
   provider = "awsalternate"
 
-  proposal_id            = aws_dx_gateway_association_proposal.test.id
-  dx_gateway_id          = aws_dx_gateway.test.id
+  proposal_ideway_association_proposal.test.id
+  dx_gateway_idaws_dx_gateway.test.id
   associated_gateway_owner_account_id = data.aws_caller_identity.creator.account_id
 }
 `)
 }
-
 func testAccGatewayAssociationConfig_basicVPNCrossAccountUpdatedProposal(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(
 		testAccGatewayAssociationConfigBase_vpnGatewayCrossAccount(rName, rBgpAsn),
@@ -569,51 +552,49 @@ func testAccGatewayAssociationConfig_basicVPNCrossAccountUpdatedProposal(rName s
 resource "aws_dx_gateway_association_proposal" "test" {
   dx_gateway_id  = aws_dx_gateway.test.id
   dx_gateway_owner_account_id = aws_dx_gateway.test.owner_account_id
-  associated_gateway_id       = aws_vpn_gateway_attachment.test.vpn_gateway_id
+  associated_gateway_id_vpn_gateway_attachment.test.vpn_gateway_id
 }
 
 resource "aws_dx_gateway_association_proposal" "test2" {
   dx_gateway_id  = aws_dx_gateway.test.id
   dx_gateway_owner_account_id = aws_dx_gateway.test.owner_account_id
-  associated_gateway_id       = aws_vpn_gateway_attachment.test.vpn_gateway_id
+  associated_gateway_id_vpn_gateway_attachment.test.vpn_gateway_id
 }
 
 # Accepter
 resource "aws_dx_gateway_association" "test" {
   provider = "awsalternate"
 
-  proposal_id            = aws_dx_gateway_association_proposal.test2.id
-  dx_gateway_id          = aws_dx_gateway.test.id
+  proposal_ideway_association_proposal.test2.id
+  dx_gateway_idaws_dx_gateway.test.id
   associated_gateway_owner_account_id = data.aws_caller_identity.creator.account_id
 }
 `)
 }
-
 func testAccGatewayAssociationConfig_basicTransitSingleAccount(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
 resource "aws_dx_gateway" "test" {
-  name            = %[1]q
+  name
   amazon_side_asn = "%[2]d"
 }
 
 resource "aws_ec2_transit_gateway" "test" {
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_dx_gateway_association" "test" {
-  dx_gateway_id         = aws_dx_gateway.test.id
+  dx_gateway_idws_dx_gateway.test.id
   associated_gateway_id = aws_ec2_transit_gateway.test.id
 
   allowed_prefixes = [
-    "10.255.255.0/30",
-    "10.255.255.8/30",
+ "10.255.255.0/30",
+ "10.255.255.8/30",
   ]
 }
 `, rName, rBgpAsn)
 }
-
 func testAccGatewayAssociationConfig_basicTransitCrossAccount(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateAccountProvider(),
@@ -626,12 +607,12 @@ resource "aws_dx_gateway" "test" {
   provider = "awsalternate"
 
   amazon_side_asn = %[2]d
-  name            = %[1]q
+  name
 }
 
 resource "aws_ec2_transit_gateway" "test" {
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -639,11 +620,11 @@ resource "aws_ec2_transit_gateway" "test" {
 resource "aws_dx_gateway_association_proposal" "test" {
   dx_gateway_id  = aws_dx_gateway.test.id
   dx_gateway_owner_account_id = aws_dx_gateway.test.owner_account_id
-  associated_gateway_id       = aws_ec2_transit_gateway.test.id
+  associated_gateway_id_ec2_transit_gateway.test.id
 
   allowed_prefixes = [
-    "10.255.255.0/30",
-    "10.255.255.8/30",
+ "10.255.255.0/30",
+ "10.255.255.8/30",
   ]
 }
 
@@ -651,17 +632,16 @@ resource "aws_dx_gateway_association_proposal" "test" {
 resource "aws_dx_gateway_association" "test" {
   provider = "awsalternate"
 
-  proposal_id            = aws_dx_gateway_association_proposal.test.id
-  dx_gateway_id          = aws_dx_gateway.test.id
+  proposal_ideway_association_proposal.test.id
+  dx_gateway_idaws_dx_gateway.test.id
   associated_gateway_owner_account_id = data.aws_caller_identity.creator.account_id
 }
 `, rName, rBgpAsn))
 }
-
 func testAccGatewayConfig_associationMultiVPNSingleAccount(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
 resource "aws_dx_gateway" "test" {
-  name            = %[1]q
+  name
   amazon_side_asn = "%[2]d"
 }
 
@@ -671,7 +651,7 @@ resource "aws_vpc" "test" {
   cidr_block = cidrsubnet("10.255.255.0/26", 2, count.index)
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
@@ -679,57 +659,54 @@ resource "aws_vpn_gateway" "test" {
   count = 2
 
   tags = {
-    Name = %[1]q
+ Name = %[1]q
   }
 }
 
 resource "aws_vpn_gateway_attachment" "test" {
   count = 2
 
-  vpc_id         = aws_vpc.test[count.index].id
+  vpc_idws_vpc.test[count.index].id
   vpn_gateway_id = aws_vpn_gateway.test[count.index].id
 }
 
 resource "aws_dx_gateway_association" "test" {
   count = 2
 
-  dx_gateway_id         = aws_dx_gateway.test.id
+  dx_gateway_idws_dx_gateway.test.id
   associated_gateway_id = aws_vpn_gateway_attachment.test[count.index].vpn_gateway_id
 }
 `, rName, rBgpAsn)
 }
-
 func testAccGatewayAssociationConfig_allowedPrefixesVPNSingleAccount(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(
 		testAccGatewayAssociationConfigBase_vpnGatewaySingleAccount(rName, rBgpAsn),
 		`
 resource "aws_dx_gateway_association" "test" {
-  dx_gateway_id         = aws_dx_gateway.test.id
+  dx_gateway_idws_dx_gateway.test.id
   associated_gateway_id = aws_vpn_gateway_attachment.test.vpn_gateway_id
 
   allowed_prefixes = [
-    "10.255.255.0/30",
-    "10.255.255.8/30",
+ "10.255.255.0/30",
+ "10.255.255.8/30",
   ]
 }
 `)
 }
-
 func testAccGatewayAssociationConfig_allowedPrefixesVPNSingleAccountUpdated(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(
 		testAccGatewayAssociationConfigBase_vpnGatewaySingleAccount(rName, rBgpAsn),
 		`
 resource "aws_dx_gateway_association" "test" {
-  dx_gateway_id         = aws_dx_gateway.test.id
+  dx_gateway_idws_dx_gateway.test.id
   associated_gateway_id = aws_vpn_gateway_attachment.test.vpn_gateway_id
 
   allowed_prefixes = [
-    "10.255.255.8/29",
+ "10.255.255.8/29",
   ]
 }
 `)
 }
-
 func testAccGatewayAssociationConfig_allowedPrefixesVPNCrossAccount(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(
 		testAccGatewayAssociationConfigBase_vpnGatewayCrossAccount(rName, rBgpAsn),
@@ -738,11 +715,11 @@ func testAccGatewayAssociationConfig_allowedPrefixesVPNCrossAccount(rName string
 resource "aws_dx_gateway_association_proposal" "test" {
   dx_gateway_id  = aws_dx_gateway.test.id
   dx_gateway_owner_account_id = aws_dx_gateway.test.owner_account_id
-  associated_gateway_id       = aws_vpn_gateway_attachment.test.vpn_gateway_id
+  associated_gateway_id_vpn_gateway_attachment.test.vpn_gateway_id
 
   allowed_prefixes = [
-    "10.255.255.0/30",
-    "10.255.255.8/30",
+ "10.255.255.0/30",
+ "10.255.255.8/30",
   ]
 }
 
@@ -750,17 +727,16 @@ resource "aws_dx_gateway_association_proposal" "test" {
 resource "aws_dx_gateway_association" "test" {
   provider = "awsalternate"
 
-  proposal_id            = aws_dx_gateway_association_proposal.test.id
-  dx_gateway_id          = aws_dx_gateway.test.id
+  proposal_ideway_association_proposal.test.id
+  dx_gateway_idaws_dx_gateway.test.id
   associated_gateway_owner_account_id = data.aws_caller_identity.creator.account_id
 
   allowed_prefixes = [
-    "10.255.255.8/29",
+ "10.255.255.8/29",
   ]
 }
 `)
 }
-
 func testAccGatewayAssociationConfig_allowedPrefixesVPNCrossAccountUpdated(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(
 		testAccGatewayAssociationConfigBase_vpnGatewayCrossAccount(rName, rBgpAsn),
@@ -769,20 +745,20 @@ func testAccGatewayAssociationConfig_allowedPrefixesVPNCrossAccountUpdated(rName
 resource "aws_dx_gateway_association_proposal" "test" {
   dx_gateway_id  = aws_dx_gateway.test.id
   dx_gateway_owner_account_id = aws_dx_gateway.test.owner_account_id
-  associated_gateway_id       = aws_vpn_gateway_attachment.test.vpn_gateway_id
+  associated_gateway_id_vpn_gateway_attachment.test.vpn_gateway_id
 }
 
 # Accepter
 resource "aws_dx_gateway_association" "test" {
   provider = "awsalternate"
 
-  proposal_id            = aws_dx_gateway_association_proposal.test.id
-  dx_gateway_id          = aws_dx_gateway.test.id
+  proposal_ideway_association_proposal.test.id
+  dx_gateway_idaws_dx_gateway.test.id
   associated_gateway_owner_account_id = data.aws_caller_identity.creator.account_id
 
   allowed_prefixes = [
-    "10.255.255.0/30",
-    "10.255.255.8/30",
+ "10.255.255.0/30",
+ "10.255.255.8/30",
   ]
 }
 `)

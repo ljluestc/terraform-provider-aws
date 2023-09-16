@@ -53,14 +53,14 @@ func(
 	computeActivatedRuleWithRuleId(&rule, "COUNT", 50, &idx),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "activated_rule.*", map[string]string{
 "action.0.type": "COUNT",
-"priority":      "50",
+"priority":"50",
 "type": waf.WafRuleTypeRegular,
 	}),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -95,8 +95,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 	{
@@ -162,8 +162,8 @@ func(
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -229,7 +229,7 @@ func(
 	computeActivatedRuleWithRuleId(&rule0, "COUNT", 50, &idx0),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "activated_rule.*", map[string]string{
 "action.0.type": "COUNT",
-"priority":      "50",
+"priority":"50",
 "type": waf.WafRuleTypeRegular,
 	}),
 ),
@@ -246,7 +246,7 @@ func(
 	computeActivatedRuleWithRuleId(&rule1, "BLOCK", 10, &idx1),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "activated_rule.*", map[string]string{
 "action.0.type": "BLOCK",
-"priority":      "10",
+"priority":"10",
 "type": waf.WafRuleTypeRegular,
 	}),
 
@@ -254,7 +254,7 @@ func(
 	computeActivatedRuleWithRuleId(&rule2, "COUNT", 1, &idx2),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "activated_rule.*", map[string]string{
 "action.0.type": "COUNT",
-"priority":      "1",
+"priority":"1",
 "type": waf.WafRuleTypeRegular,
 	}),
 
@@ -262,14 +262,14 @@ func(
 	computeActivatedRuleWithRuleId(&rule3, "BLOCK", 15, &idx3),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "activated_rule.*", map[string]string{
 "action.0.type": "BLOCK",
-"priority":      "15",
+"priority":"15",
 "type": waf.WafRuleTypeRegular,
 	}),
 ),
 	},
 	{
-ResourceName:      resourceName,
-ImportState:       true,
+ResourceName:resourceName,
+ImportState: true,
 ImportStateVerify: true,
 	},
 },
@@ -328,7 +328,7 @@ RuleGroupId: group.RuleGroupId,
 
 	for _, rule := range rResp.ActivatedRules {
 rule := &waf.RuleGroupUpdate{
-	Action:        aws.String("DELETE"),
+	Action:  aws.String("DELETE"),
 	ActivatedRule: rule,
 }
 req.Updates = append(req.Updates, rule)
@@ -423,17 +423,17 @@ return fmt.Errorf("WAF Regional Rule Group (%s) not found", rs.Primary.ID)
 func testAccRuleGroupConfig_basic(ruleName, groupName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
-  name        = "%[1]s"
+  name  = "%[1]s"
   metric_name = "%[1]s"
 }
 
 resource "aws_wafregional_rule_group" "test" {
-  name        = "%[2]s"
+  name  = "%[2]s"
   metric_name = "%[2]s"
 
   activated_rule {
     action {
-      type = "COUNT"
+type = "COUNT"
     }
 
     priority = 50
@@ -447,17 +447,17 @@ resource "aws_wafregional_rule_group" "test" {
 func testAccRuleGroupConfig_tags1(ruleName, groupName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 }
 
 resource "aws_wafregional_rule_group" "test" {
-  name        = %[2]q
+  name  = %[2]q
   metric_name = %[2]q
 
   activated_rule {
     action {
-      type = "COUNT"
+type = "COUNT"
     }
 
     priority = 50
@@ -475,17 +475,17 @@ resource "aws_wafregional_rule_group" "test" {
 func testAccRuleGroupConfig_tags2(ruleName, groupName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
-  name        = %[1]q
+  name  = %[1]q
   metric_name = %[1]q
 }
 
 resource "aws_wafregional_rule_group" "test" {
-  name        = %[2]q
+  name  = %[2]q
   metric_name = %[2]q
 
   activated_rule {
     action {
-      type = "COUNT"
+type = "COUNT"
     }
 
     priority = 50
@@ -504,27 +504,27 @@ resource "aws_wafregional_rule_group" "test" {
 func testAccRuleGroupConfig_changeActivateds(ruleName1, ruleName2, ruleName3, groupName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule" "test" {
-  name        = "%[1]s"
+  name  = "%[1]s"
   metric_name = "%[1]s"
 }
 
 resource "aws_wafregional_rule" "test2" {
-  name        = "%[2]s"
+  name  = "%[2]s"
   metric_name = "%[2]s"
 }
 
 resource "aws_wafregional_rule" "test3" {
-  name        = "%[3]s"
+  name  = "%[3]s"
   metric_name = "%[3]s"
 }
 
 resource "aws_wafregional_rule_group" "test" {
-  name        = "%[4]s"
+  name  = "%[4]s"
   metric_name = "%[4]s"
 
   activated_rule {
     action {
-      type = "BLOCK"
+type = "BLOCK"
     }
 
     priority = 10
@@ -533,7 +533,7 @@ resource "aws_wafregional_rule_group" "test" {
 
   activated_rule {
     action {
-      type = "COUNT"
+type = "COUNT"
     }
 
     priority = 1
@@ -542,7 +542,7 @@ resource "aws_wafregional_rule_group" "test" {
 
   activated_rule {
     action {
-      type = "BLOCK"
+type = "BLOCK"
     }
 
     priority = 15
@@ -556,7 +556,7 @@ resource "aws_wafregional_rule_group" "test" {
 func testAccRuleGroupConfig_noActivateds(groupName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_rule_group" "test" {
-  name        = "%[1]s"
+  name  = "%[1]s"
   metric_name = "%[1]s"
 }
 `, groupName)

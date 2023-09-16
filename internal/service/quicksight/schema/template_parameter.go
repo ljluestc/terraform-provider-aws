@@ -292,7 +292,7 @@ Schema: map[string]*schema.Schema{
 	"parameter_control_id":  idSchema(),
 	"source_parameter_name": parameterNameSchema(true),
 	"title":  stringSchema(true, validation.StringLenBetween(1, 2048)),
-	"display_options":       dateTimePickerControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DateTimePickerControlDisplayOptions.html
+	"display_options": dateTimePickerControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DateTimePickerControlDisplayOptions.html
 },
 	},
 },
@@ -340,7 +340,7 @@ Schema: map[string]*schema.Schema{
 	"parameter_control_id":  idSchema(),
 	"source_parameter_name": parameterNameSchema(true),
 	"title":  stringSchema(true, validation.StringLenBetween(1, 2048)),
-	"display_options":       sliderControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SliderControlDisplayOptions.html
+	"display_options": sliderControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SliderControlDisplayOptions.html
 	"maximum_value": {
 Type:     schema.TypeFloat,
 Required: true,
@@ -366,7 +366,7 @@ Schema: map[string]*schema.Schema{
 	"parameter_control_id":  idSchema(),
 	"source_parameter_name": parameterNameSchema(true),
 	"title":  stringSchema(true, validation.StringLenBetween(1, 2048)),
-	"display_options":       textAreaControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TextAreaControlDisplayOptions.html
+	"display_options": textAreaControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TextAreaControlDisplayOptions.html
 	"delimiter":    stringSchema(false, validation.StringLenBetween(1, 2048)),
 },
 	},
@@ -381,7 +381,7 @@ Schema: map[string]*schema.Schema{
 	"parameter_control_id":  idSchema(),
 	"source_parameter_name": parameterNameSchema(true),
 	"title":  stringSchema(true, validation.StringLenBetween(1, 2048)),
-	"display_options":       textFieldControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TextFieldControlDisplayOptions.html
+	"display_options": textFieldControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TextFieldControlDisplayOptions.html
 },
 	},
 },

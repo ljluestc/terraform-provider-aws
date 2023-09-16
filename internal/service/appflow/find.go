@@ -48,7 +48,7 @@ func FindFlowByARN(ctx context.Context, conn *appflow.Appflow, arn string) (*app
 
 	if result == nil {
 		return nil, &retry.NotFoundError{
-			Message:     fmt.Sprintf("No flow with arn %q", arn),
+			Message: fmt.Sprintf("No flow with arn %q", arn),
 			LastRequest: in,
 		}
 	}
@@ -91,7 +91,7 @@ func FindConnectorProfileByARN(ctx context.Context, conn *appflow.Appflow, arn s
 
 	if result == nil {
 		return nil, &retry.NotFoundError{
-			Message:     fmt.Sprintf("No connector profile with arn %q", arn),
+			Message: fmt.Sprintf("No connector profile with arn %q", arn),
 			LastRequest: params,
 		}
 	}

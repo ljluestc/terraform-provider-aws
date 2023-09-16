@@ -25,7 +25,7 @@ import (
 func ResourceInstance() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceInstancePut,
-		ReadWithoutTimeout:   resourceInstanceRead,
+		ReadWithoutTimeout:resourceInstanceRead,
 		UpdateWithoutTimeout: resourceInstancePut,
 		DeleteWithoutTimeout: resourceInstanceDelete,
 
@@ -35,9 +35,9 @@ func ResourceInstance() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"attributes": {
-				Type:     schema.TypeMap,
+				Type:schema.TypeMap,
 				Required: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 				ValidateDiagFunc: validation.AllDiag(
 					validation.MapKeyLenBetween(1, 255),
 					validation.MapKeyMatch(regexache.MustCompile(`^[0-9A-Za-z!-~]+$`), ""),
@@ -46,7 +46,7 @@ func ResourceInstance() *schema.Resource {
 				),
 			},
 			"instance_id": {
-				Type:     schema.TypeString,
+				Type:schema.TypeString,
 				Required: true,
 				ForceNew: true,
 				ValidateFunc: validation.All(
@@ -56,23 +56,22 @@ func ResourceInstance() *schema.Resource {
 			},
 			"service_id": {
 				Type:schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 		},
 	}
 }
-
 func resourceInstancePut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
 	instanceID := d.Get("instance_id").(string)
 	input := &servicediscovery.RegisterInstanceInput{
-		Attributes:       flex.ExpandStringMap(d.Get("attributes").(map[string]interface{})),
+		Attributes:ExpandStringMap(d.Get("attributes").(map[string]interface{})),
 		CreatorRequestId: aws.String(id.UniqueId()),
-		InstanceId:       aws.String(instanceID),
-		ServiceId:        aws.String(d.Get("service_id").(string)),
+		InstanceId:tring(instanceID),
+		ServiceId:String(d.Get("service_id").(string)),
 	}
 
 	log.Printf("[DEBUG] Registering Service Discovery Instance: %s", input)
@@ -92,7 +91,6 @@ func resourceInstancePut(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return resourceInstanceRead(ctx, d, meta)
 }
-
 func resourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -120,7 +118,6 @@ func resourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
-
 func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -132,7 +129,6 @@ func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	return nil
 }
-
 func resourceInstanceImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	parts := strings.SplitN(d.Id(), "/", 2)
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {

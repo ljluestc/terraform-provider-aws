@@ -17,8 +17,8 @@ func TestAccNetworkManagerCoreNetworkPolicyDocumentDataSource_basic(t *testing.T
 	// some AWS API calls, and so this needs valid AWS credentials to work.
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, networkmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, networkmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -67,10 +67,10 @@ data "aws_networkmanager_core_network_policy_document" "test" {
   }
 
   segments {
-    name                          = "GoodSegmentSpecification"
-    description                   = "A good segment."
+    name        = "GoodSegmentSpecification"
+    description = "A good segment."
     require_attachment_acceptance = true
-    isolate_attachments           = false
+    isolate_attachments  = false
     edge_locations = [
       "us-east-1",
       "eu-west-1"
@@ -78,36 +78,36 @@ data "aws_networkmanager_core_network_policy_document" "test" {
   }
 
   segments {
-    name                          = "AnotherGoodSegmentSpecification"
-    description                   = "A good segment."
+    name        = "AnotherGoodSegmentSpecification"
+    description = "A good segment."
     require_attachment_acceptance = false
-    isolate_attachments           = false
-    allow_filter                  = ["AllowThisSegment"]
+    isolate_attachments  = false
+    allow_filter= ["AllowThisSegment"]
   }
   segments {
-    name                          = "AllowThisSegment"
+    name        = "AllowThisSegment"
     require_attachment_acceptance = true
-    isolate_attachments           = false
-    deny_filter                   = ["DenyThisSegment"]
+    isolate_attachments  = false
+    deny_filter = ["DenyThisSegment"]
   }
   segments {
-    name                          = "DenyThisSegment"
+    name        = "DenyThisSegment"
     require_attachment_acceptance = true
-    isolate_attachments           = false
+    isolate_attachments  = false
   }
   segments {
-    name                          = "a"
+    name        = "a"
     require_attachment_acceptance = true
-    isolate_attachments           = false
+    isolate_attachments  = false
   }
   segments {
-    name                          = "b"
+    name        = "b"
     require_attachment_acceptance = true
-    isolate_attachments           = true
+    isolate_attachments  = true
   }
   segments {
-    name                          = "c"
-    isolate_attachments           = false
+    name        = "c"
+    isolate_attachments  = false
     require_attachment_acceptance = true
   }
 
@@ -238,7 +238,7 @@ data "aws_networkmanager_core_network_policy_document" "test" {
     }
     action {
       association_method = "constant"
-      segment            = "GoodSegmentSpecification"
+      segment   = "GoodSegmentSpecification"
       require_acceptance = true
     }
   }
@@ -252,7 +252,7 @@ data "aws_networkmanager_core_network_policy_document" "test" {
     }
     action {
       association_method = "constant"
-      segment            = "GoodSegmentSpecification"
+      segment   = "GoodSegmentSpecification"
       require_acceptance = false
     }
   }
@@ -268,7 +268,7 @@ data "aws_networkmanager_core_network_policy_document" "test" {
     }
     action {
       association_method = "constant"
-      segment            = "GoodSegmentSpecification"
+      segment   = "GoodSegmentSpecification"
       require_acceptance = true
     }
   }
@@ -290,17 +290,17 @@ func testAccPolicyDocumentExpectedJSON() string {
         "location": "us-east-1",
         "asn": 64555,
         "inside-cidr-blocks": [
-          "2001:4860:F000::/40",
-          "192.128.0.0/10",
-          "10.1.0.0/24"
+ "2001:4860:F000::/40",
+ "192.128.0.0/10",
+ "10.1.0.0/24"
         ]
       },
       {
         "location": "eu-west-1",
         "asn": 4200000001,
         "inside-cidr-blocks": [
-          "2001:4860:E000::/40",
-          "192.192.0.0/10"
+ "2001:4860:E000::/40",
+ "192.192.0.0/10"
         ]
       }
     ],
@@ -368,34 +368,34 @@ func testAccPolicyDocumentExpectedJSON() string {
       },
       "conditions": [
         {
-          "type": "resource-id",
-          "operator": "not-equals",
-          "value": "one"
+ "type": "resource-id",
+ "operator": "not-equals",
+ "value": "one"
         },
         {
-          "type": "region",
-          "operator": "equals",
-          "value": "eu-west-1"
+ "type": "region",
+ "operator": "equals",
+ "value": "eu-west-1"
         },
         {
-          "type": "attachment-type",
-          "operator": "equals",
-          "value": "connect"
+ "type": "attachment-type",
+ "operator": "equals",
+ "value": "connect"
         },
         {
-          "type": "account-id",
-          "operator": "contains",
-          "value": "one"
+ "type": "account-id",
+ "operator": "contains",
+ "value": "one"
         },
         {
-          "type": "tag-exists",
-          "key": "tag-a"
+ "type": "tag-exists",
+ "key": "tag-a"
         },
         {
-          "type": "tag-value",
-          "operator": "contains",
-          "key": "tag-b",
-          "value": "one"
+ "type": "tag-value",
+ "operator": "contains",
+ "key": "tag-b",
+ "value": "one"
         }
       ],
       "condition-logic": "and"
@@ -409,34 +409,34 @@ func testAccPolicyDocumentExpectedJSON() string {
       },
       "conditions": [
         {
-          "type": "resource-id",
-          "operator": "not-equals",
-          "value": "one"
+ "type": "resource-id",
+ "operator": "not-equals",
+ "value": "one"
         },
         {
-          "type": "region",
-          "operator": "equals",
-          "value": "eu-west-1"
+ "type": "region",
+ "operator": "equals",
+ "value": "eu-west-1"
         },
         {
-          "type": "attachment-type",
-          "operator": "equals",
-          "value": "vpc"
+ "type": "attachment-type",
+ "operator": "equals",
+ "value": "vpc"
         },
         {
-          "type": "account-id",
-          "operator": "contains",
-          "value": "one"
+ "type": "account-id",
+ "operator": "contains",
+ "value": "one"
         },
         {
-          "type": "tag-exists",
-          "key": "tag-a"
+ "type": "tag-exists",
+ "key": "tag-a"
         },
         {
-          "type": "tag-value",
-          "operator": "contains",
-          "key": "tag-b",
-          "value": "one"
+ "type": "tag-value",
+ "operator": "contains",
+ "key": "tag-b",
+ "value": "one"
         }
       ],
       "condition-logic": "or"
@@ -449,7 +449,7 @@ func testAccPolicyDocumentExpectedJSON() string {
       },
       "conditions": [
         {
-          "type": "any"
+ "type": "any"
         }
       ],
       "condition-logic": "or"
@@ -463,9 +463,9 @@ func testAccPolicyDocumentExpectedJSON() string {
       },
       "conditions": [
         {
-          "type": "region",
-          "operator": "equals",
-          "value": "eu-west-1"
+ "type": "region",
+ "operator": "equals",
+ "value": "eu-west-1"
         }
       ],
       "condition-logic": "or"

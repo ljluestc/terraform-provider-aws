@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func FindAccountByID(ctx context.Context, conn *organizations.Organizations, id string) (*organizations.Account, error) {
 	input := &organizations.DescribeAccountInput{
 		AccountId: aws.String(id),
@@ -45,13 +46,15 @@ func FindAccountByID(ctx context.Context, conn *organizations.Organizations, id 
 	return output.Account, nil
 }
 
+
 func FindPolicyAttachmentByTwoPartKey(ctx context.Context, conn *organizations.Organizations, targetID, policyID string) (*organizations.PolicyTargetSummary, error) {
 	input := &organizations.ListTargetsForPolicyInput{
 		PolicyId: aws.String(policyID),
 	}
 	var output *organizations.PolicyTargetSummary
 
-	err := conn.ListTargetsForPolicyPagesWithContext(ctx, input, func(page *organizations.ListTargetsForPolicyOutput, lastPage bool) bool {
+	err := conn.ListTargetsForPolicyPagesWithContext(ctx, input, 
+func(page *organizations.ListTargetsForPolicyOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

@@ -52,9 +52,9 @@ func TestAccGameLiftScript_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"zip_file"},
 			},
 			{
@@ -97,9 +97,9 @@ func TestAccGameLiftScript_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
+				ResourceName:   resourceName,
 				ImportState:true,
-				ImportStateVerify:       true,
+				ImportStateVerify:   true,
 				ImportStateVerifyIgnore: []string{"zip_file"},
 			},
 			{
@@ -208,7 +208,7 @@ func testAccCheckScriptDestroy(ctx context.Context) resource.TestCheckFunc {
 func testAccScriptConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_script" "test" {
-  name     = %[1]q
+  name = %[1]q
   zip_file = "test-fixtures/script.zip"
 }
 `, rName)
@@ -217,11 +217,11 @@ resource "aws_gamelift_script" "test" {
 func testAccScriptConfig_basicTags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_script" "test" {
-  name     = %[1]q
+  name = %[1]q
   zip_file = "test-fixtures/script.zip"
 
   tags = {
-    %[2]q = %[3]q
+%[2]q = %[3]q
   }
 }
 `, rName, tagKey1, tagValue1)
@@ -230,12 +230,12 @@ resource "aws_gamelift_script" "test" {
 func testAccScriptConfig_basicTags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_gamelift_script" "test" {
-  name     = %[1]q
+  name = %[1]q
   zip_file = "test-fixtures/script.zip"
 
   tags = {
-    %[2]q = %[3]q
-    %[4]q = %[5]q
+%[2]q = %[3]q
+%[4]q = %[5]q
   }
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)

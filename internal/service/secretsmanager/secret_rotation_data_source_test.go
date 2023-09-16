@@ -21,8 +21,8 @@ func TestAccSecretsManagerSecretRotationDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_secretsmanager_secret_rotation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, secretsmanager.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, secretsmanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -54,7 +54,7 @@ resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = "%[1]s-1"
   handler       = "exports.example"
-  role          = aws_iam_role.iam_for_lambda.arn
+  role = aws_iam_role.iam_for_lambda.arn
   runtime       = "nodejs16.x"
 }
 
@@ -70,7 +70,7 @@ resource "aws_secretsmanager_secret" "test" {
 }
 
 resource "aws_secretsmanager_secret_rotation" "test" {
-  secret_id           = aws_secretsmanager_secret.test.id
+  secret_id  = aws_secretsmanager_secret.test.id
   rotation_lambda_arn = aws_lambda_function.test.arn
 
   rotation_rules {

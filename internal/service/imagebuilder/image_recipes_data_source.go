@@ -33,7 +33,7 @@ func DataSourceImageRecipes() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"owner": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice([]string{"Self", "Shared", "Amazon"}, false),
 			},

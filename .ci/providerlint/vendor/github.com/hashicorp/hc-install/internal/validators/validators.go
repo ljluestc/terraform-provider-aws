@@ -1,23 +1,9 @@
 // Copyright (c) HashiCorp, Inc.
-// SPDX-License-Identifier: MPL-2.0
-
-package validators
-
-import "regexp"
-
-var (
+// SPDX-License-Identifier: MPL-2.0package validatorsimport "regexp"var (
 	productNameRe = regexp.MustCompile(`^[a-z0-9-]+$`)
 	binaryNameRe  = regexp.MustCompile(`^[a-zA-Z0-9-_.]+$`)
-)
-
-// IsProductNameValid provides early user-facing validation of a product name
-
- IsProductNameValid(productName string) bool {
+)// IsProductNameValid provides early user-facing validation of a product name IsProductNameValid(productName string) bool {
 	return productNameRe.MatchString(productName)
-}
-
-sBinaryNameValid provides early user-facing validation of binary name
-
- IsBinaryNameValid(binaryName string) bool {
+}sBinaryNameValid provides early user-facing validation of binary name IsBinaryNameValid(binaryName string) bool {
 	return binaryNameRe.MatchString(binaryName)
 }

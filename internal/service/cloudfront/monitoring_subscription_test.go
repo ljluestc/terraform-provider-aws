@@ -164,12 +164,12 @@ func testAccCheckMonitoringSubscriptionExists(ctx context.Context, n string, v *
 func testAccMonitoringSubscriptionBaseConfig() string {
 	return `
 resource "aws_cloudfront_distribution" "test" {
-  enabled          = true
+  enabled = true
   retain_on_delete = false
 
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
-    cached_methods         = ["GET", "HEAD"]
+    cached_methods= ["GET", "HEAD"]
     target_origin_id       = "test"
     viewer_protocol_policy = "allow-all"
 

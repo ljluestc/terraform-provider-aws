@@ -20,7 +20,6 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 	tfroute53recoveryreadiness "github.com/hashicorp/terraform-provider-aws/internal/service/route53recoveryreadiness"
 )
-
 func TestAccRoute53RecoveryReadinessReadinessCheck_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -56,7 +55,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func TestAccRoute53RecoveryReadinessReadinessCheck_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -87,7 +85,6 @@ ExpectNonEmptyPlan: true,
 },
 	})
 }
-
 func TestAccRoute53RecoveryReadinessReadinessCheck_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -139,7 +136,6 @@ Check: resource.ComposeTestCheckFunc(
 },
 	})
 }
-
 func TestAccRoute53RecoveryReadinessReadinessCheck_timeout(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -175,7 +171,6 @@ ImportStateVerify: true,
 },
 	})
 }
-
 func testAccCheckReadinessCheckDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 conn := acctest.Provider.Meta().(*conns.AWSClient).Route53RecoveryReadinessConn(ctx)
@@ -198,7 +193,6 @@ return fmt.Errorf("Route53RecoveryReadiness Readiness Check (%s) not deleted", r
 return nil
 	}
 }
-
 func testAccCheckReadinessCheckExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
 rs, ok := s.RootModule().Resources[name]
@@ -217,7 +211,6 @@ _, err := conn.GetReadinessCheckWithContext(ctx, input)
 return err
 	}
 }
-
 func testAccReadinessCheckConfig_ResourceSet(rSetName, cwArn string) string {
 	return fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_resource_set" "test" {
@@ -230,7 +223,6 @@ resource "aws_route53recoveryreadiness_resource_set" "test" {
 }
 `, rSetName, cwArn)
 }
-
 func testAccReadinessCheckConfig_basic(rName, rSetName, cwArn string) string {
 	return acctest.ConfigCompose(testAccReadinessCheckConfig_ResourceSet(rSetName, cwArn), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_readiness_check" "test" {
@@ -239,7 +231,6 @@ resource "aws_route53recoveryreadiness_readiness_check" "test" {
 }
 `, rName))
 }
-
 func testAccReadinessCheckConfig_tags1(rName, cwArn, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccReadinessCheckConfig_ResourceSet("resource-set-for-testing", cwArn), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_readiness_check" "test" {
@@ -252,7 +243,6 @@ resource "aws_route53recoveryreadiness_readiness_check" "test" {
 }
 `, rName, tagKey1, tagValue1))
 }
-
 func testAccReadinessCheckConfig_tags2(rName, cwArn, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccReadinessCheckConfig_ResourceSet("resource-set-for-testing", cwArn), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_readiness_check" "test" {
@@ -266,7 +256,6 @@ resource "aws_route53recoveryreadiness_readiness_check" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
-
 func testAccReadinessCheckConfig_timeout(rName, rSetName, cwArn string) string {
 	return acctest.ConfigCompose(testAccReadinessCheckConfig_ResourceSet(rSetName, cwArn), fmt.Sprintf(`
 resource "aws_route53recoveryreadiness_readiness_check" "test" {
